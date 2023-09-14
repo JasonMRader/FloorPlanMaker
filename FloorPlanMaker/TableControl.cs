@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FloorplanClassLibrary;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,15 +10,11 @@ namespace FloorPlanMaker
     public class TableControl : Control
     {
 
-        public enum TableShape
-        {
-            Circle,
-            Square,
-            Diamond
-        }
+        
 
         // Property to store the table shape
-        public TableShape Shape { get; set; }
+        public Table.TableShape Shape { get; set; }
+        public Table Table { get; set; }
 
         protected override void OnPaint(PaintEventArgs pe)
         {
@@ -25,13 +22,13 @@ namespace FloorPlanMaker
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
             switch (Shape)
             {
-                case TableShape.Circle:
+                case Table.TableShape.Circle:
                     g.FillEllipse(Brushes.DarkBlue, 0, 0, this.Width, this.Height);
                     break;
-                case TableShape.Square:
+                case Table.TableShape.Square:
                     g.FillRectangle(Brushes.DarkBlue, 0, 0, this.Width, this.Height);
                     break;
-                case TableShape.Diamond:
+                case Table.TableShape.Diamond:
                     Point[] diamondPoints = {
                     new Point(this.Width / 2, 0),
                     new Point(this.Width, this.Height / 2),
@@ -42,10 +39,15 @@ namespace FloorPlanMaker
                     break;
             }
         }
-        
 
-        public TableControl()
+        public TableControl() : this(new Table()) { }
+        public TableControl(Table table)
         {
+            this.Table = table;
+            this.Width = table.Width;
+            this.Height = table.Height;
+            this.Shape = table.Shape;
+
             this.MouseDown += new MouseEventHandler(TableControl_MouseDown);
             this.MouseMove += new MouseEventHandler(TableControl_MouseMove);
             this.MouseClick += new MouseEventHandler(TableControl_MouseClick);

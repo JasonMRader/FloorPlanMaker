@@ -4,7 +4,8 @@ namespace FloorPlanMaker
 {
     public partial class Form1 : Form
     {
-        List<DiningArea> areaList = new List<DiningArea>();
+        //List<DiningArea> areaList = new List<DiningArea>();
+        DiningAreaManager areaManager = new DiningAreaManager();
         public Form1()
         {
             InitializeComponent();
@@ -12,11 +13,11 @@ namespace FloorPlanMaker
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            areaList = SqliteDataAccess.LoadDiningAreas();
-            cboDiningAreas.DataSource = areaList;
+
+            cboDiningAreas.DataSource = areaManager.DiningAreas;
             cboDiningAreas.DisplayMember = "Name";
             cboDiningAreas.ValueMember = "ID";
-            
+
             TableControl circleTable = new TableControl();
             circleTable.Location = new Point(70, 50);
             circleTable.Size = new Size(100, 100);
@@ -30,7 +31,7 @@ namespace FloorPlanMaker
             diamondTable.Size = new Size(100, 100);
             diamondTable.Moveable = false;
             diamondTable.TableClicked += Table_TableClicked;
-            diamondTable.Shape = TableControl.TableShape.Diamond;
+            diamondTable.Shape = Table.TableShape.Diamond;
             pnlAddTables.Controls.Add(diamondTable);
 
             TableControl squareTable = new TableControl();
@@ -38,7 +39,7 @@ namespace FloorPlanMaker
             squareTable.Size = new Size(100, 100);
             squareTable.Moveable = false;
             squareTable.TableClicked += Table_TableClicked;
-            squareTable.Shape = TableControl.TableShape.Square;
+            squareTable.Shape = Table.TableShape.Square;
             pnlAddTables.Controls.Add(squareTable);
         }
         private void Table_TableClicked(object sender, EventArgs e)
@@ -79,6 +80,42 @@ namespace FloorPlanMaker
             DiningArea area = new DiningArea(txtDiningAreaName.Text, rbInside.Checked);
 
             SqliteDataAccess.SaveDiningArea(area);
+        }
+
+        private void btnSaveTables_Click(object sender, EventArgs e)
+        {
+            foreach (Control control in pnlFloorPlan.Controls)
+            {
+                if (control is TableControl tableControl)
+                {
+                    Table tableToSave = tableControl.Table;
+
+                    // Update table properties based on the tableControl properties.
+                    // This ensures any changes made in the UI are saved.
+                    tableToSave.TableNumber = "0";
+                    tableToSave.DiningArea = areaManager.DiningAreaSelected;
+                    tableToSave.Width = tableControl.Width;
+                    tableToSave.Height = tableControl.Height;
+                    tableToSave.XCoordinate = tableControl.Location.X;
+                    tableToSave.YCoordinate = tableControl.Location.Y;
+                    tableToSave.Shape = tableControl.Shape;
+
+                    SqliteDataAccess.SaveTable(tableToSave);
+                }
+            }
+        }
+
+        private void cboDiningAreas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            areaManager.DiningAreaSelected = (DiningArea?)cboDiningAreas.SelectedItem;
+            txtDiningAreaName.Text = areaManager.DiningAreaSelected.Name;
+            foreach (Table table in areaManager.DiningAreaSelected.Tables)
+            {
+                TableControl tableControl = TableControlFactory.CreateTableControl(table);
+                //tableControl.TableClicked += Table_TableClicked;  // Uncomment if you want to attach event handler
+
+                pnlFloorPlan.Controls.Add(tableControl);
+            }
         }
     }
 }

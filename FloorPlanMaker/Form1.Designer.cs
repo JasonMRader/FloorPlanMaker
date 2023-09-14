@@ -40,6 +40,7 @@
             cboDiningAreas = new ComboBox();
             rbInside = new RadioButton();
             rbOutside = new RadioButton();
+            btnSaveTables = new Button();
             panel1.SuspendLayout();
             pnlAddTables.SuspendLayout();
             SuspendLayout();
@@ -124,7 +125,7 @@
             // 
             // btnSaveDiningArea
             // 
-            btnSaveDiningArea.Location = new Point(1130, 39);
+            btnSaveDiningArea.Location = new Point(1130, 12);
             btnSaveDiningArea.Name = "btnSaveDiningArea";
             btnSaveDiningArea.Size = new Size(111, 32);
             btnSaveDiningArea.TabIndex = 6;
@@ -139,6 +140,7 @@
             cboDiningAreas.Name = "cboDiningAreas";
             cboDiningAreas.Size = new Size(303, 23);
             cboDiningAreas.TabIndex = 7;
+            cboDiningAreas.SelectedIndexChanged += cboDiningAreas_SelectedIndexChanged;
             // 
             // rbInside
             // 
@@ -162,11 +164,22 @@
             rbOutside.Text = "Outside";
             rbOutside.UseVisualStyleBackColor = true;
             // 
+            // btnSaveTables
+            // 
+            btnSaveTables.Location = new Point(1130, 47);
+            btnSaveTables.Name = "btnSaveTables";
+            btnSaveTables.Size = new Size(111, 23);
+            btnSaveTables.TabIndex = 9;
+            btnSaveTables.Text = "Save Tables";
+            btnSaveTables.UseVisualStyleBackColor = true;
+            btnSaveTables.Click += btnSaveTables_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1253, 970);
+            Controls.Add(btnSaveTables);
             Controls.Add(rbOutside);
             Controls.Add(rbInside);
             Controls.Add(cboDiningAreas);
@@ -202,5 +215,6 @@
         private ComboBox cboDiningAreas;
         private RadioButton rbInside;
         private RadioButton rbOutside;
+        private Button btnSaveTables;
     }
 }
