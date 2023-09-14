@@ -1,7 +1,10 @@
+using FloorplanClassLibrary;
+
 namespace FloorPlanMaker
 {
     public partial class Form1 : Form
     {
+        List<DiningArea> areaList = new List<DiningArea>();
         public Form1()
         {
             InitializeComponent();
@@ -9,6 +12,11 @@ namespace FloorPlanMaker
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            areaList = SqliteDataAccess.LoadDiningAreas();
+            cboDiningAreas.DataSource = areaList;
+            cboDiningAreas.DisplayMember = "Name";
+            cboDiningAreas.ValueMember = "ID";
+            
             TableControl circleTable = new TableControl();
             circleTable.Location = new Point(70, 50);
             circleTable.Size = new Size(100, 100);
@@ -63,6 +71,14 @@ namespace FloorPlanMaker
             {
                 cbDesignMode.Text = "Edit Dining Area";
             }
+        }
+
+        private void btnSaveDiningArea_Click(object sender, EventArgs e)
+        {
+
+            DiningArea area = new DiningArea(txtDiningAreaName.Text, rbInside.Checked);
+
+            SqliteDataAccess.SaveDiningArea(area);
         }
     }
 }

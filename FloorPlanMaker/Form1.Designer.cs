@@ -33,8 +33,13 @@
             pnlAddTables = new Panel();
             label2 = new Label();
             pnlFloorPlan = new Panel();
-            textBox1 = new TextBox();
+            txtDiningAreaName = new TextBox();
             cbDesignMode = new CheckBox();
+            btnCreateNewDiningArea = new Button();
+            btnSaveDiningArea = new Button();
+            cboDiningAreas = new ComboBox();
+            rbInside = new RadioButton();
+            rbOutside = new RadioButton();
             panel1.SuspendLayout();
             pnlAddTables.SuspendLayout();
             SuspendLayout();
@@ -87,34 +92,88 @@
             pnlFloorPlan.Size = new Size(670, 870);
             pnlFloorPlan.TabIndex = 2;
             // 
-            // textBox1
+            // txtDiningAreaName
             // 
-            textBox1.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            textBox1.Location = new Point(737, 23);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(303, 35);
-            textBox1.TabIndex = 3;
+            txtDiningAreaName.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            txtDiningAreaName.Location = new Point(719, 37);
+            txtDiningAreaName.Name = "txtDiningAreaName";
+            txtDiningAreaName.Size = new Size(303, 35);
+            txtDiningAreaName.TabIndex = 3;
             // 
             // cbDesignMode
             // 
             cbDesignMode.Appearance = Appearance.Button;
             cbDesignMode.FlatStyle = FlatStyle.Flat;
-            cbDesignMode.Location = new Point(540, 12);
+            cbDesignMode.Location = new Point(540, 47);
             cbDesignMode.Name = "cbDesignMode";
-            cbDesignMode.Size = new Size(148, 46);
+            cbDesignMode.Size = new Size(105, 24);
             cbDesignMode.TabIndex = 4;
-            cbDesignMode.Text = "Edit DIning Area";
+            cbDesignMode.Text = "Edit Dining Area";
             cbDesignMode.TextAlign = ContentAlignment.MiddleCenter;
             cbDesignMode.UseVisualStyleBackColor = true;
             cbDesignMode.CheckedChanged += cbDesignMode_CheckedChanged;
+            // 
+            // btnCreateNewDiningArea
+            // 
+            btnCreateNewDiningArea.Location = new Point(540, 14);
+            btnCreateNewDiningArea.Name = "btnCreateNewDiningArea";
+            btnCreateNewDiningArea.Size = new Size(154, 23);
+            btnCreateNewDiningArea.TabIndex = 5;
+            btnCreateNewDiningArea.Text = "Create New Dining Area";
+            btnCreateNewDiningArea.UseVisualStyleBackColor = true;
+            // 
+            // btnSaveDiningArea
+            // 
+            btnSaveDiningArea.Location = new Point(1130, 39);
+            btnSaveDiningArea.Name = "btnSaveDiningArea";
+            btnSaveDiningArea.Size = new Size(111, 32);
+            btnSaveDiningArea.TabIndex = 6;
+            btnSaveDiningArea.Text = "Save";
+            btnSaveDiningArea.UseVisualStyleBackColor = true;
+            btnSaveDiningArea.Click += btnSaveDiningArea_Click;
+            // 
+            // cboDiningAreas
+            // 
+            cboDiningAreas.FormattingEnabled = true;
+            cboDiningAreas.Location = new Point(719, 10);
+            cboDiningAreas.Name = "cboDiningAreas";
+            cboDiningAreas.Size = new Size(303, 23);
+            cboDiningAreas.TabIndex = 7;
+            // 
+            // rbInside
+            // 
+            rbInside.AutoSize = true;
+            rbInside.Location = new Point(1030, 28);
+            rbInside.Name = "rbInside";
+            rbInside.Size = new Size(56, 19);
+            rbInside.TabIndex = 8;
+            rbInside.TabStop = true;
+            rbInside.Text = "Inside";
+            rbInside.UseVisualStyleBackColor = true;
+            // 
+            // rbOutside
+            // 
+            rbOutside.AutoSize = true;
+            rbOutside.Location = new Point(1030, 53);
+            rbOutside.Name = "rbOutside";
+            rbOutside.Size = new Size(66, 19);
+            rbOutside.TabIndex = 8;
+            rbOutside.TabStop = true;
+            rbOutside.Text = "Outside";
+            rbOutside.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1253, 970);
+            Controls.Add(rbOutside);
+            Controls.Add(rbInside);
+            Controls.Add(cboDiningAreas);
+            Controls.Add(btnSaveDiningArea);
+            Controls.Add(btnCreateNewDiningArea);
             Controls.Add(cbDesignMode);
-            Controls.Add(textBox1);
+            Controls.Add(txtDiningAreaName);
             Controls.Add(pnlFloorPlan);
             Controls.Add(pnlAddTables);
             Controls.Add(panel1);
@@ -136,7 +195,12 @@
         private Panel pnlAddTables;
         private Label label2;
         private Panel pnlFloorPlan;
-        private TextBox textBox1;
+        private TextBox txtDiningAreaName;
         private CheckBox cbDesignMode;
+        private Button btnCreateNewDiningArea;
+        private Button btnSaveDiningArea;
+        private ComboBox cboDiningAreas;
+        private RadioButton rbInside;
+        private RadioButton rbOutside;
     }
 }
