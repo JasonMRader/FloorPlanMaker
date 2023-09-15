@@ -64,6 +64,18 @@ namespace FloorPlanMaker
                         break;
                 }
             }
+            if (this.Table != null && this.Table.TableNumber != null)
+            {
+                using (StringFormat sf = new StringFormat())
+                {
+                    sf.Alignment = StringAlignment.Center;
+                    sf.LineAlignment = StringAlignment.Center;
+
+                    Rectangle tableBounds = new Rectangle(0, 0, this.Width, this.Height);
+                    g.DrawString(Table.TableNumber.ToString(), this.Font, Brushes.DarkBlue, tableBounds, sf);
+                }
+            }
+            
         }
 
         public TableControl() : this(new Table()) { }

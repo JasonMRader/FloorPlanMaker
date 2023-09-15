@@ -31,6 +31,7 @@
             panel1 = new Panel();
             label1 = new Label();
             pnlAddTables = new Panel();
+            btnLockTables = new Button();
             label2 = new Label();
             pnlFloorPlan = new Panel();
             txtDiningAreaName = new TextBox();
@@ -41,6 +42,7 @@
             rbInside = new RadioButton();
             rbOutside = new RadioButton();
             btnSaveTables = new Button();
+            cbLockTables = new CheckBox();
             panel1.SuspendLayout();
             pnlAddTables.SuspendLayout();
             SuspendLayout();
@@ -68,12 +70,24 @@
             // pnlAddTables
             // 
             pnlAddTables.BackColor = SystemColors.ActiveCaption;
+            pnlAddTables.Controls.Add(cbLockTables);
+            pnlAddTables.Controls.Add(btnLockTables);
             pnlAddTables.Controls.Add(label2);
             pnlAddTables.Dock = DockStyle.Left;
             pnlAddTables.Location = new Point(250, 0);
             pnlAddTables.Name = "pnlAddTables";
             pnlAddTables.Size = new Size(250, 970);
             pnlAddTables.TabIndex = 1;
+            // 
+            // btnLockTables
+            // 
+            btnLockTables.Location = new Point(27, 477);
+            btnLockTables.Name = "btnLockTables";
+            btnLockTables.Size = new Size(206, 40);
+            btnLockTables.TabIndex = 1;
+            btnLockTables.Text = "Lock Tables";
+            btnLockTables.UseVisualStyleBackColor = true;
+            btnLockTables.Click += btnLockTables_Click;
             // 
             // label2
             // 
@@ -174,6 +188,18 @@
             btnSaveTables.UseVisualStyleBackColor = true;
             btnSaveTables.Click += btnSaveTables_Click;
             // 
+            // cbLockTables
+            // 
+            cbLockTables.Appearance = Appearance.Button;
+            cbLockTables.Location = new Point(27, 541);
+            cbLockTables.Name = "cbLockTables";
+            cbLockTables.Size = new Size(206, 45);
+            cbLockTables.TabIndex = 2;
+            cbLockTables.Text = "Lock Tables";
+            cbLockTables.TextAlign = ContentAlignment.MiddleCenter;
+            cbLockTables.UseVisualStyleBackColor = true;
+            cbLockTables.CheckedChanged += cbLockTables_CheckedChanged;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -216,5 +242,7 @@
         private RadioButton rbInside;
         private RadioButton rbOutside;
         private Button btnSaveTables;
+        private Button btnLockTables;
+        private CheckBox cbLockTables;
     }
 }

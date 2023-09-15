@@ -108,7 +108,7 @@ namespace FloorPlanMaker
 
         private void cboDiningAreas_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
             areaManager.DiningAreaSelected = (DiningArea?)cboDiningAreas.SelectedItem;
             txtDiningAreaName.Text = areaManager.DiningAreaSelected.Name;
             pnlFloorPlan.Controls.Clear();
@@ -118,6 +118,37 @@ namespace FloorPlanMaker
                 //tableControl.TableClicked += Table_TableClicked;  // Uncomment if you want to attach event handler
 
                 pnlFloorPlan.Controls.Add(tableControl);
+            }
+        }
+
+        private void btnLockTables_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void cbLockTables_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!cbLockTables.Checked)
+            {
+                cbLockTables.Text = "Lock Tables";
+                foreach (Control control in pnlFloorPlan.Controls)
+                {
+                    if (control is TableControl tableControl)
+                    {
+                        tableControl.Moveable = !tableControl.Moveable;
+                    }
+                }
+            }
+            else
+            {
+                cbLockTables.Text = "Unlock Tables";
+                foreach (Control control in pnlFloorPlan.Controls)
+                {
+                    if (control is TableControl tableControl)
+                    {
+                        tableControl.Moveable = !tableControl.Moveable;
+                    }
+                }
             }
         }
     }

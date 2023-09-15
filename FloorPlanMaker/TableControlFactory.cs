@@ -13,6 +13,7 @@ namespace FloorPlanMaker
         {
             return new TableControl
             {
+                Table = table,
                 Width = table.Width,
                 Height = table.Height,
                 Left = table.XCoordinate,
