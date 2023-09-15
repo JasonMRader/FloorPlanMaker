@@ -27,7 +27,7 @@ namespace FloorPlanMaker
             pnlAddTables.Controls.Add(circleTable);
 
             TableControl diamondTable = new TableControl();
-            diamondTable.Location = new Point(70, 250);
+            diamondTable.Location = new Point(70, 175);
             diamondTable.Size = new Size(100, 100);
             diamondTable.Moveable = false;
             diamondTable.TableClicked += Table_TableClicked;
@@ -35,7 +35,7 @@ namespace FloorPlanMaker
             pnlAddTables.Controls.Add(diamondTable);
 
             TableControl squareTable = new TableControl();
-            squareTable.Location = new Point(70, 450);
+            squareTable.Location = new Point(70, 300);
             squareTable.Size = new Size(100, 100);
             squareTable.Moveable = false;
             squareTable.TableClicked += Table_TableClicked;
