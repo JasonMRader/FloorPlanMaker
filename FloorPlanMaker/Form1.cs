@@ -84,6 +84,7 @@ namespace FloorPlanMaker
 
         private void btnSaveTables_Click(object sender, EventArgs e)
         {
+            SqliteDataAccess.DeleteTablesByDiningArea(areaManager.DiningAreaSelected);
             foreach (Control control in pnlFloorPlan.Controls)
             {
                 if (control is TableControl tableControl)
@@ -107,8 +108,10 @@ namespace FloorPlanMaker
 
         private void cboDiningAreas_SelectedIndexChanged(object sender, EventArgs e)
         {
+            
             areaManager.DiningAreaSelected = (DiningArea?)cboDiningAreas.SelectedItem;
             txtDiningAreaName.Text = areaManager.DiningAreaSelected.Name;
+            pnlFloorPlan.Controls.Clear();
             foreach (Table table in areaManager.DiningAreaSelected.Tables)
             {
                 TableControl tableControl = TableControlFactory.CreateTableControl(table);
