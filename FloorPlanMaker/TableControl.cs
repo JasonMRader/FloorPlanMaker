@@ -16,29 +16,7 @@ namespace FloorPlanMaker
         public Table.TableShape Shape { get; set; }
         public Table Table { get; set; }
 
-        //protected override void OnPaint(PaintEventArgs pe)
-        //{
-        //    Graphics g = pe.Graphics;
-        //    g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-        //    switch (Shape)
-        //    {
-        //        case Table.TableShape.Circle:
-        //            g.FillEllipse(Brushes.DarkBlue, 0, 0, this.Width, this.Height);
-        //            break;
-        //        case Table.TableShape.Square:
-        //            g.FillRectangle(Brushes.DarkBlue, 0, 0, this.Width, this.Height);
-        //            break;
-        //        case Table.TableShape.Diamond:
-        //            Point[] diamondPoints = {
-        //            new Point(this.Width / 2, 0),
-        //            new Point(this.Width, this.Height / 2),
-        //            new Point(this.Width / 2, this.Height),
-        //            new Point(0, this.Height / 2)
-        //        };
-        //            g.FillPolygon(Brushes.DarkBlue, diamondPoints);
-        //            break;
-        //    }
-        //}
+        
         protected override void OnPaint(PaintEventArgs pe)
         {
             Graphics g = pe.Graphics;
@@ -111,12 +89,13 @@ namespace FloorPlanMaker
                 this.Top = e.Y + this.Top - MouseDownLocation.Y;
             }
         }
-        public event EventHandler TableClicked;
+        public event EventHandler<TableClickedEventArgs> TableClicked;
 
         protected void OnTableClicked()
         {
-            TableClicked?.Invoke(this, EventArgs.Empty);
+            TableClicked?.Invoke(this, new TableClickedEventArgs(this.Table, this.Moveable));
         }
+
 
         private void TableControl_MouseClick(object sender, MouseEventArgs e)
         {

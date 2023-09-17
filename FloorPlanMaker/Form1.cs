@@ -22,7 +22,7 @@ namespace FloorPlanMaker
             circleTable.Location = new Point(70, 50);
             circleTable.Size = new Size(100, 100);
             circleTable.Moveable = false;
-            circleTable.TableClicked += Table_TableClicked;
+            circleTable.TableClicked += AddTable_TableClicked;
 
             pnlAddTables.Controls.Add(circleTable);
 
@@ -30,7 +30,7 @@ namespace FloorPlanMaker
             diamondTable.Location = new Point(70, 175);
             diamondTable.Size = new Size(100, 100);
             diamondTable.Moveable = false;
-            diamondTable.TableClicked += Table_TableClicked;
+            diamondTable.TableClicked += AddTable_TableClicked;
             diamondTable.Shape = Table.TableShape.Diamond;
             pnlAddTables.Controls.Add(diamondTable);
 
@@ -38,11 +38,11 @@ namespace FloorPlanMaker
             squareTable.Location = new Point(70, 300);
             squareTable.Size = new Size(100, 100);
             squareTable.Moveable = false;
-            squareTable.TableClicked += Table_TableClicked;
+            squareTable.TableClicked += AddTable_TableClicked;
             squareTable.Shape = Table.TableShape.Square;
             pnlAddTables.Controls.Add(squareTable);
         }
-        private void Table_TableClicked(object sender, EventArgs e)
+        private void AddTable_TableClicked(object sender, TableClickedEventArgs e)
         {
             TableControl clickedTable = (TableControl)sender;
             TableControl table = new TableControl()
@@ -55,11 +55,26 @@ namespace FloorPlanMaker
                 Shape = clickedTable.Shape,
                 Location = new Point(300, 400)
             };
-
+            table.TableClicked += ExistingTable_TableClicked;
             // Subscribe to the TableClicked event for the new table as well
             //table.TableClicked += Table_TableClicked;
 
             pnlFloorPlan.Controls.Add(table);
+        }
+        private void ExistingTable_TableClicked(object sender, TableClickedEventArgs e)
+        {
+            Table clickedTable = e.ClickedTable;
+
+            if (!e.IsMoveable)
+            {
+                
+                txtTableNumber.Text = clickedTable.TableNumber;
+               
+            }
+            else
+            {
+                // Handle the table movement logic if it's movable
+            }
         }
 
         private void cbDesignMode_CheckedChanged(object sender, EventArgs e)
@@ -116,15 +131,12 @@ namespace FloorPlanMaker
             {
                 TableControl tableControl = TableControlFactory.CreateTableControl(table);
                 //tableControl.TableClicked += Table_TableClicked;  // Uncomment if you want to attach event handler
-
+                tableControl.TableClicked += ExistingTable_TableClicked;
                 pnlFloorPlan.Controls.Add(tableControl);
             }
         }
 
-        private void btnLockTables_Click(object sender, EventArgs e)
-        {
-            
-        }
+
 
         private void cbLockTables_CheckedChanged(object sender, EventArgs e)
         {
