@@ -31,6 +31,17 @@
             panel1 = new Panel();
             label1 = new Label();
             pnlAddTables = new Panel();
+            btnSaveTable = new Button();
+            label7 = new Label();
+            txtWidth = new TextBox();
+            label6 = new Label();
+            txtHeight = new TextBox();
+            label5 = new Label();
+            txtAverageCovers = new TextBox();
+            label4 = new Label();
+            txtMaxCovers = new TextBox();
+            label3 = new Label();
+            txtTableNumber = new TextBox();
             cbLockTables = new CheckBox();
             label2 = new Label();
             pnlFloorPlan = new Panel();
@@ -42,16 +53,6 @@
             rbInside = new RadioButton();
             rbOutside = new RadioButton();
             btnSaveTables = new Button();
-            txtTableNumber = new TextBox();
-            label3 = new Label();
-            txtMaxCovers = new TextBox();
-            label4 = new Label();
-            txtAverageCovers = new TextBox();
-            label5 = new Label();
-            txtHeight = new TextBox();
-            label6 = new Label();
-            txtWidth = new TextBox();
-            label7 = new Label();
             panel1.SuspendLayout();
             pnlAddTables.SuspendLayout();
             SuspendLayout();
@@ -79,6 +80,7 @@
             // pnlAddTables
             // 
             pnlAddTables.BackColor = SystemColors.ActiveCaption;
+            pnlAddTables.Controls.Add(btnSaveTable);
             pnlAddTables.Controls.Add(label7);
             pnlAddTables.Controls.Add(txtWidth);
             pnlAddTables.Controls.Add(label6);
@@ -96,6 +98,96 @@
             pnlAddTables.Name = "pnlAddTables";
             pnlAddTables.Size = new Size(250, 970);
             pnlAddTables.TabIndex = 1;
+            // 
+            // btnSaveTable
+            // 
+            btnSaveTable.Location = new Point(28, 859);
+            btnSaveTable.Name = "btnSaveTable";
+            btnSaveTable.Size = new Size(206, 37);
+            btnSaveTable.TabIndex = 5;
+            btnSaveTable.Text = "Save Table";
+            btnSaveTable.UseVisualStyleBackColor = true;
+            btnSaveTable.Click += btnSaveTable_Click;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(77, 761);
+            label7.Name = "label7";
+            label7.Size = new Size(39, 15);
+            label7.TabIndex = 4;
+            label7.Text = "Width";
+            // 
+            // txtWidth
+            // 
+            txtWidth.Location = new Point(77, 779);
+            txtWidth.Name = "txtWidth";
+            txtWidth.Size = new Size(107, 23);
+            txtWidth.TabIndex = 3;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(77, 703);
+            label6.Name = "label6";
+            label6.Size = new Size(43, 15);
+            label6.TabIndex = 4;
+            label6.Text = "Height";
+            // 
+            // txtHeight
+            // 
+            txtHeight.Location = new Point(77, 721);
+            txtHeight.Name = "txtHeight";
+            txtHeight.Size = new Size(107, 23);
+            txtHeight.TabIndex = 3;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(77, 649);
+            label5.Name = "label5";
+            label5.Size = new Size(89, 15);
+            label5.TabIndex = 4;
+            label5.Text = "Average Covers";
+            // 
+            // txtAverageCovers
+            // 
+            txtAverageCovers.Location = new Point(77, 667);
+            txtAverageCovers.Name = "txtAverageCovers";
+            txtAverageCovers.Size = new Size(107, 23);
+            txtAverageCovers.TabIndex = 3;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(77, 592);
+            label4.Name = "label4";
+            label4.Size = new Size(69, 15);
+            label4.TabIndex = 4;
+            label4.Text = "Max Covers";
+            // 
+            // txtMaxCovers
+            // 
+            txtMaxCovers.Location = new Point(77, 610);
+            txtMaxCovers.Name = "txtMaxCovers";
+            txtMaxCovers.Size = new Size(107, 23);
+            txtMaxCovers.TabIndex = 3;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(77, 538);
+            label3.Name = "label3";
+            label3.Size = new Size(81, 15);
+            label3.TabIndex = 4;
+            label3.Text = "Table Number";
+            // 
+            // txtTableNumber
+            // 
+            txtTableNumber.Location = new Point(77, 556);
+            txtTableNumber.Name = "txtTableNumber";
+            txtTableNumber.Size = new Size(107, 23);
+            txtTableNumber.TabIndex = 3;
             // 
             // cbLockTables
             // 
@@ -208,86 +300,6 @@
             btnSaveTables.UseVisualStyleBackColor = true;
             btnSaveTables.Click += btnSaveTables_Click;
             // 
-            // txtTableNumber
-            // 
-            txtTableNumber.Location = new Point(77, 556);
-            txtTableNumber.Name = "txtTableNumber";
-            txtTableNumber.Size = new Size(107, 23);
-            txtTableNumber.TabIndex = 3;
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Location = new Point(77, 538);
-            label3.Name = "label3";
-            label3.Size = new Size(81, 15);
-            label3.TabIndex = 4;
-            label3.Text = "Table Number";
-            // 
-            // txtMaxCovers
-            // 
-            txtMaxCovers.Location = new Point(77, 610);
-            txtMaxCovers.Name = "txtMaxCovers";
-            txtMaxCovers.Size = new Size(107, 23);
-            txtMaxCovers.TabIndex = 3;
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Location = new Point(77, 592);
-            label4.Name = "label4";
-            label4.Size = new Size(69, 15);
-            label4.TabIndex = 4;
-            label4.Text = "Max Covers";
-            // 
-            // txtAverageCovers
-            // 
-            txtAverageCovers.Location = new Point(77, 667);
-            txtAverageCovers.Name = "txtAverageCovers";
-            txtAverageCovers.Size = new Size(107, 23);
-            txtAverageCovers.TabIndex = 3;
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Location = new Point(77, 649);
-            label5.Name = "label5";
-            label5.Size = new Size(89, 15);
-            label5.TabIndex = 4;
-            label5.Text = "Average Covers";
-            // 
-            // txtHeight
-            // 
-            txtHeight.Location = new Point(77, 721);
-            txtHeight.Name = "txtHeight";
-            txtHeight.Size = new Size(107, 23);
-            txtHeight.TabIndex = 3;
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Location = new Point(77, 703);
-            label6.Name = "label6";
-            label6.Size = new Size(43, 15);
-            label6.TabIndex = 4;
-            label6.Text = "Height";
-            // 
-            // txtWidth
-            // 
-            txtWidth.Location = new Point(77, 779);
-            txtWidth.Name = "txtWidth";
-            txtWidth.Size = new Size(107, 23);
-            txtWidth.TabIndex = 3;
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Location = new Point(77, 761);
-            label7.Name = "label7";
-            label7.Size = new Size(39, 15);
-            label7.TabIndex = 4;
-            label7.Text = "Width";
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -341,5 +353,6 @@
         private TextBox txtMaxCovers;
         private Label label3;
         private TextBox txtTableNumber;
+        private Button btnSaveTable;
     }
 }

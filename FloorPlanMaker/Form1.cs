@@ -6,6 +6,7 @@ namespace FloorPlanMaker
     {
         //List<DiningArea> areaList = new List<DiningArea>();
         DiningAreaManager areaManager = new DiningAreaManager();
+        private int LastTableNumberSelected;
         public Form1()
         {
             InitializeComponent();
@@ -64,12 +65,17 @@ namespace FloorPlanMaker
         private void ExistingTable_TableClicked(object sender, TableClickedEventArgs e)
         {
             Table clickedTable = e.ClickedTable;
-
+            
             if (!e.IsMoveable)
             {
-                
+
                 txtTableNumber.Text = clickedTable.TableNumber;
-               
+                txtMaxCovers.Text = clickedTable.MaxCovers.ToString();
+                txtAverageCovers.Text = clickedTable.AverageCovers.ToString();
+                txtHeight.Text = clickedTable.Height.ToString();
+                txtWidth.Text = clickedTable.Width.ToString();
+                areaManager.SelectedTable = clickedTable;
+
             }
             else
             {
@@ -161,6 +167,25 @@ namespace FloorPlanMaker
                         tableControl.Moveable = !tableControl.Moveable;
                     }
                 }
+            }
+        }
+
+        private void btnSaveTable_Click(object sender, EventArgs e)
+        {
+            areaManager.SelectedTable.TableNumber = txtTableNumber.Text;
+            areaManager.SelectedTable.MaxCovers = Int32.Parse(txtMaxCovers.Text);
+            areaManager.SelectedTable.AverageCovers = float.Parse(txtAverageCovers.Text);
+            areaManager.SelectedTable.Height = Int32.Parse(txtHeight.Text);
+            areaManager.SelectedTable.Width = Int32.Parse(txtWidth.Text);
+            areaManager.SelectedTable.DiningArea = areaManager.DiningAreaSelected;
+            SqliteDataAccess.UpdateTable(areaManager.SelectedTable);
+            pnlFloorPlan.Controls.Clear();
+            foreach (Table table in areaManager.DiningAreaSelected.Tables)
+            {
+                TableControl tableControl = TableControlFactory.CreateTableControl(table);
+                tableControl.Moveable = false;
+                tableControl.TableClicked += ExistingTable_TableClicked;
+                pnlFloorPlan.Controls.Add(tableControl);
             }
         }
     }

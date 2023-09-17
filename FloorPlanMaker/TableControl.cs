@@ -9,14 +9,12 @@ namespace FloorPlanMaker
 {
     public class TableControl : Control
     {
+        public Color BorderColor { get; set; } = Color.DarkBlue; // default to DarkBlue
+        public int BorderThickness { get; set; } = 1; // default to 1
+        public float TableNumberFontSize { get; set; } = 16f; // default to 16
 
-        
-
-        // Property to store the table shape
         public Table.TableShape Shape { get; set; }
-        public Table Table { get; set; }
-
-        
+        public Table Table { get; set; }        
         protected override void OnPaint(PaintEventArgs pe)
         {
             Graphics g = pe.Graphics;
@@ -48,6 +46,7 @@ namespace FloorPlanMaker
                 {
                     sf.Alignment = StringAlignment.Center;
                     sf.LineAlignment = StringAlignment.Center;
+                    
 
                     Rectangle tableBounds = new Rectangle(0, 0, this.Width, this.Height);
                     g.DrawString(Table.TableNumber.ToString(), this.Font, Brushes.DarkBlue, tableBounds, sf);
@@ -119,12 +118,7 @@ namespace FloorPlanMaker
         private bool isDragging = false; // To track whether the user is dragging
         private bool isResizing = false; // To track whether the user is resizing
         private Point dragStartPoint; // The point where the dragging started
-        private Size dragStartSize; // The size of the control when the dragging started
-       
-
-
-
-
+        private Size dragStartSize; // The size of the control when the dragging started     
 
     }
 }
