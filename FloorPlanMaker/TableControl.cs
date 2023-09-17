@@ -11,48 +11,48 @@ namespace FloorPlanMaker
     {
         public Color BorderColor { get; set; } = Color.DarkBlue; // default to DarkBlue
         public int BorderThickness { get; set; } = 1; // default to 1
-        public float TableNumberFontSize { get; set; } = 16f; // default to 16
+        public float TableNumberFontSize { get; set; } = 14f; // default to 16
 
         public Table.TableShape Shape { get; set; }
-        public Table Table { get; set; }        
+        public Table Table { get; set; }
         protected override void OnPaint(PaintEventArgs pe)
         {
             Graphics g = pe.Graphics;
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-            using (Pen pen = new Pen(Brushes.DarkBlue))
+            using (Pen pen = new Pen(BorderColor, BorderThickness))
             {
                 switch (Shape)
                 {
                     case Table.TableShape.Circle:
-                        g.DrawEllipse(pen, 0, 0, this.Width - 1, this.Height - 1); // -1 to ensure it's within the bounds
+                        g.DrawEllipse(pen, 0, 0, this.Width - BorderThickness, this.Height - BorderThickness);
                         break;
                     case Table.TableShape.Square:
-                        g.DrawRectangle(pen, 0, 0, this.Width - 1, this.Height - 1);
+                        g.DrawRectangle(pen, 0, 0, this.Width - BorderThickness, this.Height - BorderThickness);
                         break;
                     case Table.TableShape.Diamond:
                         Point[] diamondPoints = {
-                    new Point(this.Width / 2, 0),
-                    new Point(this.Width, this.Height / 2),
-                    new Point(this.Width / 2, this.Height),
-                    new Point(0, this.Height / 2)
-                };
+                        new Point(this.Width / 2, 0),
+                        new Point(this.Width, this.Height / 2),
+                        new Point(this.Width / 2, this.Height),
+                        new Point(0, this.Height / 2)
+                    };
                         g.DrawPolygon(pen, diamondPoints);
                         break;
                 }
             }
+
             if (this.Table != null && this.Table.TableNumber != null)
             {
+                using (Font font = new Font(this.Font.FontFamily, TableNumberFontSize)) // Use custom font size
                 using (StringFormat sf = new StringFormat())
                 {
                     sf.Alignment = StringAlignment.Center;
                     sf.LineAlignment = StringAlignment.Center;
-                    
 
                     Rectangle tableBounds = new Rectangle(0, 0, this.Width, this.Height);
-                    g.DrawString(Table.TableNumber.ToString(), this.Font, Brushes.DarkBlue, tableBounds, sf);
+                    g.DrawString(Table.TableNumber.ToString(), font, Brushes.Black, tableBounds, sf); // Number color set to black
                 }
             }
-            
         }
 
         public TableControl() : this(new Table()) { }
@@ -87,6 +87,8 @@ namespace FloorPlanMaker
                 this.Left = e.X + this.Left - MouseDownLocation.X;
                 this.Top = e.Y + this.Top - MouseDownLocation.Y;
             }
+            this.Table.XCoordinate = this.Left;
+            this.Table.YCoordinate = this.Top;
         }
         public event EventHandler<TableClickedEventArgs> TableClicked;
 

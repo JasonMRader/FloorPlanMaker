@@ -31,6 +31,7 @@
             panel1 = new Panel();
             label1 = new Label();
             pnlAddTables = new Panel();
+            btnDeleteTable = new Button();
             btnSaveTable = new Button();
             label7 = new Label();
             txtWidth = new TextBox();
@@ -53,6 +54,7 @@
             rbInside = new RadioButton();
             rbOutside = new RadioButton();
             btnSaveTables = new Button();
+            btnCopyTable = new Button();
             panel1.SuspendLayout();
             pnlAddTables.SuspendLayout();
             SuspendLayout();
@@ -80,6 +82,8 @@
             // pnlAddTables
             // 
             pnlAddTables.BackColor = SystemColors.ActiveCaption;
+            pnlAddTables.Controls.Add(btnCopyTable);
+            pnlAddTables.Controls.Add(btnDeleteTable);
             pnlAddTables.Controls.Add(btnSaveTable);
             pnlAddTables.Controls.Add(label7);
             pnlAddTables.Controls.Add(txtWidth);
@@ -98,6 +102,16 @@
             pnlAddTables.Name = "pnlAddTables";
             pnlAddTables.Size = new Size(250, 970);
             pnlAddTables.TabIndex = 1;
+            // 
+            // btnDeleteTable
+            // 
+            btnDeleteTable.Location = new Point(28, 924);
+            btnDeleteTable.Name = "btnDeleteTable";
+            btnDeleteTable.Size = new Size(206, 23);
+            btnDeleteTable.TabIndex = 6;
+            btnDeleteTable.Text = "Delete Table";
+            btnDeleteTable.UseVisualStyleBackColor = true;
+            btnDeleteTable.Click += btnDeleteTable_Click;
             // 
             // btnSaveTable
             // 
@@ -192,7 +206,7 @@
             // cbLockTables
             // 
             cbLockTables.Appearance = Appearance.Button;
-            cbLockTables.Location = new Point(28, 474);
+            cbLockTables.Location = new Point(28, 457);
             cbLockTables.Name = "cbLockTables";
             cbLockTables.Size = new Size(206, 45);
             cbLockTables.TabIndex = 2;
@@ -300,6 +314,16 @@
             btnSaveTables.UseVisualStyleBackColor = true;
             btnSaveTables.Click += btnSaveTables_Click;
             // 
+            // btnCopyTable
+            // 
+            btnCopyTable.Location = new Point(28, 508);
+            btnCopyTable.Name = "btnCopyTable";
+            btnCopyTable.Size = new Size(206, 23);
+            btnCopyTable.TabIndex = 7;
+            btnCopyTable.Text = "Copy Table";
+            btnCopyTable.UseVisualStyleBackColor = true;
+            btnCopyTable.Click += btnCopyTable_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -354,5 +378,7 @@
         private Label label3;
         private TextBox txtTableNumber;
         private Button btnSaveTable;
+        private Button btnDeleteTable;
+        private Button btnCopyTable;
     }
 }

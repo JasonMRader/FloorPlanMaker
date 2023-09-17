@@ -7,6 +7,7 @@ namespace FloorPlanMaker
         //List<DiningArea> areaList = new List<DiningArea>();
         DiningAreaManager areaManager = new DiningAreaManager();
         private int LastTableNumberSelected;
+        private TableControl currentEmphasizedTable = null;
         public Form1()
         {
             InitializeComponent();
@@ -65,22 +66,45 @@ namespace FloorPlanMaker
         private void ExistingTable_TableClicked(object sender, TableClickedEventArgs e)
         {
             Table clickedTable = e.ClickedTable;
-            
-            if (!e.IsMoveable)
+            TableControl clickedTableControl = sender as TableControl;
+            if (currentEmphasizedTable != null && currentEmphasizedTable != clickedTableControl)
             {
-
-                txtTableNumber.Text = clickedTable.TableNumber;
-                txtMaxCovers.Text = clickedTable.MaxCovers.ToString();
-                txtAverageCovers.Text = clickedTable.AverageCovers.ToString();
-                txtHeight.Text = clickedTable.Height.ToString();
-                txtWidth.Text = clickedTable.Width.ToString();
-                areaManager.SelectedTable = clickedTable;
-
+                currentEmphasizedTable.BorderThickness = 1;
+                currentEmphasizedTable.Invalidate();  // Request a redraw
             }
-            else
-            {
-                // Handle the table movement logic if it's movable
-            }
+            txtTableNumber.Text = clickedTable.TableNumber;
+            txtMaxCovers.Text = clickedTable.MaxCovers.ToString();
+            txtAverageCovers.Text = clickedTable.AverageCovers.ToString();
+            txtHeight.Text = clickedTable.Height.ToString();
+            txtWidth.Text = clickedTable.Width.ToString();
+            areaManager.SelectedTable = clickedTable;
+
+            clickedTableControl.BorderThickness = 3;
+            clickedTableControl.Invalidate(); // Request a redraw
+
+            // Update the current emphasized table.
+            currentEmphasizedTable = clickedTableControl;
+            //if (!e.IsMoveable)
+            //{
+
+            //    txtTableNumber.Text = clickedTable.TableNumber;
+            //    txtMaxCovers.Text = clickedTable.MaxCovers.ToString();
+            //    txtAverageCovers.Text = clickedTable.AverageCovers.ToString();
+            //    txtHeight.Text = clickedTable.Height.ToString();
+            //    txtWidth.Text = clickedTable.Width.ToString();
+            //    areaManager.SelectedTable = clickedTable;
+
+            //    clickedTableControl.BorderThickness = 3;
+            //    clickedTableControl.Invalidate(); // Request a redraw
+
+            //    // Update the current emphasized table.
+            //    currentEmphasizedTable = clickedTableControl;
+
+            //}
+            //else
+            //{
+            //    // Handle the table movement logic if it's movable
+            //}
         }
 
         private void cbDesignMode_CheckedChanged(object sender, EventArgs e)
@@ -114,7 +138,7 @@ namespace FloorPlanMaker
 
                     // Update table properties based on the tableControl properties.
                     // This ensures any changes made in the UI are saved.
-                    tableToSave.TableNumber = "0";
+                    tableToSave.TableNumber = tableControl.Table.TableNumber;
                     tableToSave.DiningArea = areaManager.DiningAreaSelected;
                     tableToSave.Width = tableControl.Width;
                     tableToSave.Height = tableControl.Height;
@@ -135,6 +159,7 @@ namespace FloorPlanMaker
             pnlFloorPlan.Controls.Clear();
             foreach (Table table in areaManager.DiningAreaSelected.Tables)
             {
+                table.DiningArea = areaManager.DiningAreaSelected;
                 TableControl tableControl = TableControlFactory.CreateTableControl(table);
                 //tableControl.TableClicked += Table_TableClicked;  // Uncomment if you want to attach event handler
                 tableControl.TableClicked += ExistingTable_TableClicked;
@@ -153,7 +178,7 @@ namespace FloorPlanMaker
                 {
                     if (control is TableControl tableControl)
                     {
-                        tableControl.Moveable = !tableControl.Moveable;
+                        tableControl.Moveable = true;
                     }
                 }
             }
@@ -164,7 +189,7 @@ namespace FloorPlanMaker
                 {
                     if (control is TableControl tableControl)
                     {
-                        tableControl.Moveable = !tableControl.Moveable;
+                        tableControl.Moveable = false;
                     }
                 }
             }
@@ -178,6 +203,7 @@ namespace FloorPlanMaker
             areaManager.SelectedTable.Height = Int32.Parse(txtHeight.Text);
             areaManager.SelectedTable.Width = Int32.Parse(txtWidth.Text);
             areaManager.SelectedTable.DiningArea = areaManager.DiningAreaSelected;
+            
             SqliteDataAccess.UpdateTable(areaManager.SelectedTable);
             pnlFloorPlan.Controls.Clear();
             foreach (Table table in areaManager.DiningAreaSelected.Tables)
@@ -187,6 +213,60 @@ namespace FloorPlanMaker
                 tableControl.TableClicked += ExistingTable_TableClicked;
                 pnlFloorPlan.Controls.Add(tableControl);
             }
+        }
+
+        private void btnDeleteTable_Click(object sender, EventArgs e)
+        {
+            areaManager.DiningAreaSelected.Tables.Remove(areaManager.SelectedTable);
+
+            SqliteDataAccess.DeleteTable(areaManager.SelectedTable);
+
+            foreach (Control control in pnlFloorPlan.Controls)
+            {
+                if (control is TableControl && control.Tag == areaManager.SelectedTable)
+                {
+                    pnlFloorPlan.Controls.Remove(control);
+                    break;
+                }
+            }
+            foreach (Table table in areaManager.DiningAreaSelected.Tables)
+            {
+                TableControl tableControl = TableControlFactory.CreateTableControl(table);
+                //tableControl.Moveable = false;
+                tableControl.TableClicked += ExistingTable_TableClicked;
+                pnlFloorPlan.Controls.Add(tableControl);
+            }
+        }
+
+        private void btnCopyTable_Click(object sender, EventArgs e)
+        {
+            int currentTableNumber = int.Parse(areaManager.SelectedTable.TableNumber);
+            int newTableNumber = currentTableNumber + 1;
+            //TableControl clickedTable = (TableControl)sender;
+            Table table = new Table()
+            {
+                Width = areaManager.SelectedTable.Width,
+                Height = areaManager.SelectedTable.Height,
+                //Left = new Random().Next(100, 300), // These are example values, replace with what you need
+                //Top = new Random().Next(100, 300),
+                //Moveable = true,
+                Shape = areaManager.SelectedTable.Shape,
+                TableNumber = newTableNumber.ToString(),
+                MaxCovers = areaManager.SelectedTable.MaxCovers,
+                AverageCovers = areaManager.SelectedTable.AverageCovers,
+                YCoordinate = areaManager.SelectedTable.YCoordinate,
+                XCoordinate = areaManager.SelectedTable.XCoordinate + areaManager.SelectedTable.Width, 
+                DiningAreaId = areaManager.SelectedTable.DiningAreaId,
+                DiningArea = areaManager.SelectedTable.DiningArea
+               
+            };
+            SqliteDataAccess.SaveTable(table);
+            TableControl tableControl = TableControlFactory.CreateTableControl(table);
+            tableControl.TableClicked += ExistingTable_TableClicked;
+            // Subscribe to the TableClicked event for the new table as well
+            //table.TableClicked += Table_TableClicked;
+
+            pnlFloorPlan.Controls.Add(tableControl);
         }
     }
 }

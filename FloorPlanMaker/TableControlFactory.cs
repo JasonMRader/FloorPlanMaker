@@ -20,7 +20,8 @@ namespace FloorPlanMaker
                 Top = table.YCoordinate,
                 Moveable = true,  // Adjust this based on your requirements
                 Shape = table.Shape,
-                Location = new Point(table.XCoordinate, table.YCoordinate)
+                Location = new Point(table.XCoordinate, table.YCoordinate),
+                Tag = table
             };
         }
     }
