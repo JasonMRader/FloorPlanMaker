@@ -13,6 +13,7 @@ namespace FloorPlanMaker
 {
     public partial class frmEditStaff : Form
     {
+        public List<Server> AllServers = new List<Server>();
         public frmEditStaff()
         {
             InitializeComponent();
@@ -24,6 +25,18 @@ namespace FloorPlanMaker
             server.Name = txtNewServerName.Text;
             SqliteDataAccess.SaveNewServer(server);
             txtNewServerName.Clear();
+        }
+
+        private void frmEditStaff_Load(object sender, EventArgs e)
+        {
+            lvAllStaff.Items.Clear();
+            AllServers.Clear();
+            AllServers = SqliteDataAccess.LoadServers();
+            foreach (Server server in AllServers)
+            {
+                lvAllStaff.Items.Add(server.Name);
+                lbAllServers.Items.Add(server);
+            }
         }
     }
 }

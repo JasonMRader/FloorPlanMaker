@@ -302,5 +302,11 @@ namespace FloorPlanMaker
 
             pnlFloorPlan.Controls.Add(tableControl);
         }
+
+        private void btnAddServers_Click(object sender, EventArgs e)
+        {
+            Form form = new frmEditStaff();
+            form.ShowDialog();
+        }
     }
 }

@@ -35,13 +35,14 @@
             btnRemove = new Button();
             btnAdd = new Button();
             btnAssignTables = new Button();
+            lbAllServers = new ListBox();
             SuspendLayout();
             // 
             // lvAllStaff
             // 
             lvAllStaff.Location = new Point(42, 38);
             lvAllStaff.Name = "lvAllStaff";
-            lvAllStaff.Size = new Size(224, 377);
+            lvAllStaff.Size = new Size(79, 377);
             lvAllStaff.TabIndex = 0;
             lvAllStaff.UseCompatibleStateImageBehavior = false;
             // 
@@ -97,11 +98,21 @@
             btnAssignTables.Text = "Assign Tables";
             btnAssignTables.UseVisualStyleBackColor = true;
             // 
+            // lbAllServers
+            // 
+            lbAllServers.FormattingEnabled = true;
+            lbAllServers.ItemHeight = 15;
+            lbAllServers.Location = new Point(127, 38);
+            lbAllServers.Name = "lbAllServers";
+            lbAllServers.Size = new Size(139, 379);
+            lbAllServers.TabIndex = 5;
+            // 
             // frmEditStaff
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(621, 467);
+            Controls.Add(lbAllServers);
             Controls.Add(btnAssignTables);
             Controls.Add(btnAdd);
             Controls.Add(btnRemove);
@@ -111,6 +122,7 @@
             Controls.Add(lvAllStaff);
             Name = "frmEditStaff";
             Text = "frmEditStaff";
+            Load += frmEditStaff_Load;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -124,5 +136,6 @@
         private Button btnRemove;
         private Button btnAdd;
         private Button btnAssignTables;
+        private ListBox lbAllServers;
     }
 }
