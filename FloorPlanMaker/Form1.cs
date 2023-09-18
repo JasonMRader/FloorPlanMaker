@@ -232,13 +232,13 @@ namespace FloorPlanMaker
                     break;
                 }
             }
-            foreach (Table table in areaManager.DiningAreaSelected.Tables)
-            {
-                TableControl tableControl = TableControlFactory.CreateTableControl(table);
-                //tableControl.Moveable = false;
-                tableControl.TableClicked += ExistingTable_TableClicked;
-                pnlFloorPlan.Controls.Add(tableControl);
-            }
+            //foreach (Table table in areaManager.DiningAreaSelected.Tables)
+            //{
+            //    TableControl tableControl = TableControlFactory.CreateTableControl(table);
+            //    //tableControl.Moveable = false;
+            //    tableControl.TableClicked += ExistingTable_TableClicked;
+            //    pnlFloorPlan.Controls.Add(tableControl);
+            //}
             areaManager.SelectedTable = null;
         }
 
@@ -266,6 +266,7 @@ namespace FloorPlanMaker
             };
             table.ID = SqliteDataAccess.SaveTable(table);
             TableControl tableControl = TableControlFactory.CreateTableControl(table);
+            tableControl.Tag = table;
             tableControl.TableClicked += ExistingTable_TableClicked;
             // Subscribe to the TableClicked event for the new table as well
             //table.TableClicked += Table_TableClicked;
