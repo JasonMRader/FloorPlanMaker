@@ -203,19 +203,47 @@ namespace FloorPlanMaker
             areaManager.SelectedTable.Height = Int32.Parse(txtHeight.Text);
             areaManager.SelectedTable.Width = Int32.Parse(txtWidth.Text);
             areaManager.SelectedTable.DiningArea = areaManager.DiningAreaSelected;
+            areaManager.SelectedTable.XCoordinate = UpdateXCoordinateForTableControl(areaManager.SelectedTable);
+            areaManager.SelectedTable.YCoordinate = UpdateYCoordinateForTableControl(areaManager.SelectedTable);
             
             
             SqliteDataAccess.UpdateTable(areaManager.SelectedTable);
-            areaManager.DiningAreaSelected.Tables.Add(areaManager.SelectedTable);
+           
             //areaManager.DiningAreaSelected.Tables = SqliteDataAccess.LoadTables
             pnlFloorPlan.Controls.Clear();
             foreach (Table table in areaManager.DiningAreaSelected.Tables)
             {
                 TableControl tableControl = TableControlFactory.CreateTableControl(table);
-                tableControl.Moveable = false;
+                tableControl.Moveable = true;
                 tableControl.TableClicked += ExistingTable_TableClicked;
                 pnlFloorPlan.Controls.Add(tableControl);
             }
+        }
+        private int UpdateXCoordinateForTableControl(Table table)
+        {
+            int xCoordinate = table.XCoordinate;
+            foreach (Control control in pnlFloorPlan.Controls)
+            {
+                if (control is TableControl && control.Tag == areaManager.SelectedTable)
+                {
+                    xCoordinate = control.Left;
+                    
+                }
+            }
+            return xCoordinate;
+        }
+        private int UpdateYCoordinateForTableControl(Table table)
+        {
+            int yCoordinate = table.YCoordinate;
+            foreach (Control control in pnlFloorPlan.Controls)
+            {
+                if (control is TableControl && control.Tag == areaManager.SelectedTable)
+                {
+                    yCoordinate = control.Top;
+
+                }
+            }
+            return yCoordinate;
         }
 
         private void btnDeleteTable_Click(object sender, EventArgs e)
@@ -267,6 +295,7 @@ namespace FloorPlanMaker
             table.ID = SqliteDataAccess.SaveTable(table);
             TableControl tableControl = TableControlFactory.CreateTableControl(table);
             tableControl.Tag = table;
+            areaManager.DiningAreaSelected.Tables.Add(table);
             tableControl.TableClicked += ExistingTable_TableClicked;
             // Subscribe to the TableClicked event for the new table as well
             //table.TableClicked += Table_TableClicked;
