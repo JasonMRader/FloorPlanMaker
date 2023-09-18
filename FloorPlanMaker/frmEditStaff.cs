@@ -13,7 +13,8 @@ namespace FloorPlanMaker
 {
     public partial class frmEditStaff : Form
     {
-        public List<Server> AllServers = new List<Server>();
+        //public List<Server> AllServers = new List<Server>();
+        StaffManager staffManager = new StaffManager();
         public frmEditStaff()
         {
             InitializeComponent();
@@ -29,14 +30,9 @@ namespace FloorPlanMaker
 
         private void frmEditStaff_Load(object sender, EventArgs e)
         {
-            lvAllStaff.Items.Clear();
-            AllServers.Clear();
-            AllServers = SqliteDataAccess.LoadServers();
-            foreach (Server server in AllServers)
-            {
-                lvAllStaff.Items.Add(server.Name);
-                lbAllServers.Items.Add(server);
-            }
+            lbAllServers.DataSource = staffManager.AllServers;
+            lbAllServers.DisplayMember = "Name";
+            lbAllServers.ValueMember = "ID";
         }
     }
 }
