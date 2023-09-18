@@ -204,7 +204,10 @@ namespace FloorPlanMaker
             areaManager.SelectedTable.Width = Int32.Parse(txtWidth.Text);
             areaManager.SelectedTable.DiningArea = areaManager.DiningAreaSelected;
             
+            
             SqliteDataAccess.UpdateTable(areaManager.SelectedTable);
+            areaManager.DiningAreaSelected.Tables.Add(areaManager.SelectedTable);
+            //areaManager.DiningAreaSelected.Tables = SqliteDataAccess.LoadTables
             pnlFloorPlan.Controls.Clear();
             foreach (Table table in areaManager.DiningAreaSelected.Tables)
             {
@@ -236,6 +239,7 @@ namespace FloorPlanMaker
                 tableControl.TableClicked += ExistingTable_TableClicked;
                 pnlFloorPlan.Controls.Add(tableControl);
             }
+            areaManager.SelectedTable = null;
         }
 
         private void btnCopyTable_Click(object sender, EventArgs e)
@@ -260,7 +264,7 @@ namespace FloorPlanMaker
                 DiningArea = areaManager.SelectedTable.DiningArea
                
             };
-            SqliteDataAccess.SaveTable(table);
+            table.ID = SqliteDataAccess.SaveTable(table);
             TableControl tableControl = TableControlFactory.CreateTableControl(table);
             tableControl.TableClicked += ExistingTable_TableClicked;
             // Subscribe to the TableClicked event for the new table as well
