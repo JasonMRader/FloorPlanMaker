@@ -31,6 +31,7 @@
             panel1 = new Panel();
             label1 = new Label();
             pnlAddTables = new Panel();
+            btnCopyTable = new Button();
             btnDeleteTable = new Button();
             btnSaveTable = new Button();
             label7 = new Label();
@@ -54,7 +55,7 @@
             rbInside = new RadioButton();
             rbOutside = new RadioButton();
             btnSaveTables = new Button();
-            btnCopyTable = new Button();
+            button1 = new Button();
             panel1.SuspendLayout();
             pnlAddTables.SuspendLayout();
             SuspendLayout();
@@ -62,6 +63,7 @@
             // panel1
             // 
             panel1.BackColor = SystemColors.GradientActiveCaption;
+            panel1.Controls.Add(button1);
             panel1.Controls.Add(label1);
             panel1.Dock = DockStyle.Left;
             panel1.Location = new Point(0, 0);
@@ -102,6 +104,16 @@
             pnlAddTables.Name = "pnlAddTables";
             pnlAddTables.Size = new Size(250, 970);
             pnlAddTables.TabIndex = 1;
+            // 
+            // btnCopyTable
+            // 
+            btnCopyTable.Location = new Point(28, 508);
+            btnCopyTable.Name = "btnCopyTable";
+            btnCopyTable.Size = new Size(206, 23);
+            btnCopyTable.TabIndex = 7;
+            btnCopyTable.Text = "Copy Table";
+            btnCopyTable.UseVisualStyleBackColor = true;
+            btnCopyTable.Click += btnCopyTable_Click;
             // 
             // btnDeleteTable
             // 
@@ -314,15 +326,14 @@
             btnSaveTables.UseVisualStyleBackColor = true;
             btnSaveTables.Click += btnSaveTables_Click;
             // 
-            // btnCopyTable
+            // button1
             // 
-            btnCopyTable.Location = new Point(28, 508);
-            btnCopyTable.Name = "btnCopyTable";
-            btnCopyTable.Size = new Size(206, 23);
-            btnCopyTable.TabIndex = 7;
-            btnCopyTable.Text = "Copy Table";
-            btnCopyTable.UseVisualStyleBackColor = true;
-            btnCopyTable.Click += btnCopyTable_Click;
+            button1.Location = new Point(3, 47);
+            button1.Name = "button1";
+            button1.Size = new Size(232, 23);
+            button1.TabIndex = 1;
+            button1.Text = "button1";
+            button1.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -380,5 +391,6 @@
         private Button btnSaveTable;
         private Button btnDeleteTable;
         private Button btnCopyTable;
+        private Button button1;
     }
 }

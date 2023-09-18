@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FloorplanClassLibrary;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,14 @@ namespace FloorPlanMaker
         public frmEditStaff()
         {
             InitializeComponent();
+        }
+
+        private void btnAddNewServer_Click(object sender, EventArgs e)
+        {
+            Server server = new Server();
+            server.Name = txtNewServerName.Text;
+            SqliteDataAccess.SaveNewServer(server);
+            txtNewServerName.Clear();
         }
     }
 }

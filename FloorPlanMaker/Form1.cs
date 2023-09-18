@@ -205,10 +205,10 @@ namespace FloorPlanMaker
             areaManager.SelectedTable.DiningArea = areaManager.DiningAreaSelected;
             areaManager.SelectedTable.XCoordinate = UpdateXCoordinateForTableControl(areaManager.SelectedTable);
             areaManager.SelectedTable.YCoordinate = UpdateYCoordinateForTableControl(areaManager.SelectedTable);
-            
-            
+
+
             SqliteDataAccess.UpdateTable(areaManager.SelectedTable);
-           
+
             //areaManager.DiningAreaSelected.Tables = SqliteDataAccess.LoadTables
             pnlFloorPlan.Controls.Clear();
             foreach (Table table in areaManager.DiningAreaSelected.Tables)
@@ -227,7 +227,7 @@ namespace FloorPlanMaker
                 if (control is TableControl && control.Tag == areaManager.SelectedTable)
                 {
                     xCoordinate = control.Left;
-                    
+
                 }
             }
             return xCoordinate;
@@ -287,10 +287,10 @@ namespace FloorPlanMaker
                 MaxCovers = areaManager.SelectedTable.MaxCovers,
                 AverageCovers = areaManager.SelectedTable.AverageCovers,
                 YCoordinate = areaManager.SelectedTable.YCoordinate,
-                XCoordinate = areaManager.SelectedTable.XCoordinate + areaManager.SelectedTable.Width, 
+                XCoordinate = areaManager.SelectedTable.XCoordinate + areaManager.SelectedTable.Width,
                 DiningAreaId = areaManager.SelectedTable.DiningAreaId,
                 DiningArea = areaManager.SelectedTable.DiningArea
-               
+
             };
             table.ID = SqliteDataAccess.SaveTable(table);
             TableControl tableControl = TableControlFactory.CreateTableControl(table);
