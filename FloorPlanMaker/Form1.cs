@@ -5,8 +5,9 @@ namespace FloorPlanMaker
     public partial class Form1 : Form
     {
         //List<DiningArea> areaList = new List<DiningArea>();
-        DiningAreaManager areaManager = new DiningAreaManager();
+        DiningAreaCreationManager areaManager = new DiningAreaCreationManager();
         StaffManager staffManager = new StaffManager();
+        private FloorplanManager FloorplanManager;
         private int LastTableNumberSelected;
         private TableControl currentEmphasizedTable = null;
         public Form1()
@@ -113,10 +114,30 @@ namespace FloorPlanMaker
             if (cbDesignMode.Checked)
             {
                 cbDesignMode.Text = "Create Sections";
+                pnlSections.Visible = true;
+                lblPanel2Text.Text = areaManager.DiningAreaSelected.Name;
+                this.FloorplanManager = new FloorplanManager(areaManager.DiningAreaSelected);
+                lblDiningAreaMaxCovers.Text = FloorplanManager.DiningArea.GetMaxCovers().ToString();
+                lblDiningAreaAverageCovers.Text = FloorplanManager.DiningArea.GetAverageCovers().ToString();
+                foreach (Control control in pnlFloorPlan.Controls)
+                {
+                    if (control is TableControl tableControl)
+                    {
+                        tableControl.Moveable = false;
+
+                    }
+                }
             }
             else
             {
                 cbDesignMode.Text = "Edit Dining Area";
+                foreach (Control control in pnlFloorPlan.Controls)
+                {
+                    if (control is TableControl tableControl)
+                    {
+                        tableControl.Moveable = true;
+                    }
+                }
             }
         }
 
@@ -312,6 +333,34 @@ namespace FloorPlanMaker
             {
 
             }
+        }
+
+        private void nudServerCount_ValueChanged(object sender, EventArgs e)
+        {
+            if (nudServerCount.Value > 0)
+            {
+                lblServerMaxCovers.Text = (FloorplanManager.DiningArea.GetMaxCovers() / (float)nudServerCount.Value).ToString("F1");
+                lblServerAverageCovers.Text = (FloorplanManager.DiningArea.GetAverageCovers() / (float)nudServerCount.Value).ToString("F1");
+            }
+        }
+
+        private void cbTeamWait_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbTeamWait.Checked == true)
+            {
+                nudNumberOfTeamWaits.Value = 1;
+                nudNumberOfTeamWaits.Visible = true;
+                lblTeamWaitLabel.Visible = true;
+            }
+            else
+            {
+                nudNumberOfTeamWaits.Visible = false;
+                lblTeamWaitLabel.Visible = false;
+            }
+        }
+        private void CreateSectionRadioButtons(int SoloSections, int TeamSections)
+        {
+
         }
     }
 }
