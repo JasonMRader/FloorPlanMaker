@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            btnAddServers = new Button();
             label1 = new Label();
             pnlAddTables = new Panel();
             btnCopyTable = new Button();
@@ -55,7 +56,6 @@
             rbInside = new RadioButton();
             rbOutside = new RadioButton();
             btnSaveTables = new Button();
-            btnAddServers = new Button();
             panel1.SuspendLayout();
             pnlAddTables.SuspendLayout();
             SuspendLayout();
@@ -70,6 +70,16 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(250, 970);
             panel1.TabIndex = 0;
+            // 
+            // btnAddServers
+            // 
+            btnAddServers.Location = new Point(3, 47);
+            btnAddServers.Name = "btnAddServers";
+            btnAddServers.Size = new Size(232, 23);
+            btnAddServers.TabIndex = 1;
+            btnAddServers.Text = "Add Servers To Shift";
+            btnAddServers.UseVisualStyleBackColor = true;
+            btnAddServers.Click += btnAddServers_Click;
             // 
             // label1
             // 
@@ -325,16 +335,6 @@
             btnSaveTables.Text = "Save Tables";
             btnSaveTables.UseVisualStyleBackColor = true;
             btnSaveTables.Click += btnSaveTables_Click;
-            // 
-            // btnAddServers
-            // 
-            btnAddServers.Location = new Point(3, 47);
-            btnAddServers.Name = "btnAddServers";
-            btnAddServers.Size = new Size(232, 23);
-            btnAddServers.TabIndex = 1;
-            btnAddServers.Text = "Add Servers To Shift";
-            btnAddServers.UseVisualStyleBackColor = true;
-            btnAddServers.Click += btnAddServers_Click;
             // 
             // Form1
             // 

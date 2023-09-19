@@ -6,6 +6,7 @@ namespace FloorPlanMaker
     {
         //List<DiningArea> areaList = new List<DiningArea>();
         DiningAreaManager areaManager = new DiningAreaManager();
+        StaffManager staffManager = new StaffManager();
         private int LastTableNumberSelected;
         private TableControl currentEmphasizedTable = null;
         public Form1()
@@ -305,8 +306,12 @@ namespace FloorPlanMaker
 
         private void btnAddServers_Click(object sender, EventArgs e)
         {
-            Form form = new frmEditStaff();
+            Form form = new frmEditStaff(staffManager);
             form.ShowDialog();
+            if (form.DialogResult == DialogResult.OK)
+            {
+
+            }
         }
     }
 }

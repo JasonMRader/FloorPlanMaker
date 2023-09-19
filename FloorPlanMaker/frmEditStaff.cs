@@ -14,10 +14,11 @@ namespace FloorPlanMaker
     public partial class frmEditStaff : Form
     {
         //public List<Server> AllServers = new List<Server>();
-        StaffManager staffManager = new StaffManager();
-        public frmEditStaff()
+        public StaffManager staffManager;
+        public frmEditStaff(StaffManager staffManager)
         {
             InitializeComponent();
+            this.staffManager = staffManager;
         }
 
         private void btnAddNewServer_Click(object sender, EventArgs e)
@@ -30,9 +31,34 @@ namespace FloorPlanMaker
 
         private void frmEditStaff_Load(object sender, EventArgs e)
         {
-            lbAllServers.DataSource = staffManager.AllServers;
-            lbAllServers.DisplayMember = "Name";
-            lbAllServers.ValueMember = "ID";
+            clbAllServers.DataSource = staffManager.AllServers;
+            clbAllServers.DisplayMember = "Name";
+            //clbAllServers.ValueMember = Server;
+
+            lbServersOnShift.DataSource = staffManager.ServersOnShift;
+            lbServersOnShift.DisplayMember = "Name";
+            //lbServersOnShift.ValueMember = "Value";
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            if (staffManager.ServersOnShift == null)
+            {
+                staffManager.ServersOnShift = new List<Server>();
+            }
+
+            foreach (Server server in clbAllServers.CheckedItems)
+            {
+                staffManager.ServersOnShift.Add(server);
+            }
+            lbServersOnShift.DataSource = null;
+            lbServersOnShift.DataSource = staffManager.ServersOnShift;
+        }
+
+        private void btnAssignTables_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.OK;
+            this.Close();
         }
     }
 }

@@ -28,37 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            lvAllStaff = new ListView();
-            lvThisShift = new ListView();
             btnAddNewServer = new Button();
             txtNewServerName = new TextBox();
             btnRemove = new Button();
             btnAdd = new Button();
             btnAssignTables = new Button();
-            lbAllServers = new ListBox();
+            lbServersOnShift = new ListBox();
+            clbAllServers = new CheckedListBox();
             SuspendLayout();
-            // 
-            // lvAllStaff
-            // 
-            lvAllStaff.Location = new Point(42, 38);
-            lvAllStaff.Name = "lvAllStaff";
-            lvAllStaff.Size = new Size(79, 377);
-            lvAllStaff.TabIndex = 0;
-            lvAllStaff.UseCompatibleStateImageBehavior = false;
-            // 
-            // lvThisShift
-            // 
-            lvThisShift.Location = new Point(365, 38);
-            lvThisShift.Name = "lvThisShift";
-            lvThisShift.Size = new Size(224, 377);
-            lvThisShift.TabIndex = 0;
-            lvThisShift.UseCompatibleStateImageBehavior = false;
             // 
             // btnAddNewServer
             // 
-            btnAddNewServer.Location = new Point(323, 9);
+            btnAddNewServer.Location = new Point(232, 12);
             btnAddNewServer.Name = "btnAddNewServer";
-            btnAddNewServer.Size = new Size(286, 23);
+            btnAddNewServer.Size = new Size(255, 23);
             btnAddNewServer.TabIndex = 1;
             btnAddNewServer.Text = "Add New Server";
             btnAddNewServer.UseVisualStyleBackColor = true;
@@ -68,12 +51,12 @@
             // 
             txtNewServerName.Location = new Point(12, 9);
             txtNewServerName.Name = "txtNewServerName";
-            txtNewServerName.Size = new Size(290, 23);
+            txtNewServerName.Size = new Size(202, 23);
             txtNewServerName.TabIndex = 2;
             // 
             // btnRemove
             // 
-            btnRemove.Location = new Point(272, 145);
+            btnRemove.Location = new Point(220, 105);
             btnRemove.Name = "btnRemove";
             btnRemove.Size = new Size(87, 23);
             btnRemove.TabIndex = 3;
@@ -82,45 +65,56 @@
             // 
             // btnAdd
             // 
-            btnAdd.Location = new Point(272, 38);
+            btnAdd.Location = new Point(220, 76);
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new Size(87, 23);
             btnAdd.TabIndex = 3;
             btnAdd.Text = "Add To Shift";
             btnAdd.UseVisualStyleBackColor = true;
+            btnAdd.Click += btnAdd_Click;
             // 
             // btnAssignTables
             // 
-            btnAssignTables.Location = new Point(365, 431);
+            btnAssignTables.Location = new Point(12, 423);
             btnAssignTables.Name = "btnAssignTables";
-            btnAssignTables.Size = new Size(224, 23);
+            btnAssignTables.Size = new Size(475, 23);
             btnAssignTables.TabIndex = 4;
             btnAssignTables.Text = "Assign Tables";
             btnAssignTables.UseVisualStyleBackColor = true;
+            btnAssignTables.Click += btnAssignTables_Click;
             // 
-            // lbAllServers
+            // lbServersOnShift
             // 
-            lbAllServers.FormattingEnabled = true;
-            lbAllServers.ItemHeight = 15;
-            lbAllServers.Location = new Point(127, 38);
-            lbAllServers.Name = "lbAllServers";
-            lbAllServers.Size = new Size(139, 379);
-            lbAllServers.TabIndex = 5;
+            lbServersOnShift.FormattingEnabled = true;
+            lbServersOnShift.ItemHeight = 15;
+            lbServersOnShift.Location = new Point(313, 38);
+            lbServersOnShift.Name = "lbServersOnShift";
+            lbServersOnShift.Size = new Size(174, 379);
+            lbServersOnShift.TabIndex = 6;
+            // 
+            // clbAllServers
+            // 
+            clbAllServers.CheckOnClick = true;
+            clbAllServers.FormattingEnabled = true;
+            clbAllServers.Location = new Point(12, 38);
+            clbAllServers.Name = "clbAllServers";
+            clbAllServers.Size = new Size(202, 382);
+            clbAllServers.TabIndex = 7;
             // 
             // frmEditStaff
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(621, 467);
-            Controls.Add(lbAllServers);
+            ClientSize = new Size(516, 467);
+            Controls.Add(clbAllServers);
+            Controls.Add(lbServersOnShift);
             Controls.Add(btnAssignTables);
             Controls.Add(btnAdd);
             Controls.Add(btnRemove);
             Controls.Add(txtNewServerName);
             Controls.Add(btnAddNewServer);
-            Controls.Add(lvThisShift);
-            Controls.Add(lvAllStaff);
             Name = "frmEditStaff";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "frmEditStaff";
             Load += frmEditStaff_Load;
             ResumeLayout(false);
@@ -128,14 +122,12 @@
         }
 
         #endregion
-
-        private ListView lvAllStaff;
-        private ListView lvThisShift;
         private Button btnAddNewServer;
         private TextBox txtNewServerName;
         private Button btnRemove;
         private Button btnAdd;
         private Button btnAssignTables;
-        private ListBox lbAllServers;
+        private ListBox lbServersOnShift;
+        private CheckedListBox clbAllServers;
     }
 }
