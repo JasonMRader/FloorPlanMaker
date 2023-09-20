@@ -13,7 +13,7 @@ namespace FloorPlanMaker
         private bool isDraggingBottom = false;
         private bool isDraggingLeft = false;
         private bool isDraggingRight = false;
-        public const int LineOffset = 1; // Distance from TableControl
+        public const int LineOffset = 5; // Distance from TableControl
         private const int DragTolerance = 3; // Tolerance for grabbing the line
 
         public bool TopVisible { get; set; } = true;

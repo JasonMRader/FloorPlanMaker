@@ -72,6 +72,7 @@
             rbOutside = new RadioButton();
             btnSaveTables = new Button();
             btnAddLines = new Button();
+            cbLockNodes = new CheckBox();
             pnlServers.SuspendLayout();
             pnlAddTables.SuspendLayout();
             pnlSections.SuspendLayout();
@@ -430,7 +431,7 @@
             txtDiningAreaName.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
             txtDiningAreaName.Location = new Point(719, 37);
             txtDiningAreaName.Name = "txtDiningAreaName";
-            txtDiningAreaName.Size = new Size(303, 35);
+            txtDiningAreaName.Size = new Size(228, 35);
             txtDiningAreaName.TabIndex = 3;
             // 
             // cbDesignMode
@@ -438,7 +439,7 @@
             cbDesignMode.Appearance = Appearance.Button;
             cbDesignMode.FlatAppearance.BorderSize = 0;
             cbDesignMode.FlatStyle = FlatStyle.Flat;
-            cbDesignMode.Location = new Point(540, 47);
+            cbDesignMode.Location = new Point(540, 43);
             cbDesignMode.Name = "cbDesignMode";
             cbDesignMode.Size = new Size(105, 24);
             cbDesignMode.TabIndex = 4;
@@ -458,9 +459,9 @@
             // 
             // btnSaveDiningArea
             // 
-            btnSaveDiningArea.Location = new Point(1130, 12);
+            btnSaveDiningArea.Location = new Point(1160, 12);
             btnSaveDiningArea.Name = "btnSaveDiningArea";
-            btnSaveDiningArea.Size = new Size(111, 32);
+            btnSaveDiningArea.Size = new Size(81, 32);
             btnSaveDiningArea.TabIndex = 6;
             btnSaveDiningArea.Text = "Save";
             btnSaveDiningArea.UseVisualStyleBackColor = true;
@@ -471,14 +472,14 @@
             cboDiningAreas.FormattingEnabled = true;
             cboDiningAreas.Location = new Point(719, 10);
             cboDiningAreas.Name = "cboDiningAreas";
-            cboDiningAreas.Size = new Size(303, 23);
+            cboDiningAreas.Size = new Size(228, 23);
             cboDiningAreas.TabIndex = 7;
             cboDiningAreas.SelectedIndexChanged += cboDiningAreas_SelectedIndexChanged;
             // 
             // rbInside
             // 
             rbInside.AutoSize = true;
-            rbInside.Location = new Point(1030, 28);
+            rbInside.Location = new Point(968, 37);
             rbInside.Name = "rbInside";
             rbInside.Size = new Size(56, 19);
             rbInside.TabIndex = 8;
@@ -489,7 +490,7 @@
             // rbOutside
             // 
             rbOutside.AutoSize = true;
-            rbOutside.Location = new Point(1030, 53);
+            rbOutside.Location = new Point(968, 53);
             rbOutside.Name = "rbOutside";
             rbOutside.Size = new Size(66, 19);
             rbOutside.TabIndex = 8;
@@ -499,9 +500,9 @@
             // 
             // btnSaveTables
             // 
-            btnSaveTables.Location = new Point(1130, 47);
+            btnSaveTables.Location = new Point(1160, 47);
             btnSaveTables.Name = "btnSaveTables";
-            btnSaveTables.Size = new Size(111, 23);
+            btnSaveTables.Size = new Size(81, 23);
             btnSaveTables.TabIndex = 9;
             btnSaveTables.Text = "Save Tables";
             btnSaveTables.UseVisualStyleBackColor = true;
@@ -509,19 +510,32 @@
             // 
             // btnAddLines
             // 
-            btnAddLines.Location = new Point(1030, 0);
+            btnAddLines.Location = new Point(968, 8);
             btnAddLines.Name = "btnAddLines";
             btnAddLines.Size = new Size(75, 23);
             btnAddLines.TabIndex = 10;
-            btnAddLines.Text = "Add Lines";
+            btnAddLines.Text = "Add Nodes";
             btnAddLines.UseVisualStyleBackColor = true;
             btnAddLines.Click += btnAddLines_Click;
+            // 
+            // cbLockNodes
+            // 
+            cbLockNodes.Appearance = Appearance.Button;
+            cbLockNodes.AutoSize = true;
+            cbLockNodes.Location = new Point(1049, 9);
+            cbLockNodes.Name = "cbLockNodes";
+            cbLockNodes.Size = new Size(76, 25);
+            cbLockNodes.TabIndex = 11;
+            cbLockNodes.Text = "LockNodes";
+            cbLockNodes.UseVisualStyleBackColor = true;
+            cbLockNodes.CheckedChanged += cbLockNodes_CheckedChanged;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1253, 970);
+            Controls.Add(cbLockNodes);
             Controls.Add(btnAddLines);
             Controls.Add(btnSaveTables);
             Controls.Add(rbOutside);
@@ -595,5 +609,6 @@
         private CheckBox cbTeamWait;
         private FlowLayoutPanel flowSectionSelect;
         private Button btnAddLines;
+        private CheckBox cbLockNodes;
     }
 }

@@ -10,9 +10,22 @@ namespace FloorPlanMaker
         private FloorplanManager FloorplanManager;
         private int LastTableNumberSelected;
         private TableControl currentEmphasizedTable = null;
+        private DrawingHandler drawingHandler;
         public Form1()
         {
             InitializeComponent();
+            drawingHandler = new DrawingHandler(pnlFloorPlan);
+
+            this.KeyDown += pnlFloorPlan_KeyDown;
+            //pnlFloorPlan.KeyPreview = true;
+        }
+
+        private void pnlFloorPlan_KeyDown(object? sender, KeyEventArgs e)
+        {
+            if (e.Control && e.KeyCode == Keys.Z)
+            {
+                drawingHandler.UndoLastPoint();
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -71,13 +84,17 @@ namespace FloorPlanMaker
             TableControl clickedTableControl = sender as TableControl;
             if (cbDesignMode.Checked)
             {
-                FloorplanManager.SectionSelected.Tables.Add(clickedTable);
+                if (FloorplanManager.SectionSelected != null)
+                {
+                    FloorplanManager.SectionSelected.Tables.Add(clickedTable);
 
-                // 2. Fill the table control with the FloorplanManager.SectionSelected.Color
-                clickedTableControl.BackColor = FloorplanManager.SectionSelected.Color;
+                    // 2. Fill the table control with the FloorplanManager.SectionSelected.Color
+                    clickedTableControl.BackColor = FloorplanManager.SectionSelected.Color;
 
-                // Optionally, you can invalidate the control to request a redraw if needed.
-                clickedTableControl.Invalidate();
+                    // Optionally, you can invalidate the control to request a redraw if needed.
+                    clickedTableControl.Invalidate();
+                }
+               
             }
             else
             {
@@ -460,7 +477,32 @@ namespace FloorPlanMaker
 
         private void btnAddLines_Click(object sender, EventArgs e)
         {
-            CreateSectionLinesForTables();
+            NodeControl nodeControl = new NodeControl();
+            nodeControl.Location = new Point(5, 5);
+            pnlFloorPlan.Controls.Add(nodeControl);
+        }
+
+        private void cbLockNodes_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbLockNodes.Checked)
+            {
+                drawingHandler.DrawSectionLinesMode = true;
+            }
+            else
+            {
+                drawingHandler.DrawSectionLinesMode = false;
+            }
+            //if (cbLockNodes.Checked)
+            //{
+            //    foreach(Control control in pnlFloorPlan.Controls)
+            //    {
+            //        if (control is NodeControl nodeControl)
+            //        {
+            //            nodeControl.IsLocked = true;
+            //        }
+            //    }
+
+            //}
         }
     }
 }
