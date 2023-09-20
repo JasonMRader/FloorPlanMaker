@@ -33,6 +33,7 @@
             label1 = new Label();
             pnlAddTables = new Panel();
             pnlSections = new Panel();
+            cbLockNodes = new CheckBox();
             flowSectionSelect = new FlowLayoutPanel();
             lblTeamWaitLabel = new Label();
             nudNumberOfTeamWaits = new NumericUpDown();
@@ -64,19 +65,21 @@
             lblPanel2Text = new Label();
             pnlFloorPlan = new Panel();
             txtDiningAreaName = new TextBox();
-            cbDesignMode = new CheckBox();
             btnCreateNewDiningArea = new Button();
             btnSaveDiningArea = new Button();
             cboDiningAreas = new ComboBox();
             rbInside = new RadioButton();
             rbOutside = new RadioButton();
             btnSaveTables = new Button();
-            cbLockNodes = new CheckBox();
+            rdoSections = new RadioButton();
+            rdoDiningAreas = new RadioButton();
+            panel1 = new Panel();
             pnlServers.SuspendLayout();
             pnlAddTables.SuspendLayout();
             pnlSections.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudNumberOfTeamWaits).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudServerCount).BeginInit();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // pnlServers
@@ -156,7 +159,18 @@
             pnlSections.Name = "pnlSections";
             pnlSections.Size = new Size(247, 930);
             pnlSections.TabIndex = 8;
-            pnlSections.Visible = false;
+            // 
+            // cbLockNodes
+            // 
+            cbLockNodes.Appearance = Appearance.Button;
+            cbLockNodes.Location = new Point(3, 284);
+            cbLockNodes.Name = "cbLockNodes";
+            cbLockNodes.Size = new Size(241, 25);
+            cbLockNodes.TabIndex = 11;
+            cbLockNodes.Text = "Draw Section Lines";
+            cbLockNodes.TextAlign = ContentAlignment.MiddleCenter;
+            cbLockNodes.UseVisualStyleBackColor = true;
+            cbLockNodes.CheckedChanged += cbLockNodes_CheckedChanged;
             // 
             // flowSectionSelect
             // 
@@ -429,33 +443,21 @@
             // txtDiningAreaName
             // 
             txtDiningAreaName.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            txtDiningAreaName.Location = new Point(719, 37);
+            txtDiningAreaName.Location = new Point(734, 37);
             txtDiningAreaName.Name = "txtDiningAreaName";
             txtDiningAreaName.Size = new Size(228, 35);
             txtDiningAreaName.TabIndex = 3;
-            // 
-            // cbDesignMode
-            // 
-            cbDesignMode.Appearance = Appearance.Button;
-            cbDesignMode.FlatAppearance.BorderSize = 0;
-            cbDesignMode.FlatStyle = FlatStyle.Flat;
-            cbDesignMode.Location = new Point(540, 43);
-            cbDesignMode.Name = "cbDesignMode";
-            cbDesignMode.Size = new Size(105, 24);
-            cbDesignMode.TabIndex = 4;
-            cbDesignMode.Text = "Edit Dining Area";
-            cbDesignMode.TextAlign = ContentAlignment.MiddleCenter;
-            cbDesignMode.UseVisualStyleBackColor = true;
-            cbDesignMode.CheckedChanged += cbDesignMode_CheckedChanged;
+            txtDiningAreaName.Visible = false;
             // 
             // btnCreateNewDiningArea
             // 
-            btnCreateNewDiningArea.Location = new Point(540, 14);
+            btnCreateNewDiningArea.Location = new Point(968, 8);
             btnCreateNewDiningArea.Name = "btnCreateNewDiningArea";
             btnCreateNewDiningArea.Size = new Size(154, 23);
             btnCreateNewDiningArea.TabIndex = 5;
             btnCreateNewDiningArea.Text = "Create New Dining Area";
             btnCreateNewDiningArea.UseVisualStyleBackColor = true;
+            btnCreateNewDiningArea.Visible = false;
             // 
             // btnSaveDiningArea
             // 
@@ -465,12 +467,13 @@
             btnSaveDiningArea.TabIndex = 6;
             btnSaveDiningArea.Text = "Save";
             btnSaveDiningArea.UseVisualStyleBackColor = true;
+            btnSaveDiningArea.Visible = false;
             btnSaveDiningArea.Click += btnSaveDiningArea_Click;
             // 
             // cboDiningAreas
             // 
             cboDiningAreas.FormattingEnabled = true;
-            cboDiningAreas.Location = new Point(719, 10);
+            cboDiningAreas.Location = new Point(734, 4);
             cboDiningAreas.Name = "cboDiningAreas";
             cboDiningAreas.Size = new Size(228, 23);
             cboDiningAreas.TabIndex = 7;
@@ -486,6 +489,7 @@
             rbInside.TabStop = true;
             rbInside.Text = "Inside";
             rbInside.UseVisualStyleBackColor = true;
+            rbInside.Visible = false;
             // 
             // rbOutside
             // 
@@ -497,6 +501,7 @@
             rbOutside.TabStop = true;
             rbOutside.Text = "Outside";
             rbOutside.UseVisualStyleBackColor = true;
+            rbOutside.Visible = false;
             // 
             // btnSaveTables
             // 
@@ -506,32 +511,58 @@
             btnSaveTables.TabIndex = 9;
             btnSaveTables.Text = "Save Tables";
             btnSaveTables.UseVisualStyleBackColor = true;
+            btnSaveTables.Visible = false;
             btnSaveTables.Click += btnSaveTables_Click;
             // 
-            // cbLockNodes
+            // rdoSections
             // 
-            cbLockNodes.Appearance = Appearance.Button;
-            cbLockNodes.Location = new Point(3, 284);
-            cbLockNodes.Name = "cbLockNodes";
-            cbLockNodes.Size = new Size(241, 25);
-            cbLockNodes.TabIndex = 11;
-            cbLockNodes.Text = "Draw Section Lines";
-            cbLockNodes.TextAlign = ContentAlignment.MiddleCenter;
-            cbLockNodes.UseVisualStyleBackColor = true;
-            cbLockNodes.CheckedChanged += cbLockNodes_CheckedChanged;
+            rdoSections.Appearance = Appearance.Button;
+            rdoSections.Checked = true;
+            rdoSections.FlatStyle = FlatStyle.Flat;
+            rdoSections.Location = new Point(0, 3);
+            rdoSections.Name = "rdoSections";
+            rdoSections.Size = new Size(104, 24);
+            rdoSections.TabIndex = 10;
+            rdoSections.TabStop = true;
+            rdoSections.Text = "Create Sections";
+            rdoSections.TextAlign = ContentAlignment.MiddleCenter;
+            rdoSections.UseVisualStyleBackColor = true;
+            rdoSections.CheckedChanged += rdoSections_CheckedChanged;
+            // 
+            // rdoDiningAreas
+            // 
+            rdoDiningAreas.Appearance = Appearance.Button;
+            rdoDiningAreas.FlatStyle = FlatStyle.Flat;
+            rdoDiningAreas.Location = new Point(110, 3);
+            rdoDiningAreas.Name = "rdoDiningAreas";
+            rdoDiningAreas.Size = new Size(112, 24);
+            rdoDiningAreas.TabIndex = 10;
+            rdoDiningAreas.Text = "Edit Dining Areas";
+            rdoDiningAreas.TextAlign = ContentAlignment.MiddleCenter;
+            rdoDiningAreas.UseVisualStyleBackColor = true;
+            rdoDiningAreas.CheckedChanged += rdoDiningAreas_CheckedChanged;
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(rdoSections);
+            panel1.Controls.Add(rdoDiningAreas);
+            panel1.Location = new Point(503, 1);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(225, 36);
+            panel1.TabIndex = 11;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1253, 970);
+            Controls.Add(panel1);
             Controls.Add(btnSaveTables);
             Controls.Add(rbOutside);
             Controls.Add(rbInside);
             Controls.Add(cboDiningAreas);
             Controls.Add(btnSaveDiningArea);
             Controls.Add(btnCreateNewDiningArea);
-            Controls.Add(cbDesignMode);
             Controls.Add(txtDiningAreaName);
             Controls.Add(pnlFloorPlan);
             Controls.Add(pnlAddTables);
@@ -547,6 +578,7 @@
             pnlSections.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)nudNumberOfTeamWaits).EndInit();
             ((System.ComponentModel.ISupportInitialize)nudServerCount).EndInit();
+            panel1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -559,7 +591,6 @@
         private Label lblPanel2Text;
         private Panel pnlFloorPlan;
         private TextBox txtDiningAreaName;
-        private CheckBox cbDesignMode;
         private Button btnCreateNewDiningArea;
         private Button btnSaveDiningArea;
         private ComboBox cboDiningAreas;
@@ -597,5 +628,8 @@
         private CheckBox cbTeamWait;
         private FlowLayoutPanel flowSectionSelect;
         private CheckBox cbLockNodes;
+        private RadioButton rdoSections;
+        private RadioButton rdoDiningAreas;
+        private Panel panel1;
     }
 }

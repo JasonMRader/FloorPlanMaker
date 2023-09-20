@@ -82,7 +82,7 @@ namespace FloorPlanMaker
         {
             Table clickedTable = e.ClickedTable;
             TableControl clickedTableControl = sender as TableControl;
-            if (cbDesignMode.Checked)
+            if (rdoSections.Checked)
             {
                 if (FloorplanManager.SectionSelected != null)
                 {
@@ -121,37 +121,7 @@ namespace FloorPlanMaker
 
         }
 
-        private void cbDesignMode_CheckedChanged(object sender, EventArgs e)
-        {
-            if (cbDesignMode.Checked)
-            {
-                cbDesignMode.Text = "Create Sections";
-                pnlSections.Visible = true;
-                lblPanel2Text.Text = areaManager.DiningAreaSelected.Name;
-                this.FloorplanManager = new FloorplanManager(areaManager.DiningAreaSelected);
-                lblDiningAreaMaxCovers.Text = FloorplanManager.DiningArea.GetMaxCovers().ToString();
-                lblDiningAreaAverageCovers.Text = FloorplanManager.DiningArea.GetAverageCovers().ToString();
-                foreach (Control control in pnlFloorPlan.Controls)
-                {
-                    if (control is TableControl tableControl)
-                    {
-                        tableControl.Moveable = false;
-
-                    }
-                }
-            }
-            else
-            {
-                cbDesignMode.Text = "Edit Dining Area";
-                foreach (Control control in pnlFloorPlan.Controls)
-                {
-                    if (control is TableControl tableControl)
-                    {
-                        tableControl.Moveable = true;
-                    }
-                }
-            }
-        }
+        
 
         private void btnSaveDiningArea_Click(object sender, EventArgs e)
         {
@@ -199,6 +169,8 @@ namespace FloorPlanMaker
                 tableControl.TableClicked += ExistingTable_TableClicked;
                 pnlFloorPlan.Controls.Add(tableControl);
             }
+            lblPanel2Text.Text = areaManager.DiningAreaSelected.Name;
+            this.FloorplanManager = new FloorplanManager(areaManager.DiningAreaSelected);
         }
 
 
@@ -435,6 +407,9 @@ namespace FloorPlanMaker
         //        flowSectionSelect.Controls.Add(rb);
         //    }
         //}
+        private List<RadioButton> closerButtons = new List<RadioButton>();
+        private List<RadioButton> precloserButtons = new List<RadioButton>();
+
         private void CreateSectionRadioButtons(List<Section> sections)
         {
             // Clear any existing controls from the flow layout panel.
@@ -449,6 +424,8 @@ namespace FloorPlanMaker
                     FlatStyle = FlatStyle.Flat,
                     BackColor = section.Color,
                     ForeColor = section.FontColor,
+                    AutoSize = false,
+                    Size = new Size(85, 25),
                     Text = section.Name,
                     Tag = section  // Store the section object in the Tag property for easy access in the event handler.
                 };
@@ -460,9 +437,10 @@ namespace FloorPlanMaker
                 {
                     Text = section.MaxCovers.ToString(),
                     AutoSize = false,
-                    Size = new Size(50, 25),
+                    Size = new Size(35, 25),
                     Font = new Font("Segoe UI", 12F),
-                    TextAlign = ContentAlignment.TopCenter
+                    TextAlign = ContentAlignment.TopCenter,
+                    Margin = new Padding(0, 3, 0, 3)
 
                 };
 
@@ -470,30 +448,102 @@ namespace FloorPlanMaker
                 {
                     Text = section.AverageCovers.ToString(),
                     AutoSize = false,
-                    Size = new Size(50, 25),
+                    Size = new Size(35, 25),
                     Font = new Font("Segoe UI", 12F),
-                    TextAlign = ContentAlignment.TopCenter
+                    TextAlign = ContentAlignment.TopCenter,
+                    Margin = new Padding(0, 3, 0, 3)
 
                 };
 
-                // Create a Panel to hold the RadioButton and two Labels.
+               
+                RadioButton rbCloser = new RadioButton
+                {
+                    Text = "CLS",
+                    AutoSize = false,
+                    Size = new Size(40, 25),
+                    FlatStyle = FlatStyle.Flat,
+                    BackColor = section.Color,
+                    ForeColor = section.FontColor,
+                    Appearance = Appearance.Button,
+                    Margin = new Padding(0)
+                };
+                rbCloser.CheckedChanged += RbCloser_CheckedChanged;
+
+                RadioButton rbPrecloser = new RadioButton
+                {
+                    Text = "PRE",
+                    AutoSize = false,
+                    Size = new Size(40, 25),
+                    FlatStyle = FlatStyle.Flat,
+                    BackColor = section.Color,
+                    ForeColor = section.FontColor,
+                    Appearance = Appearance.Button
+                };
+                rbPrecloser.CheckedChanged += RbPrecloser_CheckedChanged;
+
+                //RadioButton rbNeither = new RadioButton
+                //{
+                //    Text = "Neither",
+                //    Checked = true, // default option
+                //    AutoSize = true
+                //};
+
+                closerButtons.Add(rbCloser);
+                precloserButtons.Add(rbPrecloser);
+
+                // Adjust locations and add to the panel.
+                
+                //rbNeither.Location = new Point(rbPrecloser.Right + 5, 5);
+
+                
                 Panel panel = new Panel();
+
                 panel.Controls.Add(rb);
                 panel.Controls.Add(lblMaxCovers);
                 panel.Controls.Add(lblAverageCovers);
+                panel.Controls.Add(rbCloser);
+                panel.Controls.Add(rbPrecloser);
+                //panel.Controls.Add(rbNeither);
 
                 // Here, you might want to adjust the layout within the panel.
                 // For simplicity, I'll just set their locations manually:
                 rb.Location = new Point(5, 5); // You can adjust these coordinates as needed.
                 lblMaxCovers.Location = new Point(rb.Right + 5, 5);
                 lblAverageCovers.Location = new Point(lblMaxCovers.Right + 5, 5);
-
+                
+                rbCloser.Location = new Point(lblAverageCovers.Right + 10, 5);
+                rbPrecloser.Location = new Point(rbCloser.Right + 5, 5);
                 // Adjust panel size to fit the controls (or set a predefined size).
-                panel.Size = new Size(lblAverageCovers.Right + 5, Math.Max(rb.Height, lblAverageCovers.Height) + 10);
+                panel.Size = new Size(rbPrecloser.Right + 5, Math.Max(rb.Height, lblAverageCovers.Height) + 10);
 
                 sectionLabels[section] = (lblMaxCovers, lblAverageCovers);
                 // Add the panel to the flow layout panel.
                 flowSectionSelect.Controls.Add(panel);
+            }
+        }
+        private void RbCloser_CheckedChanged(object sender, EventArgs e)
+        {
+            RadioButton rb = sender as RadioButton;
+            if (rb.Checked)
+            {
+                foreach (var otherRb in closerButtons)
+                {
+                    if (otherRb != rb)
+                        otherRb.Checked = false;
+                }
+            }
+        }
+
+        private void RbPrecloser_CheckedChanged(object sender, EventArgs e)
+        {
+            RadioButton rb = sender as RadioButton;
+            if (rb.Checked)
+            {
+                foreach (var otherRb in precloserButtons)
+                {
+                    if (otherRb != rb)
+                        otherRb.Checked = false;
+                }
             }
         }
         private Dictionary<Section, (Label MaxCoversLabel, Label AverageCoversLabel)> sectionLabels = new Dictionary<Section, (Label, Label)>();
@@ -536,6 +586,56 @@ namespace FloorPlanMaker
                 drawingHandler.DrawSectionLinesMode = false;
             }
 
+        }
+
+        private void rdoSections_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rdoSections.Checked)
+            {
+                pnlSections.Visible = true;
+                lblPanel2Text.Text = areaManager.DiningAreaSelected.Name;
+                this.FloorplanManager = new FloorplanManager(areaManager.DiningAreaSelected);
+                lblDiningAreaMaxCovers.Text = FloorplanManager.DiningArea.GetMaxCovers().ToString();
+                lblDiningAreaAverageCovers.Text = FloorplanManager.DiningArea.GetAverageCovers().ToString();
+                foreach (Control control in pnlFloorPlan.Controls)
+                {
+                    if (control is TableControl tableControl)
+                    {
+                        tableControl.Moveable = false;
+
+                    }
+                }
+                txtDiningAreaName.Visible = false;
+                //cboDiningAreas.Visible = false;
+                btnCreateNewDiningArea.Visible = false;
+                btnSaveDiningArea.Visible = false;
+                btnSaveTables.Visible = false;
+                rbInside.Visible = false;
+                rbOutside.Visible = false;
+            }
+        }
+
+        private void rdoDiningAreas_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rdoDiningAreas.Checked)
+            {
+                pnlSections.Visible = false;
+                lblPanel2Text.Text = "Add Tables";
+                txtDiningAreaName.Visible = true;
+                //cboDiningAreas.Visible = true;
+                btnCreateNewDiningArea.Visible = true;
+                btnSaveDiningArea.Visible = true;
+                btnSaveTables.Visible = true;
+                rbInside.Visible = true;
+                rbOutside.Visible = true;
+                foreach (Control control in pnlFloorPlan.Controls)
+                {
+                    if (control is TableControl tableControl)
+                    {
+                        tableControl.Moveable = true;
+                    }
+                }
+            }
         }
     }
 }
