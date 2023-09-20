@@ -69,44 +69,38 @@ namespace FloorPlanMaker
         {
             Table clickedTable = e.ClickedTable;
             TableControl clickedTableControl = sender as TableControl;
-            if (currentEmphasizedTable != null && currentEmphasizedTable != clickedTableControl)
+            if (cbDesignMode.Checked)
             {
-                currentEmphasizedTable.BorderThickness = 1;
-                currentEmphasizedTable.Invalidate();  // Request a redraw
+                FloorplanManager.SectionSelected.Tables.Add(clickedTable);
+
+                // 2. Fill the table control with the FloorplanManager.SectionSelected.Color
+                clickedTableControl.BackColor = FloorplanManager.SectionSelected.Color;
+
+                // Optionally, you can invalidate the control to request a redraw if needed.
+                clickedTableControl.Invalidate();
             }
-            txtTableNumber.Text = clickedTable.TableNumber;
-            txtMaxCovers.Text = clickedTable.MaxCovers.ToString();
-            txtAverageCovers.Text = clickedTable.AverageCovers.ToString();
-            txtHeight.Text = clickedTable.Height.ToString();
-            txtWidth.Text = clickedTable.Width.ToString();
-            areaManager.SelectedTable = clickedTable;
+            else
+            {
+                if (currentEmphasizedTable != null && currentEmphasizedTable != clickedTableControl)
+                {
+                    currentEmphasizedTable.BorderThickness = 1;
+                    currentEmphasizedTable.Invalidate();  // Request a redraw
+                }
+                txtTableNumber.Text = clickedTable.TableNumber;
+                txtMaxCovers.Text = clickedTable.MaxCovers.ToString();
+                txtAverageCovers.Text = clickedTable.AverageCovers.ToString();
+                txtHeight.Text = clickedTable.Height.ToString();
+                txtWidth.Text = clickedTable.Width.ToString();
+                areaManager.SelectedTable = clickedTable;
 
-            clickedTableControl.BorderThickness = 3;
-            clickedTableControl.Invalidate(); // Request a redraw
+                clickedTableControl.BorderThickness = 3;
+                clickedTableControl.Invalidate(); // Request a redraw
 
-            // Update the current emphasized table.
-            currentEmphasizedTable = clickedTableControl;
-            //if (!e.IsMoveable)
-            //{
+                // Update the current emphasized table.
+                currentEmphasizedTable = clickedTableControl;
+            }
 
-            //    txtTableNumber.Text = clickedTable.TableNumber;
-            //    txtMaxCovers.Text = clickedTable.MaxCovers.ToString();
-            //    txtAverageCovers.Text = clickedTable.AverageCovers.ToString();
-            //    txtHeight.Text = clickedTable.Height.ToString();
-            //    txtWidth.Text = clickedTable.Width.ToString();
-            //    areaManager.SelectedTable = clickedTable;
 
-            //    clickedTableControl.BorderThickness = 3;
-            //    clickedTableControl.Invalidate(); // Request a redraw
-
-            //    // Update the current emphasized table.
-            //    currentEmphasizedTable = clickedTableControl;
-
-            //}
-            //else
-            //{
-            //    // Handle the table movement logic if it's movable
-            //}
         }
 
         private void cbDesignMode_CheckedChanged(object sender, EventArgs e)
@@ -341,7 +335,10 @@ namespace FloorPlanMaker
             {
                 lblServerMaxCovers.Text = (FloorplanManager.DiningArea.GetMaxCovers() / (float)nudServerCount.Value).ToString("F1");
                 lblServerAverageCovers.Text = (FloorplanManager.DiningArea.GetAverageCovers() / (float)nudServerCount.Value).ToString("F1");
+                List<Section> sections = GetSections();
+                CreateSectionRadioButtons(sections);
             }
+
         }
 
         private void cbTeamWait_CheckedChanged(object sender, EventArgs e)
@@ -354,13 +351,116 @@ namespace FloorPlanMaker
             }
             else
             {
+                nudNumberOfTeamWaits.Value = 0;
                 nudNumberOfTeamWaits.Visible = false;
                 lblTeamWaitLabel.Visible = false;
             }
         }
-        private void CreateSectionRadioButtons(int SoloSections, int TeamSections)
+        private List<Section> GetSections()
         {
+            int servers = (int)nudServerCount.Value;
+            int teamWaitSections = (int)nudNumberOfTeamWaits.Value;
+            int soloSections = servers - (teamWaitSections * 2);
+            List<Section> sections = new List<Section>();
+            int SectionNumber = 1;
+            // Create solo sections.
+            for (int i = 1; i <= soloSections; i++)
+            {
+                sections.Add(new Section
+                {
 
+                    Name = $"Section {i}",
+                    TeamWait = false,
+                    Number = SectionNumber
+                });
+                SectionNumber++;
+            }
+
+            // Create team wait sections.
+            for (int i = 1; i <= teamWaitSections; i++)
+            {
+                sections.Add(new Section
+                {
+
+                    ID = servers + i,  // To ensure unique IDs.
+                    Name = $"Team Wait {i}",
+                    TeamWait = true,
+                    Number = SectionNumber
+                });
+                SectionNumber++;
+            }
+
+            return sections;
+        }
+        private void CreateSectionRadioButtons(List<Section> sections)
+        {
+            // Clear any existing radio buttons from the flow layout panel.
+            flowSectionSelect.Controls.Clear();
+
+            foreach (var section in sections)
+            {
+                RadioButton rb = new RadioButton
+                {
+                    Appearance = Appearance.Button,
+                    FlatStyle = FlatStyle.Flat,
+                    BackColor = section.Color,
+                    ForeColor = section.FontColor,
+
+                    //Text = section.TeamWait ? $"Team Wait {section.ID}" : $"Section {section.ID}",
+                    Text = section.Name,
+                    Tag = section  // Store the section object in the Tag property for easy access in the event handler.
+                };
+                rb.FlatAppearance.BorderSize = 0;
+                // Add the event handler for the CheckedChanged event.
+                rb.CheckedChanged += Rb_CheckedChanged;
+
+                flowSectionSelect.Controls.Add(rb);
+            }
+        }
+
+        private void Rb_CheckedChanged(object sender, EventArgs e)
+        {
+            RadioButton rb = sender as RadioButton;
+            if (rb != null && rb.Checked)
+            {
+                Section selectedSection = rb.Tag as Section;
+                if (selectedSection != null)
+                {
+                    FloorplanManager.SectionSelected = selectedSection;
+                }
+            }
+        }
+
+        private void nudNumberOfTeamWaits_ValueChanged(object sender, EventArgs e)
+        {
+            List<Section> sections = GetSections();
+            CreateSectionRadioButtons(sections);
+        }
+        private void CreateSectionLinesForTables()
+        {
+            foreach (Control control in pnlFloorPlan.Controls)
+            {
+                if (control is TableControl)
+                {
+                    TableControl tableControl = control as TableControl;
+
+                    SectionLines sectionLines = new SectionLines
+                    {
+                        Width = tableControl.Width + 2 * SectionLines.LineOffset,
+                        Height = tableControl.Height + 2 * SectionLines.LineOffset,
+                        Location = new Point(tableControl.Left - SectionLines.LineOffset, tableControl.Top - SectionLines.LineOffset),
+                        Parent = pnlFloorPlan
+                    };
+
+                    // Set the new section lines to be behind the table control
+                    sectionLines.SendToBack();
+                }
+            }
+        }
+
+        private void btnAddLines_Click(object sender, EventArgs e)
+        {
+            CreateSectionLinesForTables();
         }
     }
 }

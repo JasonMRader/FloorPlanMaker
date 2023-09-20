@@ -33,6 +33,7 @@
             label1 = new Label();
             pnlAddTables = new Panel();
             pnlSections = new Panel();
+            flowSectionSelect = new FlowLayoutPanel();
             lblTeamWaitLabel = new Label();
             nudNumberOfTeamWaits = new NumericUpDown();
             cbTeamWait = new CheckBox();
@@ -70,7 +71,7 @@
             rbInside = new RadioButton();
             rbOutside = new RadioButton();
             btnSaveTables = new Button();
-            flpSectionSelect = new FlowLayoutPanel();
+            btnAddLines = new Button();
             pnlServers.SuspendLayout();
             pnlAddTables.SuspendLayout();
             pnlSections.SuspendLayout();
@@ -136,7 +137,7 @@
             // 
             // pnlSections
             // 
-            pnlSections.Controls.Add(flpSectionSelect);
+            pnlSections.Controls.Add(flowSectionSelect);
             pnlSections.Controls.Add(lblTeamWaitLabel);
             pnlSections.Controls.Add(nudNumberOfTeamWaits);
             pnlSections.Controls.Add(cbTeamWait);
@@ -156,6 +157,13 @@
             pnlSections.TabIndex = 8;
             pnlSections.Visible = false;
             // 
+            // flowSectionSelect
+            // 
+            flowSectionSelect.Location = new Point(26, 284);
+            flowSectionSelect.Name = "flowSectionSelect";
+            flowSectionSelect.Size = new Size(200, 626);
+            flowSectionSelect.TabIndex = 9;
+            // 
             // lblTeamWaitLabel
             // 
             lblTeamWaitLabel.AutoSize = true;
@@ -169,12 +177,11 @@
             // nudNumberOfTeamWaits
             // 
             nudNumberOfTeamWaits.Location = new Point(132, 255);
-            nudNumberOfTeamWaits.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             nudNumberOfTeamWaits.Name = "nudNumberOfTeamWaits";
             nudNumberOfTeamWaits.Size = new Size(46, 23);
             nudNumberOfTeamWaits.TabIndex = 7;
-            nudNumberOfTeamWaits.Value = new decimal(new int[] { 1, 0, 0, 0 });
             nudNumberOfTeamWaits.Visible = false;
+            nudNumberOfTeamWaits.ValueChanged += nudNumberOfTeamWaits_ValueChanged;
             // 
             // cbTeamWait
             // 
@@ -429,6 +436,7 @@
             // cbDesignMode
             // 
             cbDesignMode.Appearance = Appearance.Button;
+            cbDesignMode.FlatAppearance.BorderSize = 0;
             cbDesignMode.FlatStyle = FlatStyle.Flat;
             cbDesignMode.Location = new Point(540, 47);
             cbDesignMode.Name = "cbDesignMode";
@@ -499,18 +507,22 @@
             btnSaveTables.UseVisualStyleBackColor = true;
             btnSaveTables.Click += btnSaveTables_Click;
             // 
-            // flpSectionSelect
+            // btnAddLines
             // 
-            flpSectionSelect.Location = new Point(26, 284);
-            flpSectionSelect.Name = "flpSectionSelect";
-            flpSectionSelect.Size = new Size(200, 626);
-            flpSectionSelect.TabIndex = 9;
+            btnAddLines.Location = new Point(1030, 0);
+            btnAddLines.Name = "btnAddLines";
+            btnAddLines.Size = new Size(75, 23);
+            btnAddLines.TabIndex = 10;
+            btnAddLines.Text = "Add Lines";
+            btnAddLines.UseVisualStyleBackColor = true;
+            btnAddLines.Click += btnAddLines_Click;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1253, 970);
+            Controls.Add(btnAddLines);
             Controls.Add(btnSaveTables);
             Controls.Add(rbOutside);
             Controls.Add(rbInside);
@@ -581,6 +593,7 @@
         private Label lblTeamWaitLabel;
         private NumericUpDown nudNumberOfTeamWaits;
         private CheckBox cbTeamWait;
-        private FlowLayoutPanel flpSectionSelect;
+        private FlowLayoutPanel flowSectionSelect;
+        private Button btnAddLines;
     }
 }
