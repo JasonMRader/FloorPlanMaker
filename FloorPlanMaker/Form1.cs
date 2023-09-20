@@ -523,34 +523,7 @@ namespace FloorPlanMaker
             List<Section> sections = GetSections();
             CreateSectionRadioButtons(sections);
         }
-        private void CreateSectionLinesForTables()
-        {
-            foreach (Control control in pnlFloorPlan.Controls)
-            {
-                if (control is TableControl)
-                {
-                    TableControl tableControl = control as TableControl;
-
-                    SectionLines sectionLines = new SectionLines
-                    {
-                        Width = tableControl.Width + 2 * SectionLines.LineOffset,
-                        Height = tableControl.Height + 2 * SectionLines.LineOffset,
-                        Location = new Point(tableControl.Left - SectionLines.LineOffset, tableControl.Top - SectionLines.LineOffset),
-                        Parent = pnlFloorPlan
-                    };
-
-                    // Set the new section lines to be behind the table control
-                    sectionLines.SendToBack();
-                }
-            }
-        }
-
-        private void btnAddLines_Click(object sender, EventArgs e)
-        {
-            NodeControl nodeControl = new NodeControl();
-            nodeControl.Location = new Point(5, 5);
-            pnlFloorPlan.Controls.Add(nodeControl);
-        }
+        
 
         private void cbLockNodes_CheckedChanged(object sender, EventArgs e)
         {
@@ -562,17 +535,7 @@ namespace FloorPlanMaker
             {
                 drawingHandler.DrawSectionLinesMode = false;
             }
-            //if (cbLockNodes.Checked)
-            //{
-            //    foreach(Control control in pnlFloorPlan.Controls)
-            //    {
-            //        if (control is NodeControl nodeControl)
-            //        {
-            //            nodeControl.IsLocked = true;
-            //        }
-            //    }
-
-            //}
+           
         }
     }
 }
