@@ -71,7 +71,6 @@
             rbInside = new RadioButton();
             rbOutside = new RadioButton();
             btnSaveTables = new Button();
-            btnAddLines = new Button();
             cbLockNodes = new CheckBox();
             pnlServers.SuspendLayout();
             pnlAddTables.SuspendLayout();
@@ -138,6 +137,7 @@
             // 
             // pnlSections
             // 
+            pnlSections.Controls.Add(cbLockNodes);
             pnlSections.Controls.Add(flowSectionSelect);
             pnlSections.Controls.Add(lblTeamWaitLabel);
             pnlSections.Controls.Add(nudNumberOfTeamWaits);
@@ -160,9 +160,9 @@
             // 
             // flowSectionSelect
             // 
-            flowSectionSelect.Location = new Point(0, 284);
+            flowSectionSelect.Location = new Point(0, 315);
             flowSectionSelect.Name = "flowSectionSelect";
-            flowSectionSelect.Size = new Size(247, 626);
+            flowSectionSelect.Size = new Size(247, 612);
             flowSectionSelect.TabIndex = 9;
             // 
             // lblTeamWaitLabel
@@ -508,25 +508,15 @@
             btnSaveTables.UseVisualStyleBackColor = true;
             btnSaveTables.Click += btnSaveTables_Click;
             // 
-            // btnAddLines
-            // 
-            btnAddLines.Location = new Point(968, 8);
-            btnAddLines.Name = "btnAddLines";
-            btnAddLines.Size = new Size(75, 23);
-            btnAddLines.TabIndex = 10;
-            btnAddLines.Text = "Add Nodes";
-            btnAddLines.UseVisualStyleBackColor = true;
-            btnAddLines.Click += btnAddLines_Click;
-            // 
             // cbLockNodes
             // 
             cbLockNodes.Appearance = Appearance.Button;
-            cbLockNodes.AutoSize = true;
-            cbLockNodes.Location = new Point(1049, 9);
+            cbLockNodes.Location = new Point(3, 284);
             cbLockNodes.Name = "cbLockNodes";
-            cbLockNodes.Size = new Size(76, 25);
+            cbLockNodes.Size = new Size(241, 25);
             cbLockNodes.TabIndex = 11;
-            cbLockNodes.Text = "LockNodes";
+            cbLockNodes.Text = "Draw Section Lines";
+            cbLockNodes.TextAlign = ContentAlignment.MiddleCenter;
             cbLockNodes.UseVisualStyleBackColor = true;
             cbLockNodes.CheckedChanged += cbLockNodes_CheckedChanged;
             // 
@@ -535,8 +525,6 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1253, 970);
-            Controls.Add(cbLockNodes);
-            Controls.Add(btnAddLines);
             Controls.Add(btnSaveTables);
             Controls.Add(rbOutside);
             Controls.Add(rbInside);
@@ -608,7 +596,6 @@
         private NumericUpDown nudNumberOfTeamWaits;
         private CheckBox cbTeamWait;
         private FlowLayoutPanel flowSectionSelect;
-        private Button btnAddLines;
         private CheckBox cbLockNodes;
     }
 }

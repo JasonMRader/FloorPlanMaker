@@ -463,7 +463,7 @@ namespace FloorPlanMaker
                     Size = new Size(50, 25),
                     Font = new Font("Segoe UI", 12F),
                     TextAlign = ContentAlignment.TopCenter
-                    
+
                 };
 
                 Label lblAverageCovers = new Label
@@ -473,7 +473,7 @@ namespace FloorPlanMaker
                     Size = new Size(50, 25),
                     Font = new Font("Segoe UI", 12F),
                     TextAlign = ContentAlignment.TopCenter
-                    
+
                 };
 
                 // Create a Panel to hold the RadioButton and two Labels.
@@ -523,7 +523,7 @@ namespace FloorPlanMaker
             List<Section> sections = GetSections();
             CreateSectionRadioButtons(sections);
         }
-        
+
 
         private void cbLockNodes_CheckedChanged(object sender, EventArgs e)
         {
@@ -535,7 +535,7 @@ namespace FloorPlanMaker
             {
                 drawingHandler.DrawSectionLinesMode = false;
             }
-           
+
         }
     }
 }
