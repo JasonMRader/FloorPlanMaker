@@ -93,8 +93,9 @@ namespace FloorPlanMaker
 
                     // Optionally, you can invalidate the control to request a redraw if needed.
                     clickedTableControl.Invalidate();
+                    UpdateSectionLabels(FloorplanManager.SectionSelected, FloorplanManager.SectionSelected.MaxCovers, FloorplanManager.SectionSelected.AverageCovers);
                 }
-               
+
             }
             else
             {
@@ -409,32 +410,101 @@ namespace FloorPlanMaker
 
             return sections;
         }
+        //private void CreateSectionRadioButtons(List<Section> sections)
+        //{
+        //    // Clear any existing radio buttons from the flow layout panel.
+        //    flowSectionSelect.Controls.Clear();
+
+        //    foreach (var section in sections)
+        //    {
+        //        RadioButton rb = new RadioButton
+        //        {
+        //            Appearance = Appearance.Button,
+        //            FlatStyle = FlatStyle.Flat,
+        //            BackColor = section.Color,
+        //            ForeColor = section.FontColor,
+
+        //            //Text = section.TeamWait ? $"Team Wait {section.ID}" : $"Section {section.ID}",
+        //            Text = section.Name,
+        //            Tag = section  // Store the section object in the Tag property for easy access in the event handler.
+        //        };
+        //        rb.FlatAppearance.BorderSize = 0;
+        //        // Add the event handler for the CheckedChanged event.
+        //        rb.CheckedChanged += Rb_CheckedChanged;
+
+        //        flowSectionSelect.Controls.Add(rb);
+        //    }
+        //}
         private void CreateSectionRadioButtons(List<Section> sections)
         {
-            // Clear any existing radio buttons from the flow layout panel.
+            // Clear any existing controls from the flow layout panel.
             flowSectionSelect.Controls.Clear();
 
             foreach (var section in sections)
             {
+                // Create a RadioButton for each section.
                 RadioButton rb = new RadioButton
                 {
                     Appearance = Appearance.Button,
                     FlatStyle = FlatStyle.Flat,
                     BackColor = section.Color,
                     ForeColor = section.FontColor,
-
-                    //Text = section.TeamWait ? $"Team Wait {section.ID}" : $"Section {section.ID}",
                     Text = section.Name,
                     Tag = section  // Store the section object in the Tag property for easy access in the event handler.
                 };
                 rb.FlatAppearance.BorderSize = 0;
-                // Add the event handler for the CheckedChanged event.
                 rb.CheckedChanged += Rb_CheckedChanged;
 
-                flowSectionSelect.Controls.Add(rb);
+                // Create two labels for each section.
+                Label lblMaxCovers = new Label
+                {
+                    Text = section.MaxCovers.ToString(),
+                    AutoSize = false,
+                    Size = new Size(50, 25),
+                    Font = new Font("Segoe UI", 12F),
+                    TextAlign = ContentAlignment.TopCenter
+                    
+                };
+
+                Label lblAverageCovers = new Label
+                {
+                    Text = section.AverageCovers.ToString(),
+                    AutoSize = false,
+                    Size = new Size(50, 25),
+                    Font = new Font("Segoe UI", 12F),
+                    TextAlign = ContentAlignment.TopCenter
+                    
+                };
+
+                // Create a Panel to hold the RadioButton and two Labels.
+                Panel panel = new Panel();
+                panel.Controls.Add(rb);
+                panel.Controls.Add(lblMaxCovers);
+                panel.Controls.Add(lblAverageCovers);
+
+                // Here, you might want to adjust the layout within the panel.
+                // For simplicity, I'll just set their locations manually:
+                rb.Location = new Point(5, 5); // You can adjust these coordinates as needed.
+                lblMaxCovers.Location = new Point(rb.Right + 5, 5);
+                lblAverageCovers.Location = new Point(lblMaxCovers.Right + 5, 5);
+
+                // Adjust panel size to fit the controls (or set a predefined size).
+                panel.Size = new Size(lblAverageCovers.Right + 5, Math.Max(rb.Height, lblAverageCovers.Height) + 10);
+
+                sectionLabels[section] = (lblMaxCovers, lblAverageCovers);
+                // Add the panel to the flow layout panel.
+                flowSectionSelect.Controls.Add(panel);
             }
         }
-
+        private Dictionary<Section, (Label MaxCoversLabel, Label AverageCoversLabel)> sectionLabels = new Dictionary<Section, (Label, Label)>();
+        public void UpdateSectionLabels(Section section, int newMaxCoversValue, float newAverageCoversValue)
+        {
+            if (sectionLabels.ContainsKey(section))
+            {
+                sectionLabels[section].MaxCoversLabel.Text = newMaxCoversValue.ToString();
+                sectionLabels[section].AverageCoversLabel.Text = newAverageCoversValue.ToString();
+            }
+        }
         private void Rb_CheckedChanged(object sender, EventArgs e)
         {
             RadioButton rb = sender as RadioButton;

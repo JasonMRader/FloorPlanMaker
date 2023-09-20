@@ -160,9 +160,9 @@
             // 
             // flowSectionSelect
             // 
-            flowSectionSelect.Location = new Point(26, 284);
+            flowSectionSelect.Location = new Point(0, 284);
             flowSectionSelect.Name = "flowSectionSelect";
-            flowSectionSelect.Size = new Size(200, 626);
+            flowSectionSelect.Size = new Size(247, 626);
             flowSectionSelect.TabIndex = 9;
             // 
             // lblTeamWaitLabel
