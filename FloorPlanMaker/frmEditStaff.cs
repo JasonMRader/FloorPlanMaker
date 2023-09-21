@@ -38,8 +38,7 @@ namespace FloorPlanMaker
             clbAllServers.DisplayMember = "Name";
             //clbAllServers.ValueMember = Server;
 
-            lbServersOnShift.DataSource = staffManager.ServersOnShift;
-            lbServersOnShift.DisplayMember = "Name";
+
             //lbServersOnShift.ValueMember = "Value";
         }
 
@@ -53,11 +52,28 @@ namespace FloorPlanMaker
             foreach (Server server in clbAllServers.CheckedItems)
             {
                 staffManager.ServersOnShift.Add(server);
+                Button serverButton = CreateServerButton(server);
+                flowUnassignedServers.Controls.Add(serverButton);
             }
-            lbServersOnShift.DataSource = null;
-            lbServersOnShift.DataSource = staffManager.ServersOnShift;
-        }
 
+        }
+        private Button CreateServerButton(Server server)
+        {
+
+            Button b = new Button
+            {
+                Width = 150,
+                Height = 30,
+                AutoSize = false,
+                TextAlign = ContentAlignment.MiddleCenter,
+                Margin = new Padding(5),
+                Text = server.Name,
+                Tag = server
+            };
+
+
+            return b;
+        }
         private void btnAssignTables_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.OK;
@@ -75,35 +91,35 @@ namespace FloorPlanMaker
             if (selectedCount == 0)
                 return;
 
-            int width = 0;
-            int height = flowDiningAreaAssignment.Height / 2;
+            int width = flowDiningAreaAssignment.Width / selectedCount;
+            int height = 30;
 
-            switch (selectedCount)
-            {
-                case 1:
-                    width = flowDiningAreaAssignment.Width;
-                    break;
-                case 2:
-                case 4:
-                case 5:
-                case 6:
-                    width = flowDiningAreaAssignment.Width / 2;
-                    break;
-                case 3:
-                    width = flowDiningAreaAssignment.Width / 3;
-                    break;
-            }
+            //switch (selectedCount)
+            //{
+            //    case 1:
+            //        width = flowDiningAreaAssignment.Width;
+            //        break;
+            //    case 2:
+            //    case 4:
+            //    case 5:
+            //    case 6:
+            //        width = flowDiningAreaAssignment.Width / 2;
+            //        break;
+            //    case 3:
+            //        width = flowDiningAreaAssignment.Width / 3;
+            //        break;
+            //}
 
             for (int i = 0; i < selectedCount; i++)
             {
-                if (selectedCount == 5 && i < 3)
-                {
-                    width = flowDiningAreaAssignment.Width / 3;
-                }
-                else if (selectedCount == 5 && i == 3)
-                {
-                    width = flowDiningAreaAssignment.Width / 2;
-                }
+                //if (selectedCount == 5 && i < 3)
+                //{
+                //    width = flowDiningAreaAssignment.Width / 3;
+                //}
+                //else if (selectedCount == 5 && i == 3)
+                //{
+                //    width = flowDiningAreaAssignment.Width / 2;
+                //}
                 RadioButton rb = new RadioButton
                 {
                     Width = width,
@@ -118,7 +134,7 @@ namespace FloorPlanMaker
                 flowDiningAreaAssignment.Controls.Add(rb);
 
                 // For the scenario of 5 items: after adding 3 items on the top row, adjust width for the remaining 2 items
-                
+
             }
         }
 

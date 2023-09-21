@@ -30,21 +30,21 @@
         {
             btnAddNewServer = new Button();
             txtNewServerName = new TextBox();
-            btnRemove = new Button();
             btnAdd = new Button();
             btnAssignTables = new Button();
-            lbServersOnShift = new ListBox();
             clbAllServers = new CheckedListBox();
             clbDiningAreaSelection = new CheckedListBox();
             btnAssignAreas = new Button();
             flowDiningAreaAssignment = new FlowLayoutPanel();
+            flowUnassignedServers = new FlowLayoutPanel();
+            flowLayoutPanel1 = new FlowLayoutPanel();
             SuspendLayout();
             // 
             // btnAddNewServer
             // 
-            btnAddNewServer.Location = new Point(232, 12);
+            btnAddNewServer.Location = new Point(12, 935);
             btnAddNewServer.Name = "btnAddNewServer";
-            btnAddNewServer.Size = new Size(255, 23);
+            btnAddNewServer.Size = new Size(165, 23);
             btnAddNewServer.TabIndex = 1;
             btnAddNewServer.Text = "Add New Server";
             btnAddNewServer.UseVisualStyleBackColor = true;
@@ -52,25 +52,16 @@
             // 
             // txtNewServerName
             // 
-            txtNewServerName.Location = new Point(12, 9);
+            txtNewServerName.Location = new Point(12, 903);
             txtNewServerName.Name = "txtNewServerName";
-            txtNewServerName.Size = new Size(202, 23);
+            txtNewServerName.Size = new Size(165, 23);
             txtNewServerName.TabIndex = 2;
-            // 
-            // btnRemove
-            // 
-            btnRemove.Location = new Point(220, 105);
-            btnRemove.Name = "btnRemove";
-            btnRemove.Size = new Size(87, 23);
-            btnRemove.TabIndex = 3;
-            btnRemove.Text = "Remove From Shift";
-            btnRemove.UseVisualStyleBackColor = true;
             // 
             // btnAdd
             // 
-            btnAdd.Location = new Point(220, 76);
+            btnAdd.Location = new Point(12, 874);
             btnAdd.Name = "btnAdd";
-            btnAdd.Size = new Size(87, 23);
+            btnAdd.Size = new Size(165, 23);
             btnAdd.TabIndex = 3;
             btnAdd.Text = "Add To Shift";
             btnAdd.UseVisualStyleBackColor = true;
@@ -78,45 +69,37 @@
             // 
             // btnAssignTables
             // 
-            btnAssignTables.Location = new Point(12, 912);
+            btnAssignTables.Location = new Point(183, 912);
             btnAssignTables.Name = "btnAssignTables";
-            btnAssignTables.Size = new Size(1229, 46);
+            btnAssignTables.Size = new Size(1058, 46);
             btnAssignTables.TabIndex = 4;
             btnAssignTables.Text = "Assign Tables";
             btnAssignTables.UseVisualStyleBackColor = true;
             btnAssignTables.Click += btnAssignTables_Click;
             // 
-            // lbServersOnShift
-            // 
-            lbServersOnShift.FormattingEnabled = true;
-            lbServersOnShift.ItemHeight = 15;
-            lbServersOnShift.Location = new Point(313, 38);
-            lbServersOnShift.Name = "lbServersOnShift";
-            lbServersOnShift.Size = new Size(174, 379);
-            lbServersOnShift.TabIndex = 6;
-            // 
             // clbAllServers
             // 
             clbAllServers.CheckOnClick = true;
             clbAllServers.FormattingEnabled = true;
-            clbAllServers.Location = new Point(12, 38);
+            clbAllServers.Location = new Point(12, 234);
             clbAllServers.Name = "clbAllServers";
-            clbAllServers.Size = new Size(202, 382);
+            clbAllServers.Size = new Size(165, 634);
             clbAllServers.TabIndex = 7;
             // 
             // clbDiningAreaSelection
             // 
+            clbDiningAreaSelection.CheckOnClick = true;
             clbDiningAreaSelection.FormattingEnabled = true;
-            clbDiningAreaSelection.Location = new Point(521, 38);
+            clbDiningAreaSelection.Location = new Point(12, 38);
             clbDiningAreaSelection.Name = "clbDiningAreaSelection";
-            clbDiningAreaSelection.Size = new Size(156, 148);
+            clbDiningAreaSelection.Size = new Size(165, 148);
             clbDiningAreaSelection.TabIndex = 8;
             // 
             // btnAssignAreas
             // 
-            btnAssignAreas.Location = new Point(521, 192);
+            btnAssignAreas.Location = new Point(12, 201);
             btnAssignAreas.Name = "btnAssignAreas";
-            btnAssignAreas.Size = new Size(156, 23);
+            btnAssignAreas.Size = new Size(165, 23);
             btnAssignAreas.TabIndex = 9;
             btnAssignAreas.Text = "Assign Areas";
             btnAssignAreas.UseVisualStyleBackColor = true;
@@ -124,24 +107,38 @@
             // 
             // flowDiningAreaAssignment
             // 
-            flowDiningAreaAssignment.Location = new Point(704, 38);
+            flowDiningAreaAssignment.Location = new Point(195, 38);
             flowDiningAreaAssignment.Name = "flowDiningAreaAssignment";
             flowDiningAreaAssignment.Size = new Size(504, 90);
             flowDiningAreaAssignment.TabIndex = 10;
+            // 
+            // flowUnassignedServers
+            // 
+            flowUnassignedServers.Location = new Point(715, 38);
+            flowUnassignedServers.Name = "flowUnassignedServers";
+            flowUnassignedServers.Size = new Size(526, 868);
+            flowUnassignedServers.TabIndex = 11;
+            // 
+            // flowLayoutPanel1
+            // 
+            flowLayoutPanel1.Location = new Point(195, 148);
+            flowLayoutPanel1.Name = "flowLayoutPanel1";
+            flowLayoutPanel1.Size = new Size(504, 758);
+            flowLayoutPanel1.TabIndex = 12;
             // 
             // frmEditStaff
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1253, 970);
+            Controls.Add(flowLayoutPanel1);
+            Controls.Add(flowUnassignedServers);
             Controls.Add(flowDiningAreaAssignment);
             Controls.Add(btnAssignAreas);
             Controls.Add(clbDiningAreaSelection);
             Controls.Add(clbAllServers);
-            Controls.Add(lbServersOnShift);
             Controls.Add(btnAssignTables);
             Controls.Add(btnAdd);
-            Controls.Add(btnRemove);
             Controls.Add(txtNewServerName);
             Controls.Add(btnAddNewServer);
             Name = "frmEditStaff";
@@ -155,13 +152,13 @@
         #endregion
         private Button btnAddNewServer;
         private TextBox txtNewServerName;
-        private Button btnRemove;
         private Button btnAdd;
         private Button btnAssignTables;
-        private ListBox lbServersOnShift;
         private CheckedListBox clbAllServers;
         private CheckedListBox clbDiningAreaSelection;
         private Button btnAssignAreas;
         private FlowLayoutPanel flowDiningAreaAssignment;
+        private FlowLayoutPanel flowUnassignedServers;
+        private FlowLayoutPanel flowLayoutPanel1;
     }
 }
