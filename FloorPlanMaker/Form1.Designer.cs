@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             pnlServers = new Panel();
+            label12 = new Label();
+            clbDiningAreasForShift = new CheckedListBox();
             btnAddServers = new Button();
             label1 = new Label();
             pnlAddTables = new Panel();
@@ -74,6 +76,9 @@
             rdoSections = new RadioButton();
             rdoDiningAreas = new RadioButton();
             panel1 = new Panel();
+            btnAssignServersToSections = new Button();
+            btnFinalizeDiningAreas = new Button();
+            panel2 = new Panel();
             pnlServers.SuspendLayout();
             pnlAddTables.SuspendLayout();
             pnlSections.SuspendLayout();
@@ -85,6 +90,10 @@
             // pnlServers
             // 
             pnlServers.BackColor = SystemColors.GradientActiveCaption;
+            pnlServers.Controls.Add(panel2);
+            pnlServers.Controls.Add(btnFinalizeDiningAreas);
+            pnlServers.Controls.Add(label12);
+            pnlServers.Controls.Add(clbDiningAreasForShift);
             pnlServers.Controls.Add(btnAddServers);
             pnlServers.Controls.Add(label1);
             pnlServers.Dock = DockStyle.Left;
@@ -92,6 +101,24 @@
             pnlServers.Name = "pnlServers";
             pnlServers.Size = new Size(250, 970);
             pnlServers.TabIndex = 0;
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Location = new Point(3, 107);
+            label12.Name = "label12";
+            label12.Size = new Size(103, 15);
+            label12.TabIndex = 3;
+            label12.Text = "Dining Areas Used";
+            // 
+            // clbDiningAreasForShift
+            // 
+            clbDiningAreasForShift.CheckOnClick = true;
+            clbDiningAreasForShift.FormattingEnabled = true;
+            clbDiningAreasForShift.Location = new Point(3, 135);
+            clbDiningAreasForShift.Name = "clbDiningAreasForShift";
+            clbDiningAreasForShift.Size = new Size(232, 148);
+            clbDiningAreasForShift.TabIndex = 2;
             // 
             // btnAddServers
             // 
@@ -135,11 +162,12 @@
             pnlAddTables.Dock = DockStyle.Left;
             pnlAddTables.Location = new Point(250, 0);
             pnlAddTables.Name = "pnlAddTables";
-            pnlAddTables.Size = new Size(250, 970);
+            pnlAddTables.Size = new Size(271, 970);
             pnlAddTables.TabIndex = 1;
             // 
             // pnlSections
             // 
+            pnlSections.Controls.Add(btnAssignServersToSections);
             pnlSections.Controls.Add(cbLockNodes);
             pnlSections.Controls.Add(flowSectionSelect);
             pnlSections.Controls.Add(lblTeamWaitLabel);
@@ -155,17 +183,19 @@
             pnlSections.Controls.Add(lblDiningAreaAverageCovers);
             pnlSections.Controls.Add(label2);
             pnlSections.Controls.Add(label8);
+            pnlSections.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             pnlSections.Location = new Point(0, 37);
             pnlSections.Name = "pnlSections";
-            pnlSections.Size = new Size(247, 930);
+            pnlSections.Size = new Size(268, 930);
             pnlSections.TabIndex = 8;
             // 
             // cbLockNodes
             // 
             cbLockNodes.Appearance = Appearance.Button;
-            cbLockNodes.Location = new Point(3, 284);
+            cbLockNodes.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            cbLockNodes.Location = new Point(6, 221);
             cbLockNodes.Name = "cbLockNodes";
-            cbLockNodes.Size = new Size(241, 25);
+            cbLockNodes.Size = new Size(262, 34);
             cbLockNodes.TabIndex = 11;
             cbLockNodes.Text = "Draw Section Lines";
             cbLockNodes.TextAlign = ContentAlignment.MiddleCenter;
@@ -174,26 +204,28 @@
             // 
             // flowSectionSelect
             // 
-            flowSectionSelect.Location = new Point(0, 315);
+            flowSectionSelect.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            flowSectionSelect.Location = new Point(0, 293);
             flowSectionSelect.Name = "flowSectionSelect";
-            flowSectionSelect.Size = new Size(247, 612);
+            flowSectionSelect.Size = new Size(268, 634);
             flowSectionSelect.TabIndex = 9;
             // 
             // lblTeamWaitLabel
             // 
             lblTeamWaitLabel.AutoSize = true;
-            lblTeamWaitLabel.Location = new Point(46, 257);
+            lblTeamWaitLabel.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lblTeamWaitLabel.Location = new Point(51, 183);
             lblTeamWaitLabel.Name = "lblTeamWaitLabel";
-            lblTeamWaitLabel.Size = new Size(70, 15);
+            lblTeamWaitLabel.Size = new Size(95, 21);
             lblTeamWaitLabel.TabIndex = 8;
             lblTeamWaitLabel.Text = "How Many?";
             lblTeamWaitLabel.Visible = false;
             // 
             // nudNumberOfTeamWaits
             // 
-            nudNumberOfTeamWaits.Location = new Point(132, 255);
+            nudNumberOfTeamWaits.Location = new Point(152, 181);
             nudNumberOfTeamWaits.Name = "nudNumberOfTeamWaits";
-            nudNumberOfTeamWaits.Size = new Size(46, 23);
+            nudNumberOfTeamWaits.Size = new Size(46, 29);
             nudNumberOfTeamWaits.TabIndex = 7;
             nudNumberOfTeamWaits.Visible = false;
             nudNumberOfTeamWaits.ValueChanged += nudNumberOfTeamWaits_ValueChanged;
@@ -201,9 +233,10 @@
             // cbTeamWait
             // 
             cbTeamWait.AutoSize = true;
-            cbTeamWait.Location = new Point(29, 219);
+            cbTeamWait.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            cbTeamWait.Location = new Point(27, 155);
             cbTeamWait.Name = "cbTeamWait";
-            cbTeamWait.Size = new Size(155, 19);
+            cbTeamWait.Size = new Size(207, 25);
             cbTeamWait.TabIndex = 6;
             cbTeamWait.Text = "Add TeamWait Sections?";
             cbTeamWait.UseVisualStyleBackColor = true;
@@ -212,45 +245,49 @@
             // lblServerAverageCovers
             // 
             lblServerAverageCovers.AutoSize = true;
-            lblServerAverageCovers.Location = new Point(132, 171);
+            lblServerAverageCovers.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lblServerAverageCovers.Location = new Point(162, 119);
             lblServerAverageCovers.Name = "lblServerAverageCovers";
-            lblServerAverageCovers.Size = new Size(13, 15);
+            lblServerAverageCovers.Size = new Size(19, 21);
             lblServerAverageCovers.TabIndex = 5;
             lblServerAverageCovers.Text = "0";
             // 
             // lblServerMaxCovers
             // 
             lblServerMaxCovers.AutoSize = true;
-            lblServerMaxCovers.Location = new Point(132, 136);
+            lblServerMaxCovers.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lblServerMaxCovers.Location = new Point(162, 98);
             lblServerMaxCovers.Name = "lblServerMaxCovers";
-            lblServerMaxCovers.Size = new Size(13, 15);
+            lblServerMaxCovers.Size = new Size(19, 21);
             lblServerMaxCovers.TabIndex = 5;
             lblServerMaxCovers.Text = "0";
             // 
             // label11
             // 
             label11.AutoSize = true;
-            label11.Location = new Point(28, 171);
+            label11.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label11.Location = new Point(23, 119);
             label11.Name = "label11";
-            label11.Size = new Size(86, 15);
+            label11.Size = new Size(123, 21);
             label11.TabIndex = 4;
             label11.Text = "Avg Per Server:";
             // 
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(28, 136);
+            label10.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label10.Location = new Point(21, 98);
             label10.Name = "label10";
-            label10.Size = new Size(88, 15);
+            label10.Size = new Size(125, 21);
             label10.TabIndex = 4;
             label10.Text = "Max Per Server:";
             // 
             // nudServerCount
             // 
-            nudServerCount.Location = new Point(132, 96);
+            nudServerCount.Location = new Point(162, 51);
             nudServerCount.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             nudServerCount.Name = "nudServerCount";
-            nudServerCount.Size = new Size(46, 23);
+            nudServerCount.Size = new Size(46, 29);
             nudServerCount.TabIndex = 3;
             nudServerCount.Value = new decimal(new int[] { 1, 0, 0, 0 });
             nudServerCount.ValueChanged += nudServerCount_ValueChanged;
@@ -258,45 +295,50 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(69, 98);
+            label9.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label9.Location = new Point(77, 51);
             label9.Name = "label9";
-            label9.Size = new Size(47, 15);
+            label9.Size = new Size(69, 21);
             label9.TabIndex = 2;
             label9.Text = "Servers:";
             // 
             // lblDiningAreaMaxCovers
             // 
             lblDiningAreaMaxCovers.AutoSize = true;
-            lblDiningAreaMaxCovers.Location = new Point(132, 29);
+            lblDiningAreaMaxCovers.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lblDiningAreaMaxCovers.Location = new Point(162, 9);
             lblDiningAreaMaxCovers.Name = "lblDiningAreaMaxCovers";
-            lblDiningAreaMaxCovers.Size = new Size(13, 15);
+            lblDiningAreaMaxCovers.Size = new Size(19, 21);
             lblDiningAreaMaxCovers.TabIndex = 1;
             lblDiningAreaMaxCovers.Text = "0";
             // 
             // lblDiningAreaAverageCovers
             // 
             lblDiningAreaAverageCovers.AutoSize = true;
-            lblDiningAreaAverageCovers.Location = new Point(132, 64);
+            lblDiningAreaAverageCovers.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lblDiningAreaAverageCovers.Location = new Point(162, 30);
             lblDiningAreaAverageCovers.Name = "lblDiningAreaAverageCovers";
-            lblDiningAreaAverageCovers.Size = new Size(13, 15);
+            lblDiningAreaAverageCovers.Size = new Size(19, 21);
             lblDiningAreaAverageCovers.TabIndex = 0;
             lblDiningAreaAverageCovers.Text = "0";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(24, 64);
+            label2.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label2.Location = new Point(17, 30);
             label2.Name = "label2";
-            label2.Size = new Size(92, 15);
+            label2.Size = new Size(129, 21);
             label2.TabIndex = 0;
             label2.Text = "Average Covers:";
             // 
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(44, 29);
+            label8.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label8.Location = new Point(47, 9);
             label8.Name = "label8";
-            label8.Size = new Size(72, 15);
+            label8.Size = new Size(99, 21);
             label8.TabIndex = 0;
             label8.Text = "Max Covers:";
             // 
@@ -443,7 +485,7 @@
             // txtDiningAreaName
             // 
             txtDiningAreaName.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            txtDiningAreaName.Location = new Point(734, 37);
+            txtDiningAreaName.Location = new Point(766, 40);
             txtDiningAreaName.Name = "txtDiningAreaName";
             txtDiningAreaName.Size = new Size(228, 35);
             txtDiningAreaName.TabIndex = 3;
@@ -451,13 +493,14 @@
             // 
             // btnCreateNewDiningArea
             // 
-            btnCreateNewDiningArea.Location = new Point(968, 8);
+            btnCreateNewDiningArea.Location = new Point(1000, 7);
             btnCreateNewDiningArea.Name = "btnCreateNewDiningArea";
             btnCreateNewDiningArea.Size = new Size(154, 23);
             btnCreateNewDiningArea.TabIndex = 5;
             btnCreateNewDiningArea.Text = "Create New Dining Area";
             btnCreateNewDiningArea.UseVisualStyleBackColor = true;
             btnCreateNewDiningArea.Visible = false;
+            btnCreateNewDiningArea.Click += btnCreateNewDiningArea_Click;
             // 
             // btnSaveDiningArea
             // 
@@ -473,7 +516,7 @@
             // cboDiningAreas
             // 
             cboDiningAreas.FormattingEnabled = true;
-            cboDiningAreas.Location = new Point(734, 4);
+            cboDiningAreas.Location = new Point(766, 7);
             cboDiningAreas.Name = "cboDiningAreas";
             cboDiningAreas.Size = new Size(228, 23);
             cboDiningAreas.TabIndex = 7;
@@ -482,7 +525,7 @@
             // rbInside
             // 
             rbInside.AutoSize = true;
-            rbInside.Location = new Point(968, 37);
+            rbInside.Location = new Point(1018, 36);
             rbInside.Name = "rbInside";
             rbInside.Size = new Size(56, 19);
             rbInside.TabIndex = 8;
@@ -494,7 +537,7 @@
             // rbOutside
             // 
             rbOutside.AutoSize = true;
-            rbOutside.Location = new Point(968, 53);
+            rbOutside.Location = new Point(1018, 52);
             rbOutside.Name = "rbOutside";
             rbOutside.Size = new Size(66, 19);
             rbOutside.TabIndex = 8;
@@ -546,10 +589,35 @@
             // 
             panel1.Controls.Add(rdoSections);
             panel1.Controls.Add(rdoDiningAreas);
-            panel1.Location = new Point(503, 1);
+            panel1.Location = new Point(535, 0);
             panel1.Name = "panel1";
             panel1.Size = new Size(225, 36);
             panel1.TabIndex = 11;
+            // 
+            // btnAssignServersToSections
+            // 
+            btnAssignServersToSections.Location = new Point(6, 261);
+            btnAssignServersToSections.Name = "btnAssignServersToSections";
+            btnAssignServersToSections.Size = new Size(262, 32);
+            btnAssignServersToSections.TabIndex = 12;
+            btnAssignServersToSections.Text = "Assign Servers To Sections";
+            btnAssignServersToSections.UseVisualStyleBackColor = true;
+            // 
+            // btnFinalizeDiningAreas
+            // 
+            btnFinalizeDiningAreas.Location = new Point(3, 289);
+            btnFinalizeDiningAreas.Name = "btnFinalizeDiningAreas";
+            btnFinalizeDiningAreas.Size = new Size(232, 33);
+            btnFinalizeDiningAreas.TabIndex = 4;
+            btnFinalizeDiningAreas.Text = "Use These Areas";
+            btnFinalizeDiningAreas.UseVisualStyleBackColor = true;
+            // 
+            // panel2
+            // 
+            panel2.Location = new Point(3, 385);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(247, 180);
+            panel2.TabIndex = 5;
             // 
             // Form1
             // 
@@ -631,5 +699,10 @@
         private RadioButton rdoSections;
         private RadioButton rdoDiningAreas;
         private Panel panel1;
+        private Label label12;
+        private CheckedListBox clbDiningAreasForShift;
+        private Button btnFinalizeDiningAreas;
+        private Button btnAssignServersToSections;
+        private Panel panel2;
     }
 }

@@ -7,7 +7,7 @@ namespace FloorPlanMaker
         //List<DiningArea> areaList = new List<DiningArea>();
         DiningAreaCreationManager areaManager = new DiningAreaCreationManager();
         StaffManager staffManager = new StaffManager();
-        private FloorplanManager FloorplanManager;
+        private ShiftManager ShiftManager;
         private int LastTableNumberSelected;
         private TableControl currentEmphasizedTable = null;
         private DrawingHandler drawingHandler;
@@ -30,6 +30,12 @@ namespace FloorPlanMaker
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            foreach (DiningArea diningArea in areaManager.DiningAreas)
+            {
+                clbDiningAreasForShift.Items.Add(diningArea);
+
+            }
+
 
             cboDiningAreas.DataSource = areaManager.DiningAreas;
             cboDiningAreas.DisplayMember = "Name";
@@ -84,16 +90,16 @@ namespace FloorPlanMaker
             TableControl clickedTableControl = sender as TableControl;
             if (rdoSections.Checked)
             {
-                if (FloorplanManager.SectionSelected != null)
+                if (ShiftManager.SectionSelected != null)
                 {
-                    FloorplanManager.SectionSelected.Tables.Add(clickedTable);
+                    ShiftManager.SectionSelected.Tables.Add(clickedTable);
 
                     // 2. Fill the table control with the FloorplanManager.SectionSelected.Color
-                    clickedTableControl.BackColor = FloorplanManager.SectionSelected.Color;
+                    clickedTableControl.BackColor = ShiftManager.SectionSelected.Color;
 
                     // Optionally, you can invalidate the control to request a redraw if needed.
                     clickedTableControl.Invalidate();
-                    UpdateSectionLabels(FloorplanManager.SectionSelected, FloorplanManager.SectionSelected.MaxCovers, FloorplanManager.SectionSelected.AverageCovers);
+                    UpdateSectionLabels(ShiftManager.SectionSelected, ShiftManager.SectionSelected.MaxCovers, ShiftManager.SectionSelected.AverageCovers);
                 }
 
             }
@@ -121,7 +127,7 @@ namespace FloorPlanMaker
 
         }
 
-        
+
 
         private void btnSaveDiningArea_Click(object sender, EventArgs e)
         {
@@ -170,7 +176,7 @@ namespace FloorPlanMaker
                 pnlFloorPlan.Controls.Add(tableControl);
             }
             lblPanel2Text.Text = areaManager.DiningAreaSelected.Name;
-            this.FloorplanManager = new FloorplanManager(areaManager.DiningAreaSelected);
+            this.ShiftManager = new ShiftManager(areaManager.DiningAreaSelected);
         }
 
 
@@ -315,7 +321,7 @@ namespace FloorPlanMaker
             form.ShowDialog();
             if (form.DialogResult == DialogResult.OK)
             {
-
+                ShiftManager.ServersOnShift = staffManager.ServersOnShift;
             }
         }
 
@@ -323,8 +329,8 @@ namespace FloorPlanMaker
         {
             if (nudServerCount.Value > 0)
             {
-                lblServerMaxCovers.Text = (FloorplanManager.DiningArea.GetMaxCovers() / (float)nudServerCount.Value).ToString("F1");
-                lblServerAverageCovers.Text = (FloorplanManager.DiningArea.GetAverageCovers() / (float)nudServerCount.Value).ToString("F1");
+                lblServerMaxCovers.Text = (ShiftManager.SelectedDiningArea.GetMaxCovers() / (float)nudServerCount.Value).ToString("F1");
+                lblServerAverageCovers.Text = (ShiftManager.SelectedDiningArea.GetAverageCovers() / (float)nudServerCount.Value).ToString("F1");
                 List<Section> sections = GetSections();
                 CreateSectionRadioButtons(sections);
             }
@@ -425,7 +431,7 @@ namespace FloorPlanMaker
                     BackColor = section.Color,
                     ForeColor = section.FontColor,
                     AutoSize = false,
-                    Size = new Size(85, 25),
+                    Size = new Size(95, 25),
                     Text = section.Name,
                     Tag = section  // Store the section object in the Tag property for easy access in the event handler.
                 };
@@ -455,12 +461,13 @@ namespace FloorPlanMaker
 
                 };
 
-               
+
                 RadioButton rbCloser = new RadioButton
                 {
                     Text = "CLS",
                     AutoSize = false,
                     Size = new Size(40, 25),
+                    Font = new Font("Segoe UI", 10F),
                     FlatStyle = FlatStyle.Flat,
                     BackColor = section.Color,
                     ForeColor = section.FontColor,
@@ -474,10 +481,12 @@ namespace FloorPlanMaker
                     Text = "PRE",
                     AutoSize = false,
                     Size = new Size(40, 25),
+                    Font = new Font("Segoe UI", 10F),
                     FlatStyle = FlatStyle.Flat,
                     BackColor = section.Color,
                     ForeColor = section.FontColor,
-                    Appearance = Appearance.Button
+                    Appearance = Appearance.Button,
+                    Margin = new Padding(0)
                 };
                 rbPrecloser.CheckedChanged += RbPrecloser_CheckedChanged;
 
@@ -492,10 +501,10 @@ namespace FloorPlanMaker
                 precloserButtons.Add(rbPrecloser);
 
                 // Adjust locations and add to the panel.
-                
+
                 //rbNeither.Location = new Point(rbPrecloser.Right + 5, 5);
 
-                
+
                 Panel panel = new Panel();
 
                 panel.Controls.Add(rb);
@@ -510,7 +519,7 @@ namespace FloorPlanMaker
                 rb.Location = new Point(5, 5); // You can adjust these coordinates as needed.
                 lblMaxCovers.Location = new Point(rb.Right + 5, 5);
                 lblAverageCovers.Location = new Point(lblMaxCovers.Right + 5, 5);
-                
+
                 rbCloser.Location = new Point(lblAverageCovers.Right + 10, 5);
                 rbPrecloser.Location = new Point(rbCloser.Right + 5, 5);
                 // Adjust panel size to fit the controls (or set a predefined size).
@@ -563,7 +572,7 @@ namespace FloorPlanMaker
                 Section selectedSection = rb.Tag as Section;
                 if (selectedSection != null)
                 {
-                    FloorplanManager.SectionSelected = selectedSection;
+                    ShiftManager.SectionSelected = selectedSection;
                 }
             }
         }
@@ -594,9 +603,9 @@ namespace FloorPlanMaker
             {
                 pnlSections.Visible = true;
                 lblPanel2Text.Text = areaManager.DiningAreaSelected.Name;
-                this.FloorplanManager = new FloorplanManager(areaManager.DiningAreaSelected);
-                lblDiningAreaMaxCovers.Text = FloorplanManager.DiningArea.GetMaxCovers().ToString();
-                lblDiningAreaAverageCovers.Text = FloorplanManager.DiningArea.GetAverageCovers().ToString();
+                this.ShiftManager = new ShiftManager(areaManager.DiningAreaSelected);
+                lblDiningAreaMaxCovers.Text = ShiftManager.SelectedDiningArea.GetMaxCovers().ToString();
+                lblDiningAreaAverageCovers.Text = ShiftManager.SelectedDiningArea.GetAverageCovers().ToString();
                 foreach (Control control in pnlFloorPlan.Controls)
                 {
                     if (control is TableControl tableControl)
@@ -636,6 +645,11 @@ namespace FloorPlanMaker
                     }
                 }
             }
+        }
+
+        private void btnCreateNewDiningArea_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

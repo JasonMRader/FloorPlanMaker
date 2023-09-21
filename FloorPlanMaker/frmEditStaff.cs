@@ -15,6 +15,7 @@ namespace FloorPlanMaker
     {
         //public List<Server> AllServers = new List<Server>();
         public StaffManager staffManager;
+        private DiningAreaCreationManager DiningAreaManager = new DiningAreaCreationManager();
         public frmEditStaff(StaffManager staffManager)
         {
             InitializeComponent();
@@ -31,6 +32,8 @@ namespace FloorPlanMaker
 
         private void frmEditStaff_Load(object sender, EventArgs e)
         {
+            clbDiningAreaSelection.DataSource = DiningAreaManager.DiningAreas;
+
             clbAllServers.DataSource = staffManager.AllServers;
             clbAllServers.DisplayMember = "Name";
             //clbAllServers.ValueMember = Server;
@@ -59,6 +62,65 @@ namespace FloorPlanMaker
         {
             this.DialogResult = DialogResult.OK;
             this.Close();
+
         }
+
+        private void btnAssignAreas_Click(object sender, EventArgs e)
+        {
+            // Clearing any previous controls (radio buttons)
+            flowDiningAreaAssignment.Controls.Clear();
+
+            int selectedCount = clbDiningAreaSelection.CheckedItems.Count;
+
+            if (selectedCount == 0)
+                return;
+
+            int width = 0;
+            int height = flowDiningAreaAssignment.Height / 2;
+
+            switch (selectedCount)
+            {
+                case 1:
+                    width = flowDiningAreaAssignment.Width;
+                    break;
+                case 2:
+                case 4:
+                case 5:
+                case 6:
+                    width = flowDiningAreaAssignment.Width / 2;
+                    break;
+                case 3:
+                    width = flowDiningAreaAssignment.Width / 3;
+                    break;
+            }
+
+            for (int i = 0; i < selectedCount; i++)
+            {
+                if (selectedCount == 5 && i < 3)
+                {
+                    width = flowDiningAreaAssignment.Width / 3;
+                }
+                else if (selectedCount == 5 && i == 3)
+                {
+                    width = flowDiningAreaAssignment.Width / 2;
+                }
+                RadioButton rb = new RadioButton
+                {
+                    Width = width,
+                    Height = height,
+                    Appearance = Appearance.Button,
+                    AutoSize = false,
+                    TextAlign = ContentAlignment.MiddleCenter,
+                    Margin = new Padding(0),
+                    Text = ((DiningArea)clbDiningAreaSelection.CheckedItems[i]).Name
+                };
+
+                flowDiningAreaAssignment.Controls.Add(rb);
+
+                // For the scenario of 5 items: after adding 3 items on the top row, adjust width for the remaining 2 items
+                
+            }
+        }
+
     }
 }
