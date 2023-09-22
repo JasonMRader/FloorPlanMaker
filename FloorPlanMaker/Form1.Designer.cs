@@ -29,12 +29,11 @@
         private void InitializeComponent()
         {
             pnlServers = new Panel();
-            label12 = new Label();
-            clbDiningAreasForShift = new CheckedListBox();
             btnAddServers = new Button();
             label1 = new Label();
             pnlAddTables = new Panel();
             pnlSections = new Panel();
+            btnAssignServersToSections = new Button();
             cbLockNodes = new CheckBox();
             flowSectionSelect = new FlowLayoutPanel();
             lblTeamWaitLabel = new Label();
@@ -76,9 +75,6 @@
             rdoSections = new RadioButton();
             rdoDiningAreas = new RadioButton();
             panel1 = new Panel();
-            btnAssignServersToSections = new Button();
-            btnFinalizeDiningAreas = new Button();
-            panel2 = new Panel();
             pnlServers.SuspendLayout();
             pnlAddTables.SuspendLayout();
             pnlSections.SuspendLayout();
@@ -90,10 +86,6 @@
             // pnlServers
             // 
             pnlServers.BackColor = SystemColors.GradientActiveCaption;
-            pnlServers.Controls.Add(panel2);
-            pnlServers.Controls.Add(btnFinalizeDiningAreas);
-            pnlServers.Controls.Add(label12);
-            pnlServers.Controls.Add(clbDiningAreasForShift);
             pnlServers.Controls.Add(btnAddServers);
             pnlServers.Controls.Add(label1);
             pnlServers.Dock = DockStyle.Left;
@@ -101,24 +93,6 @@
             pnlServers.Name = "pnlServers";
             pnlServers.Size = new Size(250, 970);
             pnlServers.TabIndex = 0;
-            // 
-            // label12
-            // 
-            label12.AutoSize = true;
-            label12.Location = new Point(3, 107);
-            label12.Name = "label12";
-            label12.Size = new Size(103, 15);
-            label12.TabIndex = 3;
-            label12.Text = "Dining Areas Used";
-            // 
-            // clbDiningAreasForShift
-            // 
-            clbDiningAreasForShift.CheckOnClick = true;
-            clbDiningAreasForShift.FormattingEnabled = true;
-            clbDiningAreasForShift.Location = new Point(3, 135);
-            clbDiningAreasForShift.Name = "clbDiningAreasForShift";
-            clbDiningAreasForShift.Size = new Size(232, 148);
-            clbDiningAreasForShift.TabIndex = 2;
             // 
             // btnAddServers
             // 
@@ -188,6 +162,15 @@
             pnlSections.Name = "pnlSections";
             pnlSections.Size = new Size(268, 930);
             pnlSections.TabIndex = 8;
+            // 
+            // btnAssignServersToSections
+            // 
+            btnAssignServersToSections.Location = new Point(6, 261);
+            btnAssignServersToSections.Name = "btnAssignServersToSections";
+            btnAssignServersToSections.Size = new Size(262, 32);
+            btnAssignServersToSections.TabIndex = 12;
+            btnAssignServersToSections.Text = "Assign Servers To Sections";
+            btnAssignServersToSections.UseVisualStyleBackColor = true;
             // 
             // cbLockNodes
             // 
@@ -594,31 +577,6 @@
             panel1.Size = new Size(225, 36);
             panel1.TabIndex = 11;
             // 
-            // btnAssignServersToSections
-            // 
-            btnAssignServersToSections.Location = new Point(6, 261);
-            btnAssignServersToSections.Name = "btnAssignServersToSections";
-            btnAssignServersToSections.Size = new Size(262, 32);
-            btnAssignServersToSections.TabIndex = 12;
-            btnAssignServersToSections.Text = "Assign Servers To Sections";
-            btnAssignServersToSections.UseVisualStyleBackColor = true;
-            // 
-            // btnFinalizeDiningAreas
-            // 
-            btnFinalizeDiningAreas.Location = new Point(3, 289);
-            btnFinalizeDiningAreas.Name = "btnFinalizeDiningAreas";
-            btnFinalizeDiningAreas.Size = new Size(232, 33);
-            btnFinalizeDiningAreas.TabIndex = 4;
-            btnFinalizeDiningAreas.Text = "Use These Areas";
-            btnFinalizeDiningAreas.UseVisualStyleBackColor = true;
-            // 
-            // panel2
-            // 
-            panel2.Location = new Point(3, 385);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(247, 180);
-            panel2.TabIndex = 5;
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -636,6 +594,7 @@
             Controls.Add(pnlAddTables);
             Controls.Add(pnlServers);
             Name = "Form1";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Form1";
             Load += Form1_Load;
             pnlServers.ResumeLayout(false);
@@ -699,10 +658,6 @@
         private RadioButton rdoSections;
         private RadioButton rdoDiningAreas;
         private Panel panel1;
-        private Label label12;
-        private CheckedListBox clbDiningAreasForShift;
-        private Button btnFinalizeDiningAreas;
         private Button btnAssignServersToSections;
-        private Panel panel2;
     }
 }

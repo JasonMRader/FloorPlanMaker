@@ -30,11 +30,7 @@ namespace FloorPlanMaker
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            foreach (DiningArea diningArea in areaManager.DiningAreas)
-            {
-                clbDiningAreasForShift.Items.Add(diningArea);
 
-            }
 
 
             cboDiningAreas.DataSource = areaManager.DiningAreas;

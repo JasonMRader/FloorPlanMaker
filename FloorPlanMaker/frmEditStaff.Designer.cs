@@ -37,7 +37,7 @@
             btnAssignAreas = new Button();
             flowDiningAreaAssignment = new FlowLayoutPanel();
             flowUnassignedServers = new FlowLayoutPanel();
-            flowLayoutPanel1 = new FlowLayoutPanel();
+            cbUnassignedServers = new CheckBox();
             SuspendLayout();
             // 
             // btnAddNewServer
@@ -109,29 +109,34 @@
             // 
             flowDiningAreaAssignment.Location = new Point(195, 38);
             flowDiningAreaAssignment.Name = "flowDiningAreaAssignment";
-            flowDiningAreaAssignment.Size = new Size(504, 90);
+            flowDiningAreaAssignment.Size = new Size(680, 868);
             flowDiningAreaAssignment.TabIndex = 10;
             // 
             // flowUnassignedServers
             // 
-            flowUnassignedServers.Location = new Point(715, 38);
+            flowUnassignedServers.Location = new Point(881, 74);
             flowUnassignedServers.Name = "flowUnassignedServers";
-            flowUnassignedServers.Size = new Size(526, 868);
+            flowUnassignedServers.Size = new Size(360, 832);
             flowUnassignedServers.TabIndex = 11;
             // 
-            // flowLayoutPanel1
+            // cbUnassignedServers
             // 
-            flowLayoutPanel1.Location = new Point(195, 148);
-            flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(504, 758);
-            flowLayoutPanel1.TabIndex = 12;
+            cbUnassignedServers.Appearance = Appearance.Button;
+            cbUnassignedServers.Location = new Point(881, 38);
+            cbUnassignedServers.Name = "cbUnassignedServers";
+            cbUnassignedServers.Size = new Size(360, 30);
+            cbUnassignedServers.TabIndex = 12;
+            cbUnassignedServers.Text = "Unassigned Servers";
+            cbUnassignedServers.TextAlign = ContentAlignment.MiddleCenter;
+            cbUnassignedServers.UseVisualStyleBackColor = true;
+            cbUnassignedServers.CheckedChanged += cbUnassignedServers_CheckedChanged;
             // 
             // frmEditStaff
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1253, 970);
-            Controls.Add(flowLayoutPanel1);
+            Controls.Add(cbUnassignedServers);
             Controls.Add(flowUnassignedServers);
             Controls.Add(flowDiningAreaAssignment);
             Controls.Add(btnAssignAreas);
@@ -142,7 +147,7 @@
             Controls.Add(txtNewServerName);
             Controls.Add(btnAddNewServer);
             Name = "frmEditStaff";
-            StartPosition = FormStartPosition.CenterScreen;
+            StartPosition = FormStartPosition.CenterParent;
             Text = "frmEditStaff";
             Load += frmEditStaff_Load;
             ResumeLayout(false);
@@ -159,6 +164,6 @@
         private Button btnAssignAreas;
         private FlowLayoutPanel flowDiningAreaAssignment;
         private FlowLayoutPanel flowUnassignedServers;
-        private FlowLayoutPanel flowLayoutPanel1;
+        private CheckBox cbUnassignedServers;
     }
 }
