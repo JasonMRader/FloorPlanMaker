@@ -15,12 +15,14 @@ namespace FloorPlanMaker
     {
         //public List<Server> AllServers = new List<Server>();
         public StaffManager staffManager;
-        private ShiftManager shiftManager = new ShiftManager();
+        public ShiftManager shiftManager;
         private DiningAreaCreationManager DiningAreaManager = new DiningAreaCreationManager();
-        public frmEditStaff(StaffManager staffManager)
+        public frmEditStaff(StaffManager staffManager, ShiftManager shiftManager)
         {
             InitializeComponent();
             this.staffManager = staffManager;
+            this.shiftManager = shiftManager;
+
         }
 
         private void btnAddNewServer_Click(object sender, EventArgs e)
@@ -80,11 +82,11 @@ namespace FloorPlanMaker
         }
         private void ServerButton_Click(object sender, EventArgs e)
         {
-            
+
             Button serverButton = sender as Button;
             if (serverButton == null) return;
 
-            Server server = (Server)serverButton.Tag;           
+            Server server = (Server)serverButton.Tag;
 
             if (shiftManager.UnassignedServers.Contains(server))
             {
@@ -95,7 +97,7 @@ namespace FloorPlanMaker
             }
             else
             {
-                foreach(Control c in flowDiningAreaAssignment.Controls)
+                foreach (Control c in flowDiningAreaAssignment.Controls)
                 {
                     if (c is FlowLayoutPanel flowLayoutPanel)
                     {
@@ -112,7 +114,7 @@ namespace FloorPlanMaker
                         }
                     }
                 }
-                
+
 
                 if (cbUnassignedServers.Checked)
                 {
@@ -124,7 +126,7 @@ namespace FloorPlanMaker
                 {
                     shiftManager.SelectedFloorplan.Servers.Add(server);
                 }
-                      
+
             }
             FlowLayoutPanel SelectedTargetPanel = null;
             foreach (Control control in flowDiningAreaAssignment.Controls)
@@ -236,7 +238,7 @@ namespace FloorPlanMaker
                     Width = width - 8,
                     Height = 30,
                     Margin = new Padding(4),
-                    Text = "Servers: " +  fp.Servers.Count.ToString(),
+                    Text = "Servers: " + fp.Servers.Count.ToString(),
                     TextAlign = ContentAlignment.MiddleCenter,
                     Font = new Font("Segoe UI", 12F),
                     Tag = fp
@@ -275,8 +277,8 @@ namespace FloorPlanMaker
                     }
                 }
             }
-            
-           
+
+
         }
         private void FloorplanRadioButton_CheckedChanged(object? sender, EventArgs e)
         {
@@ -302,7 +304,7 @@ namespace FloorPlanMaker
                 shiftManager.SelectedFloorplan = null;
             }
 
-            
+
         }
         //private void btnAssignAreas_Click(object sender, EventArgs e)
         //{

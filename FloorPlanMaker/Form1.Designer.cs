@@ -75,6 +75,7 @@
             rdoSections = new RadioButton();
             rdoDiningAreas = new RadioButton();
             panel1 = new Panel();
+            flowServersInFloorplan = new FlowLayoutPanel();
             pnlServers.SuspendLayout();
             pnlAddTables.SuspendLayout();
             pnlSections.SuspendLayout();
@@ -86,6 +87,7 @@
             // pnlServers
             // 
             pnlServers.BackColor = SystemColors.GradientActiveCaption;
+            pnlServers.Controls.Add(flowServersInFloorplan);
             pnlServers.Controls.Add(btnAddServers);
             pnlServers.Controls.Add(label1);
             pnlServers.Dock = DockStyle.Left;
@@ -577,6 +579,13 @@
             panel1.Size = new Size(225, 36);
             panel1.TabIndex = 11;
             // 
+            // flowServersInFloorplan
+            // 
+            flowServersInFloorplan.Location = new Point(12, 88);
+            flowServersInFloorplan.Name = "flowServersInFloorplan";
+            flowServersInFloorplan.Size = new Size(228, 876);
+            flowServersInFloorplan.TabIndex = 2;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -659,5 +668,6 @@
         private RadioButton rdoDiningAreas;
         private Panel panel1;
         private Button btnAssignServersToSections;
+        private FlowLayoutPanel flowServersInFloorplan;
     }
 }

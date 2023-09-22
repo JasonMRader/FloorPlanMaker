@@ -38,6 +38,7 @@
             flowDiningAreaAssignment = new FlowLayoutPanel();
             flowUnassignedServers = new FlowLayoutPanel();
             cbUnassignedServers = new CheckBox();
+            label1 = new Label();
             SuspendLayout();
             // 
             // btnAddNewServer
@@ -131,11 +132,22 @@
             cbUnassignedServers.UseVisualStyleBackColor = true;
             cbUnassignedServers.CheckedChanged += cbUnassignedServers_CheckedChanged;
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.ForeColor = Color.FromArgb(255, 192, 192);
+            label1.Location = new Point(195, 9);
+            label1.Name = "label1";
+            label1.Size = new Size(245, 15);
+            label1.TabIndex = 13;
+            label1.Text = "*****Add Covers per Server for each floorplan";
+            // 
             // frmEditStaff
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1253, 970);
+            Controls.Add(label1);
             Controls.Add(cbUnassignedServers);
             Controls.Add(flowUnassignedServers);
             Controls.Add(flowDiningAreaAssignment);
@@ -165,5 +177,6 @@
         private FlowLayoutPanel flowDiningAreaAssignment;
         private FlowLayoutPanel flowUnassignedServers;
         private CheckBox cbUnassignedServers;
+        private Label label1;
     }
 }

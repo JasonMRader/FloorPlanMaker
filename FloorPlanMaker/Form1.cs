@@ -159,6 +159,7 @@ namespace FloorPlanMaker
 
         private void cboDiningAreas_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //ShiftManager.SelectedFloorplan = ShiftManager.Floorplans.FirstOrDefault(fp => fp.DiningArea == (DiningArea)cboDiningAreas.SelectedItem);
 
             areaManager.DiningAreaSelected = (DiningArea?)cboDiningAreas.SelectedItem;
             txtDiningAreaName.Text = areaManager.DiningAreaSelected.Name;
@@ -313,12 +314,41 @@ namespace FloorPlanMaker
 
         private void btnAddServers_Click(object sender, EventArgs e)
         {
-            Form form = new frmEditStaff(staffManager);
+            Form form = new frmEditStaff(staffManager, ShiftManager);
             form.ShowDialog();
             if (form.DialogResult == DialogResult.OK)
             {
                 ShiftManager.ServersOnShift = staffManager.ServersOnShift;
+                ShiftManager.SelectedFloorplan = ShiftManager.Floorplans.FirstOrDefault(fp => fp.DiningArea.ID == areaManager.DiningAreaSelected.ID);
+
+                foreach (Server s in ShiftManager.SelectedFloorplan.Servers)
+                {
+                    CheckBox cb = CreateServerButton(s);
+                    flowServersInFloorplan.Controls.Add(cb);
+                }
+
+
             }
+        }
+        private CheckBox CreateServerButton(Server server)
+        {
+
+            CheckBox cb = new CheckBox
+            {
+                Appearance = Appearance.Button,
+                Width = 150,
+                Height = 30,
+                AutoSize = false,
+                TextAlign = ContentAlignment.MiddleCenter,
+                Margin = new Padding(5),
+                Text = server.Name,
+                FlatStyle = FlatStyle.Flat,
+                BackColor = Color.LightBlue,
+                Tag = server
+            };
+
+            //b.Click += ServerButton_Click;
+            return cb;
         }
 
         private void nudServerCount_ValueChanged(object sender, EventArgs e)
