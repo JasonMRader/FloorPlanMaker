@@ -30,7 +30,7 @@ namespace FloorPlanMaker
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+
 
 
             cboDiningAreas.DataSource = areaManager.DiningAreas;
@@ -80,31 +80,35 @@ namespace FloorPlanMaker
 
             pnlFloorPlan.Controls.Add(table);
         }
+        
         private void ExistingTable_TableClicked(object sender, TableClickedEventArgs e)
         {
             Table clickedTable = e.ClickedTable;
             TableControl clickedTableControl = sender as TableControl;
-            if (e.MouseButton == MouseButtons.Right)
+            if (e.MouseButton == MouseButtons.Right && clickedTableControl.Section != null)
             {
-               
-                ShiftManager.SectionSelected.Tables.Remove(clickedTable); // Remove the table from the section
+                Section sectionEdited = (Section)clickedTableControl.Section;
+                //ShiftManager.SectionSelected.Tables.Remove(clickedTable); // Remove the table from the section
+
+                clickedTableControl.Section.Tables.Remove(clickedTable);
+                clickedTableControl.Section = null;
                 clickedTableControl.BackColor = pnlFloorPlan.BackColor;  // Restore the original color
                 clickedTableControl.Invalidate();
-                UpdateSectionLabels(ShiftManager.SectionSelected, ShiftManager.SectionSelected.MaxCovers, ShiftManager.SectionSelected.AverageCovers);
+                UpdateSectionLabels(sectionEdited, sectionEdited.MaxCovers, sectionEdited.AverageCovers);
                 //if (ShiftManager.SectionSelected != null && ShiftManager.SectionSelected.Tables.Contains(clickedTable))
                 //{
                 //    ShiftManager.SectionSelected.Tables.Remove(clickedTable);
                 //    clickedTableControl.BackColor = Color.Transparent;  
                 //    clickedTableControl.Invalidate();
                 //}
-                return;  
+                return;
             }
             if (rdoSections.Checked)
             {
                 if (ShiftManager.SectionSelected != null)
                 {
                     ShiftManager.SectionSelected.Tables.Add(clickedTable);
-
+                    clickedTableControl.Section = ShiftManager.SectionSelected;
                     // 2. Fill the table control with the FloorplanManager.SectionSelected.Color
                     clickedTableControl.BackColor = ShiftManager.SectionSelected.Color;
 
@@ -189,11 +193,11 @@ namespace FloorPlanMaker
             }
             lblPanel2Text.Text = areaManager.DiningAreaSelected.Name;
             this.ShiftManager.SelectedDiningArea = areaManager.DiningAreaSelected;
-            if (ShiftManager.Floorplans.Count > 0 )
+            if (ShiftManager.Floorplans.Count > 0)
             {
                 UpdateFloorplan();
             }
-           
+
 
         }
 
@@ -383,8 +387,8 @@ namespace FloorPlanMaker
             {
                 lblServerMaxCovers.Text = (ShiftManager.SelectedDiningArea.GetMaxCovers() / (float)nudServerCount.Value).ToString("F1");
                 lblServerAverageCovers.Text = (ShiftManager.SelectedDiningArea.GetAverageCovers() / (float)nudServerCount.Value).ToString("F1");
-                List<Section> sections = GetSections();
-                CreateSectionRadioButtons(sections);
+                ShiftManager.Sections = GetNumberOfSections();
+                CreateSectionRadioButtons(ShiftManager.Sections);
             }
 
         }
@@ -404,7 +408,7 @@ namespace FloorPlanMaker
                 lblTeamWaitLabel.Visible = false;
             }
         }
-        private List<Section> GetSections()
+        private List<Section> GetNumberOfSections()
         {
             int servers = (int)nudServerCount.Value;
             int teamWaitSections = (int)nudNumberOfTeamWaits.Value;
@@ -467,7 +471,13 @@ namespace FloorPlanMaker
         //}
         private List<RadioButton> closerButtons = new List<RadioButton>();
         private List<RadioButton> precloserButtons = new List<RadioButton>();
+        private RadioButton selectedSectionButton;
+        private RadioButton selectedCloserButton;
+        private RadioButton selectedPreCloserButton;
+        private void UpdateFloorplanSection()
+        {
 
+        }
         private void CreateSectionRadioButtons(List<Section> sections)
         {
             // Clear any existing controls from the flow layout panel.
@@ -476,7 +486,7 @@ namespace FloorPlanMaker
             foreach (var section in sections)
             {
                 // Create a RadioButton for each section.
-                RadioButton rb = new RadioButton
+                RadioButton rbSection = new RadioButton
                 {
                     Appearance = Appearance.Button,
                     FlatStyle = FlatStyle.Flat,
@@ -487,8 +497,8 @@ namespace FloorPlanMaker
                     Text = section.Name,
                     Tag = section  // Store the section object in the Tag property for easy access in the event handler.
                 };
-                rb.FlatAppearance.BorderSize = 0;
-                rb.CheckedChanged += Rb_CheckedChanged;
+                rbSection.FlatAppearance.BorderSize = 0;
+                rbSection.CheckedChanged += Rb_CheckedChanged;
 
                 // Create two labels for each section.
                 Label lblMaxCovers = new Label
@@ -559,7 +569,7 @@ namespace FloorPlanMaker
 
                 Panel panel = new Panel();
 
-                panel.Controls.Add(rb);
+                panel.Controls.Add(rbSection);
                 panel.Controls.Add(lblMaxCovers);
                 panel.Controls.Add(lblAverageCovers);
                 panel.Controls.Add(rbCloser);
@@ -568,52 +578,18 @@ namespace FloorPlanMaker
 
                 // Here, you might want to adjust the layout within the panel.
                 // For simplicity, I'll just set their locations manually:
-                rb.Location = new Point(5, 5); // You can adjust these coordinates as needed.
-                lblMaxCovers.Location = new Point(rb.Right + 5, 5);
+                rbSection.Location = new Point(5, 5); // You can adjust these coordinates as needed.
+                lblMaxCovers.Location = new Point(rbSection.Right + 5, 5);
                 lblAverageCovers.Location = new Point(lblMaxCovers.Right + 5, 5);
 
                 rbCloser.Location = new Point(lblAverageCovers.Right + 10, 5);
                 rbPrecloser.Location = new Point(rbCloser.Right + 5, 5);
                 // Adjust panel size to fit the controls (or set a predefined size).
-                panel.Size = new Size(rbPrecloser.Right + 5, Math.Max(rb.Height, lblAverageCovers.Height) + 10);
+                panel.Size = new Size(rbPrecloser.Right + 5, Math.Max(rbSection.Height, lblAverageCovers.Height) + 10);
 
                 sectionLabels[section] = (lblMaxCovers, lblAverageCovers);
                 // Add the panel to the flow layout panel.
                 flowSectionSelect.Controls.Add(panel);
-            }
-        }
-        private void RbCloser_CheckedChanged(object sender, EventArgs e)
-        {
-            RadioButton rb = sender as RadioButton;
-            if (rb.Checked)
-            {
-                foreach (var otherRb in closerButtons)
-                {
-                    if (otherRb != rb)
-                        otherRb.Checked = false;
-                }
-            }
-        }
-
-        private void RbPrecloser_CheckedChanged(object sender, EventArgs e)
-        {
-            RadioButton rb = sender as RadioButton;
-            if (rb.Checked)
-            {
-                foreach (var otherRb in precloserButtons)
-                {
-                    if (otherRb != rb)
-                        otherRb.Checked = false;
-                }
-            }
-        }
-        private Dictionary<Section, (Label MaxCoversLabel, Label AverageCoversLabel)> sectionLabels = new Dictionary<Section, (Label, Label)>();
-        public void UpdateSectionLabels(Section section, int newMaxCoversValue, float newAverageCoversValue)
-        {
-            if (sectionLabels.ContainsKey(section))
-            {
-                sectionLabels[section].MaxCoversLabel.Text = newMaxCoversValue.ToString();
-                sectionLabels[section].AverageCoversLabel.Text = newAverageCoversValue.ToString();
             }
         }
         private void Rb_CheckedChanged(object sender, EventArgs e)
@@ -626,13 +602,47 @@ namespace FloorPlanMaker
                 {
                     ShiftManager.SectionSelected = selectedSection;
                 }
+                if (rb != selectedSectionButton)
+                {
+                    if (selectedSectionButton != null) selectedSectionButton.Checked = false;
+                    selectedSectionButton = rb;
+                }
+            }
+        }
+        private void RbCloser_CheckedChanged(object sender, EventArgs e)
+        {
+            RadioButton rb = sender as RadioButton;
+            if (rb.Checked && rb != selectedCloserButton)
+            {
+                if (selectedCloserButton != null) selectedCloserButton.Checked = false;
+                selectedCloserButton = rb;
             }
         }
 
+        private void RbPrecloser_CheckedChanged(object sender, EventArgs e)
+        {
+            RadioButton rb = sender as RadioButton;
+            if (rb.Checked && rb != selectedPreCloserButton)
+            {
+                if (selectedPreCloserButton != null) selectedPreCloserButton.Checked = false;
+                selectedPreCloserButton = rb;
+            }
+        }
+        private Dictionary<Section, (Label MaxCoversLabel, Label AverageCoversLabel)> sectionLabels = new Dictionary<Section, (Label, Label)>();
+        public void UpdateSectionLabels(Section section, int newMaxCoversValue, float newAverageCoversValue)
+        {
+            if (sectionLabels.ContainsKey(section))
+            {
+                sectionLabels[section].MaxCoversLabel.Text = newMaxCoversValue.ToString();
+                sectionLabels[section].AverageCoversLabel.Text = newAverageCoversValue.ToString();
+            }
+        }
+
+
         private void nudNumberOfTeamWaits_ValueChanged(object sender, EventArgs e)
         {
-            List<Section> sections = GetSections();
-            CreateSectionRadioButtons(sections);
+            ShiftManager.Sections = GetNumberOfSections();
+            CreateSectionRadioButtons(ShiftManager.Sections);
         }
 
 
@@ -703,5 +713,7 @@ namespace FloorPlanMaker
         {
 
         }
+
+        
     }
 }

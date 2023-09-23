@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             pnlServers = new Panel();
+            flowServersInFloorplan = new FlowLayoutPanel();
             btnAddServers = new Button();
             label1 = new Label();
             pnlAddTables = new Panel();
             pnlSections = new Panel();
-            btnAssignServersToSections = new Button();
             cbLockNodes = new CheckBox();
             flowSectionSelect = new FlowLayoutPanel();
             lblTeamWaitLabel = new Label();
@@ -75,7 +75,7 @@
             rdoSections = new RadioButton();
             rdoDiningAreas = new RadioButton();
             panel1 = new Panel();
-            flowServersInFloorplan = new FlowLayoutPanel();
+            btnSaveFloorplanTemplate = new Button();
             pnlServers.SuspendLayout();
             pnlAddTables.SuspendLayout();
             pnlSections.SuspendLayout();
@@ -95,6 +95,13 @@
             pnlServers.Name = "pnlServers";
             pnlServers.Size = new Size(250, 970);
             pnlServers.TabIndex = 0;
+            // 
+            // flowServersInFloorplan
+            // 
+            flowServersInFloorplan.Location = new Point(12, 88);
+            flowServersInFloorplan.Name = "flowServersInFloorplan";
+            flowServersInFloorplan.Size = new Size(228, 876);
+            flowServersInFloorplan.TabIndex = 2;
             // 
             // btnAddServers
             // 
@@ -143,7 +150,7 @@
             // 
             // pnlSections
             // 
-            pnlSections.Controls.Add(btnAssignServersToSections);
+            pnlSections.Controls.Add(btnSaveFloorplanTemplate);
             pnlSections.Controls.Add(cbLockNodes);
             pnlSections.Controls.Add(flowSectionSelect);
             pnlSections.Controls.Add(lblTeamWaitLabel);
@@ -164,15 +171,6 @@
             pnlSections.Name = "pnlSections";
             pnlSections.Size = new Size(268, 930);
             pnlSections.TabIndex = 8;
-            // 
-            // btnAssignServersToSections
-            // 
-            btnAssignServersToSections.Location = new Point(6, 261);
-            btnAssignServersToSections.Name = "btnAssignServersToSections";
-            btnAssignServersToSections.Size = new Size(262, 32);
-            btnAssignServersToSections.TabIndex = 12;
-            btnAssignServersToSections.Text = "Assign Servers To Sections";
-            btnAssignServersToSections.UseVisualStyleBackColor = true;
             // 
             // cbLockNodes
             // 
@@ -579,12 +577,14 @@
             panel1.Size = new Size(225, 36);
             panel1.TabIndex = 11;
             // 
-            // flowServersInFloorplan
+            // btnSaveFloorplanTemplate
             // 
-            flowServersInFloorplan.Location = new Point(12, 88);
-            flowServersInFloorplan.Name = "flowServersInFloorplan";
-            flowServersInFloorplan.Size = new Size(228, 876);
-            flowServersInFloorplan.TabIndex = 2;
+            btnSaveFloorplanTemplate.Location = new Point(6, 259);
+            btnSaveFloorplanTemplate.Name = "btnSaveFloorplanTemplate";
+            btnSaveFloorplanTemplate.Size = new Size(259, 30);
+            btnSaveFloorplanTemplate.TabIndex = 12;
+            btnSaveFloorplanTemplate.Text = "Save Floorplan Template";
+            btnSaveFloorplanTemplate.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -667,7 +667,7 @@
         private RadioButton rdoSections;
         private RadioButton rdoDiningAreas;
         private Panel panel1;
-        private Button btnAssignServersToSections;
         private FlowLayoutPanel flowServersInFloorplan;
+        private Button btnSaveFloorplanTemplate;
     }
 }

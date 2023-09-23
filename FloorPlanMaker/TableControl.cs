@@ -13,7 +13,7 @@ namespace FloorPlanMaker
         public int BorderThickness { get; set; } = 1; // default to 1
         public float TableNumberFontSize { get; set; } = 14f; // default to 16
         //public bool IsInSection { get; set; } = false;
-
+        public Section? Section { get; set; }
         public Table.TableShape Shape { get; set; }
         public Table Table { get; set; }
         protected override void OnPaint(PaintEventArgs pe)
