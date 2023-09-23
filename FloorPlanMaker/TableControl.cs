@@ -12,6 +12,7 @@ namespace FloorPlanMaker
         public Color BorderColor { get; set; } = Color.DarkBlue; // default to DarkBlue
         public int BorderThickness { get; set; } = 1; // default to 1
         public float TableNumberFontSize { get; set; } = 14f; // default to 16
+        //public bool IsInSection { get; set; } = false;
 
         public Table.TableShape Shape { get; set; }
         public Table Table { get; set; }
@@ -92,9 +93,13 @@ namespace FloorPlanMaker
         }
         public event EventHandler<TableClickedEventArgs> TableClicked;
 
-        protected void OnTableClicked()
+        protected void OnTableClicked(MouseButtons button)
         {
-            TableClicked?.Invoke(this, new TableClickedEventArgs(this.Table, this.Moveable));
+            TableClickedEventArgs args = new TableClickedEventArgs(this.Table, this.Moveable)
+            {
+                MouseButton = button
+            };
+            TableClicked?.Invoke(this, args);
         }
 
 
@@ -104,8 +109,13 @@ namespace FloorPlanMaker
 
             if (e.Button == System.Windows.Forms.MouseButtons.Left)
             {
-                OnTableClicked();
+                OnTableClicked(e.Button);
             }
+            else if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            {
+                OnTableClicked(e.Button);  // Same method, just a different button
+            }
+
         }
 
         // resize methods

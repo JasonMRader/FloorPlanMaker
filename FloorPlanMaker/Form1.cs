@@ -84,6 +84,21 @@ namespace FloorPlanMaker
         {
             Table clickedTable = e.ClickedTable;
             TableControl clickedTableControl = sender as TableControl;
+            if (e.MouseButton == MouseButtons.Right)
+            {
+               
+                ShiftManager.SectionSelected.Tables.Remove(clickedTable); // Remove the table from the section
+                clickedTableControl.BackColor = pnlFloorPlan.BackColor;  // Restore the original color
+                clickedTableControl.Invalidate();
+                UpdateSectionLabels(ShiftManager.SectionSelected, ShiftManager.SectionSelected.MaxCovers, ShiftManager.SectionSelected.AverageCovers);
+                //if (ShiftManager.SectionSelected != null && ShiftManager.SectionSelected.Tables.Contains(clickedTable))
+                //{
+                //    ShiftManager.SectionSelected.Tables.Remove(clickedTable);
+                //    clickedTableControl.BackColor = Color.Transparent;  
+                //    clickedTableControl.Invalidate();
+                //}
+                return;  
+            }
             if (rdoSections.Checked)
             {
                 if (ShiftManager.SectionSelected != null)

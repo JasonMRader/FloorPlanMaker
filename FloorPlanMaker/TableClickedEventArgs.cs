@@ -11,7 +11,7 @@ namespace FloorPlanMaker
     {
         public Table ClickedTable { get; }
         public bool IsMoveable { get; }
-        public MouseButtons MouseButtons { get; set; }
+        public MouseButtons MouseButton { get; set; }
 
         public TableClickedEventArgs(Table table, bool isMoveable)
         {
