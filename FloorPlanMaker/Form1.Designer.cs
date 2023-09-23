@@ -29,26 +29,28 @@
         private void InitializeComponent()
         {
             pnlServers = new Panel();
+            btnSaveFloorplanTemplate = new Button();
+            pnlUnassignedServers = new Panel();
+            cbLockNodes = new CheckBox();
             flowServersInFloorplan = new FlowLayoutPanel();
             btnAddServers = new Button();
-            label1 = new Label();
-            pnlAddTables = new Panel();
-            pnlSections = new Panel();
-            cbLockNodes = new CheckBox();
-            flowSectionSelect = new FlowLayoutPanel();
             lblTeamWaitLabel = new Label();
+            label1 = new Label();
             nudNumberOfTeamWaits = new NumericUpDown();
+            label8 = new Label();
             cbTeamWait = new CheckBox();
+            label2 = new Label();
             lblServerAverageCovers = new Label();
+            lblDiningAreaAverageCovers = new Label();
             lblServerMaxCovers = new Label();
+            lblDiningAreaMaxCovers = new Label();
             label11 = new Label();
+            label9 = new Label();
             label10 = new Label();
             nudServerCount = new NumericUpDown();
-            label9 = new Label();
-            lblDiningAreaMaxCovers = new Label();
-            lblDiningAreaAverageCovers = new Label();
-            label2 = new Label();
-            label8 = new Label();
+            pnlAddTables = new Panel();
+            pnlSections = new Panel();
+            flowSectionSelect = new FlowLayoutPanel();
             btnCopyTable = new Button();
             btnDeleteTable = new Button();
             btnSaveTable = new Button();
@@ -75,32 +77,78 @@
             rdoSections = new RadioButton();
             rdoDiningAreas = new RadioButton();
             panel1 = new Panel();
-            btnSaveFloorplanTemplate = new Button();
+            btnAddSectionLabels = new Button();
             pnlServers.SuspendLayout();
-            pnlAddTables.SuspendLayout();
-            pnlSections.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudNumberOfTeamWaits).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudServerCount).BeginInit();
+            pnlAddTables.SuspendLayout();
+            pnlSections.SuspendLayout();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
             // pnlServers
             // 
             pnlServers.BackColor = SystemColors.GradientActiveCaption;
+            pnlServers.Controls.Add(btnAddSectionLabels);
+            pnlServers.Controls.Add(btnSaveFloorplanTemplate);
+            pnlServers.Controls.Add(pnlUnassignedServers);
+            pnlServers.Controls.Add(cbLockNodes);
             pnlServers.Controls.Add(flowServersInFloorplan);
             pnlServers.Controls.Add(btnAddServers);
+            pnlServers.Controls.Add(lblTeamWaitLabel);
             pnlServers.Controls.Add(label1);
+            pnlServers.Controls.Add(nudNumberOfTeamWaits);
+            pnlServers.Controls.Add(label8);
+            pnlServers.Controls.Add(cbTeamWait);
+            pnlServers.Controls.Add(label2);
+            pnlServers.Controls.Add(lblServerAverageCovers);
+            pnlServers.Controls.Add(lblDiningAreaAverageCovers);
+            pnlServers.Controls.Add(lblServerMaxCovers);
+            pnlServers.Controls.Add(lblDiningAreaMaxCovers);
+            pnlServers.Controls.Add(label11);
+            pnlServers.Controls.Add(label9);
+            pnlServers.Controls.Add(label10);
+            pnlServers.Controls.Add(nudServerCount);
             pnlServers.Dock = DockStyle.Left;
             pnlServers.Location = new Point(0, 0);
             pnlServers.Name = "pnlServers";
             pnlServers.Size = new Size(250, 970);
             pnlServers.TabIndex = 0;
             // 
+            // btnSaveFloorplanTemplate
+            // 
+            btnSaveFloorplanTemplate.Location = new Point(3, 391);
+            btnSaveFloorplanTemplate.Name = "btnSaveFloorplanTemplate";
+            btnSaveFloorplanTemplate.Size = new Size(237, 30);
+            btnSaveFloorplanTemplate.TabIndex = 12;
+            btnSaveFloorplanTemplate.Text = "Save Floorplan Template";
+            btnSaveFloorplanTemplate.UseVisualStyleBackColor = true;
+            // 
+            // pnlUnassignedServers
+            // 
+            pnlUnassignedServers.Location = new Point(10, 497);
+            pnlUnassignedServers.Name = "pnlUnassignedServers";
+            pnlUnassignedServers.Size = new Size(195, 99);
+            pnlUnassignedServers.TabIndex = 3;
+            // 
+            // cbLockNodes
+            // 
+            cbLockNodes.Appearance = Appearance.Button;
+            cbLockNodes.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            cbLockNodes.Location = new Point(3, 332);
+            cbLockNodes.Name = "cbLockNodes";
+            cbLockNodes.Size = new Size(232, 34);
+            cbLockNodes.TabIndex = 11;
+            cbLockNodes.Text = "Draw Section Lines";
+            cbLockNodes.TextAlign = ContentAlignment.MiddleCenter;
+            cbLockNodes.UseVisualStyleBackColor = true;
+            cbLockNodes.CheckedChanged += cbLockNodes_CheckedChanged;
+            // 
             // flowServersInFloorplan
             // 
-            flowServersInFloorplan.Location = new Point(12, 88);
+            flowServersInFloorplan.Location = new Point(12, 890);
             flowServersInFloorplan.Name = "flowServersInFloorplan";
-            flowServersInFloorplan.Size = new Size(228, 876);
+            flowServersInFloorplan.Size = new Size(228, 74);
             flowServersInFloorplan.TabIndex = 2;
             // 
             // btnAddServers
@@ -113,6 +161,17 @@
             btnAddServers.UseVisualStyleBackColor = true;
             btnAddServers.Click += btnAddServers_Click;
             // 
+            // lblTeamWaitLabel
+            // 
+            lblTeamWaitLabel.AutoSize = true;
+            lblTeamWaitLabel.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lblTeamWaitLabel.Location = new Point(58, 264);
+            lblTeamWaitLabel.Name = "lblTeamWaitLabel";
+            lblTeamWaitLabel.Size = new Size(95, 21);
+            lblTeamWaitLabel.TabIndex = 8;
+            lblTeamWaitLabel.Text = "How Many?";
+            lblTeamWaitLabel.Visible = false;
+            // 
             // label1
             // 
             label1.AutoSize = true;
@@ -122,6 +181,127 @@
             label1.Size = new Size(128, 21);
             label1.TabIndex = 0;
             label1.Text = "Assign Sections";
+            // 
+            // nudNumberOfTeamWaits
+            // 
+            nudNumberOfTeamWaits.Location = new Point(159, 262);
+            nudNumberOfTeamWaits.Name = "nudNumberOfTeamWaits";
+            nudNumberOfTeamWaits.Size = new Size(46, 23);
+            nudNumberOfTeamWaits.TabIndex = 7;
+            nudNumberOfTeamWaits.Visible = false;
+            nudNumberOfTeamWaits.ValueChanged += nudNumberOfTeamWaits_ValueChanged;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label8.Location = new Point(54, 90);
+            label8.Name = "label8";
+            label8.Size = new Size(99, 21);
+            label8.TabIndex = 0;
+            label8.Text = "Max Covers:";
+            // 
+            // cbTeamWait
+            // 
+            cbTeamWait.AutoSize = true;
+            cbTeamWait.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            cbTeamWait.Location = new Point(34, 236);
+            cbTeamWait.Name = "cbTeamWait";
+            cbTeamWait.Size = new Size(207, 25);
+            cbTeamWait.TabIndex = 6;
+            cbTeamWait.Text = "Add TeamWait Sections?";
+            cbTeamWait.UseVisualStyleBackColor = true;
+            cbTeamWait.CheckedChanged += cbTeamWait_CheckedChanged;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label2.Location = new Point(24, 111);
+            label2.Name = "label2";
+            label2.Size = new Size(129, 21);
+            label2.TabIndex = 0;
+            label2.Text = "Average Covers:";
+            // 
+            // lblServerAverageCovers
+            // 
+            lblServerAverageCovers.AutoSize = true;
+            lblServerAverageCovers.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lblServerAverageCovers.Location = new Point(169, 200);
+            lblServerAverageCovers.Name = "lblServerAverageCovers";
+            lblServerAverageCovers.Size = new Size(19, 21);
+            lblServerAverageCovers.TabIndex = 5;
+            lblServerAverageCovers.Text = "0";
+            // 
+            // lblDiningAreaAverageCovers
+            // 
+            lblDiningAreaAverageCovers.AutoSize = true;
+            lblDiningAreaAverageCovers.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lblDiningAreaAverageCovers.Location = new Point(169, 111);
+            lblDiningAreaAverageCovers.Name = "lblDiningAreaAverageCovers";
+            lblDiningAreaAverageCovers.Size = new Size(19, 21);
+            lblDiningAreaAverageCovers.TabIndex = 0;
+            lblDiningAreaAverageCovers.Text = "0";
+            // 
+            // lblServerMaxCovers
+            // 
+            lblServerMaxCovers.AutoSize = true;
+            lblServerMaxCovers.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lblServerMaxCovers.Location = new Point(169, 179);
+            lblServerMaxCovers.Name = "lblServerMaxCovers";
+            lblServerMaxCovers.Size = new Size(19, 21);
+            lblServerMaxCovers.TabIndex = 5;
+            lblServerMaxCovers.Text = "0";
+            // 
+            // lblDiningAreaMaxCovers
+            // 
+            lblDiningAreaMaxCovers.AutoSize = true;
+            lblDiningAreaMaxCovers.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lblDiningAreaMaxCovers.Location = new Point(169, 90);
+            lblDiningAreaMaxCovers.Name = "lblDiningAreaMaxCovers";
+            lblDiningAreaMaxCovers.Size = new Size(19, 21);
+            lblDiningAreaMaxCovers.TabIndex = 1;
+            lblDiningAreaMaxCovers.Text = "0";
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label11.Location = new Point(30, 200);
+            label11.Name = "label11";
+            label11.Size = new Size(123, 21);
+            label11.TabIndex = 4;
+            label11.Text = "Avg Per Server:";
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label9.Location = new Point(84, 132);
+            label9.Name = "label9";
+            label9.Size = new Size(69, 21);
+            label9.TabIndex = 2;
+            label9.Text = "Servers:";
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label10.Location = new Point(28, 179);
+            label10.Name = "label10";
+            label10.Size = new Size(125, 21);
+            label10.TabIndex = 4;
+            label10.Text = "Max Per Server:";
+            // 
+            // nudServerCount
+            // 
+            nudServerCount.Location = new Point(169, 132);
+            nudServerCount.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            nudServerCount.Name = "nudServerCount";
+            nudServerCount.Size = new Size(46, 23);
+            nudServerCount.TabIndex = 3;
+            nudServerCount.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            nudServerCount.ValueChanged += nudServerCount_ValueChanged;
             // 
             // pnlAddTables
             // 
@@ -150,180 +330,20 @@
             // 
             // pnlSections
             // 
-            pnlSections.Controls.Add(btnSaveFloorplanTemplate);
-            pnlSections.Controls.Add(cbLockNodes);
             pnlSections.Controls.Add(flowSectionSelect);
-            pnlSections.Controls.Add(lblTeamWaitLabel);
-            pnlSections.Controls.Add(nudNumberOfTeamWaits);
-            pnlSections.Controls.Add(cbTeamWait);
-            pnlSections.Controls.Add(lblServerAverageCovers);
-            pnlSections.Controls.Add(lblServerMaxCovers);
-            pnlSections.Controls.Add(label11);
-            pnlSections.Controls.Add(label10);
-            pnlSections.Controls.Add(nudServerCount);
-            pnlSections.Controls.Add(label9);
-            pnlSections.Controls.Add(lblDiningAreaMaxCovers);
-            pnlSections.Controls.Add(lblDiningAreaAverageCovers);
-            pnlSections.Controls.Add(label2);
-            pnlSections.Controls.Add(label8);
             pnlSections.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             pnlSections.Location = new Point(0, 37);
             pnlSections.Name = "pnlSections";
             pnlSections.Size = new Size(268, 930);
             pnlSections.TabIndex = 8;
             // 
-            // cbLockNodes
-            // 
-            cbLockNodes.Appearance = Appearance.Button;
-            cbLockNodes.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            cbLockNodes.Location = new Point(6, 221);
-            cbLockNodes.Name = "cbLockNodes";
-            cbLockNodes.Size = new Size(262, 34);
-            cbLockNodes.TabIndex = 11;
-            cbLockNodes.Text = "Draw Section Lines";
-            cbLockNodes.TextAlign = ContentAlignment.MiddleCenter;
-            cbLockNodes.UseVisualStyleBackColor = true;
-            cbLockNodes.CheckedChanged += cbLockNodes_CheckedChanged;
-            // 
             // flowSectionSelect
             // 
             flowSectionSelect.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            flowSectionSelect.Location = new Point(0, 293);
+            flowSectionSelect.Location = new Point(0, 354);
             flowSectionSelect.Name = "flowSectionSelect";
-            flowSectionSelect.Size = new Size(268, 634);
+            flowSectionSelect.Size = new Size(268, 573);
             flowSectionSelect.TabIndex = 9;
-            // 
-            // lblTeamWaitLabel
-            // 
-            lblTeamWaitLabel.AutoSize = true;
-            lblTeamWaitLabel.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            lblTeamWaitLabel.Location = new Point(51, 183);
-            lblTeamWaitLabel.Name = "lblTeamWaitLabel";
-            lblTeamWaitLabel.Size = new Size(95, 21);
-            lblTeamWaitLabel.TabIndex = 8;
-            lblTeamWaitLabel.Text = "How Many?";
-            lblTeamWaitLabel.Visible = false;
-            // 
-            // nudNumberOfTeamWaits
-            // 
-            nudNumberOfTeamWaits.Location = new Point(152, 181);
-            nudNumberOfTeamWaits.Name = "nudNumberOfTeamWaits";
-            nudNumberOfTeamWaits.Size = new Size(46, 29);
-            nudNumberOfTeamWaits.TabIndex = 7;
-            nudNumberOfTeamWaits.Visible = false;
-            nudNumberOfTeamWaits.ValueChanged += nudNumberOfTeamWaits_ValueChanged;
-            // 
-            // cbTeamWait
-            // 
-            cbTeamWait.AutoSize = true;
-            cbTeamWait.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            cbTeamWait.Location = new Point(27, 155);
-            cbTeamWait.Name = "cbTeamWait";
-            cbTeamWait.Size = new Size(207, 25);
-            cbTeamWait.TabIndex = 6;
-            cbTeamWait.Text = "Add TeamWait Sections?";
-            cbTeamWait.UseVisualStyleBackColor = true;
-            cbTeamWait.CheckedChanged += cbTeamWait_CheckedChanged;
-            // 
-            // lblServerAverageCovers
-            // 
-            lblServerAverageCovers.AutoSize = true;
-            lblServerAverageCovers.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            lblServerAverageCovers.Location = new Point(162, 119);
-            lblServerAverageCovers.Name = "lblServerAverageCovers";
-            lblServerAverageCovers.Size = new Size(19, 21);
-            lblServerAverageCovers.TabIndex = 5;
-            lblServerAverageCovers.Text = "0";
-            // 
-            // lblServerMaxCovers
-            // 
-            lblServerMaxCovers.AutoSize = true;
-            lblServerMaxCovers.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            lblServerMaxCovers.Location = new Point(162, 98);
-            lblServerMaxCovers.Name = "lblServerMaxCovers";
-            lblServerMaxCovers.Size = new Size(19, 21);
-            lblServerMaxCovers.TabIndex = 5;
-            lblServerMaxCovers.Text = "0";
-            // 
-            // label11
-            // 
-            label11.AutoSize = true;
-            label11.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label11.Location = new Point(23, 119);
-            label11.Name = "label11";
-            label11.Size = new Size(123, 21);
-            label11.TabIndex = 4;
-            label11.Text = "Avg Per Server:";
-            // 
-            // label10
-            // 
-            label10.AutoSize = true;
-            label10.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label10.Location = new Point(21, 98);
-            label10.Name = "label10";
-            label10.Size = new Size(125, 21);
-            label10.TabIndex = 4;
-            label10.Text = "Max Per Server:";
-            // 
-            // nudServerCount
-            // 
-            nudServerCount.Location = new Point(162, 51);
-            nudServerCount.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
-            nudServerCount.Name = "nudServerCount";
-            nudServerCount.Size = new Size(46, 29);
-            nudServerCount.TabIndex = 3;
-            nudServerCount.Value = new decimal(new int[] { 1, 0, 0, 0 });
-            nudServerCount.ValueChanged += nudServerCount_ValueChanged;
-            // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label9.Location = new Point(77, 51);
-            label9.Name = "label9";
-            label9.Size = new Size(69, 21);
-            label9.TabIndex = 2;
-            label9.Text = "Servers:";
-            // 
-            // lblDiningAreaMaxCovers
-            // 
-            lblDiningAreaMaxCovers.AutoSize = true;
-            lblDiningAreaMaxCovers.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            lblDiningAreaMaxCovers.Location = new Point(162, 9);
-            lblDiningAreaMaxCovers.Name = "lblDiningAreaMaxCovers";
-            lblDiningAreaMaxCovers.Size = new Size(19, 21);
-            lblDiningAreaMaxCovers.TabIndex = 1;
-            lblDiningAreaMaxCovers.Text = "0";
-            // 
-            // lblDiningAreaAverageCovers
-            // 
-            lblDiningAreaAverageCovers.AutoSize = true;
-            lblDiningAreaAverageCovers.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            lblDiningAreaAverageCovers.Location = new Point(162, 30);
-            lblDiningAreaAverageCovers.Name = "lblDiningAreaAverageCovers";
-            lblDiningAreaAverageCovers.Size = new Size(19, 21);
-            lblDiningAreaAverageCovers.TabIndex = 0;
-            lblDiningAreaAverageCovers.Text = "0";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label2.Location = new Point(17, 30);
-            label2.Name = "label2";
-            label2.Size = new Size(129, 21);
-            label2.TabIndex = 0;
-            label2.Text = "Average Covers:";
-            // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label8.Location = new Point(47, 9);
-            label8.Name = "label8";
-            label8.Size = new Size(99, 21);
-            label8.TabIndex = 0;
-            label8.Text = "Max Covers:";
             // 
             // btnCopyTable
             // 
@@ -577,14 +597,15 @@
             panel1.Size = new Size(225, 36);
             panel1.TabIndex = 11;
             // 
-            // btnSaveFloorplanTemplate
+            // btnAddSectionLabels
             // 
-            btnSaveFloorplanTemplate.Location = new Point(6, 259);
-            btnSaveFloorplanTemplate.Name = "btnSaveFloorplanTemplate";
-            btnSaveFloorplanTemplate.Size = new Size(259, 30);
-            btnSaveFloorplanTemplate.TabIndex = 12;
-            btnSaveFloorplanTemplate.Text = "Save Floorplan Template";
-            btnSaveFloorplanTemplate.UseVisualStyleBackColor = true;
+            btnAddSectionLabels.Location = new Point(40, 441);
+            btnAddSectionLabels.Name = "btnAddSectionLabels";
+            btnAddSectionLabels.Size = new Size(165, 23);
+            btnAddSectionLabels.TabIndex = 13;
+            btnAddSectionLabels.Text = "Add Section Labels";
+            btnAddSectionLabels.UseVisualStyleBackColor = true;
+            btnAddSectionLabels.Click += btnAddSectionLabels_Click;
             // 
             // Form1
             // 
@@ -608,12 +629,11 @@
             Load += Form1_Load;
             pnlServers.ResumeLayout(false);
             pnlServers.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)nudNumberOfTeamWaits).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudServerCount).EndInit();
             pnlAddTables.ResumeLayout(false);
             pnlAddTables.PerformLayout();
             pnlSections.ResumeLayout(false);
-            pnlSections.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)nudNumberOfTeamWaits).EndInit();
-            ((System.ComponentModel.ISupportInitialize)nudServerCount).EndInit();
             panel1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
@@ -669,5 +689,7 @@
         private Panel panel1;
         private FlowLayoutPanel flowServersInFloorplan;
         private Button btnSaveFloorplanTemplate;
+        private Panel pnlUnassignedServers;
+        private Button btnAddSectionLabels;
     }
 }

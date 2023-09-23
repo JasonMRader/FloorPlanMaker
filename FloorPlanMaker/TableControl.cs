@@ -131,6 +131,25 @@ namespace FloorPlanMaker
         private bool isResizing = false; // To track whether the user is resizing
         private Point dragStartPoint; // The point where the dragging started
         private Size dragStartSize; // The size of the control when the dragging started     
+        public static Point FindMiddlePoint(List<TableControl> controls)
+        {
+            if (controls.Count == 0)
+            {
+                throw new ArgumentException("The controls list cannot be empty.");
+            }
+
+            int totalX = 0;
+            int totalY = 0;
+
+            foreach (Control control in controls)
+            {
+                totalX += control.Location.X + (control.Width / 2);  // X-coordinate of control's center
+                totalY += control.Location.Y + (control.Height / 2); // Y-coordinate of control's center
+            }
+
+            return new Point(totalX / controls.Count, totalY / controls.Count);
+        }
+        
 
     }
 }

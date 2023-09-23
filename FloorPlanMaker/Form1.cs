@@ -80,7 +80,7 @@ namespace FloorPlanMaker
 
             pnlFloorPlan.Controls.Add(table);
         }
-        
+
         private void ExistingTable_TableClicked(object sender, TableClickedEventArgs e)
         {
             Table clickedTable = e.ClickedTable;
@@ -353,13 +353,19 @@ namespace FloorPlanMaker
             ShiftManager.ServersOnShift = staffManager.ServersOnShift;
             ShiftManager.SelectedFloorplan = ShiftManager.Floorplans.FirstOrDefault(fp => fp.DiningArea.ID == areaManager.DiningAreaSelected.ID);
             flowServersInFloorplan.Controls.Clear();
+            int pointX = 35;
+            int PointY = 5;
             foreach (Server s in ShiftManager.SelectedFloorplan.Servers)
             {
-                CheckBox cb = CreateServerButton(s);
-                flowServersInFloorplan.Controls.Add(cb);
+                ServerControl sc = new ServerControl(s, 150, 30);
+                sc.Location = new Point(pointX, PointY);
+                PointY += (5 + sc.Height);
+                //CheckBox cb = CreateServerButton(s);
+                pnlSections.Controls.Add(sc);
             }
             nudServerCount.Value = ShiftManager.SelectedFloorplan.Servers.Count;
         }
+
         private CheckBox CreateServerButton(Server server)
         {
 
@@ -469,11 +475,11 @@ namespace FloorPlanMaker
         //        flowSectionSelect.Controls.Add(rb);
         //    }
         //}
-        private List<RadioButton> closerButtons = new List<RadioButton>();
-        private List<RadioButton> precloserButtons = new List<RadioButton>();
-        private RadioButton selectedSectionButton;
-        private RadioButton selectedCloserButton;
-        private RadioButton selectedPreCloserButton;
+        private List<CheckBox> closerButtons = new List<CheckBox>();
+        private List<CheckBox> precloserButtons = new List<CheckBox>();
+        private CheckBox selectedSectionButton;
+        private CheckBox selectedCloserButton;
+        private CheckBox selectedPreCloserButton;
         private void UpdateFloorplanSection()
         {
 
@@ -486,7 +492,7 @@ namespace FloorPlanMaker
             foreach (var section in sections)
             {
                 // Create a RadioButton for each section.
-                RadioButton rbSection = new RadioButton
+                CheckBox rbSection = new CheckBox
                 {
                     Appearance = Appearance.Button,
                     FlatStyle = FlatStyle.Flat,
@@ -524,7 +530,7 @@ namespace FloorPlanMaker
                 };
 
 
-                RadioButton rbCloser = new RadioButton
+                CheckBox rbCloser = new CheckBox
                 {
                     Text = "CLS",
                     AutoSize = false,
@@ -538,7 +544,7 @@ namespace FloorPlanMaker
                 };
                 rbCloser.CheckedChanged += RbCloser_CheckedChanged;
 
-                RadioButton rbPrecloser = new RadioButton
+                CheckBox rbPrecloser = new CheckBox
                 {
                     Text = "PRE",
                     AutoSize = false,
@@ -567,13 +573,21 @@ namespace FloorPlanMaker
                 //rbNeither.Location = new Point(rbPrecloser.Right + 5, 5);
 
 
-                Panel panel = new Panel();
+                Panel sectionPanel = new Panel();
+                sectionPanel.Tag = section;
+                sectionPanel.AllowDrop = true;
+                sectionPanel.BackColor = Color.SlateGray;
 
-                panel.Controls.Add(rbSection);
-                panel.Controls.Add(lblMaxCovers);
-                panel.Controls.Add(lblAverageCovers);
-                panel.Controls.Add(rbCloser);
-                panel.Controls.Add(rbPrecloser);
+                // Attach drag-drop event handlers
+                sectionPanel.DragEnter += SectionPanel_DragEnter;
+                sectionPanel.DragDrop += SectionPanel_DragDrop;
+
+
+                sectionPanel.Controls.Add(rbSection);
+                sectionPanel.Controls.Add(lblMaxCovers);
+                sectionPanel.Controls.Add(lblAverageCovers);
+                sectionPanel.Controls.Add(rbCloser);
+                sectionPanel.Controls.Add(rbPrecloser);
                 //panel.Controls.Add(rbNeither);
 
                 // Here, you might want to adjust the layout within the panel.
@@ -585,16 +599,104 @@ namespace FloorPlanMaker
                 rbCloser.Location = new Point(lblAverageCovers.Right + 10, 5);
                 rbPrecloser.Location = new Point(rbCloser.Right + 5, 5);
                 // Adjust panel size to fit the controls (or set a predefined size).
-                panel.Size = new Size(rbPrecloser.Right + 5, Math.Max(rbSection.Height, lblAverageCovers.Height) + 10);
+                sectionPanel.Size = new Size(rbPrecloser.Right + 5, Math.Max(rbSection.Height, lblAverageCovers.Height) + 10);
 
                 sectionLabels[section] = (lblMaxCovers, lblAverageCovers);
                 // Add the panel to the flow layout panel.
-                flowSectionSelect.Controls.Add(panel);
+                flowSectionSelect.Controls.Add(sectionPanel);
             }
         }
+
+        private void SectionPanel_DragEnter(object sender, DragEventArgs e)
+        {
+            // Check if the data being dragged is of type 'ServerControl'
+            if (e.Data.GetData(typeof(ServerControl)) != null)
+            {
+                e.Effect = DragDropEffects.Move;
+            }
+        }
+
+        private void SectionPanel_DragDrop(object sender, DragEventArgs e)
+        {
+            ServerControl serverControl = e.Data.GetData(typeof(ServerControl)) as ServerControl;
+            if (serverControl != null)
+            {
+                Panel targetPanel = sender as Panel;
+                if (targetPanel != null && targetPanel.Tag is Section)
+                {
+                    Section targetSection = targetPanel.Tag as Section;
+                    targetSection.Server = serverControl.Server;
+
+                    // You can now reposition or do whatever you like with the serverControl.
+                    // For instance, add it to the panel:
+                    serverControl.Parent.Controls.Remove(serverControl);
+
+                    serverControl.Height = serverControl.Height - 10;
+                    targetPanel.Height = targetPanel.Height + serverControl.Height;
+                    targetPanel.Controls.Add(serverControl);
+                    serverControl.Label.Size = serverControl.Size;
+                    //serverControl.Location = targetPanel.PointToClient(new Point(e.X, e.Y));
+                    serverControl.Dock = DockStyle.Bottom;
+
+
+                }
+            }
+        }
+        private void AddSectionLabels(List<Section> sections)
+        {
+            foreach (Section section in sections)
+            {
+                string labelText = "";
+                if (section.IsCloser)
+                {
+                    labelText = section.Server.Name + "CLS";
+                }
+                if (section.IsPre)
+                {
+                    labelText = section.Server.Name + "PRE";
+                }
+                else
+                {
+                    labelText = section.Server.Name;
+                }
+                Label label = new Label
+                {
+                   
+                    Text = labelText,
+                    Font = new Font("Segoe UI", 12F, FontStyle.Bold),
+                    BackColor = Color.White,
+                    ForeColor = Color.Black,
+                    Location = FindMidpointOfSectionControls(section)
+                };
+                pnlFloorPlan.Controls.Add(label);
+                label.BringToFront();
+            }
+        }
+        private Point FindMidpointOfSectionControls(Section targetSection)
+        {
+            // 1. Collect all the TableControl controls with a Section
+            List<TableControl> tableControlsWithSection = new List<TableControl>();
+            foreach (Control ctrl in pnlFloorPlan.Controls)
+            {
+                if (ctrl is TableControl tableControl && tableControl.Section != null)
+                {
+                    tableControlsWithSection.Add(tableControl);
+                }
+            }
+
+            // 2. Group by Section and find the controls with the targetSection
+            var targetControls = tableControlsWithSection
+                .Where(tc => tc.Section.Equals(targetSection))
+                .ToList();
+
+            // 3. Compute the midpoint for the target controls
+            return TableControl.FindMiddlePoint(targetControls);
+        }
+
+
         private void Rb_CheckedChanged(object sender, EventArgs e)
         {
-            RadioButton rb = sender as RadioButton;
+            CheckBox rb = sender as CheckBox;
             if (rb != null && rb.Checked)
             {
                 Section selectedSection = rb.Tag as Section;
@@ -611,7 +713,7 @@ namespace FloorPlanMaker
         }
         private void RbCloser_CheckedChanged(object sender, EventArgs e)
         {
-            RadioButton rb = sender as RadioButton;
+            CheckBox rb = sender as CheckBox;
             if (rb.Checked && rb != selectedCloserButton)
             {
                 if (selectedCloserButton != null) selectedCloserButton.Checked = false;
@@ -621,7 +723,7 @@ namespace FloorPlanMaker
 
         private void RbPrecloser_CheckedChanged(object sender, EventArgs e)
         {
-            RadioButton rb = sender as RadioButton;
+            CheckBox rb = sender as CheckBox;
             if (rb.Checked && rb != selectedPreCloserButton)
             {
                 if (selectedPreCloserButton != null) selectedPreCloserButton.Checked = false;
@@ -714,6 +816,9 @@ namespace FloorPlanMaker
 
         }
 
-        
+        private void btnAddSectionLabels_Click(object sender, EventArgs e)
+        {
+            AddSectionLabels(ShiftManager.Sections);
+        }
     }
 }
