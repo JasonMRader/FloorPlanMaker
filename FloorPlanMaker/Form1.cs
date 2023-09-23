@@ -15,7 +15,7 @@ namespace FloorPlanMaker
         {
             InitializeComponent();
             drawingHandler = new DrawingHandler(pnlFloorPlan);
-
+            ShiftManager = new ShiftManager();
             this.KeyDown += pnlFloorPlan_KeyDown;
             //pnlFloorPlan.KeyPreview = true;
         }
@@ -30,7 +30,7 @@ namespace FloorPlanMaker
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            
 
 
             cboDiningAreas.DataSource = areaManager.DiningAreas;
@@ -173,7 +173,13 @@ namespace FloorPlanMaker
                 pnlFloorPlan.Controls.Add(tableControl);
             }
             lblPanel2Text.Text = areaManager.DiningAreaSelected.Name;
-            this.ShiftManager = new ShiftManager(areaManager.DiningAreaSelected);
+            this.ShiftManager.SelectedDiningArea = areaManager.DiningAreaSelected;
+            if (ShiftManager.Floorplans.Count > 0 )
+            {
+                UpdateFloorplan();
+            }
+           
+
         }
 
 
@@ -318,17 +324,22 @@ namespace FloorPlanMaker
             form.ShowDialog();
             if (form.DialogResult == DialogResult.OK)
             {
-                ShiftManager.ServersOnShift = staffManager.ServersOnShift;
-                ShiftManager.SelectedFloorplan = ShiftManager.Floorplans.FirstOrDefault(fp => fp.DiningArea.ID == areaManager.DiningAreaSelected.ID);
 
-                foreach (Server s in ShiftManager.SelectedFloorplan.Servers)
-                {
-                    CheckBox cb = CreateServerButton(s);
-                    flowServersInFloorplan.Controls.Add(cb);
-                }
-
+                UpdateFloorplan();
 
             }
+        }
+        private void UpdateFloorplan()
+        {
+            ShiftManager.ServersOnShift = staffManager.ServersOnShift;
+            ShiftManager.SelectedFloorplan = ShiftManager.Floorplans.FirstOrDefault(fp => fp.DiningArea.ID == areaManager.DiningAreaSelected.ID);
+            flowServersInFloorplan.Controls.Clear();
+            foreach (Server s in ShiftManager.SelectedFloorplan.Servers)
+            {
+                CheckBox cb = CreateServerButton(s);
+                flowServersInFloorplan.Controls.Add(cb);
+            }
+            nudServerCount.Value = ShiftManager.SelectedFloorplan.Servers.Count;
         }
         private CheckBox CreateServerButton(Server server)
         {

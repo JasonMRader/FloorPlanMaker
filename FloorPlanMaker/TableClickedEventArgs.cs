@@ -11,11 +11,13 @@ namespace FloorPlanMaker
     {
         public Table ClickedTable { get; }
         public bool IsMoveable { get; }
+        public MouseButtons MouseButtons { get; set; }
 
         public TableClickedEventArgs(Table table, bool isMoveable)
         {
             ClickedTable = table;
             IsMoveable = isMoveable;
+            
         }
     }
 
