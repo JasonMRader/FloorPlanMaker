@@ -9,7 +9,7 @@ namespace FloorPlanMaker
         StaffManager staffManager = new StaffManager();
         private ShiftManager ShiftManager;
         private int LastTableNumberSelected;
-        private TableControl currentEmphasizedTable = null;
+        private TableControl currentEmphasizedTableControl = null;
         private DrawingHandler drawingHandler;
         List<TableControl> emphasizedTablesList = new List<TableControl>();
         public Form1()
@@ -137,22 +137,22 @@ namespace FloorPlanMaker
                     }
                     emphasizedTablesList.Clear();
                     areaManager.SelectedTables.Clear();
-                    
+
                     txtTableNumber.Enabled = true;
                 }
                 else
-                {                  
+                {
                     txtTableNumber.Enabled = false;
                 }
-                
-                areaManager.SelectedTable = clickedTable;   
-                currentEmphasizedTable = clickedTableControl;              
-                                
+
+                areaManager.SelectedTable = clickedTable;
+                currentEmphasizedTableControl = clickedTableControl;
+
                 clickedTableControl.BorderThickness = 3;
-                clickedTableControl.Invalidate(); 
-               
+                clickedTableControl.Invalidate();
+
                 emphasizedTablesList.Add(clickedTableControl);
-               
+
                 areaManager.SelectedTables.Add(clickedTable);
                 txtTableNumber.Text = clickedTable.TableNumber;
                 txtMaxCovers.Text = clickedTable.MaxCovers.ToString();
@@ -160,7 +160,7 @@ namespace FloorPlanMaker
                 txtHeight.Text = clickedTable.Height.ToString();
                 txtWidth.Text = clickedTable.Width.ToString();
                 string tableNum = "";
-                if (areaManager.SelectedTables.Count > 1) 
+                if (areaManager.SelectedTables.Count > 1)
                 {
                     foreach (var table in areaManager.SelectedTables)
                     {
@@ -168,7 +168,7 @@ namespace FloorPlanMaker
                     }
                     txtTableNumber.Text = tableNum;
                 }
-                
+
                 //if (currentEmphasizedTable != null && currentEmphasizedTable != clickedTableControl)
                 //{
                 //    currentEmphasizedTable.BorderThickness = 1;
@@ -271,30 +271,129 @@ namespace FloorPlanMaker
                 }
             }
         }
-
-        private void btnSaveTable_Click(object sender, EventArgs e)
+        private void btnLessHeight_Click(object sender, EventArgs e)
         {
-            areaManager.SelectedTable.TableNumber = txtTableNumber.Text;
-            areaManager.SelectedTable.MaxCovers = Int32.Parse(txtMaxCovers.Text);
-            areaManager.SelectedTable.AverageCovers = float.Parse(txtAverageCovers.Text);
-            areaManager.SelectedTable.Height = Int32.Parse(txtHeight.Text);
-            areaManager.SelectedTable.Width = Int32.Parse(txtWidth.Text);
+            if (int.TryParse(txtHeight.Text, out int height) && height >= 35 && height <= 400)
+            {
+                height = height - 10;
+                txtHeight.Text = height.ToString();
+                areaManager.SelectedTable.Height = height;
+                currentEmphasizedTableControl.Height = height;  // Update control height
+                currentEmphasizedTableControl.Table = areaManager.SelectedTable;
+                TableControlFactory.RedrawTableControl(currentEmphasizedTableControl, pnlFloorPlan);
+            }
+        }
+
+        private void btnMoreHeight_Click(object sender, EventArgs e)
+        {
+            if (int.TryParse(txtHeight.Text, out int height) && height >= 25 && height <= 390)
+            {
+                height = height + 10;
+                txtHeight.Text = height.ToString();
+                areaManager.SelectedTable.Height = height;
+                currentEmphasizedTableControl.Height = height;  // Update control height
+                currentEmphasizedTableControl.Table = areaManager.SelectedTable;
+                TableControlFactory.RedrawTableControl(currentEmphasizedTableControl, pnlFloorPlan);
+            }
+        }
+
+        private void btnLessWidth_Click(object sender, EventArgs e)
+        {
+            if (int.TryParse(txtWidth.Text, out int width) && width >= 35 && width <= 400)
+            {
+                width = width - 10;
+                txtWidth.Text = width.ToString();
+                areaManager.SelectedTable.Width = width;
+                currentEmphasizedTableControl.Width = width;  // Update control width
+                currentEmphasizedTableControl.Table = areaManager.SelectedTable;
+                TableControlFactory.RedrawTableControl(currentEmphasizedTableControl, pnlFloorPlan);
+            }
+        }
+
+        private void btnMoreWidth_Click(object sender, EventArgs e)
+        {
+            if (int.TryParse(txtWidth.Text, out int width) && width >= 25 && width <= 390)
+            {
+                width = width + 10;
+                txtWidth.Text = width.ToString();
+                areaManager.SelectedTable.Width = width;
+                currentEmphasizedTableControl.Width = width;  // Update control width
+                currentEmphasizedTableControl.Table = areaManager.SelectedTable;
+                TableControlFactory.RedrawTableControl(currentEmphasizedTableControl, pnlFloorPlan);
+            }
+        }
+        private void RefreshTableControl(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(txtTableNumber.Text))
+            {
+                areaManager.SelectedTable.TableNumber = txtTableNumber.Text;
+            }
+
+            if (int.TryParse(txtMaxCovers.Text, out int maxCovers))
+            {
+                areaManager.SelectedTable.MaxCovers = maxCovers;
+            }
+
+            if (float.TryParse(txtAverageCovers.Text, out float averageCovers))
+            {
+                areaManager.SelectedTable.AverageCovers = averageCovers;
+            }
+
+            if (int.TryParse(txtHeight.Text, out int height) && height >= 25 && height <= 400)
+            {
+                areaManager.SelectedTable.Height = height;
+                currentEmphasizedTableControl.Height = height;  // Update control height
+            }
+
+            if (int.TryParse(txtWidth.Text, out int width) && width >= 25 && width <= 400)
+            {
+                areaManager.SelectedTable.Width = width;
+                currentEmphasizedTableControl.Width = width;  // Update control width
+            }
+
+            // Assuming these other methods and properties do not require validation
             areaManager.SelectedTable.DiningArea = areaManager.DiningAreaSelected;
             areaManager.SelectedTable.XCoordinate = UpdateXCoordinateForTableControl(areaManager.SelectedTable);
             areaManager.SelectedTable.YCoordinate = UpdateYCoordinateForTableControl(areaManager.SelectedTable);
+            currentEmphasizedTableControl.Table = areaManager.SelectedTable;
+            TableControlFactory.RedrawTableControl(currentEmphasizedTableControl, pnlFloorPlan);
+        }
+
+        //private void RefreshTableControl(object sender, EventArgs e)
+        //{
+        //    areaManager.SelectedTable.TableNumber = txtTableNumber.Text;
+
+        //    areaManager.SelectedTable.MaxCovers = Int32.Parse(txtMaxCovers.Text);
+        //    areaManager.SelectedTable.AverageCovers = float.Parse(txtAverageCovers.Text);
+        //    areaManager.SelectedTable.Height = Int32.Parse(txtHeight.Text);
+        //    areaManager.SelectedTable.Width = Int32.Parse(txtWidth.Text);
+        //    areaManager.SelectedTable.DiningArea = areaManager.DiningAreaSelected;
+        //    areaManager.SelectedTable.XCoordinate = UpdateXCoordinateForTableControl(areaManager.SelectedTable);
+        //    areaManager.SelectedTable.YCoordinate = UpdateYCoordinateForTableControl(areaManager.SelectedTable);
+        //    currentEmphasizedTableControl.Table = areaManager.SelectedTable;
+        //    TableControlFactory.RedrawTableControl(currentEmphasizedTableControl, pnlFloorPlan);
+        //}
+        private void SaveOneTable()
+        {
+
 
 
             SqliteDataAccess.UpdateTable(areaManager.SelectedTable);
 
             //areaManager.DiningAreaSelected.Tables = SqliteDataAccess.LoadTables
-            pnlFloorPlan.Controls.Clear();
-            foreach (Table table in areaManager.DiningAreaSelected.Tables)
-            {
-                TableControl tableControl = TableControlFactory.CreateTableControl(table);
-                tableControl.Moveable = true;
-                tableControl.TableClicked += ExistingTable_TableClicked;
-                pnlFloorPlan.Controls.Add(tableControl);
-            }
+            //pnlFloorPlan.Controls.Clear();
+
+            //foreach (Table table in areaManager.DiningAreaSelected.Tables)
+            //{
+            //    TableControl tableControl = TableControlFactory.CreateTableControl(table);
+            //    tableControl.Moveable = true;
+            //    tableControl.TableClicked += ExistingTable_TableClicked;
+            //    pnlFloorPlan.Controls.Add(tableControl);
+            //}
+        }
+        private void btnSaveTable_Click(object sender, EventArgs e)
+        {
+            SaveOneTable();
         }
         private int UpdateXCoordinateForTableControl(Table table)
         {
@@ -868,7 +967,7 @@ namespace FloorPlanMaker
         private void btnSaveFloorplanTemplate_Click(object sender, EventArgs e)
         {
             var drawnLines = drawingHandler.GetDrawnLines();
-            FloorplanTemplate template = new FloorplanTemplate(ShiftManager.SelectedDiningArea,"Test",(int)nudServerCount.Value,ShiftManager.Sections,drawnLines);
+            FloorplanTemplate template = new FloorplanTemplate(ShiftManager.SelectedDiningArea, "Test", (int)nudServerCount.Value, ShiftManager.Sections, drawnLines);
             // Assuming you have a FloorplanTemplate object already initialized as template
             template.SectionLines.Clear();
             template.SectionLines.AddRange(drawnLines);
@@ -876,5 +975,13 @@ namespace FloorPlanMaker
             // Optional: If you want to clear the drawn lines on the panel after adding them to the template
             drawingHandler.ClearLines();
         }
+
+        private void btnTest_Click(object sender, EventArgs e)
+        {
+            areaManager.SelectedTable.TableNumber = "TEST";
+            TableControlFactory.RedrawTableControl(currentEmphasizedTableControl, pnlFloorPlan);
+        }
+
+
     }
 }

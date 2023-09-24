@@ -50,6 +50,10 @@
             label10 = new Label();
             nudServerCount = new NumericUpDown();
             pnlAddTables = new Panel();
+            btnLessHeight = new Button();
+            btnLessWidth = new Button();
+            btnMoreWidth = new Button();
+            btnMoreHeight = new Button();
             pnlSections = new Panel();
             flowSectionSelect = new FlowLayoutPanel();
             btnCopyTable = new Button();
@@ -78,6 +82,7 @@
             rdoSections = new RadioButton();
             rdoDiningAreas = new RadioButton();
             panel1 = new Panel();
+            btnTest = new Button();
             pnlServers.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudNumberOfTeamWaits).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudServerCount).BeginInit();
@@ -333,19 +338,63 @@
             pnlAddTables.Controls.Add(txtTableNumber);
             pnlAddTables.Controls.Add(cbLockTables);
             pnlAddTables.Controls.Add(lblPanel2Text);
+            pnlAddTables.Controls.Add(btnMoreHeight);
+            pnlAddTables.Controls.Add(btnMoreWidth);
+            pnlAddTables.Controls.Add(btnLessWidth);
+            pnlAddTables.Controls.Add(btnLessHeight);
             pnlAddTables.Dock = DockStyle.Left;
             pnlAddTables.Location = new Point(250, 0);
             pnlAddTables.Name = "pnlAddTables";
             pnlAddTables.Size = new Size(271, 970);
             pnlAddTables.TabIndex = 1;
             // 
+            // btnLessHeight
+            // 
+            btnLessHeight.Location = new Point(28, 720);
+            btnLessHeight.Name = "btnLessHeight";
+            btnLessHeight.Size = new Size(33, 23);
+            btnLessHeight.TabIndex = 9;
+            btnLessHeight.Text = "-";
+            btnLessHeight.UseVisualStyleBackColor = true;
+            btnLessHeight.Click += btnLessHeight_Click;
+            // 
+            // btnLessWidth
+            // 
+            btnLessWidth.Location = new Point(28, 779);
+            btnLessWidth.Name = "btnLessWidth";
+            btnLessWidth.Size = new Size(33, 23);
+            btnLessWidth.TabIndex = 9;
+            btnLessWidth.Text = "-";
+            btnLessWidth.UseVisualStyleBackColor = true;
+            btnLessWidth.Click += btnLessWidth_Click;
+            // 
+            // btnMoreWidth
+            // 
+            btnMoreWidth.Location = new Point(200, 779);
+            btnMoreWidth.Name = "btnMoreWidth";
+            btnMoreWidth.Size = new Size(33, 23);
+            btnMoreWidth.TabIndex = 9;
+            btnMoreWidth.Text = "+";
+            btnMoreWidth.UseVisualStyleBackColor = true;
+            btnMoreWidth.Click += btnMoreWidth_Click;
+            // 
+            // btnMoreHeight
+            // 
+            btnMoreHeight.Location = new Point(200, 721);
+            btnMoreHeight.Name = "btnMoreHeight";
+            btnMoreHeight.Size = new Size(33, 23);
+            btnMoreHeight.TabIndex = 9;
+            btnMoreHeight.Text = "+";
+            btnMoreHeight.UseVisualStyleBackColor = true;
+            btnMoreHeight.Click += btnMoreHeight_Click;
+            // 
             // pnlSections
             // 
             pnlSections.Controls.Add(flowSectionSelect);
             pnlSections.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            pnlSections.Location = new Point(0, 37);
+            pnlSections.Location = new Point(0, 36);
             pnlSections.Name = "pnlSections";
-            pnlSections.Size = new Size(268, 930);
+            pnlSections.Size = new Size(268, 931);
             pnlSections.TabIndex = 8;
             // 
             // flowSectionSelect
@@ -353,7 +402,7 @@
             flowSectionSelect.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             flowSectionSelect.Location = new Point(0, 354);
             flowSectionSelect.Name = "flowSectionSelect";
-            flowSectionSelect.Size = new Size(268, 573);
+            flowSectionSelect.Size = new Size(268, 324);
             flowSectionSelect.TabIndex = 9;
             // 
             // btnCopyTable
@@ -401,6 +450,7 @@
             txtWidth.Name = "txtWidth";
             txtWidth.Size = new Size(107, 23);
             txtWidth.TabIndex = 3;
+            txtWidth.Validated += RefreshTableControl;
             // 
             // label6
             // 
@@ -417,6 +467,7 @@
             txtHeight.Name = "txtHeight";
             txtHeight.Size = new Size(107, 23);
             txtHeight.TabIndex = 3;
+            txtHeight.Validated += RefreshTableControl;
             // 
             // label5
             // 
@@ -433,6 +484,7 @@
             txtAverageCovers.Name = "txtAverageCovers";
             txtAverageCovers.Size = new Size(107, 23);
             txtAverageCovers.TabIndex = 3;
+            txtAverageCovers.Validated += RefreshTableControl;
             // 
             // label4
             // 
@@ -449,6 +501,7 @@
             txtMaxCovers.Name = "txtMaxCovers";
             txtMaxCovers.Size = new Size(107, 23);
             txtMaxCovers.TabIndex = 3;
+            txtMaxCovers.Validated += RefreshTableControl;
             // 
             // label3
             // 
@@ -465,6 +518,7 @@
             txtTableNumber.Name = "txtTableNumber";
             txtTableNumber.Size = new Size(107, 23);
             txtTableNumber.TabIndex = 3;
+            txtTableNumber.Validated += RefreshTableControl;
             // 
             // cbLockTables
             // 
@@ -608,11 +662,23 @@
             panel1.Size = new Size(225, 36);
             panel1.TabIndex = 11;
             // 
+            // btnTest
+            // 
+            btnTest.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
+            btnTest.Location = new Point(540, 951);
+            btnTest.Name = "btnTest";
+            btnTest.Size = new Size(75, 19);
+            btnTest.TabIndex = 12;
+            btnTest.Text = "TEST";
+            btnTest.UseVisualStyleBackColor = true;
+            btnTest.Click += btnTest_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1253, 970);
+            Controls.Add(btnTest);
             Controls.Add(panel1);
             Controls.Add(btnSaveTables);
             Controls.Add(rbOutside);
@@ -692,5 +758,10 @@
         private Button btnSaveFloorplanTemplate;
         private Panel pnlUnassignedServers;
         private Button btnAddSectionLabels;
+        private Button btnTest;
+        private Button btnLessHeight;
+        private Button btnLessWidth;
+        private Button btnMoreWidth;
+        private Button btnMoreHeight;
     }
 }

@@ -25,6 +25,12 @@ namespace FloorPlanMaker
                 Tag = table
             };
         }
+        public static void RedrawTableControl(TableControl tableControl, Panel panel)
+        {
+            panel.Controls.Remove(tableControl);
+            CreateTableControl(tableControl.Table);
+            panel.Controls.Add(tableControl);
+        }
     }
 
 }
