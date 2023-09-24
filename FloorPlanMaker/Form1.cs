@@ -11,6 +11,7 @@ namespace FloorPlanMaker
         private int LastTableNumberSelected;
         private TableControl currentEmphasizedTable = null;
         private DrawingHandler drawingHandler;
+        List<TableControl> emphasizedTablesList = new List<TableControl>();
         public Form1()
         {
             InitializeComponent();
@@ -37,7 +38,7 @@ namespace FloorPlanMaker
 
             CreateTableControlsToAdd();
 
-            
+
         }
         private void CreateTableControlsToAdd()
         {
@@ -81,7 +82,7 @@ namespace FloorPlanMaker
             table.TableClicked += ExistingTable_TableClicked;
             // Subscribe to the TableClicked event for the new table as well
             //table.TableClicked += Table_TableClicked;
-
+            SaveTableByTableControl(table);
             pnlFloorPlan.Controls.Add(table);
         }
 
@@ -124,23 +125,56 @@ namespace FloorPlanMaker
             }
             else
             {
-                if (currentEmphasizedTable != null && currentEmphasizedTable != clickedTableControl)
+                if ((Control.ModifierKeys & Keys.Control) != Keys.Control)
                 {
-                    currentEmphasizedTable.BorderThickness = 1;
-                    currentEmphasizedTable.Invalidate();  // Request a redraw
+                    foreach (var emphasizedTable in emphasizedTablesList)
+                    {
+                        if (emphasizedTable != clickedTableControl)
+                        {
+                            emphasizedTable.BorderThickness = 1;
+                            emphasizedTable.Invalidate();
+                        }
+                    }
+                    emphasizedTablesList.Clear();
+                    areaManager.SelectedTables.Clear();
+                    
+                    txtTableNumber.Enabled = true;
                 }
+                else
+                {                  
+                    txtTableNumber.Enabled = false;
+                }
+                
+                areaManager.SelectedTable = clickedTable;   
+                currentEmphasizedTable = clickedTableControl;              
+                                
+                clickedTableControl.BorderThickness = 3;
+                clickedTableControl.Invalidate(); 
+               
+                emphasizedTablesList.Add(clickedTableControl);
+               
+                areaManager.SelectedTables.Add(clickedTable);
                 txtTableNumber.Text = clickedTable.TableNumber;
                 txtMaxCovers.Text = clickedTable.MaxCovers.ToString();
                 txtAverageCovers.Text = clickedTable.AverageCovers.ToString();
                 txtHeight.Text = clickedTable.Height.ToString();
                 txtWidth.Text = clickedTable.Width.ToString();
-                areaManager.SelectedTable = clickedTable;
+                string tableNum = "";
+                if (areaManager.SelectedTables.Count > 1) 
+                {
+                    foreach (var table in areaManager.SelectedTables)
+                    {
+                        tableNum += table.TableNumber + " ";
+                    }
+                    txtTableNumber.Text = tableNum;
+                }
+                
+                //if (currentEmphasizedTable != null && currentEmphasizedTable != clickedTableControl)
+                //{
+                //    currentEmphasizedTable.BorderThickness = 1;
+                //    currentEmphasizedTable.Invalidate();  // Request a redraw
+                //}
 
-                clickedTableControl.BorderThickness = 3;
-                clickedTableControl.Invalidate(); // Request a redraw
-
-                // Update the current emphasized table.
-                currentEmphasizedTable = clickedTableControl;
             }
 
 
@@ -163,21 +197,26 @@ namespace FloorPlanMaker
             {
                 if (control is TableControl tableControl)
                 {
-                    Table tableToSave = tableControl.Table;
-
-                    // Update table properties based on the tableControl properties.
-                    // This ensures any changes made in the UI are saved.
-                    tableToSave.TableNumber = tableControl.Table.TableNumber;
-                    tableToSave.DiningArea = areaManager.DiningAreaSelected;
-                    tableToSave.Width = tableControl.Width;
-                    tableToSave.Height = tableControl.Height;
-                    tableToSave.XCoordinate = tableControl.Location.X;
-                    tableToSave.YCoordinate = tableControl.Location.Y;
-                    tableToSave.Shape = tableControl.Shape;
-
-                    SqliteDataAccess.SaveTable(tableToSave);
+                    SaveTableByTableControl(tableControl);
                 }
             }
+        }
+        private void SaveTableByTableControl(TableControl tableControl)
+        {
+            Table tableToSave = tableControl.Table;
+
+            // Update table properties based on the tableControl properties.
+            // This ensures any changes made in the UI are saved.
+            tableToSave.TableNumber = tableControl.Table.TableNumber;
+            tableToSave.DiningArea = areaManager.DiningAreaSelected;
+            tableToSave.Width = tableControl.Width;
+            tableToSave.Height = tableControl.Height;
+            tableToSave.XCoordinate = tableControl.Location.X;
+            tableToSave.YCoordinate = tableControl.Location.Y;
+            tableToSave.Shape = tableControl.Shape;
+
+            SqliteDataAccess.SaveTable(tableToSave);
+
         }
 
         private void cboDiningAreas_SelectedIndexChanged(object sender, EventArgs e)
@@ -332,6 +371,7 @@ namespace FloorPlanMaker
             };
             table.ID = SqliteDataAccess.SaveTable(table);
             TableControl tableControl = TableControlFactory.CreateTableControl(table);
+            tableControl.Moveable = true;
             tableControl.Tag = table;
             areaManager.DiningAreaSelected.Tables.Add(table);
             tableControl.TableClicked += ExistingTable_TableClicked;
@@ -665,7 +705,7 @@ namespace FloorPlanMaker
                 }
                 Label label = new Label
                 {
-                   
+
                     Text = labelText,
                     Font = new Font("Segoe UI", 12F, FontStyle.Bold),
                     BackColor = Color.White,
@@ -823,6 +863,18 @@ namespace FloorPlanMaker
         private void btnAddSectionLabels_Click(object sender, EventArgs e)
         {
             AddSectionLabels(ShiftManager.Sections);
+        }
+
+        private void btnSaveFloorplanTemplate_Click(object sender, EventArgs e)
+        {
+            var drawnLines = drawingHandler.GetDrawnLines();
+            FloorplanTemplate template = new FloorplanTemplate(ShiftManager.SelectedDiningArea,"Test",(int)nudServerCount.Value,ShiftManager.Sections,drawnLines);
+            // Assuming you have a FloorplanTemplate object already initialized as template
+            template.SectionLines.Clear();
+            template.SectionLines.AddRange(drawnLines);
+
+            // Optional: If you want to clear the drawn lines on the panel after adding them to the template
+            drawingHandler.ClearLines();
         }
     }
 }

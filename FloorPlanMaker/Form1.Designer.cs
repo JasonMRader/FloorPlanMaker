@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             pnlServers = new Panel();
+            btnAddSectionLabels = new Button();
             btnSaveFloorplanTemplate = new Button();
             pnlUnassignedServers = new Panel();
             cbLockNodes = new CheckBox();
@@ -77,7 +78,6 @@
             rdoSections = new RadioButton();
             rdoDiningAreas = new RadioButton();
             panel1 = new Panel();
-            btnAddSectionLabels = new Button();
             pnlServers.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudNumberOfTeamWaits).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudServerCount).BeginInit();
@@ -115,6 +115,16 @@
             pnlServers.Size = new Size(250, 970);
             pnlServers.TabIndex = 0;
             // 
+            // btnAddSectionLabels
+            // 
+            btnAddSectionLabels.Location = new Point(40, 441);
+            btnAddSectionLabels.Name = "btnAddSectionLabels";
+            btnAddSectionLabels.Size = new Size(165, 23);
+            btnAddSectionLabels.TabIndex = 13;
+            btnAddSectionLabels.Text = "Add Section Labels";
+            btnAddSectionLabels.UseVisualStyleBackColor = true;
+            btnAddSectionLabels.Click += btnAddSectionLabels_Click;
+            // 
             // btnSaveFloorplanTemplate
             // 
             btnSaveFloorplanTemplate.Location = new Point(3, 391);
@@ -123,6 +133,7 @@
             btnSaveFloorplanTemplate.TabIndex = 12;
             btnSaveFloorplanTemplate.Text = "Save Floorplan Template";
             btnSaveFloorplanTemplate.UseVisualStyleBackColor = true;
+            btnSaveFloorplanTemplate.Click += btnSaveFloorplanTemplate_Click;
             // 
             // pnlUnassignedServers
             // 
@@ -596,16 +607,6 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(225, 36);
             panel1.TabIndex = 11;
-            // 
-            // btnAddSectionLabels
-            // 
-            btnAddSectionLabels.Location = new Point(40, 441);
-            btnAddSectionLabels.Name = "btnAddSectionLabels";
-            btnAddSectionLabels.Size = new Size(165, 23);
-            btnAddSectionLabels.TabIndex = 13;
-            btnAddSectionLabels.Text = "Add Section Labels";
-            btnAddSectionLabels.UseVisualStyleBackColor = true;
-            btnAddSectionLabels.Click += btnAddSectionLabels_Click;
             // 
             // Form1
             // 

@@ -31,6 +31,12 @@ namespace FloorPlanMaker
             server.Name = txtNewServerName.Text;
             SqliteDataAccess.SaveNewServer(server);
             txtNewServerName.Clear();
+            staffManager.AllServers.Clear();
+            staffManager.AllServers = SqliteDataAccess.LoadServers();
+            clbAllServers.DataSource = null;
+            clbAllServers.DataSource = staffManager.AllServers;
+            clbAllServers.DisplayMember = "Name";
+
         }
 
         private void frmEditStaff_Load(object sender, EventArgs e)

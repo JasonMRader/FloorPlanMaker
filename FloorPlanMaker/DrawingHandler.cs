@@ -48,16 +48,66 @@ namespace FloorPlanMaker
             }
         }
 
+        //private void Panel_MouseUp(object sender, MouseEventArgs e)
+        //{
+        //    if (isDragging)
+        //    {
+        //        isDragging = false;
+        //        points.Add(startPoint.Value);
+        //        points.Add(endPoint.Value);
+        //        startPoint = null;
+        //        endPoint = null;
+        //        targetPanel.Invalidate();
+        //    }
+        //}
+        private List<SectionLine> sectionLines = new List<SectionLine>();
+
+        public event EventHandler<SectionLine> LineDrawn;
+
         private void Panel_MouseUp(object sender, MouseEventArgs e)
         {
             if (isDragging)
             {
                 isDragging = false;
-                points.Add(startPoint.Value);
-                points.Add(endPoint.Value);
+
+                SectionLine newLine = new SectionLine
+                {
+                    StartPoint = startPoint.Value,
+                    EndPoint = endPoint.Value,
+                };
+                sectionLines.Add(newLine);
+
+                LineDrawn?.Invoke(this, newLine); // Raise the event
+
                 startPoint = null;
                 endPoint = null;
                 targetPanel.Invalidate();
+            }
+        }
+
+        private void Panel_Paint(object sender, PaintEventArgs e)
+        {
+            if (!DrawSectionLinesMode || sectionLines.Count == 0)
+                return;
+
+            using (Pen pen = new Pen(Color.Black, 5))
+            using (Brush brush = new SolidBrush(Color.Black))
+            {
+                foreach (var line in sectionLines)
+                {
+                    e.Graphics.DrawLine(pen, line.StartPoint, line.EndPoint);
+                }
+
+                if (isDragging && startPoint.HasValue && endPoint.HasValue)
+                {
+                    e.Graphics.DrawLine(pen, startPoint.Value, endPoint.Value);  // Draw the currently dragged line
+                }
+
+                foreach (var line in sectionLines)
+                {
+                    e.Graphics.FillEllipse(brush, line.StartPoint.X - 2, line.StartPoint.Y - 2, 5, 5);
+                    e.Graphics.FillEllipse(brush, line.EndPoint.X - 2, line.EndPoint.Y - 2, 5, 5);
+                }
             }
         }
 
@@ -71,30 +121,30 @@ namespace FloorPlanMaker
             return null;
         }
 
-        private void Panel_Paint(object sender, PaintEventArgs e)
-        {
-            if (!DrawSectionLinesMode || points.Count == 0)
-                return;
+        //private void Panel_Paint(object sender, PaintEventArgs e)
+        //{
+        //    if (!DrawSectionLinesMode || points.Count == 0)
+        //        return;
 
-            using (Pen pen = new Pen(Color.Black, 5))
-            using (Brush brush = new SolidBrush(Color.Black))
-            {
-                for (int i = 0; i < points.Count - 1; i += 2)
-                {
-                    e.Graphics.DrawLine(pen, points[i], points[i + 1]);
-                }
+        //    using (Pen pen = new Pen(Color.Black, 5))
+        //    using (Brush brush = new SolidBrush(Color.Black))
+        //    {
+        //        for (int i = 0; i < points.Count - 1; i += 2)
+        //        {
+        //            e.Graphics.DrawLine(pen, points[i], points[i + 1]);
+        //        }
 
-                if (isDragging && startPoint.HasValue && endPoint.HasValue)
-                {
-                    e.Graphics.DrawLine(pen, startPoint.Value, endPoint.Value);  // Draw the currently dragged line
-                }
+        //        if (isDragging && startPoint.HasValue && endPoint.HasValue)
+        //        {
+        //            e.Graphics.DrawLine(pen, startPoint.Value, endPoint.Value);  // Draw the currently dragged line
+        //        }
 
-                foreach (Point point in points)
-                {
-                    e.Graphics.FillEllipse(brush, point.X - 2, point.Y - 2, 5, 5);
-                }
-            }
-        }
+        //        foreach (Point point in points)
+        //        {
+        //            e.Graphics.FillEllipse(brush, point.X - 2, point.Y - 2, 5, 5);
+        //        }
+        //    }
+        //}
 
         public void ClearLines()
         {
@@ -111,6 +161,11 @@ namespace FloorPlanMaker
                 targetPanel.Invalidate();
             }
         }
+        public List<SectionLine> GetDrawnLines()
+        {
+            return new List<SectionLine>(sectionLines);
+        }
+
     }
 
     //public class DrawingHandler
