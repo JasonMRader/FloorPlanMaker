@@ -18,9 +18,10 @@ namespace FloorPlanMaker
                 Height = table.Height,
                 Left = table.XCoordinate,
                 Top = table.YCoordinate,
-                Moveable = true,  // Adjust this based on your requirements
+                Moveable = false,  
                 Shape = table.Shape,
                 Location = new Point(table.XCoordinate, table.YCoordinate),
+
                 Tag = table
             };
         }

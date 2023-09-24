@@ -31,12 +31,16 @@ namespace FloorPlanMaker
         private void Form1_Load(object sender, EventArgs e)
         {
 
-
-
             cboDiningAreas.DataSource = areaManager.DiningAreas;
             cboDiningAreas.DisplayMember = "Name";
             cboDiningAreas.ValueMember = "ID";
 
+            CreateTableControlsToAdd();
+
+            
+        }
+        private void CreateTableControlsToAdd()
+        {
             TableControl circleTable = new TableControl();
             circleTable.Location = new Point(70, 50);
             circleTable.Size = new Size(100, 100);
