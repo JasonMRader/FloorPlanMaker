@@ -277,23 +277,20 @@ namespace FloorPlanMaker
             {
                 height = height - 10;
                 txtHeight.Text = height.ToString();
-                areaManager.SelectedTable.Height = height;
-                currentEmphasizedTableControl.Height = height;  // Update control height
-                currentEmphasizedTableControl.Table = areaManager.SelectedTable;
-                TableControlFactory.RedrawTableControl(currentEmphasizedTableControl, pnlFloorPlan);
+                RefreshTableControl();
+                
             }
         }
 
         private void btnMoreHeight_Click(object sender, EventArgs e)
         {
+            
             if (int.TryParse(txtHeight.Text, out int height) && height >= 25 && height <= 390)
             {
                 height = height + 10;
                 txtHeight.Text = height.ToString();
-                areaManager.SelectedTable.Height = height;
-                currentEmphasizedTableControl.Height = height;  // Update control height
-                currentEmphasizedTableControl.Table = areaManager.SelectedTable;
-                TableControlFactory.RedrawTableControl(currentEmphasizedTableControl, pnlFloorPlan);
+                RefreshTableControl();
+                
             }
         }
 
@@ -303,10 +300,8 @@ namespace FloorPlanMaker
             {
                 width = width - 10;
                 txtWidth.Text = width.ToString();
-                areaManager.SelectedTable.Width = width;
-                currentEmphasizedTableControl.Width = width;  // Update control width
-                currentEmphasizedTableControl.Table = areaManager.SelectedTable;
-                TableControlFactory.RedrawTableControl(currentEmphasizedTableControl, pnlFloorPlan);
+                RefreshTableControl();
+                
             }
         }
 
@@ -316,84 +311,111 @@ namespace FloorPlanMaker
             {
                 width = width + 10;
                 txtWidth.Text = width.ToString();
-                areaManager.SelectedTable.Width = width;
-                currentEmphasizedTableControl.Width = width;  // Update control width
-                currentEmphasizedTableControl.Table = areaManager.SelectedTable;
-                TableControlFactory.RedrawTableControl(currentEmphasizedTableControl, pnlFloorPlan);
+                RefreshTableControl();
+                
             }
         }
         private void RefreshTableControl(object sender, EventArgs e)
         {
+            if (areaManager.SelectedTables.Count > 1)
+            {
+                foreach (TableControl tableControl in emphasizedTablesList)
+                {
+                    SetTableProperties(tableControl.Table, tableControl);
+                }
+
+            }
+            if (areaManager.SelectedTables.Count == 1)
+            {
+                SetTableProperties(areaManager.SelectedTable, currentEmphasizedTableControl);
+                //SqliteDataAccess.UpdateTable(areaManager.SelectedTable);
+            }
+            
+
+           
+        }
+        private void RefreshTableControl()
+        {
+            if (areaManager.SelectedTables.Count > 1)
+            {
+                foreach (TableControl tableControl in emphasizedTablesList)
+                {
+                    SetTableProperties(tableControl.Table, tableControl);
+                }
+
+            }
+            if (areaManager.SelectedTables.Count == 1)
+            {
+                SetTableProperties(areaManager.SelectedTable, currentEmphasizedTableControl);
+                //SqliteDataAccess.UpdateTable(areaManager.SelectedTable);
+            }
+
+
+
+        }
+        private void SetTableProperties(Table table, TableControl tableControl)
+        {
             if (!string.IsNullOrWhiteSpace(txtTableNumber.Text))
             {
-                areaManager.SelectedTable.TableNumber = txtTableNumber.Text;
+                if (emphasizedTablesList.Count == 1)
+                {
+                    table.TableNumber = txtTableNumber.Text;
+                }
+                
             }
 
             if (int.TryParse(txtMaxCovers.Text, out int maxCovers))
             {
-                areaManager.SelectedTable.MaxCovers = maxCovers;
+                table.MaxCovers = maxCovers;
             }
 
             if (float.TryParse(txtAverageCovers.Text, out float averageCovers))
             {
-                areaManager.SelectedTable.AverageCovers = averageCovers;
+                table.AverageCovers = averageCovers;
             }
 
             if (int.TryParse(txtHeight.Text, out int height) && height >= 25 && height <= 400)
             {
-                areaManager.SelectedTable.Height = height;
-                currentEmphasizedTableControl.Height = height;  // Update control height
+                table.Height = height;
+                tableControl.Height = height;  // Update control height
             }
 
             if (int.TryParse(txtWidth.Text, out int width) && width >= 25 && width <= 400)
             {
-                areaManager.SelectedTable.Width = width;
-                currentEmphasizedTableControl.Width = width;  // Update control width
+                table.Width = width;
+                tableControl.Width = width;  // Update control width
             }
 
             // Assuming these other methods and properties do not require validation
-            areaManager.SelectedTable.DiningArea = areaManager.DiningAreaSelected;
-            areaManager.SelectedTable.XCoordinate = UpdateXCoordinateForTableControl(areaManager.SelectedTable);
-            areaManager.SelectedTable.YCoordinate = UpdateYCoordinateForTableControl(areaManager.SelectedTable);
-            currentEmphasizedTableControl.Table = areaManager.SelectedTable;
-            TableControlFactory.RedrawTableControl(currentEmphasizedTableControl, pnlFloorPlan);
+            table.DiningArea = areaManager.DiningAreaSelected;
+            table.XCoordinate = UpdateXCoordinateForTableControl(table);
+            table.YCoordinate = UpdateYCoordinateForTableControl(table);
+            tableControl.Table = table;
+            TableControlFactory.RedrawTableControl(tableControl, pnlFloorPlan);
         }
 
-        //private void RefreshTableControl(object sender, EventArgs e)
-        //{
-        //    areaManager.SelectedTable.TableNumber = txtTableNumber.Text;
-
-        //    areaManager.SelectedTable.MaxCovers = Int32.Parse(txtMaxCovers.Text);
-        //    areaManager.SelectedTable.AverageCovers = float.Parse(txtAverageCovers.Text);
-        //    areaManager.SelectedTable.Height = Int32.Parse(txtHeight.Text);
-        //    areaManager.SelectedTable.Width = Int32.Parse(txtWidth.Text);
-        //    areaManager.SelectedTable.DiningArea = areaManager.DiningAreaSelected;
-        //    areaManager.SelectedTable.XCoordinate = UpdateXCoordinateForTableControl(areaManager.SelectedTable);
-        //    areaManager.SelectedTable.YCoordinate = UpdateYCoordinateForTableControl(areaManager.SelectedTable);
-        //    currentEmphasizedTableControl.Table = areaManager.SelectedTable;
-        //    TableControlFactory.RedrawTableControl(currentEmphasizedTableControl, pnlFloorPlan);
-        //}
+        
         private void SaveOneTable()
         {
 
-
-
-            SqliteDataAccess.UpdateTable(areaManager.SelectedTable);
-
-            //areaManager.DiningAreaSelected.Tables = SqliteDataAccess.LoadTables
-            //pnlFloorPlan.Controls.Clear();
-
-            //foreach (Table table in areaManager.DiningAreaSelected.Tables)
-            //{
-            //    TableControl tableControl = TableControlFactory.CreateTableControl(table);
-            //    tableControl.Moveable = true;
-            //    tableControl.TableClicked += ExistingTable_TableClicked;
-            //    pnlFloorPlan.Controls.Add(tableControl);
-            //}
+           
         }
         private void btnSaveTable_Click(object sender, EventArgs e)
         {
-            SaveOneTable();
+            if (areaManager.SelectedTables.Count > 1)
+            {
+                foreach (TableControl tableControl in emphasizedTablesList )
+                {
+                    SqliteDataAccess.UpdateTable(tableControl.Table);
+                }
+
+                
+            }
+            if (areaManager.SelectedTables.Count == 1)
+            {
+                SqliteDataAccess.UpdateTable(areaManager.SelectedTable);
+            }
+
         }
         private int UpdateXCoordinateForTableControl(Table table)
         {

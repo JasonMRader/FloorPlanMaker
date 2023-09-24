@@ -50,10 +50,6 @@
             label10 = new Label();
             nudServerCount = new NumericUpDown();
             pnlAddTables = new Panel();
-            btnLessHeight = new Button();
-            btnLessWidth = new Button();
-            btnMoreWidth = new Button();
-            btnMoreHeight = new Button();
             pnlSections = new Panel();
             flowSectionSelect = new FlowLayoutPanel();
             btnCopyTable = new Button();
@@ -71,6 +67,10 @@
             txtTableNumber = new TextBox();
             cbLockTables = new CheckBox();
             lblPanel2Text = new Label();
+            btnMoreHeight = new Button();
+            btnMoreWidth = new Button();
+            btnLessWidth = new Button();
+            btnLessHeight = new Button();
             pnlFloorPlan = new Panel();
             txtDiningAreaName = new TextBox();
             btnCreateNewDiningArea = new Button();
@@ -348,46 +348,6 @@
             pnlAddTables.Size = new Size(271, 970);
             pnlAddTables.TabIndex = 1;
             // 
-            // btnLessHeight
-            // 
-            btnLessHeight.Location = new Point(28, 720);
-            btnLessHeight.Name = "btnLessHeight";
-            btnLessHeight.Size = new Size(33, 23);
-            btnLessHeight.TabIndex = 9;
-            btnLessHeight.Text = "-";
-            btnLessHeight.UseVisualStyleBackColor = true;
-            btnLessHeight.Click += btnLessHeight_Click;
-            // 
-            // btnLessWidth
-            // 
-            btnLessWidth.Location = new Point(28, 779);
-            btnLessWidth.Name = "btnLessWidth";
-            btnLessWidth.Size = new Size(33, 23);
-            btnLessWidth.TabIndex = 9;
-            btnLessWidth.Text = "-";
-            btnLessWidth.UseVisualStyleBackColor = true;
-            btnLessWidth.Click += btnLessWidth_Click;
-            // 
-            // btnMoreWidth
-            // 
-            btnMoreWidth.Location = new Point(200, 779);
-            btnMoreWidth.Name = "btnMoreWidth";
-            btnMoreWidth.Size = new Size(33, 23);
-            btnMoreWidth.TabIndex = 9;
-            btnMoreWidth.Text = "+";
-            btnMoreWidth.UseVisualStyleBackColor = true;
-            btnMoreWidth.Click += btnMoreWidth_Click;
-            // 
-            // btnMoreHeight
-            // 
-            btnMoreHeight.Location = new Point(200, 721);
-            btnMoreHeight.Name = "btnMoreHeight";
-            btnMoreHeight.Size = new Size(33, 23);
-            btnMoreHeight.TabIndex = 9;
-            btnMoreHeight.Text = "+";
-            btnMoreHeight.UseVisualStyleBackColor = true;
-            btnMoreHeight.Click += btnMoreHeight_Click;
-            // 
             // pnlSections
             // 
             pnlSections.Controls.Add(flowSectionSelect);
@@ -518,7 +478,7 @@
             txtTableNumber.Name = "txtTableNumber";
             txtTableNumber.Size = new Size(107, 23);
             txtTableNumber.TabIndex = 3;
-            txtTableNumber.Validated += RefreshTableControl;
+            txtTableNumber.TextChanged += RefreshTableControl;
             // 
             // cbLockTables
             // 
@@ -541,6 +501,46 @@
             lblPanel2Text.Size = new Size(93, 21);
             lblPanel2Text.TabIndex = 0;
             lblPanel2Text.Text = "Add Tables";
+            // 
+            // btnMoreHeight
+            // 
+            btnMoreHeight.Location = new Point(200, 721);
+            btnMoreHeight.Name = "btnMoreHeight";
+            btnMoreHeight.Size = new Size(33, 23);
+            btnMoreHeight.TabIndex = 9;
+            btnMoreHeight.Text = "+";
+            btnMoreHeight.UseVisualStyleBackColor = true;
+            btnMoreHeight.Click += btnMoreHeight_Click;
+            // 
+            // btnMoreWidth
+            // 
+            btnMoreWidth.Location = new Point(200, 779);
+            btnMoreWidth.Name = "btnMoreWidth";
+            btnMoreWidth.Size = new Size(33, 23);
+            btnMoreWidth.TabIndex = 9;
+            btnMoreWidth.Text = "+";
+            btnMoreWidth.UseVisualStyleBackColor = true;
+            btnMoreWidth.Click += btnMoreWidth_Click;
+            // 
+            // btnLessWidth
+            // 
+            btnLessWidth.Location = new Point(28, 779);
+            btnLessWidth.Name = "btnLessWidth";
+            btnLessWidth.Size = new Size(33, 23);
+            btnLessWidth.TabIndex = 9;
+            btnLessWidth.Text = "-";
+            btnLessWidth.UseVisualStyleBackColor = true;
+            btnLessWidth.Click += btnLessWidth_Click;
+            // 
+            // btnLessHeight
+            // 
+            btnLessHeight.Location = new Point(28, 720);
+            btnLessHeight.Name = "btnLessHeight";
+            btnLessHeight.Size = new Size(33, 23);
+            btnLessHeight.TabIndex = 9;
+            btnLessHeight.Text = "-";
+            btnLessHeight.UseVisualStyleBackColor = true;
+            btnLessHeight.Click += btnLessHeight_Click;
             // 
             // pnlFloorPlan
             // 
