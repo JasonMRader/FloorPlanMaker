@@ -245,6 +245,14 @@ namespace FloorPlanMaker
             {
                 UpdateFloorplan();
             }
+            cboFloorplanTemplates.Items.Clear();
+            cboFloorplanTemplates.DisplayMember = "Name";
+            List<FloorplanTemplate> templates = SqliteDataAccess.LoadAllFloorplanTemplates();
+            foreach (FloorplanTemplate template in templates)
+            {
+                cboFloorplanTemplates.Items.Add(template);
+            }
+
 
 
         }
@@ -996,7 +1004,7 @@ namespace FloorPlanMaker
         private void btnSaveFloorplanTemplate_Click(object sender, EventArgs e)
         {
             var drawnLines = drawingHandler.GetDrawnLines();
-            FloorplanTemplate template = new FloorplanTemplate(ShiftManager.SelectedDiningArea, "TestAgain", 
+            FloorplanTemplate template = new FloorplanTemplate(ShiftManager.SelectedDiningArea, "TestAgain",
                 (int)nudServerCount.Value, ShiftManager.Sections, drawnLines);
             // Assuming you have a FloorplanTemplate object already initialized as template
             template.SectionLines.Clear();
@@ -1005,7 +1013,7 @@ namespace FloorPlanMaker
             // Optional: If you want to clear the drawn lines on the panel after adding them to the template
             drawingHandler.ClearLines();
             SqliteDataAccess.SaveFloorplanTemplate(template);
-            
+
         }
 
         private void btnTest_Click(object sender, EventArgs e)
@@ -1015,6 +1023,35 @@ namespace FloorPlanMaker
             List<FloorplanTemplate> templates = SqliteDataAccess.LoadAllFloorplanTemplates();
         }
 
+        private void cboFloorplanTemplates_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FloorplanTemplate template = cboFloorplanTemplates.SelectedItem as FloorplanTemplate;
+            ShiftManager.SetSectionsToTemplate(template);
+            // Assuming you have a Panel named panel1
+            // Assuming you have a Panel named panel1 and a ShiftManager named shiftManager
+            ShiftManager.AssignSectionNumbers();
+            foreach (Control ctrl in pnlFloorPlan.Controls)
+            {
+                if (ctrl is TableControl tableControl)
+                {
+                    foreach (Section section in ShiftManager.Sections)
+                    {
+                        
+                        foreach (Table table in section.Tables)
+                        {
+                            if (tableControl.Table.TableNumber == table.TableNumber)
+                            {
+                                tableControl.Section = section;
+                                tableControl.BackColor = section.Color;
+                                tableControl.Invalidate();
+                                break; // Once found, no need to check other tables in this section
+                            }
+                        }
+                    }
+                }
+            }
 
+
+        }
     }
 }

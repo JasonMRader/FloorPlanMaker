@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             pnlServers = new Panel();
+            cboFloorplanTemplates = new ComboBox();
             btnAddSectionLabels = new Button();
             btnSaveFloorplanTemplate = new Button();
             pnlUnassignedServers = new Panel();
@@ -94,6 +95,7 @@
             // pnlServers
             // 
             pnlServers.BackColor = SystemColors.GradientActiveCaption;
+            pnlServers.Controls.Add(cboFloorplanTemplates);
             pnlServers.Controls.Add(btnAddSectionLabels);
             pnlServers.Controls.Add(btnSaveFloorplanTemplate);
             pnlServers.Controls.Add(pnlUnassignedServers);
@@ -119,6 +121,15 @@
             pnlServers.Name = "pnlServers";
             pnlServers.Size = new Size(250, 970);
             pnlServers.TabIndex = 0;
+            // 
+            // cboFloorplanTemplates
+            // 
+            cboFloorplanTemplates.FormattingEnabled = true;
+            cboFloorplanTemplates.Location = new Point(12, 624);
+            cboFloorplanTemplates.Name = "cboFloorplanTemplates";
+            cboFloorplanTemplates.Size = new Size(214, 23);
+            cboFloorplanTemplates.TabIndex = 14;
+            cboFloorplanTemplates.SelectedIndexChanged += cboFloorplanTemplates_SelectedIndexChanged;
             // 
             // btnAddSectionLabels
             // 
@@ -763,5 +774,6 @@
         private Button btnLessWidth;
         private Button btnMoreWidth;
         private Button btnMoreHeight;
+        private ComboBox cboFloorplanTemplates;
     }
 }
