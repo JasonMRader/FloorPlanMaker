@@ -127,6 +127,11 @@ namespace FloorPlanMaker
             {
                 if ((Control.ModifierKeys & Keys.Control) != Keys.Control)
                 {
+                    txtTableNumber.Clear();
+                    txtMaxCovers.Clear();
+                    txtAverageCovers.Clear();
+                    txtHeight.Clear();
+                    txtWidth.Clear();
                     foreach (var emphasizedTable in emphasizedTablesList)
                     {
                         if (emphasizedTable != clickedTableControl)
@@ -278,19 +283,19 @@ namespace FloorPlanMaker
                 height = height - 10;
                 txtHeight.Text = height.ToString();
                 RefreshTableControl();
-                
+
             }
         }
 
         private void btnMoreHeight_Click(object sender, EventArgs e)
         {
-            
+
             if (int.TryParse(txtHeight.Text, out int height) && height >= 25 && height <= 390)
             {
                 height = height + 10;
                 txtHeight.Text = height.ToString();
                 RefreshTableControl();
-                
+
             }
         }
 
@@ -301,7 +306,7 @@ namespace FloorPlanMaker
                 width = width - 10;
                 txtWidth.Text = width.ToString();
                 RefreshTableControl();
-                
+
             }
         }
 
@@ -312,7 +317,7 @@ namespace FloorPlanMaker
                 width = width + 10;
                 txtWidth.Text = width.ToString();
                 RefreshTableControl();
-                
+
             }
         }
         private void RefreshTableControl(object sender, EventArgs e)
@@ -330,9 +335,9 @@ namespace FloorPlanMaker
                 SetTableProperties(areaManager.SelectedTable, currentEmphasizedTableControl);
                 //SqliteDataAccess.UpdateTable(areaManager.SelectedTable);
             }
-            
 
-           
+
+
         }
         private void RefreshTableControl()
         {
@@ -361,7 +366,7 @@ namespace FloorPlanMaker
                 {
                     table.TableNumber = txtTableNumber.Text;
                 }
-                
+
             }
 
             if (int.TryParse(txtMaxCovers.Text, out int maxCovers))
@@ -388,28 +393,30 @@ namespace FloorPlanMaker
 
             // Assuming these other methods and properties do not require validation
             table.DiningArea = areaManager.DiningAreaSelected;
-            table.XCoordinate = UpdateXCoordinateForTableControl(table);
+            //table.XCoordinate = UpdateXCoordinateForTableControl(table);
+            table.XCoordinate = tableControl.Left;
             table.YCoordinate = UpdateYCoordinateForTableControl(table);
+            table.YCoordinate = tableControl.Top;
             tableControl.Table = table;
             TableControlFactory.RedrawTableControl(tableControl, pnlFloorPlan);
         }
 
-        
+
         private void SaveOneTable()
         {
 
-           
+
         }
         private void btnSaveTable_Click(object sender, EventArgs e)
         {
             if (areaManager.SelectedTables.Count > 1)
             {
-                foreach (TableControl tableControl in emphasizedTablesList )
+                foreach (TableControl tableControl in emphasizedTablesList)
                 {
                     SqliteDataAccess.UpdateTable(tableControl.Table);
                 }
 
-                
+
             }
             if (areaManager.SelectedTables.Count == 1)
             {
@@ -989,19 +996,23 @@ namespace FloorPlanMaker
         private void btnSaveFloorplanTemplate_Click(object sender, EventArgs e)
         {
             var drawnLines = drawingHandler.GetDrawnLines();
-            FloorplanTemplate template = new FloorplanTemplate(ShiftManager.SelectedDiningArea, "Test", (int)nudServerCount.Value, ShiftManager.Sections, drawnLines);
+            FloorplanTemplate template = new FloorplanTemplate(ShiftManager.SelectedDiningArea, "TestAgain", 
+                (int)nudServerCount.Value, ShiftManager.Sections, drawnLines);
             // Assuming you have a FloorplanTemplate object already initialized as template
             template.SectionLines.Clear();
             template.SectionLines.AddRange(drawnLines);
 
             // Optional: If you want to clear the drawn lines on the panel after adding them to the template
             drawingHandler.ClearLines();
+            SqliteDataAccess.SaveFloorplanTemplate(template);
+            
         }
 
         private void btnTest_Click(object sender, EventArgs e)
         {
-            areaManager.SelectedTable.TableNumber = "TEST";
-            TableControlFactory.RedrawTableControl(currentEmphasizedTableControl, pnlFloorPlan);
+            //areaManager.SelectedTable.TableNumber = "TEST";
+            //TableControlFactory.RedrawTableControl(currentEmphasizedTableControl, pnlFloorPlan);
+            List<FloorplanTemplate> templates = SqliteDataAccess.LoadAllFloorplanTemplates();
         }
 
 

@@ -362,7 +362,7 @@
             flowSectionSelect.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             flowSectionSelect.Location = new Point(0, 354);
             flowSectionSelect.Name = "flowSectionSelect";
-            flowSectionSelect.Size = new Size(268, 324);
+            flowSectionSelect.Size = new Size(268, 574);
             flowSectionSelect.TabIndex = 9;
             // 
             // btnCopyTable
