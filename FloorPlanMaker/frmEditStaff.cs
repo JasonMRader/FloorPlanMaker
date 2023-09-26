@@ -219,11 +219,13 @@ namespace FloorPlanMaker
 
             int width = flowDiningAreaAssignment.Width / selectedCount;
             int height = 30;
-
+            int floorplanCount = 1;
+            bool isChecked = true;
             List<Control> labelList = new List<Control>();
             List<Control> flowList = new List<Control>();
             foreach (Floorplan fp in shiftManager.Floorplans)
             {
+                
 
                 RadioButton rb = new RadioButton
                 {
@@ -235,9 +237,16 @@ namespace FloorPlanMaker
                     Margin = new Padding(0),
                     Text = fp.DiningArea.Name,
                     Tag = fp
+                   
                 };
+                
                 //shiftManager.DiningAreasUsed.Add((DiningArea)clbDiningAreaSelection.CheckedItems[i]);
                 rb.CheckedChanged += FloorplanRadioButton_CheckedChanged;
+                if (floorplanCount == 1)
+                {
+                    rb.Checked = true;
+                }
+                floorplanCount++;
                 Label label = new Label
                 {
                     AutoSize = false,
@@ -261,6 +270,7 @@ namespace FloorPlanMaker
                 flowDiningAreaAssignment.Controls.Add(rb);
                 //flowDiningAreaAssignment.Controls.Add(floorplanPanel);
                 flowList.Add(floorplanPanel);
+
             }
             foreach (Control c in labelList)
             {

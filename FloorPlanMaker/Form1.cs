@@ -830,11 +830,11 @@ namespace FloorPlanMaker
         private void AddSectionLabels(List<Section> sections)
         {
             List<Server> servers = new List<Server>();
-            for(int i  = 0; i < 4 && i < staffManager.AllServers.Count; i++)
+            for (int i = 0; i < 4 && i < staffManager.AllServers.Count; i++)
             {
                 servers.Add(staffManager.AllServers[i]);
             }
-            
+
             foreach (Section section in sections)
             {
                 SectionControl sectionControl = new SectionControl(section);

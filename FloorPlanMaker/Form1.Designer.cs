@@ -51,9 +51,9 @@
             label9 = new Label();
             label10 = new Label();
             nudServerCount = new NumericUpDown();
+            flowSectionSelect = new FlowLayoutPanel();
             pnlAddTables = new Panel();
             pnlSections = new Panel();
-            flowSectionSelect = new FlowLayoutPanel();
             btnCopyTable = new Button();
             btnDeleteTable = new Button();
             btnSaveTable = new Button();
@@ -89,7 +89,6 @@
             ((System.ComponentModel.ISupportInitialize)nudNumberOfTeamWaits).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudServerCount).BeginInit();
             pnlAddTables.SuspendLayout();
-            pnlSections.SuspendLayout();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -98,7 +97,6 @@
             pnlServers.BackColor = SystemColors.GradientActiveCaption;
             pnlServers.Controls.Add(txtTemplateName);
             pnlServers.Controls.Add(cboFloorplanTemplates);
-            pnlServers.Controls.Add(btnAddSectionLabels);
             pnlServers.Controls.Add(btnSaveFloorplanTemplate);
             pnlServers.Controls.Add(pnlUnassignedServers);
             pnlServers.Controls.Add(cbLockNodes);
@@ -143,7 +141,7 @@
             // 
             // btnAddSectionLabels
             // 
-            btnAddSectionLabels.Location = new Point(40, 441);
+            btnAddSectionLabels.Location = new Point(43, 40);
             btnAddSectionLabels.Name = "btnAddSectionLabels";
             btnAddSectionLabels.Size = new Size(165, 23);
             btnAddSectionLabels.TabIndex = 13;
@@ -340,10 +338,20 @@
             nudServerCount.Value = new decimal(new int[] { 1, 0, 0, 0 });
             nudServerCount.ValueChanged += nudServerCount_ValueChanged;
             // 
+            // flowSectionSelect
+            // 
+            flowSectionSelect.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            flowSectionSelect.Location = new Point(0, 71);
+            flowSectionSelect.Name = "flowSectionSelect";
+            flowSectionSelect.Size = new Size(268, 550);
+            flowSectionSelect.TabIndex = 9;
+            // 
             // pnlAddTables
             // 
             pnlAddTables.BackColor = SystemColors.ActiveCaption;
+            pnlAddTables.Controls.Add(flowSectionSelect);
             pnlAddTables.Controls.Add(pnlSections);
+            pnlAddTables.Controls.Add(btnAddSectionLabels);
             pnlAddTables.Controls.Add(btnCopyTable);
             pnlAddTables.Controls.Add(btnDeleteTable);
             pnlAddTables.Controls.Add(btnSaveTable);
@@ -371,20 +379,11 @@
             // 
             // pnlSections
             // 
-            pnlSections.Controls.Add(flowSectionSelect);
             pnlSections.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            pnlSections.Location = new Point(0, 36);
+            pnlSections.Location = new Point(0, 299);
             pnlSections.Name = "pnlSections";
-            pnlSections.Size = new Size(268, 931);
+            pnlSections.Size = new Size(268, 671);
             pnlSections.TabIndex = 8;
-            // 
-            // flowSectionSelect
-            // 
-            flowSectionSelect.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            flowSectionSelect.Location = new Point(0, 354);
-            flowSectionSelect.Name = "flowSectionSelect";
-            flowSectionSelect.Size = new Size(268, 574);
-            flowSectionSelect.TabIndex = 9;
             // 
             // btnCopyTable
             // 
@@ -721,7 +720,6 @@
             ((System.ComponentModel.ISupportInitialize)nudServerCount).EndInit();
             pnlAddTables.ResumeLayout(false);
             pnlAddTables.PerformLayout();
-            pnlSections.ResumeLayout(false);
             panel1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
