@@ -31,7 +31,6 @@
             pnlServers = new Panel();
             txtTemplateName = new TextBox();
             cboFloorplanTemplates = new ComboBox();
-            btnAddSectionLabels = new Button();
             btnSaveFloorplanTemplate = new Button();
             pnlUnassignedServers = new Panel();
             cbLockNodes = new CheckBox();
@@ -51,6 +50,7 @@
             label9 = new Label();
             label10 = new Label();
             nudServerCount = new NumericUpDown();
+            btnAddSectionLabels = new Button();
             flowSectionSelect = new FlowLayoutPanel();
             pnlAddTables = new Panel();
             pnlSections = new Panel();
@@ -89,6 +89,7 @@
             ((System.ComponentModel.ISupportInitialize)nudNumberOfTeamWaits).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudServerCount).BeginInit();
             pnlAddTables.SuspendLayout();
+            pnlSections.SuspendLayout();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -138,16 +139,6 @@
             cboFloorplanTemplates.Size = new Size(214, 23);
             cboFloorplanTemplates.TabIndex = 14;
             cboFloorplanTemplates.SelectedIndexChanged += cboFloorplanTemplates_SelectedIndexChanged;
-            // 
-            // btnAddSectionLabels
-            // 
-            btnAddSectionLabels.Location = new Point(43, 40);
-            btnAddSectionLabels.Name = "btnAddSectionLabels";
-            btnAddSectionLabels.Size = new Size(165, 23);
-            btnAddSectionLabels.TabIndex = 13;
-            btnAddSectionLabels.Text = "Add Section Labels";
-            btnAddSectionLabels.UseVisualStyleBackColor = true;
-            btnAddSectionLabels.Click += btnAddSectionLabels_Click;
             // 
             // btnSaveFloorplanTemplate
             // 
@@ -338,20 +329,28 @@
             nudServerCount.Value = new decimal(new int[] { 1, 0, 0, 0 });
             nudServerCount.ValueChanged += nudServerCount_ValueChanged;
             // 
+            // btnAddSectionLabels
+            // 
+            btnAddSectionLabels.Location = new Point(0, 0);
+            btnAddSectionLabels.Name = "btnAddSectionLabels";
+            btnAddSectionLabels.Size = new Size(271, 37);
+            btnAddSectionLabels.TabIndex = 13;
+            btnAddSectionLabels.Text = "Add Section Labels";
+            btnAddSectionLabels.UseVisualStyleBackColor = true;
+            btnAddSectionLabels.Click += btnAddSectionLabels_Click;
+            // 
             // flowSectionSelect
             // 
             flowSectionSelect.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            flowSectionSelect.Location = new Point(0, 71);
+            flowSectionSelect.Location = new Point(0, 34);
             flowSectionSelect.Name = "flowSectionSelect";
-            flowSectionSelect.Size = new Size(268, 550);
+            flowSectionSelect.Size = new Size(268, 435);
             flowSectionSelect.TabIndex = 9;
             // 
             // pnlAddTables
             // 
             pnlAddTables.BackColor = SystemColors.ActiveCaption;
-            pnlAddTables.Controls.Add(flowSectionSelect);
             pnlAddTables.Controls.Add(pnlSections);
-            pnlAddTables.Controls.Add(btnAddSectionLabels);
             pnlAddTables.Controls.Add(btnCopyTable);
             pnlAddTables.Controls.Add(btnDeleteTable);
             pnlAddTables.Controls.Add(btnSaveTable);
@@ -379,10 +378,12 @@
             // 
             // pnlSections
             // 
+            pnlSections.Controls.Add(btnAddSectionLabels);
+            pnlSections.Controls.Add(flowSectionSelect);
             pnlSections.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            pnlSections.Location = new Point(0, 299);
+            pnlSections.Location = new Point(0, 33);
             pnlSections.Name = "pnlSections";
-            pnlSections.Size = new Size(268, 671);
+            pnlSections.Size = new Size(268, 937);
             pnlSections.TabIndex = 8;
             // 
             // btnCopyTable
@@ -720,6 +721,7 @@
             ((System.ComponentModel.ISupportInitialize)nudServerCount).EndInit();
             pnlAddTables.ResumeLayout(false);
             pnlAddTables.PerformLayout();
+            pnlSections.ResumeLayout(false);
             panel1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();

@@ -1,4 +1,5 @@
 using FloorplanClassLibrary;
+//using static System.Collections.Specialized.BitVector32;
 
 namespace FloorPlanMaker
 {
@@ -579,6 +580,7 @@ namespace FloorPlanMaker
                 lblServerMaxCovers.Text = (shiftManager.SelectedDiningArea.GetMaxCovers() / (float)nudServerCount.Value).ToString("F1");
                 lblServerAverageCovers.Text = (shiftManager.SelectedDiningArea.GetAverageCovers() / (float)nudServerCount.Value).ToString("F1");
                 shiftManager.Sections = GetNumberOfSections();
+                shiftManager.SelectedFloorplan.Sections = GetNumberOfSections();
                 CreateSectionRadioButtons(shiftManager.Sections);
             }
 
@@ -1020,7 +1022,18 @@ namespace FloorPlanMaker
 
         private void btnAddSectionLabels_Click(object sender, EventArgs e)
         {
-            AddSectionLabels(shiftManager.Sections);
+           
+
+            foreach (Section section in shiftManager.SelectedFloorplan.Sections)
+            {
+                SectionControl sectionControl = new SectionControl(section);
+                sectionControl.Location = FindMidpointOfSectionControls(section);
+                sectionControl.Servers = shiftManager.SelectedFloorplan.Servers;
+                pnlFloorPlan.Controls.Add(sectionControl);
+                sectionControl.BringToFront();
+                
+            }
+            //AddSectionLabels(shiftManager.Sections);
         }
 
         private void btnSaveFloorplanTemplate_Click(object sender, EventArgs e)
