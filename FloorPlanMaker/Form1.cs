@@ -5,9 +5,9 @@ namespace FloorPlanMaker
     public partial class Form1 : Form
     {
         //List<DiningArea> areaList = new List<DiningArea>();
-        DiningAreaCreationManager areaManager = new DiningAreaCreationManager();
+        DiningAreaCreationManager areaCreationManager = new DiningAreaCreationManager();
         StaffManager staffManager = new StaffManager();
-        private ShiftManager ShiftManager;
+        private ShiftManager shiftManager;
         private int LastTableNumberSelected;
         private TableControl currentEmphasizedTableControl = null;
         private DrawingHandler drawingHandler;
@@ -16,7 +16,7 @@ namespace FloorPlanMaker
         {
             InitializeComponent();
             drawingHandler = new DrawingHandler(pnlFloorPlan);
-            ShiftManager = new ShiftManager();
+            shiftManager = new ShiftManager();
             this.KeyDown += pnlFloorPlan_KeyDown;
             //pnlFloorPlan.KeyPreview = true;
         }
@@ -32,7 +32,7 @@ namespace FloorPlanMaker
         private void Form1_Load(object sender, EventArgs e)
         {
 
-            cboDiningAreas.DataSource = areaManager.DiningAreas;
+            cboDiningAreas.DataSource = areaCreationManager.DiningAreas;
             cboDiningAreas.DisplayMember = "Name";
             cboDiningAreas.ValueMember = "ID";
 
@@ -110,16 +110,16 @@ namespace FloorPlanMaker
             }
             if (rdoSections.Checked)
             {
-                if (ShiftManager.SectionSelected != null)
+                if (shiftManager.SectionSelected != null)
                 {
-                    ShiftManager.SectionSelected.Tables.Add(clickedTable);
-                    clickedTableControl.Section = ShiftManager.SectionSelected;
+                    shiftManager.SectionSelected.Tables.Add(clickedTable);
+                    clickedTableControl.Section = shiftManager.SectionSelected;
                     // 2. Fill the table control with the FloorplanManager.SectionSelected.Color
-                    clickedTableControl.BackColor = ShiftManager.SectionSelected.Color;
+                    clickedTableControl.BackColor = shiftManager.SectionSelected.Color;
 
                     // Optionally, you can invalidate the control to request a redraw if needed.
                     clickedTableControl.Invalidate();
-                    UpdateSectionLabels(ShiftManager.SectionSelected, ShiftManager.SectionSelected.MaxCovers, ShiftManager.SectionSelected.AverageCovers);
+                    UpdateSectionLabels(shiftManager.SectionSelected, shiftManager.SectionSelected.MaxCovers, shiftManager.SectionSelected.AverageCovers);
                 }
 
             }
@@ -141,7 +141,7 @@ namespace FloorPlanMaker
                         }
                     }
                     emphasizedTablesList.Clear();
-                    areaManager.SelectedTables.Clear();
+                    areaCreationManager.SelectedTables.Clear();
 
                     txtTableNumber.Enabled = true;
                 }
@@ -150,7 +150,7 @@ namespace FloorPlanMaker
                     txtTableNumber.Enabled = false;
                 }
 
-                areaManager.SelectedTable = clickedTable;
+                areaCreationManager.SelectedTable = clickedTable;
                 currentEmphasizedTableControl = clickedTableControl;
 
                 clickedTableControl.BorderThickness = 3;
@@ -158,16 +158,16 @@ namespace FloorPlanMaker
 
                 emphasizedTablesList.Add(clickedTableControl);
 
-                areaManager.SelectedTables.Add(clickedTable);
+                areaCreationManager.SelectedTables.Add(clickedTable);
                 txtTableNumber.Text = clickedTable.TableNumber;
                 txtMaxCovers.Text = clickedTable.MaxCovers.ToString();
                 txtAverageCovers.Text = clickedTable.AverageCovers.ToString();
                 txtHeight.Text = clickedTable.Height.ToString();
                 txtWidth.Text = clickedTable.Width.ToString();
                 string tableNum = "";
-                if (areaManager.SelectedTables.Count > 1)
+                if (areaCreationManager.SelectedTables.Count > 1)
                 {
-                    foreach (var table in areaManager.SelectedTables)
+                    foreach (var table in areaCreationManager.SelectedTables)
                     {
                         tableNum += table.TableNumber + " ";
                     }
@@ -197,7 +197,7 @@ namespace FloorPlanMaker
 
         private void btnSaveTables_Click(object sender, EventArgs e)
         {
-            SqliteDataAccess.DeleteTablesByDiningArea(areaManager.DiningAreaSelected);
+            SqliteDataAccess.DeleteTablesByDiningArea(areaCreationManager.DiningAreaSelected);
             foreach (Control control in pnlFloorPlan.Controls)
             {
                 if (control is TableControl tableControl)
@@ -213,7 +213,7 @@ namespace FloorPlanMaker
             // Update table properties based on the tableControl properties.
             // This ensures any changes made in the UI are saved.
             tableToSave.TableNumber = tableControl.Table.TableNumber;
-            tableToSave.DiningArea = areaManager.DiningAreaSelected;
+            tableToSave.DiningArea = areaCreationManager.DiningAreaSelected;
             tableToSave.Width = tableControl.Width;
             tableToSave.Height = tableControl.Height;
             tableToSave.XCoordinate = tableControl.Location.X;
@@ -228,25 +228,25 @@ namespace FloorPlanMaker
         {
             //ShiftManager.SelectedFloorplan = ShiftManager.Floorplans.FirstOrDefault(fp => fp.DiningArea == (DiningArea)cboDiningAreas.SelectedItem);
 
-            areaManager.DiningAreaSelected = (DiningArea?)cboDiningAreas.SelectedItem;
-            txtDiningAreaName.Text = areaManager.DiningAreaSelected.Name;
+            areaCreationManager.DiningAreaSelected = (DiningArea?)cboDiningAreas.SelectedItem;
+            txtDiningAreaName.Text = areaCreationManager.DiningAreaSelected.Name;
             pnlFloorPlan.Controls.Clear();
-            foreach (Table table in areaManager.DiningAreaSelected.Tables)
+            foreach (Table table in areaCreationManager.DiningAreaSelected.Tables)
             {
-                table.DiningArea = areaManager.DiningAreaSelected;
+                table.DiningArea = areaCreationManager.DiningAreaSelected;
                 TableControl tableControl = TableControlFactory.CreateTableControl(table);
                 //tableControl.TableClicked += Table_TableClicked;  // Uncomment if you want to attach event handler
                 tableControl.TableClicked += ExistingTable_TableClicked;
                 pnlFloorPlan.Controls.Add(tableControl);
             }
-            lblPanel2Text.Text = areaManager.DiningAreaSelected.Name;
-            this.ShiftManager.SelectedDiningArea = areaManager.DiningAreaSelected;
-            if (ShiftManager.Floorplans.Count > 0)
+            lblPanel2Text.Text = areaCreationManager.DiningAreaSelected.Name;
+            this.shiftManager.SelectedDiningArea = areaCreationManager.DiningAreaSelected;
+            if (shiftManager.Floorplans.Count > 0)
             {
                 UpdateFloorplan();
             }
 
-            RefreshTemplateList(ShiftManager.SelectedDiningArea);
+            RefreshTemplateList(shiftManager.SelectedDiningArea);
 
 
 
@@ -335,7 +335,7 @@ namespace FloorPlanMaker
         }
         private void RefreshTableControl(object sender, EventArgs e)
         {
-            if (areaManager.SelectedTables.Count > 1)
+            if (areaCreationManager.SelectedTables.Count > 1)
             {
                 foreach (TableControl tableControl in emphasizedTablesList)
                 {
@@ -343,9 +343,9 @@ namespace FloorPlanMaker
                 }
 
             }
-            if (areaManager.SelectedTables.Count == 1)
+            if (areaCreationManager.SelectedTables.Count == 1)
             {
-                SetTableProperties(areaManager.SelectedTable, currentEmphasizedTableControl);
+                SetTableProperties(areaCreationManager.SelectedTable, currentEmphasizedTableControl);
                 //SqliteDataAccess.UpdateTable(areaManager.SelectedTable);
             }
 
@@ -354,7 +354,7 @@ namespace FloorPlanMaker
         }
         private void RefreshTableControl()
         {
-            if (areaManager.SelectedTables.Count > 1)
+            if (areaCreationManager.SelectedTables.Count > 1)
             {
                 foreach (TableControl tableControl in emphasizedTablesList)
                 {
@@ -362,9 +362,9 @@ namespace FloorPlanMaker
                 }
 
             }
-            if (areaManager.SelectedTables.Count == 1)
+            if (areaCreationManager.SelectedTables.Count == 1)
             {
-                SetTableProperties(areaManager.SelectedTable, currentEmphasizedTableControl);
+                SetTableProperties(areaCreationManager.SelectedTable, currentEmphasizedTableControl);
                 //SqliteDataAccess.UpdateTable(areaManager.SelectedTable);
             }
 
@@ -405,7 +405,7 @@ namespace FloorPlanMaker
             }
 
             // Assuming these other methods and properties do not require validation
-            table.DiningArea = areaManager.DiningAreaSelected;
+            table.DiningArea = areaCreationManager.DiningAreaSelected;
             //table.XCoordinate = UpdateXCoordinateForTableControl(table);
             table.XCoordinate = tableControl.Left;
             table.YCoordinate = UpdateYCoordinateForTableControl(table);
@@ -422,7 +422,7 @@ namespace FloorPlanMaker
         }
         private void btnSaveTable_Click(object sender, EventArgs e)
         {
-            if (areaManager.SelectedTables.Count > 1)
+            if (areaCreationManager.SelectedTables.Count > 1)
             {
                 foreach (TableControl tableControl in emphasizedTablesList)
                 {
@@ -431,9 +431,9 @@ namespace FloorPlanMaker
 
 
             }
-            if (areaManager.SelectedTables.Count == 1)
+            if (areaCreationManager.SelectedTables.Count == 1)
             {
-                SqliteDataAccess.UpdateTable(areaManager.SelectedTable);
+                SqliteDataAccess.UpdateTable(areaCreationManager.SelectedTable);
             }
 
         }
@@ -442,7 +442,7 @@ namespace FloorPlanMaker
             int xCoordinate = table.XCoordinate;
             foreach (Control control in pnlFloorPlan.Controls)
             {
-                if (control is TableControl && control.Tag == areaManager.SelectedTable)
+                if (control is TableControl && control.Tag == areaCreationManager.SelectedTable)
                 {
                     xCoordinate = control.Left;
 
@@ -455,7 +455,7 @@ namespace FloorPlanMaker
             int yCoordinate = table.YCoordinate;
             foreach (Control control in pnlFloorPlan.Controls)
             {
-                if (control is TableControl && control.Tag == areaManager.SelectedTable)
+                if (control is TableControl && control.Tag == areaCreationManager.SelectedTable)
                 {
                     yCoordinate = control.Top;
 
@@ -466,13 +466,13 @@ namespace FloorPlanMaker
 
         private void btnDeleteTable_Click(object sender, EventArgs e)
         {
-            areaManager.DiningAreaSelected.Tables.Remove(areaManager.SelectedTable);
+            areaCreationManager.DiningAreaSelected.Tables.Remove(areaCreationManager.SelectedTable);
 
-            SqliteDataAccess.DeleteTable(areaManager.SelectedTable);
+            SqliteDataAccess.DeleteTable(areaCreationManager.SelectedTable);
 
             foreach (Control control in pnlFloorPlan.Controls)
             {
-                if (control is TableControl && control.Tag == areaManager.SelectedTable)
+                if (control is TableControl && control.Tag == areaCreationManager.SelectedTable)
                 {
                     pnlFloorPlan.Controls.Remove(control);
                     break;
@@ -485,36 +485,36 @@ namespace FloorPlanMaker
             //    tableControl.TableClicked += ExistingTable_TableClicked;
             //    pnlFloorPlan.Controls.Add(tableControl);
             //}
-            areaManager.SelectedTable = null;
+            areaCreationManager.SelectedTable = null;
         }
 
         private void btnCopyTable_Click(object sender, EventArgs e)
         {
-            int currentTableNumber = int.Parse(areaManager.SelectedTable.TableNumber);
+            int currentTableNumber = int.Parse(areaCreationManager.SelectedTable.TableNumber);
             int newTableNumber = currentTableNumber + 1;
             //TableControl clickedTable = (TableControl)sender;
             Table table = new Table()
             {
-                Width = areaManager.SelectedTable.Width,
-                Height = areaManager.SelectedTable.Height,
+                Width = areaCreationManager.SelectedTable.Width,
+                Height = areaCreationManager.SelectedTable.Height,
                 //Left = new Random().Next(100, 300), // These are example values, replace with what you need
                 //Top = new Random().Next(100, 300),
                 //Moveable = true,
-                Shape = areaManager.SelectedTable.Shape,
+                Shape = areaCreationManager.SelectedTable.Shape,
                 TableNumber = newTableNumber.ToString(),
-                MaxCovers = areaManager.SelectedTable.MaxCovers,
-                AverageCovers = areaManager.SelectedTable.AverageCovers,
-                YCoordinate = areaManager.SelectedTable.YCoordinate,
-                XCoordinate = areaManager.SelectedTable.XCoordinate + areaManager.SelectedTable.Width,
-                DiningAreaId = areaManager.SelectedTable.DiningAreaId,
-                DiningArea = areaManager.SelectedTable.DiningArea
+                MaxCovers = areaCreationManager.SelectedTable.MaxCovers,
+                AverageCovers = areaCreationManager.SelectedTable.AverageCovers,
+                YCoordinate = areaCreationManager.SelectedTable.YCoordinate,
+                XCoordinate = areaCreationManager.SelectedTable.XCoordinate + areaCreationManager.SelectedTable.Width,
+                DiningAreaId = areaCreationManager.SelectedTable.DiningAreaId,
+                DiningArea = areaCreationManager.SelectedTable.DiningArea
 
             };
             table.ID = SqliteDataAccess.SaveTable(table);
             TableControl tableControl = TableControlFactory.CreateTableControl(table);
             tableControl.Moveable = true;
             tableControl.Tag = table;
-            areaManager.DiningAreaSelected.Tables.Add(table);
+            areaCreationManager.DiningAreaSelected.Tables.Add(table);
             tableControl.TableClicked += ExistingTable_TableClicked;
             // Subscribe to the TableClicked event for the new table as well
             //table.TableClicked += Table_TableClicked;
@@ -524,7 +524,7 @@ namespace FloorPlanMaker
 
         private void btnAddServers_Click(object sender, EventArgs e)
         {
-            Form form = new frmEditStaff(staffManager, ShiftManager);
+            Form form = new frmEditStaff(staffManager, shiftManager);
             form.ShowDialog();
             if (form.DialogResult == DialogResult.OK)
             {
@@ -535,12 +535,12 @@ namespace FloorPlanMaker
         }
         private void UpdateFloorplan()
         {
-            ShiftManager.ServersOnShift = staffManager.ServersOnShift;
-            ShiftManager.SelectedFloorplan = ShiftManager.Floorplans.FirstOrDefault(fp => fp.DiningArea.ID == areaManager.DiningAreaSelected.ID);
+            shiftManager.ServersOnShift = staffManager.ServersOnShift;
+            shiftManager.SelectedFloorplan = shiftManager.Floorplans.FirstOrDefault(fp => fp.DiningArea.ID == areaCreationManager.DiningAreaSelected.ID);
             flowServersInFloorplan.Controls.Clear();
             int pointX = 35;
             int PointY = 5;
-            foreach (Server s in ShiftManager.SelectedFloorplan.Servers)
+            foreach (Server s in shiftManager.SelectedFloorplan.Servers)
             {
                 ServerControl sc = new ServerControl(s, 150, 30);
                 sc.Location = new Point(pointX, PointY);
@@ -548,7 +548,7 @@ namespace FloorPlanMaker
                 //CheckBox cb = CreateServerButton(s);
                 pnlSections.Controls.Add(sc);
             }
-            nudServerCount.Value = ShiftManager.SelectedFloorplan.Servers.Count;
+            nudServerCount.Value = shiftManager.SelectedFloorplan.Servers.Count;
         }
 
         private CheckBox CreateServerButton(Server server)
@@ -576,10 +576,10 @@ namespace FloorPlanMaker
         {
             if (nudServerCount.Value > 0)
             {
-                lblServerMaxCovers.Text = (ShiftManager.SelectedDiningArea.GetMaxCovers() / (float)nudServerCount.Value).ToString("F1");
-                lblServerAverageCovers.Text = (ShiftManager.SelectedDiningArea.GetAverageCovers() / (float)nudServerCount.Value).ToString("F1");
-                ShiftManager.Sections = GetNumberOfSections();
-                CreateSectionRadioButtons(ShiftManager.Sections);
+                lblServerMaxCovers.Text = (shiftManager.SelectedDiningArea.GetMaxCovers() / (float)nudServerCount.Value).ToString("F1");
+                lblServerAverageCovers.Text = (shiftManager.SelectedDiningArea.GetAverageCovers() / (float)nudServerCount.Value).ToString("F1");
+                shiftManager.Sections = GetNumberOfSections();
+                CreateSectionRadioButtons(shiftManager.Sections);
             }
 
         }
@@ -829,32 +829,43 @@ namespace FloorPlanMaker
         }
         private void AddSectionLabels(List<Section> sections)
         {
+            List<Server> servers = new List<Server>();
+            for(int i  = 0; i < 4 && i < staffManager.AllServers.Count; i++)
+            {
+                servers.Add(staffManager.AllServers[i]);
+            }
+            
             foreach (Section section in sections)
             {
-                string labelText = "";
-                if (section.IsCloser)
-                {
-                    labelText = section.Server.Name + "CLS";
-                }
-                if (section.IsPre)
-                {
-                    labelText = section.Server.Name + "PRE";
-                }
-                else
-                {
-                    labelText = section.Server.Name;
-                }
-                Label label = new Label
-                {
+                SectionControl sectionControl = new SectionControl(section);
+                sectionControl.Location = FindMidpointOfSectionControls(section);
+                sectionControl.Servers = servers;
+                pnlFloorPlan.Controls.Add(sectionControl);
+                sectionControl.BringToFront();
+                //string labelText = "";
+                //if (section.IsCloser)
+                //{
+                //    labelText = section.Server.Name + "CLS";
+                //}
+                //if (section.IsPre)
+                //{
+                //    labelText = section.Server.Name + "PRE";
+                //}
+                //else
+                //{
+                //    labelText = section.Server.Name;
+                //}
+                //Label label = new Label
+                //{
 
-                    Text = labelText,
-                    Font = new Font("Segoe UI", 12F, FontStyle.Bold),
-                    BackColor = Color.White,
-                    ForeColor = Color.Black,
-                    Location = FindMidpointOfSectionControls(section)
-                };
-                pnlFloorPlan.Controls.Add(label);
-                label.BringToFront();
+                //    Text = labelText,
+                //    Font = new Font("Segoe UI", 12F, FontStyle.Bold),
+                //    BackColor = Color.White,
+                //    ForeColor = Color.Black,
+                //    Location = FindMidpointOfSectionControls(section)
+                //};
+                //pnlFloorPlan.Controls.Add(label);
+                //label.BringToFront();
             }
         }
         private Point FindMidpointOfSectionControls(Section targetSection)
@@ -887,7 +898,7 @@ namespace FloorPlanMaker
                 Section selectedSection = rb.Tag as Section;
                 if (selectedSection != null)
                 {
-                    ShiftManager.SectionSelected = selectedSection;
+                    shiftManager.SectionSelected = selectedSection;
                 }
                 if (rb != selectedSectionButton)
                 {
@@ -918,8 +929,8 @@ namespace FloorPlanMaker
         private Dictionary<Section, (Label MaxCoversLabel, Label AverageCoversLabel)> sectionLabels = new Dictionary<Section, (Label, Label)>();
         public void UpdateSectionLabels(Section section, int newMaxCoversValue, float newAverageCoversValue)
         {
-            float maxPerServer = (ShiftManager.SelectedDiningArea.GetMaxCovers() / (float)nudServerCount.Value);
-            float avgPerServer = (ShiftManager.SelectedDiningArea.GetAverageCovers() / (float)nudServerCount.Value);
+            float maxPerServer = (shiftManager.SelectedDiningArea.GetMaxCovers() / (float)nudServerCount.Value);
+            float avgPerServer = (shiftManager.SelectedDiningArea.GetAverageCovers() / (float)nudServerCount.Value);
             float maxDifference = newMaxCoversValue - maxPerServer;
             float avgDifference = newAverageCoversValue - avgPerServer;
             if (sectionLabels.ContainsKey(section))
@@ -934,8 +945,8 @@ namespace FloorPlanMaker
 
         private void nudNumberOfTeamWaits_ValueChanged(object sender, EventArgs e)
         {
-            ShiftManager.Sections = GetNumberOfSections();
-            CreateSectionRadioButtons(ShiftManager.Sections);
+            shiftManager.Sections = GetNumberOfSections();
+            CreateSectionRadioButtons(shiftManager.Sections);
         }
 
 
@@ -957,10 +968,10 @@ namespace FloorPlanMaker
             if (rdoSections.Checked)
             {
                 pnlSections.Visible = true;
-                lblPanel2Text.Text = areaManager.DiningAreaSelected.Name;
-                this.ShiftManager = new ShiftManager(areaManager.DiningAreaSelected);
-                lblDiningAreaMaxCovers.Text = ShiftManager.SelectedDiningArea.GetMaxCovers().ToString();
-                lblDiningAreaAverageCovers.Text = ShiftManager.SelectedDiningArea.GetAverageCovers().ToString();
+                lblPanel2Text.Text = areaCreationManager.DiningAreaSelected.Name;
+                this.shiftManager = new ShiftManager(areaCreationManager.DiningAreaSelected);
+                lblDiningAreaMaxCovers.Text = shiftManager.SelectedDiningArea.GetMaxCovers().ToString();
+                lblDiningAreaAverageCovers.Text = shiftManager.SelectedDiningArea.GetAverageCovers().ToString();
                 foreach (Control control in pnlFloorPlan.Controls)
                 {
                     if (control is TableControl tableControl)
@@ -1009,14 +1020,14 @@ namespace FloorPlanMaker
 
         private void btnAddSectionLabels_Click(object sender, EventArgs e)
         {
-            AddSectionLabels(ShiftManager.Sections);
+            AddSectionLabels(shiftManager.Sections);
         }
 
         private void btnSaveFloorplanTemplate_Click(object sender, EventArgs e)
         {
             var drawnLines = drawingHandler.GetDrawnLines();
-            FloorplanTemplate template = new FloorplanTemplate(ShiftManager.SelectedDiningArea, txtTemplateName.Text,
-                (int)nudServerCount.Value, ShiftManager.Sections, drawnLines);
+            FloorplanTemplate template = new FloorplanTemplate(shiftManager.SelectedDiningArea, txtTemplateName.Text,
+                (int)nudServerCount.Value, shiftManager.Sections, drawnLines);
             // Assuming you have a FloorplanTemplate object already initialized as template
             template.SectionLines.Clear();
             template.SectionLines.AddRange(drawnLines);
@@ -1034,7 +1045,7 @@ namespace FloorPlanMaker
             //areaManager.SelectedTable.TableNumber = "TEST";
             //TableControlFactory.RedrawTableControl(currentEmphasizedTableControl, pnlFloorPlan);
             //List<FloorplanTemplate> templates = SqliteDataAccess.LoadAllFloorplanTemplates();
-            frmTemplateSelection frmTemplateSelection = new frmTemplateSelection(ShiftManager);
+            frmTemplateSelection frmTemplateSelection = new frmTemplateSelection(shiftManager);
             pnlFloorPlan.Controls.Clear();
             frmTemplateSelection.TopLevel = false;
             frmTemplateSelection.Show();
@@ -1047,9 +1058,9 @@ namespace FloorPlanMaker
         {
 
 
-            foreach (Table table in areaManager.DiningAreaSelected.Tables)
+            foreach (Table table in areaCreationManager.DiningAreaSelected.Tables)
             {
-                table.DiningArea = areaManager.DiningAreaSelected;
+                table.DiningArea = areaCreationManager.DiningAreaSelected;
                 TableControl tableControl = TableControlFactory.CreateMiniTableControl(table, (float).5, 0);
                 //tableControl.TableClicked += Table_TableClicked;  // Uncomment if you want to attach event handler
 
@@ -1060,9 +1071,9 @@ namespace FloorPlanMaker
 
 
             FloorplanTemplate template = cboFloorplanTemplates.SelectedItem as FloorplanTemplate;
-            ShiftManager.SetSectionsToTemplate(template);
+            shiftManager.SetSectionsToTemplate(template);
 
-            ShiftManager.AssignSectionNumbers();
+            shiftManager.AssignSectionNumbers();
             //foreach (Control ctrl in pnlTemplateDemo.Controls)
             //{
             //    if (ctrl is TableControl tableControl)
