@@ -24,7 +24,7 @@ namespace FloorPlanMaker
                 Tag = table
             };
         }
-        public static TableControl CreateMiniTableControl(Table table, float factor)
+        public static TableControl CreateMiniTableControl(Table table, float factor, int yAdjustment)
         {
             return new TableControl
             {
@@ -32,10 +32,10 @@ namespace FloorPlanMaker
                 Width = (int)(table.Width * factor),
                 Height = (int)(table.Height * factor),
                 Left = (int)(table.XCoordinate *factor),
-                Top = (int)(table.YCoordinate * factor),
+                Top = (int)(table.YCoordinate * factor) + yAdjustment,
                 Moveable = false,
                 Shape = table.Shape,
-                Location = new Point((int)(table.XCoordinate * factor), (int)(table.YCoordinate * factor)),
+                Location = new Point((int)(table.XCoordinate * factor), (int)(table.YCoordinate * factor) + yAdjustment),
                 Tag = table
             };
         }

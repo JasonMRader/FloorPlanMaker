@@ -1033,20 +1033,27 @@ namespace FloorPlanMaker
         {
             //areaManager.SelectedTable.TableNumber = "TEST";
             //TableControlFactory.RedrawTableControl(currentEmphasizedTableControl, pnlFloorPlan);
-            List<FloorplanTemplate> templates = SqliteDataAccess.LoadAllFloorplanTemplates();
+            //List<FloorplanTemplate> templates = SqliteDataAccess.LoadAllFloorplanTemplates();
+            frmTemplateSelection frmTemplateSelection = new frmTemplateSelection(ShiftManager);
+            pnlFloorPlan.Controls.Clear();
+            frmTemplateSelection.TopLevel = false;
+            frmTemplateSelection.Show();
+            pnlFloorPlan.Controls.Add(frmTemplateSelection);
+
+            //frmTemplateSelection.ShowDialog();
         }
 
         private void cboFloorplanTemplates_SelectedIndexChanged(object sender, EventArgs e)
         {
-           
-            
+
+
             foreach (Table table in areaManager.DiningAreaSelected.Tables)
             {
                 table.DiningArea = areaManager.DiningAreaSelected;
-                TableControl tableControl = TableControlFactory.CreateMiniTableControl(table, (float).5);
+                TableControl tableControl = TableControlFactory.CreateMiniTableControl(table, (float).5, 0);
                 //tableControl.TableClicked += Table_TableClicked;  // Uncomment if you want to attach event handler
-                
-                pnlTemplateDemo.Controls.Add(tableControl);
+
+                //pnlTemplateDemo.Controls.Add(tableControl);
             }
 
 
@@ -1056,26 +1063,26 @@ namespace FloorPlanMaker
             ShiftManager.SetSectionsToTemplate(template);
 
             ShiftManager.AssignSectionNumbers();
-            foreach (Control ctrl in pnlTemplateDemo.Controls)
-            {
-                if (ctrl is TableControl tableControl)
-                {
-                    foreach (Section section in ShiftManager.Sections)
-                    {
+            //foreach (Control ctrl in pnlTemplateDemo.Controls)
+            //{
+            //    if (ctrl is TableControl tableControl)
+            //    {
+            //        foreach (Section section in ShiftManager.Sections)
+            //        {
 
-                        foreach (Table table in section.Tables)
-                        {
-                            if (tableControl.Table.TableNumber == table.TableNumber)
-                            {
-                                tableControl.Section = section;
-                                tableControl.BackColor = section.Color;
-                                tableControl.Invalidate();
-                                break; // Once found, no need to check other tables in this section
-                            }
-                        }
-                    }
-                }
-            }
+            //            foreach (Table table in section.Tables)
+            //            {
+            //                if (tableControl.Table.TableNumber == table.TableNumber)
+            //                {
+            //                    tableControl.Section = section;
+            //                    tableControl.BackColor = section.Color;
+            //                    tableControl.Invalidate();
+            //                    break; // Once found, no need to check other tables in this section
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
 
 
         }
