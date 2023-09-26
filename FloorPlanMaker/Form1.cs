@@ -245,16 +245,21 @@ namespace FloorPlanMaker
             {
                 UpdateFloorplan();
             }
+
+            RefreshTemplateList(ShiftManager.SelectedDiningArea);
+
+
+
+        }
+        private void RefreshTemplateList(DiningArea dining)
+        {
             cboFloorplanTemplates.Items.Clear();
             cboFloorplanTemplates.DisplayMember = "Name";
-            List<FloorplanTemplate> templates = SqliteDataAccess.LoadAllFloorplanTemplates();
+            List<FloorplanTemplate> templates = SqliteDataAccess.LoadTemplatesByDiningArea(dining);
             foreach (FloorplanTemplate template in templates)
             {
                 cboFloorplanTemplates.Items.Add(template);
             }
-
-
-
         }
 
 
@@ -913,10 +918,16 @@ namespace FloorPlanMaker
         private Dictionary<Section, (Label MaxCoversLabel, Label AverageCoversLabel)> sectionLabels = new Dictionary<Section, (Label, Label)>();
         public void UpdateSectionLabels(Section section, int newMaxCoversValue, float newAverageCoversValue)
         {
+            float maxPerServer = (ShiftManager.SelectedDiningArea.GetMaxCovers() / (float)nudServerCount.Value);
+            float avgPerServer = (ShiftManager.SelectedDiningArea.GetAverageCovers() / (float)nudServerCount.Value);
+            float maxDifference = newMaxCoversValue - maxPerServer;
+            float avgDifference = newAverageCoversValue - avgPerServer;
             if (sectionLabels.ContainsKey(section))
             {
-                sectionLabels[section].MaxCoversLabel.Text = newMaxCoversValue.ToString();
-                sectionLabels[section].AverageCoversLabel.Text = newAverageCoversValue.ToString();
+                sectionLabels[section].MaxCoversLabel.Text = maxDifference.ToString();
+
+                sectionLabels[section].AverageCoversLabel.Text = avgDifference.ToString();
+
             }
         }
 
@@ -1004,7 +1015,7 @@ namespace FloorPlanMaker
         private void btnSaveFloorplanTemplate_Click(object sender, EventArgs e)
         {
             var drawnLines = drawingHandler.GetDrawnLines();
-            FloorplanTemplate template = new FloorplanTemplate(ShiftManager.SelectedDiningArea, "TestAgain",
+            FloorplanTemplate template = new FloorplanTemplate(ShiftManager.SelectedDiningArea, txtTemplateName.Text,
                 (int)nudServerCount.Value, ShiftManager.Sections, drawnLines);
             // Assuming you have a FloorplanTemplate object already initialized as template
             template.SectionLines.Clear();
@@ -1013,6 +1024,8 @@ namespace FloorPlanMaker
             // Optional: If you want to clear the drawn lines on the panel after adding them to the template
             drawingHandler.ClearLines();
             SqliteDataAccess.SaveFloorplanTemplate(template);
+            txtTemplateName.Clear();
+            //RefreshTemplateList();
 
         }
 
@@ -1025,18 +1038,31 @@ namespace FloorPlanMaker
 
         private void cboFloorplanTemplates_SelectedIndexChanged(object sender, EventArgs e)
         {
+           
+            
+            foreach (Table table in areaManager.DiningAreaSelected.Tables)
+            {
+                table.DiningArea = areaManager.DiningAreaSelected;
+                TableControl tableControl = TableControlFactory.CreateMiniTableControl(table, (float).5);
+                //tableControl.TableClicked += Table_TableClicked;  // Uncomment if you want to attach event handler
+                
+                pnlTemplateDemo.Controls.Add(tableControl);
+            }
+
+
+
+
             FloorplanTemplate template = cboFloorplanTemplates.SelectedItem as FloorplanTemplate;
             ShiftManager.SetSectionsToTemplate(template);
-            // Assuming you have a Panel named panel1
-            // Assuming you have a Panel named panel1 and a ShiftManager named shiftManager
+
             ShiftManager.AssignSectionNumbers();
-            foreach (Control ctrl in pnlFloorPlan.Controls)
+            foreach (Control ctrl in pnlTemplateDemo.Controls)
             {
                 if (ctrl is TableControl tableControl)
                 {
                     foreach (Section section in ShiftManager.Sections)
                     {
-                        
+
                         foreach (Table table in section.Tables)
                         {
                             if (tableControl.Table.TableNumber == table.TableNumber)

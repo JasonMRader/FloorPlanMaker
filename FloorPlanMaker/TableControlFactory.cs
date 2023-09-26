@@ -21,7 +21,21 @@ namespace FloorPlanMaker
                 Moveable = false,  
                 Shape = table.Shape,
                 Location = new Point(table.XCoordinate, table.YCoordinate),
-
+                Tag = table
+            };
+        }
+        public static TableControl CreateMiniTableControl(Table table, float factor)
+        {
+            return new TableControl
+            {
+                Table = table,
+                Width = (int)(table.Width * factor),
+                Height = (int)(table.Height * factor),
+                Left = (int)(table.XCoordinate *factor),
+                Top = (int)(table.YCoordinate * factor),
+                Moveable = false,
+                Shape = table.Shape,
+                Location = new Point((int)(table.XCoordinate * factor), (int)(table.YCoordinate * factor)),
                 Tag = table
             };
         }

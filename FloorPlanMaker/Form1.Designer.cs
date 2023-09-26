@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             pnlServers = new Panel();
+            txtTemplateName = new TextBox();
             cboFloorplanTemplates = new ComboBox();
             btnAddSectionLabels = new Button();
             btnSaveFloorplanTemplate = new Button();
@@ -84,6 +85,7 @@
             rdoDiningAreas = new RadioButton();
             panel1 = new Panel();
             btnTest = new Button();
+            pnlTemplateDemo = new Panel();
             pnlServers.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudNumberOfTeamWaits).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudServerCount).BeginInit();
@@ -95,6 +97,7 @@
             // pnlServers
             // 
             pnlServers.BackColor = SystemColors.GradientActiveCaption;
+            pnlServers.Controls.Add(txtTemplateName);
             pnlServers.Controls.Add(cboFloorplanTemplates);
             pnlServers.Controls.Add(btnAddSectionLabels);
             pnlServers.Controls.Add(btnSaveFloorplanTemplate);
@@ -122,6 +125,14 @@
             pnlServers.Size = new Size(250, 970);
             pnlServers.TabIndex = 0;
             // 
+            // txtTemplateName
+            // 
+            txtTemplateName.Location = new Point(7, 765);
+            txtTemplateName.Name = "txtTemplateName";
+            txtTemplateName.PlaceholderText = "Enter Template Name Here";
+            txtTemplateName.Size = new Size(237, 23);
+            txtTemplateName.TabIndex = 15;
+            // 
             // cboFloorplanTemplates
             // 
             cboFloorplanTemplates.FormattingEnabled = true;
@@ -143,7 +154,7 @@
             // 
             // btnSaveFloorplanTemplate
             // 
-            btnSaveFloorplanTemplate.Location = new Point(3, 391);
+            btnSaveFloorplanTemplate.Location = new Point(7, 792);
             btnSaveFloorplanTemplate.Name = "btnSaveFloorplanTemplate";
             btnSaveFloorplanTemplate.Size = new Size(237, 30);
             btnSaveFloorplanTemplate.TabIndex = 12;
@@ -684,11 +695,20 @@
             btnTest.UseVisualStyleBackColor = true;
             btnTest.Click += btnTest_Click;
             // 
+            // pnlTemplateDemo
+            // 
+            pnlTemplateDemo.BackColor = Color.Linen;
+            pnlTemplateDemo.Location = new Point(1216, 77);
+            pnlTemplateDemo.Name = "pnlTemplateDemo";
+            pnlTemplateDemo.Size = new Size(335, 435);
+            pnlTemplateDemo.TabIndex = 13;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1253, 970);
+            ClientSize = new Size(1887, 970);
+            Controls.Add(pnlTemplateDemo);
             Controls.Add(btnTest);
             Controls.Add(panel1);
             Controls.Add(btnSaveTables);
@@ -775,5 +795,7 @@
         private Button btnMoreWidth;
         private Button btnMoreHeight;
         private ComboBox cboFloorplanTemplates;
+        private TextBox txtTemplateName;
+        private Panel pnlTemplateDemo;
     }
 }
