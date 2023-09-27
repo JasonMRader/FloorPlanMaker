@@ -72,42 +72,51 @@ namespace FloorPlanMaker
 
         private void pnlFloorplan_MouseDown(object sender, MouseEventArgs e)
         {
-            if (rdoSections.Checked)
+            if (!cbLockNodes.Checked)
             {
-                isDragging = true;
-                dragStartPoint = e.Location;
+                if (rdoSections.Checked)
+                {
+                    isDragging = true;
+                    dragStartPoint = e.Location;
+                }
             }
         }
         private void pnlFloorplan_MouseUp(object sender, MouseEventArgs e)
         {
-            if (isDragging)
+            if (!cbLockNodes.Checked)
             {
-                isDragging = false;
+                if (isDragging)
+                {
+                    isDragging = false;
 
-                // Define the drag rectangle based on the start and end points
-                dragRectangle = new Rectangle(
-                    Math.Min(dragStartPoint.X, e.X),
-                    Math.Min(dragStartPoint.Y, e.Y),
-                    Math.Abs(dragStartPoint.X - e.X),
-                    Math.Abs(dragStartPoint.Y - e.Y)
-                );
+                    // Define the drag rectangle based on the start and end points
+                    dragRectangle = new Rectangle(
+                        Math.Min(dragStartPoint.X, e.X),
+                        Math.Min(dragStartPoint.Y, e.Y),
+                        Math.Abs(dragStartPoint.X - e.X),
+                        Math.Abs(dragStartPoint.Y - e.Y)
+                    );
 
-                SelectTablesInDragRectangle();
-                pnlFloorPlan.Invalidate();
+                    SelectTablesInDragRectangle();
+                    pnlFloorPlan.Invalidate();
+                }
             }
         }
         private void pnlFloorplan_MouseMove(object sender, MouseEventArgs e)
         {
-            if (isDragging)
+            if (!cbLockNodes.Checked)
             {
-                dragRectangle = new Rectangle(
-                    Math.Min(dragStartPoint.X, e.X),
-                    Math.Min(dragStartPoint.Y, e.Y),
-                    Math.Abs(dragStartPoint.X - e.X),
-                    Math.Abs(dragStartPoint.Y - e.Y)
-                );
+                if (isDragging)
+                {
+                    dragRectangle = new Rectangle(
+                        Math.Min(dragStartPoint.X, e.X),
+                        Math.Min(dragStartPoint.Y, e.Y),
+                        Math.Abs(dragStartPoint.X - e.X),
+                        Math.Abs(dragStartPoint.Y - e.Y)
+                    );
 
-                pnlFloorPlan.Invalidate(); // Redraw the form
+                    pnlFloorPlan.Invalidate(); // Redraw the form
+                }
             }
         }
         private void SelectTablesInDragRectangle()
@@ -122,9 +131,16 @@ namespace FloorPlanMaker
                         tableControl.IsSelected = true;
                         tableControl.BackColor = shiftManager.SectionSelected.Color; // Or any other color indicating selection
 
-                        if (shiftManager.SectionSelected != null)
+                        if (shiftManager.SelectedFloorplan.Sections != null)
                         {
-                            shiftManager.SectionSelected.Tables.Add(tableControl.Table); // Assuming your control has a 'Table' property that gives the underlying table object
+                            var targetSection = shiftManager.SelectedFloorplan.Sections.FirstOrDefault(sec => sec.Equals(shiftManager.SectionSelected));
+                            if (targetSection != null)
+                            {
+                                targetSection.Tables.Add(tableControl.Table);
+                                tableControl.Section = targetSection;
+                                UpdateSectionLabels(targetSection, targetSection.MaxCovers, targetSection.AverageCovers);
+                            }
+                            shiftManager.SectionSelected.Tables.Add(tableControl.Table);
                             UpdateSectionLabels(shiftManager.SectionSelected, shiftManager.SectionSelected.MaxCovers, shiftManager.SectionSelected.AverageCovers);
                         }
                     }
@@ -342,7 +358,7 @@ namespace FloorPlanMaker
 
         private void cboDiningAreas_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
             allTableControls.Clear();
             areaCreationManager.DiningAreaSelected = (DiningArea?)cboDiningAreas.SelectedItem;
             txtDiningAreaName.Text = areaCreationManager.DiningAreaSelected.Name;
@@ -695,9 +711,9 @@ namespace FloorPlanMaker
             {
                 lblServerMaxCovers.Text = (shiftManager.SelectedDiningArea.GetMaxCovers() / (float)nudServerCount.Value).ToString("F1");
                 lblServerAverageCovers.Text = (shiftManager.SelectedDiningArea.GetAverageCovers() / (float)nudServerCount.Value).ToString("F1");
-                shiftManager.Sections = GetNumberOfSections();
+                //shiftManager.Sections = GetNumberOfSections();
                 shiftManager.SelectedFloorplan.Sections = GetNumberOfSections();
-                CreateSectionRadioButtons(shiftManager.Sections);
+                CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
             }
 
         }
@@ -1083,10 +1099,12 @@ namespace FloorPlanMaker
             if (cbLockNodes.Checked)
             {
                 drawingHandler.DrawSectionLinesMode = true;
+                isDragging = false;
             }
             else
             {
                 drawingHandler.DrawSectionLinesMode = false;
+                isDragging = true;
             }
 
         }
@@ -1148,7 +1166,7 @@ namespace FloorPlanMaker
 
         private void btnAddSectionLabels_Click(object sender, EventArgs e)
         {
-           
+
 
             foreach (Section section in shiftManager.SelectedFloorplan.Sections)
             {
@@ -1157,7 +1175,7 @@ namespace FloorPlanMaker
                 sectionControl.Servers = shiftManager.SelectedFloorplan.Servers;
                 pnlFloorPlan.Controls.Add(sectionControl);
                 sectionControl.BringToFront();
-                
+
             }
             //AddSectionLabels(shiftManager.Sections);
         }
@@ -1181,7 +1199,7 @@ namespace FloorPlanMaker
 
         private void btnTest_Click(object sender, EventArgs e)
         {
-            
+
             //frmTemplateSelection frmTemplateSelection = new frmTemplateSelection(shiftManager);
             //pnlFloorPlan.Controls.Clear();
             //frmTemplateSelection.TopLevel = false;
@@ -1196,9 +1214,9 @@ namespace FloorPlanMaker
             }
             nudServerCount.Value = 4;
             UpdateFloorplan();
-            
 
-           
+
+
         }
 
         private void cboFloorplanTemplates_SelectedIndexChanged(object sender, EventArgs e)
@@ -1242,6 +1260,14 @@ namespace FloorPlanMaker
             //    }
             //}
 
+
+        }
+
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
+            FloorplanPrinter printer = new FloorplanPrinter(pnlFloorPlan);
+            printer.ShowPrintPreview();  // To show print preview
+            printer.Print();  // To print
 
         }
     }

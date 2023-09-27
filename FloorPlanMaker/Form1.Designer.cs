@@ -85,6 +85,7 @@
             rdoDiningAreas = new RadioButton();
             panel1 = new Panel();
             btnTest = new Button();
+            btnPrint = new Button();
             pnlServers.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudNumberOfTeamWaits).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudServerCount).BeginInit();
@@ -694,11 +695,22 @@
             btnTest.UseVisualStyleBackColor = true;
             btnTest.Click += btnTest_Click;
             // 
+            // btnPrint
+            // 
+            btnPrint.Location = new Point(540, 47);
+            btnPrint.Name = "btnPrint";
+            btnPrint.Size = new Size(75, 23);
+            btnPrint.TabIndex = 13;
+            btnPrint.Text = "Print";
+            btnPrint.UseVisualStyleBackColor = true;
+            btnPrint.Click += btnPrint_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1248, 970);
+            Controls.Add(btnPrint);
             Controls.Add(btnTest);
             Controls.Add(panel1);
             Controls.Add(btnSaveTables);
@@ -786,5 +798,6 @@
         private Button btnMoreHeight;
         private ComboBox cboFloorplanTemplates;
         private TextBox txtTemplateName;
+        private Button btnPrint;
     }
 }
