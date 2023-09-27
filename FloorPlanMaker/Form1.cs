@@ -1265,7 +1265,7 @@ namespace FloorPlanMaker
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
-            FloorplanPrinter printer = new FloorplanPrinter(pnlFloorPlan);
+            FloorplanPrinter printer = new FloorplanPrinter(pnlFloorPlan, drawingHandler.GetSectionLines());
             printer.ShowPrintPreview();  // To show print preview
             printer.Print();  // To print
 
