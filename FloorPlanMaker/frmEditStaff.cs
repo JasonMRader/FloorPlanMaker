@@ -14,13 +14,13 @@ namespace FloorPlanMaker
     public partial class frmEditStaff : Form
     {
         //public List<Server> AllServers = new List<Server>();
-        public StaffManager staffManager;
+        public EmployeeManager employeeManager;
         public ShiftManager shiftManager;
         private DiningAreaCreationManager DiningAreaManager = new DiningAreaCreationManager();
-        public frmEditStaff(StaffManager staffManager, ShiftManager shiftManager)
+        public frmEditStaff(EmployeeManager staffManager, ShiftManager shiftManager)
         {
             InitializeComponent();
-            this.staffManager = staffManager;
+            this.employeeManager = staffManager;
             this.shiftManager = shiftManager;
 
         }
@@ -31,10 +31,10 @@ namespace FloorPlanMaker
             server.Name = txtNewServerName.Text;
             SqliteDataAccess.SaveNewServer(server);
             txtNewServerName.Clear();
-            staffManager.AllServers.Clear();
-            staffManager.AllServers = SqliteDataAccess.LoadServers();
+            employeeManager.AllServers.Clear();
+            employeeManager.AllServers = SqliteDataAccess.LoadServers();
             clbAllServers.DataSource = null;
-            clbAllServers.DataSource = staffManager.AllServers;
+            clbAllServers.DataSource = employeeManager.AllServers;
             clbAllServers.DisplayMember = "Name";
 
         }
@@ -43,7 +43,7 @@ namespace FloorPlanMaker
         {
             clbDiningAreaSelection.DataSource = DiningAreaManager.DiningAreas;
 
-            clbAllServers.DataSource = staffManager.AllServers;
+            clbAllServers.DataSource = employeeManager.AllServers;
             clbAllServers.DisplayMember = "Name";
             //clbAllServers.ValueMember = Server;
 
@@ -53,14 +53,14 @@ namespace FloorPlanMaker
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if (staffManager.ServersOnShift == null)
+            if (employeeManager.ServersOnShift == null)
             {
-                staffManager.ServersOnShift = new List<Server>();
+                employeeManager.ServersOnShift = new List<Server>();
             }
 
             foreach (Server server in clbAllServers.CheckedItems)
             {
-                staffManager.ServersOnShift.Add(server);
+                employeeManager.ServersOnShift.Add(server);
                 shiftManager.UnassignedServers.Add(server);
                 Button serverButton = CreateServerButton(server);
                 flowUnassignedServers.Controls.Add(serverButton);

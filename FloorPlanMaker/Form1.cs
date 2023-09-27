@@ -1,4 +1,5 @@
 using FloorplanClassLibrary;
+using System.Drawing.Drawing2D;
 //using static System.Collections.Specialized.BitVector32;
 
 namespace FloorPlanMaker
@@ -7,19 +8,133 @@ namespace FloorPlanMaker
     {
         //List<DiningArea> areaList = new List<DiningArea>();
         DiningAreaCreationManager areaCreationManager = new DiningAreaCreationManager();
-        StaffManager staffManager = new StaffManager();
+        EmployeeManager employeeManager = new EmployeeManager();
         private ShiftManager shiftManager;
         private int LastTableNumberSelected;
         private TableControl currentEmphasizedTableControl = null;
         private DrawingHandler drawingHandler;
         List<TableControl> emphasizedTablesList = new List<TableControl>();
+        private bool isDragging = false;
+        private Point dragStartPoint;
+        private Rectangle dragRectangle;
+        private List<TableControl> allTableControls = new List<TableControl>();
+        private int currentFocusedSectionIndex = 0;
+
+
         public Form1()
         {
             InitializeComponent();
             drawingHandler = new DrawingHandler(pnlFloorPlan);
             shiftManager = new ShiftManager();
             this.KeyDown += pnlFloorPlan_KeyDown;
+            pnlFloorPlan.MouseDown += pnlFloorplan_MouseDown;
+            pnlFloorPlan.MouseUp += pnlFloorplan_MouseUp;
+            pnlFloorPlan.MouseMove += pnlFloorplan_MouseMove;
+            pnlFloorPlan.Paint += PnlFloorplan_Paint;
+
             //pnlFloorPlan.KeyPreview = true;
+        }
+        protected override bool ProcessTabKey(bool forward)
+        {
+            if (forward)
+            {
+                // Move forward in sections
+                currentFocusedSectionIndex++;
+                if (currentFocusedSectionIndex >= flowSectionSelect.Controls.Count)
+                    currentFocusedSectionIndex = 0;
+            }
+            else
+            {
+                // Move backward in sections
+                currentFocusedSectionIndex--;
+                if (currentFocusedSectionIndex < 0)
+                    currentFocusedSectionIndex = flowSectionSelect.Controls.Count - 1;
+            }
+
+            Panel sectionPanel = (Panel)flowSectionSelect.Controls[currentFocusedSectionIndex];
+            CheckBox sectionCheckBox = (CheckBox)sectionPanel.Controls[0];
+            sectionCheckBox.Focus();
+            sectionCheckBox.Checked = true;
+            return true; // Indicate that the key press was handled
+        }
+
+
+        private void PnlFloorplan_Paint(object sender, PaintEventArgs e)
+        {
+            if (isDragging)
+            {
+                using (Pen dragPen = new Pen(Color.Black) { DashStyle = DashStyle.Dash }) // example styling
+                {
+                    e.Graphics.DrawRectangle(dragPen, dragRectangle);
+                }
+            }
+        }
+
+        private void pnlFloorplan_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (rdoSections.Checked)
+            {
+                isDragging = true;
+                dragStartPoint = e.Location;
+            }
+        }
+        private void pnlFloorplan_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (isDragging)
+            {
+                isDragging = false;
+
+                // Define the drag rectangle based on the start and end points
+                dragRectangle = new Rectangle(
+                    Math.Min(dragStartPoint.X, e.X),
+                    Math.Min(dragStartPoint.Y, e.Y),
+                    Math.Abs(dragStartPoint.X - e.X),
+                    Math.Abs(dragStartPoint.Y - e.Y)
+                );
+
+                SelectTablesInDragRectangle();
+                pnlFloorPlan.Invalidate();
+            }
+        }
+        private void pnlFloorplan_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (isDragging)
+            {
+                dragRectangle = new Rectangle(
+                    Math.Min(dragStartPoint.X, e.X),
+                    Math.Min(dragStartPoint.Y, e.Y),
+                    Math.Abs(dragStartPoint.X - e.X),
+                    Math.Abs(dragStartPoint.Y - e.Y)
+                );
+
+                pnlFloorPlan.Invalidate(); // Redraw the form
+            }
+        }
+        private void SelectTablesInDragRectangle()
+        {
+            foreach (var tableControl in allTableControls)
+            {
+                if (tableControl.Parent == pnlFloorPlan)
+                {
+                    Rectangle tableRect = new Rectangle(tableControl.Location, tableControl.Size);
+                    if (dragRectangle.IntersectsWith(tableRect))
+                    {
+                        tableControl.IsSelected = true;
+                        tableControl.BackColor = shiftManager.SectionSelected.Color; // Or any other color indicating selection
+
+                        if (shiftManager.SectionSelected != null)
+                        {
+                            shiftManager.SectionSelected.Tables.Add(tableControl.Table); // Assuming your control has a 'Table' property that gives the underlying table object
+                            UpdateSectionLabels(shiftManager.SectionSelected, shiftManager.SectionSelected.MaxCovers, shiftManager.SectionSelected.AverageCovers);
+                        }
+                    }
+                    else
+                    {
+                        tableControl.IsSelected = false;
+                    }
+                    tableControl.Invalidate(); // Request a redraw 
+                }
+            }
         }
 
         private void pnlFloorPlan_KeyDown(object? sender, KeyEventArgs e)
@@ -227,8 +342,8 @@ namespace FloorPlanMaker
 
         private void cboDiningAreas_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //ShiftManager.SelectedFloorplan = ShiftManager.Floorplans.FirstOrDefault(fp => fp.DiningArea == (DiningArea)cboDiningAreas.SelectedItem);
-
+            
+            allTableControls.Clear();
             areaCreationManager.DiningAreaSelected = (DiningArea?)cboDiningAreas.SelectedItem;
             txtDiningAreaName.Text = areaCreationManager.DiningAreaSelected.Name;
             pnlFloorPlan.Controls.Clear();
@@ -239,6 +354,7 @@ namespace FloorPlanMaker
                 //tableControl.TableClicked += Table_TableClicked;  // Uncomment if you want to attach event handler
                 tableControl.TableClicked += ExistingTable_TableClicked;
                 pnlFloorPlan.Controls.Add(tableControl);
+                allTableControls.Add(tableControl);
             }
             lblPanel2Text.Text = areaCreationManager.DiningAreaSelected.Name;
             this.shiftManager.SelectedDiningArea = areaCreationManager.DiningAreaSelected;
@@ -525,7 +641,7 @@ namespace FloorPlanMaker
 
         private void btnAddServers_Click(object sender, EventArgs e)
         {
-            Form form = new frmEditStaff(staffManager, shiftManager);
+            Form form = new frmEditStaff(employeeManager, shiftManager);
             form.ShowDialog();
             if (form.DialogResult == DialogResult.OK)
             {
@@ -536,19 +652,19 @@ namespace FloorPlanMaker
         }
         private void UpdateFloorplan()
         {
-            shiftManager.ServersOnShift = staffManager.ServersOnShift;
+            shiftManager.ServersOnShift = employeeManager.ServersOnShift;
             shiftManager.SelectedFloorplan = shiftManager.Floorplans.FirstOrDefault(fp => fp.DiningArea.ID == areaCreationManager.DiningAreaSelected.ID);
-            flowServersInFloorplan.Controls.Clear();
-            int pointX = 35;
-            int PointY = 5;
-            foreach (Server s in shiftManager.SelectedFloorplan.Servers)
-            {
-                ServerControl sc = new ServerControl(s, 150, 30);
-                sc.Location = new Point(pointX, PointY);
-                PointY += (5 + sc.Height);
-                //CheckBox cb = CreateServerButton(s);
-                pnlSections.Controls.Add(sc);
-            }
+            //flowServersInFloorplan.Controls.Clear();
+            //int pointX = 35;
+            //int PointY = 5;
+            //foreach (Server s in shiftManager.SelectedFloorplan.Servers)
+            //{
+            //    ServerControl sc = new ServerControl(s, 150, 30);
+            //    sc.Location = new Point(pointX, PointY);
+            //    PointY += (5 + sc.Height);
+            //    //CheckBox cb = CreateServerButton(s);
+            //    pnlSections.Controls.Add(sc);
+            //}
             nudServerCount.Value = shiftManager.SelectedFloorplan.Servers.Count;
         }
 
@@ -792,6 +908,16 @@ namespace FloorPlanMaker
                 // Add the panel to the flow layout panel.
                 flowSectionSelect.Controls.Add(sectionPanel);
             }
+            if (flowSectionSelect.Controls.Count > 0)
+            {
+                Panel firstPanel = (Panel)flowSectionSelect.Controls[0];
+                if (firstPanel.Controls.Count > 0)
+                {
+                    CheckBox firstSectionCheckBox = (CheckBox)firstPanel.Controls[0];
+                    firstSectionCheckBox.Checked = true;
+                }
+            }
+
         }
 
         private void SectionPanel_DragEnter(object sender, DragEventArgs e)
@@ -832,9 +958,9 @@ namespace FloorPlanMaker
         private void AddSectionLabels(List<Section> sections)
         {
             List<Server> servers = new List<Server>();
-            for (int i = 0; i < 4 && i < staffManager.AllServers.Count; i++)
+            for (int i = 0; i < 4 && i < employeeManager.AllServers.Count; i++)
             {
-                servers.Add(staffManager.AllServers[i]);
+                servers.Add(employeeManager.AllServers[i]);
             }
 
             foreach (Section section in sections)
@@ -1055,16 +1181,24 @@ namespace FloorPlanMaker
 
         private void btnTest_Click(object sender, EventArgs e)
         {
-            //areaManager.SelectedTable.TableNumber = "TEST";
-            //TableControlFactory.RedrawTableControl(currentEmphasizedTableControl, pnlFloorPlan);
-            //List<FloorplanTemplate> templates = SqliteDataAccess.LoadAllFloorplanTemplates();
-            frmTemplateSelection frmTemplateSelection = new frmTemplateSelection(shiftManager);
-            pnlFloorPlan.Controls.Clear();
-            frmTemplateSelection.TopLevel = false;
-            frmTemplateSelection.Show();
-            pnlFloorPlan.Controls.Add(frmTemplateSelection);
+            
+            //frmTemplateSelection frmTemplateSelection = new frmTemplateSelection(shiftManager);
+            //pnlFloorPlan.Controls.Clear();
+            //frmTemplateSelection.TopLevel = false;
+            //frmTemplateSelection.Show();
+            //pnlFloorPlan.Controls.Add(frmTemplateSelection);
+            shiftManager.CreateFloorplanForDiningArea(shiftManager.SelectedDiningArea);
+            shiftManager.SelectedFloorplan = shiftManager.Floorplans.FirstOrDefault(fp => fp.DiningArea == (DiningArea)cboDiningAreas.SelectedItem);
+            shiftManager.ServersOnShift = employeeManager.AllServers;
+            for (int i = 0; i < 4; i++)
+            {
+                shiftManager.SelectedFloorplan.Servers.Add(shiftManager.ServersOnShift[i]);
+            }
+            nudServerCount.Value = 4;
+            UpdateFloorplan();
+            
 
-            //frmTemplateSelection.ShowDialog();
+           
         }
 
         private void cboFloorplanTemplates_SelectedIndexChanged(object sender, EventArgs e)
