@@ -546,13 +546,7 @@ namespace FloorPlanMaker
             tableControl.Table = table;
             TableControlFactory.RedrawTableControl(tableControl, pnlFloorPlan);
         }
-
-
-        private void SaveOneTable()
-        {
-
-
-        }
+               
         private void btnSaveTable_Click(object sender, EventArgs e)
         {
             if (areaCreationManager.SelectedTables.Count > 1)
@@ -712,7 +706,14 @@ namespace FloorPlanMaker
                 lblServerMaxCovers.Text = (shiftManager.SelectedDiningArea.GetMaxCovers() / (float)nudServerCount.Value).ToString("F1");
                 lblServerAverageCovers.Text = (shiftManager.SelectedDiningArea.GetAverageCovers() / (float)nudServerCount.Value).ToString("F1");
                 //shiftManager.Sections = GetNumberOfSections();
-                shiftManager.SelectedFloorplan.Sections = GetNumberOfSections();
+                //shiftManager.SelectedFloorplan.Sections = GetNumberOfSections();
+                shiftManager.CreateFloorplanForDiningArea(shiftManager.SelectedDiningArea, DateTime.Now, false, 4, 4);
+                shiftManager.SelectedFloorplan = shiftManager.Floorplans.FirstOrDefault(fp => fp.DiningArea == (DiningArea)cboDiningAreas.SelectedItem);
+                shiftManager.ServersOnShift = employeeManager.AllServers;
+                for (int i = 0; i < 4; i++)
+                {
+                    shiftManager.SelectedFloorplan.Servers.Add(shiftManager.ServersOnShift[i]);
+                }
                 CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
             }
 
@@ -859,7 +860,8 @@ namespace FloorPlanMaker
                     BackColor = section.Color,
                     ForeColor = section.FontColor,
                     Appearance = Appearance.Button,
-                    Margin = new Padding(0)
+                    Margin = new Padding(0),
+                    Tag = section
                 };
                 rbCloser.CheckedChanged += RbCloser_CheckedChanged;
 
@@ -873,7 +875,8 @@ namespace FloorPlanMaker
                     BackColor = section.Color,
                     ForeColor = section.FontColor,
                     Appearance = Appearance.Button,
-                    Margin = new Padding(0)
+                    Margin = new Padding(0),
+                    Tag = section
                 };
                 rbPrecloser.CheckedChanged += RbPrecloser_CheckedChanged;
 
@@ -1059,6 +1062,11 @@ namespace FloorPlanMaker
                 if (selectedCloserButton != null) selectedCloserButton.Checked = false;
                 selectedCloserButton = rb;
             }
+            if (rb.Checked)
+            {
+                Section section = rb.Tag as Section;
+                section.IsCloser = true;
+            }
         }
 
         private void RbPrecloser_CheckedChanged(object sender, EventArgs e)
@@ -1205,14 +1213,12 @@ namespace FloorPlanMaker
             //frmTemplateSelection.TopLevel = false;
             //frmTemplateSelection.Show();
             //pnlFloorPlan.Controls.Add(frmTemplateSelection);
-            shiftManager.CreateFloorplanForDiningArea(shiftManager.SelectedDiningArea);
-            shiftManager.SelectedFloorplan = shiftManager.Floorplans.FirstOrDefault(fp => fp.DiningArea == (DiningArea)cboDiningAreas.SelectedItem);
-            shiftManager.ServersOnShift = employeeManager.AllServers;
-            for (int i = 0; i < 4; i++)
-            {
-                shiftManager.SelectedFloorplan.Servers.Add(shiftManager.ServersOnShift[i]);
-            }
             nudServerCount.Value = 4;
+            
+            
+           
+           
+            
             UpdateFloorplan();
 
 
@@ -1266,7 +1272,7 @@ namespace FloorPlanMaker
         private void btnPrint_Click(object sender, EventArgs e)
         {
             FloorplanPrinter printer = new FloorplanPrinter(pnlFloorPlan, drawingHandler.GetSectionLines());
-            printer.ShowPrintPreview();  // To show print preview
+            //printer.ShowPrintPreview();  // To show print preview
             printer.Print();  // To print
 
         }

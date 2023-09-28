@@ -203,7 +203,7 @@ namespace FloorPlanMaker
                 DiningArea area = (DiningArea)clbDiningAreaSelection.CheckedItems[i];
 
                 shiftManager.DiningAreasUsed.Add(area);
-                shiftManager.CreateFloorplanForDiningArea(area);
+                shiftManager.CreateFloorplanForDiningArea(area, DateTime.Now, false, 0,0);
             }
             AddFloorplansToFlowPanel();
 
