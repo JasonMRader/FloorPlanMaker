@@ -140,8 +140,8 @@ namespace FloorPlanMaker
                                 tableControl.Section = targetSection;
                                 UpdateSectionLabels(targetSection, targetSection.MaxCovers, targetSection.AverageCovers);
                             }
-                            shiftManager.SectionSelected.Tables.Add(tableControl.Table);
-                            UpdateSectionLabels(shiftManager.SectionSelected, shiftManager.SectionSelected.MaxCovers, shiftManager.SectionSelected.AverageCovers);
+                            //shiftManager.SectionSelected.Tables.Add(tableControl.Table);
+                            //UpdateSectionLabels(shiftManager.SectionSelected, shiftManager.SectionSelected.MaxCovers, shiftManager.SectionSelected.AverageCovers);
                         }
                     }
                     else
@@ -1271,6 +1271,7 @@ namespace FloorPlanMaker
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
+            SqliteDataAccess.SaveFloorplanAndSections(shiftManager.SelectedFloorplan);
             FloorplanPrinter printer = new FloorplanPrinter(pnlFloorPlan, drawingHandler.GetSectionLines());
             //printer.ShowPrintPreview();  // To show print preview
             printer.Print();  // To print
