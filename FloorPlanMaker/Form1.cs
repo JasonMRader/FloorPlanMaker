@@ -163,7 +163,7 @@ namespace FloorPlanMaker
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            List<Floorplan> floorplans = SqliteDataAccess.LoadFloorplanList();
             cboDiningAreas.DataSource = areaCreationManager.DiningAreas;
             cboDiningAreas.DisplayMember = "Name";
             cboDiningAreas.ValueMember = "ID";
