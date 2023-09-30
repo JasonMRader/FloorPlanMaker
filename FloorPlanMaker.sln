@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FloorPlanMaker", "FloorPlanMaker\FloorPlanMaker.csproj", "{A4373FEF-F945-4DF5-971C-FA519F14FC5E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FloorPlanMakerUI", "FloorPlanMaker\FloorPlanMakerUI.csproj", "{A4373FEF-F945-4DF5-971C-FA519F14FC5E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FloorplanClassLibrary", "FloorplanClassLibrary\FloorplanClassLibrary.csproj", "{668EF52A-8953-4F30-8A07-53F10F79A0B9}"
 EndProject
