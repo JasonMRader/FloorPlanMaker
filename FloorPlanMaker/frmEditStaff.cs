@@ -1,5 +1,6 @@
 ﻿
 using FloorplanClassLibrary;
+using FloorPlanMakerUI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -66,6 +67,7 @@ namespace FloorPlanMaker
                 shiftManager.UnassignedServers.Add(server);
                 //Button serverButton = CreateServerButton(server);
                 ServerControl serverControl = new ServerControl(server,250,30);
+                ImageSetter.SetShiftControlImages(serverControl);
                 flowUnassignedServers.Controls.Add(serverControl);
             }
 

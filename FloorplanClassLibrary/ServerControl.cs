@@ -17,7 +17,7 @@ namespace FloorPlanMaker
             this.Width = width;
             this.BackColor = Color.White;
             this.AutoSize = true;
-            this.MaximumSize = new Size(width, height*2);
+            this.MaximumSize = new Size(width, height*10);
             
             Label = new Label
             {
@@ -31,7 +31,8 @@ namespace FloorPlanMaker
             ShiftsDisplay = new Panel
             {
                 Height = height,
-                Width = width
+                Width = width,
+                AutoSize = true
             };
             this.Controls.Add(ShiftsDisplay);
             DisplayShifts(server);
@@ -41,9 +42,10 @@ namespace FloorPlanMaker
         public Server Server { get; set; }
         public Panel ShiftsDisplay { get; set; }
         public Label Label { get; set; }
-        public Image CloserImage { get; set; }
-        public Image TeamWaitImage { get; set; }
-        public Image OutsideImage { get; set; }
+        //public Image CloserImage { get; set; }
+        //public Image TeamWaitImage { get; set; }
+        //public Image OutsideImage { get; set; }
+        public List<ShiftControl> ShiftControls = new List<ShiftControl>(); 
         public void DisplayShifts(Server server, int maxShiftsToShow = 5)
         {
             // Assuming you have loaded shifts for this server
@@ -51,7 +53,8 @@ namespace FloorPlanMaker
 
             foreach (var shift in lastShifts)
             {
-                ShiftControl shiftControl = new ShiftControl(shift, 50, 125);  // Adjust width and height as needed
+                ShiftControl shiftControl = new ShiftControl(shift, 50, 80);  // Adjust width and height as needed
+                this.ShiftControls.Add(shiftControl);
                 this.ShiftsDisplay.Controls.Add(shiftControl);
             }
         }

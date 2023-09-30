@@ -39,6 +39,37 @@ namespace FloorPlanMakerUI
                 shiftControl.PicTeam.Image = Resource1.Solo;
             }
         }
+        public static void SetShiftControlImages(ServerControl serverControl)
+        {
+            foreach(ShiftControl shiftControl in serverControl.ShiftControls)
+            {
+                Shift shift = (Shift)shiftControl.Tag;
+                if (shift.IsOutside)
+                {
+                    shiftControl.PicOutside.Image = Resource1.Outside;
+                }
+                else
+                {
+                    shiftControl.PicOutside.Image = Resource1.Inside;
+                }
+                if (shift.IsCloser)
+                {
+                    shiftControl.PicClose.Image = Resource1.Closer;
+                }
+                else
+                {
+                    shiftControl.PicClose.Image = Resource1.Cut;
+                }
+                if (shift.IsTeamWait)
+                {
+                    shiftControl.PicTeam.Image = Resource1.TeamWait;
+                }
+                else
+                {
+                    shiftControl.PicTeam.Image = Resource1.Solo;
+                } 
+            }
+        }
         //public Image OutsideImage { get; set; }
         //public Image CloserImage { get; set;}
         //public Image TeamWaitImage { get; set;}
