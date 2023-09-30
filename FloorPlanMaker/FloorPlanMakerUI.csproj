@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\FloorplanClassLibrary\FloorplanClassLibrary\FloorplanClassLibrary.csproj" />
+    <ProjectReference Include="..\FloorplanClassLibrary\FloorplanClassLibrary.csproj" />
   </ItemGroup>
 
 </Project>
