@@ -3,8 +3,7 @@
     public class Server
     {
         public int ID { get; set; }
-        public string Name { get; set; }
-        public List<Section> Sections { get; set; }
+        public string Name { get; set; }        
         public List<Shift> Shifts { get; set; }
         public string AbbreviatedName
         {

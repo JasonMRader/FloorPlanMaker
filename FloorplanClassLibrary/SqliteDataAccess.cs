@@ -399,6 +399,24 @@ namespace FloorplanClassLibrary
 
 
         }
+        public static List<Shift> LoadShiftsForServer(Server server)
+        {
+            using (IDbConnection connection = new SQLiteConnection(LoadConnectionString()))
+            {
+                // Load shifts along with details from Section and DiningArea
+                var sql = @"
+                    SELECT s.*, sec.IsCloser, sec.TeamWait, da.IsInside 
+                    FROM Shift s
+                    INNER JOIN Section sec ON s.SectionID = sec.ID
+                    INNER JOIN DiningArea da ON s.DiningAreaID = da.ID
+                    WHERE s.ServerID = @ID";
+
+                List<Shift> allShifts = connection.Query<Shift>(sql, new { ID = server.ID }).ToList();
+
+                return allShifts;
+            }
+        }
+
 
 
 

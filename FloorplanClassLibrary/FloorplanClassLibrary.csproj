@@ -23,9 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="ServerControl.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="ServerControl.cs" />
     <Compile Update="TableControl.cs">
       <SubType>Component</SubType>
     </Compile>

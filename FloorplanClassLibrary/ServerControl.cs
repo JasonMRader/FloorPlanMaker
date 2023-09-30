@@ -7,15 +7,17 @@ using System.Threading.Tasks;
 
 namespace FloorPlanMaker
 {
-    public class ServerControl : Panel
+    public class ServerControl : FlowLayoutPanel
     {
         public ServerControl(Server server, int width, int height)
         {
             this.Server = server;
 
-            this.Height = height;
+            this.Height = height *2 ;
             this.Width = width;
             this.BackColor = Color.White;
+            this.AutoSize = true;
+            this.MaximumSize = new Size(width, height*2);
             
             Label = new Label
             {
@@ -26,35 +28,36 @@ namespace FloorPlanMaker
                 TextAlign = ContentAlignment.MiddleCenter
             };
             this.Controls.Add(Label);
-            this.MouseDown += new MouseEventHandler(this.ServerControl_MouseDown);
-            this.MouseMove += new MouseEventHandler(this.ServerControl_MouseMove);
-
-            Label.MouseDown += new MouseEventHandler(this.ServerControl_MouseDown);
-            Label.MouseMove += new MouseEventHandler(this.ServerControl_MouseMove);
+            ShiftsDisplay = new Panel
+            {
+                Height = height,
+                Width = width
+            };
+            this.Controls.Add(ShiftsDisplay);
+            DisplayShifts(server);
+           
         }
         //public Panel Panel { get; set; }
         public Server Server { get; set; }
-        public Section? Section { get; set; }
+        public Panel ShiftsDisplay { get; set; }
         public Label Label { get; set; }
-        private Point MouseDownLocation;
-
-        private void ServerControl_MouseDown(object sender, MouseEventArgs e)
+        public Image CloserImage { get; set; }
+        public Image TeamWaitImage { get; set; }
+        public Image OutsideImage { get; set; }
+        public void DisplayShifts(Server server, int maxShiftsToShow = 5)
         {
-            if (e.Button == System.Windows.Forms.MouseButtons.Left)
+            // Assuming you have loaded shifts for this server
+            var lastShifts = server.Shifts.TakeLast(maxShiftsToShow);
+
+            foreach (var shift in lastShifts)
             {
-                MouseDownLocation = e.Location;
-                this.DoDragDrop(this, DragDropEffects.Move);
+                ShiftControl shiftControl = new ShiftControl(shift, 50, 125);  // Adjust width and height as needed
+                this.ShiftsDisplay.Controls.Add(shiftControl);
             }
         }
 
-        private void ServerControl_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (e.Button == System.Windows.Forms.MouseButtons.Left)
-            {
-                this.Left = e.X + this.Left - MouseDownLocation.X;
-                this.Top = e.Y + this.Top - MouseDownLocation.Y;
-            }
-           
-        }
+        
+
+       
     }
 }

@@ -902,8 +902,7 @@ namespace FloorPlanMaker
                 sectionPanel.BackColor = Color.SlateGray;
 
                 // Attach drag-drop event handlers
-                sectionPanel.DragEnter += SectionPanel_DragEnter;
-                sectionPanel.DragDrop += SectionPanel_DragDrop;
+                
 
 
                 sectionPanel.Controls.Add(rbSection);
@@ -940,41 +939,9 @@ namespace FloorPlanMaker
 
         }
 
-        private void SectionPanel_DragEnter(object sender, DragEventArgs e)
-        {
-            // Check if the data being dragged is of type 'ServerControl'
-            if (e.Data.GetData(typeof(ServerControl)) != null)
-            {
-                e.Effect = DragDropEffects.Move;
-            }
-        }
+        
 
-        private void SectionPanel_DragDrop(object sender, DragEventArgs e)
-        {
-            ServerControl serverControl = e.Data.GetData(typeof(ServerControl)) as ServerControl;
-            if (serverControl != null)
-            {
-                Panel targetPanel = sender as Panel;
-                if (targetPanel != null && targetPanel.Tag is Section)
-                {
-                    Section targetSection = targetPanel.Tag as Section;
-                    targetSection.Server = serverControl.Server;
-
-                    // You can now reposition or do whatever you like with the serverControl.
-                    // For instance, add it to the panel:
-                    serverControl.Parent.Controls.Remove(serverControl);
-
-                    serverControl.Height = serverControl.Height - 10;
-                    targetPanel.Height = targetPanel.Height + serverControl.Height;
-                    targetPanel.Controls.Add(serverControl);
-                    serverControl.Label.Size = serverControl.Size;
-                    //serverControl.Location = targetPanel.PointToClient(new Point(e.X, e.Y));
-                    serverControl.Dock = DockStyle.Bottom;
-
-
-                }
-            }
-        }
+        
         private void AddSectionLabels(List<Section> sections)
         {
             List<Server> servers = new List<Server>();
@@ -990,30 +957,7 @@ namespace FloorPlanMaker
                 sectionControl.Servers = servers;
                 pnlFloorPlan.Controls.Add(sectionControl);
                 sectionControl.BringToFront();
-                //string labelText = "";
-                //if (section.IsCloser)
-                //{
-                //    labelText = section.Server.Name + "CLS";
-                //}
-                //if (section.IsPre)
-                //{
-                //    labelText = section.Server.Name + "PRE";
-                //}
-                //else
-                //{
-                //    labelText = section.Server.Name;
-                //}
-                //Label label = new Label
-                //{
-
-                //    Text = labelText,
-                //    Font = new Font("Segoe UI", 12F, FontStyle.Bold),
-                //    BackColor = Color.White,
-                //    ForeColor = Color.Black,
-                //    Location = FindMidpointOfSectionControls(section)
-                //};
-                //pnlFloorPlan.Controls.Add(label);
-                //label.BringToFront();
+               
             }
         }
         private Point FindMidpointOfSectionControls(Section targetSection)
@@ -1207,23 +1151,10 @@ namespace FloorPlanMaker
         }
 
         private void btnTest_Click(object sender, EventArgs e)
-        {
-
-            //frmTemplateSelection frmTemplateSelection = new frmTemplateSelection(shiftManager);
-            //pnlFloorPlan.Controls.Clear();
-            //frmTemplateSelection.TopLevel = false;
-            //frmTemplateSelection.Show();
-            //pnlFloorPlan.Controls.Add(frmTemplateSelection);
-            nudServerCount.Value = 4;
-            
-            
-           
-           
-            
+        {            
+            nudServerCount.Value = 4;          
+                                            
             UpdateFloorplan();
-
-
-
         }
 
         private void cboFloorplanTemplates_SelectedIndexChanged(object sender, EventArgs e)
@@ -1246,26 +1177,7 @@ namespace FloorPlanMaker
             shiftManager.SetSectionsToTemplate(template);
 
             shiftManager.AssignSectionNumbers();
-            //foreach (Control ctrl in pnlTemplateDemo.Controls)
-            //{
-            //    if (ctrl is TableControl tableControl)
-            //    {
-            //        foreach (Section section in ShiftManager.Sections)
-            //        {
-
-            //            foreach (Table table in section.Tables)
-            //            {
-            //                if (tableControl.Table.TableNumber == table.TableNumber)
-            //                {
-            //                    tableControl.Section = section;
-            //                    tableControl.BackColor = section.Color;
-            //                    tableControl.Invalidate();
-            //                    break; // Once found, no need to check other tables in this section
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
+           
 
 
         }
