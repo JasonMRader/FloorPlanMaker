@@ -14,13 +14,13 @@ namespace FloorPlanMakerUI
        
         public static void SetShiftImages(ShiftControl shiftControl, Shift shift)
         {
-            if (shift.IsOutside)
+            if (shift.IsInside)
             {
-                shiftControl.PicOutside.Image = Resource1.Outside;
+                shiftControl.PicOutside.Image = Resource1.Inside;
             }
             else
             {
-                shiftControl.PicOutside.Image = Resource1.Inside;
+                shiftControl.PicOutside.Image = Resource1.Outside;
             }
             if (shift.IsCloser)
             {
@@ -44,13 +44,13 @@ namespace FloorPlanMakerUI
             foreach(ShiftControl shiftControl in serverControl.ShiftControls)
             {
                 Shift shift = (Shift)shiftControl.Tag;
-                if (shift.IsOutside)
+                if (shift.IsInside)
                 {
-                    shiftControl.PicOutside.Image = Resource1.Outside;
+                    shiftControl.PicOutside.Image = Resource1.Inside;
                 }
                 else
                 {
-                    shiftControl.PicOutside.Image = Resource1.Inside;
+                    shiftControl.PicOutside.Image = Resource1.Outside;
                 }
                 if (shift.IsCloser)
                 {

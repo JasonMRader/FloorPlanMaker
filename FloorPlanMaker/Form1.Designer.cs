@@ -86,6 +86,7 @@
             panel1 = new Panel();
             btnTest = new Button();
             btnPrint = new Button();
+            dtpFloorplan = new DateTimePicker();
             pnlServers.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudNumberOfTeamWaits).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudServerCount).BeginInit();
@@ -705,11 +706,19 @@
             btnPrint.UseVisualStyleBackColor = true;
             btnPrint.Click += btnPrint_Click;
             // 
+            // dtpFloorplan
+            // 
+            dtpFloorplan.Location = new Point(645, 48);
+            dtpFloorplan.Name = "dtpFloorplan";
+            dtpFloorplan.Size = new Size(97, 23);
+            dtpFloorplan.TabIndex = 14;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1248, 970);
+            Controls.Add(dtpFloorplan);
             Controls.Add(btnPrint);
             Controls.Add(btnTest);
             Controls.Add(panel1);
@@ -799,5 +808,6 @@
         private ComboBox cboFloorplanTemplates;
         private TextBox txtTemplateName;
         private Button btnPrint;
+        private DateTimePicker dtpFloorplan;
     }
 }

@@ -240,7 +240,7 @@ namespace FloorplanClassLibrary
                     ServerIDAlias = section.ServerID,  // Map ServerID to ServerID1
                     IsCloser = section.IsCloser,
                     IsPre = section.IsPre,
-                    TeamWait = section.TeamWait
+                    TeamWait = section.IsTeamWait
                 });
 
                 section.ID = cnn.Query<int>("select last_insert_rowid()", new DynamicParameters()).Single();
@@ -403,18 +403,67 @@ namespace FloorplanClassLibrary
         {
             using (IDbConnection connection = new SQLiteConnection(LoadConnectionString()))
             {
+               
                 // Load shifts along with details from Section and DiningArea
                 var sql = @"
-                    SELECT s.*, sec.IsCloser, sec.TeamWait, da.IsInside 
+                    SELECT s.*, sec.IsCloser, sec.TeamWait, da.IsInside, fp.Date as FloorplanDate
                     FROM Shift s
                     INNER JOIN Section sec ON s.SectionID = sec.ID
                     INNER JOIN DiningArea da ON s.DiningAreaID = da.ID
+                    INNER JOIN Floorplan fp ON s.FloorplanID = fp.ID
                     WHERE s.ServerID = @ID";
 
-                List<Shift> allShifts = connection.Query<Shift>(sql, new { ID = server.ID }).ToList();
+                List<Shift> allShifts = connection.Query<Shift, Section, DiningArea, Floorplan, Shift>(
+           sql,
+           (shift, section, diningArea, floorplan) =>
+           {
+               shift.IsCloser = section.IsCloser;
+               shift.IsTeamWait = section.IsTeamWait;
+               shift.IsInside = diningArea.IsInside;
+               shift.Date = floorplan.Date; // Assign the date from the Floorplan to the Shift object
+               return shift;
+           },
+           splitOn: "IsCloser,IsInside,FloorplanDate",
+           param: new { ID = server.ID }
+       ).ToList();
+                var rawData = connection.Query<dynamic>(sql, new { ID = server.ID }).ToList();
+                foreach (var data in rawData)
+                {
+                    Console.WriteLine(data.FloorplanDate);
+                }
 
                 return allShifts;
             }
+        }
+        public static List<Shift> GetShiftsForServer(Server server)
+        {
+            using IDbConnection dbConnection = new SQLiteConnection(LoadConnectionString());
+            {
+                dbConnection.Open();
+
+                string query = @"
+            SELECT 
+                s.ID,
+                f.Date,
+                f.IsLunch,
+                s.FloorplanID,
+                s.SectionID,
+                s.ServerID,
+                s.DiningAreaID,
+                sec.IsCloser,
+                d.IsInside,
+                sec.TeamWait AS IsTeamWait
+            FROM Shift s
+            INNER JOIN Floorplan f ON s.FloorplanID = f.ID
+            INNER JOIN Section sec ON s.SectionID = sec.ID
+            INNER JOIN DiningArea d ON s.DiningAreaID = d.ID
+            WHERE s.ServerID = @ServerID";
+
+                return dbConnection.Query<Shift>(query, new { ServerID = server.ID }).ToList();
+                
+            }
+           
+            
         }
 
 

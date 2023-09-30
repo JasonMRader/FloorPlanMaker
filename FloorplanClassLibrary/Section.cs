@@ -82,7 +82,7 @@ namespace FloorplanClassLibrary
             }
             return displayString;
         }
-        public bool TeamWait { get; set; }
+        public bool IsTeamWait { get; set; }
         public int Number { get; set; }
         public Color Color
         {

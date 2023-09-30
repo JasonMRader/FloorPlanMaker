@@ -28,7 +28,7 @@ namespace FloorPlanMaker
                 TextAlign = ContentAlignment.MiddleCenter
             };
             this.Controls.Add(Label);
-            ShiftsDisplay = new Panel
+            ShiftsDisplay = new FlowLayoutPanel
             {
                 Height = height,
                 Width = width,
@@ -40,7 +40,7 @@ namespace FloorPlanMaker
         }
         //public Panel Panel { get; set; }
         public Server Server { get; set; }
-        public Panel ShiftsDisplay { get; set; }
+        public FlowLayoutPanel ShiftsDisplay { get; set; }
         public Label Label { get; set; }
         //public Image CloserImage { get; set; }
         //public Image TeamWaitImage { get; set; }
@@ -53,7 +53,7 @@ namespace FloorPlanMaker
 
             foreach (var shift in lastShifts)
             {
-                ShiftControl shiftControl = new ShiftControl(shift, 50, 80);  // Adjust width and height as needed
+                ShiftControl shiftControl = new ShiftControl(shift, this.Width/6, 80);  // Adjust width and height as needed
                 this.ShiftControls.Add(shiftControl);
                 this.ShiftsDisplay.Controls.Add(shiftControl);
             }

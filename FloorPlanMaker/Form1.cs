@@ -547,7 +547,7 @@ namespace FloorPlanMaker
             tableControl.Table = table;
             TableControlFactory.RedrawTableControl(tableControl, pnlFloorPlan);
         }
-               
+
         private void btnSaveTable_Click(object sender, EventArgs e)
         {
             if (areaCreationManager.SelectedTables.Count > 1)
@@ -749,7 +749,7 @@ namespace FloorPlanMaker
                 {
 
                     Name = $"Section {i}",
-                    TeamWait = false,
+                    IsTeamWait = false,
                     Number = SectionNumber
                 });
                 SectionNumber++;
@@ -763,7 +763,7 @@ namespace FloorPlanMaker
 
                     ID = servers + i,  // To ensure unique IDs.
                     Name = $"Team Wait {i}",
-                    TeamWait = true,
+                    IsTeamWait = true,
                     Number = SectionNumber
                 });
                 SectionNumber++;
@@ -902,7 +902,7 @@ namespace FloorPlanMaker
                 sectionPanel.BackColor = Color.SlateGray;
 
                 // Attach drag-drop event handlers
-                
+
 
 
                 sectionPanel.Controls.Add(rbSection);
@@ -939,9 +939,9 @@ namespace FloorPlanMaker
 
         }
 
-        
 
-        
+
+
         private void AddSectionLabels(List<Section> sections)
         {
             List<Server> servers = new List<Server>();
@@ -957,7 +957,7 @@ namespace FloorPlanMaker
                 sectionControl.Servers = servers;
                 pnlFloorPlan.Controls.Add(sectionControl);
                 sectionControl.BringToFront();
-               
+
             }
         }
         private Point FindMidpointOfSectionControls(Section targetSection)
@@ -1151,9 +1151,9 @@ namespace FloorPlanMaker
         }
 
         private void btnTest_Click(object sender, EventArgs e)
-        {            
-            nudServerCount.Value = 4;          
-                                            
+        {
+            nudServerCount.Value = 4;
+
             UpdateFloorplan();
         }
 
@@ -1177,17 +1177,19 @@ namespace FloorPlanMaker
             shiftManager.SetSectionsToTemplate(template);
 
             shiftManager.AssignSectionNumbers();
-           
+
 
 
         }
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
+            shiftManager.SelectedFloorplan.Date = dtpFloorplan.Value;
             SqliteDataAccess.SaveFloorplanAndSections(shiftManager.SelectedFloorplan);
-            FloorplanPrinter printer = new FloorplanPrinter(pnlFloorPlan, drawingHandler.GetSectionLines());
-            //printer.ShowPrintPreview();  // To show print preview
-            printer.Print();  // To print
+            //FloorplanPrinter printer = new FloorplanPrinter(pnlFloorPlan, drawingHandler.GetSectionLines());
+
+            ////printer.ShowPrintPreview();  // To show print preview
+            //printer.Print();  // To print
 
         }
     }

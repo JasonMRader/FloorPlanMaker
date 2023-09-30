@@ -62,7 +62,7 @@ namespace FloorPlanMaker
 
             foreach (Server server in clbAllServers.CheckedItems)
             {
-                server.Shifts = SqliteDataAccess.LoadShiftsForServer(server);
+                server.Shifts = SqliteDataAccess.GetShiftsForServer(server);
                 employeeManager.ServersOnShift.Add(server);
                 shiftManager.UnassignedServers.Add(server);
                 //Button serverButton = CreateServerButton(server);
