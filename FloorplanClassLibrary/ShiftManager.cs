@@ -17,6 +17,7 @@ namespace FloorplanClassLibrary
         public Floorplan? SelectedFloorplan { get; set; }
         public List<DiningArea> DiningAreasUsed = new List<DiningArea>();
         public List<Server> ServersOnShift = new List<Server>();
+        public List<Server> ServersNotOnShift = new List<Server>();
         public List<Server> UnassignedServers = new List<Server>();
         public List<Section> Sections = new List<Section>();
         public Section? SectionSelected { get; set; }

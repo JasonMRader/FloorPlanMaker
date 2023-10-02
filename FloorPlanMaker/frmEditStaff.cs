@@ -35,9 +35,7 @@ namespace FloorPlanMaker
             txtNewServerName.Clear();
             employeeManager.AllServers.Clear();
             employeeManager.AllServers = SqliteDataAccess.LoadServers();
-            clbAllServers.DataSource = null;
-            clbAllServers.DataSource = employeeManager.AllServers;
-            clbAllServers.DisplayMember = "Name";
+            
 
         }
 
@@ -45,35 +43,66 @@ namespace FloorPlanMaker
         {
             clbDiningAreaSelection.DataSource = DiningAreaManager.DiningAreas;
 
-            clbAllServers.DataSource = employeeManager.AllServers;
-            clbAllServers.DisplayMember = "Name";
-            //clbAllServers.ValueMember = Server;
+           
+           
+
+            foreach (Server server in shiftManager.ServersNotOnShift)
+            {
+                server.Shifts = SqliteDataAccess.GetShiftsForServer(server);
+                ServerControl serverControl = new ServerControl(server, 155, 20);
+                serverControl.Click += serverControl_Click_AddToShift;
+                serverControl.HideShifts();
+                flowAllServers.Controls.Add(serverControl);
+            }
 
 
             //lbServersOnShift.ValueMember = "Value";
         }
-
-        private void btnAdd_Click(object sender, EventArgs e)
+        private void AdjustServerLists(Server server, List<Server> listToRemoveFrom, List<Server> listToAddTo, FlowLayoutPanel flowToRemoveFrom, FlowLayoutPanel flowToAddTo)
         {
-            if (employeeManager.ServersOnShift == null)
-            {
-                employeeManager.ServersOnShift = new List<Server>();
-            }
-
-            foreach (Server server in clbAllServers.CheckedItems)
-            {
-                server.Shifts = SqliteDataAccess.GetShiftsForServer(server);
-                employeeManager.ServersOnShift.Add(server);
-                shiftManager.UnassignedServers.Add(server);
-                //Button serverButton = CreateServerButton(server);
-                ServerControl serverControl = new ServerControl(server,350,30);
-                serverControl.HideShifts();
-                serverControl.Click += ServerControl_Click;
-                ImageSetter.SetShiftControlImages(serverControl);
-                flowUnassignedServers.Controls.Add(serverControl);
-            }
 
         }
+
+        private void serverControl_Click_AddToShift(object sender, EventArgs e)
+        {
+            ServerControl oldServerControl = (ServerControl)sender;
+            Server server = oldServerControl.Server;
+            //if (employeeManager.ServersOnShift == null)
+            //{
+            //    employeeManager.ServersOnShift = new List<Server>();
+            //}
+            //employeeManager.ServersOnShift.Add(server);
+            shiftManager.UnassignedServers.Add(server);
+            shiftManager.ServersNotOnShift.Remove(server);
+            //Button serverButton = CreateServerButton(server);
+            ServerControl newServerControl = new ServerControl(server, 350, 30);
+
+            newServerControl.Click += ServerControl_Click;
+
+            newServerControl.AddRemoveButton(flowUnassignedServers, flowAllServers, shiftManager.UnassignedServers, shiftManager.ServersNotOnShift, 155, 20);
+            newServerControl.RemoveButton.Click += serverControl_Click_RemoveFromShift;
+            ImageSetter.SetShiftControlImages(newServerControl);
+            flowUnassignedServers.Controls.Add(newServerControl);
+            flowAllServers.Controls.Remove(oldServerControl);
+        }
+        private void serverControl_Click_RemoveFromShift(object sender, EventArgs e)
+        {
+            Button removeButton = (Button)sender;
+
+            // Get the ServerControl instance.
+            ServerControl oldServerControl = (ServerControl)removeButton.Parent.Parent;
+
+            Server server = oldServerControl.Server;
+
+            shiftManager.ServersNotOnShift.Add(server);
+            shiftManager.UnassignedServers.Remove(server);
+            ServerControl serverControl = new ServerControl(server, 155, 20);
+            serverControl.Click += serverControl_Click_AddToShift;
+            serverControl.HideShifts();
+            flowAllServers.Controls.Add(serverControl);
+            flowUnassignedServers.Controls.Remove(oldServerControl);
+        }
+       
         private Button CreateServerButton(Server server)
         {
 
@@ -136,7 +165,7 @@ namespace FloorPlanMaker
                     serverControl.Click += ServerControl_Click;
                     ImageSetter.SetShiftControlImages(serverControl);
                     flowUnassignedServers.Controls.Add(serverControl);
-                    
+
                 }
                 else
                 {
@@ -279,7 +308,7 @@ namespace FloorPlanMaker
                 DiningArea area = (DiningArea)clbDiningAreaSelection.CheckedItems[i];
 
                 shiftManager.DiningAreasUsed.Add(area);
-                shiftManager.CreateFloorplanForDiningArea(area, DateTime.Now, false, 0,0);
+                shiftManager.CreateFloorplanForDiningArea(area, DateTime.Now, false, 0, 0);
             }
             AddFloorplansToFlowPanel();
 
@@ -301,7 +330,7 @@ namespace FloorPlanMaker
             List<Control> flowList = new List<Control>();
             foreach (Floorplan fp in shiftManager.Floorplans)
             {
-                
+
 
                 RadioButton rb = new RadioButton
                 {
@@ -313,9 +342,9 @@ namespace FloorPlanMaker
                     Margin = new Padding(0),
                     Text = fp.DiningArea.Name,
                     Tag = fp
-                   
+
                 };
-                
+
                 //shiftManager.DiningAreasUsed.Add((DiningArea)clbDiningAreaSelection.CheckedItems[i]);
                 rb.CheckedChanged += FloorplanRadioButton_CheckedChanged;
                 if (floorplanCount == 1)
