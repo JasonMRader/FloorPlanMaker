@@ -360,7 +360,7 @@ namespace FloorPlanMaker
 
         private void cboDiningAreas_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+           
             allTableControls.Clear();
             areaCreationManager.DiningAreaSelected = (DiningArea?)cboDiningAreas.SelectedItem;
             txtDiningAreaName.Text = areaCreationManager.DiningAreaSelected.Name;
@@ -382,6 +382,8 @@ namespace FloorPlanMaker
             }
 
             RefreshTemplateList(shiftManager.SelectedDiningArea);
+            lblDiningAreaAverageCovers.Text = shiftManager.SelectedDiningArea.GetAverageCovers().ToString();
+            lblDiningAreaMaxCovers.Text = shiftManager.SelectedDiningArea.GetMaxCovers().ToString();
 
 
 
@@ -664,42 +666,12 @@ namespace FloorPlanMaker
         }
         private void UpdateFloorplan()
         {
-            //shiftManager.ServersOnShift = employeeManager.ServersOnShift;
+            
             shiftManager.SelectedFloorplan = shiftManager.Floorplans.FirstOrDefault(fp => fp.DiningArea.ID == areaCreationManager.DiningAreaSelected.ID);
-            //flowServersInFloorplan.Controls.Clear();
-            //int pointX = 35;
-            //int PointY = 5;
-            //foreach (Server s in shiftManager.SelectedFloorplan.Servers)
-            //{
-            //    ServerControl sc = new ServerControl(s, 150, 30);
-            //    sc.Location = new Point(pointX, PointY);
-            //    PointY += (5 + sc.Height);
-            //    //CheckBox cb = CreateServerButton(s);
-            //    pnlSections.Controls.Add(sc);
-            //}
+            
             nudServerCount.Value = shiftManager.SelectedFloorplan.Servers.Count;
         }
-
-        private CheckBox CreateServerButton(Server server)
-        {
-
-            CheckBox cb = new CheckBox
-            {
-                Appearance = Appearance.Button,
-                Width = 150,
-                Height = 30,
-                AutoSize = false,
-                TextAlign = ContentAlignment.MiddleCenter,
-                Margin = new Padding(5),
-                Text = server.Name,
-                FlatStyle = FlatStyle.Flat,
-                BackColor = Color.LightBlue,
-                Tag = server
-            };
-
-            //b.Click += ServerButton_Click;
-            return cb;
-        }
+              
 
         private void nudServerCount_ValueChanged(object sender, EventArgs e)
         {
@@ -707,16 +679,10 @@ namespace FloorPlanMaker
             {
                 lblServerMaxCovers.Text = (shiftManager.SelectedDiningArea.GetMaxCovers() / (float)nudServerCount.Value).ToString("F1");
                 lblServerAverageCovers.Text = (shiftManager.SelectedDiningArea.GetAverageCovers() / (float)nudServerCount.Value).ToString("F1");
-                //shiftManager.Sections = GetNumberOfSections();
-                //shiftManager.SelectedFloorplan.Sections = GetNumberOfSections();
-                //shiftManager.CreateFloorplanForDiningArea(shiftManager.SelectedDiningArea, DateTime.Now, false, (int)nudServerCount.Value, ((int)nudServerCount.Value-(int)nudNumberOfTeamWaits.Value);
+                
                 shiftManager.SelectedFloorplan = shiftManager.Floorplans.FirstOrDefault(fp => fp.DiningArea.ID == shiftManager.SelectedDiningArea.ID);
                 shiftManager.SelectedFloorplan.Sections = GetNumberOfSections();
-                //shiftManager.ServersOnShift = employeeManager.AllServers;
-                //for (int i = 0; i < 4; i++)
-                //{
-                //    shiftManager.SelectedFloorplan.Servers.Add(shiftManager.ServersOnShift[i]);
-                //}
+               
                 CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
             }
 
@@ -773,31 +739,7 @@ namespace FloorPlanMaker
 
             return sections;
         }
-        //private void CreateSectionRadioButtons(List<Section> sections)
-        //{
-        //    // Clear any existing radio buttons from the flow layout panel.
-        //    flowSectionSelect.Controls.Clear();
-
-        //    foreach (var section in sections)
-        //    {
-        //        RadioButton rb = new RadioButton
-        //        {
-        //            Appearance = Appearance.Button,
-        //            FlatStyle = FlatStyle.Flat,
-        //            BackColor = section.Color,
-        //            ForeColor = section.FontColor,
-
-        //            //Text = section.TeamWait ? $"Team Wait {section.ID}" : $"Section {section.ID}",
-        //            Text = section.Name,
-        //            Tag = section  // Store the section object in the Tag property for easy access in the event handler.
-        //        };
-        //        rb.FlatAppearance.BorderSize = 0;
-        //        // Add the event handler for the CheckedChanged event.
-        //        rb.CheckedChanged += Rb_CheckedChanged;
-
-        //        flowSectionSelect.Controls.Add(rb);
-        //    }
-        //}
+      
         private List<CheckBox> closerButtons = new List<CheckBox>();
         private List<CheckBox> precloserButtons = new List<CheckBox>();
         private CheckBox selectedSectionButton;
@@ -940,50 +882,8 @@ namespace FloorPlanMaker
             }
 
         }
-
-
-
-
-        private void AddSectionLabels(List<Section> sections)
-        {
-            List<Server> servers = new List<Server>();
-            for (int i = 0; i < 4 && i < employeeManager.AllServers.Count; i++)
-            {
-                servers.Add(employeeManager.AllServers[i]);
-            }
-
-            foreach (Section section in sections)
-            {
-                SectionControl sectionControl = new SectionControl(section);
-                sectionControl.Location = FindMidpointOfSectionControls(section);
-                sectionControl.Servers = servers;
-                pnlFloorPlan.Controls.Add(sectionControl);
-                sectionControl.BringToFront();
-
-            }
-        }
-        private Point FindMidpointOfSectionControls(Section targetSection)
-        {
-            // 1. Collect all the TableControl controls with a Section
-            List<TableControl> tableControlsWithSection = new List<TableControl>();
-            foreach (Control ctrl in pnlFloorPlan.Controls)
-            {
-                if (ctrl is TableControl tableControl && tableControl.Section != null)
-                {
-                    tableControlsWithSection.Add(tableControl);
-                }
-            }
-
-            // 2. Group by Section and find the controls with the targetSection
-            var targetControls = tableControlsWithSection
-                .Where(tc => tc.Section.Equals(targetSection))
-                .ToList();
-
-            // 3. Compute the midpoint for the target controls
-            return TableControl.FindMiddlePoint(targetControls);
-        }
-
-
+                
+        
         private void Rb_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox rb = sender as CheckBox;
@@ -1125,9 +1025,8 @@ namespace FloorPlanMaker
 
             foreach (Section section in shiftManager.SelectedFloorplan.Sections)
             {
-                SectionControl sectionControl = new SectionControl(section);
-                sectionControl.Location = FindMidpointOfSectionControls(section);
-                sectionControl.Servers = shiftManager.SelectedFloorplan.Servers;
+                SectionControl sectionControl = new SectionControl(section, pnlFloorPlan, shiftManager.SelectedFloorplan.Servers);
+                
                 pnlFloorPlan.Controls.Add(sectionControl);
                 sectionControl.BringToFront();
 

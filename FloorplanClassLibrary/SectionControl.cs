@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FloorPlanMaker;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,7 +19,7 @@ namespace FloorplanClassLibrary
 
         public List<Server> Servers { get; set; } = new List<Server>();
 
-        public SectionControl(Section section)
+        public SectionControl(Section section, Panel panel, List<Server> servers)
         {
             this.Section = section;
 
@@ -49,7 +50,11 @@ namespace FloorplanClassLibrary
             this.ResizeRedraw = true;
 
             UpdateLabel();
+            this.Location = FindMidpointForSectionControls(section, panel);
+            this.Servers = servers;
+            this.BringToFront();
         }
+        
         private void SectionControl_Paint(object sender, PaintEventArgs e)
         {
             using (Pen pen = new Pen(Color.Black, 10))
@@ -165,7 +170,26 @@ namespace FloorplanClassLibrary
 
             g.DrawString(control.Section.GetDisplayString(), boldLargeFont, Brushes.Black, textX, textY, sf);
         }
+        private Point FindMidpointForSectionControls(Section targetSection, Panel panel)
+        {
+            // 1. Collect all the TableControl controls with a Section
+            List<TableControl> tableControlsWithSection = new List<TableControl>();
+            foreach (Control ctrl in panel.Controls)
+            {
+                if (ctrl is TableControl tableControl && tableControl.Section != null)
+                {
+                    tableControlsWithSection.Add(tableControl);
+                }
+            }
 
+            // 2. Group by Section and find the controls with the targetSection
+            var targetControls = tableControlsWithSection
+                .Where(tc => tc.Section.Equals(targetSection))
+                .ToList();
+
+            // 3. Compute the midpoint for the target controls
+            return TableControl.FindMiddlePoint(targetControls);
+        }
 
     }
 
