@@ -67,6 +67,7 @@ namespace FloorPlanMaker
                 shiftManager.UnassignedServers.Add(server);
                 //Button serverButton = CreateServerButton(server);
                 ServerControl serverControl = new ServerControl(server,350,30);
+                serverControl.HideShifts();
                 serverControl.Click += ServerControl_Click;
                 ImageSetter.SetShiftControlImages(serverControl);
                 flowUnassignedServers.Controls.Add(serverControl);

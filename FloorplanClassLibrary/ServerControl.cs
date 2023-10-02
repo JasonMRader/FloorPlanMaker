@@ -28,14 +28,8 @@ namespace FloorPlanMaker
                 TextAlign = ContentAlignment.MiddleCenter
             };
             this.Controls.Add(Label);
-            ShiftsDisplay = new FlowLayoutPanel
-            {
-                Height = height,
-                Width = width,
-                AutoSize = true
-            };
-            this.Controls.Add(ShiftsDisplay);
-            DisplayShifts(server);
+           
+            DisplayShifts();
            
         }
         //public Panel Panel { get; set; }
@@ -46,10 +40,17 @@ namespace FloorPlanMaker
         //public Image TeamWaitImage { get; set; }
         //public Image OutsideImage { get; set; }
         public List<ShiftControl> ShiftControls = new List<ShiftControl>(); 
-        public void DisplayShifts(Server server, int maxShiftsToShow = 5)
+        public void DisplayShifts(int maxShiftsToShow = 5)
         {
+            ShiftsDisplay = new FlowLayoutPanel
+            {
+                Height = this.Height,
+                Width = this.Width,
+                AutoSize = true
+            };
+            this.Controls.Add(ShiftsDisplay);
             // Assuming you have loaded shifts for this server
-            var lastShifts = server.Shifts.TakeLast(maxShiftsToShow);
+            var lastShifts = this.Server.Shifts.TakeLast(maxShiftsToShow);
 
             foreach (var shift in lastShifts)
             {
@@ -57,6 +58,12 @@ namespace FloorPlanMaker
                 this.ShiftControls.Add(shiftControl);
                 this.ShiftsDisplay.Controls.Add(shiftControl);
             }
+        }
+        public void HideShifts()
+        {
+
+            this.ShiftsDisplay.AutoSize = false;
+            this.ShiftsDisplay.MaximumSize = new Size(this.Width, 0);
         }
 
         
