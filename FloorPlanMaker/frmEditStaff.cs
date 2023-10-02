@@ -313,6 +313,9 @@ namespace FloorPlanMaker
             AddFloorplansToFlowPanel();
 
         }
+        private List<Control> ServerCountLabels = new List<Control>();
+        private List<Control> ServerMaxLabels = new List<Control>();
+        private List<Control> ServerAvgLabels = new List<Control>();
         private void AddFloorplansToFlowPanel()
         {
             flowDiningAreaAssignment.Controls.Clear();
@@ -326,7 +329,7 @@ namespace FloorPlanMaker
             int height = 30;
             int floorplanCount = 1;
             bool isChecked = true;
-            List<Control> labelList = new List<Control>();
+            ServerCountLabels = new List<Control>();
             List<Control> flowList = new List<Control>();
             foreach (Floorplan fp in shiftManager.Floorplans)
             {
@@ -363,7 +366,20 @@ namespace FloorPlanMaker
                     Font = new Font("Segoe UI", 12F),
                     Tag = fp
                 };
-                labelList.Add(label);
+                ServerCountLabels.Add(label);
+                Label maxLabel = new Label
+                {
+                    AutoSize = false,
+                    Width = (width - 8),
+                    Height = 30,
+                    Margin = new Padding(4),
+                    Text = "Max: " + fp.DiningArea.GetMaxCovers().ToString() + "  Avg: " + fp.DiningArea.GetAverageCovers().ToString(),
+                    TextAlign = ContentAlignment.MiddleCenter,
+                    Font = new Font("Segoe UI", 12F),
+                    Tag = fp
+                };
+                ServerMaxLabels.Add(maxLabel);
+               
                 FlowLayoutPanel floorplanPanel = new FlowLayoutPanel
                 {
                     Width = width - 8,
@@ -377,10 +393,15 @@ namespace FloorPlanMaker
                 flowList.Add(floorplanPanel);
 
             }
-            foreach (Control c in labelList)
+            foreach (Control c in ServerCountLabels)
             {
                 flowDiningAreaAssignment.Controls.Add((Control)c);
             }
+            foreach (Control c in ServerMaxLabels)
+            {
+                flowDiningAreaAssignment.Controls.Add((Control)c);
+            }
+           
             foreach (Control c in flowList)
             {
                 flowDiningAreaAssignment.Controls.Add((Control)c);
@@ -388,13 +409,32 @@ namespace FloorPlanMaker
         }
         private void RefreshFloorplanCountLabels()
         {
-            foreach (Control c in flowDiningAreaAssignment.Controls)
+            //foreach (Control c in flowDiningAreaAssignment.Controls)
+            foreach (Control c in ServerCountLabels)
             {
                 if (c is Label fpCountLabel)
                 {
                     if (fpCountLabel.Tag is Floorplan fp)
                     {
                         fpCountLabel.Text = "Servers: " + fp.Servers.Count.ToString();
+                    }
+                }
+            }
+            foreach (Control c in ServerMaxLabels)
+            {
+                if (c is Label fpMaxLabel)
+                {
+                    if (fpMaxLabel.Tag is Floorplan fp)
+                    {
+                        if (fp.Servers.Count > 0)
+                        {
+                            fpMaxLabel.Text = "Max: " + (fp.DiningArea.GetMaxCovers() / fp.Servers.Count).ToString("F1")
+                                + "  Avg: " + (fp.DiningArea.GetAverageCovers() / fp.Servers.Count).ToString("F1");
+                        }
+                        else
+                        {
+                            fpMaxLabel.Text = "Max: " + fp.DiningArea.GetMaxCovers().ToString() + "  Avg: " + fp.DiningArea.GetAverageCovers().ToString();
+                        }
                     }
                 }
             }
