@@ -664,7 +664,7 @@ namespace FloorPlanMaker
         }
         private void UpdateFloorplan()
         {
-            shiftManager.ServersOnShift = employeeManager.ServersOnShift;
+            //shiftManager.ServersOnShift = employeeManager.ServersOnShift;
             shiftManager.SelectedFloorplan = shiftManager.Floorplans.FirstOrDefault(fp => fp.DiningArea.ID == areaCreationManager.DiningAreaSelected.ID);
             //flowServersInFloorplan.Controls.Clear();
             //int pointX = 35;
@@ -709,13 +709,14 @@ namespace FloorPlanMaker
                 lblServerAverageCovers.Text = (shiftManager.SelectedDiningArea.GetAverageCovers() / (float)nudServerCount.Value).ToString("F1");
                 //shiftManager.Sections = GetNumberOfSections();
                 //shiftManager.SelectedFloorplan.Sections = GetNumberOfSections();
-                shiftManager.CreateFloorplanForDiningArea(shiftManager.SelectedDiningArea, DateTime.Now, false, 4, 4);
-                shiftManager.SelectedFloorplan = shiftManager.Floorplans.FirstOrDefault(fp => fp.DiningArea == (DiningArea)cboDiningAreas.SelectedItem);
-                shiftManager.ServersOnShift = employeeManager.AllServers;
-                for (int i = 0; i < 4; i++)
-                {
-                    shiftManager.SelectedFloorplan.Servers.Add(shiftManager.ServersOnShift[i]);
-                }
+                //shiftManager.CreateFloorplanForDiningArea(shiftManager.SelectedDiningArea, DateTime.Now, false, (int)nudServerCount.Value, ((int)nudServerCount.Value-(int)nudNumberOfTeamWaits.Value);
+                shiftManager.SelectedFloorplan = shiftManager.Floorplans.FirstOrDefault(fp => fp.DiningArea.ID == shiftManager.SelectedDiningArea.ID);
+                shiftManager.SelectedFloorplan.Sections = GetNumberOfSections();
+                //shiftManager.ServersOnShift = employeeManager.AllServers;
+                //for (int i = 0; i < 4; i++)
+                //{
+                //    shiftManager.SelectedFloorplan.Servers.Add(shiftManager.ServersOnShift[i]);
+                //}
                 CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
             }
 

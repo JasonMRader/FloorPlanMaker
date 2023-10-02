@@ -35,7 +35,7 @@ namespace FloorPlanMaker
             txtNewServerName.Clear();
             employeeManager.AllServers.Clear();
             employeeManager.AllServers = SqliteDataAccess.LoadServers();
-            
+
 
         }
 
@@ -43,8 +43,8 @@ namespace FloorPlanMaker
         {
             clbDiningAreaSelection.DataSource = DiningAreaManager.DiningAreas;
 
-           
-           
+
+
 
             foreach (Server server in shiftManager.ServersNotOnShift)
             {
@@ -102,7 +102,7 @@ namespace FloorPlanMaker
             flowAllServers.Controls.Add(serverControl);
             flowUnassignedServers.Controls.Remove(oldServerControl);
         }
-       
+
         private Button CreateServerButton(Server server)
         {
 

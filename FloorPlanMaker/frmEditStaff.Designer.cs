@@ -95,6 +95,7 @@
             // 
             // flowUnassignedServers
             // 
+            flowUnassignedServers.AutoScroll = true;
             flowUnassignedServers.Location = new Point(881, 74);
             flowUnassignedServers.Name = "flowUnassignedServers";
             flowUnassignedServers.Size = new Size(360, 832);
