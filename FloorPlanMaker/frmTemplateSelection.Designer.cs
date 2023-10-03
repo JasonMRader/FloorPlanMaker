@@ -37,6 +37,7 @@
             panel4 = new Panel();
             button2 = new Button();
             pnlTemplates = new Panel();
+            btnCancel = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
@@ -135,6 +136,7 @@
             // pnlTemplates
             // 
             pnlTemplates.BackColor = Color.Silver;
+            pnlTemplates.Controls.Add(btnCancel);
             pnlTemplates.Controls.Add(panel1);
             pnlTemplates.Controls.Add(panel3);
             pnlTemplates.Controls.Add(panel4);
@@ -143,6 +145,18 @@
             pnlTemplates.Name = "pnlTemplates";
             pnlTemplates.Size = new Size(646, 846);
             pnlTemplates.TabIndex = 4;
+            // 
+            // btnCancel
+            // 
+            btnCancel.BackColor = Color.IndianRed;
+            btnCancel.FlatStyle = FlatStyle.Flat;
+            btnCancel.Location = new Point(0, 820);
+            btnCancel.Name = "btnCancel";
+            btnCancel.Size = new Size(646, 26);
+            btnCancel.TabIndex = 4;
+            btnCancel.Text = "Cancel";
+            btnCancel.UseVisualStyleBackColor = false;
+            btnCancel.Click += btnCancel_Click;
             // 
             // frmTemplateSelection
             // 
@@ -173,5 +187,6 @@
         private Button button1;
         private Button button3;
         private Button button2;
+        private Button btnCancel;
     }
 }

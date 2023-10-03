@@ -23,11 +23,12 @@ namespace FloorplanClassLibrary
         public Section? SectionSelected { get; set; }
         public List<Floorplan> Floorplans = new List<Floorplan>();
         public List<FloorplanTemplate> Templates = new List<FloorplanTemplate>();
+        public List<Section> TemplateSections = new List<Section>();
         
-        public void AssignSectionNumbers()
+        public void AssignSectionNumbers(List<Section> sections)
         {
             int sectionNumber = 1;
-            foreach (var section in this.Sections)
+            foreach (var section in sections)
             {
                 section.Number = sectionNumber;
                 sectionNumber++;
@@ -36,8 +37,8 @@ namespace FloorplanClassLibrary
 
         public void SetSectionsToTemplate(FloorplanTemplate template)
         {
-            this.Sections.Clear();
-            this.Sections.AddRange(template.Sections);
+            this.TemplateSections.Clear();
+            this.TemplateSections.AddRange(template.Sections);
         }
         public Floorplan CreateFloorplanForDiningArea(DiningArea diningArea,DateTime date, bool isLunch, int serverCount, int sectionCount)
         {

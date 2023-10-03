@@ -24,6 +24,7 @@ namespace FloorPlanMaker
 
         private void frmTemplateSelection_Load(object sender, EventArgs e)
         {
+            ShiftManager.Templates.Clear();
             ShiftManager.Templates = SqliteDataAccess.LoadTemplatesByDiningArea(ShiftManager.SelectedDiningArea);
             Panel[] panels = { panel1, panel2, panel3, panel4 };  // Assuming you have named your panels like this
 
@@ -35,9 +36,9 @@ namespace FloorPlanMaker
         private void SetupPanelWithTemplate(Panel pnl, FloorplanTemplate template)
         {
             // Clear the current controls
-            
+           
             //pnl.Controls.Clear();
-
+            pnl.Tag = template;
             foreach (Table table in ShiftManager.SelectedDiningArea.Tables)  // Assuming FloorplanTemplate has a Tables property
             {
                 table.DiningArea = ShiftManager.SelectedDiningArea;
@@ -47,12 +48,17 @@ namespace FloorPlanMaker
                 pnl.Controls.Add(tableControl);
             }
             ShiftManager.SetSectionsToTemplate(template);
-            ShiftManager.AssignSectionNumbers();
+            ShiftManager.AssignSectionNumbers(ShiftManager.TemplateSections);
             foreach (Control ctrl in pnl.Controls)
             {
+                if (ctrl is Button btn)
+                {
+                    btn.Click += btnSelectTemplate_Click;
+                    btn.Tag = template;
+                }
                 if (ctrl is TableControl tableControl)
                 {
-                    foreach (Section section in ShiftManager.Sections)
+                    foreach (Section section in ShiftManager.TemplateSections)
                     {
 
                         foreach (Table table in section.Tables)
@@ -71,6 +77,22 @@ namespace FloorPlanMaker
 
             // Any other setup logic specific to the template can be added here
         }
+        private void btnSelectTemplate_Click(object sender, EventArgs e)
+        {
+            Button button = (Button)sender;
+            
+            FloorplanTemplate template = new FloorplanTemplate(); 
+           
+            
+            template = (FloorplanTemplate)button.Tag;
 
+            ShiftManager.SelectedFloorplan.Sections = template.Sections;
+            this.DialogResult = DialogResult.OK;
+        }
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            //this.Dispose();
+        }
     }
 }

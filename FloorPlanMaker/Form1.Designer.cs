@@ -33,7 +33,6 @@
             cboFloorplanTemplates = new ComboBox();
             btnSaveFloorplanTemplate = new Button();
             pnlUnassignedServers = new Panel();
-            cbLockNodes = new CheckBox();
             flowServersInFloorplan = new FlowLayoutPanel();
             btnAddServers = new Button();
             lblTeamWaitLabel = new Label();
@@ -50,10 +49,12 @@
             label9 = new Label();
             label10 = new Label();
             nudServerCount = new NumericUpDown();
+            cbLockNodes = new CheckBox();
             btnAddSectionLabels = new Button();
             flowSectionSelect = new FlowLayoutPanel();
             pnlAddTables = new Panel();
             pnlSections = new Panel();
+            btnChooseTemplate = new Button();
             btnCopyTable = new Button();
             btnDeleteTable = new Button();
             btnSaveTable = new Button();
@@ -102,7 +103,6 @@
             pnlServers.Controls.Add(cboFloorplanTemplates);
             pnlServers.Controls.Add(btnSaveFloorplanTemplate);
             pnlServers.Controls.Add(pnlUnassignedServers);
-            pnlServers.Controls.Add(cbLockNodes);
             pnlServers.Controls.Add(flowServersInFloorplan);
             pnlServers.Controls.Add(btnAddServers);
             pnlServers.Controls.Add(lblTeamWaitLabel);
@@ -159,19 +159,6 @@
             pnlUnassignedServers.Size = new Size(195, 99);
             pnlUnassignedServers.TabIndex = 3;
             // 
-            // cbLockNodes
-            // 
-            cbLockNodes.Appearance = Appearance.Button;
-            cbLockNodes.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            cbLockNodes.Location = new Point(3, 332);
-            cbLockNodes.Name = "cbLockNodes";
-            cbLockNodes.Size = new Size(232, 34);
-            cbLockNodes.TabIndex = 11;
-            cbLockNodes.Text = "Draw Section Lines";
-            cbLockNodes.TextAlign = ContentAlignment.MiddleCenter;
-            cbLockNodes.UseVisualStyleBackColor = true;
-            cbLockNodes.CheckedChanged += cbLockNodes_CheckedChanged;
-            // 
             // flowServersInFloorplan
             // 
             flowServersInFloorplan.Location = new Point(12, 890);
@@ -183,7 +170,7 @@
             // 
             btnAddServers.Location = new Point(3, 47);
             btnAddServers.Name = "btnAddServers";
-            btnAddServers.Size = new Size(232, 23);
+            btnAddServers.Size = new Size(232, 40);
             btnAddServers.TabIndex = 1;
             btnAddServers.Text = "Add Servers To Shift";
             btnAddServers.UseVisualStyleBackColor = true;
@@ -331,6 +318,19 @@
             nudServerCount.Value = new decimal(new int[] { 1, 0, 0, 0 });
             nudServerCount.ValueChanged += nudServerCount_ValueChanged;
             // 
+            // cbLockNodes
+            // 
+            cbLockNodes.Appearance = Appearance.Button;
+            cbLockNodes.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            cbLockNodes.Location = new Point(9, 577);
+            cbLockNodes.Name = "cbLockNodes";
+            cbLockNodes.Size = new Size(259, 34);
+            cbLockNodes.TabIndex = 11;
+            cbLockNodes.Text = "Draw Section Lines";
+            cbLockNodes.TextAlign = ContentAlignment.MiddleCenter;
+            cbLockNodes.UseVisualStyleBackColor = true;
+            cbLockNodes.CheckedChanged += cbLockNodes_CheckedChanged;
+            // 
             // btnAddSectionLabels
             // 
             btnAddSectionLabels.Location = new Point(0, 0);
@@ -344,9 +344,9 @@
             // flowSectionSelect
             // 
             flowSectionSelect.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            flowSectionSelect.Location = new Point(0, 34);
+            flowSectionSelect.Location = new Point(0, 78);
             flowSectionSelect.Name = "flowSectionSelect";
-            flowSectionSelect.Size = new Size(268, 435);
+            flowSectionSelect.Size = new Size(268, 493);
             flowSectionSelect.TabIndex = 9;
             // 
             // pnlAddTables
@@ -380,13 +380,25 @@
             // 
             // pnlSections
             // 
+            pnlSections.Controls.Add(btnChooseTemplate);
             pnlSections.Controls.Add(btnAddSectionLabels);
             pnlSections.Controls.Add(flowSectionSelect);
+            pnlSections.Controls.Add(cbLockNodes);
             pnlSections.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             pnlSections.Location = new Point(0, 33);
             pnlSections.Name = "pnlSections";
             pnlSections.Size = new Size(268, 937);
             pnlSections.TabIndex = 8;
+            // 
+            // btnChooseTemplate
+            // 
+            btnChooseTemplate.Location = new Point(0, 34);
+            btnChooseTemplate.Name = "btnChooseTemplate";
+            btnChooseTemplate.Size = new Size(271, 37);
+            btnChooseTemplate.TabIndex = 14;
+            btnChooseTemplate.Text = "Choose Template";
+            btnChooseTemplate.UseVisualStyleBackColor = true;
+            btnChooseTemplate.Click += btnChooseTemplate_Click;
             // 
             // btnCopyTable
             // 
@@ -809,5 +821,6 @@
         private TextBox txtTemplateName;
         private Button btnPrint;
         private DateTimePicker dtpFloorplan;
+        private Button btnChooseTemplate;
     }
 }

@@ -360,7 +360,7 @@ namespace FloorPlanMaker
 
         private void cboDiningAreas_SelectedIndexChanged(object sender, EventArgs e)
         {
-           
+
             allTableControls.Clear();
             areaCreationManager.DiningAreaSelected = (DiningArea?)cboDiningAreas.SelectedItem;
             txtDiningAreaName.Text = areaCreationManager.DiningAreaSelected.Name;
@@ -666,12 +666,12 @@ namespace FloorPlanMaker
         }
         private void UpdateFloorplan()
         {
-            
+
             shiftManager.SelectedFloorplan = shiftManager.Floorplans.FirstOrDefault(fp => fp.DiningArea.ID == areaCreationManager.DiningAreaSelected.ID);
-            
+
             nudServerCount.Value = shiftManager.SelectedFloorplan.Servers.Count;
         }
-              
+
 
         private void nudServerCount_ValueChanged(object sender, EventArgs e)
         {
@@ -679,10 +679,10 @@ namespace FloorPlanMaker
             {
                 lblServerMaxCovers.Text = (shiftManager.SelectedDiningArea.GetMaxCovers() / (float)nudServerCount.Value).ToString("F1");
                 lblServerAverageCovers.Text = (shiftManager.SelectedDiningArea.GetAverageCovers() / (float)nudServerCount.Value).ToString("F1");
-                
+
                 shiftManager.SelectedFloorplan = shiftManager.Floorplans.FirstOrDefault(fp => fp.DiningArea.ID == shiftManager.SelectedDiningArea.ID);
                 shiftManager.SelectedFloorplan.Sections = GetNumberOfSections();
-               
+
                 CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
             }
 
@@ -739,7 +739,7 @@ namespace FloorPlanMaker
 
             return sections;
         }
-      
+
         private List<CheckBox> closerButtons = new List<CheckBox>();
         private List<CheckBox> precloserButtons = new List<CheckBox>();
         private CheckBox selectedSectionButton;
@@ -882,8 +882,8 @@ namespace FloorPlanMaker
             }
 
         }
-                
-        
+
+
         private void Rb_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox rb = sender as CheckBox;
@@ -1026,7 +1026,7 @@ namespace FloorPlanMaker
             foreach (Section section in shiftManager.SelectedFloorplan.Sections)
             {
                 SectionControl sectionControl = new SectionControl(section, pnlFloorPlan, shiftManager.SelectedFloorplan.Servers);
-                
+
                 pnlFloorPlan.Controls.Add(sectionControl);
                 sectionControl.BringToFront();
 
@@ -1077,7 +1077,7 @@ namespace FloorPlanMaker
             FloorplanTemplate template = cboFloorplanTemplates.SelectedItem as FloorplanTemplate;
             shiftManager.SetSectionsToTemplate(template);
 
-            shiftManager.AssignSectionNumbers();
+            shiftManager.AssignSectionNumbers(template.Sections);
 
 
 
@@ -1092,6 +1092,46 @@ namespace FloorPlanMaker
             ////printer.ShowPrintPreview();  // To show print preview
             //printer.Print();  // To print
 
+        }
+
+        private void btnChooseTemplate_Click(object sender, EventArgs e)
+        {
+            frmTemplateSelection form = new frmTemplateSelection(shiftManager);
+            //pnlFloorPlan.Visible = false;
+            form.StartPosition = FormStartPosition.CenterScreen;
+            //form.TopLevel = false;
+            form.BringToFront();
+            //this.Controls.Add(form);
+            form.ShowDialog();
+            if (form.DialogResult == DialogResult.OK)
+            {
+                foreach (Control ctrl in pnlFloorPlan.Controls)
+                {
+                    
+                    if (ctrl is TableControl tableControl)
+                    {
+                        foreach (Section section in shiftManager.SelectedFloorplan.Sections)
+                        {
+
+                            foreach (Table table in section.Tables)
+                            {
+                                if (tableControl.Table.TableNumber == table.TableNumber)
+                                {
+                                    tableControl.Section = section;
+                                    tableControl.BackColor = section.Color;
+                                    tableControl.Invalidate();
+                                    break; // Once found, no need to check other tables in this section
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if (DialogResult == DialogResult.Cancel)
+            {
+
+            }
+            //form.ShowDialog();
         }
     }
 }
