@@ -24,6 +24,7 @@ namespace FloorplanClassLibrary
         public List<Floorplan> Floorplans = new List<Floorplan>();
         public List<FloorplanTemplate> Templates = new List<FloorplanTemplate>();
         public List<Section> TemplateSections = new List<Section>();
+        public FloorplanTemplate? SelectedTemplate { get; set; }
         
         public void AssignSectionNumbers(List<Section> sections)
         {

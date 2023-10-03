@@ -27,6 +27,13 @@ namespace FloorplanClassLibrary
             this.SectionLines = sectionLines;
             this.DiningAreaID = diningArea.ID;
         }
+        public FloorplanTemplate(DiningArea diningArea, int serverCount,string name, List<Section> sections)
+        {
+            this.DiningArea = diningArea;
+            this.ServerCount = serverCount;
+            this.Name = name;
+            this.Sections = sections;
+        }
         public FloorplanTemplate() { }
         public int ID { get; set; }
         public string Name { get; set; }

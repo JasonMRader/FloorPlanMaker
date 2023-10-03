@@ -681,9 +681,26 @@ namespace FloorPlanMaker
                 lblServerAverageCovers.Text = (shiftManager.SelectedDiningArea.GetAverageCovers() / (float)nudServerCount.Value).ToString("F1");
 
                 shiftManager.SelectedFloorplan = shiftManager.Floorplans.FirstOrDefault(fp => fp.DiningArea.ID == shiftManager.SelectedDiningArea.ID);
-                shiftManager.SelectedFloorplan.Sections = GetNumberOfSections();
+                
+                if(shiftManager.SelectedFloorplan != null)
+                {
+                    shiftManager.SelectedFloorplan.Sections = GetNumberOfSections();
+                    
+                }
+                else
+                {
+                    shiftManager.SelectedFloorplan = new Floorplan();
+                    shiftManager.SelectedFloorplan.Sections = GetNumberOfSections();
+                    shiftManager.SelectedFloorplan.DiningArea = shiftManager.SelectedDiningArea;
 
+                }
                 CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
+                //else
+                //{
+                //    List<Section> sections = GetNumberOfSections();
+                //    shiftManager.SelectedTemplate = new FloorplanTemplate(shiftManager.SelectedDiningArea, (int)nudServerCount.Value,"", sections);
+                //}
+
             }
 
         }
