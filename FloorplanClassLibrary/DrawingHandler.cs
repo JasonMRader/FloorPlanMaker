@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NetTopologySuite.Geometries;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,18 +10,24 @@ namespace FloorPlanMaker
     public class DrawingHandler
     {
         private Panel targetPanel;
-        private List<Point> points;
+        private List<System.Drawing.Point> points;
 
         private bool isDragging = false;         // 1. Track if you're dragging the mouse
-        private Point? startPoint = null;
-        private Point? endPoint = null;
+        private System.Drawing.Point? startPoint = null;
+        private System.Drawing.Point? endPoint = null;
+        private List<LineString> _voronoiEdges = new List<LineString>();
 
+        public void SetVoronoiEdges(List<LineString> voronoiEdges)
+        {
+            _voronoiEdges = voronoiEdges;
+            targetPanel.Invalidate();  // Trigger a redraw
+        }
         public bool DrawSectionLinesMode { get; set; }
 
         public DrawingHandler(Panel panel)
         {
             this.targetPanel = panel;
-            this.points = new List<Point>();
+            this.points = new List<System.Drawing.Point>();
 
             this.targetPanel.MouseDown += Panel_MouseDown;
             this.targetPanel.MouseMove += Panel_MouseMove;     // Add MouseMove event
@@ -87,7 +94,7 @@ namespace FloorPlanMaker
                 targetPanel.Invalidate();
             }
         }
-        public static void Printer_Paint(Graphics g, SectionLine line, Point adjustedStart, Point adjustedEnd)
+        public static void Printer_Paint(Graphics g, SectionLine line, System.Drawing.Point adjustedStart, System.Drawing.Point adjustedEnd)
         {
             using (Pen pen = new Pen(Color.Black, 3))
             using (Brush brush = new SolidBrush(Color.Black))
@@ -121,11 +128,19 @@ namespace FloorPlanMaker
                     e.Graphics.FillEllipse(brush, line.EndPoint.X - 2, line.EndPoint.Y - 2, 5, 5);
                 }
             }
+            using (Pen voronoiPen = new Pen(Color.Red, 3))  // Use a different color or style for distinction, if needed.
+            {
+                foreach (var edge in _voronoiEdges)
+                {
+                    var points = edge.Coordinates.Select(coord => new System.Drawing.Point((int)coord.X, (int)coord.Y)).ToArray();
+                    e.Graphics.DrawLines(voronoiPen, points);
+                }
+            }
         }
 
-        private Point? GetNearbyPoint(Point currentPoint)
+        private System.Drawing.Point? GetNearbyPoint(System.Drawing.Point currentPoint)
         {
-            foreach (Point point in points)
+            foreach (System.Drawing.Point point in points)
             {
                 if (Math.Abs(currentPoint.X - point.X) <= 10 && Math.Abs(currentPoint.Y - point.Y) <= 10)
                     return point;

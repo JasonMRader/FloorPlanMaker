@@ -1,5 +1,9 @@
 
 using FloorplanClassLibrary;
+using FloorPlanMakerUI;
+using NetTopologySuite.Geometries;
+using NetTopologySuite.Triangulate;
+using System.Diagnostics.Metrics;
 using System.Drawing.Drawing2D;
 //using static System.Collections.Specialized.BitVector32;
 
@@ -16,7 +20,7 @@ namespace FloorPlanMaker
         private DrawingHandler drawingHandler;
         List<TableControl> emphasizedTablesList = new List<TableControl>();
         private bool isDragging = false;
-        private Point dragStartPoint;
+        private System.Drawing.Point dragStartPoint;
         private Rectangle dragRectangle;
         private List<TableControl> allTableControls = new List<TableControl>();
         private int currentFocusedSectionIndex = 0;
@@ -177,7 +181,7 @@ namespace FloorPlanMaker
         private void CreateTableControlsToAdd()
         {
             TableControl circleTable = new TableControl();
-            circleTable.Location = new Point(70, 50);
+            circleTable.Location = new System.Drawing.Point(70, 50);
             circleTable.Size = new Size(100, 100);
             circleTable.Moveable = false;
             circleTable.TableClicked += AddTable_TableClicked;
@@ -185,7 +189,7 @@ namespace FloorPlanMaker
             pnlAddTables.Controls.Add(circleTable);
 
             TableControl diamondTable = new TableControl();
-            diamondTable.Location = new Point(70, 175);
+            diamondTable.Location = new System.Drawing.Point(70, 175);
             diamondTable.Size = new Size(100, 100);
             diamondTable.Moveable = false;
             diamondTable.TableClicked += AddTable_TableClicked;
@@ -193,7 +197,7 @@ namespace FloorPlanMaker
             pnlAddTables.Controls.Add(diamondTable);
 
             TableControl squareTable = new TableControl();
-            squareTable.Location = new Point(70, 300);
+            squareTable.Location = new System.Drawing.Point(70, 300);
             squareTable.Size = new Size(100, 100);
             squareTable.Moveable = false;
             squareTable.TableClicked += AddTable_TableClicked;
@@ -211,7 +215,7 @@ namespace FloorPlanMaker
                 Top = new Random().Next(100, 300),
                 Moveable = true,
                 Shape = clickedTable.Shape,
-                Location = new Point(300, 400)
+                Location = new System.Drawing.Point(300, 400)
             };
             table.TableClicked += ExistingTable_TableClicked;
             // Subscribe to the TableClicked event for the new table as well
@@ -681,11 +685,11 @@ namespace FloorPlanMaker
                 lblServerAverageCovers.Text = (shiftManager.SelectedDiningArea.GetAverageCovers() / (float)nudServerCount.Value).ToString("F1");
 
                 shiftManager.SelectedFloorplan = shiftManager.Floorplans.FirstOrDefault(fp => fp.DiningArea.ID == shiftManager.SelectedDiningArea.ID);
-                
-                if(shiftManager.SelectedFloorplan != null)
+
+                if (shiftManager.SelectedFloorplan != null)
                 {
                     shiftManager.SelectedFloorplan.Sections = GetNumberOfSections();
-                    
+
                 }
                 else
                 {
@@ -875,12 +879,12 @@ namespace FloorPlanMaker
 
                 // Here, you might want to adjust the layout within the panel.
                 // For simplicity, I'll just set their locations manually:
-                rbSection.Location = new Point(5, 5); // You can adjust these coordinates as needed.
-                lblMaxCovers.Location = new Point(rbSection.Right + 5, 5);
-                lblAverageCovers.Location = new Point(lblMaxCovers.Right + 5, 5);
+                rbSection.Location = new System.Drawing.Point(5, 5); // You can adjust these coordinates as needed.
+                lblMaxCovers.Location = new System.Drawing.Point(rbSection.Right + 5, 5);
+                lblAverageCovers.Location = new System.Drawing.Point(lblMaxCovers.Right + 5, 5);
 
-                rbCloser.Location = new Point(lblAverageCovers.Right + 10, 5);
-                rbPrecloser.Location = new Point(rbCloser.Right + 5, 5);
+                rbCloser.Location = new System.Drawing.Point(lblAverageCovers.Right + 10, 5);
+                rbPrecloser.Location = new System.Drawing.Point(rbCloser.Right + 5, 5);
                 // Adjust panel size to fit the controls (or set a predefined size).
                 sectionPanel.Size = new Size(rbPrecloser.Right + 5, Math.Max(rbSection.Height, lblAverageCovers.Height) + 10);
 
@@ -1070,9 +1074,13 @@ namespace FloorPlanMaker
 
         private void btnTest_Click(object sender, EventArgs e)
         {
-            nudServerCount.Value = 4;
+            //nudServerCount.Value = 4;
 
-            UpdateFloorplan();
+            //UpdateFloorplan();
+            SectionLine sectionLine = new SectionLine();
+            sectionLine.StartPoint = new System.Drawing.Point(0, 0);
+            sectionLine.EndPoint = new System.Drawing.Point(300, 300);
+            pnlFloorPlan.Controls.Add(sectionLine);
         }
 
         private void cboFloorplanTemplates_SelectedIndexChanged(object sender, EventArgs e)
@@ -1124,7 +1132,7 @@ namespace FloorPlanMaker
             {
                 foreach (Control ctrl in pnlFloorPlan.Controls)
                 {
-                    
+
                     if (ctrl is TableControl tableControl)
                     {
                         foreach (Section section in shiftManager.SelectedFloorplan.Sections)
@@ -1150,5 +1158,85 @@ namespace FloorPlanMaker
             }
             //form.ShowDialog();
         }
+
+        private void btnGenerateSectionLines_Click(object sender, EventArgs e)
+        {
+            var coordinates = new List<Coordinate>();
+            foreach (Control ctrl in pnlFloorPlan.Controls)
+            { 
+                if (ctrl is TableControl tableControl)
+                {
+                    coordinates.Add(VoronoiHelper.GetCentroid(tableControl));
+                } 
+            }
+           
+
+            var edges = ComputeVoronoiEdges(coordinates);
+            //drawingHandler.SetVoronoiEdges(edges);
+            int idCounter = 0;
+            foreach (var edge in edges)
+            {
+                Console.WriteLine($"From {edge.StartPoint} to {edge.EndPoint}");
+                var sectionLine = new SectionLine
+                {
+                    ID = idCounter++,
+                    StartPoint = new System.Drawing.Point((int)edge.StartPoint.X, (int)edge.StartPoint.Y),
+                    EndPoint = new System.Drawing.Point((int)edge.EndPoint.X, (int)edge.EndPoint.Y),
+                    // You may want to set other properties, like size, location, etc.
+                    // Width, Height, etc.
+                };
+
+                pnlFloorPlan.Controls.Add(sectionLine);
+            }
+        }
+
+        //public static List<LineString> ComputeVoronoiEdges(List<Coordinate> coordinates)
+        //{
+        //    VoronoiDiagramBuilder builder = new VoronoiDiagramBuilder();
+        //    builder.SetSites(coordinates);
+        //    var diagram = builder.GetDiagram(new GeometryFactory());
+
+        //    var lines = new List<LineString>();
+
+        //    for (int i = 0; i < diagram.NumGeometries; i++)
+        //    {
+        //        var polygon = diagram.GetGeometryN(i) as Polygon;
+        //        if (polygon != null)
+        //        {
+        //            var boundary = polygon.Boundary as LineString;
+        //            if (boundary != null)
+        //            {
+        //                lines.Add(boundary);
+        //            }
+        //        }
+        //    }
+
+        //    return lines;
+        //}
+        public static List<LineString> ComputeVoronoiEdges(List<Coordinate> coordinates)
+        {
+            VoronoiDiagramBuilder builder = new VoronoiDiagramBuilder();
+            builder.SetSites(coordinates);
+            var diagram = builder.GetDiagram(new GeometryFactory());
+
+            var lines = new List<LineString>();
+
+            for (int i = 0; i < diagram.NumGeometries; i++)
+            {
+                var polygon = diagram.GetGeometryN(i) as Polygon;
+                if (polygon != null)
+                {
+                    var boundary = polygon.Boundary as LineString;
+                    if (boundary != null && !boundary.StartPoint.Equals(boundary.EndPoint))  // Exclude degenerate edges
+                    {
+                        lines.Add(boundary);
+                    }
+                }
+            }
+
+            return lines;
+        }
+
+
     }
 }

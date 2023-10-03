@@ -88,6 +88,7 @@
             btnTest = new Button();
             btnPrint = new Button();
             dtpFloorplan = new DateTimePicker();
+            btnGenerateSectionLines = new Button();
             pnlServers.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudNumberOfTeamWaits).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudServerCount).BeginInit();
@@ -380,6 +381,7 @@
             // 
             // pnlSections
             // 
+            pnlSections.Controls.Add(btnGenerateSectionLines);
             pnlSections.Controls.Add(btnChooseTemplate);
             pnlSections.Controls.Add(btnAddSectionLabels);
             pnlSections.Controls.Add(flowSectionSelect);
@@ -725,6 +727,16 @@
             dtpFloorplan.Size = new Size(97, 23);
             dtpFloorplan.TabIndex = 14;
             // 
+            // btnGenerateSectionLines
+            // 
+            btnGenerateSectionLines.Location = new Point(6, 664);
+            btnGenerateSectionLines.Name = "btnGenerateSectionLines";
+            btnGenerateSectionLines.Size = new Size(259, 46);
+            btnGenerateSectionLines.TabIndex = 15;
+            btnGenerateSectionLines.Text = "Auto Section Lines";
+            btnGenerateSectionLines.UseVisualStyleBackColor = true;
+            btnGenerateSectionLines.Click += btnGenerateSectionLines_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -822,5 +834,6 @@
         private Button btnPrint;
         private DateTimePicker dtpFloorplan;
         private Button btnChooseTemplate;
+        private Button btnGenerateSectionLines;
     }
 }
