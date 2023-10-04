@@ -38,6 +38,7 @@
             cbUnassignedServers = new CheckBox();
             label1 = new Label();
             flowAllServers = new FlowLayoutPanel();
+            flowDiningAreas = new FlowLayoutPanel();
             SuspendLayout();
             // 
             // btnAddNewServer
@@ -71,9 +72,9 @@
             // 
             clbDiningAreaSelection.CheckOnClick = true;
             clbDiningAreaSelection.FormattingEnabled = true;
-            clbDiningAreaSelection.Location = new Point(12, 38);
+            clbDiningAreaSelection.Location = new Point(12, 12);
             clbDiningAreaSelection.Name = "clbDiningAreaSelection";
-            clbDiningAreaSelection.Size = new Size(165, 148);
+            clbDiningAreaSelection.Size = new Size(165, 22);
             clbDiningAreaSelection.TabIndex = 8;
             // 
             // btnAssignAreas
@@ -84,6 +85,7 @@
             btnAssignAreas.TabIndex = 9;
             btnAssignAreas.Text = "Assign Areas";
             btnAssignAreas.UseVisualStyleBackColor = true;
+            btnAssignAreas.Visible = false;
             btnAssignAreas.Click += btnAssignAreas_Click;
             // 
             // flowDiningAreaAssignment
@@ -131,11 +133,19 @@
             flowAllServers.Size = new Size(165, 667);
             flowAllServers.TabIndex = 14;
             // 
+            // flowDiningAreas
+            // 
+            flowDiningAreas.Location = new Point(12, 40);
+            flowDiningAreas.Name = "flowDiningAreas";
+            flowDiningAreas.Size = new Size(165, 155);
+            flowDiningAreas.TabIndex = 15;
+            // 
             // frmEditStaff
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1253, 970);
+            Controls.Add(flowDiningAreas);
             Controls.Add(flowAllServers);
             Controls.Add(label1);
             Controls.Add(cbUnassignedServers);
@@ -165,5 +175,6 @@
         private CheckBox cbUnassignedServers;
         private Label label1;
         private FlowLayoutPanel flowAllServers;
+        private FlowLayoutPanel flowDiningAreas;
     }
 }

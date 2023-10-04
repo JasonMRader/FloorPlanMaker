@@ -544,13 +544,21 @@ namespace FloorPlanMaker
                 table.Width = width;
                 tableControl.Width = width;  // Update control width
             }
+            if (int.TryParse(txtXco.Text, out int xCo))
+            {
+                table.XCoordinate = xCo;
+            }
+            if (int.TryParse(txtYco.Text, out int yCo))
+            {
+                table.YCoordinate = yCo;
+            }
 
             // Assuming these other methods and properties do not require validation
             table.DiningArea = areaCreationManager.DiningAreaSelected;
             //table.XCoordinate = UpdateXCoordinateForTableControl(table);
-            table.XCoordinate = tableControl.Left;
+            //table.XCoordinate = tableControl.Left;
             table.YCoordinate = UpdateYCoordinateForTableControl(table);
-            table.YCoordinate = tableControl.Top;
+            //table.YCoordinate = tableControl.Top;
             tableControl.Table = table;
             TableControlFactory.RedrawTableControl(tableControl, pnlFloorPlan);
         }
@@ -1163,13 +1171,13 @@ namespace FloorPlanMaker
         {
             var coordinates = new List<Coordinate>();
             foreach (Control ctrl in pnlFloorPlan.Controls)
-            { 
+            {
                 if (ctrl is TableControl tableControl)
                 {
                     coordinates.Add(VoronoiHelper.GetCentroid(tableControl));
-                } 
+                }
             }
-           
+
 
             var edges = ComputeVoronoiEdges(coordinates);
             //drawingHandler.SetVoronoiEdges(edges);
@@ -1190,29 +1198,6 @@ namespace FloorPlanMaker
             }
         }
 
-        //public static List<LineString> ComputeVoronoiEdges(List<Coordinate> coordinates)
-        //{
-        //    VoronoiDiagramBuilder builder = new VoronoiDiagramBuilder();
-        //    builder.SetSites(coordinates);
-        //    var diagram = builder.GetDiagram(new GeometryFactory());
-
-        //    var lines = new List<LineString>();
-
-        //    for (int i = 0; i < diagram.NumGeometries; i++)
-        //    {
-        //        var polygon = diagram.GetGeometryN(i) as Polygon;
-        //        if (polygon != null)
-        //        {
-        //            var boundary = polygon.Boundary as LineString;
-        //            if (boundary != null)
-        //            {
-        //                lines.Add(boundary);
-        //            }
-        //        }
-        //    }
-
-        //    return lines;
-        //}
         public static List<LineString> ComputeVoronoiEdges(List<Coordinate> coordinates)
         {
             VoronoiDiagramBuilder builder = new VoronoiDiagramBuilder();
@@ -1227,7 +1212,7 @@ namespace FloorPlanMaker
                 if (polygon != null)
                 {
                     var boundary = polygon.Boundary as LineString;
-                    if (boundary != null && !boundary.StartPoint.Equals(boundary.EndPoint))  // Exclude degenerate edges
+                    if (boundary != null)
                     {
                         lines.Add(boundary);
                     }
@@ -1236,6 +1221,29 @@ namespace FloorPlanMaker
 
             return lines;
         }
+        //public static List<LineString> ComputeVoronoiEdges(List<Coordinate> coordinates)
+        //{
+        //    VoronoiDiagramBuilder builder = new VoronoiDiagramBuilder();
+        //    builder.SetSites(coordinates);
+        //    var diagram = builder.GetDiagram(new GeometryFactory());
+
+        //    var lines = new List<LineString>();
+
+        //    for (int i = 0; i < diagram.NumGeometries; i++)
+        //    {
+        //        var polygon = diagram.GetGeometryN(i) as Polygon;
+        //        if (polygon != null)
+        //        {
+        //            var boundary = polygon.Boundary as LineString;
+        //            if (boundary != null && !boundary.StartPoint.Equals(boundary.EndPoint))  // Exclude degenerate edges
+        //            {
+        //                lines.Add(boundary);
+        //            }
+        //        }
+        //    }
+
+        //    return lines;
+        //}
 
 
     }

@@ -54,6 +54,7 @@
             flowSectionSelect = new FlowLayoutPanel();
             pnlAddTables = new Panel();
             pnlSections = new Panel();
+            btnGenerateSectionLines = new Button();
             btnChooseTemplate = new Button();
             btnCopyTable = new Button();
             btnDeleteTable = new Button();
@@ -74,6 +75,8 @@
             btnMoreWidth = new Button();
             btnLessWidth = new Button();
             btnLessHeight = new Button();
+            txtXco = new TextBox();
+            txtYco = new TextBox();
             pnlFloorPlan = new Panel();
             txtDiningAreaName = new TextBox();
             btnCreateNewDiningArea = new Button();
@@ -88,7 +91,7 @@
             btnTest = new Button();
             btnPrint = new Button();
             dtpFloorplan = new DateTimePicker();
-            btnGenerateSectionLines = new Button();
+            btnAddPickupSection = new Button();
             pnlServers.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudNumberOfTeamWaits).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudServerCount).BeginInit();
@@ -323,7 +326,7 @@
             // 
             cbLockNodes.Appearance = Appearance.Button;
             cbLockNodes.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            cbLockNodes.Location = new Point(9, 577);
+            cbLockNodes.Location = new Point(6, 621);
             cbLockNodes.Name = "cbLockNodes";
             cbLockNodes.Size = new Size(259, 34);
             cbLockNodes.TabIndex = 11;
@@ -373,6 +376,8 @@
             pnlAddTables.Controls.Add(btnMoreWidth);
             pnlAddTables.Controls.Add(btnLessWidth);
             pnlAddTables.Controls.Add(btnLessHeight);
+            pnlAddTables.Controls.Add(txtXco);
+            pnlAddTables.Controls.Add(txtYco);
             pnlAddTables.Dock = DockStyle.Left;
             pnlAddTables.Location = new Point(250, 0);
             pnlAddTables.Name = "pnlAddTables";
@@ -381,16 +386,27 @@
             // 
             // pnlSections
             // 
+            pnlSections.Controls.Add(btnAddPickupSection);
             pnlSections.Controls.Add(btnGenerateSectionLines);
             pnlSections.Controls.Add(btnChooseTemplate);
             pnlSections.Controls.Add(btnAddSectionLabels);
             pnlSections.Controls.Add(flowSectionSelect);
             pnlSections.Controls.Add(cbLockNodes);
             pnlSections.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            pnlSections.Location = new Point(0, 33);
+            pnlSections.Location = new Point(0, 36);
             pnlSections.Name = "pnlSections";
             pnlSections.Size = new Size(268, 937);
             pnlSections.TabIndex = 8;
+            // 
+            // btnGenerateSectionLines
+            // 
+            btnGenerateSectionLines.Location = new Point(6, 662);
+            btnGenerateSectionLines.Name = "btnGenerateSectionLines";
+            btnGenerateSectionLines.Size = new Size(259, 46);
+            btnGenerateSectionLines.TabIndex = 15;
+            btnGenerateSectionLines.Text = "Auto Section Lines";
+            btnGenerateSectionLines.UseVisualStyleBackColor = true;
+            btnGenerateSectionLines.Click += btnGenerateSectionLines_Click;
             // 
             // btnChooseTemplate
             // 
@@ -579,6 +595,22 @@
             btnLessHeight.UseVisualStyleBackColor = true;
             btnLessHeight.Click += btnLessHeight_Click;
             // 
+            // txtXco
+            // 
+            txtXco.Location = new Point(203, 560);
+            txtXco.Name = "txtXco";
+            txtXco.PlaceholderText = "X";
+            txtXco.Size = new Size(53, 23);
+            txtXco.TabIndex = 10;
+            // 
+            // txtYco
+            // 
+            txtYco.Location = new Point(203, 610);
+            txtYco.Name = "txtYco";
+            txtYco.PlaceholderText = "Y";
+            txtYco.Size = new Size(53, 23);
+            txtYco.TabIndex = 10;
+            // 
             // pnlFloorPlan
             // 
             pnlFloorPlan.BackColor = Color.FromArgb(255, 244, 232);
@@ -727,15 +759,14 @@
             dtpFloorplan.Size = new Size(97, 23);
             dtpFloorplan.TabIndex = 14;
             // 
-            // btnGenerateSectionLines
+            // btnAddPickupSection
             // 
-            btnGenerateSectionLines.Location = new Point(6, 664);
-            btnGenerateSectionLines.Name = "btnGenerateSectionLines";
-            btnGenerateSectionLines.Size = new Size(259, 46);
-            btnGenerateSectionLines.TabIndex = 15;
-            btnGenerateSectionLines.Text = "Auto Section Lines";
-            btnGenerateSectionLines.UseVisualStyleBackColor = true;
-            btnGenerateSectionLines.Click += btnGenerateSectionLines_Click;
+            btnAddPickupSection.Location = new Point(6, 578);
+            btnAddPickupSection.Name = "btnAddPickupSection";
+            btnAddPickupSection.Size = new Size(259, 37);
+            btnAddPickupSection.TabIndex = 16;
+            btnAddPickupSection.Text = "Add Pickup Section";
+            btnAddPickupSection.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -835,5 +866,8 @@
         private DateTimePicker dtpFloorplan;
         private Button btnChooseTemplate;
         private Button btnGenerateSectionLines;
+        private TextBox txtXco;
+        private TextBox txtYco;
+        private Button btnAddPickupSection;
     }
 }

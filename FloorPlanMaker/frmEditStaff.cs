@@ -1,6 +1,7 @@
 ﻿
 using FloorplanClassLibrary;
 using FloorPlanMakerUI;
+using NetTopologySuite.Algorithm;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -43,7 +44,7 @@ namespace FloorPlanMaker
         {
             clbDiningAreaSelection.DataSource = DiningAreaManager.DiningAreas;
 
-
+            LoadDiningAreas();
 
 
             foreach (Server server in shiftManager.ServersNotOnShift)
@@ -57,6 +58,135 @@ namespace FloorPlanMaker
 
 
             //lbServersOnShift.ValueMember = "Value";
+        }
+        private void LoadDiningAreas()
+        {
+            foreach (DiningArea area in DiningAreaManager.DiningAreas)
+            {
+                CheckBox btnDining = new CheckBox
+                {
+                    Text = area.Name,
+                    Tag = area,
+                    Size = new Size(155, 20),
+                    Appearance = Appearance.Button
+                    
+                };
+                btnDining.CheckedChanged += cbDiningArea_CheckChanged;
+                flowDiningAreas.Controls.Add(btnDining);
+
+            }
+        }
+        private void cbDiningArea_CheckChanged(object sender, EventArgs e)
+        {
+            CheckBox cbArea = sender as CheckBox;
+            DiningArea area = (DiningArea)cbArea.Tag;
+            if (cbArea.Checked)
+            {
+                shiftManager.DiningAreasUsed.Add(area);
+                shiftManager.CreateFloorplanForDiningArea(area, DateTime.Now, false, 0, 0);
+
+                RefreshFloorplanFlowPanel();
+            }
+            else
+            {
+                var floorplanToRemove = shiftManager.Floorplans.FirstOrDefault(fp => fp.DiningArea == area);
+                shiftManager.DiningAreasUsed.Remove(area);
+                shiftManager.Floorplans.Remove(floorplanToRemove);
+                RefreshFloorplanFlowPanel();
+            }
+            
+        }
+        private void RefreshFloorplanFlowPanel()
+        {
+            flowDiningAreaAssignment.Controls.Clear();
+            ServerMaxLabels.Clear();
+
+            int selectedCount = shiftManager.Floorplans.Count;
+
+            if (selectedCount == 0)
+                return;
+
+            int width = flowDiningAreaAssignment.Width / selectedCount;
+            int height = 30;
+            int floorplanCount = 1;
+            bool isChecked = true;
+            ServerCountLabels = new List<Control>();
+            List<Control> flowList = new List<Control>();
+            foreach (Floorplan fp in shiftManager.Floorplans)
+            {
+
+
+                RadioButton rb = new RadioButton
+                {
+                    Width = width,
+                    Height = height,
+                    Appearance = Appearance.Button,
+                    AutoSize = false,
+                    TextAlign = ContentAlignment.MiddleCenter,
+                    Margin = new Padding(0),
+                    Text = fp.DiningArea.Name,
+                    Tag = fp
+
+                };
+
+                //shiftManager.DiningAreasUsed.Add((DiningArea)clbDiningAreaSelection.CheckedItems[i]);
+                rb.CheckedChanged += FloorplanRadioButton_CheckedChanged;
+                if (floorplanCount == 1)
+                {
+                    rb.Checked = true;
+                }
+                floorplanCount++;
+                Label label = new Label
+                {
+                    AutoSize = false,
+                    Width = width - 8,
+                    Height = 30,
+                    Margin = new Padding(4),
+                    Text = "Servers: " + fp.Servers.Count.ToString(),
+                    TextAlign = ContentAlignment.MiddleCenter,
+                    Font = new Font("Segoe UI", 12F),
+                    Tag = fp
+                };
+                ServerCountLabels.Add(label);
+                Label maxLabel = new Label
+                {
+                    AutoSize = false,
+                    Width = (width - 8),
+                    Height = 30,
+                    Margin = new Padding(4),
+                    Text = "Max: " + fp.DiningArea.GetMaxCovers().ToString() + "  Avg: " + fp.DiningArea.GetAverageCovers().ToString(),
+                    TextAlign = ContentAlignment.MiddleCenter,
+                    Font = new Font("Segoe UI", 12F),
+                    Tag = fp
+                };
+                ServerMaxLabels.Add(maxLabel);
+
+                FlowLayoutPanel floorplanPanel = new FlowLayoutPanel
+                {
+                    Width = width - 8,
+                    Height = flowDiningAreaAssignment.Height - height, // Adjust as needed
+                    Margin = new Padding(4),
+                    BackColor = Color.SkyBlue,
+                    Tag = fp
+                };
+                flowDiningAreaAssignment.Controls.Add(rb);
+                //flowDiningAreaAssignment.Controls.Add(floorplanPanel);
+                flowList.Add(floorplanPanel);
+
+            }
+            foreach (Control c in ServerCountLabels)
+            {
+                flowDiningAreaAssignment.Controls.Add((Control)c);
+            }
+            foreach (Control c in ServerMaxLabels)
+            {
+                flowDiningAreaAssignment.Controls.Add((Control)c);
+            }
+
+            foreach (Control c in flowList)
+            {
+                flowDiningAreaAssignment.Controls.Add((Control)c);
+            }
         }
         private void AdjustServerLists(Server server, List<Server> listToRemoveFrom, List<Server> listToAddTo, FlowLayoutPanel flowToRemoveFrom, FlowLayoutPanel flowToAddTo)
         {
@@ -379,7 +509,7 @@ namespace FloorPlanMaker
                     Tag = fp
                 };
                 ServerMaxLabels.Add(maxLabel);
-               
+
                 FlowLayoutPanel floorplanPanel = new FlowLayoutPanel
                 {
                     Width = width - 8,
@@ -401,7 +531,7 @@ namespace FloorPlanMaker
             {
                 flowDiningAreaAssignment.Controls.Add((Control)c);
             }
-           
+
             foreach (Control c in flowList)
             {
                 flowDiningAreaAssignment.Controls.Add((Control)c);
