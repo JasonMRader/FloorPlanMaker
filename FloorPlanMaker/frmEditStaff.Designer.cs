@@ -31,8 +31,6 @@
             btnAddNewServer = new Button();
             txtNewServerName = new TextBox();
             btnAssignTables = new Button();
-            clbDiningAreaSelection = new CheckedListBox();
-            btnAssignAreas = new Button();
             flowDiningAreaAssignment = new FlowLayoutPanel();
             flowUnassignedServers = new FlowLayoutPanel();
             cbUnassignedServers = new CheckBox();
@@ -67,26 +65,6 @@
             btnAssignTables.Text = "Assign Tables";
             btnAssignTables.UseVisualStyleBackColor = true;
             btnAssignTables.Click += btnAssignTables_Click;
-            // 
-            // clbDiningAreaSelection
-            // 
-            clbDiningAreaSelection.CheckOnClick = true;
-            clbDiningAreaSelection.FormattingEnabled = true;
-            clbDiningAreaSelection.Location = new Point(12, 12);
-            clbDiningAreaSelection.Name = "clbDiningAreaSelection";
-            clbDiningAreaSelection.Size = new Size(165, 22);
-            clbDiningAreaSelection.TabIndex = 8;
-            // 
-            // btnAssignAreas
-            // 
-            btnAssignAreas.Location = new Point(12, 201);
-            btnAssignAreas.Name = "btnAssignAreas";
-            btnAssignAreas.Size = new Size(165, 23);
-            btnAssignAreas.TabIndex = 9;
-            btnAssignAreas.Text = "Assign Areas";
-            btnAssignAreas.UseVisualStyleBackColor = true;
-            btnAssignAreas.Visible = false;
-            btnAssignAreas.Click += btnAssignAreas_Click;
             // 
             // flowDiningAreaAssignment
             // 
@@ -137,7 +115,7 @@
             // 
             flowDiningAreas.Location = new Point(12, 40);
             flowDiningAreas.Name = "flowDiningAreas";
-            flowDiningAreas.Size = new Size(165, 155);
+            flowDiningAreas.Size = new Size(165, 184);
             flowDiningAreas.TabIndex = 15;
             // 
             // frmEditStaff
@@ -151,8 +129,6 @@
             Controls.Add(cbUnassignedServers);
             Controls.Add(flowUnassignedServers);
             Controls.Add(flowDiningAreaAssignment);
-            Controls.Add(btnAssignAreas);
-            Controls.Add(clbDiningAreaSelection);
             Controls.Add(btnAssignTables);
             Controls.Add(txtNewServerName);
             Controls.Add(btnAddNewServer);
@@ -168,8 +144,6 @@
         private Button btnAddNewServer;
         private TextBox txtNewServerName;
         private Button btnAssignTables;
-        private CheckedListBox clbDiningAreaSelection;
-        private Button btnAssignAreas;
         private FlowLayoutPanel flowDiningAreaAssignment;
         private FlowLayoutPanel flowUnassignedServers;
         private CheckBox cbUnassignedServers;
