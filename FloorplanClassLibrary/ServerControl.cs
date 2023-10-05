@@ -38,7 +38,7 @@ namespace FloorPlanMaker
             this.NamePanel.Controls.Add(Label);
             this.Controls.Add(NamePanel);
             this.Label.Click += (sender, e) => this.OnClick(e);
-           
+            this.TabStop = false;
            
             
            
@@ -63,7 +63,8 @@ namespace FloorPlanMaker
                 Location = new Point(this.Label.Width, 0),
                 Text = "X",
                 BackColor = Color.Red,
-                Padding = new Padding(0)
+                Padding = new Padding(0),
+                TabStop = false
             };
             
            

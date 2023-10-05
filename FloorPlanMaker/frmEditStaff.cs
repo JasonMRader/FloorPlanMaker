@@ -46,7 +46,7 @@ namespace FloorPlanMaker
 
             LoadDiningAreas();
 
-
+           
             foreach (Server server in shiftManager.ServersNotOnShift)
             {
                 server.Shifts = SqliteDataAccess.GetShiftsForServer(server);
@@ -69,7 +69,8 @@ namespace FloorPlanMaker
                     Tag = area,
                     Size = new Size(155, 23),
                     Appearance = Appearance.Button,
-                    TextAlign = ContentAlignment.MiddleCenter
+                    TextAlign = ContentAlignment.MiddleCenter,
+                    TabStop = false
 
                 };
                 btnDining.CheckedChanged += cbDiningArea_CheckChanged;
@@ -118,8 +119,34 @@ namespace FloorPlanMaker
             }
 
         }
+        private void refreshTabOrder()
+        {
+            int tabIndexNum = 0;
+            foreach (Control c in flowDiningAreaAssignment.Controls)
+            {
+                if (c is RadioButton rb)
+                {
+                    rb.TabStop = true;
+                    rb.TabIndex = tabIndexNum++;
+                }
+            }
+        }
+        private void DisableTabStopForControls(Control parentControl)
+        {
+            foreach (Control c in parentControl.Controls)
+            {
+                if (!(c is RadioButton))
+                {
+                    c.TabStop = false;
+                }
+                // Recursively apply for child controls
+                DisableTabStopForControls(c);
+            }
+        }
+
         private void RefreshFloorplanFlowPanel()
         {
+            DisableTabStopForControls(this);
             flowDiningAreaAssignment.Controls.Clear();
             ServerMaxLabels.Clear();
 
@@ -134,6 +161,7 @@ namespace FloorPlanMaker
             bool isChecked = true;
             ServerCountLabels = new List<Control>();
             List<Control> flowList = new List<Control>();
+            //int tabIndex = 0;
             foreach (Floorplan fp in shiftManager.Floorplans)
             {
 
@@ -147,10 +175,11 @@ namespace FloorPlanMaker
                     TextAlign = ContentAlignment.MiddleCenter,
                     Margin = new Padding(0),
                     Text = fp.DiningArea.Name,
-                    Tag = fp
+                    Tag = fp,
+                    //TabIndex = tabIndex++
 
                 };
-
+                rb.GotFocus += (sender, e) => { ((RadioButton)sender).Checked = true; };
                 //shiftManager.DiningAreasUsed.Add((DiningArea)clbDiningAreaSelection.CheckedItems[i]);
                 rb.CheckedChanged += FloorplanRadioButton_CheckedChanged;
                 if (floorplanCount == 1)
@@ -197,6 +226,7 @@ namespace FloorPlanMaker
                 foreach (var server in fp.Servers)
                 {
                     Button newServerButton = CreateServerButton(server);
+                    newServerButton.TabStop = false;
                     newServerButton.Width = serversInFloorplanPanel.Width - 8;
 
                     serversInFloorplanPanel.Controls.Add(newServerButton);
@@ -216,6 +246,7 @@ namespace FloorPlanMaker
             {
                 flowDiningAreaAssignment.Controls.Add((Control)c);
             }
+            refreshTabOrder();
         }
         private void AdjustServerLists(Server server, List<Server> listToRemoveFrom, List<Server> listToAddTo, FlowLayoutPanel flowToRemoveFrom, FlowLayoutPanel flowToAddTo)
         {
@@ -302,6 +333,7 @@ namespace FloorPlanMaker
                 Text = server.Name,
                 FlatStyle = FlatStyle.Flat,
                 BackColor = Color.LightGray,
+                TabStop = false,
                 Tag = server
             };
 

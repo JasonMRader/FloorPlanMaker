@@ -50,8 +50,8 @@ namespace FloorPlanMaker
             // Add to Controls
             this.Controls.Add(ShiftDayOfWeek);
             this.Controls.Add(_picOutside);
-            this.Controls.Add(_picClose);
-            this.Controls.Add(_picTeam);
+            //this.Controls.Add(_picClose);
+            //this.Controls.Add(_picTeam);
         }
         public Label ShiftDayOfWeek { get ; set; }
         public PictureBox PicOutside => _picOutside;
