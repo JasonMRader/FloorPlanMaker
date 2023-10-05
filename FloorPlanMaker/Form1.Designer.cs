@@ -54,6 +54,7 @@
             flowSectionSelect = new FlowLayoutPanel();
             pnlAddTables = new Panel();
             pnlSections = new Panel();
+            btnAddPickupSection = new Button();
             btnGenerateSectionLines = new Button();
             btnChooseTemplate = new Button();
             btnCopyTable = new Button();
@@ -91,7 +92,6 @@
             btnTest = new Button();
             btnPrint = new Button();
             dtpFloorplan = new DateTimePicker();
-            btnAddPickupSection = new Button();
             pnlServers.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudNumberOfTeamWaits).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudServerCount).BeginInit();
@@ -397,6 +397,15 @@
             pnlSections.Name = "pnlSections";
             pnlSections.Size = new Size(268, 937);
             pnlSections.TabIndex = 8;
+            // 
+            // btnAddPickupSection
+            // 
+            btnAddPickupSection.Location = new Point(6, 578);
+            btnAddPickupSection.Name = "btnAddPickupSection";
+            btnAddPickupSection.Size = new Size(259, 37);
+            btnAddPickupSection.TabIndex = 16;
+            btnAddPickupSection.Text = "Add Pickup Section";
+            btnAddPickupSection.UseVisualStyleBackColor = true;
             // 
             // btnGenerateSectionLines
             // 
@@ -758,15 +767,6 @@
             dtpFloorplan.Name = "dtpFloorplan";
             dtpFloorplan.Size = new Size(97, 23);
             dtpFloorplan.TabIndex = 14;
-            // 
-            // btnAddPickupSection
-            // 
-            btnAddPickupSection.Location = new Point(6, 578);
-            btnAddPickupSection.Name = "btnAddPickupSection";
-            btnAddPickupSection.Size = new Size(259, 37);
-            btnAddPickupSection.TabIndex = 16;
-            btnAddPickupSection.Text = "Add Pickup Section";
-            btnAddPickupSection.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 

@@ -1,4 +1,5 @@
 ﻿using FloorPlanMaker;
+using FloorPlanMakerUI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +11,12 @@ namespace FloorplanClassLibrary
     public class SectionControl : UserControl
     {
         private Label sectionLabel;
-        private Button assignServerButton;
+        private PictureBox assignServerButton;
+        private PictureBox setCloserButton;
         private FlowLayoutPanel serversPanel;
         private Panel headerPanel;
         private Point MouseDownLocation;
+        private FlowLayoutPanel closerPanel;
         private bool isDragging = false; // Indicates whether dragging is ongoing
         public Section Section { get; set; }
 
@@ -22,20 +25,31 @@ namespace FloorplanClassLibrary
         public SectionControl(Section section, Panel panel, List<Server> servers)
         {
             this.Section = section;
-
-            sectionLabel = new Label { Dock = DockStyle.Fill, AutoSize = false, TextAlign = ContentAlignment.MiddleCenter, 
-            Font = new Font("Segoe UI", 12f, FontStyle.Bold)};
-            assignServerButton = new Button { Text = "+", Dock = DockStyle.Right, Size = new Size(23,23), FlatStyle = FlatStyle.Flat };
-            serversPanel = new FlowLayoutPanel { Dock = DockStyle.Bottom , Height = 0};
+            closerPanel = new FlowLayoutPanel { Dock = DockStyle.Top, Height = 0};
+            closerPanel.AutoSize = true;
+           
+            sectionLabel = new Label
+            {
+                Dock = DockStyle.Left,
+                AutoSize = false,
+                TextAlign = ContentAlignment.MiddleCenter,
+                Font = new Font("Segoe UI", 12f, FontStyle.Bold)
+            };
+            assignServerButton = new PictureBox { Image = Resource1.Add_Person1, Dock = DockStyle.Right, Size = new Size(23, 23), SizeMode = PictureBoxSizeMode.StretchImage };
+            setCloserButton = new PictureBox { Image = Resource1.Cut, Dock = DockStyle.Right, Size = new Size(23, 23), SizeMode = PictureBoxSizeMode.StretchImage };
+            serversPanel = new FlowLayoutPanel { Dock = DockStyle.Bottom, Height = 0 };
             headerPanel = new Panel { Dock = DockStyle.Top, Height = 30 }; // Assuming height of 30, adjust as needed
             this.Height = 30;
             this.AutoSize = true;
             this.Padding = new Padding(5); // Adjust this value based on your desired border thickness.
 
             assignServerButton.Click += AssignServerButton_Click;
+            setCloserButton.Click += SetToCloserButton_Click;
             //this.BorderStyle = BorderStyle.FixedSingle;
             this.Paint += SectionControl_Paint;
+            this.Controls.Add(closerPanel);
             headerPanel.Controls.Add(assignServerButton);
+            headerPanel.Controls.Add(setCloserButton);
             headerPanel.Controls.Add(sectionLabel);
 
             Controls.Add(serversPanel);
@@ -54,7 +68,18 @@ namespace FloorplanClassLibrary
             this.Servers = servers;
             this.BringToFront();
         }
-        
+
+        private void SetToCloserButton_Click(object? sender, EventArgs e)
+        {
+            PictureBox pbCut = new PictureBox {Size = new Size((this.Width/4), (this.Width / 4)),Image = Resource1.Cut,SizeMode = PictureBoxSizeMode.StretchImage };
+            PictureBox pbPre = new PictureBox { Size = new Size((this.Width / 4), (this.Width / 4)), Image = Resource1.Closer, SizeMode = PictureBoxSizeMode.StretchImage };
+            PictureBox pbClose = new PictureBox { Size = new Size((this.Width / 4), (this.Width / 4)), Image = Resource1.Closer, SizeMode = PictureBoxSizeMode.StretchImage };
+            closerPanel.Controls.Add(pbCut);
+            closerPanel.Controls.Add(pbPre);
+            closerPanel.Controls.Add(pbClose);
+            closerPanel.Height = pbClose.Height;
+        }
+
         private void SectionControl_Paint(object sender, PaintEventArgs e)
         {
             using (Pen pen = new Pen(Color.Black, 10))
@@ -170,6 +195,12 @@ namespace FloorplanClassLibrary
 
             g.DrawString(control.Section.GetDisplayString(), boldLargeFont, Brushes.Black, textX, textY, sf);
         }
+
+        private void InitializeComponent()
+        {
+
+        }
+
         private Point FindMidpointForSectionControls(Section targetSection, Panel panel)
         {
             // 1. Collect all the TableControl controls with a Section

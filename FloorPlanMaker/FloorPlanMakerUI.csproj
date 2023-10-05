@@ -34,6 +34,18 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resource1.resx</DependentUpon>
     </Compile>
+    <Compile Update="SectionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="ServerControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="ShiftControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="TableControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
