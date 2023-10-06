@@ -127,6 +127,12 @@
   <data name="Closer" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Closer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="cls" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\cls.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ClsLetters" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\cls - Copy.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Cut" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Screenshot 2023-09-30 105003 - Copy.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -135,6 +141,15 @@
   </data>
   <data name="Outside" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Sun - Copy.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Pre" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Pre.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PreLetters" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Pre - Copy.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Scissors__Copy" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Scissors- Copy.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Solo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Solo - Copy.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

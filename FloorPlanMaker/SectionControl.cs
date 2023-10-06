@@ -75,12 +75,16 @@ namespace FloorplanClassLibrary
         {
             if (this.closerPanelOpen == false)
             {
-                PictureBox pbCut = new PictureBox { Size = new Size((this.Width / 4), (this.Width / 4)), Image = Resource1.Cut, SizeMode = PictureBoxSizeMode.StretchImage };
-                PictureBox pbPre = new PictureBox { Size = new Size((this.Width / 4), (this.Width / 4)), Image = Resource1.Closer, SizeMode = PictureBoxSizeMode.StretchImage };
-                PictureBox pbClose = new PictureBox { Size = new Size((this.Width / 4), (this.Width / 4)), Image = Resource1.Closer, SizeMode = PictureBoxSizeMode.StretchImage };
-                closerPanel.Controls.Add(pbCut);
-                closerPanel.Controls.Add(pbPre);
-                closerPanel.Controls.Add(pbClose);
+                PictureBox pbCut = new PictureBox { Size = new Size((this.Width / 4), (this.Width / 4)), Image = Resource1.Scissors__Copy, SizeMode = PictureBoxSizeMode.StretchImage };
+                pbCut.Click += Cut_Click;
+                PictureBox pbPre = new PictureBox { Size = new Size((this.Width / 4), (this.Width / 4)), Image = Resource1.PreLetters, SizeMode = PictureBoxSizeMode.StretchImage };
+                pbPre.Click += Pre_Click;
+                PictureBox pbClose = new PictureBox { Size = new Size((this.Width / 4), (this.Width / 4)), Image = Resource1.ClsLetters, SizeMode = PictureBoxSizeMode.StretchImage };
+                pbClose.Click += Close_click;
+                if (!this.Section.IsPre) { closerPanel.Controls.Add(pbPre); }
+                if (!this.Section.IsCloser) { closerPanel.Controls.Add(pbClose); }
+                if (this.Section.IsPre || this.Section.IsCloser) { closerPanel.Controls.Add(pbCut); }
+                
                 closerPanel.Height = pbClose.Height;
                 
             }
@@ -134,7 +138,45 @@ namespace FloorplanClassLibrary
                 isDragging = false; // End the drag action
             }
         }
+        private void Cut_Click(object sender, EventArgs e)
+        {
+            this.Section.IsCloser = false;
+            this.Section.IsPre = false;
+            this.setCloserButton.Image = Resource1.Scissors__Copy;
+            if (this.closerPanelOpen == true)
+            {
+                closerPanel.Controls.Clear();
+                closerPanel.Height = 0;
 
+            }
+            closerPanelOpen = !closerPanelOpen;
+        }
+        private void Close_click(object sender, EventArgs e)
+        {
+            this.Section.IsCloser = true;
+            this.Section.IsPre = false;
+            this.setCloserButton.Image = Resource1.ClsLetters;
+            if (this.closerPanelOpen == true)
+            {
+                closerPanel.Controls.Clear();
+                closerPanel.Height = 0;
+
+            }
+            closerPanelOpen = !closerPanelOpen;
+        }
+        private void Pre_Click(object sender, EventArgs e)
+        {
+            this.Section.IsCloser = false;
+            this.Section.IsPre = true;
+            this.setCloserButton.Image = Resource1.PreLetters;
+            if (this.closerPanelOpen == true)
+            {
+                closerPanel.Controls.Clear();
+                closerPanel.Height = 0;
+
+            }
+            closerPanelOpen = !closerPanelOpen;
+        }
         private void AssignServerButton_Click(object sender, EventArgs e)
         {
             if (serverPanelOpen == false)

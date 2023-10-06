@@ -93,6 +93,26 @@ namespace FloorPlanMakerUI {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap cls {
+            get {
+                object obj = ResourceManager.GetObject("cls", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ClsLetters {
+            get {
+                object obj = ResourceManager.GetObject("ClsLetters", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Cut {
             get {
                 object obj = ResourceManager.GetObject("Cut", resourceCulture);
@@ -116,6 +136,36 @@ namespace FloorPlanMakerUI {
         internal static System.Drawing.Bitmap Outside {
             get {
                 object obj = ResourceManager.GetObject("Outside", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Pre {
+            get {
+                object obj = ResourceManager.GetObject("Pre", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap PreLetters {
+            get {
+                object obj = ResourceManager.GetObject("PreLetters", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Scissors__Copy {
+            get {
+                object obj = ResourceManager.GetObject("Scissors__Copy", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
