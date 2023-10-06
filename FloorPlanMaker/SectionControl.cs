@@ -17,6 +17,8 @@ namespace FloorplanClassLibrary
         private Panel headerPanel;
         private Point MouseDownLocation;
         private FlowLayoutPanel closerPanel;
+        private bool closerPanelOpen = false;
+        private bool serverPanelOpen = false;
         private bool isDragging = false; // Indicates whether dragging is ongoing
         public Section Section { get; set; }
 
@@ -71,13 +73,25 @@ namespace FloorplanClassLibrary
 
         private void SetToCloserButton_Click(object? sender, EventArgs e)
         {
-            PictureBox pbCut = new PictureBox {Size = new Size((this.Width/4), (this.Width / 4)),Image = Resource1.Cut,SizeMode = PictureBoxSizeMode.StretchImage };
-            PictureBox pbPre = new PictureBox { Size = new Size((this.Width / 4), (this.Width / 4)), Image = Resource1.Closer, SizeMode = PictureBoxSizeMode.StretchImage };
-            PictureBox pbClose = new PictureBox { Size = new Size((this.Width / 4), (this.Width / 4)), Image = Resource1.Closer, SizeMode = PictureBoxSizeMode.StretchImage };
-            closerPanel.Controls.Add(pbCut);
-            closerPanel.Controls.Add(pbPre);
-            closerPanel.Controls.Add(pbClose);
-            closerPanel.Height = pbClose.Height;
+            if (this.closerPanelOpen == false)
+            {
+                PictureBox pbCut = new PictureBox { Size = new Size((this.Width / 4), (this.Width / 4)), Image = Resource1.Cut, SizeMode = PictureBoxSizeMode.StretchImage };
+                PictureBox pbPre = new PictureBox { Size = new Size((this.Width / 4), (this.Width / 4)), Image = Resource1.Closer, SizeMode = PictureBoxSizeMode.StretchImage };
+                PictureBox pbClose = new PictureBox { Size = new Size((this.Width / 4), (this.Width / 4)), Image = Resource1.Closer, SizeMode = PictureBoxSizeMode.StretchImage };
+                closerPanel.Controls.Add(pbCut);
+                closerPanel.Controls.Add(pbPre);
+                closerPanel.Controls.Add(pbClose);
+                closerPanel.Height = pbClose.Height;
+                
+            }
+            if (this.closerPanelOpen == true)
+            {
+                closerPanel.Controls.Clear();
+                closerPanel.Height = 0;
+                
+            }
+            closerPanelOpen = !closerPanelOpen;
+            
         }
 
         private void SectionControl_Paint(object sender, PaintEventArgs e)
@@ -123,14 +137,25 @@ namespace FloorplanClassLibrary
 
         private void AssignServerButton_Click(object sender, EventArgs e)
         {
-            serversPanel.Controls.Clear();
-            foreach (var server in Servers)
+            if (serverPanelOpen == false)
             {
-                var serverButton = new Button { Text = server.Name, Tag = server, Dock = DockStyle.Top };
-                serverButton.Click += ServerButton_Click;
-                serversPanel.Controls.Add(serverButton);
+                serversPanel.Controls.Clear();
+                foreach (var server in Servers)
+                {
+                    var serverButton = new Button { Text = server.Name, Tag = server, Dock = DockStyle.Top };
+                    serverButton.Click += ServerButton_Click;
+                    serversPanel.Controls.Add(serverButton);
+                }
+                serversPanel.Height = Servers.Count * 30;
             }
-            serversPanel.Height = Servers.Count * 30;
+            if (serverPanelOpen == true)
+            {
+                serversPanel.Controls.Clear();
+                serversPanel.Height = 0;
+               
+            }
+            serverPanelOpen = !serverPanelOpen;
+
         }
 
         private void ServerButton_Click(object sender, EventArgs e)
