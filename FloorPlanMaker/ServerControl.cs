@@ -19,7 +19,8 @@ namespace FloorPlanMaker
             this.BackColor = Color.White;
             this.AutoSize = true;
             this.MaximumSize = new Size(width, height*10);
-            this.Margin = new Padding(0);
+            this.Padding = new Padding(0,0,0,0);
+            this.Margin = new Padding(0,4,0,0);
             NamePanel = new Panel()
             {
                 Height = height,
@@ -32,7 +33,7 @@ namespace FloorPlanMaker
                 Height = height,
                 Width = width,
                 BackColor = Color.LightBlue,
-                Padding = new Padding(0),
+                Margin = new Padding(0),
                 TextAlign = ContentAlignment.MiddleCenter
             };
             this.NamePanel.Controls.Add(Label);

@@ -32,7 +32,6 @@
             txtTemplateName = new TextBox();
             cboFloorplanTemplates = new ComboBox();
             btnSaveFloorplanTemplate = new Button();
-            pnlUnassignedServers = new Panel();
             flowServersInFloorplan = new FlowLayoutPanel();
             btnAddServers = new Button();
             lblTeamWaitLabel = new Label();
@@ -103,10 +102,6 @@
             // pnlServers
             // 
             pnlServers.BackColor = SystemColors.GradientActiveCaption;
-            pnlServers.Controls.Add(txtTemplateName);
-            pnlServers.Controls.Add(cboFloorplanTemplates);
-            pnlServers.Controls.Add(btnSaveFloorplanTemplate);
-            pnlServers.Controls.Add(pnlUnassignedServers);
             pnlServers.Controls.Add(flowServersInFloorplan);
             pnlServers.Controls.Add(btnAddServers);
             pnlServers.Controls.Add(lblTeamWaitLabel);
@@ -131,24 +126,24 @@
             // 
             // txtTemplateName
             // 
-            txtTemplateName.Location = new Point(7, 765);
+            txtTemplateName.Location = new Point(19, 725);
             txtTemplateName.Name = "txtTemplateName";
             txtTemplateName.PlaceholderText = "Enter Template Name Here";
-            txtTemplateName.Size = new Size(237, 23);
+            txtTemplateName.Size = new Size(237, 29);
             txtTemplateName.TabIndex = 15;
             // 
             // cboFloorplanTemplates
             // 
             cboFloorplanTemplates.FormattingEnabled = true;
-            cboFloorplanTemplates.Location = new Point(12, 624);
+            cboFloorplanTemplates.Location = new Point(28, 823);
             cboFloorplanTemplates.Name = "cboFloorplanTemplates";
-            cboFloorplanTemplates.Size = new Size(214, 23);
+            cboFloorplanTemplates.Size = new Size(214, 29);
             cboFloorplanTemplates.TabIndex = 14;
             cboFloorplanTemplates.SelectedIndexChanged += cboFloorplanTemplates_SelectedIndexChanged;
             // 
             // btnSaveFloorplanTemplate
             // 
-            btnSaveFloorplanTemplate.Location = new Point(7, 792);
+            btnSaveFloorplanTemplate.Location = new Point(19, 772);
             btnSaveFloorplanTemplate.Name = "btnSaveFloorplanTemplate";
             btnSaveFloorplanTemplate.Size = new Size(237, 30);
             btnSaveFloorplanTemplate.TabIndex = 12;
@@ -156,18 +151,11 @@
             btnSaveFloorplanTemplate.UseVisualStyleBackColor = true;
             btnSaveFloorplanTemplate.Click += btnSaveFloorplanTemplate_Click;
             // 
-            // pnlUnassignedServers
-            // 
-            pnlUnassignedServers.Location = new Point(10, 497);
-            pnlUnassignedServers.Name = "pnlUnassignedServers";
-            pnlUnassignedServers.Size = new Size(195, 99);
-            pnlUnassignedServers.TabIndex = 3;
-            // 
             // flowServersInFloorplan
             // 
-            flowServersInFloorplan.Location = new Point(12, 890);
+            flowServersInFloorplan.Location = new Point(12, 329);
             flowServersInFloorplan.Name = "flowServersInFloorplan";
-            flowServersInFloorplan.Size = new Size(228, 74);
+            flowServersInFloorplan.Size = new Size(228, 635);
             flowServersInFloorplan.TabIndex = 2;
             // 
             // btnAddServers
@@ -386,6 +374,9 @@
             // 
             // pnlSections
             // 
+            pnlSections.Controls.Add(cboFloorplanTemplates);
+            pnlSections.Controls.Add(txtTemplateName);
+            pnlSections.Controls.Add(btnSaveFloorplanTemplate);
             pnlSections.Controls.Add(btnAddPickupSection);
             pnlSections.Controls.Add(btnGenerateSectionLines);
             pnlSections.Controls.Add(btnChooseTemplate);
@@ -798,6 +789,7 @@
             pnlAddTables.ResumeLayout(false);
             pnlAddTables.PerformLayout();
             pnlSections.ResumeLayout(false);
+            pnlSections.PerformLayout();
             panel1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
@@ -853,7 +845,6 @@
         private Panel panel1;
         private FlowLayoutPanel flowServersInFloorplan;
         private Button btnSaveFloorplanTemplate;
-        private Panel pnlUnassignedServers;
         private Button btnAddSectionLabels;
         private Button btnTest;
         private Button btnLessHeight;

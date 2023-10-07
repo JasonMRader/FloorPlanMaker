@@ -682,6 +682,24 @@ namespace FloorPlanMaker
             shiftManager.SelectedFloorplan = shiftManager.Floorplans.FirstOrDefault(fp => fp.DiningArea.ID == areaCreationManager.DiningAreaSelected.ID);
 
             nudServerCount.Value = shiftManager.SelectedFloorplan.Servers.Count;
+            flowServersInFloorplan.Controls.Clear();
+            if (shiftManager.SelectedFloorplan.Servers.Count > 0)
+            {
+                foreach(Server server in  shiftManager.SelectedFloorplan.Servers)
+                {
+                    ServerControl serverControl = new ServerControl(server, 215, 20);
+                    
+                   foreach(ShiftControl shiftControl in serverControl.ShiftControls)
+                    {
+                        
+                        shiftControl.ShowClose();
+                        shiftControl.ShowTeam();
+                        shiftControl.HideOutside();
+                    }
+                    
+                    flowServersInFloorplan.Controls.Add(serverControl);
+                }
+            }
         }
 
 
