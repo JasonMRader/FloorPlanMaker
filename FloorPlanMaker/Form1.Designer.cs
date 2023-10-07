@@ -29,9 +29,6 @@
         private void InitializeComponent()
         {
             pnlServers = new Panel();
-            txtTemplateName = new TextBox();
-            cboFloorplanTemplates = new ComboBox();
-            btnSaveFloorplanTemplate = new Button();
             flowServersInFloorplan = new FlowLayoutPanel();
             btnAddServers = new Button();
             lblTeamWaitLabel = new Label();
@@ -48,6 +45,9 @@
             label9 = new Label();
             label10 = new Label();
             nudServerCount = new NumericUpDown();
+            txtTemplateName = new TextBox();
+            cboFloorplanTemplates = new ComboBox();
+            btnSaveFloorplanTemplate = new Button();
             cbLockNodes = new CheckBox();
             btnAddSectionLabels = new Button();
             flowSectionSelect = new FlowLayoutPanel();
@@ -123,33 +123,6 @@
             pnlServers.Name = "pnlServers";
             pnlServers.Size = new Size(250, 970);
             pnlServers.TabIndex = 0;
-            // 
-            // txtTemplateName
-            // 
-            txtTemplateName.Location = new Point(19, 725);
-            txtTemplateName.Name = "txtTemplateName";
-            txtTemplateName.PlaceholderText = "Enter Template Name Here";
-            txtTemplateName.Size = new Size(237, 29);
-            txtTemplateName.TabIndex = 15;
-            // 
-            // cboFloorplanTemplates
-            // 
-            cboFloorplanTemplates.FormattingEnabled = true;
-            cboFloorplanTemplates.Location = new Point(28, 823);
-            cboFloorplanTemplates.Name = "cboFloorplanTemplates";
-            cboFloorplanTemplates.Size = new Size(214, 29);
-            cboFloorplanTemplates.TabIndex = 14;
-            cboFloorplanTemplates.SelectedIndexChanged += cboFloorplanTemplates_SelectedIndexChanged;
-            // 
-            // btnSaveFloorplanTemplate
-            // 
-            btnSaveFloorplanTemplate.Location = new Point(19, 772);
-            btnSaveFloorplanTemplate.Name = "btnSaveFloorplanTemplate";
-            btnSaveFloorplanTemplate.Size = new Size(237, 30);
-            btnSaveFloorplanTemplate.TabIndex = 12;
-            btnSaveFloorplanTemplate.Text = "Save Floorplan Template";
-            btnSaveFloorplanTemplate.UseVisualStyleBackColor = true;
-            btnSaveFloorplanTemplate.Click += btnSaveFloorplanTemplate_Click;
             // 
             // flowServersInFloorplan
             // 
@@ -310,6 +283,33 @@
             nudServerCount.Value = new decimal(new int[] { 1, 0, 0, 0 });
             nudServerCount.ValueChanged += nudServerCount_ValueChanged;
             // 
+            // txtTemplateName
+            // 
+            txtTemplateName.Location = new Point(19, 725);
+            txtTemplateName.Name = "txtTemplateName";
+            txtTemplateName.PlaceholderText = "Enter Template Name Here";
+            txtTemplateName.Size = new Size(237, 29);
+            txtTemplateName.TabIndex = 15;
+            // 
+            // cboFloorplanTemplates
+            // 
+            cboFloorplanTemplates.FormattingEnabled = true;
+            cboFloorplanTemplates.Location = new Point(28, 823);
+            cboFloorplanTemplates.Name = "cboFloorplanTemplates";
+            cboFloorplanTemplates.Size = new Size(214, 29);
+            cboFloorplanTemplates.TabIndex = 14;
+            cboFloorplanTemplates.SelectedIndexChanged += cboFloorplanTemplates_SelectedIndexChanged;
+            // 
+            // btnSaveFloorplanTemplate
+            // 
+            btnSaveFloorplanTemplate.Location = new Point(19, 772);
+            btnSaveFloorplanTemplate.Name = "btnSaveFloorplanTemplate";
+            btnSaveFloorplanTemplate.Size = new Size(237, 30);
+            btnSaveFloorplanTemplate.TabIndex = 12;
+            btnSaveFloorplanTemplate.Text = "Save Floorplan Template";
+            btnSaveFloorplanTemplate.UseVisualStyleBackColor = true;
+            btnSaveFloorplanTemplate.Click += btnSaveFloorplanTemplate_Click;
+            // 
             // cbLockNodes
             // 
             cbLockNodes.Appearance = Appearance.Button;
@@ -397,6 +397,7 @@
             btnAddPickupSection.TabIndex = 16;
             btnAddPickupSection.Text = "Add Pickup Section";
             btnAddPickupSection.UseVisualStyleBackColor = true;
+            btnAddPickupSection.Click += btnAddPickupSection_Click;
             // 
             // btnGenerateSectionLines
             // 

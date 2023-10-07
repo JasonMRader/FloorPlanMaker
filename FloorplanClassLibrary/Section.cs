@@ -64,6 +64,10 @@ namespace FloorplanClassLibrary
         public string GetDisplayString()
         {
             string displayString = "";
+            //if (this.Server == null)
+            //{
+            //    displayString =
+            //}
             if (this.Name != null)
             {
                 displayString = this.Name;

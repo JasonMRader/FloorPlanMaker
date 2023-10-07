@@ -226,7 +226,7 @@ namespace FloorplanClassLibrary
             Font boldLargeFont = new Font(control.Font.FontFamily, 20f, FontStyle.Bold);
 
             // Measure the size of the text
-            SizeF textSize = g.MeasureString(control.Section.Server.AbbreviatedName, boldLargeFont);
+            SizeF textSize = g.MeasureString(control.Section.GetDisplayString(), boldLargeFont);
             if (control.Section.IsCloser || control.Section.IsPre)
             {
                 textSize = g.MeasureString(control.Section.GetDisplayString(), boldLargeFont);

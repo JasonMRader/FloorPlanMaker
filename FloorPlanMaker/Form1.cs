@@ -685,18 +685,18 @@ namespace FloorPlanMaker
             flowServersInFloorplan.Controls.Clear();
             if (shiftManager.SelectedFloorplan.Servers.Count > 0)
             {
-                foreach(Server server in  shiftManager.SelectedFloorplan.Servers)
+                foreach (Server server in shiftManager.SelectedFloorplan.Servers)
                 {
                     ServerControl serverControl = new ServerControl(server, 215, 20);
-                    
-                   foreach(ShiftControl shiftControl in serverControl.ShiftControls)
+
+                    foreach (ShiftControl shiftControl in serverControl.ShiftControls)
                     {
-                        
+
                         shiftControl.ShowClose();
                         shiftControl.ShowTeam();
                         shiftControl.HideOutside();
                     }
-                    
+
                     flowServersInFloorplan.Controls.Add(serverControl);
                 }
             }
@@ -1238,6 +1238,14 @@ namespace FloorPlanMaker
             }
 
             return lines;
+        }
+
+        private void btnAddPickupSection_Click(object sender, EventArgs e)
+        {
+            Section pickUpSection = new Section(shiftManager.SelectedFloorplan);
+            pickUpSection.Name = "Pickup";
+            shiftManager.SelectedFloorplan.Sections.Add(pickUpSection);
+            CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
         }
         //public static List<LineString> ComputeVoronoiEdges(List<Coordinate> coordinates)
         //{
