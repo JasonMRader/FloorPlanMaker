@@ -36,7 +36,7 @@ namespace FloorPlanMaker
         private void SetupPanelWithTemplate(Panel pnl, FloorplanTemplate template)
         {
             // Clear the current controls
-           
+
             //pnl.Controls.Clear();
             pnl.Tag = template;
             foreach (Table table in ShiftManager.SelectedDiningArea.Tables)  // Assuming FloorplanTemplate has a Tables property
@@ -80,10 +80,10 @@ namespace FloorPlanMaker
         private void btnSelectTemplate_Click(object sender, EventArgs e)
         {
             Button button = (Button)sender;
-            
-            FloorplanTemplate template = new FloorplanTemplate(); 
-           
-            
+
+            FloorplanTemplate template = new FloorplanTemplate();
+
+
             template = (FloorplanTemplate)button.Tag;
 
             ShiftManager.SelectedFloorplan.Sections = template.Sections;

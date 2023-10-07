@@ -20,6 +20,7 @@ namespace FloorPlanMaker
         public EmployeeManager employeeManager;
         public ShiftManager shiftManager;
         private DiningAreaCreationManager DiningAreaManager = new DiningAreaCreationManager();
+        private DateTime dateSelected = DateTime.MinValue;
         public frmEditStaff(EmployeeManager staffManager, ShiftManager shiftManager)
         {
             InitializeComponent();
@@ -33,6 +34,7 @@ namespace FloorPlanMaker
             Server server = new Server();
             server.Name = txtNewServerName.Text;
             SqliteDataAccess.SaveNewServer(server);
+
             txtNewServerName.Clear();
             employeeManager.AllServers.Clear();
             employeeManager.AllServers = SqliteDataAccess.LoadServers();
@@ -45,8 +47,9 @@ namespace FloorPlanMaker
             //clbDiningAreaSelection.DataSource = DiningAreaManager.DiningAreas;
 
             LoadDiningAreas();
+            dateSelected = DateTime.Now;
+            lblShiftDate.Text = dateSelected.ToString("dddd, MMMM dd");
 
-           
             foreach (Server server in shiftManager.ServersNotOnShift)
             {
                 server.Shifts = SqliteDataAccess.GetShiftsForServer(server);
@@ -107,9 +110,9 @@ namespace FloorPlanMaker
                 {
                     foreach (var server in floorplanToRemove.Servers)
                     {
-                       
+
                         AddServerToUnassignedServersInShift(server);
-                        
+
                     }
                     floorplanToRemove.Servers.Clear();
                 }
@@ -277,13 +280,13 @@ namespace FloorPlanMaker
         }
         private void AddServerButtonToFloorplan(Floorplan floorplan, Server server)
         {
-            
-            if (floorplan.Servers.Contains(server)) 
-            { 
+
+            if (floorplan.Servers.Contains(server))
+            {
 
             }
 
-            
+
             FlowLayoutPanel SelectedTargetPanel = null;
             foreach (Control control in flowDiningAreaAssignment.Controls)
             {
@@ -475,7 +478,7 @@ namespace FloorPlanMaker
             }
             RefreshFloorplanCountLabels();
         }
-      
+
         private void btnAssignTables_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.OK;
@@ -483,11 +486,11 @@ namespace FloorPlanMaker
 
         }
 
-    
+
         private List<Control> ServerCountLabels = new List<Control>();
         private List<Control> ServerMaxLabels = new List<Control>();
         private List<Control> ServerAvgLabels = new List<Control>();
-       
+
         private void RefreshFloorplanCountLabels()
         {
             //foreach (Control c in flowDiningAreaAssignment.Controls)
@@ -548,6 +551,31 @@ namespace FloorPlanMaker
 
 
         }
-        
+
+        private void cbIsPM_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbIsPM.Checked)
+            {
+                cbIsPM.Text = "PM";
+                shiftManager.SetFloorplansToPM();
+            }
+            else
+            {
+                cbIsPM.Text = "AM";
+                shiftManager.SetFloorplansToAM();
+            }
+        }
+
+        private void btnDateUp_Click(object sender, EventArgs e)
+        {
+            dateSelected = dateSelected.AddDays(1);
+            lblShiftDate.Text = dateSelected.ToString("dddd, MMMM dd");
+        }
+
+        private void btnDateDown_Click(object sender, EventArgs e)
+        {
+            dateSelected = dateSelected.AddDays(-1);
+            lblShiftDate.Text = dateSelected.ToString("dddd, MMMM dd");
+        }
     }
 }

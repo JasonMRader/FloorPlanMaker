@@ -57,5 +57,19 @@ namespace FloorplanClassLibrary
 
             return newFloorplan;
         }
+        public void SetFloorplansToAM()
+        {
+            foreach (var floorplan in Floorplans)
+            {
+                floorplan.IsLunch = true;
+            }
+        }
+        public void SetFloorplansToPM()
+        {
+            foreach (var floorplan in Floorplans)
+            {
+                floorplan.IsLunch = false;
+            }
+        }
     }
 }

@@ -879,8 +879,8 @@ namespace FloorPlanMaker
                 //    AutoSize = true
                 //};
 
-                closerButtons.Add(rbCloser);
-                precloserButtons.Add(rbPrecloser);
+               // closerButtons.Add(rbCloser);
+                //precloserButtons.Add(rbPrecloser);
 
                 // Adjust locations and add to the panel.
 
@@ -899,8 +899,8 @@ namespace FloorPlanMaker
                 sectionPanel.Controls.Add(rbSection);
                 sectionPanel.Controls.Add(lblMaxCovers);
                 sectionPanel.Controls.Add(lblAverageCovers);
-                sectionPanel.Controls.Add(rbCloser);
-                sectionPanel.Controls.Add(rbPrecloser);
+               // sectionPanel.Controls.Add(rbCloser);
+                //sectionPanel.Controls.Add(rbPrecloser);
                 //panel.Controls.Add(rbNeither);
 
                 // Here, you might want to adjust the layout within the panel.
@@ -1136,6 +1136,7 @@ namespace FloorPlanMaker
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
+            bool pickUpAdded = false;
             Section pickUpSection = new Section();  
             pickUpSection.IsPickUp = true;
             shiftManager.SelectedFloorplan.Date = dtpFloorplan.Value;
@@ -1147,6 +1148,8 @@ namespace FloorPlanMaker
                     {
                         pickUpSection.DiningAreaID = shiftManager.SelectedFloorplan.DiningArea.ID;
                         pickUpSection.Name = "Pick Up";
+                        shiftManager.SelectedFloorplan.Sections.Add(pickUpSection);
+                        pickUpAdded = true;
                     }
                     break;
                 }
@@ -1165,13 +1168,21 @@ namespace FloorPlanMaker
                         tableControl.BackColor = pickUpSection.Color;
 
                         // Optionally, you can invalidate the control to request a redraw if needed.
-                        tableControl.Invalidate();
-                        UpdateSectionLabels(shiftManager.SectionSelected, shiftManager.SectionSelected.MaxCovers, shiftManager.SectionSelected.AverageCovers);
+                        tableControl.Invalidate();                        
+                        
                     }
                 }
                 
             }
-
+            if (pickUpAdded)
+            {
+                UpdateSectionLabels(shiftManager.SectionSelected, shiftManager.SectionSelected.MaxCovers, shiftManager.SectionSelected.AverageCovers);
+                CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
+                SectionControl sectionControl = new SectionControl(pickUpSection, pnlFloorPlan, shiftManager.SelectedFloorplan.Servers);
+                pnlFloorPlan.Controls.Add(sectionControl);
+                sectionControl.BringToFront();
+            }
+            
             SqliteDataAccess.SaveFloorplanAndSections(shiftManager.SelectedFloorplan);
             FloorplanPrinter printer = new FloorplanPrinter(pnlFloorPlan, drawingHandler.GetSectionLines());
 

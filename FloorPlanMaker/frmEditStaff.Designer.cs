@@ -28,15 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmEditStaff));
             btnAddNewServer = new Button();
             txtNewServerName = new TextBox();
             btnAssignTables = new Button();
             flowDiningAreaAssignment = new FlowLayoutPanel();
             flowUnassignedServers = new FlowLayoutPanel();
             cbUnassignedServers = new CheckBox();
-            label1 = new Label();
             flowAllServers = new FlowLayoutPanel();
             flowDiningAreas = new FlowLayoutPanel();
+            lblShiftDate = new Label();
+            btnDateUp = new Button();
+            btnDateDown = new Button();
+            cbIsPM = new CheckBox();
             SuspendLayout();
             // 
             // btnAddNewServer
@@ -93,16 +97,6 @@
             cbUnassignedServers.UseVisualStyleBackColor = true;
             cbUnassignedServers.CheckedChanged += cbUnassignedServers_CheckedChanged;
             // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.ForeColor = Color.FromArgb(255, 192, 192);
-            label1.Location = new Point(195, 9);
-            label1.Name = "label1";
-            label1.Size = new Size(245, 15);
-            label1.TabIndex = 13;
-            label1.Text = "*****Add Covers per Server for each floorplan";
-            // 
             // flowAllServers
             // 
             flowAllServers.AutoScroll = true;
@@ -118,14 +112,65 @@
             flowDiningAreas.Size = new Size(165, 184);
             flowDiningAreas.TabIndex = 15;
             // 
+            // lblShiftDate
+            // 
+            lblShiftDate.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point);
+            lblShiftDate.Location = new Point(195, 3);
+            lblShiftDate.Name = "lblShiftDate";
+            lblShiftDate.Size = new Size(331, 32);
+            lblShiftDate.TabIndex = 16;
+            lblShiftDate.Text = "Date";
+            lblShiftDate.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // btnDateUp
+            // 
+            btnDateUp.FlatStyle = FlatStyle.Flat;
+            btnDateUp.Image = (Image)resources.GetObject("btnDateUp.Image");
+            btnDateUp.Location = new Point(135, 3);
+            btnDateUp.Name = "btnDateUp";
+            btnDateUp.Size = new Size(54, 16);
+            btnDateUp.TabIndex = 17;
+            btnDateUp.UseVisualStyleBackColor = true;
+            btnDateUp.Click += btnDateUp_Click;
+            // 
+            // btnDateDown
+            // 
+            btnDateDown.FlatStyle = FlatStyle.Flat;
+            btnDateDown.Image = (Image)resources.GetObject("btnDateDown.Image");
+            btnDateDown.Location = new Point(135, 19);
+            btnDateDown.Name = "btnDateDown";
+            btnDateDown.Size = new Size(54, 16);
+            btnDateDown.TabIndex = 18;
+            btnDateDown.UseVisualStyleBackColor = true;
+            btnDateDown.Click += btnDateDown_Click;
+            // 
+            // cbIsPM
+            // 
+            cbIsPM.Appearance = Appearance.Button;
+            cbIsPM.BackColor = Color.FromArgb(255, 255, 192);
+            cbIsPM.FlatAppearance.BorderSize = 0;
+            cbIsPM.FlatStyle = FlatStyle.Flat;
+            cbIsPM.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            cbIsPM.Location = new Point(532, 3);
+            cbIsPM.Name = "cbIsPM";
+            cbIsPM.Size = new Size(79, 32);
+            cbIsPM.TabIndex = 19;
+            cbIsPM.Text = "AM";
+            cbIsPM.TextAlign = ContentAlignment.MiddleCenter;
+            cbIsPM.UseVisualStyleBackColor = false;
+            cbIsPM.CheckedChanged += cbIsPM_CheckedChanged;
+            // 
             // frmEditStaff
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1253, 970);
+            Controls.Add(cbIsPM);
+            Controls.Add(btnDateDown);
+            Controls.Add(btnDateUp);
+            Controls.Add(lblShiftDate);
             Controls.Add(flowDiningAreas);
             Controls.Add(flowAllServers);
-            Controls.Add(label1);
             Controls.Add(cbUnassignedServers);
             Controls.Add(flowUnassignedServers);
             Controls.Add(flowDiningAreaAssignment);
@@ -147,8 +192,11 @@
         private FlowLayoutPanel flowDiningAreaAssignment;
         private FlowLayoutPanel flowUnassignedServers;
         private CheckBox cbUnassignedServers;
-        private Label label1;
         private FlowLayoutPanel flowAllServers;
         private FlowLayoutPanel flowDiningAreas;
+        private Label lblShiftDate;
+        private Button btnDateUp;
+        private Button btnDateDown;
+        private CheckBox cbIsPM;
     }
 }

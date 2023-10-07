@@ -37,8 +37,20 @@ namespace FloorplanClassLibrary
                 TextAlign = ContentAlignment.MiddleCenter,
                 Font = new Font("Segoe UI", 12f, FontStyle.Bold)
             };
-            assignServerButton = new PictureBox { Image = Resource1.Add_Person1, Dock = DockStyle.Right, Size = new Size(23, 23), SizeMode = PictureBoxSizeMode.StretchImage };
-            setCloserButton = new PictureBox { Image = Resource1.Cut, Dock = DockStyle.Right, Size = new Size(23, 23), SizeMode = PictureBoxSizeMode.StretchImage };
+            assignServerButton = new PictureBox 
+            { 
+                Image = Resource1.Add_Person1, 
+                Dock = DockStyle.Right, 
+                Size = new Size(23, 23), 
+                SizeMode = PictureBoxSizeMode.StretchImage 
+            };
+            setCloserButton = new PictureBox 
+            { 
+                Image = Resource1.Cut, 
+                Dock = DockStyle.Right, 
+                Size = new Size(23, 23), 
+                SizeMode = PictureBoxSizeMode.StretchImage 
+            };
             serversPanel = new FlowLayoutPanel { Dock = DockStyle.Bottom, Height = 0 };
             headerPanel = new Panel { Dock = DockStyle.Top, Height = 30 }; // Assuming height of 30, adjust as needed
             this.Height = 30;
@@ -212,14 +224,22 @@ namespace FloorplanClassLibrary
 
         public void UpdateLabel()
         {
-            //sectionLabel.Text = Section.Server == null ? Section.Name : Section.Server.AbbreviatedName;
-            //if (Section.IsCloser)
-            //{
-            //    sectionLabel.Text = sectionLabel.Text + " " + "(CLS)";
-            //}
+            
             sectionLabel.Text = Section.GetDisplayString();
             headerPanel.BackColor = Section.Color; // Assuming the Section class has a Color property
             headerPanel.ForeColor = Section.FontColor;
+            if (this.Section.IsCloser)
+            {
+                setCloserButton.Image = Resource1.ClsLetters;
+            }
+            if (this.Section.IsPre)
+            {
+                setCloserButton.Image = Resource1.PreLetters;
+            }
+            else
+            {
+                setCloserButton.Image = Resource1.Scissors__Copy;
+            }
         }
         public static void DrawSectionLabelForPrinting(Graphics g, SectionControl control)
         {

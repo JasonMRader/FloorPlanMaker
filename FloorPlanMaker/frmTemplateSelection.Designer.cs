@@ -64,7 +64,7 @@
             btnFirstTemplate.Name = "btnFirstTemplate";
             btnFirstTemplate.Size = new Size(268, 27);
             btnFirstTemplate.TabIndex = 4;
-            btnFirstTemplate.Text = "Select ";
+            btnFirstTemplate.Text = "X Servers, PickUp, TeamWait";
             btnFirstTemplate.UseVisualStyleBackColor = false;
             // 
             // panel2
