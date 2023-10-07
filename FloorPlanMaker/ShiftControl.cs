@@ -26,7 +26,7 @@ namespace FloorPlanMaker
             {
                 Text = shift.Date.ToString("ddd"),
                 Width = width,
-                Height = 12,
+                Height = 14,
                 TextAlign = ContentAlignment.MiddleCenter,
                 Margin = new Padding(0)
             };

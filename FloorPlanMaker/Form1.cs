@@ -1138,9 +1138,9 @@ namespace FloorPlanMaker
         {
             shiftManager.SelectedFloorplan.Date = dtpFloorplan.Value;
             SqliteDataAccess.SaveFloorplanAndSections(shiftManager.SelectedFloorplan);
-            //FloorplanPrinter printer = new FloorplanPrinter(pnlFloorPlan, drawingHandler.GetSectionLines());
+            FloorplanPrinter printer = new FloorplanPrinter(pnlFloorPlan, drawingHandler.GetSectionLines());
 
-            ////printer.ShowPrintPreview();  // To show print preview
+            printer.ShowPrintPreview();  // To show print preview
             //printer.Print();  // To print
 
         }

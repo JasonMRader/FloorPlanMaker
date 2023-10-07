@@ -227,7 +227,7 @@ namespace FloorplanClassLibrary
 
             // Measure the size of the text
             SizeF textSize = g.MeasureString(control.Section.Server.AbbreviatedName, boldLargeFont);
-            if (control.Section.IsCloser)
+            if (control.Section.IsCloser || control.Section.IsPre)
             {
                 textSize = g.MeasureString(control.Section.GetDisplayString(), boldLargeFont);
             }
