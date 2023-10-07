@@ -1136,7 +1136,42 @@ namespace FloorPlanMaker
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
+            Section pickUpSection = new Section();  
+            pickUpSection.IsPickUp = true;
             shiftManager.SelectedFloorplan.Date = dtpFloorplan.Value;
+            foreach(Control control in pnlFloorPlan.Controls)
+            {
+                if(control is TableControl tableControl)
+                {
+                    if (tableControl.Section == null)
+                    {
+                        pickUpSection.DiningAreaID = shiftManager.SelectedFloorplan.DiningArea.ID;
+                        pickUpSection.Name = "Pick Up";
+                    }
+                    break;
+                }
+                
+            }
+            foreach(Control control in pnlFloorPlan.Controls)
+            {
+                if(control is TableControl tableControl)
+                {
+                    if (tableControl.Section == null)
+                    {
+                        tableControl.Section = pickUpSection;
+
+                        pickUpSection.Tables.Add(tableControl.Table);
+
+                        tableControl.BackColor = pickUpSection.Color;
+
+                        // Optionally, you can invalidate the control to request a redraw if needed.
+                        tableControl.Invalidate();
+                        UpdateSectionLabels(shiftManager.SectionSelected, shiftManager.SectionSelected.MaxCovers, shiftManager.SectionSelected.AverageCovers);
+                    }
+                }
+                
+            }
+
             SqliteDataAccess.SaveFloorplanAndSections(shiftManager.SelectedFloorplan);
             FloorplanPrinter printer = new FloorplanPrinter(pnlFloorPlan, drawingHandler.GetSectionLines());
 
@@ -1244,6 +1279,7 @@ namespace FloorPlanMaker
         {
             Section pickUpSection = new Section(shiftManager.SelectedFloorplan);
             pickUpSection.Name = "Pickup";
+            pickUpSection.IsPickUp = true;
             shiftManager.SelectedFloorplan.Sections.Add(pickUpSection);
             CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
         }

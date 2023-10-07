@@ -22,6 +22,7 @@ namespace FloorplanClassLibrary
             
         }
         public int ID {  get; set; }
+        public bool IsPickUp { get; set; }
         public int DiningAreaID { get; set; }
         public string? Name { get; set; }
         public List<Table> Tables { get; set; }
@@ -92,6 +93,10 @@ namespace FloorplanClassLibrary
         {
             get
             {
+                if (this.IsPickUp)
+                {
+                    return Color.DarkGray;
+                }
                 
                 if (Colors.TryGetValue(Number, out Color value))
                 {
