@@ -83,6 +83,16 @@ namespace FloorPlanMakerUI {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap BackArrow {
+            get {
+                object obj = ResourceManager.GetObject("BackArrow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Closer {
             get {
                 object obj = ResourceManager.GetObject("Closer", resourceCulture);
@@ -126,6 +136,16 @@ namespace FloorPlanMakerUI {
         internal static System.Drawing.Bitmap Down {
             get {
                 object obj = ResourceManager.GetObject("Down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap forwardArrow {
+            get {
+                object obj = ResourceManager.GetObject("forwardArrow", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

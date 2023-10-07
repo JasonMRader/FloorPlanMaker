@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmEditStaff));
             btnAddNewServer = new Button();
             txtNewServerName = new TextBox();
             btnAssignTables = new Button();
@@ -72,9 +71,9 @@
             // 
             // flowDiningAreaAssignment
             // 
-            flowDiningAreaAssignment.Location = new Point(195, 38);
+            flowDiningAreaAssignment.Location = new Point(195, 166);
             flowDiningAreaAssignment.Name = "flowDiningAreaAssignment";
-            flowDiningAreaAssignment.Size = new Size(680, 868);
+            flowDiningAreaAssignment.Size = new Size(680, 740);
             flowDiningAreaAssignment.TabIndex = 10;
             // 
             // flowUnassignedServers
@@ -115,7 +114,7 @@
             // lblShiftDate
             // 
             lblShiftDate.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point);
-            lblShiftDate.Location = new Point(195, 3);
+            lblShiftDate.Location = new Point(284, 13);
             lblShiftDate.Name = "lblShiftDate";
             lblShiftDate.Size = new Size(331, 32);
             lblShiftDate.TabIndex = 16;
@@ -125,10 +124,10 @@
             // btnDateUp
             // 
             btnDateUp.FlatStyle = FlatStyle.Flat;
-            btnDateUp.Image = (Image)resources.GetObject("btnDateUp.Image");
-            btnDateUp.Location = new Point(135, 3);
+            btnDateUp.Image = FloorPlanMakerUI.Resource1.forwardArrow;
+            btnDateUp.Location = new Point(706, 11);
             btnDateUp.Name = "btnDateUp";
-            btnDateUp.Size = new Size(54, 16);
+            btnDateUp.Size = new Size(27, 42);
             btnDateUp.TabIndex = 17;
             btnDateUp.UseVisualStyleBackColor = true;
             btnDateUp.Click += btnDateUp_Click;
@@ -136,10 +135,10 @@
             // btnDateDown
             // 
             btnDateDown.FlatStyle = FlatStyle.Flat;
-            btnDateDown.Image = (Image)resources.GetObject("btnDateDown.Image");
-            btnDateDown.Location = new Point(135, 19);
+            btnDateDown.Image = FloorPlanMakerUI.Resource1.BackArrow;
+            btnDateDown.Location = new Point(251, 11);
             btnDateDown.Name = "btnDateDown";
-            btnDateDown.Size = new Size(54, 16);
+            btnDateDown.Size = new Size(27, 42);
             btnDateDown.TabIndex = 18;
             btnDateDown.UseVisualStyleBackColor = true;
             btnDateDown.Click += btnDateDown_Click;
@@ -151,7 +150,7 @@
             cbIsPM.FlatAppearance.BorderSize = 0;
             cbIsPM.FlatStyle = FlatStyle.Flat;
             cbIsPM.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            cbIsPM.Location = new Point(532, 3);
+            cbIsPM.Location = new Point(621, 13);
             cbIsPM.Name = "cbIsPM";
             cbIsPM.Size = new Size(79, 32);
             cbIsPM.TabIndex = 19;
