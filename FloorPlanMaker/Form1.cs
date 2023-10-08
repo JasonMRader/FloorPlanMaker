@@ -673,6 +673,8 @@ namespace FloorPlanMaker
             {
 
                 UpdateFloorplan();
+                shiftManager.SelectedFloorplan.Sections = GetNumberOfSections();
+                CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
 
             }
         }
