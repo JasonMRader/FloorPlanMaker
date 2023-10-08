@@ -39,7 +39,11 @@
             lblShiftDate = new Label();
             btnDateUp = new Button();
             btnDateDown = new Button();
-            cbIsPM = new CheckBox();
+            cbIsAM = new CheckBox();
+            lblLastWeekDay = new Label();
+            flowLastWeekdayCounts = new FlowLayoutPanel();
+            label2 = new Label();
+            flowYesterdayCounts = new FlowLayoutPanel();
             SuspendLayout();
             // 
             // btnAddNewServer
@@ -114,9 +118,9 @@
             // lblShiftDate
             // 
             lblShiftDate.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point);
-            lblShiftDate.Location = new Point(284, 13);
+            lblShiftDate.Location = new Point(228, 120);
             lblShiftDate.Name = "lblShiftDate";
-            lblShiftDate.Size = new Size(331, 32);
+            lblShiftDate.Size = new Size(433, 32);
             lblShiftDate.TabIndex = 16;
             lblShiftDate.Text = "Date";
             lblShiftDate.TextAlign = ContentAlignment.MiddleRight;
@@ -125,7 +129,7 @@
             // 
             btnDateUp.FlatStyle = FlatStyle.Flat;
             btnDateUp.Image = FloorPlanMakerUI.Resource1.forwardArrow;
-            btnDateUp.Location = new Point(706, 11);
+            btnDateUp.Location = new Point(848, 118);
             btnDateUp.Name = "btnDateUp";
             btnDateUp.Size = new Size(27, 42);
             btnDateUp.TabIndex = 17;
@@ -136,35 +140,73 @@
             // 
             btnDateDown.FlatStyle = FlatStyle.Flat;
             btnDateDown.Image = FloorPlanMakerUI.Resource1.BackArrow;
-            btnDateDown.Location = new Point(251, 11);
+            btnDateDown.Location = new Point(195, 118);
             btnDateDown.Name = "btnDateDown";
             btnDateDown.Size = new Size(27, 42);
             btnDateDown.TabIndex = 18;
             btnDateDown.UseVisualStyleBackColor = true;
             btnDateDown.Click += btnDateDown_Click;
             // 
-            // cbIsPM
+            // cbIsAM
             // 
-            cbIsPM.Appearance = Appearance.Button;
-            cbIsPM.BackColor = Color.FromArgb(255, 255, 192);
-            cbIsPM.FlatAppearance.BorderSize = 0;
-            cbIsPM.FlatStyle = FlatStyle.Flat;
-            cbIsPM.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            cbIsPM.Location = new Point(621, 13);
-            cbIsPM.Name = "cbIsPM";
-            cbIsPM.Size = new Size(79, 32);
-            cbIsPM.TabIndex = 19;
-            cbIsPM.Text = "AM";
-            cbIsPM.TextAlign = ContentAlignment.MiddleCenter;
-            cbIsPM.UseVisualStyleBackColor = false;
-            cbIsPM.CheckedChanged += cbIsPM_CheckedChanged;
+            cbIsAM.Appearance = Appearance.Button;
+            cbIsAM.BackColor = Color.FromArgb(255, 255, 192);
+            cbIsAM.FlatAppearance.BorderSize = 0;
+            cbIsAM.FlatStyle = FlatStyle.Flat;
+            cbIsAM.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            cbIsAM.Location = new Point(725, 118);
+            cbIsAM.Name = "cbIsAM";
+            cbIsAM.Size = new Size(79, 42);
+            cbIsAM.TabIndex = 19;
+            cbIsAM.Text = "PM";
+            cbIsAM.TextAlign = ContentAlignment.MiddleCenter;
+            cbIsAM.UseVisualStyleBackColor = false;
+            cbIsAM.CheckedChanged += cbIsPM_CheckedChanged;
+            // 
+            // lblLastWeekDay
+            // 
+            lblLastWeekDay.AutoSize = true;
+            lblLastWeekDay.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lblLastWeekDay.Location = new Point(195, 27);
+            lblLastWeekDay.Name = "lblLastWeekDay";
+            lblLastWeekDay.Size = new Size(114, 21);
+            lblLastWeekDay.TabIndex = 20;
+            lblLastWeekDay.Text = "Last Weekday:";
+            // 
+            // flowLastWeekdayCounts
+            // 
+            flowLastWeekdayCounts.Location = new Point(195, 51);
+            flowLastWeekdayCounts.Name = "flowLastWeekdayCounts";
+            flowLastWeekdayCounts.Size = new Size(314, 61);
+            flowLastWeekdayCounts.TabIndex = 21;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label2.Location = new Point(526, 27);
+            label2.Name = "label2";
+            label2.Size = new Size(85, 21);
+            label2.TabIndex = 22;
+            label2.Text = "Yesterday:";
+            // 
+            // flowYesterdayCounts
+            // 
+            flowYesterdayCounts.Location = new Point(526, 51);
+            flowYesterdayCounts.Name = "flowYesterdayCounts";
+            flowYesterdayCounts.Size = new Size(314, 61);
+            flowYesterdayCounts.TabIndex = 23;
             // 
             // frmEditStaff
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1253, 970);
-            Controls.Add(cbIsPM);
+            Controls.Add(flowYesterdayCounts);
+            Controls.Add(label2);
+            Controls.Add(flowLastWeekdayCounts);
+            Controls.Add(lblLastWeekDay);
+            Controls.Add(cbIsAM);
             Controls.Add(btnDateDown);
             Controls.Add(btnDateUp);
             Controls.Add(lblShiftDate);
@@ -196,6 +238,10 @@
         private Label lblShiftDate;
         private Button btnDateUp;
         private Button btnDateDown;
-        private CheckBox cbIsPM;
+        private CheckBox cbIsAM;
+        private Label lblLastWeekDay;
+        private FlowLayoutPanel flowLastWeekdayCounts;
+        private Label label2;
+        private FlowLayoutPanel flowYesterdayCounts;
     }
 }

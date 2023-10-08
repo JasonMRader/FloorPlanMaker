@@ -21,14 +21,40 @@ namespace FloorPlanMaker
         public ShiftManager shiftManager;
         private DiningAreaCreationManager DiningAreaManager = new DiningAreaCreationManager();
         private DateTime dateSelected = DateTime.MinValue;
+        private List<Floorplan> allFloorplans = new List<Floorplan>();
         public frmEditStaff(EmployeeManager staffManager, ShiftManager shiftManager)
         {
             InitializeComponent();
             this.employeeManager = staffManager;
             this.shiftManager = shiftManager;
+            allFloorplans = SqliteDataAccess.LoadFloorplanList();
 
         }
+        private Dictionary<DiningArea, int> ServersAssignedPreviousWeek(List<Floorplan> floorplans, bool isLunch)
+        {
+            DateTime oneWeekAgo = dateSelected.AddDays(-7);
 
+            var result = floorplans
+                .Where(fp => fp.Date >= oneWeekAgo && fp.Date < oneWeekAgo.AddDays(7) && fp.IsLunch == isLunch)
+                .GroupBy(fp => fp.DiningArea)
+                .ToDictionary(group => group.Key, group => group.Sum(fp => fp.Servers.Count));
+
+            return result;
+        }
+        private void RefreshLastWeekCounts()
+        {
+
+            Dictionary<DiningArea, int> LastWeekFloorplans = ServersAssignedPreviousWeek(allFloorplans, cbIsAM.Checked);
+            flowLastWeekdayCounts.Controls.Clear(); // Clear any existing controls
+
+            foreach (var entry in LastWeekFloorplans)
+            {
+                Label lbl = new Label();
+                lbl.Text = $"{entry.Key}: {entry.Value}";
+                flowLastWeekdayCounts.Controls.Add(lbl);
+            }
+
+        }
         private void btnAddNewServer_Click(object sender, EventArgs e)
         {
             Server server = new Server();
@@ -49,6 +75,7 @@ namespace FloorPlanMaker
             LoadDiningAreas();
             dateSelected = DateTime.Now;
             lblShiftDate.Text = dateSelected.ToString("dddd, MMMM dd");
+            lblLastWeekDay.Text = "Last " + dateSelected.ToString("dddd") + ":";
 
             foreach (Server server in shiftManager.ServersNotOnShift)
             {
@@ -58,7 +85,7 @@ namespace FloorPlanMaker
                 serverControl.HideShifts();
                 flowAllServers.Controls.Add(serverControl);
             }
-
+            RefreshLastWeekCounts();
 
             //lbServersOnShift.ValueMember = "Value";
         }
@@ -554,14 +581,14 @@ namespace FloorPlanMaker
 
         private void cbIsPM_CheckedChanged(object sender, EventArgs e)
         {
-            if (cbIsPM.Checked)
+            if (cbIsAM.Checked)
             {
-                cbIsPM.Text = "PM";
+                cbIsAM.Text = "AM";
                 shiftManager.SetFloorplansToPM();
             }
             else
             {
-                cbIsPM.Text = "AM";
+                cbIsAM.Text = "PM";
                 shiftManager.SetFloorplansToAM();
             }
         }
@@ -570,12 +597,16 @@ namespace FloorPlanMaker
         {
             dateSelected = dateSelected.AddDays(1);
             lblShiftDate.Text = dateSelected.ToString("dddd, MMMM dd");
+            lblLastWeekDay.Text = "Last " + dateSelected.ToString("dddd") + ":";
+            RefreshLastWeekCounts();
         }
 
         private void btnDateDown_Click(object sender, EventArgs e)
         {
             dateSelected = dateSelected.AddDays(-1);
             lblShiftDate.Text = dateSelected.ToString("dddd, MMMM dd");
+            lblLastWeekDay.Text = "Last " + dateSelected.ToString("dddd") + ":";
+            RefreshLastWeekCounts();
         }
     }
 }
