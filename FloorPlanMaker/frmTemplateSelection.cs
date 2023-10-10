@@ -82,10 +82,13 @@ namespace FloorPlanMaker
             Button button = (Button)sender;
 
             FloorplanTemplate template = new FloorplanTemplate();
-
+            
 
             template = (FloorplanTemplate)button.Tag;
-
+            if (ShiftManager.SelectedFloorplan == null)
+            {
+                ShiftManager.SelectedFloorplan = new Floorplan(template.DiningArea, DateTime.Now,false,template.Sections.Count,template.Sections.Count);
+            }
             ShiftManager.SelectedFloorplan.Sections = template.Sections;
             this.DialogResult = DialogResult.OK;
         }
