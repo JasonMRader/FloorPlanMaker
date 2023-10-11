@@ -41,9 +41,9 @@
             btnDateDown = new Button();
             cbIsAM = new CheckBox();
             lblLastWeekDay = new Label();
-            flowLastWeekdayCounts = new FlowLayoutPanel();
             label2 = new Label();
             flowYesterdayCounts = new FlowLayoutPanel();
+            flowLastWeekdayCounts = new FlowLayoutPanel();
             SuspendLayout();
             // 
             // btnAddNewServer
@@ -165,26 +165,20 @@
             // 
             // lblLastWeekDay
             // 
+            lblLastWeekDay.Anchor = AnchorStyles.Right;
             lblLastWeekDay.AutoSize = true;
             lblLastWeekDay.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            lblLastWeekDay.Location = new Point(195, 27);
+            lblLastWeekDay.Location = new Point(195, 0);
             lblLastWeekDay.Name = "lblLastWeekDay";
             lblLastWeekDay.Size = new Size(114, 21);
             lblLastWeekDay.TabIndex = 20;
             lblLastWeekDay.Text = "Last Weekday:";
             // 
-            // flowLastWeekdayCounts
-            // 
-            flowLastWeekdayCounts.Location = new Point(195, 51);
-            flowLastWeekdayCounts.Name = "flowLastWeekdayCounts";
-            flowLastWeekdayCounts.Size = new Size(314, 61);
-            flowLastWeekdayCounts.TabIndex = 21;
-            // 
             // label2
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label2.Location = new Point(526, 27);
+            label2.Location = new Point(195, 57);
             label2.Name = "label2";
             label2.Size = new Size(85, 21);
             label2.TabIndex = 22;
@@ -192,10 +186,19 @@
             // 
             // flowYesterdayCounts
             // 
-            flowYesterdayCounts.Location = new Point(526, 51);
+            flowYesterdayCounts.BackColor = Color.FromArgb(224, 224, 224);
+            flowYesterdayCounts.Location = new Point(195, 82);
             flowYesterdayCounts.Name = "flowYesterdayCounts";
-            flowYesterdayCounts.Size = new Size(314, 61);
+            flowYesterdayCounts.Size = new Size(665, 30);
             flowYesterdayCounts.TabIndex = 23;
+            // 
+            // flowLastWeekdayCounts
+            // 
+            flowLastWeekdayCounts.BackColor = Color.FromArgb(224, 224, 224);
+            flowLastWeekdayCounts.Location = new Point(195, 24);
+            flowLastWeekdayCounts.Name = "flowLastWeekdayCounts";
+            flowLastWeekdayCounts.Size = new Size(665, 30);
+            flowLastWeekdayCounts.TabIndex = 21;
             // 
             // frmEditStaff
             // 
@@ -240,8 +243,8 @@
         private Button btnDateDown;
         private CheckBox cbIsAM;
         private Label lblLastWeekDay;
-        private FlowLayoutPanel flowLastWeekdayCounts;
         private Label label2;
         private FlowLayoutPanel flowYesterdayCounts;
+        private FlowLayoutPanel flowLastWeekdayCounts;
     }
 }

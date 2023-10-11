@@ -35,7 +35,7 @@ namespace FloorPlanMaker
             DateTime oneWeekAgo = dateSelected.AddDays(-7);
 
             var result = floorplans
-                .Where(fp => fp.Date >= oneWeekAgo && fp.Date < oneWeekAgo.AddDays(7) && fp.IsLunch == isLunch)
+                .Where(fp => fp.Date.Date == oneWeekAgo.Date)// && fp.IsLunch == isLunch)
                 .GroupBy(fp => fp.DiningArea)
                 .ToDictionary(group => group.Key, group => group.Sum(fp => fp.Servers.Count));
 

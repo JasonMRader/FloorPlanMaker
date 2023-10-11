@@ -881,7 +881,7 @@ namespace FloorPlanMaker
                 //    AutoSize = true
                 //};
 
-               // closerButtons.Add(rbCloser);
+                // closerButtons.Add(rbCloser);
                 //precloserButtons.Add(rbPrecloser);
 
                 // Adjust locations and add to the panel.
@@ -901,7 +901,7 @@ namespace FloorPlanMaker
                 sectionPanel.Controls.Add(rbSection);
                 sectionPanel.Controls.Add(lblMaxCovers);
                 sectionPanel.Controls.Add(lblAverageCovers);
-               // sectionPanel.Controls.Add(rbCloser);
+                // sectionPanel.Controls.Add(rbCloser);
                 //sectionPanel.Controls.Add(rbPrecloser);
                 //panel.Controls.Add(rbNeither);
 
@@ -1139,12 +1139,13 @@ namespace FloorPlanMaker
         private void btnPrint_Click(object sender, EventArgs e)
         {
             bool pickUpAdded = false;
-            Section pickUpSection = new Section();  
+            Section pickUpSection = new Section();
             pickUpSection.IsPickUp = true;
             shiftManager.SelectedFloorplan.Date = dtpFloorplan.Value;
-            foreach(Control control in pnlFloorPlan.Controls)
+            shiftManager.SelectedFloorplan.IsLunch = cbIsAM.Checked;
+            foreach (Control control in pnlFloorPlan.Controls)
             {
-                if(control is TableControl tableControl)
+                if (control is TableControl tableControl)
                 {
                     if (tableControl.Section == null)
                     {
@@ -1155,11 +1156,11 @@ namespace FloorPlanMaker
                     }
                     break;
                 }
-                
+
             }
-            foreach(Control control in pnlFloorPlan.Controls)
+            foreach (Control control in pnlFloorPlan.Controls)
             {
-                if(control is TableControl tableControl)
+                if (control is TableControl tableControl)
                 {
                     if (tableControl.Section == null)
                     {
@@ -1170,11 +1171,11 @@ namespace FloorPlanMaker
                         tableControl.BackColor = pickUpSection.Color;
 
                         // Optionally, you can invalidate the control to request a redraw if needed.
-                        tableControl.Invalidate();                        
-                        
+                        tableControl.Invalidate();
+
                     }
                 }
-                
+
             }
             if (pickUpAdded)
             {
@@ -1184,7 +1185,7 @@ namespace FloorPlanMaker
                 pnlFloorPlan.Controls.Add(sectionControl);
                 sectionControl.BringToFront();
             }
-            
+
             SqliteDataAccess.SaveFloorplanAndSections(shiftManager.SelectedFloorplan);
             FloorplanPrinter printer = new FloorplanPrinter(pnlFloorPlan, drawingHandler.GetSectionLines());
 

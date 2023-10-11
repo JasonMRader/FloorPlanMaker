@@ -310,8 +310,46 @@ namespace FloorplanClassLibrary
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 cnn.Open();
+                var existingFloorplan = cnn.QueryFirstOrDefault<Floorplan>(
+            "SELECT * FROM Floorplan WHERE Date = @Date AND IsLunch = @IsLunch AND DiningAreaID = @DiningAreaID",
+            new
+            {
+                Date = floorplan.Date.Date,  
+                IsLunch = floorplan.IsLunch,
+                DiningAreaID = floorplan.DiningArea.ID
+            });
 
-                // Save floorplan first
+                if (existingFloorplan != null)
+                {
+                    DialogResult result = MessageBox.Show("A floorplan with the same criteria already exists. Do you want to replace it?",
+                                                 "Replace Floorplan?",
+                                                 MessageBoxButtons.YesNo,
+                                                 MessageBoxIcon.Question);
+
+                    if (result == DialogResult.No)
+                    {
+                        // User does not want to replace, so exit without saving.
+                        cnn.Close();
+                        return;
+                    }
+
+                    // 1. Retrieve all related SectionIDs
+                    var relatedSectionIds = cnn.Query<int>("SELECT SectionID FROM FloorplanSections WHERE FloorplanID = @FloorplanID", new { FloorplanID = existingFloorplan.ID }).ToList();
+
+                    // 2. Delete entries from ServerSections and Shift using the related SectionIDs
+                    foreach (var sectionId in relatedSectionIds)
+                    {
+                        cnn.Execute("DELETE FROM ServerSections WHERE SectionID = @SectionID", new { SectionID = sectionId });
+                        cnn.Execute("DELETE FROM Shift WHERE SectionID = @SectionID", new { SectionID = sectionId });
+                    }
+
+                    // 3. Delete entries from FloorplanSections
+                    cnn.Execute("DELETE FROM FloorplanSections WHERE FloorplanID = @FloorplanID", new { FloorplanID = existingFloorplan.ID });
+
+                    // 4. Finally, delete the Floorplan
+                    cnn.Execute("DELETE FROM Floorplan WHERE ID = @ID", new { ID = existingFloorplan.ID });
+                }
+                
                 cnn.Execute("INSERT INTO Floorplan (Date, IsLunch, DiningAreaID) VALUES (@Date, @IsLunch, @DiningAreaID)",
                 new
                 {

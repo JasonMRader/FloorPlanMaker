@@ -91,6 +91,7 @@
             btnTest = new Button();
             btnPrint = new Button();
             dtpFloorplan = new DateTimePicker();
+            cbIsAM = new CheckBox();
             pnlServers.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudNumberOfTeamWaits).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudServerCount).BeginInit();
@@ -623,9 +624,9 @@
             // txtDiningAreaName
             // 
             txtDiningAreaName.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            txtDiningAreaName.Location = new Point(766, 40);
+            txtDiningAreaName.Location = new Point(1128, 34);
             txtDiningAreaName.Name = "txtDiningAreaName";
-            txtDiningAreaName.Size = new Size(228, 35);
+            txtDiningAreaName.Size = new Size(26, 35);
             txtDiningAreaName.TabIndex = 3;
             txtDiningAreaName.Visible = false;
             // 
@@ -755,16 +756,32 @@
             // 
             // dtpFloorplan
             // 
-            dtpFloorplan.Location = new Point(645, 48);
+            dtpFloorplan.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            dtpFloorplan.Location = new Point(645, 43);
             dtpFloorplan.Name = "dtpFloorplan";
-            dtpFloorplan.Size = new Size(97, 23);
+            dtpFloorplan.Size = new Size(203, 27);
             dtpFloorplan.TabIndex = 14;
+            // 
+            // cbIsAM
+            // 
+            cbIsAM.Appearance = Appearance.Button;
+            cbIsAM.BackColor = Color.FromArgb(255, 255, 192);
+            cbIsAM.FlatStyle = FlatStyle.Flat;
+            cbIsAM.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            cbIsAM.Location = new Point(871, 42);
+            cbIsAM.Name = "cbIsAM";
+            cbIsAM.Size = new Size(56, 26);
+            cbIsAM.TabIndex = 15;
+            cbIsAM.Text = "PM";
+            cbIsAM.TextAlign = ContentAlignment.MiddleCenter;
+            cbIsAM.UseVisualStyleBackColor = false;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1248, 970);
+            Controls.Add(cbIsAM);
             Controls.Add(dtpFloorplan);
             Controls.Add(btnPrint);
             Controls.Add(btnTest);
@@ -861,5 +878,6 @@
         private TextBox txtXco;
         private TextBox txtYco;
         private Button btnAddPickupSection;
+        private CheckBox cbIsAM;
     }
 }
