@@ -1105,10 +1105,12 @@ namespace FloorPlanMaker
             //nudServerCount.Value = 4;
 
             //UpdateFloorplan();
-            SectionLine sectionLine = new SectionLine();
-            sectionLine.StartPoint = new System.Drawing.Point(0, 0);
-            sectionLine.EndPoint = new System.Drawing.Point(300, 300);
-            pnlFloorPlan.Controls.Add(sectionLine);
+            //SectionLine sectionLine = new SectionLine();
+            //sectionLine.StartPoint = new System.Drawing.Point(0, 0);
+            //sectionLine.EndPoint = new System.Drawing.Point(300, 300);
+            //pnlFloorPlan.Controls.Add(sectionLine);
+            SqliteDataAccess.UpdateAllFloorplanDates();
+
         }
 
         private void cboFloorplanTemplates_SelectedIndexChanged(object sender, EventArgs e)

@@ -305,6 +305,19 @@ namespace FloorplanClassLibrary
                 return templates;
             }
         }
+        public static void UpdateAllFloorplanDates()
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                cnn.Open();
+
+                // Set the time part of all dates in the Floorplan table to midnight (which effectively removes the time component)
+                cnn.Execute("UPDATE Floorplan SET Date = date(Date)");
+
+                cnn.Close();
+            }
+        }
+
         public static void SaveFloorplanAndSections(Floorplan floorplan)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -353,7 +366,7 @@ namespace FloorplanClassLibrary
                 cnn.Execute("INSERT INTO Floorplan (Date, IsLunch, DiningAreaID) VALUES (@Date, @IsLunch, @DiningAreaID)",
                 new
                 {
-                    Date = floorplan.Date,
+                    Date = floorplan.Date.Date,
                     IsLunch = floorplan.IsLunch,
                     DiningAreaID = floorplan.DiningArea.ID
                 });
@@ -396,6 +409,32 @@ namespace FloorplanClassLibrary
                 }
 
                 cnn.Close();
+            }
+        }
+        public static void DeleteFloorplan(Floorplan floorplan)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var existingFloorplan = cnn.QueryFirstOrDefault<Floorplan>(
+                    "SELECT * FROM Floorplan WHERE ID = @ID", new {ID = floorplan.ID});
+               
+                var relatedSectionIds = cnn.Query<int>("SELECT SectionID FROM FloorplanSections WHERE FloorplanID = @FloorplanID", new { FloorplanID = existingFloorplan.ID }).ToList();
+                cnn.Execute("DELETE FROM FloorplanSections WHERE FloorplanID = @FloorplanID", new { FloorplanID = existingFloorplan.ID });
+                // 2. Delete entries from ServerSections and Shift using the related SectionIDs
+                foreach (var sectionId in relatedSectionIds)
+                {
+                    cnn.Execute("DELETE FROM ServerSections WHERE SectionID = @SectionID", new { SectionID = sectionId });
+                    cnn.Execute("DELETE FROM Shift WHERE SectionID = @SectionID", new { SectionID = sectionId });
+                    cnn.Execute("DELETE FROM Section WHERE ID = SectionID", new { ID = sectionId });
+                }
+
+                // 3. Delete entries from FloorplanSections
+                
+                
+                // 4. Finally, delete the Floorplan
+                cnn.Execute("DELETE FROM Floorplan WHERE ID = @ID", new { ID = existingFloorplan.ID });
+
+
             }
         }
         public static List<Floorplan> LoadFloorplanList()
