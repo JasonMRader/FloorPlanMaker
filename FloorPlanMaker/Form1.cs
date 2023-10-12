@@ -1299,6 +1299,13 @@ namespace FloorPlanMaker
             shiftManager.SelectedFloorplan.Sections.Add(pickUpSection);
             CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
         }
+
+        private void dtpFloorplan_ValueChanged(object sender, EventArgs e)
+        {
+            DateOnly date = DateOnly.FromDateTime(dtpFloorplan.Value);
+            Floorplan fp = SqliteDataAccess.LoadFloorplanByCriteria(shiftManager.SelectedDiningArea, date, cbIsAM.Checked);
+
+        }
         //public static List<LineString> ComputeVoronoiEdges(List<Coordinate> coordinates)
         //{
         //    VoronoiDiagramBuilder builder = new VoronoiDiagramBuilder();

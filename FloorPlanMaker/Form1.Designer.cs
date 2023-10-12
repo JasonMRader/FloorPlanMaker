@@ -761,6 +761,7 @@
             dtpFloorplan.Name = "dtpFloorplan";
             dtpFloorplan.Size = new Size(203, 27);
             dtpFloorplan.TabIndex = 14;
+            dtpFloorplan.ValueChanged += dtpFloorplan_ValueChanged;
             // 
             // cbIsAM
             // 

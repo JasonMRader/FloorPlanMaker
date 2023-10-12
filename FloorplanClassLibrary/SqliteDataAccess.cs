@@ -210,6 +210,50 @@ namespace FloorplanClassLibrary
                 return floorplan;
             }
         }
+        public static Floorplan LoadFloorplanByCriteria(DiningArea diningArea, DateOnly date, bool isLunch)
+        {
+            string dateString = date.ToString("yyyy-MM-dd");
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                // Query Floorplan based on given criteria
+                var floorplan = cnn.QuerySingleOrDefault<Floorplan>(
+                    "SELECT * FROM Floorplan WHERE DiningAreaID = @DiningAreaID AND Date = @Date AND IsLunch = @IsLunch",
+                    new
+                    {
+                        DiningAreaID = diningArea.ID,
+                        Date = dateString,
+                        IsLunch = isLunch
+                    });
+
+                if (floorplan == null)
+                {
+                    return null;
+                }
+
+                // Populate DiningArea
+                floorplan.DiningArea = diningArea;
+
+                // Populate Sections from FloorplanSections
+                var sectionIds = cnn.Query<int>("SELECT SectionID FROM FloorplanSections WHERE FloorplanID = @FloorplanID", new { FloorplanID = floorplan.ID });
+                foreach (var id in sectionIds)
+                {
+                    var section = cnn.QuerySingle<Section>("SELECT * FROM Section WHERE ID = @ID", new { ID = id });
+                    // Populate Tables for each Section from SectionTables
+                    section.Tables = cnn.Query<Table>(
+                        "SELECT * FROM DiningTable WHERE ID IN (SELECT TableID FROM SectionTables WHERE SectionID = @SectionID)",
+                        new { SectionID = id }).ToList();
+                    floorplan.Sections.Add(section);
+                }
+
+                // Populate Servers from FloorplanServers
+                //floorplan.Servers = cnn.Query<Server>(
+                //    "SELECT * FROM Server WHERE ID IN (SELECT ServerID FROM FloorplanServers WHERE FloorplanID = @FloorplanID)",
+                //    new { FloorplanID = floorplan.ID }).ToList();
+
+                return floorplan;
+            }
+        }
+
         public static void SaveFloorplanTemplate(FloorplanTemplate template)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -363,10 +407,10 @@ namespace FloorplanClassLibrary
                     cnn.Execute("DELETE FROM Floorplan WHERE ID = @ID", new { ID = existingFloorplan.ID });
                 }
                 
-                cnn.Execute("INSERT INTO Floorplan (Date, IsLunch, DiningAreaID) VALUES (@Date, @IsLunch, @DiningAreaID)",
+                cnn.Execute("INSERT INTO Floorplan (Date, IsLunch, DiningAreaID) VALUES (date(@Date), @IsLunch, @DiningAreaID)",
                 new
                 {
-                    Date = floorplan.Date.Date,
+                    Date = floorplan.Date,
                     IsLunch = floorplan.IsLunch,
                     DiningAreaID = floorplan.DiningArea.ID
                 });
