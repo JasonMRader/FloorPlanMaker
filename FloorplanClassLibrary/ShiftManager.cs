@@ -35,7 +35,7 @@ namespace FloorplanClassLibrary
                 sectionNumber++;
             }
         }
-
+        
         public void SetSectionsToTemplate(FloorplanTemplate template)
         {
             this.TemplateSections.Clear();

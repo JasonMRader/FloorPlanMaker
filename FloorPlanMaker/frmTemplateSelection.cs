@@ -89,9 +89,10 @@ namespace FloorPlanMaker
             {
                 ShiftManager.SelectedFloorplan = new Floorplan(template.DiningArea, DateTime.Now,false,template.Sections.Count,template.Sections.Count);
             }
-            ShiftManager.SelectedFloorplan.Sections = template.Sections;
+            ShiftManager.SelectedFloorplan.CopySectionsIntoSections(template.Sections);
             this.DialogResult = DialogResult.OK;
         }
+            
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();

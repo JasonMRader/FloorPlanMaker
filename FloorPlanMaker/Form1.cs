@@ -673,7 +673,7 @@ namespace FloorPlanMaker
             {
 
                 UpdateFloorplan();
-                shiftManager.SelectedFloorplan.Sections = GetNumberOfSections();
+                GetNumberOfSections();
                 CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
 
             }
@@ -716,13 +716,14 @@ namespace FloorPlanMaker
 
                 if (shiftManager.SelectedFloorplan != null)
                 {
-                    shiftManager.SelectedFloorplan.Sections = GetNumberOfSections();
+                    //shiftManager.SelectedFloorplan.Sections =
+                    GetNumberOfSections();
 
                 }
                 else
                 {
                     shiftManager.SelectedFloorplan = new Floorplan();
-                    shiftManager.SelectedFloorplan.Sections = GetNumberOfSections();
+                    GetNumberOfSections();
                     shiftManager.SelectedFloorplan.DiningArea = shiftManager.SelectedDiningArea;
 
                 }
@@ -762,7 +763,7 @@ namespace FloorPlanMaker
             // Create solo sections.
             for (int i = 1; i <= soloSections; i++)
             {
-                sections.Add(new Section
+                shiftManager.SelectedFloorplan.AddSection(new Section
                 {
 
                     Name = $"Section {i}",
@@ -775,7 +776,7 @@ namespace FloorPlanMaker
             // Create team wait sections.
             for (int i = 1; i <= teamWaitSections; i++)
             {
-                sections.Add(new Section
+                shiftManager.SelectedFloorplan.AddSection(new Section
                 {
 
                     ID = servers + i,  // To ensure unique IDs.
@@ -1207,33 +1208,41 @@ namespace FloorPlanMaker
             form.ShowDialog();
             if (form.DialogResult == DialogResult.OK)
             {
-                foreach (Control ctrl in pnlFloorPlan.Controls)
-                {
-
-                    if (ctrl is TableControl tableControl)
-                    {
-                        foreach (Section section in shiftManager.SelectedFloorplan.Sections)
-                        {
-
-                            foreach (Table table in section.Tables)
-                            {
-                                if (tableControl.Table.TableNumber == table.TableNumber)
-                                {
-                                    tableControl.Section = section;
-                                    tableControl.BackColor = section.Color;
-                                    tableControl.Invalidate();
-                                    break; // Once found, no need to check other tables in this section
-                                }
-                            }
-                        }
-                    }
-                }
+                UpdateTableControlSections();
             }
             if (DialogResult == DialogResult.Cancel)
             {
 
             }
             //form.ShowDialog();
+        }
+        private void UpdateTableControlSections()
+        {
+            if (shiftManager.SelectedFloorplan == null)
+            {
+                return;
+            }
+            foreach (Control ctrl in pnlFloorPlan.Controls)
+            {
+
+                if (ctrl is TableControl tableControl)
+                {
+                    foreach (Section section in shiftManager.SelectedFloorplan.Sections)
+                    {
+
+                        foreach (Table table in section.Tables)
+                        {
+                            if (tableControl.Table.TableNumber == table.TableNumber)
+                            {
+                                tableControl.Section = section;
+                                tableControl.BackColor = section.Color;
+                                tableControl.Invalidate();
+                                break; // Once found, no need to check other tables in this section
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         private void btnGenerateSectionLines_Click(object sender, EventArgs e)
@@ -1304,6 +1313,8 @@ namespace FloorPlanMaker
         {
             DateOnly date = DateOnly.FromDateTime(dtpFloorplan.Value);
             Floorplan fp = SqliteDataAccess.LoadFloorplanByCriteria(shiftManager.SelectedDiningArea, date, cbIsAM.Checked);
+            shiftManager.SelectedFloorplan = fp;
+            UpdateTableControlSections();
 
         }
         //public static List<LineString> ComputeVoronoiEdges(List<Coordinate> coordinates)

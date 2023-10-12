@@ -30,7 +30,29 @@ namespace FloorplanClassLibrary
         public bool IsLunch { get; set; }
         public DiningArea? DiningArea { get; set; }
         public int? DiningAreaID { get; set; }
-        public List<Section> Sections = new List<Section>();
+       
+
+        private List<Section> _sections = new List<Section>();
+        public List<Section> Sections
+        {
+            get { return _sections; }
+            private set { _sections = value; }  
+        }
+        public void CopySectionsIntoSections(List<Section> sections)
+        {
+            foreach (Section section in sections)
+            {
+                this.AddSection(section);
+            }
+        }
+        public void AddSection(Section section)
+        {
+            
+            section.Number = _sections.Count + 1;
+
+            _sections.Add(section);
+        }
+
         public List<Server> Servers = new List<Server>();
         private int _serverCount = 0;
         public int ServerCount
