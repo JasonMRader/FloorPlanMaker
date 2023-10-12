@@ -92,6 +92,8 @@
             btnPrint = new Button();
             dtpFloorplan = new DateTimePicker();
             cbIsAM = new CheckBox();
+            btnAddSection = new Button();
+            btnRemoveSection = new Button();
             pnlServers.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudNumberOfTeamWaits).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudServerCount).BeginInit();
@@ -103,6 +105,8 @@
             // pnlServers
             // 
             pnlServers.BackColor = SystemColors.GradientActiveCaption;
+            pnlServers.Controls.Add(btnRemoveSection);
+            pnlServers.Controls.Add(btnAddSection);
             pnlServers.Controls.Add(flowServersInFloorplan);
             pnlServers.Controls.Add(btnAddServers);
             pnlServers.Controls.Add(lblTeamWaitLabel);
@@ -146,7 +150,7 @@
             // 
             lblTeamWaitLabel.AutoSize = true;
             lblTeamWaitLabel.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            lblTeamWaitLabel.Location = new Point(58, 264);
+            lblTeamWaitLabel.Location = new Point(30, 293);
             lblTeamWaitLabel.Name = "lblTeamWaitLabel";
             lblTeamWaitLabel.Size = new Size(95, 21);
             lblTeamWaitLabel.TabIndex = 8;
@@ -165,7 +169,7 @@
             // 
             // nudNumberOfTeamWaits
             // 
-            nudNumberOfTeamWaits.Location = new Point(159, 262);
+            nudNumberOfTeamWaits.Location = new Point(142, 296);
             nudNumberOfTeamWaits.Name = "nudNumberOfTeamWaits";
             nudNumberOfTeamWaits.Size = new Size(46, 23);
             nudNumberOfTeamWaits.TabIndex = 7;
@@ -186,7 +190,7 @@
             // 
             cbTeamWait.AutoSize = true;
             cbTeamWait.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            cbTeamWait.Location = new Point(34, 236);
+            cbTeamWait.Location = new Point(24, 265);
             cbTeamWait.Name = "cbTeamWait";
             cbTeamWait.Size = new Size(207, 25);
             cbTeamWait.TabIndex = 6;
@@ -208,7 +212,7 @@
             // 
             lblServerAverageCovers.AutoSize = true;
             lblServerAverageCovers.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            lblServerAverageCovers.Location = new Point(169, 200);
+            lblServerAverageCovers.Location = new Point(171, 234);
             lblServerAverageCovers.Name = "lblServerAverageCovers";
             lblServerAverageCovers.Size = new Size(19, 21);
             lblServerAverageCovers.TabIndex = 5;
@@ -228,7 +232,7 @@
             // 
             lblServerMaxCovers.AutoSize = true;
             lblServerMaxCovers.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            lblServerMaxCovers.Location = new Point(169, 179);
+            lblServerMaxCovers.Location = new Point(171, 213);
             lblServerMaxCovers.Name = "lblServerMaxCovers";
             lblServerMaxCovers.Size = new Size(19, 21);
             lblServerMaxCovers.TabIndex = 5;
@@ -248,7 +252,7 @@
             // 
             label11.AutoSize = true;
             label11.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label11.Location = new Point(30, 200);
+            label11.Location = new Point(32, 234);
             label11.Name = "label11";
             label11.Size = new Size(123, 21);
             label11.TabIndex = 4;
@@ -268,7 +272,7 @@
             // 
             label10.AutoSize = true;
             label10.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label10.Location = new Point(28, 179);
+            label10.Location = new Point(30, 213);
             label10.Name = "label10";
             label10.Size = new Size(125, 21);
             label10.TabIndex = 4;
@@ -777,6 +781,28 @@
             cbIsAM.TextAlign = ContentAlignment.MiddleCenter;
             cbIsAM.UseVisualStyleBackColor = false;
             // 
+            // btnAddSection
+            // 
+            btnAddSection.FlatStyle = FlatStyle.Flat;
+            btnAddSection.Location = new Point(12, 156);
+            btnAddSection.Name = "btnAddSection";
+            btnAddSection.Size = new Size(98, 23);
+            btnAddSection.TabIndex = 9;
+            btnAddSection.Text = "Add Section";
+            btnAddSection.UseVisualStyleBackColor = true;
+            btnAddSection.Click += btnAddSection_Click;
+            // 
+            // btnRemoveSection
+            // 
+            btnRemoveSection.FlatStyle = FlatStyle.Flat;
+            btnRemoveSection.Location = new Point(116, 156);
+            btnRemoveSection.Name = "btnRemoveSection";
+            btnRemoveSection.Size = new Size(115, 23);
+            btnRemoveSection.TabIndex = 9;
+            btnRemoveSection.Text = "Remove Section";
+            btnRemoveSection.UseVisualStyleBackColor = true;
+            btnRemoveSection.Click += btnRemoveSection_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -880,5 +906,7 @@
         private TextBox txtYco;
         private Button btnAddPickupSection;
         private CheckBox cbIsAM;
+        private Button btnRemoveSection;
+        private Button btnAddSection;
     }
 }

@@ -1317,6 +1317,16 @@ namespace FloorPlanMaker
             UpdateTableControlSections();
 
         }
+
+        private void btnAddSection_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnRemoveSection_Click(object sender, EventArgs e)
+        {
+
+        }
         //public static List<LineString> ComputeVoronoiEdges(List<Coordinate> coordinates)
         //{
         //    VoronoiDiagramBuilder builder = new VoronoiDiagramBuilder();

@@ -49,8 +49,23 @@ namespace FloorplanClassLibrary
         {
             
             section.Number = _sections.Count + 1;
-
+            if (section.Server == null)
+            {
+                section.Name = $"Section {section.Number}";
+            }
             _sections.Add(section);
+        }
+
+        public void CreateSectionsForServers()
+        {
+            foreach (Server server in Servers)
+            {
+                Section newSection = new Section(this)
+                {
+                    Server = server
+                };
+                AddSection(newSection);
+            }
         }
 
         public List<Server> Servers = new List<Server>();
