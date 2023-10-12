@@ -242,7 +242,7 @@ namespace FloorplanClassLibrary
                     section.Tables = cnn.Query<Table>(
                         "SELECT * FROM DiningTable WHERE ID IN (SELECT TableID FROM SectionTables WHERE SectionID = @SectionID)",
                         new { SectionID = id }).ToList();
-                    floorplan.Sections.Add(section);
+                    floorplan.AddSection(section);
                 }
 
                 // Populate Servers from FloorplanServers
