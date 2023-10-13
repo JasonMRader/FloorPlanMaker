@@ -673,7 +673,8 @@ namespace FloorPlanMaker
             {
 
                 UpdateFloorplan();
-                GetNumberOfSections();
+                //GetNumberOfSections();
+                shiftManager.SelectedFloorplan.CreateSectionsForServers();
                 CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
 
             }
@@ -707,34 +708,34 @@ namespace FloorPlanMaker
 
         private void nudServerCount_ValueChanged(object sender, EventArgs e)
         {
-            if (nudServerCount.Value > 0)
-            {
-                lblServerMaxCovers.Text = (shiftManager.SelectedDiningArea.GetMaxCovers() / (float)nudServerCount.Value).ToString("F1");
-                lblServerAverageCovers.Text = (shiftManager.SelectedDiningArea.GetAverageCovers() / (float)nudServerCount.Value).ToString("F1");
+            //if (nudServerCount.Value > 0)
+            //{
+            //    lblServerMaxCovers.Text = (shiftManager.SelectedDiningArea.GetMaxCovers() / (float)nudServerCount.Value).ToString("F1");
+            //    lblServerAverageCovers.Text = (shiftManager.SelectedDiningArea.GetAverageCovers() / (float)nudServerCount.Value).ToString("F1");
 
-                shiftManager.SelectedFloorplan = shiftManager.Floorplans.FirstOrDefault(fp => fp.DiningArea.ID == shiftManager.SelectedDiningArea.ID);
+            //    shiftManager.SelectedFloorplan = shiftManager.Floorplans.FirstOrDefault(fp => fp.DiningArea.ID == shiftManager.SelectedDiningArea.ID);
 
-                if (shiftManager.SelectedFloorplan != null)
-                {
-                    //shiftManager.SelectedFloorplan.Sections =
-                    GetNumberOfSections();
+            //    if (shiftManager.SelectedFloorplan != null)
+            //    {
+            //        //shiftManager.SelectedFloorplan.Sections =
+            //        GetNumberOfSections();
 
-                }
-                else
-                {
-                    shiftManager.SelectedFloorplan = new Floorplan();
-                    GetNumberOfSections();
-                    shiftManager.SelectedFloorplan.DiningArea = shiftManager.SelectedDiningArea;
+            //    }
+            //    else
+            //    {
+            //        shiftManager.SelectedFloorplan = new Floorplan();
+            //        GetNumberOfSections();
+            //        shiftManager.SelectedFloorplan.DiningArea = shiftManager.SelectedDiningArea;
 
-                }
-                CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
-                //else
-                //{
-                //    List<Section> sections = GetNumberOfSections();
-                //    shiftManager.SelectedTemplate = new FloorplanTemplate(shiftManager.SelectedDiningArea, (int)nudServerCount.Value,"", sections);
-                //}
+            //    }
+            //    CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
+            //    //else
+            //    //{
+            //    //    List<Section> sections = GetNumberOfSections();
+            //    //    shiftManager.SelectedTemplate = new FloorplanTemplate(shiftManager.SelectedDiningArea, (int)nudServerCount.Value,"", sections);
+            //    //}
 
-            }
+            //}
 
         }
 
@@ -994,8 +995,8 @@ namespace FloorPlanMaker
 
         private void nudNumberOfTeamWaits_ValueChanged(object sender, EventArgs e)
         {
-            shiftManager.Sections = GetNumberOfSections();
-            CreateSectionRadioButtons(shiftManager.Sections);
+            //shiftManager.Sections = GetNumberOfSections();
+            //CreateSectionRadioButtons(shiftManager.Sections);
         }
 
 

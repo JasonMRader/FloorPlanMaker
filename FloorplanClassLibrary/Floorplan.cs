@@ -58,14 +58,16 @@ namespace FloorplanClassLibrary
 
         public void CreateSectionsForServers()
         {
-            foreach (Server server in Servers)
+            if (this.Servers != null)
             {
-                Section newSection = new Section(this)
+                foreach (Server server in Servers)
                 {
-                    Server = server
-                };
-                AddSection(newSection);
+                    Section newSection = new Section(this);
+                   
+                    AddSection(newSection);
+                }
             }
+            
         }
 
         public List<Server> Servers = new List<Server>();
@@ -108,5 +110,21 @@ namespace FloorplanClassLibrary
                 }
             }    
         }
+        public void RemoveHighestNumberedEmptySection()
+        {
+            var sectionToRemove = Sections
+                .Where(s => s.Server == null
+                         && (s.Tables == null || !s.Tables.Any())
+                         && !s.IsPickUp
+                         && !s.IsTeamWait)
+                .OrderByDescending(s => s.Number)
+                .FirstOrDefault();
+
+            if (sectionToRemove != null)
+            {
+                Sections.Remove(sectionToRemove);
+            }
+        }
+
     }
 }
