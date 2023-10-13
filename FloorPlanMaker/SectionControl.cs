@@ -22,15 +22,14 @@ namespace FloorplanClassLibrary
         private bool isDragging = false; // Indicates whether dragging is ongoing
         public Section Section { get; set; }
 
-        public List<Server> Servers { get; set; } = new List<Server>();
         private SectionControlsManager manager;
         public SectionControl(Section section, SectionControlsManager sectionControlsManager)
         {
             this.Section = section;
             this.manager = sectionControlsManager;
-            closerPanel = new FlowLayoutPanel { Dock = DockStyle.Top, Height = 0};
+            closerPanel = new FlowLayoutPanel { Dock = DockStyle.Top, Height = 0 };
             closerPanel.AutoSize = true;
-           
+
             sectionLabel = new Label
             {
                 Dock = DockStyle.Left,
@@ -38,19 +37,19 @@ namespace FloorplanClassLibrary
                 TextAlign = ContentAlignment.MiddleCenter,
                 Font = new Font("Segoe UI", 12f, FontStyle.Bold)
             };
-            assignServerButton = new PictureBox 
-            { 
-                Image = Resource1.Add_Person1, 
-                Dock = DockStyle.Right, 
-                Size = new Size(23, 23), 
-                SizeMode = PictureBoxSizeMode.StretchImage 
+            assignServerButton = new PictureBox
+            {
+                Image = Resource1.Add_Person1,
+                Dock = DockStyle.Right,
+                Size = new Size(23, 23),
+                SizeMode = PictureBoxSizeMode.StretchImage
             };
-            setCloserButton = new PictureBox 
-            { 
-                Image = Resource1.Cut, 
-                Dock = DockStyle.Right, 
-                Size = new Size(23, 23), 
-                SizeMode = PictureBoxSizeMode.StretchImage 
+            setCloserButton = new PictureBox
+            {
+                Image = Resource1.Cut,
+                Dock = DockStyle.Right,
+                Size = new Size(23, 23),
+                SizeMode = PictureBoxSizeMode.StretchImage
             };
             serversPanel = new FlowLayoutPanel { Dock = DockStyle.Bottom, Height = 0 };
             headerPanel = new Panel { Dock = DockStyle.Top, Height = 30 }; // Assuming height of 30, adjust as needed
@@ -80,7 +79,6 @@ namespace FloorplanClassLibrary
 
             UpdateLabel();
             this.Location = section.MidPoint;
-            //this.Servers = servers;
             this.BringToFront();
         }
 
@@ -97,18 +95,18 @@ namespace FloorplanClassLibrary
                 if (!this.Section.IsPre) { closerPanel.Controls.Add(pbPre); }
                 if (!this.Section.IsCloser) { closerPanel.Controls.Add(pbClose); }
                 if (this.Section.IsPre || this.Section.IsCloser) { closerPanel.Controls.Add(pbCut); }
-                
+
                 closerPanel.Height = pbClose.Height;
-                
+
             }
             if (this.closerPanelOpen == true)
             {
                 closerPanel.Controls.Clear();
                 closerPanel.Height = 0;
-                
+
             }
             closerPanelOpen = !closerPanelOpen;
-            
+
         }
 
         private void SectionControl_Paint(object sender, PaintEventArgs e)
@@ -194,23 +192,46 @@ namespace FloorplanClassLibrary
         {
             if (serverPanelOpen == false)
             {
-                serversPanel.Controls.Clear();
-                foreach (var server in manager.UnassignedServers)
+                if (this.Section.Server == null)
                 {
-                    var serverButton = new Button { Text = server.Name, Tag = server, Dock = DockStyle.Top };
-                    serverButton.Click += ServerButton_Click;
-                    serversPanel.Controls.Add(serverButton);
+                    RefreshUnassignedServerPanel();
                 }
-                serversPanel.Height = manager.UnassignedServers.Count * 30;
+                
+                if (this.Section.Server != null)
+                {
+                    Button unassign = new Button { Text = "Unassign", Dock = DockStyle.Top, Width = this.Width - 20 };
+                    unassign.Click += UnassignButton_Click;
+                    serversPanel.Controls.Add(unassign);
+                    serversPanel.Height += 30;
+                }              
+                               
             }
             if (serverPanelOpen == true)
             {
                 serversPanel.Controls.Clear();
                 serversPanel.Height = 0;
-               
+
             }
             serverPanelOpen = !serverPanelOpen;
 
+        }
+        private void RefreshUnassignedServerPanel()
+        {
+            serversPanel.Controls.Clear();
+            foreach (var server in manager.UnassignedServers)
+            {
+                var serverButton = new Button { Text = server.Name, Tag = server, Dock = DockStyle.Top, Width = this.Width - 20 };
+                serverButton.Click += ServerButton_Click;
+                serversPanel.Controls.Add(serverButton);
+            }
+            serversPanel.Height = (manager.UnassignedServers.Count * 30);
+        }
+        private void UnassignButton_Click(Object sender, EventArgs e)
+        {            
+            manager.UnassignedServers.Add(this.Section.Server);
+            Section.Server = null;
+            RefreshUnassignedServerPanel();
+            UpdateLabel();
         }
 
         private void ServerButton_Click(object sender, EventArgs e)
@@ -285,31 +306,7 @@ namespace FloorplanClassLibrary
             g.DrawString(control.Section.GetDisplayString(), boldLargeFont, Brushes.Black, textX, textY, sf);
         }
 
-        private void InitializeComponent()
-        {
-
-        }
-
-        private Point OLDFindMidpointForSectionControls(Section targetSection, Panel panel)
-        {
-            // 1. Collect all the TableControl controls with a Section
-            List<TableControl> tableControlsWithSection = new List<TableControl>();
-            foreach (Control ctrl in panel.Controls)
-            {
-                if (ctrl is TableControl tableControl && tableControl.Section != null)
-                {
-                    tableControlsWithSection.Add(tableControl);
-                }
-            }
-
-            // 2. Group by Section and find the controls with the targetSection
-            var targetControls = tableControlsWithSection
-                .Where(tc => tc.Section.Equals(targetSection))
-                .ToList();
-
-            // 3. Compute the midpoint for the target controls
-            return TableControl.FindMiddlePoint(targetControls);
-        }
+        
        
 
     }

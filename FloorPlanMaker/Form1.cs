@@ -685,7 +685,7 @@ namespace FloorPlanMaker
 
             shiftManager.SelectedFloorplan = shiftManager.Floorplans.FirstOrDefault(fp => fp.DiningArea.ID == areaCreationManager.DiningAreaSelected.ID);
 
-            nudServerCount.Value = shiftManager.SelectedFloorplan.Servers.Count;
+            //nudServerCount.Value = shiftManager.SelectedFloorplan.Servers.Count;
             flowServersInFloorplan.Controls.Clear();
             if (shiftManager.SelectedFloorplan.Servers.Count > 0)
             {
