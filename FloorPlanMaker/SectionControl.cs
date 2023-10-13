@@ -259,14 +259,16 @@ namespace FloorplanClassLibrary
             if (Section.IsTeamWait == true && Section.Server != null)
             {
                 Section.Server2 = assignedServer;
-                this.Height = this.Height + 30;
+                
                 this.sectionLabel.Height += 30;
+                this.headerPanel.Height += 30;
             }
             else
             {
                 Section.Server = assignedServer;
             }
             serversPanel.Height = 0;
+           
             UpdateLabel();
             
         }
