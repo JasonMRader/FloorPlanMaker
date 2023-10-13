@@ -6,6 +6,7 @@ using System.Net.Security;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using System.Windows.Forms;
 
 namespace FloorplanClassLibrary
 {
@@ -148,5 +149,20 @@ namespace FloorplanClassLibrary
             { 19, Color.FromArgb(88,44,77) },
             { 20, Color.FromArgb(176,46,12) }
         };
+
+        public Point MidPoint
+        {
+            get
+            {
+                int totalX = 0;
+                int totalY = 0;
+                foreach (Table table in this.Tables)
+                {
+                    totalX += table.XCoordinate + (table.Width / 2);  // X-coordinate of control's center
+                    totalY += table.YCoordinate + (table.Height / 2); // Y-coordinate of control's center
+                }
+                return new Point(totalX / this.Tables.Count, totalY / this.Tables.Count);
+            }
+        }
     }
 }

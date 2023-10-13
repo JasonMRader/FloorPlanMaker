@@ -23,10 +23,11 @@ namespace FloorplanClassLibrary
         public Section Section { get; set; }
 
         public List<Server> Servers { get; set; } = new List<Server>();
-
-        public SectionControl(Section section, Panel panel, List<Server> servers)
+        private SectionControlsManager manager;
+        public SectionControl(Section section, SectionControlsManager sectionControlsManager)
         {
             this.Section = section;
+            this.manager = sectionControlsManager;
             closerPanel = new FlowLayoutPanel { Dock = DockStyle.Top, Height = 0};
             closerPanel.AutoSize = true;
            
@@ -78,8 +79,8 @@ namespace FloorplanClassLibrary
             this.ResizeRedraw = true;
 
             UpdateLabel();
-            this.Location = FindMidpointForSectionControls(section, panel);
-            this.Servers = servers;
+            this.Location = section.MidPoint;
+            //this.Servers = servers;
             this.BringToFront();
         }
 
@@ -194,13 +195,13 @@ namespace FloorplanClassLibrary
             if (serverPanelOpen == false)
             {
                 serversPanel.Controls.Clear();
-                foreach (var server in Servers)
+                foreach (var server in manager.UnassignedServers)
                 {
                     var serverButton = new Button { Text = server.Name, Tag = server, Dock = DockStyle.Top };
                     serverButton.Click += ServerButton_Click;
                     serversPanel.Controls.Add(serverButton);
                 }
-                serversPanel.Height = Servers.Count * 30;
+                serversPanel.Height = manager.UnassignedServers.Count * 30;
             }
             if (serverPanelOpen == true)
             {
@@ -218,6 +219,7 @@ namespace FloorplanClassLibrary
             var assignedServer = (Server)clickedButton.Tag;
 
             Section.Server = assignedServer;
+            manager.UnassignedServers.Remove(assignedServer);
             UpdateLabel();
             serversPanel.Height = 0;
         }
@@ -288,7 +290,7 @@ namespace FloorplanClassLibrary
 
         }
 
-        private Point FindMidpointForSectionControls(Section targetSection, Panel panel)
+        private Point OLDFindMidpointForSectionControls(Section targetSection, Panel panel)
         {
             // 1. Collect all the TableControl controls with a Section
             List<TableControl> tableControlsWithSection = new List<TableControl>();
@@ -308,6 +310,7 @@ namespace FloorplanClassLibrary
             // 3. Compute the midpoint for the target controls
             return TableControl.FindMiddlePoint(targetControls);
         }
+       
 
     }
 

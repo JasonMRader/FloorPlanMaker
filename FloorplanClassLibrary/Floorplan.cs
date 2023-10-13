@@ -71,6 +71,7 @@ namespace FloorplanClassLibrary
         }
 
         public List<Server> Servers = new List<Server>();
+        public List<Server> UnassignedServers = new List<Server>();
         private int _serverCount = 0;
         public int ServerCount
         {

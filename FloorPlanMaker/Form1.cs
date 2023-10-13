@@ -24,6 +24,7 @@ namespace FloorPlanMaker
         private Rectangle dragRectangle;
         private List<TableControl> allTableControls = new List<TableControl>();
         private int currentFocusedSectionIndex = 0;
+        private SectionControlsManager sectionControlsManager { get; set; }
 
 
         public Form1()
@@ -754,42 +755,42 @@ namespace FloorPlanMaker
                 lblTeamWaitLabel.Visible = false;
             }
         }
-        private List<Section> GetNumberOfSections()
-        {
-            int servers = (int)nudServerCount.Value;
-            int teamWaitSections = (int)nudNumberOfTeamWaits.Value;
-            int soloSections = servers - (teamWaitSections * 2);
-            List<Section> sections = new List<Section>();
-            int SectionNumber = 1;
-            // Create solo sections.
-            for (int i = 1; i <= soloSections; i++)
-            {
-                shiftManager.SelectedFloorplan.AddSection(new Section
-                {
+        //private List<Section> GetNumberOfSections()
+        //{
+        //    int servers = (int)nudServerCount.Value;
+        //    int teamWaitSections = (int)nudNumberOfTeamWaits.Value;
+        //    int soloSections = servers - (teamWaitSections * 2);
+        //    List<Section> sections = new List<Section>();
+        //    int SectionNumber = 1;
+        //    // Create solo sections.
+        //    for (int i = 1; i <= soloSections; i++)
+        //    {
+        //        shiftManager.SelectedFloorplan.AddSection(new Section
+        //        {
 
-                    Name = $"Section {i}",
-                    IsTeamWait = false,
-                    Number = SectionNumber
-                });
-                SectionNumber++;
-            }
+        //            Name = $"Section {i}",
+        //            IsTeamWait = false,
+        //            Number = SectionNumber
+        //        });
+        //        SectionNumber++;
+        //    }
 
-            // Create team wait sections.
-            for (int i = 1; i <= teamWaitSections; i++)
-            {
-                shiftManager.SelectedFloorplan.AddSection(new Section
-                {
+        //    // Create team wait sections.
+        //    for (int i = 1; i <= teamWaitSections; i++)
+        //    {
+        //        shiftManager.SelectedFloorplan.AddSection(new Section
+        //        {
 
-                    ID = servers + i,  // To ensure unique IDs.
-                    Name = $"Team Wait {i}",
-                    IsTeamWait = true,
-                    Number = SectionNumber
-                });
-                SectionNumber++;
-            }
+        //            ID = servers + i,  // To ensure unique IDs.
+        //            Name = $"Team Wait {i}",
+        //            IsTeamWait = true,
+        //            Number = SectionNumber
+        //        });
+        //        SectionNumber++;
+        //    }
 
-            return sections;
-        }
+        //    return sections;
+        //}
 
         private List<CheckBox> closerButtons = new List<CheckBox>();
         private List<CheckBox> precloserButtons = new List<CheckBox>();
@@ -1074,13 +1075,19 @@ namespace FloorPlanMaker
         {
 
 
-            foreach (Section section in shiftManager.SelectedFloorplan.Sections)
-            {
-                SectionControl sectionControl = new SectionControl(section, pnlFloorPlan, shiftManager.SelectedFloorplan.Servers);
+            //foreach (Section section in shiftManager.SelectedFloorplan.Sections)
+            //{
+            //    SectionControl sectionControl = new SectionControl(section, pnlFloorPlan, shiftManager.SelectedFloorplan.Servers);
 
+            //    pnlFloorPlan.Controls.Add(sectionControl);
+            //    sectionControl.BringToFront();
+
+            //}
+            sectionControlsManager = new SectionControlsManager(shiftManager.SelectedFloorplan);
+            foreach(SectionControl sectionControl in sectionControlsManager.SectionControls)
+            {
                 pnlFloorPlan.Controls.Add(sectionControl);
                 sectionControl.BringToFront();
-
             }
             //AddSectionLabels(shiftManager.Sections);
         }
@@ -1185,7 +1192,7 @@ namespace FloorPlanMaker
             {
                 UpdateSectionLabels(shiftManager.SectionSelected, shiftManager.SectionSelected.MaxCovers, shiftManager.SectionSelected.AverageCovers);
                 CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
-                SectionControl sectionControl = new SectionControl(pickUpSection, pnlFloorPlan, shiftManager.SelectedFloorplan.Servers);
+                SectionControl sectionControl = new SectionControl(pickUpSection, sectionControlsManager);
                 pnlFloorPlan.Controls.Add(sectionControl);
                 sectionControl.BringToFront();
             }
