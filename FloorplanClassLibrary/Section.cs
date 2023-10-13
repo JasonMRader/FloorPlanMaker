@@ -86,6 +86,10 @@ namespace FloorplanClassLibrary
             {
                 displayString = displayString + "(PRE)";
             }
+            if (this.IsTeamWait &&  this.Server2 != null) 
+            {
+                displayString = displayString + "\n" + this.Server2.AbbreviatedName;
+            }
             return displayString;
         }
         public bool IsTeamWait { get; set; }

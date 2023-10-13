@@ -24,8 +24,12 @@ namespace FloorPlanMakerUI
             this.SectionControls = new List<SectionControl>();
             foreach (Section section in Floorplan.Sections)
             {
-                SectionControl sectionControl = new SectionControl(section, this);
-                this.SectionControls.Add(sectionControl);
+                if (section.Tables.Count > 0)
+                {
+                    SectionControl sectionControl = new SectionControl(section, this);
+                    this.SectionControls.Add(sectionControl);
+                }
+                
 
             }
         }

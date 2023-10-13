@@ -203,6 +203,15 @@ namespace FloorplanClassLibrary
                     unassign.Click += UnassignButton_Click;
                     serversPanel.Controls.Add(unassign);
                     serversPanel.Height += 30;
+
+                    if (this.Section.IsTeamWait == false)
+                    {
+                        Button teamWait = new Button { Text = "TeamWait", Dock = DockStyle.Top, Width = this.Width - 20 };
+                        teamWait.Click += teamWaitButton_Click;
+                        serversPanel.Controls.Add(teamWait);
+                        serversPanel.Height += 30;
+                    }
+                    
                 }              
                                
             }
@@ -215,6 +224,13 @@ namespace FloorplanClassLibrary
             serverPanelOpen = !serverPanelOpen;
 
         }
+
+        private void teamWaitButton_Click(object? sender, EventArgs e)
+        {
+            this.Section.IsTeamWait = true;
+            RefreshUnassignedServerPanel();
+        }
+
         private void RefreshUnassignedServerPanel()
         {
             serversPanel.Controls.Clear();
@@ -238,11 +254,21 @@ namespace FloorplanClassLibrary
         {
             var clickedButton = (Button)sender;
             var assignedServer = (Server)clickedButton.Tag;
-
-            Section.Server = assignedServer;
+            
             manager.UnassignedServers.Remove(assignedServer);
-            UpdateLabel();
+            if (Section.IsTeamWait == true && Section.Server != null)
+            {
+                Section.Server2 = assignedServer;
+                this.Height = this.Height + 30;
+                this.sectionLabel.Height += 30;
+            }
+            else
+            {
+                Section.Server = assignedServer;
+            }
             serversPanel.Height = 0;
+            UpdateLabel();
+            
         }
 
         public void UpdateLabel()
