@@ -707,6 +707,9 @@ namespace FloorPlanMaker
                     flowServersInFloorplan.Controls.Add(serverControl);
                 }
             }
+            CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
+            lblServerMaxCovers.Text = shiftManager.SelectedFloorplan.MaxCoversPerServer.ToString("F1");
+            lblServerAverageCovers.Text = shiftManager.SelectedFloorplan.AvgCoversPerServer.ToString("F1");
         }
 
 
@@ -1323,7 +1326,11 @@ namespace FloorPlanMaker
         {
             DateOnly date = DateOnly.FromDateTime(dtpFloorplan.Value);
             Floorplan fp = SqliteDataAccess.LoadFloorplanByCriteria(shiftManager.SelectedDiningArea, date, cbIsAM.Checked);
-            shiftManager.SelectedFloorplan = fp;
+            if (fp != null)
+            {
+                shiftManager.SelectedFloorplan = fp;
+            }
+           
             UpdateTableControlSections();
 
         }
