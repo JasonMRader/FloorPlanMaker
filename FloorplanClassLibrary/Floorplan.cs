@@ -30,6 +30,7 @@ namespace FloorplanClassLibrary
         public bool IsLunch { get; set; }
         public DiningArea? DiningArea { get; set; }
         public int? DiningAreaID { get; set; }
+        
        
 
         private List<Section> _sections = new List<Section>();
@@ -38,6 +39,32 @@ namespace FloorplanClassLibrary
             get { return _sections; }
             private set { _sections = value; }  
         }
+        public float MaxCoversPerServer
+        {
+            get
+            {
+                if (DiningArea != null && Servers.Count > 0)
+                {
+                    return (float)this.DiningArea.GetMaxCovers() / this.Servers.Count;
+                }
+                else
+                {
+                    return 0;
+                }
+               
+            }
+        }
+
+        public float AvgCoversPerServer
+        {
+            get
+            {
+                if (DiningArea != null && Servers.Count > 0)
+                    return DiningArea.GetAverageCovers() / this.Servers.Count;
+                return 0;
+            }
+        }
+
         public void CopySectionsIntoSections(List<Section> sections)
         {
             foreach (Section section in sections)

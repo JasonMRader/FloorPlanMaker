@@ -677,6 +677,9 @@ namespace FloorPlanMaker
                 //GetNumberOfSections();
                 shiftManager.SelectedFloorplan.CreateSectionsForServers();
                 CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
+                lblServerMaxCovers.Text = shiftManager.SelectedFloorplan.MaxCoversPerServer.ToString("F1");
+                lblServerAverageCovers.Text = shiftManager.SelectedFloorplan.AvgCoversPerServer.ToString("F1");
+
 
             }
         }
@@ -980,10 +983,9 @@ namespace FloorPlanMaker
         private Dictionary<Section, (Label MaxCoversLabel, Label AverageCoversLabel)> sectionLabels = new Dictionary<Section, (Label, Label)>();
         public void UpdateSectionLabels(Section section, int newMaxCoversValue, float newAverageCoversValue)
         {
-            float maxPerServer = (shiftManager.SelectedDiningArea.GetMaxCovers() / (float)nudServerCount.Value);
-            float avgPerServer = (shiftManager.SelectedDiningArea.GetAverageCovers() / (float)nudServerCount.Value);
-            float maxDifference = newMaxCoversValue - maxPerServer;
-            float avgDifference = newAverageCoversValue - avgPerServer;
+            
+            float maxDifference = newMaxCoversValue - shiftManager.SelectedFloorplan.MaxCoversPerServer;
+            float avgDifference = newAverageCoversValue - shiftManager.SelectedFloorplan.AvgCoversPerServer;
             if (sectionLabels.ContainsKey(section))
             {
                 sectionLabels[section].MaxCoversLabel.Text = maxDifference.ToString();
