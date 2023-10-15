@@ -1248,21 +1248,10 @@ namespace FloorPlanMaker
         }
         private void UpdateTableControlSections()
         {
-            List<Control> controlsToRemove = new List<Control>();
-            foreach (Control c in pnlFloorPlan.Controls)
-            {
-                if (c is SectionControl sectionControl)
-                {
-                    controlsToRemove.Add(sectionControl);
-                }
-            }
-            foreach (Control c in controlsToRemove)
-            {
-                pnlFloorPlan.Controls.Remove(c);
-            }
+            ClearAllSectionControls();
             if (shiftManager.ViewedFloorplan == null)
             {
-                ResetAllTableControlSections();
+                ClearAllTableControlSections();
                 return;
             }
             foreach (Control ctrl in pnlFloorPlan.Controls)
@@ -1369,7 +1358,22 @@ namespace FloorPlanMaker
             
 
         }
-        private void ResetAllTableControlSections()
+        private void ClearAllSectionControls()
+        {
+            List<Control> controlsToRemove = new List<Control>();
+            foreach (Control c in pnlFloorPlan.Controls)
+            {
+                if (c is SectionControl sectionControl)
+                {
+                    controlsToRemove.Add(sectionControl);
+                }
+            }
+            foreach (Control c in controlsToRemove)
+            {
+                pnlFloorPlan.Controls.Remove(c);
+            }
+        }
+        private void ClearAllTableControlSections()
         {
             foreach (TableControl tableControl in allTableControls)
             {

@@ -46,7 +46,7 @@ namespace FloorplanClassLibrary
             };
             setCloserButton = new PictureBox
             {
-                Image = Resource1.Cut,
+                //Image = Resource1.Cut,
                 Dock = DockStyle.Right,
                 Size = new Size(23, 23),
                 SizeMode = PictureBoxSizeMode.StretchImage
@@ -283,7 +283,7 @@ namespace FloorplanClassLibrary
             {
                 setCloserButton.Image = Resource1.ClsLetters;
             }
-            if (this.Section.IsPre)
+            else if (this.Section.IsPre)
             {
                 setCloserButton.Image = Resource1.PreLetters;
             }

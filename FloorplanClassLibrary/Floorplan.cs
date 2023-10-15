@@ -21,8 +21,9 @@ namespace FloorplanClassLibrary
         public Floorplan(FloorplanTemplate template)
         {
             this.DiningArea = template.DiningArea;
-            this.Sections = template.Sections;
+            
             this.ServerCount = template.ServerCount;
+            CopyTemplateSections(template.Sections);
         }
         public Floorplan() { }
         public int ID { get; set; }
@@ -64,7 +65,15 @@ namespace FloorplanClassLibrary
                 return 0;
             }
         }
-
+        public void CopyTemplateSections(List<Section> sections)
+        {
+            this.Sections.Clear();
+            foreach (Section section in sections)
+            {
+                Section SectionCopy = new Section(section);
+                Sections.Add(SectionCopy);
+            }
+        }
         public void CopySectionsIntoSections(List<Section> sections)
         {
             foreach (Section section in sections)

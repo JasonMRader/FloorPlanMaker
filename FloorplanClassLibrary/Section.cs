@@ -22,6 +22,16 @@ namespace FloorplanClassLibrary
             this.Tables = new List<Table>();
             
         }
+        public Section(Section section)
+        {
+            this.Number = section.Number;
+            this.IsCloser = section.IsCloser;
+            this.IsPickUp = section.IsPickUp;
+            this.IsPre = section.IsPre;
+            this.Name = section.Name;
+            this.DiningAreaID = section.DiningAreaID; 
+            this.Tables = section.Tables;
+        }
         public int ID {  get; set; }
         public bool IsPickUp { get; set; }
         public int DiningAreaID { get; set; }

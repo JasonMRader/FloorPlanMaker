@@ -87,9 +87,14 @@ namespace FloorPlanMaker
             template = (FloorplanTemplate)button.Tag;
             if (ShiftManager.SelectedFloorplan == null)
             {
-                ShiftManager.SelectedFloorplan = new Floorplan(template.DiningArea, DateTime.Now,false,template.Sections.Count,template.Sections.Count);
+                ShiftManager.SelectedFloorplan = new Floorplan(template);
             }
-            ShiftManager.SelectedFloorplan.CopySectionsIntoSections(template.Sections);
+            else
+            {
+                ShiftManager.SelectedFloorplan.CopyTemplateSections(template.Sections);
+            }
+            //ShiftManager.SelectedFloorplan.CopySectionsIntoSections(template.Sections);
+            ShiftManager.ViewedFloorplan = ShiftManager.SelectedFloorplan;
             this.DialogResult = DialogResult.OK;
         }
             
