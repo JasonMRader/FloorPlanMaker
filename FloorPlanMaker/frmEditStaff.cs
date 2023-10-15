@@ -86,6 +86,7 @@ namespace FloorPlanMaker
                 flowAllServers.Controls.Add(serverControl);
             }
             RefreshLastWeekCounts();
+            SetFloorplansForDateAndShift();
 
             //lbServersOnShift.ValueMember = "Value";
         }
@@ -106,6 +107,33 @@ namespace FloorPlanMaker
                 btnDining.CheckedChanged += cbDiningArea_CheckChanged;
                 flowDiningAreas.Controls.Add(btnDining);
 
+            }
+        }
+        private void SetFloorplansForDateAndShift()
+        {
+            flowDiningAreaAssignment.Controls.Clear();
+            DateOnly date = DateOnly.FromDateTime(dateSelected);
+            shiftManager.Floorplans.Clear();
+            foreach (DiningArea diningArea in DiningAreaManager.DiningAreas)
+            {
+                Floorplan fp = SqliteDataAccess.LoadFloorplanByCriteria(diningArea, date, cbIsAM.Checked);
+                if(fp != null) 
+                {
+                    shiftManager.Floorplans.Add(fp);
+                    foreach(Control c in flowDiningAreas.Controls)
+                    {
+                        if (c is CheckBox cb && c.Tag == diningArea)
+                        {
+                            cb.Checked = true;
+                        }
+                    }
+
+                    foreach (Server server in fp.Servers)
+                    {
+                        NewAddServerButtonToFloorplan(fp, server);
+                    }
+                }
+                
             }
         }
         private void AddServerToUnassignedServersInShift(Server server)
@@ -485,12 +513,17 @@ namespace FloorPlanMaker
                 {
                     shiftManager.SelectedFloorplan.Servers.Add(server);
                 }
-
+                
             }
+            NewAddServerButtonToFloorplan(shiftManager.SelectedFloorplan, server);
+
+        }
+        private void NewAddServerButtonToFloorplan(Floorplan floorplan, Server server)
+        {
             FlowLayoutPanel SelectedTargetPanel = null;
             foreach (Control control in flowDiningAreaAssignment.Controls)
             {
-                if (control is FlowLayoutPanel panel && panel.Tag == shiftManager.SelectedFloorplan)
+                if (control is FlowLayoutPanel panel && panel.Tag == floorplan)
                 {
                     SelectedTargetPanel = panel;
                     break;
@@ -603,6 +636,7 @@ namespace FloorPlanMaker
             lblShiftDate.Text = dateSelected.ToString("dddd, MMMM dd");
             lblLastWeekDay.Text = "Last " + dateSelected.ToString("dddd") + ":";
             RefreshLastWeekCounts();
+            SetFloorplansForDateAndShift();
         }
 
         private void btnDateDown_Click(object sender, EventArgs e)
@@ -611,6 +645,7 @@ namespace FloorPlanMaker
             lblShiftDate.Text = dateSelected.ToString("dddd, MMMM dd");
             lblLastWeekDay.Text = "Last " + dateSelected.ToString("dddd") + ":";
             RefreshLastWeekCounts();
+            SetFloorplansForDateAndShift();
         }
     }
 }
