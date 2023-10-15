@@ -245,10 +245,34 @@ namespace FloorplanClassLibrary
                     floorplan.AddSection(section);
                 }
 
-                // Populate Servers from FloorplanServers
-                //floorplan.Servers = cnn.Query<Server>(
-                //    "SELECT * FROM Server WHERE ID IN (SELECT ServerID FROM FloorplanServers WHERE FloorplanID = @FloorplanID)",
-                //    new { FloorplanID = floorplan.ID }).ToList();
+                var servers = new List<Server>();
+
+                // Fetch the server-section relationships directly as anonymous types
+                var serverSections = cnn.Query("SELECT * FROM ServerSections WHERE SectionID IN @SectionIds", new { SectionIds = sectionIds })
+                                         .Select(x => new { ServerID = (int)x.ServerID, SectionID = (int)x.SectionID })
+                                         .ToList();
+
+                foreach (var ss in serverSections)
+                {
+                    // Load server details only once per server
+                    if (!servers.Any(s => s.ID == ss.ServerID))
+                    {
+                        var server = cnn.QuerySingle<Server>("SELECT * FROM Server WHERE ID = @ID", new { ID = ss.ServerID });
+                        servers.Add(server);
+                    }
+
+                    // Associate server with their respective section
+                    var matchedSection = floorplan.Sections.FirstOrDefault(s => s.ID == ss.SectionID);
+                    if (matchedSection != null)
+                    {
+                        matchedSection.Server = servers.First(s => s.ID == ss.ServerID);
+                    }
+                }
+
+                // Add loaded servers to floorplan's Servers list
+                floorplan.Servers = servers;
+
+
 
                 return floorplan;
             }

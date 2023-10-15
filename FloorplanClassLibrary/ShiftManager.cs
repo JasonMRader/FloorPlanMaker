@@ -15,6 +15,7 @@ namespace FloorplanClassLibrary
         public ShiftManager() { }
         public DiningArea? SelectedDiningArea { get; set; }
         public Floorplan? SelectedFloorplan { get; set; }
+        public Floorplan? ViewedFloorplan { get; set; }
         public List<DiningArea> DiningAreasUsed = new List<DiningArea>();
         public List<Server> ServersOnShift = new List<Server>();
         public List<Server> ServersNotOnShift = new List<Server>();

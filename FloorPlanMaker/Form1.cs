@@ -672,10 +672,15 @@ namespace FloorPlanMaker
             form.ShowDialog();
             if (form.DialogResult == DialogResult.OK)
             {
-
+                dtpFloorplan.Value = shiftManager.SelectedFloorplan.Date;
+                cbIsAM.Checked = shiftManager.SelectedFloorplan.IsLunch;
                 UpdateFloorplan();
                 //GetNumberOfSections();
-                shiftManager.SelectedFloorplan.CreateSectionsForServers();
+                foreach(Floorplan fp in shiftManager.Floorplans)
+                {
+                    fp.CreateSectionsForServers();
+                }
+                
                 CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
                 lblServerMaxCovers.Text = shiftManager.SelectedFloorplan.MaxCoversPerServer.ToString("F1");
                 lblServerAverageCovers.Text = shiftManager.SelectedFloorplan.AvgCoversPerServer.ToString("F1");
@@ -1231,7 +1236,7 @@ namespace FloorPlanMaker
         }
         private void UpdateTableControlSections()
         {
-            if (shiftManager.SelectedFloorplan == null)
+            if (shiftManager.ViewedFloorplan == null)
             {
                 return;
             }
@@ -1240,7 +1245,7 @@ namespace FloorPlanMaker
 
                 if (ctrl is TableControl tableControl)
                 {
-                    foreach (Section section in shiftManager.SelectedFloorplan.Sections)
+                    foreach (Section section in shiftManager.ViewedFloorplan.Sections)
                     {
 
                         foreach (Table table in section.Tables)
@@ -1328,10 +1333,34 @@ namespace FloorPlanMaker
             Floorplan fp = SqliteDataAccess.LoadFloorplanByCriteria(shiftManager.SelectedDiningArea, date, cbIsAM.Checked);
             if (fp != null)
             {
-                shiftManager.SelectedFloorplan = fp;
+                shiftManager.ViewedFloorplan = fp;
+            }
+            if (fp == null)
+            {
+                foreach(TableControl tableControl in allTableControls)
+                {
+                    Section sectionEdited = tableControl.Section;
+                    if (sectionEdited != null)
+                    {
+                        tableControl.Section.Tables.Remove(tableControl.Table);
+                        tableControl.Section = null;
+                        UpdateSectionLabels(sectionEdited, sectionEdited.MaxCovers, sectionEdited.AverageCovers);
+                    }
+
+                    
+                    tableControl.BackColor = pnlFloorPlan.BackColor;  // Restore the original color
+                    tableControl.Invalidate();
+                    
+                }
             }
            
             UpdateTableControlSections();
+            sectionControlsManager = new SectionControlsManager(shiftManager.ViewedFloorplan);
+            foreach (SectionControl sectionControl in sectionControlsManager.SectionControls)
+            {
+                pnlFloorPlan.Controls.Add(sectionControl);
+                sectionControl.BringToFront();
+            }
 
         }
 

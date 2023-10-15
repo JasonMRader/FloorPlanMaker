@@ -508,6 +508,10 @@ namespace FloorPlanMaker
 
         private void btnAssignTables_Click(object sender, EventArgs e)
         {
+            foreach(Floorplan fp in shiftManager.Floorplans)
+            {
+                fp.Date = dateSelected;
+            }
             this.DialogResult = DialogResult.OK;
             this.Close();
 
