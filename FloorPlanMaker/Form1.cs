@@ -390,7 +390,11 @@ namespace FloorPlanMaker
             lblDiningAreaAverageCovers.Text = shiftManager.SelectedDiningArea.GetAverageCovers().ToString();
             lblDiningAreaMaxCovers.Text = shiftManager.SelectedDiningArea.GetMaxCovers().ToString();
 
+            DateOnly date = DateOnly.FromDateTime(dtpFloorplan.Value);
+            shiftManager.ViewedFloorplan = SqliteDataAccess.LoadFloorplanByCriteria(shiftManager.SelectedDiningArea, date, cbIsAM.Checked);
 
+
+            UpdateTableControlSections();
 
         }
         private void RefreshTemplateList(DiningArea dining)
