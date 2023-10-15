@@ -991,6 +991,7 @@ namespace FloorPlanMaker
         private Dictionary<Section, (Label MaxCoversLabel, Label AverageCoversLabel)> sectionLabels = new Dictionary<Section, (Label, Label)>();
         public void UpdateSectionLabels(Section section, int newMaxCoversValue, float newAverageCoversValue)
         {
+            if (shiftManager.SelectedFloorplan == null) return;
             
             float maxDifference = newMaxCoversValue - shiftManager.SelectedFloorplan.MaxCoversPerServer;
             float avgDifference = newAverageCoversValue - shiftManager.SelectedFloorplan.AvgCoversPerServer;
@@ -1128,8 +1129,19 @@ namespace FloorPlanMaker
             //sectionLine.StartPoint = new System.Drawing.Point(0, 0);
             //sectionLine.EndPoint = new System.Drawing.Point(300, 300);
             //pnlFloorPlan.Controls.Add(sectionLine);
-            SqliteDataAccess.UpdateAllFloorplanDates();
-
+            //SqliteDataAccess.UpdateAllFloorplanDates();
+            List<Control> controlsToRemove = new List<Control>();
+            foreach (Control c in pnlFloorPlan.Controls)
+            {
+                if (c is SectionControl sectionControl)
+                {
+                    controlsToRemove.Add(sectionControl);
+                }
+            }
+            foreach (Control c in controlsToRemove)
+            {
+                pnlFloorPlan.Controls.Remove(c);
+            }
         }
 
         private void cboFloorplanTemplates_SelectedIndexChanged(object sender, EventArgs e)
@@ -1236,8 +1248,21 @@ namespace FloorPlanMaker
         }
         private void UpdateTableControlSections()
         {
+            List<Control> controlsToRemove = new List<Control>();
+            foreach (Control c in pnlFloorPlan.Controls)
+            {
+                if (c is SectionControl sectionControl)
+                {
+                    controlsToRemove.Add(sectionControl);
+                }
+            }
+            foreach (Control c in controlsToRemove)
+            {
+                pnlFloorPlan.Controls.Remove(c);
+            }
             if (shiftManager.ViewedFloorplan == null)
             {
+                ResetAllTableControlSections();
                 return;
             }
             foreach (Control ctrl in pnlFloorPlan.Controls)
@@ -1260,6 +1285,12 @@ namespace FloorPlanMaker
                         }
                     }
                 }
+            }
+            sectionControlsManager = new SectionControlsManager(shiftManager.ViewedFloorplan);
+            foreach (SectionControl sectionControl in sectionControlsManager.SectionControls)
+            {
+                pnlFloorPlan.Controls.Add(sectionControl);
+                sectionControl.BringToFront();
             }
         }
 
@@ -1330,40 +1361,33 @@ namespace FloorPlanMaker
         private void dtpFloorplan_ValueChanged(object sender, EventArgs e)
         {
             DateOnly date = DateOnly.FromDateTime(dtpFloorplan.Value);
-            Floorplan fp = SqliteDataAccess.LoadFloorplanByCriteria(shiftManager.SelectedDiningArea, date, cbIsAM.Checked);
-            if (fp != null)
-            {
-                shiftManager.ViewedFloorplan = fp;
-            }
-            if (fp == null)
-            {
-                foreach(TableControl tableControl in allTableControls)
-                {
-                    Section sectionEdited = tableControl.Section;
-                    if (sectionEdited != null)
-                    {
-                        tableControl.Section.Tables.Remove(tableControl.Table);
-                        tableControl.Section = null;
-                        UpdateSectionLabels(sectionEdited, sectionEdited.MaxCovers, sectionEdited.AverageCovers);
-                    }
+            shiftManager.ViewedFloorplan = SqliteDataAccess.LoadFloorplanByCriteria(shiftManager.SelectedDiningArea, date, cbIsAM.Checked);
+            
 
-                    
-                    tableControl.BackColor = pnlFloorPlan.BackColor;  // Restore the original color
-                    tableControl.Invalidate();
-                    
-                }
-            }
-           
             UpdateTableControlSections();
-            sectionControlsManager = new SectionControlsManager(shiftManager.ViewedFloorplan);
-            foreach (SectionControl sectionControl in sectionControlsManager.SectionControls)
-            {
-                pnlFloorPlan.Controls.Add(sectionControl);
-                sectionControl.BringToFront();
-            }
+            
+            
 
         }
+        private void ResetAllTableControlSections()
+        {
+            foreach (TableControl tableControl in allTableControls)
+            {
+                Section sectionEdited = tableControl.Section;
+                if (sectionEdited != null)
+                {
+                    tableControl.Section.Tables.Remove(tableControl.Table);
+                    tableControl.Section = null;
+                    UpdateSectionLabels(sectionEdited, sectionEdited.MaxCovers, sectionEdited.AverageCovers);
+                }
 
+
+                tableControl.BackColor = pnlFloorPlan.BackColor;  // Restore the original color
+                tableControl.Invalidate();
+
+            }
+            
+        }
         private void btnAddSection_Click(object sender, EventArgs e)
         {
 
