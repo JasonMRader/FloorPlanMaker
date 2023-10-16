@@ -1224,9 +1224,26 @@ namespace FloorPlanMaker
             }
             if (shiftManager.SelectedFloorplan.CheckIfAllSectionsAssigned())
             {
+                if(!shiftManager.SelectedFloorplan.CheckIfCloserIsAssigned())
+                {
+                    DialogResult result = MessageBox.Show("There is not a closer assigned",
+                                                "Continue?",
+                                                MessageBoxButtons.YesNo,
+                                                MessageBoxIcon.Question);
+
+                    if (result == DialogResult.No)
+                    {
+                        // User does not want to replace, so exit without saving.
+
+                        return;
+                    }
+                    
+                }
                 SqliteDataAccess.SaveFloorplanAndSections(shiftManager.SelectedFloorplan);
                 FloorplanPrinter printer = new FloorplanPrinter(pnlFloorPlan, drawingHandler.GetSectionLines());
                 printer.ShowPrintPreview();
+
+
             }
             else
             {

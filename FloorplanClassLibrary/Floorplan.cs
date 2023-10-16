@@ -162,6 +162,18 @@ namespace FloorplanClassLibrary
                 Sections.Remove(sectionToRemove);
             }
         }
+        public bool CheckIfCloserIsAssigned()
+        {
+            bool closerAssigned = false;
+            foreach (var s in Sections)
+            {
+                if(s.IsCloser)
+                {
+                    closerAssigned = true;
+                }
+            }
+            return closerAssigned;
+        }
         public bool CheckIfAllSectionsAssigned()
         {
             bool allSectionsAssigned = true;
