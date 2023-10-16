@@ -446,6 +446,84 @@ namespace FloorplanClassLibrary
                 cnn.Close();
             }
         }
+        public static void SaveOrUpdateFloorplanAndSections(Floorplan floorplan)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                cnn.Open();
+                var existingFloorplan = cnn.QueryFirstOrDefault<Floorplan>(
+                "SELECT * FROM Floorplan WHERE Date = @Date AND IsLunch = @IsLunch AND DiningAreaID = @DiningAreaID",
+                new
+                {
+                    Date = floorplan.Date.Date,
+                    IsLunch = floorplan.IsLunch,
+                    DiningAreaID = floorplan.DiningArea.ID
+                });
+
+                if (existingFloorplan != null)
+                {
+                    // 1. Update the Floorplan itself
+                   // cnn.Execute("UPDATE Floorplan SET ... WHERE ID = @ID", new { ID = existingFloorplan.ID, ... });
+
+                    // 2. Delete the related sections and their associated data
+                    var relatedSectionIds = cnn.Query<int>("SELECT SectionID FROM FloorplanSections WHERE FloorplanID = @FloorplanID", new { FloorplanID = existingFloorplan.ID }).ToList();
+                    foreach (var sectionId in relatedSectionIds)
+                    {
+                        cnn.Execute("DELETE FROM ServerSections WHERE SectionID = @SectionID", new { SectionID = sectionId });
+                        cnn.Execute("DELETE FROM Shift WHERE SectionID = @SectionID", new { SectionID = sectionId });
+                    }
+                    cnn.Execute("DELETE FROM FloorplanSections WHERE FloorplanID = @FloorplanID", new { FloorplanID = existingFloorplan.ID });
+
+                    floorplan.ID = existingFloorplan.ID; // We'll reuse this ID when inserting new data
+                }
+                else
+                {
+                    cnn.Execute("INSERT INTO Floorplan (Date, IsLunch, DiningAreaID) VALUES (date(@Date), @IsLunch, @DiningAreaID)",
+                    new
+                    {
+                        Date = floorplan.Date,
+                        IsLunch = floorplan.IsLunch,
+                        DiningAreaID = floorplan.DiningArea.ID
+                    });
+
+                    floorplan.ID = cnn.Query<int>("select last_insert_rowid()", new DynamicParameters()).Single();
+                }
+
+                // Save (or update) each section
+                foreach (Section section in floorplan.Sections)
+                {
+                    SaveSection(section); // Assuming SaveSection does a save or update logic too
+
+                    // Link this section with the floorplan
+                    cnn.Execute("INSERT INTO FloorplanSections (FloorplanID, SectionID) VALUES (@FloorplanID, @SectionID)",
+                    new
+                    {
+                        FloorplanID = floorplan.ID,
+                        SectionID = section.ID
+                    });
+
+                    if (section.Server != null)
+                    {
+                        cnn.Execute("INSERT OR IGNORE INTO ServerSections (ServerID, SectionID) VALUES (@ServerID, @SectionID)",
+                        new
+                        {
+                            ServerID = section.Server.ID,
+                            SectionID = section.ID
+                        });
+
+                        cnn.Execute("INSERT OR IGNORE INTO Shift (ServerID, SectionID, FloorplanID, DiningAreaID) VALUES (@ServerID, @SectionID, @FloorplanID, @DiningAreaID)",
+                        new
+                        {
+                            ServerID = section.Server.ID,
+                            SectionID = section.ID,
+                            FloorplanID = floorplan.ID,
+                            DiningAreaID = floorplan.DiningArea.ID
+                        });
+                    }
+                }
+                cnn.Close();
+            }
+        }
 
         public static void SaveFloorplanAndSections(Floorplan floorplan)
         {

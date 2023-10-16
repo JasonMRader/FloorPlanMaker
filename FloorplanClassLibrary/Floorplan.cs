@@ -162,6 +162,18 @@ namespace FloorplanClassLibrary
                 Sections.Remove(sectionToRemove);
             }
         }
+        public bool CheckIfAllSectionsAssigned()
+        {
+            bool allSectionsAssigned = true;
+            foreach (var section in Sections)
+            {
+                if (!section.IsPickUp && section.Server == null)
+                {
+                    allSectionsAssigned = false;
+                }
 
+            }
+            return allSectionsAssigned;
+        }
     }
 }

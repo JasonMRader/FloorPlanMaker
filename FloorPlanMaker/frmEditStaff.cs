@@ -151,10 +151,11 @@ namespace FloorPlanMaker
                     shiftManager.Floorplans.Add(fp);
                     foreach (Control c in flowDiningAreas.Controls)
                     {
-                        if (cb.Checked = false)
+                        if(c is CheckBox cb && c.Tag == diningArea)
                         {
                             cb.Checked = true;
                         }
+                        
                     }
 
                     //foreach (Server server in fp.Servers)

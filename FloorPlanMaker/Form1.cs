@@ -1222,11 +1222,18 @@ namespace FloorPlanMaker
                 pnlFloorPlan.Controls.Add(sectionControl);
                 sectionControl.BringToFront();
             }
+            if (shiftManager.SelectedFloorplan.CheckIfAllSectionsAssigned())
+            {
+                SqliteDataAccess.SaveFloorplanAndSections(shiftManager.SelectedFloorplan);
+                FloorplanPrinter printer = new FloorplanPrinter(pnlFloorPlan, drawingHandler.GetSectionLines());
+                printer.ShowPrintPreview();
+            }
+            else
+            {
+                MessageBox.Show("Not all sections are assigned");
+            }
 
-            SqliteDataAccess.SaveFloorplanAndSections(shiftManager.SelectedFloorplan);
-            FloorplanPrinter printer = new FloorplanPrinter(pnlFloorPlan, drawingHandler.GetSectionLines());
-
-            printer.ShowPrintPreview();  // To show print preview
+              // To show print preview
             //printer.Print();  // To print
 
         }
