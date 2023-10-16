@@ -139,6 +139,7 @@ namespace FloorPlanMaker
         }
         private void SetFloorplansForDateAndShift()
         {
+            UncheckDiningAreas();
             flowDiningAreaAssignment.Controls.Clear();
             DateOnly date = DateOnly.FromDateTime(dateSelected);
             shiftManager.Floorplans.Clear();
@@ -156,12 +157,22 @@ namespace FloorPlanMaker
                         }
                     }
 
-                    foreach (Server server in fp.Servers)
-                    {
-                        NewAddServerButtonToFloorplan(fp, server);
-                    }
+                    //foreach (Server server in fp.Servers)
+                    //{
+                    //    NewAddServerButtonToFloorplan(fp, server);
+                    //}
                 }
 
+            }
+        }
+        private void RefreshAllServerAssignmentsForShift()
+        {
+            foreach(Floorplan fp in shiftManager.Floorplans)
+            {
+                foreach (Server server in fp.Servers)
+                {
+                    NewAddServerButtonToFloorplan(fp, server);
+                }
             }
         }
         private void AddServerToUnassignedServersInShift(Server server)
@@ -197,8 +208,11 @@ namespace FloorPlanMaker
                 {
                     foreach (var server in floorplanToRemove.Servers)
                     {
-
-                        AddServerToUnassignedServersInShift(server);
+                        if (shiftManager.UnassignedServers.Contains(server))
+                        {
+                            AddServerToUnassignedServersInShift(server);
+                        }
+                        
 
                     }
                     floorplanToRemove.Servers.Clear();
@@ -678,6 +692,16 @@ namespace FloorPlanMaker
             lblLastWeekDay.Text = "Last " + dateSelected.ToString("dddd") + ":";
             RefreshLastWeekCounts();
             SetFloorplansForDateAndShift();
+        }
+        private void UncheckDiningAreas()
+        {
+            foreach(Control c in flowDiningAreas.Controls)
+            {
+                if (c is CheckBox checkBox)
+                {
+                    checkBox.Checked = false; 
+                }
+            }
         }
     }
 }
