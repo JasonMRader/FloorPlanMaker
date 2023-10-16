@@ -111,30 +111,49 @@ namespace FloorPlanMaker
         }
         private void SetFloorplansForDateAndShift()
         {
+            foreach (Control c in flowDiningAreas.Controls)
+            {
+                if (c is CheckBox cb)
+                {
+                    cb.Checked = false;
+                }
+            }
+
             flowDiningAreaAssignment.Controls.Clear();
             DateOnly date = DateOnly.FromDateTime(dateSelected);
             shiftManager.Floorplans.Clear();
             foreach (DiningArea diningArea in DiningAreaManager.DiningAreas)
             {
-                Floorplan fp = SqliteDataAccess.LoadFloorplanByCriteria(diningArea, date, cbIsAM.Checked);
+                Floorplan fp = new Floorplan();
+                
+                fp = SqliteDataAccess.LoadFloorplanByCriteria(diningArea, date, cbIsAM.Checked);
                 if(fp != null) 
                 {
                     shiftManager.Floorplans.Add(fp);
-                    foreach(Control c in flowDiningAreas.Controls)
-                    {
-                        if (c is CheckBox cb && c.Tag == diningArea)
-                        {
-                            cb.Checked = true;
-                        }
-                    }
+                    
 
-                    foreach (Server server in fp.Servers)
-                    {
-                        NewAddServerButtonToFloorplan(fp, server);
-                    }
+                    //foreach (Server server in fp.Servers)
+                    //{
+                    //    NewAddServerButtonToFloorplan(fp, server);
+                    //}
                 }
                 
             }
+            foreach(Floorplan floorplan in shiftManager.Floorplans)
+            {
+                foreach (Control c in flowDiningAreas.Controls)
+                {
+                    if (c is CheckBox cb && c.Tag == floorplan.DiningArea)
+                    {
+                        if (cb.Checked = false)
+                        {
+                            cb.Checked = true;
+                        }
+
+                    }
+                }
+            }
+            
         }
         private void AddServerToUnassignedServersInShift(Server server)
         {
