@@ -109,6 +109,34 @@ namespace FloorPlanMaker
 
             }
         }
+        private void OLDSetFloorplansForDateAndShift()
+        {
+            flowDiningAreaAssignment.Controls.Clear();
+            DateOnly date = DateOnly.FromDateTime(dateSelected);
+            shiftManager.Floorplans.Clear();
+            shiftManager.Floorplans = SqliteDataAccess.LoadFloorplansByDateAndShift(date, cbIsAM.Checked);
+            foreach (Floorplan fp in shiftManager.Floorplans)
+            {
+
+                if (fp != null)
+                {
+
+                    foreach (Control c in flowDiningAreas.Controls)
+                    {
+                        if (c is CheckBox cb && (c.Tag as DiningArea)?.ID == fp.DiningArea.ID)
+                        {
+                            cb.Checked = true;
+                        }
+                    }
+
+                    foreach (Server server in fp.Servers)
+                    {
+                        NewAddServerButtonToFloorplan(fp, server);
+                    }
+                }
+
+            }
+        }
         private void SetFloorplansForDateAndShift()
         {
             flowDiningAreaAssignment.Controls.Clear();
@@ -117,10 +145,10 @@ namespace FloorPlanMaker
             foreach (DiningArea diningArea in DiningAreaManager.DiningAreas)
             {
                 Floorplan fp = SqliteDataAccess.LoadFloorplanByCriteria(diningArea, date, cbIsAM.Checked);
-                if(fp != null) 
+                if (fp != null)
                 {
                     shiftManager.Floorplans.Add(fp);
-                    foreach(Control c in flowDiningAreas.Controls)
+                    foreach (Control c in flowDiningAreas.Controls)
                     {
                         if (c is CheckBox cb && c.Tag == diningArea)
                         {
@@ -133,7 +161,7 @@ namespace FloorPlanMaker
                         NewAddServerButtonToFloorplan(fp, server);
                     }
                 }
-                
+
             }
         }
         private void AddServerToUnassignedServersInShift(Server server)
@@ -153,8 +181,12 @@ namespace FloorPlanMaker
             DiningArea area = (DiningArea)cbArea.Tag;
             if (cbArea.Checked)
             {
-                shiftManager.DiningAreasUsed.Add(area);
-                shiftManager.CreateFloorplanForDiningArea(area, DateTime.Now, false, 0, 0);
+
+                if (!shiftManager.DiningAreasUsed.Contains(area))
+                {
+                    shiftManager.CreateFloorplanForDiningArea(area, DateTime.Now, false, 0, 0);
+                }
+                
 
                 RefreshFloorplanFlowPanel();
             }
@@ -513,7 +545,7 @@ namespace FloorPlanMaker
                 {
                     shiftManager.SelectedFloorplan.Servers.Add(server);
                 }
-                
+
             }
             NewAddServerButtonToFloorplan(shiftManager.SelectedFloorplan, server);
 
@@ -541,7 +573,7 @@ namespace FloorPlanMaker
 
         private void btnAssignTables_Click(object sender, EventArgs e)
         {
-            foreach(Floorplan fp in shiftManager.Floorplans)
+            foreach (Floorplan fp in shiftManager.Floorplans)
             {
                 fp.Date = dateSelected;
             }

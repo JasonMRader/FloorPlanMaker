@@ -210,6 +210,67 @@ namespace FloorplanClassLibrary
                 return floorplan;
             }
         }
+        public static List<Floorplan> LoadFloorplansByDateAndShift(DateOnly date, bool isLunch)
+        {
+            string dateString = date.ToString("yyyy-MM-dd");
+            List<Floorplan> floorplans = new List<Floorplan>();
+
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                // Query Floorplans based on given criteria
+                var fetchedFloorplans = cnn.Query<Floorplan>(
+                    "SELECT * FROM Floorplan WHERE Date = @Date AND IsLunch = @IsLunch",
+                    new
+                    {
+                        Date = dateString,
+                        IsLunch = isLunch
+                    }).ToList();
+
+                foreach (var floorplan in fetchedFloorplans)
+                {
+                    // You might need to adjust this based on the structure of your DiningArea table
+                    var diningArea = cnn.QuerySingle<DiningArea>("SELECT * FROM DiningArea WHERE ID = @ID", new { ID = floorplan.DiningAreaID });
+                    floorplan.DiningArea = diningArea;
+
+                    // Populate Sections from FloorplanSections
+                    var sectionIds = cnn.Query<int>("SELECT SectionID FROM FloorplanSections WHERE FloorplanID = @FloorplanID", new { FloorplanID = floorplan.ID });
+                    foreach (var id in sectionIds)
+                    {
+                        var section = cnn.QuerySingle<Section>("SELECT * FROM Section WHERE ID = @ID", new { ID = id });
+                        section.Tables = cnn.Query<Table>(
+                            "SELECT * FROM DiningTable WHERE ID IN (SELECT TableID FROM SectionTables WHERE SectionID = @SectionID)",
+                            new { SectionID = id }).ToList();
+                        floorplan.AddSection(section);
+                    }
+
+                    var servers = new List<Server>();
+                    var serverSections = cnn.Query("SELECT * FROM ServerSections WHERE SectionID IN @SectionIds", new { SectionIds = sectionIds })
+                                            .Select(x => new { ServerID = (int)x.ServerID, SectionID = (int)x.SectionID })
+                                            .ToList();
+
+                    foreach (var ss in serverSections)
+                    {
+                        if (!servers.Any(s => s.ID == ss.ServerID))
+                        {
+                            var server = cnn.QuerySingle<Server>("SELECT * FROM Server WHERE ID = @ID", new { ID = ss.ServerID });
+                            servers.Add(server);
+                        }
+
+                        var matchedSection = floorplan.Sections.FirstOrDefault(s => s.ID == ss.SectionID);
+                        if (matchedSection != null)
+                        {
+                            matchedSection.Server = servers.First(s => s.ID == ss.ServerID);
+                        }
+                    }
+
+                    floorplan.Servers = servers;
+                    floorplans.Add(floorplan);
+                }
+            }
+
+            return floorplans;
+        }
+
         public static Floorplan LoadFloorplanByCriteria(DiningArea diningArea, DateOnly date, bool isLunch)
         {
             string dateString = date.ToString("yyyy-MM-dd");

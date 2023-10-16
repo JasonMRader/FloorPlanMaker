@@ -25,6 +25,10 @@ namespace FloorplanClassLibrary
         public List<Table>? Tables { get; set; }
         public int GetMaxCovers()
         {
+            if (Tables == null)
+            {
+                return 0;
+            }
             int maxCovers = 0;  
             foreach(Table table in Tables)
             {
@@ -34,6 +38,10 @@ namespace FloorplanClassLibrary
         }
         public float GetAverageCovers()
         {
+            if (Tables == null)
+            {
+                return 0;
+            }
             float avgCovers = 0;
             foreach (Table table in Tables)
             {
