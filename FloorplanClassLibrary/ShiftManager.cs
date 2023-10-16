@@ -16,8 +16,19 @@ namespace FloorplanClassLibrary
         public DiningArea? SelectedDiningArea { get; set; }
         public Floorplan? SelectedFloorplan { get; set; }
         public Floorplan? ViewedFloorplan { get; set; }
-        public List<DiningArea> DiningAreasUsed = new List<DiningArea>();
-        public List<Server> ServersOnShift = new List<Server>();
+        public List<DiningArea> DiningAreasUsed => Floorplans.Select(fp => fp.DiningArea).Distinct().ToList();
+        public List<Server> ServersOnShift
+        {
+            get
+            {
+                // Get all servers from floorplans.
+                var serversFromFloorplans = Floorplans.SelectMany(fp => fp.Servers);
+
+                // Concatenate servers from floorplans and unassigned servers.
+                return serversFromFloorplans.Concat(UnassignedServers).Distinct().ToList();
+            }
+        }
+
         public List<Server> ServersNotOnShift = new List<Server>();
         public List<Server> UnassignedServers = new List<Server>();
         public List<Section> Sections = new List<Section>();

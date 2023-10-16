@@ -222,7 +222,7 @@
             Controls.Add(txtNewServerName);
             Controls.Add(btnAddNewServer);
             Name = "frmEditStaff";
-            StartPosition = FormStartPosition.CenterParent;
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "frmEditStaff";
             Load += frmEditStaff_Load;
             ResumeLayout(false);
