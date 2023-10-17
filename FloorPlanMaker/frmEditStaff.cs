@@ -30,9 +30,9 @@ namespace FloorPlanMaker
             allFloorplans = SqliteDataAccess.LoadFloorplanList();
 
         }
-        private Dictionary<DiningArea, int> ServersAssignedPreviousWeek(List<Floorplan> floorplans, bool isLunch)
+        private Dictionary<DiningArea, int> ServersAssignedPreviousDay(List<Floorplan> floorplans, bool isLunch, int Days)
         {
-            DateTime oneWeekAgo = dateSelected.AddDays(-7);
+            DateTime oneWeekAgo = dateSelected.AddDays(Days);
 
             var result = floorplans
                 .Where(fp => fp.Date.Date == oneWeekAgo.Date)// && fp.IsLunch == isLunch)
@@ -41,17 +41,25 @@ namespace FloorPlanMaker
 
             return result;
         }
-        private void RefreshLastWeekCounts()
+        private void RefreshPreviousFloorplanCounts()
         {
 
-            Dictionary<DiningArea, int> LastWeekFloorplans = ServersAssignedPreviousWeek(allFloorplans, cbIsAM.Checked);
+            Dictionary<DiningArea, int> LastWeekFloorplans = ServersAssignedPreviousDay(allFloorplans, cbIsAM.Checked,-7);
+            Dictionary<DiningArea, int> YesterdayFloorplans = ServersAssignedPreviousDay(allFloorplans, cbIsAM.Checked, -1);
             flowLastWeekdayCounts.Controls.Clear(); // Clear any existing controls
+            flowYesterdayCounts.Controls.Clear();
 
             foreach (var entry in LastWeekFloorplans)
             {
                 Label lbl = new Label();
                 lbl.Text = $"{entry.Key}: {entry.Value}";
                 flowLastWeekdayCounts.Controls.Add(lbl);
+            }
+            foreach (var entry in YesterdayFloorplans)
+            {
+                Label lbl = new Label();
+                lbl.Text = $"{entry.Key}: {entry.Value}";
+                flowYesterdayCounts.Controls.Add(lbl);
             }
 
         }
@@ -85,7 +93,7 @@ namespace FloorPlanMaker
                 serverControl.HideShifts();
                 flowAllServers.Controls.Add(serverControl);
             }
-            RefreshLastWeekCounts();
+            RefreshPreviousFloorplanCounts();
             SetFloorplansForDateAndShift();
 
             //lbServersOnShift.ValueMember = "Value";
@@ -682,7 +690,7 @@ namespace FloorPlanMaker
             dateSelected = dateSelected.AddDays(1);
             lblShiftDate.Text = dateSelected.ToString("dddd, MMMM dd");
             lblLastWeekDay.Text = "Last " + dateSelected.ToString("dddd") + ":";
-            RefreshLastWeekCounts();
+            RefreshPreviousFloorplanCounts();
             SetFloorplansForDateAndShift();
         }
 
@@ -691,7 +699,7 @@ namespace FloorPlanMaker
             dateSelected = dateSelected.AddDays(-1);
             lblShiftDate.Text = dateSelected.ToString("dddd, MMMM dd");
             lblLastWeekDay.Text = "Last " + dateSelected.ToString("dddd") + ":";
-            RefreshLastWeekCounts();
+            RefreshPreviousFloorplanCounts();
             SetFloorplansForDateAndShift();
         }
         private void UncheckDiningAreas()
