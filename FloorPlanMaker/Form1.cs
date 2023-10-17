@@ -1178,6 +1178,7 @@ namespace FloorPlanMaker
             bool pickUpAdded = false;
             Section pickUpSection = new Section();
             pickUpSection.IsPickUp = true;
+            shiftManager.SelectedFloorplan = shiftManager.ViewedFloorplan;
             shiftManager.SelectedFloorplan.Date = dtpFloorplan.Value;
             shiftManager.SelectedFloorplan.IsLunch = cbIsAM.Checked;
             foreach (Control control in pnlFloorPlan.Controls)

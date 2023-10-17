@@ -455,7 +455,7 @@ namespace FloorplanClassLibrary
                 "SELECT * FROM Floorplan WHERE Date = @Date AND IsLunch = @IsLunch AND DiningAreaID = @DiningAreaID",
                 new
                 {
-                    Date = floorplan.Date.Date,
+                    Date = floorplan.Date.Date.ToString("yyyy-MM-dd"),
                     IsLunch = floorplan.IsLunch,
                     DiningAreaID = floorplan.DiningArea.ID
                 });
@@ -527,6 +527,7 @@ namespace FloorplanClassLibrary
 
         public static void SaveFloorplanAndSections(Floorplan floorplan)
         {
+            string fpDateOnlyString = DateOnly.FromDateTime(floorplan.Date).ToString("yyyy-MM-dd");
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 cnn.Open();
@@ -534,7 +535,7 @@ namespace FloorplanClassLibrary
             "SELECT * FROM Floorplan WHERE Date = @Date AND IsLunch = @IsLunch AND DiningAreaID = @DiningAreaID",
             new
             {
-                Date = floorplan.Date.Date,  
+                Date = fpDateOnlyString,  
                 IsLunch = floorplan.IsLunch,
                 DiningAreaID = floorplan.DiningArea.ID
             });
