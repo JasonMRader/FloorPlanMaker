@@ -698,10 +698,18 @@ namespace FloorPlanMaker
             shiftManager.SelectedFloorplan = shiftManager.Floorplans.FirstOrDefault(fp => fp.DiningArea.ID == areaCreationManager.DiningAreaSelected.ID);
 
             //nudServerCount.Value = shiftManager.SelectedFloorplan.Servers.Count;
+            UpdateServerControlsForFloorplan();
+           
+            CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
+            lblServerMaxCovers.Text = shiftManager.SelectedFloorplan.MaxCoversPerServer.ToString("F1");
+            lblServerAverageCovers.Text = shiftManager.SelectedFloorplan.AvgCoversPerServer.ToString("F1");
+        }
+        private void UpdateServerControlsForFloorplan()
+        {
             flowServersInFloorplan.Controls.Clear();
-            if (shiftManager.SelectedFloorplan.Servers.Count > 0)
+            if (shiftManager.ViewedFloorplan.Servers.Count > 0)
             {
-                foreach (Server server in shiftManager.SelectedFloorplan.Servers)
+                foreach (Server server in shiftManager.ViewedFloorplan.Servers)
                 {
                     ServerControl serverControl = new ServerControl(server, 215, 20);
 
@@ -716,9 +724,6 @@ namespace FloorPlanMaker
                     flowServersInFloorplan.Controls.Add(serverControl);
                 }
             }
-            CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
-            lblServerMaxCovers.Text = shiftManager.SelectedFloorplan.MaxCoversPerServer.ToString("F1");
-            lblServerAverageCovers.Text = shiftManager.SelectedFloorplan.AvgCoversPerServer.ToString("F1");
         }
 
 
@@ -1383,6 +1388,9 @@ namespace FloorPlanMaker
             
 
             UpdateTableControlSections();
+            CreateSectionRadioButtons(shiftManager.ViewedFloorplan.Sections);
+            UpdateServerControlsForFloorplan();
+
             
             
 
