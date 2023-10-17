@@ -117,34 +117,7 @@ namespace FloorPlanMaker
 
             }
         }
-        private void OLDSetFloorplansForDateAndShift()
-        {
-            flowDiningAreaAssignment.Controls.Clear();
-            DateOnly date = DateOnly.FromDateTime(dateSelected);
-            shiftManager.Floorplans.Clear();
-            shiftManager.Floorplans = SqliteDataAccess.LoadFloorplansByDateAndShift(date, cbIsAM.Checked);
-            foreach (Floorplan fp in shiftManager.Floorplans)
-            {
-
-                if (fp != null)
-                {
-
-                    foreach (Control c in flowDiningAreas.Controls)
-                    {
-                        if (c is CheckBox cb && (c.Tag as DiningArea)?.ID == fp.DiningArea.ID)
-                        {
-                            cb.Checked = true;
-                        }
-                    }
-
-                    foreach (Server server in fp.Servers)
-                    {
-                        NewAddServerButtonToFloorplan(fp, server);
-                    }
-                }
-
-            }
-        }
+        
         private void SetFloorplansForDateAndShift()
         {
             UncheckDiningAreas();
@@ -535,7 +508,7 @@ namespace FloorPlanMaker
                 shiftManager.UnassignedServers.Remove(server);
                 flowUnassignedServers.Controls.Remove(serverControl);
 
-                shiftManager.SelectedFloorplan.Servers.Add(server);
+                shiftManager.SelectedFloorplan.AddServerAndSection(server);
             }
             else
             {
@@ -550,7 +523,7 @@ namespace FloorPlanMaker
                                 flowLayoutPanel.Controls.Remove(c2);
                                 if (flowLayoutPanel.Tag is Floorplan fp)
                                 {
-                                    fp.Servers.Remove(server);
+                                    fp.RemoveServerAndSection(server);
                                 }
                             }
                         }
@@ -566,7 +539,7 @@ namespace FloorPlanMaker
                 }
                 else
                 {
-                    shiftManager.SelectedFloorplan.Servers.Add(server);
+                    shiftManager.SelectedFloorplan.AddServerAndSection(server);
                 }
 
             }

@@ -105,6 +105,18 @@ namespace FloorplanClassLibrary
             }
             
         }
+        public void AddServerAndSection(Server server)
+        {
+            this.Servers.Add(server);
+            Section newSection = new Section(this);
+
+            AddSection(newSection);
+        }
+        public void RemoveServerAndSection(Server server)
+        {
+            this.Servers.Remove(server);
+            RemoveHighestNumberedEmptySection();
+        }
 
         public List<Server> Servers = new List<Server>();
         public List<Server> UnassignedServers = new List<Server>();

@@ -680,10 +680,10 @@ namespace FloorPlanMaker
                 cbIsAM.Checked = shiftManager.SelectedFloorplan.IsLunch;
                 UpdateFloorplan();
                 //GetNumberOfSections();
-                foreach(Floorplan fp in shiftManager.Floorplans)
-                {
-                    fp.CreateSectionsForServers();
-                }
+                //foreach(Floorplan fp in shiftManager.Floorplans)
+                //{
+                //    fp.CreateSectionsForServers();
+                //}
                 
                 CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
                 lblServerMaxCovers.Text = shiftManager.SelectedFloorplan.MaxCoversPerServer.ToString("F1");
