@@ -29,6 +29,10 @@ namespace FloorPlanMakerUI
                     SectionControl sectionControl = new SectionControl(section, this);
                     this.SectionControls.Add(sectionControl);
                 }
+                if(section.Server != null)
+                {
+                    UnassignedServers.Remove(section.Server);
+                }
                 
 
             }
