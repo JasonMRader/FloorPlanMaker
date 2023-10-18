@@ -320,6 +320,7 @@ namespace FloorplanClassLibrary
                     {
                         var server = cnn.QuerySingle<Server>("SELECT * FROM Server WHERE ID = @ID", new { ID = ss.ServerID });
                         servers.Add(server);
+                        //floorplan.Servers.Add(server);
                     }
 
                     // Associate server with their respective section
@@ -330,8 +331,15 @@ namespace FloorplanClassLibrary
                     }
                 }
 
-                // Add loaded servers to floorplan's Servers list
+                // Add loaded servers to floorplan's Servers list\
                 floorplan.Servers = servers;
+                //foreach (var section in floorplan.Sections)
+                //{
+                //    if(section.Server != null)
+                //    {
+                //        floorplan.Servers.Add(section.Server);
+                //    }
+                //}
 
 
 
