@@ -1388,8 +1388,16 @@ namespace FloorPlanMaker
             
 
             UpdateTableControlSections();
-            CreateSectionRadioButtons(shiftManager.ViewedFloorplan.Sections);
-            UpdateServerControlsForFloorplan();
+            if (shiftManager.ViewedFloorplan == null)
+            {
+                shiftManager.ViewedFloorplan = shiftManager.SelectedFloorplan;
+            }
+            if(shiftManager.SelectedFloorplan != null)
+            {
+                CreateSectionRadioButtons(shiftManager.ViewedFloorplan.Sections);
+                UpdateServerControlsForFloorplan();
+            }
+            
 
             
             
