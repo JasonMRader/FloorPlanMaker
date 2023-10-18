@@ -572,6 +572,7 @@ namespace FloorPlanMaker
             foreach (Floorplan fp in shiftManager.Floorplans)
             {
                 fp.Date = dateSelected;
+                
             }
             this.DialogResult = DialogResult.OK;
             this.Close();
