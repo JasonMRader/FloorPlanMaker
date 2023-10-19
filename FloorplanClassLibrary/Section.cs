@@ -208,5 +208,18 @@ namespace FloorplanClassLibrary
             var tablePoints = GetTablePoints();
             return ConvexHull.ComputeConvexHull(tablePoints);
         }
+        public List<Tuple<TablePoint, TablePoint>> GetConvexHullEdges()
+        {
+            var convexHull = GetConvexHull();
+            var edges = new List<Tuple<TablePoint, TablePoint>>();
+
+            for (int i = 0; i < convexHull.Count; i++)
+            {
+                edges.Add(new Tuple<TablePoint, TablePoint>(convexHull[i], convexHull[(i + 1) % convexHull.Count]));
+            }
+
+            return edges;
+        }
+
     }
 }

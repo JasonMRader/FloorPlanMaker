@@ -1139,18 +1139,21 @@ namespace FloorPlanMaker
             //sectionLine.EndPoint = new System.Drawing.Point(300, 300);
             //pnlFloorPlan.Controls.Add(sectionLine);
             //SqliteDataAccess.UpdateAllFloorplanDates();
-            List<Control> controlsToRemove = new List<Control>();
-            foreach (Control c in pnlFloorPlan.Controls)
+            foreach(Section section in shiftManager.ViewedFloorplan.Sections)
             {
-                if (c is SectionControl sectionControl)
+                var edges = section.GetConvexHullEdges();
+
+                foreach (var edge in edges)
                 {
-                    controlsToRemove.Add(sectionControl);
+                    var sectionLine = new SectionLine
+                    {
+                        StartPoint = new System.Drawing.Point((int)edge.Item1.X, (int)edge.Item1.Y),
+                        EndPoint = new System.Drawing.Point((int)edge.Item2.X, (int)edge.Item2.Y)
+                    };
+                    pnlFloorPlan.Controls.Add(sectionLine);
                 }
             }
-            foreach (Control c in controlsToRemove)
-            {
-                pnlFloorPlan.Controls.Remove(c);
-            }
+            
         }
 
         private void cboFloorplanTemplates_SelectedIndexChanged(object sender, EventArgs e)

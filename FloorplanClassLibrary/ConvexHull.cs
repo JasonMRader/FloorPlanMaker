@@ -31,11 +31,11 @@ namespace FloorplanClassLibrary
             for (int i = 2; i < orderedPoints.Count; i++)
             {
                 TablePoint top = hull.Pop();
-
-                while (CrossProduct(orderedPoints[i], top, hull.Peek()) <= 0)
+                while (hull.Count > 0 && CrossProduct(orderedPoints[i], top, hull.Peek()) <= 0)
                 {
                     top = hull.Pop();
                 }
+
 
                 hull.Push(top);
                 hull.Push(orderedPoints[i]);
