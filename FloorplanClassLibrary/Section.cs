@@ -178,5 +178,35 @@ namespace FloorplanClassLibrary
                 return new Point(totalX / this.Tables.Count, totalY / this.Tables.Count);
             }
         }
+        public List<TablePoint> GetTablePoints()
+        {
+            var points = new List<TablePoint>();
+
+            foreach (var table in Tables)
+            {
+                switch (table.Shape)
+                {
+                    case Table.TableShape.Circle:
+                        points.Add(new TablePoint(table.XCoordinate, table.YCoordinate));
+                        break;
+
+                    case Table.TableShape.Square:
+                    case Table.TableShape.Diamond:  // For simplicity, treating diamond like square
+                        points.Add(new TablePoint(table.XCoordinate, table.YCoordinate));
+                        points.Add(new TablePoint(table.XCoordinate + table.Width, table.YCoordinate));
+                        points.Add(new TablePoint(table.XCoordinate, table.YCoordinate + table.Height));
+                        points.Add(new TablePoint(table.XCoordinate + table.Width, table.YCoordinate + table.Height));
+                        break;
+                }
+            }
+
+            return points;
+        }
+
+        public List<TablePoint> GetConvexHull()
+        {
+            var tablePoints = GetTablePoints();
+            return ConvexHull.ComputeConvexHull(tablePoints);
+        }
     }
 }
