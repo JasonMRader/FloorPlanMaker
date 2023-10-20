@@ -1178,6 +1178,7 @@ namespace FloorPlanMaker
         {
             return Math.Sqrt(Math.Pow(a.Left - b.Left, 2) + Math.Pow(a.Top - b.Top, 2));
         }
+
         private void DrawSeparationLines(Panel pnlFloorPlan, List<TableControl> allTableControls)
         {
             foreach (var currentTable in allTableControls)
@@ -1192,26 +1193,89 @@ namespace FloorPlanMaker
                 {
                     if (currentTable.Section != adjacentTable.Section)
                     {
-                        int midpointX = (currentTable.Left + adjacentTable.Left) / 2;
-                        int midpointY = (currentTable.Top + adjacentTable.Top) / 2;
-
                         if (Math.Abs(currentTable.Top - adjacentTable.Top) < 10) // Assume nearly horizontal
                         {
-                            pnlFloorPlan.CreateGraphics().DrawLine(Pens.Black, midpointX, currentTable.Bottom, midpointX, adjacentTable.Top);
+                            int startX, startY, endX, endY;
+
+                            startY = (currentTable.Top);
+                            endY = (currentTable.Bottom);
+
+                            if (currentTable.Left < adjacentTable.Left) // currentTable is to the left of adjacentTable
+                            {
+                                startX = (currentTable.Right + adjacentTable.Left) / 2;
+
+                                endX = startX;
+                            }
+                            else
+                            {
+                                startX = (currentTable.Left + adjacentTable.Right) / 2;
+
+                                endX = startX;
+                            }
+
+                            SectionLine sectionLine = new SectionLine();
+                            sectionLine.StartPoint = new System.Drawing.Point(startX, startY);
+                            sectionLine.EndPoint = new System.Drawing.Point(endX, endY);
+                            pnlFloorPlan.Controls.Add(sectionLine);
+                            //pnlFloorPlan.CreateGraphics().DrawLine(Pens.Black, startX, startY, endX, endY);
                         }
                         else if (Math.Abs(currentTable.Left - adjacentTable.Left) < 10) // Assume nearly vertical
                         {
-                            pnlFloorPlan.CreateGraphics().DrawLine(Pens.Black, currentTable.Right, midpointY, adjacentTable.Left, midpointY);
+                            int startX, startY, endX, endY;
+
+                            startX = currentTable.Left;
+                            endX = currentTable.Right;
+
+                            if (currentTable.Top < adjacentTable.Top) // currentTable is above adjacentTable
+                            {
+                                startY = (currentTable.Bottom + adjacentTable.Top)/2;
+                                endY = startY;
+                            }
+                            else
+                            {
+                                startY = (currentTable.Top + adjacentTable.Bottom)/2;
+                                endY = startY;
+                            }
+                            
+
+                            pnlFloorPlan.CreateGraphics().DrawLine(Pens.Black, startX, startY, endX, endY);
                         }
                         else
                         {
                             // Diagonal
-                            pnlFloorPlan.CreateGraphics().DrawLine(Pens.Black, currentTable.Left, currentTable.Top, adjacentTable.Left, adjacentTable.Top);
+                            int startX, startY, endX, endY;
+
+                            if (currentTable.Left < adjacentTable.Left) // currentTable is to the left of adjacentTable
+                            {
+                                startX = currentTable.Right;
+                                endX = adjacentTable.Left;
+                            }
+                            else
+                            {
+                                startX = adjacentTable.Right;
+                                endX = currentTable.Left;
+                            }
+
+                            if (currentTable.Top < adjacentTable.Top) // currentTable is above adjacentTable
+                            {
+                                startY = currentTable.Bottom;
+                                endY = adjacentTable.Top;
+                            }
+                            else
+                            {
+                                startY = adjacentTable.Bottom;
+                                endY = currentTable.Top;
+                            }
+
+                            //pnlFloorPlan.CreateGraphics().DrawLine(Pens.Black, startX, startY, endX, endY);
                         }
                     }
                 }
             }
         }
+
+
+
         private void cboFloorplanTemplates_SelectedIndexChanged(object sender, EventArgs e)
         {
 
