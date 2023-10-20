@@ -5,6 +5,7 @@ using NetTopologySuite.Geometries;
 using NetTopologySuite.Triangulate;
 using System.Diagnostics.Metrics;
 using System.Drawing.Drawing2D;
+using System.Windows.Forms;
 //using static System.Collections.Specialized.BitVector32;
 
 namespace FloorPlanMaker
@@ -1139,23 +1140,78 @@ namespace FloorPlanMaker
             //sectionLine.EndPoint = new System.Drawing.Point(300, 300);
             //pnlFloorPlan.Controls.Add(sectionLine);
             //SqliteDataAccess.UpdateAllFloorplanDates();
-            foreach(Section section in shiftManager.ViewedFloorplan.Sections)
-            {
-                var edges = section.GetConvexHullEdges();
 
-                foreach (var edge in edges)
+            //foreach(Section section in shiftManager.ViewedFloorplan.Sections)
+            //{
+            //    var edges = section.GetConvexHullEdges();
+
+            //    foreach (var edge in edges)
+            //    {
+            //        var sectionLine = new SectionLine
+            //        {
+            //            StartPoint = new System.Drawing.Point((int)edge.Item1.X, (int)edge.Item1.Y),
+            //            EndPoint = new System.Drawing.Point((int)edge.Item2.X, (int)edge.Item2.Y)
+            //        };
+            //        pnlFloorPlan.Controls.Add(sectionLine);
+            //    }
+            //}
+            //allTableControls.Sort((a, b) => a.Top.CompareTo(b.Top));
+
+            //// 3. Determine midpoints and 4. Draw borders.
+            //for (int i = 0; i < allTableControls.Count - 1; i++)
+            //{
+            //    TableControl currentTable = allTableControls[i];
+            //    TableControl nextTable = allTableControls[i + 1];
+
+            //    if(currentTable.Section != nextTable.Section)
+            //    {
+            //        int midpoint = currentTable.Bottom + (nextTable.Top - currentTable.Bottom) / 2;
+
+
+            //        pnlFloorPlan.CreateGraphics().DrawLine(Pens.Black, currentTable.Table.XCoordinate, midpoint, currentTable.Table.XCoordinate - currentTable.Width, midpoint);
+            //    }
+
+            //}
+            DrawSeparationLines(pnlFloorPlan, allTableControls);
+        }
+        private double CalculateDistance(TableControl a, TableControl b)
+        {
+            return Math.Sqrt(Math.Pow(a.Left - b.Left, 2) + Math.Pow(a.Top - b.Top, 2));
+        }
+        private void DrawSeparationLines(Panel pnlFloorPlan, List<TableControl> allTableControls)
+        {
+            foreach (var currentTable in allTableControls)
+            {
+                var closestTables = allTableControls
+                    .Where(t => t != currentTable)
+                    .OrderBy(t => CalculateDistance(t, currentTable))
+                    .Take(4)
+                    .ToList();
+
+                foreach (var adjacentTable in closestTables)
                 {
-                    var sectionLine = new SectionLine
+                    if (currentTable.Section != adjacentTable.Section)
                     {
-                        StartPoint = new System.Drawing.Point((int)edge.Item1.X, (int)edge.Item1.Y),
-                        EndPoint = new System.Drawing.Point((int)edge.Item2.X, (int)edge.Item2.Y)
-                    };
-                    pnlFloorPlan.Controls.Add(sectionLine);
+                        int midpointX = (currentTable.Left + adjacentTable.Left) / 2;
+                        int midpointY = (currentTable.Top + adjacentTable.Top) / 2;
+
+                        if (Math.Abs(currentTable.Top - adjacentTable.Top) < 10) // Assume nearly horizontal
+                        {
+                            pnlFloorPlan.CreateGraphics().DrawLine(Pens.Black, midpointX, currentTable.Bottom, midpointX, adjacentTable.Top);
+                        }
+                        else if (Math.Abs(currentTable.Left - adjacentTable.Left) < 10) // Assume nearly vertical
+                        {
+                            pnlFloorPlan.CreateGraphics().DrawLine(Pens.Black, currentTable.Right, midpointY, adjacentTable.Left, midpointY);
+                        }
+                        else
+                        {
+                            // Diagonal
+                            pnlFloorPlan.CreateGraphics().DrawLine(Pens.Black, currentTable.Left, currentTable.Top, adjacentTable.Left, adjacentTable.Top);
+                        }
+                    }
                 }
             }
-            
         }
-
         private void cboFloorplanTemplates_SelectedIndexChanged(object sender, EventArgs e)
         {
 
