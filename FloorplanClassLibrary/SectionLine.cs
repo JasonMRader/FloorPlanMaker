@@ -13,7 +13,14 @@ namespace FloorPlanMaker
         public int ID { get; set; }
         private Point _startPoint;
         private Point _endPoint;
-
+        public SectionLine()
+        {
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer |
+                          ControlStyles.UserPaint |
+                          ControlStyles.AllPaintingInWmPaint, true);
+            this.UpdateStyles();
+            this.Invalidate();
+        }
         public Point StartPoint
         {
             get { return _startPoint; }
@@ -29,7 +36,7 @@ namespace FloorPlanMaker
         {
             base.OnPaint(pe);
 
-            using (Pen pen = new Pen(Color.Black, 2))
+            using (Pen pen = new Pen(Color.Black, 15))
             {
                 // Convert absolute points to relative points
                 var relativeStart = new Point(_startPoint.X - this.Left, _startPoint.Y - this.Top);

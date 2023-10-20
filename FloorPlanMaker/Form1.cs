@@ -1216,6 +1216,7 @@ namespace FloorPlanMaker
                             SectionLine sectionLine = new SectionLine();
                             sectionLine.StartPoint = new System.Drawing.Point(startX, startY);
                             sectionLine.EndPoint = new System.Drawing.Point(endX, endY);
+                            sectionLine.Invalidate();
                             pnlFloorPlan.Controls.Add(sectionLine);
                             //pnlFloorPlan.CreateGraphics().DrawLine(Pens.Black, startX, startY, endX, endY);
                         }
