@@ -89,6 +89,7 @@ namespace FloorPlanMaker
             {
                 server.Shifts = SqliteDataAccess.GetShiftsForServer(server);
                 ServerControl serverControl = new ServerControl(server, 155, 20);
+                serverControl.Label.Font = new Font("Segoe UI", 12, FontStyle.Bold);
                 serverControl.Click += serverControl_Click_AddToShift;
                 serverControl.HideShifts();
                 flowAllServers.Controls.Add(serverControl);
@@ -508,7 +509,7 @@ namespace FloorPlanMaker
                 shiftManager.UnassignedServers.Remove(server);
                 flowUnassignedServers.Controls.Remove(serverControl);
 
-                shiftManager.SelectedFloorplan.AddServerAndSection(server);
+                shiftManager.SelectedFloorplan.Servers.Add(server);
             }
             else
             {

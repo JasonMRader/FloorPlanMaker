@@ -28,10 +28,11 @@ namespace FloorPlanMaker
             };
             Label = new Label
             {
-                Text = Server.Name,
+                Text = Server.AbbreviatedName,
                 AutoSize = false,
                 Height = height,
                 Width = width,
+                Font = new Font("Segoe UI", 12, FontStyle.Bold),
                 BackColor = Color.LightBlue,
                 Margin = new Padding(0),
                 TextAlign = ContentAlignment.MiddleCenter
