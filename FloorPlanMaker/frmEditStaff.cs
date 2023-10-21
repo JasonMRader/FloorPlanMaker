@@ -509,7 +509,7 @@ namespace FloorPlanMaker
                 shiftManager.UnassignedServers.Remove(server);
                 flowUnassignedServers.Controls.Remove(serverControl);
 
-                shiftManager.SelectedFloorplan.Servers.Add(server);
+                shiftManager.SelectedFloorplan.AddServerAndSection(server);
             }
             else
             {
