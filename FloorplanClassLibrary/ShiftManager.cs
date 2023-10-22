@@ -28,15 +28,15 @@ namespace FloorplanClassLibrary
                 return serversFromFloorplans.Concat(UnassignedServers).Distinct().ToList();
             }
         }
-        public bool ContainsFloorplan(DateTime date, bool isLunch, DiningArea diningArea)
+        public bool ContainsFloorplan(DateOnly date, bool isLunch, int ID)
         {
-            return Floorplans.Any(fp => fp.Date.Date == date.Date &&
+            return Floorplans.Any(fp => fp.DateOnly == date &&
                                         fp.IsLunch == isLunch &&
-                                        fp.DiningArea == diningArea);
+                                        fp.DiningArea.ID == ID);
         }
-        public void SetSelectedFloorplan(DateTime date, bool isLunch, DiningArea diningArea)
+        public void SetSelectedFloorplan(DateOnly date, bool isLunch, DiningArea diningArea)
         {
-            SelectedFloorplan = Floorplans.FirstOrDefault(fp => fp.Date.Date == date.Date &&
+            SelectedFloorplan = Floorplans.FirstOrDefault(fp => fp.DateOnly == date &&
                                                        fp.IsLunch == isLunch &&
                                                        fp.DiningArea == diningArea);
         }

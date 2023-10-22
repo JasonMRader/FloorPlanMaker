@@ -382,20 +382,12 @@ namespace FloorPlanMaker
             }
             lblPanel2Text.Text = areaCreationManager.DiningAreaSelected.Name;
             this.shiftManager.SelectedDiningArea = areaCreationManager.DiningAreaSelected;
-            if (shiftManager.Floorplans.Count > 0)
-            {
-                UpdateFloorplan();
-            }
+            SetViewedFloorplan();
 
             RefreshTemplateList(shiftManager.SelectedDiningArea);
             lblDiningAreaAverageCovers.Text = shiftManager.SelectedDiningArea.GetAverageCovers().ToString();
-            lblDiningAreaMaxCovers.Text = shiftManager.SelectedDiningArea.GetMaxCovers().ToString();
-
-            DateOnly date = DateOnly.FromDateTime(dtpFloorplan.Value);
-            shiftManager.ViewedFloorplan = SqliteDataAccess.LoadFloorplanByCriteria(shiftManager.SelectedDiningArea, date, cbIsAM.Checked);
-
-
-            UpdateTableControlSections();
+            lblDiningAreaMaxCovers.Text = shiftManager.SelectedDiningArea.GetMaxCovers().ToString();          
+                      
 
         }
         private void RefreshTemplateList(DiningArea dining)
@@ -679,8 +671,8 @@ namespace FloorPlanMaker
             {
                 dtpFloorplan.Value = shiftManager.SelectedFloorplan.Date;
                 cbIsAM.Checked = shiftManager.SelectedFloorplan.IsLunch;
-                
-                UpdateFloorplan();
+
+                SetViewedFloorplan();
                              
                 
             }
@@ -695,8 +687,7 @@ namespace FloorPlanMaker
                
 
                 CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
-                lblServerMaxCovers.Text = shiftManager.SelectedFloorplan.MaxCoversPerServer.ToString("F1");
-                lblServerAverageCovers.Text = shiftManager.SelectedFloorplan.AvgCoversPerServer.ToString("F1");
+               
             }           
             
         }
@@ -814,10 +805,7 @@ namespace FloorPlanMaker
         private CheckBox selectedSectionButton;
         private CheckBox selectedCloserButton;
         private CheckBox selectedPreCloserButton;
-        private void UpdateFloorplanSection()
-        {
-
-        }
+       
         private void CreateSectionRadioButtons(List<Section> sections)
         {
             // Clear any existing controls from the flow layout panel.
@@ -1505,32 +1493,39 @@ namespace FloorPlanMaker
         }
 
         private void dtpFloorplan_ValueChanged(object sender, EventArgs e)
-        {            
-            if(shiftManager.ContainsFloorplan(dtpFloorplan.Value, cbIsAM.Checked, shiftManager.SelectedDiningArea))
+        {
+
+            SetViewedFloorplan();
+
+
+
+        }
+        private void SetViewedFloorplan()
+        {
+            DateOnly date = DateOnly.FromDateTime(dtpFloorplan.Value);
+            if (shiftManager.ContainsFloorplan(date, cbIsAM.Checked, shiftManager.SelectedDiningArea.ID))
             {
-                shiftManager.SetSelectedFloorplan(dtpFloorplan.Value, cbIsAM.Checked, shiftManager.SelectedDiningArea);
+                shiftManager.SetSelectedFloorplan(date, cbIsAM.Checked, shiftManager.SelectedDiningArea);
                 shiftManager.ViewedFloorplan = shiftManager.SelectedFloorplan;
             }
             else
             {
-                DateOnly date = DateOnly.FromDateTime(dtpFloorplan.Value);
+                
                 shiftManager.ViewedFloorplan = SqliteDataAccess.LoadFloorplanByCriteria(shiftManager.SelectedDiningArea, date, cbIsAM.Checked);
             }
-            
+
             //if (shiftManager.ViewedFloorplan == null)
             //{
             //    shiftManager.ViewedFloorplan = shiftManager.SelectedFloorplan;
             //}
-            if(shiftManager.ViewedFloorplan != null)
+            if (shiftManager.ViewedFloorplan != null)
             {
                 CreateSectionRadioButtons(shiftManager.ViewedFloorplan.Sections);
                 UpdateServerControlsForFloorplan();
+                lblServerMaxCovers.Text = shiftManager.ViewedFloorplan.MaxCoversPerServer.ToString("F1");
+                lblServerAverageCovers.Text = shiftManager.ViewedFloorplan.AvgCoversPerServer.ToString("F1");
             }
             UpdateTableControlSections();
-
-
-
-
         }
         private void ClearAllSectionControls()
         {

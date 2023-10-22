@@ -28,6 +28,7 @@ namespace FloorplanClassLibrary
         public Floorplan() { }
         public int ID { get; set; }
         public DateTime Date { get; set; }
+        public DateOnly DateOnly => new DateOnly(Date.Year, Date.Month, Date.Day);
         public bool IsLunch { get; set; }
         public DiningArea? DiningArea { get; set; }
         public int? DiningAreaID { get; set; }
