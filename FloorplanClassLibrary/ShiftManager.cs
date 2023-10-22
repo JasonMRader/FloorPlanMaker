@@ -28,6 +28,18 @@ namespace FloorplanClassLibrary
                 return serversFromFloorplans.Concat(UnassignedServers).Distinct().ToList();
             }
         }
+        public bool ContainsFloorplan(DateTime date, bool isLunch, DiningArea diningArea)
+        {
+            return Floorplans.Any(fp => fp.Date.Date == date.Date &&
+                                        fp.IsLunch == isLunch &&
+                                        fp.DiningArea == diningArea);
+        }
+        public void SetSelectedFloorplan(DateTime date, bool isLunch, DiningArea diningArea)
+        {
+            SelectedFloorplan = Floorplans.FirstOrDefault(fp => fp.Date.Date == date.Date &&
+                                                       fp.IsLunch == isLunch &&
+                                                       fp.DiningArea == diningArea);
+        }
 
         public List<Server> ServersNotOnShift = new List<Server>();
         public List<Server> UnassignedServers = new List<Server>();

@@ -679,35 +679,31 @@ namespace FloorPlanMaker
             {
                 dtpFloorplan.Value = shiftManager.SelectedFloorplan.Date;
                 cbIsAM.Checked = shiftManager.SelectedFloorplan.IsLunch;
-                UpdateFloorplan();
-                //GetNumberOfSections();
-                //foreach(Floorplan fp in shiftManager.Floorplans)
-                //{
-                //    fp.CreateSectionsForServers();
-                //}
                 
-                CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
-                lblServerMaxCovers.Text = shiftManager.SelectedFloorplan.MaxCoversPerServer.ToString("F1");
-                lblServerAverageCovers.Text = shiftManager.SelectedFloorplan.AvgCoversPerServer.ToString("F1");
-
-
+                UpdateFloorplan();
+                             
+                
             }
         }
         private void UpdateFloorplan()
         {
 
             shiftManager.SelectedFloorplan = shiftManager.Floorplans.FirstOrDefault(fp => fp.DiningArea.ID == areaCreationManager.DiningAreaSelected.ID);
-
-            //nudServerCount.Value = shiftManager.SelectedFloorplan.Servers.Count;
             UpdateServerControlsForFloorplan();
-           
-            CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
-            lblServerMaxCovers.Text = shiftManager.SelectedFloorplan.MaxCoversPerServer.ToString("F1");
-            lblServerAverageCovers.Text = shiftManager.SelectedFloorplan.AvgCoversPerServer.ToString("F1");
+            if (shiftManager.SelectedFloorplan != null ) 
+            {
+               
+
+                CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
+                lblServerMaxCovers.Text = shiftManager.SelectedFloorplan.MaxCoversPerServer.ToString("F1");
+                lblServerAverageCovers.Text = shiftManager.SelectedFloorplan.AvgCoversPerServer.ToString("F1");
+            }           
+            
         }
         private void UpdateServerControlsForFloorplan()
         {
             flowServersInFloorplan.Controls.Clear();
+            if (shiftManager.ViewedFloorplan == null) { return; }
             if (shiftManager.ViewedFloorplan.Servers.Count > 0)
             {
                 foreach (Server server in shiftManager.ViewedFloorplan.Servers)
@@ -826,7 +822,10 @@ namespace FloorPlanMaker
         {
             // Clear any existing controls from the flow layout panel.
             flowSectionSelect.Controls.Clear();
-
+            if(sections == null)
+            {
+                return;
+            }
             foreach (var section in sections)
             {
                 // Create a RadioButton for each section.
@@ -1506,25 +1505,31 @@ namespace FloorPlanMaker
         }
 
         private void dtpFloorplan_ValueChanged(object sender, EventArgs e)
-        {
-            DateOnly date = DateOnly.FromDateTime(dtpFloorplan.Value);
-            shiftManager.ViewedFloorplan = SqliteDataAccess.LoadFloorplanByCriteria(shiftManager.SelectedDiningArea, date, cbIsAM.Checked);
-            
-
-            UpdateTableControlSections();
-            if (shiftManager.ViewedFloorplan == null)
+        {            
+            if(shiftManager.ContainsFloorplan(dtpFloorplan.Value, cbIsAM.Checked, shiftManager.SelectedDiningArea))
             {
+                shiftManager.SetSelectedFloorplan(dtpFloorplan.Value, cbIsAM.Checked, shiftManager.SelectedDiningArea);
                 shiftManager.ViewedFloorplan = shiftManager.SelectedFloorplan;
             }
-            if(shiftManager.SelectedFloorplan != null)
+            else
+            {
+                DateOnly date = DateOnly.FromDateTime(dtpFloorplan.Value);
+                shiftManager.ViewedFloorplan = SqliteDataAccess.LoadFloorplanByCriteria(shiftManager.SelectedDiningArea, date, cbIsAM.Checked);
+            }
+            
+            //if (shiftManager.ViewedFloorplan == null)
+            //{
+            //    shiftManager.ViewedFloorplan = shiftManager.SelectedFloorplan;
+            //}
+            if(shiftManager.ViewedFloorplan != null)
             {
                 CreateSectionRadioButtons(shiftManager.ViewedFloorplan.Sections);
                 UpdateServerControlsForFloorplan();
             }
-            
+            UpdateTableControlSections();
 
-            
-            
+
+
 
         }
         private void ClearAllSectionControls()
