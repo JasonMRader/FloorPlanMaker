@@ -575,6 +575,7 @@ namespace FloorPlanMaker
                 fp.Date = dateSelected;
                 
             }
+            shiftManager.DateOnly = new DateOnly(dateSelected.Year, dateSelected.Month, dateSelected.Day);
             this.DialogResult = DialogResult.OK;
             this.Close();
 

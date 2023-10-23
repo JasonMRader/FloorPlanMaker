@@ -669,8 +669,9 @@ namespace FloorPlanMaker
             form.ShowDialog();
             if (form.DialogResult == DialogResult.OK)
             {
-                dtpFloorplan.Value = shiftManager.SelectedFloorplan.Date;
-                cbIsAM.Checked = shiftManager.SelectedFloorplan.IsLunch;
+                dtpFloorplan.Value  = new DateTime(shiftManager.DateOnly.Year, shiftManager.DateOnly.Month, shiftManager.DateOnly.Day);
+
+                cbIsAM.Checked = shiftManager.IsAM;
 
                 SetViewedFloorplan();
                              

@@ -13,6 +13,8 @@ namespace FloorplanClassLibrary
             SelectedDiningArea = diningArea;
         }
         public ShiftManager() { }
+        public bool IsAM { get; set; }
+        public DateOnly DateOnly { get; set; }
         public DiningArea? SelectedDiningArea { get; set; }
         public Floorplan? SelectedFloorplan { get; set; }
         public Floorplan? ViewedFloorplan { get; set; }
@@ -87,6 +89,7 @@ namespace FloorplanClassLibrary
             {
                 floorplan.IsLunch = true;
             }
+            this.IsAM = true;
         }
         public void SetFloorplansToPM()
         {
@@ -94,6 +97,7 @@ namespace FloorplanClassLibrary
             {
                 floorplan.IsLunch = false;
             }
+            this.IsAM = false;
         }
     }
 }
