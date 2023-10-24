@@ -36,11 +36,11 @@ namespace FloorplanClassLibrary
                                         fp.IsLunch == isLunch &&
                                         fp.DiningArea.ID == ID);
         }
-        public void SetSelectedFloorplan(DateOnly date, bool isLunch, DiningArea diningArea)
+        public void SetSelectedFloorplan(DateOnly date, bool isLunch, int ID)
         {
             SelectedFloorplan = Floorplans.FirstOrDefault(fp => fp.DateOnly == date &&
                                                        fp.IsLunch == isLunch &&
-                                                       fp.DiningArea == diningArea);
+                                                       fp.DiningArea.ID == ID);
         }
 
         public List<Server> ServersNotOnShift = new List<Server>();

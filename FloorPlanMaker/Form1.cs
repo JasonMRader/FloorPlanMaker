@@ -1506,7 +1506,7 @@ namespace FloorPlanMaker
             DateOnly date = DateOnly.FromDateTime(dtpFloorplan.Value);
             if (shiftManager.ContainsFloorplan(date, cbIsAM.Checked, shiftManager.SelectedDiningArea.ID))
             {
-                shiftManager.SetSelectedFloorplan(date, cbIsAM.Checked, shiftManager.SelectedDiningArea);
+                shiftManager.SetSelectedFloorplan(date, cbIsAM.Checked, shiftManager.SelectedDiningArea.ID);
                 shiftManager.ViewedFloorplan = shiftManager.SelectedFloorplan;
             }
             else
