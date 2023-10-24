@@ -108,18 +108,33 @@ namespace FloorplanClassLibrary
         }
         public void AddServerAndSection(Server server)
         {
-            this.Servers.Add(server);
+            this.UnassignedServers.Add(server);
             Section newSection = new Section(this);
 
             AddSection(newSection);
         }
         public void RemoveServerAndSection(Server server)
         {
-            this.Servers.Remove(server);
+            this.UnassignedServers.Remove(server);
             RemoveHighestNumberedEmptySection();
         }
 
-        public List<Server> Servers = new List<Server>();
+        public List<Server> Servers
+        {
+            get
+            {
+                // Fetch servers from all sections
+                var serversFromSections = Sections.SelectMany(s => new List<Server> { s.Server, s.Server2 })
+                                                  .Where(s => s != null)
+                                                  .Distinct()
+                                                  .ToList();
+
+                // Concatenate with UnassignedServers and ensure uniqueness
+                return UnassignedServers.Concat(serversFromSections)
+                                        .Distinct()
+                                        .ToList();
+            }
+        }
         public List<Server> UnassignedServers = new List<Server>();
         private int _serverCount = 0;
         public int ServerCount

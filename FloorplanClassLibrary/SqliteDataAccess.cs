@@ -205,7 +205,7 @@ namespace FloorplanClassLibrary
                 }
 
                 // Populate Servers from FloorplanServers
-                floorplan.Servers = cnn.Query<Server>("SELECT * FROM Server WHERE ID IN (SELECT ServerID FROM FloorplanServers WHERE FloorplanID = @FloorplanID)", new { FloorplanID = floorplan.ID }).ToList();
+                //floorplan.Servers = cnn.Query<Server>("SELECT * FROM Server WHERE ID IN (SELECT ServerID FROM FloorplanServers WHERE FloorplanID = @FloorplanID)", new { FloorplanID = floorplan.ID }).ToList();
 
                 return floorplan;
             }
@@ -263,7 +263,7 @@ namespace FloorplanClassLibrary
                         }
                     }
 
-                    floorplan.Servers = servers;
+                    //floorplan.Servers = servers;
                     floorplans.Add(floorplan);
                 }
             }
@@ -332,7 +332,7 @@ namespace FloorplanClassLibrary
                 }
 
                 // Add loaded servers to floorplan's Servers list\
-                floorplan.Servers = servers;
+                //floorplan.Servers = servers;
                 //foreach (var section in floorplan.Sections)
                 //{
                 //    if(section.Server != null)

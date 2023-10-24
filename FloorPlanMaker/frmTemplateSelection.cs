@@ -94,7 +94,7 @@ namespace FloorPlanMaker
                 ShiftManager.SelectedFloorplan.CopyTemplateSections(template.Sections);
             }
             //ShiftManager.SelectedFloorplan.CopySectionsIntoSections(template.Sections);
-            ShiftManager.ViewedFloorplan = ShiftManager.SelectedFloorplan;
+            //ShiftManager.ViewedFloorplan = ShiftManager.SelectedFloorplan;
             this.DialogResult = DialogResult.OK;
         }
             
