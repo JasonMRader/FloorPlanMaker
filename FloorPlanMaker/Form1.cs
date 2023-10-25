@@ -1179,43 +1179,45 @@ namespace FloorPlanMaker
             bool isVerticallyPositioned;
             // Check if the top of the checked table is below the current Table 
             // AND the Checked Tables Bottom is Above the Adjacent Tables top
-            if (currentTable.Top > adjacentTable.Top)
+            //adjacentTable is Above
+            if (currentTable.Top < adjacentTable.Top)
             {
                 isVerticallyPositioned =
-               tableChecked.Top > currentTable.Bottom &&
-               tableChecked.Bottom < adjacentTable.Top;
-            }
-            else
-            {
-                 isVerticallyPositioned =
               tableChecked.Top < currentTable.Bottom &&
               tableChecked.Bottom > adjacentTable.Top;
             }
-           
+            //adjacentTable is below
+            else
+            {
+                isVerticallyPositioned =
+             tableChecked.Top > currentTable.Bottom &&
+             tableChecked.Bottom < adjacentTable.Top;
+            }
+
 
             // EITHER the right of the checked Table is greater than the left of the currentTable 
             // OR the left of the checkedTable is less than the right of the currentTable
             bool overlapsWithCurrentHorizontally =
         (tableChecked.Right > currentTable.Left && tableChecked.Right < currentTable.Right) ||
         (tableChecked.Left > currentTable.Left && tableChecked.Left < currentTable.Right);
-           
+            //isVerticallyPositioned = overlapsWithCurrentHorizontally;
             return isVerticallyPositioned && overlapsWithCurrentHorizontally;
         }
 
 
-        private bool IsHorizontallyBetween(TableControl tableA, TableControl tableB, TableControl candidateTable)
+        private bool IsHorizontallyBetween(TableControl currentTable, TableControl AdjacentTable, TableControl tableChecked)
         {
             // Check if candidate table's X-axis range is between the other two tables
             bool isHorizontallyBetween =
-                (candidateTable.Left > Math.Min(tableA.Left, tableB.Left) &&
-                 candidateTable.Left < Math.Max(tableA.Right, tableB.Right)) ||
-                (candidateTable.Right > Math.Min(tableA.Left, tableB.Left) &&
-                 candidateTable.Right < Math.Max(tableA.Right, tableB.Right));
+                (tableChecked.Left > Math.Min(currentTable.Left, AdjacentTable.Left) &&
+                 tableChecked.Left < Math.Max(currentTable.Right, AdjacentTable.Right)) ||
+                (tableChecked.Right > Math.Min(currentTable.Left, AdjacentTable.Left) &&
+                 tableChecked.Right < Math.Max(currentTable.Right, AdjacentTable.Right));
 
             // Ensure candidate table's Y-axis range does not overlap with either of the two tables
             bool doesNotOverlapVertically =
-                candidateTable.Bottom < Math.Min(tableA.Top, tableB.Top) ||
-                candidateTable.Top > Math.Max(tableA.Bottom, tableB.Bottom);
+                tableChecked.Bottom < Math.Min(currentTable.Top, AdjacentTable.Top) ||
+                tableChecked.Top > Math.Max(currentTable.Bottom, AdjacentTable.Bottom);
 
             return isHorizontallyBetween && doesNotOverlapVertically;
         }
@@ -1223,6 +1225,7 @@ namespace FloorPlanMaker
 
         private void DrawSeparationLines(Panel pnlFloorPlan, List<TableControl> allTableControls)
         {
+            List<SectionLine> lines = new List<SectionLine>();
 
             foreach (var currentTable in allTableControls)
             {
@@ -1236,7 +1239,7 @@ namespace FloorPlanMaker
                 {
                     if (currentTable.Section != adjacentTable.Section)
                     {
-                        if (Math.Abs(currentTable.Top - currentTable.Top) < currentTable.Height) // Assume nearly horizontal
+                        if (Math.Abs(currentTable.Top - adjacentTable.Top) < currentTable.Height) // Assume nearly horizontal
                         {
                             int startX, startY, endX, endY;
 
@@ -1260,10 +1263,10 @@ namespace FloorPlanMaker
                             sectionLine.StartPoint = new System.Drawing.Point(startX, startY);
                             sectionLine.EndPoint = new System.Drawing.Point(endX, endY);
                             sectionLine.Invalidate();
-                            pnlFloorPlan.Controls.Add(sectionLine);
+                            //pnlFloorPlan.Controls.Add(sectionLine);
                             //pnlFloorPlan.CreateGraphics().DrawLine(Pens.Black, startX, startY, endX, endY);
                         }
-                        else if (Math.Abs(currentTable.Left - adjacentTable.Left) < currentTable.Width) // Assume nearly vertical
+                        if (Math.Abs(currentTable.Left - adjacentTable.Left) < currentTable.Width) // Assume nearly vertical
                         {
                             int startX, startY, endX, endY;
 
@@ -1292,8 +1295,11 @@ namespace FloorPlanMaker
                                 SectionLine sectionLine = new SectionLine();
                                 sectionLine.StartPoint = new System.Drawing.Point(startX, startY);
                                 sectionLine.EndPoint = new System.Drawing.Point(endX, endY);
+                                sectionLine.currentTableNumber = currentTable.Table.TableNumber;
+                                sectionLine.adjacentTableNumber = adjacentTable.Table.TableNumber;
                                 sectionLine.Invalidate();
                                 pnlFloorPlan.Controls.Add(sectionLine);
+                                lines.Add(sectionLine);
                             }
 
                            

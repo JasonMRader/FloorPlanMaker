@@ -31,6 +31,8 @@ namespace FloorPlanMaker
             get { return _endPoint; }
             set { _endPoint = value; SetBounds(); }
         }
+        public string currentTableNumber { get; set; }
+        public string adjacentTableNumber { get; set; }
 
         protected override void OnPaint(PaintEventArgs pe)
         {
