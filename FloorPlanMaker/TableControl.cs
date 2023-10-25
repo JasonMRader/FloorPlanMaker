@@ -21,7 +21,7 @@ namespace FloorPlanMaker
         public Table.TableShape Shape { get; set; }
         public Table Table { get; set; }
         public bool IsSelected { get; set; } = false;
-
+        private string _tableNumber { get { return this.Table.TableNumber; } }
         protected override void OnPaint(PaintEventArgs pe)
         {
             DrawTableOnGraphics(pe.Graphics, this);
@@ -164,7 +164,11 @@ namespace FloorPlanMaker
 
             return new Point(totalX / controls.Count, totalY / controls.Count);
         }
-        
+
+        public override string ToString()
+        {
+            return _tableNumber;
+        }
 
 
 
