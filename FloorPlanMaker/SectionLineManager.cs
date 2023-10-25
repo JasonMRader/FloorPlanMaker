@@ -72,7 +72,7 @@ namespace FloorPlanMakerUI
                             int startX, startY, endX, endY;
 
                             startX = currentTable.Left;
-                            endX = adjacentTable.Right;
+                            endX = currentTable.Right;
 
                             if (currentTable.Top < adjacentTable.Top) // currentTable is above adjacentTable
                             {
@@ -99,7 +99,7 @@ namespace FloorPlanMakerUI
                                 sectionLine.currentTableNumber = currentTable.Table.TableNumber;
                                 sectionLine.adjacentTableNumber = adjacentTable.Table.TableNumber;
                                 sectionLine.Invalidate();
-                                pnlFloorPlan.Controls.Add(sectionLine);
+                                //pnlFloorPlan.Controls.Add(sectionLine);
                                 SectionLines.Add(sectionLine);
                                 testData.Add("########## Line added: " +currentTable + ", " + adjacentTable);
                             }
@@ -143,6 +143,10 @@ namespace FloorPlanMakerUI
                     }
                 }
             }
+            foreach (SectionLine sectionLine in SectionLines)
+            {
+                pnlFloorPlan.Controls.Add(sectionLine);
+            }
         }
         
 
@@ -181,7 +185,12 @@ namespace FloorPlanMakerUI
         (tableChecked.Left > currentTable.Left && tableChecked.Left < currentTable.Right);
             testData.Add(overlapsWithCurrentHorizontally.ToString());
             //isVerticallyPositioned = overlapsWithCurrentHorizontally;
-            return isVerticallyPositioned && overlapsWithCurrentHorizontally;
+            bool overlapsWithAdjacentHorizontally =
+        (tableChecked.Right > adjacentTable.Left && tableChecked.Right < adjacentTable.Right) ||
+        (tableChecked.Left > adjacentTable.Left && tableChecked.Left < adjacentTable.Right);
+            testData.Add(overlapsWithAdjacentHorizontally.ToString());
+
+            return isVerticallyPositioned && (overlapsWithCurrentHorizontally || overlapsWithAdjacentHorizontally);
 
         }
 
