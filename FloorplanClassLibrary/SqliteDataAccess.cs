@@ -667,31 +667,7 @@ namespace FloorplanClassLibrary
                     floorplan.DiningArea = cnn.QueryFirstOrDefault<DiningArea>("SELECT * FROM DiningArea WHERE ID = @ID", new { ID = floorplan.DiningAreaID });
 
 
-                    // Load the associated Sections
-                    //var sectionIDs = connection.Query<int>("SELECT SectionID FROM FloorplanSections WHERE FloorplanID = @ID", new { ID = floorplan.ID });
-                    //foreach (var sectionID in sectionIDs)
-                    //{
-                    //    Section section = connection.QueryFirstOrDefault<Section>("SELECT * FROM Section WHERE ID = @ID", new { ID = sectionID });
-
-                    //    // Load Servers for the section
-                    //    section.Server = connection.QueryFirstOrDefault<Server>("SELECT * FROM Server WHERE ID = @ID", new { ID = section.ServerID });
-
-                    //    // Load DiningTables for the section
-                    //    section.Tables = connection.Query<Table>("SELECT dt.* FROM DiningTable dt JOIN SectionTables st ON dt.ID = st.TableID WHERE st.SectionID = @ID", new { ID = sectionID }).ToList();
-
-                    //    floorplan.Sections.Add(section);
-                    //    floorplan.Servers.Add(section.Server);
-                    //}
-                    //foreach (var section in floorplan.Sections)
-                    //{
-                    //    if (section.Server != null)
-                    //    {
-                    //        floorplan.Servers.Add(section.Server);
-                    //    }
-                    //}
-                    //// Set ServerCount and SectionCount
-                    //floorplan.ServerCount = floorplan.Servers.Count;
-                    //floorplan.SectionCount = floorplan.Sections.Count;
+                   
                     var sectionIds = cnn.Query<int>("SELECT SectionID FROM FloorplanSections WHERE FloorplanID = @FloorplanID", new { FloorplanID = floorplan.ID });
                     foreach (var id in sectionIds)
                     {

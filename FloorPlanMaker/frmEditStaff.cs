@@ -52,12 +52,16 @@ namespace FloorPlanMaker
             foreach (var entry in LastWeekFloorplans)
             {
                 Label lbl = new Label();
+                lbl.Font = new Font("Segoe UI", 12f, FontStyle.Bold);
                 lbl.Text = $"{entry.Key}: {entry.Value}";
+                lbl.AutoSize = true;
                 flowLastWeekdayCounts.Controls.Add(lbl);
             }
             foreach (var entry in YesterdayFloorplans)
             {
                 Label lbl = new Label();
+                lbl.Font = new Font("Segoe UI", 12f, FontStyle.Bold);
+                lbl.AutoSize = true;
                 lbl.Text = $"{entry.Key}: {entry.Value}";
                 flowYesterdayCounts.Controls.Add(lbl);
             }
@@ -282,7 +286,7 @@ namespace FloorPlanMaker
                     Margin = new Padding(4),
                     Text = "Servers: " + fp.Servers.Count.ToString(),
                     TextAlign = ContentAlignment.MiddleCenter,
-                    Font = new Font("Segoe UI", 12F),
+                    Font = new Font("Segoe UI", 12f, FontStyle.Bold),
                     Tag = fp
                 };
                 ServerCountLabels.Add(label);
@@ -294,7 +298,7 @@ namespace FloorPlanMaker
                     Margin = new Padding(4),
                     Text = "Max: " + fp.DiningArea.GetMaxCovers().ToString() + "  Avg: " + fp.DiningArea.GetAverageCovers().ToString(),
                     TextAlign = ContentAlignment.MiddleCenter,
-                    Font = new Font("Segoe UI", 12F),
+                    Font = new Font("Segoe UI", 12f, FontStyle.Bold),
                     Tag = fp
                 };
                 ServerMaxLabels.Add(maxLabel);
