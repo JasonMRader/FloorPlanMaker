@@ -333,13 +333,13 @@ namespace FloorplanClassLibrary
 
                 // Add loaded servers to floorplan's Servers list\
                 //floorplan.Servers = servers;
-                //foreach (var section in floorplan.Sections)
-                //{
-                //    if(section.Server != null)
-                //    {
-                //        floorplan.Servers.Add(section.Server);
-                //    }
-                //}
+                foreach (var section in floorplan.Sections)
+                {
+                    if (section.Server != null)
+                    {
+                        floorplan.Servers.Add(section.Server);
+                    }
+                }
 
 
 
@@ -655,37 +655,88 @@ namespace FloorplanClassLibrary
         }
         public static List<Floorplan> LoadFloorplanList()
         {
-            using (IDbConnection connection = new SQLiteConnection(LoadConnectionString()))
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 // Load all basic Floorplan details
-                List<Floorplan> allFloorplans = connection.Query<Floorplan>("SELECT * FROM Floorplan").ToList();
+                List<Floorplan> allFloorplans = cnn.Query<Floorplan>("SELECT * FROM Floorplan").ToList();
 
                 foreach (var floorplan in allFloorplans)
                 {
                     // Load associated DiningArea
                    
-                    floorplan.DiningArea = connection.QueryFirstOrDefault<DiningArea>("SELECT * FROM DiningArea WHERE ID = @ID", new { ID = floorplan.DiningAreaID });
+                    floorplan.DiningArea = cnn.QueryFirstOrDefault<DiningArea>("SELECT * FROM DiningArea WHERE ID = @ID", new { ID = floorplan.DiningAreaID });
 
 
                     // Load the associated Sections
-                    var sectionIDs = connection.Query<int>("SELECT SectionID FROM FloorplanSections WHERE FloorplanID = @ID", new { ID = floorplan.ID });
-                    foreach (var sectionID in sectionIDs)
+                    //var sectionIDs = connection.Query<int>("SELECT SectionID FROM FloorplanSections WHERE FloorplanID = @ID", new { ID = floorplan.ID });
+                    //foreach (var sectionID in sectionIDs)
+                    //{
+                    //    Section section = connection.QueryFirstOrDefault<Section>("SELECT * FROM Section WHERE ID = @ID", new { ID = sectionID });
+
+                    //    // Load Servers for the section
+                    //    section.Server = connection.QueryFirstOrDefault<Server>("SELECT * FROM Server WHERE ID = @ID", new { ID = section.ServerID });
+
+                    //    // Load DiningTables for the section
+                    //    section.Tables = connection.Query<Table>("SELECT dt.* FROM DiningTable dt JOIN SectionTables st ON dt.ID = st.TableID WHERE st.SectionID = @ID", new { ID = sectionID }).ToList();
+
+                    //    floorplan.Sections.Add(section);
+                    //    floorplan.Servers.Add(section.Server);
+                    //}
+                    //foreach (var section in floorplan.Sections)
+                    //{
+                    //    if (section.Server != null)
+                    //    {
+                    //        floorplan.Servers.Add(section.Server);
+                    //    }
+                    //}
+                    //// Set ServerCount and SectionCount
+                    //floorplan.ServerCount = floorplan.Servers.Count;
+                    //floorplan.SectionCount = floorplan.Sections.Count;
+                    var sectionIds = cnn.Query<int>("SELECT SectionID FROM FloorplanSections WHERE FloorplanID = @FloorplanID", new { FloorplanID = floorplan.ID });
+                    foreach (var id in sectionIds)
                     {
-                        Section section = connection.QueryFirstOrDefault<Section>("SELECT * FROM Section WHERE ID = @ID", new { ID = sectionID });
-
-                        // Load Servers for the section
-                        section.Server = connection.QueryFirstOrDefault<Server>("SELECT * FROM Server WHERE ID = @ID", new { ID = section.ServerID });
-
-                        // Load DiningTables for the section
-                        section.Tables = connection.Query<Table>("SELECT dt.* FROM DiningTable dt JOIN SectionTables st ON dt.ID = st.TableID WHERE st.SectionID = @ID", new { ID = sectionID }).ToList();
-
-                        floorplan.Sections.Add(section);
-                        floorplan.Servers.Add(section.Server);
+                        var section = cnn.QuerySingle<Section>("SELECT * FROM Section WHERE ID = @ID", new { ID = id });
+                        // Populate Tables for each Section from SectionTables
+                        section.Tables = cnn.Query<Table>(
+                            "SELECT * FROM DiningTable WHERE ID IN (SELECT TableID FROM SectionTables WHERE SectionID = @SectionID)",
+                            new { SectionID = id }).ToList();
+                        floorplan.AddSection(section);
                     }
 
-                    // Set ServerCount and SectionCount
-                    floorplan.ServerCount = floorplan.Servers.Count;
-                    floorplan.SectionCount = floorplan.Sections.Count;
+                    var servers = new List<Server>();
+
+                    // Fetch the server-section relationships directly as anonymous types
+                    var serverSections = cnn.Query("SELECT * FROM ServerSections WHERE SectionID IN @SectionIds", new { SectionIds = sectionIds })
+                                             .Select(x => new { ServerID = (int)x.ServerID, SectionID = (int)x.SectionID })
+                                             .ToList();
+
+                    foreach (var ss in serverSections)
+                    {
+                        // Load server details only once per server
+                        if (!servers.Any(s => s.ID == ss.ServerID))
+                        {
+                            var server = cnn.QuerySingle<Server>("SELECT * FROM Server WHERE ID = @ID", new { ID = ss.ServerID });
+                            servers.Add(server);
+                            //floorplan.Servers.Add(server);
+                        }
+
+                        // Associate server with their respective section
+                        var matchedSection = floorplan.Sections.FirstOrDefault(s => s.ID == ss.SectionID);
+                        if (matchedSection != null)
+                        {
+                            matchedSection.Server = servers.First(s => s.ID == ss.ServerID);
+                        }
+                    }
+
+                    // Add loaded servers to floorplan's Servers list\
+                    //floorplan.Servers = servers;
+                    foreach (var section in floorplan.Sections)
+                    {
+                        if (section.Server != null)
+                        {
+                            floorplan.Servers.Add(section.Server);
+                        }
+                    }
                 }
                 return allFloorplans;
             }
