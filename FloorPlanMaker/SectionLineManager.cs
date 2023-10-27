@@ -1,4 +1,5 @@
-﻿using FloorPlanMaker;
+﻿using FloorplanClassLibrary;
+using FloorPlanMaker;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +14,24 @@ namespace FloorPlanMakerUI
         public List<TableControl> TableControls { get; private set; } = new List<TableControl>();
         public List<SectionLine> SectionLines { get; private set; } = new List<SectionLine>();
         private List<string> testData = new List<string>();
+        public Dictionary<Section, List<TableControl>> SectionToTableControls { get; private set; } = new Dictionary<Section, List<TableControl>>();
+
         public SectionLineManager(List<TableControl> tableControls)
         {
             TableControls = tableControls;
-           
+
+            // Populate the dictionary based on the list of table controls
+            foreach (var tableControl in tableControls)
+            {
+                if (tableControl.Section != null) // Assuming Section is a nullable type
+                {
+                    if (!SectionToTableControls.ContainsKey(tableControl.Section))
+                    {
+                        SectionToTableControls[tableControl.Section] = new List<TableControl>();
+                    }
+                    SectionToTableControls[tableControl.Section].Add(tableControl);
+                }
+            }
         }
 
         public void AddTableControl(TableControl tableControl)
@@ -24,6 +39,13 @@ namespace FloorPlanMakerUI
             TableControls.Add(tableControl);
         }
 
+        public void DrawSectionLines()
+        {
+            foreach (Section section in this.SectionToTableControls.Keys)
+            {
+
+            }
+        }
         public void DrawSeparationLines(Panel pnlFloorPlan)
         {
             SectionLines.Clear();

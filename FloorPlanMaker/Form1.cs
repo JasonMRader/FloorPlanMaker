@@ -1131,10 +1131,11 @@ namespace FloorPlanMaker
             //nudServerCount.Value = 4;
 
             //UpdateFloorplan();
-            //SectionLine sectionLine = new SectionLine();
+            SectionLine sectionLine = new SectionLine(0,0,300,300, 5f);
             //sectionLine.StartPoint = new System.Drawing.Point(0, 0);
             //sectionLine.EndPoint = new System.Drawing.Point(300, 300);
-            //pnlFloorPlan.Controls.Add(sectionLine);
+            //sectionLine.LineThickness = 5f;
+            pnlFloorPlan.Controls.Add(sectionLine);
             //SqliteDataAccess.UpdateAllFloorplanDates();
 
             //foreach(Section section in shiftManager.ViewedFloorplan.Sections)
@@ -1168,9 +1169,10 @@ namespace FloorPlanMaker
             //    }
 
             //}
-           
+
             SectionLineManager sectionLineManager = new SectionLineManager(allTableControls);
-            sectionLineManager.DrawSeparationLines(pnlFloorPlan);
+            //sectionLineManager.DrawSeparationLines(pnlFloorPlan);
+
         }
        
 

@@ -13,8 +13,21 @@ namespace FloorPlanMaker
         public int ID { get; set; }
         private Point _startPoint;
         private Point _endPoint;
+        public float LineThickness { get; set; } = 15f;
         public SectionLine()
         {
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer |
+                          ControlStyles.UserPaint |
+                          ControlStyles.AllPaintingInWmPaint, true);
+            this.UpdateStyles();
+            this.Invalidate();
+        }
+        public SectionLine(int startX, int startY, int endX, int endY, float thickness)
+        {
+            this.StartPoint = new Point(startX, startY);
+            
+            this.EndPoint = new Point(endX, endY);
+            this.LineThickness = thickness;
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer |
                           ControlStyles.UserPaint |
                           ControlStyles.AllPaintingInWmPaint, true);
@@ -38,7 +51,8 @@ namespace FloorPlanMaker
         {
             base.OnPaint(pe);
 
-            using (Pen pen = new Pen(Color.Black, 15))
+            // Use LineThickness when creating the Pen
+            using (Pen pen = new Pen(Color.Black, LineThickness))
             {
                 // Convert absolute points to relative points
                 var relativeStart = new Point(_startPoint.X - this.Left, _startPoint.Y - this.Top);
