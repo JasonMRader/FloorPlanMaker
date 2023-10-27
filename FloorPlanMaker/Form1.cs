@@ -1490,6 +1490,7 @@ namespace FloorPlanMaker
                 pnlFloorPlan.Controls.Add(sectionLine);
             }
             sectionLineManager.RemoveBottomLines(pnlFloorPlan);
+            sectionLineManager.RemoveRightLines(pnlFloorPlan);
             //sectionLineManager.DrawSeparationLines(pnlFloorPlan);
 
         }

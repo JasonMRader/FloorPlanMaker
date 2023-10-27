@@ -289,7 +289,8 @@ namespace FloorPlanMakerUI
             // Create lists to hold bottom lines and top lines that should be removed
             List<SectionLine> bottomLinesToRemove = new List<SectionLine>();
             List<SectionLine> topLinesToRemove = new List<SectionLine>();
-            List<SectionLine> newTopLines = new List<SectionLine>();
+            List<SectionLine> newLines = new List<SectionLine>();
+            
 
             foreach (SectionLine bottomLine in BottomLines)
             {
@@ -309,10 +310,22 @@ namespace FloorPlanMakerUI
                         SectionLine newTopLine1 = new SectionLine(topLine.StartPoint.X, topLine.StartPoint.Y, bottomLine.StartPoint.X, topLine.StartPoint.Y, thickness);
                         SectionLine newTopLine2 = new SectionLine(bottomLine.EndPoint.X, topLine.StartPoint.Y, topLine.EndPoint.X, topLine.StartPoint.Y, thickness);
 
-                        newTopLines.Add(newTopLine1);
-                        newTopLines.Add(newTopLine2);
+                        newLines.Add(newTopLine1);
+                        newLines.Add(newTopLine2);
 
                         break; // Break out of the inner loop since we found a matching topLine
+                    }
+                    if (bottomLine.StartPoint.Y < topLine.StartPoint.Y &&
+                        topLine.StartPoint.X >  bottomLine.StartPoint.X &&
+                        topLine.StartPoint.X <  bottomLine.EndPoint.X)
+                    {
+                        float thickness = topLine.LineThickness;
+                        bottomLinesToRemove.Add(bottomLine);
+                        topLinesToRemove.Add(topLine);
+                        SectionLine newBottomLine = new SectionLine(bottomLine.StartPoint.X, bottomLine.StartPoint.Y, topLine.StartPoint.X, bottomLine.EndPoint.Y, thickness);
+                        newLines.Add(newBottomLine);
+                        SectionLine newTopLine = new SectionLine(bottomLine.EndPoint.X, topLine.StartPoint.Y, topLine.EndPoint.X, topLine.EndPoint.Y, thickness);
+                        newLines.Add(newTopLine);
                     }
                 }
             }
@@ -330,12 +343,84 @@ namespace FloorPlanMakerUI
             }
 
             // Add the new top lines to the panel and the TopLines list
-            foreach (SectionLine newTopLine in newTopLines)
+            foreach (SectionLine newTopLine in newLines)
             {
                 panel.Controls.Add(newTopLine);
                 TopLines.Add(newTopLine);
             }
         }
+        public void RemoveRightLines(Panel panel)
+        {
+            // Sort LeftLines based on the X coordinate of the StartPoint.
+            LeftLines = LeftLines.OrderBy(sl => sl.StartPoint.X).ToList();
+
+            // Create lists to hold right lines and left lines that should be removed
+            List<SectionLine> rightLinesToRemove = new List<SectionLine>();
+            List<SectionLine> leftLinesToRemove = new List<SectionLine>();
+            List<SectionLine> newLines = new List<SectionLine>();
+
+            foreach (SectionLine rightLine in RightLines)
+            {
+                foreach (SectionLine leftLine in LeftLines)
+                {
+                    // Check if the rightLine's start is to the left of leftLine's start and its endpoints are vertically within the bounds of leftLine.
+                    if (rightLine.StartPoint.X < leftLine.StartPoint.X &&
+                        rightLine.StartPoint.Y > leftLine.StartPoint.Y &&
+                        rightLine.EndPoint.Y < leftLine.EndPoint.Y)
+                    {
+                        rightLinesToRemove.Add(rightLine);
+                        leftLinesToRemove.Add(leftLine);
+
+                        float thickness = leftLine.LineThickness;
+
+                        // Create the two new LeftLines
+                        SectionLine newLeftLine1 = new SectionLine(leftLine.StartPoint.X, leftLine.StartPoint.Y, rightLine.StartPoint.X, leftLine.StartPoint.Y, thickness);
+                        SectionLine newLeftLine2 = new SectionLine(rightLine.EndPoint.X, leftLine.StartPoint.Y, leftLine.EndPoint.X, leftLine.StartPoint.Y, thickness);
+
+                        newLines.Add(newLeftLine1);
+                        newLines.Add(newLeftLine2);
+
+                        break;
+                    }
+
+                    // Check if the rightLine's start is to the left of leftLine's start and its start point is vertically within the bounds of leftLine.
+                    if (rightLine.StartPoint.X < leftLine.StartPoint.X &&
+                        leftLine.StartPoint.Y > rightLine.StartPoint.Y &&
+                        leftLine.StartPoint.Y < rightLine.EndPoint.Y)
+                    {
+                        float thickness = leftLine.LineThickness;
+                        rightLinesToRemove.Add(rightLine);
+                        leftLinesToRemove.Add(leftLine);
+
+                        SectionLine newRightLine = new SectionLine(rightLine.StartPoint.X, rightLine.StartPoint.Y, leftLine.StartPoint.X, rightLine.EndPoint.Y, thickness);
+                        newLines.Add(newRightLine);
+
+                        SectionLine newLeftLine = new SectionLine(rightLine.EndPoint.X, leftLine.StartPoint.Y, leftLine.EndPoint.X, leftLine.EndPoint.Y, thickness);
+                        newLines.Add(newLeftLine);
+                    }
+                }
+            }
+
+            // Remove the right lines and left lines that met the criteria from the panel and lists
+            foreach (SectionLine lineToRemove in rightLinesToRemove)
+            {
+                panel.Controls.Remove(lineToRemove);
+                RightLines.Remove(lineToRemove);
+            }
+            foreach (SectionLine lineToRemove in leftLinesToRemove)
+            {
+                panel.Controls.Remove(lineToRemove);
+                LeftLines.Remove(lineToRemove);
+            }
+
+            // Add the new left lines to the panel and the LeftLines list
+            foreach (SectionLine newLeftLine in newLines)
+            {
+                panel.Controls.Add(newLeftLine);
+                LeftLines.Add(newLeftLine);
+            }
+        }
+
 
         // You may add other methods or functionality as per your needs.
     }

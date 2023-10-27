@@ -24,9 +24,33 @@ namespace FloorPlanMaker
         }
         public SectionLine(int startX, int startY, int endX, int endY, float thickness)
         {
-            this.StartPoint = new Point(startX, startY);
-            
-            this.EndPoint = new Point(endX, endY);
+            if(startY == endY)
+            {
+                if (startX < endX)
+                {
+                    this.StartPoint = new Point(startX, startY);
+                    this.EndPoint = new Point(endX, endY);
+                }
+                else
+                {
+                    this.EndPoint = new Point(startX, startY);
+                    this.StartPoint = new Point(endX, endY);
+                }
+            }
+            if (startX == endX)
+            {
+                if (startY < endY)
+                {
+                    this.StartPoint = new Point(startX, startY);
+                    this.EndPoint = new Point(endX, endY);
+                }
+                else
+                {
+                    this.EndPoint = new Point(startX, startY);
+                    this.StartPoint = new Point(endX, endY);
+                }
+            }
+
             this.LineThickness = thickness;
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer |
                           ControlStyles.UserPaint |
