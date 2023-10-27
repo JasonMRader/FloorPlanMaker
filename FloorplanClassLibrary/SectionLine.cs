@@ -75,6 +75,7 @@ namespace FloorPlanMaker
 
             this.SetBounds(x, y, width, height);
         }
+        //public void CutLine(Point)
     }
 
 

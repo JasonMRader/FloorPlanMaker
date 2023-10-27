@@ -13,6 +13,10 @@ namespace FloorPlanMakerUI
     {
         public List<TableControl> TableControls { get; private set; } = new List<TableControl>();
         public List<SectionLine> SectionLines { get; private set; } = new List<SectionLine>();
+        public List<SectionLine> TopLines { get; private set; } = new List<SectionLine>();
+        public List<SectionLine> RightLines { get; private set; } = new List<SectionLine>();
+        public List<SectionLine> BottomLines { get; private set; } = new List<SectionLine>();
+        public List<SectionLine> LeftLines { get; private set; } = new List<SectionLine>();
         private List<string> testData = new List<string>();
         public Dictionary<Section, List<TableControl>> SectionToTableControls { get; private set; } = new Dictionary<Section, List<TableControl>>();
 
@@ -231,6 +235,106 @@ namespace FloorPlanMakerUI
                 tableChecked.Top > Math.Max(currentTable.Bottom, AdjacentTable.Bottom);
 
             return isHorizontallyBetween && doesNotOverlapVertically;
+        }
+        public void MakeSectionTableOutlines()
+        {
+            float thickness = 5f;
+            int gap = 6;
+            foreach(TableControl tableControl in this.TableControls)
+            {
+                SectionLine topLine = new SectionLine(tableControl.Left- gap,tableControl.Top - gap, tableControl.Right + gap, tableControl.Top - gap, thickness);
+                SectionLines.Add(topLine);
+                TopLines.Add(topLine);
+                SectionLine rightLine = new SectionLine(tableControl.Right + gap, tableControl.Top - gap, tableControl.Right + gap, tableControl.Bottom + gap, thickness);
+                SectionLines.Add(rightLine);
+                RightLines.Add(rightLine);
+                SectionLine bottomLine = new SectionLine(tableControl.Right + gap, tableControl.Bottom + gap, tableControl.Left - gap, tableControl.Bottom + gap, thickness);
+                SectionLines.Add(bottomLine);
+                BottomLines.Add(bottomLine);
+                SectionLine leftLine = new SectionLine(tableControl.Left - gap, tableControl.Bottom + gap, tableControl.Left - gap, tableControl.Top - gap, thickness);
+                SectionLines.Add(leftLine);
+                LeftLines.Add(leftLine);
+
+            }
+        }
+        //public void RemoveBottomLines(Panel panel)
+        //{
+        //    TopLines = TopLines.OrderBy(sl => sl.StartPoint.Y).ToList();
+        //    List<SectionLine> bottomLinesToRemove = new List<SectionLine>();
+        //    foreach (SectionLine bottomLine in BottomLines)
+        //    {
+        //        foreach (SectionLine topLine in TopLines)
+        //        {
+        //            if (bottomLine.StartPoint.Y < topLine.StartPoint.Y &&
+        //                bottomLine.StartPoint.X > topLine.StartPoint.X &&
+        //                bottomLine.EndPoint.X < topLine.EndPoint.X)
+        //            {
+        //                bottomLinesToRemove.Add(bottomLine);
+        //                break; // Break out of the inner loop since we found a matching topLine
+        //            }
+        //        }
+        //    }
+        //    foreach (SectionLine lineToRemove in bottomLinesToRemove)
+        //    {
+        //        panel.Controls.Remove(lineToRemove);
+        //        BottomLines.Remove(lineToRemove);
+        //    }
+
+        //}
+        public void RemoveBottomLines(Panel panel)
+        {
+            // Sort TopLines based on the Y coordinate of the StartPoint.
+            TopLines = TopLines.OrderBy(sl => sl.StartPoint.Y).ToList();
+
+            // Create lists to hold bottom lines and top lines that should be removed
+            List<SectionLine> bottomLinesToRemove = new List<SectionLine>();
+            List<SectionLine> topLinesToRemove = new List<SectionLine>();
+            List<SectionLine> newTopLines = new List<SectionLine>();
+
+            foreach (SectionLine bottomLine in BottomLines)
+            {
+                foreach (SectionLine topLine in TopLines)
+                {
+                    if (bottomLine.StartPoint.Y < topLine.StartPoint.Y &&
+                        bottomLine.StartPoint.X > topLine.StartPoint.X &&
+                        bottomLine.EndPoint.X < topLine.EndPoint.X)
+                    {
+                        bottomLinesToRemove.Add(bottomLine);
+
+                        // Add the corresponding topLine to be removed
+                        topLinesToRemove.Add(topLine);
+
+                        // Create the two new TopLines
+                        float thickness = topLine.LineThickness; // Assuming you want to use the same thickness
+                        SectionLine newTopLine1 = new SectionLine(topLine.StartPoint.X, topLine.StartPoint.Y, bottomLine.StartPoint.X, topLine.StartPoint.Y, thickness);
+                        SectionLine newTopLine2 = new SectionLine(bottomLine.EndPoint.X, topLine.StartPoint.Y, topLine.EndPoint.X, topLine.StartPoint.Y, thickness);
+
+                        newTopLines.Add(newTopLine1);
+                        newTopLines.Add(newTopLine2);
+
+                        break; // Break out of the inner loop since we found a matching topLine
+                    }
+                }
+            }
+
+            // Now remove the bottom lines and top lines that met the criteria from the panel and lists
+            foreach (SectionLine lineToRemove in bottomLinesToRemove)
+            {
+                panel.Controls.Remove(lineToRemove);
+                BottomLines.Remove(lineToRemove);
+            }
+            foreach (SectionLine lineToRemove in topLinesToRemove)
+            {
+                panel.Controls.Remove(lineToRemove);
+                TopLines.Remove(lineToRemove);
+            }
+
+            // Add the new top lines to the panel and the TopLines list
+            foreach (SectionLine newTopLine in newTopLines)
+            {
+                panel.Controls.Add(newTopLine);
+                TopLines.Add(newTopLine);
+            }
         }
 
         // You may add other methods or functionality as per your needs.

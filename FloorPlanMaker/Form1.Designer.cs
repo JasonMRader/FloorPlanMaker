@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             pnlServers = new Panel();
+            btnRemoveSection = new Button();
+            btnAddSection = new Button();
             flowServersInFloorplan = new FlowLayoutPanel();
             btnAddServers = new Button();
             lblTeamWaitLabel = new Label();
@@ -92,8 +94,7 @@
             btnPrint = new Button();
             dtpFloorplan = new DateTimePicker();
             cbIsAM = new CheckBox();
-            btnAddSection = new Button();
-            btnRemoveSection = new Button();
+            btnTest2 = new Button();
             pnlServers.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudNumberOfTeamWaits).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudServerCount).BeginInit();
@@ -128,6 +129,28 @@
             pnlServers.Name = "pnlServers";
             pnlServers.Size = new Size(250, 970);
             pnlServers.TabIndex = 0;
+            // 
+            // btnRemoveSection
+            // 
+            btnRemoveSection.FlatStyle = FlatStyle.Flat;
+            btnRemoveSection.Location = new Point(116, 156);
+            btnRemoveSection.Name = "btnRemoveSection";
+            btnRemoveSection.Size = new Size(115, 23);
+            btnRemoveSection.TabIndex = 9;
+            btnRemoveSection.Text = "Remove Section";
+            btnRemoveSection.UseVisualStyleBackColor = true;
+            btnRemoveSection.Click += btnRemoveSection_Click;
+            // 
+            // btnAddSection
+            // 
+            btnAddSection.FlatStyle = FlatStyle.Flat;
+            btnAddSection.Location = new Point(12, 156);
+            btnAddSection.Name = "btnAddSection";
+            btnAddSection.Size = new Size(98, 23);
+            btnAddSection.TabIndex = 9;
+            btnAddSection.Text = "Add Section";
+            btnAddSection.UseVisualStyleBackColor = true;
+            btnAddSection.Click += btnAddSection_Click;
             // 
             // flowServersInFloorplan
             // 
@@ -781,33 +804,22 @@
             cbIsAM.TextAlign = ContentAlignment.MiddleCenter;
             cbIsAM.UseVisualStyleBackColor = false;
             // 
-            // btnAddSection
+            // btnTest2
             // 
-            btnAddSection.FlatStyle = FlatStyle.Flat;
-            btnAddSection.Location = new Point(12, 156);
-            btnAddSection.Name = "btnAddSection";
-            btnAddSection.Size = new Size(98, 23);
-            btnAddSection.TabIndex = 9;
-            btnAddSection.Text = "Add Section";
-            btnAddSection.UseVisualStyleBackColor = true;
-            btnAddSection.Click += btnAddSection_Click;
-            // 
-            // btnRemoveSection
-            // 
-            btnRemoveSection.FlatStyle = FlatStyle.Flat;
-            btnRemoveSection.Location = new Point(116, 156);
-            btnRemoveSection.Name = "btnRemoveSection";
-            btnRemoveSection.Size = new Size(115, 23);
-            btnRemoveSection.TabIndex = 9;
-            btnRemoveSection.Text = "Remove Section";
-            btnRemoveSection.UseVisualStyleBackColor = true;
-            btnRemoveSection.Click += btnRemoveSection_Click;
+            btnTest2.Location = new Point(645, 949);
+            btnTest2.Name = "btnTest2";
+            btnTest2.Size = new Size(75, 23);
+            btnTest2.TabIndex = 16;
+            btnTest2.Text = "Test 2!";
+            btnTest2.UseVisualStyleBackColor = true;
+            btnTest2.Click += btnTest2_Click;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1248, 970);
+            Controls.Add(btnTest2);
             Controls.Add(cbIsAM);
             Controls.Add(dtpFloorplan);
             Controls.Add(btnPrint);
@@ -908,5 +920,6 @@
         private CheckBox cbIsAM;
         private Button btnRemoveSection;
         private Button btnAddSection;
+        private Button btnTest2;
     }
 }

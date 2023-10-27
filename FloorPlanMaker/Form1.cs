@@ -228,13 +228,13 @@ namespace FloorPlanMaker
 
         private void ExistingTable_TableClicked(object sender, TableClickedEventArgs e)
         {
-            
+
             TableControl clickedTableControl = sender as TableControl;
             Table clickedTable = clickedTableControl.Table;
             Section sectionEdited = (Section)clickedTableControl.Section;
             if (e.MouseButton == MouseButtons.Right && clickedTableControl.Section != null)
             {
-                
+
                 //ShiftManager.SectionSelected.Tables.Remove(clickedTable); // Remove the table from the section
 
                 sectionEdited.Tables.RemoveAll(t => t.ID == clickedTable.ID);
@@ -255,7 +255,7 @@ namespace FloorPlanMaker
             {
                 if (shiftManager.SectionSelected != null)
                 {
-                    if(sectionEdited != null)
+                    if (sectionEdited != null)
                     {
                         sectionEdited.Tables.RemoveAll(t => t.ID == clickedTable.ID);
                         UpdateSectionLabels(sectionEdited, sectionEdited.MaxCovers, sectionEdited.AverageCovers);
@@ -394,8 +394,8 @@ namespace FloorPlanMaker
 
             RefreshTemplateList(shiftManager.SelectedDiningArea);
             lblDiningAreaAverageCovers.Text = shiftManager.SelectedDiningArea.GetAverageCovers().ToString();
-            lblDiningAreaMaxCovers.Text = shiftManager.SelectedDiningArea.GetMaxCovers().ToString();          
-                      
+            lblDiningAreaMaxCovers.Text = shiftManager.SelectedDiningArea.GetMaxCovers().ToString();
+
 
         }
         private void RefreshTemplateList(DiningArea dining)
@@ -677,13 +677,13 @@ namespace FloorPlanMaker
             form.ShowDialog();
             if (form.DialogResult == DialogResult.OK)
             {
-                dtpFloorplan.Value  = new DateTime(shiftManager.DateOnly.Year, shiftManager.DateOnly.Month, shiftManager.DateOnly.Day);
+                dtpFloorplan.Value = new DateTime(shiftManager.DateOnly.Year, shiftManager.DateOnly.Month, shiftManager.DateOnly.Day);
 
                 cbIsAM.Checked = shiftManager.IsAM;
 
                 SetViewedFloorplan();
-                             
-                
+
+
             }
         }
         private void UpdateFloorplan()
@@ -691,14 +691,14 @@ namespace FloorPlanMaker
 
             shiftManager.SelectedFloorplan = shiftManager.Floorplans.FirstOrDefault(fp => fp.DiningArea.ID == areaCreationManager.DiningAreaSelected.ID);
             UpdateServerControlsForFloorplan();
-            if (shiftManager.SelectedFloorplan != null ) 
+            if (shiftManager.SelectedFloorplan != null)
             {
-               
+
 
                 CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
-               
-            }           
-            
+
+            }
+
         }
         private void UpdateServerControlsForFloorplan()
         {
@@ -814,12 +814,12 @@ namespace FloorPlanMaker
         private CheckBox selectedSectionButton;
         private CheckBox selectedCloserButton;
         private CheckBox selectedPreCloserButton;
-       
+
         private void CreateSectionRadioButtons(List<Section> sections)
         {
             // Clear any existing controls from the flow layout panel.
             flowSectionSelect.Controls.Clear();
-            if(sections == null)
+            if (sections == null)
             {
                 return;
             }
@@ -843,7 +843,7 @@ namespace FloorPlanMaker
                 // Create two labels for each section.
                 Label lblMaxCovers = new Label
                 {
-                    Text = (section.MaxCovers-shiftManager.SelectedFloorplan.MaxCoversPerServer).ToString(),
+                    Text = (section.MaxCovers - shiftManager.SelectedFloorplan.MaxCoversPerServer).ToString(),
                     AutoSize = false,
                     Size = new Size(35, 25),
                     Font = new Font("Segoe UI", 12F),
@@ -854,7 +854,7 @@ namespace FloorPlanMaker
 
                 Label lblAverageCovers = new Label
                 {
-                    Text = (section.AverageCovers-shiftManager.SelectedFloorplan.AvgCoversPerServer).ToString(),
+                    Text = (section.AverageCovers - shiftManager.SelectedFloorplan.AvgCoversPerServer).ToString(),
                     AutoSize = false,
                     Size = new Size(35, 25),
                     Font = new Font("Segoe UI", 12F),
@@ -998,7 +998,7 @@ namespace FloorPlanMaker
         public void UpdateSectionLabels(Section section, int newMaxCoversValue, float newAverageCoversValue)
         {
             if (shiftManager.SelectedFloorplan == null) return;
-            
+
             float maxDifference = newMaxCoversValue - shiftManager.SelectedFloorplan.MaxCoversPerServer;
             float avgDifference = newAverageCoversValue - shiftManager.SelectedFloorplan.AvgCoversPerServer;
             if (sectionLabels.ContainsKey(section))
@@ -1101,7 +1101,7 @@ namespace FloorPlanMaker
 
             //}
             sectionControlsManager = new SectionControlsManager(shiftManager.SelectedFloorplan);
-            foreach(SectionControl sectionControl in sectionControlsManager.SectionControls)
+            foreach (SectionControl sectionControl in sectionControlsManager.SectionControls)
             {
                 pnlFloorPlan.Controls.Add(sectionControl);
                 sectionControl.BringToFront();
@@ -1126,55 +1126,8 @@ namespace FloorPlanMaker
 
         }
 
-        private void btnTest_Click(object sender, EventArgs e)
-        {
-            //nudServerCount.Value = 4;
-
-            //UpdateFloorplan();
-            SectionLine sectionLine = new SectionLine(0,0,300,300, 5f);
-            //sectionLine.StartPoint = new System.Drawing.Point(0, 0);
-            //sectionLine.EndPoint = new System.Drawing.Point(300, 300);
-            //sectionLine.LineThickness = 5f;
-            pnlFloorPlan.Controls.Add(sectionLine);
-            //SqliteDataAccess.UpdateAllFloorplanDates();
-
-            //foreach(Section section in shiftManager.ViewedFloorplan.Sections)
-            //{
-            //    var edges = section.GetConvexHullEdges();
-
-            //    foreach (var edge in edges)
-            //    {
-            //        var sectionLine = new SectionLine
-            //        {
-            //            StartPoint = new System.Drawing.Point((int)edge.Item1.X, (int)edge.Item1.Y),
-            //            EndPoint = new System.Drawing.Point((int)edge.Item2.X, (int)edge.Item2.Y)
-            //        };
-            //        pnlFloorPlan.Controls.Add(sectionLine);
-            //    }
-            //}
-            //allTableControls.Sort((a, b) => a.Top.CompareTo(b.Top));
-
-            //// 3. Determine midpoints and 4. Draw borders.
-            //for (int i = 0; i < allTableControls.Count - 1; i++)
-            //{
-            //    TableControl currentTable = allTableControls[i];
-            //    TableControl nextTable = allTableControls[i + 1];
-
-            //    if(currentTable.Section != nextTable.Section)
-            //    {
-            //        int midpoint = currentTable.Bottom + (nextTable.Top - currentTable.Bottom) / 2;
-
-
-            //        pnlFloorPlan.CreateGraphics().DrawLine(Pens.Black, currentTable.Table.XCoordinate, midpoint, currentTable.Table.XCoordinate - currentTable.Width, midpoint);
-            //    }
-
-            //}
-
-            SectionLineManager sectionLineManager = new SectionLineManager(allTableControls);
-            //sectionLineManager.DrawSeparationLines(pnlFloorPlan);
-
-        }
        
+
 
 
 
@@ -1255,7 +1208,7 @@ namespace FloorPlanMaker
             }
             if (shiftManager.SelectedFloorplan.CheckIfAllSectionsAssigned())
             {
-                if(!shiftManager.SelectedFloorplan.CheckIfCloserIsAssigned())
+                if (!shiftManager.SelectedFloorplan.CheckIfCloserIsAssigned())
                 {
                     DialogResult result = MessageBox.Show("There is not a closer assigned",
                                                 "Continue?",
@@ -1268,7 +1221,7 @@ namespace FloorPlanMaker
 
                         return;
                     }
-                    
+
                 }
                 SqliteDataAccess.SaveFloorplanAndSections(shiftManager.SelectedFloorplan);
                 FloorplanPrinter printer = new FloorplanPrinter(pnlFloorPlan, drawingHandler.GetSectionLines());
@@ -1281,7 +1234,7 @@ namespace FloorPlanMaker
                 MessageBox.Show("Not all sections are assigned");
             }
 
-              // To show print preview
+            // To show print preview
             //printer.Print();  // To print
 
         }
@@ -1426,7 +1379,7 @@ namespace FloorPlanMaker
             }
             else
             {
-                
+
                 shiftManager.SelectedFloorplan = SqliteDataAccess.LoadFloorplanByCriteria(shiftManager.SelectedDiningArea, date, cbIsAM.Checked);
             }
 
@@ -1475,7 +1428,7 @@ namespace FloorPlanMaker
                 tableControl.Invalidate();
 
             }
-            
+
         }
         private void btnAddSection_Click(object sender, EventArgs e)
         {
@@ -1485,6 +1438,75 @@ namespace FloorPlanMaker
         private void btnRemoveSection_Click(object sender, EventArgs e)
         {
 
+        }
+        private void btnTest_Click(object sender, EventArgs e)
+        {
+            //nudServerCount.Value = 4;
+
+            //UpdateFloorplan();
+            //SectionLine sectionLine = new SectionLine(0,0,300,300, 5f);
+            //sectionLine.StartPoint = new System.Drawing.Point(0, 0);
+            //sectionLine.EndPoint = new System.Drawing.Point(300, 300);
+            //sectionLine.LineThickness = 5f;
+            //pnlFloorPlan.Controls.Add(sectionLine);
+            //SqliteDataAccess.UpdateAllFloorplanDates();
+
+            //foreach(Section section in shiftManager.ViewedFloorplan.Sections)
+            //{
+            //    var edges = section.GetConvexHullEdges();
+
+            //    foreach (var edge in edges)
+            //    {
+            //        var sectionLine = new SectionLine
+            //        {
+            //            StartPoint = new System.Drawing.Point((int)edge.Item1.X, (int)edge.Item1.Y),
+            //            EndPoint = new System.Drawing.Point((int)edge.Item2.X, (int)edge.Item2.Y)
+            //        };
+            //        pnlFloorPlan.Controls.Add(sectionLine);
+            //    }
+            //}
+            //allTableControls.Sort((a, b) => a.Top.CompareTo(b.Top));
+
+            //// 3. Determine midpoints and 4. Draw borders.
+            //for (int i = 0; i < allTableControls.Count - 1; i++)
+            //{
+            //    TableControl currentTable = allTableControls[i];
+            //    TableControl nextTable = allTableControls[i + 1];
+
+            //    if(currentTable.Section != nextTable.Section)
+            //    {
+            //        int midpoint = currentTable.Bottom + (nextTable.Top - currentTable.Bottom) / 2;
+
+
+            //        pnlFloorPlan.CreateGraphics().DrawLine(Pens.Black, currentTable.Table.XCoordinate, midpoint, currentTable.Table.XCoordinate - currentTable.Width, midpoint);
+            //    }
+
+            //}
+
+            SectionLineManager sectionLineManager = new SectionLineManager(allTableControls);
+            sectionLineManager.MakeSectionTableOutlines();
+            foreach(SectionLine sectionLine in sectionLineManager.SectionLines)
+            {
+                pnlFloorPlan.Controls.Add(sectionLine);
+            }
+            sectionLineManager.RemoveBottomLines(pnlFloorPlan);
+            //sectionLineManager.DrawSeparationLines(pnlFloorPlan);
+
+        }
+        private void btnTest2_Click(object sender, EventArgs e)
+        {
+            //pnlFloorPlan.Controls.Clear();
+            //SectionLine sectionLine = new SectionLine(100,100,500,100,5f);
+            //pnlFloorPlan.Controls.Add(sectionLine);
+            Section section = new Section();
+            section.Number = 1;
+            foreach (TableControl c in allTableControls)
+            {
+                c.Section = section;
+                c.BackColor = section.Color;
+                section.Tables.Add(c.Table);
+            }
+            shiftManager.SectionSelected = section;
         }
         //public static List<LineString> ComputeVoronoiEdges(List<Coordinate> coordinates)
         //{
