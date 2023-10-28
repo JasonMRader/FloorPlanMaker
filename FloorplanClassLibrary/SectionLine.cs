@@ -58,6 +58,43 @@ namespace FloorPlanMaker
             this.UpdateStyles();
             this.Invalidate();
         }
+        public SectionLine(Point firstPoint, Point secondPoint, float thickness)
+        {
+            if (firstPoint.Y == secondPoint.Y)
+            {
+                if (firstPoint.X < secondPoint.X)
+                {
+                    this.StartPoint = firstPoint;
+                    this.EndPoint = secondPoint;
+                }
+                else
+                {
+                    this.EndPoint = firstPoint;
+                    this.StartPoint = secondPoint;
+                }
+            }
+            if (firstPoint.X == secondPoint.X)
+            {
+                if (firstPoint.Y < secondPoint.Y)
+                {
+                    this.StartPoint =firstPoint;
+                    this.EndPoint = secondPoint;
+                   
+                }
+                else
+                {
+                    this.EndPoint = firstPoint;
+                    this.StartPoint = secondPoint;
+                }
+            }
+
+            this.LineThickness = thickness;
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer |
+                          ControlStyles.UserPaint |
+                          ControlStyles.AllPaintingInWmPaint, true);
+            this.UpdateStyles();
+            this.Invalidate();
+        }
         public Point StartPoint
         {
             get { return _startPoint; }
@@ -68,8 +105,8 @@ namespace FloorPlanMaker
             get { return _endPoint; }
             set { _endPoint = value; SetBounds(); }
         }
-        public string currentTableNumber { get; set; }
-        public string adjacentTableNumber { get; set; }
+        public string? currentTableNumber { get; set; }
+        public string? adjacentTableNumber { get; set; }
 
         protected override void OnPaint(PaintEventArgs pe)
         {

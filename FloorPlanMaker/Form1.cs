@@ -1484,13 +1484,15 @@ namespace FloorPlanMaker
             //}
 
             SectionLineManager sectionLineManager = new SectionLineManager(allTableControls);
-            sectionLineManager.MakeSectionTableOutlines();
-            foreach(SectionLine sectionLine in sectionLineManager.SectionLines)
-            {
-                pnlFloorPlan.Controls.Add(sectionLine);
-            }
-            sectionLineManager.RemoveBottomLines(pnlFloorPlan);
-            sectionLineManager.RemoveRightLines(pnlFloorPlan);
+            //sectionLineManager.AddTopLines(pnlFloorPlan);
+            sectionLineManager.MakeTopLines(pnlFloorPlan);
+            //sectionLineManager.MakeSectionTableOutlines();
+            //foreach(SectionLine sectionLine in sectionLineManager.SectionLines)
+            //{
+            //    pnlFloorPlan.Controls.Add(sectionLine);
+            //}
+            //sectionLineManager.RemoveBottomLines(pnlFloorPlan);
+            //sectionLineManager.RemoveRightLines(pnlFloorPlan);
             //sectionLineManager.DrawSeparationLines(pnlFloorPlan);
 
         }

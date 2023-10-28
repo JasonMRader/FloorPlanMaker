@@ -26,6 +26,41 @@ namespace FloorPlanMaker
         public Point TopRight { get { return new Point(this.Right, this.Left); } }
         public Point BottomRight { get { return new Point(this.Right, this.Bottom); } }
         public Point BottomLeft { get { return new Point(this.Left, this.Bottom); } }
+        public int SectionLineBuffer { get; set; } = 5;
+        public float SectionLineThickness { get; set; } = 5f;
+        public SectionLine TopLine 
+        { 
+            get 
+            {
+                return new SectionLine(this.Left - this.SectionLineBuffer, this.Top - this.SectionLineBuffer,
+                    this.Right + this.SectionLineBuffer, this.Top - this.SectionLineBuffer, this.SectionLineThickness);
+            }
+        }
+        public SectionLine RightLine
+        {
+            get
+            {
+                return new SectionLine(this.Right + this.SectionLineBuffer, this.Top - this.SectionLineBuffer,
+                    this.Right + this.SectionLineBuffer, this.Bottom + this.SectionLineBuffer, this.SectionLineThickness);
+            }
+        }
+        public SectionLine BottomLine
+        {
+            get
+            {
+                return new SectionLine(this.Right + this.SectionLineBuffer, this.Bottom + this.SectionLineBuffer,
+                    this.Left - this.SectionLineBuffer, this.Bottom + this.SectionLineBuffer, this.SectionLineThickness);
+            }
+        }
+        public SectionLine LeftLine
+        {
+            get
+            {
+                return new SectionLine(this.Left - this.SectionLineBuffer, this.Bottom + this.SectionLineBuffer,
+                    this.Left - this.SectionLineBuffer, this.Top - this.SectionLineBuffer, this.SectionLineThickness);
+            }
+        }
+
         protected override void OnPaint(PaintEventArgs pe)
         {
             DrawTableOnGraphics(pe.Graphics, this);

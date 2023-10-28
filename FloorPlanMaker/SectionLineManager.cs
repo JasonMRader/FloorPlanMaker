@@ -242,19 +242,35 @@ namespace FloorPlanMakerUI
             int gap = 6;
             foreach(TableControl tableControl in this.TableControls)
             {
-                SectionLine topLine = new SectionLine(tableControl.Left- gap,tableControl.Top - gap, tableControl.Right + gap, tableControl.Top - gap, thickness);
+                SectionLine topLine = tableControl.TopLine;// new SectionLine(tableControl.Left- gap,tableControl.Top - gap, tableControl.Right + gap, tableControl.Top - gap, thickness);
+                
                 SectionLines.Add(topLine);
                 TopLines.Add(topLine);
-                SectionLine rightLine = new SectionLine(tableControl.Right + gap, tableControl.Top - gap, tableControl.Right + gap, tableControl.Bottom + gap, thickness);
+                SectionLine rightLine = tableControl.RightLine;//new SectionLine(tableControl.Right + gap, tableControl.Top - gap, tableControl.Right + gap, tableControl.Bottom + gap, thickness);
                 SectionLines.Add(rightLine);
                 RightLines.Add(rightLine);
-                SectionLine bottomLine = new SectionLine(tableControl.Right + gap, tableControl.Bottom + gap, tableControl.Left - gap, tableControl.Bottom + gap, thickness);
+                SectionLine bottomLine = tableControl.BottomLine;//new SectionLine(tableControl.Right + gap, tableControl.Bottom + gap, tableControl.Left - gap, tableControl.Bottom + gap, thickness);
                 SectionLines.Add(bottomLine);
                 BottomLines.Add(bottomLine);
-                SectionLine leftLine = new SectionLine(tableControl.Left - gap, tableControl.Bottom + gap, tableControl.Left - gap, tableControl.Top - gap, thickness);
+                SectionLine leftLine = tableControl.LeftLine;//new SectionLine(tableControl.Left - gap, tableControl.Bottom + gap, tableControl.Left - gap, tableControl.Top - gap, thickness);
                 SectionLines.Add(leftLine);
                 LeftLines.Add(leftLine);
 
+            }
+        }
+        public void MakeTopLines(Panel panel)
+        {
+            MakeSectionTableOutlines();
+            foreach(SectionLine topLine in TopLines)
+            {
+                if(hasLineAbove(topLine, TopLines))
+                {
+                    TopLines.Remove(topLine);
+                }
+            }
+            foreach(SectionLine topLine in TopLines)
+            {
+                panel.Controls.Add(topLine);
             }
         }
         //public void RemoveBottomLines(Panel panel)
@@ -419,6 +435,169 @@ namespace FloorPlanMakerUI
                 panel.Controls.Add(newLeftLine);
                 LeftLines.Add(newLeftLine);
             }
+        }
+        public void AddTopLines(Panel panel)
+        {
+            foreach (Section section in this.SectionToTableControls.Keys)
+            {
+                List<TableControl> sectionTableControls = this.SectionToTableControls[section];
+                TableControl? current = this.TopLeftMost(sectionTableControls);
+                while (current != null)
+                {
+                    SectionLine currentTopLine = this.TopLine(current);
+                    SectionLines.Add(currentTopLine);
+
+                    TableControl? next = nextTopSectionLine(current, sectionTableControls);
+                    if (next != null)
+                    {
+                        //Need to change this so that it does not 
+                        SectionLine nextTopLine = this.TopLine(next);
+
+                        // Same X Coordinate, Straight Line
+                        if (currentTopLine.EndPoint.X == nextTopLine.StartPoint.X)
+                        {
+                            SectionLines.Add(new SectionLine(currentTopLine.EndPoint.X, currentTopLine.EndPoint.Y,
+                                                             nextTopLine.StartPoint.X, nextTopLine.StartPoint.Y, currentTopLine.LineThickness));
+                        }
+                        // Next table's top is below the current table's top
+                        else if (nextTopLine.StartPoint.Y > currentTopLine.EndPoint.Y)
+                        {
+                            SectionLines.Add(current.RightLine);  // Using the RightLine of the current table up to next table's top
+
+                            // Modify the current RightLine's endpoint to stop at the next table's top
+                            SectionLines.Last().EndPoint = new Point(current.RightLine.EndPoint.X, nextTopLine.StartPoint.Y);
+                            SectionLines.Add(new SectionLine(SectionLines.Last().EndPoint, nextTopLine.StartPoint, nextTopLine.LineThickness));
+                        }
+                        // Next table's top is above the current table's top
+                        else
+                        {
+                            // Horizontal line from current table's endpoint to next table's LeftLine
+                            SectionLines.Add(new SectionLine(currentTopLine.EndPoint.X, currentTopLine.EndPoint.Y,
+                                                             next.LeftLine.StartPoint.X, currentTopLine.EndPoint.Y, currentTopLine.LineThickness));
+
+                            // Vertical line upwards from that point to next table's TopLine
+                            SectionLines.Add(new SectionLine(next.LeftLine.StartPoint.X, currentTopLine.EndPoint.Y,
+                                                             next.LeftLine.StartPoint.X, nextTopLine.StartPoint.Y, currentTopLine.LineThickness));
+                        }
+                    }
+
+                    current = next;
+                }
+            }
+
+            foreach (SectionLine sectionLine in this.SectionLines)
+            {
+                panel.Controls.Add(sectionLine);
+            }
+        }
+
+        public void AddTopLine(Panel panel)
+        {
+            foreach(Section section in this.SectionToTableControls.Keys)
+            {
+                List<TableControl> sectionTableControls = this.SectionToTableControls[section];
+                TableControl? current = this.TopLeftMost(sectionTableControls);
+                while (current != null)
+                {
+                    SectionLines.Add(this.TopLine(current));
+                    current = nextTopSectionLine(current, sectionTableControls);
+                }
+
+            }
+            foreach(SectionLine sectionLine in this.SectionLines)
+            {
+                panel.Controls.Add(sectionLine);
+            }
+            
+        }
+        public SectionLine TopLine(TableControl tableControl)
+        {
+            SectionLine sectionLine = tableControl.TopLine;
+            return sectionLine;
+        }
+        public TableControl? TopLeftMost(List<TableControl> sectionTableControls)
+        {
+           sectionTableControls = sectionTableControls.OrderBy(x => x.Left).ToList();
+            foreach (TableControl tableControl in sectionTableControls)
+            {
+                if (!hasTableAbove(tableControl, sectionTableControls))
+                {
+                    return tableControl;
+                }
+            }
+
+            return null;
+        }
+
+        private TableControl? nextTopSectionLine(TableControl tableControl, List<TableControl> sectionTableControls)
+        {
+            Point referencePoint = tableControl.TopRight;
+            double minDistance = double.MaxValue;
+            TableControl? nearestTable = null;
+
+            foreach (TableControl tc in sectionTableControls)
+            {
+                if (tc == tableControl) continue;  // We don't want to compare the table with itself.
+
+                if (tc.TopLeft.X <= tableControl.TopLeft.X) continue; // Ensure that the table's TopLeft corner is to the right of the current table's TopLeft.
+                //if it is, I also need to make sure the topleft is the to right of the current tables topRIGHT corner, if so, i need to make adjustments 
+                double distance = Distance(referencePoint, tc.TopLeft);
+
+                // If this table has the same distance as the current nearest table, but is higher, update the nearest table
+                if (distance == minDistance && tc.Top < nearestTable?.Top)
+                {
+                    nearestTable = tc;
+                }
+                // If this table is nearer than the current nearest table, update both the distance and the nearest table
+                else if (distance < minDistance)
+                {
+                    minDistance = distance;
+                    nearestTable = tc;
+                }
+            }
+
+            return nearestTable;
+        }
+
+
+        private double Distance(Point p1, Point p2)
+        {
+            return Math.Sqrt(Math.Pow(p2.X - p1.X, 2) + Math.Pow(p2.Y - p1.Y, 2));
+        }
+
+        private bool hasTableAbove(TableControl tableControl, List<TableControl> tableControls)
+        {
+            if(tableControl == null) return false;  
+            foreach (TableControl tc in tableControls)
+            {
+                if (tc == tableControl)
+                    continue;
+
+                bool isDirectlyAbove = tc.Bottom <= tableControl.Top && tc.Top < tableControl.Top;
+                bool isHorizontallyOverlapping = (tc.Left < tableControl.Right) && (tc.Right > tableControl.Left);
+
+                if (isDirectlyAbove && isHorizontallyOverlapping)
+                    return true;
+            }
+
+            return false;
+        }
+        private bool hasLineAbove(SectionLine sectionLine, List<SectionLine> sectionLines)
+        {
+            if (sectionLine == null) return false;
+            foreach (SectionLine sl in sectionLines)
+            {
+                if (sl == sectionLine)
+                    continue;
+
+                bool isAbove = sl.StartPoint.Y <= sectionLine.StartPoint.Y;
+                bool isHorizontallyOverlapping = (sl.StartPoint.X < sectionLine.EndPoint.X) && (sl.StartPoint.X > sl.StartPoint.X);
+
+                if (isAbove && isHorizontallyOverlapping)
+                    return true;
+            }
+
+            return false;
         }
 
 
