@@ -22,6 +22,10 @@ namespace FloorPlanMaker
         public Table Table { get; set; }
         public bool IsSelected { get; set; } = false;
         public string _tableNumber { get { return this.Table.TableNumber; } }
+        public Point TopLeft { get { return new Point (this.Left, this.Top); } }
+        public Point TopRight { get { return new Point(this.Right, this.Left); } }
+        public Point BottomRight { get { return new Point(this.Right, this.Bottom); } }
+        public Point BottomLeft { get { return new Point(this.Left, this.Bottom); } }
         protected override void OnPaint(PaintEventArgs pe)
         {
             DrawTableOnGraphics(pe.Graphics, this);
