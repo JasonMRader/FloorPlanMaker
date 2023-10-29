@@ -17,6 +17,7 @@ namespace FloorPlanMakerUI
         public List<SectionLine> RightLines { get; private set; } = new List<SectionLine>();
         public List<SectionLine> BottomLines { get; private set; } = new List<SectionLine>();
         public List<SectionLine> LeftLines { get; private set; } = new List<SectionLine>();
+        public List <SectionLine> ParallelLines { get; private set; } = new List<SectionLine> { };
         private List<string> testData = new List<string>();
         public Dictionary<Section, List<TableControl>> SectionToTableControls { get; private set; } = new Dictionary<Section, List<TableControl>>();
 
@@ -447,6 +448,7 @@ namespace FloorPlanMakerUI
                     SectionLine currentTopLine = this.TopLine(current);
                     currentTopLine.LineColor = section.Color;
                     currentTopLine.LineThickness = 10f;
+                    currentTopLine.Section = section;
                     SectionLines.Add(currentTopLine);
 
                     TableControl? next = nextTopSectionLine(current, sectionTableControls);
@@ -461,18 +463,21 @@ namespace FloorPlanMakerUI
                             SectionLine sl = new SectionLine(currentTopLine.EndPoint.X, currentTopLine.EndPoint.Y,
                                                              nextTopLine.StartPoint.X, nextTopLine.StartPoint.Y);
                             sl.LineColor = section.Color;
+                            sl.Section = section;
                             SectionLines.Add(sl);
                         }
                         // Next table's top is below the current table's top
                         else if (nextTopLine.StartPoint.Y > currentTopLine.EndPoint.Y)
                         {
                             current.RightLine.BackColor = section.Color;
+                            current.Section = section;
                             SectionLines.Add(current.RightLine);  // Using the RightLine of the current table up to next table's top
                            
                             // Modify the current RightLine's endpoint to stop at the next table's top
                             SectionLines.Last().EndPoint = new Point(current.RightLine.EndPoint.X, nextTopLine.StartPoint.Y);
                             SectionLine sl = new SectionLine(SectionLines.Last().EndPoint, nextTopLine.StartPoint);
                             sl.LineColor = section.Color;
+                            sl.Section = section;
                             SectionLines.Add(sl);
                         }
                         // Next table's top is above the current table's top
@@ -482,11 +487,13 @@ namespace FloorPlanMakerUI
                             SectionLine sl = new SectionLine(currentTopLine.EndPoint.X, currentTopLine.EndPoint.Y,
                                                              next.LeftLine.StartPoint.X, currentTopLine.EndPoint.Y);
                             sl.LineColor = section.Color;
+                            sl.Section = section;
                             SectionLines.Add(sl);
 
                             // Vertical line upwards from that point to next table's TopLine
                             SectionLine sLine = new SectionLine(next.LeftLine.StartPoint.X, currentTopLine.EndPoint.Y,
                                                              next.LeftLine.StartPoint.X, nextTopLine.StartPoint.Y);
+                            sLine.Section = section;
                             sLine.LineColor = section.Color;
                             SectionLines.Add(sLine);
                         }
@@ -607,6 +614,7 @@ namespace FloorPlanMakerUI
                     SectionLine currentBottomLine = this.BottomLine(current);
                     currentBottomLine.LineColor = section.Color;
                     currentBottomLine.LineThickness = 10f;
+                    currentBottomLine.Section = section;
                     SectionLines.Add(currentBottomLine);
 
                     TableControl? next = nextBottomSectionLine(current, sectionTableControls);
@@ -622,33 +630,49 @@ namespace FloorPlanMakerUI
                             SectionLine sl = new SectionLine(currentBottomLine.EndPoint.X, currentBottomLine.EndPoint.Y,
                                                              nextBottomLine.StartPoint.X, nextBottomLine.StartPoint.Y);
                             sl.LineColor = section.Color;
+                            sl.Section = section;
                             SectionLines.Add((sl));
                         }
                         // Next table's bottom is above the current table's bottom
-                        else if (nextBottomLine.StartPoint.Y < currentBottomLine.EndPoint.Y)
+                        else if (nextBottomLine.StartPoint.Y < currentBottomLine.EndPoint.Y && !hasTableBelow(next,sectionTableControls))
                         {
+                           
                             //SectionLines.Add(current.LeftLine);  // Using the LeftLine of the current table up to next table's bottom
                             SectionLine sl = new SectionLine(currentBottomLine.StartPoint.X,currentBottomLine.StartPoint.Y , currentBottomLine.StartPoint.X , nextBottomLine.StartPoint.Y);
                             // Modify the current LeftLine's endpoint to stop at the next table's bottom
                             //SectionLines.Last().EndPoint = new Point(current.LeftLine.EndPoint.X, nextBottomLine.StartPoint.Y);
                             sl.LineColor = section.Color;
+                            sl.Section = section;
                             SectionLines.Add((sl));
                             SectionLine sLine = new SectionLine(SectionLines.Last().StartPoint, nextBottomLine.EndPoint);
                             sLine.LineColor = section.Color;
+                            sLine.Section = section;
                             SectionLines.Add((sLine));
                         }
                         // Next table's bottom is below the current table's bottom
                         else
                         {
+                            if (hasTableBelow(next, sectionTableControls))
+                            {
+                                next = nextBottomSectionLine(next, sectionTableControls);
+                                nextBottomLine = this.BottomLine(next);
+
+                            }
+                            if (nextBottomLine == null)
+                            {
+                                break;
+                            }
                             // Horizontal line from current table's endpoint to next table's RightLine
-                            SectionLine sLine =new SectionLine(currentBottomLine.EndPoint.X, currentBottomLine.EndPoint.Y,
+                            SectionLine sLine =new SectionLine(currentBottomLine.StartPoint.X, currentBottomLine.EndPoint.Y,
                                                              next.RightLine.StartPoint.X, currentBottomLine.EndPoint.Y);
                             sLine.LineColor = section.Color;
+                            sLine.Section = section;
                             SectionLines.Add((sLine));
                             // Vertical line downwards from that point to next table's BottomLine
                             SectionLine sl = new SectionLine(next.RightLine.StartPoint.X, currentBottomLine.EndPoint.Y,
                                                              next.RightLine.StartPoint.X, nextBottomLine.StartPoint.Y);
                             sl.LineColor = section.Color;
+                            sl.Section = section;
                             SectionLines.Add((sl));
                         }
                     }
@@ -666,6 +690,10 @@ namespace FloorPlanMakerUI
 
         public SectionLine BottomLine(TableControl tableControl)
         {
+            if(tableControl == null)
+            {
+                return null;
+            }
             SectionLine sectionLine = tableControl.BottomLine;
             return sectionLine;
         }
@@ -750,6 +778,118 @@ namespace FloorPlanMakerUI
 
             return false;
         }
+        private List<(SectionLine, SectionLine)> FindParallelLinesFromDifferentSections()
+        {
+            var parallelLines = new List<(SectionLine, SectionLine)>();
+
+            for (int i = 0; i < SectionLines.Count; i++)
+            {
+                for (int j = i + 1; j < SectionLines.Count; j++)
+                {
+                    if (SectionLines[i].Section != SectionLines[j].Section && AreParallel(SectionLines[i], SectionLines[j]))
+                    {
+                        parallelLines.Add((SectionLines[i], SectionLines[j]));
+                    }
+                }
+            }
+
+            return parallelLines;
+        }
+
+        private bool AreParallel(SectionLine line1, SectionLine line2)
+        {
+            return (line1.StartPoint.Y == line1.EndPoint.Y && line2.StartPoint.Y == line2.EndPoint.Y) || // Both horizontal
+                   (line1.StartPoint.X == line1.EndPoint.X && line2.StartPoint.X == line2.EndPoint.X);   // Both vertical
+        }
+        private bool HasObstacleBetween(SectionLine line1, SectionLine line2, List<TableControl> tableControls)
+        {
+            foreach (var line in SectionLines)
+            {
+                if (IsBetween(line1, line2, line))
+                    return true;
+            }
+
+            foreach (var tableControl in tableControls)
+            {
+                if (IsBetween(line1, line2, tableControl))
+                    return true;
+            }
+
+            return false;
+        }
+
+        private bool IsBetween(SectionLine line1, SectionLine line2, Control control)
+        {
+            // Let's assume the lines are vertical
+            if (line1.StartPoint.X == line1.EndPoint.X && line2.StartPoint.X == line2.EndPoint.X)
+            {
+                // Both lines are vertical, so check if the control's X is between the two lines
+                float minX = Math.Min(line1.StartPoint.X, line2.StartPoint.X);
+                float maxX = Math.Max(line1.StartPoint.X, line2.StartPoint.X);
+
+                return control.Left > minX && control.Right < maxX;
+            }
+            // Let's assume the lines are horizontal
+            else if (line1.StartPoint.Y == line1.EndPoint.Y && line2.StartPoint.Y == line2.EndPoint.Y)
+            {
+                // Both lines are horizontal, so check if the control's Y is between the two lines
+                float minY = Math.Min(line1.StartPoint.Y, line2.StartPoint.Y);
+                float maxY = Math.Max(line1.StartPoint.Y, line2.StartPoint.Y);
+
+                return control.Top > minY && control.Bottom < maxY;
+            }
+            return false;
+        }
+
+        private SectionLine CreateLineBetween(SectionLine line1, SectionLine line2)
+        {
+            if (AreParallel(line1, line2) && !HasObstacleBetween(line1, line2, this.SectionToTableControls.Values.SelectMany(list => list).ToList()))
+            {
+                // If both lines are vertical
+                if (line1.StartPoint.X == line1.EndPoint.X && line2.StartPoint.X == line2.EndPoint.X)
+                {
+                    int avgX = (line1.StartPoint.X + line2.StartPoint.X) / 2;
+                    int minY = Math.Max(line1.StartPoint.Y, line2.StartPoint.Y);
+                    int maxY = Math.Min(line1.EndPoint.Y, line2.EndPoint.Y);
+
+                    return new SectionLine(avgX, minY, avgX, maxY, 15f);  // Using the thickness of line1 as an example
+                }
+                // If both lines are horizontal
+                else if (line1.StartPoint.Y == line1.EndPoint.Y && line2.StartPoint.Y == line2.EndPoint.Y)
+                {
+                    int avgY = (line1.StartPoint.Y + line2.StartPoint.Y) / 2;
+                    int minX = Math.Max(line1.StartPoint.X, line2.StartPoint.X);
+                    int maxX = Math.Min(line1.EndPoint.X, line2.EndPoint.X);
+
+                    return new SectionLine(minX, avgY, maxX, avgY, 15f);  // Using the thickness of line1 as an example
+                }
+            }
+            return null;
+        }
+        public void AddParallelLines(Panel panel)
+        {
+            var parallelLinePairs = FindParallelLinesFromDifferentSections();
+           
+            foreach (var (line1, line2) in parallelLinePairs)
+            {
+                var newLine = CreateLineBetween(line1, line2);
+
+                if (newLine != null)
+                {
+                    ParallelLines.Add(newLine);
+                    panel.Controls.Add(newLine);
+                }
+            }
+        }
+        public void RemoveAllLines(Panel panel)
+        {
+            foreach (SectionLine sectionLine in SectionLines)
+            {
+                panel.Controls.Remove(sectionLine);
+            }
+            ParallelLines.Clear();
+        }
+
 
 
         // You may add other methods or functionality as per your needs.

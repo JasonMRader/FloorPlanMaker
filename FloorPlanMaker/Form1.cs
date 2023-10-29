@@ -25,6 +25,7 @@ namespace FloorPlanMaker
         private Rectangle dragRectangle;
         private List<TableControl> allTableControls = new List<TableControl>();
         private int currentFocusedSectionIndex = 0;
+        private SectionLineManager sectionLineManager; 
         private SectionControlsManager sectionControlsManager { get; set; }
 
 
@@ -39,6 +40,7 @@ namespace FloorPlanMaker
             pnlFloorPlan.MouseUp += pnlFloorplan_MouseUp;
             pnlFloorPlan.MouseMove += pnlFloorplan_MouseMove;
             pnlFloorPlan.Paint += PnlFloorplan_Paint;
+            this.sectionLineManager = new SectionLineManager(allTableControls);
 
             //pnlFloorPlan.KeyPreview = true;
         }
@@ -395,7 +397,7 @@ namespace FloorPlanMaker
             RefreshTemplateList(shiftManager.SelectedDiningArea);
             lblDiningAreaAverageCovers.Text = shiftManager.SelectedDiningArea.GetAverageCovers().ToString();
             lblDiningAreaMaxCovers.Text = shiftManager.SelectedDiningArea.GetMaxCovers().ToString();
-
+            this.sectionLineManager = new SectionLineManager(allTableControls);
 
         }
         private void RefreshTemplateList(DiningArea dining)
@@ -1126,7 +1128,7 @@ namespace FloorPlanMaker
 
         }
 
-       
+
 
 
 
@@ -1365,6 +1367,7 @@ namespace FloorPlanMaker
         {
 
             SetViewedFloorplan();
+            this.sectionLineManager = new SectionLineManager(allTableControls);
 
 
 
@@ -1483,9 +1486,10 @@ namespace FloorPlanMaker
 
             //}
 
-            SectionLineManager sectionLineManager = new SectionLineManager(allTableControls);
-            //sectionLineManager.AddTopLines(pnlFloorPlan);
+            //this.sectionLineManager = new SectionLineManager(allTableControls);
+            sectionLineManager.AddTopLines(pnlFloorPlan);
             sectionLineManager.AddBottomLines(pnlFloorPlan);
+            
             //sectionLineManager.MakeTopLines(pnlFloorPlan);
             //sectionLineManager.MakeSectionTableOutlines();
             //foreach(SectionLine sectionLine in sectionLineManager.SectionLines)
@@ -1502,15 +1506,21 @@ namespace FloorPlanMaker
             //pnlFloorPlan.Controls.Clear();
             //SectionLine sectionLine = new SectionLine(100,100,500,100,5f);
             //pnlFloorPlan.Controls.Add(sectionLine);
-            Section section = new Section();
-            section.Number = 1;
-            foreach (TableControl c in allTableControls)
-            {
-                c.Section = section;
-                c.BackColor = section.Color;
-                section.Tables.Add(c.Table);
-            }
-            shiftManager.SectionSelected = section;
+            //Section section = new Section();
+            //section.Number = 1;
+            //foreach (TableControl c in allTableControls)
+            //{
+            //    c.Section = section;
+            //    c.BackColor = section.Color;
+            //    section.Tables.Add(c.Table);
+            //}
+            //shiftManager.SectionSelected = section;
+            sectionLineManager.AddParallelLines(pnlFloorPlan);
+        }
+
+        private void btnDoAThing_Click(object sender, EventArgs e)
+        {
+            sectionLineManager.RemoveAllLines(pnlFloorPlan);
         }
         //public static List<LineString> ComputeVoronoiEdges(List<Coordinate> coordinates)
         //{

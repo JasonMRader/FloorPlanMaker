@@ -95,6 +95,7 @@
             dtpFloorplan = new DateTimePicker();
             cbIsAM = new CheckBox();
             btnTest2 = new Button();
+            btnDoAThing = new Button();
             pnlServers.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudNumberOfTeamWaits).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudServerCount).BeginInit();
@@ -814,11 +815,22 @@
             btnTest2.UseVisualStyleBackColor = true;
             btnTest2.Click += btnTest2_Click;
             // 
+            // btnDoAThing
+            // 
+            btnDoAThing.Location = new Point(745, 949);
+            btnDoAThing.Name = "btnDoAThing";
+            btnDoAThing.Size = new Size(75, 23);
+            btnDoAThing.TabIndex = 17;
+            btnDoAThing.Text = "Do a Thing";
+            btnDoAThing.UseVisualStyleBackColor = true;
+            btnDoAThing.Click += btnDoAThing_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1248, 970);
+            Controls.Add(btnDoAThing);
             Controls.Add(btnTest2);
             Controls.Add(cbIsAM);
             Controls.Add(dtpFloorplan);
@@ -921,5 +933,6 @@
         private Button btnRemoveSection;
         private Button btnAddSection;
         private Button btnTest2;
+        private Button btnDoAThing;
     }
 }
