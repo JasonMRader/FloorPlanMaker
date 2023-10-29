@@ -25,7 +25,7 @@ namespace FloorPlanMaker
         private Rectangle dragRectangle;
         private List<TableControl> allTableControls = new List<TableControl>();
         private int currentFocusedSectionIndex = 0;
-        private SectionLineManager sectionLineManager; 
+        private SectionLineManager sectionLineManager;
         private SectionControlsManager sectionControlsManager { get; set; }
 
 
@@ -1489,7 +1489,7 @@ namespace FloorPlanMaker
             //this.sectionLineManager = new SectionLineManager(allTableControls);
             sectionLineManager.AddTopLines(pnlFloorPlan);
             sectionLineManager.AddBottomLines(pnlFloorPlan);
-            
+
             //sectionLineManager.MakeTopLines(pnlFloorPlan);
             //sectionLineManager.MakeSectionTableOutlines();
             //foreach(SectionLine sectionLine in sectionLineManager.SectionLines)

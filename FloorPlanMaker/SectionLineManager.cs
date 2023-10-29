@@ -890,6 +890,36 @@ namespace FloorPlanMakerUI
             ParallelLines.Clear();
         }
 
+        private Point? getUncoveredTopPoint(TableControl tableControl, List<TableControl> tableControls)
+        {
+            if (tableControl == null) return null;
+
+            foreach (TableControl tc in tableControls)
+            {
+                if (tc == tableControl)
+                    continue;
+
+                bool isDirectlyAbove = tc.Bottom <= tableControl.Top && tc.Top < tableControl.Top;
+                bool leftEdgeIsAboveTable = (tc.Left < tableControl.Right) && (tc.Left > tableControl.Left);
+
+                if (isDirectlyAbove && leftEdgeIsAboveTable)
+                {
+                    // Check if the LeftLine of the table above intersects with the TopLine of the current table
+                    if (tc.LeftLine.StartPoint.Y <= tableControl.Top && tc.LeftLine.End.Y >= tableControl.Top)
+                    {
+                        return new Point(tc.LeftLine.Start.X, tableControl.Top);
+                    }
+
+                    // Similarly, you can check for the RightLine if required in the future.
+                    //if(tc.RightLine.Start.Y <= tableControl.Top && tc.RightLine.End.Y >= tableControl.Top)
+                    //{
+                    //    return new Point(tc.RightLine.Start.X, tableControl.Top);
+                    //}
+                }
+            }
+
+            return null;
+        }
 
 
         // You may add other methods or functionality as per your needs.

@@ -55,8 +55,11 @@
             flowSectionSelect = new FlowLayoutPanel();
             pnlAddTables = new Panel();
             pnlSections = new Panel();
+            btnDoAThing = new Button();
+            btnTest2 = new Button();
             btnAddPickupSection = new Button();
             btnGenerateSectionLines = new Button();
+            btnTest = new Button();
             btnChooseTemplate = new Button();
             btnCopyTable = new Button();
             btnDeleteTable = new Button();
@@ -90,12 +93,9 @@
             rdoSections = new RadioButton();
             rdoDiningAreas = new RadioButton();
             panel1 = new Panel();
-            btnTest = new Button();
             btnPrint = new Button();
             dtpFloorplan = new DateTimePicker();
             cbIsAM = new CheckBox();
-            btnTest2 = new Button();
-            btnDoAThing = new Button();
             pnlServers.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudNumberOfTeamWaits).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudServerCount).BeginInit();
@@ -376,6 +376,7 @@
             pnlAddTables.Controls.Add(pnlSections);
             pnlAddTables.Controls.Add(btnCopyTable);
             pnlAddTables.Controls.Add(btnDeleteTable);
+            pnlAddTables.Controls.Add(btnPrint);
             pnlAddTables.Controls.Add(btnSaveTable);
             pnlAddTables.Controls.Add(label7);
             pnlAddTables.Controls.Add(txtWidth);
@@ -403,11 +404,14 @@
             // 
             // pnlSections
             // 
+            pnlSections.Controls.Add(btnDoAThing);
             pnlSections.Controls.Add(cboFloorplanTemplates);
+            pnlSections.Controls.Add(btnTest2);
             pnlSections.Controls.Add(txtTemplateName);
             pnlSections.Controls.Add(btnSaveFloorplanTemplate);
             pnlSections.Controls.Add(btnAddPickupSection);
             pnlSections.Controls.Add(btnGenerateSectionLines);
+            pnlSections.Controls.Add(btnTest);
             pnlSections.Controls.Add(btnChooseTemplate);
             pnlSections.Controls.Add(btnAddSectionLabels);
             pnlSections.Controls.Add(flowSectionSelect);
@@ -417,6 +421,26 @@
             pnlSections.Name = "pnlSections";
             pnlSections.Size = new Size(268, 937);
             pnlSections.TabIndex = 8;
+            // 
+            // btnDoAThing
+            // 
+            btnDoAThing.Location = new Point(54, 899);
+            btnDoAThing.Name = "btnDoAThing";
+            btnDoAThing.Size = new Size(75, 23);
+            btnDoAThing.TabIndex = 17;
+            btnDoAThing.Text = "Do a Thing";
+            btnDoAThing.UseVisualStyleBackColor = true;
+            btnDoAThing.Click += btnDoAThing_Click;
+            // 
+            // btnTest2
+            // 
+            btnTest2.Location = new Point(118, 866);
+            btnTest2.Name = "btnTest2";
+            btnTest2.Size = new Size(75, 23);
+            btnTest2.TabIndex = 16;
+            btnTest2.Text = "Test 2!";
+            btnTest2.UseVisualStyleBackColor = true;
+            btnTest2.Click += btnTest2_Click;
             // 
             // btnAddPickupSection
             // 
@@ -437,6 +461,17 @@
             btnGenerateSectionLines.Text = "Auto Section Lines";
             btnGenerateSectionLines.UseVisualStyleBackColor = true;
             btnGenerateSectionLines.Click += btnGenerateSectionLines_Click;
+            // 
+            // btnTest
+            // 
+            btnTest.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
+            btnTest.Location = new Point(19, 866);
+            btnTest.Name = "btnTest";
+            btnTest.Size = new Size(75, 19);
+            btnTest.TabIndex = 12;
+            btnTest.Text = "TEST";
+            btnTest.UseVisualStyleBackColor = true;
+            btnTest.Click += btnTest_Click;
             // 
             // btnChooseTemplate
             // 
@@ -644,9 +679,9 @@
             // pnlFloorPlan
             // 
             pnlFloorPlan.BackColor = Color.FromArgb(255, 244, 232);
-            pnlFloorPlan.Location = new Point(540, 77);
+            pnlFloorPlan.Location = new Point(535, 36);
             pnlFloorPlan.Name = "pnlFloorPlan";
-            pnlFloorPlan.Size = new Size(670, 870);
+            pnlFloorPlan.Size = new Size(672, 877);
             pnlFloorPlan.TabIndex = 2;
             // 
             // txtDiningAreaName
@@ -660,7 +695,7 @@
             // 
             // btnCreateNewDiningArea
             // 
-            btnCreateNewDiningArea.Location = new Point(1000, 7);
+            btnCreateNewDiningArea.Location = new Point(968, 43);
             btnCreateNewDiningArea.Name = "btnCreateNewDiningArea";
             btnCreateNewDiningArea.Size = new Size(154, 23);
             btnCreateNewDiningArea.TabIndex = 5;
@@ -761,20 +796,9 @@
             panel1.Size = new Size(225, 36);
             panel1.TabIndex = 11;
             // 
-            // btnTest
-            // 
-            btnTest.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
-            btnTest.Location = new Point(540, 951);
-            btnTest.Name = "btnTest";
-            btnTest.Size = new Size(75, 19);
-            btnTest.TabIndex = 12;
-            btnTest.Text = "TEST";
-            btnTest.UseVisualStyleBackColor = true;
-            btnTest.Click += btnTest_Click;
-            // 
             // btnPrint
             // 
-            btnPrint.Location = new Point(540, 47);
+            btnPrint.Location = new Point(196, 0);
             btnPrint.Name = "btnPrint";
             btnPrint.Size = new Size(75, 23);
             btnPrint.TabIndex = 13;
@@ -785,9 +809,9 @@
             // dtpFloorplan
             // 
             dtpFloorplan.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            dtpFloorplan.Location = new Point(645, 43);
+            dtpFloorplan.Location = new Point(1000, 3);
             dtpFloorplan.Name = "dtpFloorplan";
-            dtpFloorplan.Size = new Size(203, 27);
+            dtpFloorplan.Size = new Size(180, 27);
             dtpFloorplan.TabIndex = 14;
             dtpFloorplan.ValueChanged += dtpFloorplan_ValueChanged;
             // 
@@ -805,37 +829,14 @@
             cbIsAM.TextAlign = ContentAlignment.MiddleCenter;
             cbIsAM.UseVisualStyleBackColor = false;
             // 
-            // btnTest2
-            // 
-            btnTest2.Location = new Point(645, 949);
-            btnTest2.Name = "btnTest2";
-            btnTest2.Size = new Size(75, 23);
-            btnTest2.TabIndex = 16;
-            btnTest2.Text = "Test 2!";
-            btnTest2.UseVisualStyleBackColor = true;
-            btnTest2.Click += btnTest2_Click;
-            // 
-            // btnDoAThing
-            // 
-            btnDoAThing.Location = new Point(745, 949);
-            btnDoAThing.Name = "btnDoAThing";
-            btnDoAThing.Size = new Size(75, 23);
-            btnDoAThing.TabIndex = 17;
-            btnDoAThing.Text = "Do a Thing";
-            btnDoAThing.UseVisualStyleBackColor = true;
-            btnDoAThing.Click += btnDoAThing_Click;
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1248, 970);
-            Controls.Add(btnDoAThing);
-            Controls.Add(btnTest2);
+            Controls.Add(pnlFloorPlan);
             Controls.Add(cbIsAM);
             Controls.Add(dtpFloorplan);
-            Controls.Add(btnPrint);
-            Controls.Add(btnTest);
             Controls.Add(panel1);
             Controls.Add(btnSaveTables);
             Controls.Add(rbOutside);
@@ -844,7 +845,6 @@
             Controls.Add(btnSaveDiningArea);
             Controls.Add(btnCreateNewDiningArea);
             Controls.Add(txtDiningAreaName);
-            Controls.Add(pnlFloorPlan);
             Controls.Add(pnlAddTables);
             Controls.Add(pnlServers);
             Name = "Form1";
