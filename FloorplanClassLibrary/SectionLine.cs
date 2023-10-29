@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FloorplanClassLibrary;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -13,7 +14,9 @@ namespace FloorPlanMaker
         public int ID { get; set; }
         private Point _startPoint;
         private Point _endPoint;
+        public Color LineColor { get; set; } = Color.Black;
         public float LineThickness { get; set; } = 15f;
+        Section section = new Section();
         public SectionLine()
         {
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer |
@@ -22,9 +25,45 @@ namespace FloorPlanMaker
             this.UpdateStyles();
             this.Invalidate();
         }
-        public SectionLine(int startX, int startY, int endX, int endY, float thickness)
+        public SectionLine(int startX, int startY, int endX, int endY)
         {
             if(startY == endY)
+            {
+                if (startX < endX)
+                {
+                    this.StartPoint = new Point(startX, startY);
+                    this.EndPoint = new Point(endX, endY);
+                }
+                else
+                {
+                    this.EndPoint = new Point(startX, startY);
+                    this.StartPoint = new Point(endX, endY);
+                }
+            }
+            if (startX == endX)
+            {
+                if (startY < endY)
+                {
+                    this.StartPoint = new Point(startX, startY);
+                    this.EndPoint = new Point(endX, endY);
+                }
+                else
+                {
+                    this.EndPoint = new Point(startX, startY);
+                    this.StartPoint = new Point(endX, endY);
+                }
+            }
+
+            
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer |
+                          ControlStyles.UserPaint |
+                          ControlStyles.AllPaintingInWmPaint, true);
+            this.UpdateStyles();
+            this.Invalidate();
+        }
+        public SectionLine(int startX, int startY, int endX, int endY, float thickness)
+        {
+            if (startY == endY)
             {
                 if (startX < endX)
                 {
@@ -58,7 +97,7 @@ namespace FloorPlanMaker
             this.UpdateStyles();
             this.Invalidate();
         }
-        public SectionLine(Point firstPoint, Point secondPoint, float thickness)
+        public SectionLine(Point firstPoint, Point secondPoint)
         {
             if (firstPoint.Y == secondPoint.Y)
             {
@@ -88,7 +127,7 @@ namespace FloorPlanMaker
                 }
             }
 
-            this.LineThickness = thickness;
+            
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer |
                           ControlStyles.UserPaint |
                           ControlStyles.AllPaintingInWmPaint, true);
@@ -112,8 +151,8 @@ namespace FloorPlanMaker
         {
             base.OnPaint(pe);
 
-            // Use LineThickness when creating the Pen
-            using (Pen pen = new Pen(Color.Black, LineThickness))
+            // Use LineThickness and LineColor when creating the Pen
+            using (Pen pen = new Pen(LineColor, LineThickness))
             {
                 // Convert absolute points to relative points
                 var relativeStart = new Point(_startPoint.X - this.Left, _startPoint.Y - this.Top);

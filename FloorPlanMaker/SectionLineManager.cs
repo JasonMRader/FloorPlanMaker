@@ -323,8 +323,8 @@ namespace FloorPlanMakerUI
 
                         // Create the two new TopLines
                         float thickness = topLine.LineThickness; // Assuming you want to use the same thickness
-                        SectionLine newTopLine1 = new SectionLine(topLine.StartPoint.X, topLine.StartPoint.Y, bottomLine.StartPoint.X, topLine.StartPoint.Y, thickness);
-                        SectionLine newTopLine2 = new SectionLine(bottomLine.EndPoint.X, topLine.StartPoint.Y, topLine.EndPoint.X, topLine.StartPoint.Y, thickness);
+                        SectionLine newTopLine1 = new SectionLine(topLine.StartPoint.X, topLine.StartPoint.Y, bottomLine.StartPoint.X, topLine.StartPoint.Y);
+                        SectionLine newTopLine2 = new SectionLine(bottomLine.EndPoint.X, bottomLine.EndPoint.Y, topLine.EndPoint.X, bottomLine.EndPoint.Y);
 
                         newLines.Add(newTopLine1);
                         newLines.Add(newTopLine2);
@@ -445,6 +445,8 @@ namespace FloorPlanMakerUI
                 while (current != null)
                 {
                     SectionLine currentTopLine = this.TopLine(current);
+                    currentTopLine.LineColor = section.Color;
+                    currentTopLine.LineThickness = 10f;
                     SectionLines.Add(currentTopLine);
 
                     TableControl? next = nextTopSectionLine(current, sectionTableControls);
@@ -456,28 +458,37 @@ namespace FloorPlanMakerUI
                         // Same X Coordinate, Straight Line
                         if (currentTopLine.EndPoint.X == nextTopLine.StartPoint.X)
                         {
-                            SectionLines.Add(new SectionLine(currentTopLine.EndPoint.X, currentTopLine.EndPoint.Y,
-                                                             nextTopLine.StartPoint.X, nextTopLine.StartPoint.Y, currentTopLine.LineThickness));
+                            SectionLine sl = new SectionLine(currentTopLine.EndPoint.X, currentTopLine.EndPoint.Y,
+                                                             nextTopLine.StartPoint.X, nextTopLine.StartPoint.Y);
+                            sl.LineColor = section.Color;
+                            SectionLines.Add(sl);
                         }
                         // Next table's top is below the current table's top
                         else if (nextTopLine.StartPoint.Y > currentTopLine.EndPoint.Y)
                         {
+                            current.RightLine.BackColor = section.Color;
                             SectionLines.Add(current.RightLine);  // Using the RightLine of the current table up to next table's top
-
+                           
                             // Modify the current RightLine's endpoint to stop at the next table's top
                             SectionLines.Last().EndPoint = new Point(current.RightLine.EndPoint.X, nextTopLine.StartPoint.Y);
-                            SectionLines.Add(new SectionLine(SectionLines.Last().EndPoint, nextTopLine.StartPoint, nextTopLine.LineThickness));
+                            SectionLine sl = new SectionLine(SectionLines.Last().EndPoint, nextTopLine.StartPoint);
+                            sl.LineColor = section.Color;
+                            SectionLines.Add(sl);
                         }
                         // Next table's top is above the current table's top
                         else
                         {
                             // Horizontal line from current table's endpoint to next table's LeftLine
-                            SectionLines.Add(new SectionLine(currentTopLine.EndPoint.X, currentTopLine.EndPoint.Y,
-                                                             next.LeftLine.StartPoint.X, currentTopLine.EndPoint.Y, currentTopLine.LineThickness));
+                            SectionLine sl = new SectionLine(currentTopLine.EndPoint.X, currentTopLine.EndPoint.Y,
+                                                             next.LeftLine.StartPoint.X, currentTopLine.EndPoint.Y);
+                            sl.LineColor = section.Color;
+                            SectionLines.Add(sl);
 
                             // Vertical line upwards from that point to next table's TopLine
-                            SectionLines.Add(new SectionLine(next.LeftLine.StartPoint.X, currentTopLine.EndPoint.Y,
-                                                             next.LeftLine.StartPoint.X, nextTopLine.StartPoint.Y, currentTopLine.LineThickness));
+                            SectionLine sLine = new SectionLine(next.LeftLine.StartPoint.X, currentTopLine.EndPoint.Y,
+                                                             next.LeftLine.StartPoint.X, nextTopLine.StartPoint.Y);
+                            sLine.LineColor = section.Color;
+                            SectionLines.Add(sLine);
                         }
                     }
 
@@ -513,6 +524,7 @@ namespace FloorPlanMakerUI
         public SectionLine TopLine(TableControl tableControl)
         {
             SectionLine sectionLine = tableControl.TopLine;
+
             return sectionLine;
         }
         public TableControl? TopLeftMost(List<TableControl> sectionTableControls)
@@ -542,6 +554,8 @@ namespace FloorPlanMakerUI
                 if (tc.TopLeft.X <= tableControl.TopLeft.X) continue; // Ensure that the table's TopLeft corner is to the right of the current table's TopLeft.
                 //if it is, I also need to make sure the topleft is the to right of the current tables topRIGHT corner, if so, i need to make adjustments 
                 double distance = Distance(referencePoint, tc.TopLeft);
+
+                if (hasTableAbove(tc, sectionTableControls)) continue;
 
                 // If this table has the same distance as the current nearest table, but is higher, update the nearest table
                 if (distance == minDistance && tc.Top < nearestTable?.Top)
@@ -582,6 +596,143 @@ namespace FloorPlanMakerUI
 
             return false;
         }
+        public void AddBottomLines(Panel panel)
+        {
+            foreach (Section section in this.SectionToTableControls.Keys)
+            {
+                List<TableControl> sectionTableControls = this.SectionToTableControls[section];
+                TableControl? current = this.BottomRightMost(sectionTableControls);
+                while (current != null)
+                {
+                    SectionLine currentBottomLine = this.BottomLine(current);
+                    currentBottomLine.LineColor = section.Color;
+                    currentBottomLine.LineThickness = 10f;
+                    SectionLines.Add(currentBottomLine);
+
+                    TableControl? next = nextBottomSectionLine(current, sectionTableControls);
+                   
+
+                    if (next != null)
+                    {
+                        SectionLine nextBottomLine = this.BottomLine(next);
+
+                        // Same X Coordinate, Straight Line
+                        if (currentBottomLine.EndPoint.X == nextBottomLine.StartPoint.X)
+                        {
+                            SectionLine sl = new SectionLine(currentBottomLine.EndPoint.X, currentBottomLine.EndPoint.Y,
+                                                             nextBottomLine.StartPoint.X, nextBottomLine.StartPoint.Y);
+                            sl.LineColor = section.Color;
+                            SectionLines.Add((sl));
+                        }
+                        // Next table's bottom is above the current table's bottom
+                        else if (nextBottomLine.StartPoint.Y < currentBottomLine.EndPoint.Y)
+                        {
+                            //SectionLines.Add(current.LeftLine);  // Using the LeftLine of the current table up to next table's bottom
+                            SectionLine sl = new SectionLine(currentBottomLine.StartPoint.X,currentBottomLine.StartPoint.Y , currentBottomLine.StartPoint.X , nextBottomLine.StartPoint.Y);
+                            // Modify the current LeftLine's endpoint to stop at the next table's bottom
+                            //SectionLines.Last().EndPoint = new Point(current.LeftLine.EndPoint.X, nextBottomLine.StartPoint.Y);
+                            sl.LineColor = section.Color;
+                            SectionLines.Add((sl));
+                            SectionLine sLine = new SectionLine(SectionLines.Last().StartPoint, nextBottomLine.EndPoint);
+                            sLine.LineColor = section.Color;
+                            SectionLines.Add((sLine));
+                        }
+                        // Next table's bottom is below the current table's bottom
+                        else
+                        {
+                            // Horizontal line from current table's endpoint to next table's RightLine
+                            SectionLine sLine =new SectionLine(currentBottomLine.EndPoint.X, currentBottomLine.EndPoint.Y,
+                                                             next.RightLine.StartPoint.X, currentBottomLine.EndPoint.Y);
+                            sLine.LineColor = section.Color;
+                            SectionLines.Add((sLine));
+                            // Vertical line downwards from that point to next table's BottomLine
+                            SectionLine sl = new SectionLine(next.RightLine.StartPoint.X, currentBottomLine.EndPoint.Y,
+                                                             next.RightLine.StartPoint.X, nextBottomLine.StartPoint.Y);
+                            sl.LineColor = section.Color;
+                            SectionLines.Add((sl));
+                        }
+                    }
+
+
+                    current = next;
+                }
+            }
+
+            foreach (SectionLine sectionLine in this.SectionLines)
+            {
+                panel.Controls.Add(sectionLine);
+            }
+        }
+
+        public SectionLine BottomLine(TableControl tableControl)
+        {
+            SectionLine sectionLine = tableControl.BottomLine;
+            return sectionLine;
+        }
+
+        public TableControl? BottomRightMost(List<TableControl> sectionTableControls)
+        {
+            sectionTableControls = sectionTableControls.OrderByDescending(x => x.Right).ThenByDescending(y => y.Bottom).ToList();
+            foreach (TableControl tableControl in sectionTableControls)
+            {
+                if (!hasTableBelow(tableControl, sectionTableControls))
+                {
+                    return tableControl;
+                }
+            }
+
+            return null;
+        }
+
+        private TableControl? nextBottomSectionLine(TableControl tableControl, List<TableControl> sectionTableControls)
+        {
+            Point referencePoint = tableControl.BottomLeft;
+            double minDistance = double.MaxValue;
+            TableControl? nearestTable = null;
+
+            foreach (TableControl tc in sectionTableControls)
+            {
+                if (tc == tableControl) continue;
+
+                if (tc.BottomRight.X >= tableControl.BottomRight.X) continue;
+
+                double distance = Distance(referencePoint, tc.BottomRight);
+
+                //if (hasTableBelow(tc, sectionTableControls)) continue;
+                //if (tc.Bottom < tableControl.Bottom && !hasTableBelow(tc,sectionTableControls)) continue;
+
+                if (distance == minDistance && tc.Bottom > nearestTable?.Bottom)
+                {
+                    nearestTable = tc;
+                }
+                else if (distance < minDistance)
+                {
+                    minDistance = distance;
+                    nearestTable = tc;
+                }
+            }
+
+            return nearestTable;
+        }
+
+        private bool hasTableBelow(TableControl tableControl, List<TableControl> tableControls)
+        {
+            if (tableControl == null) return false;
+            foreach (TableControl tc in tableControls)
+            {
+                if (tc == tableControl)
+                    continue;
+
+                bool isDirectlyBelow = tc.Top >= tableControl.Bottom && tc.Bottom > tableControl.Bottom;
+                bool isHorizontallyOverlapping = (tc.Left < tableControl.Right) && (tc.Right > tableControl.Left);
+
+                if (isDirectlyBelow && isHorizontallyOverlapping)
+                    return true;
+            }
+
+            return false;
+        }
+
         private bool hasLineAbove(SectionLine sectionLine, List<SectionLine> sectionLines)
         {
             if (sectionLine == null) return false;

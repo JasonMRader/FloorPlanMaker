@@ -27,13 +27,13 @@ namespace FloorPlanMaker
         public Point BottomRight { get { return new Point(this.Right, this.Bottom); } }
         public Point BottomLeft { get { return new Point(this.Left, this.Bottom); } }
         public int SectionLineBuffer { get; set; } = 5;
-        public float SectionLineThickness { get; set; } = 5f;
+        //public float SectionLineThickness { get; set; } = 15f;
         public SectionLine TopLine 
         { 
             get 
             {
                 return new SectionLine(this.Left - this.SectionLineBuffer, this.Top - this.SectionLineBuffer,
-                    this.Right + this.SectionLineBuffer, this.Top - this.SectionLineBuffer, this.SectionLineThickness);
+                    this.Right + this.SectionLineBuffer, this.Top - this.SectionLineBuffer);
             }
         }
         public SectionLine RightLine
@@ -41,7 +41,7 @@ namespace FloorPlanMaker
             get
             {
                 return new SectionLine(this.Right + this.SectionLineBuffer, this.Top - this.SectionLineBuffer,
-                    this.Right + this.SectionLineBuffer, this.Bottom + this.SectionLineBuffer, this.SectionLineThickness);
+                    this.Right + this.SectionLineBuffer, this.Bottom + this.SectionLineBuffer);
             }
         }
         public SectionLine BottomLine
@@ -49,7 +49,7 @@ namespace FloorPlanMaker
             get
             {
                 return new SectionLine(this.Right + this.SectionLineBuffer, this.Bottom + this.SectionLineBuffer,
-                    this.Left - this.SectionLineBuffer, this.Bottom + this.SectionLineBuffer, this.SectionLineThickness);
+                    this.Left - this.SectionLineBuffer, this.Bottom + this.SectionLineBuffer);
             }
         }
         public SectionLine LeftLine
@@ -57,7 +57,7 @@ namespace FloorPlanMaker
             get
             {
                 return new SectionLine(this.Left - this.SectionLineBuffer, this.Bottom + this.SectionLineBuffer,
-                    this.Left - this.SectionLineBuffer, this.Top - this.SectionLineBuffer, this.SectionLineThickness);
+                    this.Left - this.SectionLineBuffer, this.Top - this.SectionLineBuffer);
             }
         }
 
