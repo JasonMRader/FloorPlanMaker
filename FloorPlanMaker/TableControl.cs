@@ -26,6 +26,10 @@ namespace FloorPlanMaker
         public Point TopRight { get { return new Point(this.Right, this.Left); } }
         public Point BottomRight { get { return new Point(this.Right, this.Bottom); } }
         public Point BottomLeft { get { return new Point(this.Left, this.Bottom); } }
+        public Point TopLeftLinePoint { get { return this.LeftLine.StartPoint; } }
+        public Point TopRightLinePoint { get { return this.RightLine.StartPoint; } }
+        public Point BottomRightLinePoint { get { return this.BottomLine.EndPoint; } }
+        public Point BottomLeftLinePoint { get { return this.BottomLine.StartPoint; } }
         public int SectionLineBuffer { get; set; } = 5;
         //public float SectionLineThickness { get; set; } = 15f;
         public SectionLine TopLine 

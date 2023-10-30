@@ -13,6 +13,7 @@ namespace FloorPlanMakerUI
     public class SectionLineManager
     {
         public List<TableControl> TableControls { get; private set; } = new List<TableControl>();
+        private List<TableControl> intrudingTables { get; set;} = new List<TableControl>();
         public List<SectionLine> SectionLines { get; private set; } = new List<SectionLine>();
         public List<SectionLine> TopLines { get; private set; } = new List<SectionLine>();
         public List<SectionLine> RightLines { get; private set; } = new List<SectionLine>();
@@ -84,7 +85,7 @@ namespace FloorPlanMakerUI
             TableControls.Add(tableControl);
         }
 
-        public void DrawSectionLines(Panel panel)
+        public void oldDrawSectionLines(Panel panel)
         {
             foreach (Section section in this.SectionToTableControls.Keys)
             {
@@ -113,6 +114,178 @@ namespace FloorPlanMakerUI
                 
             }
         }
+        public void DrawSectionLines(Panel panel)
+        {
+            foreach (Section section in this.SectionToTableControls.Keys)
+            {
+                minX = int.MaxValue;
+                maxX = int.MinValue;
+                minY = int.MaxValue;
+                maxY = int.MinValue;
+                List<SectionLine> linesToRemove = new List<SectionLine>();
+                List<TableControl> sectionTableControls = this.SectionToTableControls[section];
+                setTableControlBounds(sectionTableControls);
+
+                SectionLine topBoarder = new SectionLine(TopLeftPoint, TopRightPoint);
+                SectionLine bottomBoarder = new SectionLine(BottomLeftPoint, BottomRightPoint);
+                SectionLine leftBoarder = new SectionLine(TopLeftPoint, BottomLeftPoint);
+                SectionLine rightBoarder = new SectionLine(TopRightPoint, BottomRightPoint);
+                topBoarder.LineThickness = 20f;
+                topBoarder.LineColor = section.Color;
+                rightBoarder.LineThickness = 15f;
+                rightBoarder.LineColor = section.Color;
+                bottomBoarder.LineThickness = 10f;
+                bottomBoarder.LineColor = section.Color;
+                leftBoarder.LineThickness = 5f;
+                leftBoarder.LineColor = section.Color;
+                
+                //TopLines.Add(topBoarder);
+                //BottomLines.Add(bottomBoarder);
+                //LeftLines.Add(leftBoarder);
+                RightLines.Add(rightBoarder);
+                // Now, check for tables from different sections inside the right border
+                foreach (TableControl otherTable in TableControls)
+                {
+                    // Check if the table is from a different section and is partially inside the current section's right border
+                    if (otherTable.Section != section && IsPartiallyInsideBounds(otherTable))
+                    {
+                        ClosestBorder border = GetClosestBorder(otherTable);
+                        if (border == ClosestBorder.Right)
+                        {
+                            AdjustBordersAroundTable(otherTable, section, linesToRemove);
+                        }
+                    }
+                }
+                foreach (SectionLine lineToRemove in linesToRemove)
+                {
+                    RightLines.Remove(lineToRemove);
+                }
+                foreach (SectionLine sectionLine in TopLines)
+                {
+                    panel.Controls.Add(sectionLine);
+                }
+                foreach (SectionLine sectionLine in BottomLines)
+                {
+                    panel.Controls.Add(sectionLine);
+                }
+                foreach (SectionLine sectionLine in LeftLines)
+                {
+                    panel.Controls.Add(sectionLine);
+                }
+                foreach (SectionLine sectionLine in RightLines)
+                {
+                    panel.Controls.Add(sectionLine);
+                }
+                //panel.Controls.Add(topBoarder);
+                //panel.Controls.Add(leftBoarder);
+                //panel.Controls.Add(bottomBoarder);
+                //panel.Controls.Add(rightBoarder);
+            }
+        }
+
+
+
+
+        // Adjust the section's borders based on table controls that might be inside the section's bounds.
+        public void AdjustSectionBorders(Section section)
+        {
+            if (SectionToTableControls.ContainsKey(section))
+            {
+                foreach (TableControl table in SectionToTableControls[section])
+                {
+                    //AdjustBordersAroundTable(table, section);
+                }
+            }
+        }
+
+        private void AdjustBordersAroundTable(TableControl table, Section section, List<SectionLine> linesToRemove)
+        {
+            ClosestBorder border = GetClosestBorder(table);
+            switch (border)
+            {
+                case ClosestBorder.Right:
+                    // Remove the existing right border
+                    //RightLines.RemoveAll(b => b.StartPoint.X > table.Left && b.StartPoint.X < table.Right);
+                    SectionLine currentSectionRightBorder = RightLines.Find(b =>
+                        b.StartPoint.Equals(TopRightPoint) &&
+                        b.EndPoint.Equals(BottomRightPoint));
+
+                    // Add it to the linesToRemove list
+                    if (currentSectionRightBorder != null)
+                    {
+                        linesToRemove.Add(currentSectionRightBorder);
+                    }
+                    // Add the adjusted lines
+                    RightLines.Add(new SectionLine(TopRightPoint, new Point(TopRightPoint.X,table.TopLeftLinePoint.Y)));
+                    SectionLine newBottomLine = new SectionLine(RightLines.Last().EndPoint, table.TopLeftLinePoint);
+                    BottomLines.Add(newBottomLine);
+                    SectionLine newRightLine = new SectionLine(table.TopLeftLinePoint, new Point(table.TopLeftLinePoint.X,BottomRightPoint.Y));
+                    CheckNewBorderLine(section, newBottomLine, newRightLine);
+                    // I need a method here to check if any tables from my section are to the right of the newRightLine, and below the BottomLine I 
+                    // added right before the newRightLine
+                    break;
+
+                // ... Similarly, handle other borders. ...
+
+                default:
+                    break;
+            }
+        }
+        private void CheckNewBorderLine(Section section, SectionLine connectorLine, SectionLine newBorderLine)
+        {
+           
+            List<TableControl> sectionTableControls = this.SectionToTableControls[section];
+            foreach(TableControl tableControl in sectionTableControls)
+            {
+                if(tableControl.RightLine.StartPoint.X > newBorderLine.StartPoint.X && 
+                    tableControl.TopLine.StartPoint.Y > connectorLine.StartPoint.Y)
+                {
+                    SectionLine newRightLine = new SectionLine();
+                    SectionLine newConnectorLine = new SectionLine();
+
+                    newBorderLine.EndPoint = new Point(newBorderLine.StartPoint.X, tableControl.TopLine.StartPoint.Y);
+                    newConnectorLine.StartPoint = newBorderLine.EndPoint;
+                    newConnectorLine.EndPoint = tableControl.RightLine.EndPoint;
+                    newRightLine.StartPoint = newConnectorLine.EndPoint;
+                    newRightLine.EndPoint = new Point(newRightLine.StartPoint.X, maxY);
+                    RightLines.Add(newRightLine);
+                    RightLines.Add(newConnectorLine);
+                    
+
+
+                }
+            }
+            RightLines.Add(newBorderLine);
+        }
+        private ClosestBorder GetClosestBorder(TableControl tableControl)
+        {
+            if (!IsPartiallyInsideBounds(tableControl))
+                return ClosestBorder.None;
+
+            double topDistance = tableControl.TopLine.StartPoint.Y - TopLeftPoint.Y;
+            double bottomDistance = BottomRightPoint.Y - tableControl.BottomLine.EndPoint.Y;
+            double leftDistance = tableControl.LeftLine.StartPoint.X - TopLeftPoint.X;
+            double rightDistance = BottomRightPoint.X - tableControl.RightLine.EndPoint.X;
+
+            double minDistance = Math.Min(Math.Min(topDistance, bottomDistance), Math.Min(leftDistance, rightDistance));
+
+            if (minDistance == topDistance) return ClosestBorder.Top;
+            if (minDistance == bottomDistance) return ClosestBorder.Bottom;
+            if (minDistance == leftDistance) return ClosestBorder.Left;
+            return ClosestBorder.Right;
+        }
+
+        private bool IsPartiallyInsideBounds(TableControl tableControl)
+        {
+            return !(tableControl.BottomLine.EndPoint.Y < TopLeftPoint.Y ||
+                        tableControl.TopLine.StartPoint.Y > BottomRightPoint.Y ||
+                        tableControl.RightLine.EndPoint.X < TopLeftPoint.X ||
+                        tableControl.LeftLine.StartPoint.X > BottomRightPoint.X);
+        }
+
+           
+        
+
         private bool IsInsideBounds(TableControl tableControl, Point topLeft, Point bottomRight)
         {
             bool isHorizontallyInside =
