@@ -30,7 +30,16 @@ namespace FloorPlanMakerUI
         public Point BottomRightPoint { get { return new Point(maxX, maxY); } }
 
         public Point BottomLeftPoint { get { return new Point(minX, maxY); } }
+        public enum ClosestBorder
+        {
+            None,
+            Top,
+            Right,
+            Bottom,
+            Left
+        }
 
+        
         private void setTableControlBounds(List<TableControl> tableControls)
         {
             foreach (TableControl tableControl in tableControls)
@@ -103,6 +112,35 @@ namespace FloorPlanMakerUI
                 panel.Controls.Add(rightBoarder);
                 
             }
+        }
+        private bool IsInsideBounds(TableControl tableControl, Point topLeft, Point bottomRight)
+        {
+            bool isHorizontallyInside =
+                (tableControl.LeftLine.StartPoint.X >= topLeft.X && tableControl.LeftLine.StartPoint.X <= bottomRight.X) || // Left edge is inside
+                (tableControl.RightLine.EndPoint.X >= topLeft.X && tableControl.RightLine.EndPoint.X <= bottomRight.X);     // Right edge is inside
+
+            bool isVerticallyInside =
+                (tableControl.TopLine.StartPoint.Y >= topLeft.Y && tableControl.TopLine.StartPoint.Y <= bottomRight.Y) || // Top edge is inside
+                (tableControl.BottomLine.EndPoint.Y >= topLeft.Y && tableControl.BottomLine.EndPoint.Y <= bottomRight.Y); // Bottom edge is inside
+
+            return isHorizontallyInside && isVerticallyInside;
+        }
+        private ClosestBorder GetClosestBorder(TableControl tableControl, Point topLeft, Point bottomRight)
+        {
+            if (!IsInsideBounds(tableControl, topLeft, bottomRight))
+                return ClosestBorder.None;
+
+            double topDistance = tableControl.TopLine.StartPoint.Y - topLeft.Y;
+            double bottomDistance = bottomRight.Y - tableControl.BottomLine.EndPoint.Y;
+            double leftDistance = tableControl.LeftLine.StartPoint.X - topLeft.X;
+            double rightDistance = bottomRight.X - tableControl.RightLine.EndPoint.X;
+
+            double minDistance = Math.Min(Math.Min(topDistance, bottomDistance), Math.Min(leftDistance, rightDistance));
+
+            if (minDistance == topDistance) return ClosestBorder.Top;
+            if (minDistance == bottomDistance) return ClosestBorder.Bottom;
+            if (minDistance == leftDistance) return ClosestBorder.Left;
+            return ClosestBorder.Right;
         }
         public void DrawSeparationLines(Panel pnlFloorPlan)
         {
