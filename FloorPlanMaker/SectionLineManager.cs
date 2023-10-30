@@ -904,11 +904,9 @@ namespace FloorPlanMakerUI
 
                 if (isDirectlyAbove && leftEdgeIsAboveTable)
                 {
-                    // Check if the LeftLine of the table above intersects with the TopLine of the current table
-                    if (tc.LeftLine.StartPoint.Y <= tableControl.Top && tc.LeftLine.End.Y >= tableControl.Top)
-                    {
-                        return new Point(tc.LeftLine.Start.X, tableControl.Top);
-                    }
+                   
+                    return new Point(tc.LeftLine.StartPoint.X, tableControl.TopLine.StartPoint.Y);
+                    
 
                     // Similarly, you can check for the RightLine if required in the future.
                     //if(tc.RightLine.Start.Y <= tableControl.Top && tc.RightLine.End.Y >= tableControl.Top)
