@@ -3,6 +3,7 @@ using FloorPlanMaker;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Windows.Forms.LinkLabel;
@@ -18,6 +19,36 @@ namespace FloorPlanMakerUI
         public List<SectionLine> BottomLines { get; private set; } = new List<SectionLine>();
         public List<SectionLine> LeftLines { get; private set; } = new List<SectionLine>();
         public List <SectionLine> ParallelLines { get; private set; } = new List<SectionLine> { };
+        private int minX = int.MaxValue;
+        private int maxX = int.MinValue;
+        private int minY = int.MaxValue;
+        private int maxY = int.MinValue;
+        public Point TopLeftPoint { get { return new Point(minX, minY); } }
+
+        public Point TopRightPoint { get { return new Point(maxX, minY); } }
+
+        public Point BottomRightPoint { get { return new Point(maxX, maxY); } }
+
+        public Point BottomLeftPoint { get { return new Point(minX, maxY); } }
+
+        private void setTableControlBounds(List<TableControl> tableControls)
+        {
+            foreach (TableControl tableControl in tableControls)
+            {
+                if (tableControl.LeftLine.StartPoint.X < this.minX)
+                    this.minX = tableControl.LeftLine.StartPoint.X;
+
+                if (tableControl.RightLine.EndPoint.X > this.maxX)
+                    this.maxX = tableControl.RightLine.EndPoint.X;
+
+                if (tableControl.TopLine.StartPoint.Y < this.minY)
+                    this.minY = tableControl.TopLine.StartPoint.Y;
+
+                if (tableControl.BottomLine.EndPoint.Y > this.maxY)
+                    this.maxY = tableControl.BottomLine.EndPoint.Y;
+            }
+        }
+        
         private List<string> testData = new List<string>();
         public Dictionary<Section, List<TableControl>> SectionToTableControls { get; private set; } = new Dictionary<Section, List<TableControl>>();
 
@@ -44,11 +75,33 @@ namespace FloorPlanMakerUI
             TableControls.Add(tableControl);
         }
 
-        public void DrawSectionLines()
+        public void DrawSectionLines(Panel panel)
         {
             foreach (Section section in this.SectionToTableControls.Keys)
             {
-
+                minX = int.MaxValue;
+                maxX = int.MinValue;
+                minY = int.MaxValue;
+                maxY = int.MinValue;
+                List<TableControl> sectionTableControls = this.SectionToTableControls[section];
+                setTableControlBounds(sectionTableControls);
+                SectionLine topBoarder = new SectionLine(TopLeftPoint, TopRightPoint);
+                SectionLine bottomBoarder = new SectionLine(BottomLeftPoint, BottomRightPoint);
+                SectionLine leftBoarder = new SectionLine(TopLeftPoint, BottomLeftPoint);
+                SectionLine rightBoarder = new SectionLine(TopRightPoint, BottomRightPoint);
+                topBoarder.LineThickness = 20f;
+                topBoarder.LineColor = section.Color;
+                rightBoarder.LineThickness = 15f;
+                rightBoarder.LineColor = section.Color;
+                bottomBoarder.LineThickness = 10f;
+                bottomBoarder.LineColor = section.Color;
+                leftBoarder.LineThickness = 5f;
+                leftBoarder.LineColor = section.Color;
+                panel.Controls.Add(topBoarder);
+                panel.Controls.Add(leftBoarder);
+                panel.Controls.Add(bottomBoarder);
+                panel.Controls.Add(rightBoarder);
+                
             }
         }
         public void DrawSeparationLines(Panel pnlFloorPlan)
