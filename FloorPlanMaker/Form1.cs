@@ -1487,9 +1487,11 @@ namespace FloorPlanMaker
             //}
 
             //this.sectionLineManager = new SectionLineManager(allTableControls);
-            //sectionLineManager.AddTopLines(pnlFloorPlan);
+            sectionLineManager.AddTopLines(pnlFloorPlan);
+            //sectionLineManager.AddRightBorders(pnlFloorPlan);
             //sectionLineManager.AddBottomLines(pnlFloorPlan);
-            sectionLineManager.DrawSectionLines(pnlFloorPlan);
+            //sectionLineManager.DrawSectionLines(pnlFloorPlan);
+            
             //sectionLineManager.MakeTopLines(pnlFloorPlan);
             //sectionLineManager.MakeSectionTableOutlines();
             //foreach(SectionLine sectionLine in sectionLineManager.SectionLines)
@@ -1520,7 +1522,16 @@ namespace FloorPlanMaker
 
         private void btnDoAThing_Click(object sender, EventArgs e)
         {
-            sectionLineManager.RemoveAllLines(pnlFloorPlan);
+            //foreach (Control c in pnlFloorPlan.Controls)
+            //{
+            //    if (c is SectionLine sectionline)
+            //    {
+            //        sectionline.BringToFront();
+            //        sectionline.LineThickness = 15;
+            //        sectionline.Invalidate();
+            //    }
+            //}
+            //sectionLineManager.RemoveAllLines(pnlFloorPlan);
         }
         //public static List<LineString> ComputeVoronoiEdges(List<Coordinate> coordinates)
         //{
