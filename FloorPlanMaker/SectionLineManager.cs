@@ -14,6 +14,10 @@ namespace FloorPlanMakerUI
     {
         public List<TableControl> TableControls { get; private set; } = new List<TableControl>();
         private List<TableControl> intrudingTables { get; set;} = new List<TableControl>();
+        private List<TableControl> topIntrudingTables { get; set; } = new List<TableControl>();
+        private List<TableControl> rightIntrudingTables { get; set; } = new List<TableControl>();
+        private List<TableControl> bottomIntrudingTables { get; set; } = new List<TableControl>();
+        private List<TableControl> leftIntrudingTables { get; set; } = new List<TableControl>();
         public List<SectionLine> SectionLines { get; private set; } = new List<SectionLine>();
         public List<SectionLine> TopLines { get; private set; } = new List<SectionLine>();
         public List<SectionLine> RightLines { get; private set; } = new List<SectionLine>();
@@ -152,9 +156,17 @@ namespace FloorPlanMakerUI
                         ClosestBorder border = GetClosestBorder(otherTable);
                         if (border == ClosestBorder.Right)
                         {
-                            AdjustBordersAroundTable(otherTable, section, linesToRemove);
+                           
+                            rightIntrudingTables.Add(otherTable);
+                            //RightLines.Remove(rightBoarder);
+                            //AdjustBordersAroundTable(otherTable, section, linesToRemove);
                         }
                     }
+                }
+                List<SectionLine> rightBorderIntruderAdjustment = rightBorderIntrudingTableAdjustments(rightBoarder, section);
+                foreach (SectionLine rightAdjustment in rightBorderIntruderAdjustment)
+                {
+                    RightLines.Add(rightAdjustment);
                 }
                 foreach (SectionLine lineToRemove in linesToRemove)
                 {
@@ -184,6 +196,44 @@ namespace FloorPlanMakerUI
         }
 
 
+        private List<SectionLine> rightBorderIntrudingTableAdjustments(SectionLine rightBoarder, Section section)
+        {
+            List<SectionLine> rightLines = new List<SectionLine>();
+            foreach (TableControl tableControl in rightIntrudingTables)
+            {
+                SectionLine sectionLine = new SectionLine(tableControl.TopLeftLinePoint, tableControl.BottomLeftLinePoint);
+                sectionLine.LineColor = section.Color;
+                rightLines.Add(sectionLine);
+            }
+
+            // Sort the rightLines list based on the X value of the start point
+            rightLines = rightLines.OrderBy(line => line.StartPoint.X).ToList();
+            rightBoarder.EndPoint = new Point(rightBoarder.StartPoint.X, rightLines[0].StartPoint.Y);
+            for (int i = 0; i < rightLines.Count - 1; i++)
+            {
+                SectionLine currentLine = rightLines[i];
+                SectionLine nextLine = rightLines[i + 1];
+
+                // Check if the lines overlap
+                if (currentLine.EndPoint.Y >= nextLine.StartPoint.Y)
+                {
+                    // Adjust the current line to cover the entire overlap range
+                    int newYStart = Math.Min(currentLine.StartPoint.Y, nextLine.StartPoint.Y);
+                    int newYEnd = Math.Max(currentLine.EndPoint.Y, nextLine.EndPoint.Y);
+
+                    currentLine.StartPoint = new Point(currentLine.StartPoint.X, newYStart);
+                    currentLine.EndPoint = new Point(currentLine.EndPoint.X, newYEnd);
+
+                    // Remove the next line
+                    rightLines.RemoveAt(i + 1);
+
+                    // Decrement the iterator to check the current line against the next again
+                    i--;
+                }
+            }
+
+            return rightLines;
+        }
 
 
         // Adjust the section's borders based on table controls that might be inside the section's bounds.
@@ -219,7 +269,9 @@ namespace FloorPlanMakerUI
                     RightLines.Add(new SectionLine(TopRightPoint, new Point(TopRightPoint.X,table.TopLeftLinePoint.Y)));
                     SectionLine newBottomLine = new SectionLine(RightLines.Last().EndPoint, table.TopLeftLinePoint);
                     BottomLines.Add(newBottomLine);
-                    SectionLine newRightLine = new SectionLine(table.TopLeftLinePoint, new Point(table.TopLeftLinePoint.X,BottomRightPoint.Y));
+                    SectionLine newRightLine = new SectionLine(table.TopLeftLinePoint, table.BottomLeftLinePoint);
+                    RightLines.Add(newRightLine);
+                    SectionLine topLine = new SectionLine(RightLines.Last().EndPoint,table.BottomRightLinePoint);
                     CheckNewBorderLine(section, newBottomLine, newRightLine);
                     // I need a method here to check if any tables from my section are to the right of the newRightLine, and below the BottomLine I 
                     // added right before the newRightLine
