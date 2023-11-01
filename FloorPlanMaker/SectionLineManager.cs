@@ -29,13 +29,13 @@ namespace FloorPlanMakerUI
         private int maxX = int.MinValue;
         private int minY = int.MaxValue;
         private int maxY = int.MinValue;
-        public Point TopLeftPoint { get { return new Point(minX, minY); } }
+        public Point BorderTopLeftPoint { get { return new Point(minX, minY); } }
 
-        public Point TopRightPoint { get { return new Point(maxX, minY); } }
+        public Point BorderTopRightPoint { get { return new Point(maxX, minY); } }
 
-        public Point BottomRightPoint { get { return new Point(maxX, maxY); } }
+        public Point BorderBottomRightPoint { get { return new Point(maxX, maxY); } }
 
-        public Point BottomLeftPoint { get { return new Point(minX, maxY); } }
+        public Point BorderBottomLeftPoint { get { return new Point(minX, maxY); } }
         public enum ClosestBorder
         {
             None,
@@ -100,10 +100,10 @@ namespace FloorPlanMakerUI
                 maxY = int.MinValue;
                 List<TableControl> sectionTableControls = this.SectionToTableControls[section];
                 setTableControlBounds(sectionTableControls);
-                SectionLine topBoarder = new SectionLine(TopLeftPoint, TopRightPoint);
-                SectionLine bottomBoarder = new SectionLine(BottomLeftPoint, BottomRightPoint);
-                SectionLine leftBoarder = new SectionLine(TopLeftPoint, BottomLeftPoint);
-                SectionLine rightBoarder = new SectionLine(TopRightPoint, BottomRightPoint);
+                SectionLine topBoarder = new SectionLine(BorderTopLeftPoint, BorderTopRightPoint);
+                SectionLine bottomBoarder = new SectionLine(BorderBottomLeftPoint, BorderBottomRightPoint);
+                SectionLine leftBoarder = new SectionLine(BorderTopLeftPoint, BorderBottomLeftPoint);
+                SectionLine rightBoarder = new SectionLine(BorderTopRightPoint, BorderBottomRightPoint);
                 topBoarder.LineThickness = 20f;
                 topBoarder.LineColor = section.Color;
                 rightBoarder.LineThickness = 15f;
@@ -131,10 +131,10 @@ namespace FloorPlanMakerUI
                 List<TableControl> sectionTableControls = this.SectionToTableControls[section];
                 setTableControlBounds(sectionTableControls);
 
-                SectionLine topBoarder = new SectionLine(TopLeftPoint, TopRightPoint);
-                SectionLine bottomBoarder = new SectionLine(BottomLeftPoint, BottomRightPoint);
-                SectionLine leftBoarder = new SectionLine(TopLeftPoint, BottomLeftPoint);
-                SectionLine rightBoarder = new SectionLine(TopRightPoint, BottomRightPoint);
+                SectionLine topBoarder = new SectionLine(BorderTopLeftPoint, BorderTopRightPoint);
+                SectionLine bottomBoarder = new SectionLine(BorderBottomLeftPoint, BorderBottomRightPoint);
+                SectionLine leftBoarder = new SectionLine(BorderTopLeftPoint, BorderBottomLeftPoint);
+                SectionLine rightBoarder = new SectionLine(BorderTopRightPoint, BorderBottomRightPoint);
                 topBoarder.LineThickness = 20f;
                 topBoarder.LineColor = section.Color;
                 rightBoarder.LineThickness = 15f;
@@ -321,8 +321,8 @@ namespace FloorPlanMakerUI
                     // Remove the existing right border
                     //RightLines.RemoveAll(b => b.StartPoint.X > table.Left && b.StartPoint.X < table.Right);
                     SectionLine currentSectionRightBorder = RightLines.Find(b =>
-                        b.StartPoint.Equals(TopRightPoint) &&
-                        b.EndPoint.Equals(BottomRightPoint));
+                        b.StartPoint.Equals(BorderTopRightPoint) &&
+                        b.EndPoint.Equals(BorderBottomRightPoint));
 
                     // Add it to the linesToRemove list
                     if (currentSectionRightBorder != null)
@@ -330,7 +330,7 @@ namespace FloorPlanMakerUI
                         linesToRemove.Add(currentSectionRightBorder);
                     }
                     // Add the adjusted lines
-                    RightLines.Add(new SectionLine(TopRightPoint, new Point(TopRightPoint.X,table.TopLeftLinePoint.Y)));
+                    RightLines.Add(new SectionLine(BorderTopRightPoint, new Point(BorderTopRightPoint.X,table.TopLeftLinePoint.Y)));
                     SectionLine newBottomLine = new SectionLine(RightLines.Last().EndPoint, table.TopLeftLinePoint);
                     BottomLines.Add(newBottomLine);
                     SectionLine newRightLine = new SectionLine(table.TopLeftLinePoint, table.BottomLeftLinePoint);
@@ -387,16 +387,40 @@ namespace FloorPlanMakerUI
 
             return null;
         }
+        private TableControl TopRightMost(List<TableControl> sectionTableControls)
+        {
+            return sectionTableControls
+                .OrderBy(tc => tc.TopRightLinePoint.Y)
+                .ThenByDescending(tc => tc.TopRightLinePoint.X)
+                .First();
+        }
+        private Point TopLeftPoint(List<TableControl> sectionTableControls)
+        {
+            return sectionTableControls
+                .Select(tc => tc.TopLeftLinePoint)
+                .OrderBy(p => p.X)
+                .ThenBy(p => p.Y)
+                .First();
+        }
+        private Point TopRightPoint(List<TableControl> sectionTableControls)
+        {
+            return sectionTableControls
+                .Select(tc => tc.TopRightLinePoint) // Assuming you have a property named TopRightLinePoint in your TableControl class
+                .OrderBy(p => p.Y)
+                .ThenByDescending(p => p.X)
+                .First();
+        }
+
 
         private ClosestBorder GetClosestBorder(TableControl tableControl)
         {
             if (!IsPartiallyInsideBounds(tableControl))
                 return ClosestBorder.None;
 
-            double topDistance = tableControl.TopLine.StartPoint.Y - TopLeftPoint.Y;
-            double bottomDistance = BottomRightPoint.Y - tableControl.BottomLine.EndPoint.Y;
-            double leftDistance = tableControl.LeftLine.StartPoint.X - TopLeftPoint.X;
-            double rightDistance = BottomRightPoint.X - tableControl.RightLine.EndPoint.X;
+            double topDistance = tableControl.TopLine.StartPoint.Y - BorderTopLeftPoint.Y;
+            double bottomDistance = BorderBottomRightPoint.Y - tableControl.BottomLine.EndPoint.Y;
+            double leftDistance = tableControl.LeftLine.StartPoint.X - BorderTopLeftPoint.X;
+            double rightDistance = BorderBottomRightPoint.X - tableControl.RightLine.EndPoint.X;
 
             double minDistance = Math.Min(Math.Min(topDistance, bottomDistance), Math.Min(leftDistance, rightDistance));
 
@@ -408,10 +432,10 @@ namespace FloorPlanMakerUI
 
         private bool IsPartiallyInsideBounds(TableControl tableControl)
         {
-            return !(tableControl.BottomLine.EndPoint.Y < TopLeftPoint.Y ||
-                        tableControl.TopLine.StartPoint.Y > BottomRightPoint.Y ||
-                        tableControl.RightLine.EndPoint.X < TopLeftPoint.X ||
-                        tableControl.LeftLine.StartPoint.X > BottomRightPoint.X);
+            return !(tableControl.BottomLine.EndPoint.Y < BorderTopLeftPoint.Y ||
+                        tableControl.TopLine.StartPoint.Y > BorderBottomRightPoint.Y ||
+                        tableControl.RightLine.EndPoint.X < BorderTopLeftPoint.X ||
+                        tableControl.LeftLine.StartPoint.X > BorderBottomRightPoint.X);
         }
 
            
@@ -903,6 +927,79 @@ namespace FloorPlanMakerUI
                 panel.Controls.Add(sectionLine);
             }
         }
+        public void AddRightLines(Panel panel)
+        {
+            foreach (Section section in this.SectionToTableControls.Keys)
+            {
+                List<TableControl> sectionTableControls = this.SectionToTableControls[section];
+                TableControl? current = this.BottomRightMost(sectionTableControls); // Start with the bottom-right most table
+
+                while (current != null)
+                {
+                    SectionLine currentRightLine = this.RightLine(current); // Assuming you have a RightLine method
+                    currentRightLine.LineColor = section.Color;
+                    currentRightLine.LineThickness = 10f;
+                    currentRightLine.Section = section;
+                    SectionLines.Add(currentRightLine);
+
+                    TableControl? next = nextRightSectionLine(current, sectionTableControls); // Assuming you have a nextRightSectionLine method
+
+                    if (next != null)
+                    {
+                        SectionLine nextRightLine = this.RightLine(next);
+
+                        // Same Y Coordinate, Straight Line
+                        if (currentRightLine.EndPoint.Y == nextRightLine.StartPoint.Y)
+                        {
+                            SectionLine sl = new SectionLine(currentRightLine.EndPoint.X, currentRightLine.EndPoint.Y,
+                                                             nextRightLine.StartPoint.X, nextRightLine.StartPoint.Y);
+                            sl.LineColor = section.Color;
+                            sl.Section = section;
+                            SectionLines.Add(sl);
+                        }
+                        // Next table's right is to the left of the current table's right
+                        else if (nextRightLine.StartPoint.X < currentRightLine.EndPoint.X)
+                        {
+                            current.BottomLine.BackColor = section.Color;
+                            current.Section = section;
+                            SectionLines.Add(current.BottomLine);  // Using the BottomLine of the current table up to next table's right
+
+                            // Modify the current BottomLine's endpoint to stop at the next table's right
+                            SectionLines.Last().EndPoint = new Point(nextRightLine.StartPoint.X, current.BottomLine.EndPoint.Y);
+                            SectionLine sl = new SectionLine(SectionLines.Last().EndPoint, nextRightLine.StartPoint);
+                            sl.LineColor = section.Color;
+                            sl.Section = section;
+                            SectionLines.Add(sl);
+                        }
+                        // Next table's right is to the right of the current table's right
+                        else
+                        {
+                            // Horizontal line from current table's endpoint to next table's BottomLine
+                            SectionLine sl = new SectionLine(currentRightLine.EndPoint.X, currentRightLine.EndPoint.Y,
+                                                             currentRightLine.EndPoint.X, next.BottomLine.StartPoint.Y);
+                            sl.LineColor = section.Color;
+                            sl.Section = section;
+                            SectionLines.Add(sl);
+
+                            // Vertical line to the right from that point to next table's RightLine
+                            SectionLine sLine = new SectionLine(currentRightLine.EndPoint.X, next.BottomLine.StartPoint.Y,
+                                                                nextRightLine.StartPoint.X, next.BottomLine.StartPoint.Y);
+                            sLine.Section = section;
+                            sLine.LineColor = section.Color;
+                            SectionLines.Add(sLine);
+                        }
+                    }
+
+                    current = next;
+                }
+            }
+
+            foreach (SectionLine sectionLine in this.SectionLines)
+            {
+                panel.Controls.Add(sectionLine);
+            }
+        }
+
         public void AddRightBorders(Panel panel)
         {
             // Assuming you have the SectionLines already sorted in the desired order
@@ -924,7 +1021,7 @@ namespace FloorPlanMakerUI
                     currentRightLine.Section = section;
                     SectionLines.Add(currentRightLine);
 
-                    last = NextRightSectionLine(last, sectionTableControls);  // This method should get the next table control for the right border
+                    last = nextRightSectionLine(last, sectionTableControls);  // This method should get the next table control for the right border
                 }
             }
 
@@ -941,7 +1038,7 @@ namespace FloorPlanMakerUI
         }
 
         // This method should get the next TableControl for which we need to draw the right border
-        private TableControl? NextRightSectionLine(TableControl tableControl, List<TableControl> sectionTableControls)
+        private TableControl? nextRightSectionLine(TableControl tableControl, List<TableControl> sectionTableControls)
         {
             Point referencePoint = tableControl.BottomRight;
             double minDistance = double.MaxValue;
@@ -955,10 +1052,10 @@ namespace FloorPlanMakerUI
                 //if it is, I also need to make sure the topleft is the to right of the current tables topRIGHT corner, if so, i need to make adjustments 
                 double distance = Distance(referencePoint, tc.TopRight);
 
-                if (hasTableAbove(tc, sectionTableControls)) continue;
+                if (hasTableToRight(tc, sectionTableControls)) continue;
 
                 // If this table has the same distance as the current nearest table, but is higher, update the nearest table
-                if (distance == minDistance && tc.Right < nearestTable?.Right)
+                if (distance == minDistance && tc.Right > nearestTable?.Right)
                 {
                     nearestTable = tc;
                 }
@@ -1056,6 +1153,25 @@ namespace FloorPlanMakerUI
 
             return false;
         }
+        private bool hasTableToRight(TableControl tableControl, List<TableControl> tableControls)
+        {
+            if (tableControl == null) return false;
+
+            foreach (TableControl tc in tableControls)
+            {
+                if (tc == tableControl)
+                    continue;
+
+                bool isDirectlyToRight = tc.Left >= tableControl.Right;
+                bool isVerticallyOverlapping = (tc.Top < tableControl.Bottom) && (tc.Bottom > tableControl.Top);
+
+                if (isDirectlyToRight && isVerticallyOverlapping)
+                    return true;
+            }
+
+            return false;
+        }
+
         public void AddBottomLines(Panel panel)
         {
             foreach (Section section in this.SectionToTableControls.Keys)
