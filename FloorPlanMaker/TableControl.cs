@@ -38,8 +38,10 @@ namespace FloorPlanMaker
             {
                 if (this.Section != null)
                 {
-                    return new SectionLine(this.Left - this.SectionLineBuffer, this.Top - this.SectionLineBuffer,
+                    SectionLine topLine = new SectionLine(this.Left - this.SectionLineBuffer, this.Top - this.SectionLineBuffer,
                     this.Right + this.SectionLineBuffer, this.Top - this.SectionLineBuffer, this.Section);
+                    topLine.Edge = SectionLine.BorderEdge.Right;
+                    return topLine;
                 }
                 else
                 {

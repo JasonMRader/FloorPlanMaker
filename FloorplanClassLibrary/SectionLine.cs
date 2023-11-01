@@ -21,6 +21,15 @@ namespace FloorPlanMaker
         public Color LineColor { get; set; } = Color.Black;
         public float LineThickness { get; set; } = 15f;
         public Section Section = new Section();
+        public enum BorderEdge
+        {
+            None,
+            Top,
+            Right,
+            Bottom,
+            Left
+        }
+        public BorderEdge Edge { get; set; }
         public SectionLine()
         {
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer |

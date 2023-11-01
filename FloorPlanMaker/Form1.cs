@@ -1228,6 +1228,7 @@ namespace FloorPlanMaker
                 SqliteDataAccess.SaveFloorplanAndSections(shiftManager.SelectedFloorplan);
                 FloorplanPrinter printer = new FloorplanPrinter(pnlFloorPlan, sectionLineManager.SectionLines);
                 printer.ShowPrintPreview();
+                printer.Print();
 
 
             }
@@ -1237,7 +1238,7 @@ namespace FloorPlanMaker
             }
 
             // To show print preview
-            //printer.Print();  // To print
+             // To print
 
         }
 

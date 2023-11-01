@@ -78,7 +78,8 @@ namespace FloorplanClassLibrary
             this.ResizeRedraw = true;
 
             UpdateLabel();
-            this.Location = section.MidPoint;
+            this.Location = new Point(section.MidPoint.X - (this.Width / 2),
+                section.MidPoint.Y - (this.Height / 2));
             this.BringToFront();
         }
 
