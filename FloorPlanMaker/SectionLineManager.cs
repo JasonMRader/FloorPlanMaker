@@ -856,6 +856,47 @@ namespace FloorPlanMakerUI
                 LeftLines.Add(newLeftLine);
             }
         }
+        private List<SectionLine> AddRightConnectorLines(List<SectionLine> rightLines)
+        {
+            rightLines = rightLines.OrderBy(l => l.StartPoint.Y).ToList();
+            List<SectionLine> connectorLines = new List<SectionLine>();
+            for(int i = 0; i < rightLines.Count-1; i++)
+            {
+                if (rightLines[i].EndPoint.X < rightLines[i + 1].StartPoint.X)
+                {
+                    SectionLine line = new SectionLine(rightLines[i].EndPoint, new Point(rightLines[i].StartPoint.X, rightLines[i + 1].StartPoint.Y), rightLines[i].Section);
+                    SectionLine line2 = new SectionLine(new Point(rightLines[i].StartPoint.X, rightLines[i+1].StartPoint.Y), rightLines[i + 1].StartPoint, rightLines[i].Section);
+                    RightLines.Add(line);    
+                    line.LineColor = rightLines[i].Section.Color;
+                    connectorLines.Add(line);
+                    TopLines.Add(line2);
+                    line2.LineColor = rightLines[i].Section.Color;
+                    connectorLines.Add(line2);
+                }
+                else if (rightLines[i].EndPoint.X > rightLines[i + 1].StartPoint.X)
+                {
+                    SectionLine line = new SectionLine(rightLines[i].EndPoint, new Point(rightLines[i + 1].StartPoint.X, rightLines[i].EndPoint.Y), rightLines[i].Section);
+                    SectionLine line2 = new SectionLine(new Point(rightLines[i + 1].StartPoint.X, rightLines[i].EndPoint.Y), rightLines[i+1].StartPoint, rightLines[i + 1].Section);
+                    BottomLines.Add(line);
+                    line.LineColor = rightLines[i].Section.Color;
+                    connectorLines.Add(line);
+                    RightLines.Add(line2);
+                    line2.LineColor = rightLines[i].Section.Color;
+                    connectorLines.Add(line2);
+                }
+                else
+                {
+                    SectionLine line = new SectionLine(rightLines[i].EndPoint, rightLines[i+1].StartPoint, rightLines[i].Section);
+                    RightLines.Add(line);
+                    line.LineColor = rightLines[i].Section.Color;
+                    connectorLines.Add(line);
+                }
+            }
+
+            rightLines.AddRange(connectorLines);
+            return rightLines;
+
+        }
         public void AddTopLines(Panel panel)
         {
             foreach (Section section in this.SectionToTableControls.Keys)
@@ -920,19 +961,29 @@ namespace FloorPlanMakerUI
 
                     current = next;
                 }
+                int minY = SectionLines.Last().EndPoint.Y;
+                List<SectionLine> rightLines = RightSectionLines(sectionTableControls, minY);
+                rightLines = AddRightConnectorLines(rightLines);
+                SectionLines.AddRange(rightLines);
+                foreach(SectionLine sectionLine in SectionLines)
+                {
+                    sectionLine.LineThickness = 15f;
+                }
+               
             }
-
+            
             foreach (SectionLine sectionLine in this.SectionLines)
             {
                 panel.Controls.Add(sectionLine);
             }
+           
         }
         public void AddRightLines(Panel panel)
         {
             foreach (Section section in this.SectionToTableControls.Keys)
             {
                 List<TableControl> sectionTableControls = this.SectionToTableControls[section];
-                TableControl? current = this.BottomRightMost(sectionTableControls); // Start with the bottom-right most table
+                TableControl? current = this.TopRightMost(sectionTableControls); // Start with the bottom-right most table
 
                 while (current != null)
                 {
@@ -1129,7 +1180,18 @@ namespace FloorPlanMakerUI
 
             return nearestTable;
         }
-
+        private List<SectionLine> RightSectionLines(List<TableControl> sectionTables, int minY) 
+        {
+            List<SectionLine> RightLines = new List<SectionLine>();
+            foreach(TableControl tableControl in sectionTables)
+            {
+                if(!hasTableToRight(tableControl, sectionTables) && tableControl.Top > minY)
+                {
+                    RightLines.Add(tableControl.RightLine);
+                }
+            }
+            return RightLines;
+        } 
 
         private double Distance(Point p1, Point p2)
         {

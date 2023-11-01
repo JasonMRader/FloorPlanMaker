@@ -1226,7 +1226,7 @@ namespace FloorPlanMaker
 
                 }
                 SqliteDataAccess.SaveFloorplanAndSections(shiftManager.SelectedFloorplan);
-                FloorplanPrinter printer = new FloorplanPrinter(pnlFloorPlan, drawingHandler.GetSectionLines());
+                FloorplanPrinter printer = new FloorplanPrinter(pnlFloorPlan, sectionLineManager.SectionLines);
                 printer.ShowPrintPreview();
 
 
@@ -1492,7 +1492,7 @@ namespace FloorPlanMaker
             //sectionLineManager.AddRightBorders(pnlFloorPlan);
             //sectionLineManager.AddBottomLines(pnlFloorPlan);
             //sectionLineManager.DrawSectionLines(pnlFloorPlan);
-            
+
             //sectionLineManager.MakeTopLines(pnlFloorPlan);
             //sectionLineManager.MakeSectionTableOutlines();
             //foreach(SectionLine sectionLine in sectionLineManager.SectionLines)
@@ -1518,7 +1518,8 @@ namespace FloorPlanMaker
             //    section.Tables.Add(c.Table);
             //}
             //shiftManager.SectionSelected = section;
-            sectionLineManager.AddParallelLines(pnlFloorPlan);
+            sectionLineManager.RemoveAllLines(pnlFloorPlan);
+            //sectionLineManager.AddParallelLines(pnlFloorPlan);
         }
 
         private void btnDoAThing_Click(object sender, EventArgs e)
@@ -1534,6 +1535,16 @@ namespace FloorPlanMaker
             //}
             //sectionLineManager.RemoveAllLines(pnlFloorPlan);
             sectionLineManager.AddTopLines(pnlFloorPlan);
+        }
+
+        private void btnDayBefore_Click(object sender, EventArgs e)
+        {
+            dtpFloorplan.Value = dtpFloorplan.Value.AddDays(-1);
+        }
+
+        private void btnNextDay_Click(object sender, EventArgs e)
+        {
+            dtpFloorplan.Value = dtpFloorplan.Value.AddDays(1);
         }
         //public static List<LineString> ComputeVoronoiEdges(List<Coordinate> coordinates)
         //{

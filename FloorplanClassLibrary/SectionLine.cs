@@ -11,6 +11,10 @@ namespace FloorPlanMaker
 {
     public class SectionLine : Control
     {
+        public override string ToString()
+        {
+            return _startPoint.ToString() + _endPoint.ToString();
+        }
         public int ID { get; set; }
         private Point _startPoint;
         private Point _endPoint;
@@ -55,6 +59,43 @@ namespace FloorPlanMaker
             }
 
             
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer |
+                          ControlStyles.UserPaint |
+                          ControlStyles.AllPaintingInWmPaint, true);
+            this.UpdateStyles();
+            this.Invalidate();
+        }
+        public SectionLine(int startX, int startY, int endX, int endY, Section section)
+        {
+            if (startY == endY)
+            {
+                if (startX < endX)
+                {
+                    this.StartPoint = new Point(startX, startY);
+                    this.EndPoint = new Point(endX, endY);
+                }
+                else
+                {
+                    this.EndPoint = new Point(startX, startY);
+                    this.StartPoint = new Point(endX, endY);
+                }
+            }
+            if (startX == endX)
+            {
+                if (startY < endY)
+                {
+                    this.StartPoint = new Point(startX, startY);
+                    this.EndPoint = new Point(endX, endY);
+                }
+                else
+                {
+                    this.EndPoint = new Point(startX, startY);
+                    this.StartPoint = new Point(endX, endY);
+                }
+            }
+            this.Section = section;
+
+
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer |
                           ControlStyles.UserPaint |
                           ControlStyles.AllPaintingInWmPaint, true);
@@ -128,6 +169,44 @@ namespace FloorPlanMaker
             }
 
             
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer |
+                          ControlStyles.UserPaint |
+                          ControlStyles.AllPaintingInWmPaint, true);
+            this.UpdateStyles();
+            this.Invalidate();
+        }
+        public SectionLine(Point firstPoint, Point secondPoint, Section section)
+        {
+            if (firstPoint.Y == secondPoint.Y)
+            {
+                if (firstPoint.X < secondPoint.X)
+                {
+                    this.StartPoint = firstPoint;
+                    this.EndPoint = secondPoint;
+                }
+                else
+                {
+                    this.EndPoint = firstPoint;
+                    this.StartPoint = secondPoint;
+                }
+            }
+            if (firstPoint.X == secondPoint.X)
+            {
+                if (firstPoint.Y < secondPoint.Y)
+                {
+                    this.StartPoint = firstPoint;
+                    this.EndPoint = secondPoint;
+
+                }
+                else
+                {
+                    this.EndPoint = firstPoint;
+                    this.StartPoint = secondPoint;
+                }
+            }
+            this.Section = section;
+
+
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer |
                           ControlStyles.UserPaint |
                           ControlStyles.AllPaintingInWmPaint, true);

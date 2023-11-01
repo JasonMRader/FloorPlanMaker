@@ -36,32 +36,68 @@ namespace FloorPlanMaker
         { 
             get 
             {
-                return new SectionLine(this.Left - this.SectionLineBuffer, this.Top - this.SectionLineBuffer,
+                if (this.Section != null)
+                {
+                    return new SectionLine(this.Left - this.SectionLineBuffer, this.Top - this.SectionLineBuffer,
+                    this.Right + this.SectionLineBuffer, this.Top - this.SectionLineBuffer, this.Section);
+                }
+                else
+                {
+                    return new SectionLine(this.Left - this.SectionLineBuffer, this.Top - this.SectionLineBuffer,
                     this.Right + this.SectionLineBuffer, this.Top - this.SectionLineBuffer);
+                }
+                
             }
         }
         public SectionLine RightLine
         {
             get
             {
-                return new SectionLine(this.Right + this.SectionLineBuffer, this.Top - this.SectionLineBuffer,
+                if (this.Section != null)
+                {
+                    return new SectionLine(this.Right + this.SectionLineBuffer, this.Top - this.SectionLineBuffer,
+                    this.Right + this.SectionLineBuffer, this.Bottom + this.SectionLineBuffer, this.Section);
+                }
+                else
+                {
+                    return new SectionLine(this.Right + this.SectionLineBuffer, this.Top - this.SectionLineBuffer,
                     this.Right + this.SectionLineBuffer, this.Bottom + this.SectionLineBuffer);
+                }
+                
             }
         }
         public SectionLine BottomLine
         {
             get
             {
-                return new SectionLine(this.Right + this.SectionLineBuffer, this.Bottom + this.SectionLineBuffer,
+                if (this.Section != null)
+                {
+                    return new SectionLine(this.Right + this.SectionLineBuffer, this.Bottom + this.SectionLineBuffer,
+                    this.Left - this.SectionLineBuffer, this.Bottom + this.SectionLineBuffer, this.Section);
+                }
+                else
+                {
+                    return new SectionLine(this.Right + this.SectionLineBuffer, this.Bottom + this.SectionLineBuffer,
                     this.Left - this.SectionLineBuffer, this.Bottom + this.SectionLineBuffer);
+                }
+                
             }
         }
         public SectionLine LeftLine
         {
             get
             {
-                return new SectionLine(this.Left - this.SectionLineBuffer, this.Bottom + this.SectionLineBuffer,
+                if (this.Section != null)
+                {
+                    return new SectionLine(this.Left - this.SectionLineBuffer, this.Bottom + this.SectionLineBuffer,
+                    this.Left - this.SectionLineBuffer, this.Top - this.SectionLineBuffer, this.Section);
+                }
+                else
+                {
+                    return new SectionLine(this.Left - this.SectionLineBuffer, this.Bottom + this.SectionLineBuffer,
                     this.Left - this.SectionLineBuffer, this.Top - this.SectionLineBuffer);
+                }
+                
             }
         }
 

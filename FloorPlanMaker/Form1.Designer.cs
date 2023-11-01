@@ -63,6 +63,7 @@
             btnChooseTemplate = new Button();
             btnCopyTable = new Button();
             btnDeleteTable = new Button();
+            btnPrint = new Button();
             btnSaveTable = new Button();
             label7 = new Label();
             txtWidth = new TextBox();
@@ -93,9 +94,10 @@
             rdoSections = new RadioButton();
             rdoDiningAreas = new RadioButton();
             panel1 = new Panel();
-            btnPrint = new Button();
             dtpFloorplan = new DateTimePicker();
             cbIsAM = new CheckBox();
+            btnDayBefore = new Button();
+            btnNextDay = new Button();
             pnlServers.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudNumberOfTeamWaits).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudServerCount).BeginInit();
@@ -503,6 +505,16 @@
             btnDeleteTable.UseVisualStyleBackColor = true;
             btnDeleteTable.Click += btnDeleteTable_Click;
             // 
+            // btnPrint
+            // 
+            btnPrint.Location = new Point(196, 0);
+            btnPrint.Name = "btnPrint";
+            btnPrint.Size = new Size(75, 23);
+            btnPrint.TabIndex = 13;
+            btnPrint.Text = "Print";
+            btnPrint.UseVisualStyleBackColor = true;
+            btnPrint.Click += btnPrint_Click;
+            // 
             // btnSaveTable
             // 
             btnSaveTable.Location = new Point(28, 859);
@@ -679,7 +691,7 @@
             // pnlFloorPlan
             // 
             pnlFloorPlan.BackColor = Color.FromArgb(255, 244, 232);
-            pnlFloorPlan.Location = new Point(535, 36);
+            pnlFloorPlan.Location = new Point(535, 77);
             pnlFloorPlan.Name = "pnlFloorPlan";
             pnlFloorPlan.Size = new Size(672, 877);
             pnlFloorPlan.TabIndex = 2;
@@ -720,7 +732,7 @@
             cboDiningAreas.FormattingEnabled = true;
             cboDiningAreas.Location = new Point(766, 7);
             cboDiningAreas.Name = "cboDiningAreas";
-            cboDiningAreas.Size = new Size(228, 23);
+            cboDiningAreas.Size = new Size(215, 23);
             cboDiningAreas.TabIndex = 7;
             cboDiningAreas.SelectedIndexChanged += cboDiningAreas_SelectedIndexChanged;
             // 
@@ -796,22 +808,14 @@
             panel1.Size = new Size(225, 36);
             panel1.TabIndex = 11;
             // 
-            // btnPrint
-            // 
-            btnPrint.Location = new Point(196, 0);
-            btnPrint.Name = "btnPrint";
-            btnPrint.Size = new Size(75, 23);
-            btnPrint.TabIndex = 13;
-            btnPrint.Text = "Print";
-            btnPrint.UseVisualStyleBackColor = true;
-            btnPrint.Click += btnPrint_Click;
-            // 
             // dtpFloorplan
             // 
+            dtpFloorplan.CalendarFont = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
             dtpFloorplan.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            dtpFloorplan.Location = new Point(1000, 3);
+            dtpFloorplan.Format = DateTimePickerFormat.Short;
+            dtpFloorplan.Location = new Point(663, 43);
             dtpFloorplan.Name = "dtpFloorplan";
-            dtpFloorplan.Size = new Size(180, 27);
+            dtpFloorplan.Size = new Size(101, 27);
             dtpFloorplan.TabIndex = 14;
             dtpFloorplan.ValueChanged += dtpFloorplan_ValueChanged;
             // 
@@ -821,7 +825,7 @@
             cbIsAM.BackColor = Color.FromArgb(255, 255, 192);
             cbIsAM.FlatStyle = FlatStyle.Flat;
             cbIsAM.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point);
-            cbIsAM.Location = new Point(871, 42);
+            cbIsAM.Location = new Point(867, 44);
             cbIsAM.Name = "cbIsAM";
             cbIsAM.Size = new Size(56, 26);
             cbIsAM.TabIndex = 15;
@@ -829,11 +833,35 @@
             cbIsAM.TextAlign = ContentAlignment.MiddleCenter;
             cbIsAM.UseVisualStyleBackColor = false;
             // 
+            // btnDayBefore
+            // 
+            btnDayBefore.FlatStyle = FlatStyle.Flat;
+            btnDayBefore.Image = FloorPlanMakerUI.Resource1.BackArrow;
+            btnDayBefore.Location = new Point(631, 42);
+            btnDayBefore.Name = "btnDayBefore";
+            btnDayBefore.Size = new Size(21, 28);
+            btnDayBefore.TabIndex = 16;
+            btnDayBefore.UseVisualStyleBackColor = true;
+            btnDayBefore.Click += btnDayBefore_Click;
+            // 
+            // btnNextDay
+            // 
+            btnNextDay.FlatStyle = FlatStyle.Flat;
+            btnNextDay.Image = FloorPlanMakerUI.Resource1.forwardArrow;
+            btnNextDay.Location = new Point(775, 42);
+            btnNextDay.Name = "btnNextDay";
+            btnNextDay.Size = new Size(21, 28);
+            btnNextDay.TabIndex = 17;
+            btnNextDay.UseVisualStyleBackColor = true;
+            btnNextDay.Click += btnNextDay_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1248, 970);
+            Controls.Add(btnNextDay);
+            Controls.Add(btnDayBefore);
             Controls.Add(pnlFloorPlan);
             Controls.Add(cbIsAM);
             Controls.Add(dtpFloorplan);
@@ -934,5 +962,7 @@
         private Button btnAddSection;
         private Button btnTest2;
         private Button btnDoAThing;
+        private Button btnDayBefore;
+        private Button btnNextDay;
     }
 }
