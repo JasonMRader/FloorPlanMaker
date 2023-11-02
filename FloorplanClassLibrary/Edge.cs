@@ -6,7 +6,27 @@ using System.Threading.Tasks;
 
 namespace FloorplanClassLibrary
 {
-    internal class Edge
+    public class Edge
     {
+        public Node StartNode { get; set; }
+        public Node EndNode { get; set; }
+        public bool isVertical { get; set; }
+        public bool isHorizontal { get; set; }
+        public Edge(Node startNode, Node endNode)
+        {
+            StartNode = startNode;
+            EndNode = endNode;
+        }
+
+        public void MoveVerticalEdge(int newX)
+        {
+           
+            StartNode.X = newX;
+            EndNode.X = newX;
+        }
+        public override string ToString()
+        {
+            return "Start Node: " + StartNode.ToString() + ", End Node: " + EndNode.ToString();
+        }
     }
 }

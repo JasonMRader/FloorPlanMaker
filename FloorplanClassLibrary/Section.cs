@@ -32,6 +32,22 @@ namespace FloorplanClassLibrary
             this.DiningAreaID = section.DiningAreaID; 
             this.Tables = section.Tables;
         }
+        private SectionNodeManager _nodeManager;
+
+        public SectionNodeManager NodeManager
+        {
+            get
+            {
+                if (_nodeManager == null)
+                {
+                    _nodeManager = new SectionNodeManager(this);
+                }
+                return _nodeManager;
+            }
+        }
+
+
+
         public int ID {  get; set; }
         public bool IsPickUp { get; set; }
         public int DiningAreaID { get; set; }

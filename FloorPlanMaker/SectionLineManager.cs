@@ -13,6 +13,7 @@ namespace FloorPlanMakerUI
 {
     public class SectionLineManager
     {
+        
         public List<TableControl> TableControls { get; private set; } = new List<TableControl>();
         private List<TableControl> intrudingTables { get; set;} = new List<TableControl>();
         private List<TableControl> topIntrudingTables { get; set; } = new List<TableControl>();
@@ -44,6 +45,30 @@ namespace FloorPlanMakerUI
             Bottom,
             Left
         }
+        public void AddSectionNodes(Panel panel)
+        {
+            foreach (Section section in this.SectionToTableControls.Keys)
+            {
+                section.NodeManager.GenerateNodesForUnblockedTables();
+                List<SectionLine> sectionLines = section.NodeManager.GenerateEdgesAndSectionLinesFromNodes();
+                SectionLines.AddRange(sectionLines);
+
+            }
+            //Section section = this.SectionToTableControls.Keys.FirstOrDefault();
+
+
+            //section.NodeManager.GenerateNodesForUnblockedTables();
+            //List<SectionLine> sectionLines = section.NodeManager.GenerateEdgesAndSectionLinesFromNodes();
+            //SectionLines.AddRange(sectionLines);
+
+
+            foreach (SectionLine sectionLine in this.SectionLines)
+            {
+                panel.Controls.Add(sectionLine);
+            }
+        }
+       
+
         public void AddTopLines(Panel panel)
         {
            
@@ -127,8 +152,8 @@ namespace FloorPlanMakerUI
                 }
 
             }
-            SectionLines = OrderSectionLines(SectionLines);
-            UpdateSectionLinePositions();
+            //SectionLines = OrderSectionLines(SectionLines);
+            //UpdateSectionLinePositions();
             foreach (SectionLine sectionLine in this.SectionLines)
             {
                 panel.Controls.Add(sectionLine);

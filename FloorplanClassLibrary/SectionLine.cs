@@ -38,6 +38,45 @@ namespace FloorPlanMaker
             this.UpdateStyles();
             this.Invalidate();
         }
+        public SectionLine(Node startNode, Node endNode)
+        {
+            this.StartPoint = new Point(startNode.X, startNode.Y);
+            this.EndPoint = new Point(endNode.X, endNode.Y);
+
+            if (startNode.Y == endNode.Y)
+            {
+                if (startNode.X < endNode.X)
+                {
+                    this.StartPoint = new Point(startNode.X, startNode.Y);
+                    this.EndPoint = new Point(endNode.X, endNode.Y);
+                }
+                else
+                {
+                    this.EndPoint = new Point(startNode.X, startNode.Y);
+                    this.StartPoint = new Point(endNode.X, endNode.Y);
+                }
+            }
+            if (startNode.X == endNode.X)
+            {
+                if (startNode.Y < endNode.Y)
+                {
+                    this.StartPoint = new Point(startNode.X, startNode.Y);
+                    this.EndPoint = new Point(endNode.X, endNode.Y);
+                }
+                else
+                {
+                    this.EndPoint = new Point(startNode.X, startNode.Y);
+                    this.StartPoint = new Point(endNode.X, endNode.Y);
+                }
+            }
+
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer |
+                          ControlStyles.UserPaint |
+                          ControlStyles.AllPaintingInWmPaint, true);
+            this.UpdateStyles();
+            this.Invalidate();
+        }
+
         public SectionLine(int startX, int startY, int endX, int endY)
         {
             if(startY == endY)

@@ -1437,7 +1437,7 @@ namespace FloorPlanMaker
 
             //this.sectionLineManager = new SectionLineManager(allTableControls);
             //sectionLineManager.AddTopLines(pnlFloorPlan);
-            sectionLineManager.AddRightLines(pnlFloorPlan);
+            //sectionLineManager.AddRightLines(pnlFloorPlan);
             //sectionLineManager.AddRightBorders(pnlFloorPlan);
             //sectionLineManager.AddBottomLines(pnlFloorPlan);
             //sectionLineManager.DrawSectionLines(pnlFloorPlan);
@@ -1451,6 +1451,7 @@ namespace FloorPlanMaker
             //sectionLineManager.RemoveBottomLines(pnlFloorPlan);
             //sectionLineManager.RemoveRightLines(pnlFloorPlan);
             //sectionLineManager.DrawSeparationLines(pnlFloorPlan);
+            sectionLineManager.AddSectionNodes(pnlFloorPlan);
 
         }
         private void btnTest2_Click(object sender, EventArgs e)
@@ -1470,6 +1471,19 @@ namespace FloorPlanMaker
             //sectionLineManager.RemoveAllLines(pnlFloorPlan);
             //sectionLineManager.UpdateSectionLinePositions(pnlFloorPlan);
             //sectionLineManager.AddParallelLines(pnlFloorPlan);
+            foreach(Section section in shiftManager.SelectedFloorplan.Sections)
+            {
+                SectionNodeManager nodeManager = new SectionNodeManager(section);
+                Node tlNode = nodeManager.GetTopLeftNode();
+                Node trNode = nodeManager.GetTopRightNode();
+                Node brNode = nodeManager.GetBottomRightNode();
+                SectionLine sectionLine = new SectionLine(tlNode,trNode);
+                SectionLine sectionLine1 = new SectionLine(trNode, brNode);
+                pnlFloorPlan.Controls.Add(sectionLine);
+                pnlFloorPlan.Controls.Add(sectionLine1);
+                
+            }
+           
         }
 
         private void btnDoAThing_Click(object sender, EventArgs e)
@@ -1485,6 +1499,7 @@ namespace FloorPlanMaker
             //}
             //sectionLineManager.RemoveAllLines(pnlFloorPlan);
             sectionLineManager.AddTopLines(pnlFloorPlan);
+
         }
 
         private void btnDayBefore_Click(object sender, EventArgs e)
