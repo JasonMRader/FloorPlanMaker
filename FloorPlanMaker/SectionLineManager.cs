@@ -127,8 +127,8 @@ namespace FloorPlanMakerUI
                 }
 
             }
-            //SectionLines = OrderSectionLines(SectionLines);
-            //UpdateSectionLinePositions();
+            SectionLines = OrderSectionLines(SectionLines);
+            UpdateSectionLinePositions();
             foreach (SectionLine sectionLine in this.SectionLines)
             {
                 panel.Controls.Add(sectionLine);
