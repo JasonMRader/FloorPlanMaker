@@ -237,6 +237,7 @@ namespace FloorPlanMakerUI
                     RightLines.Add(new SectionLine(tableControl.RightLine.StartPoint, tableControl.RightLine.EndPoint));
                     RightLines.Last().Edge = SectionLine.BorderEdge.Right;
                     RightLines.Last().LineColor = tableControl.Section.Color;
+                    RightLines.Last().Section = tableControl.Section;
                 }
             }
             return RightLines;
