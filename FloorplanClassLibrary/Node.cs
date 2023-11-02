@@ -6,14 +6,7 @@ using System.Threading.Tasks;
 
 namespace FloorplanClassLibrary
 {
-    public struct TablePoint
+    internal class Node
     {
-        public double X, Y;
-
-        public TablePoint(double x, double y)
-        {
-            X = x;
-            Y = y;
-        }
     }
 }

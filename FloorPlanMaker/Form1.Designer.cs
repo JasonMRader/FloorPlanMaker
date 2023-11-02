@@ -462,7 +462,7 @@
             btnGenerateSectionLines.TabIndex = 15;
             btnGenerateSectionLines.Text = "Auto Section Lines";
             btnGenerateSectionLines.UseVisualStyleBackColor = true;
-            btnGenerateSectionLines.Click += btnGenerateSectionLines_Click;
+           
             // 
             // btnTest
             // 

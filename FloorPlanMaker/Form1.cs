@@ -1300,60 +1300,8 @@ namespace FloorPlanMaker
             }
         }
 
-        private void btnGenerateSectionLines_Click(object sender, EventArgs e)
-        {
-            var coordinates = new List<Coordinate>();
-            foreach (Control ctrl in pnlFloorPlan.Controls)
-            {
-                if (ctrl is TableControl tableControl)
-                {
-                    coordinates.Add(VoronoiHelper.GetCentroid(tableControl));
-                }
-            }
-
-
-            var edges = ComputeVoronoiEdges(coordinates);
-            //drawingHandler.SetVoronoiEdges(edges);
-            int idCounter = 0;
-            foreach (var edge in edges)
-            {
-                Console.WriteLine($"From {edge.StartPoint} to {edge.EndPoint}");
-                var sectionLine = new SectionLine
-                {
-                    ID = idCounter++,
-                    StartPoint = new System.Drawing.Point((int)edge.StartPoint.X, (int)edge.StartPoint.Y),
-                    EndPoint = new System.Drawing.Point((int)edge.EndPoint.X, (int)edge.EndPoint.Y),
-                    // You may want to set other properties, like size, location, etc.
-                    // Width, Height, etc.
-                };
-
-                pnlFloorPlan.Controls.Add(sectionLine);
-            }
-        }
-
-        public static List<LineString> ComputeVoronoiEdges(List<Coordinate> coordinates)
-        {
-            VoronoiDiagramBuilder builder = new VoronoiDiagramBuilder();
-            builder.SetSites(coordinates);
-            var diagram = builder.GetDiagram(new GeometryFactory());
-
-            var lines = new List<LineString>();
-
-            for (int i = 0; i < diagram.NumGeometries; i++)
-            {
-                var polygon = diagram.GetGeometryN(i) as Polygon;
-                if (polygon != null)
-                {
-                    var boundary = polygon.Boundary as LineString;
-                    if (boundary != null)
-                    {
-                        lines.Add(boundary);
-                    }
-                }
-            }
-
-            return lines;
-        }
+       
+       
 
         private void btnAddPickupSection_Click(object sender, EventArgs e)
         {
