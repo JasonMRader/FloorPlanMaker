@@ -50,6 +50,7 @@ namespace FloorPlanMaker
                 }
                 
             }
+            set { }
         }
         public SectionLine RightLine
         {
@@ -67,6 +68,7 @@ namespace FloorPlanMaker
                 }
                 
             }
+            set { }
         }
         public SectionLine BottomLine
         {
@@ -84,6 +86,7 @@ namespace FloorPlanMaker
                 }
                 
             }
+            set { }
         }
         public SectionLine LeftLine
         {
@@ -101,6 +104,7 @@ namespace FloorPlanMaker
                 }
                 
             }
+            set { }
         }
 
         protected override void OnPaint(PaintEventArgs pe)

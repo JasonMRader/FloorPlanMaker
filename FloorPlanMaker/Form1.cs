@@ -1519,7 +1519,8 @@ namespace FloorPlanMaker
             //    section.Tables.Add(c.Table);
             //}
             //shiftManager.SectionSelected = section;
-            sectionLineManager.RemoveAllLines(pnlFloorPlan);
+            //sectionLineManager.RemoveAllLines(pnlFloorPlan);
+            //sectionLineManager.UpdateSectionLinePositions(pnlFloorPlan);
             //sectionLineManager.AddParallelLines(pnlFloorPlan);
         }
 

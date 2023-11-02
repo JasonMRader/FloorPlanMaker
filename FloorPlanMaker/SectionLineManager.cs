@@ -46,8 +46,10 @@ namespace FloorPlanMakerUI
         }
         public void AddTopLines(Panel panel)
         {
+           
             foreach (Section section in this.SectionToTableControls.Keys)
             {
+                
                 List<TableControl> sectionTableControls = this.SectionToTableControls[section];
                 TableControl? current = this.TopLeftMost(sectionTableControls);
                 while (current != null)
@@ -125,7 +127,8 @@ namespace FloorPlanMakerUI
                 }
 
             }
-
+            //SectionLines = OrderSectionLines(SectionLines);
+            //UpdateSectionLinePositions();
             foreach (SectionLine sectionLine in this.SectionLines)
             {
                 panel.Controls.Add(sectionLine);
@@ -150,12 +153,14 @@ namespace FloorPlanMakerUI
                 //if the current Line is Left of the Next One
                 if (rightLines[i].EndPoint.X < rightLines[i + 1].StartPoint.X)
                 {
-                    SectionLine line = new SectionLine(rightLines[i].EndPoint, new Point(rightLines[i].StartPoint.X, rightLines[i + 1].StartPoint.Y), rightLines[i].Section);
+                    rightLines[i].EndPoint = new Point(rightLines[i].StartPoint.X, rightLines[1 + i].StartPoint.Y);
+                    //SectionLine line = new SectionLine(rightLines[i].EndPoint, new Point(rightLines[i].StartPoint.X, rightLines[i + 1].StartPoint.Y), rightLines[i].Section);
                     SectionLine line2 = new SectionLine(new Point(rightLines[i].StartPoint.X, rightLines[i + 1].StartPoint.Y), rightLines[i + 1].StartPoint, rightLines[i].Section);
-                    RightLines.Add(line);
-                    line.LineColor = rightLines[i].Section.Color;
-                    line.Edge = SectionLine.BorderEdge.Right;
-                    connectorLines.Add(line);
+                    //SectionLine line2 = new SectionLine(rightLines[i].EndPoint, rightLines.[1+i].StartPoint, rightLines[i].Section);
+                    //RightLines.Add(line);
+                    //rightLines[i].LineColor = rightLines[i].Section.Color;
+                    //rightLines[i].Edge = SectionLine.BorderEdge.Right;
+                    //connectorLines.Add(line);
                     TopLines.Add(line2);
                     line2.LineColor = rightLines[i].Section.Color;
                     line2.Edge = SectionLine.BorderEdge.Top;
@@ -164,16 +169,18 @@ namespace FloorPlanMakerUI
                 //Current is right of the next one
                 else if (rightLines[i].EndPoint.X > rightLines[i + 1].StartPoint.X)
                 {
+                   
                     SectionLine line = new SectionLine(rightLines[i].EndPoint, new Point(rightLines[i + 1].StartPoint.X, rightLines[i].EndPoint.Y), rightLines[i].Section);
-                    SectionLine line2 = new SectionLine(new Point(rightLines[i + 1].StartPoint.X, rightLines[i].EndPoint.Y), rightLines[i + 1].StartPoint, rightLines[i + 1].Section);
+                    //SectionLine line2 = new SectionLine(new Point(rightLines[i + 1].StartPoint.X, rightLines[i].EndPoint.Y), rightLines[i + 1].StartPoint, rightLines[i + 1].Section);
                     BottomLines.Add(line);
                     line.LineColor = rightLines[i].Section.Color;
                     line.Edge = SectionLine.BorderEdge.Bottom;
                     connectorLines.Add(line);
-                    RightLines.Add(line2);
-                    line2.LineColor = rightLines[i].Section.Color;
-                    line2.Edge = SectionLine.BorderEdge.Right;
-                    connectorLines.Add(line2);
+                    rightLines[i + 1].StartPoint = new Point(rightLines[i + 1].StartPoint.X, rightLines[i].EndPoint.Y);
+                    //RightLines.Add(line2);
+                    //line2.LineColor = rightLines[i].Section.Color;
+                    //line2.Edge = SectionLine.BorderEdge.Right;
+                    //connectorLines.Add(line2);
                 }
                 else
                 {
@@ -227,7 +234,7 @@ namespace FloorPlanMakerUI
             {
                 if (!hasTableToRight(tableControl, sectionTables) && tableControl.Top > minY)
                 {
-                    RightLines.Add(tableControl.RightLine);
+                    RightLines.Add(new SectionLine(tableControl.RightLine.StartPoint, tableControl.RightLine.EndPoint));
                     RightLines.Last().Edge = SectionLine.BorderEdge.Right;
                     RightLines.Last().LineColor = tableControl.Section.Color;
                 }
@@ -275,6 +282,7 @@ namespace FloorPlanMakerUI
 
             return false;
         }
+       
         private bool hasTableBelow(TableControl tableControl, List<TableControl> tableControls)
         {
             if (tableControl == null) return false;
@@ -317,6 +325,119 @@ namespace FloorPlanMakerUI
             }
 
             return false;
+        }
+        private bool tableControlIsLeftOfLine(TableControl tableControl, SectionLine sectionLine)
+        {
+            bool isDirectlyToLeft = tableControl.Right <= sectionLine.StartPoint.X;
+            bool isVerticallyOverlapping = (tableControl.Top <= sectionLine.EndPoint.Y) && (tableControl.Bottom >= sectionLine.StartPoint.Y);
+            return isDirectlyToLeft && isVerticallyOverlapping;
+        }
+        private bool tableControlIsRightOfLine(TableControl tableControl, SectionLine sectionLine)
+        {
+            bool isDirectlyToLeft = tableControl.Left >= sectionLine.StartPoint.X;
+            bool isVerticallyOverlapping = (tableControl.Top <= sectionLine.EndPoint.Y) && (tableControl.Bottom >= sectionLine.StartPoint.Y);
+            return isDirectlyToLeft && isVerticallyOverlapping;
+        }
+        private int midPointForVerticalLine(SectionLine sectionLine, List<TableControl> tableControls)
+        {
+            int midPoint = sectionLine.StartPoint.X;
+            int closetTableFromSection = int.MaxValue;
+            int closestTableFromOutSideOfSection = int.MaxValue;
+            int RightTableLeftSideX = 0;
+            int LeftTableRightSideX = 0;
+            bool hasTableToLeft = false;
+            bool hasTableToRight = false;   
+            
+            if (sectionLine.Edge == SectionLine.BorderEdge.Right)
+            {
+                foreach(TableControl tableControl in tableControls)
+                {
+                    if (tableControl.Section == sectionLine.Section && tableControlIsLeftOfLine(tableControl, sectionLine))
+                    {
+                        int distance = sectionLine.StartPoint.X - tableControl.Right;
+                        if (distance < closetTableFromSection)
+                        {
+                            closetTableFromSection = distance;
+                            hasTableToLeft = true;
+                            LeftTableRightSideX = tableControl.Right;
+                            
+                        }
+                    }
+                    else if (tableControl.Section != sectionLine.Section && tableControlIsRightOfLine(tableControl, sectionLine))
+                    {
+                        int distance = tableControl.Left - sectionLine.StartPoint.X;
+                        if (distance < closestTableFromOutSideOfSection)
+                        {
+                            closestTableFromOutSideOfSection = distance;
+                            hasTableToRight = true;
+                            RightTableLeftSideX = tableControl.Left;
+                        }
+                    }
+                }
+            }
+            if (hasTableToRight && hasTableToLeft)
+            {
+                midPoint = (RightTableLeftSideX+LeftTableRightSideX) / 2;
+            }
+            return midPoint;
+        }
+        public void oldUpdateSectionLinePositions()
+        {
+            foreach (var line in SectionLines)
+            {
+                if (line.Edge == SectionLine.BorderEdge.Right)
+                {
+                    int newMidPointX = midPointForVerticalLine(line, TableControls);
+
+                    // Calculate the distance we need to move the line
+                    int deltaX = newMidPointX - line.StartPoint.X;
+                    
+                    // Move the line by that distance
+                    line.StartPoint = new Point(line.StartPoint.X + deltaX, line.StartPoint.Y);
+                    line.EndPoint = new Point(line.EndPoint.X + deltaX, line.EndPoint.Y);
+                    
+                    //line.BringToFront();
+                    
+                }
+            }
+        }
+        private void AdjustAdjacentLines(SectionLine movedLine, int index)
+        {
+            // If there's a previous line and it belongs to the same section, adjust its end point
+            if (index > 0 && SectionLines[index - 1].Section == movedLine.Section)
+            {
+                SectionLines[index - 1].EndPoint = movedLine.StartPoint;
+            }
+
+            // If there's a next line and it belongs to the same section, adjust its start point
+            if (index < SectionLines.Count - 1 && SectionLines[index + 1].Section == movedLine.Section)
+            {
+                SectionLines[index + 1].StartPoint = movedLine.EndPoint;
+            }
+        }
+
+        public void UpdateSectionLinePositions()
+        {
+            for (int i = 0; i < SectionLines.Count; i++)
+            {
+                var line = SectionLines[i];
+                if (line.Edge == SectionLine.BorderEdge.Right)
+                {
+                    int newMidPointX = midPointForVerticalLine(line, TableControls);
+
+                    // Calculate the distance we need to move the line
+                    int deltaX = newMidPointX - line.StartPoint.X;
+
+                    // Move the line by that distance
+                    line.StartPoint = new Point(line.StartPoint.X + deltaX, line.StartPoint.Y);
+                    line.EndPoint = new Point(line.EndPoint.X + deltaX, line.EndPoint.Y);
+
+                    // Adjust the adjacent lines that belong to the same section
+                    AdjustAdjacentLines(line, i);
+
+                    //line.BringToFront(); // Uncomment if necessary
+                }
+            }
         }
 
 
@@ -388,8 +509,30 @@ namespace FloorPlanMakerUI
                 .ThenByDescending(tc => tc.TopRightLinePoint.X)
                 .First();
         }
+        public Dictionary<Section, List<SectionLine>> SeparateAndOrderSectionLines(List<SectionLine> lines)
+        {
+            // Separate lines by section
+            var sectionLinesDict = new Dictionary<Section, List<SectionLine>>();
+            foreach (var line in lines)
+            {
+                if (!sectionLinesDict.ContainsKey(line.Section))
+                {
+                    sectionLinesDict[line.Section] = new List<SectionLine>();
+                }
+                sectionLinesDict[line.Section].Add(line);
+            }
 
-        public List<SectionLine> OrderSectionLines(List<SectionLine> lines)
+            // Order lines within each section
+            var orderedSectionLinesDict = new Dictionary<Section, List<SectionLine>>();
+            foreach (var section in sectionLinesDict.Keys)
+            {
+                orderedSectionLinesDict[section] = OrderSectionLines(sectionLinesDict[section]);
+            }
+
+            return orderedSectionLinesDict;
+        }
+
+        public List<SectionLine> oldOrderSectionLines(List<SectionLine> lines)
         {
             List<SectionLine> orderedLines = new List<SectionLine>();
 
@@ -412,6 +555,35 @@ namespace FloorPlanMakerUI
 
             return orderedLines;
         }
+        public List<SectionLine> OrderSectionLines(List<SectionLine> lines)
+        {
+            List<SectionLine> orderedLines = new List<SectionLine>();
+            List<SectionLine> workingList = new List<SectionLine>(lines); // Clone the list to work with
+
+            while (workingList.Count > 0)
+            {
+                // Find the first line
+                SectionLine firstLine = workingList.FirstOrDefault(line => !workingList.Any(l => l.EndPoint == line.StartPoint));
+                if (firstLine == null) break; // No more "first" lines found, exit loop
+
+                orderedLines.Add(firstLine);
+                workingList.Remove(firstLine); // Remove the found line from the working list
+
+                SectionLine currentLine = firstLine;
+                while (true)
+                {
+                    SectionLine nextLine = workingList.FirstOrDefault(line => line.StartPoint == currentLine.EndPoint && line != currentLine);
+                    if (nextLine == null) break;
+
+                    orderedLines.Add(nextLine);
+                    workingList.Remove(nextLine); // Remove the found line from the working list
+                    currentLine = nextLine;
+                }
+            }
+
+            return orderedLines;
+        }
+
 
         private void moveLinesToMidpointBetweenTables(List<SectionLine> lines)
         {
