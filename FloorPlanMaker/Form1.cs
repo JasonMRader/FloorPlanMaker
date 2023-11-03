@@ -21,6 +21,8 @@ namespace FloorPlanMaker
         private DrawingHandler drawingHandler;
         List<TableControl> emphasizedTablesList = new List<TableControl>();
         private bool isDragging = false;
+        private bool isDraggingForm = false;
+        private System.Drawing.Point lastLocation;
         private System.Drawing.Point dragStartPoint;
         private Rectangle dragRectangle;
         private List<TableControl> allTableControls = new List<TableControl>();
@@ -82,7 +84,7 @@ namespace FloorPlanMaker
 
         private void pnlFloorplan_MouseDown(object sender, MouseEventArgs e)
         {
-            if (!cbLockNodes.Checked)
+            if (!rdoDiningAreas.Checked)
             {
                 if (rdoSections.Checked)
                 {
@@ -93,7 +95,7 @@ namespace FloorPlanMaker
         }
         private void pnlFloorplan_MouseUp(object sender, MouseEventArgs e)
         {
-            if (!cbLockNodes.Checked)
+            if (!rdoDiningAreas.Checked)
             {
                 if (isDragging)
                 {
@@ -114,7 +116,7 @@ namespace FloorPlanMaker
         }
         private void pnlFloorplan_MouseMove(object sender, MouseEventArgs e)
         {
-            if (!cbLockNodes.Checked)
+            if (!rdoDiningAreas.Checked)
             {
                 if (isDragging)
                 {
@@ -182,6 +184,29 @@ namespace FloorPlanMaker
 
 
         }
+        private void Form1_MouseDown(object sender, MouseEventArgs e)
+        {
+            isDraggingForm = true;
+            lastLocation = e.Location;
+        }
+
+        private void Form1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (isDraggingForm)
+            {
+                this.Location = new System.Drawing.Point(
+                    (this.Location.X - lastLocation.X) + e.X,
+                    (this.Location.Y - lastLocation.Y) + e.Y);
+
+                this.Update();
+            }
+        }
+
+        private void Form1_MouseUp(object sender, MouseEventArgs e)
+        {
+            isDraggingForm = false;
+        }
+
         private void CreateTableControlsToAdd()
         {
             TableControl circleTable = new TableControl();
@@ -1022,7 +1047,7 @@ namespace FloorPlanMaker
 
         private void cbLockNodes_CheckedChanged(object sender, EventArgs e)
         {
-            if (cbLockNodes.Checked)
+            if (rdoDiningAreas.Checked)
             {
                 drawingHandler.DrawSectionLinesMode = true;
                 isDragging = false;
@@ -1238,7 +1263,7 @@ namespace FloorPlanMaker
             }
 
             // To show print preview
-             // To print
+            // To print
 
         }
 
@@ -1300,8 +1325,8 @@ namespace FloorPlanMaker
             }
         }
 
-       
-       
+
+
 
         private void btnAddPickupSection_Click(object sender, EventArgs e)
         {
@@ -1471,19 +1496,19 @@ namespace FloorPlanMaker
             //sectionLineManager.RemoveAllLines(pnlFloorPlan);
             //sectionLineManager.UpdateSectionLinePositions(pnlFloorPlan);
             //sectionLineManager.AddParallelLines(pnlFloorPlan);
-            foreach(Section section in shiftManager.SelectedFloorplan.Sections)
+            foreach (Section section in shiftManager.SelectedFloorplan.Sections)
             {
                 SectionNodeManager nodeManager = new SectionNodeManager(section);
                 Node tlNode = nodeManager.GetTopLeftNode();
                 Node trNode = nodeManager.GetTopRightNode();
                 Node brNode = nodeManager.GetBottomRightNode();
-                SectionLine sectionLine = new SectionLine(tlNode,trNode);
+                SectionLine sectionLine = new SectionLine(tlNode, trNode);
                 SectionLine sectionLine1 = new SectionLine(trNode, brNode);
                 pnlFloorPlan.Controls.Add(sectionLine);
                 pnlFloorPlan.Controls.Add(sectionLine1);
-                
+
             }
-           
+
         }
 
         private void btnDoAThing_Click(object sender, EventArgs e)
