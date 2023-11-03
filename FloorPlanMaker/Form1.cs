@@ -7,6 +7,7 @@ using System.Diagnostics.Metrics;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 //using static System.Collections.Specialized.BitVector32;
+//using static System.Collections.Specialized.BitVector32;
 
 namespace FloorPlanMaker
 {
@@ -33,14 +34,20 @@ namespace FloorPlanMaker
         {
             btnAddSectionLabels.BackColor = AppColors.CTAColor;
             btnPrint.BackColor = AppColors.CTAColor;
-            btnAddPickupSection.BackColor = AppColors.ButtonColor;
-            btnAddSection.BackColor = AppColors.ButtonColor;
+            btnAddServers.BackColor = AppColors.CTAColor;
+            rdoDiningAreas.BackColor = AppColors.CTAColor;
+            rdoSections.BackColor = AppColors.CTAColor;
 
-            btnAddServers.BackColor = AppColors.ButtonColor;
+            //btnAddSectionLabels.ForeColor = Color.White;
+            //btnPrint.ForeColor = Color.White;
+            //btnAddServers.ForeColor = Color.White;
+            //rdoDiningAreas.ForeColor = Color.White;
+            //rdoSections.ForeColor = Color.White;
+
+            
+            btnAddSection.BackColor = AppColors.ButtonColor;
             btnChooseTemplate.BackColor = AppColors.ButtonColor;
             btnCloseApp.BackColor = Color.Red;
-            rdoDiningAreas.BackColor = AppColors.ButtonColor;
-            rdoSections.BackColor = AppColors.ButtonColor;
             btnGenerateSectionLines.BackColor = AppColors.ButtonColor;
             btnRemoveSection.BackColor = AppColors.ButtonColor;
             btnSaveFloorplanTemplate.BackColor = AppColors.ButtonColor;
@@ -55,8 +62,15 @@ namespace FloorPlanMaker
             btnLessWidth.BackColor = AppColors.ButtonColor;
             btnLessHeight.BackColor = AppColors.ButtonColor;
             btnDeleteTable.BackColor = AppColors.ButtonColor;
+
             this.BackColor = AppColors.MainColor;
+
+            pnlServers.BackColor = AppColors.CanvasColor;
+            pnlAddTables.BackColor = AppColors.SecondColor;
+            //flowSectionSelect.BackColor = AppColors.CanvasColor; 
+            //flowServersInFloorplan.BackColor = AppColors.CanvasColor;
         }
+
 
         public Form1()
         {
@@ -813,21 +827,7 @@ namespace FloorPlanMaker
 
         }
 
-        private void cbTeamWait_CheckedChanged(object sender, EventArgs e)
-        {
-            if (cbTeamWait.Checked == true)
-            {
-                nudNumberOfTeamWaits.Value = 1;
-                nudNumberOfTeamWaits.Visible = true;
-                lblTeamWaitLabel.Visible = true;
-            }
-            else
-            {
-                nudNumberOfTeamWaits.Value = 0;
-                nudNumberOfTeamWaits.Visible = false;
-                lblTeamWaitLabel.Visible = false;
-            }
-        }
+
         //private List<Section> GetNumberOfSections()
         //{
         //    int servers = (int)nudServerCount.Value;
@@ -1005,6 +1005,19 @@ namespace FloorPlanMaker
                     firstSectionCheckBox.Checked = true;
                 }
             }
+            Button btnAddPickup = new Button
+            {
+                Text = "Add Pick-Up Section",
+                AutoSize = false,
+                Size = new Size(flowSectionSelect.Width - 10, 25),
+                Font = new Font("Segoe UI", 10F),
+                FlatStyle = FlatStyle.Flat,
+                BackColor = AppColors.ButtonColor,
+                ForeColor = Color.Black
+            };
+            btnAddPickup.Click += btnAddPickupSection_Click;
+            flowSectionSelect.Controls.Add(btnAddPickup);
+
 
         }
 
