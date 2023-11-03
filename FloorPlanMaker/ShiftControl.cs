@@ -77,6 +77,10 @@ namespace FloorPlanMaker
             {
                 _picClose.Image = Resource1.ClsLetters;
             }
+            else if (this.Shift.IsPre)
+            {
+                _picClose.Image = Resource1.PreLetters;
+            }
             else
             {
                 _picClose.Image = Resource1.Cut;

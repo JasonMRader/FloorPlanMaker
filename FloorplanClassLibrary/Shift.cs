@@ -16,6 +16,7 @@ namespace FloorplanClassLibrary
         public int ServerID { get; set; }
         public int DiningAreaID { get; set; }
         public bool IsCloser { get; set; }
+        public bool IsPre { get; set; }
         public bool IsInside { get; set; }
         public bool IsTeamWait { get; set; }
         

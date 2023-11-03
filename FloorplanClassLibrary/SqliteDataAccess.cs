@@ -771,6 +771,7 @@ namespace FloorplanClassLibrary
                 s.ServerID,
                 s.DiningAreaID,
                 sec.IsCloser,
+                sec.IsPre,
                 d.IsInside,
                 sec.TeamWait AS IsTeamWait
             FROM Shift s
