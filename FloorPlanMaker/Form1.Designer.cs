@@ -31,6 +31,7 @@ namespace FloorPlanMaker
         private void InitializeComponent()
         {
             pnlServers = new Panel();
+            lblDiningRoomName = new Label();
             flowServersInFloorplan = new FlowLayoutPanel();
             panel2 = new Panel();
             txtDiningAreaName = new TextBox();
@@ -98,7 +99,6 @@ namespace FloorPlanMaker
             btnNextDay = new Button();
             btnCloseApp = new Button();
             panel3 = new Panel();
-            lblDiningRoomName = new Label();
             pnlServers.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudServerCount).BeginInit();
@@ -111,8 +111,8 @@ namespace FloorPlanMaker
             // pnlServers
             // 
             pnlServers.BackColor = Color.Silver;
-            pnlServers.Controls.Add(lblDiningRoomName);
             pnlServers.Controls.Add(flowServersInFloorplan);
+            pnlServers.Controls.Add(lblDiningRoomName);
             pnlServers.Controls.Add(panel2);
             pnlServers.Controls.Add(label1);
             pnlServers.Controls.Add(label10);
@@ -129,9 +129,19 @@ namespace FloorPlanMaker
             pnlServers.Size = new Size(241, 877);
             pnlServers.TabIndex = 0;
             // 
+            // lblDiningRoomName
+            // 
+            lblDiningRoomName.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
+            lblDiningRoomName.Location = new Point(0, 10);
+            lblDiningRoomName.Name = "lblDiningRoomName";
+            lblDiningRoomName.Size = new Size(238, 37);
+            lblDiningRoomName.TabIndex = 6;
+            lblDiningRoomName.Text = "Outside Cocktail";
+            lblDiningRoomName.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // flowServersInFloorplan
             // 
-            flowServersInFloorplan.Location = new Point(6, 264);
+            flowServersInFloorplan.Location = new Point(3, 242);
             flowServersInFloorplan.Name = "flowServersInFloorplan";
             flowServersInFloorplan.Size = new Size(235, 605);
             flowServersInFloorplan.TabIndex = 2;
@@ -468,7 +478,7 @@ namespace FloorPlanMaker
             pnlSections.Controls.Add(flowSectionSelect);
             pnlSections.Controls.Add(btnAddSection);
             pnlSections.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            pnlSections.Location = new Point(3, 34);
+            pnlSections.Location = new Point(8, 39);
             pnlSections.Name = "pnlSections";
             pnlSections.Size = new Size(239, 869);
             pnlSections.TabIndex = 8;
@@ -783,7 +793,7 @@ namespace FloorPlanMaker
             rdoSections.Size = new Size(162, 33);
             rdoSections.TabIndex = 10;
             rdoSections.TabStop = true;
-            rdoSections.Text = "Create Sections";
+            rdoSections.Text = "Floorplans";
             rdoSections.TextAlign = ContentAlignment.MiddleCenter;
             rdoSections.UseVisualStyleBackColor = true;
             rdoSections.CheckedChanged += rdoSections_CheckedChanged;
@@ -882,16 +892,6 @@ namespace FloorPlanMaker
             panel3.Name = "panel3";
             panel3.Size = new Size(960, 933);
             panel3.TabIndex = 19;
-            // 
-            // lblDiningRoomName
-            // 
-            lblDiningRoomName.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
-            lblDiningRoomName.Location = new Point(0, 10);
-            lblDiningRoomName.Name = "lblDiningRoomName";
-            lblDiningRoomName.Size = new Size(238, 37);
-            lblDiningRoomName.TabIndex = 6;
-            lblDiningRoomName.Text = "Outside Cocktail";
-            lblDiningRoomName.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // Form1
             // 

@@ -22,6 +22,31 @@ namespace FloorPlanMaker
         private DiningAreaCreationManager DiningAreaManager = new DiningAreaCreationManager();
         private DateTime dateSelected = DateTime.MinValue;
         private List<Floorplan> allFloorplans = new List<Floorplan>();
+        private bool isDraggingForm = false;
+        private System.Drawing.Point lastLocation;
+        private void frmEditStaff_MouseDown(object sender, MouseEventArgs e)
+        {
+            isDraggingForm = true;
+            lastLocation = e.Location;
+        }
+
+        private void frmEditStaff_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (isDraggingForm)
+            {
+                this.Location = new System.Drawing.Point(
+                    (this.Location.X - lastLocation.X) + e.X,
+                    (this.Location.Y - lastLocation.Y) + e.Y);
+
+                this.Update();
+            }
+        }
+
+        private void frmEditStaff_MouseUp(object sender, MouseEventArgs e)
+        {
+            isDraggingForm = false;
+        }
+
         public frmEditStaff(EmployeeManager staffManager, ShiftManager shiftManager)
         {
             InitializeComponent();
@@ -44,7 +69,7 @@ namespace FloorPlanMaker
         private void RefreshPreviousFloorplanCounts()
         {
 
-            Dictionary<DiningArea, int> LastWeekFloorplans = ServersAssignedPreviousDay(allFloorplans, cbIsAM.Checked,-7);
+            Dictionary<DiningArea, int> LastWeekFloorplans = ServersAssignedPreviousDay(allFloorplans, cbIsAM.Checked, -7);
             Dictionary<DiningArea, int> YesterdayFloorplans = ServersAssignedPreviousDay(allFloorplans, cbIsAM.Checked, -1);
             flowLastWeekdayCounts.Controls.Clear(); // Clear any existing controls
             flowYesterdayCounts.Controls.Clear();
@@ -122,7 +147,7 @@ namespace FloorPlanMaker
 
             }
         }
-        
+
         private void SetFloorplansForDateAndShift()
         {
             UncheckDiningAreas();
@@ -137,11 +162,11 @@ namespace FloorPlanMaker
                     shiftManager.Floorplans.Add(fp);
                     foreach (Control c in flowDiningAreas.Controls)
                     {
-                        if(c is CheckBox cb && c.Tag == diningArea)
+                        if (c is CheckBox cb && c.Tag == diningArea)
                         {
                             cb.Checked = true;
                         }
-                        
+
                     }
 
                     //foreach (Server server in fp.Servers)
@@ -154,7 +179,7 @@ namespace FloorPlanMaker
         }
         private void RefreshAllServerAssignmentsForShift()
         {
-            foreach(Floorplan fp in shiftManager.Floorplans)
+            foreach (Floorplan fp in shiftManager.Floorplans)
             {
                 foreach (Server server in fp.Servers)
                 {
@@ -184,7 +209,7 @@ namespace FloorPlanMaker
                 {
                     shiftManager.CreateFloorplanForDiningArea(area, DateTime.Now, false, 0, 0);
                 }
-                
+
 
                 RefreshFloorplanFlowPanel();
             }
@@ -199,7 +224,7 @@ namespace FloorPlanMaker
                         {
                             AddServerToUnassignedServersInShift(server);
                         }
-                        
+
 
                     }
                     floorplanToRemove.Servers.Clear();
@@ -577,7 +602,7 @@ namespace FloorPlanMaker
             foreach (Floorplan fp in shiftManager.Floorplans)
             {
                 fp.Date = dateSelected;
-                
+
             }
             shiftManager.DateOnly = new DateOnly(dateSelected.Year, dateSelected.Month, dateSelected.Day);
             this.DialogResult = DialogResult.OK;
@@ -684,11 +709,11 @@ namespace FloorPlanMaker
         }
         private void UncheckDiningAreas()
         {
-            foreach(Control c in flowDiningAreas.Controls)
+            foreach (Control c in flowDiningAreas.Controls)
             {
                 if (c is CheckBox checkBox)
                 {
-                    checkBox.Checked = false; 
+                    checkBox.Checked = false;
                 }
             }
         }

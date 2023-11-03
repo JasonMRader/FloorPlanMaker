@@ -48,12 +48,16 @@
             // 
             // btnAddNewServer
             // 
+            btnAddNewServer.BackColor = Color.FromArgb(158, 171, 222);
+            btnAddNewServer.FlatAppearance.BorderSize = 0;
+            btnAddNewServer.FlatStyle = FlatStyle.Flat;
+            btnAddNewServer.ForeColor = Color.Black;
             btnAddNewServer.Location = new Point(12, 935);
             btnAddNewServer.Name = "btnAddNewServer";
             btnAddNewServer.Size = new Size(165, 23);
             btnAddNewServer.TabIndex = 1;
             btnAddNewServer.Text = "Add New Server";
-            btnAddNewServer.UseVisualStyleBackColor = true;
+            btnAddNewServer.UseVisualStyleBackColor = false;
             btnAddNewServer.Click += btnAddNewServer_Click;
             // 
             // txtNewServerName
@@ -65,16 +69,21 @@
             // 
             // btnAssignTables
             // 
+            btnAssignTables.BackColor = Color.FromArgb(158, 171, 222);
+            btnAssignTables.FlatAppearance.BorderSize = 0;
+            btnAssignTables.FlatStyle = FlatStyle.Flat;
+            btnAssignTables.ForeColor = Color.Black;
             btnAssignTables.Location = new Point(183, 912);
             btnAssignTables.Name = "btnAssignTables";
             btnAssignTables.Size = new Size(1058, 46);
             btnAssignTables.TabIndex = 4;
             btnAssignTables.Text = "Assign Tables";
-            btnAssignTables.UseVisualStyleBackColor = true;
+            btnAssignTables.UseVisualStyleBackColor = false;
             btnAssignTables.Click += btnAssignTables_Click;
             // 
             // flowDiningAreaAssignment
             // 
+            flowDiningAreaAssignment.BackColor = Color.FromArgb(178, 87, 46);
             flowDiningAreaAssignment.Location = new Point(195, 166);
             flowDiningAreaAssignment.Name = "flowDiningAreaAssignment";
             flowDiningAreaAssignment.Size = new Size(680, 740);
@@ -83,6 +92,7 @@
             // flowUnassignedServers
             // 
             flowUnassignedServers.AutoScroll = true;
+            flowUnassignedServers.BackColor = Color.FromArgb(178, 87, 46);
             flowUnassignedServers.Location = new Point(881, 74);
             flowUnassignedServers.Name = "flowUnassignedServers";
             flowUnassignedServers.Size = new Size(360, 832);
@@ -91,18 +101,23 @@
             // cbUnassignedServers
             // 
             cbUnassignedServers.Appearance = Appearance.Button;
+            cbUnassignedServers.BackColor = Color.FromArgb(158, 171, 222);
+            cbUnassignedServers.FlatAppearance.BorderSize = 0;
+            cbUnassignedServers.FlatStyle = FlatStyle.Flat;
+            cbUnassignedServers.ForeColor = Color.Black;
             cbUnassignedServers.Location = new Point(881, 38);
             cbUnassignedServers.Name = "cbUnassignedServers";
             cbUnassignedServers.Size = new Size(360, 30);
             cbUnassignedServers.TabIndex = 12;
             cbUnassignedServers.Text = "Unassigned Servers";
             cbUnassignedServers.TextAlign = ContentAlignment.MiddleCenter;
-            cbUnassignedServers.UseVisualStyleBackColor = true;
+            cbUnassignedServers.UseVisualStyleBackColor = false;
             cbUnassignedServers.CheckedChanged += cbUnassignedServers_CheckedChanged;
             // 
             // flowAllServers
             // 
             flowAllServers.AutoScroll = true;
+            flowAllServers.BackColor = Color.FromArgb(178, 87, 46);
             flowAllServers.Location = new Point(12, 230);
             flowAllServers.Name = "flowAllServers";
             flowAllServers.Size = new Size(165, 667);
@@ -110,6 +125,7 @@
             // 
             // flowDiningAreas
             // 
+            flowDiningAreas.BackColor = Color.FromArgb(178, 87, 46);
             flowDiningAreas.Location = new Point(12, 40);
             flowDiningAreas.Name = "flowDiningAreas";
             flowDiningAreas.Size = new Size(165, 184);
@@ -154,6 +170,7 @@
             cbIsAM.FlatAppearance.BorderSize = 0;
             cbIsAM.FlatStyle = FlatStyle.Flat;
             cbIsAM.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            cbIsAM.ForeColor = Color.Black;
             cbIsAM.Location = new Point(725, 118);
             cbIsAM.Name = "cbIsAM";
             cbIsAM.Size = new Size(79, 42);
@@ -204,6 +221,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.FromArgb(49, 56, 82);
             ClientSize = new Size(1253, 970);
             Controls.Add(flowYesterdayCounts);
             Controls.Add(label2);
@@ -221,10 +239,15 @@
             Controls.Add(btnAssignTables);
             Controls.Add(txtNewServerName);
             Controls.Add(btnAddNewServer);
+            ForeColor = Color.White;
+            FormBorderStyle = FormBorderStyle.None;
             Name = "frmEditStaff";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "frmEditStaff";
             Load += frmEditStaff_Load;
+            MouseDown += frmEditStaff_MouseDown;
+            MouseMove += frmEditStaff_MouseMove;
+            MouseUp += frmEditStaff_MouseUp;
             ResumeLayout(false);
             PerformLayout();
         }
