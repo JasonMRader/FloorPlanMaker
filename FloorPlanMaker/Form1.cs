@@ -44,7 +44,7 @@ namespace FloorPlanMaker
             //rdoDiningAreas.ForeColor = Color.White;
             //rdoSections.ForeColor = Color.White;
 
-            
+
             btnAddSection.BackColor = AppColors.ButtonColor;
             btnChooseTemplate.BackColor = AppColors.ButtonColor;
             btnCloseApp.BackColor = Color.Red;
@@ -461,7 +461,7 @@ namespace FloorPlanMaker
             lblPanel2Text.Text = areaCreationManager.DiningAreaSelected.Name;
             this.shiftManager.SelectedDiningArea = areaCreationManager.DiningAreaSelected;
             SetViewedFloorplan();
-
+            lblDiningRoomName.Text = areaCreationManager.DiningAreaSelected.Name;
             RefreshTemplateList(shiftManager.SelectedDiningArea);
             lblDiningAreaAverageCovers.Text = shiftManager.SelectedDiningArea.GetAverageCovers().ToString();
             lblDiningAreaMaxCovers.Text = shiftManager.SelectedDiningArea.GetMaxCovers().ToString();
@@ -778,6 +778,7 @@ namespace FloorPlanMaker
             {
                 foreach (Server server in shiftManager.SelectedFloorplan.Servers)
                 {
+                    server.Shifts = SqliteDataAccess.GetShiftsForServer(server);
                     ServerControl serverControl = new ServerControl(server, 215, 20);
 
                     foreach (ShiftControl shiftControl in serverControl.ShiftControls)

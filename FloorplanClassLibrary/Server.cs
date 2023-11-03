@@ -2,9 +2,26 @@
 {
     public class Server
     {
+        private List<Shift> shifts;
+
         public int ID { get; set; }
-        public string Name { get; set; }        
-        public List<Shift> Shifts { get; set; }
+        public string Name { get; set; }
+
+        public List<Shift> Shifts
+        {
+            get
+            {
+               
+                shifts ??= new List<Shift>();
+
+                return shifts.OrderByDescending(shift => shift.Date).ToList();
+            }
+            set
+            {
+                shifts = value;
+            }
+        }
+
         public string AbbreviatedName
         {
             get
