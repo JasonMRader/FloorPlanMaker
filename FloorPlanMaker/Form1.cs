@@ -29,7 +29,34 @@ namespace FloorPlanMaker
         private int currentFocusedSectionIndex = 0;
         private SectionLineManager sectionLineManager;
         private SectionControlsManager sectionControlsManager { get; set; }
+        private void SetColors()
+        {
+            btnAddSectionLabels.BackColor = AppColors.CTAColor;
+            btnPrint.BackColor = AppColors.CTAColor;
+            btnAddPickupSection.BackColor = AppColors.ButtonColor;
+            btnAddSection.BackColor = AppColors.ButtonColor;
 
+            btnAddServers.BackColor = AppColors.ButtonColor;
+            btnChooseTemplate.BackColor = AppColors.ButtonColor;
+            btnCloseApp.BackColor = Color.Red;
+            rdoDiningAreas.BackColor = AppColors.ButtonColor;
+            rdoSections.BackColor = AppColors.ButtonColor;
+            btnGenerateSectionLines.BackColor = AppColors.ButtonColor;
+            btnRemoveSection.BackColor = AppColors.ButtonColor;
+            btnSaveFloorplanTemplate.BackColor = AppColors.ButtonColor;
+            btnCreateNewDiningArea.BackColor = AppColors.ButtonColor;
+            btnSaveDiningArea.BackColor = AppColors.ButtonColor;
+            btnSaveTables.BackColor = AppColors.ButtonColor;
+            btnCopyTable.BackColor = AppColors.ButtonColor;
+            btnSaveTable.BackColor = AppColors.ButtonColor;
+            cbLockTables.BackColor = AppColors.ButtonColor;
+            btnMoreHeight.BackColor = AppColors.ButtonColor;
+            btnMoreWidth.BackColor = AppColors.ButtonColor;
+            btnLessWidth.BackColor = AppColors.ButtonColor;
+            btnLessHeight.BackColor = AppColors.ButtonColor;
+            btnDeleteTable.BackColor = AppColors.ButtonColor;
+            this.BackColor = AppColors.MainColor;
+        }
 
         public Form1()
         {
@@ -175,6 +202,8 @@ namespace FloorPlanMaker
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            SetColors();
+
             List<Floorplan> floorplans = SqliteDataAccess.LoadFloorplanList();
             cboDiningAreas.DataSource = areaCreationManager.DiningAreas;
             cboDiningAreas.DisplayMember = "Name";
@@ -948,7 +977,7 @@ namespace FloorPlanMaker
                 sectionPanel.Controls.Add(rbSection);
                 sectionPanel.Controls.Add(lblMaxCovers);
                 sectionPanel.Controls.Add(lblAverageCovers);
-                // sectionPanel.Controls.Add(rbCloser);
+                //sectionPanel.Controls.Add(rbCloser);
                 //sectionPanel.Controls.Add(rbPrecloser);
                 //panel.Controls.Add(rbNeither);
 
@@ -961,7 +990,7 @@ namespace FloorPlanMaker
                 rbCloser.Location = new System.Drawing.Point(lblAverageCovers.Right + 10, 5);
                 rbPrecloser.Location = new System.Drawing.Point(rbCloser.Right + 5, 5);
                 // Adjust panel size to fit the controls (or set a predefined size).
-                sectionPanel.Size = new Size(rbPrecloser.Right + 5, Math.Max(rbSection.Height, lblAverageCovers.Height) + 10);
+                sectionPanel.Size = new Size(lblAverageCovers.Right + 20, Math.Max(rbSection.Height, lblAverageCovers.Height) + 10);
 
                 sectionLabels[section] = (lblMaxCovers, lblAverageCovers);
                 // Add the panel to the flow layout panel.
@@ -1065,6 +1094,7 @@ namespace FloorPlanMaker
             if (rdoSections.Checked)
             {
                 pnlSections.Visible = true;
+                flowServersInFloorplan.Visible = true;
                 lblPanel2Text.Text = areaCreationManager.DiningAreaSelected.Name;
                 this.shiftManager = new ShiftManager(areaCreationManager.DiningAreaSelected);
                 lblDiningAreaMaxCovers.Text = shiftManager.SelectedDiningArea.GetMaxCovers().ToString();
@@ -1092,6 +1122,7 @@ namespace FloorPlanMaker
             if (rdoDiningAreas.Checked)
             {
                 pnlSections.Visible = false;
+                flowServersInFloorplan.Visible = false;
                 lblPanel2Text.Text = "Add Tables";
                 txtDiningAreaName.Visible = true;
                 //cboDiningAreas.Visible = true;
@@ -1535,6 +1566,11 @@ namespace FloorPlanMaker
         private void btnNextDay_Click(object sender, EventArgs e)
         {
             dtpFloorplan.Value = dtpFloorplan.Value.AddDays(1);
+        }
+
+        private void btnCloseApp_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
         //public static List<LineString> ComputeVoronoiEdges(List<Coordinate> coordinates)
         //{

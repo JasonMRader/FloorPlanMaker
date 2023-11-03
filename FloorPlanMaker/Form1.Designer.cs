@@ -1,4 +1,6 @@
-﻿namespace FloorPlanMaker
+﻿using FloorPlanMakerUI;
+
+namespace FloorPlanMaker
 {
     partial class Form1
     {
@@ -29,10 +31,16 @@
         private void InitializeComponent()
         {
             pnlServers = new Panel();
+            flowServersInFloorplan = new FlowLayoutPanel();
+            panel2 = new Panel();
+            txtDiningAreaName = new TextBox();
+            btnCreateNewDiningArea = new Button();
+            btnSaveDiningArea = new Button();
+            rbInside = new RadioButton();
+            rbOutside = new RadioButton();
+            btnSaveTables = new Button();
             btnRemoveSection = new Button();
             btnAddSection = new Button();
-            flowServersInFloorplan = new FlowLayoutPanel();
-            btnAddServers = new Button();
             lblTeamWaitLabel = new Label();
             label1 = new Label();
             nudNumberOfTeamWaits = new NumericUpDown();
@@ -47,6 +55,7 @@
             label9 = new Label();
             label10 = new Label();
             nudServerCount = new NumericUpDown();
+            btnAddServers = new Button();
             txtTemplateName = new TextBox();
             cboFloorplanTemplates = new ComboBox();
             btnSaveFloorplanTemplate = new Button();
@@ -54,14 +63,10 @@
             flowSectionSelect = new FlowLayoutPanel();
             pnlAddTables = new Panel();
             pnlSections = new Panel();
-            btnDoAThing = new Button();
-            btnTest2 = new Button();
             btnAddPickupSection = new Button();
             btnGenerateSectionLines = new Button();
-            btnTest = new Button();
             btnChooseTemplate = new Button();
             btnCopyTable = new Button();
-            btnDeleteTable = new Button();
             btnSaveTable = new Button();
             label7 = new Label();
             txtWidth = new TextBox();
@@ -81,15 +86,13 @@
             btnLessHeight = new Button();
             txtXco = new TextBox();
             txtYco = new TextBox();
+            btnDeleteTable = new Button();
+            btnDoAThing = new Button();
+            btnTest2 = new Button();
+            btnTest = new Button();
             btnPrint = new Button();
             pnlFloorPlan = new Panel();
-            txtDiningAreaName = new TextBox();
-            btnCreateNewDiningArea = new Button();
-            btnSaveDiningArea = new Button();
             cboDiningAreas = new ComboBox();
-            rbInside = new RadioButton();
-            rbOutside = new RadioButton();
-            btnSaveTables = new Button();
             rdoSections = new RadioButton();
             rdoDiningAreas = new RadioButton();
             panel1 = new Panel();
@@ -97,7 +100,9 @@
             cbIsAM = new CheckBox();
             btnDayBefore = new Button();
             btnNextDay = new Button();
+            btnCloseApp = new Button();
             pnlServers.SuspendLayout();
+            panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudNumberOfTeamWaits).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudServerCount).BeginInit();
             pnlAddTables.SuspendLayout();
@@ -107,11 +112,11 @@
             // 
             // pnlServers
             // 
-            pnlServers.BackColor = SystemColors.GradientActiveCaption;
+            pnlServers.BackColor = Color.FromArgb(58, 110, 165);
+            pnlServers.Controls.Add(flowServersInFloorplan);
+            pnlServers.Controls.Add(panel2);
             pnlServers.Controls.Add(btnRemoveSection);
             pnlServers.Controls.Add(btnAddSection);
-            pnlServers.Controls.Add(flowServersInFloorplan);
-            pnlServers.Controls.Add(btnAddServers);
             pnlServers.Controls.Add(lblTeamWaitLabel);
             pnlServers.Controls.Add(label1);
             pnlServers.Controls.Add(nudNumberOfTeamWaits);
@@ -126,16 +131,102 @@
             pnlServers.Controls.Add(label9);
             pnlServers.Controls.Add(label10);
             pnlServers.Controls.Add(nudServerCount);
-            pnlServers.Dock = DockStyle.Left;
-            pnlServers.Location = new Point(0, 0);
+            pnlServers.Location = new Point(21, 68);
             pnlServers.Name = "pnlServers";
-            pnlServers.Size = new Size(250, 1009);
+            pnlServers.Size = new Size(241, 929);
             pnlServers.TabIndex = 0;
+            // 
+            // flowServersInFloorplan
+            // 
+            flowServersInFloorplan.AutoSize = true;
+            flowServersInFloorplan.Location = new Point(3, 69);
+            flowServersInFloorplan.Name = "flowServersInFloorplan";
+            flowServersInFloorplan.Size = new Size(235, 605);
+            flowServersInFloorplan.TabIndex = 2;
+            // 
+            // panel2
+            // 
+            panel2.Controls.Add(txtDiningAreaName);
+            panel2.Controls.Add(btnCreateNewDiningArea);
+            panel2.Controls.Add(btnSaveDiningArea);
+            panel2.Controls.Add(rbInside);
+            panel2.Controls.Add(rbOutside);
+            panel2.Controls.Add(btnSaveTables);
+            panel2.Location = new Point(12, 50);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(219, 328);
+            panel2.TabIndex = 0;
+            // 
+            // txtDiningAreaName
+            // 
+            txtDiningAreaName.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            txtDiningAreaName.Location = new Point(3, 113);
+            txtDiningAreaName.Name = "txtDiningAreaName";
+            txtDiningAreaName.Size = new Size(213, 35);
+            txtDiningAreaName.TabIndex = 3;
+            txtDiningAreaName.Visible = false;
+            // 
+            // btnCreateNewDiningArea
+            // 
+            btnCreateNewDiningArea.Location = new Point(3, 35);
+            btnCreateNewDiningArea.Name = "btnCreateNewDiningArea";
+            btnCreateNewDiningArea.Size = new Size(213, 38);
+            btnCreateNewDiningArea.TabIndex = 5;
+            btnCreateNewDiningArea.Text = "Create New Dining Area";
+            btnCreateNewDiningArea.UseVisualStyleBackColor = true;
+            btnCreateNewDiningArea.Visible = false;
+            btnCreateNewDiningArea.Click += btnCreateNewDiningArea_Click;
+            // 
+            // btnSaveDiningArea
+            // 
+            btnSaveDiningArea.Location = new Point(3, 228);
+            btnSaveDiningArea.Name = "btnSaveDiningArea";
+            btnSaveDiningArea.Size = new Size(213, 34);
+            btnSaveDiningArea.TabIndex = 6;
+            btnSaveDiningArea.Text = "Save";
+            btnSaveDiningArea.UseVisualStyleBackColor = true;
+            btnSaveDiningArea.Visible = false;
+            btnSaveDiningArea.Click += btnSaveDiningArea_Click;
+            // 
+            // rbInside
+            // 
+            rbInside.AutoSize = true;
+            rbInside.Location = new Point(18, 168);
+            rbInside.Name = "rbInside";
+            rbInside.Size = new Size(56, 19);
+            rbInside.TabIndex = 8;
+            rbInside.TabStop = true;
+            rbInside.Text = "Inside";
+            rbInside.UseVisualStyleBackColor = true;
+            rbInside.Visible = false;
+            // 
+            // rbOutside
+            // 
+            rbOutside.AutoSize = true;
+            rbOutside.Location = new Point(140, 168);
+            rbOutside.Name = "rbOutside";
+            rbOutside.Size = new Size(66, 19);
+            rbOutside.TabIndex = 8;
+            rbOutside.TabStop = true;
+            rbOutside.Text = "Outside";
+            rbOutside.UseVisualStyleBackColor = true;
+            rbOutside.Visible = false;
+            // 
+            // btnSaveTables
+            // 
+            btnSaveTables.Location = new Point(3, 268);
+            btnSaveTables.Name = "btnSaveTables";
+            btnSaveTables.Size = new Size(213, 36);
+            btnSaveTables.TabIndex = 9;
+            btnSaveTables.Text = "Save Tables";
+            btnSaveTables.UseVisualStyleBackColor = true;
+            btnSaveTables.Visible = false;
+            btnSaveTables.Click += btnSaveTables_Click;
             // 
             // btnRemoveSection
             // 
             btnRemoveSection.FlatStyle = FlatStyle.Flat;
-            btnRemoveSection.Location = new Point(117, 178);
+            btnRemoveSection.Location = new Point(116, 743);
             btnRemoveSection.Name = "btnRemoveSection";
             btnRemoveSection.Size = new Size(115, 23);
             btnRemoveSection.TabIndex = 9;
@@ -146,7 +237,7 @@
             // btnAddSection
             // 
             btnAddSection.FlatStyle = FlatStyle.Flat;
-            btnAddSection.Location = new Point(13, 178);
+            btnAddSection.Location = new Point(12, 743);
             btnAddSection.Name = "btnAddSection";
             btnAddSection.Size = new Size(98, 23);
             btnAddSection.TabIndex = 9;
@@ -154,28 +245,11 @@
             btnAddSection.UseVisualStyleBackColor = true;
             btnAddSection.Click += btnAddSection_Click;
             // 
-            // flowServersInFloorplan
-            // 
-            flowServersInFloorplan.Location = new Point(12, 362);
-            flowServersInFloorplan.Name = "flowServersInFloorplan";
-            flowServersInFloorplan.Size = new Size(228, 635);
-            flowServersInFloorplan.TabIndex = 2;
-            // 
-            // btnAddServers
-            // 
-            btnAddServers.Location = new Point(4, 69);
-            btnAddServers.Name = "btnAddServers";
-            btnAddServers.Size = new Size(232, 40);
-            btnAddServers.TabIndex = 1;
-            btnAddServers.Text = "Add Servers To Shift";
-            btnAddServers.UseVisualStyleBackColor = true;
-            btnAddServers.Click += btnAddServers_Click;
-            // 
             // lblTeamWaitLabel
             // 
             lblTeamWaitLabel.AutoSize = true;
             lblTeamWaitLabel.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            lblTeamWaitLabel.Location = new Point(31, 315);
+            lblTeamWaitLabel.Location = new Point(30, 880);
             lblTeamWaitLabel.Name = "lblTeamWaitLabel";
             lblTeamWaitLabel.Size = new Size(95, 21);
             lblTeamWaitLabel.TabIndex = 8;
@@ -186,7 +260,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(55, 31);
+            label1.Location = new Point(54, 10);
             label1.Name = "label1";
             label1.Size = new Size(128, 21);
             label1.TabIndex = 0;
@@ -194,7 +268,7 @@
             // 
             // nudNumberOfTeamWaits
             // 
-            nudNumberOfTeamWaits.Location = new Point(143, 318);
+            nudNumberOfTeamWaits.Location = new Point(142, 883);
             nudNumberOfTeamWaits.Name = "nudNumberOfTeamWaits";
             nudNumberOfTeamWaits.Size = new Size(46, 23);
             nudNumberOfTeamWaits.TabIndex = 7;
@@ -205,7 +279,7 @@
             // 
             label8.AutoSize = true;
             label8.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label8.Location = new Point(55, 112);
+            label8.Location = new Point(54, 677);
             label8.Name = "label8";
             label8.Size = new Size(99, 21);
             label8.TabIndex = 0;
@@ -215,7 +289,7 @@
             // 
             cbTeamWait.AutoSize = true;
             cbTeamWait.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            cbTeamWait.Location = new Point(25, 287);
+            cbTeamWait.Location = new Point(24, 852);
             cbTeamWait.Name = "cbTeamWait";
             cbTeamWait.Size = new Size(207, 25);
             cbTeamWait.TabIndex = 6;
@@ -227,7 +301,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label2.Location = new Point(25, 133);
+            label2.Location = new Point(24, 698);
             label2.Name = "label2";
             label2.Size = new Size(129, 21);
             label2.TabIndex = 0;
@@ -237,7 +311,7 @@
             // 
             lblServerAverageCovers.AutoSize = true;
             lblServerAverageCovers.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            lblServerAverageCovers.Location = new Point(172, 256);
+            lblServerAverageCovers.Location = new Point(171, 821);
             lblServerAverageCovers.Name = "lblServerAverageCovers";
             lblServerAverageCovers.Size = new Size(19, 21);
             lblServerAverageCovers.TabIndex = 5;
@@ -247,7 +321,7 @@
             // 
             lblDiningAreaAverageCovers.AutoSize = true;
             lblDiningAreaAverageCovers.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            lblDiningAreaAverageCovers.Location = new Point(170, 133);
+            lblDiningAreaAverageCovers.Location = new Point(169, 698);
             lblDiningAreaAverageCovers.Name = "lblDiningAreaAverageCovers";
             lblDiningAreaAverageCovers.Size = new Size(19, 21);
             lblDiningAreaAverageCovers.TabIndex = 0;
@@ -257,7 +331,7 @@
             // 
             lblServerMaxCovers.AutoSize = true;
             lblServerMaxCovers.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            lblServerMaxCovers.Location = new Point(172, 235);
+            lblServerMaxCovers.Location = new Point(171, 800);
             lblServerMaxCovers.Name = "lblServerMaxCovers";
             lblServerMaxCovers.Size = new Size(19, 21);
             lblServerMaxCovers.TabIndex = 5;
@@ -267,7 +341,7 @@
             // 
             lblDiningAreaMaxCovers.AutoSize = true;
             lblDiningAreaMaxCovers.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            lblDiningAreaMaxCovers.Location = new Point(170, 112);
+            lblDiningAreaMaxCovers.Location = new Point(169, 677);
             lblDiningAreaMaxCovers.Name = "lblDiningAreaMaxCovers";
             lblDiningAreaMaxCovers.Size = new Size(19, 21);
             lblDiningAreaMaxCovers.TabIndex = 1;
@@ -277,7 +351,7 @@
             // 
             label11.AutoSize = true;
             label11.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label11.Location = new Point(33, 256);
+            label11.Location = new Point(32, 821);
             label11.Name = "label11";
             label11.Size = new Size(123, 21);
             label11.TabIndex = 4;
@@ -287,7 +361,7 @@
             // 
             label9.AutoSize = true;
             label9.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label9.Location = new Point(85, 154);
+            label9.Location = new Point(84, 719);
             label9.Name = "label9";
             label9.Size = new Size(69, 21);
             label9.TabIndex = 2;
@@ -297,7 +371,7 @@
             // 
             label10.AutoSize = true;
             label10.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label10.Location = new Point(31, 235);
+            label10.Location = new Point(30, 800);
             label10.Name = "label10";
             label10.Size = new Size(125, 21);
             label10.TabIndex = 4;
@@ -305,7 +379,7 @@
             // 
             // nudServerCount
             // 
-            nudServerCount.Location = new Point(170, 154);
+            nudServerCount.Location = new Point(169, 719);
             nudServerCount.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             nudServerCount.Name = "nudServerCount";
             nudServerCount.Size = new Size(46, 23);
@@ -313,28 +387,40 @@
             nudServerCount.Value = new decimal(new int[] { 1, 0, 0, 0 });
             nudServerCount.ValueChanged += nudServerCount_ValueChanged;
             // 
+            // btnAddServers
+            // 
+            btnAddServers.FlatStyle = FlatStyle.Flat;
+            btnAddServers.Location = new Point(21, 15);
+            btnAddServers.Name = "btnAddServers";
+            btnAddServers.Size = new Size(143, 33);
+            btnAddServers.TabIndex = 1;
+            btnAddServers.Text = "Shifts";
+            btnAddServers.UseVisualStyleBackColor = true;
+            btnAddServers.Click += btnAddServers_Click;
+            // 
             // txtTemplateName
             // 
-            txtTemplateName.Location = new Point(19, 725);
+            txtTemplateName.Location = new Point(18, 692);
             txtTemplateName.Name = "txtTemplateName";
             txtTemplateName.PlaceholderText = "Enter Template Name Here";
-            txtTemplateName.Size = new Size(237, 29);
+            txtTemplateName.Size = new Size(212, 29);
             txtTemplateName.TabIndex = 15;
             // 
             // cboFloorplanTemplates
             // 
             cboFloorplanTemplates.FormattingEnabled = true;
-            cboFloorplanTemplates.Location = new Point(28, 823);
+            cboFloorplanTemplates.Location = new Point(16, 781);
             cboFloorplanTemplates.Name = "cboFloorplanTemplates";
-            cboFloorplanTemplates.Size = new Size(214, 29);
+            cboFloorplanTemplates.Size = new Size(218, 29);
             cboFloorplanTemplates.TabIndex = 14;
             cboFloorplanTemplates.SelectedIndexChanged += cboFloorplanTemplates_SelectedIndexChanged;
             // 
             // btnSaveFloorplanTemplate
             // 
-            btnSaveFloorplanTemplate.Location = new Point(19, 772);
+            btnSaveFloorplanTemplate.FlatStyle = FlatStyle.Flat;
+            btnSaveFloorplanTemplate.Location = new Point(18, 735);
             btnSaveFloorplanTemplate.Name = "btnSaveFloorplanTemplate";
-            btnSaveFloorplanTemplate.Size = new Size(237, 30);
+            btnSaveFloorplanTemplate.Size = new Size(215, 30);
             btnSaveFloorplanTemplate.TabIndex = 12;
             btnSaveFloorplanTemplate.Text = "Save Floorplan Template";
             btnSaveFloorplanTemplate.UseVisualStyleBackColor = true;
@@ -342,9 +428,12 @@
             // 
             // btnAddSectionLabels
             // 
-            btnAddSectionLabels.Location = new Point(0, 0);
+            btnAddSectionLabels.BackColor = Color.FromArgb(255, 103, 0);
+            btnAddSectionLabels.FlatStyle = FlatStyle.Flat;
+            btnAddSectionLabels.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnAddSectionLabels.Location = new Point(559, 978);
             btnAddSectionLabels.Name = "btnAddSectionLabels";
-            btnAddSectionLabels.Size = new Size(271, 37);
+            btnAddSectionLabels.Size = new Size(331, 28);
             btnAddSectionLabels.TabIndex = 13;
             btnAddSectionLabels.Text = "Add Section Labels";
             btnAddSectionLabels.UseVisualStyleBackColor = true;
@@ -353,9 +442,9 @@
             // flowSectionSelect
             // 
             flowSectionSelect.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            flowSectionSelect.Location = new Point(0, 78);
+            flowSectionSelect.Location = new Point(22, 75);
             flowSectionSelect.Name = "flowSectionSelect";
-            flowSectionSelect.Size = new Size(268, 493);
+            flowSectionSelect.Size = new Size(212, 494);
             flowSectionSelect.TabIndex = 9;
             // 
             // pnlAddTables
@@ -363,7 +452,6 @@
             pnlAddTables.BackColor = SystemColors.ActiveCaption;
             pnlAddTables.Controls.Add(pnlSections);
             pnlAddTables.Controls.Add(btnCopyTable);
-            pnlAddTables.Controls.Add(btnDeleteTable);
             pnlAddTables.Controls.Add(btnSaveTable);
             pnlAddTables.Controls.Add(label7);
             pnlAddTables.Controls.Add(txtWidth);
@@ -383,56 +471,33 @@
             pnlAddTables.Controls.Add(btnLessHeight);
             pnlAddTables.Controls.Add(txtXco);
             pnlAddTables.Controls.Add(txtYco);
-            pnlAddTables.Dock = DockStyle.Left;
-            pnlAddTables.Location = new Point(250, 0);
+            pnlAddTables.Controls.Add(btnDeleteTable);
+            pnlAddTables.Location = new Point(280, 68);
             pnlAddTables.Name = "pnlAddTables";
-            pnlAddTables.Size = new Size(271, 1009);
+            pnlAddTables.Size = new Size(256, 929);
             pnlAddTables.TabIndex = 1;
             // 
             // pnlSections
             // 
-            pnlSections.Controls.Add(btnDoAThing);
             pnlSections.Controls.Add(cboFloorplanTemplates);
-            pnlSections.Controls.Add(btnTest2);
             pnlSections.Controls.Add(txtTemplateName);
             pnlSections.Controls.Add(btnSaveFloorplanTemplate);
             pnlSections.Controls.Add(btnAddPickupSection);
             pnlSections.Controls.Add(btnGenerateSectionLines);
-            pnlSections.Controls.Add(btnTest);
             pnlSections.Controls.Add(btnChooseTemplate);
-            pnlSections.Controls.Add(btnAddSectionLabels);
             pnlSections.Controls.Add(flowSectionSelect);
             pnlSections.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            pnlSections.Location = new Point(0, 70);
+            pnlSections.Location = new Point(3, 34);
             pnlSections.Name = "pnlSections";
-            pnlSections.Size = new Size(268, 937);
+            pnlSections.Size = new Size(246, 884);
             pnlSections.TabIndex = 8;
-            // 
-            // btnDoAThing
-            // 
-            btnDoAThing.Location = new Point(54, 899);
-            btnDoAThing.Name = "btnDoAThing";
-            btnDoAThing.Size = new Size(75, 23);
-            btnDoAThing.TabIndex = 17;
-            btnDoAThing.Text = "Do a Thing";
-            btnDoAThing.UseVisualStyleBackColor = true;
-            btnDoAThing.Click += btnDoAThing_Click;
-            // 
-            // btnTest2
-            // 
-            btnTest2.Location = new Point(118, 866);
-            btnTest2.Name = "btnTest2";
-            btnTest2.Size = new Size(75, 23);
-            btnTest2.TabIndex = 16;
-            btnTest2.Text = "Test 2!";
-            btnTest2.UseVisualStyleBackColor = true;
-            btnTest2.Click += btnTest2_Click;
             // 
             // btnAddPickupSection
             // 
-            btnAddPickupSection.Location = new Point(6, 578);
+            btnAddPickupSection.FlatStyle = FlatStyle.Flat;
+            btnAddPickupSection.Location = new Point(18, 578);
             btnAddPickupSection.Name = "btnAddPickupSection";
-            btnAddPickupSection.Size = new Size(259, 37);
+            btnAddPickupSection.Size = new Size(212, 37);
             btnAddPickupSection.TabIndex = 16;
             btnAddPickupSection.Text = "Add Pickup Section";
             btnAddPickupSection.UseVisualStyleBackColor = true;
@@ -440,29 +505,20 @@
             // 
             // btnGenerateSectionLines
             // 
-            btnGenerateSectionLines.Location = new Point(6, 662);
+            btnGenerateSectionLines.FlatStyle = FlatStyle.Flat;
+            btnGenerateSectionLines.Location = new Point(18, 630);
             btnGenerateSectionLines.Name = "btnGenerateSectionLines";
-            btnGenerateSectionLines.Size = new Size(259, 46);
+            btnGenerateSectionLines.Size = new Size(212, 46);
             btnGenerateSectionLines.TabIndex = 15;
             btnGenerateSectionLines.Text = "Auto Section Lines";
             btnGenerateSectionLines.UseVisualStyleBackColor = true;
             // 
-            // btnTest
-            // 
-            btnTest.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
-            btnTest.Location = new Point(19, 866);
-            btnTest.Name = "btnTest";
-            btnTest.Size = new Size(75, 19);
-            btnTest.TabIndex = 12;
-            btnTest.Text = "TEST";
-            btnTest.UseVisualStyleBackColor = true;
-            btnTest.Click += btnTest_Click;
-            // 
             // btnChooseTemplate
             // 
-            btnChooseTemplate.Location = new Point(0, 34);
+            btnChooseTemplate.FlatStyle = FlatStyle.Flat;
+            btnChooseTemplate.Location = new Point(28, 16);
             btnChooseTemplate.Name = "btnChooseTemplate";
-            btnChooseTemplate.Size = new Size(271, 37);
+            btnChooseTemplate.Size = new Size(184, 37);
             btnChooseTemplate.TabIndex = 14;
             btnChooseTemplate.Text = "Choose Template";
             btnChooseTemplate.UseVisualStyleBackColor = true;
@@ -470,29 +526,23 @@
             // 
             // btnCopyTable
             // 
-            btnCopyTable.Location = new Point(28, 508);
+            btnCopyTable.FlatAppearance.BorderSize = 0;
+            btnCopyTable.FlatStyle = FlatStyle.Flat;
+            btnCopyTable.Location = new Point(18, 510);
             btnCopyTable.Name = "btnCopyTable";
-            btnCopyTable.Size = new Size(206, 23);
+            btnCopyTable.Size = new Size(166, 23);
             btnCopyTable.TabIndex = 7;
             btnCopyTable.Text = "Copy Table";
             btnCopyTable.UseVisualStyleBackColor = true;
             btnCopyTable.Click += btnCopyTable_Click;
             // 
-            // btnDeleteTable
-            // 
-            btnDeleteTable.Location = new Point(28, 924);
-            btnDeleteTable.Name = "btnDeleteTable";
-            btnDeleteTable.Size = new Size(206, 23);
-            btnDeleteTable.TabIndex = 6;
-            btnDeleteTable.Text = "Delete Table";
-            btnDeleteTable.UseVisualStyleBackColor = true;
-            btnDeleteTable.Click += btnDeleteTable_Click;
-            // 
             // btnSaveTable
             // 
-            btnSaveTable.Location = new Point(28, 859);
+            btnSaveTable.FlatAppearance.BorderSize = 0;
+            btnSaveTable.FlatStyle = FlatStyle.Flat;
+            btnSaveTable.Location = new Point(21, 820);
             btnSaveTable.Name = "btnSaveTable";
-            btnSaveTable.Size = new Size(206, 37);
+            btnSaveTable.Size = new Size(166, 37);
             btnSaveTable.TabIndex = 5;
             btnSaveTable.Text = "Save Table";
             btnSaveTable.UseVisualStyleBackColor = true;
@@ -501,7 +551,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(77, 761);
+            label7.Location = new Point(54, 757);
             label7.Name = "label7";
             label7.Size = new Size(39, 15);
             label7.TabIndex = 4;
@@ -509,7 +559,7 @@
             // 
             // txtWidth
             // 
-            txtWidth.Location = new Point(77, 779);
+            txtWidth.Location = new Point(54, 775);
             txtWidth.Name = "txtWidth";
             txtWidth.Size = new Size(107, 23);
             txtWidth.TabIndex = 3;
@@ -518,7 +568,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(77, 703);
+            label6.Location = new Point(54, 699);
             label6.Name = "label6";
             label6.Size = new Size(43, 15);
             label6.TabIndex = 4;
@@ -526,7 +576,7 @@
             // 
             // txtHeight
             // 
-            txtHeight.Location = new Point(77, 721);
+            txtHeight.Location = new Point(54, 717);
             txtHeight.Name = "txtHeight";
             txtHeight.Size = new Size(107, 23);
             txtHeight.TabIndex = 3;
@@ -535,7 +585,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(77, 649);
+            label5.Location = new Point(54, 645);
             label5.Name = "label5";
             label5.Size = new Size(89, 15);
             label5.TabIndex = 4;
@@ -543,7 +593,7 @@
             // 
             // txtAverageCovers
             // 
-            txtAverageCovers.Location = new Point(77, 667);
+            txtAverageCovers.Location = new Point(54, 663);
             txtAverageCovers.Name = "txtAverageCovers";
             txtAverageCovers.Size = new Size(107, 23);
             txtAverageCovers.TabIndex = 3;
@@ -552,7 +602,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(77, 592);
+            label4.Location = new Point(54, 588);
             label4.Name = "label4";
             label4.Size = new Size(69, 15);
             label4.TabIndex = 4;
@@ -560,7 +610,7 @@
             // 
             // txtMaxCovers
             // 
-            txtMaxCovers.Location = new Point(77, 610);
+            txtMaxCovers.Location = new Point(54, 606);
             txtMaxCovers.Name = "txtMaxCovers";
             txtMaxCovers.Size = new Size(107, 23);
             txtMaxCovers.TabIndex = 3;
@@ -569,7 +619,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(77, 538);
+            label3.Location = new Point(54, 534);
             label3.Name = "label3";
             label3.Size = new Size(81, 15);
             label3.TabIndex = 4;
@@ -577,7 +627,7 @@
             // 
             // txtTableNumber
             // 
-            txtTableNumber.Location = new Point(77, 556);
+            txtTableNumber.Location = new Point(54, 552);
             txtTableNumber.Name = "txtTableNumber";
             txtTableNumber.Size = new Size(107, 23);
             txtTableNumber.TabIndex = 3;
@@ -586,9 +636,11 @@
             // cbLockTables
             // 
             cbLockTables.Appearance = Appearance.Button;
-            cbLockTables.Location = new Point(28, 457);
+            cbLockTables.FlatAppearance.BorderSize = 0;
+            cbLockTables.FlatStyle = FlatStyle.Flat;
+            cbLockTables.Location = new Point(18, 459);
             cbLockTables.Name = "cbLockTables";
-            cbLockTables.Size = new Size(206, 45);
+            cbLockTables.Size = new Size(166, 45);
             cbLockTables.TabIndex = 2;
             cbLockTables.Text = "Lock Tables";
             cbLockTables.TextAlign = ContentAlignment.MiddleCenter;
@@ -599,7 +651,7 @@
             // 
             lblPanel2Text.AutoSize = true;
             lblPanel2Text.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            lblPanel2Text.Location = new Point(77, 38);
+            lblPanel2Text.Location = new Point(68, 11);
             lblPanel2Text.Name = "lblPanel2Text";
             lblPanel2Text.Size = new Size(93, 21);
             lblPanel2Text.TabIndex = 0;
@@ -607,7 +659,9 @@
             // 
             // btnMoreHeight
             // 
-            btnMoreHeight.Location = new Point(200, 721);
+            btnMoreHeight.FlatAppearance.BorderSize = 0;
+            btnMoreHeight.FlatStyle = FlatStyle.Flat;
+            btnMoreHeight.Location = new Point(167, 717);
             btnMoreHeight.Name = "btnMoreHeight";
             btnMoreHeight.Size = new Size(33, 23);
             btnMoreHeight.TabIndex = 9;
@@ -617,7 +671,9 @@
             // 
             // btnMoreWidth
             // 
-            btnMoreWidth.Location = new Point(200, 779);
+            btnMoreWidth.FlatAppearance.BorderSize = 0;
+            btnMoreWidth.FlatStyle = FlatStyle.Flat;
+            btnMoreWidth.Location = new Point(167, 774);
             btnMoreWidth.Name = "btnMoreWidth";
             btnMoreWidth.Size = new Size(33, 23);
             btnMoreWidth.TabIndex = 9;
@@ -627,7 +683,9 @@
             // 
             // btnLessWidth
             // 
-            btnLessWidth.Location = new Point(28, 779);
+            btnLessWidth.FlatAppearance.BorderSize = 0;
+            btnLessWidth.FlatStyle = FlatStyle.Flat;
+            btnLessWidth.Location = new Point(15, 775);
             btnLessWidth.Name = "btnLessWidth";
             btnLessWidth.Size = new Size(33, 23);
             btnLessWidth.TabIndex = 9;
@@ -637,7 +695,9 @@
             // 
             // btnLessHeight
             // 
-            btnLessHeight.Location = new Point(28, 720);
+            btnLessHeight.FlatAppearance.BorderSize = 0;
+            btnLessHeight.FlatStyle = FlatStyle.Flat;
+            btnLessHeight.Location = new Point(15, 716);
             btnLessHeight.Name = "btnLessHeight";
             btnLessHeight.Size = new Size(33, 23);
             btnLessHeight.TabIndex = 9;
@@ -647,25 +707,71 @@
             // 
             // txtXco
             // 
-            txtXco.Location = new Point(203, 560);
+            txtXco.Location = new Point(180, 556);
             txtXco.Name = "txtXco";
             txtXco.PlaceholderText = "X";
-            txtXco.Size = new Size(53, 23);
+            txtXco.Size = new Size(34, 23);
             txtXco.TabIndex = 10;
             // 
             // txtYco
             // 
-            txtYco.Location = new Point(203, 610);
+            txtYco.Location = new Point(180, 606);
             txtYco.Name = "txtYco";
             txtYco.PlaceholderText = "Y";
-            txtYco.Size = new Size(53, 23);
+            txtYco.Size = new Size(34, 23);
             txtYco.TabIndex = 10;
+            // 
+            // btnDeleteTable
+            // 
+            btnDeleteTable.FlatAppearance.BorderSize = 0;
+            btnDeleteTable.FlatStyle = FlatStyle.Flat;
+            btnDeleteTable.Location = new Point(21, 881);
+            btnDeleteTable.Name = "btnDeleteTable";
+            btnDeleteTable.Size = new Size(166, 37);
+            btnDeleteTable.TabIndex = 6;
+            btnDeleteTable.Text = "Delete Table";
+            btnDeleteTable.UseVisualStyleBackColor = true;
+            btnDeleteTable.Click += btnDeleteTable_Click;
+            // 
+            // btnDoAThing
+            // 
+            btnDoAThing.Location = new Point(1238, 961);
+            btnDoAThing.Name = "btnDoAThing";
+            btnDoAThing.Size = new Size(22, 23);
+            btnDoAThing.TabIndex = 17;
+            btnDoAThing.Text = "3";
+            btnDoAThing.UseVisualStyleBackColor = true;
+            btnDoAThing.Click += btnDoAThing_Click;
+            // 
+            // btnTest2
+            // 
+            btnTest2.Location = new Point(1237, 932);
+            btnTest2.Name = "btnTest2";
+            btnTest2.Size = new Size(23, 23);
+            btnTest2.TabIndex = 16;
+            btnTest2.Text = "2";
+            btnTest2.UseVisualStyleBackColor = true;
+            btnTest2.Click += btnTest2_Click;
+            // 
+            // btnTest
+            // 
+            btnTest.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
+            btnTest.Location = new Point(1237, 904);
+            btnTest.Name = "btnTest";
+            btnTest.Size = new Size(15, 19);
+            btnTest.TabIndex = 12;
+            btnTest.Text = "1";
+            btnTest.UseVisualStyleBackColor = true;
+            btnTest.Click += btnTest_Click;
             // 
             // btnPrint
             // 
-            btnPrint.Location = new Point(527, 76);
+            btnPrint.BackColor = Color.FromArgb(255, 103, 0);
+            btnPrint.FlatStyle = FlatStyle.Flat;
+            btnPrint.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnPrint.Location = new Point(900, 978);
             btnPrint.Name = "btnPrint";
-            btnPrint.Size = new Size(75, 23);
+            btnPrint.Size = new Size(331, 28);
             btnPrint.TabIndex = 13;
             btnPrint.Text = "Print";
             btnPrint.UseVisualStyleBackColor = true;
@@ -673,86 +779,23 @@
             // 
             // pnlFloorPlan
             // 
-            pnlFloorPlan.BackColor = Color.FromArgb(255, 244, 232);
-            pnlFloorPlan.Location = new Point(559, 120);
+            pnlFloorPlan.BackColor = Color.FromArgb(192, 192, 192);
+            pnlFloorPlan.Location = new Point(559, 95);
             pnlFloorPlan.Name = "pnlFloorPlan";
             pnlFloorPlan.Size = new Size(672, 877);
             pnlFloorPlan.TabIndex = 2;
             // 
-            // txtDiningAreaName
-            // 
-            txtDiningAreaName.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            txtDiningAreaName.Location = new Point(1120, 60);
-            txtDiningAreaName.Name = "txtDiningAreaName";
-            txtDiningAreaName.Size = new Size(26, 35);
-            txtDiningAreaName.TabIndex = 3;
-            txtDiningAreaName.Visible = false;
-            // 
-            // btnCreateNewDiningArea
-            // 
-            btnCreateNewDiningArea.Location = new Point(960, 69);
-            btnCreateNewDiningArea.Name = "btnCreateNewDiningArea";
-            btnCreateNewDiningArea.Size = new Size(154, 23);
-            btnCreateNewDiningArea.TabIndex = 5;
-            btnCreateNewDiningArea.Text = "Create New Dining Area";
-            btnCreateNewDiningArea.UseVisualStyleBackColor = true;
-            btnCreateNewDiningArea.Visible = false;
-            btnCreateNewDiningArea.Click += btnCreateNewDiningArea_Click;
-            // 
-            // btnSaveDiningArea
-            // 
-            btnSaveDiningArea.Location = new Point(1152, 38);
-            btnSaveDiningArea.Name = "btnSaveDiningArea";
-            btnSaveDiningArea.Size = new Size(81, 32);
-            btnSaveDiningArea.TabIndex = 6;
-            btnSaveDiningArea.Text = "Save";
-            btnSaveDiningArea.UseVisualStyleBackColor = true;
-            btnSaveDiningArea.Visible = false;
-            btnSaveDiningArea.Click += btnSaveDiningArea_Click;
-            // 
             // cboDiningAreas
             // 
+            cboDiningAreas.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboDiningAreas.FlatStyle = FlatStyle.Flat;
+            cboDiningAreas.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             cboDiningAreas.FormattingEnabled = true;
-            cboDiningAreas.Location = new Point(758, 33);
+            cboDiningAreas.Location = new Point(559, 13);
             cboDiningAreas.Name = "cboDiningAreas";
-            cboDiningAreas.Size = new Size(215, 23);
+            cboDiningAreas.Size = new Size(355, 33);
             cboDiningAreas.TabIndex = 7;
             cboDiningAreas.SelectedIndexChanged += cboDiningAreas_SelectedIndexChanged;
-            // 
-            // rbInside
-            // 
-            rbInside.AutoSize = true;
-            rbInside.Location = new Point(1010, 62);
-            rbInside.Name = "rbInside";
-            rbInside.Size = new Size(56, 19);
-            rbInside.TabIndex = 8;
-            rbInside.TabStop = true;
-            rbInside.Text = "Inside";
-            rbInside.UseVisualStyleBackColor = true;
-            rbInside.Visible = false;
-            // 
-            // rbOutside
-            // 
-            rbOutside.AutoSize = true;
-            rbOutside.Location = new Point(1010, 78);
-            rbOutside.Name = "rbOutside";
-            rbOutside.Size = new Size(66, 19);
-            rbOutside.TabIndex = 8;
-            rbOutside.TabStop = true;
-            rbOutside.Text = "Outside";
-            rbOutside.UseVisualStyleBackColor = true;
-            rbOutside.Visible = false;
-            // 
-            // btnSaveTables
-            // 
-            btnSaveTables.Location = new Point(1152, 73);
-            btnSaveTables.Name = "btnSaveTables";
-            btnSaveTables.Size = new Size(81, 23);
-            btnSaveTables.TabIndex = 9;
-            btnSaveTables.Text = "Save Tables";
-            btnSaveTables.UseVisualStyleBackColor = true;
-            btnSaveTables.Visible = false;
-            btnSaveTables.Click += btnSaveTables_Click;
             // 
             // rdoSections
             // 
@@ -761,7 +804,7 @@
             rdoSections.FlatStyle = FlatStyle.Flat;
             rdoSections.Location = new Point(0, 3);
             rdoSections.Name = "rdoSections";
-            rdoSections.Size = new Size(104, 24);
+            rdoSections.Size = new Size(143, 33);
             rdoSections.TabIndex = 10;
             rdoSections.TabStop = true;
             rdoSections.Text = "Create Sections";
@@ -773,9 +816,9 @@
             // 
             rdoDiningAreas.Appearance = Appearance.Button;
             rdoDiningAreas.FlatStyle = FlatStyle.Flat;
-            rdoDiningAreas.Location = new Point(110, 3);
+            rdoDiningAreas.Location = new Point(149, 3);
             rdoDiningAreas.Name = "rdoDiningAreas";
-            rdoDiningAreas.Size = new Size(112, 24);
+            rdoDiningAreas.Size = new Size(143, 33);
             rdoDiningAreas.TabIndex = 10;
             rdoDiningAreas.Text = "Edit Dining Areas";
             rdoDiningAreas.TextAlign = ContentAlignment.MiddleCenter;
@@ -786,9 +829,9 @@
             // 
             panel1.Controls.Add(rdoSections);
             panel1.Controls.Add(rdoDiningAreas);
-            panel1.Location = new Point(527, 26);
+            panel1.Location = new Point(170, 12);
             panel1.Name = "panel1";
-            panel1.Size = new Size(225, 36);
+            panel1.Size = new Size(301, 44);
             panel1.TabIndex = 11;
             // 
             // dtpFloorplan
@@ -796,7 +839,7 @@
             dtpFloorplan.CalendarFont = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
             dtpFloorplan.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
             dtpFloorplan.Format = DateTimePickerFormat.Short;
-            dtpFloorplan.Location = new Point(655, 69);
+            dtpFloorplan.Location = new Point(959, 19);
             dtpFloorplan.Name = "dtpFloorplan";
             dtpFloorplan.Size = new Size(101, 27);
             dtpFloorplan.TabIndex = 14;
@@ -808,7 +851,7 @@
             cbIsAM.BackColor = Color.FromArgb(255, 255, 192);
             cbIsAM.FlatStyle = FlatStyle.Flat;
             cbIsAM.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point);
-            cbIsAM.Location = new Point(859, 70);
+            cbIsAM.Location = new Point(1122, 19);
             cbIsAM.Name = "cbIsAM";
             cbIsAM.Size = new Size(56, 26);
             cbIsAM.TabIndex = 15;
@@ -819,8 +862,8 @@
             // btnDayBefore
             // 
             btnDayBefore.FlatStyle = FlatStyle.Flat;
-            btnDayBefore.Image = FloorPlanMakerUI.Resource1.BackArrow;
-            btnDayBefore.Location = new Point(623, 68);
+            btnDayBefore.Image = Resource1.BackArrow;
+            btnDayBefore.Location = new Point(927, 18);
             btnDayBefore.Name = "btnDayBefore";
             btnDayBefore.Size = new Size(21, 28);
             btnDayBefore.TabIndex = 16;
@@ -830,33 +873,45 @@
             // btnNextDay
             // 
             btnNextDay.FlatStyle = FlatStyle.Flat;
-            btnNextDay.Image = FloorPlanMakerUI.Resource1.forwardArrow;
-            btnNextDay.Location = new Point(767, 68);
+            btnNextDay.Image = Resource1.forwardArrow;
+            btnNextDay.Location = new Point(1071, 18);
             btnNextDay.Name = "btnNextDay";
             btnNextDay.Size = new Size(21, 28);
             btnNextDay.TabIndex = 17;
             btnNextDay.UseVisualStyleBackColor = true;
             btnNextDay.Click += btnNextDay_Click;
             // 
+            // btnCloseApp
+            // 
+            btnCloseApp.FlatAppearance.BorderSize = 0;
+            btnCloseApp.FlatStyle = FlatStyle.Flat;
+            btnCloseApp.Location = new Point(1220, 3);
+            btnCloseApp.Name = "btnCloseApp";
+            btnCloseApp.Size = new Size(32, 23);
+            btnCloseApp.TabIndex = 18;
+            btnCloseApp.Text = "X";
+            btnCloseApp.UseVisualStyleBackColor = true;
+            btnCloseApp.Click += btnCloseApp_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1264, 1009);
+            Controls.Add(pnlFloorPlan);
+            Controls.Add(btnDoAThing);
+            Controls.Add(btnCloseApp);
+            Controls.Add(btnTest2);
             Controls.Add(btnNextDay);
             Controls.Add(btnDayBefore);
-            Controls.Add(pnlFloorPlan);
+            Controls.Add(btnAddServers);
+            Controls.Add(btnTest);
             Controls.Add(btnPrint);
+            Controls.Add(btnAddSectionLabels);
             Controls.Add(cbIsAM);
             Controls.Add(dtpFloorplan);
             Controls.Add(panel1);
-            Controls.Add(btnSaveTables);
-            Controls.Add(rbOutside);
-            Controls.Add(rbInside);
             Controls.Add(cboDiningAreas);
-            Controls.Add(btnSaveDiningArea);
-            Controls.Add(btnCreateNewDiningArea);
-            Controls.Add(txtDiningAreaName);
             Controls.Add(pnlAddTables);
             Controls.Add(pnlServers);
             FormBorderStyle = FormBorderStyle.None;
@@ -869,6 +924,8 @@
             MouseUp += Form1_MouseUp;
             pnlServers.ResumeLayout(false);
             pnlServers.PerformLayout();
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)nudNumberOfTeamWaits).EndInit();
             ((System.ComponentModel.ISupportInitialize)nudServerCount).EndInit();
             pnlAddTables.ResumeLayout(false);
@@ -877,7 +934,6 @@
             pnlSections.PerformLayout();
             panel1.ResumeLayout(false);
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -951,5 +1007,7 @@
         private Button btnDoAThing;
         private Button btnDayBefore;
         private Button btnNextDay;
+        private Button btnCloseApp;
+        private Panel panel2;
     }
 }
