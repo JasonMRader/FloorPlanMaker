@@ -127,6 +127,9 @@
   <data name="BackArrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\BackArrow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="CircleTable" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\CircleTable.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Closer" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Closer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -138,6 +141,9 @@
   </data>
   <data name="Cut" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Screenshot 2023-09-30 105003 - Copy.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DiamondTable" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\DiamondTable.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Down" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Down.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -162,6 +168,12 @@
   </data>
   <data name="Solo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Solo - Copy.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SquareTable" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\SquareTable.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SquareTable1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\SquareTable1.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="TeamWait" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Team - Copy.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

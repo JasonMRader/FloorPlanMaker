@@ -31,6 +31,7 @@ namespace FloorPlanMaker
         private void InitializeComponent()
         {
             pnlServers = new Panel();
+            btnAddServers = new Button();
             flowServersInFloorplan = new FlowLayoutPanel();
             lblDiningRoomName = new Label();
             panel2 = new Panel();
@@ -53,7 +54,6 @@ namespace FloorPlanMaker
             nudServerCount = new NumericUpDown();
             btnRemoveSection = new Button();
             btnAddSection = new Button();
-            btnAddServers = new Button();
             txtTemplateName = new TextBox();
             cboFloorplanTemplates = new ComboBox();
             btnSaveFloorplanTemplate = new Button();
@@ -114,7 +114,6 @@ namespace FloorPlanMaker
             // pnlServers
             // 
             pnlServers.BackColor = Color.Silver;
-            pnlServers.Controls.Add(btnAddServers);
             pnlServers.Controls.Add(flowServersInFloorplan);
             pnlServers.Controls.Add(lblDiningRoomName);
             pnlServers.Controls.Add(panel2);
@@ -133,9 +132,22 @@ namespace FloorPlanMaker
             pnlServers.Size = new Size(241, 877);
             pnlServers.TabIndex = 0;
             // 
+            // btnAddServers
+            // 
+            btnAddServers.FlatAppearance.BorderSize = 0;
+            btnAddServers.FlatStyle = FlatStyle.Flat;
+            btnAddServers.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            btnAddServers.Location = new Point(111, 329);
+            btnAddServers.Name = "btnAddServers";
+            btnAddServers.Size = new Size(95, 74);
+            btnAddServers.TabIndex = 1;
+            btnAddServers.Text = "Shifts";
+            btnAddServers.UseVisualStyleBackColor = true;
+            btnAddServers.Click += btnAddServers_Click;
+            // 
             // flowServersInFloorplan
             // 
-            flowServersInFloorplan.Location = new Point(3, 242);
+            flowServersInFloorplan.Location = new Point(3, 225);
             flowServersInFloorplan.Name = "flowServersInFloorplan";
             flowServersInFloorplan.Size = new Size(235, 605);
             flowServersInFloorplan.TabIndex = 2;
@@ -152,6 +164,7 @@ namespace FloorPlanMaker
             // 
             // panel2
             // 
+            panel2.Controls.Add(btnAddServers);
             panel2.Controls.Add(txtDiningAreaName);
             panel2.Controls.Add(btnCreateNewDiningArea);
             panel2.Controls.Add(btnSaveDiningArea);
@@ -160,7 +173,7 @@ namespace FloorPlanMaker
             panel2.Controls.Add(btnSaveTables);
             panel2.Location = new Point(15, 245);
             panel2.Name = "panel2";
-            panel2.Size = new Size(219, 328);
+            panel2.Size = new Size(219, 409);
             panel2.TabIndex = 0;
             // 
             // txtDiningAreaName
@@ -371,19 +384,6 @@ namespace FloorPlanMaker
             btnAddSection.Visible = false;
             btnAddSection.Click += btnAddSection_Click;
             // 
-            // btnAddServers
-            // 
-            btnAddServers.FlatAppearance.BorderSize = 0;
-            btnAddServers.FlatStyle = FlatStyle.Flat;
-            btnAddServers.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            btnAddServers.Location = new Point(182, 853);
-            btnAddServers.Name = "btnAddServers";
-            btnAddServers.Size = new Size(39, 16);
-            btnAddServers.TabIndex = 1;
-            btnAddServers.Text = "Shifts";
-            btnAddServers.UseVisualStyleBackColor = true;
-            btnAddServers.Click += btnAddServers_Click;
-            // 
             // txtTemplateName
             // 
             txtTemplateName.Location = new Point(18, 692);
@@ -484,7 +484,7 @@ namespace FloorPlanMaker
             pnlSections.Controls.Add(flowSectionSelect);
             pnlSections.Controls.Add(btnAddSection);
             pnlSections.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            pnlSections.Location = new Point(3, 34);
+            pnlSections.Location = new Point(8, 32);
             pnlSections.Name = "pnlSections";
             pnlSections.Size = new Size(239, 869);
             pnlSections.TabIndex = 8;
