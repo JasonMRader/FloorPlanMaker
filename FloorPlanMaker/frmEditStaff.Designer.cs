@@ -185,7 +185,7 @@
             lblLastWeekDay.Anchor = AnchorStyles.Right;
             lblLastWeekDay.AutoSize = true;
             lblLastWeekDay.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            lblLastWeekDay.Location = new Point(195, 0);
+            lblLastWeekDay.Location = new Point(206, -2);
             lblLastWeekDay.Name = "lblLastWeekDay";
             lblLastWeekDay.Size = new Size(114, 21);
             lblLastWeekDay.TabIndex = 20;
@@ -222,7 +222,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(49, 56, 82);
-            ClientSize = new Size(1253, 970);
+            ClientSize = new Size(1264, 967);
             Controls.Add(flowYesterdayCounts);
             Controls.Add(label2);
             Controls.Add(flowLastWeekdayCounts);

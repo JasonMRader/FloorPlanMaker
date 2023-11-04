@@ -13,7 +13,7 @@ namespace FloorPlanMakerUI
         public static Color SecondColor = Color.FromArgb(178, 87, 46);
         //(165,64,45) (196,73,0)burned orange
         public static Color CanvasColor = Color.FromArgb(192, 192, 192);
-       
+        public static Color AccentColor = Color.FromArgb(75, 74, 103);
 
         public static Color ButtonColor = Color.FromArgb(158, 171, 222);
         public static Color CTAColor = Color.FromArgb(83,216,251);

@@ -1,7 +1,7 @@
 
 using FloorplanClassLibrary;
 using FloorPlanMakerUI;
-using NetTopologySuite.Geometries;
+//using NetTopologySuite.Geometries;
 using NetTopologySuite.Triangulate;
 using System.Diagnostics.Metrics;
 using System.Drawing.Drawing2D;
@@ -29,14 +29,16 @@ namespace FloorPlanMaker
         private List<TableControl> allTableControls = new List<TableControl>();
         private int currentFocusedSectionIndex = 0;
         private SectionLineManager sectionLineManager;
+        private frmEditDiningAreas _frmEditDiningAreas;
+        private frmEditStaff _frmEditStaff;
         private SectionControlsManager sectionControlsManager { get; set; }
         private void SetColors()
         {
             btnAddSectionLabels.BackColor = AppColors.CTAColor;
             btnPrint.BackColor = AppColors.CTAColor;
             btnAddServers.BackColor = AppColors.CTAColor;
-            rdoDiningAreas.BackColor = AppColors.CTAColor;
-            rdoSections.BackColor = AppColors.CTAColor;
+            //rdoDiningAreas.BackColor = AppColors.CTAColor;
+            //rdoSections.BackColor = AppColors.CTAColor;
 
             //btnAddSectionLabels.ForeColor = Color.White;
             //btnPrint.ForeColor = Color.White;
@@ -63,7 +65,8 @@ namespace FloorPlanMaker
             btnLessHeight.BackColor = AppColors.ButtonColor;
             btnDeleteTable.BackColor = AppColors.ButtonColor;
 
-            this.BackColor = AppColors.MainColor;
+            //this.BackColor = Color.FromArgb(81,53,90);
+            this.BackColor = AppColors.AccentColor;
 
             pnlServers.BackColor = AppColors.CanvasColor;
             pnlAddTables.BackColor = AppColors.SecondColor;
@@ -1107,6 +1110,8 @@ namespace FloorPlanMaker
         {
             if (rdoSections.Checked)
             {
+                pnlNavigationWindow.SendToBack();
+                pnlNavHighlight.Location = new Point(rdoSections.Left, 0);
                 pnlSections.Visible = true;
                 flowServersInFloorplan.Visible = true;
                 lblPanel2Text.Text = areaCreationManager.DiningAreaSelected.Name;
@@ -1130,27 +1135,67 @@ namespace FloorPlanMaker
                 rbOutside.Visible = false;
             }
         }
+        private void rdoShifts_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rdoShifts.Checked)
+            {
+                pnlNavHighlight.Location = new Point(rdoShifts.Left, 0);
+                if (_frmEditStaff == null)
+                {
+                    _frmEditStaff = new frmEditStaff(employeeManager, shiftManager) { TopLevel = false, AutoScroll = true };
+                }
+                pnlNavigationWindow.Controls.Add(_frmEditStaff);
 
+                _frmEditStaff.Show();
+                pnlNavigationWindow.BringToFront();
+
+            }
+            else
+            {
+                if (_frmEditStaff != null)
+                {
+                    _frmEditStaff.Hide();
+                }
+            }
+
+
+        }
         private void rdoDiningAreas_CheckedChanged(object sender, EventArgs e)
         {
             if (rdoDiningAreas.Checked)
             {
-                pnlSections.Visible = false;
-                flowServersInFloorplan.Visible = false;
-                lblPanel2Text.Text = "Add Tables";
-                txtDiningAreaName.Visible = true;
-                //cboDiningAreas.Visible = true;
-                btnCreateNewDiningArea.Visible = true;
-                btnSaveDiningArea.Visible = true;
-                btnSaveTables.Visible = true;
-                rbInside.Visible = true;
-                rbOutside.Visible = true;
-                foreach (Control control in pnlFloorPlan.Controls)
+                pnlNavHighlight.Location = new Point(rdoDiningAreas.Left, 0);
+                if (_frmEditDiningAreas == null)
                 {
-                    if (control is TableControl tableControl)
-                    {
-                        tableControl.Moveable = true;
-                    }
+                    _frmEditDiningAreas = new frmEditDiningAreas { TopLevel = false, AutoScroll = true };
+                }
+                pnlNavigationWindow.Controls.Add(_frmEditDiningAreas);
+
+                _frmEditDiningAreas.Show();
+                pnlNavigationWindow.BringToFront();
+                //pnlSections.Visible = false;
+                //flowServersInFloorplan.Visible = false;
+                //lblPanel2Text.Text = "Add Tables";
+                //txtDiningAreaName.Visible = true;
+                ////cboDiningAreas.Visible = true;
+                //btnCreateNewDiningArea.Visible = true;
+                //btnSaveDiningArea.Visible = true;
+                //btnSaveTables.Visible = true;
+                //rbInside.Visible = true;
+                //rbOutside.Visible = true;
+                //foreach (Control control in pnlFloorPlan.Controls)
+                //{
+                //    if (control is TableControl tableControl)
+                //    {
+                //        tableControl.Moveable = true;
+                //    }
+                //}
+            }
+            else
+            {
+                if (_frmEditDiningAreas != null)
+                {
+                    _frmEditDiningAreas.Hide();
                 }
             }
         }
@@ -1586,6 +1631,8 @@ namespace FloorPlanMaker
         {
             this.Close();
         }
+
+
         //public static List<LineString> ComputeVoronoiEdges(List<Coordinate> coordinates)
         //{
         //    VoronoiDiagramBuilder builder = new VoronoiDiagramBuilder();

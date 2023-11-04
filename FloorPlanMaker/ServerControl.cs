@@ -1,4 +1,5 @@
 ﻿using FloorplanClassLibrary;
+using FloorPlanMakerUI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace FloorPlanMaker
 
             this.Height = height *2 ;
             this.Width = width;
-            this.BackColor = Color.White;
+            this.BackColor = AppColors.AccentColor;
             this.AutoSize = true;
             this.MaximumSize = new Size(width, height*10);
             this.Padding = new Padding(0,0,0,0);
@@ -33,7 +34,8 @@ namespace FloorPlanMaker
                 Height = height,
                 Width = width,
                 Font = new Font("Segoe UI", 12, FontStyle.Bold),
-                BackColor = Color.LightBlue,
+                BackColor = AppColors.ButtonColor,
+                ForeColor = Color.Black,
                 Margin = new Padding(0),
                 TextAlign = ContentAlignment.MiddleCenter
             };

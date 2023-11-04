@@ -139,6 +139,10 @@ namespace FloorPlanMaker
                     Size = new Size(155, 23),
                     Appearance = Appearance.Button,
                     TextAlign = ContentAlignment.MiddleCenter,
+                    FlatStyle = FlatStyle.Flat,
+                    ForeColor = Color.Black,                    
+                    BackColor = AppColors.ButtonColor,
+                    
                     TabStop = false
 
                 };
@@ -290,6 +294,9 @@ namespace FloorPlanMaker
                     AutoSize = false,
                     TextAlign = ContentAlignment.MiddleCenter,
                     Margin = new Padding(0),
+                    FlatStyle = FlatStyle.Flat,
+                    BackColor = AppColors.ButtonColor,
+                    ForeColor = Color.Black,
                     Text = fp.DiningArea.Name,
                     Tag = fp,
                     //TabIndex = tabIndex++
@@ -333,7 +340,7 @@ namespace FloorPlanMaker
                     Width = width - 8,
                     Height = flowDiningAreaAssignment.Height - height, // Adjust as needed
                     Margin = new Padding(4),
-                    BackColor = Color.SkyBlue,
+                    BackColor = AppColors.CanvasColor,
                     Tag = fp
                 };
                 flowDiningAreaAssignment.Controls.Add(rb);
@@ -591,6 +598,9 @@ namespace FloorPlanMaker
             {
                 Button newServerButton = CreateServerButton(server);
                 newServerButton.Width = SelectedTargetPanel.Width - 8;
+                newServerButton.FlatStyle = FlatStyle.Flat;
+                newServerButton.BackColor = AppColors.ButtonColor;
+                newServerButton.ForeColor = Color.Black;
 
                 SelectedTargetPanel.Controls.Add(newServerButton);
             }
