@@ -36,7 +36,7 @@ namespace FloorPlanMaker
         {
             btnAddSectionLabels.BackColor = AppColors.CTAColor;
             btnPrint.BackColor = AppColors.CTAColor;
-            btnAddServers.BackColor = AppColors.CTAColor;
+            
             //rdoDiningAreas.BackColor = AppColors.CTAColor;
             //rdoSections.BackColor = AppColors.CTAColor;
 
@@ -53,17 +53,8 @@ namespace FloorPlanMaker
             btnGenerateSectionLines.BackColor = AppColors.ButtonColor;
             btnRemoveSection.BackColor = AppColors.ButtonColor;
             btnSaveFloorplanTemplate.BackColor = AppColors.ButtonColor;
-            btnCreateNewDiningArea.BackColor = AppColors.ButtonColor;
-            btnSaveDiningArea.BackColor = AppColors.ButtonColor;
-            btnSaveTables.BackColor = AppColors.ButtonColor;
-            btnCopyTable.BackColor = AppColors.ButtonColor;
-            btnSaveTable.BackColor = AppColors.ButtonColor;
-            cbLockTables.BackColor = AppColors.ButtonColor;
-            btnMoreHeight.BackColor = AppColors.ButtonColor;
-            btnMoreWidth.BackColor = AppColors.ButtonColor;
-            btnLessWidth.BackColor = AppColors.ButtonColor;
-            btnLessHeight.BackColor = AppColors.ButtonColor;
-            btnDeleteTable.BackColor = AppColors.ButtonColor;
+           
+
 
             //this.BackColor = Color.FromArgb(81,53,90);
             this.BackColor = AppColors.AccentColor;
@@ -226,7 +217,7 @@ namespace FloorPlanMaker
             cboDiningAreas.DisplayMember = "Name";
             cboDiningAreas.ValueMember = "ID";
 
-            CreateTableControlsToAdd();
+
 
 
         }
@@ -253,51 +244,6 @@ namespace FloorPlanMaker
             isDraggingForm = false;
         }
 
-        private void CreateTableControlsToAdd()
-        {
-            TableControl circleTable = new TableControl();
-            circleTable.Location = new System.Drawing.Point(70, 50);
-            circleTable.Size = new Size(100, 100);
-            circleTable.Moveable = false;
-            circleTable.TableClicked += AddTable_TableClicked;
-
-            pnlAddTables.Controls.Add(circleTable);
-
-            TableControl diamondTable = new TableControl();
-            diamondTable.Location = new System.Drawing.Point(70, 175);
-            diamondTable.Size = new Size(100, 100);
-            diamondTable.Moveable = false;
-            diamondTable.TableClicked += AddTable_TableClicked;
-            diamondTable.Shape = Table.TableShape.Diamond;
-            pnlAddTables.Controls.Add(diamondTable);
-
-            TableControl squareTable = new TableControl();
-            squareTable.Location = new System.Drawing.Point(70, 300);
-            squareTable.Size = new Size(100, 100);
-            squareTable.Moveable = false;
-            squareTable.TableClicked += AddTable_TableClicked;
-            squareTable.Shape = Table.TableShape.Square;
-            pnlAddTables.Controls.Add(squareTable);
-        }
-        private void AddTable_TableClicked(object sender, TableClickedEventArgs e)
-        {
-            TableControl clickedTable = (TableControl)sender;
-            TableControl table = new TableControl()
-            {
-                Width = 100,
-                Height = 100,
-                Left = new Random().Next(100, 300), // These are example values, replace with what you need
-                Top = new Random().Next(100, 300),
-                Moveable = true,
-                Shape = clickedTable.Shape,
-                Location = new System.Drawing.Point(300, 400)
-            };
-            table.TableClicked += ExistingTable_TableClicked;
-            // Subscribe to the TableClicked event for the new table as well
-            //table.TableClicked += Table_TableClicked;
-            SaveTableByTableControl(table);
-            pnlFloorPlan.Controls.Add(table);
-        }
 
         private void ExistingTable_TableClicked(object sender, TableClickedEventArgs e)
         {
@@ -344,113 +290,14 @@ namespace FloorPlanMaker
                 }
 
             }
-            else
-            {
-                if ((Control.ModifierKeys & Keys.Control) != Keys.Control)
-                {
-                    txtTableNumber.Clear();
-                    txtMaxCovers.Clear();
-                    txtAverageCovers.Clear();
-                    txtHeight.Clear();
-                    txtWidth.Clear();
-                    foreach (var emphasizedTable in emphasizedTablesList)
-                    {
-                        if (emphasizedTable != clickedTableControl)
-                        {
-                            emphasizedTable.BorderThickness = 1;
-                            emphasizedTable.Invalidate();
-                        }
-                    }
-                    emphasizedTablesList.Clear();
-                    areaCreationManager.SelectedTables.Clear();
-
-                    txtTableNumber.Enabled = true;
-                }
-                else
-                {
-                    txtTableNumber.Enabled = false;
-                }
-
-                areaCreationManager.SelectedTable = clickedTable;
-                currentEmphasizedTableControl = clickedTableControl;
-
-                clickedTableControl.BorderThickness = 3;
-                clickedTableControl.Invalidate();
-
-                emphasizedTablesList.Add(clickedTableControl);
-
-                areaCreationManager.SelectedTables.Add(clickedTable);
-                txtTableNumber.Text = clickedTable.TableNumber;
-                txtMaxCovers.Text = clickedTable.MaxCovers.ToString();
-                txtAverageCovers.Text = clickedTable.AverageCovers.ToString();
-                txtHeight.Text = clickedTable.Height.ToString();
-                txtWidth.Text = clickedTable.Width.ToString();
-                string tableNum = "";
-                if (areaCreationManager.SelectedTables.Count > 1)
-                {
-                    foreach (var table in areaCreationManager.SelectedTables)
-                    {
-                        tableNum += table.TableNumber + " ";
-                    }
-                    txtTableNumber.Text = tableNum;
-                }
-
-                //if (currentEmphasizedTable != null && currentEmphasizedTable != clickedTableControl)
-                //{
-                //    currentEmphasizedTable.BorderThickness = 1;
-                //    currentEmphasizedTable.Invalidate();  // Request a redraw
-                //}
-
-            }
-
 
         }
-
-
-
-        private void btnSaveDiningArea_Click(object sender, EventArgs e)
-        {
-
-            DiningArea area = new DiningArea(txtDiningAreaName.Text, rbInside.Checked);
-
-            SqliteDataAccess.SaveDiningArea(area);
-        }
-
-        //private void btnSaveTables_Click(object sender, EventArgs e)
-        //{
-        //    SqliteDataAccess.DeleteTablesByDiningArea(areaCreationManager.DiningAreaSelected);
-        //    foreach (Control control in pnlFloorPlan.Controls)
-        //    {
-        //        if (control is TableControl tableControl)
-        //        {
-        //            SaveTableByTableControl(tableControl);
-        //        }
-        //    }
-        //}
-        private void SaveTableByTableControl(TableControl tableControl)
-        {
-            Table tableToSave = tableControl.Table;
-
-            // Update table properties based on the tableControl properties.
-            // This ensures any changes made in the UI are saved.
-            tableToSave.TableNumber = tableControl.Table.TableNumber;
-            tableToSave.DiningArea = areaCreationManager.DiningAreaSelected;
-            tableToSave.Width = tableControl.Width;
-            tableToSave.Height = tableControl.Height;
-            tableToSave.XCoordinate = tableControl.Location.X;
-            tableToSave.YCoordinate = tableControl.Location.Y;
-            tableToSave.Shape = tableControl.Shape;
-
-            SqliteDataAccess.SaveTable(tableToSave);
-
-        }
-
+       
         private void cboDiningAreas_SelectedIndexChanged(object sender, EventArgs e)
         {
 
             allTableControls.Clear();
-            areaCreationManager.DiningAreaSelected = (DiningArea?)cboDiningAreas.SelectedItem;
-            txtDiningAreaName.Text = areaCreationManager.DiningAreaSelected.Name;
+            areaCreationManager.DiningAreaSelected = (DiningArea?)cboDiningAreas.SelectedItem;           
             pnlFloorPlan.Controls.Clear();
             foreach (Table table in areaCreationManager.DiningAreaSelected.Tables)
             {
@@ -480,268 +327,6 @@ namespace FloorPlanMaker
             {
                 cboFloorplanTemplates.Items.Add(template);
             }
-        }
-
-
-
-        private void cbLockTables_CheckedChanged(object sender, EventArgs e)
-        {
-            if (!cbLockTables.Checked)
-            {
-                cbLockTables.Text = "Lock Tables";
-                foreach (Control control in pnlFloorPlan.Controls)
-                {
-                    if (control is TableControl tableControl)
-                    {
-                        tableControl.Moveable = true;
-                    }
-                }
-            }
-            else
-            {
-                cbLockTables.Text = "Unlock Tables";
-                foreach (Control control in pnlFloorPlan.Controls)
-                {
-                    if (control is TableControl tableControl)
-                    {
-                        tableControl.Moveable = false;
-                    }
-                }
-            }
-        }
-        private void btnLessHeight_Click(object sender, EventArgs e)
-        {
-            if (int.TryParse(txtHeight.Text, out int height) && height >= 35 && height <= 400)
-            {
-                height = height - 10;
-                txtHeight.Text = height.ToString();
-                RefreshTableControl();
-
-            }
-        }
-
-        private void btnMoreHeight_Click(object sender, EventArgs e)
-        {
-
-            if (int.TryParse(txtHeight.Text, out int height) && height >= 25 && height <= 390)
-            {
-                height = height + 10;
-                txtHeight.Text = height.ToString();
-                RefreshTableControl();
-
-            }
-        }
-
-        private void btnLessWidth_Click(object sender, EventArgs e)
-        {
-            if (int.TryParse(txtWidth.Text, out int width) && width >= 35 && width <= 400)
-            {
-                width = width - 10;
-                txtWidth.Text = width.ToString();
-                RefreshTableControl();
-
-            }
-        }
-
-        private void btnMoreWidth_Click(object sender, EventArgs e)
-        {
-            if (int.TryParse(txtWidth.Text, out int width) && width >= 25 && width <= 390)
-            {
-                width = width + 10;
-                txtWidth.Text = width.ToString();
-                RefreshTableControl();
-
-            }
-        }
-        private void RefreshTableControl(object sender, EventArgs e)
-        {
-            if (areaCreationManager.SelectedTables.Count > 1)
-            {
-                foreach (TableControl tableControl in emphasizedTablesList)
-                {
-                    SetTableProperties(tableControl.Table, tableControl);
-                }
-
-            }
-            if (areaCreationManager.SelectedTables.Count == 1)
-            {
-                SetTableProperties(areaCreationManager.SelectedTable, currentEmphasizedTableControl);
-                //SqliteDataAccess.UpdateTable(areaManager.SelectedTable);
-            }
-
-
-
-        }
-        private void RefreshTableControl()
-        {
-            if (areaCreationManager.SelectedTables.Count > 1)
-            {
-                foreach (TableControl tableControl in emphasizedTablesList)
-                {
-                    SetTableProperties(tableControl.Table, tableControl);
-                }
-
-            }
-            if (areaCreationManager.SelectedTables.Count == 1)
-            {
-                SetTableProperties(areaCreationManager.SelectedTable, currentEmphasizedTableControl);
-                //SqliteDataAccess.UpdateTable(areaManager.SelectedTable);
-            }
-
-
-
-        }
-        private void SetTableProperties(Table table, TableControl tableControl)
-        {
-            if (!string.IsNullOrWhiteSpace(txtTableNumber.Text))
-            {
-                if (emphasizedTablesList.Count == 1)
-                {
-                    table.TableNumber = txtTableNumber.Text;
-                }
-
-            }
-
-            if (int.TryParse(txtMaxCovers.Text, out int maxCovers))
-            {
-                table.MaxCovers = maxCovers;
-            }
-
-            if (float.TryParse(txtAverageCovers.Text, out float averageCovers))
-            {
-                table.AverageCovers = averageCovers;
-            }
-
-            if (int.TryParse(txtHeight.Text, out int height) && height >= 25 && height <= 400)
-            {
-                table.Height = height;
-                tableControl.Height = height;  // Update control height
-            }
-
-            if (int.TryParse(txtWidth.Text, out int width) && width >= 25 && width <= 400)
-            {
-                table.Width = width;
-                tableControl.Width = width;  // Update control width
-            }
-            if (int.TryParse(txtXco.Text, out int xCo))
-            {
-                table.XCoordinate = xCo;
-            }
-            if (int.TryParse(txtYco.Text, out int yCo))
-            {
-                table.YCoordinate = yCo;
-            }
-
-            // Assuming these other methods and properties do not require validation
-            table.DiningArea = areaCreationManager.DiningAreaSelected;
-            //table.XCoordinate = UpdateXCoordinateForTableControl(table);
-            //table.XCoordinate = tableControl.Left;
-            table.YCoordinate = UpdateYCoordinateForTableControl(table);
-            //table.YCoordinate = tableControl.Top;
-            tableControl.Table = table;
-            TableControlFactory.RedrawTableControl(tableControl, pnlFloorPlan);
-        }
-
-        private void btnSaveTable_Click(object sender, EventArgs e)
-        {
-            if (areaCreationManager.SelectedTables.Count > 1)
-            {
-                foreach (TableControl tableControl in emphasizedTablesList)
-                {
-                    SqliteDataAccess.UpdateTable(tableControl.Table);
-                }
-
-
-            }
-            if (areaCreationManager.SelectedTables.Count == 1)
-            {
-                SqliteDataAccess.UpdateTable(areaCreationManager.SelectedTable);
-            }
-
-        }
-        private int UpdateXCoordinateForTableControl(Table table)
-        {
-            int xCoordinate = table.XCoordinate;
-            foreach (Control control in pnlFloorPlan.Controls)
-            {
-                if (control is TableControl && control.Tag == areaCreationManager.SelectedTable)
-                {
-                    xCoordinate = control.Left;
-
-                }
-            }
-            return xCoordinate;
-        }
-        private int UpdateYCoordinateForTableControl(Table table)
-        {
-            int yCoordinate = table.YCoordinate;
-            foreach (Control control in pnlFloorPlan.Controls)
-            {
-                if (control is TableControl && control.Tag == areaCreationManager.SelectedTable)
-                {
-                    yCoordinate = control.Top;
-
-                }
-            }
-            return yCoordinate;
-        }
-
-        private void btnDeleteTable_Click(object sender, EventArgs e)
-        {
-            areaCreationManager.DiningAreaSelected.Tables.Remove(areaCreationManager.SelectedTable);
-
-            SqliteDataAccess.DeleteTable(areaCreationManager.SelectedTable);
-
-            foreach (Control control in pnlFloorPlan.Controls)
-            {
-                if (control is TableControl && control.Tag == areaCreationManager.SelectedTable)
-                {
-                    pnlFloorPlan.Controls.Remove(control);
-                    break;
-                }
-            }
-            //foreach (Table table in areaManager.DiningAreaSelected.Tables)
-            //{
-            //    TableControl tableControl = TableControlFactory.CreateTableControl(table);
-            //    //tableControl.Moveable = false;
-            //    tableControl.TableClicked += ExistingTable_TableClicked;
-            //    pnlFloorPlan.Controls.Add(tableControl);
-            //}
-            areaCreationManager.SelectedTable = null;
-        }
-
-        private void btnCopyTable_Click(object sender, EventArgs e)
-        {
-            int currentTableNumber = int.Parse(areaCreationManager.SelectedTable.TableNumber);
-            int newTableNumber = currentTableNumber + 1;
-            //TableControl clickedTable = (TableControl)sender;
-            Table table = new Table()
-            {
-                Width = areaCreationManager.SelectedTable.Width,
-                Height = areaCreationManager.SelectedTable.Height,
-                //Left = new Random().Next(100, 300), // These are example values, replace with what you need
-                //Top = new Random().Next(100, 300),
-                //Moveable = true,
-                Shape = areaCreationManager.SelectedTable.Shape,
-                TableNumber = newTableNumber.ToString(),
-                MaxCovers = areaCreationManager.SelectedTable.MaxCovers,
-                AverageCovers = areaCreationManager.SelectedTable.AverageCovers,
-                YCoordinate = areaCreationManager.SelectedTable.YCoordinate,
-                XCoordinate = areaCreationManager.SelectedTable.XCoordinate + areaCreationManager.SelectedTable.Width,
-                DiningAreaId = areaCreationManager.SelectedTable.DiningAreaId,
-                DiningArea = areaCreationManager.SelectedTable.DiningArea
-
-            };
-            table.ID = SqliteDataAccess.SaveTable(table);
-            TableControl tableControl = TableControlFactory.CreateTableControl(table);
-            tableControl.Moveable = true;
-            tableControl.Tag = table;
-            areaCreationManager.DiningAreaSelected.Tables.Add(table);
-            tableControl.TableClicked += ExistingTable_TableClicked;
-            // Subscribe to the TableClicked event for the new table as well
-            //table.TableClicked += Table_TableClicked;
-
-            pnlFloorPlan.Controls.Add(tableControl);
         }
 
         private void btnAddServers_Click(object sender, EventArgs e)
@@ -869,8 +454,8 @@ namespace FloorPlanMaker
         //    return sections;
         //}
 
-        private List<CheckBox> closerButtons = new List<CheckBox>();
-        private List<CheckBox> precloserButtons = new List<CheckBox>();
+
+        private List<CheckBox> TeamWaitButtons = new List<CheckBox>();
         private CheckBox selectedSectionButton;
         private CheckBox selectedCloserButton;
         private CheckBox selectedPreCloserButton;
@@ -1024,8 +609,6 @@ namespace FloorPlanMaker
 
 
         }
-
-
         private void Rb_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox rb = sender as CheckBox;
@@ -1091,21 +674,6 @@ namespace FloorPlanMaker
         }
 
 
-        private void cbLockNodes_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rdoDiningAreas.Checked)
-            {
-                drawingHandler.DrawSectionLinesMode = true;
-                isDragging = false;
-            }
-            else
-            {
-                drawingHandler.DrawSectionLinesMode = false;
-                isDragging = true;
-            }
-
-        }
-
         private void rdoSections_CheckedChanged(object sender, EventArgs e)
         {
             if (rdoSections.Checked)
@@ -1126,13 +694,7 @@ namespace FloorPlanMaker
 
                     }
                 }
-                txtDiningAreaName.Visible = false;
-                //cboDiningAreas.Visible = false;
-                btnCreateNewDiningArea.Visible = false;
-                btnSaveDiningArea.Visible = false;
-                btnSaveTables.Visible = false;
-                rbInside.Visible = false;
-                rbOutside.Visible = false;
+                
             }
         }
         private void rdoShifts_CheckedChanged(object sender, EventArgs e)
@@ -1200,10 +762,7 @@ namespace FloorPlanMaker
             }
         }
 
-        private void btnCreateNewDiningArea_Click(object sender, EventArgs e)
-        {
 
-        }
 
         private void btnAddSectionLabels_Click(object sender, EventArgs e)
         {
@@ -1242,10 +801,6 @@ namespace FloorPlanMaker
             //RefreshTemplateList();
 
         }
-
-
-
-
 
 
         private void cboFloorplanTemplates_SelectedIndexChanged(object sender, EventArgs e)
@@ -1414,9 +969,6 @@ namespace FloorPlanMaker
                 sectionControl.BringToFront();
             }
         }
-
-
-
 
         private void btnAddPickupSection_Click(object sender, EventArgs e)
         {
@@ -1632,15 +1184,7 @@ namespace FloorPlanMaker
             this.Close();
         }
 
-        private void txtMaxCovers_TextChanged(object sender, EventArgs e)
-        {
 
-        }
-
-        private void txtHeight_TextChanged(object sender, EventArgs e)
-        {
-
-        }
 
 
         //public static List<LineString> ComputeVoronoiEdges(List<Coordinate> coordinates)

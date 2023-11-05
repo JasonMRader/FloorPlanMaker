@@ -27,7 +27,20 @@ namespace FloorPlanMakerUI
         {
             InitializeComponent();
         }
-
+        private void SetColors()
+        {
+            btnCopyTable.BackColor = AppColors.ButtonColor;
+            btnSaveTable.BackColor = AppColors.ButtonColor;
+            cbLockTables.BackColor = AppColors.ButtonColor;
+            btnMoreHeight.BackColor = AppColors.ButtonColor;
+            btnMoreWidth.BackColor = AppColors.ButtonColor;
+            btnLessWidth.BackColor = AppColors.ButtonColor;
+            btnLessHeight.BackColor = AppColors.ButtonColor;
+            btnDeleteTable.BackColor = AppColors.ButtonColor;
+            btnCreateNewDiningArea.BackColor = AppColors.ButtonColor;
+            btnSaveDiningArea.BackColor = AppColors.ButtonColor;
+           
+        }
         private void frmEditDiningAreas_Load(object sender, EventArgs e)
         {
             cboDiningAreas.DataSource = areaCreationManager.DiningAreas;
