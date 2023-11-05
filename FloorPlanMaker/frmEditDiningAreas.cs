@@ -39,7 +39,7 @@ namespace FloorPlanMakerUI
             btnDeleteTable.BackColor = AppColors.ButtonColor;
             btnCreateNewDiningArea.BackColor = AppColors.ButtonColor;
             btnSaveDiningArea.BackColor = AppColors.ButtonColor;
-           
+
         }
         private void frmEditDiningAreas_Load(object sender, EventArgs e)
         {
@@ -489,6 +489,22 @@ namespace FloorPlanMakerUI
                         tableControl.Moveable = false;
                     }
                 }
+            }
+        }
+
+        private void btnQuickEdit_Click(object sender, EventArgs e)
+        {
+            //allTableControls.Clear();
+            
+            pnlFloorPlan.Controls.Clear();
+            foreach (Table table in areaCreationManager.DiningAreaSelected.Tables)
+            {
+                table.DiningArea = areaCreationManager.DiningAreaSelected;
+                TableControlEditor tableControlEditor = new TableControlEditor(table);
+                //tableControl.TableClicked += Table_TableClicked;  // Uncomment if you want to attach event handler
+                //tableControlEditor.TableClicked += ExistingTable_TableClicked;
+                pnlFloorPlan.Controls.Add(tableControlEditor);
+                //allTableControls.Add(tableControl);
             }
         }
     }

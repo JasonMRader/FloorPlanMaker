@@ -69,6 +69,7 @@
             btnAddDiamond = new Button();
             btnAddSquare = new Button();
             cboDiningAreas = new ComboBox();
+            btnQuickEdit = new Button();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
             panel7.SuspendLayout();
@@ -472,6 +473,7 @@
             // panel4
             // 
             panel4.BackColor = Color.FromArgb(178, 87, 46);
+            panel4.Controls.Add(btnQuickEdit);
             panel4.Controls.Add(panel5);
             panel4.Controls.Add(panel2);
             panel4.Controls.Add(cboDiningAreas);
@@ -545,9 +547,22 @@
             cboDiningAreas.FormattingEnabled = true;
             cboDiningAreas.Location = new Point(224, 8);
             cboDiningAreas.Name = "cboDiningAreas";
-            cboDiningAreas.Size = new Size(672, 23);
+            cboDiningAreas.Size = new Size(432, 23);
             cboDiningAreas.TabIndex = 1;
             cboDiningAreas.SelectedIndexChanged += cboDiningAreas_SelectedIndexChanged;
+            // 
+            // btnQuickEdit
+            // 
+            btnQuickEdit.BackColor = Color.FromArgb(158, 171, 222);
+            btnQuickEdit.FlatAppearance.BorderSize = 0;
+            btnQuickEdit.FlatStyle = FlatStyle.Flat;
+            btnQuickEdit.Location = new Point(662, 8);
+            btnQuickEdit.Name = "btnQuickEdit";
+            btnQuickEdit.Size = new Size(234, 23);
+            btnQuickEdit.TabIndex = 5;
+            btnQuickEdit.Text = "Quick Edit";
+            btnQuickEdit.UseVisualStyleBackColor = false;
+            btnQuickEdit.Click += btnQuickEdit_Click;
             // 
             // frmEditDiningAreas
             // 
@@ -617,5 +632,6 @@
         private TextBox txtXco;
         private TextBox txtYco;
         private Label label9;
+        private Button btnQuickEdit;
     }
 }
