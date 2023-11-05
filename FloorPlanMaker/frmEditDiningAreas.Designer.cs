@@ -29,42 +29,42 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
-            button1 = new Button();
-            button2 = new Button();
-            radioButton1 = new RadioButton();
-            radioButton2 = new RadioButton();
-            button3 = new Button();
-            button4 = new Button();
-            button5 = new Button();
-            button6 = new Button();
-            button7 = new Button();
-            button8 = new Button();
-            button9 = new Button();
-            button10 = new Button();
+            btnCreateNewDiningArea = new Button();
+            btnSaveDiningArea = new Button();
+            rbInside = new RadioButton();
+            rbOutside = new RadioButton();
+            btnLockTable = new Button();
+            btnCopyTable = new Button();
+            btnSaveTable = new Button();
+            btnDeleteTable = new Button();
+            btnMoreWidth = new Button();
+            btnMoreHeight = new Button();
+            btnLessHeight = new Button();
+            btnLessWidth = new Button();
             panel2 = new Panel();
             label5 = new Label();
             label4 = new Label();
             label3 = new Label();
             label2 = new Label();
             label1 = new Label();
-            textBox3 = new TextBox();
-            textBox6 = new TextBox();
-            textBox5 = new TextBox();
-            textBox4 = new TextBox();
-            textBox2 = new TextBox();
+            txtWidth = new TextBox();
+            txtTableNumber = new TextBox();
+            txtMaxCovers = new TextBox();
+            txtAverageCovers = new TextBox();
+            txtHeight = new TextBox();
             panel3 = new Panel();
             panel7 = new Panel();
             label8 = new Label();
             label6 = new Label();
             panel6 = new Panel();
-            checkBox1 = new CheckBox();
-            textBox1 = new TextBox();
+            cbTemporaryFloorplan = new CheckBox();
+            txtDiningAreaName = new TextBox();
             panel4 = new Panel();
             panel5 = new Panel();
             label7 = new Label();
-            button13 = new Button();
-            button12 = new Button();
-            button11 = new Button();
+            btnAddCircle = new Button();
+            btnAddDiamond = new Button();
+            btnAddSquare = new Button();
             comboBox1 = new ComboBox();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
@@ -82,149 +82,149 @@
             panel1.Size = new Size(672, 877);
             panel1.TabIndex = 0;
             // 
-            // button1
+            // btnCreateNewDiningArea
             // 
-            button1.BackColor = Color.FromArgb(158, 171, 222);
-            button1.FlatAppearance.BorderSize = 0;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Location = new Point(13, 26);
-            button1.Name = "button1";
-            button1.Size = new Size(170, 23);
-            button1.TabIndex = 1;
-            button1.Text = "Create New Dining Area";
-            button1.UseVisualStyleBackColor = false;
+            btnCreateNewDiningArea.BackColor = Color.FromArgb(158, 171, 222);
+            btnCreateNewDiningArea.FlatAppearance.BorderSize = 0;
+            btnCreateNewDiningArea.FlatStyle = FlatStyle.Flat;
+            btnCreateNewDiningArea.Location = new Point(13, 26);
+            btnCreateNewDiningArea.Name = "btnCreateNewDiningArea";
+            btnCreateNewDiningArea.Size = new Size(170, 23);
+            btnCreateNewDiningArea.TabIndex = 1;
+            btnCreateNewDiningArea.Text = "Create New Dining Area";
+            btnCreateNewDiningArea.UseVisualStyleBackColor = false;
             // 
-            // button2
+            // btnSaveDiningArea
             // 
-            button2.BackColor = Color.FromArgb(158, 171, 222);
-            button2.FlatAppearance.BorderSize = 0;
-            button2.FlatStyle = FlatStyle.Flat;
-            button2.Location = new Point(13, 162);
-            button2.Name = "button2";
-            button2.Size = new Size(170, 23);
-            button2.TabIndex = 1;
-            button2.Text = "Save";
-            button2.UseVisualStyleBackColor = false;
+            btnSaveDiningArea.BackColor = Color.FromArgb(158, 171, 222);
+            btnSaveDiningArea.FlatAppearance.BorderSize = 0;
+            btnSaveDiningArea.FlatStyle = FlatStyle.Flat;
+            btnSaveDiningArea.Location = new Point(13, 162);
+            btnSaveDiningArea.Name = "btnSaveDiningArea";
+            btnSaveDiningArea.Size = new Size(170, 23);
+            btnSaveDiningArea.TabIndex = 1;
+            btnSaveDiningArea.Text = "Save";
+            btnSaveDiningArea.UseVisualStyleBackColor = false;
             // 
-            // radioButton1
+            // rbInside
             // 
-            radioButton1.AutoSize = true;
-            radioButton1.ForeColor = Color.White;
-            radioButton1.Location = new Point(24, 87);
-            radioButton1.Name = "radioButton1";
-            radioButton1.Size = new Size(56, 19);
-            radioButton1.TabIndex = 2;
-            radioButton1.TabStop = true;
-            radioButton1.Text = "Inside";
-            radioButton1.UseVisualStyleBackColor = true;
+            rbInside.AutoSize = true;
+            rbInside.ForeColor = Color.White;
+            rbInside.Location = new Point(24, 87);
+            rbInside.Name = "rbInside";
+            rbInside.Size = new Size(56, 19);
+            rbInside.TabIndex = 2;
+            rbInside.TabStop = true;
+            rbInside.Text = "Inside";
+            rbInside.UseVisualStyleBackColor = true;
             // 
-            // radioButton2
+            // rbOutside
             // 
-            radioButton2.AutoSize = true;
-            radioButton2.ForeColor = Color.White;
-            radioButton2.Location = new Point(100, 87);
-            radioButton2.Name = "radioButton2";
-            radioButton2.Size = new Size(66, 19);
-            radioButton2.TabIndex = 2;
-            radioButton2.TabStop = true;
-            radioButton2.Text = "Outside";
-            radioButton2.UseVisualStyleBackColor = true;
+            rbOutside.AutoSize = true;
+            rbOutside.ForeColor = Color.White;
+            rbOutside.Location = new Point(100, 87);
+            rbOutside.Name = "rbOutside";
+            rbOutside.Size = new Size(66, 19);
+            rbOutside.TabIndex = 2;
+            rbOutside.TabStop = true;
+            rbOutside.Text = "Outside";
+            rbOutside.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // btnLockTable
             // 
-            button3.BackColor = Color.FromArgb(158, 171, 222);
-            button3.FlatAppearance.BorderSize = 0;
-            button3.FlatStyle = FlatStyle.Flat;
-            button3.Location = new Point(18, 351);
-            button3.Name = "button3";
-            button3.Size = new Size(141, 23);
-            button3.TabIndex = 1;
-            button3.Text = "Lock Tables";
-            button3.UseVisualStyleBackColor = false;
+            btnLockTable.BackColor = Color.FromArgb(158, 171, 222);
+            btnLockTable.FlatAppearance.BorderSize = 0;
+            btnLockTable.FlatStyle = FlatStyle.Flat;
+            btnLockTable.Location = new Point(18, 351);
+            btnLockTable.Name = "btnLockTable";
+            btnLockTable.Size = new Size(141, 23);
+            btnLockTable.TabIndex = 1;
+            btnLockTable.Text = "Lock Tables";
+            btnLockTable.UseVisualStyleBackColor = false;
             // 
-            // button4
+            // btnCopyTable
             // 
-            button4.BackColor = Color.FromArgb(158, 171, 222);
-            button4.FlatAppearance.BorderSize = 0;
-            button4.FlatStyle = FlatStyle.Flat;
-            button4.Location = new Point(18, 284);
-            button4.Name = "button4";
-            button4.Size = new Size(141, 23);
-            button4.TabIndex = 1;
-            button4.Text = "Copy Table";
-            button4.UseVisualStyleBackColor = false;
+            btnCopyTable.BackColor = Color.FromArgb(158, 171, 222);
+            btnCopyTable.FlatAppearance.BorderSize = 0;
+            btnCopyTable.FlatStyle = FlatStyle.Flat;
+            btnCopyTable.Location = new Point(18, 284);
+            btnCopyTable.Name = "btnCopyTable";
+            btnCopyTable.Size = new Size(141, 23);
+            btnCopyTable.TabIndex = 1;
+            btnCopyTable.Text = "Copy Table";
+            btnCopyTable.UseVisualStyleBackColor = false;
             // 
-            // button5
+            // btnSaveTable
             // 
-            button5.BackColor = Color.FromArgb(158, 171, 222);
-            button5.FlatAppearance.BorderSize = 0;
-            button5.FlatStyle = FlatStyle.Flat;
-            button5.Location = new Point(18, 255);
-            button5.Name = "button5";
-            button5.Size = new Size(141, 23);
-            button5.TabIndex = 1;
-            button5.Text = "Save Table";
-            button5.UseVisualStyleBackColor = false;
+            btnSaveTable.BackColor = Color.FromArgb(158, 171, 222);
+            btnSaveTable.FlatAppearance.BorderSize = 0;
+            btnSaveTable.FlatStyle = FlatStyle.Flat;
+            btnSaveTable.Location = new Point(18, 255);
+            btnSaveTable.Name = "btnSaveTable";
+            btnSaveTable.Size = new Size(141, 23);
+            btnSaveTable.TabIndex = 1;
+            btnSaveTable.Text = "Save Table";
+            btnSaveTable.UseVisualStyleBackColor = false;
             // 
-            // button6
+            // btnDeleteTable
             // 
-            button6.BackColor = Color.FromArgb(158, 171, 222);
-            button6.FlatAppearance.BorderSize = 0;
-            button6.FlatStyle = FlatStyle.Flat;
-            button6.Location = new Point(18, 390);
-            button6.Name = "button6";
-            button6.Size = new Size(141, 23);
-            button6.TabIndex = 1;
-            button6.Text = "Delete Table";
-            button6.UseVisualStyleBackColor = false;
+            btnDeleteTable.BackColor = Color.FromArgb(158, 171, 222);
+            btnDeleteTable.FlatAppearance.BorderSize = 0;
+            btnDeleteTable.FlatStyle = FlatStyle.Flat;
+            btnDeleteTable.Location = new Point(18, 390);
+            btnDeleteTable.Name = "btnDeleteTable";
+            btnDeleteTable.Size = new Size(141, 23);
+            btnDeleteTable.TabIndex = 1;
+            btnDeleteTable.Text = "Delete Table";
+            btnDeleteTable.UseVisualStyleBackColor = false;
             // 
-            // button7
+            // btnMoreWidth
             // 
-            button7.BackColor = Color.FromArgb(158, 171, 222);
-            button7.FlatAppearance.BorderSize = 0;
-            button7.FlatStyle = FlatStyle.Flat;
-            button7.Location = new Point(135, 202);
-            button7.Name = "button7";
-            button7.Size = new Size(24, 23);
-            button7.TabIndex = 1;
-            button7.Text = "+";
-            button7.UseVisualStyleBackColor = false;
+            btnMoreWidth.BackColor = Color.FromArgb(158, 171, 222);
+            btnMoreWidth.FlatAppearance.BorderSize = 0;
+            btnMoreWidth.FlatStyle = FlatStyle.Flat;
+            btnMoreWidth.Location = new Point(135, 202);
+            btnMoreWidth.Name = "btnMoreWidth";
+            btnMoreWidth.Size = new Size(24, 23);
+            btnMoreWidth.TabIndex = 1;
+            btnMoreWidth.Text = "+";
+            btnMoreWidth.UseVisualStyleBackColor = false;
             // 
-            // button8
+            // btnMoreHeight
             // 
-            button8.BackColor = Color.FromArgb(158, 171, 222);
-            button8.FlatAppearance.BorderSize = 0;
-            button8.FlatStyle = FlatStyle.Flat;
-            button8.Location = new Point(135, 157);
-            button8.Name = "button8";
-            button8.Size = new Size(24, 23);
-            button8.TabIndex = 1;
-            button8.Text = "+";
-            button8.UseVisualStyleBackColor = false;
+            btnMoreHeight.BackColor = Color.FromArgb(158, 171, 222);
+            btnMoreHeight.FlatAppearance.BorderSize = 0;
+            btnMoreHeight.FlatStyle = FlatStyle.Flat;
+            btnMoreHeight.Location = new Point(135, 157);
+            btnMoreHeight.Name = "btnMoreHeight";
+            btnMoreHeight.Size = new Size(24, 23);
+            btnMoreHeight.TabIndex = 1;
+            btnMoreHeight.Text = "+";
+            btnMoreHeight.UseVisualStyleBackColor = false;
             // 
-            // button9
+            // btnLessHeight
             // 
-            button9.BackColor = Color.FromArgb(158, 171, 222);
-            button9.FlatAppearance.BorderSize = 0;
-            button9.FlatStyle = FlatStyle.Flat;
-            button9.Location = new Point(18, 157);
-            button9.Name = "button9";
-            button9.Size = new Size(24, 23);
-            button9.TabIndex = 1;
-            button9.Text = "-";
-            button9.UseVisualStyleBackColor = false;
+            btnLessHeight.BackColor = Color.FromArgb(158, 171, 222);
+            btnLessHeight.FlatAppearance.BorderSize = 0;
+            btnLessHeight.FlatStyle = FlatStyle.Flat;
+            btnLessHeight.Location = new Point(18, 157);
+            btnLessHeight.Name = "btnLessHeight";
+            btnLessHeight.Size = new Size(24, 23);
+            btnLessHeight.TabIndex = 1;
+            btnLessHeight.Text = "-";
+            btnLessHeight.UseVisualStyleBackColor = false;
             // 
-            // button10
+            // btnLessWidth
             // 
-            button10.BackColor = Color.FromArgb(158, 171, 222);
-            button10.FlatAppearance.BorderSize = 0;
-            button10.FlatStyle = FlatStyle.Flat;
-            button10.Location = new Point(18, 202);
-            button10.Name = "button10";
-            button10.Size = new Size(24, 23);
-            button10.TabIndex = 1;
-            button10.Text = "-";
-            button10.UseVisualStyleBackColor = false;
+            btnLessWidth.BackColor = Color.FromArgb(158, 171, 222);
+            btnLessWidth.FlatAppearance.BorderSize = 0;
+            btnLessWidth.FlatStyle = FlatStyle.Flat;
+            btnLessWidth.Location = new Point(18, 202);
+            btnLessWidth.Name = "btnLessWidth";
+            btnLessWidth.Size = new Size(24, 23);
+            btnLessWidth.TabIndex = 1;
+            btnLessWidth.Text = "-";
+            btnLessWidth.UseVisualStyleBackColor = false;
             // 
             // panel2
             // 
@@ -234,19 +234,19 @@
             panel2.Controls.Add(label3);
             panel2.Controls.Add(label2);
             panel2.Controls.Add(label1);
-            panel2.Controls.Add(textBox3);
-            panel2.Controls.Add(textBox6);
-            panel2.Controls.Add(textBox5);
-            panel2.Controls.Add(textBox4);
-            panel2.Controls.Add(textBox2);
-            panel2.Controls.Add(button3);
-            panel2.Controls.Add(button4);
-            panel2.Controls.Add(button5);
-            panel2.Controls.Add(button6);
-            panel2.Controls.Add(button7);
-            panel2.Controls.Add(button10);
-            panel2.Controls.Add(button8);
-            panel2.Controls.Add(button9);
+            panel2.Controls.Add(txtWidth);
+            panel2.Controls.Add(txtTableNumber);
+            panel2.Controls.Add(txtMaxCovers);
+            panel2.Controls.Add(txtAverageCovers);
+            panel2.Controls.Add(txtHeight);
+            panel2.Controls.Add(btnLockTable);
+            panel2.Controls.Add(btnCopyTable);
+            panel2.Controls.Add(btnSaveTable);
+            panel2.Controls.Add(btnDeleteTable);
+            panel2.Controls.Add(btnMoreWidth);
+            panel2.Controls.Add(btnLessWidth);
+            panel2.Controls.Add(btnMoreHeight);
+            panel2.Controls.Add(btnLessHeight);
             panel2.Location = new Point(18, 494);
             panel2.Name = "panel2";
             panel2.Size = new Size(185, 426);
@@ -297,50 +297,50 @@
             label1.TabIndex = 3;
             label1.Text = "Table Number";
             // 
-            // textBox3
+            // txtWidth
             // 
-            textBox3.BorderStyle = BorderStyle.None;
-            textBox3.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            textBox3.Location = new Point(48, 203);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(81, 22);
-            textBox3.TabIndex = 2;
+            txtWidth.BorderStyle = BorderStyle.None;
+            txtWidth.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            txtWidth.Location = new Point(48, 203);
+            txtWidth.Name = "txtWidth";
+            txtWidth.Size = new Size(81, 22);
+            txtWidth.TabIndex = 2;
             // 
-            // textBox6
+            // txtTableNumber
             // 
-            textBox6.BorderStyle = BorderStyle.None;
-            textBox6.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            textBox6.Location = new Point(48, 26);
-            textBox6.Name = "textBox6";
-            textBox6.Size = new Size(81, 22);
-            textBox6.TabIndex = 2;
+            txtTableNumber.BorderStyle = BorderStyle.None;
+            txtTableNumber.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            txtTableNumber.Location = new Point(48, 26);
+            txtTableNumber.Name = "txtTableNumber";
+            txtTableNumber.Size = new Size(81, 22);
+            txtTableNumber.TabIndex = 2;
             // 
-            // textBox5
+            // txtMaxCovers
             // 
-            textBox5.BorderStyle = BorderStyle.None;
-            textBox5.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            textBox5.Location = new Point(48, 70);
-            textBox5.Name = "textBox5";
-            textBox5.Size = new Size(81, 22);
-            textBox5.TabIndex = 2;
+            txtMaxCovers.BorderStyle = BorderStyle.None;
+            txtMaxCovers.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            txtMaxCovers.Location = new Point(48, 70);
+            txtMaxCovers.Name = "txtMaxCovers";
+            txtMaxCovers.Size = new Size(81, 22);
+            txtMaxCovers.TabIndex = 2;
             // 
-            // textBox4
+            // txtAverageCovers
             // 
-            textBox4.BorderStyle = BorderStyle.None;
-            textBox4.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            textBox4.Location = new Point(48, 113);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(81, 22);
-            textBox4.TabIndex = 2;
+            txtAverageCovers.BorderStyle = BorderStyle.None;
+            txtAverageCovers.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            txtAverageCovers.Location = new Point(48, 113);
+            txtAverageCovers.Name = "txtAverageCovers";
+            txtAverageCovers.Size = new Size(81, 22);
+            txtAverageCovers.TabIndex = 2;
             // 
-            // textBox2
+            // txtHeight
             // 
-            textBox2.BorderStyle = BorderStyle.None;
-            textBox2.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            textBox2.Location = new Point(48, 158);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(81, 22);
-            textBox2.TabIndex = 2;
+            txtHeight.BorderStyle = BorderStyle.None;
+            txtHeight.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            txtHeight.Location = new Point(48, 158);
+            txtHeight.Name = "txtHeight";
+            txtHeight.Size = new Size(81, 22);
+            txtHeight.TabIndex = 2;
             // 
             // panel3
             // 
@@ -388,33 +388,33 @@
             // panel6
             // 
             panel6.BackColor = Color.Silver;
-            panel6.Controls.Add(checkBox1);
-            panel6.Controls.Add(button1);
-            panel6.Controls.Add(textBox1);
-            panel6.Controls.Add(radioButton1);
-            panel6.Controls.Add(radioButton2);
-            panel6.Controls.Add(button2);
+            panel6.Controls.Add(cbTemporaryFloorplan);
+            panel6.Controls.Add(btnCreateNewDiningArea);
+            panel6.Controls.Add(txtDiningAreaName);
+            panel6.Controls.Add(rbInside);
+            panel6.Controls.Add(rbOutside);
+            panel6.Controls.Add(btnSaveDiningArea);
             panel6.Location = new Point(15, 43);
             panel6.Name = "panel6";
             panel6.Size = new Size(196, 234);
             panel6.TabIndex = 4;
             // 
-            // checkBox1
+            // cbTemporaryFloorplan
             // 
-            checkBox1.AutoSize = true;
-            checkBox1.Location = new Point(28, 112);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(140, 19);
-            checkBox1.TabIndex = 4;
-            checkBox1.Text = "Temporary Floorplan?";
-            checkBox1.UseVisualStyleBackColor = true;
+            cbTemporaryFloorplan.AutoSize = true;
+            cbTemporaryFloorplan.Location = new Point(28, 112);
+            cbTemporaryFloorplan.Name = "cbTemporaryFloorplan";
+            cbTemporaryFloorplan.Size = new Size(140, 19);
+            cbTemporaryFloorplan.TabIndex = 4;
+            cbTemporaryFloorplan.Text = "Temporary Floorplan?";
+            cbTemporaryFloorplan.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // txtDiningAreaName
             // 
-            textBox1.Location = new Point(13, 58);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(170, 23);
-            textBox1.TabIndex = 3;
+            txtDiningAreaName.Location = new Point(13, 58);
+            txtDiningAreaName.Name = "txtDiningAreaName";
+            txtDiningAreaName.Size = new Size(170, 23);
+            txtDiningAreaName.TabIndex = 3;
             // 
             // panel4
             // 
@@ -433,9 +433,9 @@
             // 
             panel5.BackColor = Color.Silver;
             panel5.Controls.Add(label7);
-            panel5.Controls.Add(button13);
-            panel5.Controls.Add(button12);
-            panel5.Controls.Add(button11);
+            panel5.Controls.Add(btnAddCircle);
+            panel5.Controls.Add(btnAddDiamond);
+            panel5.Controls.Add(btnAddSquare);
             panel5.Location = new Point(18, 43);
             panel5.Name = "panel5";
             panel5.Size = new Size(185, 445);
@@ -451,38 +451,38 @@
             label7.TabIndex = 1;
             label7.Text = "Add Tables";
             // 
-            // button13
+            // btnAddCircle
             // 
-            button13.FlatAppearance.BorderSize = 0;
-            button13.FlatStyle = FlatStyle.Flat;
-            button13.Image = Properties.Resources.CircleTable;
-            button13.Location = new Point(18, 306);
-            button13.Name = "button13";
-            button13.Size = new Size(149, 131);
-            button13.TabIndex = 0;
-            button13.UseVisualStyleBackColor = true;
+            btnAddCircle.FlatAppearance.BorderSize = 0;
+            btnAddCircle.FlatStyle = FlatStyle.Flat;
+            btnAddCircle.Image = Properties.Resources.LargerCircleFilled;
+            btnAddCircle.Location = new Point(18, 306);
+            btnAddCircle.Name = "btnAddCircle";
+            btnAddCircle.Size = new Size(149, 131);
+            btnAddCircle.TabIndex = 0;
+            btnAddCircle.UseVisualStyleBackColor = true;
             // 
-            // button12
+            // btnAddDiamond
             // 
-            button12.FlatAppearance.BorderSize = 0;
-            button12.FlatStyle = FlatStyle.Flat;
-            button12.Image = Properties.Resources.DiamondTable;
-            button12.Location = new Point(18, 171);
-            button12.Name = "button12";
-            button12.Size = new Size(149, 131);
-            button12.TabIndex = 0;
-            button12.UseVisualStyleBackColor = true;
+            btnAddDiamond.FlatAppearance.BorderSize = 0;
+            btnAddDiamond.FlatStyle = FlatStyle.Flat;
+            btnAddDiamond.Image = Properties.Resources.DiamondFilled;
+            btnAddDiamond.Location = new Point(18, 171);
+            btnAddDiamond.Name = "btnAddDiamond";
+            btnAddDiamond.Size = new Size(149, 131);
+            btnAddDiamond.TabIndex = 0;
+            btnAddDiamond.UseVisualStyleBackColor = true;
             // 
-            // button11
+            // btnAddSquare
             // 
-            button11.FlatAppearance.BorderSize = 0;
-            button11.FlatStyle = FlatStyle.Flat;
-            button11.Image = Properties.Resources.SquareTable;
-            button11.Location = new Point(18, 36);
-            button11.Name = "button11";
-            button11.Size = new Size(149, 131);
-            button11.TabIndex = 0;
-            button11.UseVisualStyleBackColor = true;
+            btnAddSquare.FlatAppearance.BorderSize = 0;
+            btnAddSquare.FlatStyle = FlatStyle.Flat;
+            btnAddSquare.Image = Properties.Resources.SquareTableFilled;
+            btnAddSquare.Location = new Point(18, 36);
+            btnAddSquare.Name = "btnAddSquare";
+            btnAddSquare.Size = new Size(149, 131);
+            btnAddSquare.TabIndex = 0;
+            btnAddSquare.UseVisualStyleBackColor = true;
             // 
             // comboBox1
             // 
@@ -520,28 +520,28 @@
         #endregion
 
         private Panel panel1;
-        private Button button1;
-        private Button button2;
-        private RadioButton radioButton1;
-        private RadioButton radioButton2;
-        private Button button3;
-        private Button button4;
-        private Button button5;
-        private Button button6;
-        private Button button7;
-        private Button button8;
-        private Button button9;
-        private Button button10;
+        private Button btnCreateNewDiningArea;
+        private Button btnSaveDiningArea;
+        private RadioButton rbInside;
+        private RadioButton rbOutside;
+        private Button btnLockTable;
+        private Button btnCopyTable;
+        private Button btnSaveTable;
+        private Button btnDeleteTable;
+        private Button btnMoreWidth;
+        private Button btnMoreHeight;
+        private Button btnLessHeight;
+        private Button btnLessWidth;
         private Panel panel2;
         private Panel panel3;
         private Panel panel4;
         private ComboBox comboBox1;
-        private TextBox textBox1;
-        private TextBox textBox2;
-        private TextBox textBox3;
-        private TextBox textBox6;
-        private TextBox textBox5;
-        private TextBox textBox4;
+        private TextBox txtDiningAreaName;
+        private TextBox txtHeight;
+        private TextBox txtWidth;
+        private TextBox txtTableNumber;
+        private TextBox txtMaxCovers;
+        private TextBox txtAverageCovers;
         private Label label5;
         private Label label4;
         private Label label3;
@@ -550,12 +550,12 @@
         private Panel panel5;
         private Panel panel7;
         private Panel panel6;
-        private CheckBox checkBox1;
+        private CheckBox cbTemporaryFloorplan;
         private Label label8;
         private Label label6;
         private Label label7;
-        private Button button13;
-        private Button button12;
-        private Button button11;
+        private Button btnAddCircle;
+        private Button btnAddDiamond;
+        private Button btnAddSquare;
     }
 }

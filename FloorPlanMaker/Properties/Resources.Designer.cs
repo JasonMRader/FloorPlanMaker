@@ -73,6 +73,16 @@ namespace FloorPlanMakerUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap DiamondFilled {
+            get {
+                object obj = ResourceManager.GetObject("DiamondFilled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap DiamondTable {
             get {
                 object obj = ResourceManager.GetObject("DiamondTable", resourceCulture);
@@ -83,9 +93,49 @@ namespace FloorPlanMakerUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap LargerCircleFilled {
+            get {
+                object obj = ResourceManager.GetObject("LargerCircleFilled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SmallFilledCircle {
+            get {
+                object obj = ResourceManager.GetObject("SmallFilledCircle", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap smallSquareFilled {
+            get {
+                object obj = ResourceManager.GetObject("smallSquareFilled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap SquareTable {
             get {
                 object obj = ResourceManager.GetObject("SquareTable", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SquareTableFilled {
+            get {
+                object obj = ResourceManager.GetObject("SquareTableFilled", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
