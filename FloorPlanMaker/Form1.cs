@@ -14,7 +14,7 @@ namespace FloorPlanMaker
     public partial class Form1 : Form
     {
         //List<DiningArea> areaList = new List<DiningArea>();
-        DiningAreaCreationManager areaCreationManager = new DiningAreaCreationManager();
+        private DiningAreaCreationManager areaCreationManager = new DiningAreaCreationManager();
         EmployeeManager employeeManager = new EmployeeManager();
         private ShiftManager shiftManager;
         private int LastTableNumberSelected;
@@ -416,17 +416,17 @@ namespace FloorPlanMaker
             SqliteDataAccess.SaveDiningArea(area);
         }
 
-        private void btnSaveTables_Click(object sender, EventArgs e)
-        {
-            SqliteDataAccess.DeleteTablesByDiningArea(areaCreationManager.DiningAreaSelected);
-            foreach (Control control in pnlFloorPlan.Controls)
-            {
-                if (control is TableControl tableControl)
-                {
-                    SaveTableByTableControl(tableControl);
-                }
-            }
-        }
+        //private void btnSaveTables_Click(object sender, EventArgs e)
+        //{
+        //    SqliteDataAccess.DeleteTablesByDiningArea(areaCreationManager.DiningAreaSelected);
+        //    foreach (Control control in pnlFloorPlan.Controls)
+        //    {
+        //        if (control is TableControl tableControl)
+        //        {
+        //            SaveTableByTableControl(tableControl);
+        //        }
+        //    }
+        //}
         private void SaveTableByTableControl(TableControl tableControl)
         {
             Table tableToSave = tableControl.Table;
@@ -1630,6 +1630,16 @@ namespace FloorPlanMaker
         private void btnCloseApp_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void txtMaxCovers_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtHeight_TextChanged(object sender, EventArgs e)
+        {
+
         }
 
 

@@ -31,7 +31,6 @@ namespace FloorPlanMaker
         private void InitializeComponent()
         {
             pnlServers = new Panel();
-            flowServersInFloorplan = new FlowLayoutPanel();
             lblDiningRoomName = new Label();
             panel2 = new Panel();
             btnAddServers = new Button();
@@ -50,6 +49,7 @@ namespace FloorPlanMaker
             label11 = new Label();
             lblServerMaxCovers = new Label();
             lblDiningAreaMaxCovers = new Label();
+            flowServersInFloorplan = new FlowLayoutPanel();
             label9 = new Label();
             nudServerCount = new NumericUpDown();
             btnRemoveSection = new Button();
@@ -107,6 +107,7 @@ namespace FloorPlanMaker
             ((System.ComponentModel.ISupportInitialize)nudServerCount).BeginInit();
             pnlAddTables.SuspendLayout();
             pnlSections.SuspendLayout();
+            pnlFloorPlan.SuspendLayout();
             panel1.SuspendLayout();
             panel3.SuspendLayout();
             SuspendLayout();
@@ -131,13 +132,6 @@ namespace FloorPlanMaker
             pnlServers.Name = "pnlServers";
             pnlServers.Size = new Size(241, 877);
             pnlServers.TabIndex = 0;
-            // 
-            // flowServersInFloorplan
-            // 
-            flowServersInFloorplan.Location = new Point(3, 225);
-            flowServersInFloorplan.Name = "flowServersInFloorplan";
-            flowServersInFloorplan.Size = new Size(235, 605);
-            flowServersInFloorplan.TabIndex = 2;
             // 
             // lblDiningRoomName
             // 
@@ -240,7 +234,6 @@ namespace FloorPlanMaker
             btnSaveTables.Text = "Save Tables";
             btnSaveTables.UseVisualStyleBackColor = true;
             btnSaveTables.Visible = false;
-            btnSaveTables.Click += btnSaveTables_Click;
             // 
             // label1
             // 
@@ -335,6 +328,13 @@ namespace FloorPlanMaker
             lblDiningAreaMaxCovers.Size = new Size(23, 25);
             lblDiningAreaMaxCovers.TabIndex = 1;
             lblDiningAreaMaxCovers.Text = "0";
+            // 
+            // flowServersInFloorplan
+            // 
+            flowServersInFloorplan.Location = new Point(6, 225);
+            flowServersInFloorplan.Name = "flowServersInFloorplan";
+            flowServersInFloorplan.Size = new Size(235, 605);
+            flowServersInFloorplan.TabIndex = 2;
             // 
             // label9
             // 
@@ -433,7 +433,7 @@ namespace FloorPlanMaker
             // flowSectionSelect
             // 
             flowSectionSelect.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            flowSectionSelect.Location = new Point(14, 63);
+            flowSectionSelect.Location = new Point(21, 69);
             flowSectionSelect.Name = "flowSectionSelect";
             flowSectionSelect.Size = new Size(212, 601);
             flowSectionSelect.TabIndex = 9;
@@ -441,7 +441,6 @@ namespace FloorPlanMaker
             // pnlAddTables
             // 
             pnlAddTables.BackColor = Color.FromArgb(178, 87, 46);
-            pnlAddTables.Controls.Add(pnlSections);
             pnlAddTables.Controls.Add(btnCopyTable);
             pnlAddTables.Controls.Add(btnSaveTable);
             pnlAddTables.Controls.Add(label7);
@@ -471,6 +470,7 @@ namespace FloorPlanMaker
             // 
             // pnlSections
             // 
+            pnlSections.Controls.Add(flowSectionSelect);
             pnlSections.Controls.Add(label9);
             pnlSections.Controls.Add(cboFloorplanTemplates);
             pnlSections.Controls.Add(nudServerCount);
@@ -479,10 +479,9 @@ namespace FloorPlanMaker
             pnlSections.Controls.Add(btnRemoveSection);
             pnlSections.Controls.Add(btnGenerateSectionLines);
             pnlSections.Controls.Add(btnChooseTemplate);
-            pnlSections.Controls.Add(flowSectionSelect);
             pnlSections.Controls.Add(btnAddSection);
             pnlSections.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            pnlSections.Location = new Point(8, 32);
+            pnlSections.Location = new Point(49, 10);
             pnlSections.Name = "pnlSections";
             pnlSections.Size = new Size(239, 869);
             pnlSections.TabIndex = 8;
@@ -567,6 +566,7 @@ namespace FloorPlanMaker
             txtHeight.Name = "txtHeight";
             txtHeight.Size = new Size(107, 23);
             txtHeight.TabIndex = 3;
+            txtHeight.TextChanged += txtHeight_TextChanged;
             txtHeight.Validated += RefreshTableControl;
             // 
             // label5
@@ -601,6 +601,7 @@ namespace FloorPlanMaker
             txtMaxCovers.Name = "txtMaxCovers";
             txtMaxCovers.Size = new Size(107, 23);
             txtMaxCovers.TabIndex = 3;
+            txtMaxCovers.TextChanged += txtMaxCovers_TextChanged;
             txtMaxCovers.Validated += RefreshTableControl;
             // 
             // label3
@@ -768,6 +769,7 @@ namespace FloorPlanMaker
             // pnlFloorPlan
             // 
             pnlFloorPlan.BackColor = Color.FromArgb(192, 192, 192);
+            pnlFloorPlan.Controls.Add(pnlSections);
             pnlFloorPlan.Location = new Point(16, 40);
             pnlFloorPlan.Name = "pnlFloorPlan";
             pnlFloorPlan.Size = new Size(672, 877);
@@ -977,6 +979,7 @@ namespace FloorPlanMaker
             pnlAddTables.PerformLayout();
             pnlSections.ResumeLayout(false);
             pnlSections.PerformLayout();
+            pnlFloorPlan.ResumeLayout(false);
             panel1.ResumeLayout(false);
             panel3.ResumeLayout(false);
             ResumeLayout(false);

@@ -28,12 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            panel1 = new Panel();
+            pnlFloorPlan = new Panel();
             btnCreateNewDiningArea = new Button();
             btnSaveDiningArea = new Button();
             rbInside = new RadioButton();
             rbOutside = new RadioButton();
-            btnLockTable = new Button();
             btnCopyTable = new Button();
             btnSaveTable = new Button();
             btnDeleteTable = new Button();
@@ -42,6 +41,10 @@
             btnLessHeight = new Button();
             btnLessWidth = new Button();
             panel2 = new Panel();
+            txtYco = new TextBox();
+            txtXco = new TextBox();
+            cbLockTables = new CheckBox();
+            label9 = new Label();
             label5 = new Label();
             label4 = new Label();
             label3 = new Label();
@@ -65,7 +68,7 @@
             btnAddCircle = new Button();
             btnAddDiamond = new Button();
             btnAddSquare = new Button();
-            comboBox1 = new ComboBox();
+            cboDiningAreas = new ComboBox();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
             panel7.SuspendLayout();
@@ -74,43 +77,48 @@
             panel5.SuspendLayout();
             SuspendLayout();
             // 
-            // panel1
+            // pnlFloorPlan
             // 
-            panel1.BackColor = Color.Silver;
-            panel1.Location = new Point(224, 43);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(672, 877);
-            panel1.TabIndex = 0;
+            pnlFloorPlan.BackColor = Color.Silver;
+            pnlFloorPlan.Location = new Point(224, 43);
+            pnlFloorPlan.Name = "pnlFloorPlan";
+            pnlFloorPlan.Size = new Size(672, 877);
+            pnlFloorPlan.TabIndex = 0;
             // 
             // btnCreateNewDiningArea
             // 
             btnCreateNewDiningArea.BackColor = Color.FromArgb(158, 171, 222);
             btnCreateNewDiningArea.FlatAppearance.BorderSize = 0;
             btnCreateNewDiningArea.FlatStyle = FlatStyle.Flat;
-            btnCreateNewDiningArea.Location = new Point(13, 26);
+            btnCreateNewDiningArea.Location = new Point(13, 11);
             btnCreateNewDiningArea.Name = "btnCreateNewDiningArea";
-            btnCreateNewDiningArea.Size = new Size(170, 23);
+            btnCreateNewDiningArea.Size = new Size(170, 38);
             btnCreateNewDiningArea.TabIndex = 1;
             btnCreateNewDiningArea.Text = "Create New Dining Area";
             btnCreateNewDiningArea.UseVisualStyleBackColor = false;
+            btnCreateNewDiningArea.Click += btnCreateNewDiningArea_Click;
             // 
             // btnSaveDiningArea
             // 
             btnSaveDiningArea.BackColor = Color.FromArgb(158, 171, 222);
+            btnSaveDiningArea.Enabled = false;
             btnSaveDiningArea.FlatAppearance.BorderSize = 0;
             btnSaveDiningArea.FlatStyle = FlatStyle.Flat;
-            btnSaveDiningArea.Location = new Point(13, 162);
+            btnSaveDiningArea.Location = new Point(13, 184);
             btnSaveDiningArea.Name = "btnSaveDiningArea";
             btnSaveDiningArea.Size = new Size(170, 23);
             btnSaveDiningArea.TabIndex = 1;
             btnSaveDiningArea.Text = "Save";
             btnSaveDiningArea.UseVisualStyleBackColor = false;
+            btnSaveDiningArea.Click += btnSaveDiningArea_Click;
             // 
             // rbInside
             // 
             rbInside.AutoSize = true;
+            rbInside.Checked = true;
+            rbInside.Enabled = false;
             rbInside.ForeColor = Color.White;
-            rbInside.Location = new Point(24, 87);
+            rbInside.Location = new Point(24, 109);
             rbInside.Name = "rbInside";
             rbInside.Size = new Size(56, 19);
             rbInside.TabIndex = 2;
@@ -121,50 +129,40 @@
             // rbOutside
             // 
             rbOutside.AutoSize = true;
+            rbOutside.Enabled = false;
             rbOutside.ForeColor = Color.White;
-            rbOutside.Location = new Point(100, 87);
+            rbOutside.Location = new Point(100, 109);
             rbOutside.Name = "rbOutside";
             rbOutside.Size = new Size(66, 19);
             rbOutside.TabIndex = 2;
-            rbOutside.TabStop = true;
             rbOutside.Text = "Outside";
             rbOutside.UseVisualStyleBackColor = true;
-            // 
-            // btnLockTable
-            // 
-            btnLockTable.BackColor = Color.FromArgb(158, 171, 222);
-            btnLockTable.FlatAppearance.BorderSize = 0;
-            btnLockTable.FlatStyle = FlatStyle.Flat;
-            btnLockTable.Location = new Point(18, 351);
-            btnLockTable.Name = "btnLockTable";
-            btnLockTable.Size = new Size(141, 23);
-            btnLockTable.TabIndex = 1;
-            btnLockTable.Text = "Lock Tables";
-            btnLockTable.UseVisualStyleBackColor = false;
             // 
             // btnCopyTable
             // 
             btnCopyTable.BackColor = Color.FromArgb(158, 171, 222);
             btnCopyTable.FlatAppearance.BorderSize = 0;
             btnCopyTable.FlatStyle = FlatStyle.Flat;
-            btnCopyTable.Location = new Point(18, 284);
+            btnCopyTable.Location = new Point(18, 321);
             btnCopyTable.Name = "btnCopyTable";
             btnCopyTable.Size = new Size(141, 23);
             btnCopyTable.TabIndex = 1;
             btnCopyTable.Text = "Copy Table";
             btnCopyTable.UseVisualStyleBackColor = false;
+            btnCopyTable.Click += btnCopyTable_Click;
             // 
             // btnSaveTable
             // 
             btnSaveTable.BackColor = Color.FromArgb(158, 171, 222);
             btnSaveTable.FlatAppearance.BorderSize = 0;
             btnSaveTable.FlatStyle = FlatStyle.Flat;
-            btnSaveTable.Location = new Point(18, 255);
+            btnSaveTable.Location = new Point(18, 283);
             btnSaveTable.Name = "btnSaveTable";
             btnSaveTable.Size = new Size(141, 23);
             btnSaveTable.TabIndex = 1;
             btnSaveTable.Text = "Save Table";
             btnSaveTable.UseVisualStyleBackColor = false;
+            btnSaveTable.Click += btnSaveTable_Click;
             // 
             // btnDeleteTable
             // 
@@ -177,6 +175,7 @@
             btnDeleteTable.TabIndex = 1;
             btnDeleteTable.Text = "Delete Table";
             btnDeleteTable.UseVisualStyleBackColor = false;
+            btnDeleteTable.Click += btnDeleteTable_Click;
             // 
             // btnMoreWidth
             // 
@@ -189,6 +188,7 @@
             btnMoreWidth.TabIndex = 1;
             btnMoreWidth.Text = "+";
             btnMoreWidth.UseVisualStyleBackColor = false;
+            btnMoreWidth.Click += btnMoreWidth_Click;
             // 
             // btnMoreHeight
             // 
@@ -201,6 +201,7 @@
             btnMoreHeight.TabIndex = 1;
             btnMoreHeight.Text = "+";
             btnMoreHeight.UseVisualStyleBackColor = false;
+            btnMoreHeight.Click += btnMoreHeight_Click;
             // 
             // btnLessHeight
             // 
@@ -213,6 +214,7 @@
             btnLessHeight.TabIndex = 1;
             btnLessHeight.Text = "-";
             btnLessHeight.UseVisualStyleBackColor = false;
+            btnLessHeight.Click += btnLessHeight_Click;
             // 
             // btnLessWidth
             // 
@@ -225,10 +227,15 @@
             btnLessWidth.TabIndex = 1;
             btnLessWidth.Text = "-";
             btnLessWidth.UseVisualStyleBackColor = false;
+            btnLessWidth.Click += btnLessWidth_Click;
             // 
             // panel2
             // 
             panel2.BackColor = Color.Silver;
+            panel2.Controls.Add(txtYco);
+            panel2.Controls.Add(txtXco);
+            panel2.Controls.Add(cbLockTables);
+            panel2.Controls.Add(label9);
             panel2.Controls.Add(label5);
             panel2.Controls.Add(label4);
             panel2.Controls.Add(label3);
@@ -239,7 +246,6 @@
             panel2.Controls.Add(txtMaxCovers);
             panel2.Controls.Add(txtAverageCovers);
             panel2.Controls.Add(txtHeight);
-            panel2.Controls.Add(btnLockTable);
             panel2.Controls.Add(btnCopyTable);
             panel2.Controls.Add(btnSaveTable);
             panel2.Controls.Add(btnDeleteTable);
@@ -251,6 +257,46 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(185, 426);
             panel2.TabIndex = 3;
+            // 
+            // txtYco
+            // 
+            txtYco.Location = new Point(94, 254);
+            txtYco.Name = "txtYco";
+            txtYco.PlaceholderText = "Y";
+            txtYco.Size = new Size(35, 23);
+            txtYco.TabIndex = 5;
+            // 
+            // txtXco
+            // 
+            txtXco.Location = new Point(48, 254);
+            txtXco.Name = "txtXco";
+            txtXco.PlaceholderText = "X";
+            txtXco.Size = new Size(35, 23);
+            txtXco.TabIndex = 5;
+            // 
+            // cbLockTables
+            // 
+            cbLockTables.Appearance = Appearance.Button;
+            cbLockTables.BackColor = Color.FromArgb(158, 171, 222);
+            cbLockTables.FlatAppearance.BorderSize = 0;
+            cbLockTables.FlatStyle = FlatStyle.Flat;
+            cbLockTables.Location = new Point(18, 350);
+            cbLockTables.Name = "cbLockTables";
+            cbLockTables.Size = new Size(141, 24);
+            cbLockTables.TabIndex = 4;
+            cbLockTables.Text = "Lock Tables";
+            cbLockTables.TextAlign = ContentAlignment.MiddleCenter;
+            cbLockTables.UseVisualStyleBackColor = false;
+            cbLockTables.CheckedChanged += cbLockTables_CheckedChanged;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(48, 236);
+            label9.Name = "label9";
+            label9.Size = new Size(53, 15);
+            label9.TabIndex = 3;
+            label9.Text = "Location";
             // 
             // label5
             // 
@@ -305,6 +351,7 @@
             txtWidth.Name = "txtWidth";
             txtWidth.Size = new Size(81, 22);
             txtWidth.TabIndex = 2;
+            txtWidth.Validated += RefreshTableControl;
             // 
             // txtTableNumber
             // 
@@ -314,6 +361,7 @@
             txtTableNumber.Name = "txtTableNumber";
             txtTableNumber.Size = new Size(81, 22);
             txtTableNumber.TabIndex = 2;
+            txtTableNumber.TextChanged += RefreshTableControl;
             // 
             // txtMaxCovers
             // 
@@ -323,6 +371,7 @@
             txtMaxCovers.Name = "txtMaxCovers";
             txtMaxCovers.Size = new Size(81, 22);
             txtMaxCovers.TabIndex = 2;
+            txtMaxCovers.Validated += RefreshTableControl;
             // 
             // txtAverageCovers
             // 
@@ -332,6 +381,7 @@
             txtAverageCovers.Name = "txtAverageCovers";
             txtAverageCovers.Size = new Size(81, 22);
             txtAverageCovers.TabIndex = 2;
+            txtAverageCovers.Validated += RefreshTableControl;
             // 
             // txtHeight
             // 
@@ -341,6 +391,7 @@
             txtHeight.Name = "txtHeight";
             txtHeight.Size = new Size(81, 22);
             txtHeight.TabIndex = 2;
+            txtHeight.Validated += RefreshTableControl;
             // 
             // panel3
             // 
@@ -402,7 +453,8 @@
             // cbTemporaryFloorplan
             // 
             cbTemporaryFloorplan.AutoSize = true;
-            cbTemporaryFloorplan.Location = new Point(28, 112);
+            cbTemporaryFloorplan.Enabled = false;
+            cbTemporaryFloorplan.Location = new Point(28, 134);
             cbTemporaryFloorplan.Name = "cbTemporaryFloorplan";
             cbTemporaryFloorplan.Size = new Size(140, 19);
             cbTemporaryFloorplan.TabIndex = 4;
@@ -411,7 +463,8 @@
             // 
             // txtDiningAreaName
             // 
-            txtDiningAreaName.Location = new Point(13, 58);
+            txtDiningAreaName.Enabled = false;
+            txtDiningAreaName.Location = new Point(13, 80);
             txtDiningAreaName.Name = "txtDiningAreaName";
             txtDiningAreaName.Size = new Size(170, 23);
             txtDiningAreaName.TabIndex = 3;
@@ -421,8 +474,8 @@
             panel4.BackColor = Color.FromArgb(178, 87, 46);
             panel4.Controls.Add(panel5);
             panel4.Controls.Add(panel2);
-            panel4.Controls.Add(comboBox1);
-            panel4.Controls.Add(panel1);
+            panel4.Controls.Add(cboDiningAreas);
+            panel4.Controls.Add(pnlFloorPlan);
             panel4.Location = new Point(41, 16);
             panel4.Margin = new Padding(20);
             panel4.Name = "panel4";
@@ -461,6 +514,7 @@
             btnAddCircle.Size = new Size(149, 131);
             btnAddCircle.TabIndex = 0;
             btnAddCircle.UseVisualStyleBackColor = true;
+            btnAddCircle.Click += btnAddCircle_Click;
             // 
             // btnAddDiamond
             // 
@@ -472,6 +526,7 @@
             btnAddDiamond.Size = new Size(149, 131);
             btnAddDiamond.TabIndex = 0;
             btnAddDiamond.UseVisualStyleBackColor = true;
+            btnAddDiamond.Click += btnAddDiamond_Click;
             // 
             // btnAddSquare
             // 
@@ -483,14 +538,16 @@
             btnAddSquare.Size = new Size(149, 131);
             btnAddSquare.TabIndex = 0;
             btnAddSquare.UseVisualStyleBackColor = true;
+            btnAddSquare.Click += btnAddSquare_Click;
             // 
-            // comboBox1
+            // cboDiningAreas
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(224, 8);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(672, 23);
-            comboBox1.TabIndex = 1;
+            cboDiningAreas.FormattingEnabled = true;
+            cboDiningAreas.Location = new Point(224, 8);
+            cboDiningAreas.Name = "cboDiningAreas";
+            cboDiningAreas.Size = new Size(672, 23);
+            cboDiningAreas.TabIndex = 1;
+            cboDiningAreas.SelectedIndexChanged += cboDiningAreas_SelectedIndexChanged;
             // 
             // frmEditDiningAreas
             // 
@@ -519,12 +576,11 @@
 
         #endregion
 
-        private Panel panel1;
+        private Panel pnlFloorPlan;
         private Button btnCreateNewDiningArea;
         private Button btnSaveDiningArea;
         private RadioButton rbInside;
         private RadioButton rbOutside;
-        private Button btnLockTable;
         private Button btnCopyTable;
         private Button btnSaveTable;
         private Button btnDeleteTable;
@@ -535,7 +591,7 @@
         private Panel panel2;
         private Panel panel3;
         private Panel panel4;
-        private ComboBox comboBox1;
+        private ComboBox cboDiningAreas;
         private TextBox txtDiningAreaName;
         private TextBox txtHeight;
         private TextBox txtWidth;
@@ -557,5 +613,9 @@
         private Button btnAddCircle;
         private Button btnAddDiamond;
         private Button btnAddSquare;
+        private CheckBox cbLockTables;
+        private TextBox txtXco;
+        private TextBox txtYco;
+        private Label label9;
     }
 }
