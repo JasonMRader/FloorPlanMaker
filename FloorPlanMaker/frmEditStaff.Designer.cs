@@ -44,6 +44,8 @@
             label2 = new Label();
             flowYesterdayCounts = new FlowLayoutPanel();
             flowLastWeekdayCounts = new FlowLayoutPanel();
+            label1 = new Label();
+            btnCreateANewShift = new Button();
             SuspendLayout();
             // 
             // btnAddNewServer
@@ -84,9 +86,9 @@
             // flowDiningAreaAssignment
             // 
             flowDiningAreaAssignment.BackColor = Color.FromArgb(178, 87, 46);
-            flowDiningAreaAssignment.Location = new Point(195, 166);
+            flowDiningAreaAssignment.Location = new Point(195, 230);
             flowDiningAreaAssignment.Name = "flowDiningAreaAssignment";
-            flowDiningAreaAssignment.Size = new Size(680, 740);
+            flowDiningAreaAssignment.Size = new Size(680, 676);
             flowDiningAreaAssignment.TabIndex = 10;
             // 
             // flowUnassignedServers
@@ -134,7 +136,7 @@
             // lblShiftDate
             // 
             lblShiftDate.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point);
-            lblShiftDate.Location = new Point(228, 120);
+            lblShiftDate.Location = new Point(229, 169);
             lblShiftDate.Name = "lblShiftDate";
             lblShiftDate.Size = new Size(433, 32);
             lblShiftDate.TabIndex = 16;
@@ -145,7 +147,7 @@
             // 
             btnDateUp.FlatStyle = FlatStyle.Flat;
             btnDateUp.Image = FloorPlanMakerUI.Resource1.forwardArrow;
-            btnDateUp.Location = new Point(848, 118);
+            btnDateUp.Location = new Point(849, 167);
             btnDateUp.Name = "btnDateUp";
             btnDateUp.Size = new Size(27, 42);
             btnDateUp.TabIndex = 17;
@@ -156,7 +158,7 @@
             // 
             btnDateDown.FlatStyle = FlatStyle.Flat;
             btnDateDown.Image = FloorPlanMakerUI.Resource1.BackArrow;
-            btnDateDown.Location = new Point(195, 118);
+            btnDateDown.Location = new Point(196, 167);
             btnDateDown.Name = "btnDateDown";
             btnDateDown.Size = new Size(27, 42);
             btnDateDown.TabIndex = 18;
@@ -171,7 +173,7 @@
             cbIsAM.FlatStyle = FlatStyle.Flat;
             cbIsAM.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             cbIsAM.ForeColor = Color.Black;
-            cbIsAM.Location = new Point(725, 118);
+            cbIsAM.Location = new Point(726, 167);
             cbIsAM.Name = "cbIsAM";
             cbIsAM.Size = new Size(79, 42);
             cbIsAM.TabIndex = 19;
@@ -185,7 +187,7 @@
             lblLastWeekDay.Anchor = AnchorStyles.Right;
             lblLastWeekDay.AutoSize = true;
             lblLastWeekDay.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            lblLastWeekDay.Location = new Point(206, -2);
+            lblLastWeekDay.Location = new Point(196, 47);
             lblLastWeekDay.Name = "lblLastWeekDay";
             lblLastWeekDay.Size = new Size(114, 21);
             lblLastWeekDay.TabIndex = 20;
@@ -195,7 +197,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label2.Location = new Point(195, 57);
+            label2.Location = new Point(196, 106);
             label2.Name = "label2";
             label2.Size = new Size(85, 21);
             label2.TabIndex = 22;
@@ -204,7 +206,7 @@
             // flowYesterdayCounts
             // 
             flowYesterdayCounts.BackColor = Color.FromArgb(224, 224, 224);
-            flowYesterdayCounts.Location = new Point(195, 82);
+            flowYesterdayCounts.Location = new Point(196, 131);
             flowYesterdayCounts.Name = "flowYesterdayCounts";
             flowYesterdayCounts.Size = new Size(665, 30);
             flowYesterdayCounts.TabIndex = 23;
@@ -212,10 +214,32 @@
             // flowLastWeekdayCounts
             // 
             flowLastWeekdayCounts.BackColor = Color.FromArgb(224, 224, 224);
-            flowLastWeekdayCounts.Location = new Point(195, 24);
+            flowLastWeekdayCounts.Location = new Point(196, 73);
             flowLastWeekdayCounts.Name = "flowLastWeekdayCounts";
             flowLastWeekdayCounts.Size = new Size(665, 30);
             flowLastWeekdayCounts.TabIndex = 21;
+            // 
+            // label1
+            // 
+            label1.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
+            label1.Location = new Point(196, 9);
+            label1.Name = "label1";
+            label1.Size = new Size(679, 38);
+            label1.TabIndex = 24;
+            label1.Text = "New Shift For:";
+            label1.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // btnCreateANewShift
+            // 
+            btnCreateANewShift.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            btnCreateANewShift.ForeColor = Color.Black;
+            btnCreateANewShift.Location = new Point(196, 12);
+            btnCreateANewShift.Name = "btnCreateANewShift";
+            btnCreateANewShift.Size = new Size(679, 36);
+            btnCreateANewShift.TabIndex = 25;
+            btnCreateANewShift.Text = "Create a New Shift";
+            btnCreateANewShift.UseVisualStyleBackColor = true;
+            btnCreateANewShift.Click += btnCreateANewShift_Click;
             // 
             // frmEditStaff
             // 
@@ -223,6 +247,8 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(49, 56, 82);
             ClientSize = new Size(1264, 967);
+            Controls.Add(btnCreateANewShift);
+            Controls.Add(label1);
             Controls.Add(flowYesterdayCounts);
             Controls.Add(label2);
             Controls.Add(flowLastWeekdayCounts);
@@ -269,5 +295,7 @@
         private Label label2;
         private FlowLayoutPanel flowYesterdayCounts;
         private FlowLayoutPanel flowLastWeekdayCounts;
+        private Label label1;
+        private Button btnCreateANewShift;
     }
 }

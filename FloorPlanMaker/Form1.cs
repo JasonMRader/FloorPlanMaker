@@ -69,7 +69,8 @@ namespace FloorPlanMaker
             dtpFloorplan.Value = new DateTime(shiftManager.DateOnly.Year, shiftManager.DateOnly.Month, shiftManager.DateOnly.Day);
 
             cbIsAM.Checked = shiftManager.IsAM;
-
+            this.shiftManager.Floorplans.AddRange(shiftManager.Floorplans);
+           
             SetViewedFloorplan();
             rdoSections.Checked = true;
             //this.shiftManager = shiftManager;

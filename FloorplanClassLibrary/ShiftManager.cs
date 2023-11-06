@@ -45,7 +45,38 @@ namespace FloorplanClassLibrary
 
         public List<Server> ServersNotOnShift = new List<Server>();
         public List<Server> UnassignedServers = new List<Server>();
+        public List<Server> AllServers = new List<Server>();
         public List<Section> Sections = new List<Section>();
+        public void UpdateUnassignedServers()
+        {
+            var assignedServers = new HashSet<Server>(ServersOnShift);
+            UnassignedServers = AllServers.Where(server => !assignedServers.Contains(server)).ToList();
+        }
+        public void AddServerToFloorplan(Server server, Floorplan floorplan)
+        {
+            // Logic to add server to the floorplan
+            // ...
+            UpdateUnassignedServers(); // Update unassigned servers list
+        }
+
+        public void RemoveServerFromFloorplan(Server server, Floorplan floorplan)
+        {
+            // Logic to remove server from the floorplan
+            // ...
+            UpdateUnassignedServers(); // Update unassigned servers list
+        }
+        public void AddServerToAllServers(Server server)
+        {
+            AllServers.Add(server);
+            UpdateUnassignedServers(); // Update unassigned servers list
+        }
+
+        public void RemoveServerFromAllServers(Server server)
+        {
+            AllServers.Remove(server);
+            UpdateUnassignedServers(); // Update unassigned servers list
+        }
+
         public Section? SectionSelected { get; set; }
         public List<Floorplan> Floorplans = new List<Floorplan>();
         public List<FloorplanTemplate> Templates = new List<FloorplanTemplate>();
