@@ -231,6 +231,8 @@
             // 
             // btnCreateANewShift
             // 
+            btnCreateANewShift.FlatAppearance.BorderSize = 0;
+            btnCreateANewShift.FlatStyle = FlatStyle.Flat;
             btnCreateANewShift.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             btnCreateANewShift.ForeColor = Color.Black;
             btnCreateANewShift.Location = new Point(196, 12);

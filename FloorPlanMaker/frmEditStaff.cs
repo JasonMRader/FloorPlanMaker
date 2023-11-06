@@ -47,8 +47,8 @@ namespace FloorPlanMaker
             isDraggingForm = false;
         }
         private void SetEnableStatusOfDiningAreaButtons()
-        {            
-            foreach(Control c in flowDiningAreas.Controls)
+        {
+            foreach (Control c in flowDiningAreas.Controls)
             {
                 c.Enabled = isNewShift;
             }
@@ -125,11 +125,11 @@ namespace FloorPlanMaker
 
             RefreshPreviousFloorplanCounts();
             SetFloorplansForPastShift();
-            
+
 
             //lbServersOnShift.ValueMember = "Value";
         }
-        
+
         private void LoadDiningAreas()
         {
             foreach (DiningArea area in DiningAreaManager.DiningAreas)
@@ -157,7 +157,7 @@ namespace FloorPlanMaker
 
         private void SetFloorplansForPastShift()
         {
-            
+
             UncheckDiningAreas();
             flowDiningAreaAssignment.Controls.Clear();
             DateOnly date = DateOnly.FromDateTime(dateSelected);
@@ -188,7 +188,7 @@ namespace FloorPlanMaker
             }
             else
             {
-                
+
                 foreach (DiningArea diningArea in DiningAreaManager.DiningAreas)
                 {
                     Floorplan fp = newShiftManager.Floorplans.FirstOrDefault(fp => fp.DiningArea == diningArea);
@@ -212,9 +212,9 @@ namespace FloorPlanMaker
                 RefreshFloorplanFlowPanel(newShiftManager.Floorplans);
             }
 
-           
-           
-           
+
+
+
             PopulateServersNotOnShift(pastShiftsManager.ServersNotOnShift);
         }
         private void RefreshAllServerAssignmentsForShift()
@@ -242,7 +242,7 @@ namespace FloorPlanMaker
         {
             CheckBox cbArea = sender as CheckBox;
             DiningArea area = (DiningArea)cbArea.Tag;
-           
+
 
             if (cbArea.Checked)
             {
@@ -785,7 +785,7 @@ namespace FloorPlanMaker
             setIsNewShiftBool();
             RefreshPreviousFloorplanCounts();
             SetFloorplansForPastShift();
-            SetEnableStatusOfDiningAreaButtons() ;
+            SetEnableStatusOfDiningAreaButtons();
         }
         private void UncheckDiningAreas()
         {
@@ -800,7 +800,7 @@ namespace FloorPlanMaker
         private void setIsNewShiftBool()
         {
             DateOnly dateOnlySelected = DateOnly.FromDateTime(dateSelected);
-            if(dateOnlySelected == newShiftManager.DateOnly)
+            if (dateOnlySelected == newShiftManager.DateOnly)
             {
                 isNewShift = true;
             }
@@ -812,7 +812,7 @@ namespace FloorPlanMaker
         private void btnCreateANewShift_Click(object sender, EventArgs e)
         {
             frmNewShiftDatePicker form = new frmNewShiftDatePicker();
-            if(form.ShowDialog() == DialogResult.OK)
+            if (form.ShowDialog() == DialogResult.OK)
             {
                 this.newShiftManager = null;
                 this.newShiftManager = form.ShiftManagerCreated;
@@ -823,7 +823,7 @@ namespace FloorPlanMaker
                 RefreshPreviousFloorplanCounts();
                 SetFloorplansForPastShift();
                 SetEnableStatusOfDiningAreaButtons();
-               
+
 
             }
         }
