@@ -27,15 +27,17 @@ namespace FloorPlanMakerUI
             this.Width = 200;
             this.Table = table;
             // Assume default sizes for buttons and text boxes
-            Size buttonSize = new Size(50, 20); // width: 80px, height: 30px
+            Size buttonHeightSize = new Size(50, 20); // width: 80px, height: 30px
+            Size buttonWidthSize = new Size(20, 50);
             Size textBoxSize = new Size(30, 20); // width: 100px, height: 20px
 
             int spacing = 5; // Spacing between controls
             int controlStartY = spacing; // Start position on the Y axis
 
             // Initialize buttons with size and location
-            btnHeightIncrease = new Button { Text = "Height +", Size = buttonSize };
+            btnHeightIncrease = new Button { Text = "+", Size = buttonHeightSize };
             btnHeightIncrease.Location = new Point(this.Width / 2 - btnHeightIncrease.Width / 2, controlStartY);
+            btnHeightIncrease.Dock = DockStyle.Top;
 
             controlStartY += btnHeightIncrease.Height + spacing;
 
@@ -54,17 +56,20 @@ namespace FloorPlanMakerUI
 
             controlStartY += txtAverageCovers.Height + spacing;
 
-            btnHeightDecrease = new Button { Text = "Height -", Size = buttonSize };
+            btnHeightDecrease = new Button { Text = "-", Size = buttonHeightSize };
             btnHeightDecrease.Location = new Point(this.Width / 2 - btnHeightDecrease.Width / 2, controlStartY);
+            btnHeightDecrease.Dock = DockStyle.Bottom;
 
             // Buttons for width are placed to the left and right of the control
-            btnWidthDecrease = new Button { Text = "Width -", Size = buttonSize };
+            btnWidthDecrease = new Button { Text = "-", Size = buttonHeightSize };
             btnWidthDecrease.Location = new Point(spacing, this.Height / 2 - btnWidthDecrease.Height / 2);
+            btnWidthDecrease.Dock = DockStyle.Left;
 
-            btnWidthIncrease = new Button { Text = "Width +", Size = buttonSize };
+            btnWidthIncrease = new Button { Text = "+", Size = buttonHeightSize };
             btnWidthIncrease.Location = new Point(this.Width - btnWidthIncrease.Width - spacing, this.Height / 2 - btnWidthIncrease.Height / 2);
+            btnWidthIncrease.Dock = DockStyle.Right;
 
-            btnLockMove = new Button { Text = "Lock Move", Size = buttonSize };
+            btnLockMove = new Button { Text = "Lock Move", Size = buttonHeightSize };
             btnLockMove.Location = new Point(this.Width / 2 - btnLockMove.Width / 2, this.Height - btnLockMove.Height - spacing);
 
             // Subscribe to events and add the event handlers as before

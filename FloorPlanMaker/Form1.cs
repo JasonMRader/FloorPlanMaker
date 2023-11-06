@@ -36,7 +36,7 @@ namespace FloorPlanMaker
         {
             btnAddSectionLabels.BackColor = AppColors.CTAColor;
             btnPrint.BackColor = AppColors.CTAColor;
-            
+
             //rdoDiningAreas.BackColor = AppColors.CTAColor;
             //rdoSections.BackColor = AppColors.CTAColor;
 
@@ -53,7 +53,7 @@ namespace FloorPlanMaker
             btnGenerateSectionLines.BackColor = AppColors.ButtonColor;
             btnRemoveSection.BackColor = AppColors.ButtonColor;
             btnSaveFloorplanTemplate.BackColor = AppColors.ButtonColor;
-           
+
 
 
             //this.BackColor = Color.FromArgb(81,53,90);
@@ -64,7 +64,36 @@ namespace FloorPlanMaker
             //flowSectionSelect.BackColor = AppColors.CanvasColor; 
             //flowServersInFloorplan.BackColor = AppColors.CanvasColor;
         }
+        public void UpdateForm1ShiftManager(ShiftManager shiftManager)
+        {
+            dtpFloorplan.Value = new DateTime(shiftManager.DateOnly.Year, shiftManager.DateOnly.Month, shiftManager.DateOnly.Day);
 
+            cbIsAM.Checked = shiftManager.IsAM;
+
+            SetViewedFloorplan();
+            rdoSections.Checked = true;
+            //this.shiftManager = shiftManager;
+            //allTableControls.Clear();
+            //areaCreationManager.DiningAreaSelected = (DiningArea?)cboDiningAreas.SelectedItem;
+            //pnlFloorPlan.Controls.Clear();
+            //foreach (Table table in areaCreationManager.DiningAreaSelected.Tables)
+            //{
+            //    table.DiningArea = areaCreationManager.DiningAreaSelected;
+            //    TableControl tableControl = TableControlFactory.CreateTableControl(table);
+            //    //tableControl.TableClicked += Table_TableClicked;  // Uncomment if you want to attach event handler
+            //    tableControl.TableClicked += ExistingTable_TableClicked;
+            //    pnlFloorPlan.Controls.Add(tableControl);
+            //    allTableControls.Add(tableControl);
+            //}
+            //lblPanel2Text.Text = areaCreationManager.DiningAreaSelected.Name;
+            //this.shiftManager.SelectedDiningArea = areaCreationManager.DiningAreaSelected;
+            //SetViewedFloorplan();
+            //lblDiningRoomName.Text = areaCreationManager.DiningAreaSelected.Name;
+            //RefreshTemplateList(shiftManager.SelectedDiningArea);
+            //lblDiningAreaAverageCovers.Text = shiftManager.SelectedDiningArea.GetAverageCovers().ToString();
+            //lblDiningAreaMaxCovers.Text = shiftManager.SelectedDiningArea.GetMaxCovers().ToString();
+            //this.sectionLineManager = new SectionLineManager(allTableControls);
+        }
 
         public Form1()
         {
@@ -292,12 +321,12 @@ namespace FloorPlanMaker
             }
 
         }
-       
+
         private void cboDiningAreas_SelectedIndexChanged(object sender, EventArgs e)
         {
 
             allTableControls.Clear();
-            areaCreationManager.DiningAreaSelected = (DiningArea?)cboDiningAreas.SelectedItem;           
+            areaCreationManager.DiningAreaSelected = (DiningArea?)cboDiningAreas.SelectedItem;
             pnlFloorPlan.Controls.Clear();
             foreach (Table table in areaCreationManager.DiningAreaSelected.Tables)
             {
@@ -331,7 +360,7 @@ namespace FloorPlanMaker
 
         private void btnAddServers_Click(object sender, EventArgs e)
         {
-            Form form = new frmEditStaff(employeeManager, shiftManager);
+            Form form = new frmEditStaff(employeeManager, shiftManager, this);
             form.ShowDialog();
             if (form.DialogResult == DialogResult.OK)
             {
@@ -694,7 +723,7 @@ namespace FloorPlanMaker
 
                     }
                 }
-                
+
             }
         }
         private void rdoShifts_CheckedChanged(object sender, EventArgs e)
@@ -704,7 +733,7 @@ namespace FloorPlanMaker
                 pnlNavHighlight.Location = new Point(rdoShifts.Left, 0);
                 if (_frmEditStaff == null)
                 {
-                    _frmEditStaff = new frmEditStaff(employeeManager, shiftManager) { TopLevel = false, AutoScroll = true };
+                    _frmEditStaff = new frmEditStaff(employeeManager, shiftManager, this) { TopLevel = false, AutoScroll = true };
                 }
                 pnlNavigationWindow.Controls.Add(_frmEditStaff);
 

@@ -104,7 +104,7 @@ namespace FloorPlanMaker
             // 
             // flowServersInFloorplan
             // 
-            flowServersInFloorplan.Location = new Point(3, 237);
+            flowServersInFloorplan.Location = new Point(6, 255);
             flowServersInFloorplan.Name = "flowServersInFloorplan";
             flowServersInFloorplan.Size = new Size(235, 605);
             flowServersInFloorplan.TabIndex = 2;
