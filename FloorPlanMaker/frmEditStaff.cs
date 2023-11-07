@@ -163,14 +163,15 @@ namespace FloorPlanMaker
             DateOnly date = DateOnly.FromDateTime(dateSelected);
             if (!isNewShift)
             {
-                pastShiftsManager.Floorplans.Clear();
+                pastShiftsManager.ClearFloorplans();
                 foreach (DiningArea diningArea in DiningAreaManager.DiningAreas)
                 {
                     Floorplan fp = SqliteDataAccess.LoadFloorplanByCriteria(diningArea, date, cbIsAM.Checked);
                     if (fp != null)
                     {
                         //newShiftManager.Floorplans.Add(fp);
-                        pastShiftsManager.Floorplans.Add(fp);
+                        pastShiftsManager.AddFloorplanAndServers(fp);
+
                         foreach (Control c in flowDiningAreas.Controls)
                         {
                             if (c is CheckBox cb && c.Tag == diningArea)
@@ -184,7 +185,10 @@ namespace FloorPlanMaker
                     }
 
                 }
+
                 RefreshFloorplanFlowPanel(pastShiftsManager.Floorplans);
+                //pastShiftsManager.UpdateUnassignedServers();
+                PopulateServersNotOnShift(pastShiftsManager.ServersNotOnShift);
             }
             else
             {
@@ -210,12 +214,14 @@ namespace FloorPlanMaker
 
                 }
                 RefreshFloorplanFlowPanel(newShiftManager.Floorplans);
+                //newShiftManager.UpdateUnassignedServers();
+                PopulateServersNotOnShift(newShiftManager.ServersNotOnShift);
             }
 
 
 
 
-            PopulateServersNotOnShift(pastShiftsManager.ServersNotOnShift);
+            
         }
         private void RefreshAllServerAssignmentsForShift()
         {
@@ -270,7 +276,7 @@ namespace FloorPlanMaker
                     floorplanToRemove.Servers.Clear();
                 }
                 newShiftManager.DiningAreasUsed.Remove(area);
-                newShiftManager.Floorplans.Remove(floorplanToRemove);
+                newShiftManager.RemoveFloorplan(floorplanToRemove);
 
             }
             RefreshFloorplanFlowPanel(newShiftManager.Floorplans);
@@ -301,7 +307,7 @@ namespace FloorPlanMaker
             }
         }
 
-        private void RefreshFloorplanFlowPanel(List<Floorplan> floorplans)
+        private void RefreshFloorplanFlowPanel(IReadOnlyList<Floorplan> floorplans)
         {
             DisableTabStopForControls(this);
             flowDiningAreaAssignment.Controls.Clear();
@@ -429,6 +435,11 @@ namespace FloorPlanMaker
                 //serverControl.HideShifts();
                 flowAllServers.Controls.Add(ServerButton);
             }
+        }
+        private void RemoveServersOnShift(List<Server> servers)
+        {
+            
+            
         }
         private void UnassignedServerButton_Click_AddToShift(object sender, EventArgs e)
         {

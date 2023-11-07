@@ -64,12 +64,16 @@ namespace FloorPlanMaker
             //flowSectionSelect.BackColor = AppColors.CanvasColor; 
             //flowServersInFloorplan.BackColor = AppColors.CanvasColor;
         }
-        public void UpdateForm1ShiftManager(ShiftManager shiftManager)
+        public void UpdateForm1ShiftManager(ShiftManager shiftManagerToAdd)
         {
-            dtpFloorplan.Value = new DateTime(shiftManager.DateOnly.Year, shiftManager.DateOnly.Month, shiftManager.DateOnly.Day);
+            dtpFloorplan.Value = new DateTime(shiftManagerToAdd.DateOnly.Year, shiftManagerToAdd.DateOnly.Month, shiftManagerToAdd.DateOnly.Day);
 
-            cbIsAM.Checked = shiftManager.IsAM;
-            this.shiftManager.Floorplans.AddRange(shiftManager.Floorplans);
+            cbIsAM.Checked = shiftManagerToAdd.IsAM;
+            foreach(Floorplan fp in shiftManagerToAdd.Floorplans)
+            {
+                this.shiftManager.AddFloorplanAndServers(fp);
+            }
+            
            
             SetViewedFloorplan();
             rdoSections.Checked = true;
