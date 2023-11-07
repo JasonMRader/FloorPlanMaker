@@ -33,8 +33,7 @@
             label2 = new Label();
             lblDate = new Label();
             panel1 = new Panel();
-            rdoPM = new RadioButton();
-            rdoAM = new RadioButton();
+            cbIsAm = new CheckBox();
             btnForwardDay = new Button();
             btnBackDay = new Button();
             btnCancel = new Button();
@@ -91,8 +90,7 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(178, 87, 46);
-            panel1.Controls.Add(rdoPM);
-            panel1.Controls.Add(rdoAM);
+            panel1.Controls.Add(cbIsAm);
             panel1.Controls.Add(btnForwardDay);
             panel1.Controls.Add(btnBackDay);
             panel1.Controls.Add(lblDate);
@@ -102,34 +100,22 @@
             panel1.Size = new Size(569, 218);
             panel1.TabIndex = 2;
             // 
-            // rdoPM
+            // cbIsAm
             // 
-            rdoPM.Appearance = Appearance.Button;
-            rdoPM.FlatAppearance.BorderSize = 0;
-            rdoPM.FlatStyle = FlatStyle.Flat;
-            rdoPM.Location = new Point(305, 148);
-            rdoPM.Name = "rdoPM";
-            rdoPM.Size = new Size(214, 40);
-            rdoPM.TabIndex = 2;
-            rdoPM.Text = "PM";
-            rdoPM.TextAlign = ContentAlignment.MiddleCenter;
-            rdoPM.UseVisualStyleBackColor = true;
-            // 
-            // rdoAM
-            // 
-            rdoAM.Appearance = Appearance.Button;
-            rdoAM.Checked = true;
-            rdoAM.FlatAppearance.BorderSize = 0;
-            rdoAM.FlatStyle = FlatStyle.Flat;
-            rdoAM.Location = new Point(50, 148);
-            rdoAM.Name = "rdoAM";
-            rdoAM.Size = new Size(214, 40);
-            rdoAM.TabIndex = 2;
-            rdoAM.TabStop = true;
-            rdoAM.Text = "AM";
-            rdoAM.TextAlign = ContentAlignment.MiddleCenter;
-            rdoAM.UseVisualStyleBackColor = true;
-            rdoAM.CheckedChanged += rdoAM_CheckedChanged;
+            cbIsAm.Appearance = Appearance.Button;
+            cbIsAm.Checked = true;
+            cbIsAm.CheckState = CheckState.Checked;
+            cbIsAm.FlatAppearance.BorderSize = 0;
+            cbIsAm.FlatStyle = FlatStyle.Flat;
+            cbIsAm.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            cbIsAm.Location = new Point(195, 146);
+            cbIsAm.Name = "cbIsAm";
+            cbIsAm.Size = new Size(179, 40);
+            cbIsAm.TabIndex = 2;
+            cbIsAm.Text = "AM";
+            cbIsAm.TextAlign = ContentAlignment.MiddleCenter;
+            cbIsAm.UseVisualStyleBackColor = true;
+            cbIsAm.CheckedChanged += cbIsAm_CheckedChanged;
             // 
             // btnForwardDay
             // 
@@ -175,9 +161,11 @@
             // 
             // frmNewShiftDatePicker
             // 
+            AcceptButton = btnOK;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(49, 56, 82);
+            CancelButton = btnCancel;
             ClientSize = new Size(667, 484);
             Controls.Add(panel1);
             Controls.Add(label2);
@@ -199,10 +187,9 @@
         private Label label2;
         private Label lblDate;
         private Panel panel1;
-        private RadioButton rdoPM;
-        private RadioButton rdoAM;
         private Button btnCancel;
         private Button btnForwardDay;
         private Button btnBackDay;
+        private CheckBox cbIsAm;
     }
 }

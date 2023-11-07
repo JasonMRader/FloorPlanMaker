@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Intrinsics.Arm;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -25,8 +26,8 @@ namespace FloorPlanMakerUI
         {
             btnBackDay.BackColor = AppColors.ButtonColor;
             btnForwardDay.BackColor = AppColors.ButtonColor;
-            rdoAM.BackColor = AppColors.ButtonColor;
-            rdoPM.BackColor = AppColors.ButtonColor;
+            cbIsAm.BackColor = AppColors.ButtonColor;
+
             btnOK.BackColor = AppColors.CTAColor;
 
         }
@@ -80,10 +81,7 @@ namespace FloorPlanMakerUI
             }
         }
 
-        private void rdoAM_CheckedChanged(object sender, EventArgs e)
-        {
-            isAM = rdoAM.Checked;
-        }
+
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
@@ -96,6 +94,19 @@ namespace FloorPlanMakerUI
             this.ShiftManagerCreated.DateOnly = new DateOnly(dateSelected.Year, dateSelected.Month, dateSelected.Day);
             this.ShiftManagerCreated.IsAM = isAM;
             this.DialogResult = DialogResult.OK;
+        }
+
+        private void cbIsAm_CheckedChanged(object sender, EventArgs e)
+        {
+            isAM = cbIsAm.Checked;
+            if (isAM)
+            {
+                cbIsAm.Text = "AM";
+            }
+            else
+            {
+                cbIsAm.Text = "PM";
+            }
         }
     }
 }

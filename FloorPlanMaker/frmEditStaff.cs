@@ -841,6 +841,7 @@ namespace FloorPlanMaker
                 dateSelected = newShiftManager.DateOnly.ToDateTime(new TimeOnly(0, 0));
                 lblShiftDate.Text = dateSelected.ToString("dddd, MMMM dd");
                 lblLastWeekDay.Text = "Last " + dateSelected.ToString("dddd") + ":";
+                cbIsAM.Checked = newShiftManager.IsAM;
                 setIsNewShiftBool();
                 RefreshPreviousFloorplanCounts();
                 SetFloorplansForShiftManager();
