@@ -52,9 +52,9 @@ namespace FloorPlanMaker
             {
                 c.Enabled = isNewShift;
             }
-            foreach(Control c in flowAllServers.Controls)
+            foreach (Control c in flowAllServers.Controls)
             {
-                c.Enabled= isNewShift;
+                c.Enabled = isNewShift;
             }
         }
         public frmEditStaff(EmployeeManager staffManager, ShiftManager shiftManager, Form1 form1)
@@ -472,7 +472,7 @@ namespace FloorPlanMaker
                 //serverControl.Label.Font = new Font("Segoe UI", 12, FontStyle.Bold);
                 //serverControl.Click += serverControl_Click_AddToShift;
                 Button ServerButton = CreateServerButton(server);
-               // ServerButton.Click -= MoveFromFloorplanServerButton_Click;
+                // ServerButton.Click -= MoveFromFloorplanServerButton_Click;
                 ServerButton.Click += AddToShift_Click;
                 ServerButton.Enabled = false;
                 //serverControl.HideShifts();
@@ -506,7 +506,7 @@ namespace FloorPlanMaker
             flowAllServers.Controls.Remove(serverButton);
 
         }
-       
+
         private void serverControl_Click_RemoveFromShift(object sender, EventArgs e)
         {
             Button removeButton = (Button)sender;
@@ -553,8 +553,8 @@ namespace FloorPlanMaker
             Button serverButton = sender as Button;
             if (serverButton == null) return;
 
-            Server server = (Server)serverButton.Tag;           
-            
+            Server server = (Server)serverButton.Tag;
+
             foreach (Control c in flowDiningAreaAssignment.Controls)
             {
                 if (c is FlowLayoutPanel flowLayoutPanel)
@@ -572,9 +572,9 @@ namespace FloorPlanMaker
                     }
                 }
             }
-                                              
 
-            
+
+
             if (cbUnassignedServers.Checked)
             {
                 newShiftManager.UnassignedServers.Add(server);
@@ -594,7 +594,7 @@ namespace FloorPlanMaker
                 if (control is FlowLayoutPanel panel && panel.Tag == newShiftManager.SelectedFloorplan)
                 {
                     SelectedTargetPanel = panel;
-                    
+
                     break;
                 }
             }
@@ -619,7 +619,7 @@ namespace FloorPlanMaker
 
                 server = serverControl.Server;
             }
-           
+
 
 
             if (newShiftManager.UnassignedServers.Contains(server))
@@ -648,13 +648,13 @@ namespace FloorPlanMaker
                         }
                     }
                 }
-                              
+
 
             }
             if (cbUnassignedServers.Checked)
             {
                 newShiftManager.UnassignedServers.Add(server);
-                
+
                 //Button serverButton = CreateServerButton(server);
                 ServerControl newServerControl = new ServerControl(server, 350, 30);
 
@@ -847,7 +847,8 @@ namespace FloorPlanMaker
                 SetFloorplansForShiftManager();
                 PopulateServersNotOnShift(newShiftManager.ServersNotOnShift);
                 SetEnableStatusOfDiningAreaButtons();
-               
+                btnCreateANewShift.Visible = false;
+
 
 
             }
