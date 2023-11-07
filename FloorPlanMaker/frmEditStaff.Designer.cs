@@ -137,7 +137,7 @@
             // lblShiftDate
             // 
             lblShiftDate.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point);
-            lblShiftDate.Location = new Point(224, 81);
+            lblShiftDate.Location = new Point(231, 156);
             lblShiftDate.Name = "lblShiftDate";
             lblShiftDate.Size = new Size(433, 32);
             lblShiftDate.TabIndex = 16;
@@ -148,7 +148,7 @@
             // 
             btnDateUp.FlatStyle = FlatStyle.Flat;
             btnDateUp.Image = FloorPlanMakerUI.Resource1.forwardArrow;
-            btnDateUp.Location = new Point(829, 79);
+            btnDateUp.Location = new Point(836, 154);
             btnDateUp.Name = "btnDateUp";
             btnDateUp.Size = new Size(27, 42);
             btnDateUp.TabIndex = 17;
@@ -159,7 +159,7 @@
             // 
             btnDateDown.FlatStyle = FlatStyle.Flat;
             btnDateDown.Image = FloorPlanMakerUI.Resource1.BackArrow;
-            btnDateDown.Location = new Point(195, 81);
+            btnDateDown.Location = new Point(202, 156);
             btnDateDown.Name = "btnDateDown";
             btnDateDown.Size = new Size(27, 42);
             btnDateDown.TabIndex = 18;
@@ -174,7 +174,7 @@
             cbIsAM.FlatStyle = FlatStyle.Flat;
             cbIsAM.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             cbIsAM.ForeColor = Color.Black;
-            cbIsAM.Location = new Point(721, 79);
+            cbIsAM.Location = new Point(728, 154);
             cbIsAM.Name = "cbIsAM";
             cbIsAM.Size = new Size(79, 42);
             cbIsAM.TabIndex = 19;
@@ -225,7 +225,7 @@
             // label1
             // 
             label1.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(196, 9);
+            label1.Location = new Point(195, 65);
             label1.Name = "label1";
             label1.Size = new Size(679, 38);
             label1.TabIndex = 24;
@@ -238,7 +238,7 @@
             btnCreateANewShift.FlatStyle = FlatStyle.Flat;
             btnCreateANewShift.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             btnCreateANewShift.ForeColor = Color.Black;
-            btnCreateANewShift.Location = new Point(196, 12);
+            btnCreateANewShift.Location = new Point(195, 68);
             btnCreateANewShift.Name = "btnCreateANewShift";
             btnCreateANewShift.Size = new Size(679, 36);
             btnCreateANewShift.TabIndex = 25;
