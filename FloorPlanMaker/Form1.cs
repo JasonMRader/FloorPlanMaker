@@ -717,7 +717,7 @@ namespace FloorPlanMaker
                 pnlSections.Visible = true;
                 flowServersInFloorplan.Visible = true;
                 lblPanel2Text.Text = areaCreationManager.DiningAreaSelected.Name;
-                this.shiftManager = new ShiftManager(areaCreationManager.DiningAreaSelected);
+                //this.shiftManager = new ShiftManager(areaCreationManager.DiningAreaSelected);
                 lblDiningAreaMaxCovers.Text = shiftManager.SelectedDiningArea.GetMaxCovers().ToString();
                 lblDiningAreaAverageCovers.Text = shiftManager.SelectedDiningArea.GetAverageCovers().ToString();
                 foreach (Control control in pnlFloorPlan.Controls)
