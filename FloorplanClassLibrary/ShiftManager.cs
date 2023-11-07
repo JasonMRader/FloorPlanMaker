@@ -12,10 +12,12 @@ namespace FloorplanClassLibrary
         {
             SelectedDiningArea = diningArea;
             AllServers = SqliteDataAccess.LoadServers();
+            ServersNotOnShift = this.AllServers;
         }
         public ShiftManager() 
         {
             AllServers = SqliteDataAccess.LoadServers();
+            ServersNotOnShift = this.AllServers;
         }
         public bool IsAM { get; set; }
         public DateOnly DateOnly { get; set; }
@@ -63,6 +65,7 @@ namespace FloorplanClassLibrary
                     this.ServersOnShift.Add(server);
                 }
             }
+            //ServersNotOnShift = ServersNotOnShift.OrderBy(s => s.Name).ToList();
         }
 
         public void RemoveFloorplan(Floorplan floorplan)
@@ -73,7 +76,8 @@ namespace FloorplanClassLibrary
             // Remove all servers that are in the floorplan's server list
             this.ServersOnShift.RemoveAll(assignedServersSet.Contains);
             this.ServersNotOnShift.AddRange(floorplan.Servers);
-            
+            //ServersNotOnShift = ServersNotOnShift.OrderBy(s => s.Name).ToList();
+
         }
         public void ClearFloorplans()
         {

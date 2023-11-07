@@ -250,36 +250,72 @@ namespace FloorPlanMaker
             DiningArea area = (DiningArea)cbArea.Tag;
 
 
-            if (cbArea.Checked)
+            if (isNewShift)
             {
-                if (!newShiftManager.DiningAreasUsed.Contains(area))
+                if (cbArea.Checked)
                 {
-                    newShiftManager.CreateFloorplanForDiningArea(area, DateTime.Now, false, 0, 0);
+                    if (!newShiftManager.DiningAreasUsed.Contains(area))
+                    {
+                        newShiftManager.CreateFloorplanForDiningArea(area, DateTime.Now, false, 0, 0);
+                    }
+
+
                 }
+                else
+                {
+                    var floorplanToRemove = newShiftManager.Floorplans.FirstOrDefault(fp => fp.DiningArea == area);
+                    if (floorplanToRemove != null)
+                    {
+                        foreach (var server in floorplanToRemove.Servers)
+                        {
+                            if (newShiftManager.UnassignedServers.Contains(server))
+                            {
+                                AddServerToUnassignedServersInShift(server);
+                            }
 
 
+                        }
+                        floorplanToRemove.Servers.Clear();
+                    }
+                    newShiftManager.DiningAreasUsed.Remove(area);
+                    newShiftManager.RemoveFloorplan(floorplanToRemove);
+
+                }
+                RefreshFloorplanFlowPanel(newShiftManager.Floorplans);
             }
             else
             {
-                var floorplanToRemove = newShiftManager.Floorplans.FirstOrDefault(fp => fp.DiningArea == area);
-                if (floorplanToRemove.Servers.Any())
+                if (cbArea.Checked)
                 {
-                    foreach (var server in floorplanToRemove.Servers)
+                    if (!pastShiftsManager.DiningAreasUsed.Contains(area))
                     {
-                        if (newShiftManager.UnassignedServers.Contains(server))
-                        {
-                            AddServerToUnassignedServersInShift(server);
-                        }
-
-
+                        pastShiftsManager.CreateFloorplanForDiningArea(area, DateTime.Now, false, 0, 0);
                     }
-                    floorplanToRemove.Servers.Clear();
-                }
-                newShiftManager.DiningAreasUsed.Remove(area);
-                newShiftManager.RemoveFloorplan(floorplanToRemove);
 
+
+                }
+                else
+                {
+                    var floorplanToRemove = pastShiftsManager.Floorplans.FirstOrDefault(fp => fp.DiningArea == area);
+                    if (floorplanToRemove.Servers.Any())
+                    {
+                        foreach (var server in floorplanToRemove.Servers)
+                        {
+                            if (pastShiftsManager.UnassignedServers.Contains(server))
+                            {
+                                AddServerToUnassignedServersInShift(server);
+                            }
+
+
+                        }
+                        floorplanToRemove.Servers.Clear();
+                    }
+                    pastShiftsManager.DiningAreasUsed.Remove(area);
+                    pastShiftsManager.RemoveFloorplan(floorplanToRemove);
+
+                }
+                RefreshFloorplanFlowPanel(newShiftManager.Floorplans);
             }
-            RefreshFloorplanFlowPanel(newShiftManager.Floorplans);
 
         }
         private void refreshTabOrder()
@@ -414,6 +450,7 @@ namespace FloorPlanMaker
                 flowDiningAreaAssignment.Controls.Add((Control)c);
             }
             refreshTabOrder();
+            
         }
         private void AdjustServerLists(Server server, List<Server> listToRemoveFrom, List<Server> listToAddTo, FlowLayoutPanel flowToRemoveFrom, FlowLayoutPanel flowToAddTo)
         {
@@ -421,6 +458,7 @@ namespace FloorPlanMaker
         }
         private void PopulateServersNotOnShift(List<Server> servers)
         {
+            servers = servers.OrderBy(s => s.Name).ToList();    
             flowAllServers.Controls.Clear();
             foreach (Server server in servers)
             {
@@ -834,6 +872,7 @@ namespace FloorPlanMaker
                 RefreshPreviousFloorplanCounts();
                 SetFloorplansForPastShift();
                 SetEnableStatusOfDiningAreaButtons();
+                PopulateServersNotOnShift(newShiftManager.ServersNotOnShift);
 
 
             }
