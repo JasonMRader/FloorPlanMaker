@@ -30,9 +30,9 @@ namespace FloorplanClassLibrary
         public List<Server> AllServers = new List<Server>();
         public List<Section> Sections = new List<Section>();
         public Section? SectionSelected { get; set; }
-        private List<Floorplan> floorplans = new List<Floorplan>();
+        private List<Floorplan> _floorplans = new List<Floorplan>();
 
-        public IReadOnlyList<Floorplan> Floorplans => floorplans.AsReadOnly();
+        public IReadOnlyList<Floorplan> Floorplans => _floorplans.AsReadOnly();
         public List<FloorplanTemplate> Templates = new List<FloorplanTemplate>();
         public List<Section> TemplateSections = new List<Section>();
         public FloorplanTemplate? SelectedTemplate { get; set; }
@@ -49,7 +49,7 @@ namespace FloorplanClassLibrary
         }
         public void AddFloorplanAndServers(Floorplan floorplan)
         {
-            this.floorplans.Add(floorplan);
+            this._floorplans.Add(floorplan);
 
             // Create a hash set of server IDs for quicker lookup
             var assignedServerIds = new HashSet<int>(floorplan.Servers.Select(s => s.ID));
@@ -70,7 +70,7 @@ namespace FloorplanClassLibrary
 
         public void RemoveFloorplan(Floorplan floorplan)
         {
-            this.floorplans.Remove(floorplan);
+            this._floorplans.Remove(floorplan);
             var assignedServersSet = new HashSet<Server>(floorplan.Servers);
 
             // Remove all servers that are in the floorplan's server list
@@ -81,7 +81,7 @@ namespace FloorplanClassLibrary
         }
         public void ClearFloorplans()
         {
-            this.floorplans.Clear();
+            this._floorplans.Clear();
         }
         public bool ContainsFloorplan(DateOnly date, bool isLunch, int ID)
         {
@@ -91,16 +91,27 @@ namespace FloorplanClassLibrary
         }
         public void SetSelectedFloorplan(DateOnly date, bool isLunch, int ID)
         {
-            SelectedFloorplan = floorplans.FirstOrDefault(fp => fp.DateOnly == date &&
+            SelectedFloorplan = _floorplans.FirstOrDefault(fp => fp.DateOnly == date &&
                                                        fp.IsLunch == isLunch &&
                                                        fp.DiningArea.ID == ID);
         }
 
-       
-        
-        
-       
-        
+
+        public void RemoveServerFromFloorplanByDiningArea(Server server, Floorplan targetFloorplan)
+        {
+           
+            var floorplan = _floorplans.FirstOrDefault(fp => fp.DiningArea.ID == targetFloorplan.DiningArea.ID);
+            if (floorplan != null)
+            {
+
+                floorplan.RemoveServerAndSection(server);
+
+               
+            }
+        }
+
+
+
         public void AssignSectionNumbers(List<Section> sections)
         {
             int sectionNumber = 1;
@@ -125,10 +136,10 @@ namespace FloorplanClassLibrary
             // Add to the Floorplans list
             if (Floorplans == null)
             {
-                floorplans = new List<Floorplan>();
+                _floorplans = new List<Floorplan>();
             }
 
-            floorplans.Add(newFloorplan);
+            _floorplans.Add(newFloorplan);
 
             return newFloorplan;
         }

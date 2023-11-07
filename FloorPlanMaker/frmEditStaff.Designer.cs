@@ -121,8 +121,9 @@
             flowAllServers.AutoScroll = true;
             flowAllServers.BackColor = Color.FromArgb(178, 87, 46);
             flowAllServers.Location = new Point(12, 230);
+            flowAllServers.MaximumSize = new Size(165, 10000);
             flowAllServers.Name = "flowAllServers";
-            flowAllServers.Size = new Size(165, 667);
+            flowAllServers.Size = new Size(165, 650);
             flowAllServers.TabIndex = 14;
             // 
             // flowDiningAreas
@@ -206,6 +207,7 @@
             // flowYesterdayCounts
             // 
             flowYesterdayCounts.BackColor = Color.FromArgb(224, 224, 224);
+            flowYesterdayCounts.ForeColor = Color.Black;
             flowYesterdayCounts.Location = new Point(196, 131);
             flowYesterdayCounts.Name = "flowYesterdayCounts";
             flowYesterdayCounts.Size = new Size(665, 30);
@@ -214,6 +216,7 @@
             // flowLastWeekdayCounts
             // 
             flowLastWeekdayCounts.BackColor = Color.FromArgb(224, 224, 224);
+            flowLastWeekdayCounts.ForeColor = Color.Black;
             flowLastWeekdayCounts.Location = new Point(196, 73);
             flowLastWeekdayCounts.Name = "flowLastWeekdayCounts";
             flowLastWeekdayCounts.Size = new Size(665, 30);

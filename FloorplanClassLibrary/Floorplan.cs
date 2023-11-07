@@ -32,9 +32,32 @@ namespace FloorplanClassLibrary
         public bool IsLunch { get; set; }
         public DiningArea? DiningArea { get; set; }
         public int? DiningAreaID { get; set; }
-        
-       
 
+        public List<Server> Servers
+        {
+            get
+            {
+                // Fetch servers from all sections
+                var serversFromSections = Sections.SelectMany(s => new List<Server> { s.Server, s.Server2 })
+                                                  .Where(s => s != null)
+                                                  .Distinct()
+                                                  .ToList();
+
+                // Concatenate with UnassignedServers and ensure uniqueness
+                return ServersWithoutSection.Concat(serversFromSections)
+                                        .Distinct()
+                                        .ToList();
+            }
+        }
+        public List<Server> ServersWithoutSection 
+        { 
+            get
+            {
+                return _serversWithoutSection;
+            } 
+            private set { _serversWithoutSection = value; }
+        }
+        private List<Server> _serversWithoutSection = new List<Server>();
         private List<Section> _sections = new List<Section>();
         public List<Section> Sections
         {
@@ -108,34 +131,18 @@ namespace FloorplanClassLibrary
         }
         public void AddServerAndSection(Server server)
         {
-            this.UnassignedServers.Add(server);
+            this.ServersWithoutSection.Add(server);
             Section newSection = new Section(this);
 
             AddSection(newSection);
         }
         public void RemoveServerAndSection(Server server)
         {
-            this.UnassignedServers.Remove(server);
+            this.ServersWithoutSection.Remove(server);
             RemoveHighestNumberedEmptySection();
         }
 
-        public List<Server> Servers
-        {
-            get
-            {
-                // Fetch servers from all sections
-                var serversFromSections = Sections.SelectMany(s => new List<Server> { s.Server, s.Server2 })
-                                                  .Where(s => s != null)
-                                                  .Distinct()
-                                                  .ToList();
-
-                // Concatenate with UnassignedServers and ensure uniqueness
-                return UnassignedServers.Concat(serversFromSections)
-                                        .Distinct()
-                                        .ToList();
-            }
-        }
-        public List<Server> UnassignedServers = new List<Server>();
+       
         private int _serverCount = 0;
         public int ServerCount
         {
