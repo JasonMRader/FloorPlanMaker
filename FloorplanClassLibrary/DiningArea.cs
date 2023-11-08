@@ -58,5 +58,22 @@ namespace FloorplanClassLibrary
             VIP
 
         }
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            DiningArea other = (DiningArea)obj;
+            // Assuming ID is a unique identifier for DiningArea
+            return this.ID == other.ID;
+        }
+
+        public override int GetHashCode()
+        {
+            // Assuming ID is an int and a unique identifier for DiningArea
+            return this.ID.GetHashCode();
+        }
     }
 }

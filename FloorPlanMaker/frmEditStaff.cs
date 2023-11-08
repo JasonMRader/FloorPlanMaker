@@ -833,7 +833,7 @@ namespace FloorPlanMaker
         }
         private void btnCreateANewShift_Click(object sender, EventArgs e)
         {
-            frmNewShiftDatePicker form = new frmNewShiftDatePicker();
+            frmNewShiftDatePicker form = new frmNewShiftDatePicker(DiningAreaManager, allFloorplans);
             if (form.ShowDialog() == DialogResult.OK)
             {
                 this.newShiftManager = null;
