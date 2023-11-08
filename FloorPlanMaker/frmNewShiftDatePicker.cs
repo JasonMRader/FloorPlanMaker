@@ -1,4 +1,5 @@
 ﻿using FloorplanClassLibrary;
+using FloorPlanMaker;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,11 +20,13 @@ namespace FloorPlanMakerUI
         public ShiftManager ShiftManagerCreated = new ShiftManager();
         private DiningAreaCreationManager DiningAreaManager = new DiningAreaCreationManager();
         private List<Floorplan> allFloorplans = new List<Floorplan>();
-        public frmNewShiftDatePicker(DiningAreaCreationManager diningAreaManager, List<Floorplan> allFloorplans)
+        private List<Server> allServers = new List<Server>();
+        public frmNewShiftDatePicker(DiningAreaCreationManager diningAreaManager, List<Floorplan> allFloorplans, List<Server> allServers)
         {
             InitializeComponent();
             DiningAreaManager = diningAreaManager;
             this.allFloorplans = allFloorplans;
+            this.allServers = allServers;
         }
         private void SetColors()
         {
@@ -40,6 +43,65 @@ namespace FloorPlanMakerUI
             lblDate.Text = dateSelected.ToString("dddd, MMMM dd");
             LoadDiningAreas();
             RefreshPreviousFloorplanCounts();
+            PopulateServersNotOnShift(allServers);
+        }
+        private void PopulateServersNotOnShift(List<Server> servers)
+        {
+            servers = servers.OrderBy(s => s.Name).ToList();
+            flowAllServers.Controls.Clear();
+            foreach (Server server in servers)
+            {
+                server.Shifts = SqliteDataAccess.GetShiftsForServer(server);
+                Button ServerButton = CreateServerButton(server);
+                //ServerButton.Click += AddToShift_Click;
+
+                ServerButton.Click += AddToShift_Click;
+                flowAllServers.Controls.Add(ServerButton);
+            }
+        }
+        private Button CreateServerButton(Server server)
+        {
+
+            Button b = new Button
+            {
+                Width = 130,
+                Height = 30,
+                AutoSize = false,
+                TextAlign = ContentAlignment.MiddleCenter,
+                Margin = new Padding(5),
+                Text = server.Name,
+                FlatStyle = FlatStyle.Flat,
+                BackColor = AppColors.ButtonColor,
+                ForeColor = Color.Black,
+                TabStop = false,
+                Tag = server,
+
+            };
+
+            //b.Click += ServerButton_Click;
+            return b;
+        }
+        private void AddToShift_Click(object sender, EventArgs e)
+        {           
+            Button serverButton = (Button)sender;            
+            Server server = (Server)serverButton.Tag;
+            ShiftManagerCreated.UnassignedServers.Add(server);
+            ShiftManagerCreated.ServersNotOnShift.Remove(server);
+            serverButton.Click -= AddToShift_Click;
+            serverButton.Click += RemoveFromShift_Click;
+            flowServersOnShift.Controls.Add(serverButton);           
+            flowAllServers.Controls.Remove(serverButton);
+        }
+        private void RemoveFromShift_Click(object sender, EventArgs e)
+        {
+            Button serverButton = (Button)sender;
+            Server server = (Server)serverButton.Tag;
+            ShiftManagerCreated.ServersNotOnShift.Add(server);
+            ShiftManagerCreated.UnassignedServers.Remove(server);
+            serverButton.Click += AddToShift_Click;
+            serverButton.Click -= RemoveFromShift_Click;
+            flowServersOnShift.Controls.Remove(serverButton);
+            flowAllServers.Controls.Add(serverButton);
         }
         private void LoadDiningAreas()
         {

@@ -124,7 +124,7 @@ namespace FloorPlanMaker
             LoadDiningAreas();
             dateSelected = DateTime.Now;
             lblShiftDate.Text = dateSelected.ToString("dddd, MMMM dd");
-            lblLastWeekDay.Text = "Last " + dateSelected.ToString("dddd") + ":";
+            //lblLastWeekDay.Text = "Last " + dateSelected.ToString("dddd") + ":";
             SetColorTheme();
 
             RefreshPreviousFloorplanCounts();
@@ -792,7 +792,7 @@ namespace FloorPlanMaker
         {
             dateSelected = dateSelected.AddDays(1);
             lblShiftDate.Text = dateSelected.ToString("dddd, MMMM dd");
-            lblLastWeekDay.Text = "Last " + dateSelected.ToString("dddd") + ":";
+            //lblLastWeekDay.Text = "Last " + dateSelected.ToString("dddd") + ":";
             setIsNewShiftBool();
             RefreshPreviousFloorplanCounts();
             SetFloorplansForShiftManager();
@@ -803,7 +803,7 @@ namespace FloorPlanMaker
         {
             dateSelected = dateSelected.AddDays(-1);
             lblShiftDate.Text = dateSelected.ToString("dddd, MMMM dd");
-            lblLastWeekDay.Text = "Last " + dateSelected.ToString("dddd") + ":";
+            //lblLastWeekDay.Text = "Last " + dateSelected.ToString("dddd") + ":";
             setIsNewShiftBool();
             RefreshPreviousFloorplanCounts();
             SetFloorplansForShiftManager();
@@ -833,14 +833,14 @@ namespace FloorPlanMaker
         }
         private void btnCreateANewShift_Click(object sender, EventArgs e)
         {
-            frmNewShiftDatePicker form = new frmNewShiftDatePicker(DiningAreaManager, allFloorplans);
+            frmNewShiftDatePicker form = new frmNewShiftDatePicker(DiningAreaManager, allFloorplans, employeeManager.AllServers);
             if (form.ShowDialog() == DialogResult.OK)
             {
                 this.newShiftManager = null;
                 this.newShiftManager = form.ShiftManagerCreated;
                 dateSelected = newShiftManager.DateOnly.ToDateTime(new TimeOnly(0, 0));
                 lblShiftDate.Text = dateSelected.ToString("dddd, MMMM dd");
-                lblLastWeekDay.Text = "Last " + dateSelected.ToString("dddd") + ":";
+                //lblLastWeekDay.Text = "Last " + dateSelected.ToString("dddd") + ":";
                 cbIsAM.Checked = newShiftManager.IsAM;
                 setIsNewShiftBool();
                 RefreshPreviousFloorplanCounts();
