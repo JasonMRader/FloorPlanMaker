@@ -60,6 +60,7 @@ namespace FloorPlanMakerUI
                 TableControl tableControl = TableControlFactory.CreateTableControl(table);
                 //tableControl.TableClicked += Table_TableClicked;  // Uncomment if you want to attach event handler
                 tableControl.TableClicked += ExistingTable_TableClicked;
+                tableControl.BackColor = Color.LightGray;
                 pnlFloorPlan.Controls.Add(tableControl);
                 allTableControls.Add(tableControl);
             }
@@ -104,7 +105,7 @@ namespace FloorPlanMakerUI
             areaCreationManager.SelectedTable = clickedTable;
             currentEmphasizedTableControl = clickedTableControl;
 
-            clickedTableControl.BorderThickness = 3;
+            clickedTableControl.BorderThickness = 6;
             clickedTableControl.Invalidate();
 
             emphasizedTablesList.Add(clickedTableControl);

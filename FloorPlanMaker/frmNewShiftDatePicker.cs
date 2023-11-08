@@ -21,12 +21,14 @@ namespace FloorPlanMakerUI
         private DiningAreaCreationManager DiningAreaManager = new DiningAreaCreationManager();
         private List<Floorplan> allFloorplans = new List<Floorplan>();
         private List<Server> allServers = new List<Server>();
-        public frmNewShiftDatePicker(DiningAreaCreationManager diningAreaManager, List<Floorplan> allFloorplans, List<Server> allServers)
+        private frmEditStaff frmEditStaff { get; set; }
+        public frmNewShiftDatePicker(DiningAreaCreationManager diningAreaManager, List<Floorplan> allFloorplans, List<Server> allServers, frmEditStaff frmEditStaff)
         {
             InitializeComponent();
             DiningAreaManager = diningAreaManager;
             this.allFloorplans = allFloorplans;
             this.allServers = allServers;
+            this.frmEditStaff = frmEditStaff;
         }
         private void SetColors()
         {
@@ -82,14 +84,14 @@ namespace FloorPlanMakerUI
             return b;
         }
         private void AddToShift_Click(object sender, EventArgs e)
-        {           
-            Button serverButton = (Button)sender;            
+        {
+            Button serverButton = (Button)sender;
             Server server = (Server)serverButton.Tag;
             ShiftManagerCreated.UnassignedServers.Add(server);
             ShiftManagerCreated.ServersNotOnShift.Remove(server);
             serverButton.Click -= AddToShift_Click;
             serverButton.Click += RemoveFromShift_Click;
-            flowServersOnShift.Controls.Add(serverButton);           
+            flowServersOnShift.Controls.Add(serverButton);
             flowAllServers.Controls.Remove(serverButton);
         }
         private void RemoveFromShift_Click(object sender, EventArgs e)
@@ -305,7 +307,9 @@ namespace FloorPlanMakerUI
 
             this.ShiftManagerCreated.DateOnly = new DateOnly(dateSelected.Year, dateSelected.Month, dateSelected.Day);
             this.ShiftManagerCreated.IsAM = isAM;
-            this.DialogResult = DialogResult.OK;
+            frmEditStaff.UpdateNewShift(ShiftManagerCreated);
+            this.Close();
+           
         }
 
         private void cbIsAm_CheckedChanged(object sender, EventArgs e)

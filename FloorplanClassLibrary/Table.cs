@@ -3,9 +3,9 @@
     public class Table
     {
         public int ID {  get; set; }
-        public string? TableNumber { get; set; }
-        public int MaxCovers { get; set; }
-        public float AverageCovers { get; set; }
+        public string? TableNumber { get; set; } = "000";
+        public int MaxCovers { get; set; } = 2;
+        public float AverageCovers { get; set; } = 1;
         public DiningArea DiningArea { get; set; }
         public int DiningAreaId { get; set; }
         

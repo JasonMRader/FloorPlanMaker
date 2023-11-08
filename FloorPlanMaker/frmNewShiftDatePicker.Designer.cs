@@ -291,7 +291,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(49, 56, 82);
             CancelButton = btnCancel;
-            ClientSize = new Size(1264, 970);
+            ClientSize = new Size(1255, 964);
             Controls.Add(panel2);
             Controls.Add(panel4);
             Controls.Add(panel3);

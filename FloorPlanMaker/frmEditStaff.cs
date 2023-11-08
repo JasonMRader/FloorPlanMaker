@@ -121,7 +121,7 @@ namespace FloorPlanMaker
         {
             //clbDiningAreaSelection.DataSource = DiningAreaManager.DiningAreas;
 
-            LoadDiningAreas();
+            //LoadDiningAreas();
             dateSelected = DateTime.Now;
             lblShiftDate.Text = dateSelected.ToString("dddd, MMMM dd");
             //lblLastWeekDay.Text = "Last " + dateSelected.ToString("dddd") + ":";
@@ -134,30 +134,30 @@ namespace FloorPlanMaker
             //lbServersOnShift.ValueMember = "Value";
         }
 
-        private void LoadDiningAreas()
-        {
-            foreach (DiningArea area in DiningAreaManager.DiningAreas)
-            {
-                CheckBox btnDining = new CheckBox
-                {
-                    Text = area.Name,
-                    Tag = area,
-                    Size = new Size(155, 23),
-                    Appearance = Appearance.Button,
-                    TextAlign = ContentAlignment.MiddleCenter,
-                    FlatStyle = FlatStyle.Flat,
-                    ForeColor = Color.Black,
-                    BackColor = AppColors.ButtonColor,
-                    Enabled = false,
+        //private void LoadDiningAreas()
+        //{
+        //    foreach (DiningArea area in DiningAreaManager.DiningAreas)
+        //    {
+        //        CheckBox btnDining = new CheckBox
+        //        {
+        //            Text = area.Name,
+        //            Tag = area,
+        //            Size = new Size(155, 23),
+        //            Appearance = Appearance.Button,
+        //            TextAlign = ContentAlignment.MiddleCenter,
+        //            FlatStyle = FlatStyle.Flat,
+        //            ForeColor = Color.Black,
+        //            BackColor = AppColors.ButtonColor,
+        //            Enabled = false,
 
-                    TabStop = false
+        //            TabStop = false
 
-                };
-                btnDining.CheckedChanged += cbDiningArea_CheckChanged;
-                flowDiningAreas.Controls.Add(btnDining);
+        //        };
+        //        btnDining.CheckedChanged += cbDiningArea_CheckChanged;
+        //        flowDiningAreas.Controls.Add(btnDining);
 
-            }
-        }
+        //    }
+        //}
 
         private void SetFloorplansForShiftManager()
         {
@@ -248,80 +248,80 @@ namespace FloorPlanMaker
             ImageSetter.SetShiftControlImages(newServerControl);
             flowUnassignedServers.Controls.Add(newServerControl);
         }
-        private void cbDiningArea_CheckChanged(object sender, EventArgs e)
-        {
-            CheckBox cbArea = sender as CheckBox;
-            DiningArea area = (DiningArea)cbArea.Tag;
+        //private void cbDiningArea_CheckChanged(object sender, EventArgs e)
+        //{
+        //    CheckBox cbArea = sender as CheckBox;
+        //    DiningArea area = (DiningArea)cbArea.Tag;
 
 
-            if (isNewShift)
-            {
-                if (cbArea.Checked)
-                {
-                    if (!newShiftManager.DiningAreasUsed.Contains(area))
-                    {
-                        newShiftManager.CreateFloorplanForDiningArea(area, DateTime.Now, false, 0, 0);
-                    }
+        //    if (isNewShift)
+        //    {
+        //        if (cbArea.Checked)
+        //        {
+        //            if (!newShiftManager.DiningAreasUsed.Contains(area))
+        //            {
+        //                newShiftManager.CreateFloorplanForDiningArea(area, DateTime.Now, false, 0, 0);
+        //            }
 
 
-                }
-                else
-                {
-                    var floorplanToRemove = newShiftManager.Floorplans.FirstOrDefault(fp => fp.DiningArea == area);
-                    if (floorplanToRemove != null)
-                    {
-                        foreach (var server in floorplanToRemove.Servers)
-                        {
-                            if (newShiftManager.UnassignedServers.Contains(server))
-                            {
-                                AddServerToUnassignedServersInShift(server);
-                            }
+        //        }
+        //        else
+        //        {
+        //            var floorplanToRemove = newShiftManager.Floorplans.FirstOrDefault(fp => fp.DiningArea == area);
+        //            if (floorplanToRemove != null)
+        //            {
+        //                foreach (var server in floorplanToRemove.Servers)
+        //                {
+        //                    if (newShiftManager.UnassignedServers.Contains(server))
+        //                    {
+        //                        AddServerToUnassignedServersInShift(server);
+        //                    }
 
 
-                        }
-                        floorplanToRemove.Servers.Clear();
-                    }
-                    newShiftManager.DiningAreasUsed.Remove(area);
-                    newShiftManager.RemoveFloorplan(floorplanToRemove);
+        //                }
+        //                floorplanToRemove.Servers.Clear();
+        //            }
+        //            newShiftManager.DiningAreasUsed.Remove(area);
+        //            newShiftManager.RemoveFloorplan(floorplanToRemove);
 
-                }
-                RefreshFloorplanFlowPanel(newShiftManager.Floorplans);
-            }
-            else
-            {
-                if (cbArea.Checked)
-                {
-                    if (!pastShiftsManager.DiningAreasUsed.Contains(area))
-                    {
-                        pastShiftsManager.CreateFloorplanForDiningArea(area, DateTime.Now, false, 0, 0);
-                    }
-
-
-                }
-                else
-                {
-                    var floorplanToRemove = pastShiftsManager.Floorplans.FirstOrDefault(fp => fp.DiningArea == area);
-                    if (floorplanToRemove.Servers.Any())
-                    {
-                        foreach (var server in floorplanToRemove.Servers)
-                        {
-                            if (pastShiftsManager.UnassignedServers.Contains(server))
-                            {
-                                AddServerToUnassignedServersInShift(server);
-                            }
+        //        }
+        //        RefreshFloorplanFlowPanel(newShiftManager.Floorplans);
+        //    }
+        //    else
+        //    {
+        //        if (cbArea.Checked)
+        //        {
+        //            if (!pastShiftsManager.DiningAreasUsed.Contains(area))
+        //            {
+        //                pastShiftsManager.CreateFloorplanForDiningArea(area, DateTime.Now, false, 0, 0);
+        //            }
 
 
-                        }
-                        floorplanToRemove.Servers.Clear();
-                    }
-                    pastShiftsManager.DiningAreasUsed.Remove(area);
-                    pastShiftsManager.RemoveFloorplan(floorplanToRemove);
+        //        }
+        //        else
+        //        {
+        //            var floorplanToRemove = pastShiftsManager.Floorplans.FirstOrDefault(fp => fp.DiningArea == area);
+        //            if (floorplanToRemove.Servers.Any())
+        //            {
+        //                foreach (var server in floorplanToRemove.Servers)
+        //                {
+        //                    if (pastShiftsManager.UnassignedServers.Contains(server))
+        //                    {
+        //                        AddServerToUnassignedServersInShift(server);
+        //                    }
 
-                }
-                RefreshFloorplanFlowPanel(newShiftManager.Floorplans);
-            }
 
-        }
+        //                }
+        //                floorplanToRemove.Servers.Clear();
+        //            }
+        //            pastShiftsManager.DiningAreasUsed.Remove(area);
+        //            pastShiftsManager.RemoveFloorplan(floorplanToRemove);
+
+        //        }
+        //        RefreshFloorplanFlowPanel(newShiftManager.Floorplans);
+        //    }
+
+        //}
         private void refreshTabOrder()
         {
             int tabIndexNum = 0;
@@ -833,23 +833,42 @@ namespace FloorPlanMaker
         }
         private void btnCreateANewShift_Click(object sender, EventArgs e)
         {
-            frmNewShiftDatePicker form = new frmNewShiftDatePicker(DiningAreaManager, allFloorplans, employeeManager.AllServers);
-            if (form.ShowDialog() == DialogResult.OK)
+            frmNewShiftDatePicker form = new frmNewShiftDatePicker(DiningAreaManager, allFloorplans, employeeManager.AllServers, this);
+            form.TopLevel = false;
+            this.Controls.Add(form);
+            form.Show();
+            form.BringToFront();
+
+        }
+        public void UpdateNewShift(ShiftManager shiftManagerToAdd)
+        {
+            this.newShiftManager = null;
+            this.newShiftManager = shiftManagerToAdd;
+            dateSelected = newShiftManager.DateOnly.ToDateTime(new TimeOnly(0, 0));
+            lblShiftDate.Text = dateSelected.ToString("dddd, MMMM dd");
+            //lblLastWeekDay.Text = "Last " + dateSelected.ToString("dddd") + ":";
+            cbIsAM.Checked = newShiftManager.IsAM;
+            setIsNewShiftBool();
+            RefreshPreviousFloorplanCounts();
+            SetFloorplansForShiftManager();
+            //PopulateServersNotOnShift(newShiftManager.ServersNotOnShift);
+            PopulateUnassignedServers();
+            SetEnableStatusOfDiningAreaButtons();
+            btnCreateANewShift.Visible = false;
+
+        }
+        private void PopulateUnassignedServers()
+        {
+            foreach (var server in newShiftManager.UnassignedServers)
             {
-                this.newShiftManager = null;
-                this.newShiftManager = form.ShiftManagerCreated;
-                dateSelected = newShiftManager.DateOnly.ToDateTime(new TimeOnly(0, 0));
-                lblShiftDate.Text = dateSelected.ToString("dddd, MMMM dd");
-                //lblLastWeekDay.Text = "Last " + dateSelected.ToString("dddd") + ":";
-                cbIsAM.Checked = newShiftManager.IsAM;
-                setIsNewShiftBool();
-                RefreshPreviousFloorplanCounts();
-                SetFloorplansForShiftManager();
-                PopulateServersNotOnShift(newShiftManager.ServersNotOnShift);
-                SetEnableStatusOfDiningAreaButtons();
-                btnCreateANewShift.Visible = false;
-
-
+                newShiftManager.ServersNotOnShift.Remove(server);
+                ServerControl newServerControl = new ServerControl(server, 350, 30);
+                newServerControl.Click += ServerControl_Click;
+                newServerControl.AddRemoveButton(flowUnassignedServers, flowAllServers, newShiftManager.UnassignedServers, newShiftManager.ServersNotOnShift, 155, 20);
+                newServerControl.RemoveButton.Click += serverControl_Click_RemoveFromShift;
+                ImageSetter.SetShiftControlImages(newServerControl);
+                flowUnassignedServers.Controls.Add(newServerControl);
+                //flowAllServers.Controls.Remove(oldServerControl);
 
             }
         }

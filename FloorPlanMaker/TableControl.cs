@@ -15,7 +15,7 @@ namespace FloorPlanMaker
     {
         public Color BorderColor { get; set; } = Color.DarkBlue; // default to DarkBlue
         public DisplayMode CurrentDisplayMode { get; set; } = DisplayMode.TableNumber;
-        public int BorderThickness { get; set; } = 1; // default to 1
+        public int BorderThickness { get; set; } = 2; // default to 1
         public float TableNumberFontSize { get; set; } = 14f; // default to 16
         //public bool IsInSection { get; set; } = false;
         public Section? Section { get; set; }

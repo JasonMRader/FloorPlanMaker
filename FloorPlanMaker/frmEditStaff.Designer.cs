@@ -74,7 +74,7 @@
             btnAssignTables.ForeColor = Color.Black;
             btnAssignTables.Location = new Point(195, 912);
             btnAssignTables.Name = "btnAssignTables";
-            btnAssignTables.Size = new Size(1046, 46);
+            btnAssignTables.Size = new Size(1057, 46);
             btnAssignTables.TabIndex = 4;
             btnAssignTables.Text = "Assign Tables";
             btnAssignTables.UseVisualStyleBackColor = false;
@@ -83,18 +83,18 @@
             // flowDiningAreaAssignment
             // 
             flowDiningAreaAssignment.BackColor = Color.FromArgb(178, 87, 46);
-            flowDiningAreaAssignment.Location = new Point(378, 123);
+            flowDiningAreaAssignment.Location = new Point(391, 104);
             flowDiningAreaAssignment.Name = "flowDiningAreaAssignment";
-            flowDiningAreaAssignment.Size = new Size(863, 774);
+            flowDiningAreaAssignment.Size = new Size(861, 793);
             flowDiningAreaAssignment.TabIndex = 10;
             // 
             // flowUnassignedServers
             // 
             flowUnassignedServers.AutoScroll = true;
             flowUnassignedServers.BackColor = Color.FromArgb(178, 87, 46);
-            flowUnassignedServers.Location = new Point(12, 123);
+            flowUnassignedServers.Location = new Point(12, 104);
             flowUnassignedServers.Name = "flowUnassignedServers";
-            flowUnassignedServers.Size = new Size(360, 774);
+            flowUnassignedServers.Size = new Size(373, 793);
             flowUnassignedServers.TabIndex = 11;
             // 
             // cbUnassignedServers
@@ -104,9 +104,9 @@
             cbUnassignedServers.FlatAppearance.BorderSize = 0;
             cbUnassignedServers.FlatStyle = FlatStyle.Flat;
             cbUnassignedServers.ForeColor = Color.Black;
-            cbUnassignedServers.Location = new Point(12, 87);
+            cbUnassignedServers.Location = new Point(12, 63);
             cbUnassignedServers.Name = "cbUnassignedServers";
-            cbUnassignedServers.Size = new Size(360, 30);
+            cbUnassignedServers.Size = new Size(373, 30);
             cbUnassignedServers.TabIndex = 12;
             cbUnassignedServers.Text = "Unassigned Servers";
             cbUnassignedServers.TextAlign = ContentAlignment.MiddleCenter;
@@ -117,7 +117,7 @@
             // 
             flowAllServers.AutoScroll = true;
             flowAllServers.BackColor = Color.FromArgb(178, 87, 46);
-            flowAllServers.Location = new Point(12, 44);
+            flowAllServers.Location = new Point(82, 12);
             flowAllServers.MaximumSize = new Size(165, 10000);
             flowAllServers.Name = "flowAllServers";
             flowAllServers.Size = new Size(47, 23);
@@ -136,7 +136,7 @@
             // lblShiftDate
             // 
             lblShiftDate.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point);
-            lblShiftDate.Location = new Point(516, 81);
+            lblShiftDate.Location = new Point(503, 56);
             lblShiftDate.Name = "lblShiftDate";
             lblShiftDate.Size = new Size(433, 32);
             lblShiftDate.TabIndex = 16;
@@ -147,7 +147,7 @@
             // 
             btnDateUp.FlatStyle = FlatStyle.Flat;
             btnDateUp.Image = FloorPlanMakerUI.Resource1.forwardArrow;
-            btnDateUp.Location = new Point(1040, 81);
+            btnDateUp.Location = new Point(1027, 51);
             btnDateUp.Name = "btnDateUp";
             btnDateUp.Size = new Size(27, 42);
             btnDateUp.TabIndex = 17;
@@ -158,7 +158,7 @@
             // 
             btnDateDown.FlatStyle = FlatStyle.Flat;
             btnDateDown.Image = FloorPlanMakerUI.Resource1.BackArrow;
-            btnDateDown.Location = new Point(468, 76);
+            btnDateDown.Location = new Point(455, 51);
             btnDateDown.Name = "btnDateDown";
             btnDateDown.Size = new Size(27, 42);
             btnDateDown.TabIndex = 18;
@@ -173,7 +173,7 @@
             cbIsAM.FlatStyle = FlatStyle.Flat;
             cbIsAM.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             cbIsAM.ForeColor = Color.Black;
-            cbIsAM.Location = new Point(955, 76);
+            cbIsAM.Location = new Point(942, 51);
             cbIsAM.Name = "cbIsAM";
             cbIsAM.Size = new Size(79, 42);
             cbIsAM.TabIndex = 19;
@@ -208,7 +208,7 @@
             btnCreateANewShift.FlatStyle = FlatStyle.Flat;
             btnCreateANewShift.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             btnCreateANewShift.ForeColor = Color.Black;
-            btnCreateANewShift.Location = new Point(12, 0);
+            btnCreateANewShift.Location = new Point(12, 12);
             btnCreateANewShift.Name = "btnCreateANewShift";
             btnCreateANewShift.Size = new Size(1240, 33);
             btnCreateANewShift.TabIndex = 25;
