@@ -129,15 +129,15 @@
             // flowDiningAreas
             // 
             flowDiningAreas.BackColor = Color.FromArgb(178, 87, 46);
-            flowDiningAreas.Location = new Point(12, 40);
+            flowDiningAreas.Location = new Point(117, 95);
             flowDiningAreas.Name = "flowDiningAreas";
-            flowDiningAreas.Size = new Size(165, 175);
+            flowDiningAreas.Size = new Size(1040, 30);
             flowDiningAreas.TabIndex = 15;
             // 
             // lblShiftDate
             // 
             lblShiftDate.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point);
-            lblShiftDate.Location = new Point(231, 156);
+            lblShiftDate.Location = new Point(231, 177);
             lblShiftDate.Name = "lblShiftDate";
             lblShiftDate.Size = new Size(433, 32);
             lblShiftDate.TabIndex = 16;
@@ -148,7 +148,7 @@
             // 
             btnDateUp.FlatStyle = FlatStyle.Flat;
             btnDateUp.Image = FloorPlanMakerUI.Resource1.forwardArrow;
-            btnDateUp.Location = new Point(836, 154);
+            btnDateUp.Location = new Point(836, 175);
             btnDateUp.Name = "btnDateUp";
             btnDateUp.Size = new Size(27, 42);
             btnDateUp.TabIndex = 17;
@@ -159,7 +159,7 @@
             // 
             btnDateDown.FlatStyle = FlatStyle.Flat;
             btnDateDown.Image = FloorPlanMakerUI.Resource1.BackArrow;
-            btnDateDown.Location = new Point(202, 156);
+            btnDateDown.Location = new Point(202, 177);
             btnDateDown.Name = "btnDateDown";
             btnDateDown.Size = new Size(27, 42);
             btnDateDown.TabIndex = 18;
@@ -174,7 +174,7 @@
             cbIsAM.FlatStyle = FlatStyle.Flat;
             cbIsAM.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             cbIsAM.ForeColor = Color.Black;
-            cbIsAM.Location = new Point(728, 154);
+            cbIsAM.Location = new Point(728, 175);
             cbIsAM.Name = "cbIsAM";
             cbIsAM.Size = new Size(79, 42);
             cbIsAM.TabIndex = 19;
@@ -188,7 +188,7 @@
             lblLastWeekDay.Anchor = AnchorStyles.Right;
             lblLastWeekDay.AutoSize = true;
             lblLastWeekDay.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            lblLastWeekDay.Location = new Point(881, 20);
+            lblLastWeekDay.Location = new Point(16, 12);
             lblLastWeekDay.Name = "lblLastWeekDay";
             lblLastWeekDay.Size = new Size(89, 21);
             lblLastWeekDay.TabIndex = 20;
@@ -198,7 +198,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label2.Location = new Point(881, 104);
+            label2.Location = new Point(20, 54);
             label2.Name = "label2";
             label2.Size = new Size(85, 21);
             label2.TabIndex = 22;
@@ -208,26 +208,26 @@
             // 
             flowYesterdayCounts.BackColor = Color.FromArgb(224, 224, 224);
             flowYesterdayCounts.ForeColor = Color.Black;
-            flowYesterdayCounts.Location = new Point(881, 128);
+            flowYesterdayCounts.Location = new Point(117, 54);
             flowYesterdayCounts.Name = "flowYesterdayCounts";
-            flowYesterdayCounts.Size = new Size(360, 60);
+            flowYesterdayCounts.Size = new Size(1040, 30);
             flowYesterdayCounts.TabIndex = 23;
             // 
             // flowLastWeekdayCounts
             // 
             flowLastWeekdayCounts.BackColor = Color.FromArgb(224, 224, 224);
             flowLastWeekdayCounts.ForeColor = Color.Black;
-            flowLastWeekdayCounts.Location = new Point(881, 44);
+            flowLastWeekdayCounts.Location = new Point(117, 12);
             flowLastWeekdayCounts.Name = "flowLastWeekdayCounts";
-            flowLastWeekdayCounts.Size = new Size(360, 60);
+            flowLastWeekdayCounts.Size = new Size(1041, 30);
             flowLastWeekdayCounts.TabIndex = 21;
             // 
             // label1
             // 
             label1.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(195, 65);
+            label1.Location = new Point(231, 129);
             label1.Name = "label1";
-            label1.Size = new Size(679, 38);
+            label1.Size = new Size(382, 35);
             label1.TabIndex = 24;
             label1.Text = "New Shift For:";
             label1.TextAlign = ContentAlignment.MiddleCenter;
@@ -238,9 +238,9 @@
             btnCreateANewShift.FlatStyle = FlatStyle.Flat;
             btnCreateANewShift.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             btnCreateANewShift.ForeColor = Color.Black;
-            btnCreateANewShift.Location = new Point(195, 68);
+            btnCreateANewShift.Location = new Point(117, 131);
             btnCreateANewShift.Name = "btnCreateANewShift";
-            btnCreateANewShift.Size = new Size(679, 36);
+            btnCreateANewShift.Size = new Size(1040, 33);
             btnCreateANewShift.TabIndex = 25;
             btnCreateANewShift.Text = "Create a New Shift";
             btnCreateANewShift.UseVisualStyleBackColor = true;
@@ -252,6 +252,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(49, 56, 82);
             ClientSize = new Size(1264, 967);
+            Controls.Add(flowDiningAreas);
             Controls.Add(btnCreateANewShift);
             Controls.Add(label1);
             Controls.Add(flowYesterdayCounts);
@@ -262,7 +263,6 @@
             Controls.Add(btnDateDown);
             Controls.Add(btnDateUp);
             Controls.Add(lblShiftDate);
-            Controls.Add(flowDiningAreas);
             Controls.Add(flowAllServers);
             Controls.Add(cbUnassignedServers);
             Controls.Add(flowUnassignedServers);

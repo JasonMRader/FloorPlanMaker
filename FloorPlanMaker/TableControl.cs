@@ -14,6 +14,7 @@ namespace FloorPlanMaker
     public class TableControl : Control
     {
         public Color BorderColor { get; set; } = Color.DarkBlue; // default to DarkBlue
+        public DisplayMode CurrentDisplayMode { get; set; } = DisplayMode.TableNumber;
         public int BorderThickness { get; set; } = 1; // default to 1
         public float TableNumberFontSize { get; set; } = 14f; // default to 16
         //public bool IsInSection { get; set; } = false;
@@ -140,7 +141,33 @@ namespace FloorPlanMaker
                 }
             }
 
-            if (control.Table != null && control.Table.TableNumber != null)
+            //if (control.Table != null && control.Table.TableNumber != null)
+            //{
+            //    using (Font font = new Font(control.Font.FontFamily, control.TableNumberFontSize))
+            //    using (StringFormat sf = new StringFormat())
+            //    {
+            //        sf.Alignment = StringAlignment.Center;
+            //        sf.LineAlignment = StringAlignment.Center;
+
+            //        Rectangle tableBounds = new Rectangle(xOffset, yOffset, control.Width, control.Height);
+            //        g.DrawString(control.Table.TableNumber.ToString(), font, Brushes.Black, tableBounds, sf);
+            //    }
+            //}
+            string textToDisplay = string.Empty;
+            switch (control.CurrentDisplayMode)
+            {
+                case DisplayMode.TableNumber:
+                    textToDisplay = control.Table.TableNumber.ToString();
+                    break;
+                case DisplayMode.MaxCovers:
+                    textToDisplay = control.Table.MaxCovers.ToString();
+                    break;
+                case DisplayMode.AverageCovers:
+                    textToDisplay = control.Table.AverageCovers.ToString("F1"); // One decimal place
+                    break;
+            }
+
+            if (!string.IsNullOrEmpty(textToDisplay))
             {
                 using (Font font = new Font(control.Font.FontFamily, control.TableNumberFontSize))
                 using (StringFormat sf = new StringFormat())
@@ -149,7 +176,7 @@ namespace FloorPlanMaker
                     sf.LineAlignment = StringAlignment.Center;
 
                     Rectangle tableBounds = new Rectangle(xOffset, yOffset, control.Width, control.Height);
-                    g.DrawString(control.Table.TableNumber.ToString(), font, Brushes.Black, tableBounds, sf);
+                    g.DrawString(textToDisplay, font, Brushes.Black, tableBounds, sf);
                 }
             }
         }
@@ -257,5 +284,11 @@ namespace FloorPlanMaker
 
 
 
+    }
+    public enum DisplayMode
+    {
+        TableNumber,
+        MaxCovers,
+        AverageCovers
     }
 }

@@ -74,6 +74,7 @@ namespace FloorPlanMaker
             pnlNavigationWindow = new Panel();
             lblPanel2Text = new Label();
             pnlAddTables = new Panel();
+            cbTableDisplayMode = new CheckBox();
             pnlServers.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudServerCount).BeginInit();
             pnlSections.SuspendLayout();
@@ -310,13 +311,14 @@ namespace FloorPlanMaker
             // flowSectionSelect
             // 
             flowSectionSelect.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            flowSectionSelect.Location = new Point(21, 69);
+            flowSectionSelect.Location = new Point(21, 102);
             flowSectionSelect.Name = "flowSectionSelect";
-            flowSectionSelect.Size = new Size(212, 601);
+            flowSectionSelect.Size = new Size(212, 568);
             flowSectionSelect.TabIndex = 9;
             // 
             // pnlSections
             // 
+            pnlSections.Controls.Add(cbTableDisplayMode);
             pnlSections.Controls.Add(flowSectionSelect);
             pnlSections.Controls.Add(label9);
             pnlSections.Controls.Add(cboFloorplanTemplates);
@@ -351,7 +353,7 @@ namespace FloorPlanMaker
             btnChooseTemplate.ForeColor = Color.Black;
             btnChooseTemplate.Location = new Point(28, 16);
             btnChooseTemplate.Name = "btnChooseTemplate";
-            btnChooseTemplate.Size = new Size(184, 37);
+            btnChooseTemplate.Size = new Size(184, 31);
             btnChooseTemplate.TabIndex = 14;
             btnChooseTemplate.Text = "Choose Template";
             btnChooseTemplate.UseVisualStyleBackColor = true;
@@ -604,6 +606,20 @@ namespace FloorPlanMaker
             pnlAddTables.Size = new Size(250, 911);
             pnlAddTables.TabIndex = 1;
             // 
+            // cbTableDisplayMode
+            // 
+            cbTableDisplayMode.Appearance = Appearance.Button;
+            cbTableDisplayMode.FlatAppearance.BorderSize = 0;
+            cbTableDisplayMode.FlatStyle = FlatStyle.Flat;
+            cbTableDisplayMode.Location = new Point(28, 64);
+            cbTableDisplayMode.Name = "cbTableDisplayMode";
+            cbTableDisplayMode.Size = new Size(184, 31);
+            cbTableDisplayMode.TabIndex = 16;
+            cbTableDisplayMode.Text = "Table Display Mode";
+            cbTableDisplayMode.TextAlign = ContentAlignment.MiddleCenter;
+            cbTableDisplayMode.UseVisualStyleBackColor = true;
+            cbTableDisplayMode.CheckedChanged += cbTableDisplayMode_CheckedChanged;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -684,5 +700,6 @@ namespace FloorPlanMaker
         private RadioButton rdoShifts;
         private Label lblPanel2Text;
         private Panel pnlAddTables;
+        private CheckBox cbTableDisplayMode;
     }
 }

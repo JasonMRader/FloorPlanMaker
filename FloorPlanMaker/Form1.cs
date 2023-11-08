@@ -69,12 +69,12 @@ namespace FloorPlanMaker
             dtpFloorplan.Value = new DateTime(shiftManagerToAdd.DateOnly.Year, shiftManagerToAdd.DateOnly.Month, shiftManagerToAdd.DateOnly.Day);
 
             cbIsAM.Checked = shiftManagerToAdd.IsAM;
-            foreach(Floorplan fp in shiftManagerToAdd.Floorplans)
+            foreach (Floorplan fp in shiftManagerToAdd.Floorplans)
             {
                 this.shiftManager.AddFloorplanAndServers(fp);
             }
-            
-           
+
+
             SetViewedFloorplan();
             rdoSections.Checked = true;
             //this.shiftManager = shiftManager;
@@ -1216,6 +1216,33 @@ namespace FloorPlanMaker
         private void btnCloseApp_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void cbTableDisplayMode_CheckedChanged(object sender, EventArgs e)
+        {
+            if(cbTableDisplayMode.Checked)
+            {
+                foreach (Control c in pnlFloorPlan.Controls)
+                {
+                    if (c is TableControl tableControl)
+                    {
+                        tableControl.CurrentDisplayMode = DisplayMode.MaxCovers;
+                        tableControl.Invalidate();
+                    }
+                }
+            }
+            else
+            {
+                foreach (Control c in pnlFloorPlan.Controls)
+                {
+                    if (c is TableControl tableControl)
+                    {
+                        tableControl.CurrentDisplayMode = DisplayMode.TableNumber;
+                        tableControl.Invalidate();
+                    }
+                }
+            }
+            
         }
 
 

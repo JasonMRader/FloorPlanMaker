@@ -451,6 +451,7 @@ namespace FloorPlanMakerUI
             rbOutside.Enabled = true;
             cbTemporaryFloorplan.Enabled = true;
             btnSaveDiningArea.Enabled = true;
+            txtDiningAreaName.Clear();
         }
 
         private void btnSaveDiningArea_Click(object sender, EventArgs e)
