@@ -17,6 +17,8 @@ namespace FloorPlanMakerUI
 
         public static Color ButtonColor = Color.FromArgb(158, 171, 222);
         public static Color CTAColor = Color.FromArgb(83,216,251);
+        public static Font MainFont = new Font("Segoe UI", 12f, FontStyle.Bold);
+        public static Font LargeFont = new Font("Segoe UI", 18f, FontStyle.Bold);
         //Light blue 46,134,171
     }
 }

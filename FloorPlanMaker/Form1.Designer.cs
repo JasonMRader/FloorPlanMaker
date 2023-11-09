@@ -52,6 +52,7 @@ namespace FloorPlanMaker
             btnAddSectionLabels = new Button();
             flowSectionSelect = new FlowLayoutPanel();
             pnlSections = new Panel();
+            cbTableDisplayMode = new CheckBox();
             btnGenerateSectionLines = new Button();
             btnChooseTemplate = new Button();
             btnPrint = new Button();
@@ -74,7 +75,6 @@ namespace FloorPlanMaker
             pnlNavigationWindow = new Panel();
             lblPanel2Text = new Label();
             pnlAddTables = new Panel();
-            cbTableDisplayMode = new CheckBox();
             pnlServers.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudServerCount).BeginInit();
             pnlSections.SuspendLayout();
@@ -311,7 +311,7 @@ namespace FloorPlanMaker
             // flowSectionSelect
             // 
             flowSectionSelect.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            flowSectionSelect.Location = new Point(21, 102);
+            flowSectionSelect.Location = new Point(15, 102);
             flowSectionSelect.Name = "flowSectionSelect";
             flowSectionSelect.Size = new Size(212, 568);
             flowSectionSelect.TabIndex = 9;
@@ -335,6 +335,21 @@ namespace FloorPlanMaker
             pnlSections.Size = new Size(239, 869);
             pnlSections.TabIndex = 8;
             // 
+            // cbTableDisplayMode
+            // 
+            cbTableDisplayMode.Appearance = Appearance.Button;
+            cbTableDisplayMode.FlatAppearance.BorderSize = 0;
+            cbTableDisplayMode.FlatStyle = FlatStyle.Flat;
+            cbTableDisplayMode.ForeColor = Color.Black;
+            cbTableDisplayMode.Location = new Point(28, 64);
+            cbTableDisplayMode.Name = "cbTableDisplayMode";
+            cbTableDisplayMode.Size = new Size(184, 31);
+            cbTableDisplayMode.TabIndex = 16;
+            cbTableDisplayMode.Text = "Table Display Mode";
+            cbTableDisplayMode.TextAlign = ContentAlignment.MiddleCenter;
+            cbTableDisplayMode.UseVisualStyleBackColor = true;
+            cbTableDisplayMode.CheckedChanged += cbTableDisplayMode_CheckedChanged;
+            // 
             // btnGenerateSectionLines
             // 
             btnGenerateSectionLines.FlatStyle = FlatStyle.Flat;
@@ -349,6 +364,7 @@ namespace FloorPlanMaker
             // 
             // btnChooseTemplate
             // 
+            btnChooseTemplate.FlatAppearance.BorderSize = 0;
             btnChooseTemplate.FlatStyle = FlatStyle.Flat;
             btnChooseTemplate.ForeColor = Color.Black;
             btnChooseTemplate.Location = new Point(28, 16);
@@ -381,6 +397,7 @@ namespace FloorPlanMaker
             btnDoAThing.TabIndex = 17;
             btnDoAThing.Text = "3";
             btnDoAThing.UseVisualStyleBackColor = true;
+            btnDoAThing.Visible = false;
             btnDoAThing.Click += btnDoAThing_Click;
             // 
             // btnTest2
@@ -391,6 +408,7 @@ namespace FloorPlanMaker
             btnTest2.TabIndex = 16;
             btnTest2.Text = "2";
             btnTest2.UseVisualStyleBackColor = true;
+            btnTest2.Visible = false;
             btnTest2.Click += btnTest2_Click;
             // 
             // btnTest
@@ -402,6 +420,7 @@ namespace FloorPlanMaker
             btnTest.TabIndex = 12;
             btnTest.Text = "1";
             btnTest.UseVisualStyleBackColor = true;
+            btnTest.Visible = false;
             btnTest.Click += btnTest_Click;
             // 
             // pnlFloorPlan
@@ -605,20 +624,6 @@ namespace FloorPlanMaker
             pnlAddTables.Name = "pnlAddTables";
             pnlAddTables.Size = new Size(250, 911);
             pnlAddTables.TabIndex = 1;
-            // 
-            // cbTableDisplayMode
-            // 
-            cbTableDisplayMode.Appearance = Appearance.Button;
-            cbTableDisplayMode.FlatAppearance.BorderSize = 0;
-            cbTableDisplayMode.FlatStyle = FlatStyle.Flat;
-            cbTableDisplayMode.Location = new Point(28, 64);
-            cbTableDisplayMode.Name = "cbTableDisplayMode";
-            cbTableDisplayMode.Size = new Size(184, 31);
-            cbTableDisplayMode.TabIndex = 16;
-            cbTableDisplayMode.Text = "Table Display Mode";
-            cbTableDisplayMode.TextAlign = ContentAlignment.MiddleCenter;
-            cbTableDisplayMode.UseVisualStyleBackColor = true;
-            cbTableDisplayMode.CheckedChanged += cbTableDisplayMode_CheckedChanged;
             // 
             // Form1
             // 

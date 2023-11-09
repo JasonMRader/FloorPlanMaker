@@ -53,6 +53,7 @@ namespace FloorPlanMaker
             btnGenerateSectionLines.BackColor = AppColors.ButtonColor;
             btnRemoveSection.BackColor = AppColors.ButtonColor;
             btnSaveFloorplanTemplate.BackColor = AppColors.ButtonColor;
+            cbTableDisplayMode.BackColor = AppColors.ButtonColor;
 
 
 
@@ -77,27 +78,7 @@ namespace FloorPlanMaker
 
             SetViewedFloorplan();
             rdoSections.Checked = true;
-            //this.shiftManager = shiftManager;
-            //allTableControls.Clear();
-            //areaCreationManager.DiningAreaSelected = (DiningArea?)cboDiningAreas.SelectedItem;
-            //pnlFloorPlan.Controls.Clear();
-            //foreach (Table table in areaCreationManager.DiningAreaSelected.Tables)
-            //{
-            //    table.DiningArea = areaCreationManager.DiningAreaSelected;
-            //    TableControl tableControl = TableControlFactory.CreateTableControl(table);
-            //    //tableControl.TableClicked += Table_TableClicked;  // Uncomment if you want to attach event handler
-            //    tableControl.TableClicked += ExistingTable_TableClicked;
-            //    pnlFloorPlan.Controls.Add(tableControl);
-            //    allTableControls.Add(tableControl);
-            //}
-            //lblPanel2Text.Text = areaCreationManager.DiningAreaSelected.Name;
-            //this.shiftManager.SelectedDiningArea = areaCreationManager.DiningAreaSelected;
-            //SetViewedFloorplan();
-            //lblDiningRoomName.Text = areaCreationManager.DiningAreaSelected.Name;
-            //RefreshTemplateList(shiftManager.SelectedDiningArea);
-            //lblDiningAreaAverageCovers.Text = shiftManager.SelectedDiningArea.GetAverageCovers().ToString();
-            //lblDiningAreaMaxCovers.Text = shiftManager.SelectedDiningArea.GetMaxCovers().ToString();
-            //this.sectionLineManager = new SectionLineManager(allTableControls);
+
         }
 
         public Form1()
@@ -394,6 +375,7 @@ namespace FloorPlanMaker
         }
         private void UpdateServerControlsForFloorplan()
         {
+
             flowServersInFloorplan.Controls.Clear();
             if (shiftManager.SelectedFloorplan == null) { return; }
             if (shiftManager.SelectedFloorplan.Servers.Count > 0)
@@ -498,8 +480,14 @@ namespace FloorPlanMaker
         {
             // Clear any existing controls from the flow layout panel.
             flowSectionSelect.Controls.Clear();
+            if (sections.Count == 0)
+            {
+
+                NoServersToDisplay();
+            }
             if (sections == null)
             {
+
                 return;
             }
             foreach (var section in sections)
@@ -973,6 +961,7 @@ namespace FloorPlanMaker
                 flowSectionSelect.Controls.Clear();
                 flowServersInFloorplan.Controls.Clear();
                 ClearAllTableControlSections();
+                NoServersToDisplay();
                 return;
             }
             foreach (Control ctrl in pnlFloorPlan.Controls)
@@ -1024,6 +1013,7 @@ namespace FloorPlanMaker
         }
         private void SetViewedFloorplan()
         {
+            NoServersToDisplay();
             DateOnly date = DateOnly.FromDateTime(dtpFloorplan.Value);
             if (shiftManager.ContainsFloorplan(date, cbIsAM.Checked, shiftManager.SelectedDiningArea.ID))
             {
@@ -1036,18 +1026,48 @@ namespace FloorPlanMaker
                 shiftManager.SelectedFloorplan = SqliteDataAccess.LoadFloorplanByCriteria(shiftManager.SelectedDiningArea, date, cbIsAM.Checked);
             }
 
-            //if (shiftManager.ViewedFloorplan == null)
-            //{
-            //    shiftManager.ViewedFloorplan = shiftManager.SelectedFloorplan;
-            //}
+
             if (shiftManager.SelectedFloorplan != null)
             {
+
                 CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
                 UpdateServerControlsForFloorplan();
                 lblServerMaxCovers.Text = shiftManager.SelectedFloorplan.MaxCoversPerServer.ToString("F1");
                 lblServerAverageCovers.Text = shiftManager.SelectedFloorplan.AvgCoversPerServer.ToString("F1");
             }
+
             UpdateTableControlSections();
+        }
+        private void NoServersToDisplay()
+        {
+
+            Label noSections = new Label
+            {
+                Text = "No Sections For\nThis Floorplan",
+                Font = AppColors.LargeFont,
+                AutoSize = false,
+                Size = new System.Drawing.Size(200, 350),
+                TextAlign = ContentAlignment.MiddleCenter,
+
+                ForeColor = Color.Black
+
+
+            };
+            Label noServers = new Label
+            {
+                Text = "No Servers For\nThis Floorplan",
+                Font = AppColors.LargeFont,
+                AutoSize = false,
+                Size = new System.Drawing.Size(200, 350),
+                TextAlign = ContentAlignment.MiddleCenter,
+                ForeColor = Color.Black,
+                Margin = new System.Windows.Forms.Padding(15, 0, 0, 0)
+
+            };
+            noSections.BringToFront();
+            noServers.BringToFront();
+            flowSectionSelect.Controls.Add(noSections);
+            flowServersInFloorplan.Controls.Add(noServers);
         }
         private void ClearAllSectionControls()
         {
@@ -1220,7 +1240,7 @@ namespace FloorPlanMaker
 
         private void cbTableDisplayMode_CheckedChanged(object sender, EventArgs e)
         {
-            if(cbTableDisplayMode.Checked)
+            if (cbTableDisplayMode.Checked)
             {
                 foreach (Control c in pnlFloorPlan.Controls)
                 {
@@ -1242,7 +1262,7 @@ namespace FloorPlanMaker
                     }
                 }
             }
-            
+
         }
 
 
