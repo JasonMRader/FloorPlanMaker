@@ -163,7 +163,7 @@ namespace FloorPlanMaker
                     textToDisplay = control.Table.MaxCovers.ToString();
                     break;
                 case DisplayMode.AverageCovers:
-                    textToDisplay = control.Table.AverageCovers.ToString("F1"); // One decimal place
+                    textToDisplay = control.Table.AverageCovers.ToString("C0"); // One decimal place
                     break;
             }
 

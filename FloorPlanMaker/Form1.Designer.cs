@@ -53,6 +53,7 @@ namespace FloorPlanMaker
             flowSectionSelect = new FlowLayoutPanel();
             pnlSections = new Panel();
             cbTableDisplayMode = new CheckBox();
+            label3 = new Label();
             btnGenerateSectionLines = new Button();
             btnChooseTemplate = new Button();
             btnPrint = new Button();
@@ -85,7 +86,7 @@ namespace FloorPlanMaker
             // 
             // pnlServers
             // 
-            pnlServers.BackColor = Color.Silver;
+            pnlServers.BackColor = Color.FromArgb(178, 87, 46);
             pnlServers.Controls.Add(flowServersInFloorplan);
             pnlServers.Controls.Add(lblDiningRoomName);
             pnlServers.Controls.Add(label1);
@@ -105,14 +106,16 @@ namespace FloorPlanMaker
             // 
             // flowServersInFloorplan
             // 
-            flowServersInFloorplan.Location = new Point(6, 255);
+            flowServersInFloorplan.BackColor = Color.Silver;
+            flowServersInFloorplan.Location = new Point(6, 224);
             flowServersInFloorplan.Name = "flowServersInFloorplan";
-            flowServersInFloorplan.Size = new Size(235, 605);
+            flowServersInFloorplan.Size = new Size(235, 653);
             flowServersInFloorplan.TabIndex = 2;
             // 
             // lblDiningRoomName
             // 
             lblDiningRoomName.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
+            lblDiningRoomName.ForeColor = Color.White;
             lblDiningRoomName.Location = new Point(0, 10);
             lblDiningRoomName.Name = "lblDiningRoomName";
             lblDiningRoomName.Size = new Size(238, 37);
@@ -124,7 +127,8 @@ namespace FloorPlanMaker
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(81, 192);
+            label1.ForeColor = Color.White;
+            label1.Location = new Point(84, 191);
             label1.Name = "label1";
             label1.Size = new Size(84, 30);
             label1.TabIndex = 0;
@@ -134,6 +138,7 @@ namespace FloorPlanMaker
             // 
             label10.AutoSize = true;
             label10.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label10.ForeColor = Color.White;
             label10.Location = new Point(28, 134);
             label10.Name = "label10";
             label10.Size = new Size(125, 21);
@@ -144,18 +149,18 @@ namespace FloorPlanMaker
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            label2.ForeColor = Color.Black;
-            label2.Location = new Point(2, 88);
+            label2.ForeColor = Color.White;
+            label2.Location = new Point(15, 88);
             label2.Name = "label2";
-            label2.Size = new Size(151, 25);
+            label2.Size = new Size(136, 25);
             label2.TabIndex = 0;
-            label2.Text = "Average Covers:";
+            label2.Text = "Average Sales:";
             // 
             // label8
             // 
             label8.AutoSize = true;
             label8.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            label8.ForeColor = Color.Black;
+            label8.ForeColor = Color.White;
             label8.Location = new Point(35, 63);
             label8.Name = "label8";
             label8.Size = new Size(118, 25);
@@ -166,7 +171,7 @@ namespace FloorPlanMaker
             // 
             lblDiningAreaAverageCovers.AutoSize = true;
             lblDiningAreaAverageCovers.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            lblDiningAreaAverageCovers.ForeColor = Color.Black;
+            lblDiningAreaAverageCovers.ForeColor = Color.White;
             lblDiningAreaAverageCovers.Location = new Point(159, 88);
             lblDiningAreaAverageCovers.Name = "lblDiningAreaAverageCovers";
             lblDiningAreaAverageCovers.Size = new Size(23, 25);
@@ -177,6 +182,7 @@ namespace FloorPlanMaker
             // 
             lblServerAverageCovers.AutoSize = true;
             lblServerAverageCovers.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lblServerAverageCovers.ForeColor = Color.White;
             lblServerAverageCovers.Location = new Point(159, 155);
             lblServerAverageCovers.Name = "lblServerAverageCovers";
             lblServerAverageCovers.Size = new Size(19, 21);
@@ -187,16 +193,18 @@ namespace FloorPlanMaker
             // 
             label11.AutoSize = true;
             label11.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label11.Location = new Point(30, 155);
+            label11.ForeColor = Color.White;
+            label11.Location = new Point(17, 155);
             label11.Name = "label11";
-            label11.Size = new Size(123, 21);
+            label11.Size = new Size(136, 21);
             label11.TabIndex = 4;
-            label11.Text = "Avg Per Server:";
+            label11.Text = "Avg $ Per Server:";
             // 
             // lblServerMaxCovers
             // 
             lblServerMaxCovers.AutoSize = true;
             lblServerMaxCovers.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lblServerMaxCovers.ForeColor = Color.White;
             lblServerMaxCovers.Location = new Point(159, 134);
             lblServerMaxCovers.Name = "lblServerMaxCovers";
             lblServerMaxCovers.Size = new Size(19, 21);
@@ -207,7 +215,7 @@ namespace FloorPlanMaker
             // 
             lblDiningAreaMaxCovers.AutoSize = true;
             lblDiningAreaMaxCovers.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            lblDiningAreaMaxCovers.ForeColor = Color.Black;
+            lblDiningAreaMaxCovers.ForeColor = Color.White;
             lblDiningAreaMaxCovers.Location = new Point(159, 63);
             lblDiningAreaMaxCovers.Name = "lblDiningAreaMaxCovers";
             lblDiningAreaMaxCovers.Size = new Size(23, 25);
@@ -310,16 +318,18 @@ namespace FloorPlanMaker
             // 
             // flowSectionSelect
             // 
+            flowSectionSelect.BackColor = Color.Silver;
             flowSectionSelect.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            flowSectionSelect.Location = new Point(15, 102);
+            flowSectionSelect.Location = new Point(15, 224);
             flowSectionSelect.Name = "flowSectionSelect";
-            flowSectionSelect.Size = new Size(212, 568);
+            flowSectionSelect.Size = new Size(212, 653);
             flowSectionSelect.TabIndex = 9;
             // 
             // pnlSections
             // 
             pnlSections.Controls.Add(cbTableDisplayMode);
             pnlSections.Controls.Add(flowSectionSelect);
+            pnlSections.Controls.Add(label3);
             pnlSections.Controls.Add(label9);
             pnlSections.Controls.Add(cboFloorplanTemplates);
             pnlSections.Controls.Add(nudServerCount);
@@ -332,8 +342,9 @@ namespace FloorPlanMaker
             pnlSections.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             pnlSections.Location = new Point(8, 32);
             pnlSections.Name = "pnlSections";
-            pnlSections.Size = new Size(239, 869);
+            pnlSections.Size = new Size(239, 877);
             pnlSections.TabIndex = 8;
+            pnlSections.Paint += pnlSections_Paint;
             // 
             // cbTableDisplayMode
             // 
@@ -341,7 +352,7 @@ namespace FloorPlanMaker
             cbTableDisplayMode.FlatAppearance.BorderSize = 0;
             cbTableDisplayMode.FlatStyle = FlatStyle.Flat;
             cbTableDisplayMode.ForeColor = Color.Black;
-            cbTableDisplayMode.Location = new Point(28, 64);
+            cbTableDisplayMode.Location = new Point(27, 105);
             cbTableDisplayMode.Name = "cbTableDisplayMode";
             cbTableDisplayMode.Size = new Size(184, 31);
             cbTableDisplayMode.TabIndex = 16;
@@ -349,6 +360,16 @@ namespace FloorPlanMaker
             cbTableDisplayMode.TextAlign = ContentAlignment.MiddleCenter;
             cbTableDisplayMode.UseVisualStyleBackColor = true;
             cbTableDisplayMode.CheckedChanged += cbTableDisplayMode_CheckedChanged;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
+            label3.Location = new Point(66, 191);
+            label3.Name = "label3";
+            label3.Size = new Size(95, 30);
+            label3.TabIndex = 0;
+            label3.Text = "Sections";
             // 
             // btnGenerateSectionLines
             // 
@@ -367,7 +388,7 @@ namespace FloorPlanMaker
             btnChooseTemplate.FlatAppearance.BorderSize = 0;
             btnChooseTemplate.FlatStyle = FlatStyle.Flat;
             btnChooseTemplate.ForeColor = Color.Black;
-            btnChooseTemplate.Location = new Point(28, 16);
+            btnChooseTemplate.Location = new Point(27, 57);
             btnChooseTemplate.Name = "btnChooseTemplate";
             btnChooseTemplate.Size = new Size(184, 31);
             btnChooseTemplate.TabIndex = 14;
@@ -622,7 +643,7 @@ namespace FloorPlanMaker
             pnlAddTables.ForeColor = Color.White;
             pnlAddTables.Location = new Point(12, 73);
             pnlAddTables.Name = "pnlAddTables";
-            pnlAddTables.Size = new Size(250, 911);
+            pnlAddTables.Size = new Size(250, 925);
             pnlAddTables.TabIndex = 1;
             // 
             // Form1
@@ -706,5 +727,6 @@ namespace FloorPlanMaker
         private Label lblPanel2Text;
         private Panel pnlAddTables;
         private CheckBox cbTableDisplayMode;
+        private Label label3;
     }
 }

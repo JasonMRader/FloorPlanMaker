@@ -91,6 +91,7 @@ namespace FloorPlanMakerUI
             ShiftManagerCreated.ServersNotOnShift.Remove(server);
             serverButton.Click -= AddToShift_Click;
             serverButton.Click += RemoveFromShift_Click;
+            serverButton.BackColor = Color.FromArgb(192, 255, 192);
             flowServersOnShift.Controls.Add(serverButton);
             flowAllServers.Controls.Remove(serverButton);
         }
@@ -102,6 +103,7 @@ namespace FloorPlanMakerUI
             ShiftManagerCreated.UnassignedServers.Remove(server);
             serverButton.Click += AddToShift_Click;
             serverButton.Click -= RemoveFromShift_Click;
+            serverButton.BackColor = AppColors.ButtonColor;
             flowServersOnShift.Controls.Remove(serverButton);
             flowAllServers.Controls.Add(serverButton);
         }
@@ -233,6 +235,7 @@ namespace FloorPlanMakerUI
 
             if (cbArea.Checked)
             {
+                cbArea.BackColor = Color.FromArgb(192, 255, 192);
                 if (!ShiftManagerCreated.DiningAreasUsed.Contains(area))
                 {
                     ShiftManagerCreated.CreateFloorplanForDiningArea(area, DateTime.Now, false, 0, 0);
@@ -242,6 +245,7 @@ namespace FloorPlanMakerUI
             }
             else
             {
+                cbArea.BackColor = AppColors.ButtonColor;
                 var floorplanToRemove = ShiftManagerCreated.Floorplans.FirstOrDefault(fp => fp.DiningArea == area);
                 ShiftManagerCreated.DiningAreasUsed.Remove(area);
                 ShiftManagerCreated.RemoveFloorplan(floorplanToRemove);
@@ -304,7 +308,16 @@ namespace FloorPlanMakerUI
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-
+            if(ShiftManagerCreated.Floorplans.Count == 0) 
+            {
+                MessageBox.Show("You have not choosen any dining areas for this shift");
+                return;
+            }
+            if(ShiftManagerCreated.ServersOnShift.Count == 0)
+            {
+                MessageBox.Show("You have not assigned any servers");
+                return;
+            }
             this.ShiftManagerCreated.DateOnly = new DateOnly(dateSelected.Year, dateSelected.Month, dateSelected.Day);
             this.ShiftManagerCreated.IsAM = isAM;
             frmEditStaff.UpdateNewShift(ShiftManagerCreated);

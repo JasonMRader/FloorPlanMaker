@@ -497,7 +497,7 @@ namespace FloorPlanMakerUI
         private void btnQuickEdit_Click(object sender, EventArgs e)
         {
             //allTableControls.Clear();
-            
+
             pnlFloorPlan.Controls.Clear();
             foreach (Table table in areaCreationManager.DiningAreaSelected.Tables)
             {
@@ -507,6 +507,32 @@ namespace FloorPlanMakerUI
                 //tableControlEditor.TableClicked += ExistingTable_TableClicked;
                 pnlFloorPlan.Controls.Add(tableControlEditor);
                 //allTableControls.Add(tableControl);
+            }
+        }
+
+        private void cbViewMode_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbViewMode.Checked)
+            {
+                foreach (Control c in pnlFloorPlan.Controls)
+                {
+                    if (c is TableControl tableControl)
+                    {
+                        tableControl.CurrentDisplayMode = DisplayMode.AverageCovers;
+                        tableControl.Invalidate();
+                    }
+                }
+            }
+            else
+            {
+                foreach (Control c in pnlFloorPlan.Controls)
+                {
+                    if (c is TableControl tableControl)
+                    {
+                        tableControl.CurrentDisplayMode = DisplayMode.TableNumber;
+                        tableControl.Invalidate();
+                    }
+                }
             }
         }
     }

@@ -60,10 +60,10 @@ namespace FloorPlanMaker
             //this.BackColor = Color.FromArgb(81,53,90);
             this.BackColor = AppColors.AccentColor;
 
-            pnlServers.BackColor = AppColors.CanvasColor;
+            pnlServers.BackColor = AppColors.SecondColor;
             pnlAddTables.BackColor = AppColors.SecondColor;
-            //flowSectionSelect.BackColor = AppColors.CanvasColor; 
-            //flowServersInFloorplan.BackColor = AppColors.CanvasColor;
+            flowSectionSelect.BackColor = AppColors.CanvasColor;
+            flowServersInFloorplan.BackColor = AppColors.CanvasColor;
         }
         public void UpdateForm1ShiftManager(ShiftManager shiftManagerToAdd)
         {
@@ -328,7 +328,7 @@ namespace FloorPlanMaker
             SetViewedFloorplan();
             lblDiningRoomName.Text = areaCreationManager.DiningAreaSelected.Name;
             RefreshTemplateList(shiftManager.SelectedDiningArea);
-            lblDiningAreaAverageCovers.Text = shiftManager.SelectedDiningArea.GetAverageCovers().ToString();
+            lblDiningAreaAverageCovers.Text = shiftManager.SelectedDiningArea.GetAverageCovers().ToString("C0");
             lblDiningAreaMaxCovers.Text = shiftManager.SelectedDiningArea.GetMaxCovers().ToString();
             this.sectionLineManager = new SectionLineManager(allTableControls);
 
@@ -521,7 +521,7 @@ namespace FloorPlanMaker
 
                 Label lblAverageCovers = new Label
                 {
-                    Text = (section.AverageCovers - shiftManager.SelectedFloorplan.AvgCoversPerServer).ToString(),
+                    Text = (section.AverageCovers - shiftManager.SelectedFloorplan.AvgCoversPerServer).ToString("C0"),
                     AutoSize = false,
                     Size = new Size(35, 25),
                     Font = new Font("Segoe UI", 12F),
@@ -1033,7 +1033,7 @@ namespace FloorPlanMaker
                 CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
                 UpdateServerControlsForFloorplan();
                 lblServerMaxCovers.Text = shiftManager.SelectedFloorplan.MaxCoversPerServer.ToString("F1");
-                lblServerAverageCovers.Text = shiftManager.SelectedFloorplan.AvgCoversPerServer.ToString("F1");
+                lblServerAverageCovers.Text = shiftManager.SelectedFloorplan.AvgCoversPerServer.ToString("C0");
             }
 
             UpdateTableControlSections();
@@ -1246,7 +1246,7 @@ namespace FloorPlanMaker
                 {
                     if (c is TableControl tableControl)
                     {
-                        tableControl.CurrentDisplayMode = DisplayMode.MaxCovers;
+                        tableControl.CurrentDisplayMode = DisplayMode.AverageCovers;
                         tableControl.Invalidate();
                     }
                 }
@@ -1262,6 +1262,11 @@ namespace FloorPlanMaker
                     }
                 }
             }
+
+        }
+
+        private void pnlSections_Paint(object sender, PaintEventArgs e)
+        {
 
         }
 

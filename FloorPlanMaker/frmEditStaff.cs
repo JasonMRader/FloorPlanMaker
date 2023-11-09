@@ -66,18 +66,60 @@ namespace FloorPlanMaker
             allFloorplans = SqliteDataAccess.LoadFloorplanList();
 
         }
+        //private Dictionary<DiningArea, int> ServersAssignedPreviousDay(List<Floorplan> floorplans, bool isLunch, int Days)
+        //{
+        //    DateTime oneWeekAgo = dateSelected.AddDays(Days);
+
+        //    var result = floorplans
+        //        .Where(fp => fp.Date.Date == oneWeekAgo.Date)// && fp.IsLunch == isLunch)
+        //        .GroupBy(fp => fp.DiningArea)
+        //        .ToDictionary(group => group.Key, group => group.Sum(fp => fp.Servers.Count));
+
+        //    return result;
+        //}
         private Dictionary<DiningArea, int> ServersAssignedPreviousDay(List<Floorplan> floorplans, bool isLunch, int Days)
         {
-            DateTime oneWeekAgo = dateSelected.AddDays(Days);
+            DateTime targetDate = dateSelected.AddDays(Days);
+            var relevantFloorplans = floorplans
+                .Where(fp => fp.Date.Date == targetDate.Date && fp.IsLunch == isLunch)
+                .ToList();
 
-            var result = floorplans
-                .Where(fp => fp.Date.Date == oneWeekAgo.Date)// && fp.IsLunch == isLunch)
-                .GroupBy(fp => fp.DiningArea)
-                .ToDictionary(group => group.Key, group => group.Sum(fp => fp.Servers.Count));
+            var result = new Dictionary<DiningArea, int>();
+
+            // Initialize all dining areas with zero count
+            foreach (var area in DiningAreaManager.DiningAreas)
+            {
+                result[area] = 0;
+            }
+
+            // Count servers for the relevant floorplans
+            foreach (var fp in relevantFloorplans)
+            {
+                // Now this should update the entry instead of creating a new one
+                result[fp.DiningArea] += fp.Servers.Count;
+            }
 
             return result;
         }
+        private void UpdateCountLabels(FlowLayoutPanel panel, Dictionary<DiningArea, int> floorplanCounts)
+        {
+            foreach (Label lbl in PastStaffLevelLabels)
+            {
+                if (lbl.Tag is DiningArea area && floorplanCounts.TryGetValue(area, out int count))
+                {
+                    lbl.Text = $"{count} Servers"; // Update the text of the label
+                    if (count > 0)
+                    {
+                        lbl.BackColor = AppColors.ButtonColor;
+                    }
+                    else
+                    {
+                        lbl.BackColor = Color.Gray;
+                    }
 
+                }
+            }
+        }
         private void RefreshPreviousFloorplanCounts()
         {
 
@@ -397,7 +439,7 @@ namespace FloorPlanMaker
                 {
                     AutoSize = false,
                     Width = width - 8,
-                    Height = 30,
+                    Height = 20,
                     Margin = new Padding(4),
                     Text = "Servers: " + fp.Servers.Count.ToString(),
                     TextAlign = ContentAlignment.MiddleCenter,
@@ -409,7 +451,7 @@ namespace FloorPlanMaker
                 {
                     AutoSize = false,
                     Width = (width - 8),
-                    Height = 30,
+                    Height = 20,
                     Margin = new Padding(4),
                     Text = "Max: " + fp.DiningArea.GetMaxCovers().ToString() + "  Avg: " + fp.DiningArea.GetAverageCovers().ToString(),
                     TextAlign = ContentAlignment.MiddleCenter,
@@ -417,6 +459,20 @@ namespace FloorPlanMaker
                     Tag = fp
                 };
                 ServerMaxLabels.Add(maxLabel);
+                Label pastLabel = new Label
+                {
+                    AutoSize = false,
+                    Width = (width - 8),
+                    Height = 35,
+                    Dock = DockStyle.Top,
+                    Margin = new Padding(4),
+                    Text = "Yesterday: " + fp.DiningArea.Name + "\n" + "Last Week: " + fp.DiningArea.Name,
+                    TextAlign = ContentAlignment.MiddleCenter,
+                    Font = new Font("Segoe UI", 10f, FontStyle.Bold),
+                    Tag = fp.DiningArea
+                };
+               PastStaffLevelLabels.Add(pastLabel);
+
 
                 FlowLayoutPanel serversInFloorplanPanel = new FlowLayoutPanel
                 {
@@ -426,7 +482,8 @@ namespace FloorPlanMaker
                     BackColor = AppColors.CanvasColor,
                     Tag = fp
                 };
-                flowDiningAreaAssignment.Controls.Add(rb);
+                //flowDiningAreaAssignment.Controls.Add(rb);
+                DiningAreaRBs.Add(rb);
                 //flowDiningAreaAssignment.Controls.Add(floorplanPanel);
                 flowList.Add(serversInFloorplanPanel);
                 foreach (var server in fp.Servers)
@@ -440,6 +497,14 @@ namespace FloorPlanMaker
                     //newShiftManager.Re
                 }
 
+            }
+            foreach (Control c in PastStaffLevelLabels)
+            {
+                flowDiningAreaAssignment.Controls.Add((Control)c);
+            }
+            foreach(Control c in DiningAreaRBs)
+            {
+                flowDiningAreaAssignment.Controls.Add(((Control)c));
             }
             foreach (Control c in ServerCountLabels)
             {
@@ -457,6 +522,11 @@ namespace FloorPlanMaker
             refreshTabOrder();
 
         }
+        private List<Control> ServerCountLabels = new List<Control>();
+        private List<Control> ServerMaxLabels = new List<Control>();
+        private List<Control> ServerAvgLabels = new List<Control>();
+        private List<Control> PastStaffLevelLabels = new List<Control>();
+        private List<Control> DiningAreaRBs = new List<Control>();
         private void AdjustServerLists(Server server, List<Server> listToRemoveFrom, List<Server> listToAddTo, FlowLayoutPanel flowToRemoveFrom, FlowLayoutPanel flowToAddTo)
         {
 
@@ -709,9 +779,7 @@ namespace FloorPlanMaker
         }
 
 
-        private List<Control> ServerCountLabels = new List<Control>();
-        private List<Control> ServerMaxLabels = new List<Control>();
-        private List<Control> ServerAvgLabels = new List<Control>();
+       
 
         private void RefreshFloorplanCountLabels()
         {
@@ -742,6 +810,24 @@ namespace FloorPlanMaker
                             fpMaxLabel.Text = "Max: " + fp.DiningArea.GetMaxCovers().ToString() + "  Avg: " + fp.DiningArea.GetAverageCovers().ToString();
                         }
                     }
+                }
+            }
+            foreach (Control c in PastStaffLevelLabels)
+            {
+                if (c is Label pastLabel)
+                {
+                    //if (pastLabel.Tag is DiningArea diningArea)
+                    //{
+                    //    if (fp.Servers.Count > 0)
+                    //    {
+                    //        pastLabel.Text = "Max: " + (fp.DiningArea.GetMaxCovers() / fp.Servers.Count).ToString("F1")
+                    //            + "  Avg: " + (fp.DiningArea.GetAverageCovers() / fp.Servers.Count).ToString("F1");
+                    //    }
+                    //    else
+                    //    {
+                    //        pastLabel.Text = "Max: " + fp.DiningArea.GetMaxCovers().ToString() + "  Avg: " + fp.DiningArea.GetAverageCovers().ToString();
+                    //    }
+                    //}
                 }
             }
 

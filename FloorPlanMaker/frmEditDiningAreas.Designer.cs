@@ -63,13 +63,14 @@
             cbTemporaryFloorplan = new CheckBox();
             txtDiningAreaName = new TextBox();
             panel4 = new Panel();
+            btnQuickEdit = new Button();
             panel5 = new Panel();
             label7 = new Label();
             btnAddCircle = new Button();
             btnAddDiamond = new Button();
             btnAddSquare = new Button();
             cboDiningAreas = new ComboBox();
-            btnQuickEdit = new Button();
+            cbViewMode = new CheckBox();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
             panel7.SuspendLayout();
@@ -279,13 +280,15 @@
             // 
             cbLockTables.Appearance = Appearance.Button;
             cbLockTables.BackColor = Color.FromArgb(158, 171, 222);
+            cbLockTables.Checked = true;
+            cbLockTables.CheckState = CheckState.Checked;
             cbLockTables.FlatAppearance.BorderSize = 0;
             cbLockTables.FlatStyle = FlatStyle.Flat;
             cbLockTables.Location = new Point(18, 350);
             cbLockTables.Name = "cbLockTables";
             cbLockTables.Size = new Size(141, 24);
             cbLockTables.TabIndex = 4;
-            cbLockTables.Text = "Lock Tables";
+            cbLockTables.Text = "Unlock Tables";
             cbLockTables.TextAlign = ContentAlignment.MiddleCenter;
             cbLockTables.UseVisualStyleBackColor = false;
             cbLockTables.CheckedChanged += cbLockTables_CheckedChanged;
@@ -473,6 +476,7 @@
             // panel4
             // 
             panel4.BackColor = Color.FromArgb(178, 87, 46);
+            panel4.Controls.Add(cbViewMode);
             panel4.Controls.Add(btnQuickEdit);
             panel4.Controls.Add(panel5);
             panel4.Controls.Add(panel2);
@@ -483,6 +487,19 @@
             panel4.Name = "panel4";
             panel4.Size = new Size(932, 934);
             panel4.TabIndex = 5;
+            // 
+            // btnQuickEdit
+            // 
+            btnQuickEdit.BackColor = Color.FromArgb(158, 171, 222);
+            btnQuickEdit.FlatAppearance.BorderSize = 0;
+            btnQuickEdit.FlatStyle = FlatStyle.Flat;
+            btnQuickEdit.Location = new Point(662, 8);
+            btnQuickEdit.Name = "btnQuickEdit";
+            btnQuickEdit.Size = new Size(119, 23);
+            btnQuickEdit.TabIndex = 5;
+            btnQuickEdit.Text = "Quick Edit";
+            btnQuickEdit.UseVisualStyleBackColor = false;
+            btnQuickEdit.Click += btnQuickEdit_Click;
             // 
             // panel5
             // 
@@ -551,18 +568,20 @@
             cboDiningAreas.TabIndex = 1;
             cboDiningAreas.SelectedIndexChanged += cboDiningAreas_SelectedIndexChanged;
             // 
-            // btnQuickEdit
+            // cbViewMode
             // 
-            btnQuickEdit.BackColor = Color.FromArgb(158, 171, 222);
-            btnQuickEdit.FlatAppearance.BorderSize = 0;
-            btnQuickEdit.FlatStyle = FlatStyle.Flat;
-            btnQuickEdit.Location = new Point(662, 8);
-            btnQuickEdit.Name = "btnQuickEdit";
-            btnQuickEdit.Size = new Size(234, 23);
-            btnQuickEdit.TabIndex = 5;
-            btnQuickEdit.Text = "Quick Edit";
-            btnQuickEdit.UseVisualStyleBackColor = false;
-            btnQuickEdit.Click += btnQuickEdit_Click;
+            cbViewMode.Appearance = Appearance.Button;
+            cbViewMode.BackColor = Color.FromArgb(158, 171, 222);
+            cbViewMode.FlatAppearance.BorderSize = 0;
+            cbViewMode.FlatStyle = FlatStyle.Flat;
+            cbViewMode.Location = new Point(787, 8);
+            cbViewMode.Name = "cbViewMode";
+            cbViewMode.Size = new Size(104, 23);
+            cbViewMode.TabIndex = 1;
+            cbViewMode.Text = "Toggle View";
+            cbViewMode.TextAlign = ContentAlignment.MiddleCenter;
+            cbViewMode.UseVisualStyleBackColor = false;
+            cbViewMode.CheckedChanged += cbViewMode_CheckedChanged;
             // 
             // frmEditDiningAreas
             // 
@@ -633,5 +652,6 @@
         private TextBox txtYco;
         private Label label9;
         private Button btnQuickEdit;
+        private CheckBox cbViewMode;
     }
 }
