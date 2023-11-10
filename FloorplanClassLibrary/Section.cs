@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Net.Security;
 using System.Text;
@@ -71,6 +72,32 @@ namespace FloorplanClassLibrary
                 return Tables.Sum(table => table.AverageCovers);
             }
         }
+        public string AverageCoversDisplay()
+        {
+            CultureInfo culture = CultureInfo.CurrentCulture;
+
+            // If the value is negative, prepend a minus sign and format the absolute value.
+            // Otherwise, just format the value as currency.
+            string formattedValue = this.AverageCovers >= 0
+                ? this.AverageCovers.ToString("C0", culture)
+                : "-" + Math.Abs(this.AverageCovers).ToString("C0", culture);
+
+            return formattedValue;
+        }
+        public static string FormatAsCurrencyWithoutParentheses(float value)
+        {
+            // Using current culture's currency format
+            CultureInfo culture = CultureInfo.CurrentCulture;
+
+            // If the value is negative, prepend a minus sign and format the absolute value.
+            // Otherwise, just format the value as currency.
+            string formattedValue = value >= 0
+                ? value.ToString("C0", culture)
+                : "-" + Math.Abs(value).ToString("C0", culture);
+
+            return formattedValue;
+        }
+
         public Server? Server { get; set; }
         public int? ServerID 
         { 

@@ -111,7 +111,7 @@ namespace FloorplanClassLibrary
             section.Number = _sections.Count + 1;
             if (section.Server == null)
             {
-                section.Name = $"Section {section.Number}";
+                section.Name = $"# {section.Number}";
             }
             _sections.Add(section);
         }

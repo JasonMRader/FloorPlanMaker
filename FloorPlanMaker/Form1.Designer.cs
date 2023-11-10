@@ -51,7 +51,6 @@ namespace FloorPlanMaker
             btnSaveFloorplanTemplate = new Button();
             btnAddSectionLabels = new Button();
             flowSectionSelect = new FlowLayoutPanel();
-            pnlSections = new Panel();
             cbTableDisplayMode = new CheckBox();
             label3 = new Label();
             btnGenerateSectionLines = new Button();
@@ -78,7 +77,6 @@ namespace FloorPlanMaker
             pnlAddTables = new Panel();
             pnlServers.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudServerCount).BeginInit();
-            pnlSections.SuspendLayout();
             panel1.SuspendLayout();
             panel3.SuspendLayout();
             pnlAddTables.SuspendLayout();
@@ -226,7 +224,7 @@ namespace FloorPlanMaker
             // 
             label9.AutoSize = true;
             label9.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label9.Location = new Point(80, 813);
+            label9.Location = new Point(16, 202);
             label9.Name = "label9";
             label9.Size = new Size(69, 21);
             label9.TabIndex = 2;
@@ -235,10 +233,10 @@ namespace FloorPlanMaker
             // 
             // nudServerCount
             // 
-            nudServerCount.Location = new Point(165, 813);
+            nudServerCount.Location = new Point(123, 141);
             nudServerCount.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             nudServerCount.Name = "nudServerCount";
-            nudServerCount.Size = new Size(46, 29);
+            nudServerCount.Size = new Size(46, 23);
             nudServerCount.TabIndex = 3;
             nudServerCount.Value = new decimal(new int[] { 1, 0, 0, 0 });
             nudServerCount.Visible = false;
@@ -248,9 +246,9 @@ namespace FloorPlanMaker
             // 
             btnRemoveSection.FlatStyle = FlatStyle.Flat;
             btnRemoveSection.ForeColor = Color.Black;
-            btnRemoveSection.Location = new Point(112, 837);
+            btnRemoveSection.Location = new Point(191, 150);
             btnRemoveSection.Name = "btnRemoveSection";
-            btnRemoveSection.Size = new Size(115, 23);
+            btnRemoveSection.Size = new Size(32, 23);
             btnRemoveSection.TabIndex = 9;
             btnRemoveSection.Text = "Remove Section";
             btnRemoveSection.UseVisualStyleBackColor = true;
@@ -261,9 +259,9 @@ namespace FloorPlanMaker
             // 
             btnAddSection.FlatStyle = FlatStyle.Flat;
             btnAddSection.ForeColor = Color.Black;
-            btnAddSection.Location = new Point(8, 837);
+            btnAddSection.Location = new Point(155, 182);
             btnAddSection.Name = "btnAddSection";
-            btnAddSection.Size = new Size(98, 23);
+            btnAddSection.Size = new Size(33, 23);
             btnAddSection.TabIndex = 9;
             btnAddSection.Text = "Add Section";
             btnAddSection.UseVisualStyleBackColor = true;
@@ -272,19 +270,19 @@ namespace FloorPlanMaker
             // 
             // txtTemplateName
             // 
-            txtTemplateName.Location = new Point(18, 713);
+            txtTemplateName.Location = new Point(23, 176);
             txtTemplateName.Name = "txtTemplateName";
             txtTemplateName.PlaceholderText = "Enter Template Name Here";
-            txtTemplateName.Size = new Size(212, 29);
+            txtTemplateName.Size = new Size(74, 23);
             txtTemplateName.TabIndex = 15;
             txtTemplateName.Visible = false;
             // 
             // cboFloorplanTemplates
             // 
             cboFloorplanTemplates.FormattingEnabled = true;
-            cboFloorplanTemplates.Location = new Point(16, 781);
+            cboFloorplanTemplates.Location = new Point(103, 185);
             cboFloorplanTemplates.Name = "cboFloorplanTemplates";
-            cboFloorplanTemplates.Size = new Size(218, 29);
+            cboFloorplanTemplates.Size = new Size(34, 23);
             cboFloorplanTemplates.TabIndex = 14;
             cboFloorplanTemplates.Visible = false;
             cboFloorplanTemplates.SelectedIndexChanged += cboFloorplanTemplates_SelectedIndexChanged;
@@ -293,9 +291,9 @@ namespace FloorPlanMaker
             // 
             btnSaveFloorplanTemplate.FlatStyle = FlatStyle.Flat;
             btnSaveFloorplanTemplate.ForeColor = Color.Black;
-            btnSaveFloorplanTemplate.Location = new Point(18, 745);
+            btnSaveFloorplanTemplate.Location = new Point(28, 140);
             btnSaveFloorplanTemplate.Name = "btnSaveFloorplanTemplate";
-            btnSaveFloorplanTemplate.Size = new Size(215, 30);
+            btnSaveFloorplanTemplate.Size = new Size(43, 30);
             btnSaveFloorplanTemplate.TabIndex = 12;
             btnSaveFloorplanTemplate.Text = "Save Floorplan Template";
             btnSaveFloorplanTemplate.UseVisualStyleBackColor = true;
@@ -320,31 +318,10 @@ namespace FloorPlanMaker
             // 
             flowSectionSelect.BackColor = Color.Silver;
             flowSectionSelect.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            flowSectionSelect.Location = new Point(15, 224);
+            flowSectionSelect.Location = new Point(16, 250);
             flowSectionSelect.Name = "flowSectionSelect";
-            flowSectionSelect.Size = new Size(212, 653);
+            flowSectionSelect.Size = new Size(220, 653);
             flowSectionSelect.TabIndex = 9;
-            // 
-            // pnlSections
-            // 
-            pnlSections.Controls.Add(cbTableDisplayMode);
-            pnlSections.Controls.Add(flowSectionSelect);
-            pnlSections.Controls.Add(label3);
-            pnlSections.Controls.Add(label9);
-            pnlSections.Controls.Add(cboFloorplanTemplates);
-            pnlSections.Controls.Add(nudServerCount);
-            pnlSections.Controls.Add(txtTemplateName);
-            pnlSections.Controls.Add(btnSaveFloorplanTemplate);
-            pnlSections.Controls.Add(btnRemoveSection);
-            pnlSections.Controls.Add(btnGenerateSectionLines);
-            pnlSections.Controls.Add(btnChooseTemplate);
-            pnlSections.Controls.Add(btnAddSection);
-            pnlSections.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            pnlSections.Location = new Point(8, 32);
-            pnlSections.Name = "pnlSections";
-            pnlSections.Size = new Size(239, 877);
-            pnlSections.TabIndex = 8;
-            pnlSections.Paint += pnlSections_Paint;
             // 
             // cbTableDisplayMode
             // 
@@ -352,7 +329,7 @@ namespace FloorPlanMaker
             cbTableDisplayMode.FlatAppearance.BorderSize = 0;
             cbTableDisplayMode.FlatStyle = FlatStyle.Flat;
             cbTableDisplayMode.ForeColor = Color.Black;
-            cbTableDisplayMode.Location = new Point(27, 105);
+            cbTableDisplayMode.Location = new Point(39, 89);
             cbTableDisplayMode.Name = "cbTableDisplayMode";
             cbTableDisplayMode.Size = new Size(184, 31);
             cbTableDisplayMode.TabIndex = 16;
@@ -365,7 +342,7 @@ namespace FloorPlanMaker
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
-            label3.Location = new Point(66, 191);
+            label3.Location = new Point(74, 217);
             label3.Name = "label3";
             label3.Size = new Size(95, 30);
             label3.TabIndex = 0;
@@ -375,9 +352,9 @@ namespace FloorPlanMaker
             // 
             btnGenerateSectionLines.FlatStyle = FlatStyle.Flat;
             btnGenerateSectionLines.ForeColor = Color.Black;
-            btnGenerateSectionLines.Location = new Point(15, 676);
+            btnGenerateSectionLines.Location = new Point(77, 138);
             btnGenerateSectionLines.Name = "btnGenerateSectionLines";
-            btnGenerateSectionLines.Size = new Size(212, 35);
+            btnGenerateSectionLines.Size = new Size(31, 35);
             btnGenerateSectionLines.TabIndex = 15;
             btnGenerateSectionLines.Text = "Auto Section Lines";
             btnGenerateSectionLines.UseVisualStyleBackColor = true;
@@ -388,7 +365,7 @@ namespace FloorPlanMaker
             btnChooseTemplate.FlatAppearance.BorderSize = 0;
             btnChooseTemplate.FlatStyle = FlatStyle.Flat;
             btnChooseTemplate.ForeColor = Color.Black;
-            btnChooseTemplate.Location = new Point(27, 57);
+            btnChooseTemplate.Location = new Point(39, 49);
             btnChooseTemplate.Name = "btnChooseTemplate";
             btnChooseTemplate.Size = new Size(184, 31);
             btnChooseTemplate.TabIndex = 14;
@@ -638,12 +615,23 @@ namespace FloorPlanMaker
             // pnlAddTables
             // 
             pnlAddTables.BackColor = Color.FromArgb(178, 87, 46);
-            pnlAddTables.Controls.Add(pnlSections);
+            pnlAddTables.Controls.Add(btnRemoveSection);
+            pnlAddTables.Controls.Add(nudServerCount);
+            pnlAddTables.Controls.Add(btnAddSection);
+            pnlAddTables.Controls.Add(label9);
+            pnlAddTables.Controls.Add(cbTableDisplayMode);
+            pnlAddTables.Controls.Add(cboFloorplanTemplates);
             pnlAddTables.Controls.Add(lblPanel2Text);
+            pnlAddTables.Controls.Add(label3);
+            pnlAddTables.Controls.Add(txtTemplateName);
+            pnlAddTables.Controls.Add(flowSectionSelect);
+            pnlAddTables.Controls.Add(btnSaveFloorplanTemplate);
+            pnlAddTables.Controls.Add(btnGenerateSectionLines);
+            pnlAddTables.Controls.Add(btnChooseTemplate);
             pnlAddTables.ForeColor = Color.White;
-            pnlAddTables.Location = new Point(12, 73);
+            pnlAddTables.Location = new Point(12, 65);
             pnlAddTables.Name = "pnlAddTables";
-            pnlAddTables.Size = new Size(250, 925);
+            pnlAddTables.Size = new Size(252, 933);
             pnlAddTables.TabIndex = 1;
             // 
             // Form1
@@ -671,8 +659,6 @@ namespace FloorPlanMaker
             pnlServers.ResumeLayout(false);
             pnlServers.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)nudServerCount).EndInit();
-            pnlSections.ResumeLayout(false);
-            pnlSections.PerformLayout();
             panel1.ResumeLayout(false);
             panel3.ResumeLayout(false);
             pnlAddTables.ResumeLayout(false);
@@ -686,7 +672,6 @@ namespace FloorPlanMaker
         private Label label1;
         private Panel pnlFloorPlan;
         private ComboBox cboDiningAreas;
-        private Panel pnlSections;
         private Label label8;
         private Label lblDiningAreaMaxCovers;
         private Label lblServerAverageCovers;

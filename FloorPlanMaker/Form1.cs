@@ -5,6 +5,7 @@ using FloorPlanMakerUI;
 using NetTopologySuite.Triangulate;
 using System.Diagnostics.Metrics;
 using System.Drawing.Drawing2D;
+using System.Globalization;
 using System.Windows.Forms;
 //using static System.Collections.Specialized.BitVector32;
 //using static System.Collections.Specialized.BitVector32;
@@ -500,7 +501,7 @@ namespace FloorPlanMaker
                     BackColor = section.Color,
                     ForeColor = section.FontColor,
                     AutoSize = false,
-                    Size = new Size(95, 25),
+                    Size = new Size(55, 25),
                     Text = section.Name,
                     Tag = section  // Store the section object in the Tag property for easy access in the event handler.
                 };
@@ -521,10 +522,10 @@ namespace FloorPlanMaker
 
                 Label lblAverageCovers = new Label
                 {
-                    Text = (section.AverageCovers - shiftManager.SelectedFloorplan.AvgCoversPerServer).ToString("C0"),
-                    AutoSize = false,
-                    Size = new Size(35, 25),
-                    Font = new Font("Segoe UI", 12F),
+                    Text = Section.FormatAsCurrencyWithoutParentheses(section.AverageCovers - shiftManager.SelectedFloorplan.AvgCoversPerServer), //(section.AverageCovers - shiftManager.SelectedFloorplan.AvgCoversPerServer).ToString("C0;\\-C0", CultureInfo.CurrentCulture),
+                    AutoSize = true,
+                    Size = new Size(65, 25),
+                    Font = new Font("Segoe UI", 10F),
                     TextAlign = ContentAlignment.TopCenter,
                     Margin = new Padding(0, 3, 0, 3)
 
@@ -601,8 +602,8 @@ namespace FloorPlanMaker
                 rbCloser.Location = new System.Drawing.Point(lblAverageCovers.Right + 10, 5);
                 rbPrecloser.Location = new System.Drawing.Point(rbCloser.Right + 5, 5);
                 // Adjust panel size to fit the controls (or set a predefined size).
-                sectionPanel.Size = new Size(lblAverageCovers.Right + 20, Math.Max(rbSection.Height, lblAverageCovers.Height) + 10);
-
+                //sectionPanel.Size = new Size(lblAverageCovers.Right + 20, Math.Max(rbSection.Height, lblAverageCovers.Height) + 10);
+                sectionPanel.Size = new Size(flowSectionSelect.Width - 10, Math.Max(rbSection.Height, lblAverageCovers.Height) + 10);
                 sectionLabels[section] = (lblMaxCovers, lblAverageCovers);
                 // Add the panel to the flow layout panel.
                 flowSectionSelect.Controls.Add(sectionPanel);
@@ -683,7 +684,7 @@ namespace FloorPlanMaker
             {
                 sectionLabels[section].MaxCoversLabel.Text = maxDifference.ToString();
 
-                sectionLabels[section].AverageCoversLabel.Text = avgDifference.ToString();
+                sectionLabels[section].AverageCoversLabel.Text = Section.FormatAsCurrencyWithoutParentheses(avgDifference);// avgDifference.ToString("C0;\\-C0", CultureInfo.CurrentCulture);
 
             }
         }
@@ -702,7 +703,7 @@ namespace FloorPlanMaker
             {
                 pnlNavigationWindow.SendToBack();
                 pnlNavHighlight.Location = new Point(rdoSections.Left, 0);
-                pnlSections.Visible = true;
+                
                 flowServersInFloorplan.Visible = true;
                 lblPanel2Text.Text = areaCreationManager.DiningAreaSelected.Name;
                 //this.shiftManager = new ShiftManager(areaCreationManager.DiningAreaSelected);
