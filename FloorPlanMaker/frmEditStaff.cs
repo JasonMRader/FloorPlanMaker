@@ -3,6 +3,7 @@ using FloorplanClassLibrary;
 using FloorPlanMakerUI;
 using System;
 using System.Data;
+using System.Windows.Forms;
 
 namespace FloorPlanMaker
 {
@@ -101,36 +102,64 @@ namespace FloorPlanMaker
 
             return result;
         }
-        private void UpdateCountLabels(FlowLayoutPanel panel, Dictionary<DiningArea, int> yesterdayCounts, Dictionary<DiningArea, int> lastWeekCounts)
+        private Dictionary<DiningArea, int> PreviousServerCountsForDiningArea(int Days)
         {
+            DateTime targetDate = dateSelected.AddDays(Days);
+            DateOnly dateOnly = new DateOnly(targetDate.Year,targetDate.Month, targetDate.Day);
+            List<Floorplan> floorplans = new List<Floorplan>();
+            foreach(Floorplan floorplan in newShiftManager.Floorplans)
+            {
+               Floorplan fp = SqliteDataAccess.LoadFloorplanByCriteria(floorplan.DiningArea, dateOnly, newShiftManager.IsAM);
+                if(fp != null)
+                {
+                    floorplans.Add(fp);
+                }
+            }
+                    
+           
+            var result = new Dictionary<DiningArea, int>();
+
+            
+            foreach (var floorplan in newShiftManager.Floorplans)
+            {
+                result[floorplan.DiningArea] = 0;
+            }
+
+            // Count servers for the relevant floorplans
+            foreach (var fp in floorplans)
+            {
+                // Now this should update the entry instead of creating a new one
+                result[fp.DiningArea] += fp.Servers.Count;
+            }
+
+            return result;
+        }
+        private void UpdateCountLabels()
+        {
+            Dictionary<DiningArea, int> LastWeekFloorplans = PreviousServerCountsForDiningArea(-1);
+            Dictionary<DiningArea, int> yesterdayCounts = PreviousServerCountsForDiningArea(-7);
             foreach (Label lbl in PastStaffLevelLabels)
             {
-                string textDisplay = "";
                 if (lbl.Tag is DiningArea area)
                 {
-                    // Try to get yesterday's count for the area.
+                    string yesterdayText = "Yesterday: N/A";
+                    string lastWeekText = "Last Week: N/A";
+
+                    // Check if yesterday's counts are available for this area and update the text.
                     if (yesterdayCounts.TryGetValue(area, out int yesterdayCount))
                     {
-                        textDisplay = $"Yesterday: {yesterdayCount}";
-                    }
-                    else
-                    {
-                        // Handle the case where the area is not found for yesterday's count.
-                        textDisplay = "Yesterday: N/A";
+                        yesterdayText = $"Yesterday: {yesterdayCount}";
                     }
 
-                    // Try to get last week's count for the area.
-                    if (lastWeekCounts.TryGetValue(area, out int lastWeekCount))
+                    // Check if last week's counts are available for this area and update the text.
+                    if (LastWeekFloorplans.TryGetValue(area, out int lastWeekCount))
                     {
-                        textDisplay += $" Last Week: {lastWeekCount}";
+                        lastWeekText = $"Last Week: {lastWeekCount}";
                     }
-                    else
-                    {
-                        // Handle the case where the area is not found for last week's count.
-                        textDisplay += " Last Week: N/A";
-                    }
+
+                    // Set the label's text.
+                    lbl.Text = $" {yesterdayText} \n {lastWeekText}";
                 }
-                lbl.Text = textDisplay;
 
             }
         }
@@ -158,7 +187,7 @@ namespace FloorPlanMaker
                 lbl.Text = $"{entry.Key}: {entry.Value}";
                 flowYesterdayCounts.Controls.Add(lbl);
             }
-            UpdateCountLabels(flowDiningAreaAssignment,YesterdayFloorplans, LastWeekFloorplans);
+            //UpdateCountLabels(flowDiningAreaAssignment, YesterdayFloorplans, LastWeekFloorplans);
 
         }
         private void btnAddNewServer_Click(object sender, EventArgs e)
@@ -284,16 +313,7 @@ namespace FloorPlanMaker
 
 
         }
-        private void RefreshAllServerAssignmentsForShift()
-        {
-            //foreach (Floorplan fp in newShiftManager.Floorplans)
-            //{
-            //    foreach (Server server in fp.Servers)
-            //    {
-            //        NewAddServerButtonToFloorplan(fp, server);
-            //    }
-            //}
-        }
+       
         private void AddServerToUnassignedServersInShift(Server server)
         {
             newShiftManager.UnassignedServers.Add(server);
@@ -305,80 +325,7 @@ namespace FloorPlanMaker
             ImageSetter.SetShiftControlImages(newServerControl);
             flowUnassignedServers.Controls.Add(newServerControl);
         }
-        //private void cbDiningArea_CheckChanged(object sender, EventArgs e)
-        //{
-        //    CheckBox cbArea = sender as CheckBox;
-        //    DiningArea area = (DiningArea)cbArea.Tag;
-
-
-        //    if (isNewShift)
-        //    {
-        //        if (cbArea.Checked)
-        //        {
-        //            if (!newShiftManager.DiningAreasUsed.Contains(area))
-        //            {
-        //                newShiftManager.CreateFloorplanForDiningArea(area, DateTime.Now, false, 0, 0);
-        //            }
-
-
-        //        }
-        //        else
-        //        {
-        //            var floorplanToRemove = newShiftManager.Floorplans.FirstOrDefault(fp => fp.DiningArea == area);
-        //            if (floorplanToRemove != null)
-        //            {
-        //                foreach (var server in floorplanToRemove.Servers)
-        //                {
-        //                    if (newShiftManager.UnassignedServers.Contains(server))
-        //                    {
-        //                        AddServerToUnassignedServersInShift(server);
-        //                    }
-
-
-        //                }
-        //                floorplanToRemove.Servers.Clear();
-        //            }
-        //            newShiftManager.DiningAreasUsed.Remove(area);
-        //            newShiftManager.RemoveFloorplan(floorplanToRemove);
-
-        //        }
-        //        RefreshFloorplanFlowPanel(newShiftManager.Floorplans);
-        //    }
-        //    else
-        //    {
-        //        if (cbArea.Checked)
-        //        {
-        //            if (!pastShiftsManager.DiningAreasUsed.Contains(area))
-        //            {
-        //                pastShiftsManager.CreateFloorplanForDiningArea(area, DateTime.Now, false, 0, 0);
-        //            }
-
-
-        //        }
-        //        else
-        //        {
-        //            var floorplanToRemove = pastShiftsManager.Floorplans.FirstOrDefault(fp => fp.DiningArea == area);
-        //            if (floorplanToRemove.Servers.Any())
-        //            {
-        //                foreach (var server in floorplanToRemove.Servers)
-        //                {
-        //                    if (pastShiftsManager.UnassignedServers.Contains(server))
-        //                    {
-        //                        AddServerToUnassignedServersInShift(server);
-        //                    }
-
-
-        //                }
-        //                floorplanToRemove.Servers.Clear();
-        //            }
-        //            pastShiftsManager.DiningAreasUsed.Remove(area);
-        //            pastShiftsManager.RemoveFloorplan(floorplanToRemove);
-
-        //        }
-        //        RefreshFloorplanFlowPanel(newShiftManager.Floorplans);
-        //    }
-
-        //}
+       
         private void refreshTabOrder()
         {
             int tabIndexNum = 0;
@@ -412,10 +359,10 @@ namespace FloorPlanMaker
             ServerAvgLabels.Clear();
             ServerCountLabels.Clear();
             PastStaffLevelLabels.Clear();
-            DiningAreaRBs.Clear(); 
+            DiningAreaRBs.Clear();
 
 
-        int selectedCount = floorplans.Count;
+            int selectedCount = floorplans.Count;
 
             if (selectedCount == 0)
                 return;
@@ -491,7 +438,7 @@ namespace FloorPlanMaker
                     Font = new Font("Segoe UI", 10f, FontStyle.Bold),
                     Tag = fp.DiningArea
                 };
-               PastStaffLevelLabels.Add(pastLabel);
+                PastStaffLevelLabels.Add(pastLabel);
 
 
                 FlowLayoutPanel serversInFloorplanPanel = new FlowLayoutPanel
@@ -522,7 +469,7 @@ namespace FloorPlanMaker
             {
                 flowDiningAreaAssignment.Controls.Add((Control)c);
             }
-            foreach(Control c in DiningAreaRBs)
+            foreach (Control c in DiningAreaRBs)
             {
                 flowDiningAreaAssignment.Controls.Add(((Control)c));
             }
@@ -540,7 +487,7 @@ namespace FloorPlanMaker
                 flowDiningAreaAssignment.Controls.Add((Control)c);
             }
             refreshTabOrder();
-            
+
         }
         private List<Control> ServerCountLabels = new List<Control>();
         private List<Control> ServerMaxLabels = new List<Control>();
@@ -799,7 +746,7 @@ namespace FloorPlanMaker
         }
 
 
-       
+
 
         private void RefreshFloorplanCountLabels()
         {
@@ -832,27 +779,8 @@ namespace FloorPlanMaker
                     }
                 }
             }
-            RefreshPreviousFloorplanCounts();
-            //foreach (Control c in PastStaffLevelLabels)
-            //{
-            //    if (c is Label pastLabel)
-            //    {
-            //        //if (pastLabel.Tag is DiningArea diningArea)
-            //        //{
-            //        //    if (fp.Servers.Count > 0)
-            //        //    {
-            //        //        pastLabel.Text = "Max: " + (fp.DiningArea.GetMaxCovers() / fp.Servers.Count).ToString("F1")
-            //        //            + "  Avg: " + (fp.DiningArea.GetAverageCovers() / fp.Servers.Count).ToString("F1");
-            //        //    }
-            //        //    else
-            //        //    {
-            //        //        pastLabel.Text = "Max: " + fp.DiningArea.GetMaxCovers().ToString() + "  Avg: " + fp.DiningArea.GetAverageCovers().ToString();
-            //        //    }
-            //        //}
-            //    }
-            //}
-
-
+            
+           
         }
         private void FloorplanRadioButton_CheckedChanged(object? sender, EventArgs e)
         {
@@ -962,7 +890,7 @@ namespace FloorPlanMaker
             PopulateUnassignedServers();
             SetEnableStatusOfDiningAreaButtons();
             btnCreateANewShift.Visible = false;
-            
+            UpdateCountLabels();
 
         }
         private void PopulateUnassignedServers()

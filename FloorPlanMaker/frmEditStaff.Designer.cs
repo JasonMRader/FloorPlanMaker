@@ -196,9 +196,9 @@
             // 
             flowLastWeekdayCounts.BackColor = Color.FromArgb(224, 224, 224);
             flowLastWeekdayCounts.ForeColor = Color.Black;
-            flowLastWeekdayCounts.Location = new Point(35, 12);
+            flowLastWeekdayCounts.Location = new Point(163, 12);
             flowLastWeekdayCounts.Name = "flowLastWeekdayCounts";
-            flowLastWeekdayCounts.Size = new Size(18, 10);
+            flowLastWeekdayCounts.Size = new Size(350, 33);
             flowLastWeekdayCounts.TabIndex = 21;
             flowLastWeekdayCounts.Visible = false;
             // 
