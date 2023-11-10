@@ -156,6 +156,7 @@ namespace FloorPlanMakerUI
             //table.TableClicked += Table_TableClicked;
             SaveTableByTableControl(table);
             pnlFloorPlan.Controls.Add(table);
+            areaCreationManager.SelectedTable = table.Table;
         }
 
         private void btnAddDiamond_Click(object sender, EventArgs e)
