@@ -54,6 +54,8 @@ namespace FloorPlanMaker
             AppColors.FormatSecondColor(pnlServers);
             AppColors.FormatSecondColor(pnlAddTables);
 
+            AppColors.FormatAccentColor(pnlNavigationWindow);
+
             AppColors.FormatCanvasColor(pnlFloorPlan);
             AppColors.FormatCanvasColor(flowSectionSelect);
             AppColors.FormatCanvasColor(flowServersInFloorplan);

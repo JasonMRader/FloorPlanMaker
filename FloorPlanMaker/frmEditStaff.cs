@@ -22,7 +22,20 @@ namespace FloorPlanMaker
         private bool isNewShift = false;
         private void SetColorTheme()
         {
-            btnCreateANewShift.BackColor = AppColors.CTAColor;
+            AppColors.FormatCTAButton(btnCreateANewShift);
+            AppColors.FormatCTAButton(btnAssignTables);
+
+            AppColors.FormatAccentColor(flowDiningAreaAssignment);
+            AppColors.FormatAccentColor(flowUnassignedServers);
+           
+            AppColors.FormatMainButton(cbUnassignedServers);
+            AppColors.FormatMainButton(cbIsAM);
+            AppColors.FormatMainButton(btnAddNewServer);
+
+            //AppColors.FormatSecondColor(pnlAddTables);
+
+            
+            //AppColors.FormatCanvasColor(flowServersInFloorplan);
         }
         private void frmEditStaff_MouseDown(object sender, MouseEventArgs e)
         {

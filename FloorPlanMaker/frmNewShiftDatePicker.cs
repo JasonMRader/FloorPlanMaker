@@ -32,11 +32,22 @@ namespace FloorPlanMakerUI
         }
         private void SetColors()
         {
-            btnBackDay.BackColor = AppColors.ButtonColor;
-            btnForwardDay.BackColor = AppColors.ButtonColor;
-            cbIsAm.BackColor = AppColors.ButtonColor;
+            AppColors.FormatAccentColor(panel1);
+            AppColors.FormatAccentColor(panel2);
+            AppColors.FormatAccentColor(panel3);
+            AppColors.FormatAccentColor(panel4);
 
-            btnOK.BackColor = AppColors.CTAColor;
+            AppColors.FormatMainButton(btnBackDay);
+            AppColors.FormatMainButton(btnForwardDay);
+            AppColors.FormatMainButton(cbIsAm);
+
+            AppColors.FormatCTAButton(btnOK);
+
+            AppColors.FormatCanvasColor(flowAllServers);
+            AppColors.FormatCanvasColor(flowDiningAreas);
+            AppColors.FormatCanvasColor(flowLastWeekdayCounts);
+            AppColors.FormatCanvasColor(flowServersOnShift);
+            AppColors.FormatCanvasColor(flowYesterdayCounts);
 
         }
         private void frmNewShiftDatePicker_Load(object sender, EventArgs e)

@@ -56,13 +56,11 @@
             txtAverageCovers = new TextBox();
             txtHeight = new TextBox();
             panel3 = new Panel();
-            panel7 = new Panel();
-            label8 = new Label();
-            label6 = new Label();
             panel6 = new Panel();
             cbTemporaryFloorplan = new CheckBox();
             txtDiningAreaName = new TextBox();
             panel4 = new Panel();
+            cbViewMode = new CheckBox();
             btnQuickEdit = new Button();
             panel5 = new Panel();
             label7 = new Label();
@@ -70,10 +68,9 @@
             btnAddDiamond = new Button();
             btnAddSquare = new Button();
             cboDiningAreas = new ComboBox();
-            cbViewMode = new CheckBox();
+            label6 = new Label();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
-            panel7.SuspendLayout();
             panel6.SuspendLayout();
             panel4.SuspendLayout();
             panel5.SuspendLayout();
@@ -92,9 +89,9 @@
             btnCreateNewDiningArea.BackColor = Color.FromArgb(158, 171, 222);
             btnCreateNewDiningArea.FlatAppearance.BorderSize = 0;
             btnCreateNewDiningArea.FlatStyle = FlatStyle.Flat;
-            btnCreateNewDiningArea.Location = new Point(13, 11);
+            btnCreateNewDiningArea.Location = new Point(7, 54);
             btnCreateNewDiningArea.Name = "btnCreateNewDiningArea";
-            btnCreateNewDiningArea.Size = new Size(170, 38);
+            btnCreateNewDiningArea.Size = new Size(152, 38);
             btnCreateNewDiningArea.TabIndex = 1;
             btnCreateNewDiningArea.Text = "Create New Dining Area";
             btnCreateNewDiningArea.UseVisualStyleBackColor = false;
@@ -106,9 +103,9 @@
             btnSaveDiningArea.Enabled = false;
             btnSaveDiningArea.FlatAppearance.BorderSize = 0;
             btnSaveDiningArea.FlatStyle = FlatStyle.Flat;
-            btnSaveDiningArea.Location = new Point(13, 184);
+            btnSaveDiningArea.Location = new Point(7, 278);
             btnSaveDiningArea.Name = "btnSaveDiningArea";
-            btnSaveDiningArea.Size = new Size(170, 23);
+            btnSaveDiningArea.Size = new Size(152, 33);
             btnSaveDiningArea.TabIndex = 1;
             btnSaveDiningArea.Text = "Save";
             btnSaveDiningArea.UseVisualStyleBackColor = false;
@@ -120,7 +117,7 @@
             rbInside.Checked = true;
             rbInside.Enabled = false;
             rbInside.ForeColor = Color.White;
-            rbInside.Location = new Point(24, 109);
+            rbInside.Location = new Point(12, 159);
             rbInside.Name = "rbInside";
             rbInside.Size = new Size(56, 19);
             rbInside.TabIndex = 2;
@@ -133,7 +130,7 @@
             rbOutside.AutoSize = true;
             rbOutside.Enabled = false;
             rbOutside.ForeColor = Color.White;
-            rbOutside.Location = new Point(100, 109);
+            rbOutside.Location = new Point(88, 159);
             rbOutside.Name = "rbOutside";
             rbOutside.Size = new Size(66, 19);
             rbOutside.TabIndex = 2;
@@ -145,7 +142,7 @@
             btnCopyTable.BackColor = Color.FromArgb(158, 171, 222);
             btnCopyTable.FlatAppearance.BorderSize = 0;
             btnCopyTable.FlatStyle = FlatStyle.Flat;
-            btnCopyTable.Location = new Point(18, 321);
+            btnCopyTable.Location = new Point(17, 806);
             btnCopyTable.Name = "btnCopyTable";
             btnCopyTable.Size = new Size(141, 23);
             btnCopyTable.TabIndex = 1;
@@ -158,7 +155,7 @@
             btnSaveTable.BackColor = Color.FromArgb(158, 171, 222);
             btnSaveTable.FlatAppearance.BorderSize = 0;
             btnSaveTable.FlatStyle = FlatStyle.Flat;
-            btnSaveTable.Location = new Point(18, 283);
+            btnSaveTable.Location = new Point(18, 750);
             btnSaveTable.Name = "btnSaveTable";
             btnSaveTable.Size = new Size(141, 23);
             btnSaveTable.TabIndex = 1;
@@ -171,7 +168,7 @@
             btnDeleteTable.BackColor = Color.FromArgb(158, 171, 222);
             btnDeleteTable.FlatAppearance.BorderSize = 0;
             btnDeleteTable.FlatStyle = FlatStyle.Flat;
-            btnDeleteTable.Location = new Point(18, 390);
+            btnDeleteTable.Location = new Point(18, 857);
             btnDeleteTable.Name = "btnDeleteTable";
             btnDeleteTable.Size = new Size(141, 23);
             btnDeleteTable.TabIndex = 1;
@@ -184,7 +181,7 @@
             btnMoreWidth.BackColor = Color.FromArgb(158, 171, 222);
             btnMoreWidth.FlatAppearance.BorderSize = 0;
             btnMoreWidth.FlatStyle = FlatStyle.Flat;
-            btnMoreWidth.Location = new Point(135, 202);
+            btnMoreWidth.Location = new Point(134, 601);
             btnMoreWidth.Name = "btnMoreWidth";
             btnMoreWidth.Size = new Size(24, 23);
             btnMoreWidth.TabIndex = 1;
@@ -197,7 +194,7 @@
             btnMoreHeight.BackColor = Color.FromArgb(158, 171, 222);
             btnMoreHeight.FlatAppearance.BorderSize = 0;
             btnMoreHeight.FlatStyle = FlatStyle.Flat;
-            btnMoreHeight.Location = new Point(135, 157);
+            btnMoreHeight.Location = new Point(134, 527);
             btnMoreHeight.Name = "btnMoreHeight";
             btnMoreHeight.Size = new Size(24, 23);
             btnMoreHeight.TabIndex = 1;
@@ -210,7 +207,7 @@
             btnLessHeight.BackColor = Color.FromArgb(158, 171, 222);
             btnLessHeight.FlatAppearance.BorderSize = 0;
             btnLessHeight.FlatStyle = FlatStyle.Flat;
-            btnLessHeight.Location = new Point(18, 157);
+            btnLessHeight.Location = new Point(17, 527);
             btnLessHeight.Name = "btnLessHeight";
             btnLessHeight.Size = new Size(24, 23);
             btnLessHeight.TabIndex = 1;
@@ -223,7 +220,7 @@
             btnLessWidth.BackColor = Color.FromArgb(158, 171, 222);
             btnLessWidth.FlatAppearance.BorderSize = 0;
             btnLessWidth.FlatStyle = FlatStyle.Flat;
-            btnLessWidth.Location = new Point(18, 202);
+            btnLessWidth.Location = new Point(17, 601);
             btnLessWidth.Name = "btnLessWidth";
             btnLessWidth.Size = new Size(24, 23);
             btnLessWidth.TabIndex = 1;
@@ -234,9 +231,10 @@
             // panel2
             // 
             panel2.BackColor = Color.Silver;
+            panel2.Controls.Add(label6);
+            panel2.Controls.Add(cbLockTables);
             panel2.Controls.Add(txtYco);
             panel2.Controls.Add(txtXco);
-            panel2.Controls.Add(cbLockTables);
             panel2.Controls.Add(label9);
             panel2.Controls.Add(label5);
             panel2.Controls.Add(label4);
@@ -255,14 +253,14 @@
             panel2.Controls.Add(btnLessWidth);
             panel2.Controls.Add(btnMoreHeight);
             panel2.Controls.Add(btnLessHeight);
-            panel2.Location = new Point(18, 494);
+            panel2.Location = new Point(31, 19);
             panel2.Name = "panel2";
-            panel2.Size = new Size(185, 426);
+            panel2.Size = new Size(168, 901);
             panel2.TabIndex = 3;
             // 
             // txtYco
             // 
-            txtYco.Location = new Point(94, 254);
+            txtYco.Location = new Point(93, 707);
             txtYco.Name = "txtYco";
             txtYco.PlaceholderText = "Y";
             txtYco.Size = new Size(35, 23);
@@ -270,7 +268,7 @@
             // 
             // txtXco
             // 
-            txtXco.Location = new Point(48, 254);
+            txtXco.Location = new Point(47, 707);
             txtXco.Name = "txtXco";
             txtXco.PlaceholderText = "X";
             txtXco.Size = new Size(35, 23);
@@ -284,7 +282,7 @@
             cbLockTables.CheckState = CheckState.Checked;
             cbLockTables.FlatAppearance.BorderSize = 0;
             cbLockTables.FlatStyle = FlatStyle.Flat;
-            cbLockTables.Location = new Point(18, 350);
+            cbLockTables.Location = new Point(17, 32);
             cbLockTables.Name = "cbLockTables";
             cbLockTables.Size = new Size(141, 24);
             cbLockTables.TabIndex = 4;
@@ -296,7 +294,7 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(48, 236);
+            label9.Location = new Point(47, 689);
             label9.Name = "label9";
             label9.Size = new Size(53, 15);
             label9.TabIndex = 3;
@@ -305,7 +303,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(48, 185);
+            label5.Location = new Point(47, 584);
             label5.Name = "label5";
             label5.Size = new Size(39, 15);
             label5.TabIndex = 3;
@@ -314,7 +312,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(48, 138);
+            label4.Location = new Point(47, 508);
             label4.Name = "label4";
             label4.Size = new Size(43, 15);
             label4.TabIndex = 3;
@@ -323,7 +321,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(48, 95);
+            label3.Location = new Point(47, 434);
             label3.Name = "label3";
             label3.Size = new Size(89, 15);
             label3.TabIndex = 3;
@@ -332,7 +330,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(48, 52);
+            label2.Location = new Point(47, 362);
             label2.Name = "label2";
             label2.Size = new Size(69, 15);
             label2.TabIndex = 3;
@@ -341,7 +339,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(48, 8);
+            label1.Location = new Point(47, 289);
             label1.Name = "label1";
             label1.Size = new Size(81, 15);
             label1.TabIndex = 3;
@@ -351,7 +349,7 @@
             // 
             txtWidth.BorderStyle = BorderStyle.None;
             txtWidth.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            txtWidth.Location = new Point(48, 203);
+            txtWidth.Location = new Point(47, 602);
             txtWidth.Name = "txtWidth";
             txtWidth.Size = new Size(81, 22);
             txtWidth.TabIndex = 2;
@@ -361,7 +359,7 @@
             // 
             txtTableNumber.BorderStyle = BorderStyle.None;
             txtTableNumber.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            txtTableNumber.Location = new Point(48, 26);
+            txtTableNumber.Location = new Point(47, 307);
             txtTableNumber.Name = "txtTableNumber";
             txtTableNumber.Size = new Size(81, 22);
             txtTableNumber.TabIndex = 2;
@@ -371,7 +369,7 @@
             // 
             txtMaxCovers.BorderStyle = BorderStyle.None;
             txtMaxCovers.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            txtMaxCovers.Location = new Point(48, 70);
+            txtMaxCovers.Location = new Point(47, 380);
             txtMaxCovers.Name = "txtMaxCovers";
             txtMaxCovers.Size = new Size(81, 22);
             txtMaxCovers.TabIndex = 2;
@@ -381,7 +379,7 @@
             // 
             txtAverageCovers.BorderStyle = BorderStyle.None;
             txtAverageCovers.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            txtAverageCovers.Location = new Point(48, 113);
+            txtAverageCovers.Location = new Point(47, 452);
             txtAverageCovers.Name = "txtAverageCovers";
             txtAverageCovers.Size = new Size(81, 22);
             txtAverageCovers.TabIndex = 2;
@@ -391,7 +389,7 @@
             // 
             txtHeight.BorderStyle = BorderStyle.None;
             txtHeight.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            txtHeight.Location = new Point(48, 158);
+            txtHeight.Location = new Point(47, 528);
             txtHeight.Name = "txtHeight";
             txtHeight.Size = new Size(81, 22);
             txtHeight.TabIndex = 2;
@@ -400,45 +398,12 @@
             // panel3
             // 
             panel3.BackColor = Color.FromArgb(178, 87, 46);
-            panel3.Controls.Add(panel7);
-            panel3.Controls.Add(panel6);
+            panel3.Controls.Add(panel2);
             panel3.Location = new Point(999, 16);
             panel3.Margin = new Padding(20);
             panel3.Name = "panel3";
             panel3.Size = new Size(225, 934);
             panel3.TabIndex = 4;
-            // 
-            // panel7
-            // 
-            panel7.BackColor = Color.Silver;
-            panel7.Controls.Add(label8);
-            panel7.Controls.Add(label6);
-            panel7.Location = new Point(15, 318);
-            panel7.Name = "panel7";
-            panel7.Size = new Size(196, 602);
-            panel7.TabIndex = 4;
-            // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            label8.ForeColor = Color.Black;
-            label8.Location = new Point(46, 81);
-            label8.Name = "label8";
-            label8.Size = new Size(118, 25);
-            label8.TabIndex = 0;
-            label8.Text = "Max Covers:";
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            label6.ForeColor = Color.Black;
-            label6.Location = new Point(13, 176);
-            label6.Name = "label6";
-            label6.Size = new Size(151, 25);
-            label6.TabIndex = 0;
-            label6.Text = "Average Covers:";
             // 
             // panel6
             // 
@@ -449,16 +414,16 @@
             panel6.Controls.Add(rbInside);
             panel6.Controls.Add(rbOutside);
             panel6.Controls.Add(btnSaveDiningArea);
-            panel6.Location = new Point(15, 43);
+            panel6.Location = new Point(18, 512);
             panel6.Name = "panel6";
-            panel6.Size = new Size(196, 234);
+            panel6.Size = new Size(168, 408);
             panel6.TabIndex = 4;
             // 
             // cbTemporaryFloorplan
             // 
             cbTemporaryFloorplan.AutoSize = true;
             cbTemporaryFloorplan.Enabled = false;
-            cbTemporaryFloorplan.Location = new Point(28, 134);
+            cbTemporaryFloorplan.Location = new Point(14, 196);
             cbTemporaryFloorplan.Name = "cbTemporaryFloorplan";
             cbTemporaryFloorplan.Size = new Size(140, 19);
             cbTemporaryFloorplan.TabIndex = 4;
@@ -468,18 +433,18 @@
             // txtDiningAreaName
             // 
             txtDiningAreaName.Enabled = false;
-            txtDiningAreaName.Location = new Point(13, 80);
+            txtDiningAreaName.Location = new Point(10, 114);
             txtDiningAreaName.Name = "txtDiningAreaName";
-            txtDiningAreaName.Size = new Size(170, 23);
+            txtDiningAreaName.Size = new Size(146, 23);
             txtDiningAreaName.TabIndex = 3;
             // 
             // panel4
             // 
             panel4.BackColor = Color.FromArgb(178, 87, 46);
             panel4.Controls.Add(cbViewMode);
+            panel4.Controls.Add(panel6);
             panel4.Controls.Add(btnQuickEdit);
             panel4.Controls.Add(panel5);
-            panel4.Controls.Add(panel2);
             panel4.Controls.Add(cboDiningAreas);
             panel4.Controls.Add(pnlFloorPlan);
             panel4.Location = new Point(41, 16);
@@ -487,6 +452,21 @@
             panel4.Name = "panel4";
             panel4.Size = new Size(932, 934);
             panel4.TabIndex = 5;
+            // 
+            // cbViewMode
+            // 
+            cbViewMode.Appearance = Appearance.Button;
+            cbViewMode.BackColor = Color.FromArgb(158, 171, 222);
+            cbViewMode.FlatAppearance.BorderSize = 0;
+            cbViewMode.FlatStyle = FlatStyle.Flat;
+            cbViewMode.Location = new Point(787, 8);
+            cbViewMode.Name = "cbViewMode";
+            cbViewMode.Size = new Size(104, 23);
+            cbViewMode.TabIndex = 1;
+            cbViewMode.Text = "Toggle View";
+            cbViewMode.TextAlign = ContentAlignment.MiddleCenter;
+            cbViewMode.UseVisualStyleBackColor = false;
+            cbViewMode.CheckedChanged += cbViewMode_CheckedChanged;
             // 
             // btnQuickEdit
             // 
@@ -510,14 +490,14 @@
             panel5.Controls.Add(btnAddSquare);
             panel5.Location = new Point(18, 43);
             panel5.Name = "panel5";
-            panel5.Size = new Size(185, 445);
+            panel5.Size = new Size(168, 445);
             panel5.TabIndex = 4;
             // 
             // label7
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label7.Location = new Point(44, 11);
+            label7.Location = new Point(28, 11);
             label7.Name = "label7";
             label7.Size = new Size(93, 21);
             label7.TabIndex = 1;
@@ -528,7 +508,7 @@
             btnAddCircle.FlatAppearance.BorderSize = 0;
             btnAddCircle.FlatStyle = FlatStyle.Flat;
             btnAddCircle.Image = Properties.Resources.LargerCircleFilled;
-            btnAddCircle.Location = new Point(18, 306);
+            btnAddCircle.Location = new Point(10, 305);
             btnAddCircle.Name = "btnAddCircle";
             btnAddCircle.Size = new Size(149, 131);
             btnAddCircle.TabIndex = 0;
@@ -540,7 +520,7 @@
             btnAddDiamond.FlatAppearance.BorderSize = 0;
             btnAddDiamond.FlatStyle = FlatStyle.Flat;
             btnAddDiamond.Image = Properties.Resources.DiamondFilled;
-            btnAddDiamond.Location = new Point(18, 171);
+            btnAddDiamond.Location = new Point(10, 170);
             btnAddDiamond.Name = "btnAddDiamond";
             btnAddDiamond.Size = new Size(149, 131);
             btnAddDiamond.TabIndex = 0;
@@ -552,7 +532,7 @@
             btnAddSquare.FlatAppearance.BorderSize = 0;
             btnAddSquare.FlatStyle = FlatStyle.Flat;
             btnAddSquare.Image = Properties.Resources.SquareTableFilled;
-            btnAddSquare.Location = new Point(18, 36);
+            btnAddSquare.Location = new Point(10, 35);
             btnAddSquare.Name = "btnAddSquare";
             btnAddSquare.Size = new Size(149, 131);
             btnAddSquare.TabIndex = 0;
@@ -568,20 +548,15 @@
             cboDiningAreas.TabIndex = 1;
             cboDiningAreas.SelectedIndexChanged += cboDiningAreas_SelectedIndexChanged;
             // 
-            // cbViewMode
+            // label6
             // 
-            cbViewMode.Appearance = Appearance.Button;
-            cbViewMode.BackColor = Color.FromArgb(158, 171, 222);
-            cbViewMode.FlatAppearance.BorderSize = 0;
-            cbViewMode.FlatStyle = FlatStyle.Flat;
-            cbViewMode.Location = new Point(787, 8);
-            cbViewMode.Name = "cbViewMode";
-            cbViewMode.Size = new Size(104, 23);
-            cbViewMode.TabIndex = 1;
-            cbViewMode.Text = "Toggle View";
-            cbViewMode.TextAlign = ContentAlignment.MiddleCenter;
-            cbViewMode.UseVisualStyleBackColor = false;
-            cbViewMode.CheckedChanged += cbViewMode_CheckedChanged;
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            label6.Location = new Point(10, 229);
+            label6.Name = "label6";
+            label6.Size = new Size(149, 25);
+            label6.TabIndex = 6;
+            label6.Text = "Table Properties";
             // 
             // frmEditDiningAreas
             // 
@@ -598,8 +573,6 @@
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             panel3.ResumeLayout(false);
-            panel7.ResumeLayout(false);
-            panel7.PerformLayout();
             panel6.ResumeLayout(false);
             panel6.PerformLayout();
             panel4.ResumeLayout(false);
@@ -638,11 +611,8 @@
         private Label label2;
         private Label label1;
         private Panel panel5;
-        private Panel panel7;
         private Panel panel6;
         private CheckBox cbTemporaryFloorplan;
-        private Label label8;
-        private Label label6;
         private Label label7;
         private Button btnAddCircle;
         private Button btnAddDiamond;
@@ -653,5 +623,6 @@
         private Label label9;
         private Button btnQuickEdit;
         private CheckBox cbViewMode;
+        private Label label6;
     }
 }

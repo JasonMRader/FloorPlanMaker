@@ -44,19 +44,21 @@ namespace FloorPlanMakerUI
             AppColors.FormatMainButton(btnSaveDiningArea);
             AppColors.FormatMainButton(btnSaveDiningArea);
 
-            AppColors.FormatSecondColor(this);
-           
-           
+            // AppColors.FormatSecondColor(this);
+            AppColors.FormatSecondColor(panel4);
+            AppColors.FormatSecondColor(panel3);
 
-            AppColors.FormatAccentColor(panel4);
+            AppColors.FormatAccentColor(this);
+
             AppColors.FormatAccentColor(panel3);
 
             AppColors.FormatCanvasColor(pnlFloorPlan);
-            AppColors.FormatCanvasColor(panel5);
-            AppColors.FormatCanvasColor(panel2);
-            AppColors.FormatCanvasColor(panel7);
-            AppColors.FormatCanvasColor(panel6);
-           
+
+            AppColors.FormatSecondColor(panel5);
+            AppColors.FormatSecondColor(panel2);
+            
+            AppColors.FormatSecondColor(panel6);
+
 
         }
         private void frmEditDiningAreas_Load(object sender, EventArgs e)
