@@ -592,6 +592,7 @@ namespace FloorPlanMaker
             panel3.Name = "panel3";
             panel3.Size = new Size(960, 933);
             panel3.TabIndex = 19;
+            panel3.Paint += panel3_Paint;
             // 
             // pnlNavigationWindow
             // 

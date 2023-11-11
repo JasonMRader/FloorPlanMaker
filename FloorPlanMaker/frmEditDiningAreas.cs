@@ -29,20 +29,39 @@ namespace FloorPlanMakerUI
         }
         private void SetColors()
         {
-            btnCopyTable.BackColor = AppColors.ButtonColor;
-            btnSaveTable.BackColor = AppColors.ButtonColor;
-            cbLockTables.BackColor = AppColors.ButtonColor;
-            btnMoreHeight.BackColor = AppColors.ButtonColor;
-            btnMoreWidth.BackColor = AppColors.ButtonColor;
-            btnLessWidth.BackColor = AppColors.ButtonColor;
-            btnLessHeight.BackColor = AppColors.ButtonColor;
-            btnDeleteTable.BackColor = AppColors.ButtonColor;
-            btnCreateNewDiningArea.BackColor = AppColors.ButtonColor;
-            btnSaveDiningArea.BackColor = AppColors.ButtonColor;
+
+            AppColors.FormatMainButton(btnQuickEdit);
+            AppColors.FormatMainButton(cbViewMode);
+            AppColors.FormatMainButton(btnCopyTable);
+            AppColors.FormatMainButton(btnSaveTable);
+            AppColors.FormatMainButton(cbLockTables);
+            AppColors.FormatMainButton(btnMoreHeight);
+            AppColors.FormatMainButton(btnMoreWidth);
+            AppColors.FormatMainButton(btnLessHeight);
+            AppColors.FormatMainButton(btnLessWidth);
+            AppColors.FormatMainButton(btnDeleteTable);
+            AppColors.FormatMainButton(btnCreateNewDiningArea);
+            AppColors.FormatMainButton(btnSaveDiningArea);
+            AppColors.FormatMainButton(btnSaveDiningArea);
+
+            AppColors.FormatSecondColor(this);
+           
+           
+
+            AppColors.FormatAccentColor(panel4);
+            AppColors.FormatAccentColor(panel3);
+
+            AppColors.FormatCanvasColor(pnlFloorPlan);
+            AppColors.FormatCanvasColor(panel5);
+            AppColors.FormatCanvasColor(panel2);
+            AppColors.FormatCanvasColor(panel7);
+            AppColors.FormatCanvasColor(panel6);
+           
 
         }
         private void frmEditDiningAreas_Load(object sender, EventArgs e)
         {
+            SetColors();
             cboDiningAreas.DataSource = areaCreationManager.DiningAreas;
             cboDiningAreas.DisplayMember = "Name";
             cboDiningAreas.ValueMember = "ID";

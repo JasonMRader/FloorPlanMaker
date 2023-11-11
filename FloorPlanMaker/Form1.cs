@@ -35,36 +35,29 @@ namespace FloorPlanMaker
         private SectionControlsManager sectionControlsManager { get; set; }
         private void SetColors()
         {
-            btnAddSectionLabels.BackColor = AppColors.CTAColor;
-            btnPrint.BackColor = AppColors.CTAColor;
-
-            //rdoDiningAreas.BackColor = AppColors.CTAColor;
-            //rdoSections.BackColor = AppColors.CTAColor;
-
-            //btnAddSectionLabels.ForeColor = Color.White;
-            //btnPrint.ForeColor = Color.White;
-            //btnAddServers.ForeColor = Color.White;
-            //rdoDiningAreas.ForeColor = Color.White;
-            //rdoSections.ForeColor = Color.White;
-
-
-            btnAddSection.BackColor = AppColors.ButtonColor;
-            btnChooseTemplate.BackColor = AppColors.ButtonColor;
             btnCloseApp.BackColor = Color.Red;
-            btnGenerateSectionLines.BackColor = AppColors.ButtonColor;
-            btnRemoveSection.BackColor = AppColors.ButtonColor;
-            btnSaveFloorplanTemplate.BackColor = AppColors.ButtonColor;
-            cbTableDisplayMode.BackColor = AppColors.ButtonColor;
+            AppColors.FormatCTAButton(btnAddSectionLabels);            
+            AppColors.FormatCTAButton(btnPrint);
+            AppColors.FormatCTAButton(rdoDiningAreas);
+            AppColors.FormatCTAButton(rdoSections);
+            AppColors.FormatCTAButton(rdoShifts);
 
+            AppColors.FormatMainButton(btnChooseTemplate);
+            AppColors.FormatMainButton(btnAddSection);
+            AppColors.FormatMainButton(btnGenerateSectionLines);
+            AppColors.FormatMainButton(btnRemoveSection);
+            AppColors.FormatMainButton(btnSaveFloorplanTemplate);
+            AppColors.FormatMainButton(cbTableDisplayMode);
 
+            AppColors.FormatSecondColor(this);
+            AppColors.FormatSecondColor(panel3);
+            AppColors.FormatSecondColor(pnlServers);
+            AppColors.FormatSecondColor(pnlAddTables);
 
-            //this.BackColor = Color.FromArgb(81,53,90);
-            this.BackColor = AppColors.AccentColor;
-
-            pnlServers.BackColor = AppColors.SecondColor;
-            pnlAddTables.BackColor = AppColors.SecondColor;
-            flowSectionSelect.BackColor = AppColors.CanvasColor;
-            flowServersInFloorplan.BackColor = AppColors.CanvasColor;
+            AppColors.FormatCanvasColor(pnlFloorPlan);
+            AppColors.FormatCanvasColor(flowSectionSelect);
+            AppColors.FormatCanvasColor(flowServersInFloorplan);
+           
         }
         public void UpdateForm1ShiftManager(ShiftManager shiftManagerToAdd)
         {
@@ -703,7 +696,7 @@ namespace FloorPlanMaker
             {
                 pnlNavigationWindow.SendToBack();
                 pnlNavHighlight.Location = new Point(rdoSections.Left, 0);
-                
+
                 flowServersInFloorplan.Visible = true;
                 lblPanel2Text.Text = areaCreationManager.DiningAreaSelected.Name;
                 //this.shiftManager = new ShiftManager(areaCreationManager.DiningAreaSelected);
@@ -1267,6 +1260,11 @@ namespace FloorPlanMaker
         }
 
         private void pnlSections_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void panel3_Paint(object sender, PaintEventArgs e)
         {
 
         }
