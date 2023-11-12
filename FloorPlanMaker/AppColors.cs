@@ -40,29 +40,56 @@ namespace FloorPlanMakerUI
         //public static Color CTAColor = Color.FromArgb(255, 200, 87);
         //public static Color CTAFontColor = Color.Black;
 
+
+        ////_______________*********** Blurple
+        //public static Font MainFont = new Font("Segoe UI", 12f, FontStyle.Bold);
+        //public static Font LargeFont = new Font("Segoe UI", 18f, FontStyle.Bold);
+
+        //public static Color MainColor = Color.FromArgb(15, 1, 105);
+        //public static Color MainFontColor = Color.White;
+
+        //public static Color SecondColor = Color.FromArgb(20, 33, 74);
+        //public static Color SecondFontColor = Color.White;
+
+        //public static Color CanvasColor = Color.FromArgb(189, 213, 234);
+        //public static Color CanvasFontColor = Color.White;
+
+        //public static Color AccentColor = Color.FromArgb(74, 44, 145);
+        //public static Color AccentFontColor = Color.White;
+
+        //public static Color ButtonColor = Color.FromArgb(99, 75, 156);
+        //public static Color ButtonFontColor = Color.White;
+
+        //public static Color CTAColor = Color.FromArgb(164, 11, 230);
+        //public static Color CTAFontColor = Color.White;
+
+        
         public static Font MainFont = new Font("Segoe UI", 12f, FontStyle.Bold);
         public static Font LargeFont = new Font("Segoe UI", 18f, FontStyle.Bold);
 
-        public static Color MainColor = Color.FromArgb(15, 1, 105);
-        public static Color MainFontColor = Color.White;
+        public static Color MainColor = Color.FromArgb(245,245,245);
+        public static Color MainFontColor = Color.Black;
 
-        public static Color SecondColor = Color.FromArgb(20, 33, 74);
-        public static Color SecondFontColor = Color.White;
+        public static Color SecondColor = Color.FromArgb(180,190,200);
+        public static Color SecondFontColor = Color.Black;
 
-        public static Color CanvasColor = Color.FromArgb(189, 213, 234);
-        public static Color CanvasFontColor = Color.White;
+        public static Color CanvasColor = Color.FromArgb(245, 245, 245);
+        public static Color CanvasFontColor = Color.Black;
 
-        public static Color AccentColor = Color.FromArgb(74, 44, 145);
+        public static Color AccentColor = Color.FromArgb(225, 225, 225);
         public static Color AccentFontColor = Color.White;
 
-        public static Color ButtonColor = Color.FromArgb(99, 75, 156);
+        public static Color ButtonColor = Color.FromArgb(160,160,160);
         public static Color ButtonFontColor = Color.White;
 
-        public static Color CTAColor = Color.FromArgb(164, 11, 230);
+        public static Color CTAColor = Color.FromArgb(100,130,180);
         public static Color CTAFontColor = Color.White;
 
+        public static Color YesColor = Color.FromArgb(120, 180, 120);
+        public static Color YesFontColor = Color.White;
 
-
+        public static Color NoColor = Color.FromArgb(190, 80, 70);
+        public static Color NoFontColor = Color.White;
 
         public static void FormatMainButton(Control c)
         {

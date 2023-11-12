@@ -42,12 +42,7 @@ namespace FloorPlanMaker
             label11 = new Label();
             lblServerMaxCovers = new Label();
             lblDiningAreaMaxCovers = new Label();
-            label9 = new Label();
-            nudServerCount = new NumericUpDown();
-            btnRemoveSection = new Button();
-            btnAddSection = new Button();
             txtTemplateName = new TextBox();
-            cboFloorplanTemplates = new ComboBox();
             btnSaveFloorplanTemplate = new Button();
             btnAddSectionLabels = new Button();
             flowSectionSelect = new FlowLayoutPanel();
@@ -76,7 +71,6 @@ namespace FloorPlanMaker
             lblPanel2Text = new Label();
             pnlAddTables = new Panel();
             pnlServers.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)nudServerCount).BeginInit();
             panel1.SuspendLayout();
             panel3.SuspendLayout();
             pnlAddTables.SuspendLayout();
@@ -220,80 +214,22 @@ namespace FloorPlanMaker
             lblDiningAreaMaxCovers.TabIndex = 1;
             lblDiningAreaMaxCovers.Text = "0";
             // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label9.Location = new Point(16, 202);
-            label9.Name = "label9";
-            label9.Size = new Size(69, 21);
-            label9.TabIndex = 2;
-            label9.Text = "Servers:";
-            label9.Visible = false;
-            // 
-            // nudServerCount
-            // 
-            nudServerCount.Location = new Point(123, 141);
-            nudServerCount.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
-            nudServerCount.Name = "nudServerCount";
-            nudServerCount.Size = new Size(46, 23);
-            nudServerCount.TabIndex = 3;
-            nudServerCount.Value = new decimal(new int[] { 1, 0, 0, 0 });
-            nudServerCount.Visible = false;
-            nudServerCount.ValueChanged += nudServerCount_ValueChanged;
-            // 
-            // btnRemoveSection
-            // 
-            btnRemoveSection.FlatStyle = FlatStyle.Flat;
-            btnRemoveSection.ForeColor = Color.Black;
-            btnRemoveSection.Location = new Point(191, 150);
-            btnRemoveSection.Name = "btnRemoveSection";
-            btnRemoveSection.Size = new Size(32, 23);
-            btnRemoveSection.TabIndex = 9;
-            btnRemoveSection.Text = "Remove Section";
-            btnRemoveSection.UseVisualStyleBackColor = true;
-            btnRemoveSection.Visible = false;
-            btnRemoveSection.Click += btnRemoveSection_Click;
-            // 
-            // btnAddSection
-            // 
-            btnAddSection.FlatStyle = FlatStyle.Flat;
-            btnAddSection.ForeColor = Color.Black;
-            btnAddSection.Location = new Point(155, 182);
-            btnAddSection.Name = "btnAddSection";
-            btnAddSection.Size = new Size(33, 23);
-            btnAddSection.TabIndex = 9;
-            btnAddSection.Text = "Add Section";
-            btnAddSection.UseVisualStyleBackColor = true;
-            btnAddSection.Visible = false;
-            btnAddSection.Click += btnAddSection_Click;
-            // 
             // txtTemplateName
             // 
-            txtTemplateName.Location = new Point(23, 176);
+            txtTemplateName.Location = new Point(28, 191);
             txtTemplateName.Name = "txtTemplateName";
             txtTemplateName.PlaceholderText = "Enter Template Name Here";
             txtTemplateName.Size = new Size(74, 23);
             txtTemplateName.TabIndex = 15;
             txtTemplateName.Visible = false;
             // 
-            // cboFloorplanTemplates
-            // 
-            cboFloorplanTemplates.FormattingEnabled = true;
-            cboFloorplanTemplates.Location = new Point(103, 185);
-            cboFloorplanTemplates.Name = "cboFloorplanTemplates";
-            cboFloorplanTemplates.Size = new Size(34, 23);
-            cboFloorplanTemplates.TabIndex = 14;
-            cboFloorplanTemplates.Visible = false;
-            cboFloorplanTemplates.SelectedIndexChanged += cboFloorplanTemplates_SelectedIndexChanged;
-            // 
             // btnSaveFloorplanTemplate
             // 
             btnSaveFloorplanTemplate.FlatStyle = FlatStyle.Flat;
             btnSaveFloorplanTemplate.ForeColor = Color.Black;
-            btnSaveFloorplanTemplate.Location = new Point(28, 140);
+            btnSaveFloorplanTemplate.Location = new Point(28, 165);
             btnSaveFloorplanTemplate.Name = "btnSaveFloorplanTemplate";
-            btnSaveFloorplanTemplate.Size = new Size(43, 30);
+            btnSaveFloorplanTemplate.Size = new Size(158, 30);
             btnSaveFloorplanTemplate.TabIndex = 12;
             btnSaveFloorplanTemplate.Text = "Save Floorplan Template";
             btnSaveFloorplanTemplate.UseVisualStyleBackColor = true;
@@ -352,9 +288,9 @@ namespace FloorPlanMaker
             // 
             btnGenerateSectionLines.FlatStyle = FlatStyle.Flat;
             btnGenerateSectionLines.ForeColor = Color.Black;
-            btnGenerateSectionLines.Location = new Point(77, 138);
+            btnGenerateSectionLines.Location = new Point(31, 135);
             btnGenerateSectionLines.Name = "btnGenerateSectionLines";
-            btnGenerateSectionLines.Size = new Size(31, 35);
+            btnGenerateSectionLines.Size = new Size(133, 35);
             btnGenerateSectionLines.TabIndex = 15;
             btnGenerateSectionLines.Text = "Auto Section Lines";
             btnGenerateSectionLines.UseVisualStyleBackColor = true;
@@ -367,7 +303,7 @@ namespace FloorPlanMaker
             btnChooseTemplate.ForeColor = Color.Black;
             btnChooseTemplate.Location = new Point(39, 49);
             btnChooseTemplate.Name = "btnChooseTemplate";
-            btnChooseTemplate.Size = new Size(184, 31);
+            btnChooseTemplate.Size = new Size(184, 34);
             btnChooseTemplate.TabIndex = 14;
             btnChooseTemplate.Text = "Choose Template";
             btnChooseTemplate.UseVisualStyleBackColor = true;
@@ -616,12 +552,7 @@ namespace FloorPlanMaker
             // pnlAddTables
             // 
             pnlAddTables.BackColor = Color.FromArgb(178, 87, 46);
-            pnlAddTables.Controls.Add(btnRemoveSection);
-            pnlAddTables.Controls.Add(nudServerCount);
-            pnlAddTables.Controls.Add(btnAddSection);
-            pnlAddTables.Controls.Add(label9);
             pnlAddTables.Controls.Add(cbTableDisplayMode);
-            pnlAddTables.Controls.Add(cboFloorplanTemplates);
             pnlAddTables.Controls.Add(lblPanel2Text);
             pnlAddTables.Controls.Add(label3);
             pnlAddTables.Controls.Add(txtTemplateName);
@@ -659,7 +590,6 @@ namespace FloorPlanMaker
             MouseUp += Form1_MouseUp;
             pnlServers.ResumeLayout(false);
             pnlServers.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)nudServerCount).EndInit();
             panel1.ResumeLayout(false);
             panel3.ResumeLayout(false);
             pnlAddTables.ResumeLayout(false);
@@ -679,8 +609,6 @@ namespace FloorPlanMaker
         private Label lblServerMaxCovers;
         private Label label11;
         private Label label10;
-        private NumericUpDown nudServerCount;
-        private Label label9;
         private Label lblDiningAreaAverageCovers;
         private Label label2;
         private FlowLayoutPanel flowSectionSelect;
@@ -691,15 +619,12 @@ namespace FloorPlanMaker
         private Button btnSaveFloorplanTemplate;
         private Button btnAddSectionLabels;
         private Button btnTest;
-        private ComboBox cboFloorplanTemplates;
         private TextBox txtTemplateName;
         private Button btnPrint;
         private DateTimePicker dtpFloorplan;
         private Button btnChooseTemplate;
         private Button btnGenerateSectionLines;
         private CheckBox cbIsAM;
-        private Button btnRemoveSection;
-        private Button btnAddSection;
         private Button btnTest2;
         private Button btnDoAThing;
         private Button btnDayBefore;

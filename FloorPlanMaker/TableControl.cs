@@ -13,7 +13,8 @@ namespace FloorPlanMaker
 {
     public class TableControl : Control
     {
-        public Color BorderColor { get; set; } = Color.DarkBlue; // default to DarkBlue
+        public Color BorderColor { get; set; } = Color.Black; // default to DarkBlue
+        public Color TextColor { get; set; } = Color.Black;
         public DisplayMode CurrentDisplayMode { get; set; } = DisplayMode.TableNumber;
         public int BorderThickness { get; set; } = 2; // default to 1
         public float TableNumberFontSize { get; set; } = 14f; // default to 16
@@ -141,18 +142,7 @@ namespace FloorPlanMaker
                 }
             }
 
-            //if (control.Table != null && control.Table.TableNumber != null)
-            //{
-            //    using (Font font = new Font(control.Font.FontFamily, control.TableNumberFontSize))
-            //    using (StringFormat sf = new StringFormat())
-            //    {
-            //        sf.Alignment = StringAlignment.Center;
-            //        sf.LineAlignment = StringAlignment.Center;
-
-            //        Rectangle tableBounds = new Rectangle(xOffset, yOffset, control.Width, control.Height);
-            //        g.DrawString(control.Table.TableNumber.ToString(), font, Brushes.Black, tableBounds, sf);
-            //    }
-            //}
+           
             string textToDisplay = string.Empty;
             switch (control.CurrentDisplayMode)
             {
@@ -174,9 +164,13 @@ namespace FloorPlanMaker
                 {
                     sf.Alignment = StringAlignment.Center;
                     sf.LineAlignment = StringAlignment.Center;
+                    
 
                     Rectangle tableBounds = new Rectangle(xOffset, yOffset, control.Width, control.Height);
-                    g.DrawString(textToDisplay, font, Brushes.Black, tableBounds, sf);
+                    using (Brush textBrush = new SolidBrush(control.TextColor)) // Use the TextColor property
+                    {
+                        g.DrawString(textToDisplay, font, textBrush, tableBounds, sf);
+                    }
                 }
             }
         }

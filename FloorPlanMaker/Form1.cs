@@ -36,16 +36,16 @@ namespace FloorPlanMaker
         private void SetColors()
         {
             btnCloseApp.BackColor = Color.Red;
-            AppColors.FormatCTAButton(btnAddSectionLabels);            
+            AppColors.FormatCTAButton(btnAddSectionLabels);
             AppColors.FormatCTAButton(btnPrint);
             AppColors.FormatCTAButton(rdoDiningAreas);
             AppColors.FormatCTAButton(rdoSections);
             AppColors.FormatCTAButton(rdoShifts);
 
             AppColors.FormatMainButton(btnChooseTemplate);
-            AppColors.FormatMainButton(btnAddSection);
+            
             AppColors.FormatMainButton(btnGenerateSectionLines);
-            AppColors.FormatMainButton(btnRemoveSection);
+           
             AppColors.FormatMainButton(btnSaveFloorplanTemplate);
             AppColors.FormatMainButton(cbTableDisplayMode);
 
@@ -59,7 +59,7 @@ namespace FloorPlanMaker
             AppColors.FormatCanvasColor(pnlFloorPlan);
             AppColors.FormatCanvasColor(flowSectionSelect);
             AppColors.FormatCanvasColor(flowServersInFloorplan);
-           
+
         }
         public void UpdateForm1ShiftManager(ShiftManager shiftManagerToAdd)
         {
@@ -294,6 +294,7 @@ namespace FloorPlanMaker
                     clickedTableControl.Section = shiftManager.SectionSelected;
                     // 2. Fill the table control with the FloorplanManager.SectionSelected.Color
                     clickedTableControl.BackColor = shiftManager.SectionSelected.Color;
+                    clickedTableControl.TextColor = shiftManager.SectionSelected.FontColor;
 
                     // Optionally, you can invalidate the control to request a redraw if needed.
                     clickedTableControl.Invalidate();
@@ -323,22 +324,13 @@ namespace FloorPlanMaker
             this.shiftManager.SelectedDiningArea = areaCreationManager.DiningAreaSelected;
             SetViewedFloorplan();
             lblDiningRoomName.Text = areaCreationManager.DiningAreaSelected.Name;
-            RefreshTemplateList(shiftManager.SelectedDiningArea);
+           
             lblDiningAreaAverageCovers.Text = shiftManager.SelectedDiningArea.GetAverageCovers().ToString("C0");
             lblDiningAreaMaxCovers.Text = shiftManager.SelectedDiningArea.GetMaxCovers().ToString();
             this.sectionLineManager = new SectionLineManager(allTableControls);
 
         }
-        private void RefreshTemplateList(DiningArea dining)
-        {
-            cboFloorplanTemplates.Items.Clear();
-            cboFloorplanTemplates.DisplayMember = "Name";
-            List<FloorplanTemplate> templates = SqliteDataAccess.LoadTemplatesByDiningArea(dining);
-            foreach (FloorplanTemplate template in templates)
-            {
-                cboFloorplanTemplates.Items.Add(template);
-            }
-        }
+       
 
         private void btnAddServers_Click(object sender, EventArgs e)
         {
@@ -807,7 +799,7 @@ namespace FloorPlanMaker
         {
             var drawnLines = drawingHandler.GetDrawnLines();
             FloorplanTemplate template = new FloorplanTemplate(shiftManager.SelectedDiningArea, txtTemplateName.Text,
-                (int)nudServerCount.Value, shiftManager.Sections, drawnLines);
+                 shiftManager.Sections, drawnLines);
             // Assuming you have a FloorplanTemplate object already initialized as template
             template.SectionLines.Clear();
             template.SectionLines.AddRange(drawnLines);
@@ -821,30 +813,7 @@ namespace FloorPlanMaker
         }
 
 
-        private void cboFloorplanTemplates_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-
-            foreach (Table table in areaCreationManager.DiningAreaSelected.Tables)
-            {
-                table.DiningArea = areaCreationManager.DiningAreaSelected;
-                TableControl tableControl = TableControlFactory.CreateMiniTableControl(table, (float).5, 0);
-                //tableControl.TableClicked += Table_TableClicked;  // Uncomment if you want to attach event handler
-
-                //pnlTemplateDemo.Controls.Add(tableControl);
-            }
-
-
-
-
-            FloorplanTemplate template = cboFloorplanTemplates.SelectedItem as FloorplanTemplate;
-            shiftManager.SetSectionsToTemplate(template);
-
-            shiftManager.AssignSectionNumbers(template.Sections);
-
-
-
-        }
+        
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
