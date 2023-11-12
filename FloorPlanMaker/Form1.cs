@@ -265,7 +265,7 @@ namespace FloorPlanMaker
             if (e.MouseButton == MouseButtons.Right && clickedTableControl.Section != null)
             {
 
-                //ShiftManager.SectionSelected.Tables.Remove(clickedTable); // Remove the table from the section
+                
 
                 sectionEdited.Tables.RemoveAll(t => t.ID == clickedTable.ID);
 
@@ -273,12 +273,7 @@ namespace FloorPlanMaker
                 clickedTableControl.BackColor = pnlFloorPlan.BackColor;  // Restore the original color
                 clickedTableControl.Invalidate();
                 UpdateSectionLabels(sectionEdited, sectionEdited.MaxCovers, sectionEdited.AverageCovers);
-                //if (ShiftManager.SectionSelected != null && ShiftManager.SectionSelected.Tables.Contains(clickedTable))
-                //{
-                //    ShiftManager.SectionSelected.Tables.Remove(clickedTable);
-                //    clickedTableControl.BackColor = Color.Transparent;  
-                //    clickedTableControl.Invalidate();
-                //}
+               
                 return;
             }
             if (rdoSections.Checked)
@@ -332,35 +327,7 @@ namespace FloorPlanMaker
         }
        
 
-        private void btnAddServers_Click(object sender, EventArgs e)
-        {
-            Form form = new frmEditStaff(employeeManager, shiftManager, this);
-            form.ShowDialog();
-            if (form.DialogResult == DialogResult.OK)
-            {
-                dtpFloorplan.Value = new DateTime(shiftManager.DateOnly.Year, shiftManager.DateOnly.Month, shiftManager.DateOnly.Day);
-
-                cbIsAM.Checked = shiftManager.IsAM;
-
-                SetViewedFloorplan();
-
-
-            }
-        }
-        private void UpdateFloorplan()
-        {
-
-            shiftManager.SelectedFloorplan = shiftManager.Floorplans.FirstOrDefault(fp => fp.DiningArea.ID == areaCreationManager.DiningAreaSelected.ID);
-            UpdateServerControlsForFloorplan();
-            if (shiftManager.SelectedFloorplan != null)
-            {
-
-
-                CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
-
-            }
-
-        }
+       
         private void UpdateServerControlsForFloorplan()
         {
 
@@ -387,76 +354,10 @@ namespace FloorPlanMaker
         }
 
 
-        private void nudServerCount_ValueChanged(object sender, EventArgs e)
-        {
-            //if (nudServerCount.Value > 0)
-            //{
-            //    lblServerMaxCovers.Text = (shiftManager.SelectedDiningArea.GetMaxCovers() / (float)nudServerCount.Value).ToString("F1");
-            //    lblServerAverageCovers.Text = (shiftManager.SelectedDiningArea.GetAverageCovers() / (float)nudServerCount.Value).ToString("F1");
-
-            //    shiftManager.SelectedFloorplan = shiftManager.Floorplans.FirstOrDefault(fp => fp.DiningArea.ID == shiftManager.SelectedDiningArea.ID);
-
-            //    if (shiftManager.SelectedFloorplan != null)
-            //    {
-            //        //shiftManager.SelectedFloorplan.Sections =
-            //        GetNumberOfSections();
-
-            //    }
-            //    else
-            //    {
-            //        shiftManager.SelectedFloorplan = new Floorplan();
-            //        GetNumberOfSections();
-            //        shiftManager.SelectedFloorplan.DiningArea = shiftManager.SelectedDiningArea;
-
-            //    }
-            //    CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
-            //    //else
-            //    //{
-            //    //    List<Section> sections = GetNumberOfSections();
-            //    //    shiftManager.SelectedTemplate = new FloorplanTemplate(shiftManager.SelectedDiningArea, (int)nudServerCount.Value,"", sections);
-            //    //}
-
-            //}
-
-        }
+       
 
 
-        //private List<Section> GetNumberOfSections()
-        //{
-        //    int servers = (int)nudServerCount.Value;
-        //    int teamWaitSections = (int)nudNumberOfTeamWaits.Value;
-        //    int soloSections = servers - (teamWaitSections * 2);
-        //    List<Section> sections = new List<Section>();
-        //    int SectionNumber = 1;
-        //    // Create solo sections.
-        //    for (int i = 1; i <= soloSections; i++)
-        //    {
-        //        shiftManager.SelectedFloorplan.AddSection(new Section
-        //        {
-
-        //            Name = $"Section {i}",
-        //            IsTeamWait = false,
-        //            Number = SectionNumber
-        //        });
-        //        SectionNumber++;
-        //    }
-
-        //    // Create team wait sections.
-        //    for (int i = 1; i <= teamWaitSections; i++)
-        //    {
-        //        shiftManager.SelectedFloorplan.AddSection(new Section
-        //        {
-
-        //            ID = servers + i,  // To ensure unique IDs.
-        //            Name = $"Team Wait {i}",
-        //            IsTeamWait = true,
-        //            Number = SectionNumber
-        //        });
-        //        SectionNumber++;
-        //    }
-
-        //    return sections;
-        //}
+      
 
 
         private List<CheckBox> TeamWaitButtons = new List<CheckBox>();
@@ -519,20 +420,7 @@ namespace FloorPlanMaker
                 };
 
 
-                CheckBox rbCloser = new CheckBox
-                {
-                    Text = "CLS",
-                    AutoSize = false,
-                    Size = new Size(40, 25),
-                    Font = new Font("Segoe UI", 10F),
-                    FlatStyle = FlatStyle.Flat,
-                    BackColor = section.Color,
-                    ForeColor = section.FontColor,
-                    Appearance = Appearance.Button,
-                    Margin = new Padding(0),
-                    Tag = section
-                };
-                rbCloser.CheckedChanged += RbCloser_CheckedChanged;
+               
 
                 CheckBox rbPrecloser = new CheckBox
                 {
@@ -546,22 +434,8 @@ namespace FloorPlanMaker
                     Appearance = Appearance.Button,
                     Margin = new Padding(0),
                     Tag = section
-                };
-                rbPrecloser.CheckedChanged += RbPrecloser_CheckedChanged;
-
-                //RadioButton rbNeither = new RadioButton
-                //{
-                //    Text = "Neither",
-                //    Checked = true, // default option
-                //    AutoSize = true
-                //};
-
-                // closerButtons.Add(rbCloser);
-                //precloserButtons.Add(rbPrecloser);
-
-                // Adjust locations and add to the panel.
-
-                //rbNeither.Location = new Point(rbPrecloser.Right + 5, 5);
+                };            
+                              
 
 
                 Panel sectionPanel = new Panel();
@@ -580,19 +454,14 @@ namespace FloorPlanMaker
                 //sectionPanel.Controls.Add(rbPrecloser);
                 //panel.Controls.Add(rbNeither);
 
-                // Here, you might want to adjust the layout within the panel.
-                // For simplicity, I'll just set their locations manually:
+                
                 rbSection.Location = new System.Drawing.Point(5, 5); // You can adjust these coordinates as needed.
                 lblMaxCovers.Location = new System.Drawing.Point(rbSection.Right + 5, 5);
-                lblAverageCovers.Location = new System.Drawing.Point(lblMaxCovers.Right + 5, 5);
-
-                rbCloser.Location = new System.Drawing.Point(lblAverageCovers.Right + 10, 5);
-                rbPrecloser.Location = new System.Drawing.Point(rbCloser.Right + 5, 5);
-                // Adjust panel size to fit the controls (or set a predefined size).
-                //sectionPanel.Size = new Size(lblAverageCovers.Right + 20, Math.Max(rbSection.Height, lblAverageCovers.Height) + 10);
+                lblAverageCovers.Location = new System.Drawing.Point(lblMaxCovers.Right + 5, 5);               
+               
                 sectionPanel.Size = new Size(flowSectionSelect.Width - 10, Math.Max(rbSection.Height, lblAverageCovers.Height) + 10);
                 sectionLabels[section] = (lblMaxCovers, lblAverageCovers);
-                // Add the panel to the flow layout panel.
+                
                 flowSectionSelect.Controls.Add(sectionPanel);
             }
             if (flowSectionSelect.Controls.Count > 0)
@@ -636,20 +505,7 @@ namespace FloorPlanMaker
                 }
             }
         }
-        private void RbCloser_CheckedChanged(object sender, EventArgs e)
-        {
-            CheckBox rb = sender as CheckBox;
-            if (rb.Checked && rb != selectedCloserButton)
-            {
-                if (selectedCloserButton != null) selectedCloserButton.Checked = false;
-                selectedCloserButton = rb;
-            }
-            if (rb.Checked)
-            {
-                Section section = rb.Tag as Section;
-                section.IsCloser = true;
-            }
-        }
+       
 
         private void RbPrecloser_CheckedChanged(object sender, EventArgs e)
         {
@@ -674,13 +530,6 @@ namespace FloorPlanMaker
                 sectionLabels[section].AverageCoversLabel.Text = Section.FormatAsCurrencyWithoutParentheses(avgDifference);// avgDifference.ToString("C0;\\-C0", CultureInfo.CurrentCulture);
 
             }
-        }
-
-
-        private void nudNumberOfTeamWaits_ValueChanged(object sender, EventArgs e)
-        {
-            //shiftManager.Sections = GetNumberOfSections();
-            //CreateSectionRadioButtons(shiftManager.Sections);
         }
 
 
@@ -744,24 +593,8 @@ namespace FloorPlanMaker
                 pnlNavigationWindow.Controls.Add(_frmEditDiningAreas);
 
                 _frmEditDiningAreas.Show();
-                pnlNavigationWindow.BringToFront();
-                //pnlSections.Visible = false;
-                //flowServersInFloorplan.Visible = false;
-                //lblPanel2Text.Text = "Add Tables";
-                //txtDiningAreaName.Visible = true;
-                ////cboDiningAreas.Visible = true;
-                //btnCreateNewDiningArea.Visible = true;
-                //btnSaveDiningArea.Visible = true;
-                //btnSaveTables.Visible = true;
-                //rbInside.Visible = true;
-                //rbOutside.Visible = true;
-                //foreach (Control control in pnlFloorPlan.Controls)
-                //{
-                //    if (control is TableControl tableControl)
-                //    {
-                //        tableControl.Moveable = true;
-                //    }
-                //}
+                pnlNavigationWindow.BringToFront();                
+                
             }
             else
             {
@@ -772,27 +605,16 @@ namespace FloorPlanMaker
             }
         }
 
-
-
         private void btnAddSectionLabels_Click(object sender, EventArgs e)
         {
 
-
-            //foreach (Section section in shiftManager.SelectedFloorplan.Sections)
-            //{
-            //    SectionControl sectionControl = new SectionControl(section, pnlFloorPlan, shiftManager.SelectedFloorplan.Servers);
-
-            //    pnlFloorPlan.Controls.Add(sectionControl);
-            //    sectionControl.BringToFront();
-
-            //}
             sectionControlsManager = new SectionControlsManager(shiftManager.SelectedFloorplan);
             foreach (SectionControl sectionControl in sectionControlsManager.SectionControls)
             {
                 pnlFloorPlan.Controls.Add(sectionControl);
                 sectionControl.BringToFront();
             }
-            //AddSectionLabels(shiftManager.Sections);
+           
         }
 
         private void btnSaveFloorplanTemplate_Click(object sender, EventArgs e)
@@ -800,20 +622,15 @@ namespace FloorPlanMaker
             var drawnLines = drawingHandler.GetDrawnLines();
             FloorplanTemplate template = new FloorplanTemplate(shiftManager.SelectedDiningArea, txtTemplateName.Text,
                  shiftManager.Sections, drawnLines);
-            // Assuming you have a FloorplanTemplate object already initialized as template
+           
             template.SectionLines.Clear();
             template.SectionLines.AddRange(drawnLines);
-
-            // Optional: If you want to clear the drawn lines on the panel after adding them to the template
+            
             drawingHandler.ClearLines();
             SqliteDataAccess.SaveFloorplanTemplate(template);
-            txtTemplateName.Clear();
-            //RefreshTemplateList();
+            txtTemplateName.Clear();          
 
-        }
-
-
-        
+        }        
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
@@ -875,8 +692,7 @@ namespace FloorPlanMaker
                                                 MessageBoxIcon.Question);
 
                     if (result == DialogResult.No)
-                    {
-                        // User does not want to replace, so exit without saving.
+                    {          
 
                         return;
                     }
@@ -894,19 +710,16 @@ namespace FloorPlanMaker
                 MessageBox.Show("Not all sections are assigned");
             }
 
-            // To show print preview
-            // To print
-
         }
 
         private void btnChooseTemplate_Click(object sender, EventArgs e)
         {
             frmTemplateSelection form = new frmTemplateSelection(shiftManager);
-            //pnlFloorPlan.Visible = false;
+            
             form.StartPosition = FormStartPosition.CenterScreen;
-            //form.TopLevel = false;
+           ;
             form.BringToFront();
-            //this.Controls.Add(form);
+           
             form.ShowDialog();
             if (form.DialogResult == DialogResult.OK)
             {
@@ -916,7 +729,7 @@ namespace FloorPlanMaker
             {
 
             }
-            //form.ShowDialog();
+           
         }
         private void UpdateTableControlSections()
         {
@@ -943,8 +756,9 @@ namespace FloorPlanMaker
                             {
                                 tableControl.Section = section;
                                 tableControl.BackColor = section.Color;
+                                tableControl.ForeColor = section.FontColor;
                                 tableControl.Invalidate();
-                                break; // Once found, no need to check other tables in this section
+                                break; 
                             }
                         }
                     }
@@ -983,7 +797,7 @@ namespace FloorPlanMaker
             if (shiftManager.ContainsFloorplan(date, cbIsAM.Checked, shiftManager.SelectedDiningArea.ID))
             {
                 shiftManager.SetSelectedFloorplan(date, cbIsAM.Checked, shiftManager.SelectedDiningArea.ID);
-                //shiftManager.ViewedFloorplan = shiftManager.SelectedFloorplan;
+                
             }
             else
             {
@@ -1068,15 +882,7 @@ namespace FloorPlanMaker
             }
 
         }
-        private void btnAddSection_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnRemoveSection_Click(object sender, EventArgs e)
-        {
-
-        }
+       
         private void btnTest_Click(object sender, EventArgs e)
         {
             //nudServerCount.Value = 4;
@@ -1227,45 +1033,14 @@ namespace FloorPlanMaker
                     }
                 }
             }
-
         }
-
-        private void pnlSections_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
+       
         private void panel3_Paint(object sender, PaintEventArgs e)
         {
 
         }
 
 
-
-
-        //public static List<LineString> ComputeVoronoiEdges(List<Coordinate> coordinates)
-        //{
-        //    VoronoiDiagramBuilder builder = new VoronoiDiagramBuilder();
-        //    builder.SetSites(coordinates);
-        //    var diagram = builder.GetDiagram(new GeometryFactory());
-
-        //    var lines = new List<LineString>();
-
-        //    for (int i = 0; i < diagram.NumGeometries; i++)
-        //    {
-        //        var polygon = diagram.GetGeometryN(i) as Polygon;
-        //        if (polygon != null)
-        //        {
-        //            var boundary = polygon.Boundary as LineString;
-        //            if (boundary != null && !boundary.StartPoint.Equals(boundary.EndPoint))  // Exclude degenerate edges
-        //            {
-        //                lines.Add(boundary);
-        //            }
-        //        }
-        //    }
-
-        //    return lines;
-        //}
 
 
     }
