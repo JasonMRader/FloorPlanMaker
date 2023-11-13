@@ -58,16 +58,18 @@ namespace FloorPlanMaker
             btnCloseApp = new Button();
             pnlFloorplanContainer = new Panel();
             pnlNavigationWindow = new Panel();
+            pnlMainContainer = new Panel();
+            pnlSideContainer = new Panel();
             pnlSectionsAndServers = new Panel();
             rdoViewServerFlow = new RadioButton();
             rdoViewSectionFlow = new RadioButton();
-            pnlMainContainer = new Panel();
-            pnlSideContainer = new Panel();
             toolTip1 = new ToolTip(components);
             flowSectionSelect.SuspendLayout();
             panel1.SuspendLayout();
             pnlFloorplanContainer.SuspendLayout();
             pnlNavigationWindow.SuspendLayout();
+            pnlMainContainer.SuspendLayout();
+            pnlSideContainer.SuspendLayout();
             pnlSectionsAndServers.SuspendLayout();
             SuspendLayout();
             // 
@@ -76,7 +78,7 @@ namespace FloorPlanMaker
             flowServersInFloorplan.BackColor = Color.WhiteSmoke;
             flowServersInFloorplan.Location = new Point(0, 28);
             flowServersInFloorplan.Name = "flowServersInFloorplan";
-            flowServersInFloorplan.Size = new Size(280, 865);
+            flowServersInFloorplan.Size = new Size(335, 865);
             flowServersInFloorplan.TabIndex = 2;
             flowServersInFloorplan.Paint += flowServersInFloorplan_Paint;
             // 
@@ -108,7 +110,7 @@ namespace FloorPlanMaker
             btnSaveFloorplanTemplate.FlatStyle = FlatStyle.Flat;
             btnSaveFloorplanTemplate.ForeColor = Color.Black;
             btnSaveFloorplanTemplate.Image = FloorPlanMakerUI.Properties.Resources.ExtraSmallSave;
-            btnSaveFloorplanTemplate.Location = new Point(238, 0);
+            btnSaveFloorplanTemplate.Location = new Point(291, 0);
             btnSaveFloorplanTemplate.Name = "btnSaveFloorplanTemplate";
             btnSaveFloorplanTemplate.Size = new Size(41, 28);
             btnSaveFloorplanTemplate.TabIndex = 12;
@@ -139,7 +141,7 @@ namespace FloorPlanMaker
             flowSectionSelect.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             flowSectionSelect.Location = new Point(0, 28);
             flowSectionSelect.Name = "flowSectionSelect";
-            flowSectionSelect.Size = new Size(280, 865);
+            flowSectionSelect.Size = new Size(335, 865);
             flowSectionSelect.TabIndex = 9;
             // 
             // cbTableDisplayMode
@@ -334,7 +336,7 @@ namespace FloorPlanMaker
             dtpFloorplan.CalendarFont = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
             dtpFloorplan.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
             dtpFloorplan.Format = DateTimePickerFormat.Short;
-            dtpFloorplan.Location = new Point(466, 3);
+            dtpFloorplan.Location = new Point(466, 6);
             dtpFloorplan.Name = "dtpFloorplan";
             dtpFloorplan.Size = new Size(124, 27);
             dtpFloorplan.TabIndex = 14;
@@ -405,7 +407,7 @@ namespace FloorPlanMaker
             pnlFloorplanContainer.Controls.Add(pnlFloorPlan);
             pnlFloorplanContainer.Controls.Add(cboDiningAreas);
             pnlFloorplanContainer.Controls.Add(btnDayBefore);
-            pnlFloorplanContainer.Location = new Point(450, 23);
+            pnlFloorplanContainer.Location = new Point(13, 17);
             pnlFloorplanContainer.Name = "pnlFloorplanContainer";
             pnlFloorplanContainer.Size = new Size(684, 921);
             pnlFloorplanContainer.TabIndex = 19;
@@ -418,8 +420,6 @@ namespace FloorPlanMaker
             pnlNavigationWindow.Controls.Add(btnDoAThing);
             pnlNavigationWindow.Controls.Add(btnTest);
             pnlNavigationWindow.Controls.Add(btnGenerateSectionLines);
-            pnlNavigationWindow.Controls.Add(pnlFloorplanContainer);
-            pnlNavigationWindow.Controls.Add(pnlSectionsAndServers);
             pnlNavigationWindow.Controls.Add(pnlMainContainer);
             pnlNavigationWindow.Controls.Add(pnlSideContainer);
             pnlNavigationWindow.Dock = DockStyle.Bottom;
@@ -427,6 +427,24 @@ namespace FloorPlanMaker
             pnlNavigationWindow.Name = "pnlNavigationWindow";
             pnlNavigationWindow.Size = new Size(1264, 979);
             pnlNavigationWindow.TabIndex = 20;
+            // 
+            // pnlMainContainer
+            // 
+            pnlMainContainer.BackColor = Color.FromArgb(180, 190, 200);
+            pnlMainContainer.Controls.Add(pnlFloorplanContainer);
+            pnlMainContainer.Location = new Point(494, 29);
+            pnlMainContainer.Name = "pnlMainContainer";
+            pnlMainContainer.Size = new Size(711, 950);
+            pnlMainContainer.TabIndex = 20;
+            // 
+            // pnlSideContainer
+            // 
+            pnlSideContainer.BackColor = Color.FromArgb(180, 190, 200);
+            pnlSideContainer.Controls.Add(pnlSectionsAndServers);
+            pnlSideContainer.Location = new Point(55, 29);
+            pnlSideContainer.Name = "pnlSideContainer";
+            pnlSideContainer.Size = new Size(364, 950);
+            pnlSideContainer.TabIndex = 21;
             // 
             // pnlSectionsAndServers
             // 
@@ -437,9 +455,9 @@ namespace FloorPlanMaker
             pnlSectionsAndServers.Controls.Add(flowSectionSelect);
             pnlSectionsAndServers.Controls.Add(btnSaveFloorplanTemplate);
             pnlSectionsAndServers.ForeColor = Color.White;
-            pnlSectionsAndServers.Location = new Point(80, 23);
+            pnlSectionsAndServers.Location = new Point(13, 17);
             pnlSectionsAndServers.Name = "pnlSectionsAndServers";
-            pnlSectionsAndServers.Size = new Size(282, 921);
+            pnlSectionsAndServers.Size = new Size(335, 921);
             pnlSectionsAndServers.TabIndex = 1;
             // 
             // rdoViewServerFlow
@@ -480,22 +498,6 @@ namespace FloorPlanMaker
             rdoViewSectionFlow.UseVisualStyleBackColor = false;
             rdoViewSectionFlow.CheckedChanged += rdoViewSectionFlow_CheckedChanged;
             // 
-            // pnlMainContainer
-            // 
-            pnlMainContainer.BackColor = Color.FromArgb(180, 190, 200);
-            pnlMainContainer.Location = new Point(437, 8);
-            pnlMainContainer.Name = "pnlMainContainer";
-            pnlMainContainer.Size = new Size(711, 950);
-            pnlMainContainer.TabIndex = 20;
-            // 
-            // pnlSideContainer
-            // 
-            pnlSideContainer.BackColor = Color.FromArgb(180, 190, 200);
-            pnlSideContainer.Location = new Point(67, 8);
-            pnlSideContainer.Name = "pnlSideContainer";
-            pnlSideContainer.Size = new Size(308, 950);
-            pnlSideContainer.TabIndex = 21;
-            // 
             // toolTip1
             // 
             toolTip1.AutoPopDelay = 2500;
@@ -524,6 +526,8 @@ namespace FloorPlanMaker
             panel1.ResumeLayout(false);
             pnlFloorplanContainer.ResumeLayout(false);
             pnlNavigationWindow.ResumeLayout(false);
+            pnlMainContainer.ResumeLayout(false);
+            pnlSideContainer.ResumeLayout(false);
             pnlSectionsAndServers.ResumeLayout(false);
             ResumeLayout(false);
         }

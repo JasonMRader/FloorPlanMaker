@@ -405,7 +405,7 @@ namespace FloorPlanMaker
                     ForeColor = section.FontColor,
                     //MaximumSize = new Size(55,25),
                     AutoSize = false,
-                    Size = new Size(55, 25),
+                    Size = new Size(100, 25),
                     Text = section.Name,
                     Tag = section  // Store the section object in the Tag property for easy access in the event handler.
                 };
@@ -554,9 +554,9 @@ namespace FloorPlanMaker
             {
                 pnlNavigationWindow.SendToBack();
                 pnlNavHighlight.Location = new Point(rdoSections.Left, 0);
-                pnlSectionsAndServers.Visible = true;
+                pnlMainContainer.Visible = true;
                 //pnlSideBar.Visible = true;
-                pnlFloorplanContainer.Visible = true;
+                pnlSideContainer.Visible = true;
 
                 flowServersInFloorplan.Visible = true;
                 //lblPanel2Text.Text = areaCreationManager.DiningAreaSelected.Name;
