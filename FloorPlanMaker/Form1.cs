@@ -44,14 +44,14 @@ namespace FloorPlanMaker
             AppColors.FormatCTAButton(rdoSections);
             AppColors.FormatCTAButton(rdoShifts);
 
-            AppColors.FormatCTAButton(btnChooseTemplate);
+            AppColors.FormatMainButton(btnChooseTemplate);
             //AppColors.FormatMainButton(btnGenerateSectionLines);
-            AppColors.FormatCTAButton(btnSaveFloorplanTemplate);
-            AppColors.FormatCTAButton(cbTableDisplayMode);
+            AppColors.FormatMainButton(btnSaveFloorplanTemplate);
+            AppColors.FormatMainButton(cbTableDisplayMode);
 
             AppColors.FormatSecondColor(this);
-            AppColors.FormatSecondColor(pnlFloorplanContainer);
-            AppColors.FormatSecondColor(pnlSectionsAndServers);
+            AppColors.FormatCanvasColor(pnlFloorplanContainer);
+            AppColors.FormatCanvasColor(pnlSectionsAndServers);
 
             //AppColors.FormatSecondColor(lblCoversPerServerText);
             //AppColors.FormatSecondColor(lblSalesPerServerText);

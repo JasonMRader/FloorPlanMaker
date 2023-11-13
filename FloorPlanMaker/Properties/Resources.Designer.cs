@@ -63,6 +63,36 @@ namespace FloorPlanMakerUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap AnotherSMallBluePrint {
+            get {
+                object obj = ResourceManager.GetObject("AnotherSMallBluePrint", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap bluePrintSmall {
+            get {
+                object obj = ResourceManager.GetObject("bluePrintSmall", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap blueSMall {
+            get {
+                object obj = ResourceManager.GetObject("blueSMall", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap CircleTable {
             get {
                 object obj = ResourceManager.GetObject("CircleTable", resourceCulture);
@@ -106,6 +136,16 @@ namespace FloorPlanMakerUI.Properties {
         internal static System.Drawing.Bitmap emptyfileeGrey {
             get {
                 object obj = ResourceManager.GetObject("emptyfileeGrey", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ExtraSmallSave {
+            get {
+                object obj = ResourceManager.GetObject("ExtraSmallSave", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -213,26 +253,6 @@ namespace FloorPlanMakerUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap noun_cobweb {
-            get {
-                object obj = ResourceManager.GetObject("noun_cobweb", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap noun_save_6276392 {
-            get {
-                object obj = ResourceManager.GetObject("noun_save_6276392", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap noun_save_SMALL {
             get {
                 object obj = ResourceManager.GetObject("noun_save_SMALL", resourceCulture);
@@ -263,9 +283,39 @@ namespace FloorPlanMakerUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap smallBackArrow {
+            get {
+                object obj = ResourceManager.GetObject("smallBackArrow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap SmallFilledCircle {
             get {
                 object obj = ResourceManager.GetObject("SmallFilledCircle", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap smallForwardArrow {
+            get {
+                object obj = ResourceManager.GetObject("smallForwardArrow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap smallMoon {
+            get {
+                object obj = ResourceManager.GetObject("smallMoon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -283,9 +333,9 @@ namespace FloorPlanMakerUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap SquareTable {
+        internal static System.Drawing.Bitmap smallSunrise {
             get {
-                object obj = ResourceManager.GetObject("SquareTable", resourceCulture);
+                object obj = ResourceManager.GetObject("smallSunrise", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -296,26 +346,6 @@ namespace FloorPlanMakerUI.Properties {
         internal static System.Drawing.Bitmap SquareTableFilled {
             get {
                 object obj = ResourceManager.GetObject("SquareTableFilled", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap transparentWeeb {
-            get {
-                object obj = ResourceManager.GetObject("transparentWeeb", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap transparentWeeb1 {
-            get {
-                object obj = ResourceManager.GetObject("transparentWeeb1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

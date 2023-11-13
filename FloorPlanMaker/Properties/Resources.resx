@@ -118,6 +118,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="AnotherSMallBluePrint" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AnotherSMallBluePrint.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="bluePrintSmall" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bluePrintSmall.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="blueSMall" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\blueSMall.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="CircleTable" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CircleTable.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -132,6 +141,9 @@
   </data>
   <data name="emptyfileeGrey" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\emptyfileeGrey.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ExtraSmallSave" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ExtraSmallSave.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="LargerCircleFilled" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\LargerCircleFilled.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -163,12 +175,6 @@
   <data name="noun_blueprint_blackSMALL" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\noun-blueprint-blackSMALL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="noun_cobweb" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\noun-cobweb.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="noun_save_6276392" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\noun-save-6276392.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="noun_save_SMALL" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\noun-save-SMALL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -178,22 +184,25 @@
   <data name="noun_view_Smalll" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\noun-view-Smalll.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="smallBackArrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\smallBackArrow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="SmallFilledCircle" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SmallFilledCircle.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="smallForwardArrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\smallForwardArrow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="smallMoon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\smallMoon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="smallSquareFilled" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\smallSquareFilled.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="SquareTable" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\SquareTable.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="smallSunrise" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\smallSunrise.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="SquareTableFilled" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SquareTableFilled.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="transparentWeeb" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\transparentWeeb.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="transparentWeeb1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\transparentWeeb1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
