@@ -573,9 +573,9 @@ namespace FloorPlanMaker
             }
             else
             {
-                pnlSectionsAndServers.Visible = false;
+                pnlMainContainer.Visible = false;
                 //pnlSideBar.Visible = false;
-                pnlFloorplanContainer.Visible = false;
+                pnlSideContainer.Visible = false;
             }
         }
         private void rdoShifts_CheckedChanged(object sender, EventArgs e)
@@ -1103,6 +1103,25 @@ namespace FloorPlanMaker
 
 
             }
+        }
+
+        private void cbIsAM_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbIsAM.Checked)
+            {
+                cbIsAM.Image = Resources.smallMoon;
+                cbIsAM.BackColor = Color.FromArgb(117, 70, 104);
+            }
+            else
+            {
+                cbIsAM.Image = Resources.smallSunrise;
+                cbIsAM.BackColor = Color.FromArgb(251, 175, 0);
+            }
+        }
+
+        private void btnSaveTemplate_Popup(object sender, PopupEventArgs e)
+        {
+
         }
     }
 }
