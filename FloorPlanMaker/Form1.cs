@@ -53,7 +53,7 @@ namespace FloorPlanMaker
             AppColors.FormatSecondColor(this);
             AppColors.FormatSecondColor(pnlFloorplanContainer);
             AppColors.FormatSecondColor(pnlSectionsAndServers);
-            AppColors.FormatSecondColor(pnlSideBar);
+            AppColors.FormatAccentColor(pnlSideBar);
 
             AppColors.FormatAccentColor(pnlNavigationWindow);
 
@@ -1048,7 +1048,7 @@ namespace FloorPlanMaker
 
         private void rdoViewSectionFlow_CheckedChanged(object sender, EventArgs e)
         {
-            
+
             if (rdoViewSectionFlow.Checked)
             {
                 flowSectionSelect.Visible = true;
@@ -1062,7 +1062,7 @@ namespace FloorPlanMaker
                 flowServersInFloorplan.Visible = true;
                 rdoViewSectionFlow.Image = Resources.lilBook;
                 rdoViewServerFlow.Image = Resources.lilPeopleCanvas;
-                
+
             }
         }
     }
