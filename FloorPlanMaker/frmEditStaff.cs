@@ -25,12 +25,15 @@ namespace FloorPlanMaker
             AppColors.FormatCTAButton(btnCreateANewShift);
             AppColors.FormatCTAButton(btnAssignTables);
 
-            AppColors.FormatAccentColor(flowDiningAreaAssignment);
-            AppColors.FormatAccentColor(flowUnassignedServers);
-           
+            AppColors.FormatSecondColor(flowDiningAreaAssignment);
+            AppColors.FormatSecondColor(flowUnassignedServers);
+
+            AppColors.FormatAccentColor(this);
+
             AppColors.FormatMainButton(cbUnassignedServers);
             AppColors.FormatMainButton(cbIsAM);
             AppColors.FormatMainButton(btnAddNewServer);
+
 
             //AppColors.FormatSecondColor(pnlAddTables);
 
@@ -136,6 +139,7 @@ namespace FloorPlanMaker
             lblShiftDate.Text = dateSelected.ToString("dddd, MMMM dd");           
             SetColorTheme();            
             SetFloorplansForShiftManager();
+            
         }
               
 

@@ -130,6 +130,24 @@
   <data name="LargerCircleFilled" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\LargerCircleFilled.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="lilBook" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\lilBook.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="lilCanvasBook" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\lilCanvasBook.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="lilLabels" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\lilLabels.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="lilPeople" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\lilPeople.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="lilPeopleCanvas" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\lilPeopleCanvas.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="lilPrinter" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\lilPrinter.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="SmallFilledCircle" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SmallFilledCircle.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

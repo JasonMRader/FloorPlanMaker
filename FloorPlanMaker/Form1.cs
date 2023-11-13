@@ -1,6 +1,7 @@
 
 using FloorplanClassLibrary;
 using FloorPlanMakerUI;
+using FloorPlanMakerUI.Properties;
 //using NetTopologySuite.Geometries;
 using NetTopologySuite.Triangulate;
 using System.Diagnostics.Metrics;
@@ -43,16 +44,16 @@ namespace FloorPlanMaker
             AppColors.FormatCTAButton(rdoShifts);
 
             AppColors.FormatMainButton(btnChooseTemplate);
-            
+
             AppColors.FormatMainButton(btnGenerateSectionLines);
-           
+
             AppColors.FormatMainButton(btnSaveFloorplanTemplate);
             AppColors.FormatMainButton(cbTableDisplayMode);
 
             AppColors.FormatSecondColor(this);
-            AppColors.FormatSecondColor(panel3);
-            AppColors.FormatSecondColor(pnlServers);
-            AppColors.FormatSecondColor(pnlAddTables);
+            AppColors.FormatSecondColor(pnlFloorplanContainer);
+            AppColors.FormatSecondColor(pnlSectionsAndServers);
+            AppColors.FormatSecondColor(pnlSideBar);
 
             AppColors.FormatAccentColor(pnlNavigationWindow);
 
@@ -227,10 +228,7 @@ namespace FloorPlanMaker
             cboDiningAreas.DataSource = areaCreationManager.DiningAreas;
             cboDiningAreas.DisplayMember = "Name";
             cboDiningAreas.ValueMember = "ID";
-
-
-
-
+            rdoSections.Checked = true;
         }
         private void Form1_MouseDown(object sender, MouseEventArgs e)
         {
@@ -265,7 +263,7 @@ namespace FloorPlanMaker
             if (e.MouseButton == MouseButtons.Right && clickedTableControl.Section != null)
             {
 
-                
+
 
                 sectionEdited.Tables.RemoveAll(t => t.ID == clickedTable.ID);
 
@@ -273,7 +271,7 @@ namespace FloorPlanMaker
                 clickedTableControl.BackColor = pnlFloorPlan.BackColor;  // Restore the original color
                 clickedTableControl.Invalidate();
                 UpdateSectionLabels(sectionEdited, sectionEdited.MaxCovers, sectionEdited.AverageCovers);
-               
+
                 return;
             }
             if (rdoSections.Checked)
@@ -315,19 +313,15 @@ namespace FloorPlanMaker
                 pnlFloorPlan.Controls.Add(tableControl);
                 allTableControls.Add(tableControl);
             }
-            lblPanel2Text.Text = areaCreationManager.DiningAreaSelected.Name;
+
             this.shiftManager.SelectedDiningArea = areaCreationManager.DiningAreaSelected;
             SetViewedFloorplan();
-            lblDiningRoomName.Text = areaCreationManager.DiningAreaSelected.Name;
-           
-            lblDiningAreaAverageCovers.Text = shiftManager.SelectedDiningArea.GetAverageCovers().ToString("C0");
-            lblDiningAreaMaxCovers.Text = shiftManager.SelectedDiningArea.GetMaxCovers().ToString();
             this.sectionLineManager = new SectionLineManager(allTableControls);
 
         }
-       
 
-       
+
+
         private void UpdateServerControlsForFloorplan()
         {
 
@@ -354,10 +348,10 @@ namespace FloorPlanMaker
         }
 
 
-       
 
 
-      
+
+
 
 
         private List<CheckBox> TeamWaitButtons = new List<CheckBox>();
@@ -420,7 +414,7 @@ namespace FloorPlanMaker
                 };
 
 
-               
+
 
                 CheckBox rbPrecloser = new CheckBox
                 {
@@ -434,8 +428,8 @@ namespace FloorPlanMaker
                     Appearance = Appearance.Button,
                     Margin = new Padding(0),
                     Tag = section
-                };            
-                              
+                };
+
 
 
                 Panel sectionPanel = new Panel();
@@ -454,14 +448,14 @@ namespace FloorPlanMaker
                 //sectionPanel.Controls.Add(rbPrecloser);
                 //panel.Controls.Add(rbNeither);
 
-                
+
                 rbSection.Location = new System.Drawing.Point(5, 5); // You can adjust these coordinates as needed.
                 lblMaxCovers.Location = new System.Drawing.Point(rbSection.Right + 5, 5);
-                lblAverageCovers.Location = new System.Drawing.Point(lblMaxCovers.Right + 5, 5);               
-               
+                lblAverageCovers.Location = new System.Drawing.Point(lblMaxCovers.Right + 5, 5);
+
                 sectionPanel.Size = new Size(flowSectionSelect.Width - 10, Math.Max(rbSection.Height, lblAverageCovers.Height) + 10);
                 sectionLabels[section] = (lblMaxCovers, lblAverageCovers);
-                
+
                 flowSectionSelect.Controls.Add(sectionPanel);
             }
             if (flowSectionSelect.Controls.Count > 0)
@@ -505,7 +499,7 @@ namespace FloorPlanMaker
                 }
             }
         }
-       
+
 
         private void RbPrecloser_CheckedChanged(object sender, EventArgs e)
         {
@@ -539,12 +533,13 @@ namespace FloorPlanMaker
             {
                 pnlNavigationWindow.SendToBack();
                 pnlNavHighlight.Location = new Point(rdoSections.Left, 0);
+                pnlSectionsAndServers.Visible = true;
+                pnlSideBar.Visible = true;
+                pnlFloorplanContainer.Visible = true;
 
                 flowServersInFloorplan.Visible = true;
-                lblPanel2Text.Text = areaCreationManager.DiningAreaSelected.Name;
-                //this.shiftManager = new ShiftManager(areaCreationManager.DiningAreaSelected);
-                lblDiningAreaMaxCovers.Text = shiftManager.SelectedDiningArea.GetMaxCovers().ToString();
-                lblDiningAreaAverageCovers.Text = shiftManager.SelectedDiningArea.GetAverageCovers().ToString();
+                //lblPanel2Text.Text = areaCreationManager.DiningAreaSelected.Name;
+                //this.shiftManager = new ShiftManager(areaCreationManager.DiningAreaSelected);                
                 foreach (Control control in pnlFloorPlan.Controls)
                 {
                     if (control is TableControl tableControl)
@@ -554,6 +549,12 @@ namespace FloorPlanMaker
                     }
                 }
 
+            }
+            else
+            {
+                pnlSectionsAndServers.Visible = false;
+                pnlSideBar.Visible = false;
+                pnlFloorplanContainer.Visible = false;
             }
         }
         private void rdoShifts_CheckedChanged(object sender, EventArgs e)
@@ -593,8 +594,8 @@ namespace FloorPlanMaker
                 pnlNavigationWindow.Controls.Add(_frmEditDiningAreas);
 
                 _frmEditDiningAreas.Show();
-                pnlNavigationWindow.BringToFront();                
-                
+                pnlNavigationWindow.BringToFront();
+
             }
             else
             {
@@ -614,23 +615,23 @@ namespace FloorPlanMaker
                 pnlFloorPlan.Controls.Add(sectionControl);
                 sectionControl.BringToFront();
             }
-           
+
         }
 
         private void btnSaveFloorplanTemplate_Click(object sender, EventArgs e)
         {
-            var drawnLines = drawingHandler.GetDrawnLines();
-            FloorplanTemplate template = new FloorplanTemplate(shiftManager.SelectedDiningArea, txtTemplateName.Text,
-                 shiftManager.Sections, drawnLines);
-           
-            template.SectionLines.Clear();
-            template.SectionLines.AddRange(drawnLines);
-            
-            drawingHandler.ClearLines();
-            SqliteDataAccess.SaveFloorplanTemplate(template);
-            txtTemplateName.Clear();          
+            //var drawnLines = drawingHandler.GetDrawnLines();
+            //FloorplanTemplate template = new FloorplanTemplate(shiftManager.SelectedDiningArea, txtTemplateName.Text,
+            //     shiftManager.Sections, drawnLines);
 
-        }        
+            //template.SectionLines.Clear();
+            //template.SectionLines.AddRange(drawnLines);
+
+            //drawingHandler.ClearLines();
+            //SqliteDataAccess.SaveFloorplanTemplate(template);
+
+
+        }
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
@@ -692,7 +693,7 @@ namespace FloorPlanMaker
                                                 MessageBoxIcon.Question);
 
                     if (result == DialogResult.No)
-                    {          
+                    {
 
                         return;
                     }
@@ -715,11 +716,11 @@ namespace FloorPlanMaker
         private void btnChooseTemplate_Click(object sender, EventArgs e)
         {
             frmTemplateSelection form = new frmTemplateSelection(shiftManager);
-            
+
             form.StartPosition = FormStartPosition.CenterScreen;
-           ;
+            ;
             form.BringToFront();
-           
+
             form.ShowDialog();
             if (form.DialogResult == DialogResult.OK)
             {
@@ -729,7 +730,7 @@ namespace FloorPlanMaker
             {
 
             }
-           
+
         }
         private void UpdateTableControlSections()
         {
@@ -758,7 +759,7 @@ namespace FloorPlanMaker
                                 tableControl.BackColor = section.Color;
                                 tableControl.ForeColor = section.FontColor;
                                 tableControl.Invalidate();
-                                break; 
+                                break;
                             }
                         }
                     }
@@ -797,7 +798,7 @@ namespace FloorPlanMaker
             if (shiftManager.ContainsFloorplan(date, cbIsAM.Checked, shiftManager.SelectedDiningArea.ID))
             {
                 shiftManager.SetSelectedFloorplan(date, cbIsAM.Checked, shiftManager.SelectedDiningArea.ID);
-                
+
             }
             else
             {
@@ -882,7 +883,7 @@ namespace FloorPlanMaker
             }
 
         }
-       
+
         private void btnTest_Click(object sender, EventArgs e)
         {
             //nudServerCount.Value = 4;
@@ -1034,14 +1035,35 @@ namespace FloorPlanMaker
                 }
             }
         }
-       
+
         private void panel3_Paint(object sender, PaintEventArgs e)
         {
 
         }
 
+        private void flowServersInFloorplan_Paint(object sender, PaintEventArgs e)
+        {
 
+        }
 
-
+        private void rdoViewSectionFlow_CheckedChanged(object sender, EventArgs e)
+        {
+            
+            if (rdoViewSectionFlow.Checked)
+            {
+                flowSectionSelect.Visible = true;
+                flowServersInFloorplan.Visible = false;
+                rdoViewSectionFlow.Image = Resources.lilCanvasBook;
+                rdoViewServerFlow.Image = Resources.lilPeople;
+            }
+            else
+            {
+                flowSectionSelect.Visible = false;
+                flowServersInFloorplan.Visible = true;
+                rdoViewSectionFlow.Image = Resources.lilBook;
+                rdoViewServerFlow.Image = Resources.lilPeopleCanvas;
+                
+            }
+        }
     }
 }
