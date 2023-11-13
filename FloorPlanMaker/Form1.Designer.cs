@@ -31,9 +31,9 @@ namespace FloorPlanMaker
         private void InitializeComponent()
         {
             flowServersInFloorplan = new FlowLayoutPanel();
-            label10 = new Label();
+            lblCoversPerServerText = new Label();
             lblServerAverageCovers = new Label();
-            label11 = new Label();
+            lblSalesPerServerText = new Label();
             lblServerMaxCovers = new Label();
             btnSaveFloorplanTemplate = new Button();
             btnAddSectionLabels = new Button();
@@ -79,46 +79,46 @@ namespace FloorPlanMaker
             flowServersInFloorplan.TabIndex = 2;
             flowServersInFloorplan.Paint += flowServersInFloorplan_Paint;
             // 
-            // label10
+            // lblCoversPerServerText
             // 
-            label10.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label10.ForeColor = Color.Black;
-            label10.Location = new Point(0, 84);
-            label10.Name = "label10";
-            label10.Size = new Size(131, 21);
-            label10.TabIndex = 4;
-            label10.Text = "Covers / Server";
-            label10.TextAlign = ContentAlignment.MiddleCenter;
+            lblCoversPerServerText.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lblCoversPerServerText.ForeColor = Color.Black;
+            lblCoversPerServerText.Location = new Point(3, 34);
+            lblCoversPerServerText.Name = "lblCoversPerServerText";
+            lblCoversPerServerText.Size = new Size(125, 34);
+            lblCoversPerServerText.TabIndex = 4;
+            lblCoversPerServerText.Text = "Covers / Server";
+            lblCoversPerServerText.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // lblServerAverageCovers
             // 
             lblServerAverageCovers.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             lblServerAverageCovers.ForeColor = Color.Black;
-            lblServerAverageCovers.Location = new Point(0, 147);
+            lblServerAverageCovers.Location = new Point(0, 170);
             lblServerAverageCovers.Name = "lblServerAverageCovers";
-            lblServerAverageCovers.Size = new Size(131, 21);
+            lblServerAverageCovers.Size = new Size(128, 31);
             lblServerAverageCovers.TabIndex = 5;
             lblServerAverageCovers.Text = "0";
             lblServerAverageCovers.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // label11
+            // lblSalesPerServerText
             // 
-            label11.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label11.ForeColor = Color.Black;
-            label11.Location = new Point(0, 126);
-            label11.Name = "label11";
-            label11.Size = new Size(128, 21);
-            label11.TabIndex = 4;
-            label11.Text = "Sales / Server";
-            label11.TextAlign = ContentAlignment.MiddleCenter;
+            lblSalesPerServerText.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lblSalesPerServerText.ForeColor = Color.Black;
+            lblSalesPerServerText.Location = new Point(0, 135);
+            lblSalesPerServerText.Name = "lblSalesPerServerText";
+            lblSalesPerServerText.Size = new Size(128, 35);
+            lblSalesPerServerText.TabIndex = 4;
+            lblSalesPerServerText.Text = "Sales / Server";
+            lblSalesPerServerText.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // lblServerMaxCovers
             // 
             lblServerMaxCovers.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             lblServerMaxCovers.ForeColor = Color.Black;
-            lblServerMaxCovers.Location = new Point(0, 105);
+            lblServerMaxCovers.Location = new Point(3, 68);
             lblServerMaxCovers.Name = "lblServerMaxCovers";
-            lblServerMaxCovers.Size = new Size(131, 21);
+            lblServerMaxCovers.Size = new Size(125, 35);
             lblServerMaxCovers.TabIndex = 5;
             lblServerMaxCovers.Text = "0";
             lblServerMaxCovers.TextAlign = ContentAlignment.MiddleCenter;
@@ -128,13 +128,12 @@ namespace FloorPlanMaker
             btnSaveFloorplanTemplate.FlatAppearance.BorderSize = 0;
             btnSaveFloorplanTemplate.FlatStyle = FlatStyle.Flat;
             btnSaveFloorplanTemplate.ForeColor = Color.Black;
-            btnSaveFloorplanTemplate.Location = new Point(3, 430);
+            btnSaveFloorplanTemplate.Location = new Point(6, 518);
             btnSaveFloorplanTemplate.Name = "btnSaveFloorplanTemplate";
             btnSaveFloorplanTemplate.Size = new Size(122, 65);
             btnSaveFloorplanTemplate.TabIndex = 12;
             btnSaveFloorplanTemplate.Text = "Save Floorplan Template";
             btnSaveFloorplanTemplate.UseVisualStyleBackColor = true;
-            btnSaveFloorplanTemplate.Visible = false;
             btnSaveFloorplanTemplate.Click += btnSaveFloorplanTemplate_Click;
             // 
             // btnAddSectionLabels
@@ -166,9 +165,9 @@ namespace FloorPlanMaker
             cbTableDisplayMode.FlatAppearance.BorderSize = 0;
             cbTableDisplayMode.FlatStyle = FlatStyle.Flat;
             cbTableDisplayMode.ForeColor = Color.Black;
-            cbTableDisplayMode.Location = new Point(0, 323);
+            cbTableDisplayMode.Location = new Point(6, 406);
             cbTableDisplayMode.Name = "cbTableDisplayMode";
-            cbTableDisplayMode.Size = new Size(123, 51);
+            cbTableDisplayMode.Size = new Size(122, 65);
             cbTableDisplayMode.TabIndex = 16;
             cbTableDisplayMode.Text = "Table Display Mode";
             cbTableDisplayMode.TextAlign = ContentAlignment.MiddleCenter;
@@ -180,22 +179,21 @@ namespace FloorPlanMaker
             btnGenerateSectionLines.FlatAppearance.BorderSize = 0;
             btnGenerateSectionLines.FlatStyle = FlatStyle.Flat;
             btnGenerateSectionLines.ForeColor = Color.Black;
-            btnGenerateSectionLines.Location = new Point(9, 556);
+            btnGenerateSectionLines.Location = new Point(6, 630);
             btnGenerateSectionLines.Name = "btnGenerateSectionLines";
-            btnGenerateSectionLines.Size = new Size(114, 52);
+            btnGenerateSectionLines.Size = new Size(122, 65);
             btnGenerateSectionLines.TabIndex = 15;
             btnGenerateSectionLines.Text = "Auto Section Lines";
             btnGenerateSectionLines.UseVisualStyleBackColor = true;
-            btnGenerateSectionLines.Visible = false;
             // 
             // btnChooseTemplate
             // 
             btnChooseTemplate.FlatAppearance.BorderSize = 0;
             btnChooseTemplate.FlatStyle = FlatStyle.Flat;
             btnChooseTemplate.ForeColor = Color.Black;
-            btnChooseTemplate.Location = new Point(3, 218);
+            btnChooseTemplate.Location = new Point(6, 294);
             btnChooseTemplate.Name = "btnChooseTemplate";
-            btnChooseTemplate.Size = new Size(125, 51);
+            btnChooseTemplate.Size = new Size(122, 65);
             btnChooseTemplate.TabIndex = 14;
             btnChooseTemplate.Text = "Choose Template";
             btnChooseTemplate.UseVisualStyleBackColor = true;
@@ -435,9 +433,9 @@ namespace FloorPlanMaker
             pnlSideBar.BackColor = Color.FromArgb(180, 190, 200);
             pnlSideBar.Controls.Add(btnGenerateSectionLines);
             pnlSideBar.Controls.Add(btnChooseTemplate);
-            pnlSideBar.Controls.Add(label10);
+            pnlSideBar.Controls.Add(lblCoversPerServerText);
             pnlSideBar.Controls.Add(btnDoAThing);
-            pnlSideBar.Controls.Add(label11);
+            pnlSideBar.Controls.Add(lblSalesPerServerText);
             pnlSideBar.Controls.Add(cbTableDisplayMode);
             pnlSideBar.Controls.Add(lblServerAverageCovers);
             pnlSideBar.Controls.Add(btnTest2);
@@ -527,8 +525,8 @@ namespace FloorPlanMaker
         private ComboBox cboDiningAreas;
         private Label lblServerAverageCovers;
         private Label lblServerMaxCovers;
-        private Label label11;
-        private Label label10;
+        private Label lblSalesPerServerText;
+        private Label lblCoversPerServerText;
         private FlowLayoutPanel flowSectionSelect;
         private RadioButton rdoSections;
         private RadioButton rdoDiningAreas;

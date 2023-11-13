@@ -44,18 +44,31 @@ namespace FloorPlanMaker
             AppColors.FormatCTAButton(rdoShifts);
 
             AppColors.FormatMainButton(btnChooseTemplate);
-
             AppColors.FormatMainButton(btnGenerateSectionLines);
-
             AppColors.FormatMainButton(btnSaveFloorplanTemplate);
             AppColors.FormatMainButton(cbTableDisplayMode);
 
             AppColors.FormatSecondColor(this);
             AppColors.FormatSecondColor(pnlFloorplanContainer);
             AppColors.FormatSecondColor(pnlSectionsAndServers);
-            AppColors.FormatAccentColor(pnlSideBar);
+
+            AppColors.FormatSecondColor(lblCoversPerServerText);
+            AppColors.FormatSecondColor(lblSalesPerServerText);
+            AppColors.FormatSecondColor(lblServerAverageCovers);
+            AppColors.FormatSecondColor(lblServerMaxCovers);
+
+            lblCoversPerServerText.Font = AppColors.MainFont;
+            lblSalesPerServerText.Font = AppColors.MainFont;
+            lblServerAverageCovers.Font = AppColors.LargeFont;
+            lblServerMaxCovers.Font = AppColors.LargeFont;
+
+            btnChooseTemplate.Font = AppColors.MainFont;
+            btnGenerateSectionLines.Font = AppColors.MainFont;
+            btnSaveFloorplanTemplate.Font = AppColors.MainFont;
+            cbTableDisplayMode.Font = AppColors.MainFont;
 
             AppColors.FormatAccentColor(pnlNavigationWindow);
+            AppColors.FormatAccentColor(pnlSideBar);
 
             AppColors.FormatCanvasColor(pnlFloorPlan);
             AppColors.FormatCanvasColor(flowSectionSelect);
@@ -820,28 +833,24 @@ namespace FloorPlanMaker
         }
         private void NoServersToDisplay()
         {
+            lblServerMaxCovers.Text = shiftManager.SelectedDiningArea.GetMaxCovers().ToString("F0");
+            lblServerAverageCovers.Text = shiftManager.SelectedDiningArea.GetAverageCovers().ToString("C0");
 
-            Label noSections = new Label
+            PictureBox noSections = new PictureBox
             {
-                Text = "No Sections For\nThis Floorplan",
-                Font = AppColors.LargeFont,
-                AutoSize = false,
-                Size = new System.Drawing.Size(200, 350),
-                TextAlign = ContentAlignment.MiddleCenter,
-
-                ForeColor = Color.Black
-
-
+                Image = Resources.emptyfileeGrey,
+                SizeMode = PictureBoxSizeMode.StretchImage,
+                Size = new System.Drawing.Size(235, 200),
+                Margin = new Padding(20,300,0,0)
+                
             };
-            Label noServers = new Label
+            PictureBox noServers = new PictureBox
             {
-                Text = "No Servers For\nThis Floorplan",
-                Font = AppColors.LargeFont,
-                AutoSize = false,
-                Size = new System.Drawing.Size(200, 350),
-                TextAlign = ContentAlignment.MiddleCenter,
-                ForeColor = Color.Black,
-                Margin = new System.Windows.Forms.Padding(15, 0, 0, 0)
+                Image = Resources.emptyfileeGrey,
+                SizeMode = PictureBoxSizeMode.StretchImage,
+                Size = new System.Drawing.Size(200, 200),
+                Margin = new Padding(20, 300, 0, 0)
+
 
             };
             noSections.BringToFront();
