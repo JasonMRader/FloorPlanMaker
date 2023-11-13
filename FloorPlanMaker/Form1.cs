@@ -8,6 +8,7 @@ using System.Diagnostics.Metrics;
 using System.Drawing.Drawing2D;
 using System.Globalization;
 using System.Windows.Forms;
+
 //using static System.Collections.Specialized.BitVector32;
 //using static System.Collections.Specialized.BitVector32;
 
@@ -43,22 +44,22 @@ namespace FloorPlanMaker
             AppColors.FormatCTAButton(rdoSections);
             AppColors.FormatCTAButton(rdoShifts);
 
-            AppColors.FormatMainButton(btnChooseTemplate);
-            AppColors.FormatMainButton(btnGenerateSectionLines);
-            AppColors.FormatMainButton(btnSaveFloorplanTemplate);
-            AppColors.FormatMainButton(cbTableDisplayMode);
+            AppColors.FormatCTAButton(btnChooseTemplate);
+            //AppColors.FormatMainButton(btnGenerateSectionLines);
+            AppColors.FormatCTAButton(btnSaveFloorplanTemplate);
+            AppColors.FormatCTAButton(cbTableDisplayMode);
 
             AppColors.FormatSecondColor(this);
             AppColors.FormatSecondColor(pnlFloorplanContainer);
             AppColors.FormatSecondColor(pnlSectionsAndServers);
 
-            AppColors.FormatSecondColor(lblCoversPerServerText);
-            AppColors.FormatSecondColor(lblSalesPerServerText);
+            //AppColors.FormatSecondColor(lblCoversPerServerText);
+            //AppColors.FormatSecondColor(lblSalesPerServerText);
             AppColors.FormatSecondColor(lblServerAverageCovers);
             AppColors.FormatSecondColor(lblServerMaxCovers);
 
-            lblCoversPerServerText.Font = AppColors.MainFont;
-            lblSalesPerServerText.Font = AppColors.MainFont;
+            //lblCoversPerServerText.Font = AppColors.MainFont;
+            //lblSalesPerServerText.Font = AppColors.MainFont;
             lblServerAverageCovers.Font = AppColors.LargeFont;
             lblServerMaxCovers.Font = AppColors.LargeFont;
 
@@ -68,7 +69,7 @@ namespace FloorPlanMaker
             cbTableDisplayMode.Font = AppColors.MainFont;
 
             AppColors.FormatAccentColor(pnlNavigationWindow);
-            AppColors.FormatAccentColor(pnlSideBar);
+            //AppColors.FormatAccentColor(pnlSideBar);
 
             AppColors.FormatCanvasColor(pnlFloorPlan);
             AppColors.FormatCanvasColor(flowSectionSelect);
@@ -88,6 +89,12 @@ namespace FloorPlanMaker
 
             SetViewedFloorplan();
             rdoSections.Checked = true;
+            rdoViewSectionFlow.Checked = true;
+            flowSectionSelect.Visible = true;
+            flowServersInFloorplan.Visible = false;
+            rdoViewSectionFlow.Image = Resources.lilCanvasBook;
+            rdoViewServerFlow.Image = Resources.lilPeople;
+
 
         }
 
@@ -242,6 +249,7 @@ namespace FloorPlanMaker
             cboDiningAreas.DisplayMember = "Name";
             cboDiningAreas.ValueMember = "ID";
             rdoSections.Checked = true;
+            //rdoViewSectionFlow.Checked = true;
         }
         private void Form1_MouseDown(object sender, MouseEventArgs e)
         {
@@ -395,6 +403,7 @@ namespace FloorPlanMaker
                     FlatStyle = FlatStyle.Flat,
                     BackColor = section.Color,
                     ForeColor = section.FontColor,
+                    //MaximumSize = new Size(55,25),
                     AutoSize = false,
                     Size = new Size(55, 25),
                     Text = section.Name,
@@ -429,16 +438,12 @@ namespace FloorPlanMaker
 
 
 
-                CheckBox rbPrecloser = new CheckBox
+                PictureBox cbTeamWait = new PictureBox
                 {
-                    Text = "PRE",
-                    AutoSize = false,
+
                     Size = new Size(40, 25),
-                    Font = new Font("Segoe UI", 10F),
-                    FlatStyle = FlatStyle.Flat,
-                    BackColor = section.Color,
-                    ForeColor = section.FontColor,
-                    Appearance = Appearance.Button,
+                    Image = Resource1.TeamWaitNo,
+                    SizeMode = PictureBoxSizeMode.StretchImage,
                     Margin = new Padding(0),
                     Tag = section
                 };
@@ -457,16 +462,19 @@ namespace FloorPlanMaker
                 sectionPanel.Controls.Add(rbSection);
                 sectionPanel.Controls.Add(lblMaxCovers);
                 sectionPanel.Controls.Add(lblAverageCovers);
-                //sectionPanel.Controls.Add(rbCloser);
+                sectionPanel.Controls.Add(cbTeamWait);
                 //sectionPanel.Controls.Add(rbPrecloser);
                 //panel.Controls.Add(rbNeither);
 
 
-                rbSection.Location = new System.Drawing.Point(5, 5); // You can adjust these coordinates as needed.
+                //rbSection.Location = new System.Drawing.Point(5, 5); // You can adjust these coordinates as needed.
+                rbSection.Dock = DockStyle.Left;
                 lblMaxCovers.Location = new System.Drawing.Point(rbSection.Right + 5, 5);
                 lblAverageCovers.Location = new System.Drawing.Point(lblMaxCovers.Right + 5, 5);
+                //cbTeamWait.Location = new System.Drawing.Point(lblAverageCovers.Right + 5, 5);
+                cbTeamWait.Dock = DockStyle.Right;
 
-                sectionPanel.Size = new Size(flowSectionSelect.Width - 10, Math.Max(rbSection.Height, lblAverageCovers.Height) + 10);
+                sectionPanel.Size = new Size(flowSectionSelect.Width - 10, lblAverageCovers.Height + 10);
                 sectionLabels[section] = (lblMaxCovers, lblAverageCovers);
 
                 flowSectionSelect.Controls.Add(sectionPanel);
@@ -547,7 +555,7 @@ namespace FloorPlanMaker
                 pnlNavigationWindow.SendToBack();
                 pnlNavHighlight.Location = new Point(rdoSections.Left, 0);
                 pnlSectionsAndServers.Visible = true;
-                pnlSideBar.Visible = true;
+                //pnlSideBar.Visible = true;
                 pnlFloorplanContainer.Visible = true;
 
                 flowServersInFloorplan.Visible = true;
@@ -566,7 +574,7 @@ namespace FloorPlanMaker
             else
             {
                 pnlSectionsAndServers.Visible = false;
-                pnlSideBar.Visible = false;
+                //pnlSideBar.Visible = false;
                 pnlFloorplanContainer.Visible = false;
             }
         }
@@ -761,6 +769,8 @@ namespace FloorPlanMaker
 
                 if (ctrl is TableControl tableControl)
                 {
+                    tableControl.BackColor = pnlFloorPlan.BackColor;
+                    tableControl.ForeColor = pnlFloorPlan.ForeColor;
                     foreach (Section section in shiftManager.SelectedFloorplan.Sections)
                     {
 
@@ -841,8 +851,8 @@ namespace FloorPlanMaker
                 Image = Resources.emptyfileeGrey,
                 SizeMode = PictureBoxSizeMode.StretchImage,
                 Size = new System.Drawing.Size(235, 200),
-                Margin = new Padding(20,300,0,0)
-                
+                Margin = new Padding(20, 300, 0, 0)
+
             };
             PictureBox noServers = new PictureBox
             {
@@ -1071,6 +1081,26 @@ namespace FloorPlanMaker
                 flowServersInFloorplan.Visible = true;
                 rdoViewSectionFlow.Image = Resources.lilBook;
                 rdoViewServerFlow.Image = Resources.lilPeopleCanvas;
+
+            }
+        }
+
+        private void rdoViewServerFlow_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rdoViewServerFlow.Checked)
+            {
+                flowSectionSelect.Visible = false;
+                flowServersInFloorplan.Visible = true;
+                rdoViewSectionFlow.Image = Resources.lilBook;
+                rdoViewServerFlow.Image = Resources.lilPeopleCanvas;
+            }
+            else
+            {
+                flowSectionSelect.Visible = true;
+                flowServersInFloorplan.Visible = false;
+                rdoViewSectionFlow.Image = Resources.lilCanvasBook;
+                rdoViewServerFlow.Image = Resources.lilPeople;
+
 
             }
         }

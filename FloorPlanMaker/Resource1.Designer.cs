@@ -263,6 +263,26 @@ namespace FloorPlanMakerUI {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap TeamWaitNo {
+            get {
+                object obj = ResourceManager.GetObject("TeamWaitNo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap TeamWaitYes {
+            get {
+                object obj = ResourceManager.GetObject("TeamWaitYes", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap transparentWeeb {
             get {
                 object obj = ResourceManager.GetObject("transparentWeeb", resourceCulture);

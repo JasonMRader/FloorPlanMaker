@@ -31,10 +31,8 @@ namespace FloorPlanMaker
         private void InitializeComponent()
         {
             flowServersInFloorplan = new FlowLayoutPanel();
-            lblCoversPerServerText = new Label();
-            lblServerAverageCovers = new Label();
-            lblSalesPerServerText = new Label();
             lblServerMaxCovers = new Label();
+            lblServerAverageCovers = new Label();
             btnSaveFloorplanTemplate = new Button();
             btnAddSectionLabels = new Button();
             flowSectionSelect = new FlowLayoutPanel();
@@ -59,80 +57,57 @@ namespace FloorPlanMaker
             btnCloseApp = new Button();
             pnlFloorplanContainer = new Panel();
             pnlNavigationWindow = new Panel();
-            pnlSideBar = new Panel();
             pnlSectionsAndServers = new Panel();
             rdoViewServerFlow = new RadioButton();
             rdoViewSectionFlow = new RadioButton();
+            flowSectionSelect.SuspendLayout();
             panel1.SuspendLayout();
             pnlFloorplanContainer.SuspendLayout();
             pnlNavigationWindow.SuspendLayout();
-            pnlSideBar.SuspendLayout();
             pnlSectionsAndServers.SuspendLayout();
             SuspendLayout();
             // 
             // flowServersInFloorplan
             // 
             flowServersInFloorplan.BackColor = Color.WhiteSmoke;
-            flowServersInFloorplan.Location = new Point(25, 47);
+            flowServersInFloorplan.Location = new Point(43, 56);
             flowServersInFloorplan.Name = "flowServersInFloorplan";
-            flowServersInFloorplan.Size = new Size(235, 865);
+            flowServersInFloorplan.Size = new Size(280, 865);
             flowServersInFloorplan.TabIndex = 2;
             flowServersInFloorplan.Paint += flowServersInFloorplan_Paint;
-            // 
-            // lblCoversPerServerText
-            // 
-            lblCoversPerServerText.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            lblCoversPerServerText.ForeColor = Color.Black;
-            lblCoversPerServerText.Location = new Point(3, 34);
-            lblCoversPerServerText.Name = "lblCoversPerServerText";
-            lblCoversPerServerText.Size = new Size(125, 34);
-            lblCoversPerServerText.TabIndex = 4;
-            lblCoversPerServerText.Text = "Covers / Server";
-            lblCoversPerServerText.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // lblServerAverageCovers
-            // 
-            lblServerAverageCovers.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            lblServerAverageCovers.ForeColor = Color.Black;
-            lblServerAverageCovers.Location = new Point(0, 170);
-            lblServerAverageCovers.Name = "lblServerAverageCovers";
-            lblServerAverageCovers.Size = new Size(128, 31);
-            lblServerAverageCovers.TabIndex = 5;
-            lblServerAverageCovers.Text = "0";
-            lblServerAverageCovers.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // lblSalesPerServerText
-            // 
-            lblSalesPerServerText.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            lblSalesPerServerText.ForeColor = Color.Black;
-            lblSalesPerServerText.Location = new Point(0, 135);
-            lblSalesPerServerText.Name = "lblSalesPerServerText";
-            lblSalesPerServerText.Size = new Size(128, 35);
-            lblSalesPerServerText.TabIndex = 4;
-            lblSalesPerServerText.Text = "Sales / Server";
-            lblSalesPerServerText.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // lblServerMaxCovers
             // 
             lblServerMaxCovers.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             lblServerMaxCovers.ForeColor = Color.Black;
-            lblServerMaxCovers.Location = new Point(3, 68);
+            lblServerMaxCovers.Location = new Point(3, 0);
             lblServerMaxCovers.Name = "lblServerMaxCovers";
-            lblServerMaxCovers.Size = new Size(125, 35);
+            lblServerMaxCovers.Size = new Size(232, 35);
             lblServerMaxCovers.TabIndex = 5;
             lblServerMaxCovers.Text = "0";
             lblServerMaxCovers.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // lblServerAverageCovers
+            // 
+            lblServerAverageCovers.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lblServerAverageCovers.ForeColor = Color.Black;
+            lblServerAverageCovers.Location = new Point(3, 35);
+            lblServerAverageCovers.Name = "lblServerAverageCovers";
+            lblServerAverageCovers.Size = new Size(232, 31);
+            lblServerAverageCovers.TabIndex = 5;
+            lblServerAverageCovers.Text = "0";
+            lblServerAverageCovers.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // btnSaveFloorplanTemplate
             // 
             btnSaveFloorplanTemplate.FlatAppearance.BorderSize = 0;
             btnSaveFloorplanTemplate.FlatStyle = FlatStyle.Flat;
             btnSaveFloorplanTemplate.ForeColor = Color.Black;
-            btnSaveFloorplanTemplate.Location = new Point(6, 518);
+            btnSaveFloorplanTemplate.Image = FloorPlanMakerUI.Properties.Resources.noun_save_SMALL;
+            btnSaveFloorplanTemplate.Location = new Point(272, 10);
             btnSaveFloorplanTemplate.Name = "btnSaveFloorplanTemplate";
-            btnSaveFloorplanTemplate.Size = new Size(122, 65);
+            btnSaveFloorplanTemplate.Size = new Size(51, 35);
             btnSaveFloorplanTemplate.TabIndex = 12;
-            btnSaveFloorplanTemplate.Text = "Save Floorplan Template";
             btnSaveFloorplanTemplate.UseVisualStyleBackColor = true;
             btnSaveFloorplanTemplate.Click += btnSaveFloorplanTemplate_Click;
             // 
@@ -143,9 +118,9 @@ namespace FloorPlanMaker
             btnAddSectionLabels.FlatStyle = FlatStyle.Flat;
             btnAddSectionLabels.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             btnAddSectionLabels.Image = FloorPlanMakerUI.Properties.Resources.lilLabels;
-            btnAddSectionLabels.Location = new Point(19, 13);
+            btnAddSectionLabels.Location = new Point(3, 119);
             btnAddSectionLabels.Name = "btnAddSectionLabels";
-            btnAddSectionLabels.Size = new Size(63, 28);
+            btnAddSectionLabels.Size = new Size(51, 42);
             btnAddSectionLabels.TabIndex = 13;
             btnAddSectionLabels.UseVisualStyleBackColor = false;
             btnAddSectionLabels.Click += btnAddSectionLabels_Click;
@@ -153,25 +128,28 @@ namespace FloorPlanMaker
             // flowSectionSelect
             // 
             flowSectionSelect.BackColor = Color.Silver;
+            flowSectionSelect.Controls.Add(lblServerMaxCovers);
+            flowSectionSelect.Controls.Add(lblServerAverageCovers);
             flowSectionSelect.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            flowSectionSelect.Location = new Point(25, 47);
+            flowSectionSelect.Location = new Point(43, 56);
             flowSectionSelect.Name = "flowSectionSelect";
-            flowSectionSelect.Size = new Size(235, 865);
+            flowSectionSelect.Size = new Size(280, 865);
             flowSectionSelect.TabIndex = 9;
             // 
             // cbTableDisplayMode
             // 
             cbTableDisplayMode.Appearance = Appearance.Button;
+            cbTableDisplayMode.BackColor = Color.FromArgb(100, 130, 180);
             cbTableDisplayMode.FlatAppearance.BorderSize = 0;
             cbTableDisplayMode.FlatStyle = FlatStyle.Flat;
             cbTableDisplayMode.ForeColor = Color.Black;
-            cbTableDisplayMode.Location = new Point(6, 406);
+            cbTableDisplayMode.Image = FloorPlanMakerUI.Properties.Resources.noun_view_Smalll;
+            cbTableDisplayMode.Location = new Point(2, 256);
             cbTableDisplayMode.Name = "cbTableDisplayMode";
-            cbTableDisplayMode.Size = new Size(122, 65);
+            cbTableDisplayMode.Size = new Size(51, 40);
             cbTableDisplayMode.TabIndex = 16;
-            cbTableDisplayMode.Text = "Table Display Mode";
             cbTableDisplayMode.TextAlign = ContentAlignment.MiddleCenter;
-            cbTableDisplayMode.UseVisualStyleBackColor = true;
+            cbTableDisplayMode.UseVisualStyleBackColor = false;
             cbTableDisplayMode.CheckedChanged += cbTableDisplayMode_CheckedChanged;
             // 
             // btnGenerateSectionLines
@@ -179,24 +157,26 @@ namespace FloorPlanMaker
             btnGenerateSectionLines.FlatAppearance.BorderSize = 0;
             btnGenerateSectionLines.FlatStyle = FlatStyle.Flat;
             btnGenerateSectionLines.ForeColor = Color.Black;
-            btnGenerateSectionLines.Location = new Point(6, 630);
+            btnGenerateSectionLines.Location = new Point(3, 375);
             btnGenerateSectionLines.Name = "btnGenerateSectionLines";
-            btnGenerateSectionLines.Size = new Size(122, 65);
+            btnGenerateSectionLines.Size = new Size(36, 65);
             btnGenerateSectionLines.TabIndex = 15;
             btnGenerateSectionLines.Text = "Auto Section Lines";
             btnGenerateSectionLines.UseVisualStyleBackColor = true;
+            btnGenerateSectionLines.Visible = false;
             // 
             // btnChooseTemplate
             // 
+            btnChooseTemplate.BackColor = Color.FromArgb(100, 130, 180);
             btnChooseTemplate.FlatAppearance.BorderSize = 0;
             btnChooseTemplate.FlatStyle = FlatStyle.Flat;
             btnChooseTemplate.ForeColor = Color.Black;
-            btnChooseTemplate.Location = new Point(6, 294);
+            btnChooseTemplate.Image = FloorPlanMakerUI.Properties.Resources.noun_blueprint_blackSMALL;
+            btnChooseTemplate.Location = new Point(2, 186);
             btnChooseTemplate.Name = "btnChooseTemplate";
-            btnChooseTemplate.Size = new Size(122, 65);
+            btnChooseTemplate.Size = new Size(51, 42);
             btnChooseTemplate.TabIndex = 14;
-            btnChooseTemplate.Text = "Choose Template";
-            btnChooseTemplate.UseVisualStyleBackColor = true;
+            btnChooseTemplate.UseVisualStyleBackColor = false;
             btnChooseTemplate.Click += btnChooseTemplate_Click;
             // 
             // btnPrint
@@ -206,18 +186,18 @@ namespace FloorPlanMaker
             btnPrint.FlatStyle = FlatStyle.Flat;
             btnPrint.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             btnPrint.Image = FloorPlanMakerUI.Properties.Resources.lilPrinter;
-            btnPrint.Location = new Point(88, 13);
+            btnPrint.Location = new Point(3, 52);
             btnPrint.Name = "btnPrint";
-            btnPrint.Size = new Size(63, 28);
+            btnPrint.Size = new Size(51, 42);
             btnPrint.TabIndex = 13;
             btnPrint.UseVisualStyleBackColor = false;
             btnPrint.Click += btnPrint_Click;
             // 
             // btnDoAThing
             // 
-            btnDoAThing.Location = new Point(41, 863);
+            btnDoAThing.Location = new Point(3, 551);
             btnDoAThing.Name = "btnDoAThing";
-            btnDoAThing.Size = new Size(49, 23);
+            btnDoAThing.Size = new Size(26, 23);
             btnDoAThing.TabIndex = 17;
             btnDoAThing.Text = "3";
             btnDoAThing.UseVisualStyleBackColor = true;
@@ -226,9 +206,9 @@ namespace FloorPlanMaker
             // 
             // btnTest2
             // 
-            btnTest2.Location = new Point(41, 828);
+            btnTest2.Location = new Point(3, 522);
             btnTest2.Name = "btnTest2";
-            btnTest2.Size = new Size(50, 23);
+            btnTest2.Size = new Size(26, 23);
             btnTest2.TabIndex = 16;
             btnTest2.Text = "2";
             btnTest2.UseVisualStyleBackColor = true;
@@ -238,9 +218,9 @@ namespace FloorPlanMaker
             // btnTest
             // 
             btnTest.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
-            btnTest.Location = new Point(41, 788);
+            btnTest.Location = new Point(3, 491);
             btnTest.Name = "btnTest";
-            btnTest.Size = new Size(50, 25);
+            btnTest.Size = new Size(26, 25);
             btnTest.TabIndex = 12;
             btnTest.Text = "1";
             btnTest.UseVisualStyleBackColor = true;
@@ -250,7 +230,7 @@ namespace FloorPlanMaker
             // pnlFloorPlan
             // 
             pnlFloorPlan.BackColor = Color.WhiteSmoke;
-            pnlFloorPlan.Location = new Point(19, 47);
+            pnlFloorPlan.Location = new Point(60, 49);
             pnlFloorPlan.Name = "pnlFloorPlan";
             pnlFloorPlan.Size = new Size(672, 877);
             pnlFloorPlan.TabIndex = 2;
@@ -261,9 +241,9 @@ namespace FloorPlanMaker
             cboDiningAreas.FlatStyle = FlatStyle.Flat;
             cboDiningAreas.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             cboDiningAreas.FormattingEnabled = true;
-            cboDiningAreas.Location = new Point(157, 14);
+            cboDiningAreas.Location = new Point(60, 16);
             cboDiningAreas.Name = "cboDiningAreas";
-            cboDiningAreas.Size = new Size(288, 28);
+            cboDiningAreas.Size = new Size(426, 28);
             cboDiningAreas.TabIndex = 7;
             cboDiningAreas.SelectedIndexChanged += cboDiningAreas_SelectedIndexChanged;
             // 
@@ -345,7 +325,7 @@ namespace FloorPlanMaker
             dtpFloorplan.CalendarFont = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
             dtpFloorplan.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
             dtpFloorplan.Format = DateTimePickerFormat.Short;
-            dtpFloorplan.Location = new Point(478, 14);
+            dtpFloorplan.Location = new Point(519, 16);
             dtpFloorplan.Name = "dtpFloorplan";
             dtpFloorplan.Size = new Size(124, 27);
             dtpFloorplan.TabIndex = 14;
@@ -357,7 +337,7 @@ namespace FloorPlanMaker
             cbIsAM.BackColor = Color.FromArgb(255, 255, 192);
             cbIsAM.FlatStyle = FlatStyle.Flat;
             cbIsAM.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point);
-            cbIsAM.Location = new Point(635, 14);
+            cbIsAM.Location = new Point(676, 16);
             cbIsAM.Name = "cbIsAM";
             cbIsAM.Size = new Size(56, 28);
             cbIsAM.TabIndex = 15;
@@ -369,7 +349,7 @@ namespace FloorPlanMaker
             // 
             btnDayBefore.FlatStyle = FlatStyle.Flat;
             btnDayBefore.Image = Resource1.BackArrow;
-            btnDayBefore.Location = new Point(451, 14);
+            btnDayBefore.Location = new Point(492, 16);
             btnDayBefore.Name = "btnDayBefore";
             btnDayBefore.Size = new Size(21, 28);
             btnDayBefore.TabIndex = 16;
@@ -380,7 +360,7 @@ namespace FloorPlanMaker
             // 
             btnNextDay.FlatStyle = FlatStyle.Flat;
             btnNextDay.Image = Resource1.forwardArrow;
-            btnNextDay.Location = new Point(608, 15);
+            btnNextDay.Location = new Point(649, 17);
             btnNextDay.Name = "btnNextDay";
             btnNextDay.Size = new Size(21, 28);
             btnNextDay.TabIndex = 17;
@@ -403,23 +383,28 @@ namespace FloorPlanMaker
             // 
             pnlFloorplanContainer.BackColor = Color.FromArgb(180, 190, 200);
             pnlFloorplanContainer.Controls.Add(btnAddSectionLabels);
+            pnlFloorplanContainer.Controls.Add(btnChooseTemplate);
             pnlFloorplanContainer.Controls.Add(btnPrint);
             pnlFloorplanContainer.Controls.Add(dtpFloorplan);
+            pnlFloorplanContainer.Controls.Add(cbTableDisplayMode);
             pnlFloorplanContainer.Controls.Add(cbIsAM);
             pnlFloorplanContainer.Controls.Add(btnNextDay);
             pnlFloorplanContainer.Controls.Add(pnlFloorPlan);
             pnlFloorplanContainer.Controls.Add(cboDiningAreas);
             pnlFloorplanContainer.Controls.Add(btnDayBefore);
-            pnlFloorplanContainer.Location = new Point(516, 23);
+            pnlFloorplanContainer.Location = new Point(460, 23);
             pnlFloorplanContainer.Name = "pnlFloorplanContainer";
-            pnlFloorplanContainer.Size = new Size(716, 933);
+            pnlFloorplanContainer.Size = new Size(783, 933);
             pnlFloorplanContainer.TabIndex = 19;
             pnlFloorplanContainer.Paint += panel3_Paint;
             // 
             // pnlNavigationWindow
             // 
             pnlNavigationWindow.BackColor = Color.FromArgb(225, 225, 225);
-            pnlNavigationWindow.Controls.Add(pnlSideBar);
+            pnlNavigationWindow.Controls.Add(btnTest2);
+            pnlNavigationWindow.Controls.Add(btnDoAThing);
+            pnlNavigationWindow.Controls.Add(btnTest);
+            pnlNavigationWindow.Controls.Add(btnGenerateSectionLines);
             pnlNavigationWindow.Controls.Add(pnlFloorplanContainer);
             pnlNavigationWindow.Controls.Add(pnlSectionsAndServers);
             pnlNavigationWindow.Dock = DockStyle.Bottom;
@@ -428,25 +413,6 @@ namespace FloorPlanMaker
             pnlNavigationWindow.Size = new Size(1264, 979);
             pnlNavigationWindow.TabIndex = 20;
             // 
-            // pnlSideBar
-            // 
-            pnlSideBar.BackColor = Color.FromArgb(180, 190, 200);
-            pnlSideBar.Controls.Add(btnGenerateSectionLines);
-            pnlSideBar.Controls.Add(btnChooseTemplate);
-            pnlSideBar.Controls.Add(lblCoversPerServerText);
-            pnlSideBar.Controls.Add(btnDoAThing);
-            pnlSideBar.Controls.Add(lblSalesPerServerText);
-            pnlSideBar.Controls.Add(cbTableDisplayMode);
-            pnlSideBar.Controls.Add(lblServerAverageCovers);
-            pnlSideBar.Controls.Add(btnTest2);
-            pnlSideBar.Controls.Add(lblServerMaxCovers);
-            pnlSideBar.Controls.Add(btnTest);
-            pnlSideBar.Controls.Add(btnSaveFloorplanTemplate);
-            pnlSideBar.Location = new Point(31, 23);
-            pnlSideBar.Name = "pnlSideBar";
-            pnlSideBar.Size = new Size(131, 933);
-            pnlSideBar.TabIndex = 20;
-            // 
             // pnlSectionsAndServers
             // 
             pnlSectionsAndServers.BackColor = Color.FromArgb(180, 190, 200);
@@ -454,10 +420,11 @@ namespace FloorPlanMaker
             pnlSectionsAndServers.Controls.Add(rdoViewSectionFlow);
             pnlSectionsAndServers.Controls.Add(flowServersInFloorplan);
             pnlSectionsAndServers.Controls.Add(flowSectionSelect);
+            pnlSectionsAndServers.Controls.Add(btnSaveFloorplanTemplate);
             pnlSectionsAndServers.ForeColor = Color.White;
-            pnlSectionsAndServers.Location = new Point(194, 23);
+            pnlSectionsAndServers.Location = new Point(40, 23);
             pnlSectionsAndServers.Name = "pnlSectionsAndServers";
-            pnlSectionsAndServers.Size = new Size(285, 933);
+            pnlSectionsAndServers.Size = new Size(363, 933);
             pnlSectionsAndServers.TabIndex = 1;
             // 
             // rdoViewServerFlow
@@ -469,12 +436,13 @@ namespace FloorPlanMaker
             rdoViewServerFlow.FlatStyle = FlatStyle.Flat;
             rdoViewServerFlow.ForeColor = Color.Black;
             rdoViewServerFlow.Image = FloorPlanMakerUI.Properties.Resources.lilPeople;
-            rdoViewServerFlow.Location = new Point(91, 20);
+            rdoViewServerFlow.Location = new Point(109, 29);
             rdoViewServerFlow.Name = "rdoViewServerFlow";
             rdoViewServerFlow.Size = new Size(63, 28);
             rdoViewServerFlow.TabIndex = 10;
             rdoViewServerFlow.TextAlign = ContentAlignment.MiddleCenter;
             rdoViewServerFlow.UseVisualStyleBackColor = false;
+            rdoViewServerFlow.CheckedChanged += rdoViewServerFlow_CheckedChanged;
             // 
             // rdoViewSectionFlow
             // 
@@ -486,7 +454,7 @@ namespace FloorPlanMaker
             rdoViewSectionFlow.FlatStyle = FlatStyle.Flat;
             rdoViewSectionFlow.ForeColor = Color.Black;
             rdoViewSectionFlow.Image = FloorPlanMakerUI.Properties.Resources.lilCanvasBook;
-            rdoViewSectionFlow.Location = new Point(28, 20);
+            rdoViewSectionFlow.Location = new Point(46, 29);
             rdoViewSectionFlow.Name = "rdoViewSectionFlow";
             rdoViewSectionFlow.Size = new Size(63, 28);
             rdoViewSectionFlow.TabIndex = 10;
@@ -512,10 +480,10 @@ namespace FloorPlanMaker
             MouseDown += Form1_MouseDown;
             MouseMove += Form1_MouseMove;
             MouseUp += Form1_MouseUp;
+            flowSectionSelect.ResumeLayout(false);
             panel1.ResumeLayout(false);
             pnlFloorplanContainer.ResumeLayout(false);
             pnlNavigationWindow.ResumeLayout(false);
-            pnlSideBar.ResumeLayout(false);
             pnlSectionsAndServers.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -525,8 +493,6 @@ namespace FloorPlanMaker
         private ComboBox cboDiningAreas;
         private Label lblServerAverageCovers;
         private Label lblServerMaxCovers;
-        private Label lblSalesPerServerText;
-        private Label lblCoversPerServerText;
         private FlowLayoutPanel flowSectionSelect;
         private RadioButton rdoSections;
         private RadioButton rdoDiningAreas;
@@ -551,7 +517,6 @@ namespace FloorPlanMaker
         private RadioButton rdoShifts;
         private Panel pnlSectionsAndServers;
         private CheckBox cbTableDisplayMode;
-        private Panel pnlSideBar;
         private RadioButton rdoViewSectionFlow;
         private RadioButton rdoViewServerFlow;
     }

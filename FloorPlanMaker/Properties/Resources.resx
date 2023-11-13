@@ -154,8 +154,29 @@
   <data name="lilPrinter" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\lilPrinter.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="noun_blueprint_5089232_676767" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\noun-blueprint-5089232-676767.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="noun_blueprint_black" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\noun-blueprint-black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="noun_blueprint_blackSMALL" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\noun-blueprint-blackSMALL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="noun_cobweb" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\noun-cobweb.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="noun_save_6276392" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\noun-save-6276392.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="noun_save_SMALL" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\noun-save-SMALL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="noun_view_1355214" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\noun-view-1355214.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="noun_view_Smalll" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\noun-view-Smalll.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="SmallFilledCircle" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SmallFilledCircle.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
