@@ -442,12 +442,13 @@ namespace FloorPlanMaker
                 {
 
                     Size = new Size(40, 25),
-                    Image = Resource1.TeamWaitNo,
+                    Image = Resources.person,
                     SizeMode = PictureBoxSizeMode.StretchImage,
                     Margin = new Padding(0),
-                    Tag = section
+                    Tag = section,
+                    BackColor = AppColors.YesColor
                 };
-
+                cbTeamWait.Click += SectionTeamWait_Click;
 
 
                 Panel sectionPanel = new Panel();
@@ -502,6 +503,28 @@ namespace FloorPlanMaker
             flowSectionSelect.Controls.Add(btnAddPickup);
 
 
+        }
+        private void SectionTeamWait_Click(object sender, EventArgs e)
+        {
+            PictureBox pb = sender as PictureBox;
+            if (pb != null)
+            {
+                Section selectedSection = pb.Tag as Section;
+                if (selectedSection != null)
+                {
+                    selectedSection.IsTeamWait = !selectedSection.IsTeamWait;
+                }
+                if (selectedSection.IsTeamWait)
+                {
+                    pb.Image = Resources.people;
+                    pb.BackColor = AppColors.NoColor;
+                }
+                else
+                {
+                    pb.BackColor = AppColors.YesColor;
+                    pb.Image = Resources.person;
+                }
+            }
         }
         private void Rb_CheckedChanged(object sender, EventArgs e)
         {
