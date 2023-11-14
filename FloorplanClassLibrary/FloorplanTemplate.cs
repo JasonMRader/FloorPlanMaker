@@ -49,6 +49,7 @@ namespace FloorplanClassLibrary
             set
             {
                 int servers = 0;
+                if(this.Sections == null) { return; }
                 if(this.Sections.Count > 0)
                 {
                     foreach(Section section in this.Sections)

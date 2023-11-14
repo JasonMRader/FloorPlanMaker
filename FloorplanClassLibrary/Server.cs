@@ -37,5 +37,20 @@
                 return Name; // If there's only one part, return it as is.
             }
         }
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            Server other = (Server)obj;
+            return this.ID == other.ID;
+        }
+
+        public override int GetHashCode()
+        {
+            return ID.GetHashCode();
+        }
     }
 }

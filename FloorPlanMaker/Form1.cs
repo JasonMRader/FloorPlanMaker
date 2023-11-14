@@ -1132,13 +1132,14 @@ namespace FloorPlanMaker
         {
             if (cbIsAM.Checked)
             {
-                cbIsAM.Image = Resources.smallMoon;
-                cbIsAM.BackColor = Color.FromArgb(117, 70, 104);
+                cbIsAM.Image = Resources.smallSunrise;
+                cbIsAM.BackColor = Color.FromArgb(251, 175, 0);
             }
             else
             {
-                cbIsAM.Image = Resources.smallSunrise;
-                cbIsAM.BackColor = Color.FromArgb(251, 175, 0);
+                cbIsAM.Image = Resources.smallMoon;
+                cbIsAM.BackColor = Color.FromArgb(117, 70, 104);
+               
             }
         }
 

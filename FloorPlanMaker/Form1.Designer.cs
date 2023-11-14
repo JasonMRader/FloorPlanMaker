@@ -80,6 +80,7 @@ namespace FloorPlanMaker
             flowServersInFloorplan.Name = "flowServersInFloorplan";
             flowServersInFloorplan.Size = new Size(335, 865);
             flowServersInFloorplan.TabIndex = 2;
+            flowServersInFloorplan.Visible = false;
             flowServersInFloorplan.Paint += flowServersInFloorplan_Paint;
             // 
             // lblServerMaxCovers

@@ -32,10 +32,10 @@ namespace FloorPlanMakerUI
         }
         private void SetColors()
         {
-            AppColors.FormatAccentColor(panel1);
-            AppColors.FormatAccentColor(panel2);
-            AppColors.FormatAccentColor(panel3);
-            AppColors.FormatAccentColor(panel4);
+            AppColors.FormatSecondColor(panel1);
+            AppColors.FormatSecondColor(panel2);
+            AppColors.FormatSecondColor(panel3);
+            AppColors.FormatSecondColor(panel4);
 
             AppColors.FormatMainButton(btnBackDay);
             AppColors.FormatMainButton(btnForwardDay);
@@ -57,6 +57,11 @@ namespace FloorPlanMakerUI
             LoadDiningAreas();
             RefreshPreviousFloorplanCounts();
             PopulateServersNotOnShift(allServers);
+
+        }
+        private void UpdateAreasAndServersForDateAndShift()
+        {
+            Dictionary<DiningArea, int> thisDaysFloorplans = ServersAssignedPreviousDay(allFloorplans, cbIsAm.Checked, 0);
         }
         private void PopulateServersNotOnShift(List<Server> servers)
         {
@@ -163,14 +168,16 @@ namespace FloorPlanMakerUI
             {
                 if (lbl.Tag is DiningArea area && floorplanCounts.TryGetValue(area, out int count))
                 {
-                    lbl.Text = $"{count} Servers"; // Update the text of the label
+                    lbl.Text = $"{count}"; // Update the text of the label
                     if (count > 0)
                     {
-                        lbl.BackColor = AppColors.ButtonColor;
+                        lbl.BackColor = AppColors.YesColor;
+                        lbl.ForeColor = Color.Black;
                     }
                     else
                     {
                         lbl.BackColor = Color.Gray;
+                        lbl.ForeColor = Color.LightGray;
                     }
 
                 }
@@ -212,6 +219,52 @@ namespace FloorPlanMakerUI
             };
             panel.Controls.Add(lbl);
         }
+        private void RefreshForDateSelected()
+        {
+           
+            var relevantFloorplans = allFloorplans
+                .Where(fp => fp.Date.Date == dateSelected && fp.IsLunch == cbIsAm.Checked)
+                .ToList();
+            List<DiningArea> diningAreasUsed = new List<DiningArea>();
+            List<Server> serverUsed = new List<Server>();
+          
+            foreach (var fp in relevantFloorplans)
+            {
+                diningAreasUsed.Add(fp.DiningArea);
+                serverUsed.AddRange(fp.Servers);
+            }
+            foreach(CheckBox cb in flowDiningAreas.Controls)
+            {
+                if (diningAreasUsed.Contains(cb.Tag))
+                {
+                    cb.Checked = true;
+                }
+                else
+                {
+                    cb.Checked = false;
+                }
+            }
+            foreach(Button btn in flowAllServers.Controls)
+            {
+                
+                if (serverUsed.Contains(btn.Tag))
+                {
+                    EventArgs e = new EventArgs();
+                    AddToShift_Click(btn, e); 
+                   
+                }
+            }
+            foreach (Button btn in flowServersOnShift.Controls)
+            {
+                if (!serverUsed.Contains(btn.Tag))
+                {
+                    EventArgs e = new EventArgs(); 
+                    RemoveFromShift_Click(btn, e); 
+                   
+                }
+            }
+
+        }
         private Dictionary<DiningArea, int> ServersAssignedPreviousDay(List<Floorplan> floorplans, bool isLunch, int Days)
         {
             DateTime targetDate = dateSelected.AddDays(Days);
@@ -235,6 +288,7 @@ namespace FloorPlanMakerUI
             }
 
             return result;
+           
         }
 
 
@@ -285,6 +339,7 @@ namespace FloorPlanMakerUI
                 lblIsToday.Text = "";
             }
             RefreshPreviousFloorplanCounts();
+            RefreshForDateSelected();
         }
 
         private void btnForwardDay_Click(object sender, EventArgs e)
@@ -308,6 +363,7 @@ namespace FloorPlanMakerUI
                 lblIsToday.Text = "";
             }
             RefreshPreviousFloorplanCounts();
+            RefreshForDateSelected();
         }
 
 
@@ -319,12 +375,12 @@ namespace FloorPlanMakerUI
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            if(ShiftManagerCreated.Floorplans.Count == 0) 
+            if (ShiftManagerCreated.Floorplans.Count == 0)
             {
                 MessageBox.Show("You have not choosen any dining areas for this shift");
                 return;
             }
-            if(ShiftManagerCreated.ServersOnShift.Count == 0)
+            if (ShiftManagerCreated.ServersOnShift.Count == 0)
             {
                 MessageBox.Show("You have not assigned any servers");
                 return;
@@ -333,7 +389,7 @@ namespace FloorPlanMakerUI
             this.ShiftManagerCreated.IsAM = isAM;
             frmEditStaff.UpdateNewShift(ShiftManagerCreated);
             this.Close();
-           
+
         }
 
         private void cbIsAm_CheckedChanged(object sender, EventArgs e)
