@@ -129,6 +129,35 @@ namespace FloorplanClassLibrary
             }
             
         }
+        public void DeleteSection(Section section)
+        {
+            if (section.Tables != null || section.Server != null)
+            {
+                UnassignSection(section);
+            }
+            var sectionToRemove = Sections.Where(s => s.Number == section.Number).FirstOrDefault();
+            Sections.Remove(sectionToRemove);
+        }
+        public void UnassignSection(Section section)
+        {
+            if (section != null)
+            {
+                if(section.Server != null)
+                {
+                    this.ServersWithoutSection.Add(section.Server);
+                    section.Server = null;
+                }
+                if(section.Server2 != null)
+                {
+                    this.ServersWithoutSection.Add(section.Server2);
+                    section.Server2 = null;
+                }            
+                
+                section.Tables.Clear();               
+                section.IsCloser = false;
+                section.IsPre = false;
+            }
+        }
         public void AddServerAndSection(Server server)
         {
             this.ServersWithoutSection.Add(server);
