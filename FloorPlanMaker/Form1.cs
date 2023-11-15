@@ -90,6 +90,7 @@ namespace FloorPlanMaker
 
         private void MoveToNextSection()
         {
+            if(shiftManager.SelectedFloorplan == null) { return; }
             var sections = shiftManager.SelectedFloorplan.Sections;
 
             if (currentFocusedSectionIndex == null)
@@ -139,7 +140,7 @@ namespace FloorPlanMaker
                     cb.Checked = false;
                 }
             }
-            
+            FillInTableControlColors();
             
         }
         public void UpdateForm1ShiftManager(ShiftManager shiftManagerToAdd)
@@ -424,7 +425,7 @@ namespace FloorPlanMaker
                 {
                     server.Shifts = SqliteDataAccess.GetShiftsForServer(server);
                     ServerControl serverControl = new ServerControl(server, flowServersInFloorplan.Width - 20, 20);
-
+                    serverControl.Click += ServerControl_Click;
                     foreach (ShiftControl shiftControl in serverControl.ShiftControls)
                     {
 
@@ -438,7 +439,25 @@ namespace FloorPlanMaker
             }
         }
 
-
+        private void ServerControl_Click(object? sender, EventArgs e)
+        {
+            ServerControl serverControl = (ServerControl)sender;
+            Server server = serverControl.Server;
+           if(shiftManager.SectionSelected.Server == null)
+            {
+                shiftManager.SectionSelected.Server = server;                
+              
+            }
+           foreach(SectionControl sc in sectionControlsManager.SectionControls)
+            {
+                if(sc.Section == shiftManager.SectionSelected)
+                {
+                    sc.UpdateLabel();
+                }
+            }
+           
+           
+        }
 
         private List<CheckBox> TeamWaitButtons = new List<CheckBox>();
         private List<CheckBox> selectedSectionButtons = new List<CheckBox>();
@@ -923,6 +942,16 @@ namespace FloorPlanMaker
                 NoServersToDisplay();
                 return;
             }
+            FillInTableControlColors();
+            sectionControlsManager = new SectionControlsManager(shiftManager.SelectedFloorplan);
+            foreach (SectionControl sectionControl in sectionControlsManager.SectionControls)
+            {
+                pnlFloorPlan.Controls.Add(sectionControl);
+                sectionControl.BringToFront();
+            }
+        }
+        private void FillInTableControlColors()
+        {
             foreach (Control ctrl in pnlFloorPlan.Controls)
             {
 
@@ -938,7 +967,12 @@ namespace FloorPlanMaker
                             if (tableControl.Table.TableNumber == table.TableNumber)
                             {
                                 tableControl.Section = section;
-                                tableControl.BackColor = section.Color;
+                                tableControl.BackColor = section.MuteColor(0.35f);
+                                if (section == shiftManager.SectionSelected)
+                                {
+                                    tableControl.BackColor = section.MuteColor(1.35f);
+                                }
+                                
                                 tableControl.ForeColor = section.FontColor;
                                 tableControl.Invalidate();
                                 break;
@@ -947,14 +981,7 @@ namespace FloorPlanMaker
                     }
                 }
             }
-            sectionControlsManager = new SectionControlsManager(shiftManager.SelectedFloorplan);
-            foreach (SectionControl sectionControl in sectionControlsManager.SectionControls)
-            {
-                pnlFloorPlan.Controls.Add(sectionControl);
-                sectionControl.BringToFront();
-            }
         }
-
         private void btnAddPickupSection_Click(object sender, EventArgs e)
         {
             Section pickUpSection = new Section(shiftManager.SelectedFloorplan);

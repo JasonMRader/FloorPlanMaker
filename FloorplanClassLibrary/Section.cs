@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Net.Security;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
@@ -168,6 +169,26 @@ namespace FloorplanClassLibrary
                 
             }
         }
+        public Color MuteColor(float amount)
+        {
+            // 'amount' is a value between 0 and 1, where 0 is completely grey and 1 is the original color
+
+            // Calculate the greyscale value of the original color
+            float greyScale = (this.Color.R * 0.3f + this.Color.G * 0.59f + this.Color.B * 0.11f) / 255;
+
+            // Interpolate between the greyscale and the original color
+            int muteR = (int)(this.Color.R * amount + greyScale * (1 - amount) * 255);
+            int muteG = (int)(this.Color.G * amount + greyScale * (1 - amount) * 255);
+            int muteB = (int)(this.Color.B * amount + greyScale * (1 - amount) * 255);
+
+            // Ensure the RGB values are within the valid range
+            muteR = Math.Min(255, Math.Max(0, muteR));
+            muteG = Math.Min(255, Math.Max(0, muteG));
+            muteB = Math.Min(255, Math.Max(0, muteB));
+
+            return Color.FromArgb(this.Color.A, muteR, muteG, muteB);
+        }
+
         public Color FontColor
         {
             get
