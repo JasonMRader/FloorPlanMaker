@@ -814,6 +814,7 @@ namespace FloorPlanMaker
                 pnlFloorPlan.Controls.Add(sectionControl);
                 sectionControl.BringToFront();
             }
+            rdoViewServerFlow.Checked = true;
 
         }
 

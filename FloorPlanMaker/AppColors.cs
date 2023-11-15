@@ -42,7 +42,25 @@ namespace FloorPlanMakerUI
 
         public static Color HighlightColor = Color.FromArgb(242,143,59);
         public static Color HighLightFontColor = Color.White;
+        public  static Color MuteColor(float amount, Color Color)
+        {
+            // 'amount' is a value between 0 and 1, where 0 is completely grey and 1 is the original color
 
+            // Calculate the greyscale value of the original color
+            float greyScale = (Color.R * 0.3f + Color.G * 0.59f +   Color.B * 0.11f) / 255;
+
+            // Interpolate between the greyscale and the original color
+            int muteR = (int)(Color.R * amount + greyScale * (1 - amount) * 255);
+            int muteG = (int)(Color.G * amount + greyScale * (1 - amount) * 255);
+            int muteB = (int)(Color.B * amount + greyScale * (1 - amount) * 255);
+
+            // Ensure the RGB values are within the valid range
+            muteR = Math.Min(255, Math.Max(0, muteR));
+            muteG = Math.Min(255, Math.Max(0, muteG));
+            muteB = Math.Min(255, Math.Max(0, muteB));
+
+            return Color.FromArgb(Color.A, muteR, muteG, muteB);
+        }
         public static void FormatMainButton(Control c)
         {
             c.BackColor = ButtonColor;
