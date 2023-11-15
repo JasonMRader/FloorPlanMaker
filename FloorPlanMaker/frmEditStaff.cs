@@ -69,17 +69,19 @@ namespace FloorPlanMaker
             allFloorplans = SqliteDataAccess.LoadFloorplanList();
         }       
        
-        private Dictionary<DiningArea, int> PreviousServerCountsForDiningArea(int Days)
+        private Dictionary<DiningArea, int> PreviousServerCountsForNewShift(int Days)
         {
             DateTime targetDate = dateSelected.AddDays(Days);
             DateOnly dateOnly = new DateOnly(targetDate.Year,targetDate.Month, targetDate.Day);
-            List<Floorplan> floorplans = new List<Floorplan>();
+            List<Floorplan> floorplansResults = new List<Floorplan>();
+           
+
             foreach(Floorplan floorplan in newShiftManager.Floorplans)
             {
                Floorplan fp = SqliteDataAccess.LoadFloorplanByCriteria(floorplan.DiningArea, dateOnly, newShiftManager.IsAM);
                 if(fp != null)
                 {
-                    floorplans.Add(fp);
+                    floorplansResults.Add(fp);
                 }
             }                   
            
@@ -91,8 +93,39 @@ namespace FloorPlanMaker
             }
 
           
-            foreach (var fp in floorplans)
+            foreach (var fp in floorplansResults)
             {                
+                result[fp.DiningArea] += fp.Servers.Count;
+            }
+
+            return result;
+        }
+        private Dictionary<DiningArea, int> PreviousServerCountsForOldShift(int Days)
+        {
+            DateTime targetDate = dateSelected.AddDays(Days);
+            DateOnly dateOnly = new DateOnly(targetDate.Year, targetDate.Month, targetDate.Day);
+            List<Floorplan> floorplansResults = new List<Floorplan>();
+
+
+            foreach (Floorplan floorplan in pastShiftsManager.Floorplans)
+            {
+                Floorplan fp = SqliteDataAccess.LoadFloorplanByCriteria(floorplan.DiningArea, dateOnly, cbIsAM.Checked);
+                if (fp != null)
+                {
+                    floorplansResults.Add(fp);
+                }
+            }
+
+            var result = new Dictionary<DiningArea, int>();
+
+            foreach (var floorplan in floorplansResults)
+            {
+                result[floorplan.DiningArea] = 0;
+            }
+
+
+            foreach (var fp in floorplansResults)
+            {
                 result[fp.DiningArea] += fp.Servers.Count;
             }
 
@@ -100,8 +133,18 @@ namespace FloorPlanMaker
         }
         private void UpdateCountLabels()
         {
-            Dictionary<DiningArea, int> LastWeekFloorplans = PreviousServerCountsForDiningArea(-1);
-            Dictionary<DiningArea, int> yesterdayCounts = PreviousServerCountsForDiningArea(-7);
+            Dictionary<DiningArea, int> LastWeekFloorplans = new Dictionary<DiningArea, int>();
+            Dictionary<DiningArea, int> yesterdayCounts = new Dictionary<DiningArea, int>();
+            if(isNewShift)
+            {
+                LastWeekFloorplans = PreviousServerCountsForNewShift(-7);
+                yesterdayCounts = PreviousServerCountsForNewShift(-1);
+            }
+            else
+            {
+                LastWeekFloorplans = PreviousServerCountsForOldShift(-7);
+                yesterdayCounts = PreviousServerCountsForOldShift(-1);
+            }
             foreach (Label lbl in PastStaffLevelLabels)
             {
                 if (lbl.Tag is DiningArea area)
@@ -166,7 +209,8 @@ namespace FloorPlanMaker
                         }
                     }
                 }
-                RefreshFloorplanFlowPanel(pastShiftsManager.Floorplans);                
+                RefreshFloorplanFlowPanel(pastShiftsManager.Floorplans);   
+                UpdateCountLabels();
             }
             else
             {
