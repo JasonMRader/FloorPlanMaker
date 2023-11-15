@@ -434,11 +434,6 @@ namespace FloorPlanMaker
 
 
 
-
-
-
-
-
         private List<CheckBox> TeamWaitButtons = new List<CheckBox>();
         private List<CheckBox> selectedSectionButtons = new List<CheckBox>();
         private CheckBox selectedCloserButton;
@@ -464,6 +459,34 @@ namespace FloorPlanMaker
             }
             foreach (var section in sections)
             {
+                CreateOneSectionPanel(section);
+            }
+            if (flowSectionSelect.Controls.Count > 0)
+            {
+                Panel firstPanel = (Panel)flowSectionSelect.Controls[2];
+                if (firstPanel.Controls.Count > 0)
+                {
+                    CheckBox firstSectionCheckBox = (CheckBox)firstPanel.Controls[0];
+                    firstSectionCheckBox.Checked = true;
+                }
+            }
+            Button btnAddPickup = new Button
+            {
+                Text = "Add Pick-Up Section",
+                AutoSize = false,
+                Size = new Size(flowSectionSelect.Width - 10, 25),
+                Font = new Font("Segoe UI", 10F),
+                FlatStyle = FlatStyle.Flat,
+                BackColor = AppColors.ButtonColor,
+                ForeColor = Color.Black
+            };
+            btnAddPickup.Click += btnAddPickupSection_Click;
+            flowSectionSelect.Controls.Add(btnAddPickup);
+            flowSectionSelect.Controls.SetChildIndex(lblServerMaxCovers,0);
+            flowSectionSelect.Controls.SetChildIndex(lblServerAverageCovers, 1);
+        }
+        private void CreateOneSectionPanel(Section section)
+        {
                 // Create a RadioButton for each section.
                 CheckBox rbSection = new CheckBox
                 {
@@ -504,9 +527,6 @@ namespace FloorPlanMaker
 
                 };
 
-
-
-
                 PictureBox cbTeamWait = new PictureBox
                 {
 
@@ -523,7 +543,7 @@ namespace FloorPlanMaker
                 {
 
                     Size = new Size(40, 25),
-                    Image = Resources.Trash,
+                    Image = Resources.erase,
                     SizeMode = PictureBoxSizeMode.StretchImage,
                     Margin = new Padding(0),
                     Tag = section,
@@ -560,30 +580,14 @@ namespace FloorPlanMaker
                 sectionLabels[section] = (lblMaxCovers, lblAverageCovers);
 
                 flowSectionSelect.Controls.Add(sectionPanel);
-            }
-            if (flowSectionSelect.Controls.Count > 0)
-            {
-                Panel firstPanel = (Panel)flowSectionSelect.Controls[2];
-                if (firstPanel.Controls.Count > 0)
-                {
-                    CheckBox firstSectionCheckBox = (CheckBox)firstPanel.Controls[0];
-                    firstSectionCheckBox.Checked = true;
-                }
-            }
-            Button btnAddPickup = new Button
-            {
-                Text = "Add Pick-Up Section",
-                AutoSize = false,
-                Size = new Size(flowSectionSelect.Width - 10, 25),
-                Font = new Font("Segoe UI", 10F),
-                FlatStyle = FlatStyle.Flat,
-                BackColor = AppColors.ButtonColor,
-                ForeColor = Color.Black
-            };
-            btnAddPickup.Click += btnAddPickupSection_Click;
-            flowSectionSelect.Controls.Add(btnAddPickup);
+            int secondToLastIndex = flowSectionSelect.Controls.Count - 2; // -2 because Count is always 1 more than the last index
 
-
+            // Check if there are enough controls to move the new one
+            if (secondToLastIndex >= 0)
+            {
+                // Move the new control to the second-to-last position
+                flowSectionSelect.Controls.SetChildIndex(sectionPanel, secondToLastIndex);
+            }
 
         }
 
@@ -597,8 +601,9 @@ namespace FloorPlanMaker
                     "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (dialogResult == DialogResult.Yes)
                 {
-                    shiftManager.SelectedFloorplan.DeleteSection(selectedSection);
-                    CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
+                    shiftManager.SelectedFloorplan.UnassignSection(selectedSection);
+                    UpdateTableControlSections();
+                    
                 }
                 else if (dialogResult == DialogResult.No)
                 {
@@ -614,25 +619,35 @@ namespace FloorPlanMaker
             if (pb != null)
             {
                 Section selectedSection = pb.Tag as Section;
-                if (selectedSection != null)
+              
+                if (!selectedSection.IsTeamWait)
                 {
-                    selectedSection.IsTeamWait = !selectedSection.IsTeamWait;
-                }
-                if (selectedSection.IsTeamWait)
-                {
-                    pb.Image = Resources.people;
+                    
                     //pb.BackColor = AppColors.NoColor;
-                    shiftManager.SelectedFloorplan.RemoveHighestNumberedEmptySection();
+                    Section sectionRemoved = shiftManager.SelectedFloorplan.RemoveHighestNumberedEmptySection();
+                    if (sectionRemoved == null)
+                    {
+                        MessageBox.Show("You must clear a section before making another section a teamwait section");
+                    }
+                    else
+                    {
+                        selectedSection.IsTeamWait = true;
+                        pb.Image = Resources.people;
+                        RemoveSectionPanel(sectionRemoved);
+                    }
+                   
                 }
                 else
                 {
+                    selectedSection.IsTeamWait = false;
                     //pb.BackColor = AppColors.YesColor;
                     pb.Image = Resources.person;
                     Section section = new Section();
                     shiftManager.SelectedFloorplan.AddSection(section);
+                    CreateOneSectionPanel(section);
                 }
             }
-            CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
+            //CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
         }
         private void Rb_CheckedChanged(object sender, EventArgs e)
         {
@@ -642,18 +657,19 @@ namespace FloorPlanMaker
                 Section selectedSection = rb.Tag as Section;
                 SelectSection(selectedSection.Number);
                 currentFocusedSectionIndex = selectedSection.Number;
-                //if (selectedSection != null)
-                //{
-                //    shiftManager.SectionSelected = selectedSection;
-                //}
-                //if (rb != selectedSectionButton)
-                //{
-                //    if (selectedSectionButton != null) selectedSectionButton.Checked = false;
-                //    selectedSectionButton = rb;
-                //}
+                
             }
         }
-
+        private void RemoveSectionPanel(Section section)
+        {
+            foreach(Control c in flowSectionSelect.Controls)
+            {
+                if(c is Panel panel && c.Tag == section)
+                {
+                    flowSectionSelect.Controls.Remove(c);
+                }
+            }
+        }
 
         private void RbPrecloser_CheckedChanged(object sender, EventArgs e)
         {
@@ -673,9 +689,9 @@ namespace FloorPlanMaker
             float avgDifference = newAverageCoversValue - shiftManager.SelectedFloorplan.AvgCoversPerServer;
             if (sectionLabels.ContainsKey(section))
             {
-                sectionLabels[section].MaxCoversLabel.Text = "Covers Each: " + maxDifference.ToString();
+                sectionLabels[section].MaxCoversLabel.Text =  maxDifference.ToString();
 
-                sectionLabels[section].AverageCoversLabel.Text = "Sales Each: " + Section.FormatAsCurrencyWithoutParentheses(avgDifference);// avgDifference.ToString("C0;\\-C0", CultureInfo.CurrentCulture);
+                sectionLabels[section].AverageCoversLabel.Text =  Section.FormatAsCurrencyWithoutParentheses(avgDifference);// avgDifference.ToString("C0;\\-C0", CultureInfo.CurrentCulture);
 
             }
         }

@@ -211,7 +211,7 @@ namespace FloorplanClassLibrary
                 }
             }    
         }
-        public void RemoveHighestNumberedEmptySection()
+        public Section RemoveHighestNumberedEmptySection()
         {
             var sectionToRemove = Sections
                 .Where(s => s.Server == null
@@ -225,6 +225,7 @@ namespace FloorplanClassLibrary
             {
                 Sections.Remove(sectionToRemove);
             }
+            return sectionToRemove;
         }
         public bool CheckIfCloserIsAssigned()
         {
