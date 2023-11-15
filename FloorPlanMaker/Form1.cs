@@ -76,6 +76,58 @@ namespace FloorPlanMaker
             AppColors.FormatCanvasColor(flowServersInFloorplan);
 
         }
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            // Check if the Tab key is pressed
+            if (keyData == Keys.Tab)
+            {
+                MoveToNextSection();
+                return true; // Indicate that you've handled this key press
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void MoveToNextSection()
+        {
+           var sections = shiftManager.SelectedFloorplan.Sections;
+
+            if (currentFocusedSectionIndex == null)
+            {
+                // If no section is selected, select the first section
+                currentFocusedSectionIndex = sections.First().Number;
+            }
+            else
+            {
+                // Find the next section
+                var currentSectionIndex = sections.FindIndex(s => s.Number == currentFocusedSectionIndex);
+                currentFocusedSectionIndex =sections[(currentSectionIndex + 1) % sections.Count].Number;
+            }
+
+            SelectSection(currentFocusedSectionIndex); // Imp
+            
+        }
+
+        private void SelectSection(int sectionNumber)
+        {
+            //MessageBox.Show("Section" + sectionNumber.ToString());
+            shiftManager.SectionSelected = shiftManager.SelectedFloorplan.Sections.Where(s => s.Number == sectionNumber).FirstOrDefault();
+            foreach(Control c in flowSectionSelect.Controls)
+            {
+                if(c is Panel panel)
+                {
+                    if(panel.Tag == shiftManager.SectionSelected)
+                    {
+                        panel.BackColor = AppColors.YesColor;
+                    }
+                    else
+                    {
+                        panel.BackColor = Color.SlateGray;
+                    }
+                    
+                }
+            }
+        }
         public void UpdateForm1ShiftManager(ShiftManager shiftManagerToAdd)
         {
             dtpFloorplan.Value = new DateTime(shiftManagerToAdd.DateOnly.Year, shiftManagerToAdd.DateOnly.Month, shiftManagerToAdd.DateOnly.Day);
@@ -353,7 +405,7 @@ namespace FloorPlanMaker
                 foreach (Server server in shiftManager.SelectedFloorplan.Servers)
                 {
                     server.Shifts = SqliteDataAccess.GetShiftsForServer(server);
-                    ServerControl serverControl = new ServerControl(server, 215, 20);
+                    ServerControl serverControl = new ServerControl(server, flowServersInFloorplan.Width - 20, 20);
 
                     foreach (ShiftControl shiftControl in serverControl.ShiftControls)
                     {
@@ -1139,7 +1191,7 @@ namespace FloorPlanMaker
             {
                 cbIsAM.Image = Resources.smallMoon;
                 cbIsAM.BackColor = Color.FromArgb(117, 70, 104);
-               
+
             }
         }
 

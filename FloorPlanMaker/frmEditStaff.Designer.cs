@@ -43,6 +43,9 @@
             flowYesterdayCounts = new FlowLayoutPanel();
             flowLastWeekdayCounts = new FlowLayoutPanel();
             btnCreateANewShift = new Button();
+            panel1 = new Panel();
+            panel2 = new Panel();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // btnAddNewServer
@@ -82,19 +85,19 @@
             // 
             // flowDiningAreaAssignment
             // 
-            flowDiningAreaAssignment.BackColor = Color.FromArgb(178, 87, 46);
-            flowDiningAreaAssignment.Location = new Point(391, 104);
+            flowDiningAreaAssignment.BackColor = Color.WhiteSmoke;
+            flowDiningAreaAssignment.Location = new Point(429, 122);
             flowDiningAreaAssignment.Name = "flowDiningAreaAssignment";
-            flowDiningAreaAssignment.Size = new Size(861, 793);
+            flowDiningAreaAssignment.Size = new Size(794, 759);
             flowDiningAreaAssignment.TabIndex = 10;
             // 
             // flowUnassignedServers
             // 
             flowUnassignedServers.AutoScroll = true;
-            flowUnassignedServers.BackColor = Color.FromArgb(178, 87, 46);
-            flowUnassignedServers.Location = new Point(12, 104);
+            flowUnassignedServers.BackColor = Color.WhiteSmoke;
+            flowUnassignedServers.Location = new Point(19, 18);
             flowUnassignedServers.Name = "flowUnassignedServers";
-            flowUnassignedServers.Size = new Size(373, 793);
+            flowUnassignedServers.Size = new Size(313, 759);
             flowUnassignedServers.TabIndex = 11;
             // 
             // cbUnassignedServers
@@ -104,9 +107,9 @@
             cbUnassignedServers.FlatAppearance.BorderSize = 0;
             cbUnassignedServers.FlatStyle = FlatStyle.Flat;
             cbUnassignedServers.ForeColor = Color.Black;
-            cbUnassignedServers.Location = new Point(12, 63);
+            cbUnassignedServers.Location = new Point(31, 63);
             cbUnassignedServers.Name = "cbUnassignedServers";
-            cbUnassignedServers.Size = new Size(373, 30);
+            cbUnassignedServers.Size = new Size(313, 30);
             cbUnassignedServers.TabIndex = 12;
             cbUnassignedServers.Text = "Unassigned Servers";
             cbUnassignedServers.TextAlign = ContentAlignment.MiddleCenter;
@@ -216,11 +219,28 @@
             btnCreateANewShift.UseVisualStyleBackColor = true;
             btnCreateANewShift.Click += btnCreateANewShift_Click;
             // 
+            // panel1
+            // 
+            panel1.BackColor = Color.FromArgb(180, 190, 200);
+            panel1.Controls.Add(flowUnassignedServers);
+            panel1.Location = new Point(25, 104);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(352, 793);
+            panel1.TabIndex = 26;
+            // 
+            // panel2
+            // 
+            panel2.BackColor = Color.FromArgb(180, 190, 200);
+            panel2.Location = new Point(409, 104);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(833, 793);
+            panel2.TabIndex = 27;
+            // 
             // frmEditStaff
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(49, 56, 82);
+            BackColor = Color.WhiteSmoke;
             ClientSize = new Size(1264, 967);
             Controls.Add(flowDiningAreas);
             Controls.Add(btnCreateANewShift);
@@ -232,11 +252,12 @@
             Controls.Add(lblShiftDate);
             Controls.Add(flowAllServers);
             Controls.Add(cbUnassignedServers);
-            Controls.Add(flowUnassignedServers);
             Controls.Add(flowDiningAreaAssignment);
             Controls.Add(btnAssignTables);
             Controls.Add(txtNewServerName);
             Controls.Add(btnAddNewServer);
+            Controls.Add(panel1);
+            Controls.Add(panel2);
             ForeColor = Color.White;
             FormBorderStyle = FormBorderStyle.None;
             Name = "frmEditStaff";
@@ -246,6 +267,7 @@
             MouseDown += frmEditStaff_MouseDown;
             MouseMove += frmEditStaff_MouseMove;
             MouseUp += frmEditStaff_MouseUp;
+            panel1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -266,5 +288,7 @@
         private FlowLayoutPanel flowYesterdayCounts;
         private FlowLayoutPanel flowLastWeekdayCounts;
         private Button btnCreateANewShift;
+        private Panel panel1;
+        private Panel panel2;
     }
 }

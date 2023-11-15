@@ -78,6 +78,7 @@ namespace FloorPlanMaker
             flowServersInFloorplan.BackColor = Color.WhiteSmoke;
             flowServersInFloorplan.Location = new Point(0, 28);
             flowServersInFloorplan.Name = "flowServersInFloorplan";
+            flowServersInFloorplan.Padding = new Padding(10, 20, 0, 0);
             flowServersInFloorplan.Size = new Size(335, 865);
             flowServersInFloorplan.TabIndex = 2;
             flowServersInFloorplan.Visible = false;
@@ -87,7 +88,7 @@ namespace FloorPlanMaker
             // 
             lblServerMaxCovers.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             lblServerMaxCovers.ForeColor = Color.Black;
-            lblServerMaxCovers.Location = new Point(3, 0);
+            lblServerMaxCovers.Location = new Point(3, 20);
             lblServerMaxCovers.Name = "lblServerMaxCovers";
             lblServerMaxCovers.Size = new Size(232, 35);
             lblServerMaxCovers.TabIndex = 5;
@@ -98,7 +99,7 @@ namespace FloorPlanMaker
             // 
             lblServerAverageCovers.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             lblServerAverageCovers.ForeColor = Color.Black;
-            lblServerAverageCovers.Location = new Point(3, 35);
+            lblServerAverageCovers.Location = new Point(3, 55);
             lblServerAverageCovers.Name = "lblServerAverageCovers";
             lblServerAverageCovers.Size = new Size(232, 31);
             lblServerAverageCovers.TabIndex = 5;
@@ -142,6 +143,7 @@ namespace FloorPlanMaker
             flowSectionSelect.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             flowSectionSelect.Location = new Point(0, 28);
             flowSectionSelect.Name = "flowSectionSelect";
+            flowSectionSelect.Padding = new Padding(0, 20, 0, 0);
             flowSectionSelect.Size = new Size(335, 865);
             flowSectionSelect.TabIndex = 9;
             // 

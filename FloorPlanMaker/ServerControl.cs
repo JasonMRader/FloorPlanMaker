@@ -26,6 +26,7 @@ namespace FloorPlanMaker
             {
                 Height = height,
                 Width = width,
+                Margin = new Padding(0,0,0,0)
             };
             Label = new Label
             {
@@ -98,18 +99,20 @@ namespace FloorPlanMaker
             {
                 Height = this.Height,
                 Width = this.Width,
-                AutoSize = true
+                AutoSize = true,
+                Margin = new Padding(0)
             };
             this.Controls.Add(ShiftsDisplay);
             // Assuming you have loaded shifts for this server
 
             if (this.Server.Shifts != null)
             {
-                var lastShifts = this.Server.Shifts.TakeLast(maxShiftsToShow);
+                var lastShifts = this.Server.Shifts.Take(maxShiftsToShow);
+                lastShifts = lastShifts.OrderBy(s => s.Date).ToList();
 
                 foreach (var shift in lastShifts)
                 {
-                    ShiftControl shiftControl = new ShiftControl(shift, this.Width / 6, 80);  // Adjust width and height as needed
+                    ShiftControl shiftControl = new ShiftControl(shift, this.Width / 8, 80);  // Adjust width and height as needed
                     this.ShiftControls.Add(shiftControl);
                     this.ShiftsDisplay.Controls.Add(shiftControl);
                 } 

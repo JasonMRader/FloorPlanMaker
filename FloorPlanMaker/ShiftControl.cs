@@ -21,35 +21,41 @@ namespace FloorPlanMaker
             this.AutoSize = true;
             int picBoxWidth = (int)(width / 1.25);
             this.MaximumSize = new Size(width, height*2);
-            this.Margin = new Padding(6,0,0,0);
+            this.Margin = new Padding(0,0,0,0);
+            this.Padding = new Padding(2, 0, 0, 0);
             ShiftDayOfWeek = new Label
             {
                 Text = shift.Date.ToString("ddd"),
                 Width = width,
-                Height = 14,
+                AutoSize = false,
+                Height = 17,
+                Font = AppColors.SmallerFont,
                 TextAlign = ContentAlignment.MiddleCenter,
-                Margin = new Padding(0)
+                Margin = new Padding(1,0,0,0)
             };
             // Set images based on shift properties
             _picOutside = new PictureBox
             {
-                Width = (int)(width / 1.25),
-                Height = (height / 3) - (ShiftDayOfWeek.Height / 3),
-                Padding = new Padding(4, 0, 0, 0),
+                Width = (int)(width-2),
+                Height = (height / 4) - (ShiftDayOfWeek.Height / 3),
+                Padding = new Padding(0, 0, 0, 0),
+                Margin = new Padding(1,0,0,0),
                 SizeMode = PictureBoxSizeMode.StretchImage
             };
             _picClose = new PictureBox
             {
-                Width = (int)(width / 1.25),
-                Height = (height / 3) - (ShiftDayOfWeek.Height / 3),
-                Padding = new Padding(4, 0, 0, 0),
+                Width = (int)(width-2),
+                Height = (height / 4) - (ShiftDayOfWeek.Height / 3),
+                Padding = new Padding(0, 0, 0, 0),
+                Margin = new Padding(3, 0, 0, 0),
                 SizeMode = PictureBoxSizeMode.StretchImage
             };
             _picTeam = new PictureBox
             {
-                Width = (int)(width / 1.25),
-                Height = (height / 3) - (ShiftDayOfWeek.Height / 3),
-                Padding = new Padding(4, 0, 0, 0),
+                Width = (int)(width),
+                Height = (height / 4) - (ShiftDayOfWeek.Height / 3),
+                Padding = new Padding(0, 0, 0, 0),
+                Margin = new Padding(1, 0, 0, 0),
                 SizeMode = PictureBoxSizeMode.StretchImage
             };
 
@@ -67,9 +73,9 @@ namespace FloorPlanMaker
         {
             _picClose = new PictureBox
             {
-                Width = (int)(this.Width / 1.5),
+                Width = (int)(this.Width),
                 Height = (int)(this.Width / 2), 
-                Margin = new Padding(6, 0, 0, 0),
+                Margin = new Padding(0, 0, 0, 0),
                 SizeMode = PictureBoxSizeMode.StretchImage,
 
             };
@@ -93,9 +99,9 @@ namespace FloorPlanMaker
         {
             _picTeam = new PictureBox
             {
-                Width = (int)(this.Width / 1.5),
+                Width = (int)(this.Width),
                 Height = (int)(this.Width / 2),
-                Margin = new Padding(6, 0, 0, 0),
+                Margin = new Padding(0, 0, 0, 0),
                 SizeMode = PictureBoxSizeMode.StretchImage
             };
             if (this.Shift.IsTeamWait)
