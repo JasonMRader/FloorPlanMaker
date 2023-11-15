@@ -90,7 +90,7 @@ namespace FloorPlanMaker
 
         private void MoveToNextSection()
         {
-           var sections = shiftManager.SelectedFloorplan.Sections;
+            var sections = shiftManager.SelectedFloorplan.Sections;
 
             if (currentFocusedSectionIndex == null)
             {
@@ -101,30 +101,41 @@ namespace FloorPlanMaker
             {
                 // Find the next section
                 var currentSectionIndex = sections.FindIndex(s => s.Number == currentFocusedSectionIndex);
-                currentFocusedSectionIndex =sections[(currentSectionIndex + 1) % sections.Count].Number;
+                currentFocusedSectionIndex = sections[(currentSectionIndex + 1) % sections.Count].Number;
             }
 
             SelectSection(currentFocusedSectionIndex); // Imp
-            
+
         }
 
         private void SelectSection(int sectionNumber)
         {
             //MessageBox.Show("Section" + sectionNumber.ToString());
             shiftManager.SectionSelected = shiftManager.SelectedFloorplan.Sections.Where(s => s.Number == sectionNumber).FirstOrDefault();
-            foreach(Control c in flowSectionSelect.Controls)
+            foreach (Control c in flowSectionSelect.Controls)
             {
-                if(c is Panel panel)
+                if (c is Panel panel)
                 {
-                    if(panel.Tag == shiftManager.SectionSelected)
+                    if (panel.Tag == shiftManager.SectionSelected)
                     {
-                        panel.BackColor = AppColors.YesColor;
+                        panel.BackColor = AppColors.HighlightColor;
                     }
                     else
                     {
                         panel.BackColor = Color.SlateGray;
                     }
-                    
+
+                }
+            }
+            foreach (CheckBox cb in selectedSectionButtons)
+            {
+                if (cb.Tag == shiftManager.SectionSelected)
+                {
+                    cb.Checked = true;
+                }
+                else
+                {
+                    cb.Checked = false;
                 }
             }
         }
@@ -165,29 +176,29 @@ namespace FloorPlanMaker
 
             //pnlFloorPlan.KeyPreview = true;
         }
-        protected override bool ProcessTabKey(bool forward)
-        {
-            if (forward)
-            {
-                // Move forward in sections
-                currentFocusedSectionIndex++;
-                if (currentFocusedSectionIndex >= flowSectionSelect.Controls.Count)
-                    currentFocusedSectionIndex = 0;
-            }
-            else
-            {
-                // Move backward in sections
-                currentFocusedSectionIndex--;
-                if (currentFocusedSectionIndex < 0)
-                    currentFocusedSectionIndex = flowSectionSelect.Controls.Count - 1;
-            }
+        //protected override bool ProcessTabKey(bool forward)
+        //{
+        //    if (forward)
+        //    {
+        //        // Move forward in sections
+        //        currentFocusedSectionIndex++;
+        //        if (currentFocusedSectionIndex >= flowSectionSelect.Controls.Count)
+        //            currentFocusedSectionIndex = 0;
+        //    }
+        //    else
+        //    {
+        //        // Move backward in sections
+        //        currentFocusedSectionIndex--;
+        //        if (currentFocusedSectionIndex < 0)
+        //            currentFocusedSectionIndex = flowSectionSelect.Controls.Count - 1;
+        //    }
 
-            Panel sectionPanel = (Panel)flowSectionSelect.Controls[currentFocusedSectionIndex];
-            CheckBox sectionCheckBox = (CheckBox)sectionPanel.Controls[0];
-            sectionCheckBox.Focus();
-            sectionCheckBox.Checked = true;
-            return true; // Indicate that the key press was handled
-        }
+        //    Panel sectionPanel = (Panel)flowSectionSelect.Controls[currentFocusedSectionIndex];
+        //    CheckBox sectionCheckBox = (CheckBox)sectionPanel.Controls[0];
+        //    sectionCheckBox.Focus();
+        //    sectionCheckBox.Checked = true;
+        //    return true; // Indicate that the key press was handled
+        //}
 
 
         private void PnlFloorplan_Paint(object sender, PaintEventArgs e)
@@ -301,6 +312,7 @@ namespace FloorPlanMaker
             cboDiningAreas.DisplayMember = "Name";
             cboDiningAreas.ValueMember = "ID";
             rdoSections.Checked = true;
+            rdoViewSectionFlow.Checked = true;
             //rdoViewSectionFlow.Checked = true;
         }
         private void Form1_MouseDown(object sender, MouseEventArgs e)
@@ -428,7 +440,7 @@ namespace FloorPlanMaker
 
 
         private List<CheckBox> TeamWaitButtons = new List<CheckBox>();
-        private CheckBox selectedSectionButton;
+        private List<CheckBox> selectedSectionButtons = new List<CheckBox>();
         private CheckBox selectedCloserButton;
         private CheckBox selectedPreCloserButton;
 
@@ -436,6 +448,10 @@ namespace FloorPlanMaker
         {
             // Clear any existing controls from the flow layout panel.
             flowSectionSelect.Controls.Clear();
+            flowSectionSelect.Controls.Add(lblServerMaxCovers);
+            flowSectionSelect.Controls.Add(lblServerAverageCovers);
+            lblServerMaxCovers.Width = flowSectionSelect.Width - 6;
+            lblServerAverageCovers.Width = flowSectionSelect.Width - 6;
             if (sections.Count == 0)
             {
 
@@ -463,14 +479,15 @@ namespace FloorPlanMaker
                 };
                 rbSection.FlatAppearance.BorderSize = 0;
                 rbSection.CheckedChanged += Rb_CheckedChanged;
+                selectedSectionButtons.Add(rbSection);
 
                 // Create two labels for each section.
                 Label lblMaxCovers = new Label
                 {
-                    Text = (section.MaxCovers - shiftManager.SelectedFloorplan.MaxCoversPerServer).ToString(),
+                    Text = (section.MaxCovers - shiftManager.SelectedFloorplan.MaxCoversPerServer).ToString("F0"),
                     AutoSize = false,
-                    Size = new Size(35, 25),
-                    Font = new Font("Segoe UI", 12F),
+                    Size = new Size(65, 25),
+                    Font = AppColors.MainFont,
                     TextAlign = ContentAlignment.TopCenter,
                     Margin = new Padding(0, 3, 0, 3)
 
@@ -481,7 +498,7 @@ namespace FloorPlanMaker
                     Text = Section.FormatAsCurrencyWithoutParentheses(section.AverageCovers - shiftManager.SelectedFloorplan.AvgCoversPerServer), //(section.AverageCovers - shiftManager.SelectedFloorplan.AvgCoversPerServer).ToString("C0;\\-C0", CultureInfo.CurrentCulture),
                     AutoSize = true,
                     Size = new Size(65, 25),
-                    Font = new Font("Segoe UI", 10F),
+                    Font = AppColors.MainFont,
                     TextAlign = ContentAlignment.TopCenter,
                     Margin = new Padding(0, 3, 0, 3)
 
@@ -534,7 +551,7 @@ namespace FloorPlanMaker
             }
             if (flowSectionSelect.Controls.Count > 0)
             {
-                Panel firstPanel = (Panel)flowSectionSelect.Controls[0];
+                Panel firstPanel = (Panel)flowSectionSelect.Controls[2];
                 if (firstPanel.Controls.Count > 0)
                 {
                     CheckBox firstSectionCheckBox = (CheckBox)firstPanel.Controls[0];
@@ -553,6 +570,7 @@ namespace FloorPlanMaker
             };
             btnAddPickup.Click += btnAddPickupSection_Click;
             flowSectionSelect.Controls.Add(btnAddPickup);
+
 
 
         }
@@ -584,15 +602,17 @@ namespace FloorPlanMaker
             if (rb != null && rb.Checked)
             {
                 Section selectedSection = rb.Tag as Section;
-                if (selectedSection != null)
-                {
-                    shiftManager.SectionSelected = selectedSection;
-                }
-                if (rb != selectedSectionButton)
-                {
-                    if (selectedSectionButton != null) selectedSectionButton.Checked = false;
-                    selectedSectionButton = rb;
-                }
+                SelectSection(selectedSection.Number);
+                currentFocusedSectionIndex = selectedSection.Number;
+                //if (selectedSection != null)
+                //{
+                //    shiftManager.SectionSelected = selectedSection;
+                //}
+                //if (rb != selectedSectionButton)
+                //{
+                //    if (selectedSectionButton != null) selectedSectionButton.Checked = false;
+                //    selectedSectionButton = rb;
+                //}
             }
         }
 
@@ -615,9 +635,9 @@ namespace FloorPlanMaker
             float avgDifference = newAverageCoversValue - shiftManager.SelectedFloorplan.AvgCoversPerServer;
             if (sectionLabels.ContainsKey(section))
             {
-                sectionLabels[section].MaxCoversLabel.Text = maxDifference.ToString();
+                sectionLabels[section].MaxCoversLabel.Text = "Covers Each: " + maxDifference.ToString();
 
-                sectionLabels[section].AverageCoversLabel.Text = Section.FormatAsCurrencyWithoutParentheses(avgDifference);// avgDifference.ToString("C0;\\-C0", CultureInfo.CurrentCulture);
+                sectionLabels[section].AverageCoversLabel.Text = "Sales Each: " + Section.FormatAsCurrencyWithoutParentheses(avgDifference);// avgDifference.ToString("C0;\\-C0", CultureInfo.CurrentCulture);
 
             }
         }
@@ -910,16 +930,16 @@ namespace FloorPlanMaker
 
                 CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
                 UpdateServerControlsForFloorplan();
-                lblServerMaxCovers.Text = shiftManager.SelectedFloorplan.MaxCoversPerServer.ToString("F1");
-                lblServerAverageCovers.Text = shiftManager.SelectedFloorplan.AvgCoversPerServer.ToString("C0");
+                lblServerMaxCovers.Text = "Covers Each: " + shiftManager.SelectedFloorplan.MaxCoversPerServer.ToString("F0");
+                lblServerAverageCovers.Text = "Sales Each: " + shiftManager.SelectedFloorplan.AvgCoversPerServer.ToString("C0");
             }
 
             UpdateTableControlSections();
         }
         private void NoServersToDisplay()
         {
-            lblServerMaxCovers.Text = shiftManager.SelectedDiningArea.GetMaxCovers().ToString("F0");
-            lblServerAverageCovers.Text = shiftManager.SelectedDiningArea.GetAverageCovers().ToString("C0");
+            lblServerMaxCovers.Text = "Covers Each: " + shiftManager.SelectedDiningArea.GetMaxCovers().ToString("F0");
+            lblServerAverageCovers.Text = "Sales Each: " + shiftManager.SelectedDiningArea.GetAverageCovers().ToString("C0");
 
             PictureBox noSections = new PictureBox
             {

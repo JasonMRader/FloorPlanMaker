@@ -40,6 +40,9 @@ namespace FloorPlanMakerUI
         public static Color NoColor = Color.FromArgb(190, 80, 70);
         public static Color NoFontColor = Color.White;
 
+        public static Color HighlightColor = Color.FromArgb(242,143,59);
+        public static Color HighLightFontColor = Color.White;
+
         public static void FormatMainButton(Control c)
         {
             c.BackColor = ButtonColor;

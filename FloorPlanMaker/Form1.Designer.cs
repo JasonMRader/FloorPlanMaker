@@ -86,6 +86,7 @@ namespace FloorPlanMaker
             // 
             // lblServerMaxCovers
             // 
+            lblServerMaxCovers.Dock = DockStyle.Top;
             lblServerMaxCovers.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             lblServerMaxCovers.ForeColor = Color.Black;
             lblServerMaxCovers.Location = new Point(3, 20);
@@ -97,9 +98,11 @@ namespace FloorPlanMaker
             // 
             // lblServerAverageCovers
             // 
+            lblServerAverageCovers.Dock = DockStyle.Top;
             lblServerAverageCovers.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             lblServerAverageCovers.ForeColor = Color.Black;
             lblServerAverageCovers.Location = new Point(3, 55);
+            lblServerAverageCovers.Margin = new Padding(3, 0, 3, 15);
             lblServerAverageCovers.Name = "lblServerAverageCovers";
             lblServerAverageCovers.Size = new Size(232, 31);
             lblServerAverageCovers.TabIndex = 5;
@@ -485,7 +488,6 @@ namespace FloorPlanMaker
             // 
             rdoViewSectionFlow.Appearance = Appearance.Button;
             rdoViewSectionFlow.BackColor = Color.FromArgb(100, 130, 180);
-            rdoViewSectionFlow.Checked = true;
             rdoViewSectionFlow.FlatAppearance.BorderColor = Color.FromArgb(100, 130, 180);
             rdoViewSectionFlow.FlatAppearance.CheckedBackColor = Color.WhiteSmoke;
             rdoViewSectionFlow.FlatStyle = FlatStyle.Flat;
@@ -495,7 +497,6 @@ namespace FloorPlanMaker
             rdoViewSectionFlow.Name = "rdoViewSectionFlow";
             rdoViewSectionFlow.Size = new Size(63, 28);
             rdoViewSectionFlow.TabIndex = 10;
-            rdoViewSectionFlow.TabStop = true;
             rdoViewSectionFlow.TextAlign = ContentAlignment.MiddleCenter;
             toolTip1.SetToolTip(rdoViewSectionFlow, "Sections");
             rdoViewSectionFlow.UseVisualStyleBackColor = false;
