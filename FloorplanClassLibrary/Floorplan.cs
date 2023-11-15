@@ -107,12 +107,24 @@ namespace FloorplanClassLibrary
         }
         public void AddSection(Section section)
         {
-            
-            section.Number = _sections.Count + 1;
+
+            // Find the first missing section number
+            int newSectionNumber = 1;
+            while (_sections.Any(s => s.Number == newSectionNumber))
+            {
+                newSectionNumber++;
+            }
+
+            // Assign the missing number to the new section
+            section.Number = newSectionNumber;
+
+            // Set the section name if the server is null
             if (section.Server == null)
             {
                 section.Name = $"Section {section.Number}";
             }
+
+            // Add the section to the list
             _sections.Add(section);
         }
 

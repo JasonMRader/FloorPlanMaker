@@ -18,6 +18,7 @@ namespace FloorplanClassLibrary
         private Point MouseDownLocation;
         private FlowLayoutPanel closerPanel;
         private bool closerPanelOpen = false;
+        public bool isSelecteed = false;
         private bool serverPanelOpen = false;
         private bool isDragging = false; // Indicates whether dragging is ongoing
         public Section Section { get; set; }
@@ -112,7 +113,14 @@ namespace FloorplanClassLibrary
 
         private void SectionControl_Paint(object sender, PaintEventArgs e)
         {
-            using (Pen pen = new Pen(Color.Black, 10))
+            Color borderColor = Color.Black;
+            int borderWidth = 5;
+            if (this.isSelecteed == true)
+            {
+                borderColor = Color.Yellow;
+                borderWidth = 30;
+            }
+            using (Pen pen = new Pen(borderColor, borderWidth))
             {
                 // Adjust the rectangle's coordinates and size to ensure the entire border is visible
                 int penHalfWidth = (int)(pen.Width / 2);

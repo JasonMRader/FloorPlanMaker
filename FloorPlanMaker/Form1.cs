@@ -105,6 +105,7 @@ namespace FloorPlanMaker
             }
 
             SelectSection(currentFocusedSectionIndex); // Imp
+           
 
         }
 
@@ -138,6 +139,8 @@ namespace FloorPlanMaker
                     cb.Checked = false;
                 }
             }
+            
+            
         }
         public void UpdateForm1ShiftManager(ShiftManager shiftManagerToAdd)
         {
@@ -405,7 +408,10 @@ namespace FloorPlanMaker
 
         }
 
+        private void SetSelectedSectionControl()
+        {
 
+        }
 
         private void UpdateServerControlsForFloorplan()
         {
@@ -657,7 +663,11 @@ namespace FloorPlanMaker
                 Section selectedSection = rb.Tag as Section;
                 SelectSection(selectedSection.Number);
                 currentFocusedSectionIndex = selectedSection.Number;
-                
+                if (sectionControlsManager != null)
+                {
+                    sectionControlsManager.SetSelectedSection(selectedSection);
+                }
+
             }
         }
         private void RemoveSectionPanel(Section section)

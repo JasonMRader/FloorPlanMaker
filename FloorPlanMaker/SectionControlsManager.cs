@@ -18,7 +18,22 @@ namespace FloorPlanMakerUI
         public List<SectionControl>? SectionControls { get; set; }
         public Floorplan Floorplan { get; set; }
         public List<Server>? UnassignedServers { get; set; }
-       
+        
+        public void SetSelectedSection(Section section)
+        {
+            foreach(SectionControl sc in this.SectionControls)
+            {
+                if (sc.Section == section)
+                {
+                    sc.isSelecteed = true;
+                }
+                else
+                {
+                    sc.isSelecteed = false;
+                }
+                sc.Invalidate();
+            }
+        }
         public void CreateSectionControls()
         {
             this.SectionControls = new List<SectionControl>();
