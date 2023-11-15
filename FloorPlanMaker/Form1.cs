@@ -515,10 +515,21 @@ namespace FloorPlanMaker
                     SizeMode = PictureBoxSizeMode.StretchImage,
                     Margin = new Padding(0),
                     Tag = section,
-                    BackColor = AppColors.YesColor
+                    BackColor = AppColors.CTAColor
                 };
                 cbTeamWait.Click += SectionTeamWait_Click;
 
+                PictureBox deleteSectionPB = new PictureBox
+                {
+
+                    Size = new Size(40, 25),
+                    Image = Resources.Trash,
+                    SizeMode = PictureBoxSizeMode.StretchImage,
+                    Margin = new Padding(0),
+                    Tag = section,
+                    BackColor = AppColors.NoColor
+                };
+                deleteSectionPB.Click += DeleteSection_Click;
 
                 Panel sectionPanel = new Panel();
                 sectionPanel.Tag = section;
@@ -533,6 +544,7 @@ namespace FloorPlanMaker
                 sectionPanel.Controls.Add(lblMaxCovers);
                 sectionPanel.Controls.Add(lblAverageCovers);
                 sectionPanel.Controls.Add(cbTeamWait);
+                sectionPanel.Controls.Add(deleteSectionPB);
                 //sectionPanel.Controls.Add(rbPrecloser);
                 //panel.Controls.Add(rbNeither);
 
@@ -543,7 +555,7 @@ namespace FloorPlanMaker
                 lblAverageCovers.Location = new System.Drawing.Point(lblMaxCovers.Right + 5, 5);
                 //cbTeamWait.Location = new System.Drawing.Point(lblAverageCovers.Right + 5, 5);
                 cbTeamWait.Dock = DockStyle.Right;
-
+                deleteSectionPB.Dock = DockStyle.Right;
                 sectionPanel.Size = new Size(flowSectionSelect.Width - 10, lblAverageCovers.Height + 10);
                 sectionLabels[section] = (lblMaxCovers, lblAverageCovers);
 
@@ -574,6 +586,28 @@ namespace FloorPlanMaker
 
 
         }
+
+        private void DeleteSection_Click(object? sender, EventArgs e)
+        {
+            PictureBox pb = sender as PictureBox;
+            Section selectedSection = pb.Tag as Section;
+            if (selectedSection != null)
+            {
+                DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete this section?", 
+                    "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    shiftManager.SelectedFloorplan.DeleteSection(selectedSection);
+                    CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
+                }
+                else if (dialogResult == DialogResult.No)
+                {
+                    return;
+                }
+            }
+            
+        }
+
         private void SectionTeamWait_Click(object sender, EventArgs e)
         {
             PictureBox pb = sender as PictureBox;
@@ -587,14 +621,18 @@ namespace FloorPlanMaker
                 if (selectedSection.IsTeamWait)
                 {
                     pb.Image = Resources.people;
-                    pb.BackColor = AppColors.NoColor;
+                    //pb.BackColor = AppColors.NoColor;
+                    shiftManager.SelectedFloorplan.RemoveHighestNumberedEmptySection();
                 }
                 else
                 {
-                    pb.BackColor = AppColors.YesColor;
+                    //pb.BackColor = AppColors.YesColor;
                     pb.Image = Resources.person;
+                    Section section = new Section();
+                    shiftManager.SelectedFloorplan.AddSection(section);
                 }
             }
+            CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
         }
         private void Rb_CheckedChanged(object sender, EventArgs e)
         {
