@@ -456,7 +456,7 @@ namespace FloorPlanMaker
             if (cbUnassignedServers.Checked)
             {
                 newShiftManager.UnassignedServers.Add(server);
-                ServerControl serverControl = new ServerControl(server, 350, 30);
+                ServerControl serverControl = new ServerControl(server, 350, 20);
                 serverControl.Click += ServerControl_Click;
                 ImageSetter.SetShiftControlImages(serverControl);
                 flowUnassignedServers.Controls.Add(serverControl);
@@ -692,7 +692,7 @@ namespace FloorPlanMaker
             foreach (var server in newShiftManager.UnassignedServers)
             {
                 newShiftManager.ServersNotOnShift.Remove(server);
-                ServerControl newServerControl = new ServerControl(server, flowUnassignedServers.Width - 10, 30);
+                ServerControl newServerControl = new ServerControl(server, flowUnassignedServers.Width - 10, 20);
                 newServerControl.Click += ServerControl_Click;
                 //newServerControl.AddRemoveButton(flowUnassignedServers, flowAllServers, newShiftManager.UnassignedServers, newShiftManager.ServersNotOnShift, 155, 20);
                 //newServerControl.RemoveButton.Click += serverControl_Click_RemoveFromShift;

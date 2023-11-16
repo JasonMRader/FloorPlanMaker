@@ -203,9 +203,29 @@ namespace FloorPlanMakerUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap FridayText {
+            get {
+                object obj = ResourceManager.GetObject("FridayText", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Inside {
             get {
                 object obj = ResourceManager.GetObject("Inside", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap InsideSolid {
+            get {
+                object obj = ResourceManager.GetObject("InsideSolid", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -286,6 +306,16 @@ namespace FloorPlanMakerUI.Properties {
         internal static System.Drawing.Bitmap Loading {
             get {
                 object obj = ResourceManager.GetObject("Loading", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap MondayText {
+            get {
+                object obj = ResourceManager.GetObject("MondayText", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -403,6 +433,16 @@ namespace FloorPlanMakerUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap OutSideSolid {
+            get {
+                object obj = ResourceManager.GetObject("OutSideSolid", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap people {
             get {
                 object obj = ResourceManager.GetObject("people", resourceCulture);
@@ -436,6 +476,16 @@ namespace FloorPlanMakerUI.Properties {
         internal static System.Drawing.Bitmap Pre2 {
             get {
                 object obj = ResourceManager.GetObject("Pre2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SaturdayText {
+            get {
+                object obj = ResourceManager.GetObject("SaturdayText", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -533,6 +583,16 @@ namespace FloorPlanMakerUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap SundayText {
+            get {
+                object obj = ResourceManager.GetObject("SundayText", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap teamOval {
             get {
                 object obj = ResourceManager.GetObject("teamOval", resourceCulture);
@@ -543,9 +603,49 @@ namespace FloorPlanMakerUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ThursdayText {
+            get {
+                object obj = ResourceManager.GetObject("ThursdayText", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Trash {
             get {
                 object obj = ResourceManager.GetObject("Trash", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap TuesdayText {
+            get {
+                object obj = ResourceManager.GetObject("TuesdayText", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap WednesdayText {
+            get {
+                object obj = ResourceManager.GetObject("WednesdayText", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap wideSemiBold {
+            get {
+                object obj = ResourceManager.GetObject("wideSemiBold", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

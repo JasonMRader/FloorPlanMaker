@@ -157,8 +157,14 @@
   <data name="forward" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\forward.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="FridayText" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FridayText.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Inside" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Inside.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="InsideSolid" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\InsideSolid.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="LargerCircleFilled" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\LargerCircleFilled.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -183,6 +189,9 @@
   </data>
   <data name="Loading" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Loading.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MondayText" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MondayText.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="NoDataFound" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\noun-no-data-4143644-9B9B9B.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -217,6 +226,9 @@
   <data name="OutSideOval" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\OutSideOval.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="OutSideSolid" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\OutSideSolid.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="people" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\people.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -228,6 +240,9 @@
   </data>
   <data name="Pre2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Pre2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SaturdayText" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SaturdayText.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ScissorsOval" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ScissorsOval.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -256,11 +271,26 @@
   <data name="SquareTableFilled" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SquareTableFilled.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="SundayText" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SundayText.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="teamOval" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\teamOval.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="ThursdayText" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ThursdayText.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Trash" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Trash.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TuesdayText" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TuesdayText.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WednesdayText" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WednesdayText.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="wideSemiBold" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\wideSemiBold.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="_no_data_Lighter" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\-no-data-Lighter.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

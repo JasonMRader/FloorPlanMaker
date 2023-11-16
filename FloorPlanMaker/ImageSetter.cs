@@ -47,11 +47,11 @@ namespace FloorPlanMakerUI
                 Shift shift = (Shift)shiftControl.Tag;
                 if (shift.IsInside)
                 {
-                    shiftControl.PicOutside.Image = Resources.Inside;
+                    shiftControl.PicOutside.Image = Resources.InsideSolid;
                 }
                 else
                 {
-                    shiftControl.PicOutside.Image = Resources.OutSideOval;
+                    shiftControl.PicOutside.Image = Resources.OutSideSolid;
                 }
                 if (shift.IsCloser)
                 {
