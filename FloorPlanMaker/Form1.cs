@@ -456,7 +456,8 @@ namespace FloorPlanMaker
                 }
             }
             serverControl.Label.BackColor = shiftManager.SectionSelected.Color;
-           
+            serverControl.Label.ForeColor = shiftManager.SectionSelected.FontColor;
+
         }
 
         private List<CheckBox> TeamWaitButtons = new List<CheckBox>();
