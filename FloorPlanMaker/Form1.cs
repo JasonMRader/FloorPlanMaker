@@ -454,7 +454,8 @@ namespace FloorPlanMaker
                 {
                     sc.UpdateLabel();
                 }
-            }          
+            }
+            serverControl.Label.BackColor = shiftManager.SectionSelected.Color;
            
         }
 
