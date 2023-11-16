@@ -281,6 +281,7 @@ namespace FloorPlanMaker
                     {
                         tableControl.IsSelected = true;
                         tableControl.BackColor = shiftManager.SectionSelected.Color; // Or any other color indicating selection
+                        tableControl.ForeColor = shiftManager.SectionSelected.FontColor;
 
                         if (shiftManager.SelectedFloorplan.Sections != null)
                         {
@@ -363,6 +364,7 @@ namespace FloorPlanMaker
 
                 clickedTableControl.Section = null;
                 clickedTableControl.BackColor = pnlFloorPlan.BackColor;  // Restore the original color
+                clickedTableControl.ForeColor = pnlFloorPlan.ForeColor;
                 clickedTableControl.Invalidate();
                 UpdateSectionLabels(sectionEdited, sectionEdited.MaxCovers, sectionEdited.AverageCovers);
 
