@@ -6,8 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.Windows.Forms;
-
-
+using FloorPlanMakerUI;
 
 namespace FloorPlanMaker
 {
@@ -175,7 +174,11 @@ namespace FloorPlanMaker
             }
         }
 
-
+        public void MuteColors()
+        {
+            this.BackColor = UITheme.MuteColor(.3f,this.Section.Color);
+            this.TextColor = Color.White;
+        }
 
         public TableControl() : this(new Table()) { }
         public TableControl(Table table)

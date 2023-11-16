@@ -1,5 +1,6 @@
 ﻿using FloorplanClassLibrary;
 using FloorPlanMakerUI;
+using FloorPlanMakerUI.Properties;
 using System.Security.Cryptography.X509Certificates;
 
 namespace FloorPlanMaker
@@ -81,15 +82,15 @@ namespace FloorPlanMaker
             };
             if (this.Shift.IsCloser)
             {
-                _picClose.Image = Resource1.ClsLetters;
+                _picClose.Image = Resources.Close;
             }
             else if (this.Shift.IsPre)
             {
-                _picClose.Image = Resource1.PreLetters;
+                _picClose.Image = Resources.Pre2;
             }
             else
             {
-                _picClose.Image = Resource1.Cut;
+                _picClose.Image = Resources.ScissorsOval;
             }
             this.Controls.Add(_picClose);
             //this.Invalidate();
@@ -106,11 +107,11 @@ namespace FloorPlanMaker
             };
             if (this.Shift.IsTeamWait)
             {
-                _picTeam.Image = Resource1.TeamWait;
+                _picTeam.Image = Resources.teamOval;
             }
             else
             {
-                _picTeam.Image= Resource1.Solo;
+                _picTeam.Image= Resources.personOval;
             }
             this.Controls.Add(_picTeam);
             //this.Invalidate();

@@ -1,5 +1,6 @@
 ﻿using FloorplanClassLibrary;
 using FloorPlanMaker;
+using FloorPlanMakerUI.Properties;
 using Microsoft.VisualBasic.ApplicationServices;
 using System;
 using System.Collections.Generic;
@@ -46,27 +47,27 @@ namespace FloorPlanMakerUI
                 Shift shift = (Shift)shiftControl.Tag;
                 if (shift.IsInside)
                 {
-                    shiftControl.PicOutside.Image = Resource1.Inside;
+                    shiftControl.PicOutside.Image = Resources.Inside;
                 }
                 else
                 {
-                    shiftControl.PicOutside.Image = Resource1.Outside;
+                    shiftControl.PicOutside.Image = Resources.OutSideOval;
                 }
                 if (shift.IsCloser)
                 {
-                    shiftControl.PicClose.Image = Resource1.Closer;
+                    shiftControl.PicClose.Image = Resources.Close;
                 }
                 else
                 {
-                    shiftControl.PicClose.Image = Resource1.Cut;
+                    shiftControl.PicClose.Image = Resources.ScissorsOval;
                 }
                 if (shift.IsTeamWait)
                 {
-                    shiftControl.PicTeam.Image = Resource1.TeamWait;
+                    shiftControl.PicTeam.Image = Resources.teamOval;
                 }
                 else
                 {
-                    shiftControl.PicTeam.Image = Resource1.Solo;
+                    shiftControl.PicTeam.Image = Resources.personOval;
                 } 
             }
         }

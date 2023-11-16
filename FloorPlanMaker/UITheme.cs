@@ -40,8 +40,15 @@ namespace FloorPlanMakerUI
         public static Color NoColor = Color.FromArgb(190, 80, 70);
         public static Color NoFontColor = Color.White;
 
+        public static Color CautionColor = Color.FromArgb(254,185,95);
+        public static Color CautionFontColor = Color.White;
+
         public static Color HighlightColor = Color.FromArgb(242,143,59);
         public static Color HighLightFontColor = Color.White;
+
+        public static Color HighlightColor2 = Color.FromArgb(237, 174, 73);
+
+        //242,193,78---255,188,66---242,193,78
         public  static Color MuteColor(float amount, Color Color)
         {
             // 'amount' is a value between 0 and 1, where 0 is completely grey and 1 is the original color

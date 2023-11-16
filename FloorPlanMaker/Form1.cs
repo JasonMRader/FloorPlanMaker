@@ -185,29 +185,7 @@ namespace FloorPlanMaker
 
             //pnlFloorPlan.KeyPreview = true;
         }
-        //protected override bool ProcessTabKey(bool forward)
-        //{
-        //    if (forward)
-        //    {
-        //        // Move forward in sections
-        //        currentFocusedSectionIndex++;
-        //        if (currentFocusedSectionIndex >= flowSectionSelect.Controls.Count)
-        //            currentFocusedSectionIndex = 0;
-        //    }
-        //    else
-        //    {
-        //        // Move backward in sections
-        //        currentFocusedSectionIndex--;
-        //        if (currentFocusedSectionIndex < 0)
-        //            currentFocusedSectionIndex = flowSectionSelect.Controls.Count - 1;
-        //    }
-
-        //    Panel sectionPanel = (Panel)flowSectionSelect.Controls[currentFocusedSectionIndex];
-        //    CheckBox sectionCheckBox = (CheckBox)sectionPanel.Controls[0];
-        //    sectionCheckBox.Focus();
-        //    sectionCheckBox.Checked = true;
-        //    return true; // Indicate that the key press was handled
-        //}
+       
 
 
         private void PnlFloorplan_Paint(object sender, PaintEventArgs e)
@@ -999,13 +977,14 @@ namespace FloorPlanMaker
                             if (tableControl.Table.TableNumber == table.TableNumber)
                             {
                                 tableControl.Section = section;
-                                tableControl.BackColor = section.MuteColor(0.35f);
+                                //tableControl.BackColor = section.MuteColor(0.35f);
+                                tableControl.MuteColors();
                                 if (section == shiftManager.SectionSelected)
                                 {
                                     tableControl.BackColor = section.MuteColor(1.35f);
                                 }
                                 
-                                tableControl.ForeColor = section.FontColor;
+                                //tableControl.ForeColor = section.FontColor;
                                 tableControl.Invalidate();
                                 break;
                             }
@@ -1066,18 +1045,18 @@ namespace FloorPlanMaker
 
             PictureBox noSections = new PictureBox
             {
-                Image = Resources.emptyfileeGrey,
-                SizeMode = PictureBoxSizeMode.StretchImage,
-                Size = new System.Drawing.Size(235, 200),
-                Margin = new Padding(20, 300, 0, 0)
+                Image = Resources._no_data_Lighter,
+                SizeMode = PictureBoxSizeMode.Zoom,
+                Size = new System.Drawing.Size(flowSectionSelect.Width-50, flowSectionSelect.Height-300),
+                Margin = new Padding(35,0, 0, 0)
 
             };
             PictureBox noServers = new PictureBox
             {
-                Image = Resources.emptyfileeGrey,
+                Image = Resources._no_data_Lighter,
                 SizeMode = PictureBoxSizeMode.StretchImage,
-                Size = new System.Drawing.Size(200, 200),
-                Margin = new Padding(20, 300, 0, 0)
+                Size = new System.Drawing.Size(flowServersInFloorplan.Width-50,flowServersInFloorplan.Height-300),
+                Margin = new Padding(35,0, 0, 0)
 
 
             };
