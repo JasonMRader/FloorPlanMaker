@@ -34,46 +34,51 @@ namespace FloorPlanMaker
         private SectionLineManager sectionLineManager;
         private frmEditDiningAreas _frmEditDiningAreas;
         private frmEditStaff _frmEditStaff;
+        private PictureBox loadingScreen = null;
+
+        private System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
+        
+        
         private SectionControlsManager sectionControlsManager { get; set; }
         private void SetColors()
         {
             btnCloseApp.BackColor = Color.Red;
-            AppColors.FormatCTAButton(btnAddSectionLabels);
-            AppColors.FormatCTAButton(btnPrint);
-            AppColors.FormatCTAButton(rdoDiningAreas);
-            AppColors.FormatCTAButton(rdoSections);
-            AppColors.FormatCTAButton(rdoShifts);
+            UITheme.FormatCTAButton(btnAddSectionLabels);
+            UITheme.FormatCTAButton(btnPrint);
+            UITheme.FormatCTAButton(rdoDiningAreas);
+            UITheme.FormatCTAButton(rdoSections);
+            UITheme.FormatCTAButton(rdoShifts);
 
-            AppColors.FormatMainButton(btnChooseTemplate);
+            UITheme.FormatMainButton(btnChooseTemplate);
             //AppColors.FormatMainButton(btnGenerateSectionLines);
-            AppColors.FormatMainButton(btnSaveFloorplanTemplate);
-            AppColors.FormatMainButton(cbTableDisplayMode);
+            UITheme.FormatMainButton(btnSaveFloorplanTemplate);
+            UITheme.FormatMainButton(cbTableDisplayMode);
 
-            AppColors.FormatSecondColor(this);
-            AppColors.FormatCanvasColor(pnlFloorplanContainer);
-            AppColors.FormatCanvasColor(pnlSectionsAndServers);
+            UITheme.FormatSecondColor(this);
+            UITheme.FormatCanvasColor(pnlFloorplanContainer);
+            UITheme.FormatCanvasColor(pnlSectionsAndServers);
 
             //AppColors.FormatSecondColor(lblCoversPerServerText);
             //AppColors.FormatSecondColor(lblSalesPerServerText);
-            AppColors.FormatSecondColor(lblServerAverageCovers);
-            AppColors.FormatSecondColor(lblServerMaxCovers);
+            UITheme.FormatSecondColor(lblServerAverageCovers);
+            UITheme.FormatSecondColor(lblServerMaxCovers);
 
             //lblCoversPerServerText.Font = AppColors.MainFont;
             //lblSalesPerServerText.Font = AppColors.MainFont;
-            lblServerAverageCovers.Font = AppColors.LargeFont;
-            lblServerMaxCovers.Font = AppColors.LargeFont;
+            lblServerAverageCovers.Font = UITheme.LargeFont;
+            lblServerMaxCovers.Font = UITheme.LargeFont;
 
-            btnChooseTemplate.Font = AppColors.MainFont;
-            btnGenerateSectionLines.Font = AppColors.MainFont;
-            btnSaveFloorplanTemplate.Font = AppColors.MainFont;
-            cbTableDisplayMode.Font = AppColors.MainFont;
+            btnChooseTemplate.Font = UITheme.MainFont;
+            btnGenerateSectionLines.Font = UITheme.MainFont;
+            btnSaveFloorplanTemplate.Font = UITheme.MainFont;
+            cbTableDisplayMode.Font = UITheme.MainFont;
 
-            AppColors.FormatAccentColor(pnlNavigationWindow);
+            UITheme.FormatAccentColor(pnlNavigationWindow);
             //AppColors.FormatAccentColor(pnlSideBar);
 
-            AppColors.FormatCanvasColor(pnlFloorPlan);
-            AppColors.FormatCanvasColor(flowSectionSelect);
-            AppColors.FormatCanvasColor(flowServersInFloorplan);
+            UITheme.FormatCanvasColor(pnlFloorPlan);
+            UITheme.FormatCanvasColor(flowSectionSelect);
+            UITheme.FormatCanvasColor(flowServersInFloorplan);
 
         }
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -112,7 +117,7 @@ namespace FloorPlanMaker
 
         private void SelectSection(int sectionNumber)
         {
-            //MessageBox.Show("Section" + sectionNumber.ToString());
+            
             shiftManager.SectionSelected = shiftManager.SelectedFloorplan.Sections.Where(s => s.Number == sectionNumber).FirstOrDefault();
             foreach (Control c in flowSectionSelect.Controls)
             {
@@ -120,7 +125,7 @@ namespace FloorPlanMaker
                 {
                     if (panel.Tag == shiftManager.SectionSelected)
                     {
-                        panel.BackColor = AppColors.HighlightColor;
+                        panel.BackColor = shiftManager.SectionSelected.Color;
                     }
                     else
                     {
@@ -409,11 +414,6 @@ namespace FloorPlanMaker
 
         }
 
-        private void SetSelectedSectionControl()
-        {
-
-        }
-
         private void UpdateServerControlsForFloorplan()
         {
 
@@ -454,8 +454,7 @@ namespace FloorPlanMaker
                 {
                     sc.UpdateLabel();
                 }
-            }
-           
+            }          
            
         }
 
@@ -463,9 +462,29 @@ namespace FloorPlanMaker
         private List<CheckBox> selectedSectionButtons = new List<CheckBox>();
         private CheckBox selectedCloserButton;
         private CheckBox selectedPreCloserButton;
-
+        
         private void CreateSectionRadioButtons(List<Section> sections)
         {
+            if(loadingScreen == null)
+            {
+                loadingScreen = UITheme.GetPictureBox(Resources.Loading, flowSectionSelect.Width, flowSectionSelect.Height);
+                this.Controls.Add(loadingScreen);
+                loadingScreen.Location = new Point(67, 115);
+                loadingScreen.BackColor = flowSectionSelect.BackColor;
+                loadingScreen.BringToFront();
+            }
+            else
+            {
+                loadingScreen.Visible = true; 
+            }
+            timer.Interval = 300; 
+            timer.Tick += (sender, e) =>
+            {               
+                loadingScreen.Visible = false;                                            
+                timer.Stop(); 
+            };
+            timer.Start(); 
+            
             // Clear any existing controls from the flow layout panel.
             flowSectionSelect.Controls.Clear();
             flowSectionSelect.Controls.Add(lblServerMaxCovers);
@@ -474,7 +493,6 @@ namespace FloorPlanMaker
             lblServerAverageCovers.Width = flowSectionSelect.Width - 6;
             if (sections.Count == 0)
             {
-
                 NoServersToDisplay();
             }
             if (sections == null)
@@ -502,13 +520,17 @@ namespace FloorPlanMaker
                 Size = new Size(flowSectionSelect.Width - 10, 25),
                 Font = new Font("Segoe UI", 10F),
                 FlatStyle = FlatStyle.Flat,
-                BackColor = AppColors.ButtonColor,
+                BackColor = UITheme.ButtonColor,
                 ForeColor = Color.Black
             };
             btnAddPickup.Click += btnAddPickupSection_Click;
             flowSectionSelect.Controls.Add(btnAddPickup);
             flowSectionSelect.Controls.SetChildIndex(lblServerMaxCovers,0);
             flowSectionSelect.Controls.SetChildIndex(lblServerAverageCovers, 1);
+            SelectSection(1);
+            
+
+
         }
         private void CreateOneSectionPanel(Section section)
         {
@@ -535,7 +557,7 @@ namespace FloorPlanMaker
                     Text = (section.MaxCovers - shiftManager.SelectedFloorplan.MaxCoversPerServer).ToString("F0"),
                     AutoSize = false,
                     Size = new Size(65, 25),
-                    Font = AppColors.MainFont,
+                    Font = UITheme.MainFont,
                     TextAlign = ContentAlignment.TopCenter,
                     Margin = new Padding(0, 3, 0, 3)
 
@@ -546,7 +568,7 @@ namespace FloorPlanMaker
                     Text = Section.FormatAsCurrencyWithoutParentheses(section.AverageCovers - shiftManager.SelectedFloorplan.AvgCoversPerServer), //(section.AverageCovers - shiftManager.SelectedFloorplan.AvgCoversPerServer).ToString("C0;\\-C0", CultureInfo.CurrentCulture),
                     AutoSize = true,
                     Size = new Size(65, 25),
-                    Font = AppColors.MainFont,
+                    Font = UITheme.MainFont,
                     TextAlign = ContentAlignment.TopCenter,
                     Margin = new Padding(0, 3, 0, 3)
 
@@ -560,7 +582,7 @@ namespace FloorPlanMaker
                     SizeMode = PictureBoxSizeMode.StretchImage,
                     Margin = new Padding(0),
                     Tag = section,
-                    BackColor = AppColors.CTAColor
+                    BackColor = UITheme.CTAColor
                 };
                 cbTeamWait.Click += SectionTeamWait_Click;
 
@@ -572,7 +594,7 @@ namespace FloorPlanMaker
                     SizeMode = PictureBoxSizeMode.StretchImage,
                     Margin = new Padding(0),
                     Tag = section,
-                    BackColor = AppColors.NoColor
+                    BackColor = UITheme.NoColor
                 };
                 deleteSectionPB.Click += DeleteSection_Click;
 
@@ -723,7 +745,7 @@ namespace FloorPlanMaker
             }
             if (sectionLabels.ContainsKey(section))
             {
-                sectionLabels[section].MaxCoversLabel.Text =  maxDifference.ToString();
+                sectionLabels[section].MaxCoversLabel.Text =  maxDifference.ToString("F0");
 
                 sectionLabels[section].AverageCoversLabel.Text =  Section.FormatAsCurrencyWithoutParentheses(avgDifference);// avgDifference.ToString("C0;\\-C0", CultureInfo.CurrentCulture);
 

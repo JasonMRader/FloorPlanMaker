@@ -30,34 +30,34 @@ namespace FloorPlanMakerUI
         private void SetColors()
         {
 
-            AppColors.FormatMainButton(btnQuickEdit);
-            AppColors.FormatMainButton(cbViewMode);
-            AppColors.FormatMainButton(btnCopyTable);
-            AppColors.FormatMainButton(btnSaveTable);
-            AppColors.FormatMainButton(cbLockTables);
-            AppColors.FormatMainButton(btnMoreHeight);
-            AppColors.FormatMainButton(btnMoreWidth);
-            AppColors.FormatMainButton(btnLessHeight);
-            AppColors.FormatMainButton(btnLessWidth);
-            AppColors.FormatMainButton(btnDeleteTable);
-            AppColors.FormatMainButton(btnCreateNewDiningArea);
-            AppColors.FormatMainButton(btnSaveDiningArea);
-            AppColors.FormatMainButton(btnSaveDiningArea);
+            UITheme.FormatMainButton(btnQuickEdit);
+            UITheme.FormatMainButton(cbViewMode);
+            UITheme.FormatMainButton(btnCopyTable);
+            UITheme.FormatMainButton(btnSaveTable);
+            UITheme.FormatMainButton(cbLockTables);
+            UITheme.FormatMainButton(btnMoreHeight);
+            UITheme.FormatMainButton(btnMoreWidth);
+            UITheme.FormatMainButton(btnLessHeight);
+            UITheme.FormatMainButton(btnLessWidth);
+            UITheme.FormatMainButton(btnDeleteTable);
+            UITheme.FormatMainButton(btnCreateNewDiningArea);
+            UITheme.FormatMainButton(btnSaveDiningArea);
+            UITheme.FormatMainButton(btnSaveDiningArea);
 
             // AppColors.FormatSecondColor(this);
-            AppColors.FormatSecondColor(panel4);
-            AppColors.FormatSecondColor(panel3);
+            UITheme.FormatSecondColor(panel4);
+            UITheme.FormatSecondColor(panel3);
 
-            AppColors.FormatAccentColor(this);
+            UITheme.FormatAccentColor(this);
 
-            AppColors.FormatAccentColor(panel3);
+            UITheme.FormatAccentColor(panel3);
 
-            AppColors.FormatCanvasColor(pnlFloorPlan);
+            UITheme.FormatCanvasColor(pnlFloorPlan);
 
-            AppColors.FormatSecondColor(panel5);
-            AppColors.FormatSecondColor(panel2);
+            UITheme.FormatSecondColor(panel5);
+            UITheme.FormatSecondColor(panel2);
             
-            AppColors.FormatSecondColor(panel6);
+            UITheme.FormatSecondColor(panel6);
 
 
         }

@@ -17,7 +17,7 @@ namespace FloorPlanMaker
 
             this.Height = height *2 ;
             this.Width = width;
-            this.BackColor = AppColors.AccentColor;
+            this.BackColor = UITheme.AccentColor;
             this.AutoSize = true;
             this.MaximumSize = new Size(width, height*10);
             this.Padding = new Padding(0,0,0,0);
@@ -35,7 +35,7 @@ namespace FloorPlanMaker
                 Height = height,
                 Width = width,
                 Font = new Font("Segoe UI", 12, FontStyle.Bold),
-                BackColor = AppColors.ButtonColor,
+                BackColor = UITheme.ButtonColor,
                 ForeColor = Color.Black,
                 Margin = new Padding(0),
                 TextAlign = ContentAlignment.MiddleCenter

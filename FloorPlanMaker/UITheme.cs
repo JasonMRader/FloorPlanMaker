@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FloorPlanMakerUI
 {
-    public static class AppColors
+    public static class UITheme
     {
        
 
@@ -90,6 +90,19 @@ namespace FloorPlanMakerUI
         {
             c.BackColor = CanvasColor;
             c.ForeColor = Color.Black;
+        }
+        public static PictureBox GetPictureBox(Image img, int width, int height)
+        {
+            PictureBox pictureBox = new PictureBox
+            {
+                //Image = img,
+                Width = width,
+                Height = height,
+                SizeMode = PictureBoxSizeMode.Zoom
+            };
+
+
+            return pictureBox;
         }
 
     }

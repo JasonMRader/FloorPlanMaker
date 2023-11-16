@@ -29,7 +29,7 @@ namespace FloorPlanMaker
                 Width = width,
                 AutoSize = false,
                 Height = 17,
-                Font = AppColors.SmallerFont,
+                Font = UITheme.SmallerFont,
                 TextAlign = ContentAlignment.MiddleCenter,
                 Margin = new Padding(1,0,0,0)
             };

@@ -22,18 +22,18 @@ namespace FloorPlanMaker
         private bool isNewShift = false;
         private void SetColorTheme()
         {
-            AppColors.FormatCTAButton(btnCreateANewShift);
-            AppColors.FormatCTAButton(btnAssignTables);
+            UITheme.FormatCTAButton(btnCreateANewShift);
+            UITheme.FormatCTAButton(btnAssignTables);
 
-            AppColors.FormatSecondColor(flowDiningAreaAssignment);
+            UITheme.FormatSecondColor(flowDiningAreaAssignment);
 
-            AppColors.FormatCanvasColor(flowUnassignedServers);
+            UITheme.FormatCanvasColor(flowUnassignedServers);
 
-            AppColors.FormatAccentColor(this);
+            UITheme.FormatAccentColor(this);
 
-            AppColors.FormatMainButton(cbUnassignedServers);
-            AppColors.FormatMainButton(cbIsAM);
-            AppColors.FormatMainButton(btnAddNewServer);
+            UITheme.FormatMainButton(cbUnassignedServers);
+            UITheme.FormatMainButton(cbIsAM);
+            UITheme.FormatMainButton(btnAddNewServer);
 
 
             //AppColors.FormatSecondColor(pnlAddTables);
@@ -291,9 +291,9 @@ namespace FloorPlanMaker
                     AutoSize = false,
                     TextAlign = ContentAlignment.MiddleCenter,
                     Margin = new Padding(0),
-                    Font = AppColors.MainFont,
+                    Font = UITheme.MainFont,
                     FlatStyle = FlatStyle.Flat,
-                    BackColor = AppColors.ButtonColor,
+                    BackColor = UITheme.ButtonColor,
                     ForeColor = Color.Black,
                     Text = fp.DiningArea.Name,
                     Tag = fp,
@@ -351,7 +351,7 @@ namespace FloorPlanMaker
                     Width = width - 8,
                     Height = flowDiningAreaAssignment.Height - height,
                     Margin = new Padding(4),
-                    BackColor = AppColors.CanvasColor,
+                    BackColor = UITheme.CanvasColor,
                     Tag = fp
                 };
                 DiningAreaRBs.Add(rb);
@@ -420,7 +420,7 @@ namespace FloorPlanMaker
                 Margin = new Padding(5),
                 Text = server.Name,
                 FlatStyle = FlatStyle.Flat,
-                BackColor = AppColors.ButtonColor,
+                BackColor = UITheme.ButtonColor,
                 ForeColor = Color.Black,
                 TabStop = false,
                 Tag = server,

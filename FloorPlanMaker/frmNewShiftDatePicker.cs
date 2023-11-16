@@ -32,22 +32,22 @@ namespace FloorPlanMakerUI
         }
         private void SetColors()
         {
-            AppColors.FormatSecondColor(panel1);
-            AppColors.FormatSecondColor(panel2);
-            AppColors.FormatSecondColor(panel3);
-            AppColors.FormatSecondColor(panel4);
+            UITheme.FormatSecondColor(panel1);
+            UITheme.FormatSecondColor(panel2);
+            UITheme.FormatSecondColor(panel3);
+            UITheme.FormatSecondColor(panel4);
 
-            AppColors.FormatMainButton(btnBackDay);
-            AppColors.FormatMainButton(btnForwardDay);
-            AppColors.FormatMainButton(cbIsAm);
+            UITheme.FormatMainButton(btnBackDay);
+            UITheme.FormatMainButton(btnForwardDay);
+            UITheme.FormatMainButton(cbIsAm);
 
-            AppColors.FormatCTAButton(btnOK);
+            UITheme.FormatCTAButton(btnOK);
 
-            AppColors.FormatCanvasColor(flowAllServers);
-            AppColors.FormatCanvasColor(flowDiningAreas);
-            AppColors.FormatCanvasColor(flowLastWeekdayCounts);
-            AppColors.FormatCanvasColor(flowServersOnShift);
-            AppColors.FormatCanvasColor(flowYesterdayCounts);
+            UITheme.FormatCanvasColor(flowAllServers);
+            UITheme.FormatCanvasColor(flowDiningAreas);
+            UITheme.FormatCanvasColor(flowLastWeekdayCounts);
+            UITheme.FormatCanvasColor(flowServersOnShift);
+            UITheme.FormatCanvasColor(flowYesterdayCounts);
 
         }
         private void frmNewShiftDatePicker_Load(object sender, EventArgs e)
@@ -89,7 +89,7 @@ namespace FloorPlanMakerUI
                 Margin = new Padding(5),
                 Text = server.Name,
                 FlatStyle = FlatStyle.Flat,
-                BackColor = AppColors.ButtonColor,
+                BackColor = UITheme.ButtonColor,
                 ForeColor = Color.Black,
                 TabStop = false,
                 Tag = server,
@@ -119,7 +119,7 @@ namespace FloorPlanMakerUI
             ShiftManagerCreated.UnassignedServers.Remove(server);
             serverButton.Click += AddToShift_Click;
             serverButton.Click -= RemoveFromShift_Click;
-            serverButton.BackColor = AppColors.ButtonColor;
+            serverButton.BackColor = UITheme.ButtonColor;
             flowServersOnShift.Controls.Remove(serverButton);
             flowAllServers.Controls.Add(serverButton);
         }
@@ -138,7 +138,7 @@ namespace FloorPlanMakerUI
                     TextAlign = ContentAlignment.MiddleCenter,
                     FlatStyle = FlatStyle.Flat,
                     ForeColor = Color.Black,
-                    BackColor = AppColors.ButtonColor,
+                    BackColor = UITheme.ButtonColor,
                     TabStop = false
 
                 };
@@ -171,7 +171,7 @@ namespace FloorPlanMakerUI
                     lbl.Text = $"{count}"; // Update the text of the label
                     if (count > 0)
                     {
-                        lbl.BackColor = AppColors.YesColor;
+                        lbl.BackColor = UITheme.YesColor;
                         lbl.ForeColor = Color.Black;
                     }
                     else
@@ -196,7 +196,7 @@ namespace FloorPlanMakerUI
 
                 Size = new Size(width, 35),
                 Margin = new Padding(10, 10, 10, 10),
-                BackColor = AppColors.ButtonColor,
+                BackColor = UITheme.ButtonColor,
                 TextAlign = ContentAlignment.MiddleCenter
 
             };
@@ -213,7 +213,7 @@ namespace FloorPlanMakerUI
                 Tag = diningArea,
                 Size = new Size(width, 35),
                 Margin = new Padding(10, 10, 10, 10),
-                BackColor = AppColors.ButtonColor,
+                BackColor = UITheme.ButtonColor,
                 TextAlign = ContentAlignment.MiddleCenter
 
             };
@@ -310,7 +310,7 @@ namespace FloorPlanMakerUI
             }
             else
             {
-                cbArea.BackColor = AppColors.ButtonColor;
+                cbArea.BackColor = UITheme.ButtonColor;
                 var floorplanToRemove = ShiftManagerCreated.Floorplans.FirstOrDefault(fp => fp.DiningArea == area);
                 ShiftManagerCreated.DiningAreasUsed.Remove(area);
                 ShiftManagerCreated.RemoveFloorplan(floorplanToRemove);
