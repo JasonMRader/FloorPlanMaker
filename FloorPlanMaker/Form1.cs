@@ -716,6 +716,11 @@ namespace FloorPlanMaker
 
             float maxDifference = newMaxCoversValue - shiftManager.SelectedFloorplan.MaxCoversPerServer;
             float avgDifference = newAverageCoversValue - shiftManager.SelectedFloorplan.AvgCoversPerServer;
+            if (section.IsTeamWait)
+            {
+                maxDifference= newMaxCoversValue - (shiftManager.SelectedFloorplan.MaxCoversPerServer * 2);
+                avgDifference = newAverageCoversValue - (shiftManager.SelectedFloorplan.AvgCoversPerServer * 2);
+            }
             if (sectionLabels.ContainsKey(section))
             {
                 sectionLabels[section].MaxCoversLabel.Text =  maxDifference.ToString();

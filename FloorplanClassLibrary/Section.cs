@@ -61,6 +61,7 @@ namespace FloorplanClassLibrary
             get
             {
                 if (Tables == null) return 0;
+               
                 return Tables.Sum(table => table.MaxCovers);
             }
         }
@@ -70,6 +71,7 @@ namespace FloorplanClassLibrary
             get
             {
                 if (Tables == null || !Tables.Any()) return 0;
+                
                 return Tables.Sum(table => table.AverageCovers);
             }
         }
