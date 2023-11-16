@@ -33,19 +33,16 @@
             btnAssignTables = new Button();
             flowDiningAreaAssignment = new FlowLayoutPanel();
             flowUnassignedServers = new FlowLayoutPanel();
-            cbUnassignedServers = new CheckBox();
-            flowAllServers = new FlowLayoutPanel();
-            flowDiningAreas = new FlowLayoutPanel();
             lblShiftDate = new Label();
-            btnDateUp = new Button();
-            btnDateDown = new Button();
             cbIsAM = new CheckBox();
-            flowYesterdayCounts = new FlowLayoutPanel();
-            flowLastWeekdayCounts = new FlowLayoutPanel();
             btnCreateANewShift = new Button();
             panel1 = new Panel();
             panel2 = new Panel();
+            pbBack = new PictureBox();
+            pbForward = new PictureBox();
             panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pbBack).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pbForward).BeginInit();
             SuspendLayout();
             // 
             // btnAddNewServer
@@ -86,9 +83,9 @@
             // flowDiningAreaAssignment
             // 
             flowDiningAreaAssignment.BackColor = Color.WhiteSmoke;
-            flowDiningAreaAssignment.Location = new Point(429, 122);
+            flowDiningAreaAssignment.Location = new Point(429, 83);
             flowDiningAreaAssignment.Name = "flowDiningAreaAssignment";
-            flowDiningAreaAssignment.Size = new Size(794, 759);
+            flowDiningAreaAssignment.Size = new Size(794, 798);
             flowDiningAreaAssignment.TabIndex = 10;
             // 
             // flowUnassignedServers
@@ -97,76 +94,19 @@
             flowUnassignedServers.BackColor = Color.WhiteSmoke;
             flowUnassignedServers.Location = new Point(19, 18);
             flowUnassignedServers.Name = "flowUnassignedServers";
-            flowUnassignedServers.Size = new Size(313, 759);
+            flowUnassignedServers.Size = new Size(313, 796);
             flowUnassignedServers.TabIndex = 11;
-            // 
-            // cbUnassignedServers
-            // 
-            cbUnassignedServers.Appearance = Appearance.Button;
-            cbUnassignedServers.BackColor = Color.FromArgb(158, 171, 222);
-            cbUnassignedServers.FlatAppearance.BorderSize = 0;
-            cbUnassignedServers.FlatStyle = FlatStyle.Flat;
-            cbUnassignedServers.ForeColor = Color.Black;
-            cbUnassignedServers.Location = new Point(31, 63);
-            cbUnassignedServers.Name = "cbUnassignedServers";
-            cbUnassignedServers.Size = new Size(313, 30);
-            cbUnassignedServers.TabIndex = 12;
-            cbUnassignedServers.Text = "Unassigned Servers";
-            cbUnassignedServers.TextAlign = ContentAlignment.MiddleCenter;
-            cbUnassignedServers.UseVisualStyleBackColor = false;
-            cbUnassignedServers.CheckedChanged += cbUnassignedServers_CheckedChanged;
-            // 
-            // flowAllServers
-            // 
-            flowAllServers.AutoScroll = true;
-            flowAllServers.BackColor = Color.FromArgb(178, 87, 46);
-            flowAllServers.Location = new Point(82, 12);
-            flowAllServers.MaximumSize = new Size(165, 10000);
-            flowAllServers.Name = "flowAllServers";
-            flowAllServers.Size = new Size(47, 23);
-            flowAllServers.TabIndex = 14;
-            flowAllServers.Visible = false;
-            // 
-            // flowDiningAreas
-            // 
-            flowDiningAreas.BackColor = Color.FromArgb(178, 87, 46);
-            flowDiningAreas.Location = new Point(12, 12);
-            flowDiningAreas.Name = "flowDiningAreas";
-            flowDiningAreas.Size = new Size(17, 12);
-            flowDiningAreas.TabIndex = 15;
-            flowDiningAreas.Visible = false;
             // 
             // lblShiftDate
             // 
-            lblShiftDate.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point);
-            lblShiftDate.Location = new Point(503, 56);
+            lblShiftDate.Font = new Font("Segoe UI", 21.75F, FontStyle.Bold, GraphicsUnit.Point);
+            lblShiftDate.ForeColor = Color.Black;
+            lblShiftDate.Location = new Point(497, 17);
             lblShiftDate.Name = "lblShiftDate";
-            lblShiftDate.Size = new Size(433, 32);
+            lblShiftDate.Size = new Size(478, 39);
             lblShiftDate.TabIndex = 16;
             lblShiftDate.Text = "Date";
-            lblShiftDate.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // btnDateUp
-            // 
-            btnDateUp.FlatStyle = FlatStyle.Flat;
-            btnDateUp.Image = FloorPlanMakerUI.Resource1.forwardArrow;
-            btnDateUp.Location = new Point(1027, 51);
-            btnDateUp.Name = "btnDateUp";
-            btnDateUp.Size = new Size(27, 42);
-            btnDateUp.TabIndex = 17;
-            btnDateUp.UseVisualStyleBackColor = true;
-            btnDateUp.Click += btnDateUp_Click;
-            // 
-            // btnDateDown
-            // 
-            btnDateDown.FlatStyle = FlatStyle.Flat;
-            btnDateDown.Image = FloorPlanMakerUI.Resource1.BackArrow;
-            btnDateDown.Location = new Point(455, 51);
-            btnDateDown.Name = "btnDateDown";
-            btnDateDown.Size = new Size(27, 42);
-            btnDateDown.TabIndex = 18;
-            btnDateDown.UseVisualStyleBackColor = true;
-            btnDateDown.Click += btnDateDown_Click;
+            lblShiftDate.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // cbIsAM
             // 
@@ -176,34 +116,14 @@
             cbIsAM.FlatStyle = FlatStyle.Flat;
             cbIsAM.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             cbIsAM.ForeColor = Color.Black;
-            cbIsAM.Location = new Point(942, 51);
+            cbIsAM.Location = new Point(1144, 17);
             cbIsAM.Name = "cbIsAM";
-            cbIsAM.Size = new Size(79, 42);
+            cbIsAM.Size = new Size(79, 39);
             cbIsAM.TabIndex = 19;
             cbIsAM.Text = "PM";
             cbIsAM.TextAlign = ContentAlignment.MiddleCenter;
             cbIsAM.UseVisualStyleBackColor = false;
             cbIsAM.CheckedChanged += cbIsPM_CheckedChanged;
-            // 
-            // flowYesterdayCounts
-            // 
-            flowYesterdayCounts.BackColor = Color.FromArgb(224, 224, 224);
-            flowYesterdayCounts.ForeColor = Color.Black;
-            flowYesterdayCounts.Location = new Point(59, 12);
-            flowYesterdayCounts.Name = "flowYesterdayCounts";
-            flowYesterdayCounts.Size = new Size(17, 12);
-            flowYesterdayCounts.TabIndex = 23;
-            flowYesterdayCounts.Visible = false;
-            // 
-            // flowLastWeekdayCounts
-            // 
-            flowLastWeekdayCounts.BackColor = Color.FromArgb(224, 224, 224);
-            flowLastWeekdayCounts.ForeColor = Color.Black;
-            flowLastWeekdayCounts.Location = new Point(163, 12);
-            flowLastWeekdayCounts.Name = "flowLastWeekdayCounts";
-            flowLastWeekdayCounts.Size = new Size(350, 33);
-            flowLastWeekdayCounts.TabIndex = 21;
-            flowLastWeekdayCounts.Visible = false;
             // 
             // btnCreateANewShift
             // 
@@ -211,11 +131,11 @@
             btnCreateANewShift.FlatStyle = FlatStyle.Flat;
             btnCreateANewShift.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             btnCreateANewShift.ForeColor = Color.Black;
-            btnCreateANewShift.Location = new Point(12, 12);
+            btnCreateANewShift.Location = new Point(25, 23);
             btnCreateANewShift.Name = "btnCreateANewShift";
-            btnCreateANewShift.Size = new Size(1240, 33);
+            btnCreateANewShift.Size = new Size(352, 33);
             btnCreateANewShift.TabIndex = 25;
-            btnCreateANewShift.Text = "Create a New Shift";
+            btnCreateANewShift.Text = "Edit / Create Shifts";
             btnCreateANewShift.UseVisualStyleBackColor = true;
             btnCreateANewShift.Click += btnCreateANewShift_Click;
             // 
@@ -223,18 +143,40 @@
             // 
             panel1.BackColor = Color.FromArgb(180, 190, 200);
             panel1.Controls.Add(flowUnassignedServers);
-            panel1.Location = new Point(25, 104);
+            panel1.Location = new Point(25, 67);
             panel1.Name = "panel1";
-            panel1.Size = new Size(352, 793);
+            panel1.Size = new Size(352, 830);
             panel1.TabIndex = 26;
             // 
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(180, 190, 200);
-            panel2.Location = new Point(409, 104);
+            panel2.Location = new Point(409, 67);
             panel2.Name = "panel2";
-            panel2.Size = new Size(833, 793);
+            panel2.Size = new Size(833, 830);
             panel2.TabIndex = 27;
+            // 
+            // pbBack
+            // 
+            pbBack.Image = FloorPlanMakerUI.Properties.Resources.back;
+            pbBack.Location = new Point(409, 17);
+            pbBack.Name = "pbBack";
+            pbBack.Size = new Size(55, 39);
+            pbBack.SizeMode = PictureBoxSizeMode.Zoom;
+            pbBack.TabIndex = 28;
+            pbBack.TabStop = false;
+            pbBack.Click += btnDateDown_Click;
+            // 
+            // pbForward
+            // 
+            pbForward.Image = FloorPlanMakerUI.Properties.Resources.forward;
+            pbForward.Location = new Point(1012, 17);
+            pbForward.Name = "pbForward";
+            pbForward.Size = new Size(55, 39);
+            pbForward.SizeMode = PictureBoxSizeMode.Zoom;
+            pbForward.TabIndex = 28;
+            pbForward.TabStop = false;
+            pbForward.Click += btnDateUp_Click;
             // 
             // frmEditStaff
             // 
@@ -242,16 +184,11 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.WhiteSmoke;
             ClientSize = new Size(1264, 967);
-            Controls.Add(flowDiningAreas);
+            Controls.Add(pbForward);
+            Controls.Add(pbBack);
             Controls.Add(btnCreateANewShift);
-            Controls.Add(flowYesterdayCounts);
-            Controls.Add(flowLastWeekdayCounts);
             Controls.Add(cbIsAM);
-            Controls.Add(btnDateDown);
-            Controls.Add(btnDateUp);
             Controls.Add(lblShiftDate);
-            Controls.Add(flowAllServers);
-            Controls.Add(cbUnassignedServers);
             Controls.Add(flowDiningAreaAssignment);
             Controls.Add(btnAssignTables);
             Controls.Add(txtNewServerName);
@@ -268,6 +205,8 @@
             MouseMove += frmEditStaff_MouseMove;
             MouseUp += frmEditStaff_MouseUp;
             panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pbBack).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pbForward).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -278,17 +217,12 @@
         private Button btnAssignTables;
         private FlowLayoutPanel flowDiningAreaAssignment;
         private FlowLayoutPanel flowUnassignedServers;
-        private CheckBox cbUnassignedServers;
-        private FlowLayoutPanel flowAllServers;
-        private FlowLayoutPanel flowDiningAreas;
         private Label lblShiftDate;
-        private Button btnDateUp;
-        private Button btnDateDown;
         private CheckBox cbIsAM;
-        private FlowLayoutPanel flowYesterdayCounts;
-        private FlowLayoutPanel flowLastWeekdayCounts;
         private Button btnCreateANewShift;
         private Panel panel1;
         private Panel panel2;
+        private PictureBox pbBack;
+        private PictureBox pbForward;
     }
 }

@@ -117,7 +117,7 @@ namespace FloorplanClassLibrary
             int borderWidth = 5;
             if (this.isSelecteed == true)
             {
-                borderColor = UITheme.HighlightColor;
+                borderColor = UITheme.MuteColor(3f,this.Section.Color);
                 borderWidth = 30;
             }
             using (Pen pen = new Pen(borderColor, borderWidth))

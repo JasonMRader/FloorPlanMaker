@@ -176,7 +176,7 @@ namespace FloorPlanMaker
 
         public void MuteColors()
         {
-            this.BackColor = UITheme.MuteColor(.1f,this.Section.Color);
+            this.BackColor = UITheme.MuteColor(.5f,this.Section.Color);
             this.TextColor = Color.White;
         }
 

@@ -24,16 +24,19 @@ namespace FloorPlanMaker
         {
             UITheme.FormatCTAButton(btnCreateANewShift);
             UITheme.FormatCTAButton(btnAssignTables);
-
+            UITheme.FormatCTAButton(pbBack);
+            UITheme.FormatCTAButton(pbForward);
             UITheme.FormatSecondColor(flowDiningAreaAssignment);
 
             UITheme.FormatCanvasColor(flowUnassignedServers);
 
             UITheme.FormatAccentColor(this);
 
-            UITheme.FormatMainButton(cbUnassignedServers);
+
             UITheme.FormatMainButton(cbIsAM);
             UITheme.FormatMainButton(btnAddNewServer);
+
+            //lblShiftDate.Font = UITheme.LargeFont;
 
 
             //AppColors.FormatSecondColor(pnlAddTables);
@@ -201,13 +204,13 @@ namespace FloorPlanMaker
                     {
 
                         pastShiftsManager.AddFloorplanAndServers(fp);
-                        foreach (Control c in flowDiningAreas.Controls)
-                        {
-                            if (c is CheckBox cb && c.Tag == diningArea)
-                            {
-                                cb.Checked = true;
-                            }
-                        }
+                        //foreach (Control c in flowDiningAreas.Controls)
+                        //{
+                        //    if (c is CheckBox cb && c.Tag == diningArea)
+                        //    {
+                        //        cb.Checked = true;
+                        //    }
+                        //}
                     }
                 }
                 RefreshFloorplanFlowPanel(pastShiftsManager.Floorplans);
@@ -220,13 +223,13 @@ namespace FloorPlanMaker
                     Floorplan fp = newShiftManager.Floorplans.FirstOrDefault(fp => fp.DiningArea == diningArea);
                     if (fp != null)
                     {
-                        foreach (Control c in flowDiningAreas.Controls)
-                        {
-                            if (c is CheckBox cb && c.Tag == diningArea)
-                            {
-                                cb.Checked = true;
-                            }
-                        }
+                        //foreach (Control c in flowDiningAreas.Controls)
+                        //{
+                        //    if (c is CheckBox cb && c.Tag == diningArea)
+                        //    {
+                        //        cb.Checked = true;
+                        //    }
+                        //}
                     }
                 }
                 RefreshFloorplanFlowPanel(newShiftManager.Floorplans);
@@ -325,7 +328,7 @@ namespace FloorPlanMaker
                     Width = (width - 8),
                     Height = 20,
                     Margin = new Padding(4),
-                    Text = "Max: " + fp.DiningArea.GetMaxCovers().ToString() + "  Avg: " + fp.DiningArea.GetAverageCovers().ToString(),
+                    Text = "Max: " + fp.DiningArea.GetMaxCovers().ToString() + "  Avg: " + Section.FormatAsCurrencyWithoutParentheses(fp.DiningArea.GetAverageCovers()),//.ToString(),
                     TextAlign = ContentAlignment.MiddleCenter,
                     Font = new Font("Segoe UI", 12f, FontStyle.Bold),
                     Tag = fp
@@ -370,10 +373,7 @@ namespace FloorPlanMaker
             {
                 flowDiningAreaAssignment.Controls.Add((Control)c);
             }
-            foreach (Control c in DiningAreaRBs)
-            {
-                flowDiningAreaAssignment.Controls.Add(((Control)c));
-            }
+            
             foreach (Control c in ServerCountLabels)
             {
                 flowDiningAreaAssignment.Controls.Add((Control)c);
@@ -382,7 +382,10 @@ namespace FloorPlanMaker
             {
                 flowDiningAreaAssignment.Controls.Add((Control)c);
             }
-
+            foreach (Control c in DiningAreaRBs)
+            {
+                flowDiningAreaAssignment.Controls.Add(((Control)c));
+            }
             foreach (Control c in flowList)
             {
                 flowDiningAreaAssignment.Controls.Add((Control)c);
@@ -405,7 +408,7 @@ namespace FloorPlanMaker
             newShiftManager.ServersNotOnShift.Add(server);
             newShiftManager.UnassignedServers.Remove(server);
             Button serverControl = CreateServerButton(server);
-            flowAllServers.Controls.Add(serverControl);
+            //flowAllServers.Controls.Add(serverControl);
             flowUnassignedServers.Controls.Remove(oldServerControl);
         }
 
@@ -452,19 +455,19 @@ namespace FloorPlanMaker
                     }
                 }
             }
-
-            if (cbUnassignedServers.Checked)
-            {
-                newShiftManager.UnassignedServers.Add(server);
-                ServerControl serverControl = new ServerControl(server, 350, 20);
-                serverControl.Click += ServerControl_Click;
-                ImageSetter.SetShiftControlImages(serverControl);
-                flowUnassignedServers.Controls.Add(serverControl);
-            }
-            else
-            {
-                newShiftManager.SelectedFloorplan.AddServerAndSection(server);
-            }
+            newShiftManager.SelectedFloorplan.AddServerAndSection(server);
+            //if (cbUnassignedServers.Checked)
+            //{
+            //    newShiftManager.UnassignedServers.Add(server);
+            //    ServerControl serverControl = new ServerControl(server, 350, 20);
+            //    serverControl.Click += ServerControl_Click;
+            //    ImageSetter.SetShiftControlImages(serverControl);
+            //    flowUnassignedServers.Controls.Add(serverControl);
+            //}
+            //else
+            //{
+            //    newShiftManager.SelectedFloorplan.AddServerAndSection(server);
+            //}
             FlowLayoutPanel SelectedTargetPanel = null;
             foreach (Control control in flowDiningAreaAssignment.Controls)
             {
@@ -520,20 +523,21 @@ namespace FloorPlanMaker
                     }
                 }
             }
-            if (cbUnassignedServers.Checked)
-            {
-                newShiftManager.UnassignedServers.Add(server);
-                ServerControl newServerControl = new ServerControl(server, 350, 30);
-                newServerControl.Click += ServerControl_Click;
-                newServerControl.AddRemoveButton(flowUnassignedServers, flowAllServers, newShiftManager.UnassignedServers, newShiftManager.ServersNotOnShift, 155, 20);
-                newServerControl.RemoveButton.Click += serverControl_Click_RemoveFromShift;
-                ImageSetter.SetShiftControlImages(newServerControl);
-                flowUnassignedServers.Controls.Add(newServerControl);
-            }
-            else
-            {
-                newShiftManager.SelectedFloorplan.AddServerAndSection(server);
-            }
+            //if (cbUnassignedServers.Checked)
+            //{
+            //    newShiftManager.UnassignedServers.Add(server);
+            //    ServerControl newServerControl = new ServerControl(server, 350, 30);
+            //    newServerControl.Click += ServerControl_Click;
+            //    //newServerControl.AddRemoveButton(flowUnassignedServers, flowAllServers, newShiftManager.UnassignedServers, newShiftManager.ServersNotOnShift, 155, 20);
+            //    // newServerControl.RemoveButton.Click += serverControl_Click_RemoveFromShift;
+            //    ImageSetter.SetShiftControlImages(newServerControl);
+            //    flowUnassignedServers.Controls.Add(newServerControl);
+            //}
+            //else
+            //{
+            //    newShiftManager.SelectedFloorplan.AddServerAndSection(server);
+            //}
+            newShiftManager.SelectedFloorplan.AddServerAndSection(server);
             NewAddServerButtonToFloorplan(newShiftManager.SelectedFloorplan, server);
             RefreshFloorplanCountLabels();
         }
@@ -589,11 +593,11 @@ namespace FloorPlanMaker
                         if (fp.Servers.Count > 0)
                         {
                             fpMaxLabel.Text = "Max: " + (fp.DiningArea.GetMaxCovers() / fp.Servers.Count).ToString("F1")
-                                + "  Avg: " + (fp.DiningArea.GetAverageCovers() / fp.Servers.Count).ToString("F1");
+                                + "  Avg: " + Section.FormatAsCurrencyWithoutParentheses((fp.DiningArea.GetAverageCovers() / fp.Servers.Count));
                         }
                         else
                         {
-                            fpMaxLabel.Text = "Max: " + fp.DiningArea.GetMaxCovers().ToString() + "  Avg: " + fp.DiningArea.GetAverageCovers().ToString();
+                            fpMaxLabel.Text = "Max: " + fp.DiningArea.GetMaxCovers().ToString() + "  Avg: " + Section.FormatAsCurrencyWithoutParentheses(fp.DiningArea.GetAverageCovers());
                         }
                     }
                 }
@@ -606,23 +610,23 @@ namespace FloorPlanMaker
             if (rb != null && rb.Checked)
             {
                 newShiftManager.SelectedFloorplan = (Floorplan)rb.Tag;
-                cbUnassignedServers.Checked = false;
+                //cbUnassignedServers.Checked = false;
             }
         }
-        private void cbUnassignedServers_CheckedChanged(object sender, EventArgs e)
-        {
-            if (cbUnassignedServers.Checked)
-            {
-                foreach (Control c in flowDiningAreaAssignment.Controls)
-                {
-                    if (c is RadioButton rb)
-                    {
-                        rb.Checked = false;
-                    }
-                }
-                newShiftManager.SelectedFloorplan = null;
-            }
-        }
+        //private void cbUnassignedServers_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    if (cbUnassignedServers.Checked)
+        //    {
+        //        foreach (Control c in flowDiningAreaAssignment.Controls)
+        //        {
+        //            if (c is RadioButton rb)
+        //            {
+        //                rb.Checked = false;
+        //            }
+        //        }
+        //        newShiftManager.SelectedFloorplan = null;
+        //    }
+        //}
         private void cbIsPM_CheckedChanged(object sender, EventArgs e)
         {
             if (cbIsAM.Checked)
@@ -683,7 +687,7 @@ namespace FloorPlanMaker
             setIsNewShiftBool();
             SetFloorplansForShiftManager();
             PopulateUnassignedServers();
-            btnCreateANewShift.Visible = false;
+            //btnCreateANewShift.Visible = false;
             UpdateCountLabels();
 
         }
