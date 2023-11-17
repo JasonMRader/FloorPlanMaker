@@ -470,15 +470,21 @@ namespace FloorPlanMaker
 
             // Clear any existing controls from the flow layout panel.
             flowSectionSelect.Controls.Clear();
-            picBxCovers.Image = UITheme.covers;
-            flowSectionSelect.Controls.Add(picBxCovers);
-            flowSectionSelect.Controls.Add(lblServerMaxCovers);
 
-            picBxSales.Image = UITheme.sales;
-            flowSectionSelect.Controls.Add(picBxSales);
-            flowSectionSelect.Controls.Add(lblServerAverageCovers);
-            lblServerMaxCovers.Width = (flowSectionSelect.Width / 2) - 20;
-            lblServerAverageCovers.Width = (flowSectionSelect.Width / 2) - 20;
+            ImageLabelControl coversImageLabel = new ImageLabelControl(UITheme.covers, "0", (flowSectionSelect.Width/2) - 7, 30);
+            ImageLabelControl salesImageLabel = new ImageLabelControl(UITheme.sales, "$0", (flowSectionSelect.Width/2) - 7, 30);
+            flowSectionSelect.Controls.Add(coversImageLabel);
+            flowSectionSelect.Controls.Add(salesImageLabel);
+
+            //picBxCovers.Image = UITheme.covers;
+            //flowSectionSelect.Controls.Add(picBxCovers);
+            //flowSectionSelect.Controls.Add(lblServerMaxCovers);
+
+            //picBxSales.Image = UITheme.sales;
+            //flowSectionSelect.Controls.Add(picBxSales);
+            //flowSectionSelect.Controls.Add(lblServerAverageCovers);
+            //lblServerMaxCovers.Width = (flowSectionSelect.Width / 2) - 20;
+            //lblServerAverageCovers.Width = (flowSectionSelect.Width / 2) - 20;
             if (sections.Count == 0)
             {
                 NoServersToDisplay();
@@ -513,8 +519,11 @@ namespace FloorPlanMaker
             };
             btnAddPickup.Click += btnAddPickupSection_Click;
             flowSectionSelect.Controls.Add(btnAddPickup);
-            flowSectionSelect.Controls.SetChildIndex(lblServerMaxCovers, 1);
-            flowSectionSelect.Controls.SetChildIndex(lblServerAverageCovers, 3);
+            //flowSectionSelect.Controls.SetChildIndex(lblServerMaxCovers, 1);
+            //flowSectionSelect.Controls.SetChildIndex(lblServerAverageCovers, 3);
+            flowSectionSelect.Controls.SetChildIndex(coversImageLabel, 0);
+            flowSectionSelect.Controls.SetChildIndex(salesImageLabel, 1);
+
             SelectSection(1);
 
 

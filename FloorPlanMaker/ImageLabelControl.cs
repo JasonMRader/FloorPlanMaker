@@ -18,7 +18,9 @@ namespace FloorPlanMakerUI
             InitializeComponent();
             this.Height = height;
             this.Width = width;
+            this.BackColor = UITheme.SecondColor;
             lblText.Text = text;
+            lblText.Font = UITheme.MainFont;
             pbImage.Image = image;
             GetLocations();
 
