@@ -34,7 +34,7 @@ namespace FloorPlanMaker
 
 
             UITheme.FormatMainButton(cbIsAM);
-            UITheme.FormatMainButton(btnAddNewServer);
+            
 
             //lblShiftDate.Font = UITheme.LargeFont;
 
@@ -172,15 +172,7 @@ namespace FloorPlanMaker
             }
         }
 
-        private void btnAddNewServer_Click(object sender, EventArgs e)
-        {
-            Server server = new Server();
-            server.Name = txtNewServerName.Text;
-            SqliteDataAccess.SaveNewServer(server);
-            txtNewServerName.Clear();
-            employeeManager.AllServers.Clear();
-            employeeManager.AllServers = SqliteDataAccess.LoadServers();
-        }
+       
         private void frmEditStaff_Load(object sender, EventArgs e)
         {
             dateSelected = DateTime.Now;
