@@ -25,7 +25,11 @@ namespace FloorPlanMakerUI
             GetLocations();
 
         }
-        private void GetLocations()
+        public ImageLabelControl() 
+        {
+            InitializeComponent();
+        }
+        private void GetLocations2()
         {
             lblText.Location = new Point(this.Width/2, (this.Height - lblText.Height)/2);
 
@@ -33,6 +37,24 @@ namespace FloorPlanMakerUI
             pbImage.Width = pbImage.Height;
 
             pbImage.Location = new Point((this.Width/2) - pbImage.Width, lblText.Location.Y);
+        }
+        public void UpdateText(string text)
+        {
+            lblText.Text = text;
+            //GetLocations();
+        }
+        private void GetLocations()
+        {
+            pbImage.Height = lblText.Height;
+            pbImage.Width = pbImage.Height;
+            int controlsWidth = lblText.Width + pbImage.Width;
+            int controlFirstX = this.Width/2 - controlsWidth/2;
+            pbImage.Location = new Point(controlFirstX, (this.Height -pbImage.Height) / 2);
+            lblText.Location = new Point(pbImage.Right, (this.Height - lblText.Height) / 2);
+
+           
+
+           
         }
     }
 }

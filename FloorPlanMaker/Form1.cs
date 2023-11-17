@@ -35,6 +35,8 @@ namespace FloorPlanMaker
         private frmEditDiningAreas _frmEditDiningAreas;
         private frmEditStaff _frmEditStaff;
         private PictureBox loadingScreen = null;
+        ImageLabelControl coversImageLabel = new ImageLabelControl();
+        ImageLabelControl salesImageLabel = new ImageLabelControl();
 
         private System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
 
@@ -471,8 +473,8 @@ namespace FloorPlanMaker
             // Clear any existing controls from the flow layout panel.
             flowSectionSelect.Controls.Clear();
 
-            ImageLabelControl coversImageLabel = new ImageLabelControl(UITheme.covers, "0", (flowSectionSelect.Width/2) - 7, 30);
-            ImageLabelControl salesImageLabel = new ImageLabelControl(UITheme.sales, "$0", (flowSectionSelect.Width/2) - 7, 30);
+            coversImageLabel = new ImageLabelControl(UITheme.covers, "0", (flowSectionSelect.Width/2) - 7, 30);
+            salesImageLabel = new ImageLabelControl(UITheme.sales, "$0", (flowSectionSelect.Width/2) - 7, 30);
             flowSectionSelect.Controls.Add(coversImageLabel);
             flowSectionSelect.Controls.Add(salesImageLabel);
 
@@ -500,7 +502,7 @@ namespace FloorPlanMaker
             }
             if (flowSectionSelect.Controls.Count > 0)
             {
-                Panel firstPanel = (Panel)flowSectionSelect.Controls[4];
+                Panel firstPanel = (Panel)flowSectionSelect.Controls[2];
                 if (firstPanel.Controls.Count > 0)
                 {
                     CheckBox firstSectionCheckBox = (CheckBox)firstPanel.Controls[0];
@@ -1047,16 +1049,16 @@ namespace FloorPlanMaker
 
                 CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
                 UpdateServerControlsForFloorplan();
-                lblServerMaxCovers.Text = shiftManager.SelectedFloorplan.MaxCoversPerServer.ToString("F0");
-                lblServerAverageCovers.Text = shiftManager.SelectedFloorplan.AvgCoversPerServer.ToString("C0");
+                coversImageLabel.UpdateText( shiftManager.SelectedFloorplan.MaxCoversPerServer.ToString("F0"));
+                salesImageLabel.UpdateText( shiftManager.SelectedFloorplan.AvgCoversPerServer.ToString("C0"));
             }
 
             UpdateTableControlSections();
         }
         private void NoServersToDisplay()
         {
-            lblServerMaxCovers.Text = shiftManager.SelectedDiningArea.GetMaxCovers().ToString("F0");
-            lblServerAverageCovers.Text = shiftManager.SelectedDiningArea.GetAverageCovers().ToString("C0");
+            coversImageLabel.UpdateText(shiftManager.SelectedDiningArea.GetMaxCovers().ToString("F0"));
+            salesImageLabel.UpdateText(shiftManager.SelectedDiningArea.GetAverageCovers().ToString("C0"));
 
             PictureBox noSections = new PictureBox
             {
