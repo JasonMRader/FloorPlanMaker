@@ -135,7 +135,7 @@ namespace FloorPlanMaker
 
             return result;
         }
-       
+
         private void UpdateCountLabels()
         {
             Dictionary<DiningArea, int> LastWeekFloorplans = new Dictionary<DiningArea, int>();
@@ -266,7 +266,7 @@ namespace FloorPlanMaker
         private void RefreshFloorplanFlowPanel(IReadOnlyList<Floorplan> floorplans)
         {
             DisableTabStopForControls(this);
-            flowDiningAreaAssignment.Controls.Clear();                      
+            flowDiningAreaAssignment.Controls.Clear();
             infoPanelList.Clear();
             DiningAreaRBs.Clear();
 
@@ -279,7 +279,7 @@ namespace FloorPlanMaker
             int height = 30;
             int floorplanCount = 1;
             bool isChecked = true;
-           
+
             List<Control> flowList = new List<Control>();
 
             foreach (Floorplan fp in floorplans)
@@ -295,12 +295,12 @@ namespace FloorPlanMaker
 
                 RadioButton rb = new RadioButton
                 {
-                    Width = width-8,
+                    Width = width - 8,
                     Height = height,
                     Appearance = Appearance.Button,
                     AutoSize = false,
                     TextAlign = ContentAlignment.MiddleCenter,
-                    Margin = new Padding(4,0,4,0),
+                    Margin = new Padding(4, 0, 4, 0),
                     Font = UITheme.MainFont,
                     FlatStyle = FlatStyle.Flat,
                     BackColor = UITheme.CTAColor,
@@ -355,8 +355,8 @@ namespace FloorPlanMaker
             refreshTabOrder();
 
         }
-        
-       
+
+
         private List<Control> DiningAreaRBs = new List<Control>();
         List<FloorplanInfoControl> infoPanelList = new List<FloorplanInfoControl>();
 
@@ -418,7 +418,7 @@ namespace FloorPlanMaker
                 }
             }
             newShiftManager.SelectedFloorplan.AddServerAndSection(server);
-            
+
             FlowLayoutPanel SelectedTargetPanel = null;
             foreach (Control control in flowDiningAreaAssignment.Controls)
             {
@@ -474,7 +474,7 @@ namespace FloorPlanMaker
                     }
                 }
             }
-            
+
             newShiftManager.SelectedFloorplan.AddServerAndSection(server);
             NewAddServerButtonToFloorplan(newShiftManager.SelectedFloorplan, server);
             RefreshFloorplanCountLabels();
@@ -510,14 +510,14 @@ namespace FloorPlanMaker
             newShiftManager.DateOnly = new DateOnly(dateSelected.Year, dateSelected.Month, dateSelected.Day);
             form1Reference.UpdateForm1ShiftManager(this.newShiftManager);
         }
-      
+
         private void RefreshFloorplanCountLabels()
         {
             foreach (FloorplanInfoControl info in infoPanelList)
             {
-               info.UpdateCurrentLabels();
+                info.UpdateCurrentLabels();
             }
-           
+
 
         }
         private void FloorplanRadioButton_CheckedChanged(object? sender, EventArgs e)
@@ -529,7 +529,7 @@ namespace FloorPlanMaker
                 //cbUnassignedServers.Checked = false;
             }
         }
-        
+
         private void cbIsPM_CheckedChanged(object sender, EventArgs e)
         {
             if (cbIsAM.Checked)

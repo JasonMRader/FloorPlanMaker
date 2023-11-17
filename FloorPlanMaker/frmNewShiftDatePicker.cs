@@ -221,19 +221,19 @@ namespace FloorPlanMakerUI
         }
         private void RefreshForDateSelected()
         {
-           
+
             var relevantFloorplans = allFloorplans
                 .Where(fp => fp.Date.Date == dateSelected && fp.IsLunch == cbIsAm.Checked)
                 .ToList();
             List<DiningArea> diningAreasUsed = new List<DiningArea>();
             List<Server> serverUsed = new List<Server>();
-          
+
             foreach (var fp in relevantFloorplans)
             {
                 diningAreasUsed.Add(fp.DiningArea);
                 serverUsed.AddRange(fp.Servers);
             }
-            foreach(CheckBox cb in flowDiningAreas.Controls)
+            foreach (CheckBox cb in flowDiningAreas.Controls)
             {
                 if (diningAreasUsed.Contains(cb.Tag))
                 {
@@ -244,23 +244,23 @@ namespace FloorPlanMakerUI
                     cb.Checked = false;
                 }
             }
-            foreach(Button btn in flowAllServers.Controls)
+            foreach (Button btn in flowAllServers.Controls)
             {
-                
+
                 if (serverUsed.Contains(btn.Tag))
                 {
                     EventArgs e = new EventArgs();
-                    AddToShift_Click(btn, e); 
-                   
+                    AddToShift_Click(btn, e);
+
                 }
             }
             foreach (Button btn in flowServersOnShift.Controls)
             {
                 if (!serverUsed.Contains(btn.Tag))
                 {
-                    EventArgs e = new EventArgs(); 
-                    RemoveFromShift_Click(btn, e); 
-                   
+                    EventArgs e = new EventArgs();
+                    RemoveFromShift_Click(btn, e);
+
                 }
             }
 
@@ -288,7 +288,7 @@ namespace FloorPlanMakerUI
             }
 
             return result;
-           
+
         }
 
 
@@ -404,6 +404,24 @@ namespace FloorPlanMakerUI
                 cbIsAm.Text = "PM";
             }
             RefreshPreviousFloorplanCounts();
+        }
+
+        private void pbAddPerson_Click(object sender, EventArgs e)
+        {
+            frmAddServer addServerForm = new frmAddServer();
+            addServerForm.StartPosition = FormStartPosition.CenterParent;
+            DialogResult = addServerForm.ShowDialog();
+            if (DialogResult == DialogResult.OK)
+            {
+                foreach(Server server in addServerForm.newServers)
+                {
+                    SqliteDataAccess.SaveNewServer(server);
+                }
+                allServers = SqliteDataAccess.LoadServers();
+                PopulateServersNotOnShift(allServers);
+            }
+            
+            
         }
     }
 }

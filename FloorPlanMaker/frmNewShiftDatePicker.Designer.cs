@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             btnOK = new Button();
             lblIsToday = new Label();
             lblDate = new Label();
@@ -49,10 +50,13 @@
             panel4 = new Panel();
             flowServersOnShift = new FlowLayoutPanel();
             label2 = new Label();
+            pbAddPerson = new PictureBox();
+            toolTip1 = new ToolTip(components);
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
             panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pbAddPerson).BeginInit();
             SuspendLayout();
             // 
             // btnOK
@@ -236,6 +240,7 @@
             // panel3
             // 
             panel3.BackColor = Color.FromArgb(180, 190, 200);
+            panel3.Controls.Add(pbAddPerson);
             panel3.Controls.Add(flowAllServers);
             panel3.Controls.Add(label5);
             panel3.Location = new Point(28, 351);
@@ -246,16 +251,16 @@
             // flowAllServers
             // 
             flowAllServers.BackColor = Color.WhiteSmoke;
-            flowAllServers.Location = new Point(9, 28);
+            flowAllServers.Location = new Point(9, 45);
             flowAllServers.Name = "flowAllServers";
-            flowAllServers.Size = new Size(578, 461);
+            flowAllServers.Size = new Size(578, 444);
             flowAllServers.TabIndex = 1;
             // 
             // label5
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            label5.Location = new Point(228, 0);
+            label5.Location = new Point(228, 14);
             label5.Name = "label5";
             label5.Size = new Size(139, 25);
             label5.TabIndex = 0;
@@ -274,20 +279,33 @@
             // flowServersOnShift
             // 
             flowServersOnShift.BackColor = Color.WhiteSmoke;
-            flowServersOnShift.Location = new Point(3, 28);
+            flowServersOnShift.Location = new Point(3, 45);
             flowServersOnShift.Name = "flowServersOnShift";
-            flowServersOnShift.Size = new Size(584, 461);
+            flowServersOnShift.Size = new Size(584, 444);
             flowServersOnShift.TabIndex = 0;
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            label2.Location = new Point(214, 0);
+            label2.Location = new Point(209, 14);
             label2.Name = "label2";
             label2.Size = new Size(150, 25);
             label2.TabIndex = 0;
             label2.Text = "Servers On Shift";
+            // 
+            // pbAddPerson
+            // 
+            pbAddPerson.BackColor = SystemColors.ButtonShadow;
+            pbAddPerson.Image = Properties.Resources.addPerson;
+            pbAddPerson.Location = new Point(530, 9);
+            pbAddPerson.Name = "pbAddPerson";
+            pbAddPerson.Size = new Size(40, 30);
+            pbAddPerson.SizeMode = PictureBoxSizeMode.Zoom;
+            pbAddPerson.TabIndex = 2;
+            pbAddPerson.TabStop = false;
+            toolTip1.SetToolTip(pbAddPerson, "Add a New Server to Database");
+            pbAddPerson.Click += pbAddPerson_Click;
             // 
             // frmNewShiftDatePicker
             // 
@@ -315,6 +333,7 @@
             panel3.PerformLayout();
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pbAddPerson).EndInit();
             ResumeLayout(false);
         }
 
@@ -341,5 +360,7 @@
         private Label label2;
         private FlowLayoutPanel flowAllServers;
         private FlowLayoutPanel flowServersOnShift;
+        private PictureBox pbAddPerson;
+        private ToolTip toolTip1;
     }
 }

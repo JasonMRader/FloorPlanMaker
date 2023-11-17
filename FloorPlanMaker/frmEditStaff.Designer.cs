@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            btnAddNewServer = new Button();
-            txtNewServerName = new TextBox();
             btnAssignTables = new Button();
             flowDiningAreaAssignment = new FlowLayoutPanel();
             flowUnassignedServers = new FlowLayoutPanel();
@@ -45,27 +43,6 @@
             ((System.ComponentModel.ISupportInitialize)pbForward).BeginInit();
             SuspendLayout();
             // 
-            // btnAddNewServer
-            // 
-            btnAddNewServer.BackColor = Color.FromArgb(158, 171, 222);
-            btnAddNewServer.FlatAppearance.BorderSize = 0;
-            btnAddNewServer.FlatStyle = FlatStyle.Flat;
-            btnAddNewServer.ForeColor = Color.Black;
-            btnAddNewServer.Location = new Point(12, 935);
-            btnAddNewServer.Name = "btnAddNewServer";
-            btnAddNewServer.Size = new Size(165, 23);
-            btnAddNewServer.TabIndex = 1;
-            btnAddNewServer.Text = "Add New Server";
-            btnAddNewServer.UseVisualStyleBackColor = false;
-            btnAddNewServer.Click += btnAddNewServer_Click;
-            // 
-            // txtNewServerName
-            // 
-            txtNewServerName.Location = new Point(12, 903);
-            txtNewServerName.Name = "txtNewServerName";
-            txtNewServerName.Size = new Size(165, 23);
-            txtNewServerName.TabIndex = 2;
-            // 
             // btnAssignTables
             // 
             btnAssignTables.BackColor = Color.FromArgb(100, 130, 180);
@@ -73,9 +50,9 @@
             btnAssignTables.FlatStyle = FlatStyle.Flat;
             btnAssignTables.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
             btnAssignTables.ForeColor = Color.Black;
-            btnAssignTables.Location = new Point(195, 912);
+            btnAssignTables.Location = new Point(25, 912);
             btnAssignTables.Name = "btnAssignTables";
-            btnAssignTables.Size = new Size(1057, 46);
+            btnAssignTables.Size = new Size(1227, 46);
             btnAssignTables.TabIndex = 4;
             btnAssignTables.Text = "Assign Tables";
             btnAssignTables.UseVisualStyleBackColor = false;
@@ -133,9 +110,9 @@
             btnCreateANewShift.FlatStyle = FlatStyle.Flat;
             btnCreateANewShift.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             btnCreateANewShift.ForeColor = Color.Black;
-            btnCreateANewShift.Location = new Point(25, 20);
+            btnCreateANewShift.Location = new Point(25, 15);
             btnCreateANewShift.Name = "btnCreateANewShift";
-            btnCreateANewShift.Size = new Size(352, 33);
+            btnCreateANewShift.Size = new Size(352, 43);
             btnCreateANewShift.TabIndex = 25;
             btnCreateANewShift.Text = "Edit / Create Shifts";
             btnCreateANewShift.UseVisualStyleBackColor = false;
@@ -161,9 +138,9 @@
             // pbBack
             // 
             pbBack.Image = FloorPlanMakerUI.Properties.Resources.back;
-            pbBack.Location = new Point(429, 10);
+            pbBack.Location = new Point(429, 15);
             pbBack.Name = "pbBack";
-            pbBack.Size = new Size(55, 50);
+            pbBack.Size = new Size(55, 43);
             pbBack.SizeMode = PictureBoxSizeMode.Zoom;
             pbBack.TabIndex = 28;
             pbBack.TabStop = false;
@@ -172,9 +149,9 @@
             // pbForward
             // 
             pbForward.Image = FloorPlanMakerUI.Properties.Resources.forward;
-            pbForward.Location = new Point(1168, 13);
+            pbForward.Location = new Point(1168, 15);
             pbForward.Name = "pbForward";
-            pbForward.Size = new Size(55, 47);
+            pbForward.Size = new Size(55, 43);
             pbForward.SizeMode = PictureBoxSizeMode.Zoom;
             pbForward.TabIndex = 28;
             pbForward.TabStop = false;
@@ -193,8 +170,6 @@
             Controls.Add(lblShiftDate);
             Controls.Add(flowDiningAreaAssignment);
             Controls.Add(btnAssignTables);
-            Controls.Add(txtNewServerName);
-            Controls.Add(btnAddNewServer);
             Controls.Add(panel1);
             Controls.Add(panel2);
             ForeColor = Color.White;
@@ -210,12 +185,9 @@
             ((System.ComponentModel.ISupportInitialize)pbBack).EndInit();
             ((System.ComponentModel.ISupportInitialize)pbForward).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
-        private Button btnAddNewServer;
-        private TextBox txtNewServerName;
         private Button btnAssignTables;
         private FlowLayoutPanel flowDiningAreaAssignment;
         private FlowLayoutPanel flowUnassignedServers;
