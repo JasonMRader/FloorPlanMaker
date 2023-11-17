@@ -153,20 +153,20 @@ namespace FloorPlanMaker
             {
                 if (lbl.Tag is DiningArea area)
                 {
-                    string yesterdayText = "Yesterday: N/A";
-                    string lastWeekText = "Last Week: N/A";
+                    string yesterdayText = "0";
+                    string lastWeekText = "0";
 
                     if (yesterdayCounts.TryGetValue(area, out int yesterdayCount))
                     {
-                        yesterdayText = $"Yesterday: {yesterdayCount}";
+                        yesterdayText = $"{yesterdayCount}";
                     }
 
                     if (LastWeekFloorplans.TryGetValue(area, out int lastWeekCount))
                     {
-                        lastWeekText = $"Last Week: {lastWeekCount}";
+                        lastWeekText = $"{lastWeekCount}";
                     }
 
-                    lbl.Text = $" {yesterdayText} \n {lastWeekText}";
+                    lbl.Text = $" {yesterdayText}      |     {lastWeekText}";
                 }
             }
         }
@@ -270,6 +270,7 @@ namespace FloorPlanMaker
             ServerCountLabels.Clear();
             PastStaffLevelLabels.Clear();
             DiningAreaRBs.Clear();
+            List<Panel> infoPanelList = new List<Panel>();
 
             int selectedCount = floorplans.Count;
             if (selectedCount == 0)
@@ -284,7 +285,15 @@ namespace FloorPlanMaker
 
             foreach (Floorplan fp in floorplans)
             {
-
+                Panel panel = new Panel
+                {
+                    Width = width,
+                    Height = 60,
+                    Padding = new Padding(4,0,0,0),
+                    BackColor = UITheme.CanvasColor,
+                    Tag = fp
+                };
+                infoPanelList.Add(panel);
 
                 RadioButton rb = new RadioButton
                 {
@@ -315,8 +324,9 @@ namespace FloorPlanMaker
                     AutoSize = false,
                     Width = width - 8,
                     Height = 20,
-                    Margin = new Padding(4),
-                    Text = "Servers: " + fp.Servers.Count.ToString(),
+                    Margin = new Padding(4, 0, 4, 0),
+                    BackColor = UITheme.CTAColor,
+                    Text = fp.Servers.Count.ToString(),
                     TextAlign = ContentAlignment.MiddleCenter,
                     Font = new Font("Segoe UI", 12f, FontStyle.Bold),
                     Tag = fp
@@ -327,8 +337,9 @@ namespace FloorPlanMaker
                     AutoSize = false,
                     Width = (width - 8),
                     Height = 20,
-                    Margin = new Padding(4),
-                    Text = "Max: " + fp.DiningArea.GetMaxCovers().ToString() + "  Avg: " + Section.FormatAsCurrencyWithoutParentheses(fp.DiningArea.GetAverageCovers()),//.ToString(),
+                    BackColor = UITheme.ButtonColor,
+                    Margin = new Padding(4, 0, 4, 0),
+                    Text =  fp.DiningArea.GetMaxCovers().ToString() + "  |  " + Section.FormatAsCurrencyWithoutParentheses(fp.DiningArea.GetAverageCovers()),//.ToString(),
                     TextAlign = ContentAlignment.MiddleCenter,
                     Font = new Font("Segoe UI", 12f, FontStyle.Bold),
                     Tag = fp
@@ -340,8 +351,9 @@ namespace FloorPlanMaker
                     Width = (width - 8),
                     Height = 35,
                     Dock = DockStyle.Top,
-                    Margin = new Padding(4),
-                    Text = "Yesterday: " + fp.DiningArea.Name + "\n" + "Last Week: " + fp.DiningArea.Name,
+                    BackColor = UITheme.SecondColor,
+                    Margin = new Padding(4, 0, 4, 0),
+                    //Text = "Yesterday: " + fp.DiningArea.Name + "Last Week: " + fp.DiningArea.Name,
                     TextAlign = ContentAlignment.MiddleCenter,
                     Font = new Font("Segoe UI", 10f, FontStyle.Bold),
                     Tag = fp.DiningArea
@@ -369,11 +381,15 @@ namespace FloorPlanMaker
                 }
 
             }
+            foreach (Control c in infoPanelList)
+            {
+                flowDiningAreaAssignment.Controls.Add((Control)c);
+            }
             foreach (Control c in PastStaffLevelLabels)
             {
                 flowDiningAreaAssignment.Controls.Add((Control)c);
             }
-            
+
             foreach (Control c in ServerCountLabels)
             {
                 flowDiningAreaAssignment.Controls.Add((Control)c);
@@ -580,7 +596,7 @@ namespace FloorPlanMaker
                 {
                     if (fpCountLabel.Tag is Floorplan fp)
                     {
-                        fpCountLabel.Text = "Servers: " + fp.Servers.Count.ToString();
+                        fpCountLabel.Text = fp.Servers.Count.ToString();
                     }
                 }
             }
@@ -592,12 +608,12 @@ namespace FloorPlanMaker
                     {
                         if (fp.Servers.Count > 0)
                         {
-                            fpMaxLabel.Text = "Max: " + (fp.DiningArea.GetMaxCovers() / fp.Servers.Count).ToString("F1")
-                                + "  Avg: " + Section.FormatAsCurrencyWithoutParentheses((fp.DiningArea.GetAverageCovers() / fp.Servers.Count));
+                            fpMaxLabel.Text = (fp.DiningArea.GetMaxCovers() / fp.Servers.Count).ToString("F0")
+                                + Section.FormatAsCurrencyWithoutParentheses((fp.DiningArea.GetAverageCovers() / fp.Servers.Count));
                         }
                         else
                         {
-                            fpMaxLabel.Text = "Max: " + fp.DiningArea.GetMaxCovers().ToString() + "  Avg: " + Section.FormatAsCurrencyWithoutParentheses(fp.DiningArea.GetAverageCovers());
+                            fpMaxLabel.Text = fp.DiningArea.GetMaxCovers().ToString() + Section.FormatAsCurrencyWithoutParentheses(fp.DiningArea.GetAverageCovers());
                         }
                     }
                 }

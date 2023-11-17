@@ -37,8 +37,8 @@ namespace FloorPlanMaker
         private PictureBox loadingScreen = null;
 
         private System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
-        
-        
+
+
         private SectionControlsManager sectionControlsManager { get; set; }
         private void SetColors()
         {
@@ -95,7 +95,7 @@ namespace FloorPlanMaker
 
         private void MoveToNextSection()
         {
-            if(shiftManager.SelectedFloorplan == null) { return; }
+            if (shiftManager.SelectedFloorplan == null) { return; }
             var sections = shiftManager.SelectedFloorplan.Sections;
 
             if (currentFocusedSectionIndex == null)
@@ -111,13 +111,13 @@ namespace FloorPlanMaker
             }
 
             SelectSection(currentFocusedSectionIndex); // Imp
-           
+
 
         }
 
         private void SelectSection(int sectionNumber)
         {
-            
+
             shiftManager.SectionSelected = shiftManager.SelectedFloorplan.Sections.Where(s => s.Number == sectionNumber).FirstOrDefault();
             foreach (Control c in flowSectionSelect.Controls)
             {
@@ -146,7 +146,7 @@ namespace FloorPlanMaker
                 }
             }
             FillInTableControlColors();
-            
+
         }
         public void UpdateForm1ShiftManager(ShiftManager shiftManagerToAdd)
         {
@@ -185,7 +185,7 @@ namespace FloorPlanMaker
 
             //pnlFloorPlan.KeyPreview = true;
         }
-       
+
 
 
         private void PnlFloorplan_Paint(object sender, PaintEventArgs e)
@@ -423,14 +423,14 @@ namespace FloorPlanMaker
         {
             ServerControl serverControl = (ServerControl)sender;
             Server server = serverControl.Server;
-           if(shiftManager.SectionSelected.Server == null)
+            if (shiftManager.SectionSelected.Server == null)
             {
-                shiftManager.SectionSelected.Server = server;                
-              
+                shiftManager.SectionSelected.Server = server;
+
             }
-           foreach(SectionControl sc in sectionControlsManager.SectionControls)
+            foreach (SectionControl sc in sectionControlsManager.SectionControls)
             {
-                if(sc.Section == shiftManager.SectionSelected)
+                if (sc.Section == shiftManager.SectionSelected)
                 {
                     sc.UpdateLabel();
                 }
@@ -444,10 +444,10 @@ namespace FloorPlanMaker
         private List<CheckBox> selectedSectionButtons = new List<CheckBox>();
         private CheckBox selectedCloserButton;
         private CheckBox selectedPreCloserButton;
-        
+
         private void CreateSectionRadioButtons(List<Section> sections)
         {
-            if(loadingScreen == null)
+            if (loadingScreen == null)
             {
                 loadingScreen = UITheme.GetPictureBox(Resources.Loading, flowSectionSelect.Width, flowSectionSelect.Height);
                 this.Controls.Add(loadingScreen);
@@ -457,16 +457,16 @@ namespace FloorPlanMaker
             }
             else
             {
-                loadingScreen.Visible = true; 
+                loadingScreen.Visible = true;
             }
-            timer.Interval = 300; 
+            timer.Interval = 300;
             timer.Tick += (sender, e) =>
-            {               
-                loadingScreen.Visible = false;                                            
-                timer.Stop(); 
+            {
+                loadingScreen.Visible = false;
+                timer.Stop();
             };
-            timer.Start(); 
-            
+            timer.Start();
+
             // Clear any existing controls from the flow layout panel.
             flowSectionSelect.Controls.Clear();
             flowSectionSelect.Controls.Add(lblServerMaxCovers);
@@ -507,108 +507,108 @@ namespace FloorPlanMaker
             };
             btnAddPickup.Click += btnAddPickupSection_Click;
             flowSectionSelect.Controls.Add(btnAddPickup);
-            flowSectionSelect.Controls.SetChildIndex(lblServerMaxCovers,0);
+            flowSectionSelect.Controls.SetChildIndex(lblServerMaxCovers, 0);
             flowSectionSelect.Controls.SetChildIndex(lblServerAverageCovers, 1);
             SelectSection(1);
-            
+
 
 
         }
         private void CreateOneSectionPanel(Section section)
         {
-                // Create a RadioButton for each section.
-                CheckBox rbSection = new CheckBox
-                {
-                    Appearance = Appearance.Button,
-                    FlatStyle = FlatStyle.Flat,
-                    BackColor = section.Color,
-                    ForeColor = section.FontColor,
-                    //MaximumSize = new Size(55,25),
-                    AutoSize = false,
-                    Size = new Size(100, 25),
-                    Text = section.Name,
-                    Tag = section  // Store the section object in the Tag property for easy access in the event handler.
-                };
-                rbSection.FlatAppearance.BorderSize = 0;
-                rbSection.CheckedChanged += Rb_CheckedChanged;
-                selectedSectionButtons.Add(rbSection);
+            // Create a RadioButton for each section.
+            CheckBox rbSection = new CheckBox
+            {
+                Appearance = Appearance.Button,
+                FlatStyle = FlatStyle.Flat,
+                BackColor = section.Color,
+                ForeColor = section.FontColor,
+                //MaximumSize = new Size(55,25),
+                AutoSize = false,
+                Size = new Size(100, 25),
+                Text = section.Name,
+                Tag = section  // Store the section object in the Tag property for easy access in the event handler.
+            };
+            rbSection.FlatAppearance.BorderSize = 0;
+            rbSection.CheckedChanged += Rb_CheckedChanged;
+            selectedSectionButtons.Add(rbSection);
 
-                // Create two labels for each section.
-                Label lblMaxCovers = new Label
-                {
-                    Text = (section.MaxCovers - shiftManager.SelectedFloorplan.MaxCoversPerServer).ToString("F0"),
-                    AutoSize = false,
-                    Size = new Size(65, 25),
-                    Font = UITheme.MainFont,
-                    TextAlign = ContentAlignment.TopCenter,
-                    Margin = new Padding(0, 3, 0, 3)
+            // Create two labels for each section.
+            Label lblMaxCovers = new Label
+            {
+                Text = (section.MaxCovers - shiftManager.SelectedFloorplan.MaxCoversPerServer).ToString("F0"),
+                AutoSize = false,
+                Size = new Size(65, 25),
+                Font = UITheme.MainFont,
+                TextAlign = ContentAlignment.TopCenter,
+                Margin = new Padding(0, 3, 0, 3)
 
-                };
+            };
 
-                Label lblAverageCovers = new Label
-                {
-                    Text = Section.FormatAsCurrencyWithoutParentheses(section.AverageCovers - shiftManager.SelectedFloorplan.AvgCoversPerServer), //(section.AverageCovers - shiftManager.SelectedFloorplan.AvgCoversPerServer).ToString("C0;\\-C0", CultureInfo.CurrentCulture),
-                    AutoSize = true,
-                    Size = new Size(65, 25),
-                    Font = UITheme.MainFont,
-                    TextAlign = ContentAlignment.TopCenter,
-                    Margin = new Padding(0, 3, 0, 3)
+            Label lblAverageCovers = new Label
+            {
+                Text = Section.FormatAsCurrencyWithoutParentheses(section.AverageCovers - shiftManager.SelectedFloorplan.AvgCoversPerServer), //(section.AverageCovers - shiftManager.SelectedFloorplan.AvgCoversPerServer).ToString("C0;\\-C0", CultureInfo.CurrentCulture),
+                AutoSize = true,
+                Size = new Size(65, 25),
+                Font = UITheme.MainFont,
+                TextAlign = ContentAlignment.TopCenter,
+                Margin = new Padding(0, 3, 0, 3)
 
-                };
+            };
 
-                PictureBox cbTeamWait = new PictureBox
-                {
+            PictureBox cbTeamWait = new PictureBox
+            {
 
-                    Size = new Size(40, 25),
-                    Image = Resources.person,
-                    SizeMode = PictureBoxSizeMode.StretchImage,
-                    Margin = new Padding(0),
-                    Tag = section,
-                    BackColor = UITheme.CTAColor
-                };
-                cbTeamWait.Click += SectionTeamWait_Click;
+                Size = new Size(40, 25),
+                Image = Resources.person,
+                SizeMode = PictureBoxSizeMode.StretchImage,
+                Margin = new Padding(0),
+                Tag = section,
+                BackColor = UITheme.CTAColor
+            };
+            cbTeamWait.Click += SectionTeamWait_Click;
 
-                PictureBox deleteSectionPB = new PictureBox
-                {
+            PictureBox deleteSectionPB = new PictureBox
+            {
 
-                    Size = new Size(40, 25),
-                    Image = Resources.erase,
-                    SizeMode = PictureBoxSizeMode.StretchImage,
-                    Margin = new Padding(0),
-                    Tag = section,
-                    BackColor = UITheme.NoColor
-                };
-                deleteSectionPB.Click += DeleteSection_Click;
+                Size = new Size(40, 25),
+                Image = Resources.erase,
+                SizeMode = PictureBoxSizeMode.StretchImage,
+                Margin = new Padding(0),
+                Tag = section,
+                BackColor = UITheme.NoColor
+            };
+            deleteSectionPB.Click += DeleteSection_Click;
 
-                Panel sectionPanel = new Panel();
-                sectionPanel.Tag = section;
-                sectionPanel.AllowDrop = true;
-                sectionPanel.BackColor = Color.SlateGray;
+            Panel sectionPanel = new Panel();
+            sectionPanel.Tag = section;
+            sectionPanel.AllowDrop = true;
+            sectionPanel.BackColor = Color.SlateGray;
 
-                // Attach drag-drop event handlers
-
-
-
-                sectionPanel.Controls.Add(rbSection);
-                sectionPanel.Controls.Add(lblMaxCovers);
-                sectionPanel.Controls.Add(lblAverageCovers);
-                sectionPanel.Controls.Add(cbTeamWait);
-                sectionPanel.Controls.Add(deleteSectionPB);
-                //sectionPanel.Controls.Add(rbPrecloser);
-                //panel.Controls.Add(rbNeither);
+            // Attach drag-drop event handlers
 
 
-                //rbSection.Location = new System.Drawing.Point(5, 5); // You can adjust these coordinates as needed.
-                rbSection.Dock = DockStyle.Left;
-                lblMaxCovers.Location = new System.Drawing.Point(rbSection.Right + 5, 5);
-                lblAverageCovers.Location = new System.Drawing.Point(lblMaxCovers.Right + 5, 5);
-                //cbTeamWait.Location = new System.Drawing.Point(lblAverageCovers.Right + 5, 5);
-                cbTeamWait.Dock = DockStyle.Right;
-                deleteSectionPB.Dock = DockStyle.Right;
-                sectionPanel.Size = new Size(flowSectionSelect.Width - 10, lblAverageCovers.Height + 10);
-                sectionLabels[section] = (lblMaxCovers, lblAverageCovers);
 
-                flowSectionSelect.Controls.Add(sectionPanel);
+            sectionPanel.Controls.Add(rbSection);
+            sectionPanel.Controls.Add(lblMaxCovers);
+            sectionPanel.Controls.Add(lblAverageCovers);
+            sectionPanel.Controls.Add(cbTeamWait);
+            sectionPanel.Controls.Add(deleteSectionPB);
+            //sectionPanel.Controls.Add(rbPrecloser);
+            //panel.Controls.Add(rbNeither);
+
+
+            //rbSection.Location = new System.Drawing.Point(5, 5); // You can adjust these coordinates as needed.
+            rbSection.Dock = DockStyle.Left;
+            lblMaxCovers.Location = new System.Drawing.Point(rbSection.Right + 5, 5);
+            lblAverageCovers.Location = new System.Drawing.Point(lblMaxCovers.Right + 5, 5);
+            //cbTeamWait.Location = new System.Drawing.Point(lblAverageCovers.Right + 5, 5);
+            cbTeamWait.Dock = DockStyle.Right;
+            deleteSectionPB.Dock = DockStyle.Right;
+            sectionPanel.Size = new Size(flowSectionSelect.Width - 10, lblAverageCovers.Height + 10);
+            sectionLabels[section] = (lblMaxCovers, lblAverageCovers);
+
+            flowSectionSelect.Controls.Add(sectionPanel);
             int secondToLastIndex = flowSectionSelect.Controls.Count - 2; // -2 because Count is always 1 more than the last index
 
             // Check if there are enough controls to move the new one
@@ -626,20 +626,20 @@ namespace FloorPlanMaker
             Section selectedSection = pb.Tag as Section;
             if (selectedSection != null)
             {
-                DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete this section?", 
+                DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete this section?",
                     "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (dialogResult == DialogResult.Yes)
                 {
                     shiftManager.SelectedFloorplan.UnassignSection(selectedSection);
                     UpdateTableControlSections();
-                    
+
                 }
                 else if (dialogResult == DialogResult.No)
                 {
                     return;
                 }
             }
-            
+
         }
 
         private void SectionTeamWait_Click(object sender, EventArgs e)
@@ -648,10 +648,10 @@ namespace FloorPlanMaker
             if (pb != null)
             {
                 Section selectedSection = pb.Tag as Section;
-              
+
                 if (!selectedSection.IsTeamWait)
                 {
-                    
+
                     //pb.BackColor = AppColors.NoColor;
                     Section sectionRemoved = shiftManager.SelectedFloorplan.RemoveHighestNumberedEmptySection();
                     if (sectionRemoved == null)
@@ -664,7 +664,7 @@ namespace FloorPlanMaker
                         pb.Image = Resources.people;
                         RemoveSectionPanel(sectionRemoved);
                     }
-                   
+
                 }
                 else
                 {
@@ -695,9 +695,9 @@ namespace FloorPlanMaker
         }
         private void RemoveSectionPanel(Section section)
         {
-            foreach(Control c in flowSectionSelect.Controls)
+            foreach (Control c in flowSectionSelect.Controls)
             {
-                if(c is Panel panel && c.Tag == section)
+                if (c is Panel panel && c.Tag == section)
                 {
                     flowSectionSelect.Controls.Remove(c);
                 }
@@ -722,14 +722,14 @@ namespace FloorPlanMaker
             float avgDifference = newAverageCoversValue - shiftManager.SelectedFloorplan.AvgCoversPerServer;
             if (section.IsTeamWait)
             {
-                maxDifference= newMaxCoversValue - (shiftManager.SelectedFloorplan.MaxCoversPerServer * 2);
+                maxDifference = newMaxCoversValue - (shiftManager.SelectedFloorplan.MaxCoversPerServer * 2);
                 avgDifference = newAverageCoversValue - (shiftManager.SelectedFloorplan.AvgCoversPerServer * 2);
             }
             if (sectionLabels.ContainsKey(section))
             {
-                sectionLabels[section].MaxCoversLabel.Text =  maxDifference.ToString("F0");
+                sectionLabels[section].MaxCoversLabel.Text = maxDifference.ToString("F0");
 
-                sectionLabels[section].AverageCoversLabel.Text =  Section.FormatAsCurrencyWithoutParentheses(avgDifference);// avgDifference.ToString("C0;\\-C0", CultureInfo.CurrentCulture);
+                sectionLabels[section].AverageCoversLabel.Text = Section.FormatAsCurrencyWithoutParentheses(avgDifference);// avgDifference.ToString("C0;\\-C0", CultureInfo.CurrentCulture);
 
             }
         }
@@ -983,7 +983,7 @@ namespace FloorPlanMaker
                                 {
                                     tableControl.BackColor = section.MuteColor(1.35f);
                                 }
-                                
+
                                 //tableControl.ForeColor = section.FontColor;
                                 tableControl.Invalidate();
                                 break;
@@ -1047,16 +1047,16 @@ namespace FloorPlanMaker
             {
                 Image = Resources._no_data_Lighter,
                 SizeMode = PictureBoxSizeMode.Zoom,
-                Size = new System.Drawing.Size(flowSectionSelect.Width-50, flowSectionSelect.Height-300),
-                Margin = new Padding(35,0, 0, 0)
+                Size = new System.Drawing.Size(flowSectionSelect.Width - 50, flowSectionSelect.Height - 300),
+                Margin = new Padding(35, 0, 0, 0)
 
             };
             PictureBox noServers = new PictureBox
             {
                 Image = Resources._no_data_Lighter,
                 SizeMode = PictureBoxSizeMode.StretchImage,
-                Size = new System.Drawing.Size(flowServersInFloorplan.Width-50,flowServersInFloorplan.Height-300),
-                Margin = new Padding(35,0, 0, 0)
+                Size = new System.Drawing.Size(flowServersInFloorplan.Width - 50, flowServersInFloorplan.Height - 300),
+                Margin = new Padding(35, 0, 0, 0)
 
 
             };
@@ -1160,7 +1160,13 @@ namespace FloorPlanMaker
             //sectionLineManager.RemoveBottomLines(pnlFloorPlan);
             //sectionLineManager.RemoveRightLines(pnlFloorPlan);
             //sectionLineManager.DrawSeparationLines(pnlFloorPlan);
-            sectionLineManager.AddSectionNodes(pnlFloorPlan);
+
+
+            //sectionLineManager.AddSectionNodes(pnlFloorPlan);
+            flowServersInFloorplan.Controls.Clear();
+            FloorplanInfoControl fpInfo = new FloorplanInfoControl(shiftManager.SelectedFloorplan, flowServersInFloorplan.Width);
+            fpInfo.UpdatePastLabels(8, 4);
+            flowServersInFloorplan.Controls.Add(fpInfo);
 
         }
         private void btnTest2_Click(object sender, EventArgs e)

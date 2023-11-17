@@ -241,7 +241,6 @@ namespace FloorPlanMaker
             btnTest.TabIndex = 12;
             btnTest.Text = "1";
             btnTest.UseVisualStyleBackColor = true;
-            btnTest.Visible = false;
             btnTest.Click += btnTest_Click;
             // 
             // pnlFloorPlan

@@ -40,6 +40,10 @@
             panel2 = new Panel();
             pbBack = new PictureBox();
             pbForward = new PictureBox();
+            label1 = new Label();
+            label3 = new Label();
+            label5 = new Label();
+            label6 = new Label();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pbBack).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbForward).BeginInit();
@@ -68,9 +72,10 @@
             // 
             // btnAssignTables
             // 
-            btnAssignTables.BackColor = Color.FromArgb(158, 171, 222);
+            btnAssignTables.BackColor = Color.FromArgb(100, 130, 180);
             btnAssignTables.FlatAppearance.BorderSize = 0;
             btnAssignTables.FlatStyle = FlatStyle.Flat;
+            btnAssignTables.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
             btnAssignTables.ForeColor = Color.Black;
             btnAssignTables.Location = new Point(195, 912);
             btnAssignTables.Name = "btnAssignTables";
@@ -82,28 +87,28 @@
             // 
             // flowDiningAreaAssignment
             // 
-            flowDiningAreaAssignment.BackColor = Color.WhiteSmoke;
-            flowDiningAreaAssignment.Location = new Point(429, 83);
+            flowDiningAreaAssignment.BackColor = Color.FromArgb(180, 190, 200);
+            flowDiningAreaAssignment.Location = new Point(429, 113);
             flowDiningAreaAssignment.Name = "flowDiningAreaAssignment";
-            flowDiningAreaAssignment.Size = new Size(794, 798);
+            flowDiningAreaAssignment.Size = new Size(794, 768);
             flowDiningAreaAssignment.TabIndex = 10;
             // 
             // flowUnassignedServers
             // 
             flowUnassignedServers.AutoScroll = true;
             flowUnassignedServers.BackColor = Color.WhiteSmoke;
-            flowUnassignedServers.Location = new Point(19, 18);
+            flowUnassignedServers.Location = new Point(17, 15);
             flowUnassignedServers.Name = "flowUnassignedServers";
-            flowUnassignedServers.Size = new Size(313, 796);
+            flowUnassignedServers.Size = new Size(313, 768);
             flowUnassignedServers.TabIndex = 11;
             // 
             // lblShiftDate
             // 
             lblShiftDate.Font = new Font("Segoe UI", 21.75F, FontStyle.Bold, GraphicsUnit.Point);
             lblShiftDate.ForeColor = Color.Black;
-            lblShiftDate.Location = new Point(497, 17);
+            lblShiftDate.Location = new Point(650, 37);
             lblShiftDate.Name = "lblShiftDate";
-            lblShiftDate.Size = new Size(478, 39);
+            lblShiftDate.Size = new Size(406, 39);
             lblShiftDate.TabIndex = 16;
             lblShiftDate.Text = "Date";
             lblShiftDate.TextAlign = ContentAlignment.MiddleCenter;
@@ -116,7 +121,7 @@
             cbIsAM.FlatStyle = FlatStyle.Flat;
             cbIsAM.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             cbIsAM.ForeColor = Color.Black;
-            cbIsAM.Location = new Point(1144, 17);
+            cbIsAM.Location = new Point(1062, 37);
             cbIsAM.Name = "cbIsAM";
             cbIsAM.Size = new Size(79, 39);
             cbIsAM.TabIndex = 19;
@@ -127,41 +132,42 @@
             // 
             // btnCreateANewShift
             // 
+            btnCreateANewShift.BackColor = Color.FromArgb(100, 130, 180);
             btnCreateANewShift.FlatAppearance.BorderSize = 0;
             btnCreateANewShift.FlatStyle = FlatStyle.Flat;
             btnCreateANewShift.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             btnCreateANewShift.ForeColor = Color.Black;
-            btnCreateANewShift.Location = new Point(25, 23);
+            btnCreateANewShift.Location = new Point(25, 44);
             btnCreateANewShift.Name = "btnCreateANewShift";
             btnCreateANewShift.Size = new Size(352, 33);
             btnCreateANewShift.TabIndex = 25;
             btnCreateANewShift.Text = "Edit / Create Shifts";
-            btnCreateANewShift.UseVisualStyleBackColor = true;
+            btnCreateANewShift.UseVisualStyleBackColor = false;
             btnCreateANewShift.Click += btnCreateANewShift_Click;
             // 
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(180, 190, 200);
             panel1.Controls.Add(flowUnassignedServers);
-            panel1.Location = new Point(25, 67);
+            panel1.Location = new Point(25, 98);
             panel1.Name = "panel1";
-            panel1.Size = new Size(352, 830);
+            panel1.Size = new Size(352, 799);
             panel1.TabIndex = 26;
             // 
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(180, 190, 200);
-            panel2.Location = new Point(409, 67);
+            panel2.Location = new Point(409, 98);
             panel2.Name = "panel2";
-            panel2.Size = new Size(833, 830);
+            panel2.Size = new Size(833, 799);
             panel2.TabIndex = 27;
             // 
             // pbBack
             // 
             pbBack.Image = FloorPlanMakerUI.Properties.Resources.back;
-            pbBack.Location = new Point(409, 17);
+            pbBack.Location = new Point(576, 17);
             pbBack.Name = "pbBack";
-            pbBack.Size = new Size(55, 39);
+            pbBack.Size = new Size(55, 78);
             pbBack.SizeMode = PictureBoxSizeMode.Zoom;
             pbBack.TabIndex = 28;
             pbBack.TabStop = false;
@@ -170,13 +176,61 @@
             // pbForward
             // 
             pbForward.Image = FloorPlanMakerUI.Properties.Resources.forward;
-            pbForward.Location = new Point(1012, 17);
+            pbForward.Location = new Point(1168, 17);
             pbForward.Name = "pbForward";
-            pbForward.Size = new Size(55, 39);
+            pbForward.Size = new Size(55, 75);
             pbForward.SizeMode = PictureBoxSizeMode.Zoom;
             pbForward.TabIndex = 28;
             pbForward.TabStop = false;
             pbForward.Click += btnDateUp_Click;
+            // 
+            // label1
+            // 
+            label1.BackColor = Color.FromArgb(180, 190, 200);
+            label1.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label1.ForeColor = Color.Black;
+            label1.Location = new Point(409, 17);
+            label1.Name = "label1";
+            label1.Size = new Size(154, 20);
+            label1.TabIndex = 29;
+            label1.Text = "Yesterday  |  Last Week";
+            label1.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label3
+            // 
+            label3.BackColor = Color.FromArgb(100, 130, 180);
+            label3.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label3.ForeColor = Color.White;
+            label3.Location = new Point(409, 40);
+            label3.Name = "label3";
+            label3.Size = new Size(154, 20);
+            label3.TabIndex = 29;
+            label3.Text = "Current Server Count";
+            label3.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label5
+            // 
+            label5.BackColor = SystemColors.ButtonShadow;
+            label5.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label5.ForeColor = Color.Black;
+            label5.Location = new Point(409, 64);
+            label5.Name = "label5";
+            label5.Size = new Size(77, 31);
+            label5.TabIndex = 29;
+            label5.Text = "Sales per Server";
+            label5.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label6
+            // 
+            label6.BackColor = SystemColors.ButtonShadow;
+            label6.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label6.ForeColor = Color.Black;
+            label6.Location = new Point(486, 64);
+            label6.Name = "label6";
+            label6.Size = new Size(77, 31);
+            label6.TabIndex = 30;
+            label6.Text = "Covers per Server";
+            label6.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // frmEditStaff
             // 
@@ -184,6 +238,10 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.WhiteSmoke;
             ClientSize = new Size(1264, 967);
+            Controls.Add(label6);
+            Controls.Add(label5);
+            Controls.Add(label3);
+            Controls.Add(label1);
             Controls.Add(pbForward);
             Controls.Add(pbBack);
             Controls.Add(btnCreateANewShift);
@@ -224,5 +282,9 @@
         private Panel panel2;
         private PictureBox pbBack;
         private PictureBox pbForward;
+        private Label label1;
+        private Label label3;
+        private Label label5;
+        private Label label6;
     }
 }
