@@ -62,7 +62,8 @@ namespace FloorPlanMaker
             //AppColors.FormatSecondColor(lblSalesPerServerText);
             UITheme.FormatSecondColor(lblServerAverageCovers);
             UITheme.FormatSecondColor(lblServerMaxCovers);
-
+            UITheme.FormatSecondColor(picBxCovers);
+            UITheme.FormatSecondColor(picBxSales);
             //lblCoversPerServerText.Font = AppColors.MainFont;
             //lblSalesPerServerText.Font = AppColors.MainFont;
             lblServerAverageCovers.Font = UITheme.LargeFont;
@@ -469,10 +470,15 @@ namespace FloorPlanMaker
 
             // Clear any existing controls from the flow layout panel.
             flowSectionSelect.Controls.Clear();
+            picBxCovers.Image = UITheme.covers;
+            flowSectionSelect.Controls.Add(picBxCovers);
             flowSectionSelect.Controls.Add(lblServerMaxCovers);
+
+            picBxSales.Image = UITheme.sales;
+            flowSectionSelect.Controls.Add(picBxSales);
             flowSectionSelect.Controls.Add(lblServerAverageCovers);
-            lblServerMaxCovers.Width = flowSectionSelect.Width - 6;
-            lblServerAverageCovers.Width = flowSectionSelect.Width - 6;
+            lblServerMaxCovers.Width = (flowSectionSelect.Width / 2) - 20;
+            lblServerAverageCovers.Width = (flowSectionSelect.Width / 2) - 20;
             if (sections.Count == 0)
             {
                 NoServersToDisplay();
@@ -488,7 +494,7 @@ namespace FloorPlanMaker
             }
             if (flowSectionSelect.Controls.Count > 0)
             {
-                Panel firstPanel = (Panel)flowSectionSelect.Controls[2];
+                Panel firstPanel = (Panel)flowSectionSelect.Controls[4];
                 if (firstPanel.Controls.Count > 0)
                 {
                     CheckBox firstSectionCheckBox = (CheckBox)firstPanel.Controls[0];
@@ -507,8 +513,8 @@ namespace FloorPlanMaker
             };
             btnAddPickup.Click += btnAddPickupSection_Click;
             flowSectionSelect.Controls.Add(btnAddPickup);
-            flowSectionSelect.Controls.SetChildIndex(lblServerMaxCovers, 0);
-            flowSectionSelect.Controls.SetChildIndex(lblServerAverageCovers, 1);
+            flowSectionSelect.Controls.SetChildIndex(lblServerMaxCovers, 1);
+            flowSectionSelect.Controls.SetChildIndex(lblServerAverageCovers, 3);
             SelectSection(1);
 
 
@@ -1032,16 +1038,16 @@ namespace FloorPlanMaker
 
                 CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
                 UpdateServerControlsForFloorplan();
-                lblServerMaxCovers.Text = "Covers Each: " + shiftManager.SelectedFloorplan.MaxCoversPerServer.ToString("F0");
-                lblServerAverageCovers.Text = "Sales Each: " + shiftManager.SelectedFloorplan.AvgCoversPerServer.ToString("C0");
+                lblServerMaxCovers.Text = shiftManager.SelectedFloorplan.MaxCoversPerServer.ToString("F0");
+                lblServerAverageCovers.Text = shiftManager.SelectedFloorplan.AvgCoversPerServer.ToString("C0");
             }
 
             UpdateTableControlSections();
         }
         private void NoServersToDisplay()
         {
-            lblServerMaxCovers.Text = "Covers Each: " + shiftManager.SelectedDiningArea.GetMaxCovers().ToString("F0");
-            lblServerAverageCovers.Text = "Sales Each: " + shiftManager.SelectedDiningArea.GetAverageCovers().ToString("C0");
+            lblServerMaxCovers.Text = shiftManager.SelectedDiningArea.GetMaxCovers().ToString("F0");
+            lblServerAverageCovers.Text = shiftManager.SelectedDiningArea.GetAverageCovers().ToString("C0");
 
             PictureBox noSections = new PictureBox
             {
@@ -1054,7 +1060,7 @@ namespace FloorPlanMaker
             PictureBox noServers = new PictureBox
             {
                 Image = Resources._no_data_Lighter,
-                SizeMode = PictureBoxSizeMode.StretchImage,
+                SizeMode = PictureBoxSizeMode.Zoom,
                 Size = new System.Drawing.Size(flowServersInFloorplan.Width - 50, flowServersInFloorplan.Height - 300),
                 Margin = new Padding(35, 0, 0, 0)
 
@@ -1171,33 +1177,38 @@ namespace FloorPlanMaker
         }
         private void btnTest2_Click(object sender, EventArgs e)
         {
-            //pnlFloorPlan.Controls.Clear();
-            //SectionLine sectionLine = new SectionLine(100,100,500,100,5f);
-            //pnlFloorPlan.Controls.Add(sectionLine);
-            //Section section = new Section();
-            //section.Number = 1;
-            //foreach (TableControl c in allTableControls)
-            //{
-            //    c.Section = section;
-            //    c.BackColor = section.Color;
-            //    section.Tables.Add(c.Table);
-            //}
-            //shiftManager.SectionSelected = section;
-            //sectionLineManager.RemoveAllLines(pnlFloorPlan);
-            //sectionLineManager.UpdateSectionLinePositions(pnlFloorPlan);
-            //sectionLineManager.AddParallelLines(pnlFloorPlan);
-            foreach (Section section in shiftManager.SelectedFloorplan.Sections)
-            {
-                SectionNodeManager nodeManager = new SectionNodeManager(section);
-                Node tlNode = nodeManager.GetTopLeftNode();
-                Node trNode = nodeManager.GetTopRightNode();
-                Node brNode = nodeManager.GetBottomRightNode();
-                SectionLine sectionLine = new SectionLine(tlNode, trNode);
-                SectionLine sectionLine1 = new SectionLine(trNode, brNode);
-                pnlFloorPlan.Controls.Add(sectionLine);
-                pnlFloorPlan.Controls.Add(sectionLine1);
+            ////pnlFloorPlan.Controls.Clear();
+            ////SectionLine sectionLine = new SectionLine(100,100,500,100,5f);
+            ////pnlFloorPlan.Controls.Add(sectionLine);
+            ////Section section = new Section();
+            ////section.Number = 1;
+            ////foreach (TableControl c in allTableControls)
+            ////{
+            ////    c.Section = section;
+            ////    c.BackColor = section.Color;
+            ////    section.Tables.Add(c.Table);
+            ////}
+            ////shiftManager.SectionSelected = section;
+            ////sectionLineManager.RemoveAllLines(pnlFloorPlan);
+            ////sectionLineManager.UpdateSectionLinePositions(pnlFloorPlan);
+            ////sectionLineManager.AddParallelLines(pnlFloorPlan);
 
-            }
+            //foreach (Section section in shiftManager.SelectedFloorplan.Sections)
+            //{
+            //    SectionNodeManager nodeManager = new SectionNodeManager(section);
+            //    Node tlNode = nodeManager.GetTopLeftNode();
+            //    Node trNode = nodeManager.GetTopRightNode();
+            //    Node brNode = nodeManager.GetBottomRightNode();
+            //    SectionLine sectionLine = new SectionLine(tlNode, trNode);
+            //    SectionLine sectionLine1 = new SectionLine(trNode, brNode);
+            //    pnlFloorPlan.Controls.Add(sectionLine);
+            //    pnlFloorPlan.Controls.Add(sectionLine1);
+
+            //}
+            flowServersInFloorplan.Controls.Clear();
+            ImageLabelControl imgControl = new ImageLabelControl(UITheme.covers, "50",flowServersInFloorplan.Width, 30);
+            imgControl.BackColor = Color.Blue;
+            flowServersInFloorplan.Controls.Add(imgControl);
 
         }
 

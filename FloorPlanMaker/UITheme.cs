@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FloorPlanMakerUI.Properties;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -47,6 +48,15 @@ namespace FloorPlanMakerUI
         public static Color HighLightFontColor = Color.White;
 
         public static Color HighlightColor2 = Color.FromArgb(237, 174, 73);
+
+        public static Image erase = Resources.erase;
+        public static Image save = Resources.ExtraSmallSave;
+        public static Image inside = Resources.Inside;
+        public static Image Sun = Resources.noun_sun_3805502;
+        public static Image sales = Resources.sales;
+        public static Image waiter = Resources.waiter;
+        public static Image tray = Resources.trey;
+        public static Image covers = Resources.covers;
 
         //242,193,78---255,188,66---242,193,78
         public  static Color MuteColor(float amount, Color Color)

@@ -32,6 +32,8 @@ namespace FloorPlanMaker
         {
             components = new System.ComponentModel.Container();
             flowServersInFloorplan = new FlowLayoutPanel();
+            picBxSales = new PictureBox();
+            picBxCovers = new PictureBox();
             lblServerMaxCovers = new Label();
             lblServerAverageCovers = new Label();
             btnSaveFloorplanTemplate = new Button();
@@ -64,6 +66,9 @@ namespace FloorPlanMaker
             rdoViewServerFlow = new RadioButton();
             rdoViewSectionFlow = new RadioButton();
             toolTip1 = new ToolTip(components);
+            flowServersInFloorplan.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)picBxSales).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)picBxCovers).BeginInit();
             flowSectionSelect.SuspendLayout();
             panel1.SuspendLayout();
             pnlFloorplanContainer.SuspendLayout();
@@ -76,6 +81,8 @@ namespace FloorPlanMaker
             // flowServersInFloorplan
             // 
             flowServersInFloorplan.BackColor = Color.WhiteSmoke;
+            flowServersInFloorplan.Controls.Add(picBxSales);
+            flowServersInFloorplan.Controls.Add(picBxCovers);
             flowServersInFloorplan.Location = new Point(0, 28);
             flowServersInFloorplan.Name = "flowServersInFloorplan";
             flowServersInFloorplan.Padding = new Padding(10, 20, 0, 0);
@@ -84,30 +91,51 @@ namespace FloorPlanMaker
             flowServersInFloorplan.Visible = false;
             flowServersInFloorplan.Paint += flowServersInFloorplan_Paint;
             // 
+            // picBxSales
+            // 
+            picBxSales.Location = new Point(140, 20);
+            picBxSales.Margin = new Padding(130, 0, 0, 0);
+            picBxSales.Name = "picBxSales";
+            picBxSales.Size = new Size(30, 30);
+            picBxSales.SizeMode = PictureBoxSizeMode.Zoom;
+            picBxSales.TabIndex = 0;
+            picBxSales.TabStop = false;
+            // 
+            // picBxCovers
+            // 
+            picBxCovers.Location = new Point(300, 20);
+            picBxCovers.Margin = new Padding(130, 0, 0, 0);
+            picBxCovers.Name = "picBxCovers";
+            picBxCovers.Size = new Size(30, 30);
+            picBxCovers.SizeMode = PictureBoxSizeMode.Zoom;
+            picBxCovers.TabIndex = 0;
+            picBxCovers.TabStop = false;
+            // 
             // lblServerMaxCovers
             // 
-            lblServerMaxCovers.Dock = DockStyle.Top;
+            lblServerMaxCovers.AutoSize = true;
             lblServerMaxCovers.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             lblServerMaxCovers.ForeColor = Color.Black;
-            lblServerMaxCovers.Location = new Point(3, 20);
+            lblServerMaxCovers.Location = new Point(0, 20);
+            lblServerMaxCovers.Margin = new Padding(0, 0, 3, 0);
             lblServerMaxCovers.Name = "lblServerMaxCovers";
-            lblServerMaxCovers.Size = new Size(232, 35);
+            lblServerMaxCovers.Size = new Size(19, 21);
             lblServerMaxCovers.TabIndex = 5;
             lblServerMaxCovers.Text = "0";
-            lblServerMaxCovers.TextAlign = ContentAlignment.MiddleCenter;
+            lblServerMaxCovers.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // lblServerAverageCovers
             // 
-            lblServerAverageCovers.Dock = DockStyle.Top;
+            lblServerAverageCovers.AutoSize = true;
             lblServerAverageCovers.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             lblServerAverageCovers.ForeColor = Color.Black;
-            lblServerAverageCovers.Location = new Point(3, 55);
-            lblServerAverageCovers.Margin = new Padding(3, 0, 3, 15);
+            lblServerAverageCovers.Location = new Point(22, 20);
+            lblServerAverageCovers.Margin = new Padding(0, 0, 3, 15);
             lblServerAverageCovers.Name = "lblServerAverageCovers";
-            lblServerAverageCovers.Size = new Size(232, 31);
+            lblServerAverageCovers.Size = new Size(19, 21);
             lblServerAverageCovers.TabIndex = 5;
             lblServerAverageCovers.Text = "0";
-            lblServerAverageCovers.TextAlign = ContentAlignment.MiddleCenter;
+            lblServerAverageCovers.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // btnSaveFloorplanTemplate
             // 
@@ -229,7 +257,6 @@ namespace FloorPlanMaker
             btnTest2.TabIndex = 16;
             btnTest2.Text = "2";
             btnTest2.UseVisualStyleBackColor = true;
-            btnTest2.Visible = false;
             btnTest2.Click += btnTest2_Click;
             // 
             // btnTest
@@ -525,7 +552,11 @@ namespace FloorPlanMaker
             MouseDown += Form1_MouseDown;
             MouseMove += Form1_MouseMove;
             MouseUp += Form1_MouseUp;
+            flowServersInFloorplan.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)picBxSales).EndInit();
+            ((System.ComponentModel.ISupportInitialize)picBxCovers).EndInit();
             flowSectionSelect.ResumeLayout(false);
+            flowSectionSelect.PerformLayout();
             panel1.ResumeLayout(false);
             pnlFloorplanContainer.ResumeLayout(false);
             pnlNavigationWindow.ResumeLayout(false);
@@ -569,5 +600,7 @@ namespace FloorPlanMaker
         private ToolTip toolTip1;
         private Panel pnlMainContainer;
         private Panel pnlSideContainer;
+        private PictureBox picBxSales;
+        private PictureBox picBxCovers;
     }
 }
