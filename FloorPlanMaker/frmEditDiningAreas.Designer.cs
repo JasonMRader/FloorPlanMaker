@@ -66,23 +66,25 @@
             rdoDefaultView = new RadioButton();
             rdoEditPositions = new RadioButton();
             rdoEditData = new RadioButton();
+            cboDiningAreas = new ComboBox();
             panel5 = new Panel();
             label7 = new Label();
             btnAddCircle = new Button();
             btnAddDiamond = new Button();
             btnAddSquare = new Button();
-            cboDiningAreas = new ComboBox();
+            panel1 = new Panel();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
             panel6.SuspendLayout();
             panel4.SuspendLayout();
             panel5.SuspendLayout();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // pnlFloorPlan
             // 
             pnlFloorPlan.BackColor = Color.WhiteSmoke;
-            pnlFloorPlan.Location = new Point(224, 43);
+            pnlFloorPlan.Location = new Point(13, 54);
             pnlFloorPlan.Name = "pnlFloorPlan";
             pnlFloorPlan.Size = new Size(672, 877);
             pnlFloorPlan.TabIndex = 0;
@@ -92,11 +94,11 @@
             btnCreateNewDiningArea.BackColor = Color.FromArgb(158, 171, 222);
             btnCreateNewDiningArea.FlatAppearance.BorderSize = 0;
             btnCreateNewDiningArea.FlatStyle = FlatStyle.Flat;
-            btnCreateNewDiningArea.Location = new Point(7, 54);
+            btnCreateNewDiningArea.Image = Properties.Resources.addSmall;
+            btnCreateNewDiningArea.Location = new Point(646, 16);
             btnCreateNewDiningArea.Name = "btnCreateNewDiningArea";
-            btnCreateNewDiningArea.Size = new Size(152, 38);
+            btnCreateNewDiningArea.Size = new Size(39, 32);
             btnCreateNewDiningArea.TabIndex = 1;
-            btnCreateNewDiningArea.Text = "Create New Dining Area";
             btnCreateNewDiningArea.UseVisualStyleBackColor = false;
             btnCreateNewDiningArea.Click += btnCreateNewDiningArea_Click;
             // 
@@ -260,7 +262,7 @@
             panel2.Controls.Add(btnLessHeight);
             panel2.Location = new Point(31, 19);
             panel2.Name = "panel2";
-            panel2.Size = new Size(168, 901);
+            panel2.Size = new Size(167, 901);
             panel2.TabIndex = 3;
             // 
             // label6
@@ -445,25 +447,26 @@
             // 
             panel3.BackColor = Color.FromArgb(180, 190, 200);
             panel3.Controls.Add(panel2);
-            panel3.Location = new Point(999, 16);
+            panel3.Location = new Point(1225, 16);
             panel3.Margin = new Padding(20);
             panel3.Name = "panel3";
-            panel3.Size = new Size(225, 934);
+            panel3.Size = new Size(24, 934);
             panel3.TabIndex = 4;
+            panel3.Visible = false;
             // 
             // panel6
             // 
             panel6.BackColor = Color.WhiteSmoke;
             panel6.Controls.Add(cbTemporaryFloorplan);
-            panel6.Controls.Add(btnCreateNewDiningArea);
             panel6.Controls.Add(txtDiningAreaName);
             panel6.Controls.Add(rbInside);
             panel6.Controls.Add(rbOutside);
             panel6.Controls.Add(btnSaveDiningArea);
-            panel6.Location = new Point(18, 512);
+            panel6.Location = new Point(15, 512);
             panel6.Name = "panel6";
             panel6.Size = new Size(168, 408);
             panel6.TabIndex = 4;
+            panel6.Visible = false;
             // 
             // cbTemporaryFloorplan
             // 
@@ -488,16 +491,15 @@
             // 
             panel4.BackColor = Color.FromArgb(180, 190, 200);
             panel4.Controls.Add(rdoDefaultView);
+            panel4.Controls.Add(btnCreateNewDiningArea);
             panel4.Controls.Add(rdoEditPositions);
             panel4.Controls.Add(rdoEditData);
-            panel4.Controls.Add(panel6);
-            panel4.Controls.Add(panel5);
             panel4.Controls.Add(cboDiningAreas);
             panel4.Controls.Add(pnlFloorPlan);
-            panel4.Location = new Point(41, 16);
+            panel4.Location = new Point(362, 16);
             panel4.Margin = new Padding(20);
             panel4.Name = "panel4";
-            panel4.Size = new Size(932, 934);
+            panel4.Size = new Size(700, 934);
             panel4.TabIndex = 5;
             // 
             // rdoDefaultView
@@ -506,11 +508,11 @@
             rdoDefaultView.BackColor = Color.FromArgb(130, 180, 130);
             rdoDefaultView.FlatAppearance.BorderSize = 0;
             rdoDefaultView.FlatStyle = FlatStyle.Flat;
-            rdoDefaultView.Location = new Point(789, 19);
+            rdoDefaultView.Image = Properties.Resources.resetViewSmallest;
+            rdoDefaultView.Location = new Point(13, 19);
             rdoDefaultView.Name = "rdoDefaultView";
-            rdoDefaultView.Size = new Size(104, 24);
+            rdoDefaultView.Size = new Size(77, 33);
             rdoDefaultView.TabIndex = 6;
-            rdoDefaultView.Text = "Defult";
             rdoDefaultView.TextAlign = ContentAlignment.MiddleCenter;
             rdoDefaultView.UseVisualStyleBackColor = false;
             rdoDefaultView.CheckedChanged += rdoDefaultView_CheckedChanged;
@@ -521,11 +523,11 @@
             rdoEditPositions.BackColor = Color.FromArgb(130, 180, 130);
             rdoEditPositions.FlatAppearance.BorderSize = 0;
             rdoEditPositions.FlatStyle = FlatStyle.Flat;
-            rdoEditPositions.Location = new Point(679, 19);
+            rdoEditPositions.Image = Properties.Resources.NumReposAdjust;
+            rdoEditPositions.Location = new Point(179, 19);
             rdoEditPositions.Name = "rdoEditPositions";
-            rdoEditPositions.Size = new Size(104, 24);
+            rdoEditPositions.Size = new Size(77, 33);
             rdoEditPositions.TabIndex = 6;
-            rdoEditPositions.Text = "Edit Positions";
             rdoEditPositions.TextAlign = ContentAlignment.MiddleCenter;
             rdoEditPositions.UseVisualStyleBackColor = false;
             rdoEditPositions.CheckedChanged += rdoEditPositions_CheckedChanged;
@@ -536,14 +538,24 @@
             rdoEditData.BackColor = Color.FromArgb(130, 180, 130);
             rdoEditData.FlatAppearance.BorderSize = 0;
             rdoEditData.FlatStyle = FlatStyle.Flat;
-            rdoEditData.Location = new Point(569, 19);
+            rdoEditData.Image = Properties.Resources.coversSalesresizedSmallest;
+            rdoEditData.Location = new Point(96, 19);
             rdoEditData.Name = "rdoEditData";
-            rdoEditData.Size = new Size(104, 24);
+            rdoEditData.Size = new Size(77, 33);
             rdoEditData.TabIndex = 6;
-            rdoEditData.Text = "Edit Data";
             rdoEditData.TextAlign = ContentAlignment.MiddleCenter;
             rdoEditData.UseVisualStyleBackColor = false;
             rdoEditData.CheckedChanged += rdoEditData_CheckedChanged;
+            // 
+            // cboDiningAreas
+            // 
+            cboDiningAreas.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            cboDiningAreas.FormattingEnabled = true;
+            cboDiningAreas.Location = new Point(262, 20);
+            cboDiningAreas.Name = "cboDiningAreas";
+            cboDiningAreas.Size = new Size(378, 29);
+            cboDiningAreas.TabIndex = 1;
+            cboDiningAreas.SelectedIndexChanged += cboDiningAreas_SelectedIndexChanged;
             // 
             // panel5
             // 
@@ -552,7 +564,7 @@
             panel5.Controls.Add(btnAddCircle);
             panel5.Controls.Add(btnAddDiamond);
             panel5.Controls.Add(btnAddSquare);
-            panel5.Location = new Point(18, 43);
+            panel5.Location = new Point(15, 43);
             panel5.Name = "panel5";
             panel5.Size = new Size(168, 445);
             panel5.TabIndex = 4;
@@ -603,14 +615,15 @@
             btnAddSquare.UseVisualStyleBackColor = true;
             btnAddSquare.Click += btnAddSquare_Click;
             // 
-            // cboDiningAreas
+            // panel1
             // 
-            cboDiningAreas.FormattingEnabled = true;
-            cboDiningAreas.Location = new Point(224, 14);
-            cboDiningAreas.Name = "cboDiningAreas";
-            cboDiningAreas.Size = new Size(339, 23);
-            cboDiningAreas.TabIndex = 1;
-            cboDiningAreas.SelectedIndexChanged += cboDiningAreas_SelectedIndexChanged;
+            panel1.BackColor = Color.FromArgb(180, 190, 200);
+            panel1.Controls.Add(panel5);
+            panel1.Controls.Add(panel6);
+            panel1.Location = new Point(43, 16);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(200, 934);
+            panel1.TabIndex = 6;
             // 
             // frmEditDiningAreas
             // 
@@ -618,6 +631,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(49, 56, 82);
             ClientSize = new Size(1253, 970);
+            Controls.Add(panel1);
             Controls.Add(panel3);
             Controls.Add(panel4);
             FormBorderStyle = FormBorderStyle.None;
@@ -632,6 +646,7 @@
             panel4.ResumeLayout(false);
             panel5.ResumeLayout(false);
             panel5.PerformLayout();
+            panel1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -681,5 +696,6 @@
         private RadioButton rdoEditData;
         private RadioButton rdoEditPositions;
         private RadioButton rdoDefaultView;
+        private Panel panel1;
     }
 }

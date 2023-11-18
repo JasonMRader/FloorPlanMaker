@@ -160,7 +160,7 @@ namespace FloorPlanMakerUI
                 pnlFloorPlan.Controls.Add(positionEditor);
                 positionEditor.BringToFront();
             }
-            
+
             //if (currentEmphasizedTable != null && currentEmphasizedTable != clickedTableControl)
             //{
             //    currentEmphasizedTable.BorderThickness = 1;
@@ -570,10 +570,10 @@ namespace FloorPlanMakerUI
 
         private void rdoEditData_CheckedChanged(object sender, EventArgs e)
         {
-            
+
             foreach (TableDataEditorControl editor in tableDataEditors)
-            {                
-                pnlFloorPlan.Controls.Remove(editor);                
+            {
+                pnlFloorPlan.Controls.Remove(editor);
             }
             tableDataEditors.Clear();
             if (rdoEditData.Checked)
@@ -593,7 +593,7 @@ namespace FloorPlanMakerUI
         private void rdoEditPositions_CheckedChanged(object sender, EventArgs e)
         {
             if (rdoEditPositions.Checked)
-            {                
+            {
                 foreach (Control control in pnlFloorPlan.Controls)
                 {
                     if (control is TableControl tableControl)
@@ -603,7 +603,7 @@ namespace FloorPlanMakerUI
                 }
             }
             else
-            {               
+            {
                 foreach (Control control in pnlFloorPlan.Controls)
                 {
                     if (control is TableControl tableControl)
