@@ -526,10 +526,12 @@ namespace FloorPlanMakerUI
         {
             //allTableControls.Clear();
 
-            pnlFloorPlan.Controls.Clear();
-            foreach (Table table in areaCreationManager.DiningAreaSelected.Tables)
+           // pnlFloorPlan.Controls.Clear();
+            foreach (TableControl tableControl in allTableControls)
             {
-                table.DiningArea = areaCreationManager.DiningAreaSelected;
+                TableDataEditorControl dataEditor = new TableDataEditorControl(tableControl);
+                pnlFloorPlan.Controls.Add(dataEditor);
+                dataEditor.BringToFront();
                 
             }
         }

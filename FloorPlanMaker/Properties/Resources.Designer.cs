@@ -153,6 +153,16 @@ namespace FloorPlanMakerUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Chair {
+            get {
+                object obj = ResourceManager.GetObject("Chair", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap CircleTable {
             get {
                 object obj = ResourceManager.GetObject("CircleTable", resourceCulture);
@@ -476,6 +486,16 @@ namespace FloorPlanMakerUI.Properties {
         internal static System.Drawing.Bitmap noun_view_Smalll {
             get {
                 object obj = ResourceManager.GetObject("noun_view_Smalll", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Number {
+            get {
+                object obj = ResourceManager.GetObject("Number", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

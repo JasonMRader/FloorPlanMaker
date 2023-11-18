@@ -56,7 +56,7 @@ namespace FloorPlanMakerUI
         public static Image sales = Resources.sales;
         public static Image waiter = Resources.waiter;
         public static Image tray = Resources.trey;
-        public static Image covers = Resources.covers;
+        public static Image covers = Resources.Chair;
 
         //242,193,78---255,188,66---242,193,78
         public  static Color MuteColor(float amount, Color Color)
