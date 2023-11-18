@@ -577,7 +577,7 @@ namespace FloorPlanMaker
             {
 
                 Size = new Size(40, 25),
-                Image = Resources.person,
+                Image = Resources.waiter,
                 SizeMode = PictureBoxSizeMode.StretchImage,
                 Margin = new Padding(0),
                 Tag = section,
@@ -1298,14 +1298,14 @@ namespace FloorPlanMaker
                 flowSectionSelect.Visible = true;
                 flowServersInFloorplan.Visible = false;
                 rdoViewSectionFlow.Image = Resources.lilCanvasBook;
-                rdoViewServerFlow.Image = Resources.lilPeople;
+                //rdoViewServerFlow.Image = Resources.lilPeople;
             }
             else
             {
                 flowSectionSelect.Visible = false;
                 flowServersInFloorplan.Visible = true;
                 rdoViewSectionFlow.Image = Resources.lilBook;
-                rdoViewServerFlow.Image = Resources.lilPeopleCanvas;
+                //rdoViewServerFlow.Image = Resources.lilPeopleCanvas;
 
             }
         }
@@ -1317,14 +1317,14 @@ namespace FloorPlanMaker
                 flowSectionSelect.Visible = false;
                 flowServersInFloorplan.Visible = true;
                 rdoViewSectionFlow.Image = Resources.lilBook;
-                rdoViewServerFlow.Image = Resources.lilPeopleCanvas;
+                //rdoViewServerFlow.Image = Resources.lilPeopleCanvas;
             }
             else
             {
                 flowSectionSelect.Visible = true;
                 flowServersInFloorplan.Visible = false;
                 rdoViewSectionFlow.Image = Resources.lilCanvasBook;
-                rdoViewServerFlow.Image = Resources.lilPeople;
+                //rdoViewServerFlow.Image = Resources.lilPeople;
 
 
             }

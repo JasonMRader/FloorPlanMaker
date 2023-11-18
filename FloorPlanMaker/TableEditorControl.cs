@@ -1,4 +1,5 @@
-﻿using FloorPlanMaker;
+﻿using FloorplanClassLibrary;
+using FloorPlanMaker;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -30,9 +31,9 @@ namespace FloorPlanMakerUI
         }
         private void yCoordinateAdjustment(int panelHeight)
         {
-            if(this.Top+this.Height > panelHeight)
+            if (this.Top + this.Height > panelHeight)
             {
-                this.Location = new Point(this.Left, panelHeight-this.Height); 
+                this.Location = new Point(this.Left, panelHeight - this.Height);
             }
         }
         private void xCoordinateAdjustment(int panelWidth)
@@ -91,6 +92,24 @@ namespace FloorPlanMakerUI
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (tableControl != null && tableControl.Parent is Panel parentPanel)
+            {
+                SqliteDataAccess.DeleteTable(this.tableControl.Table);
+                // Remove the tableControl from the parent Panel
+                parentPanel.Controls.Remove(tableControl);
+
+                // Optionally, you can also dispose the tableControl if it's no longer needed
+                tableControl.Dispose();
+                tableControl = null;
+               
+                // Refresh the parent Panel to update the UI
+                parentPanel.Invalidate();
+                this.Dispose();
+            }
         }
     }
 }

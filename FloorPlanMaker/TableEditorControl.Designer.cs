@@ -158,6 +158,7 @@
             btnDelete.SizeMode = PictureBoxSizeMode.Zoom;
             btnDelete.TabIndex = 1;
             btnDelete.TabStop = false;
+            btnDelete.Click += btnDelete_Click;
             // 
             // TableEditorControl
             // 

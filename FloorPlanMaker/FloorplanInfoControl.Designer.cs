@@ -134,7 +134,7 @@
             // pbServerCount
             // 
             pbServerCount.BackColor = Color.Transparent;
-            pbServerCount.Image = Properties.Resources.waiter;
+            pbServerCount.Image = Properties.Resources.treySmall;
             pbServerCount.Location = new Point(84, 28);
             pbServerCount.Name = "pbServerCount";
             pbServerCount.Size = new Size(20, 20);

@@ -295,7 +295,7 @@ namespace FloorPlanMaker
             // rdoSections
             // 
             rdoSections.Appearance = Appearance.Button;
-            rdoSections.BackColor = Color.FromArgb(158, 171, 222);
+            rdoSections.BackColor = Color.FromArgb(100, 130, 180);
             rdoSections.FlatAppearance.BorderSize = 0;
             rdoSections.FlatAppearance.CheckedBackColor = Color.FromArgb(49, 56, 82);
             rdoSections.FlatStyle = FlatStyle.Flat;
@@ -313,7 +313,7 @@ namespace FloorPlanMaker
             // rdoDiningAreas
             // 
             rdoDiningAreas.Appearance = Appearance.Button;
-            rdoDiningAreas.BackColor = Color.FromArgb(158, 171, 222);
+            rdoDiningAreas.BackColor = Color.FromArgb(100, 130, 180);
             rdoDiningAreas.FlatAppearance.BorderSize = 0;
             rdoDiningAreas.FlatAppearance.CheckedBackColor = Color.FromArgb(49, 56, 82);
             rdoDiningAreas.FlatStyle = FlatStyle.Flat;
@@ -334,15 +334,15 @@ namespace FloorPlanMaker
             panel1.Controls.Add(rdoDiningAreas);
             panel1.Controls.Add(pnlNavHighlight);
             panel1.Controls.Add(rdoSections);
-            panel1.Location = new Point(40, 3);
+            panel1.Location = new Point(70, 3);
             panel1.Name = "panel1";
-            panel1.Size = new Size(510, 40);
+            panel1.Size = new Size(554, 40);
             panel1.TabIndex = 11;
             // 
             // rdoShifts
             // 
             rdoShifts.Appearance = Appearance.Button;
-            rdoShifts.BackColor = Color.FromArgb(158, 171, 222);
+            rdoShifts.BackColor = Color.FromArgb(100, 130, 180);
             rdoShifts.FlatAppearance.BorderSize = 0;
             rdoShifts.FlatAppearance.CheckedBackColor = Color.FromArgb(49, 56, 82);
             rdoShifts.FlatStyle = FlatStyle.Flat;
@@ -502,7 +502,7 @@ namespace FloorPlanMaker
             rdoViewServerFlow.FlatAppearance.CheckedBackColor = Color.WhiteSmoke;
             rdoViewServerFlow.FlatStyle = FlatStyle.Flat;
             rdoViewServerFlow.ForeColor = Color.Black;
-            rdoViewServerFlow.Image = FloorPlanMakerUI.Properties.Resources.lilPeople;
+            rdoViewServerFlow.Image = FloorPlanMakerUI.Properties.Resources.treySmall;
             rdoViewServerFlow.Location = new Point(63, 0);
             rdoViewServerFlow.Name = "rdoViewServerFlow";
             rdoViewServerFlow.Size = new Size(63, 28);
@@ -539,10 +539,11 @@ namespace FloorPlanMaker
             // 
             // pictureBox1
             // 
+            pictureBox1.BackColor = Color.FromArgb(100, 130, 180);
             pictureBox1.Image = FloorPlanMakerUI.Properties.Resources.settings;
-            pictureBox1.Location = new Point(1104, 3);
+            pictureBox1.Location = new Point(27, 6);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(37, 40);
+            pictureBox1.Size = new Size(37, 37);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 21;
             pictureBox1.TabStop = false;

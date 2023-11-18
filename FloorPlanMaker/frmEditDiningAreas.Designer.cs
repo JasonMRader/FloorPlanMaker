@@ -68,23 +68,26 @@
             rdoEditData = new RadioButton();
             cboDiningAreas = new ComboBox();
             panel5 = new Panel();
+            picAddCircle = new PictureBox();
+            picAddDiamond = new PictureBox();
+            picAddSquare = new PictureBox();
             label7 = new Label();
-            btnAddCircle = new Button();
-            btnAddDiamond = new Button();
-            btnAddSquare = new Button();
             panel1 = new Panel();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
             panel6.SuspendLayout();
             panel4.SuspendLayout();
             panel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)picAddCircle).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)picAddDiamond).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)picAddSquare).BeginInit();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
             // pnlFloorPlan
             // 
             pnlFloorPlan.BackColor = Color.WhiteSmoke;
-            pnlFloorPlan.Location = new Point(13, 54);
+            pnlFloorPlan.Location = new Point(16, 56);
             pnlFloorPlan.Name = "pnlFloorPlan";
             pnlFloorPlan.Size = new Size(672, 877);
             pnlFloorPlan.TabIndex = 0;
@@ -95,7 +98,7 @@
             btnCreateNewDiningArea.FlatAppearance.BorderSize = 0;
             btnCreateNewDiningArea.FlatStyle = FlatStyle.Flat;
             btnCreateNewDiningArea.Image = Properties.Resources.addSmall;
-            btnCreateNewDiningArea.Location = new Point(646, 16);
+            btnCreateNewDiningArea.Location = new Point(649, 18);
             btnCreateNewDiningArea.Name = "btnCreateNewDiningArea";
             btnCreateNewDiningArea.Size = new Size(39, 32);
             btnCreateNewDiningArea.TabIndex = 1;
@@ -496,10 +499,10 @@
             panel4.Controls.Add(rdoEditData);
             panel4.Controls.Add(cboDiningAreas);
             panel4.Controls.Add(pnlFloorPlan);
-            panel4.Location = new Point(362, 16);
+            panel4.Location = new Point(498, 29);
             panel4.Margin = new Padding(20);
             panel4.Name = "panel4";
-            panel4.Size = new Size(700, 934);
+            panel4.Size = new Size(711, 950);
             panel4.TabIndex = 5;
             // 
             // rdoDefaultView
@@ -509,7 +512,7 @@
             rdoDefaultView.FlatAppearance.BorderSize = 0;
             rdoDefaultView.FlatStyle = FlatStyle.Flat;
             rdoDefaultView.Image = Properties.Resources.resetViewSmallest;
-            rdoDefaultView.Location = new Point(13, 19);
+            rdoDefaultView.Location = new Point(16, 21);
             rdoDefaultView.Name = "rdoDefaultView";
             rdoDefaultView.Size = new Size(77, 33);
             rdoDefaultView.TabIndex = 6;
@@ -524,7 +527,7 @@
             rdoEditPositions.FlatAppearance.BorderSize = 0;
             rdoEditPositions.FlatStyle = FlatStyle.Flat;
             rdoEditPositions.Image = Properties.Resources.NumReposAdjust;
-            rdoEditPositions.Location = new Point(179, 19);
+            rdoEditPositions.Location = new Point(182, 21);
             rdoEditPositions.Name = "rdoEditPositions";
             rdoEditPositions.Size = new Size(77, 33);
             rdoEditPositions.TabIndex = 6;
@@ -539,7 +542,7 @@
             rdoEditData.FlatAppearance.BorderSize = 0;
             rdoEditData.FlatStyle = FlatStyle.Flat;
             rdoEditData.Image = Properties.Resources.coversSalesresizedSmallest;
-            rdoEditData.Location = new Point(96, 19);
+            rdoEditData.Location = new Point(99, 21);
             rdoEditData.Name = "rdoEditData";
             rdoEditData.Size = new Size(77, 33);
             rdoEditData.TabIndex = 6;
@@ -551,7 +554,7 @@
             // 
             cboDiningAreas.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             cboDiningAreas.FormattingEnabled = true;
-            cboDiningAreas.Location = new Point(262, 20);
+            cboDiningAreas.Location = new Point(265, 22);
             cboDiningAreas.Name = "cboDiningAreas";
             cboDiningAreas.Size = new Size(378, 29);
             cboDiningAreas.TabIndex = 1;
@@ -560,69 +563,66 @@
             // panel5
             // 
             panel5.BackColor = Color.WhiteSmoke;
+            panel5.Controls.Add(picAddCircle);
+            panel5.Controls.Add(picAddDiamond);
+            panel5.Controls.Add(picAddSquare);
             panel5.Controls.Add(label7);
-            panel5.Controls.Add(btnAddCircle);
-            panel5.Controls.Add(btnAddDiamond);
-            panel5.Controls.Add(btnAddSquare);
-            panel5.Location = new Point(15, 43);
+            panel5.Location = new Point(17, 17);
             panel5.Name = "panel5";
-            panel5.Size = new Size(168, 445);
+            panel5.Size = new Size(335, 921);
             panel5.TabIndex = 4;
+            // 
+            // picAddCircle
+            // 
+            picAddCircle.Image = Properties.Resources.SmallFilledCircle;
+            picAddCircle.Location = new Point(45, 490);
+            picAddCircle.Name = "picAddCircle";
+            picAddCircle.Size = new Size(215, 142);
+            picAddCircle.SizeMode = PictureBoxSizeMode.Zoom;
+            picAddCircle.TabIndex = 2;
+            picAddCircle.TabStop = false;
+            picAddCircle.Click += picAddCircle_Click;
+            // 
+            // picAddDiamond
+            // 
+            picAddDiamond.Image = Properties.Resources.DiamondFilled;
+            picAddDiamond.Location = new Point(45, 278);
+            picAddDiamond.Name = "picAddDiamond";
+            picAddDiamond.Size = new Size(215, 160);
+            picAddDiamond.SizeMode = PictureBoxSizeMode.Zoom;
+            picAddDiamond.TabIndex = 2;
+            picAddDiamond.TabStop = false;
+            picAddDiamond.Click += picAddDiamond_Click;
+            // 
+            // picAddSquare
+            // 
+            picAddSquare.Image = Properties.Resources.SquareTableFilled;
+            picAddSquare.Location = new Point(45, 108);
+            picAddSquare.Name = "picAddSquare";
+            picAddSquare.Size = new Size(215, 126);
+            picAddSquare.SizeMode = PictureBoxSizeMode.Zoom;
+            picAddSquare.TabIndex = 2;
+            picAddSquare.TabStop = false;
+            picAddSquare.Click += picAddSquare_Click;
             // 
             // label7
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label7.Location = new Point(28, 11);
+            label7.Location = new Point(107, 39);
             label7.Name = "label7";
             label7.Size = new Size(93, 21);
             label7.TabIndex = 1;
             label7.Text = "Add Tables";
-            // 
-            // btnAddCircle
-            // 
-            btnAddCircle.FlatAppearance.BorderSize = 0;
-            btnAddCircle.FlatStyle = FlatStyle.Flat;
-            btnAddCircle.Image = Properties.Resources.LargerCircleFilled;
-            btnAddCircle.Location = new Point(10, 305);
-            btnAddCircle.Name = "btnAddCircle";
-            btnAddCircle.Size = new Size(149, 131);
-            btnAddCircle.TabIndex = 0;
-            btnAddCircle.UseVisualStyleBackColor = true;
-            btnAddCircle.Click += btnAddCircle_Click;
-            // 
-            // btnAddDiamond
-            // 
-            btnAddDiamond.FlatAppearance.BorderSize = 0;
-            btnAddDiamond.FlatStyle = FlatStyle.Flat;
-            btnAddDiamond.Image = Properties.Resources.DiamondFilled;
-            btnAddDiamond.Location = new Point(10, 170);
-            btnAddDiamond.Name = "btnAddDiamond";
-            btnAddDiamond.Size = new Size(149, 131);
-            btnAddDiamond.TabIndex = 0;
-            btnAddDiamond.UseVisualStyleBackColor = true;
-            btnAddDiamond.Click += btnAddDiamond_Click;
-            // 
-            // btnAddSquare
-            // 
-            btnAddSquare.FlatAppearance.BorderSize = 0;
-            btnAddSquare.FlatStyle = FlatStyle.Flat;
-            btnAddSquare.Image = Properties.Resources.SquareTableFilled;
-            btnAddSquare.Location = new Point(10, 35);
-            btnAddSquare.Name = "btnAddSquare";
-            btnAddSquare.Size = new Size(149, 131);
-            btnAddSquare.TabIndex = 0;
-            btnAddSquare.UseVisualStyleBackColor = true;
-            btnAddSquare.Click += btnAddSquare_Click;
             // 
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(180, 190, 200);
             panel1.Controls.Add(panel5);
             panel1.Controls.Add(panel6);
-            panel1.Location = new Point(43, 16);
+            panel1.Location = new Point(55, 29);
             panel1.Name = "panel1";
-            panel1.Size = new Size(200, 934);
+            panel1.Size = new Size(364, 950);
             panel1.TabIndex = 6;
             // 
             // frmEditDiningAreas
@@ -646,6 +646,9 @@
             panel4.ResumeLayout(false);
             panel5.ResumeLayout(false);
             panel5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)picAddCircle).EndInit();
+            ((System.ComponentModel.ISupportInitialize)picAddDiamond).EndInit();
+            ((System.ComponentModel.ISupportInitialize)picAddSquare).EndInit();
             panel1.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -683,9 +686,6 @@
         private Panel panel6;
         private CheckBox cbTemporaryFloorplan;
         private Label label7;
-        private Button btnAddCircle;
-        private Button btnAddDiamond;
-        private Button btnAddSquare;
         private CheckBox cbLockTables;
         private TextBox txtXco;
         private TextBox txtYco;
@@ -697,5 +697,8 @@
         private RadioButton rdoEditPositions;
         private RadioButton rdoDefaultView;
         private Panel panel1;
+        private PictureBox picAddCircle;
+        private PictureBox picAddDiamond;
+        private PictureBox picAddSquare;
     }
 }

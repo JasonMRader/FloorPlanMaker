@@ -56,7 +56,7 @@ namespace FloorPlanMakerUI
 
             UITheme.FormatCanvasColor(pnlFloorPlan);
 
-            UITheme.FormatSecondColor(panel5);
+            UITheme.FormatCanvasColor(panel5);
             UITheme.FormatSecondColor(panel2);
 
             UITheme.FormatSecondColor(panel6);
@@ -74,6 +74,8 @@ namespace FloorPlanMakerUI
         private void cboDiningAreas_SelectedIndexChanged(object sender, EventArgs e)
         {
             allTableControls.Clear();
+            areaCreationManager.SelectedTable = null;
+            areaCreationManager.SelectedTables.Clear();
             areaCreationManager.DiningAreaSelected = (DiningArea?)cboDiningAreas.SelectedItem;
             txtDiningAreaName.Text = areaCreationManager.DiningAreaSelected.Name;
             pnlFloorPlan.Controls.Clear();
@@ -115,7 +117,8 @@ namespace FloorPlanMakerUI
                     }
                 }
                 emphasizedTablesList.Clear();
-                areaCreationManager.SelectedTables.Clear();
+                areaCreationManager.SelectedTables.Clear(); 
+                
 
                 txtTableNumber.Enabled = true;
             }
@@ -161,74 +164,12 @@ namespace FloorPlanMakerUI
                 positionEditor.BringToFront();
             }
 
-            //if (currentEmphasizedTable != null && currentEmphasizedTable != clickedTableControl)
-            //{
-            //    currentEmphasizedTable.BorderThickness = 1;
-            //    currentEmphasizedTable.Invalidate();  // Request a redraw
-            //}
-
-
+            
 
 
         }
 
-        private void btnAddSquare_Click(object sender, EventArgs e)
-        {
-            TableControl table = new TableControl()
-            {
-                Width = 100,
-                Height = 100,
-                Left = new Random().Next(100, 300),
-                Top = new Random().Next(100, 300),
-                Moveable = true,
-                Shape = Table.TableShape.Square,
-                Location = new System.Drawing.Point(300, 400)
-            };
-            table.TableClicked += ExistingTable_TableClicked;
-
-            //table.TableClicked += Table_TableClicked;
-            SaveTableByTableControl(table);
-            pnlFloorPlan.Controls.Add(table);
-            areaCreationManager.SelectedTable = table.Table;
-        }
-
-        private void btnAddDiamond_Click(object sender, EventArgs e)
-        {
-            TableControl table = new TableControl()
-            {
-                Width = 100,
-                Height = 100,
-                Left = new Random().Next(100, 300),
-                Top = new Random().Next(100, 300),
-                Moveable = true,
-                Shape = Table.TableShape.Diamond,
-                Location = new System.Drawing.Point(300, 400)
-            };
-            table.TableClicked += ExistingTable_TableClicked;
-
-            //table.TableClicked += Table_TableClicked;
-            SaveTableByTableControl(table);
-            pnlFloorPlan.Controls.Add(table);
-        }
-
-        private void btnAddCircle_Click(object sender, EventArgs e)
-        {
-            TableControl table = new TableControl()
-            {
-                Width = 100,
-                Height = 100,
-                Left = new Random().Next(100, 300),
-                Top = new Random().Next(100, 300),
-                Moveable = true,
-                Shape = Table.TableShape.Circle,
-                Location = new System.Drawing.Point(300, 400)
-            };
-            table.TableClicked += ExistingTable_TableClicked;
-
-            //table.TableClicked += Table_TableClicked;
-            SaveTableByTableControl(table);
-            pnlFloorPlan.Controls.Add(table);
-        }
+        
         private void SaveTableByTableControl(TableControl tableControl)
         {
             Table tableToSave = tableControl.Table;
@@ -620,6 +561,64 @@ namespace FloorPlanMakerUI
             {
 
             }
+        }
+
+        private void picAddSquare_Click(object sender, EventArgs e)
+        {
+            TableControl table = new TableControl()
+            {
+                Width = 100,
+                Height = 100,
+                Left = new Random().Next(100, 300),
+                Top = new Random().Next(100, 300),
+                Moveable = true,
+                Shape = Table.TableShape.Square,
+                Location = new System.Drawing.Point(300, 400)
+            };
+            table.TableClicked += ExistingTable_TableClicked;
+
+            //table.TableClicked += Table_TableClicked;
+            SaveTableByTableControl(table);
+            pnlFloorPlan.Controls.Add(table);
+            areaCreationManager.SelectedTable = table.Table;
+        }
+
+        private void picAddDiamond_Click(object sender, EventArgs e)
+        {
+            TableControl table = new TableControl()
+            {
+                Width = 100,
+                Height = 100,
+                Left = new Random().Next(100, 300),
+                Top = new Random().Next(100, 300),
+                Moveable = true,
+                Shape = Table.TableShape.Diamond,
+                Location = new System.Drawing.Point(300, 400)
+            };
+            table.TableClicked += ExistingTable_TableClicked;
+
+            //table.TableClicked += Table_TableClicked;
+            SaveTableByTableControl(table);
+            pnlFloorPlan.Controls.Add(table);
+        }
+
+        private void picAddCircle_Click(object sender, EventArgs e)
+        {
+            TableControl table = new TableControl()
+            {
+                Width = 100,
+                Height = 100,
+                Left = new Random().Next(100, 300),
+                Top = new Random().Next(100, 300),
+                Moveable = true,
+                Shape = Table.TableShape.Circle,
+                Location = new System.Drawing.Point(300, 400)
+            };
+            table.TableClicked += ExistingTable_TableClicked;
+
+            //table.TableClicked += Table_TableClicked;
+            SaveTableByTableControl(table);
+            pnlFloorPlan.Controls.Add(table);
         }
     }
 }
