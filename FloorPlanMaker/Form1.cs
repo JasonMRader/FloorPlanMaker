@@ -473,8 +473,8 @@ namespace FloorPlanMaker
             // Clear any existing controls from the flow layout panel.
             flowSectionSelect.Controls.Clear();
 
-            coversImageLabel = new ImageLabelControl(UITheme.covers, "0", (flowSectionSelect.Width/2) - 7, 30);
-            salesImageLabel = new ImageLabelControl(UITheme.sales, "$0", (flowSectionSelect.Width/2) - 7, 30);
+            coversImageLabel = new ImageLabelControl(UITheme.covers, "0", (flowSectionSelect.Width / 2) - 7, 30);
+            salesImageLabel = new ImageLabelControl(UITheme.sales, "$0", (flowSectionSelect.Width / 2) - 7, 30);
             flowSectionSelect.Controls.Add(coversImageLabel);
             flowSectionSelect.Controls.Add(salesImageLabel);
 
@@ -1049,8 +1049,8 @@ namespace FloorPlanMaker
 
                 CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
                 UpdateServerControlsForFloorplan();
-                coversImageLabel.UpdateText( shiftManager.SelectedFloorplan.MaxCoversPerServer.ToString("F0"));
-                salesImageLabel.UpdateText( shiftManager.SelectedFloorplan.AvgCoversPerServer.ToString("C0"));
+                coversImageLabel.UpdateText(shiftManager.SelectedFloorplan.MaxCoversPerServer.ToString("F0"));
+                salesImageLabel.UpdateText(shiftManager.SelectedFloorplan.AvgCoversPerServer.ToString("C0"));
             }
 
             UpdateTableControlSections();
@@ -1217,7 +1217,7 @@ namespace FloorPlanMaker
 
             //}
             flowServersInFloorplan.Controls.Clear();
-            ImageLabelControl imgControl = new ImageLabelControl(UITheme.covers, "50",flowServersInFloorplan.Width, 30);
+            ImageLabelControl imgControl = new ImageLabelControl(UITheme.covers, "50", flowServersInFloorplan.Width, 30);
             imgControl.BackColor = Color.Blue;
             flowServersInFloorplan.Controls.Add(imgControl);
 

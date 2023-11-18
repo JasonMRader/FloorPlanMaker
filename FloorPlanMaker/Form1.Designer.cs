@@ -66,6 +66,7 @@ namespace FloorPlanMaker
             rdoViewServerFlow = new RadioButton();
             rdoViewSectionFlow = new RadioButton();
             toolTip1 = new ToolTip(components);
+            pictureBox1 = new PictureBox();
             flowServersInFloorplan.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picBxSales).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picBxCovers).BeginInit();
@@ -76,6 +77,7 @@ namespace FloorPlanMaker
             pnlMainContainer.SuspendLayout();
             pnlSideContainer.SuspendLayout();
             pnlSectionsAndServers.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // flowServersInFloorplan
@@ -535,12 +537,23 @@ namespace FloorPlanMaker
             toolTip1.ReshowDelay = 100;
             toolTip1.Popup += btnSaveTemplate_Popup;
             // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = FloorPlanMakerUI.Properties.Resources.settings;
+            pictureBox1.Location = new Point(1104, 3);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(37, 40);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.TabIndex = 21;
+            pictureBox1.TabStop = false;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.WhiteSmoke;
             ClientSize = new Size(1264, 1022);
+            Controls.Add(pictureBox1);
             Controls.Add(btnCloseApp);
             Controls.Add(panel1);
             Controls.Add(pnlNavigationWindow);
@@ -563,6 +576,7 @@ namespace FloorPlanMaker
             pnlMainContainer.ResumeLayout(false);
             pnlSideContainer.ResumeLayout(false);
             pnlSectionsAndServers.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }
 
@@ -602,5 +616,6 @@ namespace FloorPlanMaker
         private Panel pnlSideContainer;
         private PictureBox picBxSales;
         private PictureBox picBxCovers;
+        private PictureBox pictureBox1;
     }
 }
