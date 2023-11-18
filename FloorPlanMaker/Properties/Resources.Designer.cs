@@ -123,19 +123,9 @@ namespace FloorPlanMakerUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap BackArrowArched {
+        internal static System.Drawing.Bitmap Bigger {
             get {
-                object obj = ResourceManager.GetObject("BackArrowArched", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap BackArrowArchedWeek {
-            get {
-                object obj = ResourceManager.GetObject("BackArrowArchedWeek", resourceCulture);
+                object obj = ResourceManager.GetObject("Bigger", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -383,6 +373,16 @@ namespace FloorPlanMakerUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Narrower {
+            get {
+                object obj = ResourceManager.GetObject("Narrower", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap NoDataFound {
             get {
                 object obj = ResourceManager.GetObject("NoDataFound", resourceCulture);
@@ -583,6 +583,16 @@ namespace FloorPlanMakerUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Shorter {
+            get {
+                object obj = ResourceManager.GetObject("Shorter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap small_LastWeek {
             get {
                 object obj = ResourceManager.GetObject("small_LastWeek", resourceCulture);
@@ -596,6 +606,16 @@ namespace FloorPlanMakerUI.Properties {
         internal static System.Drawing.Bitmap smallBackArrow {
             get {
                 object obj = ResourceManager.GetObject("smallBackArrow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Smaller {
+            get {
+                object obj = ResourceManager.GetObject("Smaller", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -683,6 +703,16 @@ namespace FloorPlanMakerUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Taller {
+            get {
+                object obj = ResourceManager.GetObject("Taller", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap teamOval {
             get {
                 object obj = ResourceManager.GetObject("teamOval", resourceCulture);
@@ -746,6 +776,16 @@ namespace FloorPlanMakerUI.Properties {
         internal static System.Drawing.Bitmap WednesdayText {
             get {
                 object obj = ResourceManager.GetObject("WednesdayText", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Wider {
+            get {
+                object obj = ResourceManager.GetObject("Wider", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -41,7 +41,7 @@ namespace FloorPlanMakerUI
         public void UpdateText(string text)
         {
             lblText.Text = text;
-            //GetLocations();
+            GetLocations();
         }
         private void GetLocations()
         {

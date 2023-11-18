@@ -23,6 +23,7 @@ namespace FloorPlanMakerUI
         private System.Drawing.Point dragStartPoint;
         private Rectangle dragRectangle;
         private List<TableControl> allTableControls = new List<TableControl>();
+        private TableEditorControl editor;
         public frmEditDiningAreas()
         {
             InitializeComponent();
@@ -148,7 +149,12 @@ namespace FloorPlanMakerUI
                 }
                 txtTableNumber.Text = tableNum;
             }
-
+            pnlFloorPlan.Controls.Remove(editor);
+            editor = TableEditorFactory.CreateEditor(clickedTableControl);
+            editor.Location = new Point(clickedTableControl.Right + 20, clickedTableControl.Top);
+           
+            pnlFloorPlan.Controls.Add(editor);
+            editor.BringToFront();
             //if (currentEmphasizedTable != null && currentEmphasizedTable != clickedTableControl)
             //{
             //    currentEmphasizedTable.BorderThickness = 1;
