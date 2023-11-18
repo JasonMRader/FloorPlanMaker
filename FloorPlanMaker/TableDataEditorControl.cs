@@ -21,7 +21,7 @@ namespace FloorPlanMakerUI
             InitializeComponent();
             this.tableControl = tableControl;
             txtCovers.Text = tableControl.Table.MaxCovers.ToString();
-            txtNumber.Text = tableControl.Table.TableNumber;
+            this.BackColor = tableControl.BackColor;
             txtSales.Text = Section.FormatAsCurrencyWithoutParentheses(tableControl.Table.AverageCovers);
             setStartLocation();
         }

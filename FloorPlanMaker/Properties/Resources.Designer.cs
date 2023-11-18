@@ -183,6 +183,16 @@ namespace FloorPlanMakerUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap copy {
+            get {
+                object obj = ResourceManager.GetObject("copy", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap covers {
             get {
                 object obj = ResourceManager.GetObject("covers", resourceCulture);
@@ -626,6 +636,16 @@ namespace FloorPlanMakerUI.Properties {
         internal static System.Drawing.Bitmap smallBackArrow {
             get {
                 object obj = ResourceManager.GetObject("smallBackArrow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SmallChair {
+            get {
+                object obj = ResourceManager.GetObject("SmallChair", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

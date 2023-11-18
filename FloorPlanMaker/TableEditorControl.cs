@@ -15,13 +15,33 @@ namespace FloorPlanMakerUI
     {
         private TableControl? tableControl { get; set; }
         public TableEditorControl() { }
-        public TableEditorControl(TableControl tableControl)
+        public TableEditorControl(TableControl tableControl, Panel panel)
         {
             InitializeComponent();
             this.tableControl = tableControl;
+            setDefaultLocation(panel);
 
         }
-
+        private void setDefaultLocation(Panel panel)
+        {
+            this.Location = new Point(this.tableControl.Right + 10, this.tableControl.Top);
+            yCoordinateAdjustment(panel.Height);
+            xCoordinateAdjustment(panel.Width);
+        }
+        private void yCoordinateAdjustment(int panelHeight)
+        {
+            if(this.Top+this.Height > panelHeight)
+            {
+                this.Location = new Point(this.Left, panelHeight-this.Height); 
+            }
+        }
+        private void xCoordinateAdjustment(int panelWidth)
+        {
+            if (this.Left + this.Width > panelWidth)
+            {
+                this.Location = new Point(this.tableControl.Left - this.Width - 10, this.Top);
+            }
+        }
         private void btnSmaller_Click(object sender, EventArgs e)
         {
             this.tableControl.Width -= 10;

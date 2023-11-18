@@ -23,7 +23,8 @@ namespace FloorPlanMakerUI
         private System.Drawing.Point dragStartPoint;
         private Rectangle dragRectangle;
         private List<TableControl> allTableControls = new List<TableControl>();
-        private TableEditorControl editor;
+        List<TableDataEditorControl> tableDataEditors = new List<TableDataEditorControl>();
+        private TableEditorControl positionEditor;
         public frmEditDiningAreas()
         {
             InitializeComponent();
@@ -57,7 +58,7 @@ namespace FloorPlanMakerUI
 
             UITheme.FormatSecondColor(panel5);
             UITheme.FormatSecondColor(panel2);
-            
+
             UITheme.FormatSecondColor(panel6);
 
 
@@ -94,8 +95,6 @@ namespace FloorPlanMakerUI
 
             TableControl clickedTableControl = sender as TableControl;
             Table clickedTable = clickedTableControl.Table;
-            Section sectionEdited = (Section)clickedTableControl.Section;
-
 
             if ((Control.ModifierKeys & Keys.Control) != Keys.Control)
             {
@@ -110,6 +109,7 @@ namespace FloorPlanMakerUI
                 {
                     if (emphasizedTable != clickedTableControl)
                     {
+                        emphasizedTable.Controls.Remove(emphasizedTable.txtTableNumber);
                         emphasizedTable.BorderThickness = 1;
                         emphasizedTable.Invalidate();
                     }
@@ -149,12 +149,18 @@ namespace FloorPlanMakerUI
                 }
                 txtTableNumber.Text = tableNum;
             }
-            pnlFloorPlan.Controls.Remove(editor);
-            editor = TableEditorFactory.CreateEditor(clickedTableControl);
-            editor.Location = new Point(clickedTableControl.Right + 20, clickedTableControl.Top);
-           
-            pnlFloorPlan.Controls.Add(editor);
-            editor.BringToFront();
+            pnlFloorPlan.Controls.Remove(positionEditor);
+            if (clickedTableControl.Moveable)
+            {
+                positionEditor = TableEditorFactory.CreateEditor(clickedTableControl, pnlFloorPlan);
+                clickedTableControl.AddTxtTableNumber();
+                clickedTableControl.txtTableNumber.Focus();
+                //editor.Location = new Point(clickedTableControl.Right + 20, clickedTableControl.Top);
+
+                pnlFloorPlan.Controls.Add(positionEditor);
+                positionEditor.BringToFront();
+            }
+            
             //if (currentEmphasizedTable != null && currentEmphasizedTable != clickedTableControl)
             //{
             //    currentEmphasizedTable.BorderThickness = 1;
@@ -526,13 +532,13 @@ namespace FloorPlanMakerUI
         {
             //allTableControls.Clear();
 
-           // pnlFloorPlan.Controls.Clear();
+            // pnlFloorPlan.Controls.Clear();
             foreach (TableControl tableControl in allTableControls)
             {
                 TableDataEditorControl dataEditor = new TableDataEditorControl(tableControl);
                 pnlFloorPlan.Controls.Add(dataEditor);
                 dataEditor.BringToFront();
-                
+
             }
         }
 
@@ -559,6 +565,60 @@ namespace FloorPlanMakerUI
                         tableControl.Invalidate();
                     }
                 }
+            }
+        }
+
+        private void rdoEditData_CheckedChanged(object sender, EventArgs e)
+        {
+            
+            foreach (TableDataEditorControl editor in tableDataEditors)
+            {                
+                pnlFloorPlan.Controls.Remove(editor);                
+            }
+            tableDataEditors.Clear();
+            if (rdoEditData.Checked)
+            {
+                pnlFloorPlan.Controls.Remove(positionEditor);
+                foreach (TableControl tableControl in allTableControls)
+                {
+                    TableDataEditorControl dataEditor = new TableDataEditorControl(tableControl);
+                    tableDataEditors.Add(dataEditor);
+                    pnlFloorPlan.Controls.Add(dataEditor);
+                    dataEditor.BringToFront();
+
+                }
+            }
+        }
+
+        private void rdoEditPositions_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rdoEditPositions.Checked)
+            {                
+                foreach (Control control in pnlFloorPlan.Controls)
+                {
+                    if (control is TableControl tableControl)
+                    {
+                        tableControl.Moveable = true;
+                    }
+                }
+            }
+            else
+            {               
+                foreach (Control control in pnlFloorPlan.Controls)
+                {
+                    if (control is TableControl tableControl)
+                    {
+                        tableControl.Moveable = false;
+                    }
+                }
+            }
+        }
+
+        private void rdoDefaultView_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rdoDefaultView.Checked)
+            {
+
             }
         }
     }

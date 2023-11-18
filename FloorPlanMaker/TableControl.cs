@@ -13,6 +13,7 @@ namespace FloorPlanMaker
     public class TableControl : Control
     {
         public Color BorderColor { get; set; } = Color.Black; // default to DarkBlue
+       
         public Color TextColor { get; set; } = Color.Black;
         public DisplayMode CurrentDisplayMode { get; set; } = DisplayMode.TableNumber;
         public int BorderThickness { get; set; } = 2; // default to 1
@@ -31,6 +32,19 @@ namespace FloorPlanMaker
         public Point TopRightLinePoint { get { return this.RightLine.StartPoint; } }
         public Point BottomRightLinePoint { get { return this.BottomLine.EndPoint; } }
         public Point BottomLeftLinePoint { get { return this.BottomLine.StartPoint; } }
+        public TextBox txtTableNumber;
+        public void  AddTxtTableNumber()
+        {
+             this.txtTableNumber = new TextBox
+            {
+                Font = UITheme.MainFont,
+                MaximumSize = new Size(30, 36),
+                Location = new Point(this.Width / 2 - 18, this.Height/2-15),
+                Text = this._tableNumber
+            };
+            this.Controls.Add(txtTableNumber);
+    }
+        
         public int SectionLineBuffer { get; set; } = 5;
         //public float SectionLineThickness { get; set; } = 15f;
         public SectionLine TopLine 

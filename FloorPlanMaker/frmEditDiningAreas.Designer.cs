@@ -41,9 +41,12 @@
             btnLessHeight = new Button();
             btnLessWidth = new Button();
             panel2 = new Panel();
+            label6 = new Label();
+            cbViewMode = new CheckBox();
             txtYco = new TextBox();
-            txtXco = new TextBox();
+            btnQuickEdit = new Button();
             cbLockTables = new CheckBox();
+            txtXco = new TextBox();
             label9 = new Label();
             label5 = new Label();
             label4 = new Label();
@@ -60,15 +63,15 @@
             cbTemporaryFloorplan = new CheckBox();
             txtDiningAreaName = new TextBox();
             panel4 = new Panel();
-            cbViewMode = new CheckBox();
-            btnQuickEdit = new Button();
+            rdoDefaultView = new RadioButton();
+            rdoEditPositions = new RadioButton();
+            rdoEditData = new RadioButton();
             panel5 = new Panel();
             label7 = new Label();
             btnAddCircle = new Button();
             btnAddDiamond = new Button();
             btnAddSquare = new Button();
             cboDiningAreas = new ComboBox();
-            label6 = new Label();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
             panel6.SuspendLayout();
@@ -78,7 +81,7 @@
             // 
             // pnlFloorPlan
             // 
-            pnlFloorPlan.BackColor = Color.Silver;
+            pnlFloorPlan.BackColor = Color.WhiteSmoke;
             pnlFloorPlan.Location = new Point(224, 43);
             pnlFloorPlan.Name = "pnlFloorPlan";
             pnlFloorPlan.Size = new Size(672, 877);
@@ -230,10 +233,12 @@
             // 
             // panel2
             // 
-            panel2.BackColor = Color.Silver;
+            panel2.BackColor = Color.WhiteSmoke;
             panel2.Controls.Add(label6);
-            panel2.Controls.Add(cbLockTables);
+            panel2.Controls.Add(cbViewMode);
             panel2.Controls.Add(txtYco);
+            panel2.Controls.Add(btnQuickEdit);
+            panel2.Controls.Add(cbLockTables);
             panel2.Controls.Add(txtXco);
             panel2.Controls.Add(label9);
             panel2.Controls.Add(label5);
@@ -258,6 +263,31 @@
             panel2.Size = new Size(168, 901);
             panel2.TabIndex = 3;
             // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            label6.Location = new Point(10, 229);
+            label6.Name = "label6";
+            label6.Size = new Size(149, 25);
+            label6.TabIndex = 6;
+            label6.Text = "Table Properties";
+            // 
+            // cbViewMode
+            // 
+            cbViewMode.Appearance = Appearance.Button;
+            cbViewMode.BackColor = Color.FromArgb(158, 171, 222);
+            cbViewMode.FlatAppearance.BorderSize = 0;
+            cbViewMode.FlatStyle = FlatStyle.Flat;
+            cbViewMode.Location = new Point(32, 69);
+            cbViewMode.Name = "cbViewMode";
+            cbViewMode.Size = new Size(104, 23);
+            cbViewMode.TabIndex = 1;
+            cbViewMode.Text = "Toggle View";
+            cbViewMode.TextAlign = ContentAlignment.MiddleCenter;
+            cbViewMode.UseVisualStyleBackColor = false;
+            cbViewMode.CheckedChanged += cbViewMode_CheckedChanged;
+            // 
             // txtYco
             // 
             txtYco.Location = new Point(93, 707);
@@ -266,13 +296,21 @@
             txtYco.Size = new Size(35, 23);
             txtYco.TabIndex = 5;
             // 
-            // txtXco
+            // btnQuickEdit
             // 
-            txtXco.Location = new Point(47, 707);
-            txtXco.Name = "txtXco";
-            txtXco.PlaceholderText = "X";
-            txtXco.Size = new Size(35, 23);
-            txtXco.TabIndex = 5;
+            btnQuickEdit.BackColor = Color.FromArgb(158, 171, 222);
+            btnQuickEdit.FlatAppearance.BorderSize = 0;
+            btnQuickEdit.FlatStyle = FlatStyle.Flat;
+            btnQuickEdit.Image = Properties.Resources.SmallChair;
+            btnQuickEdit.ImageAlign = ContentAlignment.TopCenter;
+            btnQuickEdit.Location = new Point(18, 110);
+            btnQuickEdit.Name = "btnQuickEdit";
+            btnQuickEdit.Size = new Size(122, 29);
+            btnQuickEdit.TabIndex = 5;
+            btnQuickEdit.Text = "Default View";
+            btnQuickEdit.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnQuickEdit.UseVisualStyleBackColor = false;
+            btnQuickEdit.Click += btnQuickEdit_Click;
             // 
             // cbLockTables
             // 
@@ -282,14 +320,22 @@
             cbLockTables.CheckState = CheckState.Checked;
             cbLockTables.FlatAppearance.BorderSize = 0;
             cbLockTables.FlatStyle = FlatStyle.Flat;
-            cbLockTables.Location = new Point(17, 32);
+            cbLockTables.Location = new Point(18, 24);
             cbLockTables.Name = "cbLockTables";
-            cbLockTables.Size = new Size(141, 24);
+            cbLockTables.Size = new Size(122, 24);
             cbLockTables.TabIndex = 4;
             cbLockTables.Text = "Unlock Tables";
             cbLockTables.TextAlign = ContentAlignment.MiddleCenter;
             cbLockTables.UseVisualStyleBackColor = false;
             cbLockTables.CheckedChanged += cbLockTables_CheckedChanged;
+            // 
+            // txtXco
+            // 
+            txtXco.Location = new Point(47, 707);
+            txtXco.Name = "txtXco";
+            txtXco.PlaceholderText = "X";
+            txtXco.Size = new Size(35, 23);
+            txtXco.TabIndex = 5;
             // 
             // label9
             // 
@@ -397,7 +443,7 @@
             // 
             // panel3
             // 
-            panel3.BackColor = Color.FromArgb(178, 87, 46);
+            panel3.BackColor = Color.FromArgb(180, 190, 200);
             panel3.Controls.Add(panel2);
             panel3.Location = new Point(999, 16);
             panel3.Margin = new Padding(20);
@@ -407,7 +453,7 @@
             // 
             // panel6
             // 
-            panel6.BackColor = Color.Silver;
+            panel6.BackColor = Color.WhiteSmoke;
             panel6.Controls.Add(cbTemporaryFloorplan);
             panel6.Controls.Add(btnCreateNewDiningArea);
             panel6.Controls.Add(txtDiningAreaName);
@@ -440,10 +486,11 @@
             // 
             // panel4
             // 
-            panel4.BackColor = Color.FromArgb(178, 87, 46);
-            panel4.Controls.Add(cbViewMode);
+            panel4.BackColor = Color.FromArgb(180, 190, 200);
+            panel4.Controls.Add(rdoDefaultView);
+            panel4.Controls.Add(rdoEditPositions);
+            panel4.Controls.Add(rdoEditData);
             panel4.Controls.Add(panel6);
-            panel4.Controls.Add(btnQuickEdit);
             panel4.Controls.Add(panel5);
             panel4.Controls.Add(cboDiningAreas);
             panel4.Controls.Add(pnlFloorPlan);
@@ -453,37 +500,54 @@
             panel4.Size = new Size(932, 934);
             panel4.TabIndex = 5;
             // 
-            // cbViewMode
+            // rdoDefaultView
             // 
-            cbViewMode.Appearance = Appearance.Button;
-            cbViewMode.BackColor = Color.FromArgb(158, 171, 222);
-            cbViewMode.FlatAppearance.BorderSize = 0;
-            cbViewMode.FlatStyle = FlatStyle.Flat;
-            cbViewMode.Location = new Point(787, 8);
-            cbViewMode.Name = "cbViewMode";
-            cbViewMode.Size = new Size(104, 23);
-            cbViewMode.TabIndex = 1;
-            cbViewMode.Text = "Toggle View";
-            cbViewMode.TextAlign = ContentAlignment.MiddleCenter;
-            cbViewMode.UseVisualStyleBackColor = false;
-            cbViewMode.CheckedChanged += cbViewMode_CheckedChanged;
+            rdoDefaultView.Appearance = Appearance.Button;
+            rdoDefaultView.BackColor = Color.FromArgb(130, 180, 130);
+            rdoDefaultView.FlatAppearance.BorderSize = 0;
+            rdoDefaultView.FlatStyle = FlatStyle.Flat;
+            rdoDefaultView.Location = new Point(789, 19);
+            rdoDefaultView.Name = "rdoDefaultView";
+            rdoDefaultView.Size = new Size(104, 24);
+            rdoDefaultView.TabIndex = 6;
+            rdoDefaultView.Text = "Defult";
+            rdoDefaultView.TextAlign = ContentAlignment.MiddleCenter;
+            rdoDefaultView.UseVisualStyleBackColor = false;
+            rdoDefaultView.CheckedChanged += rdoDefaultView_CheckedChanged;
             // 
-            // btnQuickEdit
+            // rdoEditPositions
             // 
-            btnQuickEdit.BackColor = Color.FromArgb(158, 171, 222);
-            btnQuickEdit.FlatAppearance.BorderSize = 0;
-            btnQuickEdit.FlatStyle = FlatStyle.Flat;
-            btnQuickEdit.Location = new Point(662, 8);
-            btnQuickEdit.Name = "btnQuickEdit";
-            btnQuickEdit.Size = new Size(119, 23);
-            btnQuickEdit.TabIndex = 5;
-            btnQuickEdit.Text = "Quick Edit";
-            btnQuickEdit.UseVisualStyleBackColor = false;
-            btnQuickEdit.Click += btnQuickEdit_Click;
+            rdoEditPositions.Appearance = Appearance.Button;
+            rdoEditPositions.BackColor = Color.FromArgb(130, 180, 130);
+            rdoEditPositions.FlatAppearance.BorderSize = 0;
+            rdoEditPositions.FlatStyle = FlatStyle.Flat;
+            rdoEditPositions.Location = new Point(679, 19);
+            rdoEditPositions.Name = "rdoEditPositions";
+            rdoEditPositions.Size = new Size(104, 24);
+            rdoEditPositions.TabIndex = 6;
+            rdoEditPositions.Text = "Edit Positions";
+            rdoEditPositions.TextAlign = ContentAlignment.MiddleCenter;
+            rdoEditPositions.UseVisualStyleBackColor = false;
+            rdoEditPositions.CheckedChanged += rdoEditPositions_CheckedChanged;
+            // 
+            // rdoEditData
+            // 
+            rdoEditData.Appearance = Appearance.Button;
+            rdoEditData.BackColor = Color.FromArgb(130, 180, 130);
+            rdoEditData.FlatAppearance.BorderSize = 0;
+            rdoEditData.FlatStyle = FlatStyle.Flat;
+            rdoEditData.Location = new Point(569, 19);
+            rdoEditData.Name = "rdoEditData";
+            rdoEditData.Size = new Size(104, 24);
+            rdoEditData.TabIndex = 6;
+            rdoEditData.Text = "Edit Data";
+            rdoEditData.TextAlign = ContentAlignment.MiddleCenter;
+            rdoEditData.UseVisualStyleBackColor = false;
+            rdoEditData.CheckedChanged += rdoEditData_CheckedChanged;
             // 
             // panel5
             // 
-            panel5.BackColor = Color.Silver;
+            panel5.BackColor = Color.WhiteSmoke;
             panel5.Controls.Add(label7);
             panel5.Controls.Add(btnAddCircle);
             panel5.Controls.Add(btnAddDiamond);
@@ -542,21 +606,11 @@
             // cboDiningAreas
             // 
             cboDiningAreas.FormattingEnabled = true;
-            cboDiningAreas.Location = new Point(224, 8);
+            cboDiningAreas.Location = new Point(224, 14);
             cboDiningAreas.Name = "cboDiningAreas";
-            cboDiningAreas.Size = new Size(432, 23);
+            cboDiningAreas.Size = new Size(339, 23);
             cboDiningAreas.TabIndex = 1;
             cboDiningAreas.SelectedIndexChanged += cboDiningAreas_SelectedIndexChanged;
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            label6.Location = new Point(10, 229);
-            label6.Name = "label6";
-            label6.Size = new Size(149, 25);
-            label6.TabIndex = 6;
-            label6.Text = "Table Properties";
             // 
             // frmEditDiningAreas
             // 
@@ -624,5 +678,8 @@
         private Button btnQuickEdit;
         private CheckBox cbViewMode;
         private Label label6;
+        private RadioButton rdoEditData;
+        private RadioButton rdoEditPositions;
+        private RadioButton rdoDefaultView;
     }
 }
