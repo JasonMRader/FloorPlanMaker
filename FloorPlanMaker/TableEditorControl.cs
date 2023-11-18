@@ -15,6 +15,7 @@ namespace FloorPlanMakerUI
     public partial class TableEditorControl : UserControl
     {
         private TableControl? tableControl { get; set; }
+        private Action<TableControl, TableClickedEventArgs> tableClickedHandler;
         public TableEditorControl() { }
         public TableEditorControl(TableControl tableControl, Panel panel)
         {
@@ -22,6 +23,14 @@ namespace FloorPlanMakerUI
             this.tableControl = tableControl;
             setDefaultLocation(panel);
 
+        }
+        public TableEditorControl(TableControl tableControl, Panel panel,
+    Action<TableControl, TableClickedEventArgs> tableClickedHandler) : this(tableControl, panel)
+        {
+            InitializeComponent();
+            this.tableControl = tableControl;
+            setDefaultLocation(panel);
+            this.tableClickedHandler = tableClickedHandler;
         }
         private void setDefaultLocation(Panel panel)
         {
@@ -105,11 +114,48 @@ namespace FloorPlanMakerUI
                 // Optionally, you can also dispose the tableControl if it's no longer needed
                 tableControl.Dispose();
                 tableControl = null;
-               
+
                 // Refresh the parent Panel to update the UI
                 parentPanel.Invalidate();
                 this.Dispose();
             }
+        }
+
+        private void btnCopy_Click(object sender, EventArgs e)
+        {
+            int currentTableNumber = int.Parse(this.tableControl.Table.TableNumber);
+            int newTableNumber = currentTableNumber + 1;
+            //TableControl clickedTable = (TableControl)sender;
+            Table table = new Table()
+            {
+                Width = this.tableControl.Table.Width,
+                Height = this.tableControl.Table.Height,
+                //Left = new Random().Next(100, 300), // These are example values, replace with what you need
+                //Top = new Random().Next(100, 300),
+                //Moveable = true,
+                Shape = this.tableControl.Table.Shape,
+                TableNumber = newTableNumber.ToString(),
+                MaxCovers = this.tableControl.Table.MaxCovers,
+                AverageCovers = this.tableControl.Table.AverageCovers,
+                YCoordinate = this.tableControl.Table.YCoordinate,
+                XCoordinate = this.tableControl.Table.XCoordinate + this.tableControl.Table.Width + 5,
+                DiningAreaId = this.tableControl.Table.DiningAreaId,
+                DiningArea = this.tableControl.Table.DiningArea
+
+            };
+            table.ID = SqliteDataAccess.SaveTable(table);
+            TableControl tableControl = TableControlFactory.CreateTableControl(table);
+            tableControl.BackColor = this.tableControl.BackColor;
+            tableControl.Moveable = true;
+            tableControl.Tag = table;
+            this.tableControl.Table.DiningArea.Tables.Add(table);
+            tableControl.TableClicked += (sender, e) => tableClickedHandler((TableControl)sender, e);
+            // Subscribe to the TableClicked event for the new table as well
+            //table.TableClicked += Table_TableClicked;
+            tableControl.TableClicked += (sender, e) => tableClickedHandler?.Invoke((TableControl)sender, e);
+
+            Parent.Controls.Add(tableControl);
+            this.Dispose();
         }
     }
 }

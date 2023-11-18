@@ -147,6 +147,7 @@
             btnCopy.SizeMode = PictureBoxSizeMode.Zoom;
             btnCopy.TabIndex = 1;
             btnCopy.TabStop = false;
+            btnCopy.Click += btnCopy_Click;
             // 
             // btnDelete
             // 

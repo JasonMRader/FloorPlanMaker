@@ -155,7 +155,8 @@ namespace FloorPlanMakerUI
             pnlFloorPlan.Controls.Remove(positionEditor);
             if (clickedTableControl.Moveable)
             {
-                positionEditor = TableEditorFactory.CreateEditor(clickedTableControl, pnlFloorPlan);
+                //positionEditor = TableEditorFactory.CreateEditor(clickedTableControl, pnlFloorPlan);
+                positionEditor = new TableEditorControl(clickedTableControl, pnlFloorPlan, ExistingTable_TableClicked);
                 clickedTableControl.AddTxtTableNumber();
                 clickedTableControl.txtTableNumber.Focus();
                 //editor.Location = new Point(clickedTableControl.Right + 20, clickedTableControl.Top);

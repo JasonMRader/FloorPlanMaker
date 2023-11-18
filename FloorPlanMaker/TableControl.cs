@@ -33,6 +33,8 @@ namespace FloorPlanMaker
         public Point BottomRightLinePoint { get { return this.BottomLine.EndPoint; } }
         public Point BottomLeftLinePoint { get { return this.BottomLine.StartPoint; } }
         public TextBox txtTableNumber;
+        public delegate void TableControlEventHandler(TableControl sender, EventArgs e);
+
         public void  AddTxtTableNumber()
         {
              this.txtTableNumber = new TextBox
