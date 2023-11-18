@@ -530,11 +530,7 @@ namespace FloorPlanMakerUI
             foreach (Table table in areaCreationManager.DiningAreaSelected.Tables)
             {
                 table.DiningArea = areaCreationManager.DiningAreaSelected;
-                TableControlEditor tableControlEditor = new TableControlEditor(table);
-                //tableControl.TableClicked += Table_TableClicked;  // Uncomment if you want to attach event handler
-                //tableControlEditor.TableClicked += ExistingTable_TableClicked;
-                pnlFloorPlan.Controls.Add(tableControlEditor);
-                //allTableControls.Add(tableControl);
+                
             }
         }
 
