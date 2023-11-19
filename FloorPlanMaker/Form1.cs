@@ -969,13 +969,17 @@ namespace FloorPlanMaker
                 NoServersToDisplay();
                 return;
             }
-            FillInTableControlColors();
-            sectionControlsManager = new SectionControlsManager(shiftManager.SelectedFloorplan);
-            foreach (SectionControl sectionControl in sectionControlsManager.SectionControls)
+            else
             {
-                pnlFloorPlan.Controls.Add(sectionControl);
-                sectionControl.BringToFront();
+                FillInTableControlColors();
+                sectionControlsManager = new SectionControlsManager(shiftManager.SelectedFloorplan);
+                foreach (SectionControl sectionControl in sectionControlsManager.SectionControls)
+                {
+                    pnlFloorPlan.Controls.Add(sectionControl);
+                    sectionControl.BringToFront();
+                }
             }
+           
         }
         private void FillInTableControlColors()
         {
@@ -985,7 +989,7 @@ namespace FloorPlanMaker
                 if (ctrl is TableControl tableControl)
                 {
                     tableControl.BackColor = pnlFloorPlan.BackColor;
-                    tableControl.ForeColor = pnlFloorPlan.ForeColor;
+                    tableControl.TextColor = pnlFloorPlan.ForeColor;
                     foreach (Section section in shiftManager.SelectedFloorplan.Sections)
                     {
 
@@ -1102,16 +1106,18 @@ namespace FloorPlanMaker
             foreach (TableControl tableControl in allTableControls)
             {
                 Section sectionEdited = tableControl.Section;
+               
+                tableControl.Invalidate();
                 if (sectionEdited != null)
                 {
                     tableControl.Section.Tables.Remove(tableControl.Table);
                     tableControl.Section = null;
                     UpdateSectionLabels(sectionEdited, sectionEdited.MaxCovers, sectionEdited.AverageCovers);
                 }
-
-
                 tableControl.BackColor = pnlFloorPlan.BackColor;  // Restore the original color
-                tableControl.Invalidate();
+                tableControl.TextColor = pnlFloorPlan.ForeColor;
+
+
 
             }
 
