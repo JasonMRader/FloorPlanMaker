@@ -259,6 +259,7 @@ namespace FloorPlanMaker
             btnTest2.TabIndex = 16;
             btnTest2.Text = "2";
             btnTest2.UseVisualStyleBackColor = true;
+            btnTest2.Visible = false;
             btnTest2.Click += btnTest2_Click;
             // 
             // btnTest
@@ -270,6 +271,7 @@ namespace FloorPlanMaker
             btnTest.TabIndex = 12;
             btnTest.Text = "1";
             btnTest.UseVisualStyleBackColor = true;
+            btnTest.Visible = false;
             btnTest.Click += btnTest_Click;
             // 
             // pnlFloorPlan

@@ -533,7 +533,7 @@ namespace FloorPlanMaker
         {
             MoveDateForward();
         }
-        private void MoveDateForward()
+        public void MoveDateForward()
         {
             dateSelected = dateSelected.AddDays(1);
             lblShiftDate.Text = dateSelected.ToString("dddd, MMMM dd");
@@ -544,7 +544,7 @@ namespace FloorPlanMaker
         {
             MovedDateBack();
         }
-        private void MovedDateBack()
+        public void MovedDateBack()
         {
             dateSelected = dateSelected.AddDays(-1);
             lblShiftDate.Text = dateSelected.ToString("dddd, MMMM dd");

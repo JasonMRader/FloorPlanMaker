@@ -92,21 +92,36 @@ namespace FloorPlanMaker
                 MoveToNextSection();
                 return true; // Indicate that you've handled this key press
             }
-            
-            // Check if the Left Arrow key is pressed
-            if (keyData == Keys.Left)
+            if (_frmEditStaff != null && _frmEditStaff.Visible)
             {
-                dtpFloorplan.Value = dtpFloorplan.Value.AddDays(-1);
-                return true; // Indicate that you've handled this key press
+                if (keyData == Keys.Left)
+                {
+                    _frmEditStaff.MovedDateBack();
+                    return true; // Indicate that you've handled this key press
+                }
+                else if (keyData == Keys.Right)
+                {
+                    _frmEditStaff.MoveDateForward();
+                    return true; // Indicate that you've handled this key press
+                }
+            }
+            else
+            {
+                if (keyData == Keys.Left)
+                {
+                    dtpFloorplan.Value = dtpFloorplan.Value.AddDays(-1);
+                    return true; // Indicate that you've handled this key press
+                }
+
+                // Check if the Right Arrow key is pressed
+                if (keyData == Keys.Right)
+                {
+                    dtpFloorplan.Value = dtpFloorplan.Value.AddDays(1);
+                    return true; // Indicate that you've handled this key press
+                }
             }
 
-            // Check if the Right Arrow key is pressed
-            if (keyData == Keys.Right)
-            {
-                dtpFloorplan.Value = dtpFloorplan.Value.AddDays(1);
-                return true; // Indicate that you've handled this key press
-            }
-            
+
 
             return base.ProcessCmdKey(ref msg, keyData);
         }
