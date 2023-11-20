@@ -45,18 +45,18 @@
             label3 = new Label();
             label1 = new Label();
             panel3 = new Panel();
+            pbAddPerson = new PictureBox();
             flowAllServers = new FlowLayoutPanel();
             label5 = new Label();
             panel4 = new Panel();
             flowServersOnShift = new FlowLayoutPanel();
             label2 = new Label();
-            pbAddPerson = new PictureBox();
             toolTip1 = new ToolTip(components);
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
-            panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pbAddPerson).BeginInit();
+            panel4.SuspendLayout();
             SuspendLayout();
             // 
             // btnOK
@@ -111,18 +111,19 @@
             // cbIsAm
             // 
             cbIsAm.Appearance = Appearance.Button;
+            cbIsAm.BackColor = Color.FromArgb(251, 175, 0);
             cbIsAm.Checked = true;
             cbIsAm.CheckState = CheckState.Checked;
             cbIsAm.FlatAppearance.BorderSize = 0;
             cbIsAm.FlatStyle = FlatStyle.Flat;
             cbIsAm.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            cbIsAm.Image = Properties.Resources.smallSunrise;
             cbIsAm.Location = new Point(1030, 20);
             cbIsAm.Name = "cbIsAm";
             cbIsAm.Size = new Size(116, 45);
             cbIsAm.TabIndex = 2;
-            cbIsAm.Text = "AM";
             cbIsAm.TextAlign = ContentAlignment.MiddleCenter;
-            cbIsAm.UseVisualStyleBackColor = true;
+            cbIsAm.UseVisualStyleBackColor = false;
             cbIsAm.CheckedChanged += cbIsAm_CheckedChanged;
             // 
             // btnForwardDay
@@ -248,6 +249,19 @@
             panel3.Size = new Size(590, 492);
             panel3.TabIndex = 5;
             // 
+            // pbAddPerson
+            // 
+            pbAddPerson.BackColor = SystemColors.ButtonShadow;
+            pbAddPerson.Image = Properties.Resources.addPerson;
+            pbAddPerson.Location = new Point(530, 9);
+            pbAddPerson.Name = "pbAddPerson";
+            pbAddPerson.Size = new Size(40, 30);
+            pbAddPerson.SizeMode = PictureBoxSizeMode.Zoom;
+            pbAddPerson.TabIndex = 2;
+            pbAddPerson.TabStop = false;
+            toolTip1.SetToolTip(pbAddPerson, "Add a New Server to Database");
+            pbAddPerson.Click += pbAddPerson_Click;
+            // 
             // flowAllServers
             // 
             flowAllServers.BackColor = Color.WhiteSmoke;
@@ -294,19 +308,6 @@
             label2.TabIndex = 0;
             label2.Text = "Servers On Shift";
             // 
-            // pbAddPerson
-            // 
-            pbAddPerson.BackColor = SystemColors.ButtonShadow;
-            pbAddPerson.Image = Properties.Resources.addPerson;
-            pbAddPerson.Location = new Point(530, 9);
-            pbAddPerson.Name = "pbAddPerson";
-            pbAddPerson.Size = new Size(40, 30);
-            pbAddPerson.SizeMode = PictureBoxSizeMode.Zoom;
-            pbAddPerson.TabIndex = 2;
-            pbAddPerson.TabStop = false;
-            toolTip1.SetToolTip(pbAddPerson, "Add a New Server to Database");
-            pbAddPerson.Click += pbAddPerson_Click;
-            // 
             // frmNewShiftDatePicker
             // 
             AcceptButton = btnOK;
@@ -331,9 +332,9 @@
             panel2.PerformLayout();
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pbAddPerson).EndInit();
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pbAddPerson).EndInit();
             ResumeLayout(false);
         }
 

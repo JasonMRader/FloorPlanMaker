@@ -1,5 +1,6 @@
 ﻿using FloorplanClassLibrary;
 using FloorPlanMaker;
+using FloorPlanMakerUI.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -39,7 +40,7 @@ namespace FloorPlanMakerUI
 
             UITheme.FormatMainButton(btnBackDay);
             UITheme.FormatMainButton(btnForwardDay);
-            UITheme.FormatMainButton(cbIsAm);
+          
 
             UITheme.FormatCTAButton(btnOK);
 
@@ -87,10 +88,11 @@ namespace FloorPlanMakerUI
                 AutoSize = false,
                 TextAlign = ContentAlignment.MiddleCenter,
                 Margin = new Padding(5),
-                Text = server.Name,
+                Text = server.AbbreviatedName,
                 FlatStyle = FlatStyle.Flat,
-                BackColor = UITheme.ButtonColor,
-                ForeColor = Color.Black,
+                BackColor = UITheme.CTAColor,
+                ForeColor = Color.White,
+                Font = UITheme.MainFont,
                 TabStop = false,
                 Tag = server,
 
@@ -107,7 +109,8 @@ namespace FloorPlanMakerUI
             ShiftManagerCreated.ServersNotOnShift.Remove(server);
             serverButton.Click -= AddToShift_Click;
             serverButton.Click += RemoveFromShift_Click;
-            serverButton.BackColor = Color.FromArgb(192, 255, 192);
+            serverButton.BackColor = UITheme.YesColor;
+            serverButton.ForeColor = Color.Black;
             flowServersOnShift.Controls.Add(serverButton);
             flowAllServers.Controls.Remove(serverButton);
         }
@@ -119,7 +122,8 @@ namespace FloorPlanMakerUI
             ShiftManagerCreated.UnassignedServers.Remove(server);
             serverButton.Click += AddToShift_Click;
             serverButton.Click -= RemoveFromShift_Click;
-            serverButton.BackColor = UITheme.ButtonColor;
+            serverButton.BackColor = UITheme.CTAColor;
+            serverButton.ForeColor = Color.White;
             flowServersOnShift.Controls.Remove(serverButton);
             flowAllServers.Controls.Add(serverButton);
         }
@@ -137,8 +141,9 @@ namespace FloorPlanMakerUI
                     Appearance = Appearance.Button,
                     TextAlign = ContentAlignment.MiddleCenter,
                     FlatStyle = FlatStyle.Flat,
-                    ForeColor = Color.Black,
-                    BackColor = UITheme.ButtonColor,
+                    ForeColor = Color.White,
+                    BackColor = UITheme.CTAColor,
+                    Font = UITheme.MainFont,
                     TabStop = false
 
                 };
@@ -300,7 +305,8 @@ namespace FloorPlanMakerUI
 
             if (cbArea.Checked)
             {
-                cbArea.BackColor = Color.FromArgb(192, 255, 192);
+                cbArea.BackColor = UITheme.YesColor;
+                cbArea.ForeColor = Color.Black;
                 if (!ShiftManagerCreated.DiningAreasUsed.Contains(area))
                 {
                     ShiftManagerCreated.CreateFloorplanForDiningArea(area, DateTime.Now, false, 0, 0);
@@ -310,7 +316,8 @@ namespace FloorPlanMakerUI
             }
             else
             {
-                cbArea.BackColor = UITheme.ButtonColor;
+                cbArea.BackColor = UITheme.CTAColor;
+                cbArea.ForeColor = Color.White;
                 var floorplanToRemove = ShiftManagerCreated.Floorplans.FirstOrDefault(fp => fp.DiningArea == area);
                 ShiftManagerCreated.DiningAreasUsed.Remove(area);
                 ShiftManagerCreated.RemoveFloorplan(floorplanToRemove);
@@ -397,11 +404,14 @@ namespace FloorPlanMakerUI
             isAM = cbIsAm.Checked;
             if (isAM)
             {
-                cbIsAm.Text = "AM";
+                cbIsAm.Image = Resources.smallSunrise;
+                cbIsAm.BackColor = Color.FromArgb(251, 175, 0);
             }
             else
             {
-                cbIsAm.Text = "PM";
+                cbIsAm.Image = Resources.smallMoon;
+                cbIsAm.BackColor = Color.FromArgb(117, 70, 104);
+
             }
             RefreshPreviousFloorplanCounts();
         }
@@ -413,15 +423,15 @@ namespace FloorPlanMakerUI
             DialogResult = addServerForm.ShowDialog();
             if (DialogResult == DialogResult.OK)
             {
-                foreach(Server server in addServerForm.newServers)
+                foreach (Server server in addServerForm.newServers)
                 {
                     SqliteDataAccess.SaveNewServer(server);
                 }
                 allServers = SqliteDataAccess.LoadServers();
                 PopulateServersNotOnShift(allServers);
             }
-            
-            
+
+
         }
     }
 }

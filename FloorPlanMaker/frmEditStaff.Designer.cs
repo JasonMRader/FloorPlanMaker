@@ -89,16 +89,18 @@
             // cbIsAM
             // 
             cbIsAM.Appearance = Appearance.Button;
-            cbIsAM.BackColor = Color.FromArgb(255, 255, 192);
+            cbIsAM.BackColor = Color.FromArgb(251, 175, 0);
+            cbIsAM.Checked = true;
+            cbIsAM.CheckState = CheckState.Checked;
             cbIsAM.FlatAppearance.BorderSize = 0;
             cbIsAM.FlatStyle = FlatStyle.Flat;
             cbIsAM.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             cbIsAM.ForeColor = Color.Black;
+            cbIsAM.Image = FloorPlanMakerUI.Properties.Resources.smallSunrise;
             cbIsAM.Location = new Point(1062, 17);
             cbIsAM.Name = "cbIsAM";
             cbIsAM.Size = new Size(79, 39);
             cbIsAM.TabIndex = 19;
-            cbIsAM.Text = "PM";
             cbIsAM.TextAlign = ContentAlignment.MiddleCenter;
             cbIsAM.UseVisualStyleBackColor = false;
             cbIsAM.CheckedChanged += cbIsPM_CheckedChanged;
@@ -178,7 +180,6 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "frmEditStaff";
             Load += frmEditStaff_Load;
-           
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pbBack).EndInit();
             ((System.ComponentModel.ISupportInitialize)pbForward).EndInit();

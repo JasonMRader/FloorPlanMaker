@@ -1,6 +1,7 @@
 ﻿
 using FloorplanClassLibrary;
 using FloorPlanMakerUI;
+using FloorPlanMakerUI.Properties;
 using System;
 using System.Data;
 using System.Windows.Forms;
@@ -33,17 +34,17 @@ namespace FloorPlanMaker
             UITheme.FormatAccentColor(this);
 
 
-            UITheme.FormatMainButton(cbIsAM);
-            
+
+
         }
-        
+
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             // Check if the Tab key is pressed
             if (keyData == Keys.Tab)
             {
                 MoveToNextFloorplan();
-                return true; // Indicate that you've handled this key press
+                return true;
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
@@ -53,46 +54,14 @@ namespace FloorPlanMaker
         {
             if (newShiftManager == null) { return; }
             currentFocusedFloorplanIndex++;
-            if (currentFocusedFloorplanIndex == DiningAreaRBs.Count) { currentFocusedFloorplanIndex = 0; }         
-                        
+            if (currentFocusedFloorplanIndex == DiningAreaRBs.Count) { currentFocusedFloorplanIndex = 0; }
+
             var rbToFocus = DiningAreaRBs[currentFocusedFloorplanIndex];
             rbToFocus.Focus();
-            
+
         }
 
-        //private void SelectSection(int sectionNumber)
-        //{
 
-        //    shiftManager.SectionSelected = shiftManager.SelectedFloorplan.Sections.Where(s => s.Number == sectionNumber).FirstOrDefault();
-        //    foreach (Control c in flowSectionSelect.Controls)
-        //    {
-        //        if (c is Panel panel)
-        //        {
-        //            if (panel.Tag == shiftManager.SectionSelected)
-        //            {
-        //                panel.BackColor = shiftManager.SectionSelected.Color;
-        //            }
-        //            else
-        //            {
-        //                panel.BackColor = Color.SlateGray;
-        //            }
-
-        //        }
-        //    }
-        //    foreach (CheckBox cb in selectedSectionButtons)
-        //    {
-        //        if (cb.Tag == shiftManager.SectionSelected)
-        //        {
-        //            cb.Checked = true;
-        //        }
-        //        else
-        //        {
-        //            cb.Checked = false;
-        //        }
-        //    }
-            
-
-        //}
 
         public frmEditStaff(EmployeeManager staffManager, ShiftManager shiftManager, Form1 form1)
         {
@@ -202,7 +171,7 @@ namespace FloorPlanMaker
             }
         }
 
-       
+
         private void frmEditStaff_Load(object sender, EventArgs e)
         {
             dateSelected = DateTime.Now;
@@ -263,7 +232,7 @@ namespace FloorPlanMaker
 
         private void RefreshFloorplanFlowPanel(IReadOnlyList<Floorplan> floorplans)
         {
-            
+
             flowDiningAreaAssignment.Controls.Clear();
             infoPanelList.Clear();
             DiningAreaRBs.Clear();
@@ -350,7 +319,7 @@ namespace FloorPlanMaker
             {
                 flowDiningAreaAssignment.Controls.Add((Control)c);
             }
-           
+
         }
 
 
@@ -531,14 +500,24 @@ namespace FloorPlanMaker
         {
             if (cbIsAM.Checked)
             {
-                cbIsAM.Text = "AM";
-                newShiftManager.SetFloorplansToPM();
+                cbIsAM.Image = Resources.smallSunrise;
+                cbIsAM.BackColor = Color.FromArgb(251, 175, 0);
+                newShiftManager.SetFloorplansToAM();
+
+
+
+
             }
             else
             {
-                cbIsAM.Text = "PM";
-                newShiftManager.SetFloorplansToAM();
+                cbIsAM.Image = Resources.smallMoon;
+                cbIsAM.BackColor = Color.FromArgb(117, 70, 104);
+                newShiftManager.SetFloorplansToPM();
+               
+
+
             }
+
         }
 
         private void btnDateUp_Click(object sender, EventArgs e)
