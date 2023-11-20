@@ -47,6 +47,20 @@ namespace FloorPlanMaker
                 return true;
             }
 
+            if (keyData == Keys.Left)
+            {
+                MovedDateBack();
+                return true; // Indicate that you've handled this key press
+            }
+
+            // Check if the Right Arrow key is pressed
+            if (keyData == Keys.Right)
+            {
+                MoveDateForward();
+                return true; // Indicate that you've handled this key press
+            }
+
+
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
@@ -510,12 +524,16 @@ namespace FloorPlanMaker
                 cbIsAM.Image = Resources.smallMoon;
                 cbIsAM.BackColor = Color.FromArgb(117, 70, 104);
                 newShiftManager.SetFloorplansToPM();
-               
+
             }
 
         }
 
         private void btnDateUp_Click(object sender, EventArgs e)
+        {
+            MoveDateForward();
+        }
+        private void MoveDateForward()
         {
             dateSelected = dateSelected.AddDays(1);
             lblShiftDate.Text = dateSelected.ToString("dddd, MMMM dd");
@@ -524,12 +542,15 @@ namespace FloorPlanMaker
         }
         private void btnDateDown_Click(object sender, EventArgs e)
         {
+            MovedDateBack();
+        }
+        private void MovedDateBack()
+        {
             dateSelected = dateSelected.AddDays(-1);
             lblShiftDate.Text = dateSelected.ToString("dddd, MMMM dd");
             setIsNewShiftBool();
             SetFloorplansForShiftManager();
         }
-
         private void setIsNewShiftBool()
         {
             DateOnly dateOnlySelected = DateOnly.FromDateTime(dateSelected);
@@ -577,6 +598,20 @@ namespace FloorPlanMaker
                 ImageSetter.SetShiftControlImages(newServerControl);
                 flowUnassignedServers.Controls.Add(newServerControl);
 
+            }
+        }
+
+        private void frmEditStaff_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Left)
+            {
+                MovedDateBack();
+                e.Handled = true;
+            }
+            else if (e.KeyCode == Keys.Right)
+            {
+                MoveDateForward();
+                e.Handled = true;
             }
         }
     }

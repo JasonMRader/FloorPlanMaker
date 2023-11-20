@@ -176,10 +176,12 @@
             Controls.Add(panel2);
             ForeColor = Color.White;
             FormBorderStyle = FormBorderStyle.None;
+            KeyPreview = true;
             Name = "frmEditStaff";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "frmEditStaff";
             Load += frmEditStaff_Load;
+            KeyDown += frmEditStaff_KeyDown;
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pbBack).EndInit();
             ((System.ComponentModel.ISupportInitialize)pbForward).EndInit();
