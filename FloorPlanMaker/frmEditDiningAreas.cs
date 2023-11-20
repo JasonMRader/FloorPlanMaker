@@ -29,6 +29,36 @@ namespace FloorPlanMakerUI
         {
             InitializeComponent();
         }
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            // Check if the Tab key is pressed
+            if (keyData == Keys.Tab)
+            {
+                MoveToNextSection();
+                return true; // Indicate that you've handled this key press
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void MoveToNextSection()
+        {
+            if (!rdoCoverView.Checked) return;
+
+            var currentControlIndex = tableDataEditors.FindIndex(control => control == this.Focus());
+            if (currentControlIndex >= 0 && currentControlIndex < tableDataEditors.Count - 1)
+            {
+                var nextControl = tableDataEditors[currentControlIndex + 1];
+                nextControl.Focus(); // Assuming txtCovers is the name of the TextBox you want to focus
+            }
+
+
+
+
+
+        }
+
+       
         private void SetColors()
         {
 
@@ -523,6 +553,14 @@ namespace FloorPlanMakerUI
 
                 }
             }
+            tableDataEditors = OrderEditorList();
+
+        }
+        private List<TableDataEditorControl> OrderEditorList()
+        {
+            var orderedList = tableDataEditors.OrderBy(t=>t.TableNumber).ToList();
+            return orderedList;
+           
         }
         private void rdoSalesView_CheckedChanged(object sender, EventArgs e)
         {

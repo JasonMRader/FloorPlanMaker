@@ -67,6 +67,7 @@
             txtCovers.Size = new Size(40, 20);
             txtCovers.TabIndex = 1;
             txtCovers.TextAlign = HorizontalAlignment.Center;
+            txtCovers.TextChanged += txtCovers_TextChanged;
             // 
             // txtSales
             // 
@@ -78,6 +79,7 @@
             txtSales.Name = "txtSales";
             txtSales.Size = new Size(40, 17);
             txtSales.TabIndex = 1;
+            txtSales.TextChanged += txtSales_TextChanged;
             // 
             // TableDataEditorControl
             // 

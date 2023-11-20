@@ -35,8 +35,8 @@ namespace FloorPlanMakerUI
         public void SetToCoversOnly()
         {
             this.Controls.Clear();
-            this.Size = new Size(65, 20);            
-            picCovers.Location = new Point(0, 0);            
+            this.Size = new Size(65, 20);
+            picCovers.Location = new Point(0, 0);
             txtCovers.Location = new Point(25, 0);
             this.Controls.Add(picCovers);
             this.Controls.Add(txtCovers);
@@ -46,8 +46,8 @@ namespace FloorPlanMakerUI
         public void SetToSalesOnly()
         {
             this.Controls.Clear();
-            this.Size = new Size(65, 20);            
-            picSales.Location = new Point(0, 0);            
+            this.Size = new Size(65, 20);
+            picSales.Location = new Point(0, 0);
             txtSales.Location = new Point(25, 0);
             this.Controls.Add(picSales);
             this.Controls.Add(txtSales);
@@ -73,6 +73,34 @@ namespace FloorPlanMakerUI
         private void TableDataEditorControl_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void txtCovers_TextChanged(object sender, EventArgs e)
+        {
+            int newMaxCovers = -1;
+            if (int.TryParse(txtCovers.Text, out int maxCovers))
+            {
+                newMaxCovers = maxCovers;
+            }
+            if (newMaxCovers > -1 && newMaxCovers != this.tableControl.Table.MaxCovers)
+            {
+                this.tableControl.Table.MaxCovers = newMaxCovers;
+                SqliteDataAccess.UpdateTable(this.tableControl.Table);
+            }
+        }
+
+        private void txtSales_TextChanged(object sender, EventArgs e)
+        {
+            int newAvgSales = -1;
+            if (int.TryParse(txtSales.Text, out int avgSales))
+            {
+                newAvgSales = avgSales;
+            }
+            if (newAvgSales > -1 && newAvgSales != this.tableControl.Table.AverageCovers)
+            {
+                this.tableControl.Table.AverageCovers = newAvgSales;
+                SqliteDataAccess.UpdateTable(this.tableControl.Table);
+            }
         }
     }
 }
