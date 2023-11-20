@@ -226,7 +226,8 @@ namespace FloorPlanMakerUI
         }
         private void RefreshForDateSelected()
         {
-
+            List<Button> serversOnShiftButtons = new List<Button>();
+            List<Button> serversNotOnShiftButtons = new List<Button>();
             var relevantFloorplans = allFloorplans
                 .Where(fp => fp.Date.Date == dateSelected && fp.IsLunch == cbIsAm.Checked)
                 .ToList();
@@ -251,15 +252,22 @@ namespace FloorPlanMakerUI
             }
             foreach (Button btn in flowAllServers.Controls)
             {
-
+                serversNotOnShiftButtons.Add(btn);
+                
+            }
+            foreach(Button btn in serversNotOnShiftButtons)
+            {
                 if (serverUsed.Contains(btn.Tag))
                 {
                     EventArgs e = new EventArgs();
                     AddToShift_Click(btn, e);
-
                 }
             }
             foreach (Button btn in flowServersOnShift.Controls)
+            {
+                serversOnShiftButtons.Add(btn);                
+            }
+            foreach (Button btn in serversOnShiftButtons)
             {
                 if (!serverUsed.Contains(btn.Tag))
                 {

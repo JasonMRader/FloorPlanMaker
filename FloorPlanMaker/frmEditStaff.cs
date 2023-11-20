@@ -504,9 +504,6 @@ namespace FloorPlanMaker
                 cbIsAM.BackColor = Color.FromArgb(251, 175, 0);
                 newShiftManager.SetFloorplansToAM();
 
-
-
-
             }
             else
             {
@@ -514,8 +511,6 @@ namespace FloorPlanMaker
                 cbIsAM.BackColor = Color.FromArgb(117, 70, 104);
                 newShiftManager.SetFloorplansToPM();
                
-
-
             }
 
         }
