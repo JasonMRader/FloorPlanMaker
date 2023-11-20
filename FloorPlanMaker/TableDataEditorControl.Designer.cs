@@ -93,6 +93,7 @@
             Name = "TableDataEditorControl";
             Size = new Size(65, 20);
             Load += TableDataEditorControl_Load;
+            Enter += TableDataEditorControl_Enter;
             ((System.ComponentModel.ISupportInitialize)picSales).EndInit();
             ((System.ComponentModel.ISupportInitialize)picCovers).EndInit();
             ResumeLayout(false);

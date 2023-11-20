@@ -15,6 +15,17 @@ namespace FloorPlanMakerUI
     public partial class TableDataEditorControl : UserControl
     {
         private TableControl? tableControl { get; set; }
+        public int TableNumber
+        {
+            get
+            {
+                if (int.TryParse(this.tableControl.Table.TableNumber, out int tableNumber))
+                {
+                    return tableNumber;
+                }
+                else { return -1; }
+            }
+        }
         public TableDataEditorControl() { }
         public TableDataEditorControl(TableControl tableControl)
         {
@@ -101,6 +112,11 @@ namespace FloorPlanMakerUI
                 this.tableControl.Table.AverageCovers = newAvgSales;
                 SqliteDataAccess.UpdateTable(this.tableControl.Table);
             }
+        }
+
+        private void TableDataEditorControl_Enter(object sender, EventArgs e)
+        {
+            this.txtCovers.Focus();
         }
     }
 }
