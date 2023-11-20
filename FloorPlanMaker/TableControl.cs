@@ -226,7 +226,11 @@ namespace FloorPlanMaker
             this.MouseDown += new MouseEventHandler(TableControl_MouseDown);
             this.MouseMove += new MouseEventHandler(TableControl_MouseMove);
             this.MouseClick += new MouseEventHandler(TableControl_MouseClick);
+            this.MouseUp += new MouseEventHandler(TableControl_MouseUp);
         }
+
+        
+
         public bool Moveable { get; set; }
 
 
@@ -239,16 +243,25 @@ namespace FloorPlanMaker
                 MouseDownLocation = e.Location;
             }
         }
-
+        private bool wasMoved = false;
         private void TableControl_MouseMove(object sender, MouseEventArgs e)
         {
             if (e.Button == System.Windows.Forms.MouseButtons.Left && Moveable)
             {
                 this.Left = e.X + this.Left - MouseDownLocation.X;
                 this.Top = e.Y + this.Top - MouseDownLocation.Y;
+                wasMoved = true;
             }
             this.Table.XCoordinate = this.Left;
             this.Table.YCoordinate = this.Top;
+        }
+        private void TableControl_MouseUp(object? sender, MouseEventArgs e)
+        {
+            if(wasMoved)
+            {
+                SqliteDataAccess.UpdateTable(this.Table);
+            }
+            wasMoved = false;
         }
         public event EventHandler<TableClickedEventArgs> TableClicked;
 
