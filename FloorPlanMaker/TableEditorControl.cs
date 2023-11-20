@@ -152,7 +152,7 @@ namespace FloorPlanMakerUI
             tableControl.TableClicked += (sender, e) => tableClickedHandler((TableControl)sender, e);
             // Subscribe to the TableClicked event for the new table as well
             //table.TableClicked += Table_TableClicked;
-            tableControl.TableClicked += (sender, e) => tableClickedHandler?.Invoke((TableControl)sender, e);
+           // tableControl.TableClicked += (sender, e) => tableClickedHandler?.Invoke((TableControl)sender, e);
 
             Parent.Controls.Add(tableControl);
             this.Dispose();

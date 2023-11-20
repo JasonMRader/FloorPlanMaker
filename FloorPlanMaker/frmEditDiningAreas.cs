@@ -136,6 +136,10 @@ namespace FloorPlanMakerUI
             {
                 SetTableControlsToReposition();
             }
+            if (rdoSalesView.Checked)
+            {
+                SetTableControlsToSalesData();
+            }
 
 
         }

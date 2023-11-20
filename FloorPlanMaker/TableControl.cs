@@ -56,9 +56,16 @@ namespace FloorPlanMaker
                 Location = new Point(this.Width / 2 - 18, this.Height/2-15),
                 Text = this._tableNumber
             };
+            txtTableNumber.TextChanged += txtTableNumber_TextChanged;
             this.Controls.Add(txtTableNumber);
-    }
-        
+        }
+        private void txtTableNumber_TextChanged(object sender, EventArgs e)
+        {
+            this.Table.TableNumber = this.txtTableNumber.Text;
+            SqliteDataAccess.UpdateTable(this.Table);
+        }
+
+
         public int SectionLineBuffer { get; set; } = 5;
         //public float SectionLineThickness { get; set; } = 15f;
         public SectionLine TopLine 
