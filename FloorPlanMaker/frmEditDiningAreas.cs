@@ -45,20 +45,30 @@ namespace FloorPlanMakerUI
         {
             if (!rdoCoverView.Checked) return;
 
-            var currentControlIndex = tableDataEditors.FindIndex(control => control == this.Focus());
+            // Assuming you have a way to get the currently focused TableDataEditorControl
+            TableDataEditorControl focusedControl = GetFocusedTableDataEditorControl();
+
+            var currentControlIndex = tableDataEditors.FindIndex(control => control == focusedControl);
             if (currentControlIndex >= 0 && currentControlIndex < tableDataEditors.Count - 1)
             {
                 var nextControl = tableDataEditors[currentControlIndex + 1];
-                nextControl.Focus(); // Assuming txtCovers is the name of the TextBox you want to focus
+                nextControl.Focus();
             }
-
-
-
-
-
+        }
+        private TableDataEditorControl GetFocusedTableDataEditorControl()
+        {
+            Control focused = this.ActiveControl;
+            while (focused != null)
+            {
+                if (focused is TableDataEditorControl)
+                {
+                    return (TableDataEditorControl)focused;
+                }
+                focused = focused.Parent;
+            }
+            return null;
         }
 
-       
         private void SetColors()
         {
 
