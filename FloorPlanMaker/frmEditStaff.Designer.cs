@@ -178,9 +178,7 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "frmEditStaff";
             Load += frmEditStaff_Load;
-            MouseDown += frmEditStaff_MouseDown;
-            MouseMove += frmEditStaff_MouseMove;
-            MouseUp += frmEditStaff_MouseUp;
+           
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pbBack).EndInit();
             ((System.ComponentModel.ISupportInitialize)pbForward).EndInit();

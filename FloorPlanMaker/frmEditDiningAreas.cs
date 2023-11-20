@@ -34,26 +34,29 @@ namespace FloorPlanMakerUI
             // Check if the Tab key is pressed
             if (keyData == Keys.Tab)
             {
-                MoveToNextSection();
+                MoveToNextControl();
                 return true; // Indicate that you've handled this key press
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
-        private void MoveToNextSection()
+        private void MoveToNextControl()
         {
-            if (!rdoCoverView.Checked) return;
-
-            // Assuming you have a way to get the currently focused TableDataEditorControl
-            TableDataEditorControl focusedControl = GetFocusedTableDataEditorControl();
-
-            var currentControlIndex = tableDataEditors.FindIndex(control => control == focusedControl);
-            if (currentControlIndex >= 0 && currentControlIndex < tableDataEditors.Count - 1)
+            if (rdoCoverView.Checked || rdoSalesView.Checked)
             {
-                var nextControl = tableDataEditors[currentControlIndex + 1];
-                nextControl.Focus();
+                TableDataEditorControl focusedControl = GetFocusedTableDataEditorControl();
+
+                var currentControlIndex = tableDataEditors.FindIndex(control => control == focusedControl);
+                if (currentControlIndex >= 0 && currentControlIndex < tableDataEditors.Count - 1)
+                {
+                    var nextControl = tableDataEditors[currentControlIndex + 1];
+                    nextControl.Focus();
+                }
             }
+
+            
+            
         }
         private TableDataEditorControl GetFocusedTableDataEditorControl()
         {

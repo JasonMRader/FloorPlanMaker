@@ -15,6 +15,8 @@ namespace FloorPlanMakerUI
     public partial class TableDataEditorControl : UserControl
     {
         private TableControl? tableControl { get; set; }
+        private bool isSalesOnly = false;
+        private bool isCoversOnly = false;
         public int TableNumber
         {
             get
@@ -53,6 +55,7 @@ namespace FloorPlanMakerUI
             this.Controls.Add(txtCovers);
             setStartLocation();
             this.Invalidate();
+            isCoversOnly = true;
         }
         public void SetToSalesOnly()
         {
@@ -64,6 +67,7 @@ namespace FloorPlanMakerUI
             this.Controls.Add(txtSales);
             setStartLocation();
             this.Invalidate();
+            isSalesOnly = true;
         }
         public void SetToBoth()
         {
@@ -79,6 +83,8 @@ namespace FloorPlanMakerUI
             this.Controls.Add(txtSales);
             setStartLocation();
             this.Invalidate();
+            isSalesOnly = false;
+            isCoversOnly = false;
 
         }
         private void TableDataEditorControl_Load(object sender, EventArgs e)
@@ -116,7 +122,15 @@ namespace FloorPlanMakerUI
 
         private void TableDataEditorControl_Enter(object sender, EventArgs e)
         {
-            this.txtCovers.Focus();
+            if(isCoversOnly)
+            {
+                this.txtCovers.Focus();
+            }
+            if (isSalesOnly)
+            {
+                this.txtSales.Focus();
+            }
+            
         }
     }
 }

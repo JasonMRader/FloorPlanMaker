@@ -16,8 +16,8 @@ namespace FloorPlanMaker
         private DiningAreaCreationManager DiningAreaManager = new DiningAreaCreationManager();
         private DateTime dateSelected = DateTime.MinValue;
         private List<Floorplan> allFloorplans = new List<Floorplan>();
-        private bool isDraggingForm = false;
-        private Point lastLocation;
+        private int currentFocusedFloorplanIndex = 0;
+
         private Form1 form1Reference;
         private bool isNewShift = false;
         private void SetColorTheme()
@@ -35,35 +35,65 @@ namespace FloorPlanMaker
 
             UITheme.FormatMainButton(cbIsAM);
             
-
-            //lblShiftDate.Font = UITheme.LargeFont;
-
-
-            //AppColors.FormatSecondColor(pnlAddTables);
-
-
-            //AppColors.FormatCanvasColor(flowServersInFloorplan);
         }
-        private void frmEditStaff_MouseDown(object sender, MouseEventArgs e)
+        
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            isDraggingForm = true;
-            lastLocation = e.Location;
-        }
-        private void frmEditStaff_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (isDraggingForm)
+            // Check if the Tab key is pressed
+            if (keyData == Keys.Tab)
             {
-                this.Location = new System.Drawing.Point(
-                    (this.Location.X - lastLocation.X) + e.X,
-                    (this.Location.Y - lastLocation.Y) + e.Y);
-
-                this.Update();
+                MoveToNextFloorplan();
+                return true; // Indicate that you've handled this key press
             }
+
+            return base.ProcessCmdKey(ref msg, keyData);
         }
-        private void frmEditStaff_MouseUp(object sender, MouseEventArgs e)
+
+        private void MoveToNextFloorplan()
         {
-            isDraggingForm = false;
+            if (newShiftManager == null) { return; }
+            currentFocusedFloorplanIndex++;
+            if (currentFocusedFloorplanIndex == DiningAreaRBs.Count) { currentFocusedFloorplanIndex = 0; }         
+                        
+            var rbToFocus = DiningAreaRBs[currentFocusedFloorplanIndex];
+            rbToFocus.Focus();
+            
         }
+
+        //private void SelectSection(int sectionNumber)
+        //{
+
+        //    shiftManager.SectionSelected = shiftManager.SelectedFloorplan.Sections.Where(s => s.Number == sectionNumber).FirstOrDefault();
+        //    foreach (Control c in flowSectionSelect.Controls)
+        //    {
+        //        if (c is Panel panel)
+        //        {
+        //            if (panel.Tag == shiftManager.SectionSelected)
+        //            {
+        //                panel.BackColor = shiftManager.SectionSelected.Color;
+        //            }
+        //            else
+        //            {
+        //                panel.BackColor = Color.SlateGray;
+        //            }
+
+        //        }
+        //    }
+        //    foreach (CheckBox cb in selectedSectionButtons)
+        //    {
+        //        if (cb.Tag == shiftManager.SectionSelected)
+        //        {
+        //            cb.Checked = true;
+        //        }
+        //        else
+        //        {
+        //            cb.Checked = false;
+        //        }
+        //    }
+            
+
+        //}
+
         public frmEditStaff(EmployeeManager staffManager, ShiftManager shiftManager, Form1 form1)
         {
             InitializeComponent();
@@ -231,33 +261,9 @@ namespace FloorPlanMaker
             }
         }
 
-        private void refreshTabOrder()
-        {
-            int tabIndexNum = 0;
-            foreach (Control c in flowDiningAreaAssignment.Controls)
-            {
-                if (c is RadioButton rb)
-                {
-                    rb.TabStop = true;
-                    rb.TabIndex = tabIndexNum++;
-                }
-            }
-        }
-        private void DisableTabStopForControls(Control parentControl)
-        {
-            foreach (Control c in parentControl.Controls)
-            {
-                if (!(c is RadioButton))
-                {
-                    c.TabStop = false;
-                }
-                // Recursively apply for child controls
-                DisableTabStopForControls(c);
-            }
-        }
         private void RefreshFloorplanFlowPanel(IReadOnlyList<Floorplan> floorplans)
         {
-            DisableTabStopForControls(this);
+            
             flowDiningAreaAssignment.Controls.Clear();
             infoPanelList.Clear();
             DiningAreaRBs.Clear();
@@ -344,8 +350,7 @@ namespace FloorPlanMaker
             {
                 flowDiningAreaAssignment.Controls.Add((Control)c);
             }
-            refreshTabOrder();
-
+           
         }
 
 
