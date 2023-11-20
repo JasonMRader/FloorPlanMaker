@@ -49,6 +49,8 @@ namespace FloorPlanMakerUI
 
         public static Color HighlightColor2 = Color.FromArgb(237, 174, 73);
 
+        public static Color WarningColor = Color.FromArgb(169, 135, 67);
+
         public static Image erase = Resources.erase;
         public static Image save = Resources.ExtraSmallSave;
         public static Image inside = Resources.Inside;

@@ -279,6 +279,7 @@ namespace FloorPlanMaker
             pnlFloorPlan.Name = "pnlFloorPlan";
             pnlFloorPlan.Size = new Size(672, 877);
             pnlFloorPlan.TabIndex = 2;
+            pnlFloorPlan.Click += pnlFloorPlan_Click;
             // 
             // cboDiningAreas
             // 
@@ -502,7 +503,7 @@ namespace FloorPlanMaker
             rdoViewServerFlow.FlatAppearance.CheckedBackColor = Color.WhiteSmoke;
             rdoViewServerFlow.FlatStyle = FlatStyle.Flat;
             rdoViewServerFlow.ForeColor = Color.Black;
-            rdoViewServerFlow.Image = FloorPlanMakerUI.Properties.Resources.treySmall;
+            rdoViewServerFlow.Image = FloorPlanMakerUI.Properties.Resources.trayReeversedLeessSmall;
             rdoViewServerFlow.Location = new Point(63, 0);
             rdoViewServerFlow.Name = "rdoViewServerFlow";
             rdoViewServerFlow.Size = new Size(63, 28);

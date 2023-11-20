@@ -34,14 +34,10 @@ namespace FloorPlanMakerUI
 
             UITheme.FormatMainButton(btnQuickEdit);
             UITheme.FormatMainButton(cbViewMode);
-            UITheme.FormatMainButton(btnCopyTable);
+
             UITheme.FormatMainButton(btnSaveTable);
             UITheme.FormatMainButton(cbLockTables);
-            UITheme.FormatMainButton(btnMoreHeight);
-            UITheme.FormatMainButton(btnMoreWidth);
-            UITheme.FormatMainButton(btnLessHeight);
-            UITheme.FormatMainButton(btnLessWidth);
-            UITheme.FormatMainButton(btnDeleteTable);
+
             UITheme.FormatMainButton(btnCreateNewDiningArea);
             UITheme.FormatMainButton(btnSaveDiningArea);
             UITheme.FormatMainButton(btnSaveDiningArea);
@@ -89,6 +85,14 @@ namespace FloorPlanMakerUI
                 pnlFloorPlan.Controls.Add(tableControl);
                 allTableControls.Add(tableControl);
             }
+            if (rdoCoverView.Checked)
+            {
+                SetTableControlsToCoverData();
+            }
+            if (rdoEditPositions.Checked)
+            {
+                SetTableControlsToReposition();
+            }
 
 
         }
@@ -100,13 +104,7 @@ namespace FloorPlanMakerUI
 
             if ((Control.ModifierKeys & Keys.Control) != Keys.Control)
             {
-                txtTableNumber.Clear();
-                txtMaxCovers.Clear();
-                txtAverageCovers.Clear();
-                txtHeight.Clear();
-                txtWidth.Clear();
-                txtXco.Clear();
-                txtYco.Clear();
+
                 foreach (var emphasizedTable in emphasizedTablesList)
                 {
                     if (emphasizedTable != clickedTableControl)
@@ -117,8 +115,8 @@ namespace FloorPlanMakerUI
                     }
                 }
                 emphasizedTablesList.Clear();
-                areaCreationManager.SelectedTables.Clear(); 
-                
+                areaCreationManager.SelectedTables.Clear();
+
 
                 txtTableNumber.Enabled = true;
             }
@@ -139,8 +137,7 @@ namespace FloorPlanMakerUI
             txtTableNumber.Text = clickedTable.TableNumber;
             txtMaxCovers.Text = clickedTable.MaxCovers.ToString();
             txtAverageCovers.Text = clickedTable.AverageCovers.ToString();
-            txtHeight.Text = clickedTable.Height.ToString();
-            txtWidth.Text = clickedTable.Width.ToString();
+
             txtXco.Text = clickedTable.XCoordinate.ToString();
             txtYco.Text = clickedTable.YCoordinate.ToString();
             string tableNum = "";
@@ -165,13 +162,13 @@ namespace FloorPlanMakerUI
                 positionEditor.BringToFront();
             }
 
-            
+
 
 
         }
 
-        
-        private void SaveTableByTableControl(TableControl tableControl)
+
+        private void SaveNewTableByTableControl(TableControl tableControl)
         {
             Table tableToSave = tableControl.Table;
 
@@ -264,62 +261,20 @@ namespace FloorPlanMakerUI
             }
         }
 
-        private void btnMoreHeight_Click(object sender, EventArgs e)
-        {
-            if (int.TryParse(txtHeight.Text, out int height) && height >= 25 && height <= 390)
-            {
-                height = height + 10;
-                txtHeight.Text = height.ToString();
-                RefreshTableControl();
 
-            }
-        }
-
-        private void btnLessHeight_Click(object sender, EventArgs e)
-        {
-            if (int.TryParse(txtHeight.Text, out int height) && height >= 35 && height <= 400)
-            {
-                height = height - 10;
-                txtHeight.Text = height.ToString();
-                RefreshTableControl();
-
-            }
-        }
-
-        private void btnMoreWidth_Click(object sender, EventArgs e)
-        {
-            if (int.TryParse(txtWidth.Text, out int width) && width >= 25 && width <= 390)
-            {
-                width = width + 10;
-                txtWidth.Text = width.ToString();
-                RefreshTableControl();
-
-            }
-        }
-
-        private void btnLessWidth_Click(object sender, EventArgs e)
-        {
-            if (int.TryParse(txtWidth.Text, out int width) && width >= 35 && width <= 400)
-            {
-                width = width - 10;
-                txtWidth.Text = width.ToString();
-                RefreshTableControl();
-
-            }
-        }
         private void RefreshTableControl(object sender, EventArgs e)
         {
             if (areaCreationManager.SelectedTables.Count > 1)
             {
                 foreach (TableControl tableControl in emphasizedTablesList)
                 {
-                    SetTableProperties(tableControl.Table, tableControl);
+                    SetTablePropertiesFromTxtBx(tableControl.Table, tableControl);
                 }
 
             }
             if (areaCreationManager.SelectedTables.Count == 1)
             {
-                SetTableProperties(areaCreationManager.SelectedTable, currentEmphasizedTableControl);
+                SetTablePropertiesFromTxtBx(areaCreationManager.SelectedTable, currentEmphasizedTableControl);
                 //SqliteDataAccess.UpdateTable(areaManager.SelectedTable);
             }
 
@@ -332,18 +287,58 @@ namespace FloorPlanMakerUI
             {
                 foreach (TableControl tableControl in emphasizedTablesList)
                 {
-                    SetTableProperties(tableControl.Table, tableControl);
+                    SetTablePropertiesFromTxtBx(tableControl.Table, tableControl);
                 }
 
             }
             if (areaCreationManager.SelectedTables.Count == 1)
             {
-                SetTableProperties(areaCreationManager.SelectedTable, currentEmphasizedTableControl);
+                SetTablePropertiesFromTxtBx(areaCreationManager.SelectedTable, currentEmphasizedTableControl);
                 //SqliteDataAccess.UpdateTable(areaManager.SelectedTable);
             }
 
 
 
+        }
+        private void SetTablePropertiesFromTxtBx(Table table, TableControl tableControl)
+        {
+            if (!string.IsNullOrWhiteSpace(txtTableNumber.Text))
+            {
+                if (emphasizedTablesList.Count == 1)
+                {
+                    table.TableNumber = txtTableNumber.Text;
+                }
+
+            }
+
+            if (int.TryParse(txtMaxCovers.Text, out int maxCovers))
+            {
+                table.MaxCovers = maxCovers;
+            }
+
+            if (float.TryParse(txtAverageCovers.Text, out float averageCovers))
+            {
+                table.AverageCovers = averageCovers;
+            }
+
+
+            if (int.TryParse(txtXco.Text, out int xCo))
+            {
+                table.XCoordinate = xCo;
+            }
+            if (int.TryParse(txtYco.Text, out int yCo))
+            {
+                table.YCoordinate = yCo;
+            }
+
+            // Assuming these other methods and properties do not require validation
+            table.DiningArea = areaCreationManager.DiningAreaSelected;
+            //table.XCoordinate = UpdateXCoordinateForTableControl(table);
+            //table.XCoordinate = tableControl.Left;
+            table.YCoordinate = UpdateYCoordinateForTableControl(table);
+            //table.YCoordinate = tableControl.Top;
+            tableControl.Table = table;
+            TableControlFactory.RedrawTableControl(tableControl, pnlFloorPlan);
         }
         private void SetTableProperties(Table table, TableControl tableControl)
         {
@@ -366,17 +361,7 @@ namespace FloorPlanMakerUI
                 table.AverageCovers = averageCovers;
             }
 
-            if (int.TryParse(txtHeight.Text, out int height) && height >= 25 && height <= 400)
-            {
-                table.Height = height;
-                tableControl.Height = height;  // Update control height
-            }
 
-            if (int.TryParse(txtWidth.Text, out int width) && width >= 25 && width <= 400)
-            {
-                table.Width = width;
-                tableControl.Width = width;  // Update control width
-            }
             if (int.TryParse(txtXco.Text, out int xCo))
             {
                 table.XCoordinate = xCo;
@@ -512,27 +497,67 @@ namespace FloorPlanMakerUI
 
         private void rdoEditData_CheckedChanged(object sender, EventArgs e)
         {
+            SetTableControlsToCoverData();
 
+        }
+        private void SetTableControlsToCoverData()
+        {
             foreach (TableDataEditorControl editor in tableDataEditors)
             {
                 pnlFloorPlan.Controls.Remove(editor);
             }
             tableDataEditors.Clear();
-            if (rdoEditData.Checked)
+            if (rdoCoverView.Checked)
             {
                 pnlFloorPlan.Controls.Remove(positionEditor);
                 foreach (TableControl tableControl in allTableControls)
                 {
                     TableDataEditorControl dataEditor = new TableDataEditorControl(tableControl);
+                    tableControl.Controls.Remove(txtTableNumber);
+
+                    dataEditor.SetToCoversOnly();
                     tableDataEditors.Add(dataEditor);
                     pnlFloorPlan.Controls.Add(dataEditor);
                     dataEditor.BringToFront();
+                    tableControl.Invalidate();
+
+                }
+            }
+        }
+        private void rdoSalesView_CheckedChanged(object sender, EventArgs e)
+        {
+            SetTableControlsToSalesData();
+        }
+        private void SetTableControlsToSalesData()
+        {
+            foreach (TableDataEditorControl editor in tableDataEditors)
+            {
+                pnlFloorPlan.Controls.Remove(editor);
+            }
+            tableDataEditors.Clear();
+            if (rdoSalesView.Checked)
+            {
+                pnlFloorPlan.Controls.Remove(positionEditor);
+                foreach (TableControl tableControl in allTableControls)
+                {
+                    TableDataEditorControl dataEditor = new TableDataEditorControl(tableControl);
+                    tableControl.Controls.Remove(txtTableNumber);
+
+                    dataEditor.SetToSalesOnly();
+                    tableDataEditors.Add(dataEditor);
+                    pnlFloorPlan.Controls.Add(dataEditor);
+                    dataEditor.BringToFront();
+                    tableControl.Invalidate();
 
                 }
             }
         }
 
         private void rdoEditPositions_CheckedChanged(object sender, EventArgs e)
+        {
+            SetTableControlsToReposition();
+        }
+        private void SetTableControlsToReposition()
         {
             if (rdoEditPositions.Checked)
             {
@@ -555,7 +580,6 @@ namespace FloorPlanMakerUI
                 }
             }
         }
-
         private void rdoDefaultView_CheckedChanged(object sender, EventArgs e)
         {
             if (rdoDefaultView.Checked)
@@ -579,7 +603,7 @@ namespace FloorPlanMakerUI
             table.TableClicked += ExistingTable_TableClicked;
 
             //table.TableClicked += Table_TableClicked;
-            SaveTableByTableControl(table);
+            SaveNewTableByTableControl(table);
             pnlFloorPlan.Controls.Add(table);
             areaCreationManager.SelectedTable = table.Table;
         }
@@ -599,7 +623,7 @@ namespace FloorPlanMakerUI
             table.TableClicked += ExistingTable_TableClicked;
 
             //table.TableClicked += Table_TableClicked;
-            SaveTableByTableControl(table);
+            SaveNewTableByTableControl(table);
             pnlFloorPlan.Controls.Add(table);
         }
 
@@ -618,8 +642,27 @@ namespace FloorPlanMakerUI
             table.TableClicked += ExistingTable_TableClicked;
 
             //table.TableClicked += Table_TableClicked;
-            SaveTableByTableControl(table);
+            SaveNewTableByTableControl(table);
             pnlFloorPlan.Controls.Add(table);
         }
+
+        private void pnlFloorPlan_Click(object sender, EventArgs e)
+        {
+            foreach (var emphasizedTable in emphasizedTablesList)
+            {
+
+                emphasizedTable.Controls.Remove(emphasizedTable.txtTableNumber);
+                emphasizedTable.BorderThickness = 1;
+                emphasizedTable.Invalidate();
+
+            }
+            emphasizedTablesList.Clear();
+            areaCreationManager.SelectedTables.Clear();
+            areaCreationManager.SelectedTable = null;
+            currentEmphasizedTableControl = null;
+            pnlFloorPlan.Controls.Remove(positionEditor);
+        }
+
+
     }
 }

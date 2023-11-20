@@ -13,7 +13,7 @@ namespace FloorPlanMaker
     public class TableControl : Control
     {
         public Color BorderColor { get; set; } = Color.Black; // default to DarkBlue
-       
+        public TableDataEditorControl dataEditor {get;set;}
         public Color TextColor { get; set; } = Color.Black;
         public DisplayMode CurrentDisplayMode { get; set; } = DisplayMode.TableNumber;
         public int BorderThickness { get; set; } = 2; // default to 1
@@ -34,7 +34,19 @@ namespace FloorPlanMaker
         public Point BottomLeftLinePoint { get { return this.BottomLine.StartPoint; } }
         public TextBox txtTableNumber;
         public delegate void TableControlEventHandler(TableControl sender, EventArgs e);
-
+        public void AddCoverEditor()
+        {
+            this.dataEditor = new TableDataEditorControl(this);
+            if(this.txtTableNumber != null )
+            {
+                this.txtTableNumber.Dispose();
+            }  
+            this.Controls.Add(this.dataEditor);
+            this.dataEditor.SetToCoversOnly();
+            this.dataEditor.BringToFront();
+            this.dataEditor.Show();
+            this.Invalidate();
+        }
         public void  AddTxtTableNumber()
         {
              this.txtTableNumber = new TextBox

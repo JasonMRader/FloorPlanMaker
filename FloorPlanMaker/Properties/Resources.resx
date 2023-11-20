@@ -142,6 +142,9 @@
   <data name="Chair" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Chair.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="ChairSmall" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ChairSmall.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="CircleTable" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CircleTable.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -162,9 +165,6 @@
   </data>
   <data name="DiamondTable" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\DiamondTable.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="emptyFIle" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\emptyFIle.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="emptyfileeGrey" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\emptyfileeGrey.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -198,12 +198,6 @@
   </data>
   <data name="lilLabels" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\lilLabels.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="lilPeople" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\lilPeople.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="lilPeopleCanvas" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\lilPeopleCanvas.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="lilPrinter" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\lilPrinter.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -274,11 +268,20 @@
   <data name="Pre2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Pre2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="repositionSmall" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\repositionSmall.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="resetViewSmallest" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\resetViewSmallest.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="reverseSmall" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\reverseSmall.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="sales" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\sales.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="salesSMall" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\salesSMall.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="SaturdayText" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SaturdayText.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -343,6 +346,12 @@
   <data name="Trash" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Trash.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="trayReeversedLeessSmall" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\trayReeversedLeessSmall.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="trayReeversedSMall" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\trayReeversedSMall.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="trey" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\trey.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -354,6 +363,9 @@
   </data>
   <data name="waiter" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\waiter.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="waiters" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\waiters.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="WednesdayText" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\WednesdayText.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

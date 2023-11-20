@@ -33,13 +33,7 @@
             btnSaveDiningArea = new Button();
             rbInside = new RadioButton();
             rbOutside = new RadioButton();
-            btnCopyTable = new Button();
             btnSaveTable = new Button();
-            btnDeleteTable = new Button();
-            btnMoreWidth = new Button();
-            btnMoreHeight = new Button();
-            btnLessHeight = new Button();
-            btnLessWidth = new Button();
             panel2 = new Panel();
             label6 = new Label();
             cbViewMode = new CheckBox();
@@ -48,16 +42,12 @@
             cbLockTables = new CheckBox();
             txtXco = new TextBox();
             label9 = new Label();
-            label5 = new Label();
-            label4 = new Label();
             label3 = new Label();
             label2 = new Label();
             label1 = new Label();
-            txtWidth = new TextBox();
             txtTableNumber = new TextBox();
             txtMaxCovers = new TextBox();
             txtAverageCovers = new TextBox();
-            txtHeight = new TextBox();
             panel3 = new Panel();
             panel6 = new Panel();
             cbTemporaryFloorplan = new CheckBox();
@@ -65,7 +55,8 @@
             panel4 = new Panel();
             rdoDefaultView = new RadioButton();
             rdoEditPositions = new RadioButton();
-            rdoEditData = new RadioButton();
+            rdoSalesView = new RadioButton();
+            rdoCoverView = new RadioButton();
             cboDiningAreas = new ComboBox();
             panel5 = new Panel();
             picAddCircle = new PictureBox();
@@ -91,6 +82,7 @@
             pnlFloorPlan.Name = "pnlFloorPlan";
             pnlFloorPlan.Size = new Size(672, 877);
             pnlFloorPlan.TabIndex = 0;
+            pnlFloorPlan.Click += pnlFloorPlan_Click;
             // 
             // btnCreateNewDiningArea
             // 
@@ -145,19 +137,6 @@
             rbOutside.Text = "Outside";
             rbOutside.UseVisualStyleBackColor = true;
             // 
-            // btnCopyTable
-            // 
-            btnCopyTable.BackColor = Color.FromArgb(158, 171, 222);
-            btnCopyTable.FlatAppearance.BorderSize = 0;
-            btnCopyTable.FlatStyle = FlatStyle.Flat;
-            btnCopyTable.Location = new Point(17, 806);
-            btnCopyTable.Name = "btnCopyTable";
-            btnCopyTable.Size = new Size(141, 23);
-            btnCopyTable.TabIndex = 1;
-            btnCopyTable.Text = "Copy Table";
-            btnCopyTable.UseVisualStyleBackColor = false;
-            btnCopyTable.Click += btnCopyTable_Click;
-            // 
             // btnSaveTable
             // 
             btnSaveTable.BackColor = Color.FromArgb(158, 171, 222);
@@ -171,71 +150,6 @@
             btnSaveTable.UseVisualStyleBackColor = false;
             btnSaveTable.Click += btnSaveTable_Click;
             // 
-            // btnDeleteTable
-            // 
-            btnDeleteTable.BackColor = Color.FromArgb(158, 171, 222);
-            btnDeleteTable.FlatAppearance.BorderSize = 0;
-            btnDeleteTable.FlatStyle = FlatStyle.Flat;
-            btnDeleteTable.Location = new Point(18, 857);
-            btnDeleteTable.Name = "btnDeleteTable";
-            btnDeleteTable.Size = new Size(141, 23);
-            btnDeleteTable.TabIndex = 1;
-            btnDeleteTable.Text = "Delete Table";
-            btnDeleteTable.UseVisualStyleBackColor = false;
-            btnDeleteTable.Click += btnDeleteTable_Click;
-            // 
-            // btnMoreWidth
-            // 
-            btnMoreWidth.BackColor = Color.FromArgb(158, 171, 222);
-            btnMoreWidth.FlatAppearance.BorderSize = 0;
-            btnMoreWidth.FlatStyle = FlatStyle.Flat;
-            btnMoreWidth.Location = new Point(134, 601);
-            btnMoreWidth.Name = "btnMoreWidth";
-            btnMoreWidth.Size = new Size(24, 23);
-            btnMoreWidth.TabIndex = 1;
-            btnMoreWidth.Text = "+";
-            btnMoreWidth.UseVisualStyleBackColor = false;
-            btnMoreWidth.Click += btnMoreWidth_Click;
-            // 
-            // btnMoreHeight
-            // 
-            btnMoreHeight.BackColor = Color.FromArgb(158, 171, 222);
-            btnMoreHeight.FlatAppearance.BorderSize = 0;
-            btnMoreHeight.FlatStyle = FlatStyle.Flat;
-            btnMoreHeight.Location = new Point(134, 527);
-            btnMoreHeight.Name = "btnMoreHeight";
-            btnMoreHeight.Size = new Size(24, 23);
-            btnMoreHeight.TabIndex = 1;
-            btnMoreHeight.Text = "+";
-            btnMoreHeight.UseVisualStyleBackColor = false;
-            btnMoreHeight.Click += btnMoreHeight_Click;
-            // 
-            // btnLessHeight
-            // 
-            btnLessHeight.BackColor = Color.FromArgb(158, 171, 222);
-            btnLessHeight.FlatAppearance.BorderSize = 0;
-            btnLessHeight.FlatStyle = FlatStyle.Flat;
-            btnLessHeight.Location = new Point(17, 527);
-            btnLessHeight.Name = "btnLessHeight";
-            btnLessHeight.Size = new Size(24, 23);
-            btnLessHeight.TabIndex = 1;
-            btnLessHeight.Text = "-";
-            btnLessHeight.UseVisualStyleBackColor = false;
-            btnLessHeight.Click += btnLessHeight_Click;
-            // 
-            // btnLessWidth
-            // 
-            btnLessWidth.BackColor = Color.FromArgb(158, 171, 222);
-            btnLessWidth.FlatAppearance.BorderSize = 0;
-            btnLessWidth.FlatStyle = FlatStyle.Flat;
-            btnLessWidth.Location = new Point(17, 601);
-            btnLessWidth.Name = "btnLessWidth";
-            btnLessWidth.Size = new Size(24, 23);
-            btnLessWidth.TabIndex = 1;
-            btnLessWidth.Text = "-";
-            btnLessWidth.UseVisualStyleBackColor = false;
-            btnLessWidth.Click += btnLessWidth_Click;
-            // 
             // panel2
             // 
             panel2.BackColor = Color.WhiteSmoke;
@@ -246,23 +160,13 @@
             panel2.Controls.Add(cbLockTables);
             panel2.Controls.Add(txtXco);
             panel2.Controls.Add(label9);
-            panel2.Controls.Add(label5);
-            panel2.Controls.Add(label4);
             panel2.Controls.Add(label3);
             panel2.Controls.Add(label2);
             panel2.Controls.Add(label1);
-            panel2.Controls.Add(txtWidth);
             panel2.Controls.Add(txtTableNumber);
             panel2.Controls.Add(txtMaxCovers);
             panel2.Controls.Add(txtAverageCovers);
-            panel2.Controls.Add(txtHeight);
-            panel2.Controls.Add(btnCopyTable);
             panel2.Controls.Add(btnSaveTable);
-            panel2.Controls.Add(btnDeleteTable);
-            panel2.Controls.Add(btnMoreWidth);
-            panel2.Controls.Add(btnLessWidth);
-            panel2.Controls.Add(btnMoreHeight);
-            panel2.Controls.Add(btnLessHeight);
             panel2.Location = new Point(31, 19);
             panel2.Name = "panel2";
             panel2.Size = new Size(167, 901);
@@ -351,24 +255,6 @@
             label9.TabIndex = 3;
             label9.Text = "Location";
             // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Location = new Point(47, 584);
-            label5.Name = "label5";
-            label5.Size = new Size(39, 15);
-            label5.TabIndex = 3;
-            label5.Text = "Width";
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Location = new Point(47, 508);
-            label4.Name = "label4";
-            label4.Size = new Size(43, 15);
-            label4.TabIndex = 3;
-            label4.Text = "Height";
-            // 
             // label3
             // 
             label3.AutoSize = true;
@@ -395,16 +281,6 @@
             label1.Size = new Size(81, 15);
             label1.TabIndex = 3;
             label1.Text = "Table Number";
-            // 
-            // txtWidth
-            // 
-            txtWidth.BorderStyle = BorderStyle.None;
-            txtWidth.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            txtWidth.Location = new Point(47, 602);
-            txtWidth.Name = "txtWidth";
-            txtWidth.Size = new Size(81, 22);
-            txtWidth.TabIndex = 2;
-            txtWidth.Validated += RefreshTableControl;
             // 
             // txtTableNumber
             // 
@@ -436,24 +312,14 @@
             txtAverageCovers.TabIndex = 2;
             txtAverageCovers.Validated += RefreshTableControl;
             // 
-            // txtHeight
-            // 
-            txtHeight.BorderStyle = BorderStyle.None;
-            txtHeight.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            txtHeight.Location = new Point(47, 528);
-            txtHeight.Name = "txtHeight";
-            txtHeight.Size = new Size(81, 22);
-            txtHeight.TabIndex = 2;
-            txtHeight.Validated += RefreshTableControl;
-            // 
             // panel3
             // 
             panel3.BackColor = Color.FromArgb(180, 190, 200);
             panel3.Controls.Add(panel2);
-            panel3.Location = new Point(1225, 16);
+            panel3.Location = new Point(1238, 16);
             panel3.Margin = new Padding(20);
             panel3.Name = "panel3";
-            panel3.Size = new Size(24, 934);
+            panel3.Size = new Size(11, 934);
             panel3.TabIndex = 4;
             panel3.Visible = false;
             // 
@@ -496,7 +362,8 @@
             panel4.Controls.Add(rdoDefaultView);
             panel4.Controls.Add(btnCreateNewDiningArea);
             panel4.Controls.Add(rdoEditPositions);
-            panel4.Controls.Add(rdoEditData);
+            panel4.Controls.Add(rdoSalesView);
+            panel4.Controls.Add(rdoCoverView);
             panel4.Controls.Add(cboDiningAreas);
             panel4.Controls.Add(pnlFloorPlan);
             panel4.Location = new Point(498, 29);
@@ -511,10 +378,10 @@
             rdoDefaultView.BackColor = Color.FromArgb(130, 180, 130);
             rdoDefaultView.FlatAppearance.BorderSize = 0;
             rdoDefaultView.FlatStyle = FlatStyle.Flat;
-            rdoDefaultView.Image = Properties.Resources.resetViewSmallest;
+            rdoDefaultView.Image = Properties.Resources.reverseSmall;
             rdoDefaultView.Location = new Point(16, 21);
             rdoDefaultView.Name = "rdoDefaultView";
-            rdoDefaultView.Size = new Size(77, 33);
+            rdoDefaultView.Size = new Size(43, 33);
             rdoDefaultView.TabIndex = 6;
             rdoDefaultView.TextAlign = ContentAlignment.MiddleCenter;
             rdoDefaultView.UseVisualStyleBackColor = false;
@@ -526,37 +393,52 @@
             rdoEditPositions.BackColor = Color.FromArgb(130, 180, 130);
             rdoEditPositions.FlatAppearance.BorderSize = 0;
             rdoEditPositions.FlatStyle = FlatStyle.Flat;
-            rdoEditPositions.Image = Properties.Resources.NumReposAdjust;
-            rdoEditPositions.Location = new Point(182, 21);
+            rdoEditPositions.Image = Properties.Resources.repositionSmall;
+            rdoEditPositions.Location = new Point(163, 21);
             rdoEditPositions.Name = "rdoEditPositions";
-            rdoEditPositions.Size = new Size(77, 33);
+            rdoEditPositions.Size = new Size(46, 33);
             rdoEditPositions.TabIndex = 6;
             rdoEditPositions.TextAlign = ContentAlignment.MiddleCenter;
             rdoEditPositions.UseVisualStyleBackColor = false;
             rdoEditPositions.CheckedChanged += rdoEditPositions_CheckedChanged;
             // 
-            // rdoEditData
+            // rdoSalesView
             // 
-            rdoEditData.Appearance = Appearance.Button;
-            rdoEditData.BackColor = Color.FromArgb(130, 180, 130);
-            rdoEditData.FlatAppearance.BorderSize = 0;
-            rdoEditData.FlatStyle = FlatStyle.Flat;
-            rdoEditData.Image = Properties.Resources.coversSalesresizedSmallest;
-            rdoEditData.Location = new Point(99, 21);
-            rdoEditData.Name = "rdoEditData";
-            rdoEditData.Size = new Size(77, 33);
-            rdoEditData.TabIndex = 6;
-            rdoEditData.TextAlign = ContentAlignment.MiddleCenter;
-            rdoEditData.UseVisualStyleBackColor = false;
-            rdoEditData.CheckedChanged += rdoEditData_CheckedChanged;
+            rdoSalesView.Appearance = Appearance.Button;
+            rdoSalesView.BackColor = Color.FromArgb(130, 180, 130);
+            rdoSalesView.FlatAppearance.BorderSize = 0;
+            rdoSalesView.FlatStyle = FlatStyle.Flat;
+            rdoSalesView.Image = Properties.Resources.salesSMall;
+            rdoSalesView.Location = new Point(114, 22);
+            rdoSalesView.Name = "rdoSalesView";
+            rdoSalesView.Size = new Size(43, 33);
+            rdoSalesView.TabIndex = 6;
+            rdoSalesView.TextAlign = ContentAlignment.MiddleCenter;
+            rdoSalesView.UseVisualStyleBackColor = false;
+            rdoSalesView.CheckedChanged += rdoSalesView_CheckedChanged;
+            // 
+            // rdoCoverView
+            // 
+            rdoCoverView.Appearance = Appearance.Button;
+            rdoCoverView.BackColor = Color.FromArgb(130, 180, 130);
+            rdoCoverView.FlatAppearance.BorderSize = 0;
+            rdoCoverView.FlatStyle = FlatStyle.Flat;
+            rdoCoverView.Image = Properties.Resources.ChairSmall;
+            rdoCoverView.Location = new Point(65, 22);
+            rdoCoverView.Name = "rdoCoverView";
+            rdoCoverView.Size = new Size(43, 33);
+            rdoCoverView.TabIndex = 6;
+            rdoCoverView.TextAlign = ContentAlignment.MiddleCenter;
+            rdoCoverView.UseVisualStyleBackColor = false;
+            rdoCoverView.CheckedChanged += rdoEditData_CheckedChanged;
             // 
             // cboDiningAreas
             // 
             cboDiningAreas.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             cboDiningAreas.FormattingEnabled = true;
-            cboDiningAreas.Location = new Point(265, 22);
+            cboDiningAreas.Location = new Point(229, 22);
             cboDiningAreas.Name = "cboDiningAreas";
-            cboDiningAreas.Size = new Size(378, 29);
+            cboDiningAreas.Size = new Size(396, 29);
             cboDiningAreas.TabIndex = 1;
             cboDiningAreas.SelectedIndexChanged += cboDiningAreas_SelectedIndexChanged;
             // 
@@ -660,25 +542,15 @@
         private Button btnSaveDiningArea;
         private RadioButton rbInside;
         private RadioButton rbOutside;
-        private Button btnCopyTable;
         private Button btnSaveTable;
-        private Button btnDeleteTable;
-        private Button btnMoreWidth;
-        private Button btnMoreHeight;
-        private Button btnLessHeight;
-        private Button btnLessWidth;
         private Panel panel2;
         private Panel panel3;
         private Panel panel4;
         private ComboBox cboDiningAreas;
         private TextBox txtDiningAreaName;
-        private TextBox txtHeight;
-        private TextBox txtWidth;
         private TextBox txtTableNumber;
         private TextBox txtMaxCovers;
         private TextBox txtAverageCovers;
-        private Label label5;
-        private Label label4;
         private Label label3;
         private Label label2;
         private Label label1;
@@ -693,12 +565,13 @@
         private Button btnQuickEdit;
         private CheckBox cbViewMode;
         private Label label6;
-        private RadioButton rdoEditData;
+        private RadioButton rdoCoverView;
         private RadioButton rdoEditPositions;
         private RadioButton rdoDefaultView;
         private Panel panel1;
         private PictureBox picAddCircle;
         private PictureBox picAddDiamond;
         private PictureBox picAddSquare;
+        private RadioButton rdoSalesView;
     }
 }

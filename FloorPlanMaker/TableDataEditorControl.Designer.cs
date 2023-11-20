@@ -28,54 +28,55 @@
         /// </summary>
         private void InitializeComponent()
         {
-            pictureBox2 = new PictureBox();
-            pictureBox3 = new PictureBox();
+            picSales = new PictureBox();
+            picCovers = new PictureBox();
             txtCovers = new TextBox();
             txtSales = new TextBox();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)picSales).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)picCovers).BeginInit();
             SuspendLayout();
             // 
-            // pictureBox2
+            // picSales
             // 
-            pictureBox2.Image = Properties.Resources.sales;
-            pictureBox2.Location = new Point(3, 29);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(25, 20);
-            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox2.TabIndex = 0;
-            pictureBox2.TabStop = false;
+            picSales.Image = Properties.Resources.sales;
+            picSales.Location = new Point(0, 20);
+            picSales.Name = "picSales";
+            picSales.Size = new Size(25, 20);
+            picSales.SizeMode = PictureBoxSizeMode.Zoom;
+            picSales.TabIndex = 0;
+            picSales.TabStop = false;
             // 
-            // pictureBox3
+            // picCovers
             // 
-            pictureBox3.Image = Properties.Resources.Chair;
-            pictureBox3.Location = new Point(3, 3);
-            pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(25, 20);
-            pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox3.TabIndex = 0;
-            pictureBox3.TabStop = false;
+            picCovers.Image = Properties.Resources.Chair;
+            picCovers.Location = new Point(0, 0);
+            picCovers.Name = "picCovers";
+            picCovers.Size = new Size(25, 20);
+            picCovers.SizeMode = PictureBoxSizeMode.Zoom;
+            picCovers.TabIndex = 0;
+            picCovers.TabStop = false;
             // 
             // txtCovers
             // 
             txtCovers.BackColor = Color.Gainsboro;
             txtCovers.BorderStyle = BorderStyle.None;
             txtCovers.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            txtCovers.Location = new Point(34, 3);
+            txtCovers.Location = new Point(25, 0);
             txtCovers.MaximumSize = new Size(50, 20);
             txtCovers.Name = "txtCovers";
             txtCovers.Size = new Size(40, 20);
             txtCovers.TabIndex = 1;
+            txtCovers.TextAlign = HorizontalAlignment.Center;
             // 
             // txtSales
             // 
             txtSales.BackColor = Color.Gainsboro;
             txtSales.BorderStyle = BorderStyle.None;
-            txtSales.Font = new Font("Segoe UI Variable Display", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            txtSales.Location = new Point(34, 29);
+            txtSales.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            txtSales.Location = new Point(25, 20);
             txtSales.MaximumSize = new Size(50, 20);
             txtSales.Name = "txtSales";
-            txtSales.Size = new Size(40, 20);
+            txtSales.Size = new Size(40, 17);
             txtSales.TabIndex = 1;
             // 
             // TableDataEditorControl
@@ -85,19 +86,20 @@
             BackColor = SystemColors.ButtonShadow;
             Controls.Add(txtSales);
             Controls.Add(txtCovers);
-            Controls.Add(pictureBox3);
-            Controls.Add(pictureBox2);
+            Controls.Add(picCovers);
+            Controls.Add(picSales);
             Name = "TableDataEditorControl";
-            Size = new Size(80, 56);
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            Size = new Size(65, 20);
+            Load += TableDataEditorControl_Load;
+            ((System.ComponentModel.ISupportInitialize)picSales).EndInit();
+            ((System.ComponentModel.ISupportInitialize)picCovers).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-        private PictureBox pictureBox2;
-        private PictureBox pictureBox3;
+        private PictureBox picSales;
+        private PictureBox picCovers;
         private TextBox txtCovers;
         private TextBox txtSales;
     }

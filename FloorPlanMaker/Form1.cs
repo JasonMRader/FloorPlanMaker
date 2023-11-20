@@ -168,7 +168,8 @@ namespace FloorPlanMaker
             flowSectionSelect.Visible = true;
             flowServersInFloorplan.Visible = false;
             rdoViewSectionFlow.Image = Resources.lilCanvasBook;
-            rdoViewServerFlow.Image = Resources.lilPeople;
+
+            //rdoViewServerFlow.Image = Resources.lilPeople;
 
 
         }
@@ -678,7 +679,8 @@ namespace FloorPlanMaker
                     else
                     {
                         selectedSection.IsTeamWait = true;
-                        pb.Image = Resources.people;
+                        pb.BackColor = UITheme.WarningColor;
+                        pb.Image = Resources.waiters;
                         RemoveSectionPanel(sectionRemoved);
                     }
 
@@ -686,8 +688,8 @@ namespace FloorPlanMaker
                 else
                 {
                     selectedSection.IsTeamWait = false;
-                    //pb.BackColor = AppColors.YesColor;
-                    pb.Image = Resources.person;
+                    pb.BackColor = UITheme.CTAColor;
+                    pb.Image = Resources.waiter;
                     Section section = new Section();
                     shiftManager.SelectedFloorplan.AddSection(section);
                     CreateOneSectionPanel(section);
@@ -979,7 +981,7 @@ namespace FloorPlanMaker
                     sectionControl.BringToFront();
                 }
             }
-           
+
         }
         private void FillInTableControlColors()
         {
@@ -1106,7 +1108,7 @@ namespace FloorPlanMaker
             foreach (TableControl tableControl in allTableControls)
             {
                 Section sectionEdited = tableControl.Section;
-               
+
                 tableControl.Invalidate();
                 if (sectionEdited != null)
                 {
@@ -1352,6 +1354,11 @@ namespace FloorPlanMaker
         }
 
         private void btnSaveTemplate_Popup(object sender, PopupEventArgs e)
+        {
+
+        }
+
+        private void pnlFloorPlan_Click(object sender, EventArgs e)
         {
 
         }

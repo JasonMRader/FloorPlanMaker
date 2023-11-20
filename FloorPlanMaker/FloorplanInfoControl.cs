@@ -94,17 +94,18 @@ namespace FloorPlanMakerUI
         }
         private void setLabelSizes()
         {
-            lblCurrentServerCount.Width = this.Width - 8;
+            lblCurrentServerCount.Width = (this.Width / 3) - 4;
 
-            lblYesterdayCount.Width = (this.Width / 2) - 6;
+            lblYesterdayCount.Width = (this.Width / 3) - 6;
 
-            lblLastWeekCount.Width = (this.Width / 2) - 6;
+            lblLastWeekCount.Width = (this.Width / 3) - 6;
             lblLastWeekCount.Location = new Point(lblYesterdayCount.Right + 4, 4);
+            lblCurrentServerCount.Location = new Point(lblLastWeekCount.Right + 4, 4);
 
             lblCoversPerServer.Width = (this.Width / 2) - 6;
-
+            lblCoversPerServer.Location = new Point(4, 28);
             lblSalesPerServer.Width = (this.Width / 2) - 6;
-            lblSalesPerServer.Location = new Point(lblCoversPerServer.Right + 4, 52);
+            lblSalesPerServer.Location = new Point(lblCoversPerServer.Right + 4, 28);
 
             pbLastWeek.Location = new Point(lblLastWeekCount.Left + (lblLastWeekCount.Width / 2) - 35, 4);
             pbYesterday.Location = new Point(lblYesterdayCount.Left + (lblYesterdayCount.Width / 2) - 35, 4);

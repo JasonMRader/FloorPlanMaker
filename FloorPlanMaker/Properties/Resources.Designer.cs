@@ -173,6 +173,16 @@ namespace FloorPlanMakerUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ChairSmall {
+            get {
+                object obj = ResourceManager.GetObject("ChairSmall", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap CircleTable {
             get {
                 object obj = ResourceManager.GetObject("CircleTable", resourceCulture);
@@ -236,16 +246,6 @@ namespace FloorPlanMakerUI.Properties {
         internal static System.Drawing.Bitmap DiamondTable {
             get {
                 object obj = ResourceManager.GetObject("DiamondTable", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap emptyFIle {
-            get {
-                object obj = ResourceManager.GetObject("emptyFIle", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -356,26 +356,6 @@ namespace FloorPlanMakerUI.Properties {
         internal static System.Drawing.Bitmap lilLabels {
             get {
                 object obj = ResourceManager.GetObject("lilLabels", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap lilPeople {
-            get {
-                object obj = ResourceManager.GetObject("lilPeople", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap lilPeopleCanvas {
-            get {
-                object obj = ResourceManager.GetObject("lilPeopleCanvas", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -613,6 +593,16 @@ namespace FloorPlanMakerUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap repositionSmall {
+            get {
+                object obj = ResourceManager.GetObject("repositionSmall", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap resetViewSmallest {
             get {
                 object obj = ResourceManager.GetObject("resetViewSmallest", resourceCulture);
@@ -623,9 +613,29 @@ namespace FloorPlanMakerUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap reverseSmall {
+            get {
+                object obj = ResourceManager.GetObject("reverseSmall", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap sales {
             get {
                 object obj = ResourceManager.GetObject("sales", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap salesSMall {
+            get {
+                object obj = ResourceManager.GetObject("salesSMall", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -843,6 +853,26 @@ namespace FloorPlanMakerUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap trayReeversedLeessSmall {
+            get {
+                object obj = ResourceManager.GetObject("trayReeversedLeessSmall", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap trayReeversedSMall {
+            get {
+                object obj = ResourceManager.GetObject("trayReeversedSMall", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap trey {
             get {
                 object obj = ResourceManager.GetObject("trey", resourceCulture);
@@ -876,6 +906,16 @@ namespace FloorPlanMakerUI.Properties {
         internal static System.Drawing.Bitmap waiter {
             get {
                 object obj = ResourceManager.GetObject("waiter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap waiters {
+            get {
+                object obj = ResourceManager.GetObject("waiters", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
