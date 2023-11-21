@@ -59,6 +59,7 @@ namespace FloorPlanMaker
             btnNextDay = new Button();
             btnCloseApp = new Button();
             pnlFloorplanContainer = new Panel();
+            lblDateSelected = new Label();
             pnlNavigationWindow = new Panel();
             pnlMainContainer = new Panel();
             pnlSideContainer = new Panel();
@@ -373,7 +374,7 @@ namespace FloorPlanMaker
             dtpFloorplan.CalendarFont = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
             dtpFloorplan.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
             dtpFloorplan.Format = DateTimePickerFormat.Short;
-            dtpFloorplan.Location = new Point(466, 6);
+            dtpFloorplan.Location = new Point(807, 3);
             dtpFloorplan.Name = "dtpFloorplan";
             dtpFloorplan.Size = new Size(124, 27);
             dtpFloorplan.TabIndex = 14;
@@ -434,10 +435,10 @@ namespace FloorPlanMaker
             // pnlFloorplanContainer
             // 
             pnlFloorplanContainer.BackColor = Color.WhiteSmoke;
+            pnlFloorplanContainer.Controls.Add(lblDateSelected);
             pnlFloorplanContainer.Controls.Add(btnAddSectionLabels);
             pnlFloorplanContainer.Controls.Add(btnChooseTemplate);
             pnlFloorplanContainer.Controls.Add(btnPrint);
-            pnlFloorplanContainer.Controls.Add(dtpFloorplan);
             pnlFloorplanContainer.Controls.Add(cbTableDisplayMode);
             pnlFloorplanContainer.Controls.Add(cbIsAM);
             pnlFloorplanContainer.Controls.Add(btnNextDay);
@@ -450,11 +451,25 @@ namespace FloorPlanMaker
             pnlFloorplanContainer.TabIndex = 19;
             pnlFloorplanContainer.Paint += panel3_Paint;
             // 
+            // lblDateSelected
+            // 
+            lblDateSelected.BackColor = Color.FromArgb(100, 130, 180);
+            lblDateSelected.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lblDateSelected.ForeColor = Color.White;
+            lblDateSelected.Location = new Point(466, 3);
+            lblDateSelected.Name = "lblDateSelected";
+            lblDateSelected.Size = new Size(124, 33);
+            lblDateSelected.TabIndex = 22;
+            lblDateSelected.Text = "Fri, 11/11";
+            lblDateSelected.TextAlign = ContentAlignment.MiddleCenter;
+            lblDateSelected.Click += lblDateSelected_Click;
+            // 
             // pnlNavigationWindow
             // 
             pnlNavigationWindow.BackColor = Color.FromArgb(225, 225, 225);
             pnlNavigationWindow.Controls.Add(btnTest2);
             pnlNavigationWindow.Controls.Add(btnDoAThing);
+            pnlNavigationWindow.Controls.Add(dtpFloorplan);
             pnlNavigationWindow.Controls.Add(btnTest);
             pnlNavigationWindow.Controls.Add(btnGenerateSectionLines);
             pnlNavigationWindow.Controls.Add(pnlMainContainer);
@@ -621,5 +636,6 @@ namespace FloorPlanMaker
         private PictureBox picBxSales;
         private PictureBox picBxCovers;
         private PictureBox pictureBox1;
+        private Label lblDateSelected;
     }
 }

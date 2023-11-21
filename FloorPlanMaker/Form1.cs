@@ -37,6 +37,14 @@ namespace FloorPlanMaker
         private PictureBox loadingScreen = null;
         ImageLabelControl coversImageLabel = new ImageLabelControl();
         ImageLabelControl salesImageLabel = new ImageLabelControl();
+        private DateOnly dateOnlySelected
+        {
+            get
+            {
+                return new DateOnly(this.dateTimeSelected.Year, this.dateTimeSelected.Month, this.dateTimeSelected.Day);
+            }
+        }
+        private DateTime dateTimeSelected = new DateTime();
 
         private System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
 
@@ -328,7 +336,8 @@ namespace FloorPlanMaker
         private void Form1_Load(object sender, EventArgs e)
         {
             SetColors();
-
+            dateTimeSelected = DateTime.Now;
+            UpdateDateLabel();
             List<Floorplan> floorplans = SqliteDataAccess.LoadFloorplanList();
             cboDiningAreas.DataSource = areaCreationManager.DiningAreas;
             cboDiningAreas.DisplayMember = "Name";
@@ -337,6 +346,11 @@ namespace FloorPlanMaker
             rdoViewSectionFlow.Checked = true;
             //rdoViewSectionFlow.Checked = true;
         }
+        private void UpdateDateLabel()
+        {
+            lblDateSelected.Text = dateOnlySelected.ToString("ddd, MMM d");
+        }
+
         private void Form1_MouseDown(object sender, MouseEventArgs e)
         {
             isDraggingForm = true;
@@ -960,7 +974,7 @@ namespace FloorPlanMaker
                 SqliteDataAccess.SaveFloorplanAndSections(shiftManager.SelectedFloorplan);
                 FloorplanPrinter printer = new FloorplanPrinter(pnlFloorPlan, sectionLineManager.SectionLines);
                 printer.ShowPrintPreview();
-                printer.Print();
+                //printer.Print();
 
 
             }
@@ -1280,11 +1294,15 @@ namespace FloorPlanMaker
         private void btnDayBefore_Click(object sender, EventArgs e)
         {
             dtpFloorplan.Value = dtpFloorplan.Value.AddDays(-1);
+            dateTimeSelected = dateTimeSelected.AddDays(-1);
+            UpdateDateLabel();
         }
 
         private void btnNextDay_Click(object sender, EventArgs e)
         {
             dtpFloorplan.Value = dtpFloorplan.Value.AddDays(1);
+            dateTimeSelected = dateTimeSelected.AddDays(1);
+            UpdateDateLabel();
         }
 
         private void btnCloseApp_Click(object sender, EventArgs e)
@@ -1391,6 +1409,19 @@ namespace FloorPlanMaker
         private void pnlFloorPlan_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void lblDateSelected_Click(object sender, EventArgs e)
+        {
+            using (frmDateSelect selectDateForm = new frmDateSelect(dateTimeSelected))
+            {
+               DialogResult = selectDateForm.ShowDialog();
+                if(DialogResult == DialogResult.OK)
+                {
+                    this.dateTimeSelected = selectDateForm.dateSelected;
+                    UpdateDateLabel();
+                }
+            }
         }
     }
 }

@@ -55,33 +55,37 @@ namespace FloorPlanMakerUI
         private void btnSmaller_Click(object sender, EventArgs e)
         {
             this.tableControl.Width -= 10;
-            tableControl.Table.Width = tableControl.Height;
+            tableControl.Table.Width = tableControl.Width;
             this.tableControl.Height -= 10;
             tableControl.Table.Height = tableControl.Height;
             tableControl.Invalidate();
+            SqliteDataAccess.UpdateTable(this.tableControl.Table);
         }
 
         private void btnBigger_Click(object sender, EventArgs e)
         {
             this.tableControl.Width += 10;
-            tableControl.Table.Width = tableControl.Height;
+            tableControl.Table.Width = tableControl.Width;
             this.tableControl.Height += 10;
             tableControl.Table.Height = tableControl.Height;
             tableControl.Invalidate();
+            SqliteDataAccess.UpdateTable(this.tableControl.Table);
         }
 
         private void btnNarrower_Click(object sender, EventArgs e)
         {
             this.tableControl.Width -= 10;
-            tableControl.Table.Width = tableControl.Height;
+            tableControl.Table.Width = tableControl.Width;
             tableControl.Invalidate();
+            SqliteDataAccess.UpdateTable(this.tableControl.Table);
         }
 
         private void btnWider_Click(object sender, EventArgs e)
         {
             this.tableControl.Width += 10;
-            tableControl.Table.Width = tableControl.Height;
+            tableControl.Table.Width = tableControl.Width;
             tableControl.Invalidate();
+            SqliteDataAccess.UpdateTable(this.tableControl.Table);
         }
 
         private void btnShorter_Click(object sender, EventArgs e)
@@ -89,6 +93,7 @@ namespace FloorPlanMakerUI
             this.tableControl.Height -= 10;
             tableControl.Table.Height = tableControl.Height;
             tableControl.Invalidate();
+            SqliteDataAccess.UpdateTable(this.tableControl.Table);
         }
 
         private void btnTaller_Click(object sender, EventArgs e)
@@ -96,6 +101,7 @@ namespace FloorPlanMakerUI
             this.tableControl.Height += 10;
             tableControl.Table.Height = tableControl.Height;
             tableControl.Invalidate();
+            SqliteDataAccess.UpdateTable(this.tableControl.Table);
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)

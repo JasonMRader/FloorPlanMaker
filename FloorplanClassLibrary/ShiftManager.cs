@@ -129,17 +129,24 @@ namespace FloorplanClassLibrary
         }
         public Floorplan CreateFloorplanForDiningArea(DiningArea diningArea,DateTime date, bool isLunch, int serverCount, int sectionCount)
         {
-            Floorplan newFloorplan = new Floorplan(diningArea, date, isLunch, serverCount, sectionCount);
-            //this.Sections.AddRange(newFloorplan.Sections);
-             
-
-            // Add to the Floorplans list
-            if (Floorplans == null)
+            DateOnly dateOnly = new DateOnly(date.Year, date.Month, date.Day);
+            Floorplan newFloorplan = SqliteDataAccess.LoadFloorplanByCriteria(diningArea, dateOnly, isLunch);
+            if(newFloorplan != null)
             {
-                _floorplans = new List<Floorplan>();
+                this.AddFloorplanAndServers(newFloorplan);
+                
             }
+            if(newFloorplan == null)
+            {
+                newFloorplan = new Floorplan(diningArea, date, isLunch, serverCount, sectionCount);
+                if (Floorplans == null)
+                {
+                    _floorplans = new List<Floorplan>();
+                }
 
-            _floorplans.Add(newFloorplan);
+                _floorplans.Add(newFloorplan);
+            }         
+                      
 
             return newFloorplan;
         }
