@@ -53,7 +53,6 @@ namespace FloorPlanMaker
             panel1 = new Panel();
             rdoShifts = new RadioButton();
             pnlNavHighlight = new Panel();
-            dtpFloorplan = new DateTimePicker();
             cbIsAM = new CheckBox();
             btnDayBefore = new Button();
             btnNextDay = new Button();
@@ -369,17 +368,6 @@ namespace FloorPlanMaker
             pnlNavHighlight.Size = new Size(160, 3);
             pnlNavHighlight.TabIndex = 0;
             // 
-            // dtpFloorplan
-            // 
-            dtpFloorplan.CalendarFont = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            dtpFloorplan.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            dtpFloorplan.Format = DateTimePickerFormat.Short;
-            dtpFloorplan.Location = new Point(807, 3);
-            dtpFloorplan.Name = "dtpFloorplan";
-            dtpFloorplan.Size = new Size(124, 27);
-            dtpFloorplan.TabIndex = 14;
-            dtpFloorplan.ValueChanged += dtpFloorplan_ValueChanged;
-            // 
             // cbIsAM
             // 
             cbIsAM.Appearance = Appearance.Button;
@@ -469,7 +457,6 @@ namespace FloorPlanMaker
             pnlNavigationWindow.BackColor = Color.FromArgb(225, 225, 225);
             pnlNavigationWindow.Controls.Add(btnTest2);
             pnlNavigationWindow.Controls.Add(btnDoAThing);
-            pnlNavigationWindow.Controls.Add(dtpFloorplan);
             pnlNavigationWindow.Controls.Add(btnTest);
             pnlNavigationWindow.Controls.Add(btnGenerateSectionLines);
             pnlNavigationWindow.Controls.Add(pnlMainContainer);
@@ -613,7 +600,6 @@ namespace FloorPlanMaker
         private Button btnAddSectionLabels;
         private Button btnTest;
         private Button btnPrint;
-        private DateTimePicker dtpFloorplan;
         private Button btnChooseTemplate;
         private Button btnGenerateSectionLines;
         private CheckBox cbIsAM;

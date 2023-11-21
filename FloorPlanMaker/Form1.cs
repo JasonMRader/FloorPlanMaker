@@ -117,14 +117,14 @@ namespace FloorPlanMaker
             {
                 if (keyData == Keys.Left)
                 {
-                    dtpFloorplan.Value = dtpFloorplan.Value.AddDays(-1);
+                    UpdateDateLabel(-1);
                     return true; // Indicate that you've handled this key press
                 }
 
                 // Check if the Right Arrow key is pressed
                 if (keyData == Keys.Right)
                 {
-                    dtpFloorplan.Value = dtpFloorplan.Value.AddDays(1);
+                    UpdateDateLabel(1);
                     return true; // Indicate that you've handled this key press
                 }
             }
@@ -191,7 +191,7 @@ namespace FloorPlanMaker
         }
         public void UpdateForm1ShiftManager(ShiftManager shiftManagerToAdd)
         {
-            dtpFloorplan.Value = new DateTime(shiftManagerToAdd.DateOnly.Year, shiftManagerToAdd.DateOnly.Month, shiftManagerToAdd.DateOnly.Day);
+            dateTimeSelected = new DateTime(shiftManagerToAdd.DateOnly.Year, shiftManagerToAdd.DateOnly.Month, shiftManagerToAdd.DateOnly.Day);
 
             cbIsAM.Checked = shiftManagerToAdd.IsAM;
             foreach (Floorplan fp in shiftManagerToAdd.Floorplans)
@@ -337,18 +337,21 @@ namespace FloorPlanMaker
         {
             SetColors();
             dateTimeSelected = DateTime.Now;
-            UpdateDateLabel();
+            
             List<Floorplan> floorplans = SqliteDataAccess.LoadFloorplanList();
             cboDiningAreas.DataSource = areaCreationManager.DiningAreas;
             cboDiningAreas.DisplayMember = "Name";
             cboDiningAreas.ValueMember = "ID";
             rdoSections.Checked = true;
             rdoViewSectionFlow.Checked = true;
+            UpdateDateLabel(0);
             //rdoViewSectionFlow.Checked = true;
         }
-        private void UpdateDateLabel()
+        private void UpdateDateLabel(int days)
         {
+            dateTimeSelected = dateTimeSelected.AddDays(days);
             lblDateSelected.Text = dateOnlySelected.ToString("ddd, MMM d");
+            SetViewedFloorplan();
         }
 
         private void Form1_MouseDown(object sender, MouseEventArgs e)
@@ -911,7 +914,7 @@ namespace FloorPlanMaker
             Section pickUpSection = new Section();
             pickUpSection.IsPickUp = true;
             //shiftManager.SelectedFloorplan = shiftManager.ViewedFloorplan;
-            shiftManager.SelectedFloorplan.Date = dtpFloorplan.Value;
+            shiftManager.SelectedFloorplan.Date = dateTimeSelected;
             shiftManager.SelectedFloorplan.IsLunch = cbIsAM.Checked;
             foreach (Control control in pnlFloorPlan.Controls)
             {
@@ -1081,16 +1084,16 @@ namespace FloorPlanMaker
         private void SetViewedFloorplan()
         {
             NoServersToDisplay();
-            DateOnly date = DateOnly.FromDateTime(dtpFloorplan.Value);
-            if (shiftManager.ContainsFloorplan(date, cbIsAM.Checked, shiftManager.SelectedDiningArea.ID))
+          
+            if (shiftManager.ContainsFloorplan(dateOnlySelected, cbIsAM.Checked, shiftManager.SelectedDiningArea.ID))
             {
-                shiftManager.SetSelectedFloorplan(date, cbIsAM.Checked, shiftManager.SelectedDiningArea.ID);
+                shiftManager.SetSelectedFloorplan(dateOnlySelected, cbIsAM.Checked, shiftManager.SelectedDiningArea.ID);
 
             }
             else
             {
 
-                shiftManager.SelectedFloorplan = SqliteDataAccess.LoadFloorplanByCriteria(shiftManager.SelectedDiningArea, date, cbIsAM.Checked);
+                shiftManager.SelectedFloorplan = SqliteDataAccess.LoadFloorplanByCriteria(shiftManager.SelectedDiningArea, dateOnlySelected, cbIsAM.Checked);
             }
 
 
@@ -1293,16 +1296,15 @@ namespace FloorPlanMaker
 
         private void btnDayBefore_Click(object sender, EventArgs e)
         {
-            dtpFloorplan.Value = dtpFloorplan.Value.AddDays(-1);
-            dateTimeSelected = dateTimeSelected.AddDays(-1);
-            UpdateDateLabel();
+           
+            UpdateDateLabel(-1);
         }
 
         private void btnNextDay_Click(object sender, EventArgs e)
         {
-            dtpFloorplan.Value = dtpFloorplan.Value.AddDays(1);
-            dateTimeSelected = dateTimeSelected.AddDays(1);
-            UpdateDateLabel();
+           
+           
+            UpdateDateLabel(1);
         }
 
         private void btnCloseApp_Click(object sender, EventArgs e)
@@ -1415,11 +1417,19 @@ namespace FloorPlanMaker
         {
             using (frmDateSelect selectDateForm = new frmDateSelect(dateTimeSelected))
             {
-               DialogResult = selectDateForm.ShowDialog();
-                if(DialogResult == DialogResult.OK)
+                selectDateForm.StartPosition = FormStartPosition.Manual;
+                Point formLocation = this.PointToScreen(lblDateSelected.Location);
+                formLocation.Y += lblDateSelected.Height + 50;
+                formLocation.X += 465;
+
+
+                // Set the location of selectDateForm
+                selectDateForm.Location = formLocation;
+                DialogResult = selectDateForm.ShowDialog();
+                if (DialogResult == DialogResult.OK)
                 {
                     this.dateTimeSelected = selectDateForm.dateSelected;
-                    UpdateDateLabel();
+                    UpdateDateLabel(0);
                 }
             }
         }
