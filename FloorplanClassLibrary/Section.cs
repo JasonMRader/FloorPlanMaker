@@ -150,6 +150,7 @@ namespace FloorplanClassLibrary
             return displayString;
         }
         private bool _isTeamWait { get; set; }
+        public bool IsTeamWait { get; set; }
         public int Number { get; set; }
         public Color Color
         {
