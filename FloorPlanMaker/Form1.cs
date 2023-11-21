@@ -511,6 +511,20 @@ namespace FloorPlanMaker
 
                     flowServersInFloorplan.Controls.Add(serverControl);
                 }
+                foreach(Section section in shiftManager.SelectedFloorplan.Sections)
+                {
+                    if(section.Server != null)
+                    {
+                        foreach(ServerControl serverControl in flowServersInFloorplan.Controls)
+                        {
+                            if(serverControl.Server == section.Server)
+                            {
+                                serverControl.Label.BackColor = section.Color;
+
+                            }
+                        }
+                    }
+                }
             }
         }
 
