@@ -37,10 +37,40 @@ namespace FloorPlanMakerUI
                 MoveToNextControl();
                 return true; // Indicate that you've handled this key press
             }
+            
 
             return base.ProcessCmdKey(ref msg, keyData);
         }
+        public void ChangeDiningArea(Keys keyData)
+        {
+            if (keyData == Keys.Up)
+            {
+                // Ensure the index stays within bounds
+                if (cboDiningAreas.SelectedIndex > 0)
+                {
+                    cboDiningAreas.SelectedIndex--;
+                }
+                else
+                {
+                    cboDiningAreas.SelectedIndex = cboDiningAreas.Items.Count - 1;
+                }
+               
+            }
 
+            if (keyData == Keys.Down)
+            {
+                // Ensure the index stays within bounds
+                if (cboDiningAreas.SelectedIndex < cboDiningAreas.Items.Count - 1)
+                {
+                    cboDiningAreas.SelectedIndex++;
+                }
+                else
+                {
+                    cboDiningAreas.SelectedIndex = 0;
+                }
+               
+            }
+        }
         private void MoveToNextControl()
         {
             if (rdoCoverView.Checked || rdoSalesView.Checked)

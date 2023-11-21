@@ -127,6 +127,24 @@ namespace FloorPlanMaker
                     UpdateDateLabel(1);
                     return true; 
                 }
+                
+            }
+            if (_frmEditDiningAreas != null && _frmEditDiningAreas.Visible)
+            {
+                if (keyData == Keys.Up)
+                {
+                    _frmEditDiningAreas.ChangeDiningArea( keyData);
+                    return true;
+                }
+
+                if (keyData == Keys.Down)
+                {
+                    _frmEditDiningAreas.ChangeDiningArea(keyData);
+                    return true;
+                }
+            }
+            else
+            {
                 if (keyData == Keys.Up)
                 {
                     // Ensure the index stays within bounds
@@ -155,8 +173,7 @@ namespace FloorPlanMaker
                     return true;
                 }
             }
-
-
+            
 
             return base.ProcessCmdKey(ref msg, keyData);
         }
