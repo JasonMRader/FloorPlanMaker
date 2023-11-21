@@ -118,14 +118,41 @@ namespace FloorPlanMaker
                 if (keyData == Keys.Left)
                 {
                     UpdateDateLabel(-1);
-                    return true; // Indicate that you've handled this key press
+                    return true; 
                 }
 
-                // Check if the Right Arrow key is pressed
+                
                 if (keyData == Keys.Right)
                 {
                     UpdateDateLabel(1);
-                    return true; // Indicate that you've handled this key press
+                    return true; 
+                }
+                if (keyData == Keys.Up)
+                {
+                    // Ensure the index stays within bounds
+                    if (cboDiningAreas.SelectedIndex > 0)
+                    {
+                        cboDiningAreas.SelectedIndex--;
+                    }
+                    else
+                    {
+                        cboDiningAreas.SelectedIndex = cboDiningAreas.Items.Count - 1;
+                    }
+                    return true;
+                }
+
+                if (keyData == Keys.Down)
+                {
+                    // Ensure the index stays within bounds
+                    if (cboDiningAreas.SelectedIndex < cboDiningAreas.Items.Count - 1)
+                    {
+                        cboDiningAreas.SelectedIndex++;
+                    }
+                    else
+                    {
+                        cboDiningAreas.SelectedIndex = 0;
+                    }
+                    return true;
                 }
             }
 
