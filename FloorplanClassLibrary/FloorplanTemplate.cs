@@ -55,7 +55,7 @@ namespace FloorplanClassLibrary
                     foreach(Section section in this.Sections)
                     {
                         servers++;
-                        if(section.IsTeamWait)
+                        if(section._isTeamWait)
                         {
                             servers++;
                         }

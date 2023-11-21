@@ -229,7 +229,7 @@ namespace FloorplanClassLibrary
                 .Where(s => s.Server == null
                          && (s.Tables == null || !s.Tables.Any())
                          && !s.IsPickUp
-                         && !s.IsTeamWait)
+                         && !s._isTeamWait)
                 .OrderByDescending(s => s.Number)
                 .FirstOrDefault();
 

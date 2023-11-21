@@ -117,6 +117,7 @@ namespace FloorplanClassLibrary
             } 
         }
         public Server? Server2 { get; set; }
+        public List<Server>? ServerTeam { get ; set; } 
         public bool IsCloser { get; set; }
         public bool IsPre { get; set; }
         public string GetDisplayString()
@@ -142,13 +143,13 @@ namespace FloorplanClassLibrary
             {
                 displayString = displayString + "(PRE)";
             }
-            if (this.IsTeamWait &&  this.Server2 != null) 
+            if (this._isTeamWait &&  this.Server2 != null) 
             {
                 displayString = displayString + "\n" + this.Server2.AbbreviatedName;
             }
             return displayString;
         }
-        public bool IsTeamWait { get; set; }
+        private bool _isTeamWait { get; set; }
         public int Number { get; set; }
         public Color Color
         {
