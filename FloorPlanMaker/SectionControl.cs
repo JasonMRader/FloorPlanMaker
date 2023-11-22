@@ -236,7 +236,7 @@ namespace FloorplanClassLibrary
 
         private void teamWaitButton_Click(object? sender, EventArgs e)
         {
-            this.Section.IsTeamWait = true;
+            this.Section.MakeTeamWait();
             RefreshUnassignedServerPanel();
         }
 
@@ -267,7 +267,7 @@ namespace FloorplanClassLibrary
             manager.UnassignedServers.Remove(assignedServer);
             if (Section.IsTeamWait == true && Section.Server != null)
             {
-                Section.Server2 = assignedServer;
+                Section.ServerTeam.Add(assignedServer);
                 
                 this.sectionLabel.Height += 30;
                 this.headerPanel.Height += 30;

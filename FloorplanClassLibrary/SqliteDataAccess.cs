@@ -377,7 +377,7 @@ namespace FloorplanClassLibrary
                     ServerIDAlias = section.ServerID,  // Map ServerID to ServerID1
                     IsCloser = section.IsCloser,
                     IsPre = section.IsPre,
-                    TeamWait = section._isTeamWait
+                    TeamWait = section.IsTeamWait
                 });
 
                 section.ID = cnn.Query<int>("select last_insert_rowid()", new DynamicParameters()).Single();
@@ -738,7 +738,7 @@ namespace FloorplanClassLibrary
            (shift, section, diningArea, floorplan) =>
            {
                shift.IsCloser = section.IsCloser;
-               shift.IsTeamWait = section._isTeamWait;
+               shift.IsTeamWait = section.IsTeamWait;
                shift.IsInside = diningArea.IsInside;
                shift.Date = floorplan.Date; // Assign the date from the Floorplan to the Shift object
                return shift;

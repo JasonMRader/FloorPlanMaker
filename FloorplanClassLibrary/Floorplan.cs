@@ -38,7 +38,7 @@ namespace FloorplanClassLibrary
             get
             {
                 // Fetch servers from all sections
-                var serversFromSections = Sections.SelectMany(s => new List<Server> { s.Server, s.Server2 })
+                var serversFromSections = Sections.SelectMany(s => new List<Server> { s.Server })
                                                   .Where(s => s != null)
                                                   .Distinct()
                                                   .ToList();
@@ -154,16 +154,28 @@ namespace FloorplanClassLibrary
         {
             if (section != null)
             {
-                if(section.Server != null)
+                if(section.IsTeamWait == false)
                 {
-                    this.ServersWithoutSection.Add(section.Server);
-                    section.Server = null;
+                    if (section.Server != null)
+                    {
+                        this.ServersWithoutSection.Add(section.Server);
+                        section.Server = null;
+                    }
                 }
-                if(section.Server2 != null)
+                else
                 {
-                    this.ServersWithoutSection.Add(section.Server2);
-                    section.Server2 = null;
-                }            
+                    foreach(Server server in section.ServerTeam)
+                    {
+                        this.ServersWithoutSection.Add(server);
+                    }
+                    if (section.Server != null && !ServersWithoutSection.Contains(section.Server))
+                    {
+                        this.ServersWithoutSection.Add(section.Server);
+                        section.Server = null;
+                    }
+                }
+               
+                    
                 
                 section.Tables.Clear();               
                 section.IsCloser = false;
@@ -229,7 +241,7 @@ namespace FloorplanClassLibrary
                 .Where(s => s.Server == null
                          && (s.Tables == null || !s.Tables.Any())
                          && !s.IsPickUp
-                         && !s._isTeamWait)
+                         && !s.IsTeamWait)
                 .OrderByDescending(s => s.Number)
                 .FirstOrDefault();
 

@@ -783,7 +783,7 @@ namespace FloorPlanMaker
                     }
                     else
                     {
-                        selectedSection.IsTeamWait = true;
+                        selectedSection.MakeTeamWait();
                         pb.BackColor = UITheme.WarningColor;
                         pb.Image = Resources.waiters;
                         RemoveSectionPanel(sectionRemoved);
@@ -792,7 +792,7 @@ namespace FloorPlanMaker
                 }
                 else
                 {
-                    selectedSection.IsTeamWait = false;
+                    selectedSection.MakeSoloSection();
                     pb.BackColor = UITheme.CTAColor;
                     pb.Image = Resources.waiter;
                     Section section = new Section();

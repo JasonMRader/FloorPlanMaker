@@ -116,7 +116,7 @@ namespace FloorplanClassLibrary
                 }
             } 
         }
-        public Server? Server2 { get; set; }
+        //public Server? Server2 { get; set; }
         public List<Server>? ServerTeam { get ; set; } 
         public bool IsCloser { get; set; }
         public bool IsPre { get; set; }
@@ -143,14 +143,39 @@ namespace FloorplanClassLibrary
             {
                 displayString = displayString + "(PRE)";
             }
-            if (this._isTeamWait &&  this.Server2 != null) 
-            {
-                displayString = displayString + "\n" + this.Server2.AbbreviatedName;
-            }
+            //if (this.IsTeamWait &&  this.Server2 != null) 
+            //{
+            //    displayString = displayString + "\n" + this.Server2.AbbreviatedName;
+            //}
             return displayString;
         }
         private bool _isTeamWait { get; set; }
-        public bool IsTeamWait { get; set; }
+        public bool IsTeamWait { get { return _isTeamWait; } }
+        public void MakeTeamWait()
+        {
+            if (_isTeamWait) { return; }
+            this._isTeamWait = true;
+            this.ServerTeam = new List<Server>();
+            if(this.Server != null)
+            {
+                this.ServerTeam.Add(Server);
+            }
+           
+
+        }
+        public void MakeSoloSection()
+        {
+            if (!_isTeamWait) { return; }
+            this._isTeamWait = false;
+            
+            if (this.ServerTeam != null)
+            {
+                this.ServerTeam.Clear();
+                this.ServerTeam = null;
+            }
+
+
+        }
         public int Number { get; set; }
         public Color Color
         {
