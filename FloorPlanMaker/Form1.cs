@@ -343,8 +343,13 @@ namespace FloorPlanMaker
                     Rectangle tableRect = new Rectangle(tableControl.Location, tableControl.Size);
                     if (dragRectangle.IntersectsWith(tableRect))
                     {
+                        if(tableControl.Section != null)
+                        {
+                            tableControl.Section.Tables.Remove(tableControl.Table);
+                        }
+                       
                         tableControl.IsSelected = true;
-                        tableControl.BackColor = shiftManager.SectionSelected.Color; // Or any other color indicating selection
+                        tableControl.BackColor = shiftManager.SectionSelected.Color;
                         tableControl.ForeColor = shiftManager.SectionSelected.FontColor;
 
                         if (shiftManager.SelectedFloorplan.Sections != null)
@@ -356,8 +361,7 @@ namespace FloorPlanMaker
                                 tableControl.Section = targetSection;
                                 UpdateSectionLabels(targetSection, targetSection.MaxCovers, targetSection.AverageCovers);
                             }
-                            //shiftManager.SectionSelected.Tables.Add(tableControl.Table);
-                            //UpdateSectionLabels(shiftManager.SectionSelected, shiftManager.SectionSelected.MaxCovers, shiftManager.SectionSelected.AverageCovers);
+                           
                         }
                     }
                     else
