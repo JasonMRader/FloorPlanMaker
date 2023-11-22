@@ -799,6 +799,7 @@ namespace FloorPlanMaker
                     shiftManager.SelectedFloorplan.AddSection(section);
                     CreateOneSectionPanel(section);
                 }
+                UpdateSectionLabels(selectedSection, selectedSection.MaxCovers, selectedSection.AverageCovers);
             }
             //CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
         }
