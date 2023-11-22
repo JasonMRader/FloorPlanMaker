@@ -100,8 +100,8 @@ namespace FloorplanClassLibrary
 
             return formattedValue;
         }
-
-        public Server? Server { get; set; }
+        private Server? _server { get; set; }
+        public Server? Server { get { return this._server; }  }
         public int? ServerID 
         { 
             get 
@@ -173,13 +173,32 @@ namespace FloorplanClassLibrary
            
 
         }
-        public void AddTeamWaiter(Server server)
+        public void AddServer(Server server)
         {
-            if(this.Server == null)
+            if (!this._isTeamWait)
             {
-                this.Server = server;
+                this._server = server;
             }
-            this.ServerTeam.Add(server);
+            else
+            {
+                if (this.Server == null) 
+                {
+                    this._server = server;
+                    
+                }
+                this.ServerTeam.Add(server);
+            }
+            
+        }
+        public void RemoveServer(Server server) 
+        {
+            if (this._server == server)
+            {
+                this._server = null;
+            }
+           
+            this.ServerTeam.Remove(server);
+           
         }
         public void MakeSoloSection()
         {
