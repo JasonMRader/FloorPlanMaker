@@ -259,7 +259,7 @@ namespace FloorplanClassLibrary
                         var matchedSection = floorplan.Sections.FirstOrDefault(s => s.ID == ss.SectionID);
                         if (matchedSection != null)
                         {
-                            matchedSection.Server = servers.First(s => s.ID == ss.ServerID);
+                            matchedSection.AddServer(servers.First(s => s.ID == ss.ServerID));
                         }
                     }
 
@@ -327,7 +327,7 @@ namespace FloorplanClassLibrary
                     var matchedSection = floorplan.Sections.FirstOrDefault(s => s.ID == ss.SectionID);
                     if (matchedSection != null)
                     {
-                        matchedSection.Server = servers.First(s => s.ID == ss.ServerID);
+                        matchedSection.AddServer(servers.First(s => s.ID == ss.ServerID));
                     }
                 }
 
@@ -700,7 +700,7 @@ namespace FloorplanClassLibrary
                         var matchedSection = floorplan.Sections.FirstOrDefault(s => s.ID == ss.SectionID);
                         if (matchedSection != null)
                         {
-                            matchedSection.Server = servers.First(s => s.ID == ss.ServerID);
+                            matchedSection.AddServer(servers.First(s => s.ID == ss.ServerID));
                         }
                     }
 

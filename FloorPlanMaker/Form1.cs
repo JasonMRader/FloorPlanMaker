@@ -534,7 +534,7 @@ namespace FloorPlanMaker
             Server server = serverControl.Server;
             if (shiftManager.SectionSelected.Server == null)
             {
-                shiftManager.SectionSelected.Server = server;
+                shiftManager.SectionSelected.AddServer(server);
 
             }
             foreach (SectionControl sc in sectionControlsManager.SectionControls)

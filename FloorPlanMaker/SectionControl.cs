@@ -254,7 +254,7 @@ namespace FloorplanClassLibrary
         private void UnassignButton_Click(Object sender, EventArgs e)
         {            
             manager.UnassignedServers.Add(this.Section.Server);
-            Section.Server = null;
+            Section.RemoveServer(this.Section.Server);
             RefreshUnassignedServerPanel();
             UpdateLabel();
         }
@@ -265,17 +265,26 @@ namespace FloorplanClassLibrary
             var assignedServer = (Server)clickedButton.Tag;
             
             manager.UnassignedServers.Remove(assignedServer);
-            if (Section.IsTeamWait == true && Section.Server != null)
+            Section.AddServer(assignedServer);
+            if(Section.ServerTeam != null)
             {
-                Section.ServerTeam.Add(assignedServer);
+                for(int i = 0;  i < Section.ServerTeam.Count; i++) 
+                {
+                    this.sectionLabel.Height += 30;
+                    this.headerPanel.Height += 30;
+                }
+            }
+            //if (Section.IsTeamWait == true && Section.Server != null)
+            //{
+            //    Section.ServerTeam.Add(assignedServer);
                 
-                this.sectionLabel.Height += 30;
-                this.headerPanel.Height += 30;
-            }
-            else
-            {
-                Section.Server = assignedServer;
-            }
+            //    this.sectionLabel.Height += 30;
+            //    this.headerPanel.Height += 30;
+            //}
+            //else
+            //{
+            //    Section.Server = assignedServer;
+            //}
             serversPanel.Height = 0;
            
             UpdateLabel();

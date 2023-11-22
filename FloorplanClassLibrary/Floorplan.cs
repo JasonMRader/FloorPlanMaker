@@ -159,7 +159,7 @@ namespace FloorplanClassLibrary
                     if (section.Server != null)
                     {
                         this.ServersWithoutSection.Add(section.Server);
-                        section.Server = null;
+                        section.RemoveServer(section.Server);
                     }
                 }
                 else
@@ -171,7 +171,7 @@ namespace FloorplanClassLibrary
                     if (section.Server != null && !ServersWithoutSection.Contains(section.Server))
                     {
                         this.ServersWithoutSection.Add(section.Server);
-                        section.Server = null;
+                        section.RemoveServer(section.Server);
                     }
                 }
                
