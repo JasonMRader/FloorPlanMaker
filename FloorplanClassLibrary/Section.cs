@@ -173,6 +173,14 @@ namespace FloorplanClassLibrary
            
 
         }
+        public void AddTeamWaiter(Server server)
+        {
+            if(this.Server == null)
+            {
+                this.Server = server;
+            }
+            this.ServerTeam.Add(server);
+        }
         public void MakeSoloSection()
         {
             if (!_isTeamWait) { return; }
