@@ -6,6 +6,7 @@ using FloorPlanMakerUI.Properties;
 using NetTopologySuite.Triangulate;
 using System.Diagnostics.Metrics;
 using System.Drawing.Drawing2D;
+
 using System.Globalization;
 using System.Windows.Forms;
 

@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FloorPlanMakerUI", "FloorPl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FloorplanClassLibrary", "FloorplanClassLibrary\FloorplanClassLibrary.csproj", "{668EF52A-8953-4F30-8A07-53F10F79A0B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FloorplanControlLibrary", "FloorplanControlLibrary\FloorplanControlLibrary.csproj", "{031495E1-CFC0-486F-9421-15DB05E4AA4E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FloorplanUserControlLibrary", "FloorplanUserControlLibrary\FloorplanUserControlLibrary.csproj", "{5688C3E0-A5EF-4CD7-93A6-600C0F073E5A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{668EF52A-8953-4F30-8A07-53F10F79A0B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{668EF52A-8953-4F30-8A07-53F10F79A0B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{668EF52A-8953-4F30-8A07-53F10F79A0B9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{031495E1-CFC0-486F-9421-15DB05E4AA4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{031495E1-CFC0-486F-9421-15DB05E4AA4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{031495E1-CFC0-486F-9421-15DB05E4AA4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{031495E1-CFC0-486F-9421-15DB05E4AA4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5688C3E0-A5EF-4CD7-93A6-600C0F073E5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5688C3E0-A5EF-4CD7-93A6-600C0F073E5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5688C3E0-A5EF-4CD7-93A6-600C0F073E5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5688C3E0-A5EF-4CD7-93A6-600C0F073E5A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

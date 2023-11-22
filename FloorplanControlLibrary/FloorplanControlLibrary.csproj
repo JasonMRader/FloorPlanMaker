@@ -42,8 +42,52 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FloorplanInfoControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FloorplanInfoControl.Designer.cs">
+      <DependentUpon>FloorplanInfoControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SectionControl.cs" />
+    <Compile Include="ServerControl.cs" />
+    <Compile Include="ShiftControl.cs" />
+    <Compile Include="TableControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TableDataEditorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TableDataEditorControl.Designer.cs">
+      <DependentUpon>TableDataEditorControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TableEditorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TableEditorControl.Designer.cs">
+      <DependentUpon>TableEditorControl.cs</DependentUpon>
+    </Compile>
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FloorplanInfoControl.resx">
+      <DependentUpon>FloorplanInfoControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SectionControl.resx">
+      <DependentUpon>SectionControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TableDataEditorControl.resx">
+      <DependentUpon>TableDataEditorControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TableEditorControl.resx">
+      <DependentUpon>TableEditorControl.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FloorplanClassLibrary\FloorplanClassLibrary.csproj">
+      <Project>{668ef52a-8953-4f30-8a07-53f10f79a0b9}</Project>
+      <Name>FloorplanClassLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
