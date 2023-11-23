@@ -82,9 +82,26 @@ namespace FloorPlanMakerUI
             }
         }
         
-        public void UpdateServerControls()
+        public void SetServerControls()
         {
+            _serverControls.Clear();
+            if(Floorplan == null) { return; }
+            if(Floorplan.Servers.Count <= 0) { return; }               
+            foreach(Server server in Floorplan.Servers)
+            {
+                server.Shifts = SqliteDataAccess.GetShiftsForServer(server);
+                ServerControl serverControl = new ServerControl(server, 300, 20);
+                //serverControl.Click += ServerControl_Click;
+                foreach (ShiftControl shiftControl in serverControl.ShiftControls)
+                {
 
+                    shiftControl.ShowClose();
+                    shiftControl.ShowTeam();
+                    shiftControl.HideOutside();
+                }
+
+                this._serverControls.Add(serverControl);
+            }
         }
         
        
