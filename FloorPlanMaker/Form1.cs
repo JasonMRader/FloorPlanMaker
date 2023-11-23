@@ -1038,7 +1038,7 @@ namespace FloorPlanMaker
             {
                 UpdateSectionLabels(shiftManager.SectionSelected, shiftManager.SectionSelected.MaxCovers, shiftManager.SectionSelected.AverageCovers);
                 CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
-                SectionLabelControl sectionControl = new SectionLabelControl(pickUpSection, sectionControlsManager);
+                //SectionLabelControl sectionControl = new SectionLabelControl(pickUpSection, sectionControlsManager);
                 pnlFloorPlan.Controls.Add(sectionControl);
                 sectionControl.BringToFront();
             }

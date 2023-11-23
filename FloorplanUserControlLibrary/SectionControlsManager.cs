@@ -41,8 +41,8 @@ namespace FloorPlanMakerUI
             {
                 if (section.Tables.Count > 0)
                 {
-                    SectionLabelControl sectionControl = new SectionLabelControl(section, this);
-                    this.SectionControls.Add(sectionControl);
+                    //SectionLabelControl sectionControl = new SectionLabelControl(section, this);
+                    //this.SectionControls.Add(sectionControl);
                 }
                 if(section.Server != null)
                 {
