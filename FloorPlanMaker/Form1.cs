@@ -274,14 +274,35 @@ namespace FloorPlanMaker
             floorplanManager = new FloorplanFormManager(shiftManager);
 
             // Subscribe to the event
-            floorplanManager.SectionLabelRemoved += FloorplanManager_SectionLabelRemoved;
+            //floorplanManager.SectionLabelRemoved += FloorplanManager_SectionLabelRemoved;
+            floorplanManager.UpdateRequired += FloorplanManager_UpdateRequired;
 
             //pnlFloorPlan.KeyPreview = true;
+        }
+        private void FloorplanManager_UpdateRequired(object sender, UpdateEventArgs e)
+        {
+            switch (e.UpdateType)
+            {
+                case UpdateType.SectionLabel:
+                    floorplanManager.RemoveSectionLabel(e.UpdateData as Section, pnlFloorPlan);
+                    break;
+                case UpdateType.ServerControl:
+                    // Handle ServerControl update
+                    break;
+                case UpdateType.SectionControl:
+                    // Handle SectionControl update
+                    break;
+                case UpdateType.TableControl:
+                    // Handle TableControl update
+                    break;
+                    // Add more cases as needed
+            }
         }
 
         private void FloorplanManager_SectionLabelRemoved(object? sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            
+            //floorplanManager.RemoveSectionLabel();
         }
 
         private void PnlFloorplan_Paint(object sender, PaintEventArgs e)
@@ -1198,10 +1219,14 @@ namespace FloorPlanMaker
                 coversImageLabel.UpdateText(shiftManager.SelectedFloorplan.MaxCoversPerServer.ToString("F0"));
                 salesImageLabel.UpdateText(shiftManager.SelectedFloorplan.AvgSalesPerServer.ToString("C0"));
             }
-            floorplanManager = new FloorplanFormManager(shiftManager);
-            floorplanManager.SectionLabelRemoved += FloorplanManager_SectionLabelRemoved;
+            //floorplanManager.ShiftManager = shiftManager;
+            //floorplanManager.SectionLabelRemoved += FloorplanManager_SectionLabelRemoved;
+            
             floorplanManager.SetTableControls();
             floorplanManager.SetSectionLabels();
+            floorplanManager.SetSectionPanels();
+
+            floorplanManager.AddSectionPanels(flowSectionSelect);
             floorplanManager.AddSectionLabels(pnlFloorPlan);
             
             

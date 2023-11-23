@@ -196,8 +196,11 @@ namespace FloorplanClassLibrary
             {
                 this._server = null;
             }
-           
-            this.ServerTeam.Remove(server);
+            if (this.ServerTeam!= null)
+            {
+                this.ServerTeam.Remove(server);
+            }
+            
            
         }
         public void MakeSoloSection()

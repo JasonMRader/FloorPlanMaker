@@ -11,18 +11,25 @@ namespace FloorPlanMakerUI
 {
    public class FloorplanFormManager
     {
-        public Floorplan? Floorplan;
+        public Floorplan? Floorplan
+        {
+            get
+            {
+                return this.ShiftManager.SelectedFloorplan;
+            }
+        }
         public ShiftManager ShiftManager;
         private List<TableControl> _tableControls = new List<TableControl>();    
         private List<SectionLabelControl> _sectionLabels = new List<SectionLabelControl>();
         private List<SectionPanelControl> _sectionPanels = new List<SectionPanelControl>();
         private List<ServerControl> _serverControls = new List<ServerControl>();
         public event EventHandler SectionLabelRemoved;
-        
-        
+        public event EventHandler<UpdateEventArgs> UpdateRequired;
+
+
         public FloorplanFormManager(ShiftManager shiftManager)
         {
-            this.Floorplan = shiftManager.SelectedFloorplan;
+            //this.Floorplan = shiftManager.SelectedFloorplan;
             this.ShiftManager = shiftManager;
             
         }
@@ -63,27 +70,28 @@ namespace FloorPlanMakerUI
         public void SetSectionLabels()
         {
             _sectionLabels.Clear();
-            if(Floorplan == null) { return; }
-            foreach (Section section in Floorplan.Sections)
+            if(ShiftManager.SelectedFloorplan == null) { return; }
+            foreach (Section section in ShiftManager.SelectedFloorplan.Sections)
             {
                 if (section.Tables.Count > 0)
                 {
-                    SectionLabelControl sectionControl = new SectionLabelControl(section, Floorplan.ServersWithoutSection);
+                    SectionLabelControl sectionControl = new SectionLabelControl(section, ShiftManager.SelectedFloorplan.ServersWithoutSection);
                     this._sectionLabels.Add(sectionControl);
                     
                 }
                 if (section.Server != null)
                 {
-                    Floorplan.ServersWithoutSection.Remove(section.Server);
+                    ShiftManager.SelectedFloorplan.ServersWithoutSection.Remove(section.Server);
                 }
             }
         }
         public void SetSectionPanels()
         {
             _sectionPanels.Clear();
-            foreach(Section section in Floorplan.Sections)
+            if( ShiftManager.SelectedFloorplan == null) { return ; }
+            foreach(Section section in ShiftManager.SelectedFloorplan.Sections)
             {
-                SectionPanelControl sectionPanel = new SectionPanelControl(section, this.Floorplan);
+                SectionPanelControl sectionPanel = new SectionPanelControl(section, this.ShiftManager.SelectedFloorplan);
                 sectionPanel.picEraseSectionClicked += EraseSectionClicked;
                 sectionPanel.picTeamWaitClicked += TeamWaitClicked;
                 this._sectionPanels.Add(sectionPanel);
@@ -105,9 +113,13 @@ namespace FloorPlanMakerUI
                     "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (dialogResult == DialogResult.Yes)
                 {
-                    SectionLabelRemoved?.Invoke(this, e);
+                    //SectionLabelRemoved?.Invoke(this, e);
+                    UpdateRequired?.Invoke(this, new UpdateEventArgs(UpdateType.SectionLabel, selectedSection));
                     this._sectionLabels.Remove(sectionLabelBySection(selectedSection));
-                    this.Floorplan.UnassignSection(selectedSection);
+                    
+
+                    //this.UpdateRequired += FloorplanManager_UpdateRequired;
+                    ShiftManager.SelectedFloorplan.UnassignSection(selectedSection);
                     
                     //UpdateTableControlSections();
                     //REMOVE SECTION LABEL AND CLEAR TABLECONTROL SECTIONS, REMOVE TABLES FROM SECTION
@@ -120,7 +132,7 @@ namespace FloorPlanMakerUI
         }
         private Section sectionByNumber(int sectionNumber)
         {
-            Section sectionbyNumber = Floorplan.Sections.FirstOrDefault(s => s.Number == sectionNumber);
+            Section sectionbyNumber = ShiftManager.SelectedFloorplan.Sections.FirstOrDefault(s => s.Number == sectionNumber);
             return sectionbyNumber;
         }
         private SectionLabelControl sectionLabelBySection(Section section)
@@ -131,12 +143,21 @@ namespace FloorPlanMakerUI
         public void RemoveSectionLabel(Section section, Panel panel)
         {
             panel.Controls.Remove(sectionLabelBySection((Section)section));
+            panel.Invalidate();
         }
         public void AddSectionLabels(Panel panel)
         {
             foreach(SectionLabelControl sectionLabelControl in _sectionLabels)
             {
                 panel.Controls.Add(sectionLabelControl);
+                sectionLabelControl.BringToFront();
+            }
+        }
+        public void AddSectionPanels(FlowLayoutPanel panel)
+        {
+            foreach(SectionPanelControl sectionPanel in _sectionPanels)
+            {
+                panel.Controls.Add(sectionPanel);
             }
         }
         private void FillInTableControlColors(Panel panel)
@@ -148,7 +169,7 @@ namespace FloorPlanMakerUI
                 {
                     tableControl.BackColor = panel.BackColor;
                     tableControl.TextColor = panel.ForeColor;
-                    foreach (Section section in Floorplan.Sections)
+                    foreach (Section section in ShiftManager.SelectedFloorplan.Sections)
                     {
 
                         foreach (Table table in section.Tables)
@@ -176,9 +197,9 @@ namespace FloorPlanMakerUI
         public void SetServerControls()
         {
             _serverControls.Clear();
-            if(Floorplan == null) { return; }
-            if(Floorplan.Servers.Count <= 0) { return; }               
-            foreach(Server server in Floorplan.Servers)
+            if(ShiftManager.SelectedFloorplan == null) { return; }
+            if(ShiftManager.SelectedFloorplan.Servers.Count <= 0) { return; }               
+            foreach(Server server in ShiftManager.SelectedFloorplan.Servers)
             {
                 server.Shifts = SqliteDataAccess.GetShiftsForServer(server);
                 ServerControl serverControl = new ServerControl(server, 300, 20);
