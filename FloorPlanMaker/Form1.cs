@@ -39,6 +39,7 @@ namespace FloorPlanMaker
         private PictureBox loadingScreen = null;
         ImageLabelControl coversImageLabel = new ImageLabelControl();
         ImageLabelControl salesImageLabel = new ImageLabelControl();
+        private FloorplanFormManager floorplanManager;
         private DateOnly dateOnlySelected
         {
             get
@@ -270,11 +271,18 @@ namespace FloorPlanMaker
             pnlFloorPlan.MouseMove += pnlFloorplan_MouseMove;
             pnlFloorPlan.Paint += PnlFloorplan_Paint;
             this.sectionLineManager = new SectionLineManager(allTableControls);
+            floorplanManager = new FloorplanFormManager(shiftManager);
+
+            // Subscribe to the event
+            floorplanManager.SectionLabelRemoved += FloorplanManager_SectionLabelRemoved;
 
             //pnlFloorPlan.KeyPreview = true;
         }
 
-
+        private void FloorplanManager_SectionLabelRemoved(object? sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
 
         private void PnlFloorplan_Paint(object sender, PaintEventArgs e)
         {
@@ -605,6 +613,7 @@ namespace FloorPlanMaker
                 //CreateOneSectionPanel(section);
                 SectionPanelControl sectionPanel = new SectionPanelControl(section, shiftManager.SelectedFloorplan);
                 sectionPanel.CheckBoxChanged += Rb_CheckedChanged;
+               
                 flowSectionSelect.Controls.Add(sectionPanel);
             }
             if (flowSectionSelect.Controls.Count > 0)
@@ -1038,7 +1047,7 @@ namespace FloorPlanMaker
             {
                 UpdateSectionLabels(shiftManager.SectionSelected, shiftManager.SectionSelected.MaxCovers, shiftManager.SectionSelected.AverageCovers);
                 CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
-                //SectionLabelControl sectionControl = new SectionLabelControl(pickUpSection, sectionControlsManager);
+                SectionLabelControl sectionControl = new SectionLabelControl(pickUpSection, shiftManager.SelectedFloorplan.ServersWithoutSection);
                 pnlFloorPlan.Controls.Add(sectionControl);
                 sectionControl.BringToFront();
             }
@@ -1093,7 +1102,7 @@ namespace FloorPlanMaker
         }
         private void UpdateTableControlSections()
         {
-            ClearAllSectionControls();
+            //ClearAllSectionControls();
             if (shiftManager.SelectedFloorplan == null)
             {
                 flowSectionSelect.Controls.Clear();
@@ -1189,8 +1198,13 @@ namespace FloorPlanMaker
                 coversImageLabel.UpdateText(shiftManager.SelectedFloorplan.MaxCoversPerServer.ToString("F0"));
                 salesImageLabel.UpdateText(shiftManager.SelectedFloorplan.AvgSalesPerServer.ToString("C0"));
             }
-            FloorplanFormManager floorplanManager = new FloorplanFormManager(shiftManager);
+            floorplanManager = new FloorplanFormManager(shiftManager);
+            floorplanManager.SectionLabelRemoved += FloorplanManager_SectionLabelRemoved;
             floorplanManager.SetTableControls();
+            floorplanManager.SetSectionLabels();
+            floorplanManager.AddSectionLabels(pnlFloorPlan);
+            
+            
             allTableControls = floorplanManager.TableControls;
             UpdateTableControlSections();
         }

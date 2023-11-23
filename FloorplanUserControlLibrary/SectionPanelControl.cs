@@ -16,6 +16,8 @@ namespace FloorplanUserControlLibrary
     public partial class SectionPanelControl : UserControl
     {
         public event EventHandler CheckBoxChanged;
+        public event EventHandler picEraseSectionClicked;
+        public event EventHandler picTeamWaitClicked;
         public bool CheckBoxChecked
         {
             get { return cbSectionSelect.Checked; }
@@ -35,12 +37,12 @@ namespace FloorplanUserControlLibrary
         //public Floorplan Floorplan { get; set; }
         private void picClearSection_Click(object sender, EventArgs e)
         {
-
+            picEraseSectionClicked?.Invoke(this, e);
         }
 
         private void picTeamWait_Click(object sender, EventArgs e)
         {
-
+            picTeamWaitClicked?.Invoke(this, e);
         }
         public void UpdateLabels(Floorplan sectionsFloorplan)
         {
