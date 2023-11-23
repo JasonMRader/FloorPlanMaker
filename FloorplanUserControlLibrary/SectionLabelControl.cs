@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace FloorplanClassLibrary
 {
-    public class SectionControl : UserControl
+    public class SectionLabelControl : UserControl
     {
         private Label sectionLabel;
         private PictureBox assignServerButton;
@@ -26,11 +26,11 @@ namespace FloorplanClassLibrary
         private bool isDragging = false; // Indicates whether dragging is ongoing
         public Section Section { get; set; }
 
-        private SectionControlsManager manager;
-        public SectionControl(Section section, SectionControlsManager sectionControlsManager)
+        private List<Server> unassignedServers = new List<Server>();
+        public SectionLabelControl(Section section, List<Server> unassignedServers)
         {
             this.Section = section;
-            this.manager = sectionControlsManager;
+            this.unassignedServers = unassignedServers;
             closerPanel = new FlowLayoutPanel { Dock = DockStyle.Top, Height = 0 };
             closerPanel.AutoSize = true;
 
@@ -246,17 +246,17 @@ namespace FloorplanClassLibrary
         private void RefreshUnassignedServerPanel()
         {
             serversPanel.Controls.Clear();
-            foreach (var server in manager.UnassignedServers)
+            foreach (var server in unassignedServers)
             {
                 var serverButton = new Button { Text = server.Name, Tag = server, Dock = DockStyle.Top, Width = this.Width - 20 };
                 serverButton.Click += ServerButton_Click;
                 serversPanel.Controls.Add(serverButton);
             }
-            serversPanel.Height = (manager.UnassignedServers.Count * 30);
+            serversPanel.Height = (unassignedServers.Count * 30);
         }
         private void UnassignButton_Click(Object sender, EventArgs e)
         {            
-            manager.UnassignedServers.Add(this.Section.Server);
+            unassignedServers.Add(this.Section.Server);
             Section.RemoveServer(this.Section.Server);
             RefreshUnassignedServerPanel();
             UpdateLabel();
@@ -267,7 +267,7 @@ namespace FloorplanClassLibrary
             var clickedButton = (Button)sender;
             var assignedServer = (Server)clickedButton.Tag;
             
-            manager.UnassignedServers.Remove(assignedServer);
+            unassignedServers.Remove(assignedServer);
             Section.AddServer(assignedServer);
             if(Section.ServerTeam != null)
             {
@@ -313,7 +313,7 @@ namespace FloorplanClassLibrary
                 setCloserButton.Image = Resources.Scissors__Copy;
             }
         }
-        public static void DrawSectionLabelForPrinting(Graphics g, SectionControl control)
+        public static void DrawSectionLabelForPrinting(Graphics g, SectionLabelControl control)
         {
             Font boldLargeFont = new Font(control.Font.FontFamily, 20f, FontStyle.Bold);
 

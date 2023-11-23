@@ -56,9 +56,9 @@ namespace FloorplanClassLibrary
             // Draw SectionControls next
             foreach (Control control in _floorplanPanel.Controls)
             {
-                if (control is SectionControl sectionControl)
+                if (control is SectionLabelControl sectionControl)
                 {
-                    SectionControl.DrawSectionLabelForPrinting(g, sectionControl);
+                    SectionLabelControl.DrawSectionLabelForPrinting(g, sectionControl);
                 }
             }
 

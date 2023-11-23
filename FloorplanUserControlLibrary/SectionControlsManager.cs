@@ -15,13 +15,13 @@ namespace FloorPlanMakerUI
             UnassignedServers = floorplan.Servers;
             CreateSectionControls();
         }
-        public List<SectionControl>? SectionControls { get; set; }
+        public List<SectionLabelControl>? SectionControls { get; set; }
         public Floorplan Floorplan { get; set; }
         public List<Server>? UnassignedServers { get; set; }
         
         public void SetSelectedSection(Section section)
         {
-            foreach(SectionControl sc in this.SectionControls)
+            foreach(SectionLabelControl sc in this.SectionControls)
             {
                 if (sc.Section == section)
                 {
@@ -36,12 +36,12 @@ namespace FloorPlanMakerUI
         }
         public void CreateSectionControls()
         {
-            this.SectionControls = new List<SectionControl>();
+            this.SectionControls = new List<SectionLabelControl>();
             foreach (Section section in Floorplan.Sections)
             {
                 if (section.Tables.Count > 0)
                 {
-                    SectionControl sectionControl = new SectionControl(section, this);
+                    SectionLabelControl sectionControl = new SectionLabelControl(section, this);
                     this.SectionControls.Add(sectionControl);
                 }
                 if(section.Server != null)

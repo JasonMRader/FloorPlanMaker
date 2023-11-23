@@ -80,7 +80,7 @@ namespace FloorplanClassLibrary
             }
         }
 
-        public float AvgCoversPerServer
+        public float AvgSalesPerServer
         {
             get
             {
