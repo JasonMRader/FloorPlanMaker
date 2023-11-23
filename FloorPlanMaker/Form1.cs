@@ -1190,7 +1190,7 @@ namespace FloorPlanMaker
                 salesImageLabel.UpdateText(shiftManager.SelectedFloorplan.AvgSalesPerServer.ToString("C0"));
             }
             FloorplanFormManager floorplanManager = new FloorplanFormManager(shiftManager);
-            floorplanManager.UpdateTableControls();
+            floorplanManager.SetTableControls();
             allTableControls = floorplanManager.TableControls;
             UpdateTableControlSections();
         }

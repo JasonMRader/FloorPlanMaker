@@ -15,6 +15,8 @@ namespace FloorPlanMakerUI
         public ShiftManager ShiftManager;
         private List<TableControl> _tableControls = new List<TableControl>();    
         private List<SectionLabelControl> _sectionLabels = new List<SectionLabelControl>();
+        private List<SectionPanelControl> _sectionPanels = new List<SectionPanelControl>();
+        private List<ServerControl> _serverControls = new List<ServerControl>();
         public FloorplanFormManager(ShiftManager shiftManager)
         {
             this.Floorplan = shiftManager.SelectedFloorplan;
@@ -31,7 +33,17 @@ namespace FloorPlanMakerUI
             get { return _sectionLabels; }
             set { _sectionLabels = value; }
         }
-        public void UpdateTableControls()
+        public List<SectionPanelControl> SectionPanels
+        {
+            get { return _sectionPanels; }
+            set { _sectionPanels = value; }
+        }
+        public List<ServerControl> ServerControls
+        {
+            get { return _serverControls; }
+            set { _serverControls = value; }
+        }
+        public void SetTableControls()
         {
             _tableControls.Clear();
             if (this.ShiftManager != null && this.ShiftManager.SelectedDiningArea != null)
@@ -44,7 +56,7 @@ namespace FloorPlanMakerUI
                 }
             }
         }
-        public void UpdateSectionLabels()
+        public void SetSectionLabels()
         {
             _sectionLabels.Clear();
             foreach (Section section in Floorplan.Sections)
@@ -58,15 +70,23 @@ namespace FloorPlanMakerUI
                 {
                     Floorplan.ServersWithoutSection.Remove(section.Server);
                 }
-
-
             }
+        }
+        public void SetSectionPanels()
+        {
+            _sectionPanels.Clear();
+            foreach(Section section in Floorplan.Sections)
+            {
+                SectionPanelControl sectionPanel = new SectionPanelControl(section, this.Floorplan);
+                this._sectionPanels.Add(sectionPanel);
+            }
+        }
+        
+        public void UpdateServerControls()
+        {
 
         }
-
         
-        
-        public List<SectionPanelControl> sectionPanelControls = new List<SectionPanelControl>();
-        public List<ServerControl> ServerControls = new List<ServerControl>();
+       
     }
 }
