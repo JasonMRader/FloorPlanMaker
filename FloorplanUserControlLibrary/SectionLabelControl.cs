@@ -85,6 +85,7 @@ namespace FloorplanClassLibrary
             this.Location = new Point(section.MidPoint.X - (this.Width / 2),
                 section.MidPoint.Y - (this.Height / 2));
             this.BringToFront();
+            
         }
 
         private void SetToCloserButton_Click(object? sender, EventArgs e)

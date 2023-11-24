@@ -12,6 +12,7 @@ namespace FloorPlanMaker
 {
     public class TableControl : Control
     {
+        
         public Color BorderColor { get; set; } = Color.Black; // default to DarkBlue
         public TableDataEditorControl dataEditor {get;set;}
         public Color TextColor { get; set; } = Color.Black;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
@@ -12,7 +13,7 @@ using System.Windows.Forms;
 
 namespace FloorplanClassLibrary
 {
-    public class Section
+    public class Section 
     {
         public Section() 
         {
@@ -35,6 +36,9 @@ namespace FloorplanClassLibrary
             this.Tables = section.Tables;
         }
         private SectionNodeManager _nodeManager;
+
+       
+
 
         public SectionNodeManager NodeManager
         {
@@ -101,7 +105,21 @@ namespace FloorplanClassLibrary
             return formattedValue;
         }
         private Server? _server { get; set; }
-        public Server? Server { get { return this._server; }  }
+        public Server? Server
+        {
+            get => _server;
+            set
+            {
+                if (_server != value)
+                {
+                    _server = value;
+                    
+                }
+            }
+        }
+
+        
+
         public int? ServerID 
         { 
             get 

@@ -73,6 +73,7 @@ namespace FloorPlanMakerUI
             if(ShiftManager.SelectedFloorplan == null) { return; }
             foreach (Section section in ShiftManager.SelectedFloorplan.Sections)
             {
+                
                 if (section.Tables.Count > 0)
                 {
                     SectionLabelControl sectionControl = new SectionLabelControl(section, ShiftManager.SelectedFloorplan.ServersWithoutSection);
