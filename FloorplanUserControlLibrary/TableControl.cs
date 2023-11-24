@@ -35,6 +35,10 @@ namespace FloorPlanMaker
         public Point BottomLeftLinePoint { get { return this.BottomLine.StartPoint; } }
         public TextBox txtTableNumber;
         public delegate void TableControlEventHandler(TableControl sender, EventArgs e);
+        public bool Moveable { get; set; }
+        private bool wasMoved = false;
+
+        private Point MouseDownLocation;
         public void AddCoverEditor()
         {
             this.dataEditor = new TableDataEditorControl(this);
@@ -232,10 +236,7 @@ namespace FloorPlanMaker
 
         
 
-        public bool Moveable { get; set; }
-
-
-        private Point MouseDownLocation;
+       
 
         private void TableControl_MouseDown(object sender, MouseEventArgs e)
         {
@@ -244,7 +245,7 @@ namespace FloorPlanMaker
                 MouseDownLocation = e.Location;
             }
         }
-        private bool wasMoved = false;
+        
         private void TableControl_MouseMove(object sender, MouseEventArgs e)
         {
             if (e.Button == System.Windows.Forms.MouseButtons.Left && Moveable)

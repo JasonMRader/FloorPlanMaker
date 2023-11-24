@@ -1135,12 +1135,12 @@ namespace FloorPlanMaker
             else
             {
                 FillInTableControlColors();
-                sectionControlsManager = new SectionControlsManager(shiftManager.SelectedFloorplan);
-                foreach (SectionLabelControl sectionControl in sectionControlsManager.SectionControls)
-                {
-                    pnlFloorPlan.Controls.Add(sectionControl);
-                    sectionControl.BringToFront();
-                }
+                //sectionControlsManager = new SectionControlsManager(shiftManager.SelectedFloorplan);
+                //foreach (SectionLabelControl sectionControl in sectionControlsManager.SectionControls)
+                //{
+                //    pnlFloorPlan.Controls.Add(sectionControl);
+                //    sectionControl.BringToFront();
+                //}
             }
 
         }
@@ -1214,24 +1214,25 @@ namespace FloorPlanMaker
             if (shiftManager.SelectedFloorplan != null)
             {
 
-                CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
-                UpdateServerControlsForFloorplan();
+                //CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
+                floorplanManager.SetTableControls();
+                floorplanManager.SetSectionLabels();
+                floorplanManager.SetSectionPanels();
+                flowSectionSelect.Controls.Clear();
+                floorplanManager.AddSectionPanels(flowSectionSelect);
+                floorplanManager.AddSectionLabels(pnlFloorPlan);
+                //UpdateServerControlsForFloorplan();
                 coversImageLabel.UpdateText(shiftManager.SelectedFloorplan.MaxCoversPerServer.ToString("F0"));
                 salesImageLabel.UpdateText(shiftManager.SelectedFloorplan.AvgSalesPerServer.ToString("C0"));
             }
             //floorplanManager.ShiftManager = shiftManager;
             //floorplanManager.SectionLabelRemoved += FloorplanManager_SectionLabelRemoved;
             
-            floorplanManager.SetTableControls();
-            floorplanManager.SetSectionLabels();
-            floorplanManager.SetSectionPanels();
-
-            floorplanManager.AddSectionPanels(flowSectionSelect);
-            floorplanManager.AddSectionLabels(pnlFloorPlan);
+           
             
             
-            allTableControls = floorplanManager.TableControls;
-            UpdateTableControlSections();
+            //allTableControls = floorplanManager.TableControls;
+            //UpdateTableControlSections();
         }
         private void NoServersToDisplay()
         {

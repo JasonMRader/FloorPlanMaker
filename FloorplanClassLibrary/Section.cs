@@ -59,6 +59,25 @@ namespace FloorplanClassLibrary
         public int DiningAreaID { get; set; }
         public string? Name { get; set; }
         public List<Table> Tables { get; set; }
+        private List<ISectionObserver> observers = new List<ISectionObserver>();
+
+        public void RegisterObserver(ISectionObserver observer)
+        {
+            observers.Add(observer);
+        }
+
+        public void RemoveObserver(ISectionObserver observer)
+        {
+            observers.Remove(observer);
+        }
+
+        protected void NotifyObservers()
+        {
+            foreach (var observer in observers)
+            {
+                observer.Update(this);
+            }
+        }
 
         public int MaxCovers
         {
@@ -113,7 +132,7 @@ namespace FloorplanClassLibrary
                 if (_server != value)
                 {
                     _server = value;
-                    
+                    NotifyObservers();
                 }
             }
         }
