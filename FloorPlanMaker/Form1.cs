@@ -505,20 +505,25 @@ namespace FloorPlanMaker
         private void cboDiningAreas_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-            allTableControls.Clear();
-            areaCreationManager.DiningAreaSelected = (DiningArea?)cboDiningAreas.SelectedItem;
-            pnlFloorPlan.Controls.Clear();
-            foreach (Table table in areaCreationManager.DiningAreaSelected.Tables)
-            {
-                table.DiningArea = areaCreationManager.DiningAreaSelected;
-                TableControl tableControl = TableControlFactory.CreateTableControl(table);
-                //tableControl.TableClicked += Table_TableClicked;  // Uncomment if you want to attach event handler
-                tableControl.TableClicked += ExistingTable_TableClicked;
-                pnlFloorPlan.Controls.Add(tableControl);
-                allTableControls.Add(tableControl);
-            }
+            //allTableControls.Clear();
+            //areaCreationManager.DiningAreaSelected = (DiningArea?)cboDiningAreas.SelectedItem;
+            //pnlFloorPlan.Controls.Clear();
+            //foreach (Table table in areaCreationManager.DiningAreaSelected.Tables)
+            //{
+            //    table.DiningArea = areaCreationManager.DiningAreaSelected;
+            //    TableControl tableControl = TableControlFactory.CreateTableControl(table);
+            //    //tableControl.TableClicked += Table_TableClicked;  // Uncomment if you want to attach event handler
+            //    tableControl.TableClicked += ExistingTable_TableClicked;
+            //    pnlFloorPlan.Controls.Add(tableControl);
+            //    allTableControls.Add(tableControl);
+            //}
 
-            this.shiftManager.SelectedDiningArea = areaCreationManager.DiningAreaSelected;
+            //this.shiftManager.SelectedDiningArea = areaCreationManager.DiningAreaSelected;
+            
+
+            shiftManager.SelectedDiningArea = (DiningArea?)cboDiningAreas.SelectedItem;
+            floorplanManager.AddTableControls(pnlFloorPlan);
+            
             SetViewedFloorplan();
             this.sectionLineManager = new SectionLineManager(allTableControls);
 
@@ -1215,9 +1220,10 @@ namespace FloorPlanMaker
             {
 
                 //CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
-                floorplanManager.SetTableControls();
+                //floorplanManager.SetTableControls();
                 floorplanManager.SetSectionLabels();
                 floorplanManager.SetSectionPanels();
+                floorplanManager.UpdateTableControlSections(pnlFloorPlan);
                 flowSectionSelect.Controls.Clear();
                 floorplanManager.AddSectionPanels(flowSectionSelect);
                 floorplanManager.AddSectionLabels(pnlFloorPlan);
@@ -1232,7 +1238,7 @@ namespace FloorPlanMaker
             
             
             //allTableControls = floorplanManager.TableControls;
-            //UpdateTableControlSections();
+            UpdateTableControlSections();
         }
         private void NoServersToDisplay()
         {

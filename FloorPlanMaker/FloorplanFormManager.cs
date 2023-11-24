@@ -54,9 +54,10 @@ namespace FloorPlanMakerUI
             get { return _serverControls; }
             set { _serverControls = value; }
         }
-        public void SetTableControls()
+        public void AddTableControls(Panel panel)
         {
             _tableControls.Clear();
+            panel.Controls.Clear();
             if (this.ShiftManager != null && this.ShiftManager.SelectedDiningArea != null)
             {
                 foreach (Table table in this.ShiftManager.SelectedDiningArea.Tables)
@@ -64,6 +65,7 @@ namespace FloorPlanMakerUI
                     table.DiningArea = this.ShiftManager.SelectedDiningArea;
                     TableControl tableControl = TableControlFactory.CreateTableControl(table);
                     _tableControls.Add(tableControl);
+                    panel.Controls.Add(tableControl);
                 }
             }
         }
@@ -77,6 +79,7 @@ namespace FloorPlanMakerUI
                 if (section.Tables.Count > 0)
                 {
                     SectionLabelControl sectionControl = new SectionLabelControl(section, ShiftManager.SelectedFloorplan.ServersWithoutSection);
+                    
                     this._sectionLabels.Add(sectionControl);
                     
                 }
@@ -93,10 +96,29 @@ namespace FloorPlanMakerUI
             foreach(Section section in ShiftManager.SelectedFloorplan.Sections)
             {
                 SectionPanelControl sectionPanel = new SectionPanelControl(section, this.ShiftManager.SelectedFloorplan);
+                sectionPanel.CheckBoxChanged += setSelectedSection;
                 sectionPanel.picEraseSectionClicked += EraseSectionClicked;
                 sectionPanel.picTeamWaitClicked += TeamWaitClicked;
                 this._sectionPanels.Add(sectionPanel);
             }
+        }
+
+        private void setSelectedSection(object? sender, EventArgs e)
+        {
+            
+            SectionPanelControl sectionPanelSender = (SectionPanelControl)sender;
+            if (sectionPanelSender.isChecked())
+            {
+                this.ShiftManager.SectionSelected = sectionPanelSender.Section;
+                foreach (SectionPanelControl sectionPanelControl in this._sectionPanels)
+                {
+                    if (sectionPanelControl != sectionPanelSender)
+                    {
+                        sectionPanelControl.UnCheckBox();
+                    }
+                }
+            }
+            
         }
 
         private void TeamWaitClicked(object? sender, EventArgs e)
@@ -148,6 +170,18 @@ namespace FloorPlanMakerUI
         }
         public void AddSectionLabels(Panel panel)
         {
+            List<Control> controlsToRemove  = new List<Control>();
+            foreach(Control c in panel.Controls)
+            {
+                if (c is SectionLabelControl sectionLabel)
+                {
+                    controlsToRemove.Add(c);
+                }
+            }
+            foreach(Control c in controlsToRemove)
+            {
+                panel.Controls.Remove(c);
+            }
             foreach(SectionLabelControl sectionLabelControl in _sectionLabels)
             {
                 panel.Controls.Add(sectionLabelControl);
@@ -216,7 +250,14 @@ namespace FloorPlanMakerUI
                 this._serverControls.Add(serverControl);
             }
         }
-        
-       
+
+        public void UpdateTableControlSections(Panel panel)
+        {
+            foreach(TableControl tableControl in panel.Controls)
+            {
+                tableControl.BackColor = Color.Black; tableControl.ForeColor = Color.Black;
+                
+            }
+        }
     }
 }

@@ -81,7 +81,10 @@ namespace FloorplanUserControlLibrary
         {
             this.cbSectionSelect.Checked = false;
         }
-
+        public bool isChecked()
+        {
+            return this.cbSectionSelect.Checked;
+        }
         private void cbSectionSelect_CheckedChanged(object sender, EventArgs e)
         {
             CheckBoxChanged?.Invoke(this, e);
