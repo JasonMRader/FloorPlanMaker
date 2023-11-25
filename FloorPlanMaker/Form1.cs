@@ -376,7 +376,7 @@ namespace FloorPlanMaker
                     {
                         if(tableControl.Section != null)
                         {
-                            tableControl.Section.Tables.Remove(tableControl.Table);
+                            tableControl.Section.RemoveTable(tableControl.Table);
                         }
                        
                         tableControl.IsSelected = true;
@@ -388,8 +388,8 @@ namespace FloorPlanMaker
                             var targetSection = shiftManager.SelectedFloorplan.Sections.FirstOrDefault(sec => sec.Equals(shiftManager.SectionSelected));
                             if (targetSection != null)
                             {
-                                targetSection.Tables.Add(tableControl.Table);
-                                tableControl.Section = targetSection;
+                                targetSection.AddTable(tableControl.Table);
+                                tableControl.Update(targetSection);
                                 UpdateSectionLabels(targetSection, targetSection.MaxCovers, targetSection.AverageCovers);
                             }
                            
@@ -468,9 +468,9 @@ namespace FloorPlanMaker
 
 
 
-                sectionEdited.Tables.RemoveAll(t => t.ID == clickedTable.ID);
+                //sectionEdited.Tables.RemoveAll(t => t.ID == clickedTable.ID);
 
-                clickedTableControl.Section = null;
+                clickedTableControl.RemoveSection();
                 clickedTableControl.BackColor = pnlFloorPlan.BackColor;  // Restore the original color
                 clickedTableControl.ForeColor = pnlFloorPlan.ForeColor;
                 clickedTableControl.Invalidate();
@@ -484,11 +484,11 @@ namespace FloorPlanMaker
                 {
                     if (sectionEdited != null)
                     {
-                        sectionEdited.Tables.RemoveAll(t => t.ID == clickedTable.ID);
+                        //sectionEdited.Tables.RemoveAll(t => t.ID == clickedTable.ID);
                         UpdateSectionLabels(sectionEdited, sectionEdited.MaxCovers, sectionEdited.AverageCovers);
                     }
-                    shiftManager.SectionSelected.Tables.Add(clickedTable);
-                    clickedTableControl.Section = shiftManager.SectionSelected;
+                    //shiftManager.SectionSelected.Tables.Add(clickedTable);
+                    clickedTableControl.Update(shiftManager.SectionSelected);
                     // 2. Fill the table control with the FloorplanManager.SectionSelected.Color
                     clickedTableControl.BackColor = shiftManager.SectionSelected.Color;
                     clickedTableControl.TextColor = shiftManager.SectionSelected.FontColor;
@@ -1056,9 +1056,9 @@ namespace FloorPlanMaker
                 {
                     if (tableControl.Section == null)
                     {
-                        tableControl.Section = pickUpSection;
+                        tableControl.Update(pickUpSection);
 
-                        pickUpSection.Tables.Add(tableControl.Table);
+                        pickUpSection.AddTable(tableControl.Table);
 
                         tableControl.BackColor = pickUpSection.Color;
 
@@ -1165,7 +1165,7 @@ namespace FloorPlanMaker
                         {
                             if (tableControl.Table.TableNumber == table.TableNumber)
                             {
-                                tableControl.Section = section;
+                                tableControl.Update(section);
                                 //tableControl.BackColor = section.MuteColor(0.35f);
                                 tableControl.MuteColors();
                                 if (section == shiftManager.SectionSelected)
@@ -1291,8 +1291,8 @@ namespace FloorPlanMaker
                 tableControl.Invalidate();
                 if (sectionEdited != null)
                 {
-                    tableControl.Section.Tables.Remove(tableControl.Table);
-                    tableControl.Section = null;
+                    tableControl.Section.RemoveTable(tableControl.Table);
+                    tableControl.RemoveSection();
                     UpdateSectionLabels(sectionEdited, sectionEdited.MaxCovers, sectionEdited.AverageCovers);
                 }
                 tableControl.BackColor = pnlFloorPlan.BackColor;  // Restore the original color

@@ -212,7 +212,7 @@ namespace FloorPlanMakerUI
                         {
                             if (tableControl.Table.TableNumber == table.TableNumber)
                             {
-                                tableControl.Section = section;
+                                tableControl.Update(section);
                                 //tableControl.BackColor = section.MuteColor(0.35f);
                                 tableControl.MuteColors();
                                 if (section == this.ShiftManager.SectionSelected)
@@ -271,9 +271,9 @@ namespace FloorPlanMakerUI
 
 
 
-                sectionEdited.Tables.RemoveAll(t => t.ID == clickedTable.ID);
+                sectionEdited.RemoveTable(clickedTable);
 
-                clickedTableControl.Section = null;
+                clickedTableControl.RemoveSection();
                 clickedTableControl.BackColor = clickedTableControl.Parent.BackColor;  // Restore the original color
                 clickedTableControl.ForeColor = clickedTableControl.Parent.ForeColor;
                 clickedTableControl.Invalidate();
@@ -286,12 +286,13 @@ namespace FloorPlanMakerUI
             {
                 if (sectionEdited != null)
                 {
-                    sectionEdited.Tables.RemoveAll(t => t.ID == clickedTable.ID);
-                    clickedTableControl.Section = null;
+                    //sectionEdited.Tables.RemoveAll(t => t.ID == clickedTable.ID);
+                    sectionEdited.RemoveTable(clickedTable);
+                    clickedTableControl.RemoveSection();
                     //UpdateSectionLabels(sectionEdited, sectionEdited.MaxCovers, sectionEdited.AverageCovers);
                 }
-                ShiftManager.SectionSelected.Tables.Add(clickedTable);
-                clickedTableControl.Section = ShiftManager.SectionSelected;
+                ShiftManager.SectionSelected.AddTable(clickedTable);
+                clickedTableControl.Update(ShiftManager.SectionSelected);
                 
                 clickedTableControl.BackColor = ShiftManager.SectionSelected.Color;
                 clickedTableControl.TextColor = ShiftManager.SectionSelected.FontColor;

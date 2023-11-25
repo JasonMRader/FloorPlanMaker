@@ -200,7 +200,7 @@ namespace FloorplanClassLibrary
                 {
                     var section = cnn.QuerySingle<Section>("SELECT * FROM Section WHERE ID = @ID", new { ID = id });
                     // Populate Tables for each Section from SectionTables
-                    section.Tables = cnn.Query<Table>("SELECT * FROM DiningTable WHERE ID IN (SELECT TableID FROM SectionTables WHERE SectionID = @SectionID)", new { SectionID = id }).ToList();
+                    section.SetTableList( cnn.Query<Table>("SELECT * FROM DiningTable WHERE ID IN (SELECT TableID FROM SectionTables WHERE SectionID = @SectionID)", new { SectionID = id }).ToList());
                     floorplan.Sections.Add(section);
                 }
 
@@ -237,9 +237,9 @@ namespace FloorplanClassLibrary
                     foreach (var id in sectionIds)
                     {
                         var section = cnn.QuerySingle<Section>("SELECT * FROM Section WHERE ID = @ID", new { ID = id });
-                        section.Tables = cnn.Query<Table>(
+                        section.SetTableList(cnn.Query<Table>(
                             "SELECT * FROM DiningTable WHERE ID IN (SELECT TableID FROM SectionTables WHERE SectionID = @SectionID)",
-                            new { SectionID = id }).ToList();
+                            new { SectionID = id }).ToList());
                         floorplan.AddSection(section);
                     }
 
@@ -300,9 +300,9 @@ namespace FloorplanClassLibrary
                 {
                     var section = cnn.QuerySingle<Section>("SELECT * FROM Section WHERE ID = @ID", new { ID = id });
                     // Populate Tables for each Section from SectionTables
-                    section.Tables = cnn.Query<Table>(
+                    section.SetTableList(cnn.Query<Table>(
                         "SELECT * FROM DiningTable WHERE ID IN (SELECT TableID FROM SectionTables WHERE SectionID = @SectionID)",
-                        new { SectionID = id }).ToList();
+                        new { SectionID = id }).ToList());
                     floorplan.AddSection(section);
                 }
 
@@ -409,7 +409,7 @@ namespace FloorplanClassLibrary
                     
                     foreach (var section in template.Sections)
                     {
-                        section.Tables = cnn.Query<Table>("SELECT t.* FROM DiningTable t JOIN SectionTables st ON t.ID = st.TableID WHERE st.SectionID = @SectionID", new { SectionID = section.ID }).ToList();
+                        section.SetTableList(cnn.Query<Table>("SELECT t.* FROM DiningTable t JOIN SectionTables st ON t.ID = st.TableID WHERE st.SectionID = @SectionID", new { SectionID = section.ID }).ToList());
                     }
                 }
 
@@ -435,7 +435,7 @@ namespace FloorplanClassLibrary
 
                     foreach (var section in template.Sections)
                     {
-                        section.Tables = cnn.Query<Table>("SELECT t.* FROM DiningTable t JOIN SectionTables st ON t.ID = st.TableID WHERE st.SectionID = @SectionID", new { SectionID = section.ID }).ToList();
+                        section.SetTableList(cnn.Query<Table>("SELECT t.* FROM DiningTable t JOIN SectionTables st ON t.ID = st.TableID WHERE st.SectionID = @SectionID", new { SectionID = section.ID }).ToList());
                     }
                 }
 
@@ -673,9 +673,9 @@ namespace FloorplanClassLibrary
                     {
                         var section = cnn.QuerySingle<Section>("SELECT * FROM Section WHERE ID = @ID", new { ID = id });
                         // Populate Tables for each Section from SectionTables
-                        section.Tables = cnn.Query<Table>(
+                        section.SetTableList(cnn.Query<Table>(
                             "SELECT * FROM DiningTable WHERE ID IN (SELECT TableID FROM SectionTables WHERE SectionID = @SectionID)",
-                            new { SectionID = id }).ToList();
+                            new { SectionID = id }).ToList());
                         floorplan.AddSection(section);
                     }
 

@@ -10,7 +10,7 @@ using FloorPlanMakerUI;
 
 namespace FloorPlanMaker
 {
-    public class TableControl : Control
+    public class TableControl : Control, ISectionObserver
     {
         
         public Color BorderColor { get; set; } = Color.Black; // default to DarkBlue
@@ -24,14 +24,18 @@ namespace FloorPlanMaker
         public Section? Section
         {
             get => _section;
-            set
-            {
-                if (_section != value)
-                {
-                    _section = value;
-                }
-            }
+            
         }
+        public void Update(Section section)
+        {
+            section.RegisterObserver(this);
+            this._section = section;
+        }
+        public void RemoveSection()
+        {
+            this._section = null;
+        }
+       
 
         public Table.TableShape Shape { get; set; }
         public Table Table { get; set; }
@@ -334,8 +338,7 @@ namespace FloorPlanMaker
             return _tableNumber;
         }
 
-
-
+        
     }
     public enum DisplayMode
     {

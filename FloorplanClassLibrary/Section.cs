@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NetTopologySuite.Triangulate;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -17,12 +18,12 @@ namespace FloorplanClassLibrary
     {
         public Section() 
         {
-            Tables = new List<Table>();
+            
         }
         public Section(Floorplan floorplan)
         {
             this.DiningAreaID = floorplan.DiningArea.ID;
-            this.Tables = new List<Table>();
+           
             
         }
         public Section(Section section)
@@ -33,7 +34,7 @@ namespace FloorplanClassLibrary
             this.IsPre = section.IsPre;
             this.Name = section.Name;
             this.DiningAreaID = section.DiningAreaID; 
-            this.Tables = section.Tables;
+            this.SetTableList( section.Tables.ToList());
         }
         private SectionNodeManager _nodeManager;
 
@@ -58,7 +59,28 @@ namespace FloorplanClassLibrary
         public bool IsPickUp { get; set; }
         public int DiningAreaID { get; set; }
         public string? Name { get; set; }
-        public List<Table> Tables { get; set; }
+        private List<Table> _tables = new List<Table>();
+        public IReadOnlyList<Table> Tables => _tables.AsReadOnly();
+
+        public void AddTable(Table table)
+        {
+            this._tables.Add(table);
+            NotifyObservers();
+        }
+        public void RemoveTable(Table table)
+        {
+            this._tables.RemoveAll(t => t.ID == table.ID);
+            NotifyObservers();
+        }
+        public void SetTableList(List<Table> tables)
+        {
+            this._tables = tables;
+            NotifyObservers();
+        }
+        public void ClearTables()
+        {
+            this._tables?.Clear();
+        }
         private List<ISectionObserver> observers = new List<ISectionObserver>();
 
         public void RegisterObserver(ISectionObserver observer)
@@ -73,7 +95,8 @@ namespace FloorplanClassLibrary
 
         protected void NotifyObservers()
         {
-            foreach (var observer in observers)
+            var observersSnapshot = observers.ToList();
+            foreach (var observer in observersSnapshot)
             {
                 observer.Update(this);
             }
@@ -195,6 +218,7 @@ namespace FloorplanClassLibrary
                
             }
             return displayString;
+            NotifyObservers();
         }
         private bool _isTeamWait { get; set; }
         public bool IsTeamWait { get { return _isTeamWait; } }
@@ -207,7 +231,7 @@ namespace FloorplanClassLibrary
             {
                 this.ServerTeam.Add(Server);
             }
-           
+            NotifyObservers();
 
         }
         public void AddServer(Server server)
@@ -225,6 +249,7 @@ namespace FloorplanClassLibrary
                 }
                 this.ServerTeam.Add(server);
             }
+            NotifyObservers();
             
         }
         public void RemoveServer(Server server) 
@@ -237,8 +262,8 @@ namespace FloorplanClassLibrary
             {
                 this.ServerTeam.Remove(server);
             }
-            
-           
+            NotifyObservers();
+
         }
         public void MakeSoloSection()
         {
@@ -250,7 +275,7 @@ namespace FloorplanClassLibrary
                 this.ServerTeam.Clear();
                 this.ServerTeam = null;
             }
-
+            NotifyObservers();
 
         }
         public int Number { get; set; }

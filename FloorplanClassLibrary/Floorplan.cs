@@ -177,7 +177,7 @@ namespace FloorplanClassLibrary
                
                     
                 
-                section.Tables.Clear();               
+                section.ClearTables();               
                 section.IsCloser = false;
                 section.IsPre = false;
             }
