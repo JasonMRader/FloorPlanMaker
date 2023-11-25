@@ -13,11 +13,12 @@ using System.Windows.Forms;
 
 namespace FloorplanUserControlLibrary
 {
-    public partial class SectionPanelControl : UserControl
+    public partial class SectionPanelControl : UserControl, ISectionObserver
     {
         public event EventHandler CheckBoxChanged;
         public event EventHandler picEraseSectionClicked;
         public event EventHandler picTeamWaitClicked;
+        private Floorplan floorplan { get; set; }
         public bool CheckBoxChecked
         {
             get { return cbSectionSelect.Checked; }
@@ -28,13 +29,19 @@ namespace FloorplanUserControlLibrary
         {
             InitializeComponent();
             this.Section = section;
+            this.Section.RegisterObserver(this);
             this.BackColor = Section.Color;
             this.ForeColor = Section.FontColor;
-            UpdateLabels(floorplan);
+            this.floorplan = floorplan;
+            UpdateLabels();
 
         }
         public Section Section { get; set; }
         //public Floorplan Floorplan { get; set; }
+        public void Update(Section section)
+        {
+            UpdateLabels();
+        }
         private void picClearSection_Click(object sender, EventArgs e)
         {
             picEraseSectionClicked?.Invoke(this, e);
@@ -44,18 +51,18 @@ namespace FloorplanUserControlLibrary
         {
             picTeamWaitClicked?.Invoke(this, e);
         }
-        public void UpdateLabels(Floorplan sectionsFloorplan)
+        public void UpdateLabels()
         {
             lblServerNames.Text = "Unassigned";
             cbSectionSelect.Text = "Section " + this.Section.Number.ToString();
-            lblCovers.Text = (this.Section.MaxCovers - sectionsFloorplan.MaxCoversPerServer).ToString("F0");
-            if(this.Section.AverageCovers - sectionsFloorplan.AvgSalesPerServer > 0)
+            lblCovers.Text = (this.Section.MaxCovers - floorplan.MaxCoversPerServer).ToString("F0");
+            if(this.Section.AverageCovers - floorplan.AvgSalesPerServer > 0)
             {
-                lblSales.Text = "+" + Section.FormatAsCurrencyWithoutParentheses(this.Section.AverageCovers - sectionsFloorplan.AvgSalesPerServer);
+                lblSales.Text = "+" + Section.FormatAsCurrencyWithoutParentheses(this.Section.AverageCovers - floorplan.AvgSalesPerServer);
             }
             else
             {
-                lblSales.Text = Section.FormatAsCurrencyWithoutParentheses(this.Section.AverageCovers - sectionsFloorplan.AvgSalesPerServer);
+                lblSales.Text = Section.FormatAsCurrencyWithoutParentheses(this.Section.AverageCovers - floorplan.AvgSalesPerServer);
             }
             
             if (this.Section.Server != null && Section.IsTeamWait == false)
@@ -90,5 +97,7 @@ namespace FloorplanUserControlLibrary
             CheckBoxChanged?.Invoke(this, e);
             
         }
+
+        
     }
 }
