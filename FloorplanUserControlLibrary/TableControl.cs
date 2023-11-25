@@ -20,7 +20,19 @@ namespace FloorPlanMaker
         public int BorderThickness { get; set; } = 2; // default to 1
         public float TableNumberFontSize { get; set; } = 14f; // default to 16
         //public bool IsInSection { get; set; } = false;
-        public Section? Section { get; set; }
+        private Section? _section { get; set; }
+        public Section? Section
+        {
+            get => _section;
+            set
+            {
+                if (_section != value)
+                {
+                    _section = value;
+                }
+            }
+        }
+
         public Table.TableShape Shape { get; set; }
         public Table Table { get; set; }
         public bool IsSelected { get; set; } = false;
@@ -70,7 +82,144 @@ namespace FloorPlanMaker
             SqliteDataAccess.UpdateTable(this.Table);
         }
 
+        protected override void OnPaint(PaintEventArgs pe)
+        {
+            DrawTableOnGraphics(pe.Graphics, this);
+        }
 
+        public static void DrawTableOnGraphics(Graphics g, TableControl control, bool isForPrint = false)
+        {
+            int xOffset = isForPrint ? control.Left : 0;
+            int yOffset = isForPrint ? control.Top : 0;
+
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            using (Pen pen = new Pen(control.BorderColor, control.BorderThickness))
+            {
+                switch (control.Shape)
+                {
+                    case Table.TableShape.Circle:
+                        g.DrawEllipse(pen, xOffset, yOffset, control.Width - control.BorderThickness, control.Height - control.BorderThickness);
+                        break;
+                    case Table.TableShape.Square:
+                        g.DrawRectangle(pen, xOffset, yOffset, control.Width - control.BorderThickness, control.Height - control.BorderThickness);
+                        break;
+                    case Table.TableShape.Diamond:
+                        Point[] diamondPoints = {
+                    new Point(xOffset + control.Width / 2, yOffset),
+                    new Point(xOffset + control.Width, yOffset + control.Height / 2),
+                    new Point(xOffset + control.Width / 2, yOffset + control.Height),
+                    new Point(xOffset, yOffset + control.Height / 2)
+                };
+                        g.DrawPolygon(pen, diamondPoints);
+                        break;
+                }
+            }
+
+
+            string textToDisplay = string.Empty;
+            switch (control.CurrentDisplayMode)
+            {
+                case DisplayMode.TableNumber:
+                    textToDisplay = control.Table.TableNumber.ToString();
+                    break;
+                case DisplayMode.MaxCovers:
+                    textToDisplay = control.Table.MaxCovers.ToString();
+                    break;
+                case DisplayMode.AverageCovers:
+                    textToDisplay = control.Table.AverageCovers.ToString("C0"); // One decimal place
+                    break;
+            }
+
+            if (!string.IsNullOrEmpty(textToDisplay))
+            {
+                using (Font font = new Font(control.Font.FontFamily, control.TableNumberFontSize))
+                using (StringFormat sf = new StringFormat())
+                {
+                    sf.Alignment = StringAlignment.Center;
+                    sf.LineAlignment = StringAlignment.Center;
+
+
+                    Rectangle tableBounds = new Rectangle(xOffset, yOffset, control.Width, control.Height);
+                    using (Brush textBrush = new SolidBrush(control.TextColor)) // Use the TextColor property
+                    {
+                        g.DrawString(textToDisplay, font, textBrush, tableBounds, sf);
+                    }
+                }
+            }
+        }
+
+        public void MuteColors()
+        {
+            this.BackColor = UITheme.MuteColor(.5f, this.Section.Color);
+            this.TextColor = Color.White;
+        }
+
+        public TableControl() : this(new Table()) { }
+        public TableControl(Table table)
+        {
+            this.Table = table;
+            this.Width = table.Width;
+            this.Height = table.Height;
+            this.Shape = table.Shape;
+
+            this.MouseDown += new MouseEventHandler(TableControl_MouseDown);
+            this.MouseMove += new MouseEventHandler(TableControl_MouseMove);
+            this.MouseClick += new MouseEventHandler(TableControl_MouseClick);
+            this.MouseUp += new MouseEventHandler(TableControl_MouseUp);
+        }
+        private void TableControl_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Left)
+            {
+                MouseDownLocation = e.Location;
+            }
+        }
+
+        private void TableControl_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Left && Moveable)
+            {
+                this.Left = e.X + this.Left - MouseDownLocation.X;
+                this.Top = e.Y + this.Top - MouseDownLocation.Y;
+                wasMoved = true;
+            }
+            this.Table.XCoordinate = this.Left;
+            this.Table.YCoordinate = this.Top;
+        }
+        private void TableControl_MouseUp(object? sender, MouseEventArgs e)
+        {
+            if (wasMoved)
+            {
+                SqliteDataAccess.UpdateTable(this.Table);
+            }
+            wasMoved = false;
+        }
+        public event EventHandler<TableClickedEventArgs> TableClicked;
+
+        protected void OnTableClicked(MouseButtons button)
+        {
+            TableClickedEventArgs args = new TableClickedEventArgs(this.Table, this.Moveable)
+            {
+                MouseButton = button
+            };
+            TableClicked?.Invoke(this, args);
+        }
+
+
+        private void TableControl_MouseClick(object sender, MouseEventArgs e)
+        {
+            // existing code
+
+            if (e.Button == System.Windows.Forms.MouseButtons.Left)
+            {
+                OnTableClicked(e.Button);
+            }
+            else if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            {
+                OnTableClicked(e.Button);  // Same method, just a different button
+            }
+
+        }
         public int SectionLineBuffer { get; set; } = 5;
         //public float SectionLineThickness { get; set; } = 15f;
         public SectionLine TopLine 
@@ -146,150 +295,6 @@ namespace FloorPlanMaker
                 
             }
             set { }
-        }
-
-        protected override void OnPaint(PaintEventArgs pe)
-        {
-            DrawTableOnGraphics(pe.Graphics, this);
-        }
-
-        public static void DrawTableOnGraphics(Graphics g, TableControl control, bool isForPrint = false)
-        {
-            int xOffset = isForPrint ? control.Left : 0;
-            int yOffset = isForPrint ? control.Top : 0;
-
-            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-            using (Pen pen = new Pen(control.BorderColor, control.BorderThickness))
-            {
-                switch (control.Shape)
-                {
-                    case Table.TableShape.Circle:
-                        g.DrawEllipse(pen, xOffset, yOffset, control.Width - control.BorderThickness, control.Height - control.BorderThickness);
-                        break;
-                    case Table.TableShape.Square:
-                        g.DrawRectangle(pen, xOffset, yOffset, control.Width - control.BorderThickness, control.Height - control.BorderThickness);
-                        break;
-                    case Table.TableShape.Diamond:
-                        Point[] diamondPoints = {
-                    new Point(xOffset + control.Width / 2, yOffset),
-                    new Point(xOffset + control.Width, yOffset + control.Height / 2),
-                    new Point(xOffset + control.Width / 2, yOffset + control.Height),
-                    new Point(xOffset, yOffset + control.Height / 2)
-                };
-                        g.DrawPolygon(pen, diamondPoints);
-                        break;
-                }
-            }
-
-           
-            string textToDisplay = string.Empty;
-            switch (control.CurrentDisplayMode)
-            {
-                case DisplayMode.TableNumber:
-                    textToDisplay = control.Table.TableNumber.ToString();
-                    break;
-                case DisplayMode.MaxCovers:
-                    textToDisplay = control.Table.MaxCovers.ToString();
-                    break;
-                case DisplayMode.AverageCovers:
-                    textToDisplay = control.Table.AverageCovers.ToString("C0"); // One decimal place
-                    break;
-            }
-
-            if (!string.IsNullOrEmpty(textToDisplay))
-            {
-                using (Font font = new Font(control.Font.FontFamily, control.TableNumberFontSize))
-                using (StringFormat sf = new StringFormat())
-                {
-                    sf.Alignment = StringAlignment.Center;
-                    sf.LineAlignment = StringAlignment.Center;
-                    
-
-                    Rectangle tableBounds = new Rectangle(xOffset, yOffset, control.Width, control.Height);
-                    using (Brush textBrush = new SolidBrush(control.TextColor)) // Use the TextColor property
-                    {
-                        g.DrawString(textToDisplay, font, textBrush, tableBounds, sf);
-                    }
-                }
-            }
-        }
-
-        public void MuteColors()
-        {
-            this.BackColor = UITheme.MuteColor(.5f,this.Section.Color);
-            this.TextColor = Color.White;
-        }
-
-        public TableControl() : this(new Table()) { }
-        public TableControl(Table table)
-        {
-            this.Table = table;
-            this.Width = table.Width;
-            this.Height = table.Height;
-            this.Shape = table.Shape;
-
-            this.MouseDown += new MouseEventHandler(TableControl_MouseDown);
-            this.MouseMove += new MouseEventHandler(TableControl_MouseMove);
-            this.MouseClick += new MouseEventHandler(TableControl_MouseClick);
-            this.MouseUp += new MouseEventHandler(TableControl_MouseUp);
-        }
-
-        
-
-       
-
-        private void TableControl_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (e.Button == System.Windows.Forms.MouseButtons.Left)
-            {
-                MouseDownLocation = e.Location;
-            }
-        }
-        
-        private void TableControl_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (e.Button == System.Windows.Forms.MouseButtons.Left && Moveable)
-            {
-                this.Left = e.X + this.Left - MouseDownLocation.X;
-                this.Top = e.Y + this.Top - MouseDownLocation.Y;
-                wasMoved = true;
-            }
-            this.Table.XCoordinate = this.Left;
-            this.Table.YCoordinate = this.Top;
-        }
-        private void TableControl_MouseUp(object? sender, MouseEventArgs e)
-        {
-            if(wasMoved)
-            {
-                SqliteDataAccess.UpdateTable(this.Table);
-            }
-            wasMoved = false;
-        }
-        public event EventHandler<TableClickedEventArgs> TableClicked;
-
-        protected void OnTableClicked(MouseButtons button)
-        {
-            TableClickedEventArgs args = new TableClickedEventArgs(this.Table, this.Moveable)
-            {
-                MouseButton = button
-            };
-            TableClicked?.Invoke(this, args);
-        }
-
-
-        private void TableControl_MouseClick(object sender, MouseEventArgs e)
-        {
-            // existing code
-
-            if (e.Button == System.Windows.Forms.MouseButtons.Left)
-            {
-                OnTableClicked(e.Button);
-            }
-            else if (e.Button == System.Windows.Forms.MouseButtons.Right)
-            {
-                OnTableClicked(e.Button);  // Same method, just a different button
-            }
-
         }
 
         // resize methods
