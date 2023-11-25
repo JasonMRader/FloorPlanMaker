@@ -539,7 +539,7 @@ namespace FloorPlanMaker
                 foreach (Server server in shiftManager.SelectedFloorplan.Servers)
                 {
                     server.Shifts = SqliteDataAccess.GetShiftsForServer(server);
-                    ServerControl serverControl = new ServerControl(server, flowServersInFloorplan.Width - 20, 20);
+                    ServerControl serverControl = new ServerControl(server, 20);
                     serverControl.Click += ServerControl_Click;
                     foreach (ShiftControl shiftControl in serverControl.ShiftControls)
                     {
@@ -1223,8 +1223,11 @@ namespace FloorPlanMaker
                 //floorplanManager.SetTableControls();
                 floorplanManager.SetSectionLabels();
                 floorplanManager.SetSectionPanels();
+                floorplanManager.SetServerControls();
                 floorplanManager.UpdateTableControlSections(pnlFloorPlan);
                 flowSectionSelect.Controls.Clear();
+                flowServersInFloorplan.Controls.Clear();
+                floorplanManager.AddServerControls(flowServersInFloorplan);
                 floorplanManager.AddSectionPanels(flowSectionSelect);
                 floorplanManager.AddSectionLabels(pnlFloorPlan);
                 //UpdateServerControlsForFloorplan();

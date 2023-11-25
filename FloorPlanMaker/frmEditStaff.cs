@@ -591,7 +591,7 @@ namespace FloorPlanMaker
             foreach (var server in newShiftManager.UnassignedServers)
             {
                 newShiftManager.ServersNotOnShift.Remove(server);
-                ServerControl newServerControl = new ServerControl(server, flowUnassignedServers.Width - 10, 20);
+                ServerControl newServerControl = new ServerControl(server,  20);
                 newServerControl.Click += ServerControl_Click;
                 //newServerControl.AddRemoveButton(flowUnassignedServers, flowAllServers, newShiftManager.UnassignedServers, newShiftManager.ServersNotOnShift, 155, 20);
                 //newServerControl.RemoveButton.Click += serverControl_Click_RemoveFromShift;

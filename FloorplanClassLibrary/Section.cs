@@ -239,6 +239,7 @@ namespace FloorplanClassLibrary
             if (!this._isTeamWait)
             {
                 this._server = server;
+                server.NotifyAssignedToSection(this);
             }
             else
             {
@@ -248,6 +249,7 @@ namespace FloorplanClassLibrary
                     
                 }
                 this.ServerTeam.Add(server);
+                server.NotifyAssignedToSection(this);
             }
             NotifyObservers();
             
@@ -256,11 +258,15 @@ namespace FloorplanClassLibrary
         {
             if (this._server == server)
             {
+                server.NotifyRemovedFromSection(this);
                 this._server = null;
+                
             }
             if (this.ServerTeam!= null)
             {
+                server.NotifyRemovedFromSection(this);
                 this.ServerTeam.Remove(server);
+                
             }
             NotifyObservers();
 

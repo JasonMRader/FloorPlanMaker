@@ -103,7 +103,49 @@ namespace FloorPlanMakerUI
                 this._sectionPanels.Add(sectionPanel);
             }
         }
+       
+        public void SetServerControls()
+        {
+            _serverControls.Clear();
+            if (ShiftManager.SelectedFloorplan == null) { return; }
+            if (ShiftManager.SelectedFloorplan.Servers.Count <= 0) { return; }
+            foreach (Server server in ShiftManager.SelectedFloorplan.Servers)
+            {
+                server.Shifts = SqliteDataAccess.GetShiftsForServer(server);
+                ServerControl serverControl = new ServerControl(server, 20);
+                serverControl.Click += ServerControl_Click;
+                foreach (ShiftControl shiftControl in serverControl.ShiftControls)
+                {
 
+                    shiftControl.ShowClose();
+                    shiftControl.ShowTeam();
+                    shiftControl.HideOutside();
+                }
+
+                this._serverControls.Add(serverControl);
+            }
+        }
+        private void ServerControl_Click(object? sender, EventArgs e)
+        {
+            ServerControl serverControl = (ServerControl)sender;
+            Server server = serverControl.Server;
+            if (ShiftManager.SectionSelected == null) { return; }   
+            if (ShiftManager.SectionSelected.Server == null)
+            {
+                ShiftManager.SectionSelected.AddServer(server);
+
+            }
+            //foreach (SectionLabelControl sc in sectionControlsManager.SectionControls)
+            //{
+            //    if (sc.Section == shiftManager.SectionSelected)
+            //    {
+            //        sc.UpdateLabel();
+            //    }
+            //}
+           // serverControl.Label.BackColor = ShiftManager.SectionSelected.Color;
+            //serverControl.Label.ForeColor = ShiftManager.SectionSelected.FontColor;
+
+        }
         private void setSelectedSection(object? sender, EventArgs e)
         {
             
@@ -196,6 +238,13 @@ namespace FloorPlanMakerUI
                 panel.Controls.Add(sectionPanel);
             }
         }
+        public void AddServerControls(FlowLayoutPanel panel)
+        {
+            foreach (ServerControl serverControl in _serverControls)
+            {
+                panel.Controls.Add(serverControl);
+            }
+        }
         private void FillInTableControlColors(Panel panel)
         {
             foreach (Control ctrl in panel.Controls)
@@ -230,27 +279,7 @@ namespace FloorPlanMakerUI
             }
         }
 
-        public void SetServerControls()
-        {
-            _serverControls.Clear();
-            if(ShiftManager.SelectedFloorplan == null) { return; }
-            if(ShiftManager.SelectedFloorplan.Servers.Count <= 0) { return; }               
-            foreach(Server server in ShiftManager.SelectedFloorplan.Servers)
-            {
-                server.Shifts = SqliteDataAccess.GetShiftsForServer(server);
-                ServerControl serverControl = new ServerControl(server, 300, 20);
-                //serverControl.Click += ServerControl_Click;
-                foreach (ShiftControl shiftControl in serverControl.ShiftControls)
-                {
-
-                    shiftControl.ShowClose();
-                    shiftControl.ShowTeam();
-                    shiftControl.HideOutside();
-                }
-
-                this._serverControls.Add(serverControl);
-            }
-        }
+       
 
         public void UpdateTableControlSections(Panel panel)
         {

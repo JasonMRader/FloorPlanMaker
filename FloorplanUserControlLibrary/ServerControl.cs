@@ -9,23 +9,23 @@ using System.Threading.Tasks;
 
 namespace FloorPlanMaker
 {
-    public class ServerControl : FlowLayoutPanel
+    public class ServerControl : FlowLayoutPanel, ISectionObserver
     {
-        public ServerControl(Server server, int width, int height)
+        public ServerControl(Server server, int height)
         {
             this.Server = server;
 
             this.Height = height *2 ;
-            this.Width = width;
+            this.Width = 300;//this.Parent.Width - 20;
             this.BackColor = UITheme.AccentColor;
             this.AutoSize = true;
-            this.MaximumSize = new Size(width, height*10);
+            this.MaximumSize = new Size(300, height * 10);// new Size(this.Parent.Width - 20, height*10);
             this.Padding = new Padding(0,0,0,0);
             this.Margin = new Padding(0,4,0,0);
             NamePanel = new Panel()
             {
                 Height = height,
-                Width = width,
+                Width = 300,
                 Margin = new Padding(0,0,0,0)
             };
             Label = new Label
@@ -33,7 +33,7 @@ namespace FloorPlanMaker
                 Text = Server.AbbreviatedName,
                 AutoSize = false,
                 Height = height,
-                Width = width,
+                Width = 300,
                 Font = new Font("Segoe UI", 12, FontStyle.Bold),
                 BackColor = UITheme.ButtonColor,
                 ForeColor = Color.Black,
@@ -51,10 +51,42 @@ namespace FloorPlanMaker
            
         }
         public Panel NamePanel { get; set; }
-        public Server Server { get; set; }
+        private Server _server;
+        public Server Server
+        {
+            get => _server;
+            set
+            {
+                if (_server != value)
+                {
+                    if (_server != null)
+                    {
+                        _server.AssignedToSection -= OnServerAssignedToSection;
+                    }
+
+                    _server = value;
+                    if (_server != null)
+                    {
+                        _server.AssignedToSection += OnServerAssignedToSection;
+                    }
+                }
+            }
+        }
+
+        private void OnServerAssignedToSection(Section section)
+        {
+            this.Section = section;
+            this.Update(section);
+        }
         public FlowLayoutPanel ShiftsDisplay { get; set; }
         public Label Label { get; set; }
+        public Section? Section { get; set; }
         public Button RemoveButton { get; set; }
+        public void Update(Section section)
+        {
+            this.Section = section;
+            this.Label.BackColor = section.Color;
+        }
         public void AddRemoveButton(FlowLayoutPanel flowStart, FlowLayoutPanel flowEnd, List<Server> startList, List<Server> endList, int width, int height)
         {
             // Adjust the label width
@@ -73,21 +105,6 @@ namespace FloorPlanMaker
             };
             
            
-
-            // Add click event to the button
-            //RemoveButton.Click += (sender, e) =>
-            //{
-            //    // Remove from flowStart and startList
-            //    flowStart.Controls.Remove(this);
-            //    startList.Remove(this.Server);                
-                
-            //    ServerControl serverControl = new ServerControl(this.Server, width, height);
-            //    serverControl.HideShifts();
-            //    flowEnd.Controls.Add(this);
-            //    endList.Add(this.Server);
-            //};
-
-            // Add button to the ServerControl
             this.NamePanel.Controls.Add(RemoveButton);
         }
 
@@ -131,7 +148,5 @@ namespace FloorPlanMaker
         }
 
         
-
-       
     }
 }
