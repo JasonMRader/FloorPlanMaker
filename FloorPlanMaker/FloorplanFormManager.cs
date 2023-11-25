@@ -64,6 +64,7 @@ namespace FloorPlanMakerUI
                 {
                     table.DiningArea = this.ShiftManager.SelectedDiningArea;
                     TableControl tableControl = TableControlFactory.CreateTableControl(table);
+                    tableControl.TableClicked += TableControl_TableClicked;
                     _tableControls.Add(tableControl);
                     panel.Controls.Add(tableControl);
                 }
@@ -258,6 +259,50 @@ namespace FloorPlanMakerUI
                 tableControl.BackColor = Color.Black; tableControl.ForeColor = Color.Black;
                 
             }
+        }
+        private void TableControl_TableClicked(object sender, TableClickedEventArgs e)
+        {
+
+            TableControl clickedTableControl = sender as TableControl;
+            Table clickedTable = clickedTableControl.Table;
+            Section sectionEdited = (Section)clickedTableControl.Section;
+            if (e.MouseButton == MouseButtons.Right && clickedTableControl.Section != null)
+            {
+
+
+
+                sectionEdited.Tables.RemoveAll(t => t.ID == clickedTable.ID);
+
+                clickedTableControl.Section = null;
+                clickedTableControl.BackColor = clickedTableControl.Parent.BackColor;  // Restore the original color
+                clickedTableControl.ForeColor = clickedTableControl.Parent.ForeColor;
+                clickedTableControl.Invalidate();
+                //UpdateSectionLabels(sectionEdited, sectionEdited.MaxCovers, sectionEdited.AverageCovers);
+
+                return;
+            }
+            
+            if (ShiftManager.SectionSelected != null)
+            {
+                if (sectionEdited != null)
+                {
+                    sectionEdited.Tables.RemoveAll(t => t.ID == clickedTable.ID);
+                    clickedTableControl.Section = null;
+                    //UpdateSectionLabels(sectionEdited, sectionEdited.MaxCovers, sectionEdited.AverageCovers);
+                }
+                ShiftManager.SectionSelected.Tables.Add(clickedTable);
+                clickedTableControl.Section = ShiftManager.SectionSelected;
+                
+                clickedTableControl.BackColor = ShiftManager.SectionSelected.Color;
+                clickedTableControl.TextColor = ShiftManager.SectionSelected.FontColor;
+
+                
+                clickedTableControl.Invalidate();
+                //UpdateSectionLabels(shiftManager.SectionSelected, shiftManager.SectionSelected.MaxCovers, shiftManager.SectionSelected.AverageCovers);
+            }
+
+            
+
         }
     }
 }
