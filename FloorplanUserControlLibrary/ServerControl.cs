@@ -62,15 +62,24 @@ namespace FloorPlanMaker
                     if (_server != null)
                     {
                         _server.AssignedToSection -= OnServerAssignedToSection;
+                        _server.RemovedFromSection += OnServerRemovedFromSection;
                     }
 
                     _server = value;
                     if (_server != null)
                     {
                         _server.AssignedToSection += OnServerAssignedToSection;
+                        _server.RemovedFromSection -= OnServerRemovedFromSection;
                     }
                 }
             }
+        }
+
+        private void OnServerRemovedFromSection(Section obj)
+        {
+            this.Section = null;
+            this.Label.BackColor = UITheme.ButtonColor;
+
         }
 
         private void OnServerAssignedToSection(Section section)
@@ -86,6 +95,7 @@ namespace FloorPlanMaker
         {
             this.Section = section;
             this.Label.BackColor = section.Color;
+
         }
         public void AddRemoveButton(FlowLayoutPanel flowStart, FlowLayoutPanel flowEnd, List<Server> startList, List<Server> endList, int width, int height)
         {

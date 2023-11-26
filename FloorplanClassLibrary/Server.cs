@@ -6,7 +6,15 @@
 
         public int ID { get; set; }
         public string Name { get; set; }
-
+        public Section? Section { get; private set; }
+        public void AssignToSection(Section section)
+        {
+            Section = section;
+        }
+        public void RemoveFromSection()
+        {
+            Section = null;
+        }
         public List<Shift> Shifts
         {
             get
@@ -54,9 +62,9 @@
         {
             AssignedToSection?.Invoke(section);
         }
-        public void NotifyRemovedFromSection(Section section)
+        public void NotifyRemovedFromSection()
         {
-            RemovedFromSection?.Invoke(section);
+            RemovedFromSection?.Invoke(null);
         }
         public override int GetHashCode()
         {

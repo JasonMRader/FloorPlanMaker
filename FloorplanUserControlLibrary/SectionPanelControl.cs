@@ -41,6 +41,10 @@ namespace FloorplanUserControlLibrary
         public void Update(Section section)
         {
             UpdateLabels();
+            if(section.IsSelected)
+            {
+                this.CheckBoxChecked = true;
+            }
         }
         private void picClearSection_Click(object sender, EventArgs e)
         {
@@ -97,7 +101,7 @@ namespace FloorplanUserControlLibrary
             CheckBoxChanged?.Invoke(this, e);
             
         }
-
         
+
     }
 }

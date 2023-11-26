@@ -346,8 +346,15 @@ namespace FloorPlanMaker
         {
             return _tableNumber;
         }
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                Section.RemoveObserver(this);
+            }
+            base.Dispose(disposing);
+        }
 
-        
     }
     public enum DisplayMode
     {

@@ -29,34 +29,28 @@ namespace FloorplanClassLibrary
         public List<Server> UnassignedServers = new List<Server>();
         public List<Server> AllServers = new List<Server>();
         public List<Section> Sections = new List<Section>();
-        private Section _sectionSelected { get; set; }
-        public Section? SectionSelected
+        public Section SectionSelected
         {
-            get => _sectionSelected;
+            get
+            {
+                return this.SelectedFloorplan.SectionSelected;
+            }
         }
-        private int currentFocusedSectionIndex = 0;
+        public void SetSelectedSection(Section section)
+        {
+            if(this.SelectedFloorplan != null)
+            {
+                this.SelectedFloorplan.SetSelectedSection(section);
+            }
+        }
+        
         private List<Floorplan> _floorplans = new List<Floorplan>();
 
         public IReadOnlyList<Floorplan> Floorplans => _floorplans.AsReadOnly();
         public List<FloorplanTemplate> Templates = new List<FloorplanTemplate>();
         public List<Section> TemplateSections = new List<Section>();
         public FloorplanTemplate? SelectedTemplate { get; set; }
-        public void SetSelectedSection(Section selectedSection)
-        {
-            foreach(Section section in this.SelectedFloorplan.Sections)
-            {
-                if (selectedSection == section)
-                {
-                    this._sectionSelected = section;
-                    section.IsSelected = true;
-                }
-                else
-                {
-                    section.IsSelected = false;
-                }
-            }
-           
-        }
+        
         
         public List<Server> ServersOnShift
         {
@@ -70,27 +64,7 @@ namespace FloorplanClassLibrary
             }
         }
         
-        public void MoveToNextSection()
-        {
-            if (this.SelectedFloorplan == null) { return; }
-            var sections = this.SelectedFloorplan.Sections;
-
-            if (currentFocusedSectionIndex == null)
-            {
-                // If no section is selected, select the first section
-                currentFocusedSectionIndex = sections.First().Number;
-            }
-            else
-            {
-                // Find the next section
-                var currentSectionIndex = sections.FindIndex(s => s.Number == currentFocusedSectionIndex);
-                currentFocusedSectionIndex = sections[(currentSectionIndex + 1) % sections.Count].Number;
-            }
-            SetSelectedSection(this.SelectedFloorplan.Sections.Where(s => s.Number == currentFocusedSectionIndex).FirstOrDefault());
-
-
-
-        }
+        
         public void AddFloorplanAndServers(Floorplan floorplan)
         {
             this._floorplans.Add(floorplan);

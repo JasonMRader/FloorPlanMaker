@@ -260,12 +260,13 @@ namespace FloorplanClassLibrary
             {
                 if (this.Server == null) 
                 {
-                    this._server = server;
-                    
+                    this._server = server;                   
+
                 }
                 this.ServerTeam.Add(server);
                 server.NotifyAssignedToSection(this);
             }
+            server.AssignToSection(this);
             NotifyObservers();
             
         }
@@ -273,16 +274,17 @@ namespace FloorplanClassLibrary
         {
             if (this._server == server)
             {
-                server.NotifyRemovedFromSection(this);
+                server.NotifyRemovedFromSection();
                 this._server = null;
                 
             }
             if (this.ServerTeam!= null)
             {
-                server.NotifyRemovedFromSection(this);
+                server.NotifyRemovedFromSection();
                 this.ServerTeam.Remove(server);
                 
             }
+            server.RemoveFromSection();
             NotifyObservers();
 
         }

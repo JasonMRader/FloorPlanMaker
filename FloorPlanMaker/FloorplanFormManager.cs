@@ -70,6 +70,16 @@ namespace FloorPlanMakerUI
                 }
             }
         }
+        public void CreateSectionControls()
+        {
+            _sectionLabels.Clear();
+            _sectionLabels.Clear();
+            if (ShiftManager.SelectedFloorplan == null) { return; }
+            foreach(Section section in  ShiftManager.SelectedFloorplan.Sections) 
+            {
+
+            }
+        }
         public void SetSectionLabels()
         {
             _sectionLabels.Clear();
@@ -87,6 +97,8 @@ namespace FloorPlanMakerUI
                 if (section.Server != null)
                 {
                     ShiftManager.SelectedFloorplan.ServersWithoutSection.Remove(section.Server);
+                    section.Server.NotifyAssignedToSection(section);
+                    
                 }
             }
         }
@@ -129,10 +141,10 @@ namespace FloorPlanMakerUI
         {
             ServerControl serverControl = (ServerControl)sender;
             Server server = serverControl.Server;
-            if (ShiftManager.SectionSelected == null) { return; }   
-            if (ShiftManager.SectionSelected.Server == null)
+            if (ShiftManager.SelectedFloorplan.SectionSelected == null) { return; }   
+            if (ShiftManager.SelectedFloorplan.SectionSelected.Server == null)
             {
-                ShiftManager.SectionSelected.AddServer(server);
+                ShiftManager.SelectedFloorplan.SectionSelected.AddServer(server);
 
             }
             //foreach (SectionLabelControl sc in sectionControlsManager.SectionControls)
