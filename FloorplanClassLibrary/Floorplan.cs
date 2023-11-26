@@ -19,6 +19,10 @@ namespace FloorplanClassLibrary
             this.SectionServerMap = new Dictionary<Section, Server>();
             CreateSections();
             MoveToNextSection();
+            foreach (var section in Sections)
+            {
+                section.SubscribeObserver(this);
+            }
         }
         public Floorplan(FloorplanTemplate template)
         {
@@ -28,11 +32,19 @@ namespace FloorplanClassLibrary
             SectionServerMap = new Dictionary<Section, Server>();
             CopyTemplateSections(template.Sections);
             MoveToNextSection();
+            foreach (var section in Sections)
+            {
+                section.SubscribeObserver(this);
+            }
         }
         public Floorplan() 
         {
             SectionServerMap = new Dictionary<Section, Server>();
             MoveToNextSection();
+            foreach (var section in Sections)
+            {
+                section.SubscribeObserver(this);
+            }
         }
         public Dictionary<Section, Server> SectionServerMap { get; private set; }
         public int ID { get; set; }
@@ -68,7 +80,7 @@ namespace FloorplanClassLibrary
             }
 
         }
-        public void AssignServerToSection(Server server, Section section)
+        public void UpdateSectionServerMap(Server server, Section section)
         {
             // Optionally, remove the server from any current section
             var currentSection = SectionServerMap.FirstOrDefault(kv => kv.Value == server).Key;
@@ -205,7 +217,7 @@ namespace FloorplanClassLibrary
 
             // Add the section to the list
             _sections.Add(section);
-            section.RegisterObserver(this);
+            section.SubscribeObserver(this);
         }
 
         public void CreateSectionsForServers()

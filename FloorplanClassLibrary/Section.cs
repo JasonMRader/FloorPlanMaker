@@ -108,6 +108,13 @@ namespace FloorplanClassLibrary
             observers.Remove(observer);
         }
 
+        public void SubscribeObserver(ISectionObserver observer)
+        {
+            if (!observers.Contains(observer))
+            {
+                observers.Add(observer);
+            }
+        }
         protected void NotifyObservers()
         {
             var observersSnapshot = observers.ToList();
@@ -266,7 +273,7 @@ namespace FloorplanClassLibrary
                 this.ServerTeam.Add(server);
                 server.NotifyAssignedToSection(this);
             }
-            server.AssignToSection(this);
+            //server.AssignToSection(this);
             NotifyObservers();
             
         }
@@ -284,7 +291,7 @@ namespace FloorplanClassLibrary
                 this.ServerTeam.Remove(server);
                 
             }
-            server.RemoveFromSection();
+            //server.RemoveFromSection();
             NotifyObservers();
 
         }
