@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using FloorplanUserControlLibrary;
 
 namespace FloorPlanMakerUI
 {
@@ -21,13 +22,15 @@ namespace FloorPlanMakerUI
 
         private void calDateSelected_DateChanged(object sender, DateRangeEventArgs e)
         {
-           
-            
+
+
         }
 
         private void frmDateSelect_Load(object sender, EventArgs e)
         {
             calDateSelected.SetDate(dateSelected);
+
+
         }
 
         private void calDateSelected_DateSelected(object sender, DateRangeEventArgs e)
@@ -40,7 +43,12 @@ namespace FloorPlanMakerUI
         private void calDateSelected_DateChanged_1(object sender, DateRangeEventArgs e)
         {
             this.dateSelected = calDateSelected.SelectionStart;
-            
+
+        }
+
+        private void picButtonClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

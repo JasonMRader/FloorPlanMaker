@@ -29,13 +29,29 @@ namespace FloorplanClassLibrary
         public List<Server> UnassignedServers = new List<Server>();
         public List<Server> AllServers = new List<Server>();
         public List<Section> Sections = new List<Section>();
-        public Section? SectionSelected { get; set; }
+        public Section SectionSelected
+        {
+            get
+            {
+                return this.SelectedFloorplan.SectionSelected;
+            }
+        }
+        public void SetSelectedSection(Section section)
+        {
+            if(this.SelectedFloorplan != null)
+            {
+                this.SelectedFloorplan.SetSelectedSection(section);
+            }
+        }
+        
         private List<Floorplan> _floorplans = new List<Floorplan>();
 
         public IReadOnlyList<Floorplan> Floorplans => _floorplans.AsReadOnly();
         public List<FloorplanTemplate> Templates = new List<FloorplanTemplate>();
         public List<Section> TemplateSections = new List<Section>();
         public FloorplanTemplate? SelectedTemplate { get; set; }
+        
+        
         public List<Server> ServersOnShift
         {
             get
@@ -47,6 +63,8 @@ namespace FloorplanClassLibrary
                 return serversFromFloorplans.Concat(UnassignedServers).Distinct().ToList();
             }
         }
+        
+        
         public void AddFloorplanAndServers(Floorplan floorplan)
         {
             this._floorplans.Add(floorplan);

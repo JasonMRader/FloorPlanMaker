@@ -7,11 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Threading.Tasks;
+using static System.Collections.Specialized.BitVector32;
 
 
 namespace FloorplanClassLibrary
 {
-    public class SectionLabelControl : UserControl
+    public class SectionLabelControl : UserControl, ISectionObserver
     {
         private Label sectionLabel;
         private PictureBox assignServerButton;
@@ -30,6 +31,7 @@ namespace FloorplanClassLibrary
         public SectionLabelControl(Section section, List<Server> unassignedServers)
         {
             this.Section = section;
+            this.Section.RegisterObserver(this);
             this.unassignedServers = unassignedServers;
             closerPanel = new FlowLayoutPanel { Dock = DockStyle.Top, Height = 0 };
             closerPanel.AutoSize = true;
@@ -85,8 +87,21 @@ namespace FloorplanClassLibrary
             this.Location = new Point(section.MidPoint.X - (this.Width / 2),
                 section.MidPoint.Y - (this.Height / 2));
             this.BringToFront();
+            
         }
-
+        public void Update(Section section)
+        {
+            // Update the control based on the new state of the section
+            UpdateLabel();
+        }
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                Section.RemoveObserver(this);
+            }
+            base.Dispose(disposing);
+        }
         private void SetToCloserButton_Click(object? sender, EventArgs e)
         {
             if (this.closerPanelOpen == false)

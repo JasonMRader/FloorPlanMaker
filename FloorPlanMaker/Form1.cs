@@ -100,7 +100,7 @@ namespace FloorPlanMaker
             // Check if the Tab key is pressed
             if (keyData == Keys.Tab)
             {
-                MoveToNextSection();
+                shiftManager.SelectedFloorplan.MoveToNextSection();
                 return true; // Indicate that you've handled this key press
             }
             if (_frmEditStaff != null && _frmEditStaff.Visible)
@@ -206,7 +206,7 @@ namespace FloorPlanMaker
         private void SelectSection(int sectionNumber)
         {
 
-            shiftManager.SectionSelected = shiftManager.SelectedFloorplan.Sections.Where(s => s.Number == sectionNumber).FirstOrDefault();
+            shiftManager.SetSelectedSection( shiftManager.SelectedFloorplan.Sections.Where(s => s.Number == sectionNumber).FirstOrDefault());
             foreach (Control c in flowSectionSelect.Controls)
             {
                 if (c is Panel panel)
@@ -377,7 +377,7 @@ namespace FloorPlanMaker
                     {
                         if(tableControl.Section != null)
                         {
-                            tableControl.Section.Tables.Remove(tableControl.Table);
+                            tableControl.Section.RemoveTable(tableControl.Table);
                         }
                        
                         tableControl.IsSelected = true;
@@ -389,8 +389,8 @@ namespace FloorPlanMaker
                             var targetSection = shiftManager.SelectedFloorplan.Sections.FirstOrDefault(sec => sec.Equals(shiftManager.SectionSelected));
                             if (targetSection != null)
                             {
-                                targetSection.Tables.Add(tableControl.Table);
-                                tableControl.Section = targetSection;
+                                targetSection.AddTable(tableControl.Table);
+                                tableControl.Update(targetSection);
                                 UpdateSectionLabels(targetSection, targetSection.MaxCovers, targetSection.AverageCovers);
                             }
                            
@@ -469,9 +469,9 @@ namespace FloorPlanMaker
 
 
 
-                sectionEdited.Tables.RemoveAll(t => t.ID == clickedTable.ID);
+                //sectionEdited.Tables.RemoveAll(t => t.ID == clickedTable.ID);
 
-                clickedTableControl.Section = null;
+                clickedTableControl.RemoveSection();
                 clickedTableControl.BackColor = pnlFloorPlan.BackColor;  // Restore the original color
                 clickedTableControl.ForeColor = pnlFloorPlan.ForeColor;
                 clickedTableControl.Invalidate();
@@ -485,11 +485,11 @@ namespace FloorPlanMaker
                 {
                     if (sectionEdited != null)
                     {
-                        sectionEdited.Tables.RemoveAll(t => t.ID == clickedTable.ID);
+                        //sectionEdited.Tables.RemoveAll(t => t.ID == clickedTable.ID);
                         UpdateSectionLabels(sectionEdited, sectionEdited.MaxCovers, sectionEdited.AverageCovers);
                     }
-                    shiftManager.SectionSelected.Tables.Add(clickedTable);
-                    clickedTableControl.Section = shiftManager.SectionSelected;
+                    //shiftManager.SectionSelected.Tables.Add(clickedTable);
+                    clickedTableControl.Update(shiftManager.SectionSelected);
                     // 2. Fill the table control with the FloorplanManager.SectionSelected.Color
                     clickedTableControl.BackColor = shiftManager.SectionSelected.Color;
                     clickedTableControl.TextColor = shiftManager.SectionSelected.FontColor;
@@ -506,20 +506,25 @@ namespace FloorPlanMaker
         private void cboDiningAreas_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-            allTableControls.Clear();
-            areaCreationManager.DiningAreaSelected = (DiningArea?)cboDiningAreas.SelectedItem;
-            pnlFloorPlan.Controls.Clear();
-            foreach (Table table in areaCreationManager.DiningAreaSelected.Tables)
-            {
-                table.DiningArea = areaCreationManager.DiningAreaSelected;
-                TableControl tableControl = TableControlFactory.CreateTableControl(table);
-                //tableControl.TableClicked += Table_TableClicked;  // Uncomment if you want to attach event handler
-                tableControl.TableClicked += ExistingTable_TableClicked;
-                pnlFloorPlan.Controls.Add(tableControl);
-                allTableControls.Add(tableControl);
-            }
+            //allTableControls.Clear();
+            //areaCreationManager.DiningAreaSelected = (DiningArea?)cboDiningAreas.SelectedItem;
+            //pnlFloorPlan.Controls.Clear();
+            //foreach (Table table in areaCreationManager.DiningAreaSelected.Tables)
+            //{
+            //    table.DiningArea = areaCreationManager.DiningAreaSelected;
+            //    TableControl tableControl = TableControlFactory.CreateTableControl(table);
+            //    //tableControl.TableClicked += Table_TableClicked;  // Uncomment if you want to attach event handler
+            //    tableControl.TableClicked += ExistingTable_TableClicked;
+            //    pnlFloorPlan.Controls.Add(tableControl);
+            //    allTableControls.Add(tableControl);
+            //}
 
-            this.shiftManager.SelectedDiningArea = areaCreationManager.DiningAreaSelected;
+            //this.shiftManager.SelectedDiningArea = areaCreationManager.DiningAreaSelected;
+            
+
+            shiftManager.SelectedDiningArea = (DiningArea?)cboDiningAreas.SelectedItem;
+            floorplanManager.AddTableControls(pnlFloorPlan);
+            
             SetViewedFloorplan();
             this.sectionLineManager = new SectionLineManager(allTableControls);
 
@@ -535,7 +540,7 @@ namespace FloorPlanMaker
                 foreach (Server server in shiftManager.SelectedFloorplan.Servers)
                 {
                     server.Shifts = SqliteDataAccess.GetShiftsForServer(server);
-                    ServerControl serverControl = new ServerControl(server, flowServersInFloorplan.Width - 20, 20);
+                    ServerControl serverControl = new ServerControl(server, 20);
                     serverControl.Click += ServerControl_Click;
                     foreach (ShiftControl shiftControl in serverControl.ShiftControls)
                     {
@@ -998,14 +1003,15 @@ namespace FloorPlanMaker
 
         private void btnAddSectionLabels_Click(object sender, EventArgs e)
         {
-
-            sectionControlsManager = new SectionControlsManager(shiftManager.SelectedFloorplan);
-            foreach (SectionLabelControl sectionControl in sectionControlsManager.SectionControls)
-            {
-                pnlFloorPlan.Controls.Add(sectionControl);
-                sectionControl.BringToFront();
-            }
-            rdoViewServerFlow.Checked = true;
+            floorplanManager.SetSectionLabels();
+            floorplanManager.AddSectionLabels(pnlFloorPlan);
+            //sectionControlsManager = new SectionControlsManager(shiftManager.SelectedFloorplan);
+            //foreach (SectionLabelControl sectionControl in sectionControlsManager.SectionControls)
+            //{
+            //    pnlFloorPlan.Controls.Add(sectionControl);
+            //    sectionControl.BringToFront();
+            //}
+            //rdoViewServerFlow.Checked = true;
 
         }
 
@@ -1053,9 +1059,9 @@ namespace FloorPlanMaker
                 {
                     if (tableControl.Section == null)
                     {
-                        tableControl.Section = pickUpSection;
+                        tableControl.Update(pickUpSection);
 
-                        pickUpSection.Tables.Add(tableControl.Table);
+                        pickUpSection.AddTable(tableControl.Table);
 
                         tableControl.BackColor = pickUpSection.Color;
 
@@ -1137,12 +1143,12 @@ namespace FloorPlanMaker
             else
             {
                 FillInTableControlColors();
-                sectionControlsManager = new SectionControlsManager(shiftManager.SelectedFloorplan);
-                foreach (SectionLabelControl sectionControl in sectionControlsManager.SectionControls)
-                {
-                    pnlFloorPlan.Controls.Add(sectionControl);
-                    sectionControl.BringToFront();
-                }
+                //sectionControlsManager = new SectionControlsManager(shiftManager.SelectedFloorplan);
+                //foreach (SectionLabelControl sectionControl in sectionControlsManager.SectionControls)
+                //{
+                //    pnlFloorPlan.Controls.Add(sectionControl);
+                //    sectionControl.BringToFront();
+                //}
             }
 
         }
@@ -1162,7 +1168,7 @@ namespace FloorPlanMaker
                         {
                             if (tableControl.Table.TableNumber == table.TableNumber)
                             {
-                                tableControl.Section = section;
+                                tableControl.Update(section);
                                 //tableControl.BackColor = section.MuteColor(0.35f);
                                 tableControl.MuteColors();
                                 if (section == shiftManager.SectionSelected)
@@ -1222,18 +1228,28 @@ namespace FloorPlanMaker
                
                 floorplanManager.AddSectionLabels(pnlFloorPlan);
 
-                CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
-                UpdateServerControlsForFloorplan();
+                //CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
+                //floorplanManager.SetTableControls();
+                floorplanManager.SetSectionLabels();
+                floorplanManager.SetSectionPanels();
+                floorplanManager.SetServerControls();
+                floorplanManager.UpdateTableControlSections(pnlFloorPlan);
+                flowSectionSelect.Controls.Clear();
+                flowServersInFloorplan.Controls.Clear();
+                floorplanManager.AddServerControls(flowServersInFloorplan);
+                floorplanManager.AddSectionPanels(flowSectionSelect);
+                floorplanManager.AddSectionLabels(pnlFloorPlan);
+                //UpdateServerControlsForFloorplan();
                 coversImageLabel.UpdateText(shiftManager.SelectedFloorplan.MaxCoversPerServer.ToString("F0"));
                 salesImageLabel.UpdateText(shiftManager.SelectedFloorplan.AvgSalesPerServer.ToString("C0"));
             }
             //floorplanManager.ShiftManager = shiftManager;
             //floorplanManager.SectionLabelRemoved += FloorplanManager_SectionLabelRemoved;
             
+           
             
             
-            
-            allTableControls = floorplanManager.TableControls;
+            //allTableControls = floorplanManager.TableControls;
             UpdateTableControlSections();
         }
         private void NoServersToDisplay()
@@ -1287,8 +1303,8 @@ namespace FloorPlanMaker
                 tableControl.Invalidate();
                 if (sectionEdited != null)
                 {
-                    tableControl.Section.Tables.Remove(tableControl.Table);
-                    tableControl.Section = null;
+                    tableControl.Section.RemoveTable(tableControl.Table);
+                    tableControl.RemoveSection();
                     UpdateSectionLabels(sectionEdited, sectionEdited.MaxCovers, sectionEdited.AverageCovers);
                 }
                 tableControl.BackColor = pnlFloorPlan.BackColor;  // Restore the original color

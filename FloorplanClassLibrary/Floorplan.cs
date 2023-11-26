@@ -7,7 +7,7 @@ using System.Xml.Linq;
 
 namespace FloorplanClassLibrary
 {
-    public class Floorplan
+    public class Floorplan : ISectionObserver
     {
         public Floorplan(DiningArea diningArea, DateTime date, bool isLunch, int serverCount, int sectionCount)
         {
@@ -16,23 +16,114 @@ namespace FloorplanClassLibrary
             this.IsLunch = isLunch;
             this.ServerCount = serverCount;
             this.SectionCount = sectionCount;
+            this.SectionServerMap = new Dictionary<Section, Server>();
             CreateSections();
+            MoveToNextSection();
+            foreach (var section in Sections)
+            {
+                section.SubscribeObserver(this);
+            }
         }
         public Floorplan(FloorplanTemplate template)
         {
             this.DiningArea = template.DiningArea;
             
             this.ServerCount = template.ServerCount;
+            SectionServerMap = new Dictionary<Section, Server>();
             CopyTemplateSections(template.Sections);
+            MoveToNextSection();
+            foreach (var section in Sections)
+            {
+                section.SubscribeObserver(this);
+            }
         }
-        public Floorplan() { }
+        public Floorplan() 
+        {
+            SectionServerMap = new Dictionary<Section, Server>();
+            MoveToNextSection();
+            foreach (var section in Sections)
+            {
+                section.SubscribeObserver(this);
+            }
+        }
+        public Dictionary<Section, Server> SectionServerMap { get; private set; }
         public int ID { get; set; }
         public DateTime Date { get; set; }
         public DateOnly DateOnly => new DateOnly(Date.Year, Date.Month, Date.Day);
         public bool IsLunch { get; set; }
         public DiningArea? DiningArea { get; set; }
         public int? DiningAreaID { get; set; }
+        private Section _sectionSelected { get; set; }
+        public Section? SectionSelected
+        {
+            get 
+            {
+                if (this.Sections.Count == 0) return null;
+                else return this.Sections[0];
+            }
 
+        }
+        private int currentFocusedSectionIndex = 0;
+        public void SetSelectedSection(Section selectedSection)
+        {
+            foreach (Section section in this.Sections)
+            {
+                if (selectedSection == section)
+                {
+                    this._sectionSelected = section;
+                    section.IsSelected = true;
+                }
+                else
+                {
+                    section.IsSelected = false;
+                }
+            }
+
+        }
+        public void UpdateSectionServerMap(Server server, Section section)
+        {
+            // Optionally, remove the server from any current section
+            var currentSection = SectionServerMap.FirstOrDefault(kv => kv.Value == server).Key;
+            if (currentSection != null)
+            {
+                SectionServerMap[currentSection] = null; // Or remove the key
+            }
+
+            // Assign the server to the new section
+            SectionServerMap[section] = server;
+        }
+
+        public void RemoveServerFromSection(Server server)
+        {
+            var section = SectionServerMap.FirstOrDefault(kv => kv.Value == server).Key;
+            if (section != null)
+            {
+                SectionServerMap[section] = null; // Or remove the key
+            }
+        }
+        public void MoveToNextSection()
+        {
+            if(this.Sections == null) { return; }
+            if(this.Sections.Count == 0) {  return; }
+           
+            var sections = this.Sections;
+
+            if (currentFocusedSectionIndex == 0)
+            {
+                // If no section is selected, select the first section
+                currentFocusedSectionIndex = sections.First().Number;
+            }
+            else
+            {
+                // Find the next section
+                var currentSectionIndex = sections.FindIndex(s => s.Number == currentFocusedSectionIndex);
+                currentFocusedSectionIndex = sections[(currentSectionIndex + 1) % sections.Count].Number;
+            }
+            SetSelectedSection(this.Sections.Where(s => s.Number == currentFocusedSectionIndex).FirstOrDefault());
+
+
+
+        }
         public List<Server> Servers
         {
             get
@@ -126,6 +217,7 @@ namespace FloorplanClassLibrary
 
             // Add the section to the list
             _sections.Add(section);
+            section.SubscribeObserver(this);
         }
 
         public void CreateSectionsForServers()
@@ -177,7 +269,7 @@ namespace FloorplanClassLibrary
                
                     
                 
-                section.Tables.Clear();               
+                section.ClearTables();               
                 section.IsCloser = false;
                 section.IsPre = false;
             }
@@ -275,6 +367,11 @@ namespace FloorplanClassLibrary
 
             }
             return allSectionsAssigned;
+        }
+
+        public void Update(Section section)
+        {
+            throw new NotImplementedException();
         }
     }
 }
