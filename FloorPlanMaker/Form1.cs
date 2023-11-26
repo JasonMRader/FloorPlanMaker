@@ -100,7 +100,7 @@ namespace FloorPlanMaker
             // Check if the Tab key is pressed
             if (keyData == Keys.Tab)
             {
-                MoveToNextSection();
+                shiftManager.MoveToNextSection();
                 return true; // Indicate that you've handled this key press
             }
             if (_frmEditStaff != null && _frmEditStaff.Visible)
@@ -206,7 +206,7 @@ namespace FloorPlanMaker
         private void SelectSection(int sectionNumber)
         {
 
-            shiftManager.SectionSelected = shiftManager.SelectedFloorplan.Sections.Where(s => s.Number == sectionNumber).FirstOrDefault();
+            shiftManager.SetSelectedSection( shiftManager.SelectedFloorplan.Sections.Where(s => s.Number == sectionNumber).FirstOrDefault());
             foreach (Control c in flowSectionSelect.Controls)
             {
                 if (c is Panel panel)
@@ -1001,14 +1001,15 @@ namespace FloorPlanMaker
 
         private void btnAddSectionLabels_Click(object sender, EventArgs e)
         {
-
-            sectionControlsManager = new SectionControlsManager(shiftManager.SelectedFloorplan);
-            foreach (SectionLabelControl sectionControl in sectionControlsManager.SectionControls)
-            {
-                pnlFloorPlan.Controls.Add(sectionControl);
-                sectionControl.BringToFront();
-            }
-            rdoViewServerFlow.Checked = true;
+            floorplanManager.SetSectionLabels();
+            floorplanManager.AddSectionLabels(pnlFloorPlan);
+            //sectionControlsManager = new SectionControlsManager(shiftManager.SelectedFloorplan);
+            //foreach (SectionLabelControl sectionControl in sectionControlsManager.SectionControls)
+            //{
+            //    pnlFloorPlan.Controls.Add(sectionControl);
+            //    sectionControl.BringToFront();
+            //}
+            //rdoViewServerFlow.Checked = true;
 
         }
 

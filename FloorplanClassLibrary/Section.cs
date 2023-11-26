@@ -58,6 +58,21 @@ namespace FloorplanClassLibrary
         public int ID {  get; set; }
         public bool IsPickUp { get; set; }
         public int DiningAreaID { get; set; }
+        private bool _isSelected { get; set; }
+        
+        public bool IsSelected
+        {
+            get => _isSelected;
+            set
+            {
+                if (_isSelected != value)
+                {
+                    _isSelected = value;
+                    NotifyObservers();
+                }
+            }
+        }
+
         public string? Name { get; set; }
         private List<Table> _tables = new List<Table>();
         public IReadOnlyList<Table> Tables => _tables.AsReadOnly();

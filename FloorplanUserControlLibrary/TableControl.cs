@@ -30,6 +30,15 @@ namespace FloorPlanMaker
         {
             section.RegisterObserver(this);
             this._section = section;
+            if (section.IsSelected)
+            {
+                this.BackColor = section.MuteColor(1.2f);
+                
+            }
+            else
+            {
+                this.BackColor = section.MuteColor(.3f);
+            }
         }
         public void RemoveSection()
         {

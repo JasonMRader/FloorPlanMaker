@@ -152,7 +152,7 @@ namespace FloorPlanMakerUI
             SectionPanelControl sectionPanelSender = (SectionPanelControl)sender;
             if (sectionPanelSender.isChecked())
             {
-                this.ShiftManager.SectionSelected = sectionPanelSender.Section;
+                this.ShiftManager.SetSelectedSection(sectionPanelSender.Section);
                 foreach (SectionPanelControl sectionPanelControl in this._sectionPanels)
                 {
                     if (sectionPanelControl != sectionPanelSender)
