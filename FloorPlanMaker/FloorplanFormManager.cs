@@ -211,6 +211,7 @@ namespace FloorPlanMakerUI
                 }
             }
         }
+        
         private Section sectionByNumber(int sectionNumber)
         {
             Section sectionbyNumber = ShiftManager.SelectedFloorplan.Sections.FirstOrDefault(s => s.Number == sectionNumber);
@@ -278,7 +279,7 @@ namespace FloorPlanMakerUI
                         {
                             if (tableControl.Table.TableNumber == table.TableNumber)
                             {
-                                tableControl.Update(section);
+                                tableControl.SetSection(section);
                                 //tableControl.BackColor = section.MuteColor(0.35f);
                                 tableControl.MuteColors();
                                 if (section == this.ShiftManager.SectionSelected)
@@ -310,7 +311,7 @@ namespace FloorPlanMakerUI
                     {
                         if (tableControl.Table.TableNumber == table.TableNumber)
                         {
-                            tableControl.Update(section);
+                            tableControl.SetSection(section);
                             //tableControl.BackColor = section.MuteColor(0.35f);
                             tableControl.MuteColors();
                             if (section == this.ShiftManager.SectionSelected)
@@ -373,7 +374,7 @@ namespace FloorPlanMakerUI
                     //UpdateSectionLabels(sectionEdited, sectionEdited.MaxCovers, sectionEdited.AverageCovers);
                 }
                 ShiftManager.SectionSelected.AddTable(clickedTable);
-                clickedTableControl.Update(ShiftManager.SectionSelected);
+                clickedTableControl.SetSection(ShiftManager.SectionSelected);
                 
                 clickedTableControl.BackColor = ShiftManager.SectionSelected.Color;
                 clickedTableControl.TextColor = ShiftManager.SectionSelected.FontColor;

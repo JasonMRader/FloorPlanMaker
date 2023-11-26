@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 using System.Windows.Forms;
 using FloorPlanMakerUI;
+//using static System.Collections.Specialized.BitVector32;
 
 namespace FloorPlanMaker
 {
@@ -28,21 +29,41 @@ namespace FloorPlanMaker
         }
         public void Update(Section section)
         {
-            section.RegisterObserver(this);
-            this._section = section;
-            if (section.IsSelected)
+           
+            if (section.Tables.Contains(Table))
             {
-                this.BackColor = section.MuteColor(1.2f);
-                
+                SetSection(section);
+                if (section.IsSelected)
+                {
+                    this.BackColor = section.MuteColor(1.2f);
+
+                }
+                else
+                {
+                    this.BackColor = section.MuteColor(.3f);
+                }
             }
             else
             {
-                this.BackColor = section.MuteColor(.3f);
+                RemoveSection();
+                
             }
+           
+        }
+        public void SetSection(Section section)
+        {
+            this._section = section;
+            Update(section);
+            section.SubscribeObserver(this);
         }
         public void RemoveSection()
         {
-            this._section = null;
+            if(this._section != null)
+            {
+                this._section.RemoveObserver(this);
+                this._section = null;
+            }
+            
         }
        
 
@@ -163,6 +184,7 @@ namespace FloorPlanMaker
 
         public void MuteColors()
         {
+            if(this.Section == null) { return; }
             this.BackColor = UITheme.MuteColor(.5f, this.Section.Color);
             this.TextColor = Color.White;
         }

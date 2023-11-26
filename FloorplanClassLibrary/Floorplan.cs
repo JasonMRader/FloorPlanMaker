@@ -241,6 +241,7 @@ namespace FloorplanClassLibrary
             }
             var sectionToRemove = Sections.Where(s => s.Number == section.Number).FirstOrDefault();
             Sections.Remove(sectionToRemove);
+            
         }
         public void UnassignSection(Section section)
         {

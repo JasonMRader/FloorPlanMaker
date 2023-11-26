@@ -95,6 +95,7 @@ namespace FloorplanClassLibrary
         public void ClearTables()
         {
             this._tables?.Clear();
+            NotifyObservers();
         }
         private List<ISectionObserver> observers = new List<ISectionObserver>();
 

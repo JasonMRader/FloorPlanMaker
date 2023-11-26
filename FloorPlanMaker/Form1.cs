@@ -366,7 +366,7 @@ namespace FloorPlanMaker
                             if (targetSection != null)
                             {
                                 targetSection.AddTable(tableControl.Table);
-                                tableControl.Update(targetSection);
+                                tableControl.SetSection(targetSection);
                                 UpdateSectionLabels(targetSection, targetSection.MaxCovers, targetSection.AverageCovers);
                             }
                            
@@ -979,7 +979,7 @@ namespace FloorPlanMaker
                 {
                     if (tableControl.Section == null)
                     {
-                        tableControl.Update(pickUpSection);
+                        tableControl.SetSection(pickUpSection);
 
                         pickUpSection.AddTable(tableControl.Table);
 
@@ -1088,7 +1088,7 @@ namespace FloorPlanMaker
                         {
                             if (tableControl.Table.TableNumber == table.TableNumber)
                             {
-                                tableControl.Update(section);
+                                tableControl.SetSection(section);
                                 //tableControl.BackColor = section.MuteColor(0.35f);
                                 tableControl.MuteColors();
                                 if (section == shiftManager.SectionSelected)
