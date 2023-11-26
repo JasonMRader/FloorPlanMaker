@@ -293,7 +293,8 @@ namespace FloorPlanMaker
                     // Handle SectionControl update
                     break;
                 case UpdateType.TableControl:
-                    // Handle TableControl update
+                    //floorplanManager.RemoveTableControlSection(e.UpdateData as Section, pnlFloorPlan);
+                    floorplanManager.UpdateTableControlColors(pnlFloorPlan);
                     break;
                     // Add more cases as needed
             }
@@ -629,14 +630,15 @@ namespace FloorPlanMaker
 
                 return;
             }
-            foreach (var section in sections)
-            {
-                //CreateOneSectionPanel(section);
-                SectionPanelControl sectionPanel = new SectionPanelControl(section, shiftManager.SelectedFloorplan);
-                sectionPanel.CheckBoxChanged += Rb_CheckedChanged;
+            floorplanManager.AddSectionPanels(flowSectionSelect);
+            //foreach (var section in sections)
+            //{
+            //    //CreateOneSectionPanel(section);
+            //    SectionPanelControl sectionPanel = new SectionPanelControl(section, shiftManager.SelectedFloorplan);
+            //    sectionPanel.CheckBoxChanged += Rb_CheckedChanged;
                
-                flowSectionSelect.Controls.Add(sectionPanel);
-            }
+            //    flowSectionSelect.Controls.Add(sectionPanel);
+            //}
             if (flowSectionSelect.Controls.Count > 0)
             {
                 //Panel firstPanel = (Panel)flowSectionSelect.Controls[2];
@@ -1213,6 +1215,12 @@ namespace FloorPlanMaker
 
             if (shiftManager.SelectedFloorplan != null)
             {
+                floorplanManager.SetTableControls();
+                floorplanManager.SetSectionLabels();
+                floorplanManager.SetSectionPanels();
+
+               
+                floorplanManager.AddSectionLabels(pnlFloorPlan);
 
                 CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
                 UpdateServerControlsForFloorplan();
@@ -1222,12 +1230,7 @@ namespace FloorPlanMaker
             //floorplanManager.ShiftManager = shiftManager;
             //floorplanManager.SectionLabelRemoved += FloorplanManager_SectionLabelRemoved;
             
-            floorplanManager.SetTableControls();
-            floorplanManager.SetSectionLabels();
-            floorplanManager.SetSectionPanels();
-
-            floorplanManager.AddSectionPanels(flowSectionSelect);
-            floorplanManager.AddSectionLabels(pnlFloorPlan);
+            
             
             
             allTableControls = floorplanManager.TableControls;

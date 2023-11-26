@@ -122,7 +122,10 @@ namespace FloorPlanMakerUI
                     ShiftManager.SelectedFloorplan.UnassignSection(selectedSection);
                     
                     //UpdateTableControlSections();
-                    //REMOVE SECTION LABEL AND CLEAR TABLECONTROL SECTIONS, REMOVE TABLES FROM SECTION
+                    //REMOVE SECTION LABEL
+                    //AND CLEAR TABLECONTROL SECTIONS,
+                    //REMOVE TABLES FROM SECTION
+                    //Update ServerControl 
                 }
                 else if (dialogResult == DialogResult.No)
                 {
@@ -143,7 +146,9 @@ namespace FloorPlanMakerUI
         public void RemoveSectionLabel(Section section, Panel panel)
         {
             panel.Controls.Remove(sectionLabelBySection((Section)section));
+            UpdateTableControlColors(panel);
             panel.Invalidate();
+
         }
         public void AddSectionLabels(Panel panel)
         {
@@ -160,7 +165,7 @@ namespace FloorPlanMakerUI
                 panel.Controls.Add(sectionPanel);
             }
         }
-        private void FillInTableControlColors(Panel panel)
+        public void UpdateTableControlColors(Panel panel)
         {
             foreach (Control ctrl in panel.Controls)
             {
@@ -192,6 +197,7 @@ namespace FloorPlanMakerUI
                     }
                 }
             }
+
         }
 
         public void SetServerControls()
@@ -215,7 +221,10 @@ namespace FloorPlanMakerUI
                 this._serverControls.Add(serverControl);
             }
         }
-        
-       
+
+        internal void RemoveTableControlSection(Section? section, Panel pnlFloorPlan)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
