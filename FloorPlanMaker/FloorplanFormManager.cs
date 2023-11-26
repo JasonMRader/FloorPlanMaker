@@ -224,7 +224,7 @@ namespace FloorPlanMakerUI
         public void RemoveSectionLabel(Section section, Panel panel)
         {
             panel.Controls.Remove(sectionLabelBySection((Section)section));
-            UpdateTableControlColors(panel);
+            //UpdateTableControlColors(panel);
             panel.Invalidate();
 
         }
@@ -262,7 +262,7 @@ namespace FloorPlanMakerUI
                 panel.Controls.Add(serverControl);
             }
         }
-        private void FillInTableControlColors(Panel panel)
+        public void UpdateTableControlColors(Panel panel)
         {
             foreach (Control ctrl in panel.Controls)
             {
@@ -301,11 +301,14 @@ namespace FloorPlanMakerUI
 
         public void UpdateTableControlSections(Panel panel)
         {
-            foreach(TableControl tableControl in panel.Controls)
+            foreach(Control ctrl in panel.Controls)
             {
-                tableControl.BackColor = Color.Black; tableControl.ForeColor = Color.Black;
-                
+                if(ctrl is TableControl tableControl)
+                {
+                    tableControl.BackColor = Color.Black; tableControl.ForeColor = Color.Black;
+                }
             }
+            
         }
         private void TableControl_TableClicked(object sender, TableClickedEventArgs e)
         {

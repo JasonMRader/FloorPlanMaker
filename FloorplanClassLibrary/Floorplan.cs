@@ -371,7 +371,7 @@ namespace FloorplanClassLibrary
 
         public void Update(Section section)
         {
-            throw new NotImplementedException();
+           // throw new NotImplementedException();
         }
     }
 }

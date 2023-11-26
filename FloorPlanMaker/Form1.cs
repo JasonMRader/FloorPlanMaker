@@ -1221,7 +1221,7 @@ namespace FloorPlanMaker
 
             if (shiftManager.SelectedFloorplan != null)
             {
-                floorplanManager.SetTableControls();
+                floorplanManager.AddTableControls(pnlFloorPlan);
                 floorplanManager.SetSectionLabels();
                 floorplanManager.SetSectionPanels();
 

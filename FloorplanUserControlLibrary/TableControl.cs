@@ -350,7 +350,11 @@ namespace FloorPlanMaker
         {
             if (disposing)
             {
-                Section.RemoveObserver(this);
+                if(this.Section != null)
+                {
+                    Section.RemoveObserver(this);
+                }
+               
             }
             base.Dispose(disposing);
         }
