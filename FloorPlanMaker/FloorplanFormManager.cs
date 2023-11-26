@@ -198,9 +198,9 @@ namespace FloorPlanMakerUI
 
                     //this.UpdateRequired += FloorplanManager_UpdateRequired;
                     ShiftManager.SelectedFloorplan.UnassignSection(selectedSection);
+
+                    UpdateTableControlColors();
                     
-                    //UpdateTableControlSections();
-                    //REMOVE SECTION LABEL
                     //AND CLEAR TABLECONTROL SECTIONS,
                     //REMOVE TABLES FROM SECTION
                     //Update ServerControl 
@@ -296,8 +296,39 @@ namespace FloorPlanMakerUI
             }
 
         }
+        public void UpdateTableControlColors()
+        {
 
-       
+            foreach (TableControl tableControl in this._tableControls)
+            {
+                tableControl.BackColor = tableControl.Parent.BackColor;
+                tableControl.TextColor = tableControl.Parent.ForeColor;
+                foreach (Section section in ShiftManager.SelectedFloorplan.Sections)
+                {
+
+                    foreach (Table table in section.Tables)
+                    {
+                        if (tableControl.Table.TableNumber == table.TableNumber)
+                        {
+                            tableControl.Update(section);
+                            //tableControl.BackColor = section.MuteColor(0.35f);
+                            tableControl.MuteColors();
+                            if (section == this.ShiftManager.SectionSelected)
+                            {
+                                tableControl.BackColor = section.MuteColor(1.35f);
+                            }
+
+                            //tableControl.ForeColor = section.FontColor;
+                            tableControl.Invalidate();
+                            break;
+                        }
+                    }
+                } 
+            }
+              
+
+        }
+
 
         public void UpdateTableControlSections(Panel panel)
         {

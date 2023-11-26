@@ -181,27 +181,7 @@ namespace FloorPlanMaker
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
-        private void MoveToNextSection()
-        {
-            if (shiftManager.SelectedFloorplan == null) { return; }
-            var sections = shiftManager.SelectedFloorplan.Sections;
-
-            if (currentFocusedSectionIndex == null)
-            {
-                // If no section is selected, select the first section
-                currentFocusedSectionIndex = sections.First().Number;
-            }
-            else
-            {
-                // Find the next section
-                var currentSectionIndex = sections.FindIndex(s => s.Number == currentFocusedSectionIndex);
-                currentFocusedSectionIndex = sections[(currentSectionIndex + 1) % sections.Count].Number;
-            }
-
-            SelectSection(currentFocusedSectionIndex); // Imp
-
-
-        }
+        
 
         private void SelectSection(int sectionNumber)
         {
@@ -300,11 +280,7 @@ namespace FloorPlanMaker
             }
         }
 
-        private void FloorplanManager_SectionLabelRemoved(object? sender, EventArgs e)
-        {
-            
-            //floorplanManager.RemoveSectionLabel();
-        }
+        
 
         private void PnlFloorplan_Paint(object sender, PaintEventArgs e)
         {
@@ -458,68 +434,12 @@ namespace FloorPlanMaker
         }
 
 
-        private void ExistingTable_TableClicked(object sender, TableClickedEventArgs e)
-        {
-
-            TableControl clickedTableControl = sender as TableControl;
-            Table clickedTable = clickedTableControl.Table;
-            Section sectionEdited = (Section)clickedTableControl.Section;
-            if (e.MouseButton == MouseButtons.Right && clickedTableControl.Section != null)
-            {
-
-
-
-                //sectionEdited.Tables.RemoveAll(t => t.ID == clickedTable.ID);
-
-                clickedTableControl.RemoveSection();
-                clickedTableControl.BackColor = pnlFloorPlan.BackColor;  // Restore the original color
-                clickedTableControl.ForeColor = pnlFloorPlan.ForeColor;
-                clickedTableControl.Invalidate();
-                UpdateSectionLabels(sectionEdited, sectionEdited.MaxCovers, sectionEdited.AverageCovers);
-
-                return;
-            }
-            if (rdoSections.Checked)
-            {
-                if (shiftManager.SectionSelected != null)
-                {
-                    if (sectionEdited != null)
-                    {
-                        //sectionEdited.Tables.RemoveAll(t => t.ID == clickedTable.ID);
-                        UpdateSectionLabels(sectionEdited, sectionEdited.MaxCovers, sectionEdited.AverageCovers);
-                    }
-                    //shiftManager.SectionSelected.Tables.Add(clickedTable);
-                    clickedTableControl.Update(shiftManager.SectionSelected);
-                    // 2. Fill the table control with the FloorplanManager.SectionSelected.Color
-                    clickedTableControl.BackColor = shiftManager.SectionSelected.Color;
-                    clickedTableControl.TextColor = shiftManager.SectionSelected.FontColor;
-
-                    // Optionally, you can invalidate the control to request a redraw if needed.
-                    clickedTableControl.Invalidate();
-                    UpdateSectionLabels(shiftManager.SectionSelected, shiftManager.SectionSelected.MaxCovers, shiftManager.SectionSelected.AverageCovers);
-                }
-
-            }
-
-        }
+        
 
         private void cboDiningAreas_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-            //allTableControls.Clear();
-            //areaCreationManager.DiningAreaSelected = (DiningArea?)cboDiningAreas.SelectedItem;
-            //pnlFloorPlan.Controls.Clear();
-            //foreach (Table table in areaCreationManager.DiningAreaSelected.Tables)
-            //{
-            //    table.DiningArea = areaCreationManager.DiningAreaSelected;
-            //    TableControl tableControl = TableControlFactory.CreateTableControl(table);
-            //    //tableControl.TableClicked += Table_TableClicked;  // Uncomment if you want to attach event handler
-            //    tableControl.TableClicked += ExistingTable_TableClicked;
-            //    pnlFloorPlan.Controls.Add(tableControl);
-            //    allTableControls.Add(tableControl);
-            //}
-
-            //this.shiftManager.SelectedDiningArea = areaCreationManager.DiningAreaSelected;
+           
             
 
             shiftManager.SelectedDiningArea = (DiningArea?)cboDiningAreas.SelectedItem;
