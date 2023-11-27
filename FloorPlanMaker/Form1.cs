@@ -218,18 +218,26 @@ namespace FloorPlanMaker
         }
         private void FloorplanManager_UpdateRequired(object sender, UpdateEventArgs e)
         {
-            switch (e.UpdateType)
+            switch (e.ControlType)
             {
-                case UpdateType.SectionLabel:
-                    floorplanManager.RemoveSectionLabel(e.UpdateData as Section, pnlFloorPlan);
+                case ControlType.SectionLabel:
+                    if(e.UpdateType == UpdateType.Remove)
+                    {
+                        floorplanManager.RemoveSectionLabel(e.UpdateData as Section, pnlFloorPlan);
+                    }
+                    else
+                    {
+
+                    }
+                   
                     break;
-                case UpdateType.ServerControl:
+                case ControlType.ServerControl:
                     // Handle ServerControl update
                     break;
-                case UpdateType.SectionControl:
+                case ControlType.SectionControl:
                     // Handle SectionControl update
                     break;
-                case UpdateType.TableControl:
+                case ControlType.TableControl:
                     //floorplanManager.RemoveTableControlSection(e.UpdateData as Section, pnlFloorPlan);
                     floorplanManager.UpdateTableControlColors(pnlFloorPlan);
                     break;

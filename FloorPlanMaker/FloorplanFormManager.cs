@@ -199,7 +199,7 @@ namespace FloorPlanMakerUI
                 if (dialogResult == DialogResult.Yes)
                 {
                     //SectionLabelRemoved?.Invoke(this, e);
-                    UpdateRequired?.Invoke(this, new UpdateEventArgs(UpdateType.SectionLabel, selectedSection));
+                    UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionLabel, UpdateType.Remove, selectedSection));
                     this._sectionLabels.Remove(sectionLabelBySection(selectedSection));
                     
 

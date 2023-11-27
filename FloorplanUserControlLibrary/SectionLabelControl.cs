@@ -93,6 +93,8 @@ namespace FloorplanClassLibrary
         {
             // Update the control based on the new state of the section
             UpdateLabel();
+            HighlightSelectedLabel();
+            this.Invalidate();
         }
         protected override void Dispose(bool disposing)
         {
@@ -135,7 +137,7 @@ namespace FloorplanClassLibrary
             int borderWidth = 5;
             if (this.isSelecteed == true)
             {
-                borderColor = UITheme.MuteColor(3f,this.Section.Color);
+                borderColor = UITheme.MuteColor(3f, this.Section.Color);
                 borderWidth = 30;
             }
             using (Pen pen = new Pen(borderColor, borderWidth))
@@ -145,8 +147,16 @@ namespace FloorplanClassLibrary
                 e.Graphics.DrawRectangle(pen, penHalfWidth, penHalfWidth,
                                          this.Width - pen.Width, this.Height - pen.Width);
             }
+            HighlightSelectedLabel();
         }
-
+        private void HighlightSelectedLabel()
+        {
+            if (this.isSelecteed == true)
+            {
+                this.BackColor = Color.White;
+            }
+            
+        }
         private void SectionControl_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -315,6 +325,10 @@ namespace FloorplanClassLibrary
             sectionLabel.Text = Section.GetDisplayString();
             headerPanel.BackColor = Section.Color; // Assuming the Section class has a Color property
             headerPanel.ForeColor = Section.FontColor;
+            if(this.isSelecteed)
+            {
+                headerPanel.BackColor = Section.MuteColor(2);
+            }
             if (this.Section.IsCloser)
             {
                 setCloserButton.Image = Resources.Close;
@@ -327,6 +341,7 @@ namespace FloorplanClassLibrary
             {
                 setCloserButton.Image = Resources.Scissors__Copy;
             }
+            this.Invalidate();
         }
         public static void DrawSectionLabelForPrinting(Graphics g, SectionLabelControl control)
         {
