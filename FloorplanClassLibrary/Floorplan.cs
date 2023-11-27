@@ -114,20 +114,7 @@ namespace FloorplanClassLibrary
             // Directly set the selected section using the index
             _sectionSelected = this.Sections[currentFocusedSectionIndex];
             HighlightSelectedSection();
-            //if (currentFocusedSectionIndex == 0)
-            //{
-            //    // If no section is selected, select the first section
-            //    currentFocusedSectionIndex = sections.First().Number;
-            //}
-            //else
-            //{
-            //    // Find the next section
-            //    var currentSectionIndex = sections.FindIndex(s => s.Number == currentFocusedSectionIndex);
-            //    currentFocusedSectionIndex = sections[(currentSectionIndex + 1) % sections.Count].Number;
-            //}
-            //SetSelectedSection(this.Sections.Where(s => s.Number == currentFocusedSectionIndex).FirstOrDefault());
-
-
+           
 
         }
         private void HighlightSelectedSection()

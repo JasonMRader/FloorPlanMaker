@@ -114,6 +114,7 @@ namespace FloorPlanMakerUI
                 sectionPanel.picTeamWaitClicked += TeamWaitClicked;
                 this._sectionPanels.Add(sectionPanel);
             }
+            Floorplan.SetSelectedSection(Floorplan.Sections[0]);
         }
        
         public void SetServerControls()
@@ -177,7 +178,11 @@ namespace FloorPlanMakerUI
             }
             
         }
-
+        public void IncrementSelectedSection()
+        {
+            if(this.Floorplan == null) { return; }
+            this.Floorplan.MoveToNextSection();
+        }
         private void TeamWaitClicked(object? sender, EventArgs e)
         {
             throw new NotImplementedException();

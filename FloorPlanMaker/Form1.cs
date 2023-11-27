@@ -99,8 +99,9 @@ namespace FloorPlanMaker
         {
             // Check if the Tab key is pressed
             if (keyData == Keys.Tab)
-                {
-                shiftManager.SelectedFloorplan.MoveToNextSection();
+            {
+                floorplanManager.IncrementSelectedSection();
+                //shiftManager.SelectedFloorplan.MoveToNextSection();
                 return true; // Indicate that you've handled this key press
             }
             if (_frmEditStaff != null && _frmEditStaff.Visible)
