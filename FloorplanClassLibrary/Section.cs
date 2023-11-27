@@ -269,7 +269,15 @@ namespace FloorplanClassLibrary
         {
             if (server.CurrentSection != null)
             {
-                server.CurrentSection.RemoveServer(server);
+                if(server.CurrentSection != this)
+                {
+                    server.CurrentSection.RemoveServer(server);
+                }
+               
+            }
+            if (this._server != null)
+            {
+                this._server.CurrentSection.RemoveServer(this._server);
             }
             if (!this._isTeamWait)
             {
@@ -294,13 +302,15 @@ namespace FloorplanClassLibrary
             if (this._server == server)
             {
                 this._server = null;
-                
+               
+
             }
             if (this.ServerTeam != null)
             {
                 this.ServerTeam.Remove(server);
-              
+                
             }
+            
             server.CurrentSection = null; 
             NotifyRemovedFromSection(server);
             NotifyObservers();
@@ -434,3 +444,4 @@ namespace FloorplanClassLibrary
 
     }
 }
+

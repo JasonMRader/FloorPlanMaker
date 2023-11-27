@@ -25,11 +25,11 @@ namespace FloorPlanMakerUI
             {
                 if (sc.Section == section)
                 {
-                    sc.isSelecteed = true;
+                    sc.isSelected = true;
                 }
                 else
                 {
-                    sc.isSelecteed = false;
+                    sc.isSelected = false;
                 }
                 sc.Invalidate();
             }

@@ -337,7 +337,6 @@ namespace FloorPlanMakerUI
 
         }
 
-
         public void UpdateTableControlSections(Panel panel)
         {
             foreach(Control ctrl in panel.Controls)

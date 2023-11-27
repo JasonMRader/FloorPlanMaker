@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Threading.Tasks;
 using static System.Collections.Specialized.BitVector32;
-
+using System.Runtime.CompilerServices;
 
 namespace FloorplanClassLibrary
 {
@@ -22,9 +22,11 @@ namespace FloorplanClassLibrary
         private Point MouseDownLocation;
         private FlowLayoutPanel closerPanel;
         private bool closerPanelOpen = false;
-        public bool isSelecteed = false;
+        public bool isSelected = false;
         private bool serverPanelOpen = false;
-        private bool isDragging = false; // Indicates whether dragging is ongoing
+        private bool isDragging = false; 
+        private Color BorderColor = Color.Black;
+        private int borderWidth = 5;
         public Section Section { get; set; }
 
         private List<Server> unassignedServers = new List<Server>();
@@ -91,10 +93,11 @@ namespace FloorplanClassLibrary
         }
         public void UpdateSection(Section section)
         {
+            this.isSelected = this.Section.IsSelected;
             // Update the control based on the new state of the section
             UpdateLabel();
-            HighlightSelectedLabel();
-            this.Invalidate();
+           
+            //this.Invalidate();
         }
         protected override void Dispose(bool disposing)
         {
@@ -132,31 +135,23 @@ namespace FloorplanClassLibrary
         }
 
         private void SectionControl_Paint(object sender, PaintEventArgs e)
-        {
-            Color borderColor = Color.Black;
-            int borderWidth = 5;
-            if (this.isSelecteed == true)
+        {           
+            
+            if (this.isSelected == true)
             {
-                borderColor = UITheme.MuteColor(3f, this.Section.Color);
+                BorderColor = UITheme.MuteColor(3f, this.Section.Color);
                 borderWidth = 30;
             }
-            using (Pen pen = new Pen(borderColor, borderWidth))
+            using (Pen pen = new Pen(BorderColor, borderWidth))
             {
                 // Adjust the rectangle's coordinates and size to ensure the entire border is visible
                 int penHalfWidth = (int)(pen.Width / 2);
                 e.Graphics.DrawRectangle(pen, penHalfWidth, penHalfWidth,
                                          this.Width - pen.Width, this.Height - pen.Width);
             }
-            HighlightSelectedLabel();
+           
         }
-        private void HighlightSelectedLabel()
-        {
-            if (this.isSelecteed == true)
-            {
-                this.BackColor = Color.White;
-            }
-            
-        }
+       
         private void SectionControl_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -325,9 +320,19 @@ namespace FloorplanClassLibrary
             sectionLabel.Text = Section.GetDisplayString();
             headerPanel.BackColor = Section.Color; // Assuming the Section class has a Color property
             headerPanel.ForeColor = Section.FontColor;
-            if(this.isSelecteed)
+            if(this.isSelected)
             {
-                headerPanel.BackColor = Section.MuteColor(2);
+                headerPanel.BackColor = Section.MuteColor(1.5f);
+                this.BorderColor = Section.MuteColor(2);
+                this.borderWidth = 10;
+                this.Invalidate();
+            }
+            else
+            {
+                headerPanel.BackColor = Section.MuteColor(.5f);
+                this.BorderColor = Color.Black;
+                this.borderWidth = 5;
+                this.Invalidate();
             }
             if (this.Section.IsCloser)
             {
@@ -341,7 +346,7 @@ namespace FloorplanClassLibrary
             {
                 setCloserButton.Image = Resources.Scissors__Copy;
             }
-            this.Invalidate();
+            
         }
         public static void DrawSectionLabelForPrinting(Graphics g, SectionLabelControl control)
         {
