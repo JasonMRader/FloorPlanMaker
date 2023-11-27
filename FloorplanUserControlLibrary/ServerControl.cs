@@ -61,7 +61,7 @@ namespace FloorPlanMaker
                 {
                     if (_server != null)
                     {
-                        _server.AssignedToSection -= OnServerAssignedToSection;
+                        _server.AssignedToSection += OnServerAssignedToSection;
                         _server.RemovedFromSection += OnServerRemovedFromSection;
                     }
 
@@ -69,7 +69,7 @@ namespace FloorPlanMaker
                     if (_server != null)
                     {
                         _server.AssignedToSection += OnServerAssignedToSection;
-                        _server.RemovedFromSection -= OnServerRemovedFromSection;
+                        _server.RemovedFromSection += OnServerRemovedFromSection;
                     }
                 }
             }

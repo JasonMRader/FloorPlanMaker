@@ -136,6 +136,7 @@ namespace FloorPlanMakerUI
 
                 this._serverControls.Add(serverControl);
             }
+            UpdateServerControls();
         }
         private void ServerControl_Click(object? sender, EventArgs e)
         {
@@ -387,10 +388,34 @@ namespace FloorPlanMakerUI
             
 
         }
+        public void UpdateServerControls()
+        {
+            if (ShiftManager.SelectedFloorplan == null) return;
+
+            foreach (ServerControl serverControl in _serverControls)
+            {
+                // Get the server from the server control
+                Server server = serverControl.Server;
+
+                // Find the section to which the server is assigned
+                Section assignedSection = ShiftManager.SelectedFloorplan.SectionServerMap
+                                          .FirstOrDefault(kv => kv.Value == server).Key;
+
+                // Update the label's background color based on the section's color
+                if (assignedSection != null)
+                {
+                    serverControl.Label.BackColor = assignedSection.Color;
+                }
+                else
+                {
+                    serverControl.Label.BackColor = UITheme.ButtonColor; // Replace DefaultColor with your default color
+                }
+            }
+        }
 
         public void Update(Section section)
         {
-           
+           //UpdateServerControls();
         }
     }
 }
