@@ -176,47 +176,10 @@ namespace FloorPlanMaker
                     }
                     return true;
                 }
-            }
-            
-
+            }            
             return base.ProcessCmdKey(ref msg, keyData);
-        }
+        }      
 
-        
-
-        private void SelectSection(int sectionNumber)
-        {
-
-            shiftManager.SetSelectedSection( shiftManager.SelectedFloorplan.Sections.Where(s => s.Number == sectionNumber).FirstOrDefault());
-            foreach (Control c in flowSectionSelect.Controls)
-            {
-                if (c is Panel panel)
-                {
-                    if (panel.Tag == shiftManager.SectionSelected)
-                    {
-                        panel.BackColor = shiftManager.SectionSelected.Color;
-                    }
-                    else
-                    {
-                        panel.BackColor = Color.SlateGray;
-                    }
-
-                }
-            }
-            foreach (CheckBox cb in selectedSectionButtons)
-            {
-                if (cb.Tag == shiftManager.SectionSelected)
-                {
-                    cb.Checked = true;
-                }
-                else
-                {
-                    cb.Checked = false;
-                }
-            }
-            FillInTableControlColors();
-
-        }
         public void UpdateForm1ShiftManager(ShiftManager shiftManagerToAdd)
         {
             dateTimeSelected = new DateTime(shiftManagerToAdd.DateOnly.Year, shiftManagerToAdd.DateOnly.Month, shiftManagerToAdd.DateOnly.Day);
@@ -226,20 +189,13 @@ namespace FloorPlanMaker
             {
                 this.shiftManager.AddFloorplanAndServers(fp);
             }
-
-
             SetViewedFloorplan();
             rdoSections.Checked = true;
             rdoViewSectionFlow.Checked = true;
             flowSectionSelect.Visible = true;
             flowServersInFloorplan.Visible = false;
             rdoViewSectionFlow.Image = Resources.lilCanvasBook;
-
-            //rdoViewServerFlow.Image = Resources.lilPeople;
-
-
         }
-
         public Form1()
         {
             InitializeComponent();
@@ -280,9 +236,7 @@ namespace FloorPlanMaker
                     // Add more cases as needed
             }
         }
-
         
-
         private void PnlFloorplan_Paint(object sender, PaintEventArgs e)
         {
             if (isDragging)
@@ -428,29 +382,570 @@ namespace FloorPlanMaker
                 this.Update();
             }
         }
-
         private void Form1_MouseUp(object sender, MouseEventArgs e)
         {
             isDraggingForm = false;
         }
-
-
-        
-
         private void cboDiningAreas_SelectedIndexChanged(object sender, EventArgs e)
         {
-
-           
-            
-
             shiftManager.SelectedDiningArea = (DiningArea?)cboDiningAreas.SelectedItem;
             floorplanManager.AddTableControls(pnlFloorPlan);
             
             SetViewedFloorplan();
             this.sectionLineManager = new SectionLineManager(allTableControls);
+        }
+        
+        private void rdoSections_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rdoSections.Checked)
+            {
+                pnlNavigationWindow.SendToBack();
+                pnlNavHighlight.Location = new Point(rdoSections.Left, 0);
+                pnlMainContainer.Visible = true;
+                //pnlSideBar.Visible = true;
+                pnlSideContainer.Visible = true;
+
+                flowServersInFloorplan.Visible = true;
+                //lblPanel2Text.Text = areaCreationManager.DiningAreaSelected.Name;
+                //this.shiftManager = new ShiftManager(areaCreationManager.DiningAreaSelected);                
+                foreach (Control control in pnlFloorPlan.Controls)
+                {
+                    if (control is TableControl tableControl)
+                    {
+                        tableControl.Moveable = false;
+
+                    }
+                }
+
+            }
+            else
+            {
+                pnlMainContainer.Visible = false;
+                //pnlSideBar.Visible = false;
+                pnlSideContainer.Visible = false;
+            }
+        }
+        private void rdoShifts_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rdoShifts.Checked)
+            {
+                pnlNavHighlight.Location = new Point(rdoShifts.Left, 0);
+                if (_frmEditStaff == null)
+                {
+                    _frmEditStaff = new frmEditStaff(employeeManager, shiftManager, this) { TopLevel = false, AutoScroll = true };
+                }
+                pnlNavigationWindow.Controls.Add(_frmEditStaff);
+
+                _frmEditStaff.Show();
+                pnlNavigationWindow.BringToFront();
+
+            }
+            else
+            {
+                if (_frmEditStaff != null)
+                {
+                    _frmEditStaff.Hide();
+                }
+            }
+        }
+        private void rdoDiningAreas_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rdoDiningAreas.Checked)
+            {
+                pnlNavHighlight.Location = new Point(rdoDiningAreas.Left, 0);
+                if (_frmEditDiningAreas == null)
+                {
+                    _frmEditDiningAreas = new frmEditDiningAreas { TopLevel = false, AutoScroll = true };
+                }
+                pnlNavigationWindow.Controls.Add(_frmEditDiningAreas);
+
+                _frmEditDiningAreas.Show();
+                pnlNavigationWindow.BringToFront();
+
+            }
+            else
+            {
+                if (_frmEditDiningAreas != null)
+                {
+                    _frmEditDiningAreas.Hide();
+                }
+            }
+        }
+
+        private void btnAddSectionLabels_Click(object sender, EventArgs e)
+        {
+            floorplanManager.SetSectionLabels();
+            floorplanManager.AddSectionLabels(pnlFloorPlan);
+            //sectionControlsManager = new SectionControlsManager(shiftManager.SelectedFloorplan);
+            //foreach (SectionLabelControl sectionControl in sectionControlsManager.SectionControls)
+            //{
+            //    pnlFloorPlan.Controls.Add(sectionControl);
+            //    sectionControl.BringToFront();
+            //}
+            //rdoViewServerFlow.Checked = true;
+        }
+
+        private void btnSaveFloorplanTemplate_Click(object sender, EventArgs e)
+        {
+            //var drawnLines = drawingHandler.GetDrawnLines();
+            //FloorplanTemplate template = new FloorplanTemplate(shiftManager.SelectedDiningArea, txtTemplateName.Text,
+            //     shiftManager.Sections, drawnLines);
+
+            //template.SectionLines.Clear();
+            //template.SectionLines.AddRange(drawnLines);
+
+            //drawingHandler.ClearLines();
+            //SqliteDataAccess.SaveFloorplanTemplate(template);
+        }
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
+            bool pickUpAdded = false;
+            Section pickUpSection = new Section();
+            pickUpSection.IsPickUp = true;
+            //shiftManager.SelectedFloorplan = shiftManager.ViewedFloorplan;
+            shiftManager.SelectedFloorplan.Date = dateTimeSelected;
+            shiftManager.SelectedFloorplan.IsLunch = cbIsAM.Checked;
+            foreach (Control control in pnlFloorPlan.Controls)
+            {
+                if (control is TableControl tableControl)
+                {
+                    if (tableControl.Section == null)
+                    {
+                        pickUpSection.DiningAreaID = shiftManager.SelectedFloorplan.DiningArea.ID;
+                        pickUpSection.Name = "Pick Up";
+                        shiftManager.SelectedFloorplan.Sections.Add(pickUpSection);
+                        pickUpAdded = true;
+                    }
+                    break;
+                }
+            }
+            foreach (Control control in pnlFloorPlan.Controls)
+            {
+                if (control is TableControl tableControl)
+                {
+                    if (tableControl.Section == null)
+                    {
+                        tableControl.SetSection(pickUpSection);
+                        pickUpSection.AddTable(tableControl.Table);
+                        tableControl.BackColor = pickUpSection.Color;
+                        // Optionally, you can invalidate the control to request a redraw if needed.
+                        tableControl.Invalidate();
+                    }
+                }
+            }
+            if (pickUpAdded)
+            {
+                UpdateSectionLabels(shiftManager.SectionSelected, shiftManager.SectionSelected.MaxCovers, shiftManager.SectionSelected.AverageCovers);
+                CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
+                SectionLabelControl sectionControl = new SectionLabelControl(pickUpSection, shiftManager.SelectedFloorplan.ServersWithoutSection);
+                pnlFloorPlan.Controls.Add(sectionControl);
+                sectionControl.BringToFront();
+            }
+            if (shiftManager.SelectedFloorplan.CheckIfAllSectionsAssigned())
+            {
+                if (!shiftManager.SelectedFloorplan.CheckIfCloserIsAssigned())
+                {
+                    DialogResult result = MessageBox.Show("There is not a closer assigned",
+                                                "Continue?",
+                                                MessageBoxButtons.YesNo,
+                                                MessageBoxIcon.Question);
+
+                    if (result == DialogResult.No)
+                    {
+                        return;
+                    }
+                }
+                SqliteDataAccess.SaveFloorplanAndSections(shiftManager.SelectedFloorplan);
+                FloorplanPrinter printer = new FloorplanPrinter(pnlFloorPlan, sectionLineManager.SectionLines);
+                printer.ShowPrintPreview();
+                //printer.Print();
+            }
+            else
+            {
+                MessageBox.Show("Not all sections are assigned");
+            }
+        }
+        private void btnChooseTemplate_Click(object sender, EventArgs e)
+        {
+            frmTemplateSelection form = new frmTemplateSelection(shiftManager);
+
+            form.StartPosition = FormStartPosition.CenterScreen;
+            ;
+            form.BringToFront();
+
+            form.ShowDialog();
+            if (form.DialogResult == DialogResult.OK)
+            {
+                UpdateTableControlSections();
+            }
+            if (DialogResult == DialogResult.Cancel)
+            {
+
+            }
+
+        }
+        private void UpdateTableControlSections()
+        {
+            //ClearAllSectionControls();
+            if (shiftManager.SelectedFloorplan == null)
+            {
+                flowSectionSelect.Controls.Clear();
+                flowServersInFloorplan.Controls.Clear();
+                ClearAllTableControlSections();
+                NoServersToDisplay();
+                return;
+            }
+            else
+            {
+                FillInTableControlColors();
+                //sectionControlsManager = new SectionControlsManager(shiftManager.SelectedFloorplan);
+                //foreach (SectionLabelControl sectionControl in sectionControlsManager.SectionControls)
+                //{
+                //    pnlFloorPlan.Controls.Add(sectionControl);
+                //    sectionControl.BringToFront();
+                //}
+            }
+        }      
+       
+        private void dtpFloorplan_ValueChanged(object sender, EventArgs e)
+        {
+            SetViewedFloorplan();
+            this.sectionLineManager = new SectionLineManager(allTableControls);
+        }
+        private void SetViewedFloorplan()
+        {
+            NoServersToDisplay();
+          
+            if (shiftManager.ContainsFloorplan(dateOnlySelected, cbIsAM.Checked, shiftManager.SelectedDiningArea.ID))
+            {
+                shiftManager.SetSelectedFloorplan(dateOnlySelected, cbIsAM.Checked, shiftManager.SelectedDiningArea.ID);
+            }
+            else
+            {
+                shiftManager.SelectedFloorplan = SqliteDataAccess.LoadFloorplanByCriteria(shiftManager.SelectedDiningArea, dateOnlySelected, cbIsAM.Checked);
+            }
+
+            if (shiftManager.SelectedFloorplan != null)
+            {
+                floorplanManager.AddTableControls(pnlFloorPlan);
+                floorplanManager.SetSectionLabels();
+                floorplanManager.SetSectionPanels();               
+                floorplanManager.AddSectionLabels(pnlFloorPlan);
+
+                //CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
+                //floorplanManager.SetTableControls();
+                floorplanManager.SetSectionLabels();
+                floorplanManager.SetSectionPanels();
+                floorplanManager.SetServerControls();
+                floorplanManager.UpdateTableControlSections(pnlFloorPlan);
+                flowSectionSelect.Controls.Clear();
+                flowServersInFloorplan.Controls.Clear();
+                floorplanManager.AddServerControls(flowServersInFloorplan);
+                floorplanManager.AddSectionPanels(flowSectionSelect);
+                floorplanManager.AddSectionLabels(pnlFloorPlan);
+                //UpdateServerControlsForFloorplan();
+                coversImageLabel.UpdateText(shiftManager.SelectedFloorplan.MaxCoversPerServer.ToString("F0"));
+                salesImageLabel.UpdateText(shiftManager.SelectedFloorplan.AvgSalesPerServer.ToString("C0"));
+            }
+            //floorplanManager.ShiftManager = shiftManager;
+            //floorplanManager.SectionLabelRemoved += FloorplanManager_SectionLabelRemoved;            
+            //allTableControls = floorplanManager.TableControls;
+            UpdateTableControlSections();
+        }
+        private void NoServersToDisplay()
+        {
+            coversImageLabel.UpdateText(shiftManager.SelectedDiningArea.GetMaxCovers().ToString("F0"));
+            salesImageLabel.UpdateText(shiftManager.SelectedDiningArea.GetAverageCovers().ToString("C0"));
+
+            PictureBox noSections = new PictureBox
+            {
+                Image = Resources._no_data_Lighter,
+                SizeMode = PictureBoxSizeMode.Zoom,
+                Size = new System.Drawing.Size(flowSectionSelect.Width - 50, flowSectionSelect.Height - 300),
+                Margin = new Padding(35, 0, 0, 0)
+
+            };
+            PictureBox noServers = new PictureBox
+            {
+                Image = Resources._no_data_Lighter,
+                SizeMode = PictureBoxSizeMode.Zoom,
+                Size = new System.Drawing.Size(flowServersInFloorplan.Width - 50, flowServersInFloorplan.Height - 300),
+                Margin = new Padding(35, 0, 0, 0)
+
+
+            };
+            noSections.BringToFront();
+            noServers.BringToFront();
+            flowSectionSelect.Controls.Add(noSections);
+            flowServersInFloorplan.Controls.Add(noServers);
+        }        
+        private void btnDayBefore_Click(object sender, EventArgs e)
+        {
+            UpdateDateLabel(-1);
+        }
+        private void btnNextDay_Click(object sender, EventArgs e)
+        {      
+            UpdateDateLabel(1);
+        }
+        private void btnCloseApp_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+        private void cbTableDisplayMode_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbTableDisplayMode.Checked)
+            {
+                foreach (Control c in pnlFloorPlan.Controls)
+                {
+                    if (c is TableControl tableControl)
+                    {
+                        tableControl.CurrentDisplayMode = DisplayMode.AverageCovers;
+                        tableControl.Invalidate();
+                    }
+                }
+            }
+            else
+            {
+                foreach (Control c in pnlFloorPlan.Controls)
+                {
+                    if (c is TableControl tableControl)
+                    {
+                        tableControl.CurrentDisplayMode = DisplayMode.TableNumber;
+                        tableControl.Invalidate();
+                    }
+                }
+            }
+        }
+
+        private void rdoViewSectionFlow_CheckedChanged(object sender, EventArgs e)
+        {
+
+            if (rdoViewSectionFlow.Checked)
+            {
+                flowSectionSelect.Visible = true;
+                flowServersInFloorplan.Visible = false;
+                rdoViewSectionFlow.Image = Resources.lilCanvasBook;
+                
+            }
+            else
+            {
+                flowSectionSelect.Visible = false;
+                flowServersInFloorplan.Visible = true;
+                rdoViewSectionFlow.Image = Resources.lilBook;                
+            }
+        }
+
+        private void rdoViewServerFlow_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rdoViewServerFlow.Checked)
+            {
+                flowSectionSelect.Visible = false;
+                flowServersInFloorplan.Visible = true;
+                rdoViewSectionFlow.Image = Resources.lilBook;                
+            }
+            else
+            {
+                flowSectionSelect.Visible = true;
+                flowServersInFloorplan.Visible = false;
+                rdoViewSectionFlow.Image = Resources.lilCanvasBook;                
+            }
+        }
+        private void cbIsAM_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbIsAM.Checked)
+            {
+                cbIsAM.Image = Resources.smallSunrise;
+                cbIsAM.BackColor = Color.FromArgb(251, 175, 0);
+            }
+            else
+            {
+                cbIsAM.Image = Resources.smallMoon;
+                cbIsAM.BackColor = Color.FromArgb(117, 70, 104);
+            }
+        }
+        private void lblDateSelected_Click(object sender, EventArgs e)
+        {
+            using (frmDateSelect selectDateForm = new frmDateSelect(dateTimeSelected))
+            {
+                selectDateForm.StartPosition = FormStartPosition.Manual;
+                Point formLocation = this.PointToScreen(lblDateSelected.Location);
+                formLocation.Y += lblDateSelected.Height + 50;
+                formLocation.X += 465;
+                selectDateForm.Location = formLocation;
+                DialogResult = selectDateForm.ShowDialog();
+                if (DialogResult == DialogResult.OK)
+                {
+                    this.dateTimeSelected = selectDateForm.dateSelected;
+                    UpdateDateLabel(0);
+                }
+            }
+        }
+        //
+        //
+        //
+        //****************    Test  Methods **********************
+        //
+        //
+        //
+        private void btnTest_Click(object sender, EventArgs e)
+        {
+            //nudServerCount.Value = 4;
+
+            //UpdateFloorplan();
+            //SectionLine sectionLine = new SectionLine(0,0,300,300, 5f);
+            //sectionLine.StartPoint = new System.Drawing.Point(0, 0);
+            //sectionLine.EndPoint = new System.Drawing.Point(300, 300);
+            //sectionLine.LineThickness = 5f;
+            //pnlFloorPlan.Controls.Add(sectionLine);
+            //SqliteDataAccess.UpdateAllFloorplanDates();
+
+            //foreach(Section section in shiftManager.ViewedFloorplan.Sections)
+            //{
+            //    var edges = section.GetConvexHullEdges();
+
+            //    foreach (var edge in edges)
+            //    {
+            //        var sectionLine = new SectionLine
+            //        {
+            //            StartPoint = new System.Drawing.Point((int)edge.Item1.X, (int)edge.Item1.Y),
+            //            EndPoint = new System.Drawing.Point((int)edge.Item2.X, (int)edge.Item2.Y)
+            //        };
+            //        pnlFloorPlan.Controls.Add(sectionLine);
+            //    }
+            //}
+            //allTableControls.Sort((a, b) => a.Top.CompareTo(b.Top));
+
+            //// 3. Determine midpoints and 4. Draw borders.
+            //for (int i = 0; i < allTableControls.Count - 1; i++)
+            //{
+            //    TableControl currentTable = allTableControls[i];
+            //    TableControl nextTable = allTableControls[i + 1];
+
+            //    if(currentTable.Section != nextTable.Section)
+            //    {
+            //        int midpoint = currentTable.Bottom + (nextTable.Top - currentTable.Bottom) / 2;
+
+
+            //        pnlFloorPlan.CreateGraphics().DrawLine(Pens.Black, currentTable.Table.XCoordinate, midpoint, currentTable.Table.XCoordinate - currentTable.Width, midpoint);
+            //    }
+
+            //}
+
+            //this.sectionLineManager = new SectionLineManager(allTableControls);
+            //sectionLineManager.AddTopLines(pnlFloorPlan);
+            //sectionLineManager.AddRightLines(pnlFloorPlan);
+            //sectionLineManager.AddRightBorders(pnlFloorPlan);
+            //sectionLineManager.AddBottomLines(pnlFloorPlan);
+            //sectionLineManager.DrawSectionLines(pnlFloorPlan);
+
+            //sectionLineManager.MakeTopLines(pnlFloorPlan);
+            //sectionLineManager.MakeSectionTableOutlines();
+            //foreach(SectionLine sectionLine in sectionLineManager.SectionLines)
+            //{
+            //    pnlFloorPlan.Controls.Add(sectionLine);
+            //}
+            //sectionLineManager.RemoveBottomLines(pnlFloorPlan);
+            //sectionLineManager.RemoveRightLines(pnlFloorPlan);
+            //sectionLineManager.DrawSeparationLines(pnlFloorPlan);
+
+
+            //sectionLineManager.AddSectionNodes(pnlFloorPlan);
+            flowServersInFloorplan.Controls.Clear();
+            FloorplanInfoControl fpInfo = new FloorplanInfoControl(shiftManager.SelectedFloorplan, flowServersInFloorplan.Width);
+            fpInfo.UpdatePastLabels(8, 4);
+            flowServersInFloorplan.Controls.Add(fpInfo);
+
+        }
+        private void btnTest2_Click(object sender, EventArgs e)
+        {
+            ////pnlFloorPlan.Controls.Clear();
+            ////SectionLine sectionLine = new SectionLine(100,100,500,100,5f);
+            ////pnlFloorPlan.Controls.Add(sectionLine);
+            ////Section section = new Section();
+            ////section.Number = 1;
+            ////foreach (TableControl c in allTableControls)
+            ////{
+            ////    c.Section = section;
+            ////    c.BackColor = section.Color;
+            ////    section.Tables.Add(c.Table);
+            ////}
+            ////shiftManager.SectionSelected = section;
+            ////sectionLineManager.RemoveAllLines(pnlFloorPlan);
+            ////sectionLineManager.UpdateSectionLinePositions(pnlFloorPlan);
+            ////sectionLineManager.AddParallelLines(pnlFloorPlan);
+
+            //foreach (Section section in shiftManager.SelectedFloorplan.Sections)
+            //{
+            //    SectionNodeManager nodeManager = new SectionNodeManager(section);
+            //    Node tlNode = nodeManager.GetTopLeftNode();
+            //    Node trNode = nodeManager.GetTopRightNode();
+            //    Node brNode = nodeManager.GetBottomRightNode();
+            //    SectionLine sectionLine = new SectionLine(tlNode, trNode);
+            //    SectionLine sectionLine1 = new SectionLine(trNode, brNode);
+            //    pnlFloorPlan.Controls.Add(sectionLine);
+            //    pnlFloorPlan.Controls.Add(sectionLine1);
+
+            //}
+            flowServersInFloorplan.Controls.Clear();
+            ImageLabelControl imgControl = new ImageLabelControl(UITheme.covers, "50", flowServersInFloorplan.Width, 30);
+            imgControl.BackColor = Color.Blue;
+            flowServersInFloorplan.Controls.Add(imgControl);
 
         }
 
+        private void btnDoAThing_Click(object sender, EventArgs e)
+        {
+            //foreach (Control c in pnlFloorPlan.Controls)
+            //{
+            //    if (c is SectionLine sectionline)
+            //    {
+            //        sectionline.BringToFront();
+            //        sectionline.LineThickness = 15;
+            //        sectionline.Invalidate();
+            //    }
+            //}
+            //sectionLineManager.RemoveAllLines(pnlFloorPlan);
+            sectionLineManager.AddTopLines(pnlFloorPlan);
+        }
+        //
+        //
+        //***************************************************
+        //
+        //
+        //Methods to Remove
+        private void SelectSection(int sectionNumber)
+        {
+
+            shiftManager.SetSelectedSection(shiftManager.SelectedFloorplan.Sections.Where(s => s.Number == sectionNumber).FirstOrDefault());
+            foreach (Control c in flowSectionSelect.Controls)
+            {
+                if (c is Panel panel)
+                {
+                    if (panel.Tag == shiftManager.SectionSelected)
+                    {
+                        panel.BackColor = shiftManager.SectionSelected.Color;
+                    }
+                    else
+                    {
+                        panel.BackColor = Color.SlateGray;
+                    }
+
+                }
+            }
+            foreach (CheckBox cb in selectedSectionButtons)
+            {
+                if (cb.Tag == shiftManager.SectionSelected)
+                {
+                    cb.Checked = true;
+                }
+                else
+                {
+                    cb.Checked = false;
+                }
+            }
+            FillInTableControlColors();
+
+        }
         private void UpdateServerControlsForFloorplan()
         {
 
@@ -473,13 +968,13 @@ namespace FloorPlanMaker
 
                     flowServersInFloorplan.Controls.Add(serverControl);
                 }
-                foreach(Section section in shiftManager.SelectedFloorplan.Sections)
+                foreach (Section section in shiftManager.SelectedFloorplan.Sections)
                 {
-                    if(section.Server != null)
+                    if (section.Server != null)
                     {
-                        foreach(ServerControl serverControl in flowServersInFloorplan.Controls)
+                        foreach (ServerControl serverControl in flowServersInFloorplan.Controls)
                         {
-                            if(serverControl.Server == section.Server)
+                            if (serverControl.Server == section.Server)
                             {
                                 serverControl.Label.BackColor = section.Color;
 
@@ -538,7 +1033,7 @@ namespace FloorPlanMaker
             };
             timer.Start();
 
-            
+
             flowSectionSelect.Controls.Clear();
 
             coversImageLabel = new ImageLabelControl(UITheme.covers, "0", (flowSectionSelect.Width / 2) - 7, 30);
@@ -546,7 +1041,7 @@ namespace FloorPlanMaker
             flowSectionSelect.Controls.Add(coversImageLabel);
             flowSectionSelect.Controls.Add(salesImageLabel);
 
-            
+
             if (sections.Count == 0)
             {
                 NoServersToDisplay();
@@ -562,7 +1057,7 @@ namespace FloorPlanMaker
             //    //CreateOneSectionPanel(section);
             //    SectionPanelControl sectionPanel = new SectionPanelControl(section, shiftManager.SelectedFloorplan);
             //    sectionPanel.CheckBoxChanged += Rb_CheckedChanged;
-               
+
             //    flowSectionSelect.Controls.Add(sectionPanel);
             //}
             if (flowSectionSelect.Controls.Count > 0)
@@ -603,7 +1098,7 @@ namespace FloorPlanMaker
 
         }
 
-        
+
 
         private void CreateOneSectionPanel(Section section)
         {
@@ -786,21 +1281,6 @@ namespace FloorPlanMaker
 
             }
         }
-        //private void Rb_CheckedChanged(object sender, EventArgs e)
-        //{
-        //    CheckBox rb = sender as CheckBox;
-        //    if (rb != null && rb.Checked)
-        //    {
-        //        Section selectedSection = rb.Tag as Section;
-        //        SelectSection(selectedSection.Number);
-        //        currentFocusedSectionIndex = selectedSection.Number;
-        //        if (sectionControlsManager != null)
-        //        {
-        //            sectionControlsManager.SetSelectedSection(selectedSection);
-        //        }
-
-        //    }
-        //}
         private void RemoveSectionPanel(Section section)
         {
             foreach (Control c in flowSectionSelect.Controls)
@@ -840,238 +1320,6 @@ namespace FloorPlanMaker
                 sectionLabels[section].AverageCoversLabel.Text = Section.FormatAsCurrencyWithoutParentheses(avgDifference);// avgDifference.ToString("C0;\\-C0", CultureInfo.CurrentCulture);
 
             }
-        }
-
-
-        private void rdoSections_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rdoSections.Checked)
-            {
-                pnlNavigationWindow.SendToBack();
-                pnlNavHighlight.Location = new Point(rdoSections.Left, 0);
-                pnlMainContainer.Visible = true;
-                //pnlSideBar.Visible = true;
-                pnlSideContainer.Visible = true;
-
-                flowServersInFloorplan.Visible = true;
-                //lblPanel2Text.Text = areaCreationManager.DiningAreaSelected.Name;
-                //this.shiftManager = new ShiftManager(areaCreationManager.DiningAreaSelected);                
-                foreach (Control control in pnlFloorPlan.Controls)
-                {
-                    if (control is TableControl tableControl)
-                    {
-                        tableControl.Moveable = false;
-
-                    }
-                }
-
-            }
-            else
-            {
-                pnlMainContainer.Visible = false;
-                //pnlSideBar.Visible = false;
-                pnlSideContainer.Visible = false;
-            }
-        }
-        private void rdoShifts_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rdoShifts.Checked)
-            {
-                pnlNavHighlight.Location = new Point(rdoShifts.Left, 0);
-                if (_frmEditStaff == null)
-                {
-                    _frmEditStaff = new frmEditStaff(employeeManager, shiftManager, this) { TopLevel = false, AutoScroll = true };
-                }
-                pnlNavigationWindow.Controls.Add(_frmEditStaff);
-
-                _frmEditStaff.Show();
-                pnlNavigationWindow.BringToFront();
-
-            }
-            else
-            {
-                if (_frmEditStaff != null)
-                {
-                    _frmEditStaff.Hide();
-                }
-            }
-
-
-        }
-        private void rdoDiningAreas_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rdoDiningAreas.Checked)
-            {
-                pnlNavHighlight.Location = new Point(rdoDiningAreas.Left, 0);
-                if (_frmEditDiningAreas == null)
-                {
-                    _frmEditDiningAreas = new frmEditDiningAreas { TopLevel = false, AutoScroll = true };
-                }
-                pnlNavigationWindow.Controls.Add(_frmEditDiningAreas);
-
-                _frmEditDiningAreas.Show();
-                pnlNavigationWindow.BringToFront();
-
-            }
-            else
-            {
-                if (_frmEditDiningAreas != null)
-                {
-                    _frmEditDiningAreas.Hide();
-                }
-            }
-        }
-
-        private void btnAddSectionLabels_Click(object sender, EventArgs e)
-        {
-            floorplanManager.SetSectionLabels();
-            floorplanManager.AddSectionLabels(pnlFloorPlan);
-            //sectionControlsManager = new SectionControlsManager(shiftManager.SelectedFloorplan);
-            //foreach (SectionLabelControl sectionControl in sectionControlsManager.SectionControls)
-            //{
-            //    pnlFloorPlan.Controls.Add(sectionControl);
-            //    sectionControl.BringToFront();
-            //}
-            //rdoViewServerFlow.Checked = true;
-
-        }
-
-        private void btnSaveFloorplanTemplate_Click(object sender, EventArgs e)
-        {
-            //var drawnLines = drawingHandler.GetDrawnLines();
-            //FloorplanTemplate template = new FloorplanTemplate(shiftManager.SelectedDiningArea, txtTemplateName.Text,
-            //     shiftManager.Sections, drawnLines);
-
-            //template.SectionLines.Clear();
-            //template.SectionLines.AddRange(drawnLines);
-
-            //drawingHandler.ClearLines();
-            //SqliteDataAccess.SaveFloorplanTemplate(template);
-
-
-        }
-
-        private void btnPrint_Click(object sender, EventArgs e)
-        {
-            bool pickUpAdded = false;
-            Section pickUpSection = new Section();
-            pickUpSection.IsPickUp = true;
-            //shiftManager.SelectedFloorplan = shiftManager.ViewedFloorplan;
-            shiftManager.SelectedFloorplan.Date = dateTimeSelected;
-            shiftManager.SelectedFloorplan.IsLunch = cbIsAM.Checked;
-            foreach (Control control in pnlFloorPlan.Controls)
-            {
-                if (control is TableControl tableControl)
-                {
-                    if (tableControl.Section == null)
-                    {
-                        pickUpSection.DiningAreaID = shiftManager.SelectedFloorplan.DiningArea.ID;
-                        pickUpSection.Name = "Pick Up";
-                        shiftManager.SelectedFloorplan.Sections.Add(pickUpSection);
-                        pickUpAdded = true;
-                    }
-                    break;
-                }
-
-            }
-            foreach (Control control in pnlFloorPlan.Controls)
-            {
-                if (control is TableControl tableControl)
-                {
-                    if (tableControl.Section == null)
-                    {
-                        tableControl.SetSection(pickUpSection);
-
-                        pickUpSection.AddTable(tableControl.Table);
-
-                        tableControl.BackColor = pickUpSection.Color;
-
-                        // Optionally, you can invalidate the control to request a redraw if needed.
-                        tableControl.Invalidate();
-
-                    }
-                }
-
-            }
-            if (pickUpAdded)
-            {
-                UpdateSectionLabels(shiftManager.SectionSelected, shiftManager.SectionSelected.MaxCovers, shiftManager.SectionSelected.AverageCovers);
-                CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
-                SectionLabelControl sectionControl = new SectionLabelControl(pickUpSection, shiftManager.SelectedFloorplan.ServersWithoutSection);
-                pnlFloorPlan.Controls.Add(sectionControl);
-                sectionControl.BringToFront();
-            }
-            if (shiftManager.SelectedFloorplan.CheckIfAllSectionsAssigned())
-            {
-                if (!shiftManager.SelectedFloorplan.CheckIfCloserIsAssigned())
-                {
-                    DialogResult result = MessageBox.Show("There is not a closer assigned",
-                                                "Continue?",
-                                                MessageBoxButtons.YesNo,
-                                                MessageBoxIcon.Question);
-
-                    if (result == DialogResult.No)
-                    {
-
-                        return;
-                    }
-
-                }
-                SqliteDataAccess.SaveFloorplanAndSections(shiftManager.SelectedFloorplan);
-                FloorplanPrinter printer = new FloorplanPrinter(pnlFloorPlan, sectionLineManager.SectionLines);
-                printer.ShowPrintPreview();
-                //printer.Print();
-
-
-            }
-            else
-            {
-                MessageBox.Show("Not all sections are assigned");
-            }
-
-        }
-
-        private void btnChooseTemplate_Click(object sender, EventArgs e)
-        {
-            frmTemplateSelection form = new frmTemplateSelection(shiftManager);
-
-            form.StartPosition = FormStartPosition.CenterScreen;
-            ;
-            form.BringToFront();
-
-            form.ShowDialog();
-            if (form.DialogResult == DialogResult.OK)
-            {
-                UpdateTableControlSections();
-            }
-            if (DialogResult == DialogResult.Cancel)
-            {
-
-            }
-
-        }
-        private void UpdateTableControlSections()
-        {
-            //ClearAllSectionControls();
-            if (shiftManager.SelectedFloorplan == null)
-            {
-                flowSectionSelect.Controls.Clear();
-                flowServersInFloorplan.Controls.Clear();
-                ClearAllTableControlSections();
-                NoServersToDisplay();
-                return;
-            }
-            else
-            {
-                FillInTableControlColors();
-                //sectionControlsManager = new SectionControlsManager(shiftManager.SelectedFloorplan);
-                //foreach (SectionLabelControl sectionControl in sectionControlsManager.SectionControls)
-                //{
-                //    pnlFloorPlan.Controls.Add(sectionControl);
-                //    sectionControl.BringToFront();
-                //}
-            }
-
         }
         private void FillInTableControlColors()
         {
@@ -1114,107 +1362,6 @@ namespace FloorPlanMaker
             shiftManager.SelectedFloorplan.Sections.Add(pickUpSection);
             CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
         }
-
-        private void dtpFloorplan_ValueChanged(object sender, EventArgs e)
-        {
-
-            SetViewedFloorplan();
-            this.sectionLineManager = new SectionLineManager(allTableControls);
-
-
-
-        }
-        private void SetViewedFloorplan()
-        {
-            NoServersToDisplay();
-          
-            if (shiftManager.ContainsFloorplan(dateOnlySelected, cbIsAM.Checked, shiftManager.SelectedDiningArea.ID))
-            {
-                shiftManager.SetSelectedFloorplan(dateOnlySelected, cbIsAM.Checked, shiftManager.SelectedDiningArea.ID);
-
-            }
-            else
-            {
-
-                shiftManager.SelectedFloorplan = SqliteDataAccess.LoadFloorplanByCriteria(shiftManager.SelectedDiningArea, dateOnlySelected, cbIsAM.Checked);
-            }
-
-
-            if (shiftManager.SelectedFloorplan != null)
-            {
-                floorplanManager.AddTableControls(pnlFloorPlan);
-                floorplanManager.SetSectionLabels();
-                floorplanManager.SetSectionPanels();
-
-               
-                floorplanManager.AddSectionLabels(pnlFloorPlan);
-
-                //CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
-                //floorplanManager.SetTableControls();
-                floorplanManager.SetSectionLabels();
-                floorplanManager.SetSectionPanels();
-                floorplanManager.SetServerControls();
-                floorplanManager.UpdateTableControlSections(pnlFloorPlan);
-                flowSectionSelect.Controls.Clear();
-                flowServersInFloorplan.Controls.Clear();
-                floorplanManager.AddServerControls(flowServersInFloorplan);
-                floorplanManager.AddSectionPanels(flowSectionSelect);
-                floorplanManager.AddSectionLabels(pnlFloorPlan);
-                //UpdateServerControlsForFloorplan();
-                coversImageLabel.UpdateText(shiftManager.SelectedFloorplan.MaxCoversPerServer.ToString("F0"));
-                salesImageLabel.UpdateText(shiftManager.SelectedFloorplan.AvgSalesPerServer.ToString("C0"));
-            }
-            //floorplanManager.ShiftManager = shiftManager;
-            //floorplanManager.SectionLabelRemoved += FloorplanManager_SectionLabelRemoved;
-            
-           
-            
-            
-            //allTableControls = floorplanManager.TableControls;
-            UpdateTableControlSections();
-        }
-        private void NoServersToDisplay()
-        {
-            coversImageLabel.UpdateText(shiftManager.SelectedDiningArea.GetMaxCovers().ToString("F0"));
-            salesImageLabel.UpdateText(shiftManager.SelectedDiningArea.GetAverageCovers().ToString("C0"));
-
-            PictureBox noSections = new PictureBox
-            {
-                Image = Resources._no_data_Lighter,
-                SizeMode = PictureBoxSizeMode.Zoom,
-                Size = new System.Drawing.Size(flowSectionSelect.Width - 50, flowSectionSelect.Height - 300),
-                Margin = new Padding(35, 0, 0, 0)
-
-            };
-            PictureBox noServers = new PictureBox
-            {
-                Image = Resources._no_data_Lighter,
-                SizeMode = PictureBoxSizeMode.Zoom,
-                Size = new System.Drawing.Size(flowServersInFloorplan.Width - 50, flowServersInFloorplan.Height - 300),
-                Margin = new Padding(35, 0, 0, 0)
-
-
-            };
-            noSections.BringToFront();
-            noServers.BringToFront();
-            flowSectionSelect.Controls.Add(noSections);
-            flowServersInFloorplan.Controls.Add(noServers);
-        }
-        private void ClearAllSectionControls()
-        {
-            List<Control> controlsToRemove = new List<Control>();
-            foreach (Control c in pnlFloorPlan.Controls)
-            {
-                if (c is SectionLabelControl sectionControl)
-                {
-                    controlsToRemove.Add(sectionControl);
-                }
-            }
-            foreach (Control c in controlsToRemove)
-            {
-                pnlFloorPlan.Controls.Remove(c);
-            }
-        }
         private void ClearAllTableControlSections()
         {
             foreach (TableControl tableControl in allTableControls)
@@ -1236,267 +1383,21 @@ namespace FloorPlanMaker
             }
 
         }
-
-        private void btnTest_Click(object sender, EventArgs e)
+        private void ClearAllSectionControls()
         {
-            //nudServerCount.Value = 4;
-
-            //UpdateFloorplan();
-            //SectionLine sectionLine = new SectionLine(0,0,300,300, 5f);
-            //sectionLine.StartPoint = new System.Drawing.Point(0, 0);
-            //sectionLine.EndPoint = new System.Drawing.Point(300, 300);
-            //sectionLine.LineThickness = 5f;
-            //pnlFloorPlan.Controls.Add(sectionLine);
-            //SqliteDataAccess.UpdateAllFloorplanDates();
-
-            //foreach(Section section in shiftManager.ViewedFloorplan.Sections)
-            //{
-            //    var edges = section.GetConvexHullEdges();
-
-            //    foreach (var edge in edges)
-            //    {
-            //        var sectionLine = new SectionLine
-            //        {
-            //            StartPoint = new System.Drawing.Point((int)edge.Item1.X, (int)edge.Item1.Y),
-            //            EndPoint = new System.Drawing.Point((int)edge.Item2.X, (int)edge.Item2.Y)
-            //        };
-            //        pnlFloorPlan.Controls.Add(sectionLine);
-            //    }
-            //}
-            //allTableControls.Sort((a, b) => a.Top.CompareTo(b.Top));
-
-            //// 3. Determine midpoints and 4. Draw borders.
-            //for (int i = 0; i < allTableControls.Count - 1; i++)
-            //{
-            //    TableControl currentTable = allTableControls[i];
-            //    TableControl nextTable = allTableControls[i + 1];
-
-            //    if(currentTable.Section != nextTable.Section)
-            //    {
-            //        int midpoint = currentTable.Bottom + (nextTable.Top - currentTable.Bottom) / 2;
-
-
-            //        pnlFloorPlan.CreateGraphics().DrawLine(Pens.Black, currentTable.Table.XCoordinate, midpoint, currentTable.Table.XCoordinate - currentTable.Width, midpoint);
-            //    }
-
-            //}
-
-            //this.sectionLineManager = new SectionLineManager(allTableControls);
-            //sectionLineManager.AddTopLines(pnlFloorPlan);
-            //sectionLineManager.AddRightLines(pnlFloorPlan);
-            //sectionLineManager.AddRightBorders(pnlFloorPlan);
-            //sectionLineManager.AddBottomLines(pnlFloorPlan);
-            //sectionLineManager.DrawSectionLines(pnlFloorPlan);
-
-            //sectionLineManager.MakeTopLines(pnlFloorPlan);
-            //sectionLineManager.MakeSectionTableOutlines();
-            //foreach(SectionLine sectionLine in sectionLineManager.SectionLines)
-            //{
-            //    pnlFloorPlan.Controls.Add(sectionLine);
-            //}
-            //sectionLineManager.RemoveBottomLines(pnlFloorPlan);
-            //sectionLineManager.RemoveRightLines(pnlFloorPlan);
-            //sectionLineManager.DrawSeparationLines(pnlFloorPlan);
-
-
-            //sectionLineManager.AddSectionNodes(pnlFloorPlan);
-            flowServersInFloorplan.Controls.Clear();
-            FloorplanInfoControl fpInfo = new FloorplanInfoControl(shiftManager.SelectedFloorplan, flowServersInFloorplan.Width);
-            fpInfo.UpdatePastLabels(8, 4);
-            flowServersInFloorplan.Controls.Add(fpInfo);
-
-        }
-        private void btnTest2_Click(object sender, EventArgs e)
-        {
-            ////pnlFloorPlan.Controls.Clear();
-            ////SectionLine sectionLine = new SectionLine(100,100,500,100,5f);
-            ////pnlFloorPlan.Controls.Add(sectionLine);
-            ////Section section = new Section();
-            ////section.Number = 1;
-            ////foreach (TableControl c in allTableControls)
-            ////{
-            ////    c.Section = section;
-            ////    c.BackColor = section.Color;
-            ////    section.Tables.Add(c.Table);
-            ////}
-            ////shiftManager.SectionSelected = section;
-            ////sectionLineManager.RemoveAllLines(pnlFloorPlan);
-            ////sectionLineManager.UpdateSectionLinePositions(pnlFloorPlan);
-            ////sectionLineManager.AddParallelLines(pnlFloorPlan);
-
-            //foreach (Section section in shiftManager.SelectedFloorplan.Sections)
-            //{
-            //    SectionNodeManager nodeManager = new SectionNodeManager(section);
-            //    Node tlNode = nodeManager.GetTopLeftNode();
-            //    Node trNode = nodeManager.GetTopRightNode();
-            //    Node brNode = nodeManager.GetBottomRightNode();
-            //    SectionLine sectionLine = new SectionLine(tlNode, trNode);
-            //    SectionLine sectionLine1 = new SectionLine(trNode, brNode);
-            //    pnlFloorPlan.Controls.Add(sectionLine);
-            //    pnlFloorPlan.Controls.Add(sectionLine1);
-
-            //}
-            flowServersInFloorplan.Controls.Clear();
-            ImageLabelControl imgControl = new ImageLabelControl(UITheme.covers, "50", flowServersInFloorplan.Width, 30);
-            imgControl.BackColor = Color.Blue;
-            flowServersInFloorplan.Controls.Add(imgControl);
-
-        }
-
-        private void btnDoAThing_Click(object sender, EventArgs e)
-        {
-            //foreach (Control c in pnlFloorPlan.Controls)
-            //{
-            //    if (c is SectionLine sectionline)
-            //    {
-            //        sectionline.BringToFront();
-            //        sectionline.LineThickness = 15;
-            //        sectionline.Invalidate();
-            //    }
-            //}
-            //sectionLineManager.RemoveAllLines(pnlFloorPlan);
-            sectionLineManager.AddTopLines(pnlFloorPlan);
-
-        }
-
-        private void btnDayBefore_Click(object sender, EventArgs e)
-        {
-           
-            UpdateDateLabel(-1);
-        }
-
-        private void btnNextDay_Click(object sender, EventArgs e)
-        {
-           
-           
-            UpdateDateLabel(1);
-        }
-
-        private void btnCloseApp_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void cbTableDisplayMode_CheckedChanged(object sender, EventArgs e)
-        {
-            if (cbTableDisplayMode.Checked)
+            List<Control> controlsToRemove = new List<Control>();
+            foreach (Control c in pnlFloorPlan.Controls)
             {
-                foreach (Control c in pnlFloorPlan.Controls)
+                if (c is SectionLabelControl sectionControl)
                 {
-                    if (c is TableControl tableControl)
-                    {
-                        tableControl.CurrentDisplayMode = DisplayMode.AverageCovers;
-                        tableControl.Invalidate();
-                    }
+                    controlsToRemove.Add(sectionControl);
                 }
             }
-            else
+            foreach (Control c in controlsToRemove)
             {
-                foreach (Control c in pnlFloorPlan.Controls)
-                {
-                    if (c is TableControl tableControl)
-                    {
-                        tableControl.CurrentDisplayMode = DisplayMode.TableNumber;
-                        tableControl.Invalidate();
-                    }
-                }
+                pnlFloorPlan.Controls.Remove(c);
             }
         }
-
-        private void panel3_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void flowServersInFloorplan_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void rdoViewSectionFlow_CheckedChanged(object sender, EventArgs e)
-        {
-
-            if (rdoViewSectionFlow.Checked)
-            {
-                flowSectionSelect.Visible = true;
-                flowServersInFloorplan.Visible = false;
-                rdoViewSectionFlow.Image = Resources.lilCanvasBook;
-                //rdoViewServerFlow.Image = Resources.lilPeople;
-            }
-            else
-            {
-                flowSectionSelect.Visible = false;
-                flowServersInFloorplan.Visible = true;
-                rdoViewSectionFlow.Image = Resources.lilBook;
-                //rdoViewServerFlow.Image = Resources.lilPeopleCanvas;
-
-            }
-        }
-
-        private void rdoViewServerFlow_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rdoViewServerFlow.Checked)
-            {
-                flowSectionSelect.Visible = false;
-                flowServersInFloorplan.Visible = true;
-                rdoViewSectionFlow.Image = Resources.lilBook;
-                //rdoViewServerFlow.Image = Resources.lilPeopleCanvas;
-            }
-            else
-            {
-                flowSectionSelect.Visible = true;
-                flowServersInFloorplan.Visible = false;
-                rdoViewSectionFlow.Image = Resources.lilCanvasBook;
-                //rdoViewServerFlow.Image = Resources.lilPeople;
-
-
-            }
-        }
-
-        private void cbIsAM_CheckedChanged(object sender, EventArgs e)
-        {
-            if (cbIsAM.Checked)
-            {
-                cbIsAM.Image = Resources.smallSunrise;
-                cbIsAM.BackColor = Color.FromArgb(251, 175, 0);
-            }
-            else
-            {
-                cbIsAM.Image = Resources.smallMoon;
-                cbIsAM.BackColor = Color.FromArgb(117, 70, 104);
-
-            }
-        }
-
-        private void btnSaveTemplate_Popup(object sender, PopupEventArgs e)
-        {
-
-        }
-
-        private void pnlFloorPlan_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblDateSelected_Click(object sender, EventArgs e)
-        {
-            using (frmDateSelect selectDateForm = new frmDateSelect(dateTimeSelected))
-            {
-                selectDateForm.StartPosition = FormStartPosition.Manual;
-                Point formLocation = this.PointToScreen(lblDateSelected.Location);
-                formLocation.Y += lblDateSelected.Height + 50;
-                formLocation.X += 465;
-
-
-                // Set the location of selectDateForm
-                selectDateForm.Location = formLocation;
-                DialogResult = selectDateForm.ShowDialog();
-                if (DialogResult == DialogResult.OK)
-                {
-                    this.dateTimeSelected = selectDateForm.dateSelected;
-                    UpdateDateLabel(0);
-                }
-            }
-        }
+        //Methods to remove end
     }
 }

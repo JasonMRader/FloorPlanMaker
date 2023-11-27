@@ -91,7 +91,7 @@ namespace FloorPlanMaker
             flowServersInFloorplan.Size = new Size(335, 865);
             flowServersInFloorplan.TabIndex = 2;
             flowServersInFloorplan.Visible = false;
-            flowServersInFloorplan.Paint += flowServersInFloorplan_Paint;
+            
             // 
             // picBxSales
             // 
@@ -281,7 +281,7 @@ namespace FloorPlanMaker
             pnlFloorPlan.Name = "pnlFloorPlan";
             pnlFloorPlan.Size = new Size(672, 877);
             pnlFloorPlan.TabIndex = 2;
-            pnlFloorPlan.Click += pnlFloorPlan_Click;
+            
             // 
             // cboDiningAreas
             // 
@@ -437,7 +437,7 @@ namespace FloorPlanMaker
             pnlFloorplanContainer.Name = "pnlFloorplanContainer";
             pnlFloorplanContainer.Size = new Size(684, 921);
             pnlFloorplanContainer.TabIndex = 19;
-            pnlFloorplanContainer.Paint += panel3_Paint;
+            
             // 
             // lblDateSelected
             // 
@@ -540,7 +540,7 @@ namespace FloorPlanMaker
             toolTip1.AutoPopDelay = 2500;
             toolTip1.InitialDelay = 500;
             toolTip1.ReshowDelay = 100;
-            toolTip1.Popup += btnSaveTemplate_Popup;
+            
             // 
             // pictureBox1
             // 
