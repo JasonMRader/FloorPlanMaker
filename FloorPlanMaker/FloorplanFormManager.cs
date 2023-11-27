@@ -344,7 +344,8 @@ namespace FloorPlanMakerUI
             {
                 if(ctrl is TableControl tableControl)
                 {
-                    tableControl.BackColor = Color.Black; tableControl.ForeColor = Color.Black;
+                    tableControl.BackColor = Color.Black; 
+                    tableControl.ForeColor = Color.Black;
                 }
             }
             
@@ -432,6 +433,47 @@ namespace FloorPlanMakerUI
         public void UpdateSection(Section section)
         {
            //UpdateServerControls();
+        }
+        public void SetViewedFloorplan(DateOnly dateOnlySelected, bool isAM,
+            Panel pnlFloorPlan, FlowLayoutPanel flowServersInFloorplan, FlowLayoutPanel flowSectionSelect)
+        {
+            //NoServersToDisplay();
+
+            if (ShiftManager.ContainsFloorplan(dateOnlySelected, isAM, ShiftManager.SelectedDiningArea.ID))
+            {
+                ShiftManager.SetSelectedFloorplan(dateOnlySelected, isAM, ShiftManager.SelectedDiningArea.ID);
+            }
+            else
+            {
+                ShiftManager.SelectedFloorplan = SqliteDataAccess.LoadFloorplanByCriteria(ShiftManager.SelectedDiningArea, dateOnlySelected, isAM);
+            }
+
+            if (ShiftManager.SelectedFloorplan != null)
+            {
+                AddTableControls(pnlFloorPlan);
+                SetSectionLabels();
+                SetSectionPanels();
+                AddSectionLabels(pnlFloorPlan);
+
+                //CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
+                //floorplanManager.SetTableControls();
+                SetSectionLabels();
+                SetSectionPanels();
+                SetServerControls();
+                UpdateTableControlColors();
+                flowSectionSelect.Controls.Clear();
+                flowServersInFloorplan.Controls.Clear();
+                AddServerControls(flowServersInFloorplan);
+                AddSectionPanels(flowSectionSelect);
+                AddSectionLabels(pnlFloorPlan);
+                //UpdateServerControlsForFloorplan();
+                //coversImageLabel.UpdateText(shiftManager.SelectedFloorplan.MaxCoversPerServer.ToString("F0"));
+                //salesImageLabel.UpdateText(shiftManager.SelectedFloorplan.AvgSalesPerServer.ToString("C0"));
+            }
+            //floorplanManager.ShiftManager = shiftManager;
+            //floorplanManager.SectionLabelRemoved += FloorplanManager_SectionLabelRemoved;            
+            //allTableControls = floorplanManager.TableControls;
+            //UpdateTableControlSections();
         }
     }
 }
