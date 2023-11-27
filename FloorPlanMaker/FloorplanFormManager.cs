@@ -143,12 +143,11 @@ namespace FloorPlanMakerUI
             ServerControl serverControl = (ServerControl)sender;
             Server server = serverControl.Server;
             if (ShiftManager.SelectedFloorplan.SectionSelected == null) { return; }   
-            if (ShiftManager.SelectedFloorplan.SectionSelected.Server == null)
-            {
-                ShiftManager.SelectedFloorplan.SectionSelected.AddServer(server);
-                UpdateServerControls();
+            
+            ShiftManager.SelectedFloorplan.SectionSelected.AddServer(server);
+            UpdateServerControls();
 
-            }
+            
            
             //foreach (SectionLabelControl sc in sectionControlsManager.SectionControls)
             //{

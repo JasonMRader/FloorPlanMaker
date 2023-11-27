@@ -15,6 +15,8 @@
         //{
         //    Section = null;
         //}
+        public Section CurrentSection { get; set; }
+
         public List<Shift> Shifts
         {
             get
