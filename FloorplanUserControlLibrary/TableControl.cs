@@ -27,7 +27,7 @@ namespace FloorPlanMaker
             get => _section;
             
         }
-        public void Update(Section section)
+        public void UpdateSection(Section section)
         {
            
             if (section.Tables.Contains(Table))
@@ -50,7 +50,7 @@ namespace FloorPlanMaker
         {
             section.SubscribeObserver(this);
             this._section = section;
-            Update(section);
+            UpdateSection(section);
            
         }
         public void RemoveSection()

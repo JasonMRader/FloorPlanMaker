@@ -65,7 +65,7 @@ namespace FloorPlanMaker
                         {
                             if (tableControl.Table.TableNumber == table.TableNumber)
                             {
-                                tableControl.Update(section);
+                                tableControl.UpdateSection(section);
                                 tableControl.BackColor = section.Color;
                                 tableControl.Invalidate();
                                 break; // Once found, no need to check other tables in this section

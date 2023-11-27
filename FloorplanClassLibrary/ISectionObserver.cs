@@ -8,7 +8,7 @@ namespace FloorplanClassLibrary
 {
     public interface ISectionObserver
     {
-        void Update(Section section);
+        void UpdateSection(Section section);
        
     }
 }

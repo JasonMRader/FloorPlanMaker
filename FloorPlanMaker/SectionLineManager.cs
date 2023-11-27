@@ -106,7 +106,7 @@ namespace FloorPlanMakerUI
                         else if (nextTopLine.StartPoint.Y > currentTopLine.EndPoint.Y)
                         {
                             current.RightLine.BackColor = section.Color;
-                            current.Update(section);
+                            current.UpdateSection(section);
                             SectionLines.Add(current.RightLine);  // Using the RightLine of the current table up to next table's top
                             SectionLines.Last().Edge = SectionLine.BorderEdge.Right;
                             
@@ -1396,7 +1396,7 @@ namespace FloorPlanMakerUI
                         else if (nextRightLine.StartPoint.X < currentRightLine.EndPoint.X)
                         {
                             current.BottomLine.BackColor = section.Color;
-                            current.Update(section);
+                            current.UpdateSection(section);
                             SectionLines.Add(current.BottomLine);  // Using the BottomLine of the current table up to next table's right
 
                             // Modify the current BottomLine's endpoint to stop at the next table's right

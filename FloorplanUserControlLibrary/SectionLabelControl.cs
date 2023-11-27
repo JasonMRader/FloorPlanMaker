@@ -89,7 +89,7 @@ namespace FloorplanClassLibrary
             this.BringToFront();
             
         }
-        public void Update(Section section)
+        public void UpdateSection(Section section)
         {
             // Update the control based on the new state of the section
             UpdateLabel();

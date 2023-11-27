@@ -77,13 +77,13 @@ namespace FloorPlanMaker
         private void OnServerAssignedToSection(Section section)
         {
             this.Section = section;
-            this.Update(section);
+            this.UpdateSection(section);
         }
         public FlowLayoutPanel ShiftsDisplay { get; set; }
         public Label Label { get; set; }
         public Section? Section { get; set; }
         public Button RemoveButton { get; set; }
-        public void Update(Section section)
+        public void UpdateSection(Section section)
         {
             this.Section = section;
             this.Label.BackColor = section.Color;

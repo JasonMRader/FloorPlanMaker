@@ -38,7 +38,7 @@ namespace FloorplanUserControlLibrary
         }
         public Section Section { get; set; }
         //public Floorplan Floorplan { get; set; }
-        public void Update(Section section)
+        public void UpdateSection(Section section)
         {
             UpdateLabels();
             if(section.IsSelected)

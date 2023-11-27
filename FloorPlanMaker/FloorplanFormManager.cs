@@ -146,8 +146,10 @@ namespace FloorPlanMakerUI
             if (ShiftManager.SelectedFloorplan.SectionSelected.Server == null)
             {
                 ShiftManager.SelectedFloorplan.SectionSelected.AddServer(server);
+                UpdateServerControls();
 
             }
+           
             //foreach (SectionLabelControl sc in sectionControlsManager.SectionControls)
             //{
             //    if (sc.Section == shiftManager.SectionSelected)
@@ -413,7 +415,7 @@ namespace FloorPlanMakerUI
             }
         }
 
-        public void Update(Section section)
+        public void UpdateSection(Section section)
         {
            //UpdateServerControls();
         }

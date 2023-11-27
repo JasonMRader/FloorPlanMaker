@@ -128,7 +128,7 @@ namespace FloorplanClassLibrary
             var observersSnapshot = observers.ToList();
             foreach (var observer in observersSnapshot)
             {
-                observer.Update(this);
+                observer.UpdateSection(this);
             }
         }
 
