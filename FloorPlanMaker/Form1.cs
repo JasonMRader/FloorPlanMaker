@@ -259,27 +259,50 @@ namespace FloorPlanMaker
                 }
             }
         }
+        //private void pnlFloorplan_MouseUp(object sender, MouseEventArgs e)
+        //{
+        //    if (!rdoDiningAreas.Checked)
+        //    {
+        //        if (isDragging)
+        //        {
+        //            isDragging = false;
+
+        //            // Define the drag rectangle based on the start and end points
+        //            dragRectangle = new Rectangle(
+        //                Math.Min(dragStartPoint.X, e.X),
+        //                Math.Min(dragStartPoint.Y, e.Y),
+        //                Math.Abs(dragStartPoint.X - e.X),
+        //                Math.Abs(dragStartPoint.Y - e.Y)
+        //            );
+
+        //            SelectTablesInDragRectangle();
+        //            pnlFloorPlan.Invalidate();
+        //        }
+        //    }
+        //}
         private void pnlFloorplan_MouseUp(object sender, MouseEventArgs e)
         {
-            if (!rdoDiningAreas.Checked)
+            if (isDragging)
             {
-                if (isDragging)
-                {
-                    isDragging = false;
+                isDragging = false;
+                dragRectangle = new Rectangle(
+                    Math.Min(dragStartPoint.X, e.X),
+                    Math.Min(dragStartPoint.Y, e.Y),
+                    Math.Abs(dragStartPoint.X - e.X),
+                    Math.Abs(dragStartPoint.Y - e.Y));
 
-                    // Define the drag rectangle based on the start and end points
-                    dragRectangle = new Rectangle(
-                        Math.Min(dragStartPoint.X, e.X),
-                        Math.Min(dragStartPoint.Y, e.Y),
-                        Math.Abs(dragStartPoint.X - e.X),
-                        Math.Abs(dragStartPoint.Y - e.Y)
-                    );
+                
 
-                    SelectTablesInDragRectangle();
-                    pnlFloorPlan.Invalidate();
-                }
+                var selectedTables = floorplanManager.TableControls
+                    .Where(tc => dragRectangle.IntersectsWith(new Rectangle(tc.Location, tc.Size)))
+                    .ToList();
+               
+                floorplanManager.SelectTables(selectedTables);
+
+                pnlFloorPlan.Invalidate();
             }
         }
+
         private void pnlFloorplan_MouseMove(object sender, MouseEventArgs e)
         {
             if (!rdoDiningAreas.Checked)

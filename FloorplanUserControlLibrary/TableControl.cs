@@ -252,6 +252,10 @@ namespace FloorPlanMaker
             }
 
         }
+        public void SimulateTableClick(MouseButtons button)
+        {
+            OnTableClicked(button);
+        }
         public int SectionLineBuffer { get; set; } = 5;
         //public float SectionLineThickness { get; set; } = 15f;
         public SectionLine TopLine 

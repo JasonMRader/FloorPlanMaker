@@ -394,6 +394,16 @@ namespace FloorPlanMakerUI
             
 
         }
+        public void SelectTables(List<TableControl> selectedTables)
+        {
+
+            foreach (var tableControl in selectedTables)
+            {
+                TableClickedEventArgs args = new TableClickedEventArgs(tableControl.Table, false);
+                TableControl_TableClicked(tableControl, args);
+            }
+        }
+
         public void UpdateServerControls()
         {
             if (ShiftManager.SelectedFloorplan == null) return;
