@@ -31,7 +31,7 @@ namespace FloorplanClassLibrary
         public SectionLabelControl(Section section, List<Server> unassignedServers)
         {
             this.Section = section;
-            this.Section.RegisterObserver(this);
+            this.Section.SubscribeObserver(this);
             this.unassignedServers = unassignedServers;
             closerPanel = new FlowLayoutPanel { Dock = DockStyle.Top, Height = 0 };
             closerPanel.AutoSize = true;

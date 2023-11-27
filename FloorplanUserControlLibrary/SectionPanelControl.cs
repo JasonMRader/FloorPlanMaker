@@ -29,7 +29,7 @@ namespace FloorplanUserControlLibrary
         {
             InitializeComponent();
             this.Section = section;
-            this.Section.RegisterObserver(this);
+            this.Section.SubscribeObserver(this);
             this.BackColor = Section.Color;
             this.ForeColor = Section.FontColor;
             this.floorplan = floorplan;

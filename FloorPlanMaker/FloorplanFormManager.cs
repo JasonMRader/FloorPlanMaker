@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace FloorPlanMakerUI
 {
-   public class FloorplanFormManager
+   public class FloorplanFormManager : ISectionObserver
     {
         public Floorplan? Floorplan
         {
@@ -386,6 +386,11 @@ namespace FloorPlanMakerUI
 
             
 
+        }
+
+        public void Update(Section section)
+        {
+           
         }
     }
 }

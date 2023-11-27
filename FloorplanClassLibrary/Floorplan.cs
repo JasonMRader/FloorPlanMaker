@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using static System.Collections.Specialized.BitVector32;
 
 namespace FloorplanClassLibrary
 {
@@ -18,7 +19,7 @@ namespace FloorplanClassLibrary
             this.SectionCount = sectionCount;
             this.SectionServerMap = new Dictionary<Section, Server>();
             CreateSections();
-            MoveToNextSection();
+            //MoveToNextSection();
             foreach (var section in Sections)
             {
                 section.SubscribeObserver(this);
@@ -31,7 +32,7 @@ namespace FloorplanClassLibrary
             this.ServerCount = template.ServerCount;
             SectionServerMap = new Dictionary<Section, Server>();
             CopyTemplateSections(template.Sections);
-            MoveToNextSection();
+            //MoveToNextSection();
             foreach (var section in Sections)
             {
                 section.SubscribeObserver(this);
@@ -40,7 +41,7 @@ namespace FloorplanClassLibrary
         public Floorplan() 
         {
             SectionServerMap = new Dictionary<Section, Server>();
-            MoveToNextSection();
+            //MoveToNextSection();
             foreach (var section in Sections)
             {
                 section.SubscribeObserver(this);
@@ -59,7 +60,7 @@ namespace FloorplanClassLibrary
             get 
             {
                 if (this.Sections.Count == 0) return null;
-                else return this.Sections[0];
+                else return this.Sections[currentFocusedSectionIndex];
             }
 
         }
@@ -70,12 +71,13 @@ namespace FloorplanClassLibrary
             {
                 if (selectedSection == section)
                 {
-                    this._sectionSelected = section;
-                    section.IsSelected = true;
+                    _sectionSelected = selectedSection;
+                    currentFocusedSectionIndex = this.Sections.IndexOf(selectedSection);
+                    HighlightSelectedSection();
                 }
                 else
                 {
-                    section.IsSelected = false;
+                    section.NotSelected();
                 }
             }
 
@@ -103,26 +105,44 @@ namespace FloorplanClassLibrary
         }
         public void MoveToNextSection()
         {
-            if(this.Sections == null) { return; }
-            if(this.Sections.Count == 0) {  return; }
-           
-            var sections = this.Sections;
 
-            if (currentFocusedSectionIndex == 0)
+            if (this.Sections == null || this.Sections.Count == 0) return;
+
+            // Increment the index and wrap around if needed
+            currentFocusedSectionIndex = (currentFocusedSectionIndex + 1) % this.Sections.Count;
+
+            // Directly set the selected section using the index
+            _sectionSelected = this.Sections[currentFocusedSectionIndex];
+            HighlightSelectedSection();
+            //if (currentFocusedSectionIndex == 0)
+            //{
+            //    // If no section is selected, select the first section
+            //    currentFocusedSectionIndex = sections.First().Number;
+            //}
+            //else
+            //{
+            //    // Find the next section
+            //    var currentSectionIndex = sections.FindIndex(s => s.Number == currentFocusedSectionIndex);
+            //    currentFocusedSectionIndex = sections[(currentSectionIndex + 1) % sections.Count].Number;
+            //}
+            //SetSelectedSection(this.Sections.Where(s => s.Number == currentFocusedSectionIndex).FirstOrDefault());
+
+
+
+        }
+        private void HighlightSelectedSection()
+        {
+            foreach (var section in this.Sections)
             {
-                // If no section is selected, select the first section
-                currentFocusedSectionIndex = sections.First().Number;
+                if (section == _sectionSelected)
+                {
+                    section.SetToSelected();
+                }
+                else
+                {
+                    section.NotSelected();
+                }
             }
-            else
-            {
-                // Find the next section
-                var currentSectionIndex = sections.FindIndex(s => s.Number == currentFocusedSectionIndex);
-                currentFocusedSectionIndex = sections[(currentSectionIndex + 1) % sections.Count].Number;
-            }
-            SetSelectedSection(this.Sections.Where(s => s.Number == currentFocusedSectionIndex).FirstOrDefault());
-
-
-
         }
         public List<Server> Servers
         {

@@ -16,7 +16,7 @@
             if (disposing && (components != null))
             {
                 components.Dispose();
-                Section.RegisterObserver(this);
+                Section.RemoveObserver(this);
             }
             base.Dispose(disposing);
         }

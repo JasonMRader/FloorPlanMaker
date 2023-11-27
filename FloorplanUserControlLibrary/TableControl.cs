@@ -32,7 +32,7 @@ namespace FloorPlanMaker
            
             if (section.Tables.Contains(Table))
             {
-                SetSection(section);
+               
                 if (section.IsSelected)
                 {
                     this.BackColor = section.MuteColor(1.2f);
@@ -43,18 +43,15 @@ namespace FloorPlanMaker
                     this.BackColor = section.MuteColor(.3f);
                 }
             }
-            else
-            {
-                RemoveSection();
-                
-            }
+           
            
         }
         public void SetSection(Section section)
         {
+            section.SubscribeObserver(this);
             this._section = section;
             Update(section);
-            section.SubscribeObserver(this);
+           
         }
         public void RemoveSection()
         {

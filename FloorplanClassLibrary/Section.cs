@@ -58,19 +58,18 @@ namespace FloorplanClassLibrary
         public int ID {  get; set; }
         public bool IsPickUp { get; set; }
         public int DiningAreaID { get; set; }
-        private bool _isSelected { get; set; }
+       
         
-        public bool IsSelected
+        public bool IsSelected { get; private set; } = false;
+        public void SetToSelected()
         {
-            get => _isSelected;
-            set
-            {
-                if (_isSelected != value)
-                {
-                    _isSelected = value;
-                    NotifyObservers();
-                }
-            }
+            this.IsSelected = true;
+            NotifyObservers();
+        } 
+        public void NotSelected()
+        {
+            this.IsSelected = false;
+            NotifyObservers();
         }
 
         public string? Name { get; set; }
@@ -99,10 +98,7 @@ namespace FloorplanClassLibrary
         }
         private List<ISectionObserver> observers = new List<ISectionObserver>();
 
-        public void RegisterObserver(ISectionObserver observer)
-        {
-            observers.Add(observer);
-        }
+        
 
         public void RemoveObserver(ISectionObserver observer)
         {
@@ -404,7 +400,23 @@ namespace FloorplanClassLibrary
                 return new Point(totalX / this.Tables.Count, totalY / this.Tables.Count);
             }
         }
-        
+
+        public override bool Equals(object obj)
+        {
+            // Check for null and compare run-time types.
+            if (obj == null || !this.GetType().Equals(obj.GetType()))
+            {
+                return false;
+            }
+
+            Section other = (Section)obj;
+            return this.Number == other.Number;
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Number.GetHashCode();
+        }
 
     }
 }
