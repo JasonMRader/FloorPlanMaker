@@ -8,7 +8,7 @@ using static System.Collections.Specialized.BitVector32;
 
 namespace FloorplanClassLibrary
 {
-    public class Floorplan : ISectionObserver
+    public class Floorplan 
     {
         public Floorplan(DiningArea diningArea, DateTime date, bool isLunch, int serverCount, int sectionCount)
         {
@@ -22,7 +22,7 @@ namespace FloorplanClassLibrary
             //MoveToNextSection();
             foreach (var section in Sections)
             {
-                section.SubscribeObserver(this);
+                //section.SubscribeObserver(this);
             }
         }
         public Floorplan(FloorplanTemplate template)
@@ -35,7 +35,7 @@ namespace FloorplanClassLibrary
             //MoveToNextSection();
             foreach (var section in Sections)
             {
-                section.SubscribeObserver(this);
+                //section.SubscribeObserver(this);
             }
         }
         public Floorplan() 
@@ -44,7 +44,7 @@ namespace FloorplanClassLibrary
             //MoveToNextSection();
             foreach (var section in Sections)
             {
-                section.SubscribeObserver(this);
+                //section.SubscribeObserver(this);
             }
         }
         public Dictionary<Section, Server> SectionServerMap { get; private set; }
@@ -237,7 +237,9 @@ namespace FloorplanClassLibrary
 
             // Add the section to the list
             _sections.Add(section);
-            section.SubscribeObserver(this);
+            section.ServerRemoved += UpdateSectionServerMap;
+            section.ServerAssigned += UpdateSectionServerMap;
+            //section.SubscribeObserver(this);
         }
 
         public void CreateSectionsForServers()
@@ -299,6 +301,8 @@ namespace FloorplanClassLibrary
         {
             this.ServersWithoutSection.Add(server);
             Section newSection = new Section(this);
+            newSection.ServerAssigned += UpdateSectionServerMap;
+            newSection.ServerRemoved += UpdateSectionServerMap;
 
             AddSection(newSection);
         }
@@ -392,7 +396,7 @@ namespace FloorplanClassLibrary
 
         public void Update(Section section)
         {
-           // throw new NotImplementedException();
+            //UpdateSectionServerMap();
         }
     }
 }

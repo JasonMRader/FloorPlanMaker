@@ -97,7 +97,7 @@ namespace FloorPlanMakerUI
                 if (section.Server != null)
                 {
                     ShiftManager.SelectedFloorplan.ServersWithoutSection.Remove(section.Server);
-                    section.Server.NotifyAssignedToSection(section);
+                    
                     
                 }
             }

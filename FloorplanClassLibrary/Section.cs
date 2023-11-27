@@ -75,6 +75,17 @@ namespace FloorplanClassLibrary
         public string? Name { get; set; }
         private List<Table> _tables = new List<Table>();
         public IReadOnlyList<Table> Tables => _tables.AsReadOnly();
+        public event Action<Server, Section> ServerAssigned;
+        public event Action<Server, Section> ServerRemoved;
+
+        public void NotifyServerAssigned(Server server)
+        {
+            ServerAssigned?.Invoke(server, this);
+        }
+        public void NotifyRemovedFromSection(Server server)
+        {
+            ServerRemoved?.Invoke(server, this);
+        }
 
         public void AddTable(Table table)
         {
@@ -236,8 +247,9 @@ namespace FloorplanClassLibrary
                 }
                
             }
+            //NotifyObservers();
             return displayString;
-            NotifyObservers();
+            
         }
         private bool _isTeamWait { get; set; }
         public bool IsTeamWait { get { return _isTeamWait; } }
@@ -258,40 +270,35 @@ namespace FloorplanClassLibrary
             if (!this._isTeamWait)
             {
                 this._server = server;
-                server.NotifyAssignedToSection(this);
+                NotifyServerAssigned(server); // Notify subscribers
             }
             else
             {
-                if (this.Server == null) 
+                if (this.Server == null)
                 {
-                    this._server = server;                   
-
+                    this._server = server;
                 }
                 this.ServerTeam.Add(server);
-                server.NotifyAssignedToSection(this);
+                NotifyServerAssigned(server); // Notify subscribers
             }
-            //server.AssignToSection(this);
             NotifyObservers();
-            
         }
-        public void RemoveServer(Server server) 
+
+        public void RemoveServer(Server server)
         {
             if (this._server == server)
             {
-                server.NotifyRemovedFromSection();
                 this._server = null;
-                
+                NotifyRemovedFromSection(server); // Notify subscribers
             }
-            if (this.ServerTeam!= null)
+            if (this.ServerTeam != null)
             {
-                server.NotifyRemovedFromSection();
                 this.ServerTeam.Remove(server);
-                
+                NotifyRemovedFromSection(server); // Notify subscribers
             }
-            //server.RemoveFromSection();
             NotifyObservers();
-
         }
+
         public void MakeSoloSection()
         {
             if (!_isTeamWait) { return; }
