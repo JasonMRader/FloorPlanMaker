@@ -271,20 +271,13 @@ namespace FloorplanClassLibrary
             {
                 displayString = Server.AbbreviatedName;
             }
-            if (this.IsCloser)
-            {
-                displayString = displayString + " (CLS)";
-            }
-            if (this.IsPre)
-            {
-                displayString = displayString + "(PRE)";
-            }
-            if (this.IsTeamWait && this.ServerTeam != null)
+            
+            if (this.IsTeamWait)
             {
                 displayString = "";
                 foreach (Server server in this.ServerTeam)
                 {
-                    displayString += Server.AbbreviatedName;
+                    displayString += server.AbbreviatedName;
                     if(server != ServerTeam.Last())
                     {
                         displayString += "\n ";
@@ -292,6 +285,14 @@ namespace FloorplanClassLibrary
             
                 }
                
+            }
+            if (this.IsCloser)
+            {
+                displayString = displayString + " (CLS)";
+            }
+            if (this.IsPre)
+            {
+                displayString = displayString + "(PRE)";
             }
             //NotifyObservers();
             return displayString;

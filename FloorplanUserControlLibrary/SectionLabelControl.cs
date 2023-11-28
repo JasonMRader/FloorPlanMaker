@@ -318,6 +318,7 @@ namespace FloorplanClassLibrary
         {
             
             sectionLabel.Text = Section.GetDisplayString();
+            headerPanel.Height = Section.ServerTeam.Count * 30;
             headerPanel.BackColor = Section.Color; // Assuming the Section class has a Color property
             headerPanel.ForeColor = Section.FontColor;
             if(this.isSelected)
@@ -325,14 +326,14 @@ namespace FloorplanClassLibrary
                 headerPanel.BackColor = Section.MuteColor(1.5f);
                 this.BorderColor = Section.MuteColor(2);
                 this.borderWidth = 10;
-                this.Invalidate();
+               
             }
             else
             {
                 headerPanel.BackColor = Section.MuteColor(.5f);
                 this.BorderColor = Color.Black;
                 this.borderWidth = 5;
-                this.Invalidate();
+                
             }
             if (this.Section.IsCloser)
             {
@@ -346,7 +347,8 @@ namespace FloorplanClassLibrary
             {
                 setCloserButton.Image = Resources.Scissors__Copy;
             }
-            
+            this.Invalidate();
+
         }
         public static void DrawSectionLabelForPrinting(Graphics g, SectionLabelControl control)
         {
