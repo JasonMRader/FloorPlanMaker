@@ -208,6 +208,7 @@ namespace FloorPlanMakerUI
                 newSectionPanel.picTeamWaitClicked += TeamWaitClicked;
                 this._sectionPanels.Add(newSectionPanel);
             }
+            sectionPanel.UpdateLabels();
             //UpdateSectionLabels(selectedSection, selectedSection.MaxCovers, selectedSection.AverageCovers);
             
             //CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
@@ -226,13 +227,13 @@ namespace FloorPlanMakerUI
                     //SectionLabelRemoved?.Invoke(this, e);
                     UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionLabel, UpdateType.Remove, selectedSection));
                     this._sectionLabels.Remove(sectionLabelBySection(selectedSection));
-                    selectedSection.Server.CurrentSection.RemoveServer(selectedSection.Server);
+                    //selectedSection.Server.CurrentSection.RemoveServer(selectedSection.Server);
 
                     //this.UpdateRequired += FloorplanManager_UpdateRequired;
                     ShiftManager.SelectedFloorplan.UnassignSection(selectedSection);
 
                     UpdateTableControlColors();
-                    
+                    UpdateServerControls();
                     //AND CLEAR TABLECONTROL SECTIONS,
                     //REMOVE TABLES FROM SECTION
                     //Update ServerControl 
@@ -242,6 +243,7 @@ namespace FloorPlanMakerUI
                     return;
                 }
             }
+            sectionPanel.UpdateLabels();
         }
         
         private Section sectionByNumber(int sectionNumber)

@@ -105,7 +105,7 @@ namespace FloorplanClassLibrary
             }
         }
 
-        public void RemoveServerFromSection(Server server)
+        public void RemoveServerFromSection(Server server, Section section)
         {
             // Find the section that contains the server and remove the server from that section
             foreach (var entry in SectionServerMap)
@@ -192,7 +192,36 @@ namespace FloorplanClassLibrary
                
             }
         }
-
+        public float GetCoverDifferenceForSection(Section section)
+        {
+            if (!section.IsTeamWait)
+            {
+                return section.MaxCovers - this.MaxCoversPerServer;
+            }
+            if(section.ServerTeam.Count < 3 ) 
+            {
+                return section.MaxCovers - (this.MaxCoversPerServer * 2);
+            }
+            else
+            {
+                return section.MaxCovers - (this.MaxCoversPerServer * section.ServerTeam.Count);
+            }
+        }
+        public float GetSalesDifferenceForSection(Section section)
+        {
+            if (!section.IsTeamWait)
+            {
+                return section.AverageCovers - this.AvgSalesPerServer;
+            }
+            if (section.ServerTeam.Count < 3)
+            {
+                return section.AverageCovers - (this.AvgSalesPerServer *2);
+            }
+            else
+            {
+                return section.AverageCovers - (this.AvgSalesPerServer * section.ServerTeam.Count);
+            }
+        }
         public float AvgSalesPerServer
         {
             get
@@ -239,7 +268,7 @@ namespace FloorplanClassLibrary
 
             // Add the section to the list
             _sections.Add(section);
-            section.ServerRemoved += UpdateSectionServerMap;
+            section.ServerRemoved += RemoveServerFromSection;
             section.ServerAssigned += UpdateSectionServerMap;
             //section.SubscribeObserver(this);
         }
@@ -304,8 +333,7 @@ namespace FloorplanClassLibrary
             this.ServersWithoutSection.Add(server);
             Section newSection = new Section(this);
             newSection.ServerAssigned += UpdateSectionServerMap;
-            newSection.ServerRemoved += UpdateSectionServerMap;
-
+            newSection.ServerRemoved += RemoveServerFromSection;
             AddSection(newSection);
         }
         public void RemoveServerAndSection(Server server)

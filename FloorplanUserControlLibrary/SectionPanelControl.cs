@@ -62,14 +62,15 @@ namespace FloorplanUserControlLibrary
         {
             lblServerNames.Text = "Unassigned";
             cbSectionSelect.Text = "Section " + this.Section.Number.ToString();
-            lblCovers.Text = (this.Section.MaxCovers - floorplan.MaxCoversPerServer).ToString("F0");
-            if(this.Section.AverageCovers - floorplan.AvgSalesPerServer > 0)
+            lblCovers.Text = floorplan.GetCoverDifferenceForSection(Section).ToString("F0");
+            //lblCovers.Text = (this.Section.MaxCovers - floorplan.MaxCoversPerServer).ToString("F0");
+            if(floorplan.GetSalesDifferenceForSection(Section) > 0)
             {
-                lblSales.Text = "+" + Section.FormatAsCurrencyWithoutParentheses(this.Section.AverageCovers - floorplan.AvgSalesPerServer);
+                lblSales.Text = "+" + Section.FormatAsCurrencyWithoutParentheses(floorplan.GetSalesDifferenceForSection(Section));
             }
             else
             {
-                lblSales.Text = Section.FormatAsCurrencyWithoutParentheses(this.Section.AverageCovers - floorplan.AvgSalesPerServer);
+                lblSales.Text = Section.FormatAsCurrencyWithoutParentheses(floorplan.GetSalesDifferenceForSection(Section));
             }
             
             if (this.Section.Server != null && Section.IsTeamWait == false)

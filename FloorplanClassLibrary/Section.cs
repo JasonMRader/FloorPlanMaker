@@ -216,9 +216,8 @@ namespace FloorplanClassLibrary
         {
             get
             {
-                if (Tables == null) return 0;
-               
-                return Tables.Sum(table => table.MaxCovers);
+                if (Tables == null) return 0;                               
+                return Tables.Sum(table => table.MaxCovers);               
             }
         }
 
