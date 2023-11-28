@@ -219,7 +219,7 @@ namespace FloorPlanMakerUI
             Section selectedSection = sectionPanel.Section;
             if (selectedSection != null)
             {
-                DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete this section?",
+                DialogResult dialogResult = MessageBox.Show("Are You Sure You Want to Remove the Tables and Server from this Section?",
                     "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (dialogResult == DialogResult.Yes)
                 {
@@ -510,12 +510,19 @@ namespace FloorPlanMakerUI
 
             foreach (ServerControl serverControl in _serverControls)
             {
-                // Get the server from the server control
+                
                 Server server = serverControl.Server;
 
-                // Find the section to which the server is assigned
-                Section assignedSection = ShiftManager.SelectedFloorplan.SectionServerMap
-                                          .FirstOrDefault(kv => kv.Value == server).Key;
+                
+                Section assignedSection = null;
+                foreach (var entry in ShiftManager.SelectedFloorplan.SectionServerMap)
+                {
+                    if (entry.Value.Contains(server))
+                    {
+                        assignedSection = entry.Key;
+                        break; // Exit the loop once the section is found
+                    }
+                }
 
                 // Update the label's background color based on the section's color
                 if (assignedSection != null)
@@ -528,6 +535,7 @@ namespace FloorPlanMakerUI
                 }
             }
         }
+
 
         public void UpdateSection(Section section)
         {

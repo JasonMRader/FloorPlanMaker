@@ -78,6 +78,86 @@ namespace FloorplanClassLibrary
         public event Action<Server, Section> ServerAssigned;
         public event Action<Server, Section> ServerRemoved;
 
+        public Server? Server
+        {
+            get => ServerTeam.FirstOrDefault();
+            set
+            {
+                if (value != null)
+                {
+                    ServerTeam.Clear();
+                    ServerTeam.Add(value);
+                    NotifyObservers();
+                    
+                }
+            }
+        }
+
+
+        public int? ServerID
+        {
+            get
+            {
+                if (this.Server != null)
+                {
+                    return this.Server.ID;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+        //public Server? Server2 { get; set; }
+        public List<Server> ServerTeam { get; private set; } = new List<Server>();
+        public bool IsCloser { get; set; }
+        public bool IsPre { get; set; }
+        private bool _isTeamWait { get; set; }
+        public bool IsTeamWait { get { return _isTeamWait; } }
+        public void MakeTeamWait()
+        {
+            _isTeamWait = true;
+            NotifyObservers();
+        }
+
+        public void MakeSoloSection()
+        {
+            _isTeamWait = false;
+            ServerTeam = ServerTeam.Take(1).ToList();
+            NotifyObservers();
+        }
+        public void AddServer(Server server)
+        {
+            if (server.CurrentSection != null && server.CurrentSection != this)
+            {
+                server.CurrentSection.RemoveServer(server);
+            }
+
+            if (!IsTeamWait)
+            {
+                ServerTeam.Clear();
+            }
+
+            if (!ServerTeam.Contains(server))
+            {
+                ServerTeam.Add(server);
+            }
+
+            server.CurrentSection = this;
+            NotifyServerAssigned(server);
+            NotifyObservers();
+        }
+
+        public void RemoveServer(Server server)
+        {
+            if (ServerTeam.Contains(server))
+            {
+                ServerTeam.Remove(server);
+                server.CurrentSection = null;
+                NotifyRemovedFromSection(server);
+                NotifyObservers();
+            }
+        }
         public void NotifyServerAssigned(Server server)
         {
             ServerAssigned?.Invoke(server, this);
@@ -176,40 +256,7 @@ namespace FloorplanClassLibrary
 
             return formattedValue;
         }
-        private Server? _server { get; set; }
-        public Server? Server
-        {
-            get => _server;
-            set
-            {
-                if (_server != value)
-                {
-                    _server = value;
-                    NotifyObservers();
-                }
-            }
-        }
-
         
-
-        public int? ServerID 
-        { 
-            get 
-            {
-                if (this.Server != null)
-                {
-                    return this.Server.ID;
-                }
-                else
-                {
-                    return null;
-                }
-            } 
-        }
-        //public Server? Server2 { get; set; }
-        public List<Server>? ServerTeam { get ; set; } 
-        public bool IsCloser { get; set; }
-        public bool IsPre { get; set; }
         public string GetDisplayString()
         {
             string displayString = "";
@@ -251,84 +298,10 @@ namespace FloorplanClassLibrary
             return displayString;
             
         }
-        private bool _isTeamWait { get; set; }
-        public bool IsTeamWait { get { return _isTeamWait; } }
-        public void MakeTeamWait()
-        {
-            if (_isTeamWait) { return; }
-            this._isTeamWait = true;
-            this.ServerTeam = new List<Server>();
-            if(this.Server != null)
-            {
-                this.ServerTeam.Add(Server);
-            }
-            NotifyObservers();
 
-        }
-        public void AddServer(Server server)
-        {
-            if (server.CurrentSection != null)
-            {
-                if(server.CurrentSection != this)
-                {
-                    server.CurrentSection.RemoveServer(server);
-                }
-               
-            }
-            if (this._server != null)
-            {
-                this._server.CurrentSection.RemoveServer(this._server);
-            }
-            if (!this._isTeamWait)
-            {
-                this._server = server;                
-            }
-            else
-            {
-                if (this.Server == null)
-                {
-                    this._server = server;
-                }
-                this.ServerTeam.Add(server);
-               
-            }
-            server.CurrentSection = this;
-            NotifyServerAssigned(server);
-            NotifyObservers();
-        }
+        
 
-        public void RemoveServer(Server server)
-        {
-            if (this._server == server)
-            {
-                this._server = null;
-               
-
-            }
-            if (this.ServerTeam != null)
-            {
-                this.ServerTeam.Remove(server);
-                
-            }
-            
-            server.CurrentSection = null; 
-            NotifyRemovedFromSection(server);
-            NotifyObservers();
-        }
-
-        public void MakeSoloSection()
-        {
-            if (!_isTeamWait) { return; }
-            this._isTeamWait = false;
-            
-            if (this.ServerTeam != null)
-            {
-                this.ServerTeam.Clear();
-                this.ServerTeam = null;
-            }
-            NotifyObservers();
-
-        }
+       
         public int Number { get; set; }
         public Color Color
         {

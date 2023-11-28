@@ -17,7 +17,7 @@ namespace FloorplanClassLibrary
             this.IsLunch = isLunch;
             this.ServerCount = serverCount;
             this.SectionCount = sectionCount;
-            this.SectionServerMap = new Dictionary<Section, Server>();
+            this.SectionServerMap = new Dictionary<Section, List<Server>>();
             CreateSections();
             //MoveToNextSection();
             foreach (var section in Sections)
@@ -30,7 +30,7 @@ namespace FloorplanClassLibrary
             this.DiningArea = template.DiningArea;
             
             this.ServerCount = template.ServerCount;
-            SectionServerMap = new Dictionary<Section, Server>();
+            SectionServerMap = new Dictionary<Section, List<Server>>();
             CopyTemplateSections(template.Sections);
             //MoveToNextSection();
             foreach (var section in Sections)
@@ -40,14 +40,14 @@ namespace FloorplanClassLibrary
         }
         public Floorplan() 
         {
-            SectionServerMap = new Dictionary<Section, Server>();
+            SectionServerMap = new Dictionary<Section, List<Server>>();
             //MoveToNextSection();
             foreach (var section in Sections)
             {
                 //section.SubscribeObserver(this);
             }
         }
-        public Dictionary<Section, Server> SectionServerMap { get; private set; }
+        public Dictionary<Section, List <Server>> SectionServerMap { get; private set; }
         public int ID { get; set; }
         public DateTime Date { get; set; }
         public DateOnly DateOnly => new DateOnly(Date.Year, Date.Month, Date.Day);
@@ -84,25 +84,40 @@ namespace FloorplanClassLibrary
         }
         public void UpdateSectionServerMap(Server server, Section section)
         {
-            // Optionally, remove the server from any current section
-            var currentSection = SectionServerMap.FirstOrDefault(kv => kv.Value == server).Key;
-            if (currentSection != null)
+            // Remove the server from any current section
+            foreach (var entry in SectionServerMap)
             {
-                SectionServerMap[currentSection] = null; // Or remove the key
+                if (entry.Value.Contains(server))
+                {
+                    entry.Value.Remove(server);
+                    break; // Assuming a server can only be in one section at a time
+                }
             }
 
-            // Assign the server to the new section
-            SectionServerMap[section] = server;
+            // Add the server to the new section
+            if (!SectionServerMap.ContainsKey(section))
+            {
+                SectionServerMap[section] = new List<Server>();
+            }
+            if (!SectionServerMap[section].Contains(server))
+            {
+                SectionServerMap[section].Add(server);
+            }
         }
 
         public void RemoveServerFromSection(Server server)
         {
-            var section = SectionServerMap.FirstOrDefault(kv => kv.Value == server).Key;
-            if (section != null)
+            // Find the section that contains the server and remove the server from that section
+            foreach (var entry in SectionServerMap)
             {
-                SectionServerMap[section] = null; // Or remove the key
+                if (entry.Value.Contains(server))
+                {
+                    entry.Value.Remove(server);
+                    break; // Assuming a server can only be in one section at a time
+                }
             }
         }
+
         public void MoveToNextSection()
         {
 
