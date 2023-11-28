@@ -1,4 +1,6 @@
 ﻿using FloorplanClassLibrary;
+using FloorPlanMakerUI;
+using FloorplanUserControlLibrary.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -45,6 +47,7 @@ namespace FloorplanUserControlLibrary
             {
                 this.CheckBoxChecked = true;
             }
+            SetTeamWaitPictureBoxes();
         }
         private void picClearSection_Click(object sender, EventArgs e)
         {
@@ -80,9 +83,23 @@ namespace FloorplanUserControlLibrary
                 {
                     lblServerNames.Text += server.AbbreviatedName + ", ";
                 }
+               
             }
             
            
+        }
+        private void SetTeamWaitPictureBoxes()
+        {
+            if(this.Section.IsTeamWait)
+            {
+                picTeamWait.BackColor = UITheme.WarningColor;
+                picTeamWait.Image = Resources.waiters;
+            }
+            else
+            {
+                picTeamWait.BackColor = UITheme.CTAColor;
+                picTeamWait.Image = Resources.waiter;
+            }
         }
         public void CheckBox()
         {

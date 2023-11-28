@@ -233,8 +233,15 @@ namespace FloorPlanMaker
                 case ControlType.ServerControl:
                     // Handle ServerControl update
                     break;
-                case ControlType.SectionControl:
-                    // Handle SectionControl update
+                case ControlType.SectionPanel:
+                    if (e.UpdateType == UpdateType.Remove)
+                    {
+                        floorplanManager.RemoveSectionPanel(e.UpdateData as Section, flowSectionSelect);
+                    }
+                    else
+                    {
+
+                    }
                     break;
                 case ControlType.TableControl:
                     //floorplanManager.RemoveTableControlSection(e.UpdateData as Section, pnlFloorPlan);

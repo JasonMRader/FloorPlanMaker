@@ -23,7 +23,7 @@ namespace FloorplanUserControlLibrary
     {
         SectionLabel,
         ServerControl,
-        SectionControl,
+        SectionPanel,
         TableControl,
         // Add more as needed
     }

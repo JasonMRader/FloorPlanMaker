@@ -175,7 +175,42 @@ namespace FloorPlanMakerUI
         }
         private void TeamWaitClicked(object? sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            SectionPanelControl sectionPanel = sender as SectionPanelControl;
+           
+            Section selectedSection = sectionPanel.Section;
+
+            if (!selectedSection.IsTeamWait)
+            {
+
+                //pb.BackColor = AppColors.NoColor;
+                Section sectionRemoved = Floorplan.RemoveHighestNumberedEmptySection();
+                if (sectionRemoved == null)
+                {
+                    MessageBox.Show("You must clear a section before making another section a teamwait section");
+                }
+                else
+                {
+                    selectedSection.MakeTeamWait();
+                    UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionPanel, UpdateType.Remove, sectionRemoved));
+
+                }
+
+            }
+            else
+            {
+                selectedSection.MakeSoloSection();
+               
+                Section section = new Section();
+                Floorplan.AddSection(section);
+                SectionPanelControl newSectionPanel = new SectionPanelControl(section, this.ShiftManager.SelectedFloorplan);
+                newSectionPanel.CheckBoxChanged += setSelectedSection;
+                newSectionPanel.picEraseSectionClicked += EraseSectionClicked;
+                newSectionPanel.picTeamWaitClicked += TeamWaitClicked;
+                this._sectionPanels.Add(newSectionPanel);
+            }
+            //UpdateSectionLabels(selectedSection, selectedSection.MaxCovers, selectedSection.AverageCovers);
+            
+            //CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
         }
 
         private void EraseSectionClicked(object? sender, EventArgs e)
@@ -219,12 +254,22 @@ namespace FloorPlanMakerUI
             SectionLabelControl sectionLabel = this._sectionLabels.FirstOrDefault(s => s.Section == section);
             return sectionLabel;
         }
+        private SectionPanelControl sectionPanelControlBySection(Section section)
+        {
+            SectionPanelControl sectionPanel = this._sectionPanels.FirstOrDefault(s => s.Section == section);
+            return sectionPanel;
+        }
         public void RemoveSectionLabel(Section section, Panel panel)
         {
             panel.Controls.Remove(sectionLabelBySection((Section)section));
             //UpdateTableControlColors(panel);
             panel.Invalidate();
 
+        }
+        public void RemoveSectionPanel(Section section, FlowLayoutPanel panel)
+        {
+            panel.Controls.Remove(sectionPanelControlBySection((Section)section));
+            panel.Invalidate();
         }
         public void AddSectionLabels(Panel panel)
         {
