@@ -75,8 +75,7 @@ namespace FloorPlanMaker
             //AppColors.FormatSecondColor(lblSalesPerServerText);
             UITheme.FormatSecondColor(lblServerAverageCovers);
             UITheme.FormatSecondColor(lblServerMaxCovers);
-            UITheme.FormatSecondColor(picBxCovers);
-            UITheme.FormatSecondColor(picBxSales);
+           
             //lblCoversPerServerText.Font = AppColors.MainFont;
             //lblSalesPerServerText.Font = AppColors.MainFont;
             lblServerAverageCovers.Font = UITheme.LargeFont;
@@ -122,22 +121,22 @@ namespace FloorPlanMaker
                 if (keyData == Keys.Left)
                 {
                     UpdateDateLabel(-1);
-                    return true; 
+                    return true;
                 }
 
-                
+
                 if (keyData == Keys.Right)
                 {
                     UpdateDateLabel(1);
-                    return true; 
+                    return true;
                 }
-                
+
             }
             if (_frmEditDiningAreas != null && _frmEditDiningAreas.Visible)
             {
                 if (keyData == Keys.Up)
                 {
-                    _frmEditDiningAreas.ChangeDiningArea( keyData);
+                    _frmEditDiningAreas.ChangeDiningArea(keyData);
                     return true;
                 }
 
@@ -176,9 +175,9 @@ namespace FloorPlanMaker
                     }
                     return true;
                 }
-            }            
+            }
             return base.ProcessCmdKey(ref msg, keyData);
-        }      
+        }
 
         public void UpdateForm1ShiftManager(ShiftManager shiftManagerToAdd)
         {
@@ -221,7 +220,7 @@ namespace FloorPlanMaker
             switch (e.ControlType)
             {
                 case ControlType.SectionLabel:
-                    if(e.UpdateType == UpdateType.Remove)
+                    if (e.UpdateType == UpdateType.Remove)
                     {
                         floorplanManager.RemoveSectionLabel(e.UpdateData as Section, pnlFloorPlan);
                     }
@@ -229,7 +228,7 @@ namespace FloorPlanMaker
                     {
 
                     }
-                   
+
                     break;
                 case ControlType.ServerControl:
                     // Handle ServerControl update
@@ -244,7 +243,7 @@ namespace FloorPlanMaker
                     // Add more cases as needed
             }
         }
-        
+
         private void PnlFloorplan_Paint(object sender, PaintEventArgs e)
         {
             if (isDragging)
@@ -299,12 +298,12 @@ namespace FloorPlanMaker
                     Math.Abs(dragStartPoint.X - e.X),
                     Math.Abs(dragStartPoint.Y - e.Y));
 
-                
+
 
                 var selectedTables = floorplanManager.TableControls
                     .Where(tc => dragRectangle.IntersectsWith(new Rectangle(tc.Location, tc.Size)))
                     .ToList();
-               
+
                 floorplanManager.SelectTables(selectedTables);
 
                 pnlFloorPlan.Invalidate();
@@ -328,7 +327,7 @@ namespace FloorPlanMaker
                 }
             }
         }
-       
+
 
         private void pnlFloorPlan_KeyDown(object? sender, KeyEventArgs e)
         {
@@ -342,7 +341,7 @@ namespace FloorPlanMaker
         {
             SetColors();
             dateTimeSelected = DateTime.Now;
-            
+
             List<Floorplan> floorplans = SqliteDataAccess.LoadFloorplanList();
             cboDiningAreas.DataSource = areaCreationManager.DiningAreas;
             cboDiningAreas.DisplayMember = "Name";
@@ -357,6 +356,10 @@ namespace FloorPlanMaker
             dateTimeSelected = dateTimeSelected.AddDays(days);
             lblDateSelected.Text = dateOnlySelected.ToString("ddd, MMM d");
             floorplanManager.SetViewedFloorplan(dateOnlySelected, cbIsAM.Checked, pnlFloorPlan, flowServersInFloorplan, flowSectionSelect);
+            if (floorplanManager.Floorplan == null)
+            {
+                NoServersToDisplay();
+            }
         }
 
         private void Form1_MouseDown(object sender, MouseEventArgs e)
@@ -384,11 +387,11 @@ namespace FloorPlanMaker
         {
             shiftManager.SelectedDiningArea = (DiningArea?)cboDiningAreas.SelectedItem;
             floorplanManager.AddTableControls(pnlFloorPlan);
-            
+
             floorplanManager.SetViewedFloorplan(dateOnlySelected, cbIsAM.Checked, pnlFloorPlan, flowServersInFloorplan, flowSectionSelect);
             this.sectionLineManager = new SectionLineManager(allTableControls);
         }
-        
+
         private void rdoSections_CheckedChanged(object sender, EventArgs e)
         {
             if (rdoSections.Checked)
@@ -599,19 +602,24 @@ namespace FloorPlanMaker
                 //    sectionControl.BringToFront();
                 //}
             }
-        }      
-       
+        }
+
         private void dtpFloorplan_ValueChanged(object sender, EventArgs e)
         {
-            floorplanManager.SetViewedFloorplan(dateOnlySelected,cbIsAM.Checked, pnlFloorPlan, flowServersInFloorplan, flowSectionSelect);
+            floorplanManager.SetViewedFloorplan(dateOnlySelected, cbIsAM.Checked, pnlFloorPlan, flowServersInFloorplan, flowSectionSelect);
             this.sectionLineManager = new SectionLineManager(allTableControls);
         }
-       
+
         private void NoServersToDisplay()
         {
+            flowServersInFloorplan.Controls.Clear();
+            flowSectionSelect.Controls.Clear();
+            coversImageLabel = new ImageLabelControl(UITheme.covers, "0", (flowSectionSelect.Width / 2) - 7, 30);
+            salesImageLabel = new ImageLabelControl(UITheme.sales, "$0", (flowSectionSelect.Width / 2) - 7, 30);
             coversImageLabel.UpdateText(shiftManager.SelectedDiningArea.GetMaxCovers().ToString("F0"));
             salesImageLabel.UpdateText(shiftManager.SelectedDiningArea.GetAverageCovers().ToString("C0"));
-
+            flowSectionSelect.Controls.Add(coversImageLabel);
+            flowSectionSelect.Controls.Add(salesImageLabel);
             PictureBox noSections = new PictureBox
             {
                 Image = Resources._no_data_Lighter,
@@ -633,13 +641,13 @@ namespace FloorPlanMaker
             noServers.BringToFront();
             flowSectionSelect.Controls.Add(noSections);
             flowServersInFloorplan.Controls.Add(noServers);
-        }        
+        }
         private void btnDayBefore_Click(object sender, EventArgs e)
         {
             UpdateDateLabel(-1);
         }
         private void btnNextDay_Click(object sender, EventArgs e)
-        {      
+        {
             UpdateDateLabel(1);
         }
         private void btnCloseApp_Click(object sender, EventArgs e)
@@ -680,13 +688,13 @@ namespace FloorPlanMaker
                 flowSectionSelect.Visible = true;
                 flowServersInFloorplan.Visible = false;
                 rdoViewSectionFlow.Image = Resources.lilCanvasBook;
-                
+
             }
             else
             {
                 flowSectionSelect.Visible = false;
                 flowServersInFloorplan.Visible = true;
-                rdoViewSectionFlow.Image = Resources.lilBook;                
+                rdoViewSectionFlow.Image = Resources.lilBook;
             }
         }
 
@@ -696,13 +704,13 @@ namespace FloorPlanMaker
             {
                 flowSectionSelect.Visible = false;
                 flowServersInFloorplan.Visible = true;
-                rdoViewSectionFlow.Image = Resources.lilBook;                
+                rdoViewSectionFlow.Image = Resources.lilBook;
             }
             else
             {
                 flowSectionSelect.Visible = true;
                 flowServersInFloorplan.Visible = false;
-                rdoViewSectionFlow.Image = Resources.lilCanvasBook;                
+                rdoViewSectionFlow.Image = Resources.lilCanvasBook;
             }
         }
         private void cbIsAM_CheckedChanged(object sender, EventArgs e)

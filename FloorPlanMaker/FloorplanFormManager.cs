@@ -25,8 +25,9 @@ namespace FloorPlanMakerUI
         private List<ServerControl> _serverControls = new List<ServerControl>();
         public event EventHandler SectionLabelRemoved;
         public event EventHandler<UpdateEventArgs> UpdateRequired;
-
-
+        private ImageLabelControl coversImageLabel = new ImageLabelControl();
+        private ImageLabelControl salesImageLabel = new ImageLabelControl();
+        
         public FloorplanFormManager(ShiftManager shiftManager)
         {
             //this.Floorplan = shiftManager.SelectedFloorplan;
@@ -148,18 +149,6 @@ namespace FloorPlanMakerUI
             ShiftManager.SelectedFloorplan.SectionSelected.AddServer(server);
             UpdateServerControls();
 
-            
-           
-            //foreach (SectionLabelControl sc in sectionControlsManager.SectionControls)
-            //{
-            //    if (sc.Section == shiftManager.SectionSelected)
-            //    {
-            //        sc.UpdateLabel();
-            //    }
-            //}
-           // serverControl.Label.BackColor = ShiftManager.SectionSelected.Color;
-            //serverControl.Label.ForeColor = ShiftManager.SectionSelected.FontColor;
-
         }
         private void setSelectedSection(object? sender, EventArgs e)
         {
@@ -201,7 +190,7 @@ namespace FloorPlanMakerUI
                     //SectionLabelRemoved?.Invoke(this, e);
                     UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionLabel, UpdateType.Remove, selectedSection));
                     this._sectionLabels.Remove(sectionLabelBySection(selectedSection));
-                    
+                    selectedSection.Server.CurrentSection.RemoveServer(selectedSection.Server);
 
                     //this.UpdateRequired += FloorplanManager_UpdateRequired;
                     ShiftManager.SelectedFloorplan.UnassignSection(selectedSection);
@@ -258,8 +247,15 @@ namespace FloorPlanMakerUI
         }
         public void AddSectionPanels(FlowLayoutPanel panel)
         {
-            foreach(SectionPanelControl sectionPanel in _sectionPanels)
+            coversImageLabel = new ImageLabelControl(UITheme.covers, "0", (panel.Width / 2) - 7, 30);
+            salesImageLabel = new ImageLabelControl(UITheme.sales, "$0", (panel.Width / 2) - 7, 30);
+            panel.Controls.Add(coversImageLabel);
+            panel.Controls.Add(salesImageLabel);
+
+            foreach (SectionPanelControl sectionPanel in _sectionPanels)
             {
+                sectionPanel.Width = panel.Width - 10;
+                sectionPanel.Margin = new Padding(5);
                 panel.Controls.Add(sectionPanel);
             }
         }
@@ -267,6 +263,8 @@ namespace FloorPlanMakerUI
         {
             foreach (ServerControl serverControl in _serverControls)
             {
+                serverControl.Width = panel.Width -10;
+                serverControl.Margin = new Padding(5);
                 panel.Controls.Add(serverControl);
             }
         }
@@ -466,8 +464,8 @@ namespace FloorPlanMakerUI
                 AddSectionPanels(flowSectionSelect);
                 AddSectionLabels(pnlFloorPlan);
                 //UpdateServerControlsForFloorplan();
-                //coversImageLabel.UpdateText(shiftManager.SelectedFloorplan.MaxCoversPerServer.ToString("F0"));
-                //salesImageLabel.UpdateText(shiftManager.SelectedFloorplan.AvgSalesPerServer.ToString("C0"));
+                coversImageLabel.UpdateText(ShiftManager.SelectedFloorplan.MaxCoversPerServer.ToString("F0"));
+                salesImageLabel.UpdateText(ShiftManager.SelectedFloorplan.AvgSalesPerServer.ToString("C0"));
             }
             //floorplanManager.ShiftManager = shiftManager;
             //floorplanManager.SectionLabelRemoved += FloorplanManager_SectionLabelRemoved;            

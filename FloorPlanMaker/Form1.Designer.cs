@@ -32,8 +32,6 @@ namespace FloorPlanMaker
         {
             components = new System.ComponentModel.Container();
             flowServersInFloorplan = new FlowLayoutPanel();
-            picBxSales = new PictureBox();
-            picBxCovers = new PictureBox();
             lblServerMaxCovers = new Label();
             lblServerAverageCovers = new Label();
             btnSaveFloorplanTemplate = new Button();
@@ -67,9 +65,6 @@ namespace FloorPlanMaker
             rdoViewSectionFlow = new RadioButton();
             toolTip1 = new ToolTip(components);
             pictureBox1 = new PictureBox();
-            flowServersInFloorplan.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)picBxSales).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)picBxCovers).BeginInit();
             flowSectionSelect.SuspendLayout();
             panel1.SuspendLayout();
             pnlFloorplanContainer.SuspendLayout();
@@ -83,35 +78,12 @@ namespace FloorPlanMaker
             // flowServersInFloorplan
             // 
             flowServersInFloorplan.BackColor = Color.WhiteSmoke;
-            flowServersInFloorplan.Controls.Add(picBxSales);
-            flowServersInFloorplan.Controls.Add(picBxCovers);
             flowServersInFloorplan.Location = new Point(0, 28);
             flowServersInFloorplan.Name = "flowServersInFloorplan";
             flowServersInFloorplan.Padding = new Padding(10, 20, 0, 0);
             flowServersInFloorplan.Size = new Size(335, 865);
             flowServersInFloorplan.TabIndex = 2;
             flowServersInFloorplan.Visible = false;
-            
-            // 
-            // picBxSales
-            // 
-            picBxSales.Location = new Point(140, 20);
-            picBxSales.Margin = new Padding(130, 0, 0, 0);
-            picBxSales.Name = "picBxSales";
-            picBxSales.Size = new Size(30, 30);
-            picBxSales.SizeMode = PictureBoxSizeMode.Zoom;
-            picBxSales.TabIndex = 0;
-            picBxSales.TabStop = false;
-            // 
-            // picBxCovers
-            // 
-            picBxCovers.Location = new Point(300, 20);
-            picBxCovers.Margin = new Padding(130, 0, 0, 0);
-            picBxCovers.Name = "picBxCovers";
-            picBxCovers.Size = new Size(30, 30);
-            picBxCovers.SizeMode = PictureBoxSizeMode.Zoom;
-            picBxCovers.TabIndex = 0;
-            picBxCovers.TabStop = false;
             // 
             // lblServerMaxCovers
             // 
@@ -281,7 +253,6 @@ namespace FloorPlanMaker
             pnlFloorPlan.Name = "pnlFloorPlan";
             pnlFloorPlan.Size = new Size(672, 877);
             pnlFloorPlan.TabIndex = 2;
-            
             // 
             // cboDiningAreas
             // 
@@ -437,7 +408,6 @@ namespace FloorPlanMaker
             pnlFloorplanContainer.Name = "pnlFloorplanContainer";
             pnlFloorplanContainer.Size = new Size(684, 921);
             pnlFloorplanContainer.TabIndex = 19;
-            
             // 
             // lblDateSelected
             // 
@@ -540,7 +510,6 @@ namespace FloorPlanMaker
             toolTip1.AutoPopDelay = 2500;
             toolTip1.InitialDelay = 500;
             toolTip1.ReshowDelay = 100;
-            
             // 
             // pictureBox1
             // 
@@ -571,9 +540,6 @@ namespace FloorPlanMaker
             MouseDown += Form1_MouseDown;
             MouseMove += Form1_MouseMove;
             MouseUp += Form1_MouseUp;
-            flowServersInFloorplan.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)picBxSales).EndInit();
-            ((System.ComponentModel.ISupportInitialize)picBxCovers).EndInit();
             flowSectionSelect.ResumeLayout(false);
             flowSectionSelect.PerformLayout();
             panel1.ResumeLayout(false);
@@ -619,8 +585,6 @@ namespace FloorPlanMaker
         private ToolTip toolTip1;
         private Panel pnlMainContainer;
         private Panel pnlSideContainer;
-        private PictureBox picBxSales;
-        private PictureBox picBxCovers;
         private PictureBox pictureBox1;
         private Label lblDateSelected;
     }
