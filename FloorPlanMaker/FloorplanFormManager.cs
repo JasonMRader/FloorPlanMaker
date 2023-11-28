@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+//using static System.Collections.Specialized.BitVector32;
 
 namespace FloorPlanMakerUI
 {
@@ -247,6 +248,7 @@ namespace FloorPlanMakerUI
         }
         public void AddSectionPanels(FlowLayoutPanel panel)
         {
+            panel.Controls.Clear();
             coversImageLabel = new ImageLabelControl(UITheme.covers, "0", (panel.Width / 2) - 7, 30);
             salesImageLabel = new ImageLabelControl(UITheme.sales, "$0", (panel.Width / 2) - 7, 30);
             panel.Controls.Add(coversImageLabel);
@@ -258,6 +260,61 @@ namespace FloorPlanMakerUI
                 sectionPanel.Margin = new Padding(5);
                 panel.Controls.Add(sectionPanel);
             }
+            Button btnAddPickup = new Button
+            {
+                Text = "Add Pick-Up Section",
+                AutoSize = false,
+                Size = new Size(panel.Width - 10, 25),
+                Font = new Font("Segoe UI", 10F),
+                FlatStyle = FlatStyle.Flat,
+                BackColor = UITheme.ButtonColor,
+                ForeColor = Color.Black
+            };
+            btnAddPickup.Click += btnAddPickupSection_Click;
+            panel.Controls.Add(btnAddPickup);
+            
+        }
+        public void RefreshSectionPanels()
+        {
+            FlowLayoutPanel panel = coversImageLabel.Parent as FlowLayoutPanel;
+            panel.Controls.Clear();
+            coversImageLabel = new ImageLabelControl(UITheme.covers, "0", (panel.Width / 2) - 7, 30);
+            salesImageLabel = new ImageLabelControl(UITheme.sales, "$0", (panel.Width / 2) - 7, 30);
+            panel.Controls.Add(coversImageLabel);
+            panel.Controls.Add(salesImageLabel);
+
+            foreach (SectionPanelControl sectionPanel in _sectionPanels)
+            {
+               
+                panel.Controls.Add(sectionPanel);
+            }
+            Button btnAddPickup = new Button
+            {
+                Text = "Add Pick-Up Section",
+                AutoSize = false,
+                Size = new Size(panel.Width - 10, 25),
+                Font = new Font("Segoe UI", 10F),
+                FlatStyle = FlatStyle.Flat,
+                BackColor = UITheme.ButtonColor,
+                ForeColor = Color.Black
+            };
+            btnAddPickup.Click += btnAddPickupSection_Click;
+            panel.Controls.Add(btnAddPickup);
+
+        }
+        private void btnAddPickupSection_Click(object sender, EventArgs e)
+        {
+            Section pickUpSection = new Section(Floorplan);
+            pickUpSection.Name = "Pickup";
+            pickUpSection.IsPickUp = true;
+            Floorplan.AddSection(pickUpSection);
+            SectionPanelControl sectionPanel = new SectionPanelControl(pickUpSection, this.ShiftManager.SelectedFloorplan);
+            sectionPanel.CheckBoxChanged += setSelectedSection;
+            sectionPanel.picEraseSectionClicked += EraseSectionClicked;
+            sectionPanel.picTeamWaitClicked += TeamWaitClicked;
+            this._sectionPanels.Add(sectionPanel);
+            RefreshSectionPanels();
+            //CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
         }
         public void AddServerControls(FlowLayoutPanel panel)
         {
