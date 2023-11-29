@@ -238,9 +238,9 @@ namespace FloorPlanMaker
                     {
                         floorplanManager.RemoveSectionPanel(e.UpdateData as Section, flowSectionSelect);
                     }
-                    else
+                    else if(e.UpdateType == UpdateType.Add)
                     {
-
+                        floorplanManager.AddSectionPanel(e.UpdateData as Section, flowSectionSelect);
                     }
                     break;
                 case ControlType.TableControl:

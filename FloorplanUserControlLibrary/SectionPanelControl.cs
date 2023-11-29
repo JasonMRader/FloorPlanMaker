@@ -20,6 +20,8 @@ namespace FloorplanUserControlLibrary
         public event EventHandler CheckBoxChanged;
         public event EventHandler picEraseSectionClicked;
         public event EventHandler picTeamWaitClicked;
+        public event EventHandler picAddServerClicked;
+        public event EventHandler picSubtractServerClicked;
         public event Action<Section> SectionRemoved;
         public event Action<Section> SectionAdded;
         private List<Label> serverLabels = new List<Label>();
@@ -113,7 +115,7 @@ namespace FloorplanUserControlLibrary
 
 
         }
-        private void AddServerRow()
+        public void AddServerRow()
         {
 
             this.Height += 25;
@@ -149,6 +151,7 @@ namespace FloorplanUserControlLibrary
 
         private void RemoveServer_Click(object? sender, EventArgs e)
         {
+           
             PictureBox clickedBox = sender as PictureBox;
             Server serverToRemove = (Server)clickedBox.Tag;
             this.Section.RemoveServer(serverToRemove);
@@ -167,7 +170,7 @@ namespace FloorplanUserControlLibrary
         {
 
         }
-        private void RemoveServerRow()
+        public void RemoveServerRow()
         {
 
             this.Height -= 25;
@@ -224,37 +227,13 @@ namespace FloorplanUserControlLibrary
         }
         private void picIncreaseServerCount_Click(object sender, EventArgs e)
         {
-            Section sectionRemoved = floorplan.RemoveHighestNumberedEmptySection();
-            if (sectionRemoved == null && floorplan.NotEnoughUnassignedServersCheck(this.Section))
-            {
-                MessageBox.Show("You must clear a section before making another section a teamwait section");
-                
-            }
-            else
-            {
+            picAddServerClicked?.Invoke(this, e);
 
-                this.Section.IncreaseServerCount();
-                AddServerRow();
-                SectionRemoved?.Invoke(this.Section);
-                
-            }
-           
         }
         private void picDecreaseServerCount_Click(object sender, EventArgs e)
         {
-            bool serverRemoved = this.Section.DecreaseServerCount();
-            if (serverRemoved)
-            {
-                if (this.Section.ServerCount == 1)
-                {
-                    this.Section.MakeSoloSection();
-                    SetToSolo();
-                    return;
-                }
-                //this.Section.DecreaseServerCount();
-                RemoveServerRow();
-                SectionAdded?.Invoke(this.Section);
-            }
+            
+            picSubtractServerClicked?.Invoke(this, e);
 
         }
         

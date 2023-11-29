@@ -148,7 +148,7 @@ namespace FloorplanClassLibrary
         {
             if (ServerCount <= ServerTeam.Count)
             {
-                MessageBox.Show("You must choose a server to remove to decrease the size of the team.");
+                //MessageBox.Show("You must choose a server to remove to decrease the size of the team.");
                 return false;
             }   
             ServerCount--;

@@ -114,13 +114,75 @@ namespace FloorPlanMakerUI
                 sectionPanel.CheckBoxChanged += setSelectedSection;
                 sectionPanel.picEraseSectionClicked += EraseSectionClicked;
                 sectionPanel.picTeamWaitClicked += TeamWaitClicked;
+                sectionPanel.picAddServerClicked += SectionAddServerClicked;
+                sectionPanel.picSubtractServerClicked += SectionSubtractServerClicked;
                // sectionPanel += SectionAdded?
                 //sectionPanel.UpdateRequired += FloorplanManager_UpdateRequired;
                 this._sectionPanels.Add(sectionPanel);
             }
             Floorplan.SetSelectedSection(Floorplan.Sections[0]);
         }
-       
+
+        private void SectionSubtractServerClicked(object? sender, EventArgs e)
+        {
+            SectionPanelControl sectionPanel = sender as SectionPanelControl;
+
+            Section selectedSection = sectionPanel.Section;
+            bool serverRemoved = selectedSection.DecreaseServerCount();
+            if (serverRemoved)
+            {
+                if (selectedSection.ServerCount == 1)
+                {
+                    selectedSection.MakeSoloSection();
+                    sectionPanel.SetTeamWaitPictureBoxes();
+                    
+                   
+                }
+                else
+                {
+                    sectionPanel.RemoveServerRow();
+                }
+               
+                
+                Section sectionAdded = new Section();
+                Floorplan.AddSection(sectionAdded);
+                SectionPanelControl newSectionPanel = new SectionPanelControl(sectionAdded, this.ShiftManager.SelectedFloorplan);
+                newSectionPanel.CheckBoxChanged += setSelectedSection;
+                newSectionPanel.picEraseSectionClicked += EraseSectionClicked;
+                newSectionPanel.picTeamWaitClicked += TeamWaitClicked;
+                newSectionPanel.picAddServerClicked += SectionAddServerClicked;
+                newSectionPanel.picSubtractServerClicked += SectionSubtractServerClicked;
+                this._sectionPanels.Add(newSectionPanel);
+                UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionPanel, UpdateType.Add, sectionAdded));                
+
+            }
+        }
+
+        private void SectionAddServerClicked(object? sender, EventArgs e)
+        {
+            SectionPanelControl sectionPanel = sender as SectionPanelControl;
+            Section selectedSection = sectionPanel.Section;
+
+            Section sectionRemoved = Floorplan.RemoveHighestNumberedEmptySection();
+            if (sectionRemoved == null && Floorplan.NotEnoughUnassignedServersCheck(selectedSection))
+            {
+                MessageBox.Show("You must clear a section before making another section a teamwait section");
+
+            }
+            else
+            {
+
+                selectedSection.IncreaseServerCount();
+                sectionPanel.AddServerRow();
+               
+                UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionPanel, UpdateType.Remove, sectionRemoved));
+                this._sectionPanels.Remove(sectionPanelControlBySection(sectionRemoved));
+                //SectionRemoved?.Invoke(this.Section);
+
+
+            }
+        }
+
         public void SetServerControls()
         {
             _serverControls.Clear();
@@ -195,8 +257,9 @@ namespace FloorPlanMakerUI
                     
                     selectedSection.ToggleTeamWait();
                     sectionPanel.SetTeamWaitPictureBoxes();
+                   
                     UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionPanel, UpdateType.Remove, sectionRemoved));
-
+                    this._sectionPanels.Remove(sectionPanelControlBySection(sectionRemoved));
                 }
 
             }
@@ -204,13 +267,16 @@ namespace FloorPlanMakerUI
             {
                 selectedSection.MakeSoloSection();
                 sectionPanel.SetTeamWaitPictureBoxes();
-                Section section = new Section();
-                Floorplan.AddSection(section);
-                SectionPanelControl newSectionPanel = new SectionPanelControl(section, this.ShiftManager.SelectedFloorplan);
+                Section sectionAdded = new Section();
+                Floorplan.AddSection(sectionAdded);
+                SectionPanelControl newSectionPanel = new SectionPanelControl(sectionAdded, this.ShiftManager.SelectedFloorplan);
                 newSectionPanel.CheckBoxChanged += setSelectedSection;
                 newSectionPanel.picEraseSectionClicked += EraseSectionClicked;
                 newSectionPanel.picTeamWaitClicked += TeamWaitClicked;
+                newSectionPanel.picAddServerClicked += SectionAddServerClicked;
+                sectionPanel.picSubtractServerClicked += SectionSubtractServerClicked;
                 this._sectionPanels.Add(newSectionPanel);
+                UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionPanel, UpdateType.Add, sectionAdded));
             }
             sectionPanel.UpdateLabels();
             //UpdateSectionLabels(selectedSection, selectedSection.MaxCovers, selectedSection.AverageCovers);
@@ -587,6 +653,34 @@ namespace FloorPlanMakerUI
             //floorplanManager.SectionLabelRemoved += FloorplanManager_SectionLabelRemoved;            
             //allTableControls = floorplanManager.TableControls;
             //UpdateTableControlSections();
+        }
+
+        internal void AddSectionPanel(Section? section, FlowLayoutPanel flowSectionSelect)
+        {
+            SectionPanelControl newPanel = sectionPanelControlBySection(section);
+
+            // Add the new panel to the end of the FlowLayoutPanel initially
+            flowSectionSelect.Controls.Add(newPanel);
+
+            // Find the correct index for insertion
+            int insertIndex = FindInsertionIndex(section, flowSectionSelect);
+
+            // Move the new panel to the found index
+            flowSectionSelect.Controls.SetChildIndex(newPanel, insertIndex);
+        }
+        private int FindInsertionIndex(Section? section, FlowLayoutPanel flowPanel)
+        {
+            for (int i = 0; i < flowPanel.Controls.Count; i++)
+            {
+                var panelControl = flowPanel.Controls[i] as SectionPanelControl;
+                if (panelControl != null && panelControl.Section.Number > section.Number)
+                {
+                    return i;
+                }
+            }
+
+            // If no suitable position is found, the control stays at the end
+            return flowPanel.Controls.Count - 2;
         }
     }
 }
