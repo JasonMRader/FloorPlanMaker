@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data.SQLite;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
@@ -16,6 +17,7 @@ namespace FloorplanClassLibrary
 {
     public class Section 
     {
+        
         public Section() 
         {
             

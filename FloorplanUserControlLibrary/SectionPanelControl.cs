@@ -22,6 +22,7 @@ namespace FloorplanUserControlLibrary
         public event EventHandler picTeamWaitClicked;
         private List<Label> serverLabels = new List<Label>();
         private List<PictureBox> removeServerPBs = new List<PictureBox>();
+        
         private Floorplan floorplan { get; set; }
         public bool CheckBoxChecked
         {
@@ -230,6 +231,7 @@ namespace FloorplanUserControlLibrary
             {
                 this.Section.IncreaseServerCount();
                 AddServerRow();
+                
             }
            
         }

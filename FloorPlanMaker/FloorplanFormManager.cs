@@ -114,6 +114,7 @@ namespace FloorPlanMakerUI
                 sectionPanel.CheckBoxChanged += setSelectedSection;
                 sectionPanel.picEraseSectionClicked += EraseSectionClicked;
                 sectionPanel.picTeamWaitClicked += TeamWaitClicked;
+                //sectionPanel.UpdateRequired += FloorplanManager_UpdateRequired;
                 this._sectionPanels.Add(sectionPanel);
             }
             Floorplan.SetSelectedSection(Floorplan.Sections[0]);

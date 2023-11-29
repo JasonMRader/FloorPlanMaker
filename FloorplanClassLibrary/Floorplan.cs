@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SQLite;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -10,6 +12,8 @@ namespace FloorplanClassLibrary
 {
     public class Floorplan 
     {
+        
+        public event EventHandler<UpdateEventArgs> sectionCountChanged;
         public Floorplan(DiningArea diningArea, DateTime date, bool isLunch, int serverCount, int sectionCount)
         {
             this.DiningArea = diningArea;
@@ -18,6 +22,7 @@ namespace FloorplanClassLibrary
             this.ServerCount = serverCount;
             this.SectionCount = sectionCount;
             this.SectionServerMap = new Dictionary<Section, List<Server>>();
+            
             CreateSections();
             //MoveToNextSection();
             foreach (var section in Sections)
@@ -270,6 +275,7 @@ namespace FloorplanClassLibrary
             _sections.Add(section);
             section.ServerRemoved += RemoveServerFromSection;
             section.ServerAssigned += UpdateSectionServerMap;
+            sectionCountChanged?.Invoke(this, new UpdateEventArgs(ControlType.SectionPanel, UpdateType.Remove, sectionRemoved));
             //section.SubscribeObserver(this);
         }
 
