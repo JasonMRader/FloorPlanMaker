@@ -4,8 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FloorplanUserControlLibrary
-{
+namespace FloorplanClassLibrary{
     public class UpdateEventArgs : EventArgs
     {
         public ControlType ControlType { get; private set; }
@@ -30,6 +29,7 @@ namespace FloorplanUserControlLibrary
     public enum UpdateType
     {
         Remove,
+        Add,
         Refresh,
         
         

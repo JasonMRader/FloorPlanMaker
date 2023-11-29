@@ -275,7 +275,7 @@ namespace FloorplanClassLibrary
             _sections.Add(section);
             section.ServerRemoved += RemoveServerFromSection;
             section.ServerAssigned += UpdateSectionServerMap;
-            sectionCountChanged?.Invoke(this, new UpdateEventArgs(ControlType.SectionPanel, UpdateType.Remove, sectionRemoved));
+            sectionCountChanged?.Invoke(this, new UpdateEventArgs(ControlType.SectionPanel, UpdateType.Add, section));
             //section.SubscribeObserver(this);
         }
 
