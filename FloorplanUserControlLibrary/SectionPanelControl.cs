@@ -22,6 +22,7 @@ namespace FloorplanUserControlLibrary
         public event EventHandler picTeamWaitClicked;
         public event EventHandler picAddServerClicked;
         public event EventHandler picSubtractServerClicked;
+        public event EventHandler unassignedSpotClicked;
         public event Action<Section> SectionRemoved;
         public event Action<Section> SectionAdded;
         private List<Label> serverLabels = new List<Label>();
@@ -69,9 +70,12 @@ namespace FloorplanUserControlLibrary
         {
             picTeamWaitClicked?.Invoke(this, e);
         }
+
         public void UpdateLabels()
         {
             lblDisplay.Text = "Unassigned";
+            lblDisplay.BackColor = UITheme.ButtonColor;
+            lblDisplay.Click += unassignedLabel_Click;
             cbSectionSelect.Text = "Section " + this.Section.Number.ToString();
             lblCovers.Text = floorplan.GetCoverDifferenceForSection(Section).ToString("F0");
             //lblCovers.Text = (this.Section.MaxCovers - floorplan.MaxCoversPerServer).ToString("F0");
@@ -87,17 +91,21 @@ namespace FloorplanUserControlLibrary
             if (this.Section.Server != null && Section.IsTeamWait == false)
             {
                 lblDisplay.Text = Section.Server.Name;
+                lblDisplay.BackColor = Section.Color;
+                lblDisplay.Click -= unassignedLabel_Click;
             }
             else if (this.Section.IsTeamWait)
             {
                 foreach (Label label in serverLabels) { label.Tag = null; label.Text = "Unassigned"; };
                 foreach (PictureBox pb in removeServerPBs) { pb.Tag = null; };
                 lblDisplay.Text = this.Section.ServerCount.ToString() + " Team Section";
+                lblDisplay.BackColor = Section.Color;
                 if (this.serverLabels.Count == 0) { return; }
                 for (int i = 0; i < this.Section.ServerTeam.Count; i++)
                 {
-                    serverLabels[i].Text = Section.ServerTeam[i].Name;
-                    serverLabels[i].Tag = Section.ServerTeam[i];
+                    SetLabelToAssigned(i);
+                    //serverLabels[i].Text = Section.ServerTeam[i].Name;
+                    //serverLabels[i].Tag = Section.ServerTeam[i];
                     removeServerPBs[i].Tag = Section.ServerTeam[i];
 
                 }
@@ -119,15 +127,7 @@ namespace FloorplanUserControlLibrary
         {
 
             this.Height += 25;
-            Label lblNewServerName = new Label()
-            {
-                Text = "Unassigned",
-
-                Size = new Size(285, 25),
-                Location = new Point(0, this.Height - 25),
-                TextAlign = ContentAlignment.MiddleCenter,
-                Font = lblDisplay.Font
-            };
+            Label lblNewServerName = CreateUnassignedLabel();
             this.Controls.Add(lblNewServerName);
             this.serverLabels.Add(lblNewServerName);
             PictureBox RemoveServer = new PictureBox()
@@ -148,7 +148,51 @@ namespace FloorplanUserControlLibrary
 
             //this.Invalidate();
         }
-
+        private Label CreateUnassignedLabel()
+        {
+            Label lblNewServerName = new Label()
+            {
+                Text = "Unassigned",
+                BackColor = UITheme.ButtonColor,
+                Size = new Size(285, 25),
+                Location = new Point(0, this.Height - 25),
+                TextAlign = ContentAlignment.MiddleCenter,
+                Font = lblDisplay.Font
+            };
+            lblNewServerName.Click += unassignedSpotClicked;
+            return lblNewServerName;
+        }
+        private void SetLabelToAssigned(int index)
+        {
+            
+            Server server = Section.ServerTeam[index];
+            Label label = serverLabels[index];
+            label.Click -= unassignedSpotClicked;
+            PictureBox removeBox = removeServerPBs[index];
+            if(server != null)
+            {
+                label.BackColor = this.Section.Color;
+                label.Text = server.Name;
+                label.Tag = server;
+                removeBox.Tag = server;
+                
+            }
+            else
+            {
+                label.BackColor = UITheme.ButtonColor;
+                label.Text = "Unassigned";
+                label.Tag = null;
+                removeBox.Tag = null;
+                label.Click += unassignedSpotClicked;
+            }
+           
+           
+            
+        }
+        private void unassignedLabel_Click(object sender, EventArgs e)
+        {
+            unassignedSpotClicked?.Invoke(this.Section, e);
+        }
         private void RemoveServer_Click(object? sender, EventArgs e)
         {
            
@@ -164,6 +208,7 @@ namespace FloorplanUserControlLibrary
                     label.Text = "Unassigned";
                 }
             }
+            UpdateLabels();
         }
 
         private void RefreshAndAddServerRow()

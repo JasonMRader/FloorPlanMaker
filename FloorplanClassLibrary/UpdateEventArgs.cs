@@ -31,6 +31,7 @@ namespace FloorplanClassLibrary{
         Remove,
         Add,
         Refresh,
+        Assign
         
         
         // Add more as needed

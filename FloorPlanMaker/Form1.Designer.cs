@@ -84,6 +84,7 @@ namespace FloorPlanMaker
             flowServersInFloorplan.Size = new Size(335, 865);
             flowServersInFloorplan.TabIndex = 2;
             flowServersInFloorplan.Visible = false;
+            flowServersInFloorplan.MouseClick += flowServersInFloorplan_MouseClick;
             // 
             // lblServerMaxCovers
             // 

@@ -116,11 +116,19 @@ namespace FloorPlanMakerUI
                 sectionPanel.picTeamWaitClicked += TeamWaitClicked;
                 sectionPanel.picAddServerClicked += SectionAddServerClicked;
                 sectionPanel.picSubtractServerClicked += SectionSubtractServerClicked;
+                sectionPanel.unassignedSpotClicked += AssignServerToSection;
                // sectionPanel += SectionAdded?
                 //sectionPanel.UpdateRequired += FloorplanManager_UpdateRequired;
                 this._sectionPanels.Add(sectionPanel);
             }
             Floorplan.SetSelectedSection(Floorplan.Sections[0]);
+        }
+
+        private void AssignServerToSection(object? sender, EventArgs e)
+        {
+            //SectionPanelControl sectionPanel = (SectionPanelControl)sender;
+            Section sectionToAssign = sender as Section;//sectionPanel.Section;
+            UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionPanel, UpdateType.Assign, sectionToAssign));
         }
 
         private void SectionSubtractServerClicked(object? sender, EventArgs e)

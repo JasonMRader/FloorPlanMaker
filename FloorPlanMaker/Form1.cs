@@ -40,6 +40,7 @@ namespace FloorPlanMaker
         ImageLabelControl coversImageLabel = new ImageLabelControl();
         ImageLabelControl salesImageLabel = new ImageLabelControl();
         private FloorplanFormManager floorplanManager;
+        private bool quicklyChoosingAServer = false;
         private DateOnly dateOnlySelected
         {
             get
@@ -75,7 +76,7 @@ namespace FloorPlanMaker
             //AppColors.FormatSecondColor(lblSalesPerServerText);
             UITheme.FormatSecondColor(lblServerAverageCovers);
             UITheme.FormatSecondColor(lblServerMaxCovers);
-           
+
             //lblCoversPerServerText.Font = AppColors.MainFont;
             //lblSalesPerServerText.Font = AppColors.MainFont;
             lblServerAverageCovers.Font = UITheme.LargeFont;
@@ -238,9 +239,15 @@ namespace FloorPlanMaker
                     {
                         floorplanManager.RemoveSectionPanel(e.UpdateData as Section, flowSectionSelect);
                     }
-                    else if(e.UpdateType == UpdateType.Add)
+                    else if (e.UpdateType == UpdateType.Add)
                     {
                         floorplanManager.AddSectionPanel(e.UpdateData as Section, flowSectionSelect);
+                    }
+                    else if (e.UpdateType == UpdateType.Assign)
+                    {
+                        quicklyChoosingAServer = true;
+                        rdoViewServerFlow.Checked = true;
+                        SubscribeToChildrenClick(flowServersInFloorplan);
                     }
                     break;
                 case ControlType.TableControl:
@@ -877,6 +884,35 @@ namespace FloorPlanMaker
             //sectionLineManager.RemoveAllLines(pnlFloorPlan);
             sectionLineManager.AddTopLines(pnlFloorPlan);
         }
+
+        private void SubscribeToChildrenClick(Control parent)
+        {
+            foreach (Control child in parent.Controls)
+            {
+                // Subscribe the child control's MouseDown event
+                child.MouseDown += flowServersInFloorplan_MouseClick;
+
+                // If the child has its own children, recursively subscribe to their events as well
+                if (child.HasChildren)
+                {
+                    SubscribeToChildrenClick(child);
+                }
+            }
+        }
+
+       
+        private void flowServersInFloorplan_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (sender == flowServersInFloorplan)
+            {
+                if (quicklyChoosingAServer)
+                {
+                    rdoViewSectionFlow.Checked = true;
+                }
+                quicklyChoosingAServer = false;
+            }
+        }
+
         //
         //
         //***************************************************

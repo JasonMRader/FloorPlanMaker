@@ -202,14 +202,10 @@ namespace FloorplanClassLibrary
             if (!section.IsTeamWait)
             {
                 return section.MaxCovers - this.MaxCoversPerServer;
-            }
-            if(section.ServerTeam.Count < 3 ) 
-            {
-                return section.MaxCovers - (this.MaxCoversPerServer * 2);
-            }
+            }            
             else
             {
-                return section.MaxCovers - (this.MaxCoversPerServer * section.ServerTeam.Count);
+                return section.MaxCovers - (this.MaxCoversPerServer * section.ServerCount);
             }
         }
         public float GetSalesDifferenceForSection(Section section)
@@ -217,14 +213,10 @@ namespace FloorplanClassLibrary
             if (!section.IsTeamWait)
             {
                 return section.AverageCovers - this.AvgSalesPerServer;
-            }
-            if (section.ServerTeam.Count < 3)
-            {
-                return section.AverageCovers - (this.AvgSalesPerServer *2);
-            }
+            }            
             else
             {
-                return section.AverageCovers - (this.AvgSalesPerServer * section.ServerTeam.Count);
+                return section.AverageCovers - (this.AvgSalesPerServer * section.ServerCount);
             }
         }
         public float AvgSalesPerServer
