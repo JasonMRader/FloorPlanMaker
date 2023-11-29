@@ -54,7 +54,7 @@ namespace FloorplanClassLibrary
         }
 
 
-
+        public int ServerCount { get; private set; } = 1;
         public int ID {  get; set; }
         public bool IsPickUp { get; set; }
         public int DiningAreaID { get; set; }
@@ -117,17 +117,60 @@ namespace FloorplanClassLibrary
         public void MakeTeamWait()
         {
             _isTeamWait = true;
+            ServerCount++;
             NotifyObservers();
+        }
+        public void ToggleTeamWait()
+        {
+            if (_isTeamWait)
+            {
+                this.MakeSoloSection();
+            }
+            else
+            {
+                this.MakeTeamWait();
+            }
+        }
+        public void IncreaseServerCount()
+        {
+            if (!_isTeamWait)
+            {
+                MakeTeamWait();
+                return;
+            }
+            ServerCount++;
+            NotifyObservers();
+            //Potential redundant notification
+        }
+        public bool DecreaseServerCount()
+        {
+            if (ServerCount <= ServerTeam.Count)
+            {
+                MessageBox.Show("You must choose a server to remove to decrease the size of the team.");
+                return false;
+            }   
+            ServerCount--;
+            
+            NotifyObservers();
+            return true;
+            //Potential redundant notification
         }
 
         public void MakeSoloSection()
         {
             _isTeamWait = false;
             ServerTeam = ServerTeam.Take(1).ToList();
+            this.ServerCount = 1;
             NotifyObservers();
         }
         public void AddServer(Server server)
         {
+            if(_isTeamWait && ServerCount == ServerTeam.Count )
+            {
+                MessageBox.Show("You already have " + ServerCount.ToString() + " Servers. Remove a Server" +
+                    " Or Increase the Team Size");
+                return;
+            }
             if (server.CurrentSection != null && server.CurrentSection != this)
             {
                 server.CurrentSection.RemoveServer(server);
@@ -142,7 +185,7 @@ namespace FloorplanClassLibrary
             {
                 ServerTeam.Add(server);
             }
-
+            
             server.CurrentSection = this;
             NotifyServerAssigned(server);
             NotifyObservers();
@@ -154,6 +197,7 @@ namespace FloorplanClassLibrary
             {
                 ServerTeam.Remove(server);
                 server.CurrentSection = null;
+                //if (ServerCount > ServerTeam.Count)
                 NotifyRemovedFromSection(server);
                 NotifyObservers();
             }

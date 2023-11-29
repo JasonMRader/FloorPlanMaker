@@ -123,6 +123,16 @@ namespace FloorplanUserControlLibrary.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap AddServer {
+            get {
+                object obj = ResourceManager.GetObject("AddServer", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap addSmall {
             get {
                 object obj = ResourceManager.GetObject("addSmall", resourceCulture);
@@ -806,6 +816,16 @@ namespace FloorplanUserControlLibrary.Properties {
         internal static System.Drawing.Bitmap Pre2 {
             get {
                 object obj = ResourceManager.GetObject("Pre2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RemovePerson {
+            get {
+                object obj = ResourceManager.GetObject("RemovePerson", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

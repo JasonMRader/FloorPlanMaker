@@ -32,11 +32,15 @@
             lblCovers = new Label();
             lblSales = new Label();
             picClearSection = new PictureBox();
-            picTeamWait = new PictureBox();
-            lblServerNames = new Label();
+            lblDisplay = new Label();
             cbSectionSelect = new CheckBox();
+            picSetTeamWait = new PictureBox();
+            picMinusOneServer = new PictureBox();
+            picPlusOneServer = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)picClearSection).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)picTeamWait).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)picSetTeamWait).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)picMinusOneServer).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)picPlusOneServer).BeginInit();
             SuspendLayout();
             // 
             // lblCovers
@@ -74,30 +78,17 @@
             picClearSection.TabStop = false;
             picClearSection.Click += picClearSection_Click;
             // 
-            // picTeamWait
+            // lblDisplay
             // 
-            picTeamWait.BackColor = Color.FromArgb(120, 180, 120);
-            picTeamWait.Image = Properties.Resources.waiter;
-            picTeamWait.Location = new Point(285, 26);
-            picTeamWait.Margin = new Padding(0);
-            picTeamWait.Name = "picTeamWait";
-            picTeamWait.Size = new Size(40, 25);
-            picTeamWait.SizeMode = PictureBoxSizeMode.Zoom;
-            picTeamWait.TabIndex = 2;
-            picTeamWait.TabStop = false;
-            picTeamWait.Click += picTeamWait_Click;
-            // 
-            // lblServerNames
-            // 
-            lblServerNames.BorderStyle = BorderStyle.FixedSingle;
-            lblServerNames.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            lblServerNames.Location = new Point(0, 25);
-            lblServerNames.Margin = new Padding(0);
-            lblServerNames.Name = "lblServerNames";
-            lblServerNames.Size = new Size(285, 25);
-            lblServerNames.TabIndex = 1;
-            lblServerNames.Text = "Unassigned";
-            lblServerNames.TextAlign = ContentAlignment.MiddleCenter;
+            lblDisplay.BorderStyle = BorderStyle.FixedSingle;
+            lblDisplay.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lblDisplay.Location = new Point(0, 25);
+            lblDisplay.Margin = new Padding(0);
+            lblDisplay.Name = "lblDisplay";
+            lblDisplay.Size = new Size(325, 25);
+            lblDisplay.TabIndex = 1;
+            lblDisplay.Text = "Unassigned";
+            lblDisplay.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // cbSectionSelect
             // 
@@ -114,21 +105,67 @@
             cbSectionSelect.UseVisualStyleBackColor = true;
             cbSectionSelect.CheckedChanged += cbSectionSelect_CheckedChanged;
             // 
+            // picSetTeamWait
+            // 
+            picSetTeamWait.BackColor = Color.FromArgb(120, 180, 120);
+            picSetTeamWait.BackgroundImageLayout = ImageLayout.None;
+            picSetTeamWait.Image = Properties.Resources.waiter;
+            picSetTeamWait.Location = new Point(245, 0);
+            picSetTeamWait.Margin = new Padding(0);
+            picSetTeamWait.Name = "picSetTeamWait";
+            picSetTeamWait.Size = new Size(40, 25);
+            picSetTeamWait.SizeMode = PictureBoxSizeMode.Zoom;
+            picSetTeamWait.TabIndex = 2;
+            picSetTeamWait.TabStop = false;
+            picSetTeamWait.Click += picTeamWait_Click;
+            // 
+            // picMinusOneServer
+            // 
+            picMinusOneServer.BackColor = Color.FromArgb(254, 185, 95);
+            picMinusOneServer.BackgroundImageLayout = ImageLayout.None;
+            picMinusOneServer.Image = Properties.Resources.RemovePerson;
+            picMinusOneServer.Location = new Point(285, 25);
+            picMinusOneServer.Margin = new Padding(0);
+            picMinusOneServer.Name = "picMinusOneServer";
+            picMinusOneServer.Size = new Size(40, 25);
+            picMinusOneServer.SizeMode = PictureBoxSizeMode.Zoom;
+            picMinusOneServer.TabIndex = 2;
+            picMinusOneServer.TabStop = false;
+            picMinusOneServer.Visible = false;
+            // 
+            // picPlusOneServer
+            // 
+            picPlusOneServer.BackColor = Color.FromArgb(120, 180, 120);
+            picPlusOneServer.BackgroundImageLayout = ImageLayout.None;
+            picPlusOneServer.Image = Properties.Resources.AddServer;
+            picPlusOneServer.Location = new Point(245, 25);
+            picPlusOneServer.Margin = new Padding(0);
+            picPlusOneServer.Name = "picPlusOneServer";
+            picPlusOneServer.Size = new Size(40, 25);
+            picPlusOneServer.SizeMode = PictureBoxSizeMode.Zoom;
+            picPlusOneServer.TabIndex = 2;
+            picPlusOneServer.TabStop = false;
+            picPlusOneServer.Visible = false;
+            // 
             // SectionPanelControl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(103, 178, 216);
             Controls.Add(cbSectionSelect);
-            Controls.Add(picTeamWait);
+            Controls.Add(picPlusOneServer);
+            Controls.Add(picMinusOneServer);
+            Controls.Add(picSetTeamWait);
             Controls.Add(picClearSection);
             Controls.Add(lblSales);
-            Controls.Add(lblServerNames);
+            Controls.Add(lblDisplay);
             Controls.Add(lblCovers);
             Name = "SectionPanelControl";
             Size = new Size(325, 50);
             ((System.ComponentModel.ISupportInitialize)picClearSection).EndInit();
-            ((System.ComponentModel.ISupportInitialize)picTeamWait).EndInit();
+            ((System.ComponentModel.ISupportInitialize)picSetTeamWait).EndInit();
+            ((System.ComponentModel.ISupportInitialize)picMinusOneServer).EndInit();
+            ((System.ComponentModel.ISupportInitialize)picPlusOneServer).EndInit();
             ResumeLayout(false);
         }
 
@@ -136,8 +173,11 @@
         private Label lblCovers;
         private Label lblSales;
         private PictureBox picClearSection;
-        private PictureBox picTeamWait;
-        private Label lblServerNames;
+        private PictureBox picSetTeamWait;
+        private Label lblDisplay;
         private CheckBox cbSectionSelect;
+        private PictureBox picMinusOneServer;
+        private PictureBox picPlusOneServer;
+        //private PictureBox picSetTeamWait;
     }
 }

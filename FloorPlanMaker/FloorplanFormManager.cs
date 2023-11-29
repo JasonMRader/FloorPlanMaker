@@ -190,7 +190,9 @@ namespace FloorPlanMakerUI
                 }
                 else
                 {
-                    selectedSection.MakeTeamWait();
+                    
+                    selectedSection.ToggleTeamWait();
+                    sectionPanel.SetTeamWaitPictureBoxes();
                     UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionPanel, UpdateType.Remove, sectionRemoved));
 
                 }
@@ -199,7 +201,7 @@ namespace FloorPlanMakerUI
             else
             {
                 selectedSection.MakeSoloSection();
-               
+                sectionPanel.SetTeamWaitPictureBoxes();
                 Section section = new Section();
                 Floorplan.AddSection(section);
                 SectionPanelControl newSectionPanel = new SectionPanelControl(section, this.ShiftManager.SelectedFloorplan);
