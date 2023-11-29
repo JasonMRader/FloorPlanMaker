@@ -13,7 +13,7 @@ namespace FloorplanClassLibrary
     public class Floorplan 
     {
         
-        public event EventHandler<UpdateEventArgs> sectionCountChanged;
+       
         public Floorplan(DiningArea diningArea, DateTime date, bool isLunch, int serverCount, int sectionCount)
         {
             this.DiningArea = diningArea;
@@ -275,7 +275,7 @@ namespace FloorplanClassLibrary
             _sections.Add(section);
             section.ServerRemoved += RemoveServerFromSection;
             section.ServerAssigned += UpdateSectionServerMap;
-            sectionCountChanged?.Invoke(this, new UpdateEventArgs(ControlType.SectionPanel, UpdateType.Add, section));
+           
             //section.SubscribeObserver(this);
         }
 
@@ -429,7 +429,14 @@ namespace FloorplanClassLibrary
             }
             return allSectionsAssigned;
         }
-
+        public bool NotEnoughUnassignedServersCheck(Section section)
+        {
+            if (section.ServerCount - section.ServerTeam.Count >= this.ServersWithoutSection.Count)
+            {
+                return true;
+            }
+            else { return false; }
+        }
         public void Update(Section section)
         {
             //UpdateSectionServerMap();

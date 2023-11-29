@@ -114,6 +114,7 @@ namespace FloorPlanMakerUI
                 sectionPanel.CheckBoxChanged += setSelectedSection;
                 sectionPanel.picEraseSectionClicked += EraseSectionClicked;
                 sectionPanel.picTeamWaitClicked += TeamWaitClicked;
+               // sectionPanel += SectionAdded?
                 //sectionPanel.UpdateRequired += FloorplanManager_UpdateRequired;
                 this._sectionPanels.Add(sectionPanel);
             }
@@ -185,7 +186,7 @@ namespace FloorPlanMakerUI
 
                 //pb.BackColor = AppColors.NoColor;
                 Section sectionRemoved = Floorplan.RemoveHighestNumberedEmptySection();
-                if (sectionRemoved == null)
+                if (sectionRemoved == null && Floorplan.NotEnoughUnassignedServersCheck(selectedSection))
                 {
                     MessageBox.Show("You must clear a section before making another section a teamwait section");
                 }
@@ -544,7 +545,7 @@ namespace FloorPlanMakerUI
 
         public void UpdateSection(Section section)
         {
-           //UpdateServerControls();
+           
         }
         public void SetViewedFloorplan(DateOnly dateOnlySelected, bool isAM,
             Panel pnlFloorPlan, FlowLayoutPanel flowServersInFloorplan, FlowLayoutPanel flowSectionSelect)

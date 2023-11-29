@@ -20,6 +20,8 @@ namespace FloorplanUserControlLibrary
         public event EventHandler CheckBoxChanged;
         public event EventHandler picEraseSectionClicked;
         public event EventHandler picTeamWaitClicked;
+        public event Action<Section> SectionRemoved;
+        public event Action<Section> SectionAdded;
         private List<Label> serverLabels = new List<Label>();
         private List<PictureBox> removeServerPBs = new List<PictureBox>();
         
@@ -204,6 +206,7 @@ namespace FloorplanUserControlLibrary
             picMinusOneServer.Visible = false;
             picPlusOneServer.Visible = false;
             picPlusOneServer.Click -= picIncreaseServerCount_Click;
+            picMinusOneServer.Click -=picDecreaseServerCount_Click;
             picSetTeamWait.BackColor = UITheme.CTAColor;
             picSetTeamWait.Image = Resources.waiter;
             this.Invalidate();
@@ -222,15 +225,17 @@ namespace FloorplanUserControlLibrary
         private void picIncreaseServerCount_Click(object sender, EventArgs e)
         {
             Section sectionRemoved = floorplan.RemoveHighestNumberedEmptySection();
-            if (sectionRemoved == null)
+            if (sectionRemoved == null && floorplan.NotEnoughUnassignedServersCheck(this.Section))
             {
                 MessageBox.Show("You must clear a section before making another section a teamwait section");
                 
             }
             else
             {
+
                 this.Section.IncreaseServerCount();
                 AddServerRow();
+                SectionRemoved?.Invoke(this.Section);
                 
             }
            
@@ -246,11 +251,13 @@ namespace FloorplanUserControlLibrary
                     SetToSolo();
                     return;
                 }
+                //this.Section.DecreaseServerCount();
                 RemoveServerRow();
+                SectionAdded?.Invoke(this.Section);
             }
 
         }
-
+        
 
 
         public void CheckBox()
