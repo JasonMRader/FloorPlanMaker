@@ -85,6 +85,8 @@ namespace FloorplanUserControlLibrary
             }
             else if (this.Section.IsTeamWait)
             {
+                foreach (Label label in serverLabels) { label.Tag = null; label.Text = "Unassigned"; };
+                foreach (PictureBox pb in removeServerPBs) { pb.Tag = null; };
                 lblDisplay.Text = this.Section.ServerCount.ToString() + " Team Section";
                 if (this.serverLabels.Count == 0) { return; }
                 for (int i = 0; i < this.Section.ServerTeam.Count; i++)
@@ -218,8 +220,18 @@ namespace FloorplanUserControlLibrary
         }
         private void picIncreaseServerCount_Click(object sender, EventArgs e)
         {
-            this.Section.IncreaseServerCount();
-            AddServerRow();
+            Section sectionRemoved = floorplan.RemoveHighestNumberedEmptySection();
+            if (sectionRemoved == null)
+            {
+                MessageBox.Show("You must clear a section before making another section a teamwait section");
+                
+            }
+            else
+            {
+                this.Section.IncreaseServerCount();
+                AddServerRow();
+            }
+           
         }
         private void picDecreaseServerCount_Click(object sender, EventArgs e)
         {
@@ -256,7 +268,6 @@ namespace FloorplanUserControlLibrary
             CheckBoxChanged?.Invoke(this, e);
 
         }
-
-
+        
     }
 }
