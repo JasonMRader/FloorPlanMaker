@@ -130,7 +130,7 @@ namespace FloorplanUserControlLibrary
                 Image = Resources.Trash,
                 SizeMode = PictureBoxSizeMode.Zoom,
                 BackColor = UITheme.WarningColor
-                
+
             };
             RemoveServer.Click += RemoveServer_Click;
             this.removeServerPBs.Add(RemoveServer);
@@ -148,7 +148,7 @@ namespace FloorplanUserControlLibrary
             Server serverToRemove = (Server)clickedBox.Tag;
             this.Section.RemoveServer(serverToRemove);
             clickedBox.Tag = null;
-            foreach(Label label in serverLabels)
+            foreach (Label label in serverLabels)
             {
                 if (label.Tag == serverToRemove)
                 {
@@ -164,7 +164,7 @@ namespace FloorplanUserControlLibrary
         }
         private void RemoveServerRow()
         {
-          
+
             this.Height -= 25;
             this.serverLabels.RemoveAt(serverLabels.Count - 1);
             this.removeServerPBs.RemoveAt(serverLabels.Count - 1);

@@ -107,7 +107,7 @@
             // 
             // picSetTeamWait
             // 
-            picSetTeamWait.BackColor = Color.FromArgb(120, 180, 120);
+            picSetTeamWait.BackColor = Color.FromArgb(100, 130, 180);
             picSetTeamWait.BackgroundImageLayout = ImageLayout.None;
             picSetTeamWait.Image = Properties.Resources.waiter;
             picSetTeamWait.Location = new Point(245, 0);
