@@ -312,38 +312,27 @@ namespace FloorplanClassLibrary
                 var serverSections = cnn.Query("SELECT * FROM ServerSections WHERE SectionID IN @SectionIds", new { SectionIds = sectionIds })
                                          .Select(x => new { ServerID = (int)x.ServerID, SectionID = (int)x.SectionID })
                                          .ToList();
+                var relevantServerIds = serverSections.Select(ss => ss.ServerID).Distinct().ToList();
+                var allRelevantServers = cnn.Query<Server>("SELECT * FROM Server WHERE ID IN @ServerIDs", new { ServerIDs = relevantServerIds }).ToList();
 
                 foreach (var ss in serverSections)
                 {
-                    // Load server details only once per server
-                    if (!servers.Any(s => s.ID == ss.ServerID))
-                    {
-                        var server = cnn.QuerySingle<Server>("SELECT * FROM Server WHERE ID = @ID", new { ID = ss.ServerID });
-                        servers.Add(server);
-                        //floorplan.Servers.Add(server);
-                    }
-
-                    // Associate server with their respective section
+                    // Find the corresponding server and section objects
+                    var server = allRelevantServers.FirstOrDefault(s => s.ID == ss.ServerID);
                     var matchedSection = floorplan.Sections.FirstOrDefault(s => s.ID == ss.SectionID);
-                    if (matchedSection != null)
+
+                    if (server != null && matchedSection != null)
                     {
-                        matchedSection.AddServer(servers.First(s => s.ID == ss.ServerID));
+                        // Add the server to the section's ServerTeam
+                        matchedSection.ServerTeam.Add(server);
                     }
                 }
 
-                // Add loaded servers to floorplan's Servers list\
-                //floorplan.Servers = servers;
-                foreach (var section in floorplan.Sections)
-                {
-                    if (section.Server != null)
-                    {
-                        floorplan.Servers.Add(section.Server);
-                    }
-                }
-
-
+                
 
                 return floorplan;
+
+               
             }
         }
 

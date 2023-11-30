@@ -118,6 +118,14 @@ namespace FloorplanClassLibrary
         public bool IsPre { get; set; }
         private bool _isTeamWait { get; set; }
         public bool IsTeamWait { get { return _isTeamWait; } }
+        public bool IsEmpty()
+        {
+            if (ServerTeam.Count == 0 && Tables.Count == 0)
+            {
+                return true;
+            }
+            return false;
+        }
         public void MakeTeamWait()
         {
             _isTeamWait = true;

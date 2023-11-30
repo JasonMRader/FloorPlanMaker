@@ -117,11 +117,17 @@ namespace FloorPlanMakerUI
                 sectionPanel.picAddServerClicked += SectionAddServerClicked;
                 sectionPanel.picSubtractServerClicked += SectionSubtractServerClicked;
                 sectionPanel.unassignedSpotClicked += AssignServerToSection;
+                sectionPanel.ServerRemoved += ServerRemovedFromSection;
                // sectionPanel += SectionAdded?
                 //sectionPanel.UpdateRequired += FloorplanManager_UpdateRequired;
                 this._sectionPanels.Add(sectionPanel);
             }
             Floorplan.SetSelectedSection(Floorplan.Sections[0]);
+        }
+
+        private void ServerRemovedFromSection(object? sender, EventArgs e)
+        {
+            UpdateServerControls();
         }
 
         private void AssignServerToSection(object? sender, EventArgs e)
@@ -300,7 +306,7 @@ namespace FloorPlanMakerUI
             //TODO CHANGE TO DELETE AFTER ERASING
             SectionPanelControl sectionPanel = (SectionPanelControl)sender;
             Section selectedSection = sectionPanel.Section;
-            if (selectedSection.IsPickUp)
+            if (selectedSection.IsPickUp || selectedSection.IsEmpty())
             {
                 
                 Floorplan.DeleteSection(selectedSection);

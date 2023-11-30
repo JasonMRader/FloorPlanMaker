@@ -23,6 +23,7 @@ namespace FloorplanUserControlLibrary
         public event EventHandler picAddServerClicked;
         public event EventHandler picSubtractServerClicked;
         public event EventHandler unassignedSpotClicked;
+        public event EventHandler ServerRemoved;
         public event Action<Section> SectionRemoved;
         public event Action<Section> SectionAdded;
         private List<Label> serverLabels = new List<Label>();
@@ -83,9 +84,7 @@ namespace FloorplanUserControlLibrary
                 lblSales.Text = Section.FormatAsCurrencyWithoutParentheses(Section.AverageCovers);
                 return;
             }
-            lblDisplay.Text = "Unassigned";
-            lblDisplay.BackColor = UITheme.ButtonColor;
-            lblDisplay.Click += unassignedLabel_Click;
+           
             cbSectionSelect.Text = "Section " + this.Section.Number.ToString();
             lblCovers.Text = floorplan.GetCoverDifferenceForSection(Section).ToString("F0");
             //lblCovers.Text = (this.Section.MaxCovers - floorplan.MaxCoversPerServer).ToString("F0");
@@ -103,6 +102,16 @@ namespace FloorplanUserControlLibrary
                 lblDisplay.Text = Section.Server.Name;
                 lblDisplay.BackColor = Section.Color;
                 lblDisplay.Click -= unassignedLabel_Click;
+            }
+            else if(this.Section.Server == null && Section.IsTeamWait == false)
+            {
+                lblDisplay.Text = "Unassigned";
+                lblDisplay.BackColor = UITheme.ButtonColor;
+                lblDisplay.Click += unassignedLabel_Click;
+                if (this.Section.IsEmpty())
+                {
+                    picClearSection.Image = Resources.Trash;
+                }
             }
             else if (this.Section.IsTeamWait)
             {
@@ -210,12 +219,16 @@ namespace FloorplanUserControlLibrary
             Server serverToRemove = (Server)clickedBox.Tag;
             this.Section.RemoveServer(serverToRemove);
             clickedBox.Tag = null;
+            ServerRemoved?.Invoke(this.Section, e);
             foreach (Label label in serverLabels)
             {
                 if (label.Tag == serverToRemove)
                 {
-                    label.Tag = null;
+                    label.BackColor = UITheme.ButtonColor;
                     label.Text = "Unassigned";
+                    label.Tag = null;
+                    clickedBox.Tag = null;
+                    label.Click += unassignedSpotClicked;
                 }
             }
             UpdateLabels();
