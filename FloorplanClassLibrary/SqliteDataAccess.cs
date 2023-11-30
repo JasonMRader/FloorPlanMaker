@@ -388,6 +388,10 @@ namespace FloorplanClassLibrary
                 {
                     cnn.Execute("INSERT INTO SectionTables (SectionID, TableID) VALUES (@SectionID, @TableID)", new {SectionID = section.ID, TableID = table.ID});
                 }
+                foreach (Server server in section.ServerTeam)
+                {
+                    cnn.Execute("INSERT INTO ServerSections (ServerID, SectionID) VALUES (@ServerID, @SectionID)", new {ServerID = server.ID, SectionID = section.ID});
+                }
                 cnn.Close();
             }
         }
@@ -603,23 +607,26 @@ namespace FloorplanClassLibrary
                     });
 
                     // Assuming section has a List<Server> Servers to represent all servers in that section
-                    if (section.Server != null)
+                    if (section.ServerTeam.Count >= 1)
                     {
 
-                        cnn.Execute("INSERT OR IGNORE INTO ServerSections (ServerID, SectionID) VALUES (@ServerID, @SectionID)",
-                        new
+                        //cnn.Execute("INSERT OR IGNORE INTO ServerSections (ServerID, SectionID) VALUES (@ServerID, @SectionID)",
+                        //new
+                        //{
+                        //    ServerID = section.Server.ID,
+                        //    SectionID = section.ID
+                        //});
+                        foreach (Server server in section.ServerTeam)
                         {
-                            ServerID = section.Server.ID,
-                            SectionID = section.ID
-                        });
-                        cnn.Execute("INSERT OR IGNORE INTO Shift (ServerID, SectionID, FloorplanID, DiningAreaID) VALUES (@ServerID, @SectionID, @FloorplanID, @DiningAreaID)",
-                        new
-                        {
-                            ServerID = section.Server.ID,
-                            SectionID = section.ID,
-                            FloorplanID = floorplan.ID,
-                            DiningAreaID = floorplan.DiningArea.ID
-                        });
+                            cnn.Execute("INSERT OR IGNORE INTO Shift (ServerID, SectionID, FloorplanID, DiningAreaID) VALUES (@ServerID, @SectionID, @FloorplanID, @DiningAreaID)",
+                                           new
+                                           {
+                                               ServerID = server.ID,
+                                               SectionID = section.ID,
+                                               FloorplanID = floorplan.ID,
+                                               DiningAreaID = floorplan.DiningArea.ID
+                                           }); 
+                        }
 
                     }
                 }

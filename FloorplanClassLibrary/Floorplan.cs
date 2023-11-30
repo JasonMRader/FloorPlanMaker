@@ -155,16 +155,26 @@ namespace FloorplanClassLibrary
         {
             get
             {
-                // Fetch servers from all sections
-                var serversFromSections = Sections.SelectMany(s => new List<Server> { s.Server })
-                                                  .Where(s => s != null)
-                                                  .Distinct()
-                                                  .ToList();
+                var serversFromSections = Sections.SelectMany(s =>
+                {
+                    // Create a list combining Server and ServerTeam
+                    var combinedServers = new List<Server>();
+                   
+                    if (s.ServerTeam != null)
+                    {
+                        combinedServers.AddRange(s.ServerTeam);
+                    }
+
+                    return combinedServers;
+                })
+                    .Where(s => s != null)
+                    .Distinct()
+                    .ToList();
 
                 // Concatenate with UnassignedServers and ensure uniqueness
                 return ServersWithoutSection.Concat(serversFromSections)
-                                        .Distinct()
-                                        .ToList();
+                                            .Distinct()
+                                            .ToList();
             }
         }
         public List<Server> ServersWithoutSection 
