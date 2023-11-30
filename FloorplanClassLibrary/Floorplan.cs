@@ -319,6 +319,7 @@ namespace FloorplanClassLibrary
             }
             var sectionToRemove = Sections.Where(s => s.Number == section.Number).FirstOrDefault();
             Sections.Remove(sectionToRemove);
+           // sectionToRemove.Notify();
             
         }
         public void UnassignSection(Section section)
@@ -393,6 +394,7 @@ namespace FloorplanClassLibrary
                     _sectionCount = value;
             }
         }
+        
         public void CreateSections ()
         {
             Sections.Clear();

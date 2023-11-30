@@ -291,12 +291,24 @@ namespace FloorPlanMakerUI
             
             //CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
         }
+        private void DeleteSection(Section section)
+        {
 
+        }
         private void EraseSectionClicked(object? sender, EventArgs e)
         {
             //TODO CHANGE TO DELETE AFTER ERASING
             SectionPanelControl sectionPanel = (SectionPanelControl)sender;
             Section selectedSection = sectionPanel.Section;
+            if (selectedSection.IsPickUp)
+            {
+                
+                Floorplan.DeleteSection(selectedSection);
+                UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionPanel, UpdateType.Remove, selectedSection));
+                _sectionPanels.Remove(sectionPanel);
+                return;
+
+            }
             if (selectedSection != null)
             {
                 //DialogResult dialogResult = MessageBox.Show("Are You Sure You Want to Remove the Tables and Server from this Section?",
@@ -447,7 +459,7 @@ namespace FloorPlanMakerUI
             Floorplan.AddSection(pickUp);
             SectionPanelControl newSectionPanel = new SectionPanelControl(pickUp, this.ShiftManager.SelectedFloorplan);
             newSectionPanel.CheckBoxChanged += setSelectedSection;
-            //newSectionPanel.picEraseSectionClicked += EraseSectionClicked;
+            newSectionPanel.picEraseSectionClicked += EraseSectionClicked;
             //newSectionPanel.picTeamWaitClicked += TeamWaitClicked;
             //newSectionPanel.picAddServerClicked += SectionAddServerClicked;
             //sectionPanel.picSubtractServerClicked += SectionSubtractServerClicked;

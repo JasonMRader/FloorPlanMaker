@@ -235,7 +235,10 @@ namespace FloorplanClassLibrary
         }
         private List<ISectionObserver> observers = new List<ISectionObserver>();
 
-        
+        public void Notify()
+        {
+            this.NotifyObservers();
+        }
 
         public void RemoveObserver(ISectionObserver observer)
         {
