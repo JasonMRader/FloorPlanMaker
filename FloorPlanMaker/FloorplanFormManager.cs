@@ -118,6 +118,10 @@ namespace FloorPlanMakerUI
                 sectionPanel.picSubtractServerClicked += SectionSubtractServerClicked;
                 sectionPanel.unassignedSpotClicked += AssignServerToSection;
                 sectionPanel.ServerRemoved += ServerRemovedFromSection;
+                if (section.IsTeamWait)
+                {
+                    sectionPanel.SetToTeamWait();
+                }
                // sectionPanel += SectionAdded?
                 //sectionPanel.UpdateRequired += FloorplanManager_UpdateRequired;
                 this._sectionPanels.Add(sectionPanel);

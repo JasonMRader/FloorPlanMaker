@@ -315,20 +315,38 @@ namespace FloorplanClassLibrary
                 var relevantServerIds = serverSections.Select(ss => ss.ServerID).Distinct().ToList();
                 var allRelevantServers = cnn.Query<Server>("SELECT * FROM Server WHERE ID IN @ServerIDs", new { ServerIDs = relevantServerIds }).ToList();
 
+                //foreach (var ss in serverSections)
+                //{
+                //    // Find the corresponding server and section objects
+                //    var server = allRelevantServers.FirstOrDefault(s => s.ID == ss.ServerID);
+                //    var matchedSection = floorplan.Sections.FirstOrDefault(s => s.ID == ss.SectionID);
+
+                //    if (server != null && matchedSection != null)
+                //    {
+                //        // Add the server to the section's ServerTeam
+                //        matchedSection.ServerTeam.Add(server);
+                //    }
+                //}
+
                 foreach (var ss in serverSections)
                 {
-                    // Find the corresponding server and section objects
                     var server = allRelevantServers.FirstOrDefault(s => s.ID == ss.ServerID);
                     var matchedSection = floorplan.Sections.FirstOrDefault(s => s.ID == ss.SectionID);
 
                     if (server != null && matchedSection != null)
                     {
-                        // Add the server to the section's ServerTeam
                         matchedSection.ServerTeam.Add(server);
                     }
                 }
 
-                
+                // After adding all servers, set IsTeamWait appropriately
+                foreach (var section in floorplan.Sections)
+                {
+                    if (section.ServerTeam.Count > 1)
+                    {
+                        section.MakeTeamWait();
+                    }
+                }
 
                 return floorplan;
 

@@ -74,6 +74,7 @@ namespace FloorplanUserControlLibrary
 
         public void UpdateLabels()
         {
+
             if(Section.IsPickUp)
             {
                 this.Height = 25;
@@ -247,7 +248,7 @@ namespace FloorplanUserControlLibrary
 
 
         }
-        private void SetToTeamWait()
+        public void SetToTeamWait()
         {
             lblDisplay.Text = this.Section.ServerCount.ToString() + " Team Section";
             lblDisplay.Width = 245;
