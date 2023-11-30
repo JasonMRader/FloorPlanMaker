@@ -608,37 +608,73 @@ namespace FloorPlanMakerUI
                 TableControl_TableClicked(tableControl, args);
             }
         }
-
+        private void RefreshServerSections()
+        {
+            foreach (Server server in Floorplan.Servers)
+            {
+                server.CurrentSection = null;
+            }
+            foreach (Section section in Floorplan.Sections)
+            {
+                foreach (Server server in section.ServerTeam)
+                {
+                    server.CurrentSection = section;
+                }
+            }
+        }
         public void UpdateServerControls()
         {
+            RefreshServerSections();
+           
             if (ShiftManager.SelectedFloorplan == null) return;
-
             foreach (ServerControl serverControl in _serverControls)
             {
-                
+
                 Server server = serverControl.Server;
-
-                
-                Section assignedSection = null;
-                foreach (var entry in ShiftManager.SelectedFloorplan.SectionServerMap)
+                if (server.CurrentSection != null)
                 {
-                    if (entry.Value.Contains(server))
-                    {
-                        assignedSection = entry.Key;
-                        break; // Exit the loop once the section is found
-                    }
-                }
-
-                // Update the label's background color based on the section's color
-                if (assignedSection != null)
-                {
-                    serverControl.Label.BackColor = assignedSection.Color;
+                    serverControl.Label.BackColor = server.CurrentSection.Color;
                 }
                 else
                 {
                     serverControl.Label.BackColor = UITheme.ButtonColor; // Replace DefaultColor with your default color
                 }
+                serverControl.Invalidate();
+
+               
+
+                // Update the label's background color based on the section's color
+               
             }
+
+            //foreach (ServerControl serverControl in _serverControls)
+            //{
+                
+            //    Server server = serverControl.Server;
+
+                
+            //    Section assignedSection = null;
+            //    serverControl.Label.BackColor = UITheme.ButtonColor;
+            //    foreach (var entry in ShiftManager.SelectedFloorplan.SectionServerMap)
+            //    {
+            //        if (entry.Value.Contains(server))
+            //        {
+            //            assignedSection = entry.Key;
+            //            break; // Exit the loop once the section is found
+            //        }
+            //    }
+
+            //    // Update the label's background color based on the section's color
+            //    if (assignedSection != null)
+            //    {
+            //        serverControl.Label.BackColor = assignedSection.Color;
+            //    }
+            //    else
+            //    {
+            //        serverControl.Label.BackColor = UITheme.ButtonColor; // Replace DefaultColor with your default color
+            //    }
+            //    serverControl.Invalidate();
+            //}
         }
 
 

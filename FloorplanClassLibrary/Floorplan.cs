@@ -87,6 +87,16 @@ namespace FloorplanClassLibrary
             }
 
         }
+        public void RefreshSectionServerMap()
+        {
+            foreach(Section section in this.Sections)
+            {
+                foreach(Server server in section.ServerTeam)
+                {
+                    UpdateSectionServerMap(server, section);
+                }
+            }
+        }
         public void UpdateSectionServerMap(Server server, Section section)
         {
             // Remove the server from any current section

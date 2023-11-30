@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+//using static System.Collections.Specialized.BitVector32;
 
 namespace FloorPlanMaker
 {
@@ -59,34 +60,79 @@ namespace FloorPlanMaker
             {
                 if (_server != value)
                 {
-                    
+                    if (_server != null && _server.CurrentSection != null)
+                    {
+                        // Unsubscribe from the old section's events
+                        _server.CurrentSection.ServerAssigned -= OnServerAssignedToSection;
+                        _server.CurrentSection.ServerRemoved -= OnServerRemovedFromSection;
+                    }
 
                     _server = value;
-                   
+
+                    if (_server != null && _server.CurrentSection != null)
+                    {
+                        // Subscribe to the new section's events
+                        _server.CurrentSection.ServerAssigned += OnServerAssignedToSection;
+                        _server.CurrentSection.ServerRemoved += OnServerRemovedFromSection;
+                    }
+
+                    // Additional logic as needed
                 }
             }
         }
 
-        private void OnServerRemovedFromSection(Section obj)
+        private void OnServerCurrentSectionChanged(Section section)
         {
-            this.Section = null;
-            this.Label.BackColor = UITheme.ButtonColor;
-
+            if (this.Server.CurrentSection == null)
+            {
+                this.Section = null;
+                this.Label.BackColor = UITheme.ButtonColor;
+            }
+            else
+            {
+                this.Section = section;
+                this.Label.BackColor = section.Color;
+            }
+        }
+        private void OnServerAssignedToSection(Server server, Section section)
+        {
+            // Logic to handle server assignment to section
+            if (server == this.Server)
+            {
+                this.Section = section;
+                this.UpdateSection(section);
+            }
         }
 
-        private void OnServerAssignedToSection(Section section)
+        private void OnServerRemovedFromSection(Server server, Section section)
         {
-            this.Section = section;
-            this.UpdateSection(section);
+            // Logic to handle server removal from section
+            if (server == this.Server)
+            {
+                this.Section = null;
+                this.Label.BackColor = UITheme.ButtonColor;
+            }
         }
+        //private void OnServerRemovedFromSection(Section obj)
+        //{
+        //    this.Section = null;
+        //    this.Label.BackColor = UITheme.ButtonColor;
+
+        //}
+
+        //private void OnServerAssignedToSection(Section section)
+        //{
+        //    this.Section = section;
+        //    this.UpdateSection(section);
+        //}
         public FlowLayoutPanel ShiftsDisplay { get; set; }
         public Label Label { get; set; }
         public Section? Section { get; set; }
         public Button RemoveButton { get; set; }
         public void UpdateSection(Section section)
         {
-            this.Section = section;
-            this.Label.BackColor = section.Color;
+            
+            
 
         }
         public void AddRemoveButton(FlowLayoutPanel flowStart, FlowLayoutPanel flowEnd, List<Server> startList, List<Server> endList, int width, int height)

@@ -15,7 +15,21 @@
         //{
         //    Section = null;
         //}
-        public Section CurrentSection { get; set; }
+       
+
+        private Section? _currentSection;
+        public Section CurrentSection
+        {
+            get => _currentSection;
+            set
+            {
+                if (_currentSection != value)
+                {
+                    _currentSection = value;
+                    
+                }
+            }
+        }
 
         public List<Shift> Shifts
         {

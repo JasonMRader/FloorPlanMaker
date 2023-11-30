@@ -166,7 +166,7 @@ namespace FloorplanClassLibrary
             NotifyObservers();
         }
         public void AddServer(Server server)
-        {
+        {           
             if(_isTeamWait && ServerCount == ServerTeam.Count )
             {
                 MessageBox.Show("You already have " + ServerCount.ToString() + " Servers. Remove a Server" +
@@ -176,6 +176,7 @@ namespace FloorplanClassLibrary
             if (server.CurrentSection != null && server.CurrentSection != this)
             {
                 server.CurrentSection.RemoveServer(server);
+                //NotifyRemovedFromSection(server);
             }
 
             if (!IsTeamWait)
