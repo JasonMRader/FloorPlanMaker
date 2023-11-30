@@ -526,6 +526,7 @@ namespace FloorPlanMaker
                 newShiftManager.SetFloorplansToPM();
 
             }
+            SetFloorplansForShiftManager();
 
         }
 

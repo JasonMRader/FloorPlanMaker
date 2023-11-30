@@ -17,7 +17,7 @@ namespace FloorPlanMakerUI
     public partial class frmNewShiftDatePicker : Form
     {
         private DateTime dateSelected = DateTime.Today;
-        private bool isAM = true;
+        private bool isAM { get { return cbIsAm.Checked; } }
         public ShiftManager ShiftManagerCreated = new ShiftManager();
         private DiningAreaCreationManager DiningAreaManager = new DiningAreaCreationManager();
         private List<Floorplan> allFloorplans = new List<Floorplan>();
@@ -40,7 +40,7 @@ namespace FloorPlanMakerUI
 
             UITheme.FormatMainButton(btnBackDay);
             UITheme.FormatMainButton(btnForwardDay);
-          
+
 
             UITheme.FormatCTAButton(btnOK);
 
@@ -58,6 +58,8 @@ namespace FloorPlanMakerUI
             LoadDiningAreas();
             RefreshPreviousFloorplanCounts();
             PopulateServersNotOnShift(allServers);
+            SetShiftManagerDateAndIsAM();
+            RefreshForDateSelected();
 
         }
         private void UpdateAreasAndServersForDateAndShift()
@@ -253,9 +255,9 @@ namespace FloorPlanMakerUI
             foreach (Button btn in flowAllServers.Controls)
             {
                 serversNotOnShiftButtons.Add(btn);
-                
+
             }
-            foreach(Button btn in serversNotOnShiftButtons)
+            foreach (Button btn in serversNotOnShiftButtons)
             {
                 if (serverUsed.Contains(btn.Tag))
                 {
@@ -265,7 +267,7 @@ namespace FloorPlanMakerUI
             }
             foreach (Button btn in flowServersOnShift.Controls)
             {
-                serversOnShiftButtons.Add(btn);                
+                serversOnShiftButtons.Add(btn);
             }
             foreach (Button btn in serversOnShiftButtons)
             {
@@ -317,7 +319,7 @@ namespace FloorPlanMakerUI
                 cbArea.ForeColor = Color.Black;
                 if (!ShiftManagerCreated.DiningAreasUsed.Contains(area))
                 {
-                    ShiftManagerCreated.CreateFloorplanForDiningArea(area, DateTime.Now, false, 0, 0);
+                    ShiftManagerCreated.CreateFloorplanForDiningArea(area, DateTime.Now, isAM, 0, 0);
                 }
 
 
@@ -400,16 +402,20 @@ namespace FloorPlanMakerUI
                 MessageBox.Show("You have not assigned any servers");
                 return;
             }
-            this.ShiftManagerCreated.DateOnly = new DateOnly(dateSelected.Year, dateSelected.Month, dateSelected.Day);
-            this.ShiftManagerCreated.IsAM = isAM;
+            SetShiftManagerDateAndIsAM();
             frmEditStaff.UpdateNewShift(ShiftManagerCreated);
             this.Close();
 
         }
+        private void SetShiftManagerDateAndIsAM()
+        {
+            this.ShiftManagerCreated.DateOnly = new DateOnly(dateSelected.Year, dateSelected.Month, dateSelected.Day);
+            this.ShiftManagerCreated.IsAM = isAM;
+        }
 
         private void cbIsAm_CheckedChanged(object sender, EventArgs e)
         {
-            isAM = cbIsAm.Checked;
+            //isAM = cbIsAm.Checked;
             if (isAM)
             {
                 cbIsAm.Image = Resources.smallSunrise;
@@ -422,6 +428,7 @@ namespace FloorPlanMakerUI
 
             }
             RefreshPreviousFloorplanCounts();
+            RefreshForDateSelected();
         }
 
         private void pbAddPerson_Click(object sender, EventArgs e)
