@@ -232,7 +232,10 @@ namespace FloorPlanMaker
 
                     break;
                 case ControlType.ServerControl:
-                    // Handle ServerControl update
+                    if(e.UpdateType == UpdateType.Refresh)
+                    {
+                        //floorplanManager.UpdateServerControlsInFlowPanel()
+                    }
                     break;
                 case ControlType.SectionPanel:
                     if (e.UpdateType == UpdateType.Remove)
