@@ -610,9 +610,9 @@ namespace FloorPlanMakerUI
         }
         private void RefreshServerSections()
         {
-            foreach (Server server in Floorplan.Servers)
+            foreach (ServerControl serverControl in this._serverControls)
             {
-                server.CurrentSection = null;
+                serverControl.Server.CurrentSection = null;
             }
             foreach (Section section in Floorplan.Sections)
             {
