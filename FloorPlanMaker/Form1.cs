@@ -232,7 +232,7 @@ namespace FloorPlanMaker
 
                     break;
                 case ControlType.ServerControl:
-                    if(e.UpdateType == UpdateType.Refresh)
+                    if (e.UpdateType == UpdateType.Refresh)
                     {
                         //floorplanManager.UpdateServerControlsInFlowPanel()
                     }
@@ -812,29 +812,29 @@ namespace FloorPlanMaker
 
             //}
 
-            //this.sectionLineManager = new SectionLineManager(allTableControls);
-            //sectionLineManager.AddTopLines(pnlFloorPlan);
-            //sectionLineManager.AddRightLines(pnlFloorPlan);
-            //sectionLineManager.AddRightBorders(pnlFloorPlan);
-            //sectionLineManager.AddBottomLines(pnlFloorPlan);
-            //sectionLineManager.DrawSectionLines(pnlFloorPlan);
+            this.sectionLineManager = new SectionLineManager(allTableControls);
+            sectionLineManager.AddTopLines(pnlFloorPlan);
+            sectionLineManager.AddRightLines(pnlFloorPlan);
+            sectionLineManager.AddRightBorders(pnlFloorPlan);
+            sectionLineManager.AddBottomLines(pnlFloorPlan);
+            sectionLineManager.DrawSectionLines(pnlFloorPlan);
 
-            //sectionLineManager.MakeTopLines(pnlFloorPlan);
-            //sectionLineManager.MakeSectionTableOutlines();
-            //foreach(SectionLine sectionLine in sectionLineManager.SectionLines)
-            //{
-            //    pnlFloorPlan.Controls.Add(sectionLine);
-            //}
-            //sectionLineManager.RemoveBottomLines(pnlFloorPlan);
-            //sectionLineManager.RemoveRightLines(pnlFloorPlan);
-            //sectionLineManager.DrawSeparationLines(pnlFloorPlan);
+            sectionLineManager.MakeTopLines(pnlFloorPlan);
+            sectionLineManager.MakeSectionTableOutlines();
+            foreach (SectionLine sectionLine in sectionLineManager.SectionLines)
+            {
+                pnlFloorPlan.Controls.Add(sectionLine);
+            }
+            sectionLineManager.RemoveBottomLines(pnlFloorPlan);
+            sectionLineManager.RemoveRightLines(pnlFloorPlan);
+            sectionLineManager.DrawSeparationLines(pnlFloorPlan);
 
 
-            //sectionLineManager.AddSectionNodes(pnlFloorPlan);
-            flowServersInFloorplan.Controls.Clear();
-            FloorplanInfoControl fpInfo = new FloorplanInfoControl(shiftManager.SelectedFloorplan, flowServersInFloorplan.Width);
-            fpInfo.UpdatePastLabels(8, 4);
-            flowServersInFloorplan.Controls.Add(fpInfo);
+            sectionLineManager.AddSectionNodes(pnlFloorPlan);
+            //flowServersInFloorplan.Controls.Clear();
+            //FloorplanInfoControl fpInfo = new FloorplanInfoControl(shiftManager.SelectedFloorplan, flowServersInFloorplan.Width);
+            //fpInfo.UpdatePastLabels(8, 4);
+            //flowServersInFloorplan.Controls.Add(fpInfo);
 
         }
         private void btnTest2_Click(object sender, EventArgs e)
@@ -855,22 +855,22 @@ namespace FloorPlanMaker
             ////sectionLineManager.UpdateSectionLinePositions(pnlFloorPlan);
             ////sectionLineManager.AddParallelLines(pnlFloorPlan);
 
-            //foreach (Section section in shiftManager.SelectedFloorplan.Sections)
-            //{
-            //    SectionNodeManager nodeManager = new SectionNodeManager(section);
-            //    Node tlNode = nodeManager.GetTopLeftNode();
-            //    Node trNode = nodeManager.GetTopRightNode();
-            //    Node brNode = nodeManager.GetBottomRightNode();
-            //    SectionLine sectionLine = new SectionLine(tlNode, trNode);
-            //    SectionLine sectionLine1 = new SectionLine(trNode, brNode);
-            //    pnlFloorPlan.Controls.Add(sectionLine);
-            //    pnlFloorPlan.Controls.Add(sectionLine1);
+            foreach (Section section in shiftManager.SelectedFloorplan.Sections)
+            {
+                SectionNodeManager nodeManager = new SectionNodeManager(section);
+                Node tlNode = nodeManager.GetTopLeftNode();
+                Node trNode = nodeManager.GetTopRightNode();
+                Node brNode = nodeManager.GetBottomRightNode();
+                SectionLine sectionLine = new SectionLine(tlNode, trNode);
+                SectionLine sectionLine1 = new SectionLine(trNode, brNode);
+                pnlFloorPlan.Controls.Add(sectionLine);
+                pnlFloorPlan.Controls.Add(sectionLine1);
 
-            //}
-            flowServersInFloorplan.Controls.Clear();
-            ImageLabelControl imgControl = new ImageLabelControl(UITheme.covers, "50", flowServersInFloorplan.Width, 30);
-            imgControl.BackColor = Color.Blue;
-            flowServersInFloorplan.Controls.Add(imgControl);
+            }
+            //flowServersInFloorplan.Controls.Clear();
+            //ImageLabelControl imgControl = new ImageLabelControl(UITheme.covers, "50", flowServersInFloorplan.Width, 30);
+            //imgControl.BackColor = Color.Blue;
+            //flowServersInFloorplan.Controls.Add(imgControl);
 
         }
 
@@ -904,7 +904,7 @@ namespace FloorPlanMaker
             }
         }
 
-       
+
         private void flowServersInFloorplan_MouseClick(object sender, MouseEventArgs e)
         {
             if (sender == flowServersInFloorplan)
@@ -917,6 +917,6 @@ namespace FloorPlanMaker
             }
         }
 
-       
+
     }
 }
