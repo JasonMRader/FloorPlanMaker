@@ -184,11 +184,13 @@ namespace FloorplanClassLibrary
         }
         public float MaxCoversPerServer
         {
+            
             get
             {
                 if (DiningArea != null && Servers.Count > 0)
                 {
-                    return (float)this.DiningArea.GetMaxCovers() / this.Servers.Count;
+                    return (DiningArea.GetMaxCovers() / this.Servers.Count) - (TotalPickUpSectionCovers() / this.Servers.Count);
+                    //return ((float)this.DiningArea.GetMaxCovers() - TotalPickUpSectionCovers()) / this.Servers.Count;
                 }
                 else
                 {
@@ -196,6 +198,39 @@ namespace FloorplanClassLibrary
                 }
                
             }
+        }
+        public float AvgSalesPerServer
+        {
+            get
+            {
+                if (DiningArea != null && Servers.Count > 0)
+                    return (DiningArea.GetAverageCovers()  / this.Servers.Count) - (TotalPickUpSectionSales() / this.Servers.Count);
+                return 0;
+            }
+        }
+        private float TotalPickUpSectionCovers()
+        {
+            float total = 0;
+            foreach(var section in Sections)
+            {
+                if (section.IsPickUp)
+                {
+                    total += section.MaxCovers;
+                }
+            }
+            return total;
+        }
+        private float TotalPickUpSectionSales()
+        {
+            float total = 0;
+            foreach (var section in Sections)
+            {
+                if (section.IsPickUp)
+                {
+                    total += section.AverageCovers;
+                }
+            }
+            return total;
         }
         public float GetCoverDifferenceForSection(Section section)
         {
@@ -219,15 +254,7 @@ namespace FloorplanClassLibrary
                 return section.AverageCovers - (this.AvgSalesPerServer * section.ServerCount);
             }
         }
-        public float AvgSalesPerServer
-        {
-            get
-            {
-                if (DiningArea != null && Servers.Count > 0)
-                    return DiningArea.GetAverageCovers() / this.Servers.Count;
-                return 0;
-            }
-        }
+        
         public void CopyTemplateSections(List<Section> sections)
         {
             this.Sections.Clear();

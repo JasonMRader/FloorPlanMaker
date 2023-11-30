@@ -73,6 +73,16 @@ namespace FloorplanUserControlLibrary
 
         public void UpdateLabels()
         {
+            if(Section.IsPickUp)
+            {
+                this.Height = 25;
+                cbSectionSelect.Text = "Pick-up";
+                picSetTeamWait.Visible = false;
+                picClearSection.Image = Resources.Trash;
+                lblCovers.Text = Section.MaxCovers.ToString("F0");
+                lblSales.Text = Section.FormatAsCurrencyWithoutParentheses(Section.AverageCovers);
+                return;
+            }
             lblDisplay.Text = "Unassigned";
             lblDisplay.BackColor = UITheme.ButtonColor;
             lblDisplay.Click += unassignedLabel_Click;

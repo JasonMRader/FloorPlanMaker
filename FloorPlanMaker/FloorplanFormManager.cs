@@ -294,32 +294,33 @@ namespace FloorPlanMakerUI
 
         private void EraseSectionClicked(object? sender, EventArgs e)
         {
+            //TODO CHANGE TO DELETE AFTER ERASING
             SectionPanelControl sectionPanel = (SectionPanelControl)sender;
             Section selectedSection = sectionPanel.Section;
             if (selectedSection != null)
             {
-                DialogResult dialogResult = MessageBox.Show("Are You Sure You Want to Remove the Tables and Server from this Section?",
-                    "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (dialogResult == DialogResult.Yes)
-                {
+                //DialogResult dialogResult = MessageBox.Show("Are You Sure You Want to Remove the Tables and Server from this Section?",
+                //    "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                //if (dialogResult == DialogResult.Yes)
+                //{
                     //SectionLabelRemoved?.Invoke(this, e);
-                    UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionLabel, UpdateType.Remove, selectedSection));
-                    this._sectionLabels.Remove(sectionLabelBySection(selectedSection));
-                    //selectedSection.Server.CurrentSection.RemoveServer(selectedSection.Server);
+                UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionLabel, UpdateType.Remove, selectedSection));
+                this._sectionLabels.Remove(sectionLabelBySection(selectedSection));
+                //selectedSection.Server.CurrentSection.RemoveServer(selectedSection.Server);
 
-                    //this.UpdateRequired += FloorplanManager_UpdateRequired;
-                    ShiftManager.SelectedFloorplan.UnassignSection(selectedSection);
+                //this.UpdateRequired += FloorplanManager_UpdateRequired;
+                ShiftManager.SelectedFloorplan.UnassignSection(selectedSection);
 
-                    UpdateTableControlColors();
-                    UpdateServerControls();
+                UpdateTableControlColors();
+                UpdateServerControls();
                     //AND CLEAR TABLECONTROL SECTIONS,
                     //REMOVE TABLES FROM SECTION
                     //Update ServerControl 
-                }
-                else if (dialogResult == DialogResult.No)
-                {
-                    return;
-                }
+                //}
+                //else if (dialogResult == DialogResult.No)
+                //{
+                //    return;
+                //}
             }
             sectionPanel.UpdateLabels();
         }
@@ -429,17 +430,29 @@ namespace FloorPlanMakerUI
         }
         private void btnAddPickupSection_Click(object sender, EventArgs e)
         {
-            Section pickUpSection = new Section(Floorplan);
-            pickUpSection.Name = "Pickup";
-            pickUpSection.IsPickUp = true;
-            Floorplan.AddSection(pickUpSection);
-            SectionPanelControl sectionPanel = new SectionPanelControl(pickUpSection, this.ShiftManager.SelectedFloorplan);
-            sectionPanel.CheckBoxChanged += setSelectedSection;
-            sectionPanel.picEraseSectionClicked += EraseSectionClicked;
-            sectionPanel.picTeamWaitClicked += TeamWaitClicked;
-            this._sectionPanels.Add(sectionPanel);
-            RefreshSectionPanels();
-            //CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
+            //Section pickUpSection = new Section(Floorplan);
+            //pickUpSection.Name = "Pickup";
+            //pickUpSection.IsPickUp = true;
+            //Floorplan.AddSection(pickUpSection);
+            //SectionPanelControl sectionPanel = new SectionPanelControl(pickUpSection, this.ShiftManager.SelectedFloorplan);
+            //sectionPanel.CheckBoxChanged += setSelectedSection;
+            ////sectionPanel.picEraseSectionClicked += EraseSectionClicked;
+            ////sectionPanel.picTeamWaitClicked += TeamWaitClicked;
+            //this._sectionPanels.Add(sectionPanel);
+            //RefreshSectionPanels();
+            ////CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
+            Section pickUp = new Section();
+            pickUp.Name = "Pickup";
+            pickUp.IsPickUp = true;            
+            Floorplan.AddSection(pickUp);
+            SectionPanelControl newSectionPanel = new SectionPanelControl(pickUp, this.ShiftManager.SelectedFloorplan);
+            newSectionPanel.CheckBoxChanged += setSelectedSection;
+            //newSectionPanel.picEraseSectionClicked += EraseSectionClicked;
+            //newSectionPanel.picTeamWaitClicked += TeamWaitClicked;
+            //newSectionPanel.picAddServerClicked += SectionAddServerClicked;
+            //sectionPanel.picSubtractServerClicked += SectionSubtractServerClicked;
+            this._sectionPanels.Add(newSectionPanel);
+            UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionPanel, UpdateType.Add, pickUp));
         }
         public void AddServerControls(FlowLayoutPanel panel)
         {
