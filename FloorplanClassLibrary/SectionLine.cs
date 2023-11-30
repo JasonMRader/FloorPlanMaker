@@ -20,7 +20,7 @@ namespace FloorPlanMaker
         private Point _endPoint;
         public Color LineColor { get; set; } = Color.Black;
         public float LineThickness { get; set; } = 15f;
-        public Section Section = new Section();
+        public Section Section { get; set; }// = new Section();
         public enum BorderEdge
         {
             None,

@@ -152,7 +152,7 @@ namespace FloorPlanMakerUI
                 }
                
                 
-                Section sectionAdded = new Section();
+                Section sectionAdded = new Section(Floorplan);
                 Floorplan.AddSection(sectionAdded);
                 SectionPanelControl newSectionPanel = new SectionPanelControl(sectionAdded, this.ShiftManager.SelectedFloorplan);
                 newSectionPanel.CheckBoxChanged += setSelectedSection;
@@ -275,7 +275,7 @@ namespace FloorPlanMakerUI
             {
                 selectedSection.MakeSoloSection();
                 sectionPanel.SetTeamWaitPictureBoxes();
-                Section sectionAdded = new Section();
+                Section sectionAdded = new Section(Floorplan);
                 Floorplan.AddSection(sectionAdded);
                 SectionPanelControl newSectionPanel = new SectionPanelControl(sectionAdded, this.ShiftManager.SelectedFloorplan);
                 newSectionPanel.CheckBoxChanged += setSelectedSection;
@@ -453,7 +453,7 @@ namespace FloorPlanMakerUI
             //this._sectionPanels.Add(sectionPanel);
             //RefreshSectionPanels();
             ////CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
-            Section pickUp = new Section();
+            Section pickUp = new Section(Floorplan);
             pickUp.Name = "Pickup";
             pickUp.IsPickUp = true;            
             Floorplan.AddSection(pickUp);

@@ -511,7 +511,7 @@ namespace FloorPlanMaker
         private void btnPrint_Click(object sender, EventArgs e)
         {
             bool pickUpAdded = false;
-            Section pickUpSection = new Section();
+            Section pickUpSection = new Section(floorplanManager.Floorplan);
             pickUpSection.IsPickUp = true;
             //shiftManager.SelectedFloorplan = shiftManager.ViewedFloorplan;
             shiftManager.SelectedFloorplan.Date = dateTimeSelected;

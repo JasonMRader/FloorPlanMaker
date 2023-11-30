@@ -17,14 +17,15 @@ namespace FloorplanClassLibrary
 {
     public class Section 
     {
-        
-        public Section() 
+
+        public Section()
         {
-            
+
         }
         public Section(Floorplan floorplan)
         {
             this.DiningAreaID = floorplan.DiningArea.ID;
+            this.Floorplan = floorplan;
            
             
         }
@@ -35,6 +36,7 @@ namespace FloorplanClassLibrary
             this.IsPickUp = section.IsPickUp;
             this.IsPre = section.IsPre;
             this.Name = section.Name;
+            this.Floorplan = section.Floorplan;
             this.DiningAreaID = section.DiningAreaID; 
             this.SetTableList( section.Tables.ToList());
         }
@@ -55,7 +57,7 @@ namespace FloorplanClassLibrary
             }
         }
 
-
+        public Floorplan Floorplan { get; set; }
         public int ServerCount { get; private set; } = 1;
         public int ID {  get; set; }
         public bool IsPickUp { get; set; }
