@@ -197,6 +197,22 @@ namespace FloorPlanMaker
             flowServersInFloorplan.Visible = false;
             rdoViewSectionFlow.Image = Resources.lilCanvasBook;
         }
+        //public void ViewTemplateSections(FloorplanTemplate template)
+        //{
+        //    dateTimeSelected = new DateTime(shiftManagerToAdd.DateOnly.Year, shiftManagerToAdd.DateOnly.Month, shiftManagerToAdd.DateOnly.Day);
+        //    UpdateDateLabel(0);
+        //    cbIsAM.Checked = shiftManagerToAdd.IsAM;
+        //    foreach (Floorplan fp in shiftManagerToAdd.Floorplans)
+        //    {
+        //        this.shiftManager.AddFloorplanAndServers(fp);
+        //    }
+        //    floorplanManager.SetViewedFloorplan(dateOnlySelected, cbIsAM.Checked, pnlFloorPlan, flowServersInFloorplan, flowSectionSelect);
+        //    rdoSections.Checked = true;
+        //    rdoViewSectionFlow.Checked = true;
+        //    flowSectionSelect.Visible = true;
+        //    flowServersInFloorplan.Visible = false;
+        //    rdoViewSectionFlow.Image = Resources.lilCanvasBook;
+        //}
         public Form1()
         {
             InitializeComponent();
@@ -559,7 +575,7 @@ namespace FloorPlanMaker
         {
             if (_frmTemplateSelection == null)
             {
-                _frmTemplateSelection = new frmTemplateSelection(shiftManager)
+                _frmTemplateSelection = new frmTemplateSelection(shiftManager, this)
                 { TopLevel = false, AutoScroll = true };
                 pnlTemplateContainer.Controls.Add(_frmTemplateSelection);
             }

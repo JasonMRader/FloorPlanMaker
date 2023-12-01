@@ -16,10 +16,12 @@ namespace FloorPlanMaker
     public partial class frmTemplateSelection : Form
     {
         ShiftManager ShiftManager;
-        public frmTemplateSelection(ShiftManager shiftManager)
+        private Form1 form1Reference;
+        public frmTemplateSelection(ShiftManager shiftManager, Form1 form1Reference)
         {
             InitializeComponent();
             this.ShiftManager = shiftManager;
+            this.form1Reference = form1Reference;
         }
 
         private void frmTemplateSelection_Load(object sender, EventArgs e)
@@ -97,6 +99,8 @@ namespace FloorPlanMaker
             if (ShiftManager.SelectedFloorplan == null)
             {
                 ShiftManager.SelectedFloorplan = new Floorplan(template);
+                this.Parent.SendToBack();
+                this.Hide();
             }
             else
             {
