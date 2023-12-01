@@ -1,6 +1,8 @@
 ﻿
 
 using FloorplanClassLibrary;
+using FloorPlanMakerUI;
+using FloorplanUserControlLibrary;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,6 +19,7 @@ namespace FloorPlanMaker
     {
         ShiftManager ShiftManager;
         private Form1 form1Reference;
+        private List<SectionPanelControl> _sectionPanels;
         public frmTemplateSelection(ShiftManager shiftManager, Form1 form1Reference)
         {
             InitializeComponent();
@@ -98,9 +101,23 @@ namespace FloorPlanMaker
             template = (FloorplanTemplate)button.Tag;
             if (ShiftManager.SelectedFloorplan == null)
             {
-                ShiftManager.SelectedFloorplan = new Floorplan(template);
-                this.Parent.SendToBack();
-                this.Hide();
+                //ShiftManager.SelectedFloorplan = new Floorplan(template);
+                //this.Parent.SendToBack();
+                //this.Hide();
+                _sectionPanels.Clear();
+                if (ShiftManager.SelectedFloorplan == null) { return; }
+                foreach (Section section in ShiftManager.SelectedFloorplan.Sections)
+                {
+                    SectionPanelControl sectionPanel = new SectionPanelControl(section, this.ShiftManager.SelectedFloorplan);
+                    
+                    if (section.IsTeamWait)
+                    {
+                        sectionPanel.SetToTeamWait();
+                    }
+                    // sectionPanel += SectionAdded?
+                    //sectionPanel.UpdateRequired += FloorplanManager_UpdateRequired;
+                    this._sectionPanels.Add(sectionPanel);
+                }
             }
             else
             {
@@ -120,5 +137,33 @@ namespace FloorPlanMaker
 
             //this.Dispose();
         }
+        //public void AddSectionPanels(FlowLayoutPanel panel)
+        //{
+        //    panel.Controls.Clear();
+        //    coversImageLabel = new ImageLabelControl(UITheme.covers, "0", (panel.Width / 2) - 7, 30);
+        //    salesImageLabel = new ImageLabelControl(UITheme.sales, "$0", (panel.Width / 2) - 7, 30);
+        //    panel.Controls.Add(coversImageLabel);
+        //    panel.Controls.Add(salesImageLabel);
+
+        //    foreach (SectionPanelControl sectionPanel in _sectionPanels)
+        //    {
+        //        sectionPanel.Width = panel.Width - 10;
+        //        sectionPanel.Margin = new Padding(5);
+        //        panel.Controls.Add(sectionPanel);
+        //    }
+        //    Button btnAddPickup = new Button
+        //    {
+        //        Text = "Add Pick-Up Section",
+        //        AutoSize = false,
+        //        Size = new Size(panel.Width - 10, 25),
+        //        Font = new Font("Segoe UI", 10F),
+        //        FlatStyle = FlatStyle.Flat,
+        //        BackColor = UITheme.ButtonColor,
+        //        ForeColor = Color.Black
+        //    };
+        //    btnAddPickup.Click += btnAddPickupSection_Click;
+        //    panel.Controls.Add(btnAddPickup);
+
+        //}
     }
 }
