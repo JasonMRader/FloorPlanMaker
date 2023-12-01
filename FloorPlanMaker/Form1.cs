@@ -376,6 +376,7 @@ namespace FloorPlanMaker
             if (floorplanManager.Floorplan == null)
             {
                 NoServersToDisplay();
+                
             }
         }
 

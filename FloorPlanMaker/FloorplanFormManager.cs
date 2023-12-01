@@ -521,14 +521,19 @@ namespace FloorPlanMakerUI
         }
         public void UpdateTableControlColors()
         {
-
             foreach (TableControl tableControl in this._tableControls)
             {
                 tableControl.BackColor = tableControl.Parent.BackColor;
                 tableControl.TextColor = tableControl.Parent.ForeColor;
+                tableControl.Invalidate();               
+                
+            }
+            if (ShiftManager.SelectedFloorplan == null) { return; }
+            foreach (TableControl tableControl in this._tableControls)
+            {
+               
                 foreach (Section section in ShiftManager.SelectedFloorplan.Sections)
                 {
-
                     foreach (Table table in section.Tables)
                     {
                         if (tableControl.Table.TableNumber == table.TableNumber)
@@ -715,8 +720,8 @@ namespace FloorPlanMakerUI
 
                 //CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
                 //floorplanManager.SetTableControls();
-                SetSectionLabels();
-                SetSectionPanels();
+                //SetSectionLabels();
+                //SetSectionPanels();
                 SetServerControls();
                 UpdateTableControlColors();
                 flowSectionSelect.Controls.Clear();
@@ -728,6 +733,17 @@ namespace FloorPlanMakerUI
                 coversImageLabel.UpdateText(ShiftManager.SelectedFloorplan.MaxCoversPerServer.ToString("F0"));
                 salesImageLabel.UpdateText(ShiftManager.SelectedFloorplan.AvgSalesPerServer.ToString("C0"));
             }
+            else
+            {
+                foreach(SectionLabelControl sectionLabel in _sectionLabels)
+                {
+                    pnlFloorPlan.Controls.Remove(sectionLabel);
+                }               
+                UpdateTableControlColors();
+            }
+           
+           
+            
             //floorplanManager.ShiftManager = shiftManager;
             //floorplanManager.SectionLabelRemoved += FloorplanManager_SectionLabelRemoved;            
             //allTableControls = floorplanManager.TableControls;
