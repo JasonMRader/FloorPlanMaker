@@ -148,7 +148,7 @@ namespace FloorplanClassLibrary
         public Floorplan CreateFloorplanForDiningArea(DiningArea diningArea,DateTime date, bool isLunch, int serverCount, int sectionCount)
         {
             DateOnly dateOnly = new DateOnly(date.Year, date.Month, date.Day);
-            Floorplan newFloorplan = new Floorplan(diningArea, date, isLunch,1,1);
+            Floorplan newFloorplan = new Floorplan(diningArea, date, isLunch,0,0);
             _floorplans.Add(newFloorplan);
             //if(newFloorplan != null)
             //{

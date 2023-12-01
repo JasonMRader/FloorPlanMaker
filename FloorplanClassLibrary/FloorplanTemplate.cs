@@ -18,6 +18,15 @@ namespace FloorplanClassLibrary
             this.SectionLines = sectionLines;
             this.DiningAreaID = floorplan.DiningArea.ID;
         }
+        public FloorplanTemplate(Floorplan floorplan)
+        {
+            this.Name = name;
+            this.DiningArea = floorplan.DiningArea;
+            this.ServerCount = floorplan.ServerCount;
+            this.Sections = floorplan.Sections;
+            //this.SectionLines = sectionLines;
+            this.DiningAreaID = floorplan.DiningArea.ID;
+        }
         public FloorplanTemplate(DiningArea diningArea, string name, List<Section> sections, List<SectionLine> sectionLines)
         {
             this.Name = name;
@@ -57,13 +66,17 @@ namespace FloorplanClassLibrary
                         servers++;
                         if(section.IsTeamWait)
                         {
-                            servers++;
+                            foreach(Server s in section.ServerTeam)
+                            {
+                                servers++;
+                            }
+                            
                         }
                     }
                 }
             }
         }
         public List<Section> Sections { get; set; }
-        public List<SectionLine> SectionLines = new List<SectionLine>();
+        //public List<SectionLine> SectionLines = new List<SectionLine>();
     }
 }

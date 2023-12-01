@@ -183,7 +183,7 @@ namespace FloorPlanMaker
         public void UpdateForm1ShiftManager(ShiftManager shiftManagerToAdd)
         {
             dateTimeSelected = new DateTime(shiftManagerToAdd.DateOnly.Year, shiftManagerToAdd.DateOnly.Month, shiftManagerToAdd.DateOnly.Day);
-
+            UpdateDateLabel(0);
             cbIsAM.Checked = shiftManagerToAdd.IsAM;
             foreach (Floorplan fp in shiftManagerToAdd.Floorplans)
             {
@@ -503,14 +503,14 @@ namespace FloorPlanMaker
         private void btnSaveFloorplanTemplate_Click(object sender, EventArgs e)
         {
             //var drawnLines = drawingHandler.GetDrawnLines();
-            //FloorplanTemplate template = new FloorplanTemplate(shiftManager.SelectedDiningArea, txtTemplateName.Text,
-            //     shiftManager.Sections, drawnLines);
+            FloorplanTemplate template = new FloorplanTemplate(shiftManager.SelectedDiningArea, txtTemplateName.Text,
+                 shiftManager.Sections, drawnLines);
 
             //template.SectionLines.Clear();
             //template.SectionLines.AddRange(drawnLines);
 
             //drawingHandler.ClearLines();
-            //SqliteDataAccess.SaveFloorplanTemplate(template);
+            SqliteDataAccess.SaveFloorplanTemplate(template);
         }
         private void btnPrint_Click(object sender, EventArgs e)
         {
