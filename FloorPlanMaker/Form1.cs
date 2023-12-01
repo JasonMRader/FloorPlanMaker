@@ -36,6 +36,7 @@ namespace FloorPlanMaker
         private SectionLineManager sectionLineManager;
         private frmEditDiningAreas _frmEditDiningAreas;
         private frmEditStaff _frmEditStaff;
+        private frmTemplateSelection _frmTemplateSelection;
         private PictureBox loadingScreen = null;
         ImageLabelControl coversImageLabel = new ImageLabelControl();
         ImageLabelControl salesImageLabel = new ImageLabelControl();
@@ -283,27 +284,7 @@ namespace FloorPlanMaker
                 }
             }
         }
-        //private void pnlFloorplan_MouseUp(object sender, MouseEventArgs e)
-        //{
-        //    if (!rdoDiningAreas.Checked)
-        //    {
-        //        if (isDragging)
-        //        {
-        //            isDragging = false;
 
-        //            // Define the drag rectangle based on the start and end points
-        //            dragRectangle = new Rectangle(
-        //                Math.Min(dragStartPoint.X, e.X),
-        //                Math.Min(dragStartPoint.Y, e.Y),
-        //                Math.Abs(dragStartPoint.X - e.X),
-        //                Math.Abs(dragStartPoint.Y - e.Y)
-        //            );
-
-        //            SelectTablesInDragRectangle();
-        //            pnlFloorPlan.Invalidate();
-        //        }
-        //    }
-        //}
         private void pnlFloorplan_MouseUp(object sender, MouseEventArgs e)
         {
             if (isDragging)
@@ -376,7 +357,7 @@ namespace FloorPlanMaker
             if (floorplanManager.Floorplan == null)
             {
                 NoServersToDisplay();
-                
+
             }
         }
 
@@ -417,21 +398,15 @@ namespace FloorPlanMaker
                 pnlNavigationWindow.SendToBack();
                 pnlNavHighlight.Location = new Point(rdoSections.Left, 0);
                 pnlMainContainer.Visible = true;
-                //pnlSideBar.Visible = true;
                 pnlSideContainer.Visible = true;
-
                 flowServersInFloorplan.Visible = true;
-                //lblPanel2Text.Text = areaCreationManager.DiningAreaSelected.Name;
-                //this.shiftManager = new ShiftManager(areaCreationManager.DiningAreaSelected);                
                 foreach (Control control in pnlFloorPlan.Controls)
                 {
                     if (control is TableControl tableControl)
                     {
                         tableControl.Moveable = false;
-
                     }
                 }
-
             }
             else
             {
@@ -450,10 +425,8 @@ namespace FloorPlanMaker
                     _frmEditStaff = new frmEditStaff(employeeManager, shiftManager, this) { TopLevel = false, AutoScroll = true };
                 }
                 pnlNavigationWindow.Controls.Add(_frmEditStaff);
-
                 _frmEditStaff.Show();
                 pnlNavigationWindow.BringToFront();
-
             }
             else
             {
@@ -511,7 +484,7 @@ namespace FloorPlanMaker
 
             //drawingHandler.ClearLines();
             FloorplanTemplate template = new FloorplanTemplate(shiftManager.SelectedFloorplan);
-            MessageBox.Show(template.Name +"   "+ template.ServerCount.ToString()+ "   " + template.TeamWaitSections.ToString());
+            MessageBox.Show(template.Name + "   " + template.ServerCount.ToString() + "   " + template.TeamWaitSections.ToString());
             //SqliteDataAccess.SaveFloorplanTemplate(template);
         }
         private void btnPrint_Click(object sender, EventArgs e)
@@ -584,22 +557,32 @@ namespace FloorPlanMaker
         }
         private void btnChooseTemplate_Click(object sender, EventArgs e)
         {
-            frmTemplateSelection form = new frmTemplateSelection(shiftManager);
-
-            form.StartPosition = FormStartPosition.CenterScreen;
-            ;
-            form.BringToFront();
-
-            form.ShowDialog();
-            if (form.DialogResult == DialogResult.OK)
+            if (_frmTemplateSelection == null)
             {
-                UpdateTableControlSections();
-                form.Dispose();
+                _frmTemplateSelection = new frmTemplateSelection(shiftManager)
+                { TopLevel = false, AutoScroll = true };
+                pnlTemplateContainer.Controls.Add(_frmTemplateSelection);
             }
-            if (DialogResult == DialogResult.Cancel)
-            {
-                form.Dispose();
-            }
+            
+
+            _frmTemplateSelection.Show();
+            pnlTemplateContainer.BringToFront();
+            //frmTemplateSelection form = new frmTemplateSelection(shiftManager);
+
+            //form.StartPosition = FormStartPosition.CenterScreen;
+
+            //form.BringToFront();
+
+            //form.ShowDialog();
+            //if (form.DialogResult == DialogResult.OK)
+            //{
+            //    UpdateTableControlSections();
+            //    form.Dispose();
+            //}
+            //if (DialogResult == DialogResult.Cancel)
+            //{
+            //    form.Dispose();
+            //}
 
         }
         private void UpdateTableControlSections()

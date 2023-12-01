@@ -25,7 +25,15 @@ namespace FloorPlanMaker
         private void frmTemplateSelection_Load(object sender, EventArgs e)
         {
             ShiftManager.Templates.Clear();
-            ShiftManager.Templates = SqliteDataAccess.LoadTemplatesByDiningAreaAndServerCount(ShiftManager.SelectedDiningArea, ShiftManager.SelectedFloorplan.Servers.Count);
+            if (ShiftManager.SelectedFloorplan != null)
+            {
+                ShiftManager.Templates = SqliteDataAccess.LoadTemplatesByDiningAreaAndServerCount(ShiftManager.SelectedDiningArea, ShiftManager.SelectedFloorplan.Servers.Count);
+            }
+            else
+            {
+                ShiftManager.Templates = SqliteDataAccess.LoadTemplatesByDiningArea(ShiftManager.SelectedDiningArea);
+            }
+            
 
             Panel[] panels = { panel1, panel2, panel3, panel4 };  // Assuming you have named your panels like this
 
@@ -83,7 +91,7 @@ namespace FloorPlanMaker
             Button button = (Button)sender;
 
             FloorplanTemplate template = new FloorplanTemplate();
-            
+
 
             template = (FloorplanTemplate)button.Tag;
             if (ShiftManager.SelectedFloorplan == null)
@@ -97,13 +105,15 @@ namespace FloorPlanMaker
             //ShiftManager.SelectedFloorplan.CopySectionsIntoSections(template.Sections);
             //ShiftManager.ViewedFloorplan = ShiftManager.SelectedFloorplan;
             this.DialogResult = DialogResult.OK;
-            
+
         }
-            
+
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            this.Close();
-           
+            this.Parent.SendToBack();
+            this.Hide();
+            //this.Close();
+
             //this.Dispose();
         }
     }

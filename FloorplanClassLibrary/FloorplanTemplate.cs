@@ -72,6 +72,7 @@ namespace FloorplanClassLibrary
             set
             {
                 int teamSections = 0;
+                if (this.Sections == null) { return; }
                 foreach (var section in this.Sections)
                 {
                     if (section.IsTeamWait)

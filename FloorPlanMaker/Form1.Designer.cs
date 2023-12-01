@@ -65,6 +65,7 @@ namespace FloorPlanMaker
             rdoViewSectionFlow = new RadioButton();
             toolTip1 = new ToolTip(components);
             pictureBox1 = new PictureBox();
+            pnlTemplateContainer = new Panel();
             flowSectionSelect.SuspendLayout();
             panel1.SuspendLayout();
             pnlFloorplanContainer.SuspendLayout();
@@ -439,6 +440,7 @@ namespace FloorPlanMaker
             // 
             pnlMainContainer.BackColor = Color.FromArgb(180, 190, 200);
             pnlMainContainer.Controls.Add(pnlFloorplanContainer);
+            pnlMainContainer.Controls.Add(pnlTemplateContainer);
             pnlMainContainer.Location = new Point(494, 29);
             pnlMainContainer.Name = "pnlMainContainer";
             pnlMainContainer.Size = new Size(711, 950);
@@ -520,6 +522,13 @@ namespace FloorPlanMaker
             pictureBox1.TabIndex = 21;
             pictureBox1.TabStop = false;
             // 
+            // pnlTemplateContainer
+            // 
+            pnlTemplateContainer.Location = new Point(13, 17);
+            pnlTemplateContainer.Name = "pnlTemplateContainer";
+            pnlTemplateContainer.Size = new Size(684, 921);
+            pnlTemplateContainer.TabIndex = 22;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -585,5 +594,6 @@ namespace FloorPlanMaker
         private Panel pnlSideContainer;
         private PictureBox pictureBox1;
         private Label lblDateSelected;
+        private Panel pnlTemplateContainer;
     }
 }
