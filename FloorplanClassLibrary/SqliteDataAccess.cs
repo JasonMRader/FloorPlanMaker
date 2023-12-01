@@ -442,6 +442,40 @@ namespace FloorplanClassLibrary
                 return templates;
             }
         }
+        public static List<FloorplanTemplate> LoadTemplatesByDiningAreaAndServerCount(DiningArea diningArea, int serverCount)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var templates = cnn.Query<FloorplanTemplate>(
+                    "SELECT * FROM FloorplanTemplate WHERE DiningAreaID = @DiningAreaID AND ServerCount = @ServerCount",
+                    new { DiningAreaID = diningArea.ID, ServerCount = serverCount }
+                ).ToList();
+
+                foreach (var template in templates)
+                {
+                    // Assuming DiningAreaID can't be null, so removed the null check
+                    template.DiningArea = cnn.QuerySingle<DiningArea>(
+                        "SELECT * FROM DiningArea WHERE ID = @ID",
+                        new { ID = template.DiningAreaID }
+                    );
+                    template.Sections = cnn.Query<Section>(
+                        "SELECT s.* FROM Section s JOIN TemplateSections ts ON s.ID = ts.SectionID WHERE ts.TemplateID = @TemplateID",
+                        new { TemplateID = template.ID }
+                    ).ToList();
+
+                    foreach (var section in template.Sections)
+                    {
+                        section.SetTableList(cnn.Query<Table>(
+                            "SELECT t.* FROM DiningTable t JOIN SectionTables st ON t.ID = st.TableID WHERE st.SectionID = @SectionID",
+                            new { SectionID = section.ID }
+                        ).ToList());
+                    }
+                }
+
+                return templates;
+            }
+        }
+
         public static void UpdateAllFloorplanDates()
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))

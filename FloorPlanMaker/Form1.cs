@@ -503,14 +503,16 @@ namespace FloorPlanMaker
         private void btnSaveFloorplanTemplate_Click(object sender, EventArgs e)
         {
             //var drawnLines = drawingHandler.GetDrawnLines();
-            FloorplanTemplate template = new FloorplanTemplate(shiftManager.SelectedDiningArea, txtTemplateName.Text,
-                 shiftManager.Sections, drawnLines);
+            //FloorplanTemplate template = new FloorplanTemplate(shiftManager.SelectedDiningArea, txtTemplateName.Text,
+            //     shiftManager.Sections, drawnLines);
 
             //template.SectionLines.Clear();
             //template.SectionLines.AddRange(drawnLines);
 
             //drawingHandler.ClearLines();
-            SqliteDataAccess.SaveFloorplanTemplate(template);
+            FloorplanTemplate template = new FloorplanTemplate(shiftManager.SelectedFloorplan);
+            MessageBox.Show(template.Name +"   "+ template.ServerCount.ToString()+ "   " + template.TeamWaitSections.ToString());
+            //SqliteDataAccess.SaveFloorplanTemplate(template);
         }
         private void btnPrint_Click(object sender, EventArgs e)
         {
@@ -592,10 +594,11 @@ namespace FloorPlanMaker
             if (form.DialogResult == DialogResult.OK)
             {
                 UpdateTableControlSections();
+                form.Dispose();
             }
             if (DialogResult == DialogResult.Cancel)
             {
-
+                form.Dispose();
             }
 
         }
