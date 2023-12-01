@@ -36,27 +36,50 @@
             button3 = new Button();
             panel4 = new Panel();
             button2 = new Button();
-            pnlTemplates = new Panel();
-            btnCancel = new Button();
+            panel5 = new Panel();
+            panel6 = new Panel();
+            panel7 = new Panel();
+            panel8 = new Panel();
+            panel9 = new Panel();
+            panel11 = new Panel();
+            rdoBothPickUp = new RadioButton();
+            rdoNoPickUp = new RadioButton();
+            rdoYesPickUp = new RadioButton();
+            panel10 = new Panel();
+            rdoBothTeam = new RadioButton();
+            rdoNoTeam = new RadioButton();
+            rdoYesTeam = new RadioButton();
+            btnDecreaseServers = new Button();
+            btnIncreaseServers = new Button();
+            label3 = new Label();
+            label2 = new Label();
+            label1 = new Label();
+            lblServerCount = new Label();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
             panel4.SuspendLayout();
-            pnlTemplates.SuspendLayout();
+            panel5.SuspendLayout();
+            panel6.SuspendLayout();
+            panel7.SuspendLayout();
+            panel8.SuspendLayout();
+            panel9.SuspendLayout();
+            panel11.SuspendLayout();
+            panel10.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
             // 
-            panel1.BackColor = Color.FromArgb(224, 224, 224);
+            panel1.BackColor = Color.WhiteSmoke;
             panel1.Controls.Add(btnFirstTemplate);
-            panel1.Location = new Point(36, 26);
+            panel1.Location = new Point(10, 10);
             panel1.Name = "panel1";
             panel1.Size = new Size(268, 375);
             panel1.TabIndex = 0;
             // 
             // btnFirstTemplate
             // 
-            btnFirstTemplate.BackColor = Color.FromArgb(192, 255, 255);
+            btnFirstTemplate.BackColor = Color.FromArgb(100, 130, 180);
             btnFirstTemplate.Dock = DockStyle.Top;
             btnFirstTemplate.FlatAppearance.BorderSize = 0;
             btnFirstTemplate.FlatStyle = FlatStyle.Flat;
@@ -64,21 +87,21 @@
             btnFirstTemplate.Name = "btnFirstTemplate";
             btnFirstTemplate.Size = new Size(268, 27);
             btnFirstTemplate.TabIndex = 4;
-            btnFirstTemplate.Text = "X Servers, PickUp, TeamWait";
+            btnFirstTemplate.Text = "View";
             btnFirstTemplate.UseVisualStyleBackColor = false;
             // 
             // panel2
             // 
-            panel2.BackColor = Color.FromArgb(224, 224, 224);
+            panel2.BackColor = Color.WhiteSmoke;
             panel2.Controls.Add(button1);
-            panel2.Location = new Point(340, 26);
+            panel2.Location = new Point(10, 10);
             panel2.Name = "panel2";
             panel2.Size = new Size(268, 375);
             panel2.TabIndex = 1;
             // 
             // button1
             // 
-            button1.BackColor = Color.FromArgb(192, 255, 255);
+            button1.BackColor = Color.FromArgb(100, 130, 180);
             button1.Dock = DockStyle.Top;
             button1.FlatAppearance.BorderSize = 0;
             button1.FlatStyle = FlatStyle.Flat;
@@ -86,21 +109,21 @@
             button1.Name = "button1";
             button1.Size = new Size(268, 27);
             button1.TabIndex = 5;
-            button1.Text = "Select ";
+            button1.Text = "View";
             button1.UseVisualStyleBackColor = false;
             // 
             // panel3
             // 
-            panel3.BackColor = Color.FromArgb(224, 224, 224);
+            panel3.BackColor = Color.WhiteSmoke;
             panel3.Controls.Add(button3);
-            panel3.Location = new Point(36, 438);
+            panel3.Location = new Point(10, 10);
             panel3.Name = "panel3";
             panel3.Size = new Size(268, 375);
             panel3.TabIndex = 2;
             // 
             // button3
             // 
-            button3.BackColor = Color.FromArgb(192, 255, 255);
+            button3.BackColor = Color.FromArgb(100, 130, 180);
             button3.Dock = DockStyle.Top;
             button3.FlatAppearance.BorderSize = 0;
             button3.FlatStyle = FlatStyle.Flat;
@@ -108,21 +131,21 @@
             button3.Name = "button3";
             button3.Size = new Size(268, 27);
             button3.TabIndex = 5;
-            button3.Text = "Select ";
+            button3.Text = "View";
             button3.UseVisualStyleBackColor = false;
             // 
             // panel4
             // 
-            panel4.BackColor = Color.FromArgb(224, 224, 224);
+            panel4.BackColor = Color.WhiteSmoke;
             panel4.Controls.Add(button2);
-            panel4.Location = new Point(340, 438);
+            panel4.Location = new Point(10, 10);
             panel4.Name = "panel4";
             panel4.Size = new Size(268, 375);
             panel4.TabIndex = 3;
             // 
             // button2
             // 
-            button2.BackColor = Color.FromArgb(192, 255, 255);
+            button2.BackColor = Color.FromArgb(100, 130, 180);
             button2.Dock = DockStyle.Top;
             button2.FlatAppearance.BorderSize = 0;
             button2.FlatStyle = FlatStyle.Flat;
@@ -130,40 +153,253 @@
             button2.Name = "button2";
             button2.Size = new Size(268, 27);
             button2.TabIndex = 5;
-            button2.Text = "Select ";
+            button2.Text = "View";
             button2.UseVisualStyleBackColor = false;
             // 
-            // pnlTemplates
+            // panel5
             // 
-            pnlTemplates.BackColor = Color.Silver;
-            pnlTemplates.Controls.Add(btnCancel);
-            pnlTemplates.Controls.Add(panel1);
-            pnlTemplates.Controls.Add(panel3);
-            pnlTemplates.Controls.Add(panel4);
-            pnlTemplates.Controls.Add(panel2);
-            pnlTemplates.Location = new Point(12, 12);
-            pnlTemplates.Name = "pnlTemplates";
-            pnlTemplates.Size = new Size(660, 897);
-            pnlTemplates.TabIndex = 4;
+            panel5.BackColor = Color.FromArgb(180, 190, 200);
+            panel5.Controls.Add(panel1);
+            panel5.Location = new Point(39, 100);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(288, 395);
+            panel5.TabIndex = 4;
             // 
-            // btnCancel
+            // panel6
             // 
-            btnCancel.BackColor = Color.IndianRed;
-            btnCancel.FlatStyle = FlatStyle.Flat;
-            btnCancel.Image = FloorPlanMakerUI.Properties.Resources.X;
-            btnCancel.Location = new Point(36, 826);
-            btnCancel.Name = "btnCancel";
-            btnCancel.Size = new Size(115, 68);
-            btnCancel.TabIndex = 4;
-            btnCancel.UseVisualStyleBackColor = false;
-            btnCancel.Click += btnCancel_Click;
+            panel6.BackColor = Color.FromArgb(180, 190, 200);
+            panel6.Controls.Add(panel4);
+            panel6.Location = new Point(356, 510);
+            panel6.Name = "panel6";
+            panel6.Size = new Size(288, 395);
+            panel6.TabIndex = 5;
+            // 
+            // panel7
+            // 
+            panel7.BackColor = Color.FromArgb(180, 190, 200);
+            panel7.Controls.Add(panel3);
+            panel7.Location = new Point(39, 510);
+            panel7.Name = "panel7";
+            panel7.Size = new Size(288, 395);
+            panel7.TabIndex = 6;
+            // 
+            // panel8
+            // 
+            panel8.BackColor = Color.FromArgb(180, 190, 200);
+            panel8.Controls.Add(panel2);
+            panel8.Location = new Point(356, 100);
+            panel8.Name = "panel8";
+            panel8.Size = new Size(288, 395);
+            panel8.TabIndex = 7;
+            // 
+            // panel9
+            // 
+            panel9.BackColor = Color.FromArgb(180, 190, 200);
+            panel9.Controls.Add(panel11);
+            panel9.Controls.Add(panel10);
+            panel9.Controls.Add(btnDecreaseServers);
+            panel9.Controls.Add(btnIncreaseServers);
+            panel9.Controls.Add(label3);
+            panel9.Controls.Add(label2);
+            panel9.Controls.Add(label1);
+            panel9.Controls.Add(lblServerCount);
+            panel9.Location = new Point(39, 15);
+            panel9.Name = "panel9";
+            panel9.Size = new Size(605, 71);
+            panel9.TabIndex = 8;
+            // 
+            // panel11
+            // 
+            panel11.BackColor = Color.WhiteSmoke;
+            panel11.Controls.Add(rdoBothPickUp);
+            panel11.Controls.Add(rdoNoPickUp);
+            panel11.Controls.Add(rdoYesPickUp);
+            panel11.Location = new Point(415, 31);
+            panel11.Name = "panel11";
+            panel11.Size = new Size(163, 30);
+            panel11.TabIndex = 3;
+            // 
+            // rdoBothPickUp
+            // 
+            rdoBothPickUp.Appearance = Appearance.Button;
+            rdoBothPickUp.BackColor = Color.FromArgb(100, 130, 180);
+            rdoBothPickUp.Checked = true;
+            rdoBothPickUp.FlatAppearance.BorderSize = 0;
+            rdoBothPickUp.FlatStyle = FlatStyle.Flat;
+            rdoBothPickUp.Location = new Point(110, 3);
+            rdoBothPickUp.Name = "rdoBothPickUp";
+            rdoBothPickUp.Size = new Size(50, 24);
+            rdoBothPickUp.TabIndex = 0;
+            rdoBothPickUp.TabStop = true;
+            rdoBothPickUp.Text = "Both";
+            rdoBothPickUp.TextAlign = ContentAlignment.MiddleCenter;
+            rdoBothPickUp.UseVisualStyleBackColor = false;
+            // 
+            // rdoNoPickUp
+            // 
+            rdoNoPickUp.Appearance = Appearance.Button;
+            rdoNoPickUp.BackColor = Color.FromArgb(100, 130, 180);
+            rdoNoPickUp.FlatAppearance.BorderSize = 0;
+            rdoNoPickUp.FlatStyle = FlatStyle.Flat;
+            rdoNoPickUp.Location = new Point(56, 3);
+            rdoNoPickUp.Name = "rdoNoPickUp";
+            rdoNoPickUp.Size = new Size(50, 24);
+            rdoNoPickUp.TabIndex = 0;
+            rdoNoPickUp.Text = "No";
+            rdoNoPickUp.TextAlign = ContentAlignment.MiddleCenter;
+            rdoNoPickUp.UseVisualStyleBackColor = false;
+            // 
+            // rdoYesPickUp
+            // 
+            rdoYesPickUp.Appearance = Appearance.Button;
+            rdoYesPickUp.BackColor = Color.FromArgb(100, 130, 180);
+            rdoYesPickUp.FlatAppearance.BorderSize = 0;
+            rdoYesPickUp.FlatStyle = FlatStyle.Flat;
+            rdoYesPickUp.Location = new Point(3, 3);
+            rdoYesPickUp.Name = "rdoYesPickUp";
+            rdoYesPickUp.Size = new Size(50, 24);
+            rdoYesPickUp.TabIndex = 0;
+            rdoYesPickUp.Text = "Yes";
+            rdoYesPickUp.TextAlign = ContentAlignment.MiddleCenter;
+            rdoYesPickUp.UseVisualStyleBackColor = false;
+            // 
+            // panel10
+            // 
+            panel10.BackColor = Color.WhiteSmoke;
+            panel10.Controls.Add(rdoBothTeam);
+            panel10.Controls.Add(rdoNoTeam);
+            panel10.Controls.Add(rdoYesTeam);
+            panel10.Location = new Point(226, 31);
+            panel10.Name = "panel10";
+            panel10.Size = new Size(163, 30);
+            panel10.TabIndex = 3;
+            // 
+            // rdoBothTeam
+            // 
+            rdoBothTeam.Appearance = Appearance.Button;
+            rdoBothTeam.BackColor = Color.FromArgb(100, 130, 180);
+            rdoBothTeam.Checked = true;
+            rdoBothTeam.FlatAppearance.BorderSize = 0;
+            rdoBothTeam.FlatStyle = FlatStyle.Flat;
+            rdoBothTeam.Location = new Point(110, 3);
+            rdoBothTeam.Name = "rdoBothTeam";
+            rdoBothTeam.Size = new Size(50, 24);
+            rdoBothTeam.TabIndex = 0;
+            rdoBothTeam.TabStop = true;
+            rdoBothTeam.Text = "Both";
+            rdoBothTeam.TextAlign = ContentAlignment.MiddleCenter;
+            rdoBothTeam.UseVisualStyleBackColor = false;
+            // 
+            // rdoNoTeam
+            // 
+            rdoNoTeam.Appearance = Appearance.Button;
+            rdoNoTeam.BackColor = Color.FromArgb(100, 130, 180);
+            rdoNoTeam.FlatAppearance.BorderSize = 0;
+            rdoNoTeam.FlatStyle = FlatStyle.Flat;
+            rdoNoTeam.Location = new Point(56, 3);
+            rdoNoTeam.Name = "rdoNoTeam";
+            rdoNoTeam.Size = new Size(50, 24);
+            rdoNoTeam.TabIndex = 0;
+            rdoNoTeam.Text = "No";
+            rdoNoTeam.TextAlign = ContentAlignment.MiddleCenter;
+            rdoNoTeam.UseVisualStyleBackColor = false;
+            // 
+            // rdoYesTeam
+            // 
+            rdoYesTeam.Appearance = Appearance.Button;
+            rdoYesTeam.BackColor = Color.FromArgb(100, 130, 180);
+            rdoYesTeam.FlatAppearance.BorderSize = 0;
+            rdoYesTeam.FlatStyle = FlatStyle.Flat;
+            rdoYesTeam.Location = new Point(3, 3);
+            rdoYesTeam.Name = "rdoYesTeam";
+            rdoYesTeam.Size = new Size(50, 24);
+            rdoYesTeam.TabIndex = 0;
+            rdoYesTeam.Text = "Yes";
+            rdoYesTeam.TextAlign = ContentAlignment.MiddleCenter;
+            rdoYesTeam.UseVisualStyleBackColor = false;
+            // 
+            // btnDecreaseServers
+            // 
+            btnDecreaseServers.FlatAppearance.BorderSize = 0;
+            btnDecreaseServers.FlatStyle = FlatStyle.Flat;
+            btnDecreaseServers.Image = FloorPlanMakerUI.Properties.Resources.ResizedDown;
+            btnDecreaseServers.Location = new Point(130, 43);
+            btnDecreaseServers.Name = "btnDecreaseServers";
+            btnDecreaseServers.Size = new Size(30, 12);
+            btnDecreaseServers.TabIndex = 2;
+            btnDecreaseServers.UseVisualStyleBackColor = true;
+            // 
+            // btnIncreaseServers
+            // 
+            btnIncreaseServers.FlatAppearance.BorderSize = 0;
+            btnIncreaseServers.FlatStyle = FlatStyle.Flat;
+            btnIncreaseServers.Image = FloorPlanMakerUI.Properties.Resources.ResizedUp;
+            btnIncreaseServers.Location = new Point(130, 31);
+            btnIncreaseServers.Name = "btnIncreaseServers";
+            btnIncreaseServers.Size = new Size(30, 12);
+            btnIncreaseServers.TabIndex = 2;
+            btnIncreaseServers.UseVisualStyleBackColor = true;
+            // 
+            // label3
+            // 
+            label3.BackColor = Color.WhiteSmoke;
+            label3.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            label3.ForeColor = Color.Black;
+            label3.Location = new Point(59, 31);
+            label3.Name = "label3";
+            label3.Size = new Size(54, 23);
+            label3.TabIndex = 1;
+            label3.Text = "6";
+            label3.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // label2
+            // 
+            label2.BackColor = Color.WhiteSmoke;
+            label2.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label2.ForeColor = Color.Black;
+            label2.Location = new Point(415, 9);
+            label2.Name = "label2";
+            label2.Size = new Size(163, 52);
+            label2.TabIndex = 0;
+            label2.Text = "Pick Up Section";
+            label2.TextAlign = ContentAlignment.TopCenter;
+            // 
+            // label1
+            // 
+            label1.BackColor = Color.WhiteSmoke;
+            label1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label1.ForeColor = Color.Black;
+            label1.ImageAlign = ContentAlignment.TopCenter;
+            label1.Location = new Point(226, 9);
+            label1.Name = "label1";
+            label1.Size = new Size(163, 52);
+            label1.TabIndex = 0;
+            label1.Text = "Team Wait Sections";
+            label1.TextAlign = ContentAlignment.TopCenter;
+            // 
+            // lblServerCount
+            // 
+            lblServerCount.BackColor = Color.WhiteSmoke;
+            lblServerCount.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lblServerCount.ForeColor = Color.Black;
+            lblServerCount.Location = new Point(23, 9);
+            lblServerCount.Name = "lblServerCount";
+            lblServerCount.Size = new Size(175, 52);
+            lblServerCount.TabIndex = 0;
+            lblServerCount.Text = "Server Count";
+            lblServerCount.TextAlign = ContentAlignment.TopCenter;
             // 
             // frmTemplateSelection
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.WhiteSmoke;
             ClientSize = new Size(684, 921);
-            Controls.Add(pnlTemplates);
+            Controls.Add(panel9);
+            Controls.Add(panel5);
+            Controls.Add(panel8);
+            Controls.Add(panel7);
+            Controls.Add(panel6);
             FormBorderStyle = FormBorderStyle.None;
             Name = "frmTemplateSelection";
             Text = "frmTemplateSelection";
@@ -172,7 +408,13 @@
             panel2.ResumeLayout(false);
             panel3.ResumeLayout(false);
             panel4.ResumeLayout(false);
-            pnlTemplates.ResumeLayout(false);
+            panel5.ResumeLayout(false);
+            panel6.ResumeLayout(false);
+            panel7.ResumeLayout(false);
+            panel8.ResumeLayout(false);
+            panel9.ResumeLayout(false);
+            panel11.ResumeLayout(false);
+            panel10.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -182,11 +424,28 @@
         private Panel panel2;
         private Panel panel3;
         private Panel panel4;
-        private Panel pnlTemplates;
         private Button btnFirstTemplate;
         private Button button1;
         private Button button3;
         private Button button2;
-        private Button btnCancel;
+        private Panel panel5;
+        private Panel panel6;
+        private Panel panel7;
+        private Panel panel8;
+        private Panel panel9;
+        private Label label3;
+        private Label label2;
+        private Label label1;
+        private Label lblServerCount;
+        private Button btnDecreaseServers;
+        private Button btnIncreaseServers;
+        private Panel panel11;
+        private RadioButton rdoBothPickUp;
+        private RadioButton rdoNoPickUp;
+        private RadioButton rdoYesPickUp;
+        private Panel panel10;
+        private RadioButton rdoBothTeam;
+        private RadioButton rdoNoTeam;
+        private RadioButton rdoYesTeam;
     }
 }
