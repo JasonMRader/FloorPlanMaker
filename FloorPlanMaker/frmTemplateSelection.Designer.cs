@@ -143,18 +143,18 @@
             pnlTemplates.Controls.Add(panel2);
             pnlTemplates.Location = new Point(12, 12);
             pnlTemplates.Name = "pnlTemplates";
-            pnlTemplates.Size = new Size(646, 846);
+            pnlTemplates.Size = new Size(660, 897);
             pnlTemplates.TabIndex = 4;
             // 
             // btnCancel
             // 
             btnCancel.BackColor = Color.IndianRed;
             btnCancel.FlatStyle = FlatStyle.Flat;
-            btnCancel.Location = new Point(0, 820);
+            btnCancel.Image = FloorPlanMakerUI.Properties.Resources.X;
+            btnCancel.Location = new Point(36, 826);
             btnCancel.Name = "btnCancel";
-            btnCancel.Size = new Size(646, 26);
+            btnCancel.Size = new Size(115, 68);
             btnCancel.TabIndex = 4;
-            btnCancel.Text = "Cancel";
             btnCancel.UseVisualStyleBackColor = false;
             btnCancel.Click += btnCancel_Click;
             // 
@@ -162,7 +162,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(672, 877);
+            ClientSize = new Size(684, 921);
             Controls.Add(pnlTemplates);
             FormBorderStyle = FormBorderStyle.None;
             Name = "frmTemplateSelection";

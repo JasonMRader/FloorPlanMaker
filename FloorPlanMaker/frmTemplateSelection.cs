@@ -33,7 +33,7 @@ namespace FloorPlanMaker
             {
                 ShiftManager.Templates = SqliteDataAccess.LoadTemplatesByDiningArea(ShiftManager.SelectedDiningArea);
             }
-            
+
 
             Panel[] panels = { panel1, panel2, panel3, panel4 };  // Assuming you have named your panels like this
 
