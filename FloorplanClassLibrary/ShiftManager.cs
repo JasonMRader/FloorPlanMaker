@@ -95,7 +95,7 @@ namespace FloorplanClassLibrary
             this.ServersOnShift.RemoveAll(assignedServersSet.Contains);
             this.ServersNotOnShift.AddRange(floorplan.Servers);
             //ServersNotOnShift = ServersNotOnShift.OrderBy(s => s.Name).ToList();
-
+            
         }
         public void ClearFloorplans()
         {
@@ -148,22 +148,23 @@ namespace FloorplanClassLibrary
         public Floorplan CreateFloorplanForDiningArea(DiningArea diningArea,DateTime date, bool isLunch, int serverCount, int sectionCount)
         {
             DateOnly dateOnly = new DateOnly(date.Year, date.Month, date.Day);
-            Floorplan newFloorplan = SqliteDataAccess.LoadFloorplanByCriteria(diningArea, dateOnly, isLunch);
-            if(newFloorplan != null)
-            {
-                this.AddFloorplanAndServers(newFloorplan);
+            Floorplan newFloorplan = new Floorplan(diningArea, date, isLunch,1,1);
+            _floorplans.Add(newFloorplan);
+            //if(newFloorplan != null)
+            //{
+            //    this.AddFloorplanAndServers(newFloorplan);
                 
-            }
-            if(newFloorplan == null)
-            {
-                newFloorplan = new Floorplan(diningArea, date, isLunch, serverCount, sectionCount);
-                if (Floorplans == null)
-                {
-                    _floorplans = new List<Floorplan>();
-                }
+            //}
+            //if(newFloorplan == null)
+            //{
+            //    newFloorplan = new Floorplan(diningArea, date, isLunch, serverCount, sectionCount);
+            //    if (Floorplans == null)
+            //    {
+            //        _floorplans = new List<Floorplan>();
+            //    }
 
-                _floorplans.Add(newFloorplan);
-            }         
+            //    _floorplans.Add(newFloorplan);
+            //}         
                       
 
             return newFloorplan;

@@ -228,11 +228,19 @@ namespace FloorPlanMakerUI
         }
         private void RefreshForDateSelected()
         {
+            ShiftManagerCreated.ClearFloorplans();
+            ShiftManagerCreated.UnassignedServers.Clear();
+            flowServersOnShift.Controls.Clear();
+            PopulateServersNotOnShift(allServers);
             List<Button> serversOnShiftButtons = new List<Button>();
             List<Button> serversNotOnShiftButtons = new List<Button>();
             var relevantFloorplans = allFloorplans
                 .Where(fp => fp.Date.Date == dateSelected && fp.IsLunch == cbIsAm.Checked)
                 .ToList();
+            if (relevantFloorplans.Count < 0) 
+            {
+
+            }
             List<DiningArea> diningAreasUsed = new List<DiningArea>();
             List<Server> serverUsed = new List<Server>();
 
@@ -265,19 +273,19 @@ namespace FloorPlanMakerUI
                     AddToShift_Click(btn, e);
                 }
             }
-            foreach (Button btn in flowServersOnShift.Controls)
-            {
-                serversOnShiftButtons.Add(btn);
-            }
-            foreach (Button btn in serversOnShiftButtons)
-            {
-                if (!serverUsed.Contains(btn.Tag))
-                {
-                    EventArgs e = new EventArgs();
-                    RemoveFromShift_Click(btn, e);
+            //foreach (Button btn in flowServersOnShift.Controls)
+            //{
+            //    serversOnShiftButtons.Add(btn);
+            //}
+            //foreach (Button btn in serversOnShiftButtons)
+            //{
+            //    if (!serverUsed.Contains(btn.Tag))
+            //    {
+            //        EventArgs e = new EventArgs();
+            //        RemoveFromShift_Click(btn, e);
 
-                }
-            }
+            //    }
+            //}
 
         }
         private Dictionary<DiningArea, int> ServersAssignedPreviousDay(List<Floorplan> floorplans, bool isLunch, int Days)
@@ -328,9 +336,9 @@ namespace FloorPlanMakerUI
             {
                 cbArea.BackColor = UITheme.CTAColor;
                 cbArea.ForeColor = Color.White;
-                var floorplanToRemove = ShiftManagerCreated.Floorplans.FirstOrDefault(fp => fp.DiningArea == area);
+                //var floorplanToRemove = ShiftManagerCreated.Floorplans.FirstOrDefault(fp => fp.DiningArea == area);
                 ShiftManagerCreated.DiningAreasUsed.Remove(area);
-                ShiftManagerCreated.RemoveFloorplan(floorplanToRemove);
+                //ShiftManagerCreated.RemoveFloorplan(floorplanToRemove);
 
             }
 
