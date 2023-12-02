@@ -26,6 +26,7 @@ namespace FloorplanClassLibrary
             GetSectionCopies(floorplan.Sections);
            
             this.DiningAreaID = floorplan.DiningArea.ID;
+            //AssignSectionNumbers();
         }
         public FloorplanTemplate(DiningArea diningArea, string name, List<Section> sections, List<SectionLine> sectionLines)
         {
@@ -43,7 +44,10 @@ namespace FloorplanClassLibrary
             //this.Name = name;
             this.Sections = sections;
         }
-        public FloorplanTemplate() { }
+        public FloorplanTemplate() 
+        {
+            
+        }
         public List<Section> Sections = new List<Section>();
         public int ID { get; set; }
 
@@ -71,6 +75,7 @@ namespace FloorplanClassLibrary
                 this.Sections.Add(sectionCopy);
             }
             UpdateTeamWaitAndPickUp();
+            //AssignSectionNumbers();
         }
 
         private void UpdateTeamWaitAndPickUp()
@@ -91,8 +96,16 @@ namespace FloorplanClassLibrary
             }
             _teamWaitSections = teamSections;           
         }
-        public string Name { get; set; } = ""; 
-       
+        public string Name { get; set; } = "";
+        public void AssignSectionNumbers()
+        {
+            int sectionNumber = 1;
+            foreach (var section in this.Sections)
+            {
+                section.Number = sectionNumber;
+                sectionNumber++;
+            }
+        }
 
         public int TeamWaitSections
         {

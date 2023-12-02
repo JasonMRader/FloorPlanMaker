@@ -16,12 +16,23 @@ namespace FloorPlanMakerUI
         {
             this.Templates.Clear();
             this.Templates = SqliteDataAccess.LoadTemplatesByDiningAreaAndServerCount(floorplan.DiningArea, floorplan.Servers.Count);
+            UpdateSectionNumbers();
         }
         public void GetAllFloorplanTemplates()
         {
             this.Templates.Clear();
             this.Templates = SqliteDataAccess.LoadAllFloorplanTemplates();
+            UpdateSectionNumbers();
+
         }
+        private void UpdateSectionNumbers()
+        {
+            foreach(FloorplanTemplate template in  this.Templates)
+            {
+                template.AssignSectionNumbers();
+            }
+        }
+        
         public List<FloorplanTemplate> FilterTemplates(List<FloorplanTemplate> templates, bool? hasTeamWait = null, bool? hasPickUp = null)
         {
             // Start with all templates

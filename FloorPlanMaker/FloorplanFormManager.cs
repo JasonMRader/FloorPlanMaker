@@ -28,15 +28,29 @@ namespace FloorPlanMakerUI
         public event EventHandler<UpdateEventArgs> UpdateRequired;
         private ImageLabelControl coversImageLabel = new ImageLabelControl();
         private ImageLabelControl salesImageLabel = new ImageLabelControl();
-        public TemplateManager templateManager = new TemplateManager(); 
+        public TemplateManager TemplateManager { get; set; }
 
-        
+
         public FloorplanFormManager(ShiftManager shiftManager)
         {
             //this.Floorplan = shiftManager.SelectedFloorplan;
             this.ShiftManager = shiftManager;
-            
-            
+            this.TemplateManager = new TemplateManager();
+
+
+        }
+        public void UpdateTemplatesBasedOnFloorplan()
+        {
+            if (this.Floorplan != null)
+            {
+                // If Floorplan is not null, get templates for the specific floorplan
+                this.TemplateManager.GetTemplatesForFloorplan(this.Floorplan);
+            }
+            else
+            {
+                // If Floorplan is null, get all floorplan templates
+                this.TemplateManager.GetAllFloorplanTemplates();
+            }
         }
         public List<TableControl> TableControls
         {

@@ -18,6 +18,7 @@ namespace FloorPlanMaker
     public partial class frmTemplateSelection : Form
     {
         ShiftManager ShiftManager;
+        private FloorplanFormManager floorplanManager { get; set; }
         private Form1 form1Reference;
         private int serverCount;
         private bool yesTeamWaitFilter;
@@ -25,32 +26,44 @@ namespace FloorPlanMaker
         private bool yesPickUpFilter;
         private bool noPickUpFilter;
         private List<SectionPanelControl> _sectionPanels;
-        public frmTemplateSelection(ShiftManager shiftManager, Form1 form1Reference)
+        private DiningArea area;
+        public frmTemplateSelection(FloorplanFormManager floorplanManager, DiningArea diningArea, Form1 form1Reference)
         {
             InitializeComponent();
-            this.ShiftManager = shiftManager;
+            this.floorplanManager = floorplanManager;
             this.form1Reference = form1Reference;
+            this.area = diningArea;
+            floorplanManager.UpdateTemplatesBasedOnFloorplan();
         }
 
         private void frmTemplateSelection_Load(object sender, EventArgs e)
         {
-            ShiftManager.Templates.Clear();
-            if (ShiftManager.SelectedFloorplan != null)
-            {
-                ShiftManager.Templates = SqliteDataAccess.LoadTemplatesByDiningAreaAndServerCount(ShiftManager.SelectedDiningArea, ShiftManager.SelectedFloorplan.Servers.Count);
-            }
-            else
-            {
-                ShiftManager.Templates = SqliteDataAccess.LoadTemplatesByDiningArea(ShiftManager.SelectedDiningArea);
-            }
+           
 
 
             Panel[] panels = { panel1, panel2, panel3, panel4 };  // Assuming you have named your panels like this
 
-            for (int i = 0; i < 4 && i < ShiftManager.Templates.Count; i++)
+            for (int i = 0; i < 4 && i < floorplanManager.TemplateManager.Templates.Count; i++)
             {
-                SetupPanelWithTemplate(panels[i], ShiftManager.Templates[i]);
+                SetupPanelWithTemplate(panels[i], floorplanManager.TemplateManager.Templates[i]);
             }
+            //ShiftManager.Templates.Clear();
+            //if (ShiftManager.SelectedFloorplan != null)
+            //{
+            //    ShiftManager.Templates = SqliteDataAccess.LoadTemplatesByDiningAreaAndServerCount(ShiftManager.SelectedDiningArea, ShiftManager.SelectedFloorplan.Servers.Count);
+            //}
+            //else
+            //{
+            //    ShiftManager.Templates = SqliteDataAccess.LoadTemplatesByDiningArea(ShiftManager.SelectedDiningArea);
+            //}
+
+
+            //Panel[] panels = { panel1, panel2, panel3, panel4 };  // Assuming you have named your panels like this
+
+            //for (int i = 0; i < 4 && i < ShiftManager.Templates.Count; i++)
+            //{
+            //    SetupPanelWithTemplate(panels[i], ShiftManager.Templates[i]);
+            //}
         }
         private void SetupPanelWithTemplate(Panel pnl, FloorplanTemplate template)
         {
@@ -58,16 +71,16 @@ namespace FloorPlanMaker
 
             //pnl.Controls.Clear();
             pnl.Tag = template;
-            foreach (Table table in ShiftManager.SelectedDiningArea.Tables)  // Assuming FloorplanTemplate has a Tables property
+            foreach (Table table in area.Tables)  // Assuming FloorplanTemplate has a Tables property
             {
-                table.DiningArea = ShiftManager.SelectedDiningArea;
+                table.DiningArea = area;
                 TableControl tableControl = TableControlFactory.CreateMiniTableControl(table, (float).4, 27);
                 //tableControl.TableClicked += Table_TableClicked;  // Uncomment if you want to attach event handler
 
                 pnl.Controls.Add(tableControl);
             }
-            ShiftManager.SetSectionsToTemplate(template);
-            ShiftManager.AssignSectionNumbers(ShiftManager.TemplateSections);
+            //ShiftManager.SetSectionsToTemplate(template);
+            //ShiftManager.AssignSectionNumbers(ShiftManager.TemplateSections);
             foreach (Control ctrl in pnl.Controls)
             {
                 if (ctrl is Button btn)
@@ -77,7 +90,7 @@ namespace FloorPlanMaker
                 }
                 if (ctrl is TableControl tableControl)
                 {
-                    foreach (Section section in ShiftManager.TemplateSections)
+                    foreach (Section section in template.Sections)  //ShiftManager.TemplateSections)
                     {
 
                         foreach (Table table in section.Tables)

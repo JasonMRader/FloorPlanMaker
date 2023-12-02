@@ -501,7 +501,7 @@ namespace FloorPlanMaker
         {
             if (_frmTemplateSelection == null)
             {
-                _frmTemplateSelection = new frmTemplateSelection(shiftManager, this)
+                _frmTemplateSelection = new frmTemplateSelection(floorplanManager,shiftManager.SelectedDiningArea, this)
                 { TopLevel = false, AutoScroll = true };
                 pnlTemplateContainer.Controls.Add(_frmTemplateSelection);
             }
