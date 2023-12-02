@@ -45,9 +45,13 @@ namespace FloorplanClassLibrary
         }
         public FloorplanTemplate() { }
         public int ID { get; set; }
-        private string _name;
-        private int _teamWaitSections;
-        private int _serverCount;
+        
+        private int _teamWaitSections,
+                    _serverCount;
+        private bool _hasPickUp,
+                     _hasTeamWait;
+        public DiningArea DiningArea { get; set; }
+        public int DiningAreaID { get; set; }
         private void GetSectionCopies(List<Section> sectionsToCopy)
         {
             foreach (Section section in sectionsToCopy)
@@ -56,15 +60,8 @@ namespace FloorplanClassLibrary
                 this.Sections.Add(sectionCopy);
             }
         }
-        public string Name
-        {
-            get { return _name; }
-            set
-            {
-                _name = "Servers: " + ServerCount.ToString("F0") + ", Teamwait Sections: "
-                        + TeamWaitSections.ToString("F0");
-            }
-        }
+        public string Name { get; set; } = ""; 
+       
 
         public int TeamWaitSections
         {
@@ -83,8 +80,7 @@ namespace FloorplanClassLibrary
                 _teamWaitSections = teamSections;
             }
         }
-        public DiningArea DiningArea { get; set; }
-        public int DiningAreaID { get; set; }
+        
 
         public int ServerCount
         {
@@ -103,6 +99,9 @@ namespace FloorplanClassLibrary
             }
         }
         public List<Section> Sections { get; set; }
-        //public List<SectionLine> SectionLines = new List<SectionLine>();
+        public string GetDisplay()
+        {
+            return "Servers: " + this.ServerCount.ToString();
+        }
     }
 }

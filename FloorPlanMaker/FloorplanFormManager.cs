@@ -28,11 +28,14 @@ namespace FloorPlanMakerUI
         public event EventHandler<UpdateEventArgs> UpdateRequired;
         private ImageLabelControl coversImageLabel = new ImageLabelControl();
         private ImageLabelControl salesImageLabel = new ImageLabelControl();
+        public TemplateManager templateManager { get; private set; }
+
         
-        public FloorplanFormManager(ShiftManager shiftManager)
+        public FloorplanFormManager(ShiftManager shiftManager, TemplateManager templateManager)
         {
             //this.Floorplan = shiftManager.SelectedFloorplan;
             this.ShiftManager = shiftManager;
+            this.templateManager = templateManager;
             
         }
         public List<TableControl> TableControls
