@@ -150,6 +150,7 @@ namespace FloorplanClassLibrary
                                          this.Width - pen.Width, this.Height - pen.Width);
             }
            
+           
         }
        
         private void SectionControl_MouseDown(object sender, MouseEventArgs e)
@@ -318,7 +319,14 @@ namespace FloorplanClassLibrary
         {
             
             sectionLabel.Text = Section.GetDisplayString();
-            headerPanel.Height = Section.ServerTeam.Count * 30;
+            headerPanel.Height = 30;
+            if(Section.ServerTeam.Count > 1)
+            {
+                for(int i = 0; i < Section.ServerTeam.Count-1; i++)
+                {
+                    headerPanel.Height += 25;
+                }
+            }
             headerPanel.BackColor = Section.Color; // Assuming the Section class has a Color property
             headerPanel.ForeColor = Section.FontColor;
             if(this.isSelected)

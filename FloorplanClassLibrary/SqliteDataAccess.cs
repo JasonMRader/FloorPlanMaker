@@ -392,7 +392,7 @@ namespace FloorplanClassLibrary
                 cnn.Close();
             }
         }
-        //
+        
         public static List<FloorplanTemplate> LoadAllFloorplanTemplates()
         {
             

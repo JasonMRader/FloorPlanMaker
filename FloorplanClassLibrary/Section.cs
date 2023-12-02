@@ -355,6 +355,10 @@ namespace FloorplanClassLibrary
             {
                 displayString = displayString + "(PRE)";
             }
+            if(this.IsPickUp)
+            {
+                displayString = "PickUp";
+            }
             //NotifyObservers();
             return displayString;
             

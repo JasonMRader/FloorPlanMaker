@@ -394,6 +394,7 @@ namespace FloorPlanMakerUI
             foreach(SectionLabelControl sectionLabelControl in _sectionLabels)
             {
                 panel.Controls.Add(sectionLabelControl);
+                sectionLabelControl.UpdateLabel();
                 sectionLabelControl.BringToFront();
             }
         }
