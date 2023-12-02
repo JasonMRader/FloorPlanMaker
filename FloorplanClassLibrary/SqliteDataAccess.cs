@@ -366,15 +366,15 @@ namespace FloorplanClassLibrary
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 cnn.Open();
-                cnn.Execute("INSERT INTO Section (MaxCovers, AverageCovers, ServerID1, IsCloser, IsPre, TeamWait) VALUES (@MaxCovers, @AverageCovers, @ServerIDAlias, @IsCloser, @IsPre, @TeamWait)",
+                cnn.Execute("INSERT INTO Section (MaxCovers, AverageCovers, IsCloser, IsPre, TeamWait, IsPickUp) VALUES (@MaxCovers, @AverageCovers, @IsCloser, @IsPre, @TeamWait, @IsPickUp)",
                 new
                 {
                     MaxCovers = section.MaxCovers,
-                    AverageCovers = section.AverageCovers,
-                    ServerIDAlias = section.ServerID,  // Map ServerID to ServerID1
+                    AverageCovers = section.AverageCovers,                    
                     IsCloser = section.IsCloser,
                     IsPre = section.IsPre,
-                    TeamWait = section.IsTeamWait
+                    TeamWait = section.IsTeamWait,
+                    IsPickUp = section.IsPickUp
                 });
 
                 section.ID = cnn.Query<int>("select last_insert_rowid()", new DynamicParameters()).Single();
