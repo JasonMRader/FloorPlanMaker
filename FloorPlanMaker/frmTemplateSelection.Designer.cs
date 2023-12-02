@@ -55,6 +55,7 @@
             label2 = new Label();
             label1 = new Label();
             lblServerCount = new Label();
+            btnClose = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
@@ -389,12 +390,26 @@
             lblServerCount.Text = "Server Count";
             lblServerCount.TextAlign = ContentAlignment.TopCenter;
             // 
+            // btnClose
+            // 
+            btnClose.BackColor = Color.FromArgb(190, 80, 70);
+            btnClose.FlatAppearance.BorderSize = 0;
+            btnClose.FlatStyle = FlatStyle.Flat;
+            btnClose.Image = FloorPlanMakerUI.Properties.Resources.SmallSkinnyX;
+            btnClose.Location = new Point(650, 3);
+            btnClose.Name = "btnClose";
+            btnClose.Size = new Size(27, 27);
+            btnClose.TabIndex = 9;
+            btnClose.UseVisualStyleBackColor = false;
+            btnClose.Click += btnCancel_Click;
+            // 
             // frmTemplateSelection
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.WhiteSmoke;
             ClientSize = new Size(684, 921);
+            Controls.Add(btnClose);
             Controls.Add(panel9);
             Controls.Add(panel5);
             Controls.Add(panel8);
@@ -447,5 +462,6 @@
         private RadioButton rdoBothTeam;
         private RadioButton rdoNoTeam;
         private RadioButton rdoYesTeam;
+        private Button btnClose;
     }
 }

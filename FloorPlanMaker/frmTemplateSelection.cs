@@ -20,7 +20,10 @@ namespace FloorPlanMaker
         ShiftManager ShiftManager;
         private Form1 form1Reference;
         private int serverCount;
-       
+        private bool yesTeamWaitFilter;
+        private bool noTeamWaitFilter;
+        private bool yesPickUpFilter;
+        private bool noPickUpFilter;
         private List<SectionPanelControl> _sectionPanels;
         public frmTemplateSelection(ShiftManager shiftManager, Form1 form1Reference)
         {
@@ -111,7 +114,7 @@ namespace FloorPlanMaker
                 foreach (Section section in ShiftManager.SelectedFloorplan.Sections)
                 {
                     SectionPanelControl sectionPanel = new SectionPanelControl(section, this.ShiftManager.SelectedFloorplan);
-                    
+
                     if (section.IsTeamWait)
                     {
                         sectionPanel.SetToTeamWait();
