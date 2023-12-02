@@ -22,7 +22,7 @@ namespace FloorplanClassLibrary
         {
             
             this.DiningArea = floorplan.DiningArea;
-
+            this.ServerCount = floorplan.Servers.Count;
             GetSectionCopies(floorplan.Sections);
            
             this.DiningAreaID = floorplan.DiningArea.ID;
@@ -44,61 +44,63 @@ namespace FloorplanClassLibrary
             this.Sections = sections;
         }
         public FloorplanTemplate() { }
+        public List<Section> Sections = new List<Section>();
         public int ID { get; set; }
-        
-        private int _teamWaitSections,
-                    _serverCount;
-        private bool _hasPickUp,
-                     _hasTeamWait;
+
+        private int _teamWaitSections;
+                   
+       
+        private bool _hasTeamWait = false;
+        private bool _hasPickUp = false;
+        public bool HasPickUp
+        {
+            get { return _hasPickUp; }
+        }
+        public bool HasTeamWait
+        {
+            get { return _hasTeamWait; }           
+        }
         public DiningArea DiningArea { get; set; }
         public int DiningAreaID { get; set; }
         private void GetSectionCopies(List<Section> sectionsToCopy)
         {
-            foreach (Section section in sectionsToCopy)
-            {
-                Section sectionCopy = new Section(section);
+            this.Sections = new List<Section>();
+            foreach (Section originalSection in sectionsToCopy)
+            {  
+                Section sectionCopy = new Section(originalSection);
                 this.Sections.Add(sectionCopy);
             }
+            UpdateTeamWaitAndPickUp();
+        }
+
+        private void UpdateTeamWaitAndPickUp()
+        {
+            int teamSections = 0;            
+            foreach (var section in this.Sections)            {
+                if (section.ServerCount > 1)
+                {
+                    section.MakeTeamWait();
+                    section.DecreaseServerCount();
+                    teamSections++;
+                    this._hasTeamWait = true;
+                }       
+                if(section.IsPickUp)
+                {
+                    this._hasPickUp = true;
+                }
+            }
+            _teamWaitSections = teamSections;           
         }
         public string Name { get; set; } = ""; 
        
 
         public int TeamWaitSections
         {
-            get { return _teamWaitSections; }
-            set
-            {
-                int teamSections = 0;
-                if (this.Sections == null) { return; }
-                foreach (var section in this.Sections)
-                {
-                    if (section.IsTeamWait)
-                    {
-                        teamSections++;
-                    }
-                }
-                _teamWaitSections = teamSections;
-            }
+            get { return _teamWaitSections; }            
         }
         
-
-        public int ServerCount
-        {
-            get { return _serverCount; }
-            set
-            {
-                int servers = 0;
-                if (this.Sections != null)
-                {
-                    foreach (Section section in this.Sections)
-                    {
-                        servers += section.ServerTeam.Count;
-                    }
-                }
-                _serverCount = servers;
-            }
-        }
-        public List<Section> Sections { get; set; }
+        public int ServerCount { get; }      
+        
         public string GetDisplay()
         {
             return "Servers: " + this.ServerCount.ToString();

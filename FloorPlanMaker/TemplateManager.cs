@@ -9,5 +9,6 @@ namespace FloorPlanMakerUI
     public class TemplateManager
     {
         public TemplateManager() { }
+
     }
 }

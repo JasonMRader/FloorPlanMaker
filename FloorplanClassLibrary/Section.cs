@@ -37,6 +37,7 @@ namespace FloorplanClassLibrary
             this.IsPre = section.IsPre;
             this.Name = section.Name;
             //this.Floorplan = section.Floorplan;
+            this.ServerCount = section.ServerTeam.Count;
             this.DiningAreaID = section.DiningAreaID; 
             this.SetTableList( section.Tables.ToList());
         }

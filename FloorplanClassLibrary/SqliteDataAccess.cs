@@ -348,7 +348,8 @@ namespace FloorplanClassLibrary
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 cnn.Open();
-                cnn.Execute("INSERT INTO FloorplanTemplate (Name, DiningAreaID, ServerCount) VALUES (@Name, @DiningAreaID, @ServerCount)", template);
+                cnn.Execute("INSERT INTO FloorplanTemplate (Name, DiningAreaID, ServerCount, HasTeamWait, HasPickUp)" +
+                    " VALUES (@Name, @DiningAreaID, @ServerCount, @HasTeamWait, @HasPickUp)", template);
 
                 template.ID = cnn.Query<int>("select last_insert_rowid()", new DynamicParameters()).Single();
 

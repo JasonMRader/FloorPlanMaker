@@ -491,17 +491,41 @@ namespace FloorPlanMaker
 
         private void btnSaveFloorplanTemplate_Click(object sender, EventArgs e)
         {
-            //var drawnLines = drawingHandler.GetDrawnLines();
-            //FloorplanTemplate template = new FloorplanTemplate(shiftManager.SelectedDiningArea, txtTemplateName.Text,
-            //     shiftManager.Sections, drawnLines);
-
-            //template.SectionLines.Clear();
-            //template.SectionLines.AddRange(drawnLines);
-
-            //drawingHandler.ClearLines();
+            
             FloorplanTemplate template = new FloorplanTemplate(shiftManager.SelectedFloorplan);
-            MessageBox.Show(template.Name + "   " + template.ServerCount.ToString() + "   " + template.TeamWaitSections.ToString());
+            MessageBox.Show(template.Name + " Servers:  " + template.ServerCount.ToString() + ", Team Sections:  " + template.TeamWaitSections.ToString()
+                + "\n" + "HasPickUP?  " + template.HasPickUp + "\n" + "HasTeam?  " + template.HasTeamWait);
             //SqliteDataAccess.SaveFloorplanTemplate(template);
+        }
+        private void btnChooseTemplate_Click(object sender, EventArgs e)
+        {
+            if (_frmTemplateSelection == null)
+            {
+                _frmTemplateSelection = new frmTemplateSelection(shiftManager, this)
+                { TopLevel = false, AutoScroll = true };
+                pnlTemplateContainer.Controls.Add(_frmTemplateSelection);
+            }
+
+
+            _frmTemplateSelection.Show();
+            pnlTemplateContainer.BringToFront();
+            //frmTemplateSelection form = new frmTemplateSelection(shiftManager);
+
+            //form.StartPosition = FormStartPosition.CenterScreen;
+
+            //form.BringToFront();
+
+            //form.ShowDialog();
+            //if (form.DialogResult == DialogResult.OK)
+            //{
+            //    UpdateTableControlSections();
+            //    form.Dispose();
+            //}
+            //if (DialogResult == DialogResult.Cancel)
+            //{
+            //    form.Dispose();
+            //}
+
         }
         private void btnPrint_Click(object sender, EventArgs e)
         {
@@ -571,36 +595,7 @@ namespace FloorPlanMaker
                 MessageBox.Show("Not all sections are assigned");
             }
         }
-        private void btnChooseTemplate_Click(object sender, EventArgs e)
-        {
-            if (_frmTemplateSelection == null)
-            {
-                _frmTemplateSelection = new frmTemplateSelection(shiftManager, this)
-                { TopLevel = false, AutoScroll = true };
-                pnlTemplateContainer.Controls.Add(_frmTemplateSelection);
-            }
-            
-
-            _frmTemplateSelection.Show();
-            pnlTemplateContainer.BringToFront();
-            //frmTemplateSelection form = new frmTemplateSelection(shiftManager);
-
-            //form.StartPosition = FormStartPosition.CenterScreen;
-
-            //form.BringToFront();
-
-            //form.ShowDialog();
-            //if (form.DialogResult == DialogResult.OK)
-            //{
-            //    UpdateTableControlSections();
-            //    form.Dispose();
-            //}
-            //if (DialogResult == DialogResult.Cancel)
-            //{
-            //    form.Dispose();
-            //}
-
-        }
+       
         private void UpdateTableControlSections()
         {
             //ClearAllSectionControls();

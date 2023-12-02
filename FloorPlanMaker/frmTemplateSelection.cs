@@ -20,7 +20,7 @@ namespace FloorPlanMaker
         ShiftManager ShiftManager;
         private Form1 form1Reference;
         private int serverCount;
-        private 
+       
         private List<SectionPanelControl> _sectionPanels;
         public frmTemplateSelection(ShiftManager shiftManager, Form1 form1Reference)
         {
