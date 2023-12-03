@@ -20,6 +20,8 @@ namespace FloorPlanMakerUI
         private bool _filterPickYes { get; set; } = false;
         private bool _hasTeamFilter { get; set; } = false;
         private bool _hasPickFilter { get; set; } = false;
+        public Dictionary<FloorplanTemplate, List<MiniTableControl>> TemplateMiniTables { get; set; } 
+            = new Dictionary<FloorplanTemplate, List<MiniTableControl>>();
         public bool HasTeamFilter
         {
             get { return _hasTeamFilter; }
@@ -93,19 +95,80 @@ namespace FloorPlanMakerUI
         }
         public List<FloorplanTemplate> Templates = new List<FloorplanTemplate>();
         public List<FloorplanTemplate> FilteredList = new List<FloorplanTemplate>();
-        public void GetMiniTableControls()
+        //public void GetMiniTableControls()
+        //{
+        //    foreach(Panel panel in DisplayPanels)
+        //    {
+        //        foreach (Table table in DiningArea.Tables)
+        //        {
+        //            MiniTableControl miniTable = new MiniTableControl(table, .4f, 27);
+        //            MiniTableControls.Add(miniTable);
+        //            panel.Controls.Add(miniTable);
+        //        }
+        //    }
+            
+        //}
+        public void InitializeMiniTableControls(FloorplanTemplate template)
         {
-            foreach(Panel panel in DisplayPanels)
+            //MiniTableControls = new List<MiniTableControl>();
+            //TemplateMiniTables = new Dictionary<FloorplanTemplate, List<MiniTableControl>>();
+            List<MiniTableControl> miniTableControls = new List<MiniTableControl>();
+            template.GetTemplateTables();
+
+            foreach (var table in template.Tables)
             {
-                foreach (Table table in DiningArea.Tables)
+                // Assuming 'factor' and 'yAdjustment' are determined based on your UI layout
+                float factor = .4f; // Example scaling factor
+                int yAdjustment = 27; // Example Y-coordinate adjustment
+
+                MiniTableControl miniTableControl = new MiniTableControl(table, factor, yAdjustment);
+                miniTableControls.Add(miniTableControl);
+            }
+            TemplateMiniTables[template] = miniTableControls;
+            //AddMiniTableControlsToDisplayPanels();
+        }
+        public void DisplayMiniTableControls(FloorplanTemplate selectedTemplate, Panel panel)
+        {
+            if (TemplateMiniTables.TryGetValue(selectedTemplate, out List<MiniTableControl> miniTables))
+            {
+                foreach (var miniTable in miniTables)
                 {
-                    MiniTableControl miniTable = new MiniTableControl(table, .4f, 27);
-                    MiniTableControls.Add(miniTable);
                     panel.Controls.Add(miniTable);
                 }
             }
-            
         }
+        public void AddToTemplateMiniTables(FloorplanTemplate template)
+        {
+            List<MiniTableControl> miniTableControls = new List<MiniTableControl>();
+            foreach (var table in template.Tables)
+            {
+                // Assuming 'factor' and 'yAdjustment' are determined based on your UI layout
+                float factor = .4f; // Example scaling factor
+                int yAdjustment = 27; // Example Y-coordinate adjustment
+
+                MiniTableControl miniTableControl = new MiniTableControl(table, factor, yAdjustment);
+                miniTableControls.Add(miniTableControl);
+            }
+            TemplateMiniTables[template] = miniTableControls;
+        }
+
+        private void AddMiniTableControlsToDisplayPanels()
+        {
+            // Clear existing controls in the display panels
+            foreach (var panel in DisplayPanels)
+            {
+                panel.Controls.Clear();
+            }
+
+            // Add new mini table controls to the display panels
+            foreach (var miniTableControl in MiniTableControls)
+            {
+                // Determine which panel to add the control to based on some logic
+                var targetPanel = DisplayPanels[0]; // Example assignment
+                targetPanel.Controls.Add(miniTableControl);
+            }
+        }
+
         public enum FilterOption
         {
             None,
@@ -136,8 +199,11 @@ namespace FloorPlanMakerUI
             foreach(FloorplanTemplate template in  this.Templates)
             {
                 template.AssignSectionNumbers();
+                //template.GetTemplateTables();
+                InitializeMiniTableControls(template);
             }
         }
+        
         public void SetFilters(FilterOption option)
         {
             switch(option)

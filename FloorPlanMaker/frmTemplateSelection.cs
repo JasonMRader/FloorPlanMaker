@@ -28,6 +28,7 @@ namespace FloorPlanMaker
         private bool noPickUpFilter;
         private List<SectionPanelControl> _sectionPanels;
         private DiningArea area;
+        private Panel[] panels;
         public frmTemplateSelection(FloorplanFormManager floorplanManager, DiningArea diningArea, Form1 form1Reference)
         {
             InitializeComponent();
@@ -37,15 +38,16 @@ namespace FloorPlanMaker
             floorplanManager.TemplateManager.serverCount = serverCount;
             floorplanManager.TemplateManager.DiningArea = diningArea;
             floorplanManager.UpdateTemplatesBasedOnFloorplan();
-            
+            panels = new Panel[] { panel1, panel2, panel3, panel4 };
+
         }
 
         private void frmTemplateSelection_Load(object sender, EventArgs e)
         {
-            floorplanManager.TemplateManager.DisplayPanels = new Panel[] { panel1, panel2, panel3, panel4 };
-            floorplanManager.TemplateManager.GetMiniTableControls();
-            addTablesToPanels();
-
+            //floorplanManager.TemplateManager.DisplayPanels = new Panel[] { panel1, panel2, panel3, panel4 };
+            //floorplanManager.TemplateManager.GetMiniTableControls();
+            //addTablesToPanels();
+            
 
         }
         private void frmTemplateSelection_Shown(object sender, EventArgs e)
@@ -68,7 +70,7 @@ namespace FloorPlanMaker
         {
             //Panel[] panels = { panel1, panel2, panel3, panel4 };  // Assuming you have named your panels like this
             int i = 0;
-            foreach (var pan in floorplanManager.TemplateManager.DisplayPanels)
+            foreach (var pan in panels)
             {
                 if(i >= templates.Count)
                 {
@@ -83,33 +85,38 @@ namespace FloorPlanMaker
             }
         }
 
+        //private void ClearTemplateSections(Panel pnl)
+        //{
+        //    pnl.Tag = null;
+
+        //    //ShiftManager.SetSectionsToTemplate(template);
+        //    //ShiftManager.AssignSectionNumbers(ShiftManager.TemplateSections);
+        //    foreach (Control ctrl in pnl.Controls)
+        //    {
+        //        if (ctrl is Button btn)
+        //        {
+        //            btn.Click -= btnSelectTemplate_Click;
+        //            btn.Tag = null;
+        //            btn.Visible = false;
+        //        }
+        //        if (ctrl is MiniTableControl tableControl)
+        //        {
+        //            tableControl.BackColor = pnl.BackColor;
+        //            tableControl.RemoveSection();
+        //            //tableControl.Visible = false;
+                    
+        //        }
+        //    }
+        //}
         private void ClearTemplateSections(Panel pnl)
         {
             pnl.Tag = null;
-
-            //ShiftManager.SetSectionsToTemplate(template);
-            //ShiftManager.AssignSectionNumbers(ShiftManager.TemplateSections);
-            foreach (Control ctrl in pnl.Controls)
-            {
-                if (ctrl is Button btn)
-                {
-                    btn.Click -= btnSelectTemplate_Click;
-                    btn.Tag = null;
-                    btn.Visible = false;
-                }
-                if (ctrl is MiniTableControl tableControl)
-                {
-                    tableControl.BackColor = pnl.BackColor;
-                    tableControl.RemoveSection();
-                    //tableControl.Visible = false;
-                    
-                }
-            }
+            pnl.Controls.Clear();
+            
         }
-
-        private void addTablesToPanels()
+        private void addTablesToPanels(FloorplanTemplate template)
         {
-            Panel[] panels = { panel1, panel2, panel3, panel4 };  // Assuming you have named your panels like this
+           //Panel[] panels = { panel1, panel2, panel3, panel4 };  // Assuming you have named your panels like this
 
             foreach (var pan in panels)
             {
@@ -126,11 +133,37 @@ namespace FloorPlanMaker
             }
 
         }
+        //private void addTablesToPanels()
+        //{
+        //    Panel[] panels = { panel1, panel2, panel3, panel4 };  // Assuming you have named your panels like this
+
+        //    foreach (var pan in panels)
+        //    {
+        //        //foreach (Table table in area.Tables)  // Assuming FloorplanTemplate has a Tables property
+        //        //{
+        //        //    table.DiningArea = area;
+        //        //    TableControl tableControl = TableControlFactory.CreateMiniTableControl(table, (float).4, 27);                   
+        //        //    pan.Controls.Add(tableControl);
+        //        //}
+        //        foreach (MiniTableControl miniTable in floorplanManager.TemplateManager.MiniTableControls)
+        //        {
+        //            pan.Controls.Add(miniTable);
+        //        }
+        //    }
+
+        //}
+        private void addTablesToPanel(Panel panel, FloorplanTemplate template)
+        {
+
+            floorplanManager.TemplateManager.DisplayMiniTableControls(template, panel);
+
+        }
         private void SetupPanelWithTemplate(Panel pnl, FloorplanTemplate template)
         {
-            
+            pnl.Controls.Clear();
+            addTablesToPanel(pnl, template);
             pnl.Tag = template;
-
+            //floorplanManager.TemplateManager.InitializeMiniTableControls(template);
             //ShiftManager.SetSectionsToTemplate(template);
             //ShiftManager.AssignSectionNumbers(ShiftManager.TemplateSections);
             foreach (Control ctrl in pnl.Controls)

@@ -23,7 +23,8 @@ namespace FloorplanClassLibrary
         }
         public FloorplanTemplate() 
         {
-            
+            //AssignSectionNumbers();
+            //GetTemplateTables();
         }
         public List<Section> Sections = new List<Section>();
         public int ID { get; set; }
@@ -33,7 +34,7 @@ namespace FloorplanClassLibrary
        
         private bool _hasTeamWait = false;
         private bool _hasPickUp = false;
-        public List<Table> Tables = new List<Table>();
+        public List<TemplateTable> Tables { get; private set; }
         public bool HasPickUp
         {
             get { return _hasPickUp; }
@@ -47,13 +48,32 @@ namespace FloorplanClassLibrary
         private void GetSectionCopies(List<Section> sectionsToCopy)
         {
             this.Sections = new List<Section>();
+            this.Tables = new List<TemplateTable>();
             foreach (Section originalSection in sectionsToCopy)
             {  
                 Section sectionCopy = new Section(originalSection);
                 this.Sections.Add(sectionCopy);
+                //foreach (Table table in sectionCopy.Tables)
+                //{
+                //    TemplateTable templateTable = new TemplateTable(table, sectionCopy);
+                //    this.Tables.Add(templateTable);
+                //}
             }
             UpdateTeamWaitAndPickUp();
-            //AssignSectionNumbers();
+            
+        }
+        public void GetTemplateTables()
+        {
+            this.Tables = new List<TemplateTable>();
+            this.Tables.Clear();
+            foreach (Section section in this.Sections) 
+            {
+                foreach (Table table in section.Tables)
+                {
+                    TemplateTable templateTable = new TemplateTable(table, section);
+                    this.Tables.Add(templateTable);
+                }
+            }
         }
 
         private void UpdateTeamWaitAndPickUp()
@@ -83,6 +103,7 @@ namespace FloorplanClassLibrary
                 section.Number = sectionNumber;
                 sectionNumber++;
             }
+            //GetTemplateTables();
         }
 
         public int TeamWaitSections
