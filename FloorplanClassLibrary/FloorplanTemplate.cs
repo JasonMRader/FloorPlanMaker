@@ -9,15 +9,8 @@ namespace FloorplanClassLibrary
 {
     public class FloorplanTemplate
     {
-        public FloorplanTemplate(Floorplan floorplan, string name, List<SectionLine> sectionLines)
-        {
-            //this.Name = name;
-            this.DiningArea = floorplan.DiningArea;
-            this.ServerCount = floorplan.ServerCount;
-            this.Sections = floorplan.Sections;
-            //this.SectionLines = sectionLines;
-            this.DiningAreaID = floorplan.DiningArea.ID;
-        }
+        
+       
         public FloorplanTemplate(Floorplan floorplan)
         {
             
@@ -27,22 +20,6 @@ namespace FloorplanClassLibrary
            
             this.DiningAreaID = floorplan.DiningArea.ID;
             //AssignSectionNumbers();
-        }
-        public FloorplanTemplate(DiningArea diningArea, string name, List<Section> sections, List<SectionLine> sectionLines)
-        {
-            //this.Name = name;
-            this.DiningArea = diningArea;
-            
-            this.Sections = sections;
-            //this.SectionLines = sectionLines;
-            this.DiningAreaID = diningArea.ID;
-        }
-        public FloorplanTemplate(DiningArea diningArea, int serverCount,string name, List<Section> sections)
-        {
-            this.DiningArea = diningArea;
-            this.ServerCount = serverCount;
-            //this.Name = name;
-            this.Sections = sections;
         }
         public FloorplanTemplate() 
         {
@@ -56,6 +33,7 @@ namespace FloorplanClassLibrary
        
         private bool _hasTeamWait = false;
         private bool _hasPickUp = false;
+        public List<Table> Tables = new List<Table>();
         public bool HasPickUp
         {
             get { return _hasPickUp; }

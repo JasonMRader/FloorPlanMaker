@@ -1,4 +1,5 @@
 ﻿using FloorplanClassLibrary;
+using FloorplanUserControlLibrary;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,11 @@ namespace FloorPlanMakerUI
 {
     public class TemplateManager
     {
+        public DiningArea DiningArea { get; set; }
         public int serverCount = 5;
-        //public bool filterTeamYes { get { return _filterTeamYes; } }        
-        //public bool filterPickYes { get { return _filterPickYes; } }        
-        //public bool hasTeamFilter { get { return _hasTeamFilter; } }
-        //public bool hasPickFilter { get { return _hasPickFilter; } }
+        public List<MiniTableControl> MiniTableControls { get; set; } = new List<MiniTableControl>();
+        public Panel[] DisplayPanels {  get; set; }
+       
 
         private bool _filterTeamYes { get; set; } = false;        
         private bool _filterPickYes { get; set; } = false;
@@ -86,9 +87,25 @@ namespace FloorPlanMakerUI
 
             SetFilters(option);
         }
-        public TemplateManager() { }
+        public TemplateManager(DiningArea area)
+        {
+            this.DiningArea = area;
+        }
         public List<FloorplanTemplate> Templates = new List<FloorplanTemplate>();
         public List<FloorplanTemplate> FilteredList = new List<FloorplanTemplate>();
+        public void GetMiniTableControls()
+        {
+            foreach(Panel panel in DisplayPanels)
+            {
+                foreach (Table table in DiningArea.Tables)
+                {
+                    MiniTableControl miniTable = new MiniTableControl(table, .4f, 27);
+                    MiniTableControls.Add(miniTable);
+                    panel.Controls.Add(miniTable);
+                }
+            }
+            
+        }
         public enum FilterOption
         {
             None,

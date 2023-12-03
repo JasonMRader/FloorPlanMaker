@@ -19,13 +19,26 @@ namespace FloorplanClassLibrary
         {
             return ConfigurationManager.ConnectionStrings[id].ConnectionString;
         }
-        public static List<Table> LoadTables()
+        public static List<Table> LoadTables(List<DiningArea> diningAreas)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                return cnn.Query<Table>("SELECT * FROM DiningTable").ToList();
+                var tables = cnn.Query<Table>("SELECT * FROM DiningTable").ToList();
+
+                foreach (var table in tables)
+                {
+                    // Assuming DiningAreaID is a property of Table
+                    var diningArea = diningAreas.FirstOrDefault(da => da.ID == table.DiningAreaId);
+                    if (diningArea != null)
+                    {
+                        table.DiningArea = diningArea;
+                    }
+                }
+
+                return tables;
             }
         }
+
         public static int SaveTable(Table table)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -128,7 +141,7 @@ namespace FloorplanClassLibrary
             {
                 var diningAreas = cnn.Query<DiningArea>("SELECT * FROM DiningArea").ToList();
 
-                var tables = LoadTables();
+                var tables = LoadTables(diningAreas);
                 if (tables == null)
                 {
                     throw new InvalidOperationException("LoadTables returned null.");
@@ -138,6 +151,7 @@ namespace FloorplanClassLibrary
                 {
                     diningArea.Tables = tables.Where(t => t.DiningAreaId == diningArea.ID).ToList();
                 }
+                
 
                 return diningAreas;
             }

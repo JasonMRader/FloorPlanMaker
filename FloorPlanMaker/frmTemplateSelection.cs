@@ -35,14 +35,16 @@ namespace FloorPlanMaker
             this.form1Reference = form1Reference;
             this.area = diningArea;
             floorplanManager.TemplateManager.serverCount = serverCount;
+            floorplanManager.TemplateManager.DiningArea = diningArea;
             floorplanManager.UpdateTemplatesBasedOnFloorplan();
-            addTablesToPanels();
+            
         }
 
         private void frmTemplateSelection_Load(object sender, EventArgs e)
         {
-
-
+            floorplanManager.TemplateManager.DisplayPanels = new Panel[] { panel1, panel2, panel3, panel4 };
+            floorplanManager.TemplateManager.GetMiniTableControls();
+            addTablesToPanels();
 
 
         }
@@ -64,9 +66,9 @@ namespace FloorPlanMaker
         }
         private void SetTemplatePanels(List<FloorplanTemplate> templates)
         {
-            Panel[] panels = { panel1, panel2, panel3, panel4 };  // Assuming you have named your panels like this
+            //Panel[] panels = { panel1, panel2, panel3, panel4 };  // Assuming you have named your panels like this
             int i = 0;
-            foreach (var pan in panels)
+            foreach (var pan in floorplanManager.TemplateManager.DisplayPanels)
             {
                 if(i >= templates.Count)
                 {
@@ -95,11 +97,11 @@ namespace FloorPlanMaker
                     btn.Tag = null;
                     btn.Visible = false;
                 }
-                if (ctrl is TableControl tableControl)
+                if (ctrl is MiniTableControl tableControl)
                 {
                     tableControl.BackColor = pnl.BackColor;
                     tableControl.RemoveSection();
-                    tableControl.Visible = false;
+                    //tableControl.Visible = false;
                     
                 }
             }
@@ -111,13 +113,15 @@ namespace FloorPlanMaker
 
             foreach (var pan in panels)
             {
-                foreach (Table table in area.Tables)  // Assuming FloorplanTemplate has a Tables property
+                //foreach (Table table in area.Tables)  // Assuming FloorplanTemplate has a Tables property
+                //{
+                //    table.DiningArea = area;
+                //    TableControl tableControl = TableControlFactory.CreateMiniTableControl(table, (float).4, 27);                   
+                //    pan.Controls.Add(tableControl);
+                //}
+                foreach (MiniTableControl miniTable in floorplanManager.TemplateManager.MiniTableControls)
                 {
-                    table.DiningArea = area;
-                    TableControl tableControl = TableControlFactory.CreateMiniTableControl(table, (float).4, 27);
-                    //tableControl.TableClicked += Table_TableClicked;  // Uncomment if you want to attach event handler
-
-                    pan.Controls.Add(tableControl);
+                    pan.Controls.Add(miniTable);
                 }
             }
 
@@ -137,7 +141,7 @@ namespace FloorPlanMaker
                     btn.Tag = template;
                     btn.Visible = true;
                 }
-                if (ctrl is TableControl tableControl)
+                if (ctrl is MiniTableControl tableControl)
                 {
                     
                     foreach (Section section in template.Sections)  //ShiftManager.TemplateSections)

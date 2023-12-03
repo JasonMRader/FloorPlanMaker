@@ -35,7 +35,7 @@ namespace FloorPlanMakerUI
         {
             //this.Floorplan = shiftManager.SelectedFloorplan;
             this.ShiftManager = shiftManager;
-            this.TemplateManager = new TemplateManager();
+            this.TemplateManager = new TemplateManager(shiftManager.SelectedDiningArea);
 
 
         }

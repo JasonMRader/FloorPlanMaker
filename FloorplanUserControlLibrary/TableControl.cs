@@ -40,7 +40,7 @@ namespace FloorPlanMaker
                 }
                 else
                 {
-                    this.BackColor = section.MuteColor(.3f);
+                    this.BackColor = section.MuteColor(.8f);
                 }
             }
            
