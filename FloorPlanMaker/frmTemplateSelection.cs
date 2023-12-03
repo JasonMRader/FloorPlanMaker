@@ -38,15 +38,25 @@ namespace FloorPlanMaker
 
         private void frmTemplateSelection_Load(object sender, EventArgs e)
         {
-           
 
 
-            Panel[] panels = { panel1, panel2, panel3, panel4 };  // Assuming you have named your panels like this
-
-            for (int i = 0; i < 4 && i < floorplanManager.TemplateManager.Templates.Count; i++)
+            if (floorplanManager.Floorplan == null)
             {
-                SetupPanelWithTemplate(panels[i], floorplanManager.TemplateManager.Templates[i]);
+                serverCount = 5;
+                lblServerCount.Text = serverCount.ToString();
             }
+            else
+            {
+                serverCount = floorplanManager.Floorplan.Servers.Count;
+                lblServerCount.Text = serverCount.ToString();
+            }
+            SetTemplatePanels(floorplanManager.TemplateManager.Templates);
+            //Panel[] panels = { panel1, panel2, panel3, panel4 };  // Assuming you have named your panels like this
+
+            //for (int i = 0; i < 4 && i < floorplanManager.TemplateManager.Templates.Count; i++)
+            //{
+            //    SetupPanelWithTemplate(panels[i], floorplanManager.TemplateManager.Templates[i]);
+            //}
             //ShiftManager.Templates.Clear();
             //if (ShiftManager.SelectedFloorplan != null)
             //{
@@ -64,6 +74,15 @@ namespace FloorPlanMaker
             //{
             //    SetupPanelWithTemplate(panels[i], ShiftManager.Templates[i]);
             //}
+        }
+        private void SetTemplatePanels(List<FloorplanTemplate> templates)
+        {
+            Panel[] panels = { panel1, panel2, panel3, panel4 };  // Assuming you have named your panels like this
+
+            for (int i = 0; i < 4 && i < templates.Count; i++)
+            {
+                SetupPanelWithTemplate(panels[i], templates[i]);
+            }
         }
         private void SetupPanelWithTemplate(Panel pnl, FloorplanTemplate template)
         {
@@ -154,6 +173,49 @@ namespace FloorPlanMaker
             //this.Close();
 
             //this.Dispose();
+        }
+
+        private void btnIncreaseServers_Click(object sender, EventArgs e)
+        {
+            serverCount++;
+            lblServerCount.Text = serverCount.ToString();
+        }
+
+        private void btnDecreaseServers_Click(object sender, EventArgs e)
+        {
+            serverCount--;
+            lblServerCount.Text = serverCount.ToString();
+
+        }
+
+        private void rdoYesTeam_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void rdoNoTeam_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void rdoBothTeam_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void rdoYesPickUp_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void rdoNoPickUp_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void rdoBothPickUp_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
         //public void AddSectionPanels(FlowLayoutPanel panel)
         //{

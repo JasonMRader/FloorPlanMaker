@@ -12,6 +12,7 @@ namespace FloorPlanMakerUI
 
         public TemplateManager() { }
         public List<FloorplanTemplate> Templates = new List<FloorplanTemplate>();
+        public List<FloorplanTemplate> FilteredList = new List<FloorplanTemplate>();
         public void GetTemplatesForFloorplan(Floorplan floorplan)
         {
             this.Templates.Clear();
@@ -33,10 +34,11 @@ namespace FloorPlanMakerUI
             }
         }
         
-        public List<FloorplanTemplate> FilterTemplates(List<FloorplanTemplate> templates, bool? hasTeamWait = null, bool? hasPickUp = null)
+        public void FilterTemplates(List<FloorplanTemplate> templates,int serverCount, bool? hasTeamWait = null, bool? hasPickUp = null)
         {
             // Start with all templates
             var filteredTemplates = templates.AsQueryable();
+            filteredTemplates = filteredTemplates.Where(t => t.ServerCount == serverCount);
 
             // Filter by HasTeamWait if specified
             if (hasTeamWait.HasValue)
@@ -50,7 +52,7 @@ namespace FloorPlanMakerUI
                 filteredTemplates = filteredTemplates.Where(t => t.HasPickUp == hasPickUp.Value);
             }
 
-            return filteredTemplates.ToList();
+            FilteredList = filteredTemplates.ToList();
         }
 
     }

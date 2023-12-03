@@ -51,10 +51,10 @@
             rdoYesTeam = new RadioButton();
             btnDecreaseServers = new Button();
             btnIncreaseServers = new Button();
-            label3 = new Label();
+            lblServerCount = new Label();
             label2 = new Label();
             label1 = new Label();
-            lblServerCount = new Label();
+            lblServerDisplay = new Label();
             btnClose = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
@@ -200,10 +200,10 @@
             panel9.Controls.Add(panel10);
             panel9.Controls.Add(btnDecreaseServers);
             panel9.Controls.Add(btnIncreaseServers);
-            panel9.Controls.Add(label3);
+            panel9.Controls.Add(lblServerCount);
             panel9.Controls.Add(label2);
             panel9.Controls.Add(label1);
-            panel9.Controls.Add(lblServerCount);
+            panel9.Controls.Add(lblServerDisplay);
             panel9.Location = new Point(39, 15);
             panel9.Name = "panel9";
             panel9.Size = new Size(605, 71);
@@ -235,6 +235,7 @@
             rdoBothPickUp.Text = "Both";
             rdoBothPickUp.TextAlign = ContentAlignment.MiddleCenter;
             rdoBothPickUp.UseVisualStyleBackColor = false;
+            rdoBothPickUp.CheckedChanged += rdoBothPickUp_CheckedChanged;
             // 
             // rdoNoPickUp
             // 
@@ -249,6 +250,7 @@
             rdoNoPickUp.Text = "No";
             rdoNoPickUp.TextAlign = ContentAlignment.MiddleCenter;
             rdoNoPickUp.UseVisualStyleBackColor = false;
+            rdoNoPickUp.CheckedChanged += rdoNoPickUp_CheckedChanged;
             // 
             // rdoYesPickUp
             // 
@@ -263,6 +265,7 @@
             rdoYesPickUp.Text = "Yes";
             rdoYesPickUp.TextAlign = ContentAlignment.MiddleCenter;
             rdoYesPickUp.UseVisualStyleBackColor = false;
+            rdoYesPickUp.CheckedChanged += rdoYesPickUp_CheckedChanged;
             // 
             // panel10
             // 
@@ -290,6 +293,7 @@
             rdoBothTeam.Text = "Both";
             rdoBothTeam.TextAlign = ContentAlignment.MiddleCenter;
             rdoBothTeam.UseVisualStyleBackColor = false;
+            rdoBothTeam.CheckedChanged += rdoBothTeam_CheckedChanged;
             // 
             // rdoNoTeam
             // 
@@ -304,6 +308,7 @@
             rdoNoTeam.Text = "No";
             rdoNoTeam.TextAlign = ContentAlignment.MiddleCenter;
             rdoNoTeam.UseVisualStyleBackColor = false;
+            rdoNoTeam.CheckedChanged += rdoNoTeam_CheckedChanged;
             // 
             // rdoYesTeam
             // 
@@ -318,6 +323,7 @@
             rdoYesTeam.Text = "Yes";
             rdoYesTeam.TextAlign = ContentAlignment.MiddleCenter;
             rdoYesTeam.UseVisualStyleBackColor = false;
+            rdoYesTeam.CheckedChanged += rdoYesTeam_CheckedChanged;
             // 
             // btnDecreaseServers
             // 
@@ -329,6 +335,7 @@
             btnDecreaseServers.Size = new Size(30, 12);
             btnDecreaseServers.TabIndex = 2;
             btnDecreaseServers.UseVisualStyleBackColor = true;
+            btnDecreaseServers.Click += btnDecreaseServers_Click;
             // 
             // btnIncreaseServers
             // 
@@ -340,18 +347,19 @@
             btnIncreaseServers.Size = new Size(30, 12);
             btnIncreaseServers.TabIndex = 2;
             btnIncreaseServers.UseVisualStyleBackColor = true;
+            btnIncreaseServers.Click += btnIncreaseServers_Click;
             // 
-            // label3
+            // lblServerCount
             // 
-            label3.BackColor = Color.WhiteSmoke;
-            label3.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            label3.ForeColor = Color.Black;
-            label3.Location = new Point(59, 31);
-            label3.Name = "label3";
-            label3.Size = new Size(54, 23);
-            label3.TabIndex = 1;
-            label3.Text = "6";
-            label3.TextAlign = ContentAlignment.MiddleRight;
+            lblServerCount.BackColor = Color.WhiteSmoke;
+            lblServerCount.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lblServerCount.ForeColor = Color.Black;
+            lblServerCount.Location = new Point(59, 31);
+            lblServerCount.Name = "lblServerCount";
+            lblServerCount.Size = new Size(54, 23);
+            lblServerCount.TabIndex = 1;
+            lblServerCount.Text = "6";
+            lblServerCount.TextAlign = ContentAlignment.MiddleRight;
             // 
             // label2
             // 
@@ -378,17 +386,17 @@
             label1.Text = "Team Wait Sections";
             label1.TextAlign = ContentAlignment.TopCenter;
             // 
-            // lblServerCount
+            // lblServerDisplay
             // 
-            lblServerCount.BackColor = Color.WhiteSmoke;
-            lblServerCount.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            lblServerCount.ForeColor = Color.Black;
-            lblServerCount.Location = new Point(23, 9);
-            lblServerCount.Name = "lblServerCount";
-            lblServerCount.Size = new Size(175, 52);
-            lblServerCount.TabIndex = 0;
-            lblServerCount.Text = "Server Count";
-            lblServerCount.TextAlign = ContentAlignment.TopCenter;
+            lblServerDisplay.BackColor = Color.WhiteSmoke;
+            lblServerDisplay.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lblServerDisplay.ForeColor = Color.Black;
+            lblServerDisplay.Location = new Point(23, 9);
+            lblServerDisplay.Name = "lblServerDisplay";
+            lblServerDisplay.Size = new Size(175, 52);
+            lblServerDisplay.TabIndex = 0;
+            lblServerDisplay.Text = "Server Count";
+            lblServerDisplay.TextAlign = ContentAlignment.TopCenter;
             // 
             // btnClose
             // 
@@ -448,10 +456,10 @@
         private Panel panel7;
         private Panel panel8;
         private Panel panel9;
-        private Label label3;
+        private Label lblServerCount;
         private Label label2;
         private Label label1;
-        private Label lblServerCount;
+        private Label lblServerDisplay;
         private Button btnDecreaseServers;
         private Button btnIncreaseServers;
         private Panel panel11;
