@@ -239,17 +239,27 @@ namespace FloorPlanMaker
 
         private void rdoYesTeam_CheckedChanged(object sender, EventArgs e)
         {
-            if (rdoYesPickUp.Checked)
+            if (rdoYesTeam.Checked)
             {
                 yesTeamWaitFilter = true;
+                //floorplanManager.TemplateManager.FilterTemplates(serverCount, hasTeamWait: true);
+                floorplanManager.TemplateManager.HasTeamFilter = true;
+                floorplanManager.TemplateManager.FilterTeamYes = false;
+                floorplanManager.TemplateManager.SetFilter();//FilterTemplates(serverCount);
+                SetTemplatePanels(floorplanManager.TemplateManager.FilteredList);
+                //SetTemplatePanels(floorplanManager.TemplateManager.FilteredList);
             }
         }
 
         private void rdoNoTeam_CheckedChanged(object sender, EventArgs e)
         {
-            if(rdoNoPickUp.Checked)
+            if(rdoNoTeam.Checked)
             {
-                yesTeamWaitFilter = true;
+                //yesTeamWaitFilter = true;
+                floorplanManager.TemplateManager.HasTeamFilter = true;
+                floorplanManager.TemplateManager.FilterTeamYes = false;
+                floorplanManager.TemplateManager.SetFilter();//FilterTemplates(serverCount);
+                SetTemplatePanels(floorplanManager.TemplateManager.FilteredList);
             }
         }
 
@@ -257,6 +267,11 @@ namespace FloorPlanMaker
         {
             if (rdoBothTeam.Checked) {
                 noTeamWaitFilter = true;
+                floorplanManager.TemplateManager.HasTeamFilter = false;
+                floorplanManager.TemplateManager.FilterTeamYes = false;
+                floorplanManager.TemplateManager.SetFilter();//FilterTemplates(serverCount);
+                SetTemplatePanels(floorplanManager.TemplateManager.FilteredList);
+                //SetTemplatePanels(floorplanManager.TemplateManager.FilteredList);
             }
         }
 
@@ -274,7 +289,10 @@ namespace FloorPlanMaker
         {
 
         }
-
+        public void GetFilteredList()
+        {
+            
+        }
 
         //public void AddSectionPanels(FlowLayoutPanel panel)
         //{
