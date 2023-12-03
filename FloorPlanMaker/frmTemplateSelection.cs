@@ -206,15 +206,35 @@ namespace FloorPlanMaker
 
         private void btnIncreaseServers_Click(object sender, EventArgs e)
         {
-            serverCount++;
-            lblServerCount.Text = serverCount.ToString();
+            if (floorplanManager.Floorplan == null)
+            {
+                serverCount++;
+                lblServerCount.Text = serverCount.ToString();
+                floorplanManager.TemplateManager.FilterTemplates(serverCount);
+                SetTemplatePanels(floorplanManager.TemplateManager.FilteredList);
+            }
+            else
+            {
+                MessageBox.Show("You cannot use a template with a different number"
+                    + "\n" + "of servers than the current floorplan has");
+            }
+            
         }
 
         private void btnDecreaseServers_Click(object sender, EventArgs e)
         {
-            serverCount--;
-            lblServerCount.Text = serverCount.ToString();
-
+            if (floorplanManager.Floorplan == null)
+            {
+                serverCount--;
+                lblServerCount.Text = serverCount.ToString();
+                floorplanManager.TemplateManager.FilterTemplates(serverCount);
+                SetTemplatePanels(floorplanManager.TemplateManager.FilteredList);
+            }
+            else
+            {
+                MessageBox.Show("You cannot use a template with a different number"
+                    + "\n" + "of servers than the current floorplan has");
+            }
         }
 
         private void rdoYesTeam_CheckedChanged(object sender, EventArgs e)

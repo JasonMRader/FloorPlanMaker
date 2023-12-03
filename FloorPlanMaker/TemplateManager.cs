@@ -34,10 +34,10 @@ namespace FloorPlanMakerUI
             }
         }
         
-        public void FilterTemplates(List<FloorplanTemplate> templates,int serverCount, bool? hasTeamWait = null, bool? hasPickUp = null)
+        public void FilterTemplates(int serverCount, bool? hasTeamWait = null, bool? hasPickUp = null)
         {
             // Start with all templates
-            var filteredTemplates = templates.AsQueryable();
+            var filteredTemplates = this.Templates.AsQueryable();
             filteredTemplates = filteredTemplates.Where(t => t.ServerCount == serverCount);
 
             // Filter by HasTeamWait if specified
