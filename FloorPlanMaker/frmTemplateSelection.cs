@@ -34,6 +34,7 @@ namespace FloorPlanMaker
             this.floorplanManager = floorplanManager;
             this.form1Reference = form1Reference;
             this.area = diningArea;
+            floorplanManager.TemplateManager.serverCount = serverCount;
             floorplanManager.UpdateTemplatesBasedOnFloorplan();
             addTablesToPanels();
         }
@@ -209,7 +210,8 @@ namespace FloorPlanMaker
             if (floorplanManager.Floorplan == null)
             {
                 serverCount++;
-                lblServerCount.Text = serverCount.ToString();
+                floorplanManager.TemplateManager.serverCount = serverCount;
+               lblServerCount.Text = serverCount.ToString();
                 floorplanManager.TemplateManager.FilterTemplates(serverCount);
                 SetTemplatePanels(floorplanManager.TemplateManager.FilteredList);
             }
@@ -227,6 +229,7 @@ namespace FloorPlanMaker
             {
                 serverCount--;
                 lblServerCount.Text = serverCount.ToString();
+                floorplanManager.TemplateManager.serverCount = serverCount;
                 floorplanManager.TemplateManager.FilterTemplates(serverCount);
                 SetTemplatePanels(floorplanManager.TemplateManager.FilteredList);
             }
