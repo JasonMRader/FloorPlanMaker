@@ -239,17 +239,25 @@ namespace FloorPlanMaker
 
         private void rdoYesTeam_CheckedChanged(object sender, EventArgs e)
         {
-
+            if (rdoYesPickUp.Checked)
+            {
+                yesTeamWaitFilter = true;
+            }
         }
 
         private void rdoNoTeam_CheckedChanged(object sender, EventArgs e)
         {
-
+            if(rdoNoPickUp.Checked)
+            {
+                yesTeamWaitFilter = true;
+            }
         }
 
         private void rdoBothTeam_CheckedChanged(object sender, EventArgs e)
         {
-
+            if (rdoBothTeam.Checked) {
+                noTeamWaitFilter = true;
+            }
         }
 
         private void rdoYesPickUp_CheckedChanged(object sender, EventArgs e)
