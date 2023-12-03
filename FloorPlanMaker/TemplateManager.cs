@@ -163,6 +163,7 @@ namespace FloorPlanMakerUI
         public void FilterTemplates(int serverCount, bool? hasTeamWait = null, bool? hasPickUp = null)
         {
             // Start with all templates
+            FilteredList.Clear();
             var filteredTemplates = this.Templates.AsQueryable();
             filteredTemplates = filteredTemplates.Where(t => t.ServerCount == serverCount);
 
