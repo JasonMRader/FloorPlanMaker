@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace FloorPlanMaker
 {
     public partial class frmTemplateSelection : Form
@@ -34,12 +35,18 @@ namespace FloorPlanMaker
             this.form1Reference = form1Reference;
             this.area = diningArea;
             floorplanManager.UpdateTemplatesBasedOnFloorplan();
+            addTablesToPanels();
         }
 
         private void frmTemplateSelection_Load(object sender, EventArgs e)
         {
 
 
+
+
+        }
+        private void frmTemplateSelection_Shown(object sender, EventArgs e)
+        {
             if (floorplanManager.Floorplan == null)
             {
                 serverCount = 5;
@@ -47,57 +54,78 @@ namespace FloorPlanMaker
             }
             else
             {
+
                 serverCount = floorplanManager.Floorplan.Servers.Count;
                 lblServerCount.Text = serverCount.ToString();
             }
+            floorplanManager.UpdateTemplatesBasedOnFloorplan();
             SetTemplatePanels(floorplanManager.TemplateManager.Templates);
-            //Panel[] panels = { panel1, panel2, panel3, panel4 };  // Assuming you have named your panels like this
-
-            //for (int i = 0; i < 4 && i < floorplanManager.TemplateManager.Templates.Count; i++)
-            //{
-            //    SetupPanelWithTemplate(panels[i], floorplanManager.TemplateManager.Templates[i]);
-            //}
-            //ShiftManager.Templates.Clear();
-            //if (ShiftManager.SelectedFloorplan != null)
-            //{
-            //    ShiftManager.Templates = SqliteDataAccess.LoadTemplatesByDiningAreaAndServerCount(ShiftManager.SelectedDiningArea, ShiftManager.SelectedFloorplan.Servers.Count);
-            //}
-            //else
-            //{
-            //    ShiftManager.Templates = SqliteDataAccess.LoadTemplatesByDiningArea(ShiftManager.SelectedDiningArea);
-            //}
-
-
-            //Panel[] panels = { panel1, panel2, panel3, panel4 };  // Assuming you have named your panels like this
-
-            //for (int i = 0; i < 4 && i < ShiftManager.Templates.Count; i++)
-            //{
-            //    SetupPanelWithTemplate(panels[i], ShiftManager.Templates[i]);
-            //}
         }
         private void SetTemplatePanels(List<FloorplanTemplate> templates)
         {
             Panel[] panels = { panel1, panel2, panel3, panel4 };  // Assuming you have named your panels like this
-
-            for (int i = 0; i < 4 && i < templates.Count; i++)
+            int i = 0;
+            foreach (var pan in panels)
             {
-                SetupPanelWithTemplate(panels[i], templates[i]);
+                if(i >= templates.Count)
+                {
+                    ClearTemplateSections(pan);
+                }
+                else
+                {
+                    SetupPanelWithTemplate(pan, templates[i]);
+                }
+                
+                i++;
             }
+        }
+
+        private void ClearTemplateSections(Panel pnl)
+        {
+            pnl.Tag = null;
+
+            //ShiftManager.SetSectionsToTemplate(template);
+            //ShiftManager.AssignSectionNumbers(ShiftManager.TemplateSections);
+            foreach (Control ctrl in pnl.Controls)
+            {
+                if (ctrl is Button btn)
+                {
+                    btn.Click -= btnSelectTemplate_Click;
+                    btn.Tag = null;
+                    btn.Visible = false;
+                }
+                if (ctrl is TableControl tableControl)
+                {
+                    tableControl.BackColor = pnl.BackColor;
+                    tableControl.RemoveSection();
+                    tableControl.Visible = false;
+                    
+                }
+            }
+        }
+
+        private void addTablesToPanels()
+        {
+            Panel[] panels = { panel1, panel2, panel3, panel4 };  // Assuming you have named your panels like this
+
+            foreach (var pan in panels)
+            {
+                foreach (Table table in area.Tables)  // Assuming FloorplanTemplate has a Tables property
+                {
+                    table.DiningArea = area;
+                    TableControl tableControl = TableControlFactory.CreateMiniTableControl(table, (float).4, 27);
+                    //tableControl.TableClicked += Table_TableClicked;  // Uncomment if you want to attach event handler
+
+                    pan.Controls.Add(tableControl);
+                }
+            }
+
         }
         private void SetupPanelWithTemplate(Panel pnl, FloorplanTemplate template)
         {
-            // Clear the current controls
-
-            //pnl.Controls.Clear();
+            
             pnl.Tag = template;
-            foreach (Table table in area.Tables)  // Assuming FloorplanTemplate has a Tables property
-            {
-                table.DiningArea = area;
-                TableControl tableControl = TableControlFactory.CreateMiniTableControl(table, (float).4, 27);
-                //tableControl.TableClicked += Table_TableClicked;  // Uncomment if you want to attach event handler
 
-                pnl.Controls.Add(tableControl);
-            }
             //ShiftManager.SetSectionsToTemplate(template);
             //ShiftManager.AssignSectionNumbers(ShiftManager.TemplateSections);
             foreach (Control ctrl in pnl.Controls)
@@ -106,9 +134,11 @@ namespace FloorPlanMaker
                 {
                     btn.Click += btnSelectTemplate_Click;
                     btn.Tag = template;
+                    btn.Visible = true;
                 }
                 if (ctrl is TableControl tableControl)
                 {
+                    
                     foreach (Section section in template.Sections)  //ShiftManager.TemplateSections)
                     {
 
@@ -118,6 +148,7 @@ namespace FloorPlanMaker
                             {
                                 tableControl.UpdateSection(section);
                                 tableControl.BackColor = section.Color;
+                                tableControl.Visible = true;
                                 tableControl.Invalidate();
                                 break; // Once found, no need to check other tables in this section
                             }
@@ -170,9 +201,7 @@ namespace FloorPlanMaker
         {
             this.Parent.SendToBack();
             this.Hide();
-            //this.Close();
-
-            //this.Dispose();
+           
         }
 
         private void btnIncreaseServers_Click(object sender, EventArgs e)
@@ -217,6 +246,8 @@ namespace FloorPlanMaker
         {
 
         }
+
+
         //public void AddSectionPanels(FlowLayoutPanel panel)
         //{
         //    panel.Controls.Clear();

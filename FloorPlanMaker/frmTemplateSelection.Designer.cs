@@ -427,6 +427,8 @@
             Name = "frmTemplateSelection";
             Text = "frmTemplateSelection";
             Load += frmTemplateSelection_Load;
+            Shown += frmTemplateSelection_Shown;
+            VisibleChanged += frmTemplateSelection_Shown;
             panel1.ResumeLayout(false);
             panel2.ResumeLayout(false);
             panel3.ResumeLayout(false);
