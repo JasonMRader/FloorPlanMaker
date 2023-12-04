@@ -27,6 +27,8 @@ namespace FloorplanClassLibrary
             //GetTemplateTables();
         }
         public List<Section> Sections = new List<Section>();
+        public Dictionary<Section, List<Control>> 
+            SectionMiniTableControls = new Dictionary<Section, List<Control>>(); 
         public int ID { get; set; }
 
         private int _teamWaitSections;
@@ -34,6 +36,14 @@ namespace FloorplanClassLibrary
        
         private bool _hasTeamWait = false;
         private bool _hasPickUp = false;
+        public void SetTeamWaitValue(bool teamWait)
+        {
+            _hasTeamWait = teamWait;
+        }
+        public void SetPickUpValue(bool picUp)
+        {
+            _hasTeamWait = picUp;
+        }
         public List<TemplateTable> Tables { get; private set; }
         public bool HasPickUp
         {
@@ -70,7 +80,7 @@ namespace FloorplanClassLibrary
             {
                 foreach (Table table in section.Tables)
                 {
-                    TemplateTable templateTable = new TemplateTable(table, section);
+                    TemplateTable templateTable = new TemplateTable(table, section,.4f,27);
                     this.Tables.Add(templateTable);
                 }
             }

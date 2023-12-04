@@ -29,13 +29,9 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
-            btnFirstTemplate = new Button();
             panel2 = new Panel();
-            button1 = new Button();
             panel3 = new Panel();
-            button3 = new Button();
             panel4 = new Panel();
-            button2 = new Button();
             panel5 = new Panel();
             panel6 = new Panel();
             panel7 = new Panel();
@@ -56,10 +52,6 @@
             label1 = new Label();
             lblServerDisplay = new Label();
             btnClose = new Button();
-            panel1.SuspendLayout();
-            panel2.SuspendLayout();
-            panel3.SuspendLayout();
-            panel4.SuspendLayout();
             panel5.SuspendLayout();
             panel6.SuspendLayout();
             panel7.SuspendLayout();
@@ -72,90 +64,34 @@
             // panel1
             // 
             panel1.BackColor = Color.WhiteSmoke;
-            panel1.Controls.Add(btnFirstTemplate);
             panel1.Location = new Point(10, 10);
             panel1.Name = "panel1";
             panel1.Size = new Size(268, 375);
             panel1.TabIndex = 0;
             // 
-            // btnFirstTemplate
-            // 
-            btnFirstTemplate.BackColor = Color.FromArgb(100, 130, 180);
-            btnFirstTemplate.Dock = DockStyle.Top;
-            btnFirstTemplate.FlatAppearance.BorderSize = 0;
-            btnFirstTemplate.FlatStyle = FlatStyle.Flat;
-            btnFirstTemplate.Location = new Point(0, 0);
-            btnFirstTemplate.Name = "btnFirstTemplate";
-            btnFirstTemplate.Size = new Size(268, 27);
-            btnFirstTemplate.TabIndex = 4;
-            btnFirstTemplate.Text = "View";
-            btnFirstTemplate.UseVisualStyleBackColor = false;
-            // 
             // panel2
             // 
             panel2.BackColor = Color.WhiteSmoke;
-            panel2.Controls.Add(button1);
             panel2.Location = new Point(10, 10);
             panel2.Name = "panel2";
             panel2.Size = new Size(268, 375);
             panel2.TabIndex = 1;
             // 
-            // button1
-            // 
-            button1.BackColor = Color.FromArgb(100, 130, 180);
-            button1.Dock = DockStyle.Top;
-            button1.FlatAppearance.BorderSize = 0;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Location = new Point(0, 0);
-            button1.Name = "button1";
-            button1.Size = new Size(268, 27);
-            button1.TabIndex = 5;
-            button1.Text = "View";
-            button1.UseVisualStyleBackColor = false;
-            // 
             // panel3
             // 
             panel3.BackColor = Color.WhiteSmoke;
-            panel3.Controls.Add(button3);
             panel3.Location = new Point(10, 10);
             panel3.Name = "panel3";
             panel3.Size = new Size(268, 375);
             panel3.TabIndex = 2;
             // 
-            // button3
-            // 
-            button3.BackColor = Color.FromArgb(100, 130, 180);
-            button3.Dock = DockStyle.Top;
-            button3.FlatAppearance.BorderSize = 0;
-            button3.FlatStyle = FlatStyle.Flat;
-            button3.Location = new Point(0, 0);
-            button3.Name = "button3";
-            button3.Size = new Size(268, 27);
-            button3.TabIndex = 5;
-            button3.Text = "View";
-            button3.UseVisualStyleBackColor = false;
-            // 
             // panel4
             // 
             panel4.BackColor = Color.WhiteSmoke;
-            panel4.Controls.Add(button2);
             panel4.Location = new Point(10, 10);
             panel4.Name = "panel4";
             panel4.Size = new Size(268, 375);
             panel4.TabIndex = 3;
-            // 
-            // button2
-            // 
-            button2.BackColor = Color.FromArgb(100, 130, 180);
-            button2.Dock = DockStyle.Top;
-            button2.FlatAppearance.BorderSize = 0;
-            button2.FlatStyle = FlatStyle.Flat;
-            button2.Location = new Point(0, 0);
-            button2.Name = "button2";
-            button2.Size = new Size(268, 27);
-            button2.TabIndex = 5;
-            button2.Text = "View";
-            button2.UseVisualStyleBackColor = false;
             // 
             // panel5
             // 
@@ -429,10 +365,6 @@
             Load += frmTemplateSelection_Load;
             Shown += frmTemplateSelection_Shown;
             VisibleChanged += frmTemplateSelection_Shown;
-            panel1.ResumeLayout(false);
-            panel2.ResumeLayout(false);
-            panel3.ResumeLayout(false);
-            panel4.ResumeLayout(false);
             panel5.ResumeLayout(false);
             panel6.ResumeLayout(false);
             panel7.ResumeLayout(false);
@@ -449,10 +381,6 @@
         private Panel panel2;
         private Panel panel3;
         private Panel panel4;
-        private Button btnFirstTemplate;
-        private Button button1;
-        private Button button3;
-        private Button button2;
         private Panel panel5;
         private Panel panel6;
         private Panel panel7;

@@ -47,7 +47,7 @@ namespace FloorPlanMaker
             //floorplanManager.TemplateManager.DisplayPanels = new Panel[] { panel1, panel2, panel3, panel4 };
             //floorplanManager.TemplateManager.GetMiniTableControls();
             //addTablesToPanels();
-            
+
 
         }
         private void frmTemplateSelection_Shown(object sender, EventArgs e)
@@ -72,7 +72,7 @@ namespace FloorPlanMaker
             int i = 0;
             foreach (var pan in panels)
             {
-                if(i >= templates.Count)
+                if (i >= templates.Count)
                 {
                     ClearTemplateSections(pan);
                 }
@@ -80,7 +80,7 @@ namespace FloorPlanMaker
                 {
                     SetupPanelWithTemplate(pan, templates[i]);
                 }
-                
+
                 i++;
             }
         }
@@ -104,7 +104,7 @@ namespace FloorPlanMaker
         //            tableControl.BackColor = pnl.BackColor;
         //            tableControl.RemoveSection();
         //            //tableControl.Visible = false;
-                    
+
         //        }
         //    }
         //}
@@ -112,11 +112,11 @@ namespace FloorPlanMaker
         {
             pnl.Tag = null;
             pnl.Controls.Clear();
-            
+
         }
         private void addTablesToPanels(FloorplanTemplate template)
         {
-           //Panel[] panels = { panel1, panel2, panel3, panel4 };  // Assuming you have named your panels like this
+            //Panel[] panels = { panel1, panel2, panel3, panel4 };  // Assuming you have named your panels like this
 
             foreach (var pan in panels)
             {
@@ -156,6 +156,7 @@ namespace FloorPlanMaker
         {
 
             floorplanManager.TemplateManager.DisplayMiniTableControls(template, panel);
+            floorplanManager.TemplateManager.CreateSectionPicBox(template, panel);
 
         }
         private void SetupPanelWithTemplate(Panel pnl, FloorplanTemplate template)
@@ -166,17 +167,32 @@ namespace FloorPlanMaker
             //floorplanManager.TemplateManager.InitializeMiniTableControls(template);
             //ShiftManager.SetSectionsToTemplate(template);
             //ShiftManager.AssignSectionNumbers(ShiftManager.TemplateSections);
+            Button btnView = new Button()
+            {
+                BackColor = UITheme.CTAColor,
+                FlatStyle = FlatStyle.Flat,
+                Location = new Point(0, 0),
+                Text = "View",
+                Size = new Size(134, 30),
+                Font = UITheme.MainFont
+            };
+            Button btnApply = new Button()
+            {
+                BackColor = UITheme.CTAColor,
+                FlatStyle = FlatStyle.Flat,
+                Location = new Point(134, 0),
+                Text = "Apply",
+                Size = new Size(134, 30),
+                Font = UITheme.MainFont
+            };
+            pnl.Controls.Add(btnView);
+            pnl.Controls.Add(btnApply);
             foreach (Control ctrl in pnl.Controls)
             {
-                if (ctrl is Button btn)
-                {
-                    btn.Click += btnSelectTemplate_Click;
-                    btn.Tag = template;
-                    btn.Visible = true;
-                }
+
                 if (ctrl is MiniTableControl tableControl)
                 {
-                    
+
                     foreach (Section section in template.Sections)  //ShiftManager.TemplateSections)
                     {
 
@@ -239,7 +255,7 @@ namespace FloorPlanMaker
         {
             this.Parent.SendToBack();
             this.Hide();
-           
+
         }
 
         private void btnIncreaseServers_Click(object sender, EventArgs e)
@@ -248,7 +264,7 @@ namespace FloorPlanMaker
             {
                 serverCount++;
                 floorplanManager.TemplateManager.serverCount = serverCount;
-               lblServerCount.Text = serverCount.ToString();
+                lblServerCount.Text = serverCount.ToString();
                 floorplanManager.TemplateManager.FilterTemplates(serverCount);
                 SetTemplatePanels(floorplanManager.TemplateManager.FilteredList);
             }
@@ -257,7 +273,7 @@ namespace FloorPlanMaker
                 MessageBox.Show("You cannot use a template with a different number"
                     + "\n" + "of servers than the current floorplan has");
             }
-            
+
         }
 
         private void btnDecreaseServers_Click(object sender, EventArgs e)
@@ -284,7 +300,7 @@ namespace FloorPlanMaker
                 yesTeamWaitFilter = true;
                 //floorplanManager.TemplateManager.FilterTemplates(serverCount, hasTeamWait: true);
                 floorplanManager.TemplateManager.HasTeamFilter = true;
-                floorplanManager.TemplateManager.FilterTeamYes = false;
+                floorplanManager.TemplateManager.FilterTeamYes = true;
                 floorplanManager.TemplateManager.SetFilter();//FilterTemplates(serverCount);
                 SetTemplatePanels(floorplanManager.TemplateManager.FilteredList);
                 //SetTemplatePanels(floorplanManager.TemplateManager.FilteredList);
@@ -293,7 +309,7 @@ namespace FloorPlanMaker
 
         private void rdoNoTeam_CheckedChanged(object sender, EventArgs e)
         {
-            if(rdoNoTeam.Checked)
+            if (rdoNoTeam.Checked)
             {
                 //yesTeamWaitFilter = true;
                 floorplanManager.TemplateManager.HasTeamFilter = true;
@@ -305,7 +321,8 @@ namespace FloorPlanMaker
 
         private void rdoBothTeam_CheckedChanged(object sender, EventArgs e)
         {
-            if (rdoBothTeam.Checked) {
+            if (rdoBothTeam.Checked)
+            {
                 noTeamWaitFilter = true;
                 floorplanManager.TemplateManager.HasTeamFilter = false;
                 floorplanManager.TemplateManager.FilterTeamYes = false;
@@ -331,7 +348,7 @@ namespace FloorPlanMaker
         }
         public void GetFilteredList()
         {
-            
+
         }
 
         //public void AddSectionPanels(FlowLayoutPanel panel)

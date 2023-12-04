@@ -341,17 +341,7 @@ namespace FloorPlanMaker
         List<FloorplanInfoControl> infoPanelList = new List<FloorplanInfoControl>();
 
 
-        private void serverControl_Click_RemoveFromShift(object sender, EventArgs e)
-        {
-            Button removeButton = (Button)sender;
-            ServerControl oldServerControl = (ServerControl)removeButton.Parent.Parent;
-            Server server = oldServerControl.Server;
-            newShiftManager.ServersNotOnShift.Add(server);
-            newShiftManager.UnassignedServers.Remove(server);
-            Button serverControl = CreateServerButton(server);
-            //flowAllServers.Controls.Add(serverControl);
-            flowUnassignedServers.Controls.Remove(oldServerControl);
-        }
+       
 
         private Button CreateServerButton(Server server)
         {

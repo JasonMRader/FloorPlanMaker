@@ -16,16 +16,21 @@ namespace FloorplanUserControlLibrary
         public MiniTableControl(TemplateTable table, float factor, int yAdjustment)
         {
             TemplateTable = table;
-            Width = (int)(table.Width * factor);
-            Height = (int)(table.Height * factor);
-            Left = (int)(table.XCoordinate * factor);
-            Top = (int)(table.YCoordinate * factor) + yAdjustment;
+            //Width = (int)(table.Width * factor);
+            //Height = (int)(table.Height * factor);
+            //Left = (int)(table.XCoordinate * factor);
+            //Top = (int)(table.YCoordinate * factor) + yAdjustment;
+            Width = table.Width;
+            Height = table.Height;
+            Left = table.XCoordinate;
+            Top = table.YCoordinate;
             Moveable = false;
             Shape = table.Shape;
-            Location = new Point((int)(table.XCoordinate * factor), (int)(table.YCoordinate * factor) + yAdjustment);
+            Location = new Point(table.XCoordinate, table.YCoordinate);
+            //Location = new Point((int)(table.XCoordinate * factor), (int)(table.YCoordinate * factor) + yAdjustment);
             Tag = table;
             templateSection = table.Section;
-            TableNumberFontSize = 9;
+            TableNumberFontSize = 10;
         }
         public string _tableNumber { get { return this.TemplateTable.TableNumber; } }
         protected override void OnPaint(PaintEventArgs pe)

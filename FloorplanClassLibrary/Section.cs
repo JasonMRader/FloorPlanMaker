@@ -43,7 +43,7 @@ namespace FloorplanClassLibrary
         }
         private SectionNodeManager _nodeManager;
 
-       
+        public List<TemplateTable> TemplateTables { get; set; } = new List<TemplateTable>();
 
 
         public SectionNodeManager NodeManager
@@ -60,6 +60,9 @@ namespace FloorplanClassLibrary
 
         public Floorplan? Floorplan { get; set; }
         public int ServerCount { get; private set; } = 1;
+        public int TemplateServerCount { get; set; }
+        public bool TemplateTeamWait { get; set; }
+        public bool TemplatePickUp { get; set; }    
         public int ID {  get; set; }
         public bool IsPickUp { get; set; }
         public int DiningAreaID { get; set; }
@@ -428,10 +431,10 @@ namespace FloorplanClassLibrary
         {
             { 1, Color.FromArgb(103,178,216) },
             { 2, Color.FromArgb(105,209,0) },
-            { 3, Color.FromArgb(130,9,29) },
-            { 4, Color.FromArgb(242,124,5) },
-            { 5, Color.FromArgb(17,100,184) },
-            { 6, Color.FromArgb(70,17,122) },
+            { 6, Color.FromArgb(130,9,29) },
+            { 3, Color.FromArgb(242,124,5) },
+            { 4, Color.FromArgb(17,100,184) },
+            { 5, Color.FromArgb(70,17,122) },
             { 7, Color.FromArgb(240,246,0) },
             { 8, Color.FromArgb(250,127,127) },
             { 9, Color.FromArgb(87,61,28) },
@@ -462,6 +465,22 @@ namespace FloorplanClassLibrary
                 return new Point(totalX / this.Tables.Count, totalY / this.Tables.Count);
             }
         }
+        public Point MiniMidPoint
+        {
+            get
+            {
+                int totalX = 0;
+                int totalY = 0;
+                foreach (TemplateTable table in this.TemplateTables)
+                {
+                    totalX += table.XCoordinate + (table.Width / 2);  // X-coordinate of control's center
+                    totalY += table.YCoordinate + (table.Height / 2); // Y-coordinate of control's center
+                }
+                return new Point(totalX / this.Tables.Count, totalY / this.Tables.Count);
+            }
+        }
+
+
 
         public override bool Equals(object obj)
         {
@@ -480,6 +499,10 @@ namespace FloorplanClassLibrary
             return this.Number.GetHashCode();
         }
 
+        internal void SetTeamWait(bool teamWaitValue)
+        {
+            this.TemplateTeamWait = teamWaitValue;
+        }
     }
 }
 

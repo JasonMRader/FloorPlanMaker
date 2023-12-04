@@ -1,10 +1,12 @@
 ﻿using FloorplanClassLibrary;
+using FloorPlanMakerUI.Properties;
 using FloorplanUserControlLibrary;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace FloorPlanMakerUI
 {
@@ -15,13 +17,16 @@ namespace FloorPlanMakerUI
         public List<MiniTableControl> MiniTableControls { get; set; } = new List<MiniTableControl>();
         public Panel[] DisplayPanels {  get; set; }
        
-
+        public List<PictureBox> picSectionLabels = new List<PictureBox>();
         private bool _filterTeamYes { get; set; } = false;        
         private bool _filterPickYes { get; set; } = false;
         private bool _hasTeamFilter { get; set; } = false;
         private bool _hasPickFilter { get; set; } = false;
         public Dictionary<FloorplanTemplate, List<MiniTableControl>> TemplateMiniTables { get; set; } 
             = new Dictionary<FloorplanTemplate, List<MiniTableControl>>();
+        public Dictionary<Section, List<MiniTableControl>> SectionMiniTableControls { get; set; }
+            = new Dictionary<Section, List<MiniTableControl>>();
+
         public bool HasTeamFilter
         {
             get { return _hasTeamFilter; }
@@ -92,6 +97,7 @@ namespace FloorPlanMakerUI
         public TemplateManager(DiningArea area)
         {
             this.DiningArea = area;
+            SectionMiniTableControls = new Dictionary<Section, List<MiniTableControl>>();
         }
         public List<FloorplanTemplate> Templates = new List<FloorplanTemplate>();
         public List<FloorplanTemplate> FilteredList = new List<FloorplanTemplate>();
@@ -137,37 +143,47 @@ namespace FloorPlanMakerUI
                 }
             }
         }
-        public void AddToTemplateMiniTables(FloorplanTemplate template)
+        
+
+       
+        public void CreateSectionPicBox(FloorplanTemplate template, Panel panel)
         {
-            List<MiniTableControl> miniTableControls = new List<MiniTableControl>();
-            foreach (var table in template.Tables)
+            foreach(Section section in template.Sections)
             {
-                // Assuming 'factor' and 'yAdjustment' are determined based on your UI layout
-                float factor = .4f; // Example scaling factor
-                int yAdjustment = 27; // Example Y-coordinate adjustment
+               Panel displayPanel = new Panel()
+                {
+                    BackColor = Color.Black,
+                    Size = new Size(34, 34),
+                    Location = section.MiniMidPoint,
+                   
 
-                MiniTableControl miniTableControl = new MiniTableControl(table, factor, yAdjustment);
-                miniTableControls.Add(miniTableControl);
+                   
+                };
+                displayPanel.Left = displayPanel.Left - 17;
+                displayPanel.Top = displayPanel.Top - 17;
+                PictureBox picBox = new PictureBox()
+                {
+                    BackColor = section.Color,
+                    Size = new Size(28,28),
+                    Location = new Point(3,3),
+                    Image = Resources.waiter,
+                    SizeMode = PictureBoxSizeMode.Zoom
+                };
+                if(section.TemplateTeamWait)
+                {
+                    picBox.Image = Resources.waiters;
+                }
+                if(section.IsPickUp)
+                {
+                    picBox.Image = null;
+                }
+               // picSectionLabels.Add(picBox);
+                displayPanel.Controls.Add(picBox);
+                panel.Controls.Add(displayPanel);
+                displayPanel.BringToFront();
             }
-            TemplateMiniTables[template] = miniTableControls;
         }
-
-        private void AddMiniTableControlsToDisplayPanels()
-        {
-            // Clear existing controls in the display panels
-            foreach (var panel in DisplayPanels)
-            {
-                panel.Controls.Clear();
-            }
-
-            // Add new mini table controls to the display panels
-            foreach (var miniTableControl in MiniTableControls)
-            {
-                // Determine which panel to add the control to based on some logic
-                var targetPanel = DisplayPanels[0]; // Example assignment
-                targetPanel.Controls.Add(miniTableControl);
-            }
-        }
+        
 
         public enum FilterOption
         {
