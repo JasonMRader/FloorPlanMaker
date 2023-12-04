@@ -42,7 +42,7 @@ namespace FloorplanClassLibrary
         }
         public void SetPickUpValue(bool picUp)
         {
-            _hasTeamWait = picUp;
+            _hasPickUp = picUp;
         }
         public List<TemplateTable> Tables { get; private set; }
         public bool HasPickUp

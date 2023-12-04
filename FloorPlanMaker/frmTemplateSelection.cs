@@ -334,17 +334,35 @@ namespace FloorPlanMaker
 
         private void rdoYesPickUp_CheckedChanged(object sender, EventArgs e)
         {
-
+            if (rdoYesPickUp.Checked)
+            {
+                floorplanManager.TemplateManager.HasPickFilter = true;
+                floorplanManager.TemplateManager.FilterPickYes = true;
+                floorplanManager.TemplateManager.SetFilter();
+                SetTemplatePanels(floorplanManager.TemplateManager.FilteredList);
+            }
         }
 
         private void rdoNoPickUp_CheckedChanged(object sender, EventArgs e)
         {
-
+            if (rdoNoPickUp.Checked)
+            {
+                floorplanManager.TemplateManager.HasPickFilter = true;
+                floorplanManager.TemplateManager.FilterPickYes = false;
+                floorplanManager.TemplateManager.SetFilter();
+                SetTemplatePanels(floorplanManager.TemplateManager.FilteredList);
+            }
         }
 
         private void rdoBothPickUp_CheckedChanged(object sender, EventArgs e)
         {
-
+            if (rdoBothPickUp.Checked)
+            {
+                floorplanManager.TemplateManager.HasPickFilter = false;
+                floorplanManager.TemplateManager.FilterPickYes = true;
+                floorplanManager.TemplateManager.SetFilter();
+                SetTemplatePanels(floorplanManager.TemplateManager.FilteredList);
+            }
         }
         public void GetFilteredList()
         {
