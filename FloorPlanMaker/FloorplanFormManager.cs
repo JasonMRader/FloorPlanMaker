@@ -46,6 +46,7 @@ namespace FloorPlanMakerUI
             {
                 // If Floorplan is not null, get templates for the specific floorplan
                 this.TemplateManager.GetTemplatesForFloorplan(this.Floorplan);
+                this.TemplateManager.serverCount = this.Floorplan.Servers.Count;
             }
             else
             {

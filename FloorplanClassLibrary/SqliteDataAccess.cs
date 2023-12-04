@@ -524,18 +524,40 @@ namespace FloorplanClassLibrary
 
                 foreach (var template in templates)
                 {
-                    // Assuming DiningAreaID can't be null, so removed the null check
-                    template.DiningArea = cnn.QuerySingle<DiningArea>(
-                        "SELECT * FROM DiningArea WHERE ID = @ID",
-                        new { ID = template.DiningAreaID }
-                    );
+                    if (template.DiningAreaID == null) break;
+                    template.DiningArea = cnn.QuerySingle<DiningArea>("SELECT * FROM DiningArea WHERE ID = @ID", new { ID = template.DiningAreaID });
+
+                    // Include ServerCount in the query for Section
                     template.Sections = cnn.Query<Section>(
-                        "SELECT s.* FROM Section s JOIN TemplateSections ts ON s.ID = ts.SectionID WHERE ts.TemplateID = @TemplateID",
-                        new { TemplateID = template.ID }
-                    ).ToList();
+                        "SELECT s.*, s.ServerCount FROM Section s " +
+                        "JOIN TemplateSections ts ON s.ID = ts.SectionID " +
+                        "WHERE ts.TemplateID = @TemplateID",
+                            new { TemplateID = template.ID }
+                            ).ToList();
 
                     foreach (var section in template.Sections)
                     {
+                        // Set TemplateTeamWait based on the Section table
+                        var teamWaitValue = cnn.ExecuteScalar<bool>(
+                            "SELECT TeamWait FROM Section WHERE ID = @SectionID",
+                            new { SectionID = section.ID }
+                        );
+                        section.SetTeamWait(teamWaitValue);
+                        if (teamWaitValue)
+                        {
+                            template.SetTeamWaitValue(true);
+                        }
+                        // Set TemplateServerCount using the ServerCount column
+                        section.TemplateServerCount = section.ServerCount; // Assuming ServerCount is part of the Section model
+
+                        // Set TemplatePickUp based on the Section table
+                        section.TemplatePickUp = section.IsPickUp;
+                        if (section.IsPickUp)
+                        {
+                            template.SetPickUpValue(true);
+                        }
+
+                        // Set table list for each section
                         section.SetTableList(cnn.Query<Table>(
                             "SELECT t.* FROM DiningTable t JOIN SectionTables st ON t.ID = st.TableID WHERE st.SectionID = @SectionID",
                             new { SectionID = section.ID }
