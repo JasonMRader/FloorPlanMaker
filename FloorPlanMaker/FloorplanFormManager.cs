@@ -163,8 +163,9 @@ namespace FloorPlanMakerUI
 
         private void AssignServerToSection(object? sender, EventArgs e)
         {
-            //SectionPanelControl sectionPanel = (SectionPanelControl)sender;
-            Section sectionToAssign = sender as Section;//sectionPanel.Section;
+            
+            Section sectionToAssign = sender as Section;
+            Floorplan.SetSelectedSection(sectionToAssign);
             UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionPanel, UpdateType.Assign, sectionToAssign));
         }
 
@@ -197,6 +198,8 @@ namespace FloorPlanMakerUI
                 newSectionPanel.picTeamWaitClicked += TeamWaitClicked;
                 newSectionPanel.picAddServerClicked += SectionAddServerClicked;
                 newSectionPanel.picSubtractServerClicked += SectionSubtractServerClicked;
+                newSectionPanel.unassignedSpotClicked += AssignServerToSection;
+                newSectionPanel.ServerRemoved += ServerRemovedFromSection;
                 this._sectionPanels.Add(newSectionPanel);
                 UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionPanel, UpdateType.Add, sectionAdded));                
 
@@ -319,7 +322,9 @@ namespace FloorPlanMakerUI
                 newSectionPanel.picEraseSectionClicked += EraseSectionClicked;
                 newSectionPanel.picTeamWaitClicked += TeamWaitClicked;
                 newSectionPanel.picAddServerClicked += SectionAddServerClicked;
-                sectionPanel.picSubtractServerClicked += SectionSubtractServerClicked;
+                newSectionPanel.picSubtractServerClicked += SectionSubtractServerClicked;
+                newSectionPanel.unassignedSpotClicked += AssignServerToSection;
+                newSectionPanel.ServerRemoved += ServerRemovedFromSection;
                 this._sectionPanels.Add(newSectionPanel);
                 UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionPanel, UpdateType.Add, sectionAdded));
             }

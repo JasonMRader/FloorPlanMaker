@@ -189,6 +189,7 @@ namespace FloorPlanMaker
                 Font = UITheme.MainFont,
                 Tag = template
             };
+            btnApply.Click += btnCancel_Click;
             pnl.Controls.Add(btnView);
             pnl.Controls.Add(btnApply);
             foreach (Control ctrl in pnl.Controls)
@@ -218,7 +219,7 @@ namespace FloorPlanMaker
             // Any other setup logic specific to the template can be added here
         }
         private void btnSelectTemplate_Click(object sender, EventArgs e)
-        {
+            {
             Button button = (Button)sender;
 
             FloorplanTemplate template = new FloorplanTemplate();
@@ -227,23 +228,23 @@ namespace FloorPlanMaker
             template = (FloorplanTemplate)button.Tag;
             if (floorplanManager.ShiftManager.SelectedFloorplan == null)
             {
-                //ShiftManager.SelectedFloorplan = new Floorplan(template);
-                //this.Parent.SendToBack();
-                //this.Hide();
-                _sectionPanels.Clear();
-                if (ShiftManager.SelectedFloorplan == null) { return; }
-                foreach (Section section in ShiftManager.SelectedFloorplan.Sections)
-                {
-                    SectionPanelControl sectionPanel = new SectionPanelControl(section, this.ShiftManager.SelectedFloorplan);
+                ////ShiftManager.SelectedFloorplan = new Floorplan(template);
+                ////this.Parent.SendToBack();
+                ////this.Hide();
+                //_sectionPanels.Clear();
+                //if (ShiftManager.SelectedFloorplan == null) { return; }
+                //foreach (Section section in ShiftManager.SelectedFloorplan.Sections)
+                //{
+                //    SectionPanelControl sectionPanel = new SectionPanelControl(section, this.ShiftManager.SelectedFloorplan);
 
-                    if (section.IsTeamWait)
-                    {
-                        sectionPanel.SetToTeamWait();
-                    }
-                    // sectionPanel += SectionAdded?
-                    //sectionPanel.UpdateRequired += FloorplanManager_UpdateRequired;
-                    this._sectionPanels.Add(sectionPanel);
-                }
+                //    if (section.IsTeamWait)
+                //    {
+                //        sectionPanel.SetToTeamWait();
+                //    }
+                //    // sectionPanel += SectionAdded?
+                //    //sectionPanel.UpdateRequired += FloorplanManager_UpdateRequired;
+                //    this._sectionPanels.Add(sectionPanel);
+                //}
             }
             else
             {
