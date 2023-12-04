@@ -280,6 +280,30 @@ namespace FloorPlanMakerUI
 
             FilteredList = filteredTemplates.ToList();
         }
+        //public List<SectionPanelControl> SetSectionPanels(FloorplanTemplate template)
+        //{
+        //    List<SectionPanelControl> sectionPanels = new List<SectionPanelControl>();  
+            
+        //    foreach (Section section in template.Sections)
+        //    {
+        //        SectionPanelControl sectionPanel = new SectionPanelControl(section, this.ShiftManager.SelectedFloorplan);
+        //        sectionPanel.CheckBoxChanged += setSelectedSection;
+        //        sectionPanel.picEraseSectionClicked += EraseSectionClicked;
+        //        sectionPanel.picTeamWaitClicked += TeamWaitClicked;
+        //        sectionPanel.picAddServerClicked += SectionAddServerClicked;
+        //        sectionPanel.picSubtractServerClicked += SectionSubtractServerClicked;
+        //        sectionPanel.unassignedSpotClicked += AssignServerToSection;
+        //        sectionPanel.ServerRemoved += ServerRemovedFromSection;
+        //        if (section.IsTeamWait)
+        //        {
+        //            sectionPanel.SetToTeamWait();
+        //        }
+        //        // sectionPanel += SectionAdded?
+        //        //sectionPanel.UpdateRequired += FloorplanManager_UpdateRequired;
+        //        sectionPanels.Add(sectionPanel);
+        //    }
+        //    return sectionPanels;
+        //}
 
     }
 }

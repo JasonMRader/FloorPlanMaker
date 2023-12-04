@@ -48,6 +48,18 @@ namespace FloorplanUserControlLibrary
             UpdateLabels();
 
         }
+        public SectionPanelControl(Section section, FloorplanTemplate floorplan)
+        {
+            InitializeComponent();
+            this.Section = section;
+            this.Section.SubscribeObserver(this);
+            this.BackColor = Section.Color;
+            this.ForeColor = Section.FontColor;
+            //this.floorplan = floorplan;
+
+            UpdateLabels();
+
+        }
         public Section Section { get; set; }
         //public Floorplan Floorplan { get; set; }
         public void UpdateSection(Section section)

@@ -4,6 +4,7 @@ using FloorplanUserControlLibrary;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 //using static System.Collections.Specialized.BitVector32;
@@ -120,6 +121,14 @@ namespace FloorPlanMakerUI
                     
                 }
             }
+        }
+        /// <summary>
+        /// ///SET SELECTED TEMPLATE TO ACTIVE TEMPLATE PREVIEW WILL SET SECTION PANELS AND KEEP TEMPLATE FORM OPEN!!!!!!!!!!!!!!!
+        /// </summary>
+        public void CopyTemplateSections(FloorplanTemplate template)
+        {
+            ShiftManager.SelectedFloorplan.CopyTemplateSections(template.Sections);
+            SetSectionPanels();
         }
         public void SetSectionPanels()
         {

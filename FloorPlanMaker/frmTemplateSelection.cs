@@ -243,7 +243,7 @@ namespace FloorPlanMaker
             }
             else
             {
-                ShiftManager.SelectedFloorplan.CopyTemplateSections(template.Sections);
+                floorplanManager.ShiftManager.SelectedFloorplan.CopyTemplateSections(template.Sections);
             }
             //ShiftManager.SelectedFloorplan.CopySectionsIntoSections(template.Sections);
             //ShiftManager.ViewedFloorplan = ShiftManager.SelectedFloorplan;
