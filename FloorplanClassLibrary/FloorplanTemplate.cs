@@ -72,6 +72,53 @@ namespace FloorplanClassLibrary
             UpdateTeamWaitAndPickUp();
             
         }
+        public bool IsDuplicate()
+        {
+            var existingTemplates = SqliteDataAccess.LoadTemplatesByDiningAreaAndServerCount(this.DiningArea, this.ServerCount);
+
+            foreach (var existingTemplate in existingTemplates)
+            {
+               
+                if (existingTemplate.HasTeamWait != this.HasTeamWait ||
+                    existingTemplate.HasPickUp != this.HasPickUp ||
+                    existingTemplate.Sections.Count != this.Sections.Count)
+                {
+                    continue; 
+                }
+
+                // Check if sections and their tables match
+                if (AreSectionsEquivalent(this.Sections, existingTemplate.Sections))
+                {
+                    return true; 
+                }
+            }
+
+            return false; 
+        }
+
+        private bool AreSectionsEquivalent(List<Section> sections1, List<Section> sections2)
+        {
+            foreach (Section section1 in sections1)
+            {
+                bool equivalentSectionFound = false;
+
+                foreach (Section section2 in sections2)
+                {
+                    if (section1.HasSameTables(section2))
+                    {
+                        equivalentSectionFound = true;
+                        break; 
+                    }
+                }
+
+                if (!equivalentSectionFound)
+                {
+                    return false; 
+                }
+            }
+            return true; 
+        }
+
         public void GetTemplateTables()
         {
             this.Tables = new List<TemplateTable>();

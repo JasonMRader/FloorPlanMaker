@@ -528,6 +528,18 @@ namespace FloorplanClassLibrary
         {
             this.TemplateTeamWait = teamWaitValue;
         }
+        public bool HasSameTables(Section sectionCompared)
+        {
+            
+            var currentSectionTableNumbers = this.Tables.Select(t => t.TableNumber).OrderBy(n => n).ToList();
+
+          
+            var comparedSectionTableNumbers = sectionCompared.Tables.Select(t => t.TableNumber).OrderBy(n => n).ToList();
+
+           
+            return currentSectionTableNumbers.SequenceEqual(comparedSectionTableNumbers);
+        }
+
     }
 }
 

@@ -247,10 +247,7 @@ namespace FloorplanUserControlLibrary
             UpdateLabels();
         }
 
-        private void RefreshAndAddServerRow()
-        {
-
-        }
+       
         public void RemoveServerRow()
         {
 

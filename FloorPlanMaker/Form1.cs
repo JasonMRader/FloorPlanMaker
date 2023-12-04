@@ -496,9 +496,15 @@ namespace FloorPlanMaker
         {
             
             FloorplanTemplate template = new FloorplanTemplate(shiftManager.SelectedFloorplan);
-            MessageBox.Show(template.Name + " Servers:  " + template.ServerCount.ToString() + ", Team Sections:  " + template.TeamWaitSections.ToString()
-                + "\n" + "HasPickUP?  " + template.HasPickUp + "\n" + "HasTeam?  " + template.HasTeamWait);
-            SqliteDataAccess.SaveFloorplanTemplate(template);
+            if (template.IsDuplicate())
+            {
+                MessageBox.Show("This is a duplicate");
+            }
+            else
+            {
+                MessageBox.Show("This is Unique");
+            }
+            //SqliteDataAccess.SaveFloorplanTemplate(template);
         }
         private void btnChooseTemplate_Click(object sender, EventArgs e)
         {
