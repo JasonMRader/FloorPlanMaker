@@ -280,7 +280,8 @@ namespace FloorplanClassLibrary
             this.Sections.Clear();
             foreach (Section section in sections)
             {
-                Section SectionCopy = new Section(section);
+                Section SectionCopy = section.CopySection();
+                
                 Sections.Add(SectionCopy);
             }
         }

@@ -41,6 +41,21 @@ namespace FloorplanClassLibrary
             this.DiningAreaID = section.DiningAreaID; 
             this.SetTableList( section.Tables.ToList());
         }
+        public Section CopySection()
+        {
+            Section copy = new Section();
+            copy.Number = this.Number;
+            copy.IsCloser = this.IsCloser;
+            copy.IsPickUp = this.IsPickUp;
+            copy.IsPre = this.IsPre;
+            copy.Name = this.Name;
+            //this.Floorplan = section.Floorplan;
+            //this.ServerCount = section.ServerTeam.Count;
+            copy.SetSectionPropertiesFromTemplateSection(this);
+            copy.DiningAreaID = this.DiningAreaID;
+            copy.SetTableList(this.Tables.ToList());
+            return copy;
+        }
         private SectionNodeManager _nodeManager;
 
         public List<TemplateTable> TemplateTables { get; set; } = new List<TemplateTable>();
@@ -135,6 +150,16 @@ namespace FloorplanClassLibrary
             _isTeamWait = true;
             ServerCount++;
             NotifyObservers();
+        }
+        private void SetSectionPropertiesFromTemplateSection(Section sectionToCopy)
+        {
+            
+            if(sectionToCopy.TemplateTeamWait)
+            {
+                _isTeamWait = true;
+                ServerCount = sectionToCopy.ServerCount;
+            }
+
         }
         public void ToggleTeamWait()
         {

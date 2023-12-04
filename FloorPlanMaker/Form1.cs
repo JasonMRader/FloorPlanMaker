@@ -376,7 +376,10 @@ namespace FloorPlanMaker
 
             }
         }
-
+        public void UpdateWithTemplate()
+        {
+            floorplanManager.SetViewedFloorplan(dateOnlySelected, cbIsAM.Checked, pnlFloorPlan, flowServersInFloorplan, flowSectionSelect);
+        }
         private void Form1_MouseDown(object sender, MouseEventArgs e)
         {
             isDraggingForm = true;

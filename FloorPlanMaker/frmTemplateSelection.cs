@@ -174,8 +174,11 @@ namespace FloorPlanMaker
                 Location = new Point(0, 0),
                 Text = "View",
                 Size = new Size(134, 30),
-                Font = UITheme.MainFont
+                Font = UITheme.MainFont,
+                Tag = template
+
             };
+            btnView.Click += btnSelectTemplate_Click;
             Button btnApply = new Button()
             {
                 BackColor = UITheme.CTAColor,
@@ -183,7 +186,8 @@ namespace FloorPlanMaker
                 Location = new Point(134, 0),
                 Text = "Apply",
                 Size = new Size(134, 30),
-                Font = UITheme.MainFont
+                Font = UITheme.MainFont,
+                Tag = template
             };
             pnl.Controls.Add(btnView);
             pnl.Controls.Add(btnApply);
@@ -221,7 +225,7 @@ namespace FloorPlanMaker
 
 
             template = (FloorplanTemplate)button.Tag;
-            if (ShiftManager.SelectedFloorplan == null)
+            if (floorplanManager.ShiftManager.SelectedFloorplan == null)
             {
                 //ShiftManager.SelectedFloorplan = new Floorplan(template);
                 //this.Parent.SendToBack();
@@ -243,11 +247,13 @@ namespace FloorPlanMaker
             }
             else
             {
-                floorplanManager.ShiftManager.SelectedFloorplan.CopyTemplateSections(template.Sections);
+                //floorplanManager.ShiftManager.SelectedFloorplan.CopyTemplateSections(template.Sections);
+                floorplanManager.CopyTemplateSections(template);
+                form1Reference.UpdateWithTemplate();
             }
             //ShiftManager.SelectedFloorplan.CopySectionsIntoSections(template.Sections);
             //ShiftManager.ViewedFloorplan = ShiftManager.SelectedFloorplan;
-            this.DialogResult = DialogResult.OK;
+            //this.DialogResult = DialogResult.OK;
 
         }
 
