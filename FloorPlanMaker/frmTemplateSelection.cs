@@ -29,6 +29,7 @@ namespace FloorPlanMaker
         private List<SectionPanelControl> _sectionPanels;
         private DiningArea area;
         private Panel[] panels;
+        private int displayedPage = 1;
         public frmTemplateSelection(FloorplanFormManager floorplanManager, DiningArea diningArea, Form1 form1Reference)
         {
             InitializeComponent();
@@ -69,6 +70,7 @@ namespace FloorPlanMaker
         private void SetTemplatePanels(List<FloorplanTemplate> templates)
         {
             floorplanManager.TemplateManager.CreateTemplatePanels(templates);
+            List<Panel> panelList = floorplanManager.TemplateManager.PanelsForThisPage(displayedPage);
             //Panel[] panels = { panel1, panel2, panel3, panel4 };  // Assuming you have named your panels like this
             int i = 0;
             foreach (var pan in panels)
@@ -79,27 +81,29 @@ namespace FloorPlanMaker
                 }
                 else
                 {
-                    SetupPanelWithTemplate(pan, templates[i]);
+                    //SetupPanelWithTemplate(pan, templates[i]);
+                    pan.Controls.Clear();
+                    pan.Controls.Add(panelList[i]);
                 }
 
                 i++;
             }
         }
-        private void SetDisplayPanelsToDisplay() 
+        private void SetDisplayPanelsToDisplay()
         {
 
         }
 
 
-      
+
         private void ClearTemplateSections(Panel pnl)
         {
             pnl.Tag = null;
             pnl.Controls.Clear();
 
         }
-       
-       
+
+
         private void addTablesToPanel(Panel panel, FloorplanTemplate template)
         {
 
@@ -221,7 +225,7 @@ namespace FloorPlanMaker
                 floorplanManager.TemplateManager.serverCount = serverCount;
                 lblServerCount.Text = serverCount.ToString();
                 floorplanManager.TemplateManager.FilterTemplates(serverCount);
-                SetTemplatePanels(floorplanManager.TemplateManager.FilteredList);
+                SetTemplatePanels(floorplanManager.TemplateManager.GetFilteredList());
             }
             else
             {
@@ -239,7 +243,7 @@ namespace FloorPlanMaker
                 lblServerCount.Text = serverCount.ToString();
                 floorplanManager.TemplateManager.serverCount = serverCount;
                 floorplanManager.TemplateManager.FilterTemplates(serverCount);
-                SetTemplatePanels(floorplanManager.TemplateManager.FilteredList);
+                SetTemplatePanels(floorplanManager.TemplateManager.GetFilteredList());
             }
             else
             {
@@ -257,7 +261,7 @@ namespace FloorPlanMaker
                 floorplanManager.TemplateManager.HasTeamFilter = true;
                 floorplanManager.TemplateManager.FilterTeamYes = true;
                 floorplanManager.TemplateManager.SetFilter();//FilterTemplates(serverCount);
-                SetTemplatePanels(floorplanManager.TemplateManager.FilteredList);
+                SetTemplatePanels(floorplanManager.TemplateManager.GetFilteredList());
                 //SetTemplatePanels(floorplanManager.TemplateManager.FilteredList);
             }
         }
@@ -270,7 +274,7 @@ namespace FloorPlanMaker
                 floorplanManager.TemplateManager.HasTeamFilter = true;
                 floorplanManager.TemplateManager.FilterTeamYes = false;
                 floorplanManager.TemplateManager.SetFilter();//FilterTemplates(serverCount);
-                SetTemplatePanels(floorplanManager.TemplateManager.FilteredList);
+                SetTemplatePanels(floorplanManager.TemplateManager.GetFilteredList());
             }
         }
 
@@ -282,7 +286,7 @@ namespace FloorPlanMaker
                 floorplanManager.TemplateManager.HasTeamFilter = false;
                 floorplanManager.TemplateManager.FilterTeamYes = false;
                 floorplanManager.TemplateManager.SetFilter();//FilterTemplates(serverCount);
-                SetTemplatePanels(floorplanManager.TemplateManager.FilteredList);
+                SetTemplatePanels(floorplanManager.TemplateManager.GetFilteredList());
                 //SetTemplatePanels(floorplanManager.TemplateManager.FilteredList);
             }
         }
@@ -294,7 +298,7 @@ namespace FloorPlanMaker
                 floorplanManager.TemplateManager.HasPickFilter = true;
                 floorplanManager.TemplateManager.FilterPickYes = true;
                 floorplanManager.TemplateManager.SetFilter();
-                SetTemplatePanels(floorplanManager.TemplateManager.FilteredList);
+                SetTemplatePanels(floorplanManager.TemplateManager.GetFilteredList());
             }
         }
 
@@ -305,7 +309,7 @@ namespace FloorPlanMaker
                 floorplanManager.TemplateManager.HasPickFilter = true;
                 floorplanManager.TemplateManager.FilterPickYes = false;
                 floorplanManager.TemplateManager.SetFilter();
-                SetTemplatePanels(floorplanManager.TemplateManager.FilteredList);
+                SetTemplatePanels(floorplanManager.TemplateManager.GetFilteredList());
             }
         }
 
@@ -316,10 +320,26 @@ namespace FloorPlanMaker
                 floorplanManager.TemplateManager.HasPickFilter = false;
                 floorplanManager.TemplateManager.FilterPickYes = true;
                 floorplanManager.TemplateManager.SetFilter();
-                SetTemplatePanels(floorplanManager.TemplateManager.FilteredList);
+                SetTemplatePanels(floorplanManager.TemplateManager.GetFilteredList());
             }
         }
         public void GetFilteredList()
+        {
+
+        }
+
+        private void btnNextTemplates_Click(object sender, EventArgs e)
+        {
+
+            displayedPage++;
+            SetTemplatePanels(floorplanManager.TemplateManager.GetFilteredList());
+            if (displayedPage < floorplanManager.TemplateManager.PagesOfPanelsToDisplay(floorplanManager.TemplateManager.Templates))
+            {
+                
+            }
+        }
+
+        private void btnPreviousTemplates_Click(object sender, EventArgs e)
         {
 
         }

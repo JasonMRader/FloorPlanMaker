@@ -352,7 +352,6 @@
             // btnNextTemplates
             // 
             btnNextTemplates.BackColor = Color.FromArgb(100, 130, 180);
-            btnNextTemplates.Enabled = false;
             btnNextTemplates.FlatAppearance.BorderSize = 0;
             btnNextTemplates.FlatStyle = FlatStyle.Flat;
             btnNextTemplates.Image = FloorPlanMakerUI.Properties.Resources.SmallNext;
@@ -361,6 +360,7 @@
             btnNextTemplates.Size = new Size(26, 73);
             btnNextTemplates.TabIndex = 10;
             btnNextTemplates.UseVisualStyleBackColor = false;
+            btnNextTemplates.Click += btnNextTemplates_Click;
             // 
             // btnPreviousTemplates
             // 
@@ -374,6 +374,7 @@
             btnPreviousTemplates.Size = new Size(26, 73);
             btnPreviousTemplates.TabIndex = 10;
             btnPreviousTemplates.UseVisualStyleBackColor = false;
+            btnPreviousTemplates.Click += btnPreviousTemplates_Click;
             // 
             // frmTemplateSelection
             // 

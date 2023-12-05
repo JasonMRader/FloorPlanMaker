@@ -71,6 +71,7 @@ namespace FloorPlanMakerUI
         }
         public void SetFilter()
         {
+            _filteredList = new List<FloorplanTemplate>();
             FilterOption option = FilterOption.None;
 
             if (_hasTeamFilter && _hasPickFilter)
@@ -100,21 +101,35 @@ namespace FloorPlanMakerUI
             this.DiningArea = area;
             SectionMiniTableControls = new Dictionary<Section, List<MiniTableControl>>();
         }
-        public List<FloorplanTemplate> Templates = new List<FloorplanTemplate>();
-        public List<FloorplanTemplate> FilteredList = new List<FloorplanTemplate>();
-        //public void GetMiniTableControls()
-        //{
-        //    foreach(Panel panel in DisplayPanels)
-        //    {
-        //        foreach (Table table in DiningArea.Tables)
-        //        {
-        //            MiniTableControl miniTable = new MiniTableControl(table, .4f, 27);
-        //            MiniTableControls.Add(miniTable);
-        //            panel.Controls.Add(miniTable);
-        //        }
-        //    }
+        private List<FloorplanTemplate> _templates;
+        public List<FloorplanTemplate> Templates
+        {
+            get => _templates;
+            set
+            {
+                _templates = value;
+                UpdateFilteredList();  // Update FilteredList every time Templates is set
+            }
+        }
+
+        private void UpdateFilteredList()
+        {
+            SetFilter();  // Ensure FilteredList is set based on current filter settings
+        }
+
+        public TemplateManager()
+        {
+            Templates = new List<FloorplanTemplate>();  // Initialize Templates
+            _filteredList = new List<FloorplanTemplate>(); // Initialize FilteredList
+            UpdateFilteredList();  // Initialize FilteredList based on current Templates and filter settings
+        }
+        private List<FloorplanTemplate> _filteredList;
+        public List<FloorplanTemplate> GetFilteredList()
+        {
             
-        //}
+            return _filteredList ?? Templates;
+        }
+
         public void InitializeMiniTableControls(FloorplanTemplate template)
         {
             //MiniTableControls = new List<MiniTableControl>();
@@ -201,15 +216,17 @@ namespace FloorPlanMakerUI
         }
         public void GetTemplatesForFloorplan(Floorplan floorplan)
         {
-            this.Templates.Clear();
+            //this.Templates.Clear();
             this.Templates = SqliteDataAccess.LoadTemplatesByDiningAreaAndServerCount(floorplan.DiningArea, floorplan.Servers.Count);
             UpdateSectionNumbers();
+            this.FilterTemplates(serverCount: 1);
         }
         public void GetAllFloorplanTemplates()
         {
-            this.Templates.Clear();
+            //this.Templates.Clear();
             this.Templates = SqliteDataAccess.LoadAllFloorplanTemplates();
             UpdateSectionNumbers();
+            this.FilterTemplates(serverCount: 1);
 
         }
         private void UpdateSectionNumbers()
@@ -252,6 +269,7 @@ namespace FloorPlanMakerUI
                     break;
                 case FilterOption.None:
                 default:
+                    // When no filters are applied, set the FilteredList to be the same as Templates
                     FilterTemplates(serverCount);
                     break;
 
@@ -264,7 +282,7 @@ namespace FloorPlanMakerUI
         public void FilterTemplates(int serverCount, bool? hasTeamWait = null, bool? hasPickUp = null)
         {
             // Start with all templates
-            FilteredList.Clear();
+            _filteredList.Clear();
             var filteredTemplates = this.Templates.AsQueryable();
             filteredTemplates = filteredTemplates.Where(t => t.ServerCount == serverCount);
 
@@ -280,13 +298,13 @@ namespace FloorPlanMakerUI
                 filteredTemplates = filteredTemplates.Where(t => t.HasPickUp == hasPickUp.Value);
             }
 
-            FilteredList = filteredTemplates.ToList();
+            _filteredList = filteredTemplates.ToList();
         }
         public int PagesOfPanelsToDisplay(List<FloorplanTemplate> templates)
         {
             return (int)Math.Ceiling((double)templates.Count / 4);
         }
-        public List<Panel> DisplayedPanels(int pageNumber)
+        public List<Panel> PanelsForThisPage(int pageNumber)
         {
             int panelsPerPage = 4;
             int startIndex = (pageNumber - 1) * panelsPerPage;
@@ -308,7 +326,14 @@ namespace FloorPlanMakerUI
             for(int i = 0; i < templates.Count; i++)
             {
                 FloorplanTemplate template = templates[i];
-                Panel panel = DisplayPanels[i];
+                Panel panel = new Panel
+                {
+                    Size = new Size(268, 375),
+                    Location = new Point(0, 0)
+                };
+                DisplayPanels[i] = panel;
+                
+               
                 DisplayMiniTableControls(template, panel);
                 panel.Tag = template;
                 
