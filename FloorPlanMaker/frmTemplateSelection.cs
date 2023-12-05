@@ -61,6 +61,8 @@ namespace FloorPlanMaker
                 lblServerCount.Text = serverCount.ToString();
             }
             floorplanManager.UpdateTemplatesBasedOnFloorplan();
+            floorplanManager.TemplateManager.serverCount = serverCount;
+            floorplanManager.TemplateManager.FilterTemplates(serverCount);
             SetTemplatePanels(floorplanManager.TemplateManager.GetFilteredList());
         }
         // TODO: Remove redundancy with setting up template list multiple times
