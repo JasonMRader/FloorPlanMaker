@@ -131,6 +131,12 @@ namespace FloorPlanMakerUI
             ShiftManager.SelectedFloorplan.CopyTemplateSections(template.Sections);
             SetSectionPanels();
         }
+        public void ResetSections()
+        { 
+            Floorplan.Sections.Clear();
+            Floorplan.CreateSectionsForServers();
+            //SetSectionPanels();
+        }
         public void SetSectionPanels()
         {
             _sectionPanels.Clear();

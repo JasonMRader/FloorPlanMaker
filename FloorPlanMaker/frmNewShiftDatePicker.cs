@@ -31,6 +31,7 @@ namespace FloorPlanMakerUI
             this.allServers = allServers;
             this.frmEditStaff = frmEditStaff;
         }
+        //TODO: when reopening after closing, the floorplans are reset, one that was just created is gone
         private void SetColors()
         {
             UITheme.FormatSecondColor(panel1);

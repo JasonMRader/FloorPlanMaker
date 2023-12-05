@@ -42,8 +42,19 @@ namespace FloorPlanMaker
             panels = new Panel[] { panel1, panel2, panel3, panel4 };
             this.floorplanManager.TemplateManager.PreviewTemplateClicked += PreviewTemplate_Clicked;
             this.floorplanManager.TemplateManager.ApplyTemplateClicked += ApplyTemplate_Clicked;
+            this.floorplanManager.TemplateManager.CancelPreviewedTemplate += CancelViewedTemplate;
 
         }
+
+        private void CancelViewedTemplate(object? sender, EventArgs e)
+        {
+            if (floorplanManager.ShiftManager.SelectedFloorplan != null)
+            {
+                floorplanManager.ResetSections();
+                form1Reference.UpdateWithTemplate();
+            }
+        }
+
         // TODO: sometimes when viewing templates, the average sales are way off (SEE 3 person FP 1 Teamwait left side)
         private void ApplyTemplate_Clicked(object? sender, EventArgs e)
         {

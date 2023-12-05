@@ -14,6 +14,7 @@ namespace FloorPlanMakerUI
     {
         public event EventHandler PreviewTemplateClicked;
         public event EventHandler ApplyTemplateClicked;
+        public event EventHandler CancelPreviewedTemplate;
         public DiningArea DiningArea { get; set; }
         public int serverCount = 5;
         public List<MiniTableControl> MiniTableControls { get; set; } = new List<MiniTableControl>();
@@ -344,26 +345,28 @@ namespace FloorPlanMakerUI
                     BackColor = UITheme.CTAColor,
                     FlatStyle = FlatStyle.Flat,
                     Location = new Point(0, 0),
-                    Text = "View",
-                    Size = new Size(134, 30),
+                    Text = "Preview",
+                    Size = new Size(268, 30),
                     Font = UITheme.MainFont,
                     Tag = template
 
                 };
                 btnView.Click += btnView_Clicked;
-                Button btnApply = new Button()
+                Button btnCancel = new Button()
                 {
-                    BackColor = UITheme.CTAColor,
+                    BackColor = UITheme.NoColor,
                     FlatStyle = FlatStyle.Flat,
                     Location = new Point(134, 0),
-                    Text = "Apply",
+                    Text = "Cancel",
                     Size = new Size(134, 30),
                     Font = UITheme.MainFont,
-                    Tag = template
+                    Tag = template, 
+                    Visible = false
                 };
-                btnApply.Click += btnApply_Clicked;
+                btnCancel.Click += btnCancel_Clicked;
+                
                 panel.Controls.Add(btnView);
-                panel.Controls.Add(btnApply);
+                panel.Controls.Add(btnCancel);
                 foreach (Control ctrl in panel.Controls)
                 {
 
@@ -390,6 +393,30 @@ namespace FloorPlanMakerUI
             }
         }
 
+        private void btnCancel_Clicked(object? sender, EventArgs e)
+        {
+            Button btnSender = (Button)sender;
+            btnSender.Visible = false;
+            Panel parentPanel = btnSender.Parent as Panel;
+            if (parentPanel != null)
+            {
+                foreach (Control ctrl in parentPanel.Controls)
+                {
+                    if (ctrl is Button button && ctrl.Text == "Apply")
+                    {
+                        ctrl.Visible = true;
+                        ctrl.Size = new Size(268, btnSender.Height);
+                        ctrl.Click -= btnApply_Clicked;
+                        ctrl.Click += btnView_Clicked;
+                        ctrl.Text = "Preview";
+                        ctrl.BackColor = UITheme.CTAColor;
+                        break;
+                    }
+                }
+            }
+            CancelPreviewedTemplate?.Invoke(btnSender.Tag, e);
+        }
+
         private void btnApply_Clicked(object? sender, EventArgs e)
         {
             Button btnSender = (Button)sender;
@@ -399,7 +426,33 @@ namespace FloorPlanMakerUI
         private void btnView_Clicked(object? sender, EventArgs e)
         {
             Button btnSender = (Button)sender;
+            btnSender.Click -= btnView_Clicked;
+            btnSender.Click += btnApply_Clicked;
+            btnSender.Size = new Size(134, btnSender.Height);
+            btnSender.Text = "Apply";
+            btnSender.BackColor = UITheme.YesColor;
+            
+            Panel parentPanel = btnSender.Parent as Panel;
+            if (parentPanel != null)
+            {
+                foreach (Control ctrl in parentPanel.Controls)
+                {
+                    if (ctrl is Button button && ctrl.Text == "Cancel")
+                    {
+                        ctrl.Visible = true;
+                        break;
+                    }
+                }
+            }
             PreviewTemplateClicked?.Invoke(btnSender.Tag, e);
+        }
+        private void SetToPreviewed()
+        {
+
+        }
+        private void CancelPreview()
+        {
+
         }
     }
 }

@@ -343,6 +343,7 @@ namespace FloorplanClassLibrary
            // sectionToRemove.Notify();
             
         }
+       
         public void UnassignSection(Section section)
         {
             if (section != null)
