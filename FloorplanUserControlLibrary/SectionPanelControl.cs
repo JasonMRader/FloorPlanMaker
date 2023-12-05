@@ -148,6 +148,18 @@ namespace FloorplanUserControlLibrary
                 lblSales.Text = Section.FormatAsCurrencyWithoutParentheses(floorplan.GetSalesDifferenceForSection(Section));
             }
         }
+        public void PickUpSectionAdjusted()
+        {
+            lblCovers.Text = floorplan.GetCoverDifferenceForSection(Section).ToString("F0");
+            if (floorplan.GetSalesDifferenceForSection(Section) > 0)
+            {
+                lblSales.Text = "+" + Section.FormatAsCurrencyWithoutParentheses(floorplan.GetSalesDifferenceForSection(Section));
+            }
+            else
+            {
+                lblSales.Text = Section.FormatAsCurrencyWithoutParentheses(floorplan.GetSalesDifferenceForSection(Section));
+            }
+        }
         public void AddServerRow()
         {
 

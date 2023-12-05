@@ -619,6 +619,10 @@ namespace FloorPlanMakerUI
                 clickedTableControl.BackColor = clickedTableControl.Parent.BackColor;  // Restore the original color
                 clickedTableControl.ForeColor = clickedTableControl.Parent.ForeColor;
                 clickedTableControl.Invalidate();
+                if(sectionEdited.IsPickUp)
+                {
+                    UpdateAveragesPerServer();
+                }
                 //UpdateSectionLabels(sectionEdited, sectionEdited.MaxCovers, sectionEdited.AverageCovers);
 
                 return;
@@ -628,10 +632,14 @@ namespace FloorPlanMakerUI
             {
                 if (sectionEdited != null)
                 {
-                    //sectionEdited.Tables.RemoveAll(t => t.ID == clickedTable.ID);
+                   
                     sectionEdited.RemoveTable(clickedTable);
                     clickedTableControl.RemoveSection();
-                    //UpdateSectionLabels(sectionEdited, sectionEdited.MaxCovers, sectionEdited.AverageCovers);
+                    if (sectionEdited.IsPickUp)
+                    {
+                        UpdateAveragesPerServer();
+                    }
+
                 }
                 ShiftManager.SectionSelected.AddTable(clickedTable);
                 clickedTableControl.SetSection(ShiftManager.SectionSelected);
