@@ -85,6 +85,7 @@ namespace FloorPlanMaker
 
                 i++;
             }
+            SetEnabledStatusOfPageButtons();
         }
 
         private void ClearTemplateSections(Panel pnl)
@@ -317,15 +318,36 @@ namespace FloorPlanMaker
             {
                 displayedPage++;
                 SetTemplatePanels(floorplanManager.TemplateManager.GetFilteredList());
+                
             }
         }
 
         private void btnPreviousTemplates_Click(object sender, EventArgs e)
         {
-            if (displayedPage >= floorplanManager.TemplateManager.PagesOfPanelsToDisplay(floorplanManager.TemplateManager.GetFilteredList()))
+            if (displayedPage > 1)
             {
                 displayedPage--;
                 SetTemplatePanels(floorplanManager.TemplateManager.GetFilteredList());
+                
+            }
+        }
+        private void SetEnabledStatusOfPageButtons()
+        {
+            if (displayedPage == 1)
+            {
+                btnPreviousTemplates.Enabled = false;
+            }
+            if (displayedPage < floorplanManager.TemplateManager.PagesOfPanelsToDisplay(floorplanManager.TemplateManager.GetFilteredList()))
+            {
+                btnNextTemplates.Enabled = true;
+            }
+            if (displayedPage == floorplanManager.TemplateManager.PagesOfPanelsToDisplay(floorplanManager.TemplateManager.GetFilteredList()))
+            {
+                btnNextTemplates.Enabled = false;
+            }
+            if (displayedPage > 1)
+            {
+                btnPreviousTemplates.Enabled = true;
             }
         }
 
