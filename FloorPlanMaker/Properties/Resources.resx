@@ -325,6 +325,12 @@
   <data name="smallMoon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\smallMoon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="SmallNext" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SmallNext.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SmallPrevious" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SmallPrevious.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="SmallSkinnyX" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SmallSkinnyX.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

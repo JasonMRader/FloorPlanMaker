@@ -219,7 +219,7 @@ namespace FloorPlanMaker
             // Any other setup logic specific to the template can be added here
         }
         private void btnSelectTemplate_Click(object sender, EventArgs e)
-            {
+        {
             Button button = (Button)sender;
 
             FloorplanTemplate template = new FloorplanTemplate();

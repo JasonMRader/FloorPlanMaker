@@ -52,6 +52,8 @@
             label1 = new Label();
             lblServerDisplay = new Label();
             btnClose = new Button();
+            btnNextTemplates = new Button();
+            btnPreviousTemplates = new Button();
             panel5.SuspendLayout();
             panel6.SuspendLayout();
             panel7.SuspendLayout();
@@ -347,12 +349,40 @@
             btnClose.UseVisualStyleBackColor = false;
             btnClose.Click += btnCancel_Click;
             // 
+            // btnNextTemplates
+            // 
+            btnNextTemplates.BackColor = Color.FromArgb(100, 130, 180);
+            btnNextTemplates.Enabled = false;
+            btnNextTemplates.FlatAppearance.BorderSize = 0;
+            btnNextTemplates.FlatStyle = FlatStyle.Flat;
+            btnNextTemplates.Image = FloorPlanMakerUI.Properties.Resources.SmallNext;
+            btnNextTemplates.Location = new Point(650, 100);
+            btnNextTemplates.Name = "btnNextTemplates";
+            btnNextTemplates.Size = new Size(26, 73);
+            btnNextTemplates.TabIndex = 10;
+            btnNextTemplates.UseVisualStyleBackColor = false;
+            // 
+            // btnPreviousTemplates
+            // 
+            btnPreviousTemplates.BackColor = Color.FromArgb(100, 130, 180);
+            btnPreviousTemplates.Enabled = false;
+            btnPreviousTemplates.FlatAppearance.BorderSize = 0;
+            btnPreviousTemplates.FlatStyle = FlatStyle.Flat;
+            btnPreviousTemplates.Image = FloorPlanMakerUI.Properties.Resources.SmallPrevious;
+            btnPreviousTemplates.Location = new Point(7, 100);
+            btnPreviousTemplates.Name = "btnPreviousTemplates";
+            btnPreviousTemplates.Size = new Size(26, 73);
+            btnPreviousTemplates.TabIndex = 10;
+            btnPreviousTemplates.UseVisualStyleBackColor = false;
+            // 
             // frmTemplateSelection
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.WhiteSmoke;
             ClientSize = new Size(684, 921);
+            Controls.Add(btnPreviousTemplates);
+            Controls.Add(btnNextTemplates);
             Controls.Add(btnClose);
             Controls.Add(panel9);
             Controls.Add(panel5);
@@ -401,5 +431,7 @@
         private RadioButton rdoNoTeam;
         private RadioButton rdoYesTeam;
         private Button btnClose;
+        private Button btnNextTemplates;
+        private Button btnPreviousTemplates;
     }
 }

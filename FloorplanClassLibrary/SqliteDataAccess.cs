@@ -375,6 +375,32 @@ namespace FloorplanClassLibrary
             }
 
         }
+        public static void DeleteFloorplanTemplate(int templateId)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                cnn.Open();
+                using (var transaction = cnn.BeginTransaction())
+                {
+                    try
+                    {
+                        // First, delete records from linking tables
+                        cnn.Execute("DELETE FROM TemplateSections WHERE TemplateID = @TemplateID", new { TemplateID = templateId }, transaction);
+
+                        // Then, delete the template itself
+                        cnn.Execute("DELETE FROM FloorplanTemplate WHERE ID = @ID", new { ID = templateId }, transaction);
+
+                        transaction.Commit();
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
+            }
+        }
+
         public static void SaveSection(Section section)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))

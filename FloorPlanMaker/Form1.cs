@@ -498,13 +498,13 @@ namespace FloorPlanMaker
             FloorplanTemplate template = new FloorplanTemplate(shiftManager.SelectedFloorplan);
             if (template.IsDuplicate())
             {
-                MessageBox.Show("This is a duplicate");
+                MessageBox.Show("This Template Already Exists");
             }
             else
             {
-                MessageBox.Show("This is Unique");
+                SqliteDataAccess.SaveFloorplanTemplate(template);
             }
-            //SqliteDataAccess.SaveFloorplanTemplate(template);
+
         }
         private void btnChooseTemplate_Click(object sender, EventArgs e)
         {
