@@ -13,7 +13,21 @@ namespace FloorplanClassLibrary
         {
             this.Section = section;
         }
+        public Node rootNode { get; set; }
         public Section Section { get; set; }
+        public void AssignHierarchyNumbers()
+        {
+            int currentNumber = 1;
+            Node currentNode = rootNode;
+
+            while (currentNode != null)
+            {
+                currentNode.HierarchyNumber = currentNumber++;
+                currentNode = currentNode.Child;
+            }
+        }
+
+
         public List<Node> Nodes { get; set; } = new List<Node>();
         public Node GetTopLeftNode()
         {
@@ -26,8 +40,9 @@ namespace FloorplanClassLibrary
 
             // Filter tables with the TopLeft X value equal to minX, then order by Y and take the first one
             var topLeft = Section.Tables.Where(t => t.TopLeft.X == minX).OrderBy(t => t.TopLeft.Y).FirstOrDefault().TopLeft;
-
-            return new Node(topLeft.X, topLeft.Y);
+            Node tlNode = new Node(topLeft.X, topLeft.Y, Section);
+            rootNode = tlNode;
+            return tlNode;
         }
 
         public Node GetTopRightNode()
@@ -41,7 +56,7 @@ namespace FloorplanClassLibrary
             // Filter tables with the TopRight Y value equal to minY, then order by X descending and take the first one
             var topRight = Section.Tables.Where(t => t.TopRight.X == MaxX).OrderByDescending(t => t.TopRight.Y).FirstOrDefault().TopRight;
 
-            return new Node(topRight.X, topRight.Y);
+            return new Node(topRight.X, topRight.Y, Section);
         }
         public Node GetBottomRightNode()
         {
@@ -54,7 +69,7 @@ namespace FloorplanClassLibrary
             // Filter tables with the BottomRight Y value equal to maxY, then order by X descending and take the first one
             var bottomRight = Section.Tables.Where(t => t.BottomRight.Y == maxY).OrderByDescending(t => t.BottomRight.X).FirstOrDefault().BottomRight;
 
-            return new Node(bottomRight.X, bottomRight.Y);
+            return new Node(bottomRight.X, bottomRight.Y, Section);
         }
         public bool IsTopUnblocked(Table table)
         {
@@ -93,6 +108,64 @@ namespace FloorplanClassLibrary
 
             return true;
         }
+        public void GenerateNodesForUnblockedTops()
+        {
+            Node topLeftNode = GetTopLeftNode();
+            Node topRightNode = GetTopRightNode();
+            if (topLeftNode == null)
+                return;
+
+            Node currentNode = topLeftNode;
+
+            // Step 2: Process tables with unblocked tops...
+            // (Omitted for brevity, same as before)
+
+
+            // Step 2: For every table...
+            var tablesWithUnblockedTops = Section.Tables
+                .Where(table => IsTopUnblocked(table))
+                .OrderBy(t => t.TopLeft.X)
+                .ThenBy(t => t.TopLeft.Y)
+                .ToList();
+
+            foreach (var table in tablesWithUnblockedTops)
+            {
+                Node newTopLeft = new Node(table.TopLeft.X, table.TopLeft.Y, Section);
+                Node newTopRight = new Node(table.TopRight.X, table.TopRight.Y, Section);
+
+                // Check for duplicate nodes
+                if (!IsNodeExists(newTopLeft))
+                {
+                    currentNode.InsertNodeAfter(newTopLeft.X, newTopLeft.Y, Section);
+                    currentNode = currentNode.Child;
+                    Nodes.Add(currentNode);
+                }
+
+                // Check for duplicate nodes, especially TopRightNode
+                if (!IsNodeExists(newTopRight) && !(newTopRight.X == topRightNode.X && newTopRight.Y == topRightNode.Y))
+                {
+                    currentNode.InsertNodeAfter(newTopRight.X, newTopRight.Y, Section);
+                    currentNode = currentNode.Child;
+                    Nodes.Add(currentNode);
+                }
+            }
+            // Ensuring the next node after tops is the topRightNode
+            if (!currentNode.Equals(topRightNode))
+            {
+                if (!IsNodeExists(topRightNode))
+                {
+                    currentNode.InsertNodeAfter(topRightNode.X, topRightNode.Y, Section);
+                    currentNode = currentNode.Child;
+                    Nodes.Add(currentNode);
+                }
+                else
+                {
+                    // If topRightNode exists, find it in the list and set it as the current node
+                    currentNode = Nodes.FirstOrDefault(node => node.X == topRightNode.X && node.Y == topRightNode.Y);
+                }
+            }
+            AssignHierarchyNumbers();
+        }
         public void GenerateNodesForUnblockedTables()
         {
             // Step 1: Get main nodes
@@ -118,13 +191,13 @@ namespace FloorplanClassLibrary
 
             foreach (var table in tablesWithUnblockedTops)
             {
-                Node newTopLeft = new Node(table.TopLeft.X, table.TopLeft.Y);
-                Node newTopRight = new Node(table.TopRight.X, table.TopRight.Y);
+                Node newTopLeft = new Node(table.TopLeft.X, table.TopLeft.Y, Section);
+                Node newTopRight = new Node(table.TopRight.X, table.TopRight.Y, Section);
 
                 // Check for duplicate nodes
                 if (!IsNodeExists(newTopLeft))
                 {
-                    currentNode.InsertNodeAfter(newTopLeft.X, newTopLeft.Y);
+                    currentNode.InsertNodeAfter(newTopLeft.X, newTopLeft.Y, Section);
                     currentNode = currentNode.Child;
                     Nodes.Add(currentNode);
                 }
@@ -132,7 +205,7 @@ namespace FloorplanClassLibrary
                 // Check for duplicate nodes, especially TopRightNode
                 if (!IsNodeExists(newTopRight) && !(newTopRight.X == topRightNode.X && newTopRight.Y == topRightNode.Y))
                 {
-                    currentNode.InsertNodeAfter(newTopRight.X, newTopRight.Y);
+                    currentNode.InsertNodeAfter(newTopRight.X, newTopRight.Y, Section);
                     currentNode = currentNode.Child;
                     Nodes.Add(currentNode);
                 }
@@ -142,7 +215,7 @@ namespace FloorplanClassLibrary
             {
                 if (!IsNodeExists(topRightNode))
                 {
-                    currentNode.InsertNodeAfter(topRightNode.X, topRightNode.Y);
+                    currentNode.InsertNodeAfter(topRightNode.X, topRightNode.Y, Section);
                     currentNode = currentNode.Child;
                     Nodes.Add(currentNode);
                 }
@@ -162,8 +235,8 @@ namespace FloorplanClassLibrary
 
             foreach (var table in tablesWithUnblockedRights)
             {
-                Node newTopRight = new Node(table.TopRight.X, table.TopRight.Y);
-                Node newBottomRight = new Node(table.BottomRight.X, table.BottomRight.Y);
+                Node newTopRight = new Node(table.TopRight.X, table.TopRight.Y, Section);
+                Node newBottomRight = new Node(table.BottomRight.X, table.BottomRight.Y, Section);
 
                 // Check for duplicate nodes and ensure proper linking for the newTopRight node
                 if (!IsNodeExists(newTopRight))
@@ -171,7 +244,7 @@ namespace FloorplanClassLibrary
                     // Only add the newTopRight if it's not the current node
                     if (!currentNode.Equals(newTopRight))
                     {
-                        currentNode.InsertNodeAfter(newTopRight.X, newTopRight.Y);
+                        currentNode.InsertNodeAfter(newTopRight.X, newTopRight.Y, Section);
                         currentNode = currentNode.Child;
                         Nodes.Add(currentNode);
                     }
@@ -180,7 +253,7 @@ namespace FloorplanClassLibrary
                 // Check for duplicate nodes and ensure proper linking for the newBottomRight node
                 if (!IsNodeExists(newBottomRight))
                 {
-                    currentNode.InsertNodeAfter(newBottomRight.X, newBottomRight.Y);
+                    currentNode.InsertNodeAfter(newBottomRight.X, newBottomRight.Y, Section);
                     currentNode = currentNode.Child;
                     Nodes.Add(currentNode);
                 }
@@ -191,10 +264,11 @@ namespace FloorplanClassLibrary
             {
                 if (!IsNodeExists(bottomRightNode))
                 {
-                    currentNode.InsertNodeAfter(bottomRightNode.X, bottomRightNode.Y);
+                    currentNode.InsertNodeAfter(bottomRightNode.X, bottomRightNode.Y, Section);
                     Nodes.Add(currentNode.Child);
                 }
             }
+            AssignHierarchyNumbers();
         }
 
 
@@ -222,13 +296,13 @@ namespace FloorplanClassLibrary
 
             foreach (var table in tablesWithUnblockedTops)
             {
-                Node newTopLeft = new Node(table.TopLeft.X, table.TopLeft.Y);
-                Node newTopRight = new Node(table.TopRight.X, table.TopRight.Y);
+                Node newTopLeft = new Node(table.TopLeft.X, table.TopLeft.Y, Section);
+                Node newTopRight = new Node(table.TopRight.X, table.TopRight.Y, Section);
 
                 // Check for duplicate nodes
                 if (!IsNodeExists(newTopLeft))
                 {
-                    currentNode.InsertNodeAfter(newTopLeft.X, newTopLeft.Y);
+                    currentNode.InsertNodeAfter(newTopLeft.X, newTopLeft.Y, Section);
                     currentNode = currentNode.Child;
                     Nodes.Add(currentNode);
                 }
@@ -236,7 +310,7 @@ namespace FloorplanClassLibrary
                 // Check for duplicate nodes, especially TopRightNode
                 if (!IsNodeExists(newTopRight) && !(newTopRight.X == topRightNode.X && newTopRight.Y == topRightNode.Y))
                 {
-                    currentNode.InsertNodeAfter(newTopRight.X, newTopRight.Y);
+                    currentNode.InsertNodeAfter(newTopRight.X, newTopRight.Y, Section);
                     currentNode = currentNode.Child;
                     Nodes.Add(currentNode);
                 }
@@ -245,11 +319,11 @@ namespace FloorplanClassLibrary
             // Step 3: Link the TopRight and BottomRight nodes
             if (currentNode.X != topRightNode.X || currentNode.Y != topRightNode.Y)
             {
-                currentNode.InsertNodeAfter(topRightNode.X, topRightNode.Y);
+                currentNode.InsertNodeAfter(topRightNode.X, topRightNode.Y, Section);
                 currentNode = currentNode.Child;
                 Nodes.Add(currentNode);
             }
-            currentNode.InsertNodeAfter(bottomRightNode.X, bottomRightNode.Y);
+            currentNode.InsertNodeAfter(bottomRightNode.X, bottomRightNode.Y, Section);
             Nodes.Add(currentNode.Child);
         }
 
@@ -273,17 +347,17 @@ namespace FloorplanClassLibrary
                     Node intermediate;
                     if (parent.Parent == null) // Parent does not have its own parent
                     {
-                        intermediate = new Node(parent.X, child.Y);
+                        intermediate = new Node(parent.X, child.Y, Section);
                     }
                     else // Move the parent or child
                     {
                         if (child.Y > parent.Y)
                         {
-                            intermediate = new Node(parent.X, child.Y);
+                            intermediate = new Node(parent.X, child.Y, Section);
                         }
                         else
                         {
-                            intermediate = new Node(child.X, parent.Y);
+                            intermediate = new Node(child.X, parent.Y, Section);
                         }
                     }
 

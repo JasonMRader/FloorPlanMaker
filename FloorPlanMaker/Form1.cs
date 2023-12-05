@@ -198,7 +198,7 @@ namespace FloorPlanMaker
             flowServersInFloorplan.Visible = false;
             rdoViewSectionFlow.Image = Resources.lilCanvasBook;
         }
-       
+
         public Form1()
         {
             InitializeComponent();
@@ -469,12 +469,12 @@ namespace FloorPlanMaker
         {
             floorplanManager.SetSectionLabels();
             floorplanManager.AddSectionLabels(pnlFloorPlan);
-           
+
         }
 
         private void btnSaveFloorplanTemplate_Click(object sender, EventArgs e)
         {
-            
+
             FloorplanTemplate template = new FloorplanTemplate(shiftManager.SelectedFloorplan);
             if (template.IsDuplicate())
             {
@@ -491,13 +491,13 @@ namespace FloorPlanMaker
         {
             if (_frmTemplateSelection == null)
             {
-                _frmTemplateSelection = new frmTemplateSelection(floorplanManager,shiftManager.SelectedDiningArea, this)
+                _frmTemplateSelection = new frmTemplateSelection(floorplanManager, shiftManager.SelectedDiningArea, this)
                 { TopLevel = false, AutoScroll = true };
                 pnlTemplateContainer.Controls.Add(_frmTemplateSelection);
             }
 
             _frmTemplateSelection.Show();
-            pnlTemplateContainer.BringToFront();          
+            pnlTemplateContainer.BringToFront();
 
         }
         private void btnPrint_Click(object sender, EventArgs e)
@@ -568,7 +568,7 @@ namespace FloorPlanMaker
                 MessageBox.Show("Not all sections are assigned");
             }
         }
-       
+
         private void dtpFloorplan_ValueChanged(object sender, EventArgs e)
         {
             floorplanManager.SetViewedFloorplan(dateOnlySelected, cbIsAM.Checked, pnlFloorPlan, flowServersInFloorplan, flowSectionSelect);
@@ -759,6 +759,14 @@ namespace FloorPlanMaker
             //    }
 
             //}
+            allTableControls.Clear();
+            foreach (Control c in pnlFloorPlan.Controls)
+            {
+                if (c is TableControl tableControl)
+                {
+                    allTableControls.Add(tableControl);
+                }
+            }
 
             this.sectionLineManager = new SectionLineManager(allTableControls);
             sectionLineManager.AddTopLines(pnlFloorPlan);
@@ -792,33 +800,32 @@ namespace FloorPlanMaker
             ////pnlFloorPlan.Controls.Add(sectionLine);
             ////Section section = new Section();
             ////section.Number = 1;
-            ////foreach (TableControl c in allTableControls)
-            ////{
-            ////    c.Section = section;
-            ////    c.BackColor = section.Color;
-            ////    section.Tables.Add(c.Table);
-            ////}
-            ////shiftManager.SectionSelected = section;
-            ////sectionLineManager.RemoveAllLines(pnlFloorPlan);
-            ////sectionLineManager.UpdateSectionLinePositions(pnlFloorPlan);
-            ////sectionLineManager.AddParallelLines(pnlFloorPlan);
+            //foreach (TableControl c in allTableControls)
+            //{
+            //    c.Section = section;
+            //    c.BackColor = section.Color;
+            //    section.Tables.Add(c.Table);
+            //}
+            //shiftManager.SectionSelected = section;
+            sectionLineManager.RemoveAllLines(pnlFloorPlan);
+            sectionLineManager.UpdateSectionLinePositions();
+            sectionLineManager.AddParallelLines(pnlFloorPlan);
 
-            foreach (Section section in shiftManager.SelectedFloorplan.Sections)
-            {
-                SectionNodeManager nodeManager = new SectionNodeManager(section);
-                Node tlNode = nodeManager.GetTopLeftNode();
-                Node trNode = nodeManager.GetTopRightNode();
-                Node brNode = nodeManager.GetBottomRightNode();
-                SectionLine sectionLine = new SectionLine(tlNode, trNode);
-                SectionLine sectionLine1 = new SectionLine(trNode, brNode);
-                pnlFloorPlan.Controls.Add(sectionLine);
-                pnlFloorPlan.Controls.Add(sectionLine1);
+            //NODEMANAGER ________\/
 
-            }
-            //flowServersInFloorplan.Controls.Clear();
-            //ImageLabelControl imgControl = new ImageLabelControl(UITheme.covers, "50", flowServersInFloorplan.Width, 30);
-            //imgControl.BackColor = Color.Blue;
-            //flowServersInFloorplan.Controls.Add(imgControl);
+            //foreach (Section section in shiftManager.SelectedFloorplan.Sections)
+            //{
+            //    SectionNodeManager nodeManager = new SectionNodeManager(section);
+            //    Node tlNode = nodeManager.GetTopLeftNode();
+            //    Node trNode = nodeManager.GetTopRightNode();
+            //    Node brNode = nodeManager.GetBottomRightNode();
+            //    SectionLine sectionLine = new SectionLine(tlNode, trNode);
+            //    SectionLine sectionLine1 = new SectionLine(trNode, brNode);
+            //    pnlFloorPlan.Controls.Add(sectionLine);
+            //    pnlFloorPlan.Controls.Add(sectionLine1);
+
+            //}
+
 
         }
 
@@ -865,6 +872,18 @@ namespace FloorPlanMaker
             }
         }
 
-
+        private void btnAddNode_Click(object sender, EventArgs e)
+        {
+            SectionNodeManager nodeManager = new SectionNodeManager(shiftManager.SectionSelected);
+            //Node tlNode = nodeManager.GetTopLeftNode();
+            //nodeManager.GenerateNodesForUnblockedTables();
+            nodeManager.GenerateNodesForUnblockedTops();
+            foreach(Node node in nodeManager.Nodes)
+            {
+                NodeControl nodeControl = new NodeControl(node);
+                pnlFloorPlan.Controls.Add(nodeControl);
+            }
+            
+        }
     }
 }

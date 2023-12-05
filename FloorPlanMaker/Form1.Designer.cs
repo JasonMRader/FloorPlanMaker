@@ -59,13 +59,17 @@ namespace FloorPlanMaker
             lblDateSelected = new Label();
             pnlNavigationWindow = new Panel();
             pnlMainContainer = new Panel();
+            pnlTemplateContainer = new Panel();
             pnlSideContainer = new Panel();
             pnlSectionsAndServers = new Panel();
             rdoViewServerFlow = new RadioButton();
             rdoViewSectionFlow = new RadioButton();
             toolTip1 = new ToolTip(components);
             pictureBox1 = new PictureBox();
-            pnlTemplateContainer = new Panel();
+            btnAddNode = new Button();
+            button2 = new Button();
+            button3 = new Button();
+            button4 = new Button();
             flowSectionSelect.SuspendLayout();
             panel1.SuspendLayout();
             pnlFloorplanContainer.SuspendLayout();
@@ -424,6 +428,10 @@ namespace FloorPlanMaker
             // pnlNavigationWindow
             // 
             pnlNavigationWindow.BackColor = Color.FromArgb(225, 225, 225);
+            pnlNavigationWindow.Controls.Add(button4);
+            pnlNavigationWindow.Controls.Add(button3);
+            pnlNavigationWindow.Controls.Add(button2);
+            pnlNavigationWindow.Controls.Add(btnAddNode);
             pnlNavigationWindow.Controls.Add(btnTest2);
             pnlNavigationWindow.Controls.Add(btnDoAThing);
             pnlNavigationWindow.Controls.Add(btnTest);
@@ -445,6 +453,13 @@ namespace FloorPlanMaker
             pnlMainContainer.Name = "pnlMainContainer";
             pnlMainContainer.Size = new Size(711, 950);
             pnlMainContainer.TabIndex = 20;
+            // 
+            // pnlTemplateContainer
+            // 
+            pnlTemplateContainer.Location = new Point(13, 17);
+            pnlTemplateContainer.Name = "pnlTemplateContainer";
+            pnlTemplateContainer.Size = new Size(684, 921);
+            pnlTemplateContainer.TabIndex = 22;
             // 
             // pnlSideContainer
             // 
@@ -522,12 +537,42 @@ namespace FloorPlanMaker
             pictureBox1.TabIndex = 21;
             pictureBox1.TabStop = false;
             // 
-            // pnlTemplateContainer
+            // btnAddNode
             // 
-            pnlTemplateContainer.Location = new Point(13, 17);
-            pnlTemplateContainer.Name = "pnlTemplateContainer";
-            pnlTemplateContainer.Size = new Size(684, 921);
-            pnlTemplateContainer.TabIndex = 22;
+            btnAddNode.Location = new Point(494, 3);
+            btnAddNode.Name = "btnAddNode";
+            btnAddNode.Size = new Size(75, 23);
+            btnAddNode.TabIndex = 22;
+            btnAddNode.Text = "Add Node";
+            btnAddNode.UseVisualStyleBackColor = true;
+            btnAddNode.Click += btnAddNode_Click;
+            // 
+            // button2
+            // 
+            button2.Location = new Point(575, 3);
+            button2.Name = "button2";
+            button2.Size = new Size(75, 23);
+            button2.TabIndex = 22;
+            button2.Text = "button1";
+            button2.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            button3.Location = new Point(656, 3);
+            button3.Name = "button3";
+            button3.Size = new Size(75, 23);
+            button3.TabIndex = 22;
+            button3.Text = "button1";
+            button3.UseVisualStyleBackColor = true;
+            // 
+            // button4
+            // 
+            button4.Location = new Point(737, 3);
+            button4.Name = "button4";
+            button4.Size = new Size(75, 23);
+            button4.TabIndex = 22;
+            button4.Text = "button1";
+            button4.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -595,5 +640,9 @@ namespace FloorPlanMaker
         private PictureBox pictureBox1;
         private Label lblDateSelected;
         private Panel pnlTemplateContainer;
+        private Button button4;
+        private Button button3;
+        private Button button2;
+        private Button btnAddNode;
     }
 }

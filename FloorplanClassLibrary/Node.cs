@@ -12,17 +12,27 @@ namespace FloorplanClassLibrary
         public int Y { get; set; }
         public Node Parent { get; set; }
         public Node Child { get; set; }
+        public Section? Section { get; set; }
+        public int nodeNumber = 1;
 
-        public Node(int x, int y)
+        public int HierarchyNumber { get; set; } = 0;
+
+           
+        
+
+
+        public Node(int x, int y, Section section)
         {
             X = x;
             Y = y;
+            Section = section;
+            
         }
-        public void InsertNodeAfter(int x, int y)
+        public void InsertNodeAfter(int x, int y, Section section)
         {
             // Create a new node to insert
-            Node newNode = new Node(x, y);
-
+            Node newNode = new Node(x, y, section);
+            newNode.nodeNumber = nodeNumber++;
             // Update relationships
             newNode.Parent = this;
             newNode.Child = Child;
