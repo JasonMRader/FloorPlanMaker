@@ -503,6 +503,7 @@ namespace FloorPlanMaker
             else
             {
                 SqliteDataAccess.SaveFloorplanTemplate(template);
+                MessageBox.Show("Template Saved!");
             }
 
         }

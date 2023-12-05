@@ -148,6 +148,7 @@ namespace FloorplanClassLibrary
         public void MakeTeamWait()
         {
             _isTeamWait = true;
+            TemplateTeamWait = true;
             ServerCount++;
             NotifyObservers();
         }
@@ -200,6 +201,7 @@ namespace FloorplanClassLibrary
         public void MakeSoloSection()
         {
             _isTeamWait = false;
+            TemplateTeamWait = false;
             ServerTeam = ServerTeam.Take(1).ToList();
             this.ServerCount = 1;
             NotifyObservers();
