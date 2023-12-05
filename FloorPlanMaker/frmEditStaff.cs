@@ -33,11 +33,8 @@ namespace FloorPlanMaker
 
             UITheme.FormatAccentColor(this);
 
-
-
-
         }
-
+        // TODO: refactor the backend logic out of this form
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             // Check if the Tab key is pressed

@@ -13,7 +13,7 @@ namespace FloorplanClassLibrary
     public class Floorplan 
     {
         
-       
+        // TODO: remove server count, use Servers.Count, clean up logic
         public Floorplan(DiningArea diningArea, DateTime date, bool isLunch, int serverCount, int sectionCount)
         {
             this.DiningArea = diningArea;

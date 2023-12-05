@@ -38,7 +38,7 @@ namespace FloorplanClassLibrary
                 return tables;
             }
         }
-
+        // TODO: Remove unused methods
         public static int SaveTable(Table table)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
