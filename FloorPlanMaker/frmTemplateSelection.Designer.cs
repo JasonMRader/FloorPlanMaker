@@ -355,9 +355,9 @@
             btnNextTemplates.FlatAppearance.BorderSize = 0;
             btnNextTemplates.FlatStyle = FlatStyle.Flat;
             btnNextTemplates.Image = FloorPlanMakerUI.Properties.Resources.SmallNext;
-            btnNextTemplates.Location = new Point(650, 100);
+            btnNextTemplates.Location = new Point(651, 175);
             btnNextTemplates.Name = "btnNextTemplates";
-            btnNextTemplates.Size = new Size(26, 73);
+            btnNextTemplates.Size = new Size(26, 206);
             btnNextTemplates.TabIndex = 10;
             btnNextTemplates.UseVisualStyleBackColor = false;
             btnNextTemplates.Click += btnNextTemplates_Click;
@@ -368,9 +368,9 @@
             btnPreviousTemplates.FlatAppearance.BorderSize = 0;
             btnPreviousTemplates.FlatStyle = FlatStyle.Flat;
             btnPreviousTemplates.Image = FloorPlanMakerUI.Properties.Resources.SmallPrevious;
-            btnPreviousTemplates.Location = new Point(7, 100);
+            btnPreviousTemplates.Location = new Point(7, 175);
             btnPreviousTemplates.Name = "btnPreviousTemplates";
-            btnPreviousTemplates.Size = new Size(26, 73);
+            btnPreviousTemplates.Size = new Size(26, 206);
             btnPreviousTemplates.TabIndex = 10;
             btnPreviousTemplates.UseVisualStyleBackColor = false;
             btnPreviousTemplates.Click += btnPreviousTemplates_Click;

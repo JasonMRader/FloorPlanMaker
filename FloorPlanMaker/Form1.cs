@@ -198,22 +198,7 @@ namespace FloorPlanMaker
             flowServersInFloorplan.Visible = false;
             rdoViewSectionFlow.Image = Resources.lilCanvasBook;
         }
-        //public void ViewTemplateSections(FloorplanTemplate template)
-        //{
-        //    dateTimeSelected = new DateTime(shiftManagerToAdd.DateOnly.Year, shiftManagerToAdd.DateOnly.Month, shiftManagerToAdd.DateOnly.Day);
-        //    UpdateDateLabel(0);
-        //    cbIsAM.Checked = shiftManagerToAdd.IsAM;
-        //    foreach (Floorplan fp in shiftManagerToAdd.Floorplans)
-        //    {
-        //        this.shiftManager.AddFloorplanAndServers(fp);
-        //    }
-        //    floorplanManager.SetViewedFloorplan(dateOnlySelected, cbIsAM.Checked, pnlFloorPlan, flowServersInFloorplan, flowSectionSelect);
-        //    rdoSections.Checked = true;
-        //    rdoViewSectionFlow.Checked = true;
-        //    flowSectionSelect.Visible = true;
-        //    flowServersInFloorplan.Visible = false;
-        //    rdoViewSectionFlow.Image = Resources.lilCanvasBook;
-        //}
+       
         public Form1()
         {
             InitializeComponent();
@@ -484,13 +469,7 @@ namespace FloorPlanMaker
         {
             floorplanManager.SetSectionLabels();
             floorplanManager.AddSectionLabels(pnlFloorPlan);
-            //sectionControlsManager = new SectionControlsManager(shiftManager.SelectedFloorplan);
-            //foreach (SectionLabelControl sectionControl in sectionControlsManager.SectionControls)
-            //{
-            //    pnlFloorPlan.Controls.Add(sectionControl);
-            //    sectionControl.BringToFront();
-            //}
-            //rdoViewServerFlow.Checked = true;
+           
         }
 
         private void btnSaveFloorplanTemplate_Click(object sender, EventArgs e)
@@ -517,25 +496,8 @@ namespace FloorPlanMaker
                 pnlTemplateContainer.Controls.Add(_frmTemplateSelection);
             }
 
-
             _frmTemplateSelection.Show();
-            pnlTemplateContainer.BringToFront();
-            //frmTemplateSelection form = new frmTemplateSelection(shiftManager);
-
-            //form.StartPosition = FormStartPosition.CenterScreen;
-
-            //form.BringToFront();
-
-            //form.ShowDialog();
-            //if (form.DialogResult == DialogResult.OK)
-            //{
-            //    UpdateTableControlSections();
-            //    form.Dispose();
-            //}
-            //if (DialogResult == DialogResult.Cancel)
-            //{
-            //    form.Dispose();
-            //}
+            pnlTemplateContainer.BringToFront();          
 
         }
         private void btnPrint_Click(object sender, EventArgs e)

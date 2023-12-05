@@ -71,7 +71,7 @@ namespace FloorPlanMaker
                 floorplanManager.CopyTemplateSections(template);
                 form1Reference.UpdateWithTemplate();
             }
-            
+
         }
 
         private void frmTemplateSelection_Load(object sender, EventArgs e)
@@ -119,10 +119,10 @@ namespace FloorPlanMaker
                 i++;
             }
             SetEnabledStatusOfPageButtons();
-           
+
         }
 
-        
+
 
         private void ClearTemplateSections(Panel pnl)
         {
@@ -136,100 +136,8 @@ namespace FloorPlanMaker
             floorplanManager.TemplateManager.CreateSectionPicBox(template, panel);
 
         }
-        //private void SetupPanelWithTemplate(Panel pnl, FloorplanTemplate template)
-        //{
-        //    pnl.Controls.Clear();
-        //    addTablesToPanel(pnl, template);
-        //    pnl.Tag = template;
-        //    //floorplanManager.TemplateManager.InitializeMiniTableControls(template);
-        //    //ShiftManager.SetSectionsToTemplate(template);
-        //    //ShiftManager.AssignSectionNumbers(ShiftManager.TemplateSections);
-        //    Button btnView = new Button()
-        //    {
-        //        BackColor = UITheme.CTAColor,
-        //        FlatStyle = FlatStyle.Flat,
-        //        Location = new Point(0, 0),
-        //        Text = "View",
-        //        Size = new Size(134, 30),
-        //        Font = UITheme.MainFont,
-        //        Tag = template
-
-        //    };
-        //    btnView.Click += btnSelectTemplate_Click;
-        //    Button btnApply = new Button()
-        //    {
-        //        BackColor = UITheme.CTAColor,
-        //        FlatStyle = FlatStyle.Flat,
-        //        Location = new Point(134, 0),
-        //        Text = "Apply",
-        //        Size = new Size(134, 30),
-        //        Font = UITheme.MainFont,
-        //        Tag = template
-        //    };
-        //    btnApply.Click += btnCancel_Click;
-        //    pnl.Controls.Add(btnView);
-        //    pnl.Controls.Add(btnApply);
-        //    foreach (Control ctrl in pnl.Controls)
-        //    {
-
-        //        if (ctrl is MiniTableControl tableControl)
-        //        {
-
-        //            foreach (Section section in template.Sections)  //ShiftManager.TemplateSections)
-        //            {
-
-        //                foreach (Table table in section.Tables)
-        //                {
-        //                    if (tableControl.Table.TableNumber == table.TableNumber)
-        //                    {
-        //                        tableControl.UpdateSection(section);
-        //                        tableControl.BackColor = section.Color;
-        //                        tableControl.Visible = true;
-        //                        tableControl.Invalidate();
-        //                        break; // Once found, no need to check other tables in this section
-        //                    }
-        //                }
-        //            }
-        //        }
-        //    }
-
-        //    // Any other setup logic specific to the template can be added here
-        //}
-        private void btnSelectTemplate_Click(object sender, EventArgs e)
-        {
-            Button button = (Button)sender;
-
-            FloorplanTemplate template = new FloorplanTemplate();
 
 
-            template = (FloorplanTemplate)button.Tag;
-            if (floorplanManager.ShiftManager.SelectedFloorplan == null)
-            {
-                ////ShiftManager.SelectedFloorplan = new Floorplan(template);
-                ////this.Parent.SendToBack();
-                ////this.Hide();
-                //_sectionPanels.Clear();
-                //if (ShiftManager.SelectedFloorplan == null) { return; }
-                //foreach (Section section in ShiftManager.SelectedFloorplan.Sections)
-                //{
-                //    SectionPanelControl sectionPanel = new SectionPanelControl(section, this.ShiftManager.SelectedFloorplan);
-
-                //    if (section.IsTeamWait)
-                //    {
-                //        sectionPanel.SetToTeamWait();
-                //    }
-                //    // sectionPanel += SectionAdded?
-                //    //sectionPanel.UpdateRequired += FloorplanManager_UpdateRequired;
-                //    this._sectionPanels.Add(sectionPanel);
-                //}
-            }
-            else
-            {
-                //floorplanManager.ShiftManager.SelectedFloorplan.CopyTemplateSections(template.Sections);
-                floorplanManager.CopyTemplateSections(template);
-                form1Reference.UpdateWithTemplate();
-            }
-        }
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Parent.SendToBack();
@@ -354,7 +262,7 @@ namespace FloorPlanMaker
             {
                 displayedPage++;
                 SetTemplatePanels(floorplanManager.TemplateManager.GetFilteredList());
-                
+
             }
         }
 
@@ -364,7 +272,7 @@ namespace FloorPlanMaker
             {
                 displayedPage--;
                 SetTemplatePanels(floorplanManager.TemplateManager.GetFilteredList());
-                
+
             }
         }
         private void SetEnabledStatusOfPageButtons()

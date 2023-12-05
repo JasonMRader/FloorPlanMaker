@@ -25,6 +25,9 @@ namespace FloorPlanMakerUI
         private List<TableControl> allTableControls = new List<TableControl>();
         List<TableDataEditorControl> tableDataEditors = new List<TableDataEditorControl>();
         private TableEditorControl positionEditor;
+        // TODO: tableChanges not consistant, sometimes changing dining areas will not allow changes to the next one (specifically moving tables? deleting?)
+        // TODO: Moving tables not always saving
+        // TODO: dont allow tables to stack on one another?
         public frmEditDiningAreas()
         {
             InitializeComponent();
