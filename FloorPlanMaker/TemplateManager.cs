@@ -339,13 +339,13 @@ namespace FloorPlanMakerUI
                
                 DisplayMiniTableControls(template, panel);
                 panel.Tag = template;
-                
+                // TODO change the apply to an actual preview, so it does not reset the sections made if they were made custom first
                 Button btnView = new Button()
                 {
                     BackColor = UITheme.CTAColor,
                     FlatStyle = FlatStyle.Flat,
                     Location = new Point(0, 0),
-                    Text = "Preview",
+                    Text = "Apply",
                     Size = new Size(268, 30),
                     Font = UITheme.MainFont,
                     Tag = template
@@ -402,13 +402,13 @@ namespace FloorPlanMakerUI
             {
                 foreach (Control ctrl in parentPanel.Controls)
                 {
-                    if (ctrl is Button button && ctrl.Text == "Apply")
+                    if (ctrl is Button button && ctrl.Text == "Accept")
                     {
                         ctrl.Visible = true;
                         ctrl.Size = new Size(268, btnSender.Height);
                         ctrl.Click -= btnApply_Clicked;
                         ctrl.Click += btnView_Clicked;
-                        ctrl.Text = "Preview";
+                        ctrl.Text = "Apply";
                         ctrl.BackColor = UITheme.CTAColor;
                         break;
                     }
@@ -429,7 +429,7 @@ namespace FloorPlanMakerUI
             btnSender.Click -= btnView_Clicked;
             btnSender.Click += btnApply_Clicked;
             btnSender.Size = new Size(134, btnSender.Height);
-            btnSender.Text = "Apply";
+            btnSender.Text = "Accept";
             btnSender.BackColor = UITheme.YesColor;
             
             Panel parentPanel = btnSender.Parent as Panel;

@@ -13,7 +13,7 @@ namespace FloorPlanMaker
 {
     public class TableControl : Control, ISectionObserver
     {
-        
+        // TODO fix tableControl text colors not always adjusting properly
         public Color BorderColor { get; set; } = Color.Black; // default to DarkBlue
         public TableDataEditorControl dataEditor {get;set;}
         public Color TextColor { get; set; } = Color.Black;
