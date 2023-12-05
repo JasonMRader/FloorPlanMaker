@@ -99,16 +99,7 @@ namespace FloorplanUserControlLibrary
             }
            
             cbSectionSelect.Text = "Section " + this.Section.Number.ToString();
-            lblCovers.Text = floorplan.GetCoverDifferenceForSection(Section).ToString("F0");
-            //lblCovers.Text = (this.Section.MaxCovers - floorplan.MaxCoversPerServer).ToString("F0");
-            if (floorplan.GetSalesDifferenceForSection(Section) > 0)
-            {
-                lblSales.Text = "+" + Section.FormatAsCurrencyWithoutParentheses(floorplan.GetSalesDifferenceForSection(Section));
-            }
-            else
-            {
-                lblSales.Text = Section.FormatAsCurrencyWithoutParentheses(floorplan.GetSalesDifferenceForSection(Section));
-            }
+            UpdateSalesAndCovers();
 
             if (this.Section.Server != null && Section.IsTeamWait == false)
             {
@@ -141,19 +132,21 @@ namespace FloorplanUserControlLibrary
                     removeServerPBs[i].Tag = Section.ServerTeam[i];
 
                 }
-                //int i = 0;
-                //foreach (Label label in serverLabels)
-                //{
-                //    label.Text = Section.ServerTeam[i].Name;
-                //}
-                //foreach (Server server in this.Section.ServerTeam)
-                //{
-                //    lblDisplay.Text += server.AbbreviatedName + ", ";
-                //}
-                //AddServerRow();
+                
             }
-
-
+        }
+        public void UpdateSalesAndCovers()
+        {
+            if(this.Section.IsPickUp) { return; }
+            lblCovers.Text = floorplan.GetCoverDifferenceForSection(Section).ToString("F0");
+            if (floorplan.GetSalesDifferenceForSection(Section) > 0)
+            {
+                lblSales.Text = "+" + Section.FormatAsCurrencyWithoutParentheses(floorplan.GetSalesDifferenceForSection(Section));
+            }
+            else
+            {
+                lblSales.Text = Section.FormatAsCurrencyWithoutParentheses(floorplan.GetSalesDifferenceForSection(Section));
+            }
         }
         public void AddServerRow()
         {

@@ -656,11 +656,14 @@ namespace FloorPlanMakerUI
         {
             coversImageLabel.UpdateText(ShiftManager.SelectedFloorplan.MaxCoversPerServer.ToString("F0"));
             salesImageLabel.UpdateText(ShiftManager.SelectedFloorplan.AvgSalesPerServer.ToString("C0"));
+            foreach(SectionPanelControl sectionPanel in _sectionPanels)
+            {
+                sectionPanel.UpdateSalesAndCovers();
+            }
         }
 
         public void SelectTables(List<TableControl> selectedTables)
         {
-
             foreach (var tableControl in selectedTables)
             {
                 TableClickedEventArgs args = new TableClickedEventArgs(tableControl.Table, false);
@@ -699,41 +702,8 @@ namespace FloorPlanMakerUI
                     serverControl.Label.BackColor = UITheme.ButtonColor; // Replace DefaultColor with your default color
                 }
                 serverControl.Invalidate();
-
-               
-
-                // Update the label's background color based on the section's color
-               
             }
-
-            //foreach (ServerControl serverControl in _serverControls)
-            //{
-                
-            //    Server server = serverControl.Server;
-
-                
-            //    Section assignedSection = null;
-            //    serverControl.Label.BackColor = UITheme.ButtonColor;
-            //    foreach (var entry in ShiftManager.SelectedFloorplan.SectionServerMap)
-            //    {
-            //        if (entry.Value.Contains(server))
-            //        {
-            //            assignedSection = entry.Key;
-            //            break; // Exit the loop once the section is found
-            //        }
-            //    }
-
-            //    // Update the label's background color based on the section's color
-            //    if (assignedSection != null)
-            //    {
-            //        serverControl.Label.BackColor = assignedSection.Color;
-            //    }
-            //    else
-            //    {
-            //        serverControl.Label.BackColor = UITheme.ButtonColor; // Replace DefaultColor with your default color
-            //    }
-            //    serverControl.Invalidate();
-            //}
+                        
         }
 
 
@@ -761,11 +731,6 @@ namespace FloorPlanMakerUI
                 SetSectionLabels();
                 SetSectionPanels();
                 AddSectionLabels(pnlFloorPlan);
-
-                //CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
-                //floorplanManager.SetTableControls();
-                //SetSectionLabels();
-                //SetSectionPanels();
                 SetServerControls();
                 UpdateTableControlColors();
                 flowSectionSelect.Controls.Clear();
@@ -786,12 +751,6 @@ namespace FloorPlanMakerUI
                 UpdateTableControlColors();
             }
            
-           
-            
-            //floorplanManager.ShiftManager = shiftManager;
-            //floorplanManager.SectionLabelRemoved += FloorplanManager_SectionLabelRemoved;            
-            //allTableControls = floorplanManager.TableControls;
-            //UpdateTableControlSections();
         }
 
         internal void AddSectionPanel(Section? section, FlowLayoutPanel flowSectionSelect)

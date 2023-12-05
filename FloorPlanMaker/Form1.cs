@@ -18,7 +18,8 @@ namespace FloorPlanMaker
 {
     public partial class Form1 : Form
     {
-        //List<DiningArea> areaList = new List<DiningArea>();
+        // TODO: keep data Updated when making changes (ie UPdate dining rooms when adding tables, update floorplan Lists
+        // when saving a floorplan
         private DiningAreaCreationManager areaCreationManager = new DiningAreaCreationManager();
         EmployeeManager employeeManager = new EmployeeManager();
         private ShiftManager shiftManager;
