@@ -23,6 +23,7 @@ namespace FloorPlanMakerUI
         private bool _filterPickYes { get; set; } = false;
         private bool _hasTeamFilter { get; set; } = false;
         private bool _hasPickFilter { get; set; } = false;
+       // private bool isFiltered { get; set; } = false;
         public Dictionary<FloorplanTemplate, List<MiniTableControl>> TemplateMiniTables { get; set; } 
             = new Dictionary<FloorplanTemplate, List<MiniTableControl>>();
         public Dictionary<Section, List<MiniTableControl>> SectionMiniTableControls { get; set; }
@@ -125,8 +126,17 @@ namespace FloorPlanMakerUI
         }
         private List<FloorplanTemplate> _filteredList;
         public List<FloorplanTemplate> GetFilteredList()
-        {            
-            return _filteredList ?? Templates;
+        {
+            return _filteredList;
+            //if (isFiltered)
+            //{
+                
+            //}
+            //else
+            //{
+            //    return _templates;
+            //}
+            
         }
 
         public void InitializeMiniTableControls(FloorplanTemplate template)
@@ -213,14 +223,14 @@ namespace FloorPlanMakerUI
             //this.Templates.Clear();
             this.Templates = SqliteDataAccess.LoadTemplatesByDiningAreaAndServerCount(floorplan.DiningArea, floorplan.Servers.Count);
             UpdateSectionNumbers();
-            this.FilterTemplates(serverCount: 1);
+            this.FilterTemplates(serverCount: serverCount);
         }
         public void GetAllFloorplanTemplates()
         {
             //this.Templates.Clear();
             this.Templates = SqliteDataAccess.LoadAllFloorplanTemplates();
             UpdateSectionNumbers();
-            this.FilterTemplates(serverCount: 1);
+            this.FilterTemplates(serverCount: serverCount);
 
         }
         private void UpdateSectionNumbers()
@@ -235,6 +245,7 @@ namespace FloorPlanMakerUI
         
         public void SetFilters(FilterOption option)
         {
+           // isFiltered = true;
             switch(option)
             {
                 case FilterOption.TeamWaitTrueOnly:
@@ -263,7 +274,8 @@ namespace FloorPlanMakerUI
                     break;
                 case FilterOption.None:
                 default:
-                    // When no filters are applied, set the FilteredList to be the same as Templates
+                   
+                    //isFiltered = false;
                     FilterTemplates(serverCount);
                     break;
 

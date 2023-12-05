@@ -638,6 +638,10 @@ namespace FloorPlanMakerUI
                 
                 clickedTableControl.BackColor = ShiftManager.SectionSelected.Color;
                 clickedTableControl.TextColor = ShiftManager.SectionSelected.FontColor;
+                if(ShiftManager.SectionSelected.IsPickUp)
+                {
+                    UpdateAveragesPerServer();
+                }
 
                 
                 clickedTableControl.Invalidate();
@@ -647,6 +651,13 @@ namespace FloorPlanMakerUI
             
 
         }
+
+        private void UpdateAveragesPerServer()
+        {
+            coversImageLabel.UpdateText(ShiftManager.SelectedFloorplan.MaxCoversPerServer.ToString("F0"));
+            salesImageLabel.UpdateText(ShiftManager.SelectedFloorplan.AvgSalesPerServer.ToString("C0"));
+        }
+
         public void SelectTables(List<TableControl> selectedTables)
         {
 

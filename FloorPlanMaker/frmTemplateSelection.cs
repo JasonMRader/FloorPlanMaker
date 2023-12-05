@@ -45,10 +45,6 @@ namespace FloorPlanMaker
 
         private void frmTemplateSelection_Load(object sender, EventArgs e)
         {
-            //floorplanManager.TemplateManager.DisplayPanels = new Panel[] { panel1, panel2, panel3, panel4 };
-            //floorplanManager.TemplateManager.GetMiniTableControls();
-            //addTablesToPanels();
-
 
         }
         private void frmTemplateSelection_Shown(object sender, EventArgs e)
@@ -65,13 +61,14 @@ namespace FloorPlanMaker
                 lblServerCount.Text = serverCount.ToString();
             }
             floorplanManager.UpdateTemplatesBasedOnFloorplan();
-            SetTemplatePanels(floorplanManager.TemplateManager.Templates);
+            SetTemplatePanels(floorplanManager.TemplateManager.GetFilteredList());
         }
+        // TODO: Remove redundancy with setting up template list multiple times
         private void SetTemplatePanels(List<FloorplanTemplate> templates)
         {
             floorplanManager.TemplateManager.CreateTemplatePanels(templates);
             List<Panel> panelList = floorplanManager.TemplateManager.PanelsForThisPage(displayedPage);
-            //Panel[] panels = { panel1, panel2, panel3, panel4 };  // Assuming you have named your panels like this
+
             int i = 0;
             foreach (var pan in panels)
             {
@@ -89,21 +86,12 @@ namespace FloorPlanMaker
                 i++;
             }
         }
-        private void SetDisplayPanelsToDisplay()
-        {
-
-        }
-
-
 
         private void ClearTemplateSections(Panel pnl)
         {
             pnl.Tag = null;
             pnl.Controls.Clear();
-
         }
-
-
         private void addTablesToPanel(Panel panel, FloorplanTemplate template)
         {
 
@@ -204,19 +192,12 @@ namespace FloorPlanMaker
                 floorplanManager.CopyTemplateSections(template);
                 form1Reference.UpdateWithTemplate();
             }
-            //ShiftManager.SelectedFloorplan.CopySectionsIntoSections(template.Sections);
-            //ShiftManager.ViewedFloorplan = ShiftManager.SelectedFloorplan;
-            //this.DialogResult = DialogResult.OK;
-
         }
-
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Parent.SendToBack();
             this.Hide();
-
         }
-
         private void btnIncreaseServers_Click(object sender, EventArgs e)
         {
             if (floorplanManager.Floorplan == null)
@@ -331,7 +312,7 @@ namespace FloorPlanMaker
         private void btnNextTemplates_Click(object sender, EventArgs e)
         {
 
-           
+
             if (displayedPage < floorplanManager.TemplateManager.PagesOfPanelsToDisplay(floorplanManager.TemplateManager.GetFilteredList()))
             {
                 displayedPage++;
@@ -341,7 +322,11 @@ namespace FloorPlanMaker
 
         private void btnPreviousTemplates_Click(object sender, EventArgs e)
         {
-
+            if (displayedPage >= floorplanManager.TemplateManager.PagesOfPanelsToDisplay(floorplanManager.TemplateManager.GetFilteredList()))
+            {
+                displayedPage--;
+                SetTemplatePanels(floorplanManager.TemplateManager.GetFilteredList());
+            }
         }
 
         //public void AddSectionPanels(FlowLayoutPanel panel)

@@ -365,7 +365,6 @@
             // btnPreviousTemplates
             // 
             btnPreviousTemplates.BackColor = Color.FromArgb(100, 130, 180);
-            btnPreviousTemplates.Enabled = false;
             btnPreviousTemplates.FlatAppearance.BorderSize = 0;
             btnPreviousTemplates.FlatStyle = FlatStyle.Flat;
             btnPreviousTemplates.Image = FloorPlanMakerUI.Properties.Resources.SmallPrevious;
