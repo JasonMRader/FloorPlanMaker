@@ -17,6 +17,7 @@ namespace FloorPlanMakerUI
         public List<MiniTableControl> MiniTableControls { get; set; } = new List<MiniTableControl>();
         public Panel[] DisplayPanels {  get; set; }
        
+       
         public List<PictureBox> picSectionLabels = new List<PictureBox>();
         private bool _filterTeamYes { get; set; } = false;        
         private bool _filterPickYes { get; set; } = false;
@@ -281,6 +282,26 @@ namespace FloorPlanMakerUI
 
             FilteredList = filteredTemplates.ToList();
         }
+        public int PagesOfPanelsToDisplay(List<FloorplanTemplate> templates)
+        {
+            return (int)Math.Ceiling((double)templates.Count / 4);
+        }
+        public List<Panel> DisplayedPanels(int pageNumber)
+        {
+            int panelsPerPage = 4;
+            int startIndex = (pageNumber - 1) * panelsPerPage;
+            int remainingPanels = DisplayPanels.Length - startIndex;
+            int count = Math.Min(panelsPerPage, remainingPanels);
+
+            // Extract and return the panels for the requested page
+            List<Panel> panelsForPage = new List<Panel>();
+            for (int i = 0; i < count; i++)
+            {
+                panelsForPage.Add(DisplayPanels[startIndex + i]);
+            }
+
+            return panelsForPage;
+        }
         public void CreateTemplatePanels(List<FloorplanTemplate> templates)
         {
             this.DisplayPanels = new Panel[templates.Count];
@@ -302,7 +323,7 @@ namespace FloorPlanMakerUI
                     Tag = template
 
                 };
-                btnView.Click += btnSelectTemplate_Click;
+                //btnView.Click += btnSelectTemplate_Click;
                 Button btnApply = new Button()
                 {
                     BackColor = UITheme.CTAColor,
@@ -313,7 +334,7 @@ namespace FloorPlanMakerUI
                     Font = UITheme.MainFont,
                     Tag = template
                 };
-                btnApply.Click += btnCancel_Click;
+                //btnApply.Click += btnCancel_Click;
                 panel.Controls.Add(btnView);
                 panel.Controls.Add(btnApply);
                 foreach (Control ctrl in panel.Controls)
@@ -322,7 +343,7 @@ namespace FloorPlanMakerUI
                     if (ctrl is MiniTableControl tableControl)
                     {
 
-                        foreach (Section section in template.Sections)  //ShiftManager.TemplateSections)
+                        foreach (Section section in template.Sections)  
                         {
 
                             foreach (Table table in section.Tables)
@@ -333,7 +354,7 @@ namespace FloorPlanMakerUI
                                     tableControl.BackColor = section.Color;
                                     tableControl.Visible = true;
                                     tableControl.Invalidate();
-                                    break; // Once found, no need to check other tables in this section
+                                    break; 
                                 }
                             }
                         }
