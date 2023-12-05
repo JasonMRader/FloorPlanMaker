@@ -141,6 +141,7 @@ namespace FloorPlanMakerUI
                 {
                     panel.Controls.Add(miniTable);
                 }
+                CreateSectionPicBox(selectedTemplate, panel);
             }
         }
         
@@ -280,30 +281,66 @@ namespace FloorPlanMakerUI
 
             FilteredList = filteredTemplates.ToList();
         }
-        //public List<SectionPanelControl> SetSectionPanels(FloorplanTemplate template)
-        //{
-        //    List<SectionPanelControl> sectionPanels = new List<SectionPanelControl>();  
-            
-        //    foreach (Section section in template.Sections)
-        //    {
-        //        SectionPanelControl sectionPanel = new SectionPanelControl(section, this.ShiftManager.SelectedFloorplan);
-        //        sectionPanel.CheckBoxChanged += setSelectedSection;
-        //        sectionPanel.picEraseSectionClicked += EraseSectionClicked;
-        //        sectionPanel.picTeamWaitClicked += TeamWaitClicked;
-        //        sectionPanel.picAddServerClicked += SectionAddServerClicked;
-        //        sectionPanel.picSubtractServerClicked += SectionSubtractServerClicked;
-        //        sectionPanel.unassignedSpotClicked += AssignServerToSection;
-        //        sectionPanel.ServerRemoved += ServerRemovedFromSection;
-        //        if (section.IsTeamWait)
-        //        {
-        //            sectionPanel.SetToTeamWait();
-        //        }
-        //        // sectionPanel += SectionAdded?
-        //        //sectionPanel.UpdateRequired += FloorplanManager_UpdateRequired;
-        //        sectionPanels.Add(sectionPanel);
-        //    }
-        //    return sectionPanels;
-        //}
+        public void CreateTemplatePanels(List<FloorplanTemplate> templates)
+        {
+            this.DisplayPanels = new Panel[templates.Count];
+            for(int i = 0; i < templates.Count; i++)
+            {
+                FloorplanTemplate template = templates[i];
+                Panel panel = DisplayPanels[i];
+                DisplayMiniTableControls(template, panel);
+                panel.Tag = template;
+                
+                Button btnView = new Button()
+                {
+                    BackColor = UITheme.CTAColor,
+                    FlatStyle = FlatStyle.Flat,
+                    Location = new Point(0, 0),
+                    Text = "View",
+                    Size = new Size(134, 30),
+                    Font = UITheme.MainFont,
+                    Tag = template
+
+                };
+                btnView.Click += btnSelectTemplate_Click;
+                Button btnApply = new Button()
+                {
+                    BackColor = UITheme.CTAColor,
+                    FlatStyle = FlatStyle.Flat,
+                    Location = new Point(134, 0),
+                    Text = "Apply",
+                    Size = new Size(134, 30),
+                    Font = UITheme.MainFont,
+                    Tag = template
+                };
+                btnApply.Click += btnCancel_Click;
+                panel.Controls.Add(btnView);
+                panel.Controls.Add(btnApply);
+                foreach (Control ctrl in panel.Controls)
+                {
+
+                    if (ctrl is MiniTableControl tableControl)
+                    {
+
+                        foreach (Section section in template.Sections)  //ShiftManager.TemplateSections)
+                        {
+
+                            foreach (Table table in section.Tables)
+                            {
+                                if (tableControl.Table.TableNumber == table.TableNumber)
+                                {
+                                    tableControl.UpdateSection(section);
+                                    tableControl.BackColor = section.Color;
+                                    tableControl.Visible = true;
+                                    tableControl.Invalidate();
+                                    break; // Once found, no need to check other tables in this section
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
     }
 }

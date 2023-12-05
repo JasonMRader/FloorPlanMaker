@@ -68,6 +68,7 @@ namespace FloorPlanMaker
         }
         private void SetTemplatePanels(List<FloorplanTemplate> templates)
         {
+            floorplanManager.TemplateManager.CreateTemplatePanels(templates);
             //Panel[] panels = { panel1, panel2, panel3, panel4 };  // Assuming you have named your panels like this
             int i = 0;
             foreach (var pan in panels)
@@ -84,74 +85,21 @@ namespace FloorPlanMaker
                 i++;
             }
         }
+        private void SetDisplayPanelsToDisplay() 
+        {
 
-        //private void ClearTemplateSections(Panel pnl)
-        //{
-        //    pnl.Tag = null;
+        }
 
-        //    //ShiftManager.SetSectionsToTemplate(template);
-        //    //ShiftManager.AssignSectionNumbers(ShiftManager.TemplateSections);
-        //    foreach (Control ctrl in pnl.Controls)
-        //    {
-        //        if (ctrl is Button btn)
-        //        {
-        //            btn.Click -= btnSelectTemplate_Click;
-        //            btn.Tag = null;
-        //            btn.Visible = false;
-        //        }
-        //        if (ctrl is MiniTableControl tableControl)
-        //        {
-        //            tableControl.BackColor = pnl.BackColor;
-        //            tableControl.RemoveSection();
-        //            //tableControl.Visible = false;
 
-        //        }
-        //    }
-        //}
+      
         private void ClearTemplateSections(Panel pnl)
         {
             pnl.Tag = null;
             pnl.Controls.Clear();
 
         }
-        private void addTablesToPanels(FloorplanTemplate template)
-        {
-            //Panel[] panels = { panel1, panel2, panel3, panel4 };  // Assuming you have named your panels like this
-
-            foreach (var pan in panels)
-            {
-                //foreach (Table table in area.Tables)  // Assuming FloorplanTemplate has a Tables property
-                //{
-                //    table.DiningArea = area;
-                //    TableControl tableControl = TableControlFactory.CreateMiniTableControl(table, (float).4, 27);                   
-                //    pan.Controls.Add(tableControl);
-                //}
-                foreach (MiniTableControl miniTable in floorplanManager.TemplateManager.MiniTableControls)
-                {
-                    pan.Controls.Add(miniTable);
-                }
-            }
-
-        }
-        //private void addTablesToPanels()
-        //{
-        //    Panel[] panels = { panel1, panel2, panel3, panel4 };  // Assuming you have named your panels like this
-
-        //    foreach (var pan in panels)
-        //    {
-        //        //foreach (Table table in area.Tables)  // Assuming FloorplanTemplate has a Tables property
-        //        //{
-        //        //    table.DiningArea = area;
-        //        //    TableControl tableControl = TableControlFactory.CreateMiniTableControl(table, (float).4, 27);                   
-        //        //    pan.Controls.Add(tableControl);
-        //        //}
-        //        foreach (MiniTableControl miniTable in floorplanManager.TemplateManager.MiniTableControls)
-        //        {
-        //            pan.Controls.Add(miniTable);
-        //        }
-        //    }
-
-        //}
+       
+       
         private void addTablesToPanel(Panel panel, FloorplanTemplate template)
         {
 
@@ -159,65 +107,65 @@ namespace FloorPlanMaker
             floorplanManager.TemplateManager.CreateSectionPicBox(template, panel);
 
         }
-        private void SetupPanelWithTemplate(Panel pnl, FloorplanTemplate template)
-        {
-            pnl.Controls.Clear();
-            addTablesToPanel(pnl, template);
-            pnl.Tag = template;
-            //floorplanManager.TemplateManager.InitializeMiniTableControls(template);
-            //ShiftManager.SetSectionsToTemplate(template);
-            //ShiftManager.AssignSectionNumbers(ShiftManager.TemplateSections);
-            Button btnView = new Button()
-            {
-                BackColor = UITheme.CTAColor,
-                FlatStyle = FlatStyle.Flat,
-                Location = new Point(0, 0),
-                Text = "View",
-                Size = new Size(134, 30),
-                Font = UITheme.MainFont,
-                Tag = template
+        //private void SetupPanelWithTemplate(Panel pnl, FloorplanTemplate template)
+        //{
+        //    pnl.Controls.Clear();
+        //    addTablesToPanel(pnl, template);
+        //    pnl.Tag = template;
+        //    //floorplanManager.TemplateManager.InitializeMiniTableControls(template);
+        //    //ShiftManager.SetSectionsToTemplate(template);
+        //    //ShiftManager.AssignSectionNumbers(ShiftManager.TemplateSections);
+        //    Button btnView = new Button()
+        //    {
+        //        BackColor = UITheme.CTAColor,
+        //        FlatStyle = FlatStyle.Flat,
+        //        Location = new Point(0, 0),
+        //        Text = "View",
+        //        Size = new Size(134, 30),
+        //        Font = UITheme.MainFont,
+        //        Tag = template
 
-            };
-            btnView.Click += btnSelectTemplate_Click;
-            Button btnApply = new Button()
-            {
-                BackColor = UITheme.CTAColor,
-                FlatStyle = FlatStyle.Flat,
-                Location = new Point(134, 0),
-                Text = "Apply",
-                Size = new Size(134, 30),
-                Font = UITheme.MainFont,
-                Tag = template
-            };
-            btnApply.Click += btnCancel_Click;
-            pnl.Controls.Add(btnView);
-            pnl.Controls.Add(btnApply);
-            foreach (Control ctrl in pnl.Controls)
-            {
+        //    };
+        //    btnView.Click += btnSelectTemplate_Click;
+        //    Button btnApply = new Button()
+        //    {
+        //        BackColor = UITheme.CTAColor,
+        //        FlatStyle = FlatStyle.Flat,
+        //        Location = new Point(134, 0),
+        //        Text = "Apply",
+        //        Size = new Size(134, 30),
+        //        Font = UITheme.MainFont,
+        //        Tag = template
+        //    };
+        //    btnApply.Click += btnCancel_Click;
+        //    pnl.Controls.Add(btnView);
+        //    pnl.Controls.Add(btnApply);
+        //    foreach (Control ctrl in pnl.Controls)
+        //    {
 
-                if (ctrl is MiniTableControl tableControl)
-                {
+        //        if (ctrl is MiniTableControl tableControl)
+        //        {
 
-                    foreach (Section section in template.Sections)  //ShiftManager.TemplateSections)
-                    {
+        //            foreach (Section section in template.Sections)  //ShiftManager.TemplateSections)
+        //            {
 
-                        foreach (Table table in section.Tables)
-                        {
-                            if (tableControl.Table.TableNumber == table.TableNumber)
-                            {
-                                tableControl.UpdateSection(section);
-                                tableControl.BackColor = section.Color;
-                                tableControl.Visible = true;
-                                tableControl.Invalidate();
-                                break; // Once found, no need to check other tables in this section
-                            }
-                        }
-                    }
-                }
-            }
+        //                foreach (Table table in section.Tables)
+        //                {
+        //                    if (tableControl.Table.TableNumber == table.TableNumber)
+        //                    {
+        //                        tableControl.UpdateSection(section);
+        //                        tableControl.BackColor = section.Color;
+        //                        tableControl.Visible = true;
+        //                        tableControl.Invalidate();
+        //                        break; // Once found, no need to check other tables in this section
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    }
 
-            // Any other setup logic specific to the template can be added here
-        }
+        //    // Any other setup logic specific to the template can be added here
+        //}
         private void btnSelectTemplate_Click(object sender, EventArgs e)
         {
             Button button = (Button)sender;
