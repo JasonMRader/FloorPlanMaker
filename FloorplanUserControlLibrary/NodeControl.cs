@@ -15,13 +15,21 @@ namespace FloorplanUserControlLibrary
     {
         public Node Node { get; set; }
         private ToolTip toolTip1;
-        public NodeControl(Node node)
+        public string displayString { get; private set; }
+        public void SetDisplayString(string name)
+        {
+            this.displayString += name;
+            this.lblName.Text = name;
+        }
+
+        public NodeControl(Node node, NodePosition position)
         {
             InitializeComponent();
             Node = node;
             this.BackColor = Node.Section.Color;
             this.lblNodeNumber.Text = node.HierarchyNumber.ToString();
-            this.Location = new Point(node.X - this.Width, node.Y - this.Height);
+
+            GetPosition( position );
 
             toolTip1 = new ToolTip();
             // Set up the delays for the tooltip.
@@ -33,14 +41,38 @@ namespace FloorplanUserControlLibrary
 
             // Set up the Tooltip text for the NodeControl
             toolTip1.SetToolTip(this.lblNodeNumber, $"Node Number: {Node.HierarchyNumber}\n" +
-                $"Node X: {Node.X}  Node Y: {Node.Y}");
+                $"Node X: {Node.X}  Node Y: {Node.Y}\n" +
+                $"{position}");
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        private void GetPosition(NodePosition position)
         {
+            if( position == NodePosition.Left )
+            {
+               
+            }
+            if( position == NodePosition.Right )
+            {
+
+            }
+            if( position == NodePosition.Top )
+            {
+                this.Location = new Point(this.Node.X - this.Width, Node.Y - this.Height);
+            }
+            if ( position == NodePosition.Bottom )
+            {
+                this.Location = new Point(this.Node.X - this.Width, Node.Y);
+            }
 
         }
-        
+        public enum NodePosition
+        {
+            Top,
+            Left,
+            Right,
+            Bottom,
+        }
+
 
     }
 }

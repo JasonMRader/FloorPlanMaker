@@ -14,6 +14,7 @@ namespace FloorplanClassLibrary
         public Node Child { get; set; }
         public Section? Section { get; set; }
         public int nodeNumber = 1;
+        public string description { get; set; }
 
         public int HierarchyNumber { get; set; } = 0;
 

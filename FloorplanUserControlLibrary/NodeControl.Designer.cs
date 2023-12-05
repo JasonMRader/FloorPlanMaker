@@ -29,29 +29,42 @@
         private void InitializeComponent()
         {
             lblNodeNumber = new Label();
+            lblName = new Label();
             SuspendLayout();
             // 
             // lblNodeNumber
             // 
             lblNodeNumber.Dock = DockStyle.Right;
-            lblNodeNumber.Location = new Point(0, 0);
+            lblNodeNumber.Location = new Point(15, 0);
             lblNodeNumber.Name = "lblNodeNumber";
             lblNodeNumber.Size = new Size(15, 15);
             lblNodeNumber.TabIndex = 1;
             lblNodeNumber.Text = "1";
             lblNodeNumber.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // lblName
+            // 
+            lblName.Dock = DockStyle.Right;
+            lblName.Location = new Point(0, 0);
+            lblName.Name = "lblName";
+            lblName.Size = new Size(15, 15);
+            lblName.TabIndex = 2;
+            lblName.Text = "\"\"";
+            lblName.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // NodeControl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(lblName);
             Controls.Add(lblNodeNumber);
             Name = "NodeControl";
-            Size = new Size(15, 15);
+            Size = new Size(30, 15);
             ResumeLayout(false);
         }
 
         #endregion
         private Label lblNodeNumber;
+        private Label lblName;
     }
 }

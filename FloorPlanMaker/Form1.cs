@@ -878,12 +878,29 @@ namespace FloorPlanMaker
             //Node tlNode = nodeManager.GetTopLeftNode();
             //nodeManager.GenerateNodesForUnblockedTables();
             nodeManager.GenerateNodesForUnblockedTops();
-            foreach(Node node in nodeManager.Nodes)
+            List<Node> topNodes = new List<Node>();
+            foreach (Node node in nodeManager.Nodes)
             {
-                NodeControl nodeControl = new NodeControl(node);
+                NodeControl nodeControl = new NodeControl(node, NodeControl.NodePosition.Top);
+                nodeControl.SetDisplayString("T");
                 pnlFloorPlan.Controls.Add(nodeControl);
             }
-            
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            SectionNodeManager nodeManager = new SectionNodeManager(shiftManager.SectionSelected);
+            //Node tlNode = nodeManager.GetTopLeftNode();
+            //nodeManager.GenerateNodesForUnblockedTables();
+            nodeManager.GenerateNodesForUnblockedBottoms();
+            List<Node> topNodes = new List<Node>();
+            foreach (Node node in nodeManager.Nodes)
+            {
+                NodeControl nodeControl = new NodeControl(node, NodeControl.NodePosition.Bottom);
+                nodeControl.SetDisplayString("B");
+                pnlFloorPlan.Controls.Add(nodeControl);
+            }
         }
     }
 }

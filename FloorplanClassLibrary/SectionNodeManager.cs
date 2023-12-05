@@ -42,6 +42,7 @@ namespace FloorplanClassLibrary
             var topLeft = Section.Tables.Where(t => t.TopLeft.X == minX).OrderBy(t => t.TopLeft.Y).FirstOrDefault().TopLeft;
             Node tlNode = new Node(topLeft.X, topLeft.Y, Section);
             rootNode = tlNode;
+            tlNode.description = "Top Left";
             return tlNode;
         }
 
@@ -55,8 +56,9 @@ namespace FloorplanClassLibrary
 
             // Filter tables with the TopRight Y value equal to minY, then order by X descending and take the first one
             var topRight = Section.Tables.Where(t => t.TopRight.X == MaxX).OrderByDescending(t => t.TopRight.Y).FirstOrDefault().TopRight;
-
-            return new Node(topRight.X, topRight.Y, Section);
+            Node trNode = new Node(topRight.X, topRight.Y, Section);
+            trNode.description = "Top Right";
+            return trNode;
         }
         public Node GetBottomRightNode()
         {
@@ -71,6 +73,32 @@ namespace FloorplanClassLibrary
 
             return new Node(bottomRight.X, bottomRight.Y, Section);
         }
+        public Node GetBottomLeftNode()
+        {
+            if (Section?.Tables == null || !Section.Tables.Any())
+                return null;
+
+            // Find the minimum X value among the BottomLeft points
+            int minX = Section.Tables.Min(t => t.BottomLeft.X);
+
+            // Find the maximum Y value among the BottomLeft points
+            int maxY = Section.Tables.Max(t => t.BottomLeft.Y);
+
+            // Filter tables to find the one with the BottomLeft point at minX and maxY
+            var bottomLeft = Section.Tables
+                            .Where(t => t.BottomLeft.X == minX && t.BottomLeft.Y == maxY)
+                            .Select(t => t.BottomLeft)
+                            .FirstOrDefault();
+
+            if (bottomLeft == null)
+                return null;
+
+            Node blNode = new Node(bottomLeft.X, bottomLeft.Y, Section);
+            blNode.description = "Bottom Left";
+            return blNode;
+        }
+
+
         public bool IsTopUnblocked(Table table)
         {
             if (table == null || Section?.Tables == null) return false;
@@ -89,6 +117,28 @@ namespace FloorplanClassLibrary
 
             return true;
         }
+        public bool IsBottomUnblocked(Table table)
+        {
+            if (table == null || Section?.Tables == null) return false;
+
+            foreach (Table otherTable in Section.Tables)
+            {
+                if (otherTable == table)
+                    continue;
+
+                // Check if otherTable is directly below table
+                bool isDirectlyBelow = otherTable.TopLeft.Y >= table.BottomRight.Y && otherTable.BottomRight.Y > table.BottomRight.Y;
+
+                // Check if otherTable is horizontally overlapping with table
+                bool isHorizontallyOverlapping = (otherTable.TopLeft.X < table.TopRight.X) && (otherTable.TopRight.X > table.TopLeft.X);
+
+                if (isDirectlyBelow && isHorizontallyOverlapping)
+                    return false;
+            }
+
+            return true;
+        }
+
 
         public bool IsRightUnblocked(Table table)
         {
@@ -166,6 +216,61 @@ namespace FloorplanClassLibrary
             }
             AssignHierarchyNumbers();
         }
+        public void GenerateNodesForUnblockedBottoms()
+        {
+            Node bottomLeftNode = GetBottomLeftNode();
+            Node bottomRightNode = GetBottomRightNode();
+            if (bottomLeftNode == null)
+                return;
+
+            Node currentNode = bottomLeftNode;
+
+            // For every table with an unblocked bottom...
+            var tablesWithUnblockedBottoms = Section.Tables
+                .Where(table => IsBottomUnblocked(table))
+                .OrderBy(t => t.BottomLeft.X)
+                .ThenByDescending(t => t.BottomLeft.Y)
+                .ToList();
+
+            foreach (var table in tablesWithUnblockedBottoms)
+            {
+                Node newBottomLeft = new Node(table.BottomLeft.X, table.BottomLeft.Y, Section);
+                Node newBottomRight = new Node(table.BottomRight.X, table.BottomRight.Y, Section);
+
+                // Check for duplicate nodes
+                if (!IsNodeExists(newBottomLeft))
+                {
+                    currentNode.InsertNodeAfter(newBottomLeft.X, newBottomLeft.Y, Section);
+                    currentNode = currentNode.Child;
+                    Nodes.Add(currentNode);
+                }
+
+                // Check for duplicate nodes, especially BottomRightNode
+                if (!IsNodeExists(newBottomRight) && !(newBottomRight.X == bottomRightNode.X && newBottomRight.Y == bottomRightNode.Y))
+                {
+                    currentNode.InsertNodeAfter(newBottomRight.X, newBottomRight.Y, Section);
+                    currentNode = currentNode.Child;
+                    Nodes.Add(currentNode);
+                }
+            }
+            // Ensuring the next node after bottoms is the bottomRightNode
+            if (!currentNode.Equals(bottomRightNode))
+            {
+                if (!IsNodeExists(bottomRightNode))
+                {
+                    currentNode.InsertNodeAfter(bottomRightNode.X, bottomRightNode.Y, Section);
+                    currentNode = currentNode.Child;
+                    Nodes.Add(currentNode);
+                }
+                else
+                {
+                    // If bottomRightNode exists, find it in the list and set it as the current node
+                    currentNode = Nodes.FirstOrDefault(node => node.X == bottomRightNode.X && node.Y == bottomRightNode.Y);
+                }
+            }
+            AssignHierarchyNumbers();
+        }
+
         public void GenerateNodesForUnblockedTables()
         {
             // Step 1: Get main nodes
