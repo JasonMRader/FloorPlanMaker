@@ -40,7 +40,26 @@ namespace FloorPlanMaker
             floorplanManager.TemplateManager.DiningArea = diningArea;
             floorplanManager.UpdateTemplatesBasedOnFloorplan();
             panels = new Panel[] { panel1, panel2, panel3, panel4 };
+            this.floorplanManager.TemplateManager.PreviewTemplateClicked += PreviewTemplate_Clicked;
+            this.floorplanManager.TemplateManager.ApplyTemplateClicked += ApplyTemplate_Clicked;
 
+        }
+
+        private void ApplyTemplate_Clicked(object? sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void PreviewTemplate_Clicked(object? sender, EventArgs e)
+        {
+            //Button btnClicked = (Button)sender;
+            FloorplanTemplate template = (FloorplanTemplate)sender;
+            if (floorplanManager.ShiftManager.SelectedFloorplan != null)
+            {
+                floorplanManager.CopyTemplateSections(template);
+                form1Reference.UpdateWithTemplate();
+            }
+            
         }
 
         private void frmTemplateSelection_Load(object sender, EventArgs e)
@@ -88,7 +107,10 @@ namespace FloorPlanMaker
                 i++;
             }
             SetEnabledStatusOfPageButtons();
+           
         }
+
+        
 
         private void ClearTemplateSections(Panel pnl)
         {

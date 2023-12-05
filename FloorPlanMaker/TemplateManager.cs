@@ -12,6 +12,8 @@ namespace FloorPlanMakerUI
 {
     public class TemplateManager
     {
+        public event EventHandler PreviewTemplateClicked;
+        public event EventHandler ApplyTemplateClicked;
         public DiningArea DiningArea { get; set; }
         public int serverCount = 5;
         public List<MiniTableControl> MiniTableControls { get; set; } = new List<MiniTableControl>();
@@ -109,33 +111,27 @@ namespace FloorPlanMakerUI
             set
             {
                 _templates = value;
-                UpdateFilteredList();  // Update FilteredList every time Templates is set
+                //UpdateFilteredList();  // Update FilteredList every time Templates is set
+                SetFilter();
             }
         }
 
-        private void UpdateFilteredList()
-        {
-            SetFilter();  // Ensure FilteredList is set based on current filter settings
-        }
+        //private void UpdateFilteredList()
+        //{
+        //    SetFilter();  
+        //}
 
         public TemplateManager()
         {
             Templates = new List<FloorplanTemplate>();  
-            //_filteredList = new List<FloorplanTemplate>(); 
-            UpdateFilteredList(); 
+            
+            SetFilter();
         }
         private List<FloorplanTemplate> _filteredList;
         public List<FloorplanTemplate> GetFilteredList()
         {
             return _filteredList;
-            //if (isFiltered)
-            //{
-                
-            //}
-            //else
-            //{
-            //    return _templates;
-            //}
+            
             
         }
 
@@ -354,7 +350,7 @@ namespace FloorPlanMakerUI
                     Tag = template
 
                 };
-                //btnView.Click += btnSelectTemplate_Click;
+                btnView.Click += btnView_Clicked;
                 Button btnApply = new Button()
                 {
                     BackColor = UITheme.CTAColor,
@@ -365,7 +361,7 @@ namespace FloorPlanMakerUI
                     Font = UITheme.MainFont,
                     Tag = template
                 };
-                //btnApply.Click += btnCancel_Click;
+                btnApply.Click += btnApply_Clicked;
                 panel.Controls.Add(btnView);
                 panel.Controls.Add(btnApply);
                 foreach (Control ctrl in panel.Controls)
@@ -394,5 +390,16 @@ namespace FloorPlanMakerUI
             }
         }
 
+        private void btnApply_Clicked(object? sender, EventArgs e)
+        {
+            Button btnSender = (Button)sender;
+            ApplyTemplateClicked?.Invoke(btnSender.Tag, e);
+        }
+
+        private void btnView_Clicked(object? sender, EventArgs e)
+        {
+            Button btnSender = (Button)sender;
+            PreviewTemplateClicked?.Invoke(btnSender.Tag, e);
+        }
     }
 }
