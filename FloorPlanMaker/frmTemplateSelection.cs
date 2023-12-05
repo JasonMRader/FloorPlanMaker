@@ -75,7 +75,7 @@ namespace FloorPlanMaker
             int i = 0;
             foreach (var pan in panels)
             {
-                if (i >= templates.Count)
+                if (i >= panelList.Count)
                 {
                     ClearTemplateSections(pan);
                 }
@@ -331,11 +331,11 @@ namespace FloorPlanMaker
         private void btnNextTemplates_Click(object sender, EventArgs e)
         {
 
-            displayedPage++;
-            SetTemplatePanels(floorplanManager.TemplateManager.GetFilteredList());
-            if (displayedPage < floorplanManager.TemplateManager.PagesOfPanelsToDisplay(floorplanManager.TemplateManager.Templates))
+           
+            if (displayedPage < floorplanManager.TemplateManager.PagesOfPanelsToDisplay(floorplanManager.TemplateManager.GetFilteredList()))
             {
-                
+                displayedPage++;
+                SetTemplatePanels(floorplanManager.TemplateManager.GetFilteredList());
             }
         }
 

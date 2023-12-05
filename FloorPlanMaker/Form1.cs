@@ -606,29 +606,6 @@ namespace FloorPlanMaker
             }
         }
        
-        private void UpdateTableControlSections()
-        {
-            //ClearAllSectionControls();
-            if (shiftManager.SelectedFloorplan == null)
-            {
-                flowSectionSelect.Controls.Clear();
-                flowServersInFloorplan.Controls.Clear();
-                //ClearAllTableControlSections();
-                NoServersToDisplay();
-                return;
-            }
-            else
-            {
-                //FillInTableControlColors();
-                //sectionControlsManager = new SectionControlsManager(shiftManager.SelectedFloorplan);
-                //foreach (SectionLabelControl sectionControl in sectionControlsManager.SectionControls)
-                //{
-                //    pnlFloorPlan.Controls.Add(sectionControl);
-                //    sectionControl.BringToFront();
-                //}
-            }
-        }
-
         private void dtpFloorplan_ValueChanged(object sender, EventArgs e)
         {
             floorplanManager.SetViewedFloorplan(dateOnlySelected, cbIsAM.Checked, pnlFloorPlan, flowServersInFloorplan, flowSectionSelect);

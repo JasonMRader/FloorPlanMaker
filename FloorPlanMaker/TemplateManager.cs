@@ -119,35 +119,29 @@ namespace FloorPlanMakerUI
 
         public TemplateManager()
         {
-            Templates = new List<FloorplanTemplate>();  // Initialize Templates
-            _filteredList = new List<FloorplanTemplate>(); // Initialize FilteredList
-            UpdateFilteredList();  // Initialize FilteredList based on current Templates and filter settings
+            Templates = new List<FloorplanTemplate>();  
+            //_filteredList = new List<FloorplanTemplate>(); 
+            UpdateFilteredList(); 
         }
         private List<FloorplanTemplate> _filteredList;
         public List<FloorplanTemplate> GetFilteredList()
-        {
-            
+        {            
             return _filteredList ?? Templates;
         }
 
         public void InitializeMiniTableControls(FloorplanTemplate template)
-        {
-            //MiniTableControls = new List<MiniTableControl>();
-            //TemplateMiniTables = new Dictionary<FloorplanTemplate, List<MiniTableControl>>();
+        {           
             List<MiniTableControl> miniTableControls = new List<MiniTableControl>();
             template.GetTemplateTables();
-
             foreach (var table in template.Tables)
             {
-                // Assuming 'factor' and 'yAdjustment' are determined based on your UI layout
-                float factor = .4f; // Example scaling factor
-                int yAdjustment = 27; // Example Y-coordinate adjustment
-
+                float factor = .4f; 
+                int yAdjustment = 27; 
                 MiniTableControl miniTableControl = new MiniTableControl(table, factor, yAdjustment);
                 miniTableControls.Add(miniTableControl);
             }
             TemplateMiniTables[template] = miniTableControls;
-            //AddMiniTableControlsToDisplayPanels();
+           
         }
         public void DisplayMiniTableControls(FloorplanTemplate selectedTemplate, Panel panel)
         {
