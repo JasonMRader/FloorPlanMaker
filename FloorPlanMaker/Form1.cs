@@ -917,13 +917,16 @@ namespace FloorPlanMaker
 
         private void button3_Click(object sender, EventArgs e)
         {
-            shiftManager.SectionSelected.SetNodeManager();
-            List<SectionLine> lines = SectionNodeManager.CreateSectionLinesFromEdges(
-                shiftManager.SectionSelected.NodeManager.BottomEdges);
-            foreach (SectionLine line in lines)
+            foreach(Section section in shiftManager.SelectedFloorplan.Sections)
             {
-                pnlFloorPlan.Controls.Add(line);
+                section.SetNodeManager();
+                List<SectionLine> lines = SectionNodeManager.CreateSectionLinesFromEdges(section.NodeManager.Edges);
+                foreach (SectionLine line in lines)
+                {
+                    pnlFloorPlan.Controls.Add(line);
+                }
             }
+            
         }
     }
 }

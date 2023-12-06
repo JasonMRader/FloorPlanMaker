@@ -46,7 +46,10 @@ namespace FloorplanClassLibrary
         public List<Node> Nodes { get; set; } = new List<Node>();
         public List <Node> TopNodes { get; set; } = new List<Node> ();
         public List <Node> BottomNodes { get; set; } = new List<Node> ();
-        public List <Edge> Edges { get; set; }
+
+        public List<Edge> Edges { get; set; }   
+       
+
         public List <Edge> TopEdges { get; set; }
         public List <Edge> BottomEdges { get; set; }
         public Node GetTopLeftNode()
@@ -568,6 +571,8 @@ namespace FloorplanClassLibrary
             this.GenerateNodesForUnblockedTops();
             this.BottomEdges = GenerateAndOptimizeEdgesFromNodes(BottomNodes);
             this.TopEdges = GenerateAndOptimizeEdgesFromNodes(TopNodes);
+            this.Edges = new List<Edge>();
+            this.Edges = TopEdges.Concat(BottomEdges).ToList();
         }
         public List<Edge> GenerateAndOptimizeEdgesFromNodes(List<Node> nodeList)
         {
@@ -618,6 +623,7 @@ namespace FloorplanClassLibrary
 
             // Optimize the edges
             OptimizeEdges(edges);
+            //Edges.AddRange(edges);
             return edges;
         }
 

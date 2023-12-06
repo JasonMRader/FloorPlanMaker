@@ -61,7 +61,7 @@ namespace FloorplanClassLibrary
         {
             this._nodeManager = new SectionNodeManager(this);
             _nodeManager.SetUpTopAndBottomEdges();
-           // _nodeManager.GenerateNodesForUnblockedBottoms();
+            //_nodeManager.GenerateNodesForUnblockedBottoms();
 
         }
 
