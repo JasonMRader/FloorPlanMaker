@@ -30,7 +30,7 @@ namespace FloorplanClassLibrary
                 //section.SubscribeObserver(this);
             }
         }
-        public FloorplanLinesManager LinesManager { get; private set; }
+        public FloorplanEdgesManager LinesManager { get; private set; }
         
         public Floorplan(FloorplanTemplate template)
         {

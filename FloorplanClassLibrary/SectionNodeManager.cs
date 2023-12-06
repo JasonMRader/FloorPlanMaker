@@ -626,7 +626,7 @@ namespace FloorplanClassLibrary
             //Edges.AddRange(edges);
             return edges;
         }
-
+        // TODO: dont bother adding verticle lines?
         public void OptimizeEdges(List<Edge> edges)
         {
             for (int i = 0; i < edges.Count - 1; i++)

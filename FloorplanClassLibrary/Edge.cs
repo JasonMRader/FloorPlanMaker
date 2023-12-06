@@ -13,6 +13,19 @@ namespace FloorplanClassLibrary
         public bool isVertical { get; set; }
         public bool isHorizontal { get; set; }
         public Section Section { get; set; }
+        public void SetOrientation()
+        {
+            if (StartNode.Y == EndNode.Y)
+            {
+                isHorizontal = true;
+                isVertical = false;
+            }
+            else
+            {
+                isVertical = true;
+                isHorizontal = false;
+            }
+        }
         public Point startPoint()
         {
             Point start = new Point(StartNode.X, StartNode.Y);
@@ -27,6 +40,8 @@ namespace FloorplanClassLibrary
             StartNode = startNode;
             EndNode = endNode;
             this.Section = startNode.Section;
+            SetOrientation();
+            
         }
 
         public void MoveVerticalEdge(int newX)
