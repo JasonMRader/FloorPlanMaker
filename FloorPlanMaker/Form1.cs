@@ -885,7 +885,8 @@ namespace FloorPlanMaker
             //    nodeControl.SetDisplayString("T");
             //    pnlFloorPlan.Controls.Add(nodeControl);
             //}
-            List<SectionLine> lines = nodeManager.GenerateEdgesAndSectionLinesFromNodes(nodeManager.TopNodes);
+            List<Edge> edges = nodeManager.GenerateAndOptimizeEdgesFromNodes(nodeManager.TopNodes);
+            List<SectionLine> lines = SectionNodeManager.CreateSectionLinesFromEdges(edges);
             //List<Node> topNodes = new List<Node>();
             foreach (SectionLine line in lines)
             {

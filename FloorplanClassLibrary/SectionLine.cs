@@ -1,4 +1,5 @@
 ﻿using FloorplanClassLibrary;
+using NetTopologySuite.Index.KdTree;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -40,7 +41,15 @@ namespace FloorPlanMaker
         }
         public SectionLine(Edge edge)
         {
-            Point start = new Point(edge.startPoint());
+            this.StartPoint = edge.startPoint();
+            this.EndPoint = edge.endPoint();
+           
+
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer |
+                          ControlStyles.UserPaint |
+                          ControlStyles.AllPaintingInWmPaint, true);
+            this.UpdateStyles();
+            this.Invalidate();
         }
         public SectionLine(Node startNode, Node endNode)
         {

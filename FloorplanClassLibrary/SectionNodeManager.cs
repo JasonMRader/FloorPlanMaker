@@ -559,16 +559,16 @@ namespace FloorplanClassLibrary
                 }
             }
         }
-        public List<Edge> GenerateAndOptimizeEdgesFromNodes()
+        public List<Edge> GenerateAndOptimizeEdgesFromNodes(List<Node> nodeList)
         {
             List<Edge> edges = new List<Edge>();
             AssignHierarchyNumbers();
 
             // Generate edges from nodes
-            for (int i = 0; i < Nodes.Count - 1; i++)
+            for (int i = 0; i < nodeList.Count - 1; i++)
             {
-                Node parent = Nodes[i];
-                Node child = Nodes[i + 1];
+                Node parent = nodeList[i];
+                Node child = nodeList[i + 1];
 
                 // Check if nodes form a diagonal
                 if (parent.X != child.X && parent.Y != child.Y)
@@ -591,7 +591,7 @@ namespace FloorplanClassLibrary
                     }
 
                     // Add intermediate to the nodes list
-                    Nodes.Insert(i + 1, intermediate);
+                    nodeList.Insert(i + 1, intermediate);
 
                     // Now, we add two edges: one from parent to intermediate and another from intermediate to child
                     edges.Add(new Edge(parent, intermediate));
@@ -639,6 +639,24 @@ namespace FloorplanClassLibrary
                     i--;
                 }
             }
+        }
+        public static List<SectionLine> CreateSectionLinesFromEdges(List<Edge> edges)
+        {
+            List<SectionLine> sectionLines = new List<SectionLine>();
+            foreach (Edge edge in edges)
+            {
+                SectionLine line = new SectionLine(edge.StartNode, edge.EndNode);
+                if (edge.isVertical)
+                {
+                    line.Edge = SectionLine.BorderEdge.Left;  // or Right, decide based on your logic
+                }
+                else if (edge.isHorizontal)
+                {
+                    line.Edge = SectionLine.BorderEdge.Top;  // or Bottom, decide based on your logic
+                }
+                sectionLines.Add(line);
+            }
+            return sectionLines;
         }
 
 
