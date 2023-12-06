@@ -29,7 +29,8 @@ namespace FloorplanClassLibrary
         public static (bool, Edge)AreHorizontalAndOverlapping(Edge edge1, Edge edge2)
         {
             
-            if (edge1.StartNode.Y != edge1.EndNode.Y || edge2.StartNode.Y != edge2.EndNode.Y)              
+            if (edge1.StartNode.Y != edge1.EndNode.Y || edge2.StartNode.Y != edge2.EndNode.Y ||
+                edge1.StartNode.Y < edge2.StartNode.Y)              
             {
                 return (false, null);
             }

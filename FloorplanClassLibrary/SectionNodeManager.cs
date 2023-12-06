@@ -181,6 +181,7 @@ namespace FloorplanClassLibrary
 
             return true;
         }
+        // TODO need to check for unblocked OR has a table off another section "Blocking it"
         public void GenerateNodesForUnblockedTops()
         {
             Node topLeftNode = GetTopLeftNode();
