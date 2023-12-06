@@ -11,6 +11,7 @@ using System.Drawing.Drawing2D;
 using System.Globalization;
 using System.Windows.Forms;
 
+
 //using static System.Collections.Specialized.BitVector32;
 //using static System.Collections.Specialized.BitVector32;
 
@@ -917,15 +918,24 @@ namespace FloorPlanMaker
 
         private void button3_Click(object sender, EventArgs e)
         {
-            foreach(Section section in shiftManager.SelectedFloorplan.Sections)
+            
+            FloorplanEdgesManager floorplanEdges = new FloorplanEdgesManager(shiftManager.SelectedFloorplan.Sections);
+            floorplanEdges.SetSectionNodeManagers();
+            floorplanEdges.SetAllSectionsTopBoarders();
+            List<SectionLine> lines = floorplanEdges.GetTopSectionLines();
+            foreach (SectionLine line in lines)
             {
-                section.SetNodeManager();
-                List<SectionLine> lines = SectionNodeManager.CreateSectionLinesFromEdges(section.NodeManager.Edges);
-                foreach (SectionLine line in lines)
-                {
-                    pnlFloorPlan.Controls.Add(line);
-                }
+                pnlFloorPlan.Controls.Add(line);
             }
+            //foreach (Section section in shiftManager.SelectedFloorplan.Sections)
+            //{
+            //    //section.SetNodeManager();
+            //    List<SectionLine> lines = SectionNodeManager.CreateSectionLinesFromEdges(section.NodeManager.Edges);
+            //    foreach (SectionLine line in lines)
+            //    {
+            //        pnlFloorPlan.Controls.Add(line);
+            //    }
+            //}
             
         }
     }

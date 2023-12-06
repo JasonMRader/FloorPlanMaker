@@ -1,16 +1,20 @@
-﻿using System;
+﻿using FloorPlanMaker;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms.VisualStyles;
 
 namespace FloorplanClassLibrary
 {
     public class FloorplanEdgesManager
     {
         public List<Section> Sections { get; set; }
-        FloorplanEdgesManager(List<Section> sections)
+        public List<Edge> Edges { get; set; } = new List<Edge>();
+        public List<string> testData { get; set; } = new List<string>();
+        public FloorplanEdgesManager(List<Section> sections)
         {
             this.Sections = sections;
         }
@@ -21,11 +25,11 @@ namespace FloorplanClassLibrary
                 section.SetNodeManager();
             }
         }
+        
         public static (bool, Edge)AreHorizontalAndOverlapping(Edge edge1, Edge edge2)
         {
             
-            if (edge1.StartNode.Y != edge1.EndNode.Y || edge2.StartNode.Y != edge2.EndNode.Y ||
-                edge1.StartNode.Y != edge2.StartNode.Y)
+            if (edge1.StartNode.Y != edge1.EndNode.Y || edge2.StartNode.Y != edge2.EndNode.Y)              
             {
                 return (false, null);
             }
@@ -55,6 +59,71 @@ namespace FloorplanClassLibrary
 
             return (true, overlapEdge);
         }
-        //public List<Edge> Edges
+        // TODO for effecincy, once a line has been compared, do not compare it again?
+        public void SetAllSectionsTopBoarders()
+        {
+            foreach (var section in Sections)
+            {
+                GetSectionsTopBoarder(section);
+            }
+        }
+        public List<SectionLine> GetTopSectionLines()
+        {
+            List<SectionLine> sectionLines = new List<SectionLine>();
+            foreach (Edge edge in Edges)
+            {
+                SectionLine line = new SectionLine(edge.StartNode, edge.EndNode);
+                if (edge.isVertical)
+                {
+                    line.Edge = SectionLine.BorderEdge.Left;  // or Right, decide based on your logic
+                }
+                else if (edge.isHorizontal)
+                {
+                    line.Edge = SectionLine.BorderEdge.Top;  // or Bottom, decide based on your logic
+                }
+                sectionLines.Add(line);
+            }
+            return sectionLines;
+        }
+        private string GetTestData(Edge topEdge, Edge bottomEdge, Edge newEdge)
+        {
+            string result = "";
+
+            result = "Top: (" + topEdge.startPoint().X.ToString() + ", " + topEdge.endPoint().X.ToString() + ") | Bottom: (" +
+                bottomEdge.startPoint().X.ToString() + ", " + bottomEdge.endPoint().X.ToString() + ") | New: (" +
+                newEdge.startPoint().X.ToString() + ", " + newEdge.endPoint().X.ToString();
+
+            return result;
+        }   
+        private void GetSectionsTopBoarder(Section section)
+        {
+            List<Edge> overlappingEdges = new List<Edge>();
+            foreach (Section s in Sections)
+            {
+                if (s == section)
+                    continue;
+
+                foreach (Edge topEdge in section.NodeManager.TopEdges)
+                {
+                    foreach (Edge bottomEdge in s.NodeManager.BottomEdges)
+                    {
+                        var (isOverlapping, overlapEdge) = AreHorizontalAndOverlapping(topEdge, bottomEdge);
+                        if (isOverlapping && overlapEdge != null)
+                        {
+                            overlappingEdges.Add(overlapEdge);
+                            testData.Add(GetTestData(topEdge, bottomEdge, overlapEdge));
+                        }
+                    }
+                }
+            }
+            Edges.AddRange(overlappingEdges);
+                        
+            //ProcessOverlappingEdges(overlappingEdges);
+        }
+
+        private void ProcessOverlappingEdges(List<Edge> overlappingEdges)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
