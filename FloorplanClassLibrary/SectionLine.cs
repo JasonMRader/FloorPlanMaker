@@ -38,6 +38,10 @@ namespace FloorPlanMaker
             this.UpdateStyles();
             this.Invalidate();
         }
+        public SectionLine(Edge edge)
+        {
+            Point start = new Point(edge.startPoint());
+        }
         public SectionLine(Node startNode, Node endNode)
         {
             this.StartPoint = new Point(startNode.X, startNode.Y);

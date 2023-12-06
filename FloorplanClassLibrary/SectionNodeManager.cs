@@ -18,7 +18,7 @@ namespace FloorplanClassLibrary
         public void AssignHierarchyNumbers()
         {
             int currentNumber = 1;
-            Node currentNode = rootNode;
+            Node currentNode = this.Nodes[0];
 
             while (currentNode != null)
             {
@@ -26,9 +26,26 @@ namespace FloorplanClassLibrary
                 currentNode = currentNode.Child;
             }
         }
+        public Node FindRootNode(List<Node> nodes)
+        {
+            // Iterate through each node in the list
+            foreach (var node in nodes)
+            {
+                // Check if the node's Parent is null (indicating no parent)
+                if (node.Parent == null)
+                {
+                    return node; // Return the node with no parent
+                }
+            }
+
+            return null; // Return null if no such node is found
+        }
+
 
 
         public List<Node> Nodes { get; set; } = new List<Node>();
+        public List <Node> TopNodes { get; set; } = new List<Node> ();
+        public List <Node> BottomNodes { get; set; } = new List<Node> ();
         public Node GetTopLeftNode()
         {
             // If Section or its Tables list is null or empty, return null
@@ -189,6 +206,7 @@ namespace FloorplanClassLibrary
                     currentNode.InsertNodeAfter(newTopLeft.X, newTopLeft.Y, Section);
                     currentNode = currentNode.Child;
                     Nodes.Add(currentNode);
+                    TopNodes.Add(currentNode);
                 }
 
                 // Check for duplicate nodes, especially TopRightNode
@@ -197,6 +215,7 @@ namespace FloorplanClassLibrary
                     currentNode.InsertNodeAfter(newTopRight.X, newTopRight.Y, Section);
                     currentNode = currentNode.Child;
                     Nodes.Add(currentNode);
+                    TopNodes.Add(currentNode);
                 }
             }
             // Ensuring the next node after tops is the topRightNode
@@ -207,6 +226,7 @@ namespace FloorplanClassLibrary
                     currentNode.InsertNodeAfter(topRightNode.X, topRightNode.Y, Section);
                     currentNode = currentNode.Child;
                     Nodes.Add(currentNode);
+                    TopNodes.Add(currentNode);
                 }
                 else
                 {
@@ -215,6 +235,7 @@ namespace FloorplanClassLibrary
                 }
             }
             AssignHierarchyNumbers();
+            TopNodes = TopNodes.OrderBy(node => node.X).ToList();
         }
         public void GenerateNodesForUnblockedBottoms()
         {
@@ -243,6 +264,7 @@ namespace FloorplanClassLibrary
                     currentNode.InsertNodeAfter(newBottomLeft.X, newBottomLeft.Y, Section);
                     currentNode = currentNode.Child;
                     Nodes.Add(currentNode);
+                    BottomNodes.Add(currentNode);
                 }
 
                 // Check for duplicate nodes, especially BottomRightNode
@@ -251,6 +273,7 @@ namespace FloorplanClassLibrary
                     currentNode.InsertNodeAfter(newBottomRight.X, newBottomRight.Y, Section);
                     currentNode = currentNode.Child;
                     Nodes.Add(currentNode);
+                    BottomNodes.Add(currentNode);
                 }
             }
             // Ensuring the next node after bottoms is the bottomRightNode
@@ -261,6 +284,7 @@ namespace FloorplanClassLibrary
                     currentNode.InsertNodeAfter(bottomRightNode.X, bottomRightNode.Y, Section);
                     currentNode = currentNode.Child;
                     Nodes.Add(currentNode);
+                    BottomNodes.Add(currentNode);
                 }
                 else
                 {
@@ -268,6 +292,8 @@ namespace FloorplanClassLibrary
                     currentNode = Nodes.FirstOrDefault(node => node.X == bottomRightNode.X && node.Y == bottomRightNode.Y);
                 }
             }
+            Nodes = Nodes.OrderBy(node => node.X).ToList();
+            BottomNodes = BottomNodes.OrderBy(node => node.X).ToList();
             AssignHierarchyNumbers();
         }
 
@@ -437,11 +463,109 @@ namespace FloorplanClassLibrary
             return Nodes.Any(n => n.X == node.X && n.Y == node.Y);
         }
         public string testData { get; set; }
-        public List<SectionLine> GenerateEdgesAndSectionLinesFromNodes()
+        public List<SectionLine> GenerateEdgesAndSectionLinesFromNodes(List<Node> nodeList)
         {
             List<Edge> edges = new List<Edge>();
+            //AssignHierarchyNumbers();
+            for (int i = 0; i < nodeList.Count - 1; i++) // Minus 1 to prevent going out of bounds
+            {
+                Node parent = nodeList[i];
+                Node child = nodeList[i + 1];
 
-            for (int i = 0; i < Nodes.Count - 1; i++) // Minus 1 to prevent going out of bounds
+                // Check if nodes form a diagonal
+                if (parent.X != child.X && parent.Y != child.Y)
+                {
+                    Node intermediate;
+                    if (parent.Parent == null) // Parent does not have its own parent
+                    {
+                        intermediate = new Node(parent.X, child.Y, Section);
+                    }
+                    else // Move the parent or child
+                    {
+                        if (child.Y > parent.Y)
+                        {
+                            intermediate = new Node(parent.X, child.Y, Section);
+                        }
+                        else
+                        {
+                            intermediate = new Node(child.X, parent.Y, Section);
+                        }
+                    }
+
+                    // Add intermediate to the nodes list
+                    nodeList.Insert(i + 1, intermediate);
+
+                    // Now, we add two edges: one from parent to intermediate and another from intermediate to child
+                    edges.Add(new Edge(parent, intermediate));
+                    edges.Add(new Edge(intermediate, child));
+
+                    // Increment the counter to skip the next node since we already processed it
+                    i++;
+                }
+                else
+                {
+                    edges.Add(new Edge(parent, child));
+                }
+            }
+
+            // Create SectionLines from edges
+            List<SectionLine> sectionLines = new List<SectionLine>();
+            foreach (Edge edge in edges)
+            {
+                SectionLine line = new SectionLine(edge.StartNode, edge.EndNode);
+                if (edge.isVertical)
+                {
+                    line.Edge = SectionLine.BorderEdge.Left;  // or Right, decide based on your logic
+                }
+                else if (edge.isHorizontal)
+                {
+                    line.Edge = SectionLine.BorderEdge.Top;  // or Bottom, decide based on your logic
+                }
+                sectionLines.Add(line);
+            }
+            OptimizeLines(sectionLines);
+            return sectionLines;
+        }
+        public void OptimizeLines(List<SectionLine> lines)
+        {
+            for (int i = 0; i < lines.Count - 1; i++)
+            {
+                SectionLine currentLine = lines[i];
+                SectionLine nextLine = lines[i + 1];
+
+                // Check if the lines are horizontal and have the same Y value
+                if (currentLine.StartPoint.Y == currentLine.EndPoint.Y &&
+                    nextLine.StartPoint.Y == nextLine.EndPoint.Y &&
+                    currentLine.EndPoint.Y == nextLine.StartPoint.Y)
+                {
+                    // Merge the two lines
+                    currentLine.EndPoint = new Point(nextLine.EndPoint.X, currentLine.EndPoint.Y);
+                    // Remove the next line as it is now merged with the current line
+                    lines.RemoveAt(i + 1);
+                    // Decrement i to check the newly formed line with its next line
+                    i--;
+                }
+                // Check if the lines are vertical and have the same X value
+                else if (currentLine.StartPoint.X == currentLine.EndPoint.X &&
+                         nextLine.StartPoint.X == nextLine.EndPoint.X &&
+                         currentLine.EndPoint.X == nextLine.StartPoint.X)
+                {
+                    // Merge the two lines
+                    currentLine.EndPoint = new Point(currentLine.EndPoint.X, nextLine.EndPoint.Y);
+                    // Remove the next line as it is now merged with the current line
+                    lines.RemoveAt(i + 1);
+                    // Decrement i to check the newly formed line with its next line
+                    i--;
+                }
+            }
+        }
+        public List<Edge> GenerateAndOptimizeEdgesFromNodes()
+        {
+            List<Edge> edges = new List<Edge>();
+            AssignHierarchyNumbers();
+
+            // Generate edges from nodes
+            for (int i = 0; i < Nodes.Count - 1; i++)
             {
                 Node parent = Nodes[i];
                 Node child = Nodes[i + 1];
@@ -482,26 +606,44 @@ namespace FloorplanClassLibrary
                 }
             }
 
-            // Create SectionLines from edges
-            List<SectionLine> sectionLines = new List<SectionLine>();
-            foreach (Edge edge in edges)
-            {
-                SectionLine line = new SectionLine(edge.StartNode, edge.EndNode);
-                if (edge.isVertical)
-                {
-                    line.Edge = SectionLine.BorderEdge.Left;  // or Right, decide based on your logic
-                }
-                else if (edge.isHorizontal)
-                {
-                    line.Edge = SectionLine.BorderEdge.Top;  // or Bottom, decide based on your logic
-                }
-                sectionLines.Add(line);
-            }
-
-            return sectionLines;
+            // Optimize the edges
+            OptimizeEdges(edges);
+            return edges;
         }
 
-       
+        public void OptimizeEdges(List<Edge> edges)
+        {
+            for (int i = 0; i < edges.Count - 1; i++)
+            {
+                Edge currentEdge = edges[i];
+                Edge nextEdge = edges[i + 1];
+
+                // Optimization logic for merging edges
+                // This will depend on how you define horizontal and vertical edges
+                // and how they should be merged.
+                // For example:
+                if (currentEdge.isHorizontal && nextEdge.isHorizontal &&
+                    currentEdge.EndNode.Y == nextEdge.StartNode.Y)
+                {
+                    // Merge edges
+                    currentEdge.EndNode = nextEdge.EndNode;
+                    edges.RemoveAt(i + 1);
+                    i--;
+                }
+                else if (currentEdge.isVertical && nextEdge.isVertical &&
+                         currentEdge.EndNode.X == nextEdge.StartNode.X)
+                {
+                    // Merge edges
+                    currentEdge.EndNode = nextEdge.EndNode;
+                    edges.RemoveAt(i + 1);
+                    i--;
+                }
+            }
+        }
+
+
+
+
 
     }
 }

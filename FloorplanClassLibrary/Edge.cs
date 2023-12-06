@@ -12,6 +12,15 @@ namespace FloorplanClassLibrary
         public Node EndNode { get; set; }
         public bool isVertical { get; set; }
         public bool isHorizontal { get; set; }
+        public Point startPoint()
+        {
+            Point start = new Point(StartNode.X, StartNode.Y);
+            return start;
+        }
+        public Point endPoint()
+        {
+            return new Point(EndNode.X, EndNode.Y);
+        }
         public Edge(Node startNode, Node endNode)
         {
             StartNode = startNode;

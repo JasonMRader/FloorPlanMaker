@@ -30,6 +30,8 @@ namespace FloorplanClassLibrary
                 //section.SubscribeObserver(this);
             }
         }
+        public FloorplanLinesManager LinesManager { get; private set; }
+        
         public Floorplan(FloorplanTemplate template)
         {
             this.DiningArea = template.DiningArea;

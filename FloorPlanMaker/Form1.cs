@@ -878,12 +878,18 @@ namespace FloorPlanMaker
             //Node tlNode = nodeManager.GetTopLeftNode();
             //nodeManager.GenerateNodesForUnblockedTables();
             nodeManager.GenerateNodesForUnblockedTops();
-            List<Node> topNodes = new List<Node>();
-            foreach (Node node in nodeManager.Nodes)
+            //List<Node> topNodes = new List<Node>();
+            //foreach (Node node in nodeManager.Nodes)
+            //{
+            //    NodeControl nodeControl = new NodeControl(node, NodeControl.NodePosition.Top);
+            //    nodeControl.SetDisplayString("T");
+            //    pnlFloorPlan.Controls.Add(nodeControl);
+            //}
+            List<SectionLine> lines = nodeManager.GenerateEdgesAndSectionLinesFromNodes(nodeManager.TopNodes);
+            //List<Node> topNodes = new List<Node>();
+            foreach (SectionLine line in lines)
             {
-                NodeControl nodeControl = new NodeControl(node, NodeControl.NodePosition.Top);
-                nodeControl.SetDisplayString("T");
-                pnlFloorPlan.Controls.Add(nodeControl);
+                pnlFloorPlan.Controls.Add(line);
             }
 
         }
@@ -894,13 +900,18 @@ namespace FloorPlanMaker
             //Node tlNode = nodeManager.GetTopLeftNode();
             //nodeManager.GenerateNodesForUnblockedTables();
             nodeManager.GenerateNodesForUnblockedBottoms();
+            List<SectionLine> lines = nodeManager.GenerateEdgesAndSectionLinesFromNodes(nodeManager.BottomNodes);
             List<Node> topNodes = new List<Node>();
-            foreach (Node node in nodeManager.Nodes)
+            foreach(SectionLine line in lines)
             {
-                NodeControl nodeControl = new NodeControl(node, NodeControl.NodePosition.Bottom);
-                nodeControl.SetDisplayString("B");
-                pnlFloorPlan.Controls.Add(nodeControl);
+                pnlFloorPlan.Controls.Add(line);
             }
+            //foreach (Node node in nodeManager.Nodes)
+            //{
+            //    NodeControl nodeControl = new NodeControl(node, NodeControl.NodePosition.Bottom);
+            //    nodeControl.SetDisplayString("B");
+            //    pnlFloorPlan.Controls.Add(nodeControl);
+            //}
         }
     }
 }

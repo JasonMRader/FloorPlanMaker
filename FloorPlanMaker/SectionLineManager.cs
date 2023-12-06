@@ -50,7 +50,7 @@ namespace FloorPlanMakerUI
             foreach (Section section in this.SectionToTableControls.Keys)
             {
                 section.NodeManager.GenerateNodesForUnblockedTables();
-                List<SectionLine> sectionLines = section.NodeManager.GenerateEdgesAndSectionLinesFromNodes();
+                List<SectionLine> sectionLines = section.NodeManager.GenerateEdgesAndSectionLinesFromNodes(section.NodeManager.Nodes);
                 SectionLines.AddRange(sectionLines);
 
             }
