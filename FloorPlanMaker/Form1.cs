@@ -903,7 +903,7 @@ namespace FloorPlanMaker
             nodeManager.GenerateNodesForUnblockedBottoms();
             List<SectionLine> lines = nodeManager.GenerateEdgesAndSectionLinesFromNodes(nodeManager.BottomNodes);
             List<Node> topNodes = new List<Node>();
-            foreach(SectionLine line in lines)
+            foreach (SectionLine line in lines)
             {
                 pnlFloorPlan.Controls.Add(line);
             }
@@ -913,6 +913,17 @@ namespace FloorPlanMaker
             //    nodeControl.SetDisplayString("B");
             //    pnlFloorPlan.Controls.Add(nodeControl);
             //}
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            shiftManager.SectionSelected.SetNodeManager();
+            List<SectionLine> lines = SectionNodeManager.CreateSectionLinesFromEdges(
+                shiftManager.SectionSelected.NodeManager.BottomEdges);
+            foreach (SectionLine line in lines)
+            {
+                pnlFloorPlan.Controls.Add(line);
+            }
         }
     }
 }

@@ -461,6 +461,7 @@ namespace FloorPlanMaker
             button3.TabIndex = 22;
             button3.Text = "button1";
             button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
             // 
             // button2
             // 

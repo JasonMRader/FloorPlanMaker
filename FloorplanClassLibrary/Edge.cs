@@ -12,6 +12,7 @@ namespace FloorplanClassLibrary
         public Node EndNode { get; set; }
         public bool isVertical { get; set; }
         public bool isHorizontal { get; set; }
+        public Section Section { get; set; }
         public Point startPoint()
         {
             Point start = new Point(StartNode.X, StartNode.Y);
@@ -25,6 +26,7 @@ namespace FloorplanClassLibrary
         {
             StartNode = startNode;
             EndNode = endNode;
+            this.Section = startNode.Section;
         }
 
         public void MoveVerticalEdge(int newX)

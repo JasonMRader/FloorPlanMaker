@@ -46,6 +46,9 @@ namespace FloorplanClassLibrary
         public List<Node> Nodes { get; set; } = new List<Node>();
         public List <Node> TopNodes { get; set; } = new List<Node> ();
         public List <Node> BottomNodes { get; set; } = new List<Node> ();
+        public List <Edge> Edges { get; set; }
+        public List <Edge> TopEdges { get; set; }
+        public List <Edge> BottomEdges { get; set; }
         public Node GetTopLeftNode()
         {
             // If Section or its Tables list is null or empty, return null
@@ -558,6 +561,13 @@ namespace FloorplanClassLibrary
                     i--;
                 }
             }
+        }
+        public void SetUpTopAndBottomEdges()
+        {
+            this.GenerateNodesForUnblockedBottoms();
+            this.GenerateNodesForUnblockedTops();
+            this.BottomEdges = GenerateAndOptimizeEdgesFromNodes(BottomNodes);
+            this.TopEdges = GenerateAndOptimizeEdgesFromNodes(TopNodes);
         }
         public List<Edge> GenerateAndOptimizeEdgesFromNodes(List<Node> nodeList)
         {

@@ -57,6 +57,13 @@ namespace FloorplanClassLibrary
             return copy;
         }
         private SectionNodeManager _nodeManager;
+        public void SetNodeManager()
+        {
+            this._nodeManager = new SectionNodeManager(this);
+            _nodeManager.SetUpTopAndBottomEdges();
+           // _nodeManager.GenerateNodesForUnblockedBottoms();
+
+        }
 
         public List<TemplateTable> TemplateTables { get; set; } = new List<TemplateTable>();
 
