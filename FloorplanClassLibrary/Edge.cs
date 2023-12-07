@@ -13,6 +13,7 @@ namespace FloorplanClassLibrary
         public bool isVertical { get; set; }
         public bool isHorizontal { get; set; }
         public Section Section { get; set; }
+        public Boarder BoarderType { get; set; }
         public void SetOrientation()
         {
             if (StartNode.Y == EndNode.Y)
@@ -53,6 +54,13 @@ namespace FloorplanClassLibrary
         public override string ToString()
         {
             return "Start Node: " + StartNode.ToString() + ", End Node: " + EndNode.ToString();
+        }
+        public enum Boarder 
+        {
+            Top,
+            Left,
+            Right,
+            Bottom,
         }
     }
 }

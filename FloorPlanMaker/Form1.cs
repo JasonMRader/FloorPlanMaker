@@ -12,6 +12,7 @@ using System.Globalization;
 using System.Windows.Forms;
 
 
+
 //using static System.Collections.Specialized.BitVector32;
 //using static System.Collections.Specialized.BitVector32;
 
@@ -941,20 +942,47 @@ namespace FloorPlanMaker
 
         private void button4_Click(object sender, EventArgs e)
         {
-            foreach (Section section in shiftManager.SelectedFloorplan.Sections)
+            //foreach (Section section in shiftManager.SelectedFloorplan.Sections)
+            //{
+            //    SectionNodeManager nodeManager = new SectionNodeManager(section);
+            //    List<Edge> hullEdges = nodeManager.GetEdgesForBoundingBox();
+            //    //List<Edge> hullEdges = nodeManager.getEdgesForConvexHull();
+            //    foreach (Edge edge in hullEdges)
+            //    {
+            //        NodeControl nodeControl1 = new NodeControl(edge.StartNode, NodeControl.NodePosition.Top);
+            //        SectionLine line = new SectionLine(edge);
+            //        line.BringToFront();
+            //        pnlFloorPlan.Controls.Add(line);
+            //        pnlFloorPlan.Controls.Add((NodeControl)nodeControl1);
+            //    }
+            //}
+            FloorplanBoarderManager boarderManager = new FloorplanBoarderManager(shiftManager.SelectedFloorplan.Sections);
+            boarderManager.ModifyBordersForOverlaps();
+            foreach (Section section in boarderManager.Sections)
             {
-                SectionNodeManager nodeManager = new SectionNodeManager(section);
-                List<Edge> hullEdges = nodeManager.GetEdgesForBoundingBox();
+                //section.SetBoarderManager();
+
                 //List<Edge> hullEdges = nodeManager.getEdgesForConvexHull();
-                foreach (Edge edge in hullEdges)
+                foreach (Edge edge in section.SectionBoarders.Edges)
                 {
-                    NodeControl nodeControl1 = new NodeControl(edge.StartNode, NodeControl.NodePosition.Top);
+                    //NodeControl nodeControl1 = new NodeControl(edge.StartNode, NodeControl.NodePosition.Top);
                     SectionLine line = new SectionLine(edge);
+                    line.LineColor = section.Color;
                     line.BringToFront();
                     pnlFloorPlan.Controls.Add(line);
-                    pnlFloorPlan.Controls.Add((NodeControl)nodeControl1);
+                    //pnlFloorPlan.Controls.Add((NodeControl)nodeControl1);
                 }
             }
+            //boarderManager.CalculateOverlappingSectionEdges();
+            //foreach (Edge edge in boarderManager.OverLappingEdges)
+            //{
+            //    //NodeControl nodeControl1 = new NodeControl(edge.StartNode, NodeControl.NodePosition.Top);
+            //    SectionLine line = new SectionLine(edge);
+            //    line.LineColor = Color.Red;
+            //    line.BringToFront();
+            //    pnlFloorPlan.Controls.Add(line);
+            //    //pnlFloorPlan.Controls.Add((NodeControl)nodeControl1);
+            //}
         }
     }
 }

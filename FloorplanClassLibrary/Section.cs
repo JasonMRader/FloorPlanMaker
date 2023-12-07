@@ -56,6 +56,16 @@ namespace FloorplanClassLibrary
             copy.SetTableList(this.Tables.ToList());
             return copy;
         }
+        private SectionBoarders _SectionBoarders;
+        public SectionBoarders SectionBoarders
+        {
+            get { return _SectionBoarders; }
+        }
+        public void SetBoarderManager()
+        {
+            this._SectionBoarders = new SectionBoarders(this);
+            _SectionBoarders.SetEdgesForBoundingBox();
+        }
         private SectionNodeManager _nodeManager;
         public void SetNodeManager()
         {
@@ -63,11 +73,7 @@ namespace FloorplanClassLibrary
             _nodeManager.SetUpTopAndBottomEdges();
             //_nodeManager.GenerateNodesForUnblockedBottoms();
 
-        }
-
-        public List<TemplateTable> TemplateTables { get; set; } = new List<TemplateTable>();
-
-
+        }           
         public SectionNodeManager NodeManager
         {
             get
@@ -88,8 +94,8 @@ namespace FloorplanClassLibrary
         public int ID {  get; set; }
         public bool IsPickUp { get; set; }
         public int DiningAreaID { get; set; }
-       
-        
+        public List<TemplateTable> TemplateTables { get; set; } = new List<TemplateTable>();
+
         public bool IsSelected { get; private set; } = false;
         public void SetToSelected()
         {
