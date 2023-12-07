@@ -19,6 +19,10 @@
         public TableShape Shape { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
+        public List<Point> GetCornerPoints()
+        {
+            return new List<Point> { TopLeft, TopRight, BottomRight, BottomLeft };
+        }
         public enum TableShape
         {
             Circle,

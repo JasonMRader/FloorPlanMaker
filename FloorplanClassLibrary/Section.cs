@@ -548,6 +548,16 @@ namespace FloorplanClassLibrary
            
             return currentSectionTableNumbers.SequenceEqual(comparedSectionTableNumbers);
         }
+        public List<Point> ConvexHullPoints()
+        {
+            List<Point> allPoints = new List<Point>();
+            foreach (var table in this.Tables)
+            {
+                allPoints.AddRange(table.GetCornerPoints());
+            }
+
+            return ConvexHull.GetConvexHull(allPoints);
+        }
 
     }
 }

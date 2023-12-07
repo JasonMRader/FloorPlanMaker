@@ -470,6 +470,7 @@ namespace FloorplanClassLibrary
             return Nodes.Any(n => n.X == node.X && n.Y == node.Y);
         }
         public string testData { get; set; }
+        
         public List<SectionLine> GenerateEdgesAndSectionLinesFromNodes(List<Node> nodeList)
         {
             List<Edge> edges = new List<Edge>();
@@ -625,6 +626,39 @@ namespace FloorplanClassLibrary
             // Optimize the edges
             OptimizeEdges(edges);
             //Edges.AddRange(edges);
+            return edges;
+        }
+        public List<Edge> getEdgesForConvexHull()
+        {
+            
+            foreach(Point point in Section.ConvexHullPoints())
+            {
+                Node node = new Node(point.X, point.Y, Section);
+                this.Nodes.Add(node);
+            }
+            List<Edge> edges = new List<Edge>();
+            for (int i = 0; i < Nodes.Count - 1; i++)
+            {
+                Node parent = Nodes[i];
+                Node child = Nodes[i + 1];
+                Edge edge = new Edge(parent, child);
+                i++;
+                edges.Add(edge);
+            }
+            return edges;
+        }
+        public List<Edge> GetEdgesForBoundingBox()
+        {
+            this.Nodes = ConvexHull.GetBoundingBox(Section);
+            
+            List<Edge> edges = new List<Edge>();
+            for (int i = 0; i < Nodes.Count; i++)
+            {
+                Node parent = Nodes[i];
+                Node child = Nodes[(i + 1) % Nodes.Count];
+                Edge edge = new Edge(parent, child);               
+                edges.Add(edge);
+            }
             return edges;
         }
         // TODO: dont bother adding verticle lines?

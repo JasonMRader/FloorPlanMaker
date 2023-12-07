@@ -918,7 +918,7 @@ namespace FloorPlanMaker
 
         private void button3_Click(object sender, EventArgs e)
         {
-            
+
             FloorplanEdgesManager floorplanEdges = new FloorplanEdgesManager(shiftManager.SelectedFloorplan.Sections);
             floorplanEdges.SetSectionNodeManagers();
             floorplanEdges.SetAllSectionsTopBoarders();
@@ -936,7 +936,25 @@ namespace FloorPlanMaker
             //        pnlFloorPlan.Controls.Add(line);
             //    }
             //}
-            
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            foreach (Section section in shiftManager.SelectedFloorplan.Sections)
+            {
+                SectionNodeManager nodeManager = new SectionNodeManager(section);
+                List<Edge> hullEdges = nodeManager.GetEdgesForBoundingBox();
+                //List<Edge> hullEdges = nodeManager.getEdgesForConvexHull();
+                foreach (Edge edge in hullEdges)
+                {
+                    NodeControl nodeControl1 = new NodeControl(edge.StartNode, NodeControl.NodePosition.Top);
+                    SectionLine line = new SectionLine(edge);
+                    line.BringToFront();
+                    pnlFloorPlan.Controls.Add(line);
+                    pnlFloorPlan.Controls.Add((NodeControl)nodeControl1);
+                }
+            }
         }
     }
 }
