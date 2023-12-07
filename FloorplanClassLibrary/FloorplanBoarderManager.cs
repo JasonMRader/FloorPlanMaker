@@ -88,59 +88,89 @@ namespace FloorplanClassLibrary
                     if (overlapEdge.BoarderType == Edge.Boarder.Left && boarders.RightEdge != null)
                     {
                         // Update the right edge if it overlaps
-                        UpdateEdgeForOverlap(boarders.RightEdge, overlapEdge, horizontalOverlap: false);
+                        UpdateEdgeForOverlap(boarders.RightEdge, overlapEdge, horizontalOverlap: false, boarders.Edges);
                     }
                     if (overlapEdge.BoarderType == Edge.Boarder.Right && boarders.LeftEdge != null)
                     {
                         // Update the right edge if it overlaps
-                        UpdateEdgeForOverlap(boarders.LeftEdge, overlapEdge, horizontalOverlap: false);
+                        UpdateEdgeForOverlap(boarders.LeftEdge, overlapEdge, horizontalOverlap: false, boarders.Edges);
                     }
                     if (overlapEdge.BoarderType == Edge.Boarder.Top && boarders.BottomEdge != null)
                     {
                         // Update the right edge if it overlaps
-                        UpdateEdgeForOverlap(boarders.BottomEdge, overlapEdge, horizontalOverlap: true);
+                        UpdateEdgeForOverlap(boarders.BottomEdge, overlapEdge, horizontalOverlap: true, boarders.Edges);
                     }
                     if (overlapEdge.BoarderType == Edge.Boarder.Bottom && boarders.TopEdge != null)
                     {
                         // Update the right edge if it overlaps
-                        UpdateEdgeForOverlap(boarders.TopEdge, overlapEdge, horizontalOverlap: true);
+                        UpdateEdgeForOverlap(boarders.TopEdge, overlapEdge, horizontalOverlap: true, boarders.Edges);
                     }
                 }
             }
         }
 
-        private void UpdateEdgeForOverlap(Edge sectionEdge, Edge overlapEdge, bool horizontalOverlap)
+        private void UpdateEdgeForOverlap(Edge sectionEdge, Edge overlapEdge, bool horizontalOverlap, List<Edge> edgesToUpdate)
         {
-            // Assuming horizontalOverlap indicates if the overlap is along the horizontal axis
             if (horizontalOverlap)
             {
-                // If the overlap is horizontal, adjust the Y coordinates
-                if (sectionEdge.StartNode.Y < overlapEdge.StartNode.Y)
+                // Horizontal overlap handling
+                if (sectionEdge.StartNode.Y < overlapEdge.StartNode.Y && sectionEdge.EndNode.Y > overlapEdge.EndNode.Y)
                 {
-                    // If the section edge is above the overlap edge
-                    sectionEdge.EndNode.Y = overlapEdge.StartNode.Y;
+                    // Splitting the horizontal edge
+                    Node newEndNode = new Node(sectionEdge.StartNode.X, overlapEdge.StartNode.Y, sectionEdge.StartNode.Section);
+                    Node newStartNode = new Node(sectionEdge.EndNode.X, overlapEdge.EndNode.Y, sectionEdge.EndNode.Section);
+
+                    Edge newEdge1 = new Edge(sectionEdge.StartNode, newEndNode);
+                    Edge newEdge2 = new Edge(newStartNode, sectionEdge.EndNode);
+
+                    edgesToUpdate.Add(newEdge1);
+                    edgesToUpdate.Add(newEdge2);
+                    edgesToUpdate.Remove(sectionEdge);
                 }
                 else
                 {
-                    // If the section edge is below the overlap edge
-                    sectionEdge.StartNode.Y = overlapEdge.EndNode.Y;
+                    // Adjusting the horizontal edge
+                    if (sectionEdge.StartNode.Y < overlapEdge.StartNode.Y)
+                    {
+                        sectionEdge.EndNode.Y = overlapEdge.StartNode.Y;
+                    }
+                    else
+                    {
+                        sectionEdge.StartNode.Y = overlapEdge.EndNode.Y;
+                    }
                 }
             }
             else
             {
-                // If the overlap is vertical, adjust the X coordinates
-                if (sectionEdge.StartNode.X < overlapEdge.StartNode.X)
+                // Vertical overlap handling
+                if (sectionEdge.StartNode.X < overlapEdge.StartNode.X && sectionEdge.EndNode.X > overlapEdge.EndNode.X)
                 {
-                    // If the section edge is to the left of the overlap edge
-                    sectionEdge.EndNode.X = overlapEdge.StartNode.X;
+                    // Splitting the vertical edge
+                    Node newEndNode = new Node(overlapEdge.StartNode.X, sectionEdge.StartNode.Y, sectionEdge.StartNode.Section);
+                    Node newStartNode = new Node(overlapEdge.EndNode.X, sectionEdge.EndNode.Y, sectionEdge.EndNode.Section);
+
+                    Edge newEdge1 = new Edge(sectionEdge.StartNode, newEndNode);
+                    Edge newEdge2 = new Edge(newStartNode, sectionEdge.EndNode);
+
+                    edgesToUpdate.Add(newEdge1);
+                    edgesToUpdate.Add(newEdge2);
+                    edgesToUpdate.Remove(sectionEdge);
                 }
                 else
                 {
-                    // If the section edge is to the right of the overlap edge
-                    sectionEdge.StartNode.X = overlapEdge.EndNode.X;
+                    // Adjusting the vertical edge
+                    if (sectionEdge.StartNode.X < overlapEdge.StartNode.X)
+                    {
+                        sectionEdge.EndNode.X = overlapEdge.StartNode.X;
+                    }
+                    else
+                    {
+                        sectionEdge.StartNode.X = overlapEdge.EndNode.X;
+                    }
                 }
             }
         }
+
 
 
     }
