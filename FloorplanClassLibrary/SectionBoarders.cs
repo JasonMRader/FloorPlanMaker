@@ -13,8 +13,7 @@ namespace FloorplanClassLibrary
         {
             Section = section;
         }
-        public List<SectionBoarders> IntrudingBoarders { get; set; } = new List<SectionBoarders>();
-        public Dictionary<SectionBoarders, List<Node>> IntrudersLocations { get; set; } = new Dictionary<SectionBoarders, List<Node>>();
+        public List<IntruderBox> IntruderBoxes { get; set; } = new List<IntruderBox>();        
         public List<Edge> Edges { get; set; } = new List<Edge>();
         public List<Edge> TopEdges { get; set; } = new List<Edge>();
         public List<Edge> BottomEdges { get; set; } = new List<Edge>();

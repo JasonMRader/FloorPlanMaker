@@ -36,12 +36,62 @@ namespace FloorplanClassLibrary
                     {
                         // Create edges for this overlapping rectangle
                         List<Edge> overlappingEdges = CreateEdgesForRectangle(overlappingRectangle.Value);
+                        IntruderBox intruderBox = new IntruderBox(sectionBoardersList[i], sectionBoardersList[j], overlappingRectangle.Value);
+                        sectionBoardersList[i].IntruderBoxes.Add(intruderBox);
                         // Add these edges to the list or process as needed
                         OverLappingEdges.AddRange(overlappingEdges);
                     }
                 }
             }
         }
+        //public void CalculateOverlappingSectionEdges()
+        //{
+        //    for (int i = 0; i < Sections.Count; i++)
+        //    {
+        //        for (int j = i + 1; j < Sections.Count; j++)
+        //        {
+        //            SectionBoarders boarders1 = Sections[i].SectionBoarders;
+        //            SectionBoarders boarders2 = Sections[j].SectionBoarders;
+        //            var overlappingRectangle = GetOverlappingRectangle(boarders1, boarders2);
+
+        //            if (overlappingRectangle != null)
+        //            {
+        //                // Create nodes for the overlapping rectangle
+        //                Node topLeft = new Node(overlappingRectangle.Value.Left, overlappingRectangle.Value.Top, null);
+        //                Node topRight = new Node(overlappingRectangle.Value.Right, overlappingRectangle.Value.Top, null);
+        //                Node bottomRight = new Node(overlappingRectangle.Value.Right, overlappingRectangle.Value.Bottom, null);
+        //                Node bottomLeft = new Node(overlappingRectangle.Value.Left, overlappingRectangle.Value.Bottom, null);
+
+        //                // Determine which SectionBoarders each edge belongs to
+        //                SectionBoarders leftSectionBoarders = overlappingRectangle.Value.Left == boarders1.LeftEdge.StartNode.X ? boarders1 : boarders2;
+        //                SectionBoarders rightSectionBoarders = overlappingRectangle.Value.Right == boarders1.RightEdge.StartNode.X ? boarders1 : boarders2;
+        //                SectionBoarders topSectionBoarders = overlappingRectangle.Value.Top == boarders1.TopEdge.StartNode.Y ? boarders1 : boarders2;
+        //                SectionBoarders bottomSectionBoarders = overlappingRectangle.Value.Bottom == boarders1.BottomEdge.StartNode.Y ? boarders1 : boarders2;
+
+        //                // Assuming you want to process each side individually
+        //                // You might need to adjust this based on how you want to handle the intruding sections
+        //                ProcessIntruderBox(leftSectionBoarders, (leftSectionBoarders == boarders1 ? boarders2 : boarders1), new List<Node> { topLeft, bottomLeft });
+        //                ProcessIntruderBox(rightSectionBoarders, (rightSectionBoarders == boarders1 ? boarders2 : boarders1), new List<Node> { topRight, bottomRight });
+        //                ProcessIntruderBox(topSectionBoarders, (topSectionBoarders == boarders1 ? boarders2 : boarders1), new List<Node> { topLeft, topRight });
+        //                ProcessIntruderBox(bottomSectionBoarders, (bottomSectionBoarders == boarders1 ? boarders2 : boarders1), new List<Node> { bottomLeft, bottomRight });
+        //            }
+
+        //        }
+        //    }
+        //}
+        //private void ProcessIntruderBox(SectionBoarders sectionBoarders, SectionBoarders intruderSectionBoarders, List<Node> nodes)
+        //{
+        //    IntruderBox intruderBox = new IntruderBox
+        //    {
+        //        SectionBoarders = sectionBoarders,
+        //        IntruderSectionBoarders = intruderSectionBoarders,
+        //        Nodes = nodes
+        //    };
+
+        //    // Store this information in the relevant SectionBoarders
+        //    intruderBox.SectionBoarders.IntrudersLocations.Add(intruderBox.IntruderSectionBoarders, intruderBox.Nodes);
+        //    intruderBox.IntruderSectionBoarders.IntrudingBoarders.Add(intruderBox.SectionBoarders);
+        //}
 
         private List<Edge> CreateEdgesForRectangle(Rectangle rect)
         {
@@ -69,107 +119,114 @@ namespace FloorplanClassLibrary
 
             if (left < right && top < bottom)
             {
-                return new Rectangle(left, top, right - left, bottom - top);
+                Rectangle intrudingRectangle = new Rectangle(left, top, right - left, bottom - top);
+
+                if (left == boarders1.LeftEdge.StartNode.X)
+                {
+
+                }
+
+                return intrudingRectangle;
             }
 
             return null;
         }
-        public void ModifyBordersForOverlaps()
-        {
-            CalculateOverlappingSectionEdges();
+        //public void ModifyBordersForOverlaps()
+        //{
+        //    CalculateOverlappingSectionEdges();
 
-            foreach (Edge overlapEdge in OverLappingEdges)
-            {
-                foreach (Section section in Sections)
-                {
-                    SectionBoarders boarders = section.SectionBoarders;
+        //    foreach (Edge overlapEdge in OverLappingEdges)
+        //    {
+        //        foreach (Section section in Sections)
+        //        {
+        //            SectionBoarders boarders = section.SectionBoarders;
 
-                    // Check and modify the right edge of the section
-                    if (overlapEdge.BoarderType == Edge.Boarder.Left && boarders.RightEdge != null)
-                    {
-                        // Update the right edge if it overlaps
-                        UpdateEdgeForOverlap(boarders.RightEdge, overlapEdge, horizontalOverlap: false, boarders.Edges);
-                    }
-                    if (overlapEdge.BoarderType == Edge.Boarder.Right && boarders.LeftEdge != null)
-                    {
-                        // Update the right edge if it overlaps
-                        UpdateEdgeForOverlap(boarders.LeftEdge, overlapEdge, horizontalOverlap: false, boarders.Edges);
-                    }
-                    if (overlapEdge.BoarderType == Edge.Boarder.Top && boarders.BottomEdge != null)
-                    {
-                        // Update the right edge if it overlaps
-                        UpdateEdgeForOverlap(boarders.BottomEdge, overlapEdge, horizontalOverlap: true, boarders.Edges);
-                    }
-                    if (overlapEdge.BoarderType == Edge.Boarder.Bottom && boarders.TopEdge != null)
-                    {
-                        // Update the right edge if it overlaps
-                        UpdateEdgeForOverlap(boarders.TopEdge, overlapEdge, horizontalOverlap: true, boarders.Edges);
-                    }
-                }
-            }
-        }
+        //            // Check and modify the right edge of the section
+        //            if (overlapEdge.BoarderType == Edge.Boarder.Left && boarders.RightEdge != null)
+        //            {
+        //                // Update the right edge if it overlaps
+        //                UpdateEdgeForOverlap(boarders.RightEdge, overlapEdge, horizontalOverlap: false, boarders.Edges);
+        //            }
+        //            if (overlapEdge.BoarderType == Edge.Boarder.Right && boarders.LeftEdge != null)
+        //            {
+        //                // Update the right edge if it overlaps
+        //                UpdateEdgeForOverlap(boarders.LeftEdge, overlapEdge, horizontalOverlap: false, boarders.Edges);
+        //            }
+        //            if (overlapEdge.BoarderType == Edge.Boarder.Top && boarders.BottomEdge != null)
+        //            {
+        //                // Update the right edge if it overlaps
+        //                UpdateEdgeForOverlap(boarders.BottomEdge, overlapEdge, horizontalOverlap: true, boarders.Edges);
+        //            }
+        //            if (overlapEdge.BoarderType == Edge.Boarder.Bottom && boarders.TopEdge != null)
+        //            {
+        //                // Update the right edge if it overlaps
+        //                UpdateEdgeForOverlap(boarders.TopEdge, overlapEdge, horizontalOverlap: true, boarders.Edges);
+        //            }
+        //        }
+        //    }
+        //}
 
-        private void UpdateEdgeForOverlap(Edge sectionEdge, Edge overlapEdge, bool horizontalOverlap, List<Edge> edgesToUpdate)
-        {
-            if (horizontalOverlap)
-            {
-                // Horizontal overlap handling
-                if (sectionEdge.StartNode.Y < overlapEdge.StartNode.Y && sectionEdge.EndNode.Y > overlapEdge.EndNode.Y)
-                {
-                    // Splitting the horizontal edge
-                    Node newEndNode = new Node(sectionEdge.StartNode.X, overlapEdge.StartNode.Y, sectionEdge.StartNode.Section);
-                    Node newStartNode = new Node(sectionEdge.EndNode.X, overlapEdge.EndNode.Y, sectionEdge.EndNode.Section);
+        //private void UpdateEdgeForOverlap(Edge sectionEdge, Edge overlapEdge, bool horizontalOverlap, List<Edge> edgesToUpdate)
+        //{
+        //    if (horizontalOverlap)
+        //    {
+        //        // Horizontal overlap handling
+        //        if (sectionEdge.StartNode.Y < overlapEdge.StartNode.Y && sectionEdge.EndNode.Y > overlapEdge.EndNode.Y)
+        //        {
+        //            // Splitting the horizontal edge
+        //            Node newEndNode = new Node(sectionEdge.StartNode.X, overlapEdge.StartNode.Y, sectionEdge.StartNode.Section);
+        //            Node newStartNode = new Node(sectionEdge.EndNode.X, overlapEdge.EndNode.Y, sectionEdge.EndNode.Section);
 
-                    Edge newEdge1 = new Edge(sectionEdge.StartNode, newEndNode);
-                    Edge newEdge2 = new Edge(newStartNode, sectionEdge.EndNode);
+        //            Edge newEdge1 = new Edge(sectionEdge.StartNode, newEndNode);
+        //            Edge newEdge2 = new Edge(newStartNode, sectionEdge.EndNode);
 
-                    edgesToUpdate.Add(newEdge1);
-                    edgesToUpdate.Add(newEdge2);
-                    edgesToUpdate.Remove(sectionEdge);
-                }
-                else
-                {
-                    // Adjusting the horizontal edge
-                    if (sectionEdge.StartNode.Y < overlapEdge.StartNode.Y)
-                    {
-                        sectionEdge.EndNode.Y = overlapEdge.StartNode.Y;
-                    }
-                    else
-                    {
-                        sectionEdge.StartNode.Y = overlapEdge.EndNode.Y;
-                    }
-                }
-            }
-            else
-            {
-                // Vertical overlap handling
-                if (sectionEdge.StartNode.X < overlapEdge.StartNode.X && sectionEdge.EndNode.X > overlapEdge.EndNode.X)
-                {
-                    // Splitting the vertical edge
-                    Node newEndNode = new Node(overlapEdge.StartNode.X, sectionEdge.StartNode.Y, sectionEdge.StartNode.Section);
-                    Node newStartNode = new Node(overlapEdge.EndNode.X, sectionEdge.EndNode.Y, sectionEdge.EndNode.Section);
+        //            edgesToUpdate.Add(newEdge1);
+        //            edgesToUpdate.Add(newEdge2);
+        //            edgesToUpdate.Remove(sectionEdge);
+        //        }
+        //        else
+        //        {
+        //            // Adjusting the horizontal edge
+        //            if (sectionEdge.StartNode.Y < overlapEdge.StartNode.Y)
+        //            {
+        //                sectionEdge.EndNode.Y = overlapEdge.StartNode.Y;
+        //            }
+        //            else
+        //            {
+        //                sectionEdge.StartNode.Y = overlapEdge.EndNode.Y;
+        //            }
+        //        }
+        //    }
+        //    else
+        //    {
+        //        // Vertical overlap handling
+        //        if (sectionEdge.StartNode.X < overlapEdge.StartNode.X && sectionEdge.EndNode.X > overlapEdge.EndNode.X)
+        //        {
+        //            // Splitting the vertical edge
+        //            Node newEndNode = new Node(overlapEdge.StartNode.X, sectionEdge.StartNode.Y, sectionEdge.StartNode.Section);
+        //            Node newStartNode = new Node(overlapEdge.EndNode.X, sectionEdge.EndNode.Y, sectionEdge.EndNode.Section);
 
-                    Edge newEdge1 = new Edge(sectionEdge.StartNode, newEndNode);
-                    Edge newEdge2 = new Edge(newStartNode, sectionEdge.EndNode);
+        //            Edge newEdge1 = new Edge(sectionEdge.StartNode, newEndNode);
+        //            Edge newEdge2 = new Edge(newStartNode, sectionEdge.EndNode);
 
-                    edgesToUpdate.Add(newEdge1);
-                    edgesToUpdate.Add(newEdge2);
-                    edgesToUpdate.Remove(sectionEdge);
-                }
-                else
-                {
-                    // Adjusting the vertical edge
-                    if (sectionEdge.StartNode.X < overlapEdge.StartNode.X)
-                    {
-                        sectionEdge.EndNode.X = overlapEdge.StartNode.X;
-                    }
-                    else
-                    {
-                        sectionEdge.StartNode.X = overlapEdge.EndNode.X;
-                    }
-                }
-            }
-        }
+        //            edgesToUpdate.Add(newEdge1);
+        //            edgesToUpdate.Add(newEdge2);
+        //            edgesToUpdate.Remove(sectionEdge);
+        //        }
+        //        else
+        //        {
+        //            // Adjusting the vertical edge
+        //            if (sectionEdge.StartNode.X < overlapEdge.StartNode.X)
+        //            {
+        //                sectionEdge.EndNode.X = overlapEdge.StartNode.X;
+        //            }
+        //            else
+        //            {
+        //                sectionEdge.StartNode.X = overlapEdge.EndNode.X;
+        //            }
+        //        }
+        //    }
+        //}
 
 
 
