@@ -44,6 +44,15 @@ namespace FloorplanClassLibrary
             SetOrientation();
             
         }
+        public Edge(Node startNode, Node endNode, Boarder boarder)
+        {
+            StartNode = startNode;
+            EndNode = endNode;
+            this.Section = startNode.Section;
+            SetOrientation();
+            this.BoarderType = boarder;
+
+        }
 
         public void MoveVerticalEdge(int newX)
         {

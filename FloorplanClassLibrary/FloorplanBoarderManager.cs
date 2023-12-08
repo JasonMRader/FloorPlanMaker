@@ -11,7 +11,7 @@ namespace FloorplanClassLibrary
         public List<Section> Sections { get; set; }
         public List<Edge> Edges { get; set; } = new List<Edge>();
         public List<Edge> OverLappingEdges { get; set; } = new List<Edge> { };
-
+        public FloorplanBoarderManager() { }
         public FloorplanBoarderManager(List<Section> sections)
         {
             this.Sections = sections;
