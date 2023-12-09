@@ -55,12 +55,13 @@ namespace FloorplanClassLibrary
                 modifiedEdge.VerticleEdgeEndY() != portionToRemove.VerticleEdgeEndY())
             {
                 Node newStart = new Node(portionToRemove.VerticleEdgeX(), portionToRemove.VerticleEdgeEndY(), Section);
-                //Node sameEnd = 
+                
                 modifiedEdge = new Edge(newStart, modifiedEdge.EndNode, Edge.Boarder.Right );
                 this.Edges.Add(modifiedEdge);
                 edgesAdded.Add(modifiedEdge);
                 Edge newTopEdge = Edge.CopyIntruderEdge(intruderBox.BottomEdge);
                 this.Edges.Add(newTopEdge);
+                AdjustEdgeForNewAddedEdge(newTopEdge);
                    
             }
             //overlaps with bottom
@@ -109,6 +110,12 @@ namespace FloorplanClassLibrary
             
 
         }
+
+        private void AdjustEdgeForNewAddedEdge(Edge newTopEdge)
+        {
+            //Add logic to remove to at same places that it was added
+        }
+
         public void SetEdgesForBoundingBox() {
             this.Nodes = ConvexHull.GetBoundingBox(Section);
             List<Edge> edges = new List<Edge>();
