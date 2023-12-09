@@ -12,6 +12,7 @@ namespace FloorplanClassLibrary
         public List<Edge> Edges { get; set; } = new List<Edge>();
         public List<Edge> OverLappingEdges { get; set; } = new List<Edge> { };
         public FloorplanBoarderManager() { }
+        public List<IntruderBox> IntruderBoxes { get; set; } = new List<IntruderBox> { };
         public FloorplanBoarderManager(List<Section> sections)
         {
             this.Sections = sections;
@@ -120,11 +121,13 @@ namespace FloorplanClassLibrary
             if (left < right && top < bottom)
             {
                 Rectangle intrudingRectangle = new Rectangle(left, top, right - left, bottom - top);
+                IntruderBox intruderBox = new IntruderBox(boarders1,boarders2, intrudingRectangle);
+                IntruderBoxes.Add(intruderBox);
 
-                if (left == boarders1.LeftEdge.StartNode.X)
-                {
+                //if (left == boarders1.LeftEdge.StartNode.X)
+                //{
 
-                }
+                //}
 
                 return intrudingRectangle;
             }
