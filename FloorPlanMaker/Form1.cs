@@ -722,79 +722,18 @@ namespace FloorPlanMaker
         //
         private void btnTest_Click(object sender, EventArgs e)
         {
-            //nudServerCount.Value = 4;
-
-            //UpdateFloorplan();
-            //SectionLine sectionLine = new SectionLine(0,0,300,300, 5f);
-            //sectionLine.StartPoint = new System.Drawing.Point(0, 0);
-            //sectionLine.EndPoint = new System.Drawing.Point(300, 300);
-            //sectionLine.LineThickness = 5f;
-            //pnlFloorPlan.Controls.Add(sectionLine);
-            //SqliteDataAccess.UpdateAllFloorplanDates();
-
-            //foreach(Section section in shiftManager.ViewedFloorplan.Sections)
-            //{
-            //    var edges = section.GetConvexHullEdges();
-
-            //    foreach (var edge in edges)
-            //    {
-            //        var sectionLine = new SectionLine
-            //        {
-            //            StartPoint = new System.Drawing.Point((int)edge.Item1.X, (int)edge.Item1.Y),
-            //            EndPoint = new System.Drawing.Point((int)edge.Item2.X, (int)edge.Item2.Y)
-            //        };
-            //        pnlFloorPlan.Controls.Add(sectionLine);
-            //    }
-            //}
-            //allTableControls.Sort((a, b) => a.Top.CompareTo(b.Top));
-
-            //// 3. Determine midpoints and 4. Draw borders.
-            //for (int i = 0; i < allTableControls.Count - 1; i++)
-            //{
-            //    TableControl currentTable = allTableControls[i];
-            //    TableControl nextTable = allTableControls[i + 1];
-
-            //    if(currentTable.Section != nextTable.Section)
-            //    {
-            //        int midpoint = currentTable.Bottom + (nextTable.Top - currentTable.Bottom) / 2;
-
-
-            //        pnlFloorPlan.CreateGraphics().DrawLine(Pens.Black, currentTable.Table.XCoordinate, midpoint, currentTable.Table.XCoordinate - currentTable.Width, midpoint);
-            //    }
-
-            //}
-            allTableControls.Clear();
-            foreach (Control c in pnlFloorPlan.Controls)
+            boarderManager = new FloorplanBoarderManager(shiftManager.SelectedFloorplan.Sections);
+            boarderManager.CalculateOverlappingSectionEdges();
+            foreach (Section section in boarderManager.Sections)
             {
-                if (c is TableControl tableControl)
-                {
-                    allTableControls.Add(tableControl);
-                }
+                section.SectionBoarders.RemoveAllRightOverLapps();
             }
-
-            this.sectionLineManager = new SectionLineManager(allTableControls);
-            sectionLineManager.AddTopLines(pnlFloorPlan);
-            sectionLineManager.AddRightLines(pnlFloorPlan);
-            sectionLineManager.AddRightBorders(pnlFloorPlan);
-            sectionLineManager.AddBottomLines(pnlFloorPlan);
-            sectionLineManager.DrawSectionLines(pnlFloorPlan);
-
-            sectionLineManager.MakeTopLines(pnlFloorPlan);
-            sectionLineManager.MakeSectionTableOutlines();
-            foreach (SectionLine sectionLine in sectionLineManager.SectionLines)
-            {
-                pnlFloorPlan.Controls.Add(sectionLine);
-            }
-            sectionLineManager.RemoveBottomLines(pnlFloorPlan);
-            sectionLineManager.RemoveRightLines(pnlFloorPlan);
-            sectionLineManager.DrawSeparationLines(pnlFloorPlan);
-
-
-            sectionLineManager.AddSectionNodes(pnlFloorPlan);
-            //flowServersInFloorplan.Controls.Clear();
-            //FloorplanInfoControl fpInfo = new FloorplanInfoControl(shiftManager.SelectedFloorplan, flowServersInFloorplan.Width);
-            //fpInfo.UpdatePastLabels(8, 4);
-            //flowServersInFloorplan.Controls.Add(fpInfo);
+            var selectedSections = boarderManager.Sections
+                .Where(section => section == shiftManager.SectionSelected);
+            SectionLineDrawer edgeDrawer = new SectionLineDrawer(3f);
+            Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size,
+               selectedSections.SelectMany(s => s.SectionBoarders.Edges));
+            pnlFloorPlan.BackgroundImage = edgesBitmap;
 
         }
         private void btnTest2_Click(object sender, EventArgs e)

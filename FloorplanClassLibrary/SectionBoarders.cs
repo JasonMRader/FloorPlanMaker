@@ -42,18 +42,36 @@ namespace FloorplanClassLibrary
             {
                 this.Edges.Remove(portionToRemove);
                 this.Edges.Remove(modifiedEdge);
-                if(modifiedEdge.VerticleEdgeStartY() == portionToRemove.VerticleEdgeStartY())
+                if(modifiedEdge.VerticleEdgeStartY() == portionToRemove.VerticleEdgeStartY() && 
+                    modifiedEdge.VerticleEdgeEndY() != portionToRemove.VerticleEdgeEndY())
                 {
                     Node newStart = new Node(portionToRemove.VerticleEdgeX(), portionToRemove.VerticleEdgeEndY(), Section);
                     //Node sameEnd = 
                     modifiedEdge = new Edge(newStart, modifiedEdge.EndNode, Edge.Boarder.Right );
                     this.Edges.Add(modifiedEdge);
                 }
-                else if (modifiedEdge.VerticleEdgeEndY() == portionToRemove.VerticleEdgeEndY())
+                else if (modifiedEdge.VerticleEdgeEndY() == portionToRemove.VerticleEdgeEndY() &&
+                    modifiedEdge.VerticleEdgeStartY() != portionToRemove.VerticleEdgeStartY())
                 {
                     Node newEnd = new Node(portionToRemove.VerticleEdgeX(), portionToRemove.VerticleEdgeStartY(), Section);
                     modifiedEdge = new Edge(modifiedEdge.StartNode, newEnd, Edge.Boarder.Right);
                     this.Edges.Add(modifiedEdge);
+                }
+                else if (modifiedEdge.VerticleEdgeEndY() == portionToRemove.VerticleEdgeEndY() &&
+                    modifiedEdge.VerticleEdgeStartY() == portionToRemove.VerticleEdgeStartY())
+                {
+                    
+                }
+                else
+                {
+                    Node newStart1 = new Node(modifiedEdge.VerticleEdgeX(), modifiedEdge.VerticleEdgeStartY(), Section);
+                    Node newEnd1 = new Node(portionToRemove.VerticleEdgeX(), portionToRemove.VerticleEdgeStartY(), Section);
+                    Node newStart2 = new Node(portionToRemove.VerticleEdgeX(), portionToRemove.VerticleEdgeEndY(), Section);
+                    Node newEnd2 = new Node(modifiedEdge.VerticleEdgeX(), modifiedEdge.VerticleEdgeEndY(), Section);
+                    Edge modifiedEdge1 = new Edge(newStart1, newStart2, Edge.Boarder.Right);
+                    Edge modifiedEdge2 = new Edge(newStart2, newEnd2, Edge.Boarder.Right);
+                    this.Edges.Add(modifiedEdge1);
+                    this.Edges.Add(modifiedEdge2);
                 }
             }
         }
