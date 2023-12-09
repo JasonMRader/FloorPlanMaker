@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -100,6 +101,31 @@ namespace FloorplanClassLibrary
             this.Section = startNode.Section;
             SetOrientation();
             this.BoarderType = boarder;
+
+        }
+        public static Edge CopyIntruderEdge(Edge intruderEdge)
+        {
+            Edge edge = new Edge(intruderEdge.StartNode, intruderEdge.EndNode);
+            if(intruderEdge.BoarderType == Boarder.Top)
+            {
+                edge.BoarderType = Boarder.Bottom;
+            }
+            if (intruderEdge.BoarderType == Boarder.Bottom)
+            {
+                edge.BoarderType = Boarder.Top;
+            }
+            if (intruderEdge.BoarderType == Boarder.Right)
+            {
+                edge.BoarderType = Boarder.Left;
+            }
+            if (intruderEdge.BoarderType == Boarder.Left)
+            {
+                edge.BoarderType = Boarder.Left;
+            }
+            edge.Section = intruderEdge.Section;
+            edge.SetOrientation();
+            
+            return edge;
 
         }
 
