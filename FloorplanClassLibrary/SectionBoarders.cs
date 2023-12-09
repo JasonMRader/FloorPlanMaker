@@ -33,50 +33,68 @@ namespace FloorplanClassLibrary
         }
         public void ModifyVerticleEdge(Edge portionToRemove, Edge modifiedEdge, IntruderBox intruderBox)
         {
-            if(portionToRemove.isHorizontal || modifiedEdge.isHorizontal) { return; }
+            bool wasRightEdge = false;
+            if (modifiedEdge == RightEdge)
+            {
+                wasRightEdge = true;
+            }
+            List<Edge> edgesAdded = new List<Edge>();
+            if (portionToRemove.isHorizontal || modifiedEdge.isHorizontal) { return; }
             if(portionToRemove.VerticleEdgeX() != modifiedEdge.VerticleEdgeX()) { return; }
             if(!(portionToRemove.VerticleEdgeStartY() > modifiedEdge.VerticleEdgeStartY() && portionToRemove.VerticleEdgeStartY() < modifiedEdge.VerticleEdgeEndY()) &&
                 !(portionToRemove.VerticleEdgeEndY() > modifiedEdge.VerticleEdgeStartY() && portionToRemove.VerticleEdgeEndY() < modifiedEdge.VerticleEdgeEndY()))
             { return; }
-            if(modifiedEdge == RightEdge)
+           
+            this.Edges.Remove(portionToRemove);
+            this.Edges.Remove(modifiedEdge);
+            Edge edge = new Edge(intruderBox.LeftEdge.StartNode, intruderBox.LeftEdge.EndNode, Edge.Boarder.Right);
+            this.Edges.Add(edge);
+            edgesAdded.Add(edge);
+            if (modifiedEdge.VerticleEdgeStartY() == portionToRemove.VerticleEdgeStartY() && 
+                modifiedEdge.VerticleEdgeEndY() != portionToRemove.VerticleEdgeEndY())
             {
-                this.Edges.Remove(portionToRemove);
-                this.Edges.Remove(modifiedEdge);
-                Edge edge = new Edge(intruderBox.LeftEdge.StartNode, intruderBox.LeftEdge.EndNode, Edge.Boarder.Right);
-                this.Edges.Add(edge);
-                if (modifiedEdge.VerticleEdgeStartY() == portionToRemove.VerticleEdgeStartY() && 
-                    modifiedEdge.VerticleEdgeEndY() != portionToRemove.VerticleEdgeEndY())
-                {
-                    Node newStart = new Node(portionToRemove.VerticleEdgeX(), portionToRemove.VerticleEdgeEndY(), Section);
-                    //Node sameEnd = 
-                    modifiedEdge = new Edge(newStart, modifiedEdge.EndNode, Edge.Boarder.Right );
-                    this.Edges.Add(modifiedEdge);
+                Node newStart = new Node(portionToRemove.VerticleEdgeX(), portionToRemove.VerticleEdgeEndY(), Section);
+                //Node sameEnd = 
+                modifiedEdge = new Edge(newStart, modifiedEdge.EndNode, Edge.Boarder.Right );
+                this.Edges.Add(modifiedEdge);
+                edgesAdded.Add(modifiedEdge);
                    
-                }
-                else if (modifiedEdge.VerticleEdgeEndY() == portionToRemove.VerticleEdgeEndY() &&
-                    modifiedEdge.VerticleEdgeStartY() != portionToRemove.VerticleEdgeStartY())
-                {
-                    Node newEnd = new Node(portionToRemove.VerticleEdgeX(), portionToRemove.VerticleEdgeStartY(), Section);
-                    modifiedEdge = new Edge(modifiedEdge.StartNode, newEnd, Edge.Boarder.Right);
-                    this.Edges.Add(modifiedEdge);
-                }
-                else if (modifiedEdge.VerticleEdgeEndY() == portionToRemove.VerticleEdgeEndY() &&
-                    modifiedEdge.VerticleEdgeStartY() == portionToRemove.VerticleEdgeStartY())
-                {
+            }
+            else if (modifiedEdge.VerticleEdgeEndY() == portionToRemove.VerticleEdgeEndY() &&
+                modifiedEdge.VerticleEdgeStartY() != portionToRemove.VerticleEdgeStartY())
+            {
+                Node newEnd = new Node(portionToRemove.VerticleEdgeX(), portionToRemove.VerticleEdgeStartY(), Section);
+                modifiedEdge = new Edge(modifiedEdge.StartNode, newEnd, Edge.Boarder.Right);
+                this.Edges.Add(modifiedEdge);
+                edgesAdded.Add(modifiedEdge);
+            }
+            else if (modifiedEdge.VerticleEdgeEndY() == portionToRemove.VerticleEdgeEndY() &&
+                modifiedEdge.VerticleEdgeStartY() == portionToRemove.VerticleEdgeStartY())
+            {
                     
-                }
-                else
+            }
+            else
+            {
+                Node newStart1 = new Node(modifiedEdge.VerticleEdgeX(), modifiedEdge.VerticleEdgeStartY(), Section);
+                Node newEnd1 = new Node(portionToRemove.VerticleEdgeX(), portionToRemove.VerticleEdgeStartY(), Section);
+                Node newStart2 = new Node(portionToRemove.VerticleEdgeX(), portionToRemove.VerticleEdgeEndY(), Section);
+                Node newEnd2 = new Node(modifiedEdge.VerticleEdgeX(), modifiedEdge.VerticleEdgeEndY(), Section);
+                Edge modifiedEdge1 = new Edge(newStart1, newEnd2, Edge.Boarder.Right);
+                Edge modifiedEdge2 = new Edge(newStart2, newEnd2, Edge.Boarder.Right);
+                this.Edges.Add(modifiedEdge1);
+                this.Edges.Add(modifiedEdge2);
+                edgesAdded.Add(modifiedEdge1);
+                edgesAdded.Add(modifiedEdge2);
+            }
+            if (!wasRightEdge)
+            {
+                foreach(Edge edgeToChange in edgesAdded)
                 {
-                    Node newStart1 = new Node(modifiedEdge.VerticleEdgeX(), modifiedEdge.VerticleEdgeStartY(), Section);
-                    Node newEnd1 = new Node(portionToRemove.VerticleEdgeX(), portionToRemove.VerticleEdgeStartY(), Section);
-                    Node newStart2 = new Node(portionToRemove.VerticleEdgeX(), portionToRemove.VerticleEdgeEndY(), Section);
-                    Node newEnd2 = new Node(modifiedEdge.VerticleEdgeX(), modifiedEdge.VerticleEdgeEndY(), Section);
-                    Edge modifiedEdge1 = new Edge(newStart1, newEnd2, Edge.Boarder.Right);
-                    Edge modifiedEdge2 = new Edge(newStart2, newEnd2, Edge.Boarder.Right);
-                    this.Edges.Add(modifiedEdge1);
-                    this.Edges.Add(modifiedEdge2);
+                    edgeToChange.BoarderType = Edge.Boarder.Left;
                 }
             }
+            
+
         }
         public void SetEdgesForBoundingBox() {
             this.Nodes = ConvexHull.GetBoundingBox(Section);
