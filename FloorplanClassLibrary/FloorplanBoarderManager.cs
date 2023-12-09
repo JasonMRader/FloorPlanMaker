@@ -22,6 +22,7 @@ namespace FloorplanClassLibrary
             }
         }
 
+
         public void CalculateOverlappingSectionEdges()
         {
             // Compute bounding boxes for each section

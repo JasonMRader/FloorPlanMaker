@@ -13,6 +13,7 @@ namespace FloorPlanMakerUI
 {
    public class FloorplanFormManager : ISectionObserver
     {
+        //TODO: CLicking on Unassigned Label sometiems causes long delay and flickering (When doing it multiple times? espesially when there are lots of servers / sections?
         public Floorplan? Floorplan
         {
             get

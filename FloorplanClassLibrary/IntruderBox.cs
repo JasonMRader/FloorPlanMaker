@@ -41,39 +41,65 @@ namespace FloorplanClassLibrary
 
             this.Edges = edges; 
         }
-        //public void RemoveIntruderBoxFromBoundingBox()
-        //{
-        //    // 1. Identify overlapping edges
-        //    var overlappingEdges = new List<Edge>();
-        //    foreach (var edge in SectionBoarders.Edges)
-        //    {
-        //        if (EdgeOverlapsWithIntruderBox(edge))
-        //        {
-        //            overlappingEdges.Add(edge);
-        //        }
-        //    }
+        public void RemoveIntruderBoxFromBoundingBox()
+        {
+            // 1. Identify overlapping edges
+            var overlappingEdges = new List<Edge>();
+            foreach (var edge in SectionBoarders.Edges)
+            {
+                //if (EdgeOverlapsWithIntruderBox(edge))
+                //{
+                //    overlappingEdges.Add(edge);
+                //}
+            }
 
-        //    // 2. Remove overlapping edges
-        //    foreach (var edge in overlappingEdges)
-        //    {
-        //        SectionBoarders.Edges.Remove(edge);
-        //        // Also remove from specific collections like TopEdges, BottomEdges, etc., as needed
-        //    }
+            // 2. Remove overlapping edges
+            foreach (var edge in overlappingEdges)
+            {
+                SectionBoarders.Edges.Remove(edge);
+                // Also remove from specific collections like TopEdges, BottomEdges, etc., as needed
+            }
 
-        //    // 3. Add new edges if necessary
-        //    // This could involve complex geometric calculations to find intersection points
-        //    // and create new edges that represent the modified boundary of the SectionBoarders.
+            // 3. Add new edges if necessary
+            // This could involve complex geometric calculations to find intersection points
+            // and create new edges that represent the modified boundary of the SectionBoarders.
 
-        //    // 4. Adjust nodes
-        //    // Update the nodes in SectionBoarders to reflect the new shape.
-        //}
+            // 4. Adjust nodes
+            // Update the nodes in SectionBoarders to reflect the new shape.
+        }
+        private void RemoveRightEdgeOverLap()
+        {
+            if(EdgesOverlap(this.RightEdge, SectionBoarders.RightEdge))
+            {
 
-        //private bool EdgeOverlapsWithIntruderBox(Edge edge)
-        //{
-        //    // Implement logic to determine if the edge overlaps with the IntruderBox.
-        //    // This might involve checking if any part of the edge is within the rectangle
-        //    // defined by the IntruderBox.
-        //}
+            }
+        }
+        private bool EdgesOverlap(Edge edge1, Edge edge2)
+        {
+            if (edge1.isHorizontal && edge2.isHorizontal)
+            {
+                // Check if they are on the same Y level
+                if (edge1.StartNode.Y == edge2.StartNode.Y)
+                {
+                    // Check if X coordinates intersect
+                    return edge1.StartNode.X < edge2.EndNode.X && edge1.EndNode.X > edge2.StartNode.X;
+                }
+            }
+            else if (edge1.isVertical && edge2.isVertical)
+            {
+                // Check if they are on the same X level
+                if (edge1.StartNode.X == edge2.StartNode.X)
+                {
+                    // Check if Y coordinates intersect
+                    return edge1.StartNode.Y < edge2.EndNode.Y && edge1.EndNode.Y > edge2.StartNode.Y;
+                }
+            }
+
+            // Return false if edges are not both horizontal or both vertical
+            return false;
+        }
+
+        
         //public bool DoesIntruderBoxRightEdgeOverlap(SectionBoarders sectionBoarders, IntruderBox intruderBox)
         //{
         //    if (SectionBoarders.RightEdge.StartNode.X == this.RightEdge.StartNode.X)

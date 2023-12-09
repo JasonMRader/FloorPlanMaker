@@ -24,6 +24,39 @@ namespace FloorplanClassLibrary
         public Edge RightEdge { get; set; } //=> RightEdges.OrderByDescending(e => e.EndNode.X).FirstOrDefault();
         public Edge TopEdge { get; set; } //=> TopEdges.OrderBy(e => e.StartNode.Y).FirstOrDefault();
         public Edge BottomEdge { get; set; }// => BottomEdges.OrderByDescending(e => e.EndNode.Y).FirstOrDefault();
+        public void RemoveAllRightOverLapps()
+        {
+            foreach(IntruderBox box in IntruderBoxes)
+            {
+                ModifyVerticleEdge(box.RightEdge, this.RightEdge);
+            }
+        }
+        public void ModifyVerticleEdge(Edge portionToRemove, Edge modifiedEdge)
+        {
+            if(portionToRemove.isHorizontal || modifiedEdge.isHorizontal) { return; }
+            if(portionToRemove.VerticleEdgeX() != modifiedEdge.VerticleEdgeX()) { return; }
+            if(!(portionToRemove.VerticleEdgeStartY() > modifiedEdge.VerticleEdgeStartY() && portionToRemove.VerticleEdgeStartY() < modifiedEdge.VerticleEdgeEndY()) &&
+                !(portionToRemove.VerticleEdgeEndY() > modifiedEdge.VerticleEdgeStartY() && portionToRemove.VerticleEdgeEndY() < modifiedEdge.VerticleEdgeEndY()))
+            { return; }
+            if(modifiedEdge == RightEdge)
+            {
+                this.Edges.Remove(portionToRemove);
+                this.Edges.Remove(modifiedEdge);
+                if(modifiedEdge.VerticleEdgeStartY() == portionToRemove.VerticleEdgeStartY())
+                {
+                    Node newStart = new Node(portionToRemove.VerticleEdgeX(), portionToRemove.VerticleEdgeEndY(), Section);
+                    //Node sameEnd = 
+                    modifiedEdge = new Edge(newStart, modifiedEdge.EndNode, Edge.Boarder.Right );
+                    this.Edges.Add(modifiedEdge);
+                }
+                else if (modifiedEdge.VerticleEdgeEndY() == portionToRemove.VerticleEdgeEndY())
+                {
+                    Node newEnd = new Node(portionToRemove.VerticleEdgeX(), portionToRemove.VerticleEdgeStartY(), Section);
+                    modifiedEdge = new Edge(modifiedEdge.StartNode, newEnd, Edge.Boarder.Right);
+                    this.Edges.Add(modifiedEdge);
+                }
+            }
+        }
         public void SetEdgesForBoundingBox() {
             this.Nodes = ConvexHull.GetBoundingBox(Section);
             List<Edge> edges = new List<Edge>();

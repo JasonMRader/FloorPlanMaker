@@ -14,6 +14,55 @@ namespace FloorplanClassLibrary
         public bool isHorizontal { get; set; }
         public Section Section { get; set; }
         public Boarder BoarderType { get; set; }
+        public int VerticleEdgeX()
+        {
+            if (isHorizontal) return -1;
+            else
+            {
+                return this.StartNode.X;
+            }
+        }
+        public int VerticleEdgeStartY()
+        {
+            if(isHorizontal) return -1;
+            else
+            {
+                return Math.Min(this.StartNode.Y, this.EndNode.Y);
+            }
+        }
+        public int VerticleEdgeEndY()
+        {
+            if (isHorizontal) return -1;
+            else
+            {
+                return Math.Max(this.StartNode.Y, this.EndNode.Y);
+            }
+        }
+        public int HorizontalEdgeY()
+        {
+            if (!isHorizontal) return -1;
+            else
+            {
+                return this.StartNode.Y;
+            }
+        }
+        public int HorizontalEdgeStartX()
+        {
+            if (!isHorizontal) return -1;
+            else
+            {
+                return Math.Min(this.StartNode.X, this.EndNode.X);
+            }
+        }
+        public int HorizontalEdgeEndX()
+        {
+            if (isHorizontal) return -1;
+            else
+            {
+                return Math.Max(this.StartNode.X, this.EndNode.X);
+            }
+        }
+
         public void SetOrientation()
         {
             if (StartNode.Y == EndNode.Y)

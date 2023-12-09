@@ -799,37 +799,17 @@ namespace FloorPlanMaker
         }
         private void btnTest2_Click(object sender, EventArgs e)
         {
-            ////pnlFloorPlan.Controls.Clear();
-            ////SectionLine sectionLine = new SectionLine(100,100,500,100,5f);
-            ////pnlFloorPlan.Controls.Add(sectionLine);
-            ////Section section = new Section();
-            ////section.Number = 1;
-            //foreach (TableControl c in allTableControls)
-            //{
-            //    c.Section = section;
-            //    c.BackColor = section.Color;
-            //    section.Tables.Add(c.Table);
-            //}
-            //shiftManager.SectionSelected = section;
-            sectionLineManager.RemoveAllLines(pnlFloorPlan);
-            sectionLineManager.UpdateSectionLinePositions();
-            sectionLineManager.AddParallelLines(pnlFloorPlan);
 
-            //NODEMANAGER ________\/
-
-            //foreach (Section section in shiftManager.SelectedFloorplan.Sections)
-            //{
-            //    SectionNodeManager nodeManager = new SectionNodeManager(section);
-            //    Node tlNode = nodeManager.GetTopLeftNode();
-            //    Node trNode = nodeManager.GetTopRightNode();
-            //    Node brNode = nodeManager.GetBottomRightNode();
-            //    SectionLine sectionLine = new SectionLine(tlNode, trNode);
-            //    SectionLine sectionLine1 = new SectionLine(trNode, brNode);
-            //    pnlFloorPlan.Controls.Add(sectionLine);
-            //    pnlFloorPlan.Controls.Add(sectionLine1);
-
-            //}
-
+            boarderManager = new FloorplanBoarderManager(shiftManager.SelectedFloorplan.Sections);
+            boarderManager.CalculateOverlappingSectionEdges();
+            foreach(Section section in boarderManager.Sections)
+            {
+                section.SectionBoarders.RemoveAllRightOverLapps();
+            }
+            SectionLineDrawer edgeDrawer = new SectionLineDrawer(3f);
+            Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, 
+                boarderManager.Sections.SelectMany(s => s.SectionBoarders.Edges));
+            pnlFloorPlan.BackgroundImage = edgesBitmap;
 
         }
 
