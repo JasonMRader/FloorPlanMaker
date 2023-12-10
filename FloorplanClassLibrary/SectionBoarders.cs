@@ -15,6 +15,10 @@ namespace FloorplanClassLibrary
         }
         public List<IntruderBox> IntruderBoxes { get; set; } = new List<IntruderBox>();        
         public List<Edge> Edges { get; set; } = new List<Edge>();
+        public List<Edge> GetAllEdges()
+        {
+            Edges = new List<Edge>();
+        }
         public List<Edge> TopEdges { get; set; } = new List<Edge>();
         public List<Edge> BottomEdges { get; set; } = new List<Edge>();
         public List<Edge> LeftEdges { get; set; } = new List<Edge>();

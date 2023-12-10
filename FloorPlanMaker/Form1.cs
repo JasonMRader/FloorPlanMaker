@@ -804,22 +804,7 @@ namespace FloorPlanMaker
 
         private void button2_Click(object sender, EventArgs e)
         {
-            SectionNodeManager nodeManager = new SectionNodeManager(shiftManager.SectionSelected);
-            //Node tlNode = nodeManager.GetTopLeftNode();
-            //nodeManager.GenerateNodesForUnblockedTables();
-            nodeManager.GenerateNodesForUnblockedBottoms();
-            List<SectionLine> lines = nodeManager.GenerateEdgesAndSectionLinesFromNodes(nodeManager.BottomNodes);
-            List<Node> topNodes = new List<Node>();
-            foreach (SectionLine line in lines)
-            {
-                pnlFloorPlan.Controls.Add(line);
-            }
-            //foreach (Node node in nodeManager.Nodes)
-            //{
-            //    NodeControl nodeControl = new NodeControl(node, NodeControl.NodePosition.Bottom);
-            //    nodeControl.SetDisplayString("B");
-            //    pnlFloorPlan.Controls.Add(nodeControl);
-            //}
+           
         }
 
         private void button3_Click(object sender, EventArgs e)

@@ -18,7 +18,10 @@ namespace FloorplanClassLibrary
 
         public int HierarchyNumber { get; set; } = 0;
 
-           
+        public bool isRightNode { get; set; }
+        public bool isLeftNode { get; set; }
+        public bool isBottomNode { get; set; }
+        public bool isTopNode { get; set; }
         
 
 
@@ -47,5 +50,67 @@ namespace FloorplanClassLibrary
         {
             return X.ToString() + "," + Y.ToString();
         }
+       
+        private bool _isRightNode;
+        private bool _isLeftNode;
+        private bool _isTopNode;
+        private bool _isBottomNode;
+
+        public bool IsRightNode {
+            get => _isRightNode;
+            set {
+                if (value) {
+                    _isRightNode = true;
+                    _isLeftNode = false; 
+                }
+                else {
+                    _isRightNode = false;
+                }
+            }
+        }
+
+        public bool IsLeftNode   {
+            get => _isLeftNode;
+            set {
+                if (value) {
+                    _isLeftNode = true;
+                    _isRightNode = false; 
+                }
+                else  {
+                    _isLeftNode = false;
+                }
+            }
+        }
+
+        public bool IsTopNode { 
+            get => _isTopNode;
+            set  {
+                if (value) {
+                    _isTopNode = true;
+                    _isBottomNode = false; 
+                }
+                else {
+                    _isTopNode = false;
+                }
+            }
+        }
+
+        public bool IsBottomNode
+        {
+            get => _isBottomNode;
+            set  {
+                if (value) {
+                    _isBottomNode = true;
+                    _isTopNode = false; 
+                }
+                else {
+                    _isBottomNode = false;
+                }
+            }
+        }
+
+           
+        
+
     }
 }

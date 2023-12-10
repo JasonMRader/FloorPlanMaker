@@ -59,11 +59,55 @@ namespace FloorplanClassLibrary
                 Edge newRightEdge = new Edge(rightStartNode, rightEndNode);
                 Edge newLeftEdge = new Edge(leftStartNode, leftEndNode);
 
-               
+
                 SectionBoarderLines.Add(newLeftEdge);
-               
+
                 SectionBoarderLines.Add(newRightEdge);
             }
+            }
+            //private void CreateRightAndLeftBoarderEdges(Edge rightEdge, Edge leftEdge)
+            //{
+            //    // Determine the middle X coordinate
+            //    int middleX = (rightEdge.VerticleEdgeX() + leftEdge.VerticleEdgeX()) / 2;
+
+            //    // Calculate the overlapping Y coordinates
+            //    int overlapStartY = Math.Max(rightEdge.VerticleEdgeStartY(), leftEdge.VerticleEdgeStartY());
+            //    int overlapEndY = Math.Min(rightEdge.VerticleEdgeEndY(), leftEdge.VerticleEdgeEndY());
+
+            //    // Create the overlapping edge if there is an overlap
+            //    if (overlapStartY < overlapEndY)
+            //    {
+            //        CreateAndAddEdge(middleX, overlapStartY, overlapEndY, rightEdge.Section);
+            //        CreateAndAddEdge(middleX, overlapStartY, overlapEndY, leftEdge.Section);
+            //    }
+
+            //    // Create edge along the rightEdge where there is no overlap
+            //    if (rightEdge.VerticleEdgeStartY() < overlapStartY)
+            //    {
+            //        CreateAndAddEdge(rightEdge.VerticleEdgeX(), rightEdge.VerticleEdgeStartY(), overlapStartY, rightEdge.Section);
+            //    }
+            //    if (rightEdge.VerticleEdgeEndY() > overlapEndY)
+            //    {
+            //        CreateAndAddEdge(rightEdge.VerticleEdgeX(), overlapEndY, rightEdge.VerticleEdgeEndY(), rightEdge.Section);
+            //    }
+
+            //    // Create edge along the leftEdge where there is no overlap and it extends beyond the rightEdge
+            //    if (leftEdge.VerticleEdgeStartY() < overlapStartY)
+            //    {
+            //        CreateAndAddEdge(leftEdge.VerticleEdgeX(), leftEdge.VerticleEdgeStartY(), overlapStartY, leftEdge.Section);
+            //    }
+            //    if (leftEdge.VerticleEdgeEndY() > overlapEndY)
+            //    {
+            //        CreateAndAddEdge(leftEdge.VerticleEdgeX(), overlapEndY, leftEdge.VerticleEdgeEndY(), leftEdge.Section);
+            //    }
+            //}
+
+            private void CreateAndAddEdge(int x, int startY, int endY, Section section)
+        {
+            Node startNode = new Node(x, startY, section);
+            Node endNode = new Node(x, endY, section);
+            Edge newEdge = new Edge(startNode, endNode);
+            SectionBoarderLines.Add(newEdge);
         }
 
 
