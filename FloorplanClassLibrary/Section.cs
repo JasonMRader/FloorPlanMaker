@@ -564,7 +564,10 @@ namespace FloorplanClassLibrary
 
             return ConvexHull.GetConvexHull(allPoints);
         }
-
+        public override string ToString()
+        {
+            return Number.ToString();
+        }
     }
 }
 

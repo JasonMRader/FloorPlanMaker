@@ -713,6 +713,31 @@ namespace FloorPlanMaker
                 }
             }
         }
+        private void SubscribeToChildrenClick(Control parent)
+        {
+            foreach (Control child in parent.Controls)
+            {
+                // Subscribe the child control's MouseDown event
+                child.MouseDown += flowServersInFloorplan_MouseClick;
+
+                // If the child has its own children, recursively subscribe to their events as well
+                if (child.HasChildren)
+                {
+                    SubscribeToChildrenClick(child);
+                }
+            }
+        }
+        private void flowServersInFloorplan_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (sender == flowServersInFloorplan)
+            {
+                if (quicklyChoosingAServer)
+                {
+                    rdoViewSectionFlow.Checked = true;
+                }
+                quicklyChoosingAServer = false;
+            }
+        }
         //
         //
         //
@@ -763,33 +788,8 @@ namespace FloorPlanMaker
             
         }
 
-        private void SubscribeToChildrenClick(Control parent)
-        {
-            foreach (Control child in parent.Controls)
-            {
-                // Subscribe the child control's MouseDown event
-                child.MouseDown += flowServersInFloorplan_MouseClick;
-
-                // If the child has its own children, recursively subscribe to their events as well
-                if (child.HasChildren)
-                {
-                    SubscribeToChildrenClick(child);
-                }
-            }
-        }
-
-
-        private void flowServersInFloorplan_MouseClick(object sender, MouseEventArgs e)
-        {
-            if (sender == flowServersInFloorplan)
-            {
-                if (quicklyChoosingAServer)
-                {
-                    rdoViewSectionFlow.Checked = true;
-                }
-                quicklyChoosingAServer = false;
-            }
-        }
+       
+       
         FloorplanBoarderManager boarderManager = new FloorplanBoarderManager();
         private void btnAddNode_Click(object sender, EventArgs e)
         {

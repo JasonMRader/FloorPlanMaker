@@ -13,6 +13,8 @@ namespace FloorplanClassLibrary
         public List<Edge> OverLappingEdges { get; set; } = new List<Edge> { };
         public FloorplanBoarderManager() { }
         public List<IntruderBox> IntruderBoxes { get; set; } = new List<IntruderBox> { };
+        public Dictionary<Section, List<Section>> RightNeighbors { get; set; }
+        public Dictionary<Section, List<Section>> LeftNeighbors { get; set; }
         public FloorplanBoarderManager(List<Section> sections)
         {
             this.Sections = sections;
@@ -20,8 +22,55 @@ namespace FloorplanClassLibrary
             {
                 section.SetBoarderManager();
             }
+            FindLeftRightNeighbors();
         }
+       
+        public void FindLeftRightNeighbors()
+        {
+            // Initialize the dictionaries if not already initialized
+            RightNeighbors = RightNeighbors ?? new Dictionary<Section, List<Section>>();
+            LeftNeighbors = LeftNeighbors ?? new Dictionary<Section, List<Section>>();
 
+            foreach (var currentSection in Sections)
+            {
+                Edge currentRightEdge = currentSection.SectionBoarders.RightEdge;
+
+                foreach (var otherSection in Sections)
+                {
+                    // Skip if it's the same section
+                    if (otherSection == currentSection) continue;
+
+                    Edge otherLeftEdge = otherSection.SectionBoarders.LeftEdge;
+
+                    // Check if the other section's LeftEdge is to the right of the current section's RightEdge
+                    if (otherLeftEdge.StartNode.X > currentRightEdge.EndNode.X)
+                    {
+                        // Check for Y overlap
+                        bool isOverlapY = (otherLeftEdge.VerticleEdgeStartY() <= currentRightEdge.VerticleEdgeEndY() &&
+                                           otherLeftEdge.VerticleEdgeEndY() >= currentRightEdge.VerticleEdgeStartY()) ||
+                                          (currentRightEdge.VerticleEdgeStartY() <= otherLeftEdge.VerticleEdgeEndY() &&
+                                           currentRightEdge.VerticleEdgeEndY() >= otherLeftEdge.VerticleEdgeStartY());
+
+                        // Check if no other section's LeftLine is in between
+                        bool isNoOtherLeftLineInBetween = !Sections.Any(s => s != currentSection && s != otherSection &&
+                                                                             s.SectionBoarders.LeftEdge.StartNode.X > currentRightEdge.EndNode.X &&
+                                                                             s.SectionBoarders.LeftEdge.StartNode.X < otherLeftEdge.StartNode.X);
+
+                        if (isOverlapY && isNoOtherLeftLineInBetween)
+                        {
+                            // Add to the dictionaries
+                            if (!RightNeighbors.ContainsKey(currentSection))
+                                RightNeighbors[currentSection] = new List<Section>();
+                            if (!LeftNeighbors.ContainsKey(otherSection))
+                                LeftNeighbors[otherSection] = new List<Section>();
+
+                            RightNeighbors[currentSection].Add(otherSection);
+                            LeftNeighbors[otherSection].Add(currentSection);
+                        }
+                    }
+                }
+            }
+        }
 
         public void CalculateOverlappingSectionEdges()
         {
