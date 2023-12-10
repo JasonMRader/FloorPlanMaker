@@ -793,26 +793,13 @@ namespace FloorPlanMaker
         FloorplanBoarderManager boarderManager = new FloorplanBoarderManager();
         private void btnAddNode_Click(object sender, EventArgs e)
         {
-            //SectionNodeManager nodeManager = new SectionNodeManager(shiftManager.SectionSelected);
-            ////Node tlNode = nodeManager.GetTopLeftNode();
-            ////nodeManager.GenerateNodesForUnblockedTables();
-            //nodeManager.GenerateNodesForUnblockedTops();
-            ////List<Node> topNodes = new List<Node>();
-            ////foreach (Node node in nodeManager.Nodes)
-            ////{
-            ////    NodeControl nodeControl = new NodeControl(node, NodeControl.NodePosition.Top);
-            ////    nodeControl.SetDisplayString("T");
-            ////    pnlFloorPlan.Controls.Add(nodeControl);
-            ////}
-            //List<Edge> edges = nodeManager.GenerateAndOptimizeEdgesFromNodes(nodeManager.TopNodes);
-            //List<SectionLine> lines = SectionNodeManager.CreateSectionLinesFromEdges(edges);
-            ////List<Node> topNodes = new List<Node>();
-            //foreach (SectionLine line in lines)
-            //{
-            //    pnlFloorPlan.Controls.Add(line);
-            //}
-            
 
+            boarderManager = new FloorplanBoarderManager(shiftManager.SelectedFloorplan.Sections);
+            SectionLineDrawer edgeDrawer = new SectionLineDrawer(3f); 
+
+            Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size,
+                boarderManager.SectionBoarderLines);
+            pnlFloorPlan.BackgroundImage = edgesBitmap;
         }
 
         private void button2_Click(object sender, EventArgs e)

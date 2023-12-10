@@ -59,7 +59,7 @@ namespace FloorplanClassLibrary
                 modifiedEdge = new Edge(newStart, modifiedEdge.EndNode, Edge.Boarder.Right );
                 this.Edges.Add(modifiedEdge);
                 edgesAdded.Add(modifiedEdge);
-                Edge newTopEdge = Edge.CopyIntruderEdge(intruderBox.BottomEdge);
+                Edge newTopEdge = Edge.CopyIntruderEdge(intruderBox.BottomEdge); 
                 this.Edges.Add(newTopEdge);
                 AdjustEdgeForNewAddedEdge(newTopEdge);
                    
