@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Intrinsics.X86;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -116,12 +117,16 @@ namespace FloorplanClassLibrary
                         // Check if no other section's LeftLine is in between
                         bool isNoOtherLeftLineInBetween = !Sections.Any(s => s != currentSection && s != otherSection &&
                                                                              s.SectionBoarders.LeftEdge.VerticleEdgeX() > currentRightEdge.VerticleEdgeX() &&
-                                                                             s.SectionBoarders.LeftEdge.VerticleEdgeX() < otherLeftEdge.VerticleEdgeX());
+                                                                             s.SectionBoarders.LeftEdge.VerticleEdgeX() < otherLeftEdge.VerticleEdgeX() &&
+                                                                             s.SectionBoarders.LeftEdge.VerticalEdgeOverLap(otherLeftEdge) &&
+                                                                             s.SectionBoarders.LeftEdge.VerticalEdgeOverLap(currentRightEdge));
                         bool isNoOtherRightLineInBetween = !Sections.Any(s => s != currentSection && s != otherSection &&
                                                                             s.SectionBoarders.RightEdge.VerticleEdgeX() > currentRightEdge.VerticleEdgeX() &&
-                                                                            s.SectionBoarders.RightEdge.VerticleEdgeX() < otherLeftEdge.VerticleEdgeX());
+                                                                            s.SectionBoarders.RightEdge.VerticleEdgeX() < otherLeftEdge.VerticleEdgeX() &&
+                                                                            s.SectionBoarders.RightEdge.VerticalEdgeOverLap(otherLeftEdge) &&
+                                                                             s.SectionBoarders.RightEdge.VerticalEdgeOverLap(currentRightEdge));
 
-                        if (isOverlapY && isNoOtherLeftLineInBetween)// && isNoOtherRightLineInBetween)
+                        if (isOverlapY && isNoOtherLeftLineInBetween && isNoOtherRightLineInBetween)
                         {
                             // Add to the dictionaries
                             if (!RightNeighbors.ContainsKey(currentSection))
