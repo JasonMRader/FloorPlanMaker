@@ -863,27 +863,29 @@ namespace FloorPlanMaker
 
         private void button4_Click(object sender, EventArgs e)
         {
-            //foreach (Section section in shiftManager.SelectedFloorplan.Sections)
-            //{
-            //    SectionNodeManager nodeManager = new SectionNodeManager(section);
-            //    List<Edge> hullEdges = nodeManager.GetEdgesForBoundingBox();
-            //    //List<Edge> hullEdges = nodeManager.getEdgesForConvexHull();
-            //    foreach (Edge edge in hullEdges)
-            //    {
-            //        NodeControl nodeControl1 = new NodeControl(edge.StartNode, NodeControl.NodePosition.Top);
-            //        SectionLine line = new SectionLine(edge);
-            //        line.BringToFront();
-            //        pnlFloorPlan.Controls.Add(line);
-            //        pnlFloorPlan.Controls.Add((NodeControl)nodeControl1);
-            //    }
-            //}
-             boarderManager = new FloorplanBoarderManager(shiftManager.SelectedFloorplan.Sections);
-            
-            SectionLineDrawer edgeDrawer = new SectionLineDrawer(3f); // Set the desired line thickness
-                                                                      //Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, boarderManager.Sections.SelectMany(s => s.SectionBoarders.Edges));
+            foreach (Section section in shiftManager.SelectedFloorplan.Sections)
+            {
+                SectionNodeManager nodeManager = new SectionNodeManager(section);
+                List<Edge> hullEdges = nodeManager.GetEdgesForBoundingBox();
+                //List<Edge> hullEdges = nodeManager.getEdgesForConvexHull();
+                foreach (Edge edge in hullEdges)
+                {
+                    NodeControl nodeControl1 = new NodeControl(edge.StartNode, NodeControl.NodePosition.Top);
+                    SectionLine line = new SectionLine(edge);
+                    line.BringToFront();
+                    pnlFloorPlan.Controls.Add(line);
+                    pnlFloorPlan.Controls.Add((NodeControl)nodeControl1);
+                }
+            }
 
-            Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, boarderManager.Sections.SelectMany(s => s.SectionBoarders.Edges));
-            pnlFloorPlan.BackgroundImage = edgesBitmap;
+
+            //boarderManager = new FloorplanBoarderManager(shiftManager.SelectedFloorplan.Sections);            
+            //SectionLineDrawer edgeDrawer = new SectionLineDrawer(3f);                       
+            //Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, boarderManager.Sections.SelectMany(s => s.SectionBoarders.Edges));
+            //pnlFloorPlan.BackgroundImage = edgesBitmap;
+
+
+
             //foreach (Section section in boarderManager.Sections)
             //{
             //    //section.SetBoarderManager();

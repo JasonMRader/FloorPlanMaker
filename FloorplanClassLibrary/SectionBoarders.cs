@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -121,7 +122,7 @@ namespace FloorplanClassLibrary
     
 
 
-    public void SetEdgesForBoundingBox() {
+        public void SetEdgesForBoundingBox() {
             this.Nodes = ConvexHull.GetBoundingBox(Section);
             List<Edge> edges = new List<Edge>();
             for (int i = 0; i < Nodes.Count; i++) {
@@ -165,8 +166,11 @@ namespace FloorplanClassLibrary
                     LeftEdge = edge;
                 }
             }
+             
         }
+        public void InsertNodesAndEdges(Node ParentNode,  Node secondNode, Node thirdNode)
+        {
 
-
+        }
     }
 }

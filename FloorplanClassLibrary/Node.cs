@@ -32,6 +32,15 @@ namespace FloorplanClassLibrary
             Section = section;
             
         }
+        public Node(int x, int y, Section section, bool isTop, bool isRight)
+        {
+            X = x;
+            Y = y;
+            Section = section;
+            this.isTopNode = isTop;
+            this.isRightNode = isRight;
+
+        }
         public void InsertNodeAfter(int x, int y, Section section)
         {
             // Create a new node to insert

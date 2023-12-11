@@ -58,10 +58,10 @@ namespace FloorplanClassLibrary
                 }
             }
 
-            Node topLeft = new Node(minX, minY, section);
-            Node topRight = new Node(maxX, minY, section);
-            Node bottomRight = new Node(maxX, maxY, section);
-            Node bottomLeft = new Node(minX, maxY, section);
+            Node topLeft = new Node(minX, minY, section, true, false);
+            Node topRight = new Node(maxX, minY, section, true, true);
+            Node bottomRight = new Node(maxX, maxY, section, false, true);
+            Node bottomLeft = new Node(minX, maxY, section, false, false);
 
             // Optionally, you can set the parent-child relationship between the nodes
             topLeft.Child = topRight;
