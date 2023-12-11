@@ -17,6 +17,8 @@ namespace FloorplanClassLibrary
         public List<IntruderBox> IntruderBoxes { get; set; } = new List<IntruderBox> { };
         public Dictionary<Section, List<Section>> RightNeighbors { get; set; }
         public Dictionary<Section, List<Section>> LeftNeighbors { get; set; }
+        public Dictionary<Section, List<Section >> TopNeighbors { get; set; }
+        public Dictionary<Section, List<Section>> BottomNeighbors { get; set; }
         public FloorplanBoarderManager(List<Section> sections)
         {
             this.Sections = sections;
@@ -141,7 +143,66 @@ namespace FloorplanClassLibrary
                 }
             }
         }
-        
+        public void CreateVerticalBorders()
+        {
+            foreach (var pair in TopNeighbors)
+            {
+                Section keySection = pair.Key;
+                List<Section> valueSections = pair.Value;
+                foreach (Section valueSection in valueSections)
+                {
+                    CreateTopAndBottomBorderEdges(keySection.SectionBoarders.TopEdge, valueSection.SectionBoarders.BottomEdge);
+                }
+            }
+        }
+
+        private void CreateTopAndBottomBorderEdges(Edge topEdge, Edge bottomEdge)
+        {
+            // Determine the middle Y coordinate
+            int middleY = (topEdge.HorizontalEdgeY() + bottomEdge.HorizontalEdgeY()) / 2;
+
+            // Calculate the overlapping X coordinates
+            int overlapStartX = Math.Max(topEdge.HorizontalEdgeStartX(), bottomEdge.HorizontalEdgeStartX());
+            int overlapEndX = Math.Min(topEdge.HorizontalEdgeEndX(), bottomEdge.HorizontalEdgeEndX());
+
+            // Create the overlapping edge if there is an overlap
+            if (overlapStartX < overlapEndX)
+            {
+                CreateAndAddEdge(overlapStartX, middleY, overlapEndX, topEdge.Section);
+                CreateAndAddEdge(overlapStartX, middleY, overlapEndX, bottomEdge.Section);
+            }
+
+            // Similar logic for creating edges along the topEdge and bottomEdge where there is no overlap
+            // ...
+        }
+
+        public void FindTopBottomNeighbors()
+        {
+            TopNeighbors = TopNeighbors ?? new Dictionary<Section, List<Section>>();
+            BottomNeighbors = BottomNeighbors ?? new Dictionary<Section, List<Section>>();
+
+            foreach (var currentSection in Sections)
+            {
+                Edge currentBottomEdge = currentSection.SectionBoarders.BottomEdge;
+
+                foreach (var otherSection in Sections)
+                {
+                    if (otherSection == currentSection) continue;
+
+                    Edge otherTopEdge = otherSection.SectionBoarders.TopEdge;
+
+                    // Check if the other section's TopEdge is below the current section's BottomEdge
+                    if (otherTopEdge.StartNode.Y > currentBottomEdge.EndNode.Y)
+                    {
+                        // Logic to check for X overlap and no other top/bottom lines in between
+                        // Similar to what you did in FindLeftRightNeighbors but for vertical alignment
+                        // ...
+                    }
+                }
+            }
+        }
+
+
         //private void CreateRightAndLeftBoarderEdges(Edge rightEdge, Edge leftEdge)
         //{
         //    // Calculate the overlapping Y coordinates
