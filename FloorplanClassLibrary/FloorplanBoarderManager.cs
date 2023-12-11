@@ -70,11 +70,11 @@ namespace FloorplanClassLibrary
             // Create edge along the leftEdge where there is no overlap and it extends beyond the rightEdge
             if (leftEdge.VerticleEdgeStartY() < overlapStartY)
             {
-                CreateAndAddEdge(leftEdge.VerticleEdgeX(), leftEdge.VerticleEdgeStartY(), overlapStartY, leftEdge.Section);
+                //CreateAndAddEdge(leftEdge.VerticleEdgeX(), leftEdge.VerticleEdgeStartY(), overlapStartY, leftEdge.Section);
             }
             if (leftEdge.VerticleEdgeEndY() > overlapEndY)
             {
-                CreateAndAddEdge(leftEdge.VerticleEdgeX(), overlapEndY, leftEdge.VerticleEdgeEndY(), leftEdge.Section);
+                //CreateAndAddEdge(leftEdge.VerticleEdgeX(), overlapEndY, leftEdge.VerticleEdgeEndY(), leftEdge.Section);
             }
         }
 
