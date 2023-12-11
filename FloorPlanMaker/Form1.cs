@@ -884,31 +884,31 @@ namespace FloorPlanMaker
 
             Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, boarderManager.Sections.SelectMany(s => s.SectionBoarders.Edges));
             pnlFloorPlan.BackgroundImage = edgesBitmap;
-            foreach (Section section in boarderManager.Sections)
-            {
-                //section.SetBoarderManager();
+            //foreach (Section section in boarderManager.Sections)
+            //{
+            //    //section.SetBoarderManager();
 
-                //List<Edge> hullEdges = nodeManager.getEdgesForConvexHull();
-                foreach (Edge edge in section.SectionBoarders.Edges)
-                {
-                    //NodeControl nodeControl1 = new NodeControl(edge.StartNode, NodeControl.NodePosition.Top);
-                    SectionLine line = new SectionLine(edge);
-                    line.LineThickness = 20f;
-                    line.Invalidate();
-                    if(edge.isVertical)
-                    {
-                        line.Width = 10;
-                    }
-                    else
-                    {
-                        line.Height = 10;
-                    }
-                    line.LineColor = section.Color;
-                    line.BringToFront();
-                    pnlFloorPlan.Controls.Add(line);
-                    //pnlFloorPlan.Controls.Add((NodeControl)nodeControl1);
-                }
-            }
+            //    //List<Edge> hullEdges = nodeManager.getEdgesForConvexHull();
+            //    foreach (Edge edge in section.SectionBoarders.Edges)
+            //    {
+            //        //NodeControl nodeControl1 = new NodeControl(edge.StartNode, NodeControl.NodePosition.Top);
+            //        SectionLine line = new SectionLine(edge);
+            //        line.LineThickness = 20f;
+            //        line.Invalidate();
+            //        if(edge.isVertical)
+            //        {
+            //            line.Width = 10;
+            //        }
+            //        else
+            //        {
+            //            line.Height = 10;
+            //        }
+            //        line.LineColor = section.Color;
+            //        line.BringToFront();
+            //        pnlFloorPlan.Controls.Add(line);
+            //        //pnlFloorPlan.Controls.Add((NodeControl)nodeControl1);
+            //    }
+            //}
             //boarderManager.CalculateOverlappingSectionEdges();
             //foreach (Edge edge in boarderManager.OverLappingEdges)
             //{
