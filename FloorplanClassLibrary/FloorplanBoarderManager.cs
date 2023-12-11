@@ -39,33 +39,7 @@ namespace FloorplanClassLibrary
             }
         }
 
-        //private void CreateRightAndLeftBoarderEdges(Edge rightEdge, Edge leftEdge)
-        //{
-        //    // Calculate the overlapping Y coordinates
-        //    int startY = Math.Max(rightEdge.VerticleEdgeStartY(), leftEdge.VerticleEdgeStartY());
-        //    int endY = Math.Min(rightEdge.VerticleEdgeEndY(), leftEdge.VerticleEdgeEndY());
-
-        //    // Check if there is an actual overlap
-        //    if (startY < endY)
-        //    {
-        //        // Determine the X position for the new edge (somewhere in between rightEdge and leftEdge)
-        //        int newX = (rightEdge.VerticleEdgeX() + leftEdge.VerticleEdgeX()) / 2;
-
-        //        // Create the new vertical edge
-        //        Node rightStartNode = new Node(newX, startY, rightEdge.Section);
-        //        Node leftStartNode = new Node(newX, startY, leftEdge.Section);
-        //        Node rightEndNode = new Node(newX, endY, rightEdge.Section);
-        //        Node leftEndNode = new Node(newX, endY, leftEdge.Section);
-        //        Edge newRightEdge = new Edge(rightStartNode, rightEndNode);
-        //        Edge newLeftEdge = new Edge(leftStartNode, leftEndNode);
-
-
-
-        //        SectionBoarderLines.Add(newLeftEdge);
-
-        //        SectionBoarderLines.Add(newRightEdge);
-        //    }
-        //    }
+       
         private void CreateRightAndLeftBoarderEdges(Edge rightEdge, Edge leftEdge)
         {
             // Determine the middle X coordinate
@@ -158,7 +132,33 @@ namespace FloorplanClassLibrary
                 }
             }
         }
+        //private void CreateRightAndLeftBoarderEdges(Edge rightEdge, Edge leftEdge)
+        //{
+        //    // Calculate the overlapping Y coordinates
+        //    int startY = Math.Max(rightEdge.VerticleEdgeStartY(), leftEdge.VerticleEdgeStartY());
+        //    int endY = Math.Min(rightEdge.VerticleEdgeEndY(), leftEdge.VerticleEdgeEndY());
 
+        //    // Check if there is an actual overlap
+        //    if (startY < endY)
+        //    {
+        //        // Determine the X position for the new edge (somewhere in between rightEdge and leftEdge)
+        //        int newX = (rightEdge.VerticleEdgeX() + leftEdge.VerticleEdgeX()) / 2;
+
+        //        // Create the new vertical edge
+        //        Node rightStartNode = new Node(newX, startY, rightEdge.Section);
+        //        Node leftStartNode = new Node(newX, startY, leftEdge.Section);
+        //        Node rightEndNode = new Node(newX, endY, rightEdge.Section);
+        //        Node leftEndNode = new Node(newX, endY, leftEdge.Section);
+        //        Edge newRightEdge = new Edge(rightStartNode, rightEndNode);
+        //        Edge newLeftEdge = new Edge(leftStartNode, leftEndNode);
+
+
+
+        //        SectionBoarderLines.Add(newLeftEdge);
+
+        //        SectionBoarderLines.Add(newRightEdge);
+        //    }
+        //    }
         public void CalculateOverlappingSectionEdges()
         {
             // Compute bounding boxes for each section

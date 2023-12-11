@@ -15,10 +15,7 @@ namespace FloorplanClassLibrary
         }
         public List<IntruderBox> IntruderBoxes { get; set; } = new List<IntruderBox>();        
         public List<Edge> Edges { get; set; } = new List<Edge>();
-        public List<Edge> GetAllEdges()
-        {
-            Edges = new List<Edge>();
-        }
+        
         public List<Edge> TopEdges { get; set; } = new List<Edge>();
         public List<Edge> BottomEdges { get; set; } = new List<Edge>();
         public List<Edge> LeftEdges { get; set; } = new List<Edge>();
@@ -28,97 +25,16 @@ namespace FloorplanClassLibrary
         public Edge RightEdge { get; set; } //=> RightEdges.OrderByDescending(e => e.EndNode.X).FirstOrDefault();
         public Edge TopEdge { get; set; } //=> TopEdges.OrderBy(e => e.StartNode.Y).FirstOrDefault();
         public Edge BottomEdge { get; set; }// => BottomEdges.OrderByDescending(e => e.EndNode.Y).FirstOrDefault();
+
         public void RemoveAllRightOverLapps()
         {
-            foreach(IntruderBox box in IntruderBoxes)
+            foreach (IntruderBox box in IntruderBoxes)
             {
-                ModifyVerticleEdge(box.RightEdge, this.RightEdge, box);
+                box.ModifyVerticleEdge(box.RightEdge, this.RightEdge, box);
             }
         }
-        public void ModifyVerticleEdge(Edge portionToRemove, Edge modifiedEdge, IntruderBox intruderBox)
-        {
-            bool wasRightEdge = false;
-            if (modifiedEdge == RightEdge)
-            {
-                wasRightEdge = true;
-            }
-            List<Edge> edgesAdded = new List<Edge>();
-            if (portionToRemove.isHorizontal || modifiedEdge.isHorizontal) { return; }
-            if(portionToRemove.VerticleEdgeX() != modifiedEdge.VerticleEdgeX()) { return; }
-            if(!(portionToRemove.VerticleEdgeStartY() > modifiedEdge.VerticleEdgeStartY() && portionToRemove.VerticleEdgeStartY() < modifiedEdge.VerticleEdgeEndY()) &&
-                !(portionToRemove.VerticleEdgeEndY() > modifiedEdge.VerticleEdgeStartY() && portionToRemove.VerticleEdgeEndY() < modifiedEdge.VerticleEdgeEndY()))
-            { return; }
-           
-            this.Edges.Remove(portionToRemove);
-            this.Edges.Remove(modifiedEdge);
-            Edge edge = new Edge(intruderBox.LeftEdge.StartNode, intruderBox.LeftEdge.EndNode, Edge.Boarder.Right);
-            this.Edges.Add(edge);
-            edgesAdded.Add(edge);
-            //When overlaps with top
-            if (modifiedEdge.VerticleEdgeStartY() == portionToRemove.VerticleEdgeStartY() && 
-                modifiedEdge.VerticleEdgeEndY() != portionToRemove.VerticleEdgeEndY())
-            {
-                Node newStart = new Node(portionToRemove.VerticleEdgeX(), portionToRemove.VerticleEdgeEndY(), Section);
-                
-                modifiedEdge = new Edge(newStart, modifiedEdge.EndNode, Edge.Boarder.Right );
-                this.Edges.Add(modifiedEdge);
-                edgesAdded.Add(modifiedEdge);
-                Edge newTopEdge = Edge.CopyIntruderEdge(intruderBox.BottomEdge); 
-                this.Edges.Add(newTopEdge);
-                AdjustEdgeForNewAddedEdge(newTopEdge);
-                   
-            }
-            //overlaps with bottom
-            else if (modifiedEdge.VerticleEdgeEndY() == portionToRemove.VerticleEdgeEndY() &&
-                modifiedEdge.VerticleEdgeStartY() != portionToRemove.VerticleEdgeStartY())
-            {
-                Node newEnd = new Node(portionToRemove.VerticleEdgeX(), portionToRemove.VerticleEdgeStartY(), Section);
-                modifiedEdge = new Edge(modifiedEdge.StartNode, newEnd, Edge.Boarder.Right);
-                this.Edges.Add(modifiedEdge);
-                edgesAdded.Add(modifiedEdge);
-                Edge newBottomEdge = Edge.CopyIntruderEdge(intruderBox.TopEdge);
-                this.Edges.Add(newBottomEdge);
-            }
-            //overlaps the entire line
-            else if (modifiedEdge.VerticleEdgeEndY() == portionToRemove.VerticleEdgeEndY() &&
-                modifiedEdge.VerticleEdgeStartY() == portionToRemove.VerticleEdgeStartY())
-            {
-                    //Add new Right line (INtruder LeftLine) remove top and bottom boarders where X > new right Line x
-            }
-            //overlaps the middle
-            else
-            {
-                Node newStart1 = new Node(modifiedEdge.VerticleEdgeX(), modifiedEdge.VerticleEdgeStartY(), Section);
-                Node newEnd1 = new Node(portionToRemove.VerticleEdgeX(), portionToRemove.VerticleEdgeStartY(), Section);
-                Node newStart2 = new Node(portionToRemove.VerticleEdgeX(), portionToRemove.VerticleEdgeEndY(), Section);
-                Node newEnd2 = new Node(modifiedEdge.VerticleEdgeX(), modifiedEdge.VerticleEdgeEndY(), Section);
-                Edge modifiedEdge1 = new Edge(newStart1, newEnd1, Edge.Boarder.Right);
-                Edge modifiedEdge2 = new Edge(newStart2, newEnd2, Edge.Boarder.Right);
-                this.Edges.Add(modifiedEdge1);
-                this.Edges.Add(modifiedEdge2);
-                edgesAdded.Add(modifiedEdge1);
-                edgesAdded.Add(modifiedEdge2);
-                Edge newTopEdge = Edge.CopyIntruderEdge(intruderBox.BottomEdge);
-                this.Edges.Add(newTopEdge);
-                Edge newBottomEdge = Edge.CopyIntruderEdge(intruderBox.TopEdge);
-                this.Edges.Add(newBottomEdge);
 
-            }
-            if (!wasRightEdge)
-            {
-                foreach(Edge edgeToChange in edgesAdded)
-                {
-                    edgeToChange.BoarderType = Edge.Boarder.Left;
-                }
-            }
-            
-
-        }
-
-        private void AdjustEdgeForNewAddedEdge(Edge newTopEdge)
-        {
-            //Add logic to remove to at same places that it was added
-        }
+       
 
         public void SetEdgesForBoundingBox() {
             this.Nodes = ConvexHull.GetBoundingBox(Section);
