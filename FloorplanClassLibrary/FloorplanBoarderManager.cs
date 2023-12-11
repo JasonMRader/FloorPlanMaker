@@ -107,17 +107,21 @@ namespace FloorplanClassLibrary
                     if (otherLeftEdge.StartNode.X > currentRightEdge.EndNode.X)
                     {
                         // Check for Y overlap
-                        bool isOverlapY = (otherLeftEdge.VerticleEdgeStartY() <= currentRightEdge.VerticleEdgeEndY() &&
-                                           otherLeftEdge.VerticleEdgeEndY() >= currentRightEdge.VerticleEdgeStartY()) ||
-                                          (currentRightEdge.VerticleEdgeStartY() <= otherLeftEdge.VerticleEdgeEndY() &&
-                                           currentRightEdge.VerticleEdgeEndY() >= otherLeftEdge.VerticleEdgeStartY());
+                        //bool isOverlapY = (otherLeftEdge.VerticleEdgeStartY() <= currentRightEdge.VerticleEdgeEndY() &&
+                        //                   otherLeftEdge.VerticleEdgeEndY() >= currentRightEdge.VerticleEdgeStartY()) ||
+                        //                  (currentRightEdge.VerticleEdgeStartY() <= otherLeftEdge.VerticleEdgeEndY() &&
+                        //                   currentRightEdge.VerticleEdgeEndY() >= otherLeftEdge.VerticleEdgeStartY());
+                        bool isOverlapY = currentRightEdge.VerticalEdgeOverLap(otherLeftEdge);
 
                         // Check if no other section's LeftLine is in between
                         bool isNoOtherLeftLineInBetween = !Sections.Any(s => s != currentSection && s != otherSection &&
-                                                                             s.SectionBoarders.LeftEdge.StartNode.X > currentRightEdge.EndNode.X &&
-                                                                             s.SectionBoarders.LeftEdge.StartNode.X < otherLeftEdge.StartNode.X);
+                                                                             s.SectionBoarders.LeftEdge.VerticleEdgeX() > currentRightEdge.VerticleEdgeX() &&
+                                                                             s.SectionBoarders.LeftEdge.VerticleEdgeX() < otherLeftEdge.VerticleEdgeX());
+                        bool isNoOtherRightLineInBetween = !Sections.Any(s => s != currentSection && s != otherSection &&
+                                                                            s.SectionBoarders.RightEdge.VerticleEdgeX() > currentRightEdge.VerticleEdgeX() &&
+                                                                            s.SectionBoarders.RightEdge.VerticleEdgeX() < otherLeftEdge.VerticleEdgeX());
 
-                        if (isOverlapY && isNoOtherLeftLineInBetween)
+                        if (isOverlapY && isNoOtherLeftLineInBetween)// && isNoOtherRightLineInBetween)
                         {
                             // Add to the dictionaries
                             if (!RightNeighbors.ContainsKey(currentSection))
@@ -132,6 +136,7 @@ namespace FloorplanClassLibrary
                 }
             }
         }
+        
         //private void CreateRightAndLeftBoarderEdges(Edge rightEdge, Edge leftEdge)
         //{
         //    // Calculate the overlapping Y coordinates

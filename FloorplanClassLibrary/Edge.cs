@@ -128,7 +128,14 @@ namespace FloorplanClassLibrary
             return edge;
 
         }
-
+        public bool VerticalEdgeOverLap(Edge edge)
+        {
+            bool isOverlapY = (edge.VerticleEdgeStartY() <= this.VerticleEdgeEndY() &&
+                                          edge.VerticleEdgeEndY() >= this.VerticleEdgeStartY()) ||
+                                         (this.VerticleEdgeStartY() <= edge.VerticleEdgeEndY() &&
+                                          this.VerticleEdgeEndY() >= edge.VerticleEdgeStartY());
+            return isOverlapY;
+        }
         public void MoveVerticalEdge(int newX)
         {
            
