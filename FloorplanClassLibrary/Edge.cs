@@ -154,6 +154,25 @@ namespace FloorplanClassLibrary
         {
             return "Start Node: " + StartNode.ToString() + ", End Node: " + EndNode.ToString();
         }
+        public void SetBoarderTypeFromNodes()
+        {
+            if(StartNode.isTopNode &&  EndNode.isTopNode)
+            {
+                this.BoarderType = Boarder.Top;
+            }
+            if(StartNode.isBottomNode && EndNode.isBottomNode)
+            {
+                this.BoarderType = Boarder.Bottom;
+            }
+            if(StartNode.isLeftNode && EndNode.isLeftNode)
+            {
+                this.BoarderType= Boarder.Left;
+            }
+            if(StartNode.isRightNode && EndNode.isRightNode)
+            {
+                this.BoarderType = Boarder.Right;
+            }
+        }
         public enum Boarder 
         {
             Top,
