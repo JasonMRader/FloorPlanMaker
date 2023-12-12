@@ -37,11 +37,19 @@ namespace FloorplanClassLibrary
                 List<Section> valueSections = pair.Value;
                 foreach (Section valueSection in valueSections)
                 {
-                    CreateRightAndLeftBoarderEdges(keySection.SectionBoarders.RightEdge, valueSection.SectionBoarders.LeftEdge);    
+                    CreateRightAndLeftBoarderEdges(keySection.SectionBoarders.BoundingBoxRightEdge, valueSection.SectionBoarders.BoundingBoxLeftEdge);
+                    AddSectionBoarderRightLinesToAllNodes();
                 }
             }
         }
-
+        public void AddSectionBoarderRightLinesToAllNodes()
+        {
+            foreach (var section in Sections)
+            {
+                section.SectionBoarders.SetEdgesForBoundingBox();
+                this.Edges.AddRange(section.SectionBoarders.Edges);
+            }
+        }
        
         private void CreateRightAndLeftBoarderEdges(Edge rightEdge, Edge leftEdge)
         {
@@ -51,22 +59,26 @@ namespace FloorplanClassLibrary
             // Calculate the overlapping Y coordinates
             int overlapStartY = Math.Max(rightEdge.VerticleEdgeStartY(), leftEdge.VerticleEdgeStartY());
             int overlapEndY = Math.Min(rightEdge.VerticleEdgeEndY(), leftEdge.VerticleEdgeEndY());
+            Point startLine = new Point(middleX, overlapStartY);
+            Point endLine = new Point(middleX, overlapEndY);
 
             // Create the overlapping edge if there is an overlap
             if (overlapStartY < overlapEndY)
             {
-                CreateAndAddEdge(middleX, overlapStartY, overlapEndY, rightEdge.Section);
-                CreateAndAddEdge(middleX, overlapStartY, overlapEndY, leftEdge.Section);
+                CreateAndAddEdge(startLine, endLine, rightEdge.Section, rightEdge);
+                //CreateAndAddEdge(middleX, overlapStartY, overlapEndY, leftEdge.Section);
             }
 
             // Create edge along the rightEdge where there is no overlap
             if (rightEdge.VerticleEdgeStartY() < overlapStartY)
             {
-                CreateAndAddEdge(rightEdge.VerticleEdgeX(), rightEdge.VerticleEdgeStartY(), overlapStartY, rightEdge.Section);
+                //CreateAndAddEdge(rightEdge.VerticleEdgeX(), rightEdge.VerticleEdgeStartY(), overlapStartY, rightEdge.Section, rightEdge);
+                CreateAndAddEdge(startLine, endLine, rightEdge.Section, rightEdge);
             }
             if (rightEdge.VerticleEdgeEndY() > overlapEndY)
             {
-                CreateAndAddEdge(rightEdge.VerticleEdgeX(), overlapEndY, rightEdge.VerticleEdgeEndY(), rightEdge.Section);
+                //CreateAndAddEdge(rightEdge.VerticleEdgeX(), overlapEndY, rightEdge.VerticleEdgeEndY(), rightEdge.Section, rightEdge);
+                CreateAndAddEdge(startLine, endLine, rightEdge.Section, rightEdge);
             }
 
             // Create edge along the leftEdge where there is no overlap and it extends beyond the rightEdge
@@ -80,7 +92,11 @@ namespace FloorplanClassLibrary
             }
         }
 
-        private void CreateAndAddEdge(int x, int startY, int endY, Section section)
+        private void CreateAndAddEdge(Point startLine, Point endLine, Section section, Edge rightEdge)
+        {
+            section.SectionBoarders.MoveRightEdgeOut(rightEdge, startLine, endLine);
+        }
+        private void oldCreateAndAddEdge(int x, int startY, int endY, Section section)
         {
             Node startNode = new Node(x, startY, section);
             Node endNode = new Node(x, endY, section);
@@ -97,14 +113,14 @@ namespace FloorplanClassLibrary
 
             foreach (var currentSection in Sections)
             {
-                Edge currentRightEdge = currentSection.SectionBoarders.RightEdge;
+                Edge currentRightEdge = currentSection.SectionBoarders.BoundingBoxRightEdge;
 
                 foreach (var otherSection in Sections)
                 {
                     // Skip if it's the same section
                     if (otherSection == currentSection) continue;
 
-                    Edge otherLeftEdge = otherSection.SectionBoarders.LeftEdge;
+                    Edge otherLeftEdge = otherSection.SectionBoarders.BoundingBoxLeftEdge;
 
                     // Check if the other section's LeftEdge is to the right of the current section's RightEdge
                     if (otherLeftEdge.StartNode.X > currentRightEdge.EndNode.X)
@@ -118,15 +134,15 @@ namespace FloorplanClassLibrary
 
                         // Check if no other section's LeftLine is in between
                         bool isNoOtherLeftLineInBetween = !Sections.Any(s => s != currentSection && s != otherSection &&
-                                                                             s.SectionBoarders.LeftEdge.VerticleEdgeX() > currentRightEdge.VerticleEdgeX() &&
-                                                                             s.SectionBoarders.LeftEdge.VerticleEdgeX() < otherLeftEdge.VerticleEdgeX() &&
-                                                                             s.SectionBoarders.LeftEdge.VerticalEdgeOverLap(otherLeftEdge) &&
-                                                                             s.SectionBoarders.LeftEdge.VerticalEdgeOverLap(currentRightEdge));
+                                                                             s.SectionBoarders.BoundingBoxLeftEdge.VerticleEdgeX() > currentRightEdge.VerticleEdgeX() &&
+                                                                             s.SectionBoarders.BoundingBoxLeftEdge.VerticleEdgeX() < otherLeftEdge.VerticleEdgeX() &&
+                                                                             s.SectionBoarders.BoundingBoxLeftEdge.VerticalEdgeOverLap(otherLeftEdge) &&
+                                                                             s.SectionBoarders.BoundingBoxLeftEdge.VerticalEdgeOverLap(currentRightEdge));
                         bool isNoOtherRightLineInBetween = !Sections.Any(s => s != currentSection && s != otherSection &&
-                                                                            s.SectionBoarders.RightEdge.VerticleEdgeX() > currentRightEdge.VerticleEdgeX() &&
-                                                                            s.SectionBoarders.RightEdge.VerticleEdgeX() < otherLeftEdge.VerticleEdgeX() &&
-                                                                            s.SectionBoarders.RightEdge.VerticalEdgeOverLap(otherLeftEdge) &&
-                                                                             s.SectionBoarders.RightEdge.VerticalEdgeOverLap(currentRightEdge));
+                                                                            s.SectionBoarders.BoundingBoxRightEdge.VerticleEdgeX() > currentRightEdge.VerticleEdgeX() &&
+                                                                            s.SectionBoarders.BoundingBoxRightEdge.VerticleEdgeX() < otherLeftEdge.VerticleEdgeX() &&
+                                                                            s.SectionBoarders.BoundingBoxRightEdge.VerticalEdgeOverLap(otherLeftEdge) &&
+                                                                             s.SectionBoarders.BoundingBoxRightEdge.VerticalEdgeOverLap(currentRightEdge));
 
                         if (isOverlapY && isNoOtherLeftLineInBetween && isNoOtherRightLineInBetween)
                         {
@@ -151,7 +167,7 @@ namespace FloorplanClassLibrary
                 List<Section> valueSections = pair.Value;
                 foreach (Section valueSection in valueSections)
                 {
-                    CreateTopAndBottomBorderEdges(keySection.SectionBoarders.TopEdge, valueSection.SectionBoarders.BottomEdge);
+                    CreateTopAndBottomBorderEdges(keySection.SectionBoarders.BoundingBoxTopEdge, valueSection.SectionBoarders.BoundingBoxBottomEdge);
                 }
             }
         }
@@ -168,8 +184,8 @@ namespace FloorplanClassLibrary
             // Create the overlapping edge if there is an overlap
             if (overlapStartX < overlapEndX)
             {
-                CreateAndAddEdge(overlapStartX, middleY, overlapEndX, topEdge.Section);
-                CreateAndAddEdge(overlapStartX, middleY, overlapEndX, bottomEdge.Section);
+                //CreateAndAddEdge(overlapStartX, middleY, overlapEndX, topEdge.Section);
+                //CreateAndAddEdge(overlapStartX, middleY, overlapEndX, bottomEdge.Section);
             }
 
             // Similar logic for creating edges along the topEdge and bottomEdge where there is no overlap
@@ -183,13 +199,13 @@ namespace FloorplanClassLibrary
 
             foreach (var currentSection in Sections)
             {
-                Edge currentBottomEdge = currentSection.SectionBoarders.BottomEdge;
+                Edge currentBottomEdge = currentSection.SectionBoarders.BoundingBoxBottomEdge;
 
                 foreach (var otherSection in Sections)
                 {
                     if (otherSection == currentSection) continue;
 
-                    Edge otherTopEdge = otherSection.SectionBoarders.TopEdge;
+                    Edge otherTopEdge = otherSection.SectionBoarders.BoundingBoxTopEdge;
 
                     // Check if the other section's TopEdge is below the current section's BottomEdge
                     if (otherTopEdge.StartNode.Y > currentBottomEdge.EndNode.Y)
@@ -321,10 +337,10 @@ namespace FloorplanClassLibrary
         }
         private Rectangle? GetOverlappingRectangle(SectionBoarders boarders1, SectionBoarders boarders2)
         {
-            int left = Math.Max(boarders1.LeftEdge.StartNode.X, boarders2.LeftEdge.StartNode.X);
-            int right = Math.Min(boarders1.RightEdge.StartNode.X, boarders2.RightEdge.StartNode.X);
-            int top = Math.Max(boarders1.TopEdge.StartNode.Y, boarders2.TopEdge.StartNode.Y);
-            int bottom = Math.Min(boarders1.BottomEdge.StartNode.Y, boarders2.BottomEdge.StartNode.Y);
+            int left = Math.Max(boarders1.BoundingBoxLeftEdge.StartNode.X, boarders2.BoundingBoxLeftEdge.StartNode.X);
+            int right = Math.Min(boarders1.BoundingBoxRightEdge.StartNode.X, boarders2.BoundingBoxRightEdge.StartNode.X);
+            int top = Math.Max(boarders1.BoundingBoxTopEdge.StartNode.Y, boarders2.BoundingBoxTopEdge.StartNode.Y);
+            int bottom = Math.Min(boarders1.BoundingBoxBottomEdge.StartNode.Y, boarders2.BoundingBoxBottomEdge.StartNode.Y);
 
             if (left < right && top < bottom)
             {

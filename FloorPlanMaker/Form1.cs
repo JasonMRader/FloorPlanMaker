@@ -798,7 +798,7 @@ namespace FloorPlanMaker
             SectionLineDrawer edgeDrawer = new SectionLineDrawer(3f); 
 
             Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size,
-                boarderManager.SectionBoarderLines);
+                boarderManager.Edges);
             pnlFloorPlan.BackgroundImage = edgesBitmap;
         }
 

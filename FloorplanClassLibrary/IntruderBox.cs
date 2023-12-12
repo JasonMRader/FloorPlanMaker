@@ -44,7 +44,7 @@ namespace FloorplanClassLibrary
         }
         private void RemoveRightEdgeOverLap()
         {
-            if(EdgesOverlap(this.RightEdge, SectionBoarders.RightEdge))
+            if(EdgesOverlap(this.RightEdge, SectionBoarders.BoundingBoxRightEdge))
             {
 
             }
