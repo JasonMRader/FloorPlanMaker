@@ -12,6 +12,7 @@ namespace FloorplanClassLibrary
         public int Y { get; set; }
         public Node Parent { get; set; }
         public Node Child { get; set; }
+        public Point Point { get {  return new Point(X, Y); } }
         public Section? Section { get; set; }
         public int nodeNumber = 1;
         public string description { get; set; }

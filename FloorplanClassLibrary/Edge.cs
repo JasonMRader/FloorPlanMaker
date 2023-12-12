@@ -92,6 +92,7 @@ namespace FloorplanClassLibrary
             EndNode = endNode;
             this.Section = startNode.Section;
             SetOrientation();
+            SetBoarderTypeFromNodes();
             
         }
         public Edge(Node startNode, Node endNode, Boarder boarder)
