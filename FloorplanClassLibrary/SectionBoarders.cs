@@ -157,7 +157,7 @@ namespace FloorplanClassLibrary
                 edges.Add(edge);
             }
             foreach (Edge edge in edges) {
-                Edges.Add(edge);
+                //Edges.Add(edge);
                 if (edge.BoarderType == Edge.Boarder.Top) {
                     TopEdges.Add(edge);
                     BoundingBoxTopEdge = edge;
