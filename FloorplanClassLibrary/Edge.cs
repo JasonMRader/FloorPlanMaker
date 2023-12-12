@@ -88,8 +88,12 @@ namespace FloorplanClassLibrary
         }
         public Edge(Node startNode, Node endNode)
         {
-            StartNode = startNode;
-            EndNode = endNode;
+            if(endNode.Parent == startNode)
+            {
+                StartNode = startNode;
+                EndNode = endNode;
+            }
+           
             this.Section = startNode.Section;
             SetOrientation();
             SetBoarderTypeFromNodes();

@@ -264,7 +264,7 @@ namespace FloorplanClassLibrary
             this.Nodes.Add(secondNode);
             this.Nodes.Add(thirdNode);
             this.Nodes.Add(fourthNode);
-            Refresh
+           
             
         }
         public void MoveRightEdgeIn(Edge oldEdge, Edge edgeAdded)
