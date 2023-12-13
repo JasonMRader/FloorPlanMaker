@@ -175,6 +175,7 @@ namespace FloorplanClassLibrary
                     BoundingBoxLeftEdge = edge;
                 }
             }
+            DrawEdgesFromNodes();
              
         }
         public void DrawEdgesFromNodes()

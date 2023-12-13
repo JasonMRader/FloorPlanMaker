@@ -26,8 +26,9 @@ namespace FloorplanClassLibrary
             {
                 section.SetBoarderManager();
             }
-            FindLeftRightNeighbors();
-            CreateVerticleBorders();
+            AddSectionBoarderRightLinesToAllNodes();
+            //FindLeftRightNeighbors();
+            //CreateVerticleBorders();
         }
         public void CreateVerticleBorders()
         {
@@ -46,7 +47,7 @@ namespace FloorplanClassLibrary
         {
             foreach (var section in Sections)
             {
-                section.SectionBoarders.SetEdgesForBoundingBox();
+                //section.SectionBoarders.SetEdgesForBoundingBox();
                 this.Edges.AddRange(section.SectionBoarders.Edges);
             }
         }

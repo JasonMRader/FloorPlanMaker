@@ -64,12 +64,14 @@ namespace FloorplanClassLibrary
             Node bottomLeft = new Node(minX, maxY, section, false, false);
 
             // Optionally, you can set the parent-child relationship between the nodes
+            topLeft.Parent = bottomLeft;
             topLeft.Child = topRight;
             topRight.Parent = topLeft;
             topRight.Child = bottomRight;
             bottomRight.Parent = topRight;
             bottomRight.Child = bottomLeft;
             bottomLeft.Parent = bottomRight;
+            bottomLeft.Child = topLeft;
 
             return new List<Node> { topLeft, topRight, bottomRight, bottomLeft };
         }
