@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 
 namespace FloorplanClassLibrary
@@ -15,6 +16,8 @@ namespace FloorplanClassLibrary
         {
             Section = section;
             //this.Nodes = ConvexHull.GetBoundingBox(Section);
+            SetUnblockedRightSides();
+            SetUnblockedLeftSides();
         }
         public List<IntruderBox> IntruderBoxes { get; set; } = new List<IntruderBox>();        
         public List<Edge> Edges { get; set; } = new List<Edge>();
@@ -24,6 +27,8 @@ namespace FloorplanClassLibrary
         public List<Edge> LeftEdges { get; set; } = new List<Edge>();
         public List<Edge> RightEdges { get; set; } = new List<Edge>();
         public List<Node> Nodes { get; set; } = new List<Node>();
+        public List<Edge> UnblockedRightEdges { get; set; } = new List<Edge>();
+        public List<Edge> UnblockedLeftEdges { get; set; } = new List<Edge>();
         public Edge BoundingBoxLeftEdge { get; set; }
         public Edge BoundingBoxRightEdge { get; set; } //=> RightEdges.OrderByDescending(e => e.EndNode.X).FirstOrDefault();
         public Edge BoundingBoxTopEdge { get; set; } //=> TopEdges.OrderBy(e => e.StartNode.Y).FirstOrDefault();
@@ -129,6 +134,73 @@ namespace FloorplanClassLibrary
             //Add logic to remove to at same places that it was added
         }
     
+       
+        public void SetUnblockedRightSides()
+        {
+            
+
+            foreach (Table table in this.Section.Tables)
+            {
+                bool hasTableToRight = false;
+
+                foreach (Table otherTable in this.Section.Tables)
+                {
+                    if (otherTable == table)
+                        continue;
+
+                    bool isDirectlyToRight = otherTable.Left >= table.Right;
+                    bool isVerticallyOverlapping = (otherTable.Top < table.Bottom) && (otherTable.Bottom > table.Top);
+
+                    if (isDirectlyToRight && isVerticallyOverlapping)
+                    {
+                        hasTableToRight = true;
+                        break; // No need to check other tables, as we found a table to the right
+                    }
+                }
+
+                if (!hasTableToRight) // Add an edge only if there's no table directly to the right
+                {
+                    Node topRightNode = new Node(table.Right + 5, table.Top, Section);
+                    Node bottomRightNode = new Node(table.Right + 5, table.Bottom, Section);
+                    UnblockedRightEdges.Add(new Edge(topRightNode, bottomRightNode));
+                }
+            }
+
+            
+        }
+        public void SetUnblockedLeftSides()
+        {
+            
+
+            foreach (Table table in this.Section.Tables)
+            {
+                bool hasTableToLeft = false;
+
+                foreach (Table otherTable in this.Section.Tables)
+                {
+                    if (otherTable == table)
+                        continue;
+
+                    bool isDirectlyToLeft = otherTable.Right <= table.Left;
+                    bool isVerticallyOverlapping = (otherTable.Top < table.Bottom) && (otherTable.Bottom > table.Top);
+
+                    if (isDirectlyToLeft && isVerticallyOverlapping)
+                    {
+                        hasTableToLeft = true;
+                        break; // No need to check other tables, as we found a table to the right
+                    }
+                }
+
+                if (!hasTableToLeft) // Add an edge only if there's no table directly to the right
+                {
+                    Node topLeftNode = new Node(table.Left - 5, table.Top, Section);
+                    Node bottomLeftNode = new Node(table.Left - 5, table.Bottom, Section);
+                    UnblockedLeftEdges.Add(new Edge(topLeftNode, bottomLeftNode));
+                }
+            }
+
+           
+        }
 
 
         public void SetEdgesForBoundingBox() {

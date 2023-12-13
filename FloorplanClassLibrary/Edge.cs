@@ -184,6 +184,11 @@ namespace FloorplanClassLibrary
                 this.BoarderType = Boarder.Right;
             }
         }
+        public bool isVerticalOverLaping(Edge edgeCompared)
+        {
+            
+            return false;
+        }
         public enum Boarder 
         {
             Top,

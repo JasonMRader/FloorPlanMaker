@@ -15,6 +15,8 @@ namespace FloorplanClassLibrary
         public List<Edge> SectionBoarderLines { get; set; } = new List<Edge> ();
         public FloorplanBoarderManager() { }
         public List<IntruderBox> IntruderBoxes { get; set; } = new List<IntruderBox> { };
+        public List<Edge> UnblockedRights { get; set; } = new List<Edge> () { };
+        public List<Edge> UnblockedLefts { get; set; } = new List<Edge>() { };
         public Dictionary<Section, List<Section>> RightNeighbors { get; set; }
         public Dictionary<Section, List<Section>> LeftNeighbors { get; set; }
         public Dictionary<Section, List<Section >> TopNeighbors { get; set; }
@@ -25,10 +27,31 @@ namespace FloorplanClassLibrary
             foreach (var section in Sections)
             {
                 section.SetBoarderManager();
+                UnblockedRights.AddRange(section.SectionBoarders.UnblockedRightEdges);
+                UnblockedLefts.AddRange(section.SectionBoarders.UnblockedLeftEdges);
             }
             AddSectionBoarderRightLinesToAllNodes();
             FindLeftRightNeighbors();
             CreateVerticleBorders();
+        }
+        public List<Edge> CreateLeftRightMergeOfUnblockedTables()
+        {
+            List<Edge> edges = new List<Edge>();
+            foreach(Edge rightEdge in UnblockedRights)
+            {
+                foreach(Edge leftEdge in UnblockedLefts)
+                {
+                    if (leftEdge.Section == rightEdge.Section || rightEdge.VerticleEdgeX() > leftEdge.VerticleEdgeX())
+                    {
+                        continue;
+                    }
+                    if(rightEdge.VerticalEdgeOverLap(leftEdge))
+                    {
+                        edges.Add(SectionNeighborBoundry.CreateLeftRightUnblockedBoundry(rightEdge, leftEdge));
+                    }
+                }
+            }
+            return edges;
         }
         public void CreateVerticleBorders()
         {

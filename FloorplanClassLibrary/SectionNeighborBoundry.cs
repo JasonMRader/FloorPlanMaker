@@ -39,6 +39,18 @@ namespace FloorplanClassLibrary
             FirstSectionEdge = new Edge(startNode, endNode);
 
         }
+        public static Edge CreateLeftRightUnblockedBoundry(Edge rightEdge, Edge leftEdge)
+        {
+            int middleX = (rightEdge.VerticleEdgeX() + leftEdge.VerticleEdgeX()) / 2;
+
+            // Calculate the overlapping Y coordinates
+            int overlapStartY = Math.Max(rightEdge.VerticleEdgeStartY(), leftEdge.VerticleEdgeStartY());
+            int overlapEndY = Math.Min(rightEdge.VerticleEdgeEndY(), leftEdge.VerticleEdgeEndY());
+            Node startNode = new Node(middleX, overlapStartY, rightEdge.Section);
+            Node endNode = new Node(middleX, overlapEndY, rightEdge.Section);
+            return new Edge(startNode, endNode);
+
+        }
 
 
     }

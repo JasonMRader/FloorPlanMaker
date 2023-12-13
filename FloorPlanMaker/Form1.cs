@@ -871,7 +871,11 @@ namespace FloorPlanMaker
 
             boarderManager = new FloorplanBoarderManager(shiftManager.SelectedFloorplan.Sections);
             SectionLineDrawer edgeDrawer = new SectionLineDrawer(3f);
-            Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, boarderManager.SectionBoarderLines);// boarderManager.Sections.SelectMany(s => s.SectionBoarders.Edges));
+            //Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, boarderManager.SectionBoarderLines);// boarderManager.Sections.SelectMany(s => s.SectionBoarders.Edges));
+            //List<Edge> unblockedRights = boarderManager.Sections.SelectMany(s => s.SectionBoarders.UnblockedRightEdges).ToList();
+            //List<Edge> unblockedLefts = boarderManager.Sections.SelectMany(s => s.SectionBoarders.UnblockedLeftEdges).ToList();
+            //List<Edge> both = boarderManager.UnblockedRights.Concat(boarderManager.UnblockedLefts).ToList();
+            Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size,boarderManager.CreateLeftRightMergeOfUnblockedTables());
             pnlFloorPlan.BackgroundImage = edgesBitmap;
 
 

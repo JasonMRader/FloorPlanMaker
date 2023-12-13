@@ -50,6 +50,7 @@ namespace FloorplanClassLibrary
 
             return edges;
         }
+        
         //public void ModifyEdgeAndAddNodes(List<Node> existingNodes, List<Edge> existingEdges, Edge edgeToModify, List<Point> newPoints)
         //{
         //    if (existingNodes == null || existingEdges == null || edgeToModify == null || newPoints == null)
