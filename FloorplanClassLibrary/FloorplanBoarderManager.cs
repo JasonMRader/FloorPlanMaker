@@ -27,8 +27,8 @@ namespace FloorplanClassLibrary
                 section.SetBoarderManager();
             }
             AddSectionBoarderRightLinesToAllNodes();
-            //FindLeftRightNeighbors();
-            //CreateVerticleBorders();
+            FindLeftRightNeighbors();
+            CreateVerticleBorders();
         }
         public void CreateVerticleBorders()
         {
@@ -51,8 +51,12 @@ namespace FloorplanClassLibrary
                 this.Edges.AddRange(section.SectionBoarders.Edges);
             }
         }
-       
         private void CreateRightAndLeftBoarderEdges(Edge rightEdge, Edge leftEdge)
+        {
+            SectionNeighborBoundry neighborBoundry = new SectionNeighborBoundry(rightEdge.Section, leftEdge.Section, rightEdge, leftEdge);
+            SectionBoarderLines.Add(neighborBoundry.FirstSectionEdge);
+        }
+        private void oldCreateRightAndLeftBoarderEdges(Edge rightEdge, Edge leftEdge)
         {
             // Determine the middle X coordinate
             int middleX = (rightEdge.VerticleEdgeX() + leftEdge.VerticleEdgeX()) / 2;
@@ -66,20 +70,20 @@ namespace FloorplanClassLibrary
             // Create the overlapping edge if there is an overlap
             if (overlapStartY < overlapEndY)
             {
-                CreateAndAddEdge(startLine, endLine, rightEdge.Section, rightEdge);
-                //CreateAndAddEdge(middleX, overlapStartY, overlapEndY, leftEdge.Section);
+                //CreateAndAddEdge(startLine, endLine, rightEdge.Section, rightEdge);
+                CreateAndAddEdge(middleX, overlapStartY, overlapEndY, leftEdge.Section);
             }
 
             // Create edge along the rightEdge where there is no overlap
             if (rightEdge.VerticleEdgeStartY() < overlapStartY)
             {
-                //CreateAndAddEdge(rightEdge.VerticleEdgeX(), rightEdge.VerticleEdgeStartY(), overlapStartY, rightEdge.Section, rightEdge);
-                CreateAndAddEdge(startLine, endLine, rightEdge.Section, rightEdge);
+                //CreateAndAddEdge(middleX, overlapStartY, overlapEndY, leftEdge.Section);
+                //CreateAndAddEdge(startLine, endLine, rightEdge.Section, rightEdge);
             }
             if (rightEdge.VerticleEdgeEndY() > overlapEndY)
             {
-                //CreateAndAddEdge(rightEdge.VerticleEdgeX(), overlapEndY, rightEdge.VerticleEdgeEndY(), rightEdge.Section, rightEdge);
-                CreateAndAddEdge(startLine, endLine, rightEdge.Section, rightEdge);
+                CreateAndAddEdge(middleX, rightEdge.VerticleEdgeEndY(), overlapEndY, leftEdge.Section);
+                //CreateAndAddEdge(startLine, endLine, rightEdge.Section, rightEdge);
             }
 
             // Create edge along the leftEdge where there is no overlap and it extends beyond the rightEdge
@@ -93,16 +97,17 @@ namespace FloorplanClassLibrary
             }
         }
 
-        private void CreateAndAddEdge(Point startLine, Point endLine, Section section, Edge rightEdge)
-        {
-            section.SectionBoarders.MoveRightEdgeOut(rightEdge, startLine, endLine);
-        }
-        private void oldCreateAndAddEdge(int x, int startY, int endY, Section section)
+        //private void CreateAndAddEdge(Point startLine, Point endLine, Section section, Edge rightEdge)
+        //{
+        //    section.SectionBoarders.MoveRightEdgeOut(rightEdge, startLine, endLine);
+        //}
+        private void CreateAndAddEdge(int x, int startY, int endY, Section section)
         {
             Node startNode = new Node(x, startY, section);
             Node endNode = new Node(x, endY, section);
             Edge newEdge = new Edge(startNode, endNode);
             SectionBoarderLines.Add(newEdge);
+            //section.SectionBoarders.Edges.Add(newEdge);
         }
 
 
@@ -139,13 +144,13 @@ namespace FloorplanClassLibrary
                                                                              s.SectionBoarders.BoundingBoxLeftEdge.VerticleEdgeX() < otherLeftEdge.VerticleEdgeX() &&
                                                                              s.SectionBoarders.BoundingBoxLeftEdge.VerticalEdgeOverLap(otherLeftEdge) &&
                                                                              s.SectionBoarders.BoundingBoxLeftEdge.VerticalEdgeOverLap(currentRightEdge));
-                        bool isNoOtherRightLineInBetween = !Sections.Any(s => s != currentSection && s != otherSection &&
-                                                                            s.SectionBoarders.BoundingBoxRightEdge.VerticleEdgeX() > currentRightEdge.VerticleEdgeX() &&
-                                                                            s.SectionBoarders.BoundingBoxRightEdge.VerticleEdgeX() < otherLeftEdge.VerticleEdgeX() &&
-                                                                            s.SectionBoarders.BoundingBoxRightEdge.VerticalEdgeOverLap(otherLeftEdge) &&
-                                                                             s.SectionBoarders.BoundingBoxRightEdge.VerticalEdgeOverLap(currentRightEdge));
+                        //bool isNoOtherRightLineInBetween = !Sections.Any(s => s != currentSection && s != otherSection &&
+                        //                                                    s.SectionBoarders.BoundingBoxRightEdge.VerticleEdgeX() > currentRightEdge.VerticleEdgeX() &&
+                        //                                                    s.SectionBoarders.BoundingBoxRightEdge.VerticleEdgeX() < otherLeftEdge.VerticleEdgeX() &&
+                        //                                                    s.SectionBoarders.BoundingBoxRightEdge.VerticalEdgeOverLap(otherLeftEdge) &&
+                        //                                                     s.SectionBoarders.BoundingBoxRightEdge.VerticalEdgeOverLap(currentRightEdge));
 
-                        if (isOverlapY && isNoOtherLeftLineInBetween && isNoOtherRightLineInBetween)
+                        if (isOverlapY && isNoOtherLeftLineInBetween)// && isNoOtherRightLineInBetween)
                         {
                             // Add to the dictionaries
                             if (!RightNeighbors.ContainsKey(currentSection))

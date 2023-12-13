@@ -93,6 +93,12 @@ namespace FloorplanClassLibrary
                 StartNode = startNode;
                 EndNode = endNode;
             }
+            else
+            {
+                StartNode = endNode;
+                EndNode = startNode;
+            }
+
            
             this.Section = startNode.Section;
             SetOrientation();
