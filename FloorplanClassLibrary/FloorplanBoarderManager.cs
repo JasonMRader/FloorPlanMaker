@@ -17,6 +17,10 @@ namespace FloorplanClassLibrary
         public List<IntruderBox> IntruderBoxes { get; set; } = new List<IntruderBox> { };
         public List<Edge> UnblockedRights { get; set; } = new List<Edge> () { };
         public List<Edge> UnblockedLefts { get; set; } = new List<Edge>() { };
+        public List<Edge> UnblockedTops { get; set; } = new List<Edge>() { };
+        public List<Edge> UnblockedBottoms { get; set; } = new List<Edge>() { };
+        
+
         public Dictionary<Section, List<Section>> RightNeighbors { get; set; }
         public Dictionary<Section, List<Section>> LeftNeighbors { get; set; }
         public Dictionary<Section, List<Section >> TopNeighbors { get; set; }
@@ -29,10 +33,18 @@ namespace FloorplanClassLibrary
                 section.SetBoarderManager();
                 UnblockedRights.AddRange(section.SectionBoarders.UnblockedRightEdges);
                 UnblockedLefts.AddRange(section.SectionBoarders.UnblockedLeftEdges);
+                UnblockedBottoms.AddRange(section.SectionBoarders.UnblockedBottomEdges);
+                UnblockedTops.AddRange(section.SectionBoarders.UnblockedTopEdges);
             }
             AddSectionBoarderRightLinesToAllNodes();
             FindLeftRightNeighbors();
             CreateVerticleBorders();
+        }
+        public List<Edge> verticalAndHorizontalUnblockedMerge()
+        {
+            List<Edge> VerticalEdges = CreateLeftRightMergeOfUnblockedTables();
+            VerticalEdges.AddRange(CreateTopBottomMergeOfUnblockedTables());
+            return VerticalEdges;
         }
         public List<Edge> CreateLeftRightMergeOfUnblockedTables()
         {
@@ -48,6 +60,25 @@ namespace FloorplanClassLibrary
                     if(rightEdge.VerticalEdgeOverLap(leftEdge))
                     {
                         edges.Add(SectionNeighborBoundry.CreateLeftRightUnblockedBoundry(rightEdge, leftEdge));
+                    }
+                }
+            }
+            return edges;
+        }
+        public List<Edge> CreateTopBottomMergeOfUnblockedTables()
+        {
+            List<Edge> edges = new List<Edge>();
+            foreach (Edge topEdge in UnblockedTops)
+            {
+                foreach (Edge bottomEdge in UnblockedBottoms)
+                {
+                    if (bottomEdge.Section == topEdge.Section || topEdge.HorizontalEdgeY() > bottomEdge.HorizontalEdgeY())
+                    {
+                        continue;
+                    }
+                    if (topEdge.HorizontalEdgeOverLap(bottomEdge))
+                    {
+                        edges.Add(SectionNeighborBoundry.CreateTopBottomUnblockedBoundary(topEdge, bottomEdge));
                     }
                 }
             }

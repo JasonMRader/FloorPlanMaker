@@ -748,16 +748,8 @@ namespace FloorPlanMaker
         private void btnTest_Click(object sender, EventArgs e)
         {
             boarderManager = new FloorplanBoarderManager(shiftManager.SelectedFloorplan.Sections);
-            boarderManager.CalculateOverlappingSectionEdges();
-            foreach (Section section in boarderManager.Sections)
-            {
-                section.SectionBoarders.RemoveAllRightOverLapps();
-            }
-            var selectedSections = boarderManager.Sections
-                .Where(section => section == shiftManager.SectionSelected);
             SectionLineDrawer edgeDrawer = new SectionLineDrawer(3f);
-            Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size,
-               selectedSections.SelectMany(s => s.SectionBoarders.Edges));
+            Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, boarderManager.Sections.SelectMany(s => s.SectionBoarders.Edges));
             pnlFloorPlan.BackgroundImage = edgesBitmap;
 
         }
@@ -795,72 +787,29 @@ namespace FloorPlanMaker
         {
 
             boarderManager = new FloorplanBoarderManager(shiftManager.SelectedFloorplan.Sections);
-            SectionLineDrawer edgeDrawer = new SectionLineDrawer(3f); 
-
-            Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size,
-                boarderManager.Edges);
+            SectionLineDrawer edgeDrawer = new SectionLineDrawer(3f);
+            //Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, boarderManager.SectionBoarderLines);// boarderManager.Sections.SelectMany(s => s.SectionBoarders.Edges));
+            List<Edge> unblockedTops = boarderManager.Sections.SelectMany(s => s.SectionBoarders.UnblockedTopEdges).ToList();
+            List<Edge> unblockedBottoms = boarderManager.Sections.SelectMany(s => s.SectionBoarders.UnblockedBottomEdges).ToList();
+            List<Edge> both = boarderManager.UnblockedTops.Concat(boarderManager.UnblockedBottoms).ToList();
+            Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, both);//boarderManager.CreateTopBottomMergeOfUnblockedTables());
             pnlFloorPlan.BackgroundImage = edgesBitmap;
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            boarderManager = new FloorplanBoarderManager(shiftManager.SelectedFloorplan.Sections);
-
-            SectionLineDrawer edgeDrawer = new SectionLineDrawer(3f); 
-                                                                      
-
-            Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, boarderManager.Sections.SelectMany(s => s.SectionBoarders.Edges));
-            pnlFloorPlan.BackgroundImage = edgesBitmap;
-            foreach (Section section in boarderManager.Sections)
-            {
-                //section.SetBoarderManager();
-
-                //List<Edge> hullEdges = nodeManager.getEdgesForConvexHull();
-                foreach (Edge edge in section.SectionBoarders.Edges)
-                {
-                    //NodeControl nodeControl1 = new NodeControl(edge.StartNode, NodeControl.NodePosition.Top);
-                    SectionLine line = new SectionLine(edge);
-                    line.LineThickness = 20f;
-                    line.Invalidate();
-                    if (edge.isVertical)
-                    {
-                        line.Width = 10;
-                    }
-                    else
-                    {
-                        line.Height = 10;
-                    }
-                    line.LineColor = section.Color;
-                    line.BringToFront();
-                    pnlFloorPlan.Controls.Add(line);
-                    //pnlFloorPlan.Controls.Add((NodeControl)nodeControl1);
-                }
-            }
+           
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             boarderManager = new FloorplanBoarderManager(shiftManager.SelectedFloorplan.Sections);
             SectionLineDrawer edgeDrawer = new SectionLineDrawer(3f);
-            Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, boarderManager.Sections.SelectMany(s => s.SectionBoarders.Edges));
+            //Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, boarderManager.SectionBoarderLines);// boarderManager.Sections.SelectMany(s => s.SectionBoarders.Edges));
+            
+            List<Edge> both = boarderManager.UnblockedRights.Concat(boarderManager.UnblockedLefts).ToList();
+            Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, both);//boarderManager.CreateTopBottomMergeOfUnblockedTables());
             pnlFloorPlan.BackgroundImage = edgesBitmap;
-            //FloorplanEdgesManager floorplanEdges = new FloorplanEdgesManager(shiftManager.SelectedFloorplan.Sections);
-            //floorplanEdges.SetSectionNodeManagers();
-            //floorplanEdges.SetAllSectionsTopBoarders();
-            //List<SectionLine> lines = floorplanEdges.GetTopSectionLines();
-            //foreach (SectionLine line in lines)
-            //{
-            //    pnlFloorPlan.Controls.Add(line);
-            //}
-            ////foreach (Section section in shiftManager.SelectedFloorplan.Sections)
-            ////{
-            ////    //section.SetNodeManager();
-            ////    List<SectionLine> lines = SectionNodeManager.CreateSectionLinesFromEdges(section.NodeManager.Edges);
-            ////    foreach (SectionLine line in lines)
-            ////    {
-            ////        pnlFloorPlan.Controls.Add(line);
-            ////    }
-            ////}
 
         }
 
@@ -872,10 +821,8 @@ namespace FloorPlanMaker
             boarderManager = new FloorplanBoarderManager(shiftManager.SelectedFloorplan.Sections);
             SectionLineDrawer edgeDrawer = new SectionLineDrawer(3f);
             //Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, boarderManager.SectionBoarderLines);// boarderManager.Sections.SelectMany(s => s.SectionBoarders.Edges));
-            //List<Edge> unblockedRights = boarderManager.Sections.SelectMany(s => s.SectionBoarders.UnblockedRightEdges).ToList();
-            //List<Edge> unblockedLefts = boarderManager.Sections.SelectMany(s => s.SectionBoarders.UnblockedLeftEdges).ToList();
-            //List<Edge> both = boarderManager.UnblockedRights.Concat(boarderManager.UnblockedLefts).ToList();
-            Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size,boarderManager.CreateLeftRightMergeOfUnblockedTables());
+           
+            Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, boarderManager.CreateLeftRightMergeOfUnblockedTables());
             pnlFloorPlan.BackgroundImage = edgesBitmap;
 
 

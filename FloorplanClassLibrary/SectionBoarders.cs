@@ -18,6 +18,8 @@ namespace FloorplanClassLibrary
             //this.Nodes = ConvexHull.GetBoundingBox(Section);
             SetUnblockedRightSides();
             SetUnblockedLeftSides();
+            SetUnblockedBottomSides();
+            SetUnblockedTopSides();
         }
         public List<IntruderBox> IntruderBoxes { get; set; } = new List<IntruderBox>();        
         public List<Edge> Edges { get; set; } = new List<Edge>();
@@ -29,6 +31,8 @@ namespace FloorplanClassLibrary
         public List<Node> Nodes { get; set; } = new List<Node>();
         public List<Edge> UnblockedRightEdges { get; set; } = new List<Edge>();
         public List<Edge> UnblockedLeftEdges { get; set; } = new List<Edge>();
+        public List<Edge> UnblockedTopEdges { get; set; } = new List<Edge>();
+        public List<Edge> UnblockedBottomEdges { get; set; } = new List<Edge>();
         public Edge BoundingBoxLeftEdge { get; set; }
         public Edge BoundingBoxRightEdge { get; set; } //=> RightEdges.OrderByDescending(e => e.EndNode.X).FirstOrDefault();
         public Edge BoundingBoxTopEdge { get; set; } //=> TopEdges.OrderBy(e => e.StartNode.Y).FirstOrDefault();
@@ -201,6 +205,66 @@ namespace FloorplanClassLibrary
 
            
         }
+        public void SetUnblockedTopSides()
+        {
+            foreach (Table table in this.Section.Tables)
+            {
+                bool hasTableAbove = false;
+
+                foreach (Table otherTable in this.Section.Tables)
+                {
+                    if (otherTable == table)
+                        continue;
+
+                    bool isDirectlyAbove = otherTable.Bottom <= table.Top;
+                    bool isHorizontallyOverlapping = (otherTable.Left < table.Right) && (otherTable.Right > table.Left);
+
+                    if (isDirectlyAbove && isHorizontallyOverlapping)
+                    {
+                        hasTableAbove = true;
+                        break; // Found a table above, no need to check further
+                    }
+                }
+
+                if (!hasTableAbove) // Add an edge only if there's no table directly above
+                {
+                    Node topLeftNode = new Node(table.Left, table.Top - 5, Section);
+                    Node topRightNode = new Node(table.Right, table.Top - 5, Section);
+                    UnblockedTopEdges.Add(new Edge(topLeftNode, topRightNode));
+                }
+            }
+        }
+
+        public void SetUnblockedBottomSides()
+        {
+            foreach (Table table in this.Section.Tables)
+            {
+                bool hasTableBelow = false;
+
+                foreach (Table otherTable in this.Section.Tables)
+                {
+                    if (otherTable == table)
+                        continue;
+
+                    bool isDirectlyBelow = otherTable.Top >= table.Bottom;
+                    bool isHorizontallyOverlapping = (otherTable.Left < table.Right) && (otherTable.Right > table.Left);
+
+                    if (isDirectlyBelow && isHorizontallyOverlapping)
+                    {
+                        hasTableBelow = true;
+                        break; // Found a table below, no need to check further
+                    }
+                }
+
+                if (!hasTableBelow) // Add an edge only if there's no table directly below
+                {
+                    Node bottomLeftNode = new Node(table.Left, table.Bottom + 5, Section);
+                    Node bottomRightNode = new Node(table.Right, table.Bottom + 5, Section);
+                    UnblockedBottomEdges.Add(new Edge(bottomLeftNode, bottomRightNode));
+                }
+            }
+        }
+
 
 
         public void SetEdgesForBoundingBox() {
