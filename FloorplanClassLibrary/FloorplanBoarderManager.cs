@@ -65,11 +65,12 @@ namespace FloorplanClassLibrary
                     {
                         Edge edge = SectionNeighborBoundry.CreateLeftRightUnblockedBoundry(rightEdge, leftEdge);
                         edge.SectionBoardered = leftEdge.Section;
-                        //if (!VerticalCheckIfMergedBoarderIsInAnotherSectionsBoarderBox(edge))
-                        //{
-                        //    edges.Add(edge);
-                        //}
-                        rightEdge.Section.SectionBoarders.RightEdgeBoarders.Add(edge);
+                        if (!VerticalCheckIfMergedBoarderIsInAnotherSectionsBoarderBox(edge, rightEdge))
+                        {
+                            //edges.Add(edge);
+                            rightEdge.Section.SectionBoarders.RightEdgeBoarders.Add(edge);
+                        }
+                        //rightEdge.Section.SectionBoarders.RightEdgeBoarders.Add(edge);
                     }
                 }
             }
@@ -120,23 +121,32 @@ namespace FloorplanClassLibrary
        
 
        
-        private bool VerticalCheckIfMergedBoarderIsInAnotherSectionsBoarderBox(Edge edge)
+        private bool VerticalCheckIfMergedBoarderIsInAnotherSectionsBoarderBox(Edge edge, Edge rightEdge)
         {
             foreach (Section section in this.Sections)
             {
                 if (section == edge.Section) continue;
                 if (section == edge.SectionBoardered) continue;
-
-                if (edge.VerticleEdgeX() < section.SectionBoarders.BoundingBoxRightEdge.VerticleEdgeX() &&
-                    edge.VerticleEdgeX() > section.SectionBoarders.BoundingBoxLeftEdge.VerticleEdgeX())
+                foreach(Table table in section.Tables)
                 {
-                    //TODO need to add check for endNOde?
-                    if (edge.StartNode.Y < section.SectionBoarders.BoundingBoxBottomEdge.HorizontalEdgeY() &&
-                        edge.StartNode.Y > section.SectionBoarders.BoundingBoxTopEdge.HorizontalEdgeY())
+                    if(table.Left < edge.VerticleEdgeXPosition && table.Right > rightEdge.VerticleEdgeXPosition)
                     {
-                        return true;
+                        if(table.Bottom > edge.VerticleEdgeTopY && table.Top < edge.VerticleEdgeBottomY)
+                        {
+                            return true;
+                        }
                     }
                 }
+                //if (edge.VerticleEdgeX() < section.SectionBoarders.BoundingBoxRightEdge.VerticleEdgeX() &&
+                //    edge.VerticleEdgeX() > section.SectionBoarders.BoundingBoxLeftEdge.VerticleEdgeX())
+                //{
+                //    //TODO need to add check for endNOde?
+                //    if (edge.StartNode.Y < section.SectionBoarders.BoundingBoxBottomEdge.HorizontalEdgeY() &&
+                //        edge.StartNode.Y > section.SectionBoarders.BoundingBoxTopEdge.HorizontalEdgeY())
+                //    {
+                //        return true;
+                //    }
+                //}
             }
             return false;
         }
