@@ -13,6 +13,7 @@
         public int YCoordinate { get; set; }
         private int buffer { get; set; } = 0;
         public Point TopLeft { get {  return new Point(XCoordinate - buffer, YCoordinate - buffer); } }
+       
         public Point TopRight { get { return new Point(XCoordinate + Width + buffer, YCoordinate - buffer); } }
         public Point BottomRight { get { return new Point(XCoordinate + Width + buffer, YCoordinate + Height + buffer); } }
         public Point BottomLeft { get { return new Point(XCoordinate - buffer, YCoordinate + Height + buffer); } }

@@ -122,7 +122,7 @@ namespace FloorPlanMaker
         {
             int xOffset = isForPrint ? control.Left : 0;
             int yOffset = isForPrint ? control.Top : 0;
-
+            
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
             using (Pen pen = new Pen(control.BorderColor, control.BorderThickness))
             {
@@ -171,7 +171,7 @@ namespace FloorPlanMaker
 
 
                     Rectangle tableBounds = new Rectangle(xOffset, yOffset, control.Width, control.Height);
-                    using (Brush textBrush = new SolidBrush(control.TextColor)) // Use the TextColor property
+                    using (Brush textBrush = new SolidBrush(isForPrint ? Color.Black : control.TextColor)) // Use the TextColor property
                     {
                         g.DrawString(textToDisplay, font, textBrush, tableBounds, sf);
                     }
