@@ -48,6 +48,10 @@ namespace FloorplanClassLibrary
         }
         public List<Edge> CreateLeftRightMergeOfUnblockedTables()
         {
+            foreach (Section section in Sections)
+            {
+                section.SectionBoarders.RightEdgeBoarders.Clear();
+            }
             List<Edge> edges = new List<Edge>();
             foreach(Edge rightEdge in UnblockedRights)
             {
@@ -61,14 +65,21 @@ namespace FloorplanClassLibrary
                     {
                         Edge edge = SectionNeighborBoundry.CreateLeftRightUnblockedBoundry(rightEdge, leftEdge);
                         edge.SectionBoardered = leftEdge.Section;
-                        if (!VerticalCheckIfMergedBoarderIsInAnotherSectionsBoarderBox(edge))
-                        {
-                            edges.Add(edge);
-                        }
+                        //if (!VerticalCheckIfMergedBoarderIsInAnotherSectionsBoarderBox(edge))
+                        //{
+                        //    edges.Add(edge);
+                        //}
+                        rightEdge.Section.SectionBoarders.RightEdgeBoarders.Add(edge);
                     }
                 }
             }
+            foreach (Section section in Sections)
+            {
+                section.SectionBoarders.RemoveUnwantedRightBoarders();
+                edges.AddRange(section.SectionBoarders.RightEdgeBoarders);
+            }
             return edges;
+            //return edges;
         }
         public List<Edge> CreateTopBottomMergeOfUnblockedTables()
         {

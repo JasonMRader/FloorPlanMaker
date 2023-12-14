@@ -27,8 +27,8 @@ namespace FloorplanUserControlLibrary
                 {
                     using (Pen pen = new Pen(edge.Section.Color, LineThickness))
                     {
-                        Point startPoint = new Point(edge.StartNode.X, edge.StartNode.Y);
-                        Point endPoint = new Point(edge.EndNode.X, edge.EndNode.Y);
+                        Point startPoint = new Point(edge.StartNode.X-3, edge.StartNode.Y);
+                        Point endPoint = new Point(edge.EndNode.X-3, edge.EndNode.Y);
                         graphics.DrawLine(pen, startPoint, endPoint);
                     }
                 }

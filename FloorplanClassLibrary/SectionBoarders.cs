@@ -34,6 +34,7 @@ namespace FloorplanClassLibrary
         public List<Edge> UnblockedTopEdges { get; set; } = new List<Edge>();
         public List<Edge> UnblockedBottomEdges { get; set; } = new List<Edge>();
         public List<Edge> TopEdgeBoarders { get; set; } = new List<Edge>();
+        public List<Edge>RightEdgeBoarders { get; set; } = new List<Edge>();
         public Edge BoundingBoxLeftEdge { get; set; }
         public Edge BoundingBoxRightEdge { get; set; } //=> RightEdges.OrderByDescending(e => e.EndNode.X).FirstOrDefault();
         public Edge BoundingBoxTopEdge { get; set; } //=> TopEdges.OrderBy(e => e.StartNode.Y).FirstOrDefault();
@@ -174,6 +175,38 @@ namespace FloorplanClassLibrary
 
             
         }
+        public void RemoveUnwantedRightBoarders()
+        {
+            List<Edge> filteredEdges = new List<Edge>();
+
+            foreach (Edge edge in RightEdgeBoarders)
+            {
+                bool isRightOfAnotherEdge = false;
+                foreach (Edge edgeCompared in TopEdgeBoarders)
+                {
+                    if (edgeCompared == edge)
+                        continue;
+                   // bool isDirectlyToRight = edge.VerticleEdgeXPosition >= edgeCompared.VerticleEdgeXPosition;
+                   // bool isHorizontallyOverlapping = (edgeCompared.VerticleEdgeBottomY > edge.VerticleEdgeTopY) && (edgeCompared.VerticleEdgeTopY < edge.VerticleEdgeBottomY);
+                    bool isToLeftOfEdgeCompared = edge.VerticleEdgeXPosition < edgeCompared.VerticleEdgeXPosition;
+
+                    // Check for vertical overlap
+                    bool isVerticallyOverlapping = (edge.VerticleEdgeBottomY > edgeCompared.VerticleEdgeTopY) && (edge.VerticleEdgeTopY < edgeCompared.VerticleEdgeBottomY);
+
+                    if (isToLeftOfEdgeCompared && isVerticallyOverlapping)
+                    {
+                        isRightOfAnotherEdge = true;
+                        break; // Found a table above, no need to check further
+                    }
+
+                }
+                if (!isRightOfAnotherEdge)
+                {
+                    filteredEdges.Add(edge);
+                }
+            }
+            RightEdgeBoarders = filteredEdges;
+        }
         public void SetUnblockedLeftSides()
         {
             
@@ -204,7 +237,7 @@ namespace FloorplanClassLibrary
                     UnblockedLeftEdges.Add(new Edge(topLeftNode, bottomLeftNode));
                 }
             }
-
+            ExtendLeftEdges();
            
         }
         public void SetUnblockedTopSides()
@@ -344,16 +377,16 @@ namespace FloorplanClassLibrary
         }
         private void ExtendLeftEdges()
         {
-            UnblockedBottomEdges = UnblockedBottomEdges.OrderByDescending(e => e.HorizontalEdgeXLeft).ToList();
-            for (int i = 0; i < UnblockedBottomEdges.Count - 1; i++)
+            UnblockedLeftEdges = UnblockedLeftEdges.OrderBy(e => e.VerticleEdgeTopY).ToList();
+            for (int i = 0; i < UnblockedLeftEdges.Count - 1; i++)
             {
-                if (UnblockedBottomEdges[i].HorizontalEdgeYPosition >= UnblockedBottomEdges[i + 1].HorizontalEdgeYPosition)
+                if (UnblockedLeftEdges[i].VerticleEdgeXPosition <= UnblockedLeftEdges[i + 1].VerticleEdgeXPosition)
                 {
-                    UnblockedBottomEdges[i].ExtendHorizontalEdge(UnblockedBottomEdges[i + 1].HorizontalEdgeXRight, UnblockedBottomEdges[i].HorizontalEdgeXRight);
+                    UnblockedLeftEdges[i].ExtendVerticalEdge(UnblockedLeftEdges[i].VerticleEdgeTopY, UnblockedLeftEdges[i+1].VerticleEdgeTopY);
                 }
-                if (UnblockedBottomEdges[i + 1].HorizontalEdgeYPosition >= UnblockedBottomEdges[i].HorizontalEdgeYPosition)
+                if (UnblockedLeftEdges[i + 1].VerticleEdgeXPosition <= UnblockedLeftEdges[i].VerticleEdgeXPosition)
                 {
-                    UnblockedBottomEdges[i + 1].ExtendHorizontalEdge(UnblockedBottomEdges[i + 1].HorizontalEdgeXLeft, UnblockedBottomEdges[i].HorizontalEdgeXLeft);
+                    UnblockedLeftEdges[i + 1].ExtendVerticalEdge(UnblockedLeftEdges[i].VerticleEdgeBottomY, UnblockedLeftEdges[i+1].VerticleEdgeBottomY);
                 }
 
             }
