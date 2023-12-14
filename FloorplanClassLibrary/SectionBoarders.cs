@@ -280,11 +280,12 @@ namespace FloorplanClassLibrary
         }
         private void ExtendBottomEdges()
         {
-            UnblockedBottomEdges = UnblockedBottomEdges.OrderByDescending(e => e.StartNode.X).ToList();
+            UnblockedBottomEdges = UnblockedBottomEdges.OrderByDescending(e => e.HorizontalEdgeXStart).ToList();
             for (int i = 0; i < UnblockedBottomEdges.Count - 1; i++)
             {
-                if (UnblockedBottomEdges[i].HorizontalEdgeY() > UnblockedBottomEdges[i + 1].HorizontalEdgeY())
+                if (UnblockedBottomEdges[i].HorizontalEdgeYPosition <= UnblockedBottomEdges[i + 1].HorizontalEdgeYPosition)
                 {
+
                     Node endNode = new Node(UnblockedBottomEdges[i + 1].StartNode.X, UnblockedBottomEdges[i].StartNode.Y, Section);
                     UnblockedBottomEdges[i] = new Edge(UnblockedBottomEdges[i].StartNode, endNode);
                 }
