@@ -276,6 +276,10 @@ namespace FloorplanClassLibrary
                 {
                     UnblockedTopEdges[i].ExtendHorizontalEdge(UnblockedTopEdges[i].HorizontalEdgeXStart, UnblockedTopEdges[i+1].HorizontalEdgeXStart);
                 }
+                if(UnblockedTopEdges[i+1].HorizontalEdgeYPosition >= UnblockedTopEdges[i].HorizontalEdgeYPosition)
+                {
+                    UnblockedTopEdges[i+1].ExtendHorizontalEdge(UnblockedTopEdges[i].HorizontalEdgeXEnd, UnblockedTopEdges[i+1].HorizontalEdgeXEnd);
+                }
             }
         }
         private void ExtendBottomEdges()
@@ -289,6 +293,7 @@ namespace FloorplanClassLibrary
                     Node endNode = new Node(UnblockedBottomEdges[i + 1].StartNode.X, UnblockedBottomEdges[i].StartNode.Y, Section);
                     UnblockedBottomEdges[i] = new Edge(UnblockedBottomEdges[i].StartNode, endNode);
                 }
+                
             }
         }
 

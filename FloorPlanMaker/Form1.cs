@@ -794,7 +794,7 @@ namespace FloorPlanMaker
         {
 
             boarderManager = new FloorplanBoarderManager(shiftManager.SelectedFloorplan.Sections);
-            SectionLineDrawer edgeDrawer = new SectionLineDrawer(3f);
+            SectionLineDrawer edgeDrawer = new SectionLineDrawer(10f);
             //Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, boarderManager.SectionBoarderLines);// boarderManager.Sections.SelectMany(s => s.SectionBoarders.Edges));
             List<Edge> unblockedTops = boarderManager.Sections.SelectMany(s => s.SectionBoarders.UnblockedTopEdges).ToList();
             List<Edge> unblockedBottoms = boarderManager.Sections.SelectMany(s => s.SectionBoarders.UnblockedBottomEdges).ToList();
@@ -806,7 +806,7 @@ namespace FloorPlanMaker
         private void button2_Click(object sender, EventArgs e)
         {
             boarderManager = new FloorplanBoarderManager(shiftManager.SelectedFloorplan.Sections);
-            SectionLineDrawer edgeDrawer = new SectionLineDrawer(6f);
+            SectionLineDrawer edgeDrawer = new SectionLineDrawer(10f);
             //Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, boarderManager.SectionBoarderLines);// boarderManager.Sections.SelectMany(s => s.SectionBoarders.Edges));
 
             Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, boarderManager.CreateTopBottomMergeOfUnblockedTables());
