@@ -170,6 +170,7 @@ namespace FloorplanClassLibrary
                     UnblockedRightEdges.Add(new Edge(topRightNode, bottomRightNode));
                 }
             }
+            ExtendRightEdges();
 
             
         }
@@ -248,7 +249,7 @@ namespace FloorplanClassLibrary
                     if (edgeCompared == edge)
                         continue;
                     bool isDirectlyAbove = edge.HorizontalEdgeYPosition <= edgeCompared.HorizontalEdgeYPosition;
-                    bool isHorizontallyOverlapping = (edgeCompared.HorizontalEdgeXStart < edge.HorizontalEdgeXEnd) && (edgeCompared.HorizontalEdgeXEnd > edge.HorizontalEdgeXStart);
+                    bool isHorizontallyOverlapping = (edgeCompared.HorizontalEdgeXLeft < edge.HorizontalEdgeXRight) && (edgeCompared.HorizontalEdgeXRight > edge.HorizontalEdgeXLeft);
 
                     if (isDirectlyAbove && isHorizontallyOverlapping)
                     {
@@ -297,31 +298,62 @@ namespace FloorplanClassLibrary
         }
         private void ExtendTopEdges()
         {
-            UnblockedTopEdges = UnblockedTopEdges.OrderBy(e => e.HorizontalEdgeXStart).ToList();
+            UnblockedTopEdges = UnblockedTopEdges.OrderBy(e => e.HorizontalEdgeXLeft).ToList();
             for(int i = 0; i < UnblockedTopEdges.Count-1; i++)
             {
                 if (UnblockedTopEdges[i].HorizontalEdgeYPosition >= UnblockedTopEdges[i + 1].HorizontalEdgeYPosition)
                 {
-                    UnblockedTopEdges[i].ExtendHorizontalEdge(UnblockedTopEdges[i].HorizontalEdgeXStart, UnblockedTopEdges[i+1].HorizontalEdgeXStart);
+                    UnblockedTopEdges[i].ExtendHorizontalEdge(UnblockedTopEdges[i].HorizontalEdgeXLeft, UnblockedTopEdges[i+1].HorizontalEdgeXLeft);
                 }
                 if(UnblockedTopEdges[i+1].HorizontalEdgeYPosition >= UnblockedTopEdges[i].HorizontalEdgeYPosition)
                 {
-                    UnblockedTopEdges[i+1].ExtendHorizontalEdge(UnblockedTopEdges[i].HorizontalEdgeXEnd, UnblockedTopEdges[i+1].HorizontalEdgeXEnd);
+                    UnblockedTopEdges[i+1].ExtendHorizontalEdge(UnblockedTopEdges[i].HorizontalEdgeXRight, UnblockedTopEdges[i+1].HorizontalEdgeXRight);
                 }
             }
         }
         private void ExtendBottomEdges()
         {
-            UnblockedBottomEdges = UnblockedBottomEdges.OrderByDescending(e => e.HorizontalEdgeXStart).ToList();
+            UnblockedBottomEdges = UnblockedBottomEdges.OrderByDescending(e => e.HorizontalEdgeXLeft).ToList();
             for (int i = 0; i < UnblockedBottomEdges.Count - 1; i++)
             {
                 if (UnblockedBottomEdges[i].HorizontalEdgeYPosition >= UnblockedBottomEdges[i + 1].HorizontalEdgeYPosition)
                 {
-                    UnblockedBottomEdges[i].ExtendHorizontalEdge(UnblockedBottomEdges[i + 1].HorizontalEdgeXEnd, UnblockedBottomEdges[i].HorizontalEdgeXEnd);
+                    UnblockedBottomEdges[i].ExtendHorizontalEdge(UnblockedBottomEdges[i + 1].HorizontalEdgeXRight, UnblockedBottomEdges[i].HorizontalEdgeXRight);
                 }
                 if (UnblockedBottomEdges[i+1].HorizontalEdgeYPosition >= UnblockedBottomEdges[i].HorizontalEdgeYPosition)
                 {
-                    UnblockedBottomEdges[i+1].ExtendHorizontalEdge(UnblockedBottomEdges[i + 1].HorizontalEdgeXStart, UnblockedBottomEdges[i].HorizontalEdgeXStart);
+                    UnblockedBottomEdges[i+1].ExtendHorizontalEdge(UnblockedBottomEdges[i + 1].HorizontalEdgeXLeft, UnblockedBottomEdges[i].HorizontalEdgeXLeft);
+                }
+
+            }
+        }
+        private void ExtendRightEdges()
+        {
+            UnblockedRightEdges = UnblockedRightEdges.OrderBy(e => e.VerticleEdgeTopY).ToList();
+            for (int i = 0; i < UnblockedRightEdges.Count - 1; i++) 
+            {
+                if (UnblockedRightEdges[i].VerticleEdgeXPosition <= UnblockedRightEdges[i + 1].VerticleEdgeXPosition)
+                {
+                    UnblockedRightEdges[i].ExtendVerticalEdge(UnblockedRightEdges[i].VerticleEdgeTopY, UnblockedRightEdges[i + 1].VerticleEdgeTopY);
+                }
+                if (UnblockedRightEdges[i + 1].VerticleEdgeXPosition <= UnblockedRightEdges[i].VerticleEdgeXPosition)
+                {
+                    UnblockedRightEdges[i + 1].ExtendVerticalEdge(UnblockedRightEdges[i].VerticleEdgeBottomY, UnblockedRightEdges[i + 1].VerticleEdgeBottomY);
+                }
+            }
+        }
+        private void ExtendLeftEdges()
+        {
+            UnblockedBottomEdges = UnblockedBottomEdges.OrderByDescending(e => e.HorizontalEdgeXLeft).ToList();
+            for (int i = 0; i < UnblockedBottomEdges.Count - 1; i++)
+            {
+                if (UnblockedBottomEdges[i].HorizontalEdgeYPosition >= UnblockedBottomEdges[i + 1].HorizontalEdgeYPosition)
+                {
+                    UnblockedBottomEdges[i].ExtendHorizontalEdge(UnblockedBottomEdges[i + 1].HorizontalEdgeXRight, UnblockedBottomEdges[i].HorizontalEdgeXRight);
+                }
+                if (UnblockedBottomEdges[i + 1].HorizontalEdgeYPosition >= UnblockedBottomEdges[i].HorizontalEdgeYPosition)
+                {
+                    UnblockedBottomEdges[i + 1].ExtendHorizontalEdge(UnblockedBottomEdges[i + 1].HorizontalEdgeXLeft, UnblockedBottomEdges[i].HorizontalEdgeXLeft);
                 }
 
             }

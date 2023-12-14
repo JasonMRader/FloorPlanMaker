@@ -21,8 +21,8 @@ namespace FloorplanClassLibrary
         public int VerticleEdgeTopY { get; set; }
         public int VerticleEdgeBottomY { get; set; }
         public int HorizontalEdgeYPosition { get; set; }
-        public int HorizontalEdgeXStart { get; set; }
-        public int HorizontalEdgeXEnd { get; set; }
+        public int HorizontalEdgeXLeft { get; set; }
+        public int HorizontalEdgeXRight { get; set; }
 
         public int VerticleEdgeX()
         {
@@ -94,8 +94,14 @@ namespace FloorplanClassLibrary
             if (isHorizontal)
             {
                 HorizontalEdgeYPosition = HorizontalEdgeY();
-                HorizontalEdgeXStart = HorizontalEdgeStartX();
-                HorizontalEdgeXEnd = HorizontalEdgeEndX();
+                HorizontalEdgeXLeft = HorizontalEdgeStartX();
+                HorizontalEdgeXRight = HorizontalEdgeEndX();
+            }
+            if (!isHorizontal)
+            {
+                VerticleEdgeBottomY = VerticleEdgeEndY();
+                VerticleEdgeTopY = VerticleEdgeStartY();
+                VerticleEdgeXPosition = VerticleEdgeX();
             }
         }
         public Point startPoint()
@@ -146,6 +152,20 @@ namespace FloorplanClassLibrary
             {
                 this.StartNode.X = endPosition;
                 this.EndNode.X = startPosition;
+            }
+            SetOrientation();
+        }
+        public void ExtendVerticalEdge(int startPosition, int endPosition)
+        {
+            if (StartNode.Y < EndNode.Y)
+            {
+                this.StartNode.Y = startPosition;
+                this.EndNode.Y = endPosition;
+            }
+            else
+            {
+                this.StartNode.Y = endPosition;
+                this.EndNode.Y = startPosition;
             }
             SetOrientation();
         }

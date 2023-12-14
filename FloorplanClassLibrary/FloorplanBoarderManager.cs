@@ -90,11 +90,7 @@ namespace FloorplanClassLibrary
                         Edge edge = SectionNeighborBoundry.CreateTopBottomUnblockedBoundary(topEdge, bottomEdge);
                         edge.SectionBoardered = bottomEdge.Section;
 
-                        if (!HorizontalCheckIfMergedBoarderIsInAnotherSectionsBoarderBox(edge, topEdge, bottomEdge))
-                        {
-                            //edges.Add(edge);
-                        }
-                        //edges.Add(edge);
+                        
                         topEdge.Section.SectionBoarders.TopEdgeBoarders.Add(edge);
 
                     }
@@ -110,80 +106,9 @@ namespace FloorplanClassLibrary
             //return FilterOverlappingEdgesWithLargerY(edges);
             
         }
-        public List<Edge> FilterOverlappingEdgesWithLargerY(List<Edge> edges)
-        {
-            // Group the edges by Section
-            var groupedEdges = edges.GroupBy(edge => edge.Section).ToList();
-            List<Edge> filteredEdges = new List<Edge>();
-
-            foreach (var group in groupedEdges)
-            {
-                List<Edge> currentSectionEdges = group.ToList();
-                for (int i = 0; i < currentSectionEdges.Count; i++)
-                {
-                    Edge currentEdge = currentSectionEdges[i];
-                    bool overlapFound = false;
-
-                    foreach (Edge otherEdge in currentSectionEdges)
-                    {
-                        if (currentEdge != otherEdge && currentEdge.HorizontalEdgeOverLap(otherEdge))
-                        {
-                            overlapFound = true;
-                            // Keep the edge with the larger HorizontalEdgeY
-                            if (currentEdge.HorizontalEdgeY() > otherEdge.HorizontalEdgeY())
-                            {
-                                filteredEdges.Add(currentEdge);
-                            }
-                            break;
-                        }
-                    }
-
-                    if (!overlapFound)
-                    {
-                        filteredEdges.Add(currentEdge);
-                    }
-                }
-            }
-
-            return filteredEdges.Distinct().ToList();
-        }
-
        
 
-
-        private bool HorizontalCheckIfMergedBoarderIsInAnotherSectionsBoarderBox(Edge mergedEdge, Edge topEdge, Edge bottomEdge)
-        {
-            foreach(Section section in this.Sections)
-            {
-                if (section == mergedEdge.Section) continue;
-                if (section == mergedEdge.SectionBoardered) continue;
-
-                if(mergedEdge.HorizontalEdgeY() < section.SectionBoarders.BoundingBoxBottomEdge.HorizontalEdgeY() && 
-                    mergedEdge.HorizontalEdgeY() > section.SectionBoarders.BoundingBoxTopEdge.HorizontalEdgeY())
-                {
-                    //TODO need to add check for endNOde?
-                    if(mergedEdge.StartNode.X > section.SectionBoarders.BoundingBoxLeftEdge.VerticleEdgeX() &&
-                        mergedEdge.StartNode.X < section.SectionBoarders.BoundingBoxRightEdge.VerticleEdgeX())
-                    {
-                        foreach (Table table in section.Tables)
-                        {
-                            return true;
-                            // Check for any table's top or bottom line in the range of merging edges
-                            //if (IsLineInRange(mergedEdge, table.TopLeft, table.TopRight) || IsLineInRange(mergedEdge, table.BottomLeft, table.BottomRight))
-                            //{
-                            //    return true;
-                            //}
-                        }
-                    }
-                }
-            }
-            return false;
-        }
-        private bool IsLineInRange(Edge edge, Point lineStart, Point lineEnd)
-        {
-            // Check if the Y-coordinates of the lineStart and lineEnd points are within the range of the edge's Y-coordinate
-            return lineStart.Y <= edge.HorizontalEdgeY() && lineEnd.Y >= edge.HorizontalEdgeY();
-        }
+       
         private bool VerticalCheckIfMergedBoarderIsInAnotherSectionsBoarderBox(Edge edge)
         {
             foreach (Section section in this.Sections)
