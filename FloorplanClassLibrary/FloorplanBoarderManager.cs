@@ -72,7 +72,7 @@ namespace FloorplanClassLibrary
             {
                 foreach (Edge bottomEdge in UnblockedBottoms)
                 {
-                    if (bottomEdge.Section == topEdge.Section || topEdge.HorizontalEdgeY() > bottomEdge.HorizontalEdgeY())
+                    if (bottomEdge.Section == topEdge.Section || topEdge.HorizontalEdgeY() < bottomEdge.HorizontalEdgeY())
                     {
                         continue;
                     }

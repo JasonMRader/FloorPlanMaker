@@ -798,7 +798,12 @@ namespace FloorPlanMaker
 
         private void button2_Click(object sender, EventArgs e)
         {
-           
+            boarderManager = new FloorplanBoarderManager(shiftManager.SelectedFloorplan.Sections);
+            SectionLineDrawer edgeDrawer = new SectionLineDrawer(3f);
+            //Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, boarderManager.SectionBoarderLines);// boarderManager.Sections.SelectMany(s => s.SectionBoarders.Edges));
+
+            Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, boarderManager.CreateTopBottomMergeOfUnblockedTables());
+            pnlFloorPlan.BackgroundImage = edgesBitmap;
         }
 
         private void button3_Click(object sender, EventArgs e)

@@ -17,6 +17,7 @@ namespace FloorplanClassLibrary
         public Boarder BoarderType { get; set; }
         public int VerticleEdgeX()
         {
+           
             if (isHorizontal) return -1;
             else
             {
@@ -25,7 +26,8 @@ namespace FloorplanClassLibrary
         }
         public int VerticleEdgeStartY()
         {
-            if(isHorizontal) return -1;
+           
+            if (isHorizontal) return -1;
             else
             {
                 return Math.Min(this.StartNode.Y, this.EndNode.Y);
@@ -33,6 +35,7 @@ namespace FloorplanClassLibrary
         }
         public int VerticleEdgeEndY()
         {
+            
             if (isHorizontal) return -1;
             else
             {
@@ -41,6 +44,7 @@ namespace FloorplanClassLibrary
         }
         public int HorizontalEdgeY()
         {
+            
             if (!isHorizontal) return -1;
             else
             {
@@ -49,6 +53,7 @@ namespace FloorplanClassLibrary
         }
         public int HorizontalEdgeStartX()
         {
+            
             if (!isHorizontal) return -1;
             else
             {
@@ -57,7 +62,8 @@ namespace FloorplanClassLibrary
         }
         public int HorizontalEdgeEndX()
         {
-            if (isHorizontal) return -1;
+            
+            if (!isHorizontal) return -1;
             else
             {
                 return Math.Max(this.StartNode.X, this.EndNode.X);
@@ -142,17 +148,17 @@ namespace FloorplanClassLibrary
         public bool VerticalEdgeOverLap(Edge edge)
         {
             bool isOverlapY = (edge.VerticleEdgeStartY() <= this.VerticleEdgeEndY() &&
-                                          edge.VerticleEdgeEndY() >= this.VerticleEdgeStartY()) ||
-                                         (this.VerticleEdgeStartY() <= edge.VerticleEdgeEndY() &&
-                                          this.VerticleEdgeEndY() >= edge.VerticleEdgeStartY());
+                                          edge.VerticleEdgeEndY() >= this.VerticleEdgeStartY());// ||
+                                         //(this.VerticleEdgeStartY() <= edge.VerticleEdgeEndY() &&
+                                          //this.VerticleEdgeEndY() >= edge.VerticleEdgeStartY());
             return isOverlapY;
         }
         public bool HorizontalEdgeOverLap(Edge edge)
         {
             bool isOverlapX = (edge.HorizontalEdgeStartX() <= this.HorizontalEdgeEndX() &&
-                                          edge.HorizontalEdgeEndX() >= this.HorizontalEdgeStartX()) ||
-                                         (this.HorizontalEdgeStartX() <= edge.HorizontalEdgeEndX() &&
-                                          this.HorizontalEdgeEndX() >= edge.HorizontalEdgeStartX());
+                                          edge.HorizontalEdgeEndX() >= this.HorizontalEdgeStartX());// ||
+                                         //(this.HorizontalEdgeStartX() <= edge.HorizontalEdgeEndX() &&
+                                         // this.HorizontalEdgeEndX() >= edge.HorizontalEdgeStartX());
             return isOverlapX;
         }
         public void MoveVerticalEdge(int newX)
@@ -163,7 +169,7 @@ namespace FloorplanClassLibrary
         }
         public override string ToString()
         {
-            return "Start Node: " + StartNode.ToString() + ", End Node: " + EndNode.ToString();
+            return "Start Node: " + StartNode.ToString() + ", End Node: " + EndNode.ToString() + " " + Section.ToString();
         }
         public void SetBoarderTypeFromNodes()
         {

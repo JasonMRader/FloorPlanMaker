@@ -56,11 +56,11 @@ namespace FloorplanClassLibrary
             int middleY = (topEdge.HorizontalEdgeY() + bottomEdge.HorizontalEdgeY()) / 2;
 
             // Calculate the overlapping X coordinates
-            int overlapStartX = Math.Max(topEdge.HorizontalEdgeStartX(), bottomEdge.HorizontalEdgeStartX());
-            int overlapEndX = Math.Min(topEdge.HorizontalEdgeEndX(), bottomEdge.HorizontalEdgeEndX());
+            int overlapStartX = Math.Max(topEdge.HorizontalEdgeStartX(), bottomEdge.HorizontalEdgeStartX());//Max of starts
+            int overlapEndX = Math.Min(topEdge.HorizontalEdgeEndX(), bottomEdge.HorizontalEdgeEndX()); //Min of ends
 
-            Node startNode = new Node(overlapStartX, middleY, topEdge.Section);
-            Node endNode = new Node(overlapEndX, middleY, topEdge.Section);
+            Node endNode = new Node(overlapStartX, middleY, topEdge.Section);
+            Node startNode = new Node(overlapEndX, middleY, topEdge.Section);
 
             return new Edge(startNode, endNode);
         }

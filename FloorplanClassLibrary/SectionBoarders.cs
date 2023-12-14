@@ -164,8 +164,8 @@ namespace FloorplanClassLibrary
 
                 if (!hasTableToRight) // Add an edge only if there's no table directly to the right
                 {
-                    Node topRightNode = new Node(table.Right + 5, table.Top, Section);
-                    Node bottomRightNode = new Node(table.Right + 5, table.Bottom, Section);
+                    Node topRightNode = new Node(table.Right, table.Top, Section);
+                    Node bottomRightNode = new Node(table.Right, table.Bottom, Section);
                     UnblockedRightEdges.Add(new Edge(topRightNode, bottomRightNode));
                 }
             }
@@ -197,8 +197,8 @@ namespace FloorplanClassLibrary
 
                 if (!hasTableToLeft) // Add an edge only if there's no table directly to the right
                 {
-                    Node topLeftNode = new Node(table.Left - 5, table.Top, Section);
-                    Node bottomLeftNode = new Node(table.Left - 5, table.Bottom, Section);
+                    Node topLeftNode = new Node(table.Left, table.Top, Section);
+                    Node bottomLeftNode = new Node(table.Left, table.Bottom, Section);
                     UnblockedLeftEdges.Add(new Edge(topLeftNode, bottomLeftNode));
                 }
             }
@@ -228,8 +228,8 @@ namespace FloorplanClassLibrary
 
                 if (!hasTableAbove) // Add an edge only if there's no table directly above
                 {
-                    Node topLeftNode = new Node(table.Left, table.Top - 5, Section);
-                    Node topRightNode = new Node(table.Right, table.Top - 5, Section);
+                    Node topLeftNode = new Node(table.Left, table.Top, Section);
+                    Node topRightNode = new Node(table.Right, table.Top, Section);
                     UnblockedTopEdges.Add(new Edge(topLeftNode, topRightNode));
                 }
             }
@@ -258,9 +258,9 @@ namespace FloorplanClassLibrary
 
                 if (!hasTableBelow) // Add an edge only if there's no table directly below
                 {
-                    Node bottomLeftNode = new Node(table.Left, table.Bottom + 5, Section);
-                    Node bottomRightNode = new Node(table.Right, table.Bottom + 5, Section);
-                    UnblockedBottomEdges.Add(new Edge(bottomLeftNode, bottomRightNode));
+                    Node bottomLeftNode = new Node(table.Left, table.Bottom, Section);
+                    Node bottomRightNode = new Node(table.Right, table.Bottom, Section);
+                    UnblockedBottomEdges.Add(new Edge(bottomRightNode,bottomLeftNode));
                 }
             }
         }
