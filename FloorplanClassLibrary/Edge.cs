@@ -16,6 +16,14 @@ namespace FloorplanClassLibrary
         public Section Section { get; set; }
         public Section SectionBoardered { get; set; }
         public Boarder BoarderType { get; set; }
+        //TODO: add in these and thier horizontal counterparts, set the properties inside set orientation
+        public int VerticleEdgeXPosition { get; set; }
+        public int VerticleEdgeTopY { get; set; }
+        public int VerticleEdgeBottomY { get; set; }
+        public int HorizontalEdgeYPosition { get; set; }
+        public int HorizontalEdgeXStart { get; set; }
+        public int HorizontalEdgeXEnd { get; set; }
+
         public int VerticleEdgeX()
         {
            
@@ -83,6 +91,12 @@ namespace FloorplanClassLibrary
                 isVertical = true;
                 isHorizontal = false;
             }
+            if (isHorizontal)
+            {
+                HorizontalEdgeYPosition = HorizontalEdgeY();
+                HorizontalEdgeXStart = HorizontalEdgeStartX();
+                HorizontalEdgeXEnd = HorizontalEdgeEndX();
+            }
         }
         public Point startPoint()
         {
@@ -120,6 +134,20 @@ namespace FloorplanClassLibrary
             SetOrientation();
             this.BoarderType = boarder;
 
+        }
+        public void ExtendHorizontalEdge(int startPosition, int endPosition)
+        {
+            if(StartNode.X < EndNode.X)
+            {
+                this.StartNode.X = startPosition;
+                this.EndNode.X = endPosition;
+            }
+            else
+            {
+                this.StartNode.X = endPosition;
+                this.EndNode.X = startPosition;
+            }
+            SetOrientation();
         }
         public static Edge CopyIntruderEdge(Edge intruderEdge)
         {
