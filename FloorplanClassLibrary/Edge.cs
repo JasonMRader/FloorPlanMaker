@@ -14,6 +14,7 @@ namespace FloorplanClassLibrary
         public bool isVertical { get; set; }
         public bool isHorizontal { get; set; }
         public Section Section { get; set; }
+        public Section SectionBoardered { get; set; }
         public Boarder BoarderType { get; set; }
         public int VerticleEdgeX()
         {

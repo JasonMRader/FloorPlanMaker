@@ -59,7 +59,12 @@ namespace FloorplanClassLibrary
                     }
                     if(rightEdge.VerticalEdgeOverLap(leftEdge))
                     {
-                        edges.Add(SectionNeighborBoundry.CreateLeftRightUnblockedBoundry(rightEdge, leftEdge));
+                        Edge edge = SectionNeighborBoundry.CreateLeftRightUnblockedBoundry(rightEdge, leftEdge);
+                        edge.SectionBoardered = leftEdge.Section;
+                        if (!VerticalCheckIfMergedBoarderIsInAnotherSectionsBoarderBox(edge))
+                        {
+                            edges.Add(edge);
+                        }
                     }
                 }
             }
@@ -78,11 +83,57 @@ namespace FloorplanClassLibrary
                     }
                     if (topEdge.HorizontalEdgeOverLap(bottomEdge))
                     {
-                        edges.Add(SectionNeighborBoundry.CreateTopBottomUnblockedBoundary(topEdge, bottomEdge));
+                        Edge edge = SectionNeighborBoundry.CreateTopBottomUnblockedBoundary(topEdge, bottomEdge);
+                        edge.SectionBoardered = bottomEdge.Section;
+                        if (!HorizontalCheckIfMergedBoarderIsInAnotherSectionsBoarderBox(edge))
+                        {
+                            edges.Add(edge);
+                        }
                     }
+                    
                 }
             }
             return edges;
+        }
+        private bool HorizontalCheckIfMergedBoarderIsInAnotherSectionsBoarderBox(Edge edge)
+        {
+            foreach(Section section in this.Sections)
+            {
+                if (section == edge.Section) continue;
+                if (section == edge.SectionBoardered) continue;
+
+                if(edge.HorizontalEdgeY() < section.SectionBoarders.BoundingBoxBottomEdge.HorizontalEdgeY() && 
+                    edge.HorizontalEdgeY() > section.SectionBoarders.BoundingBoxTopEdge.HorizontalEdgeY())
+                {
+                    //TODO need to add check for endNOde?
+                    if(edge.StartNode.X > section.SectionBoarders.BoundingBoxLeftEdge.VerticleEdgeX() &&
+                        edge.StartNode.X < section.SectionBoarders.BoundingBoxRightEdge.VerticleEdgeX())
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+        private bool VerticalCheckIfMergedBoarderIsInAnotherSectionsBoarderBox(Edge edge)
+        {
+            foreach (Section section in this.Sections)
+            {
+                if (section == edge.Section) continue;
+                if (section == edge.SectionBoardered) continue;
+
+                if (edge.VerticleEdgeX() < section.SectionBoarders.BoundingBoxRightEdge.VerticleEdgeX() &&
+                    edge.VerticleEdgeX() > section.SectionBoarders.BoundingBoxLeftEdge.VerticleEdgeX())
+                {
+                    //TODO need to add check for endNOde?
+                    if (edge.StartNode.Y < section.SectionBoarders.BoundingBoxBottomEdge.HorizontalEdgeY() &&
+                        edge.StartNode.Y > section.SectionBoarders.BoundingBoxTopEdge.HorizontalEdgeY())
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
         public void CreateVerticleBorders()
         {

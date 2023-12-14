@@ -771,13 +771,20 @@ namespace FloorPlanMaker
 
         private void btnDoAThing_Click(object sender, EventArgs e)
         {
+            //boarderManager = new FloorplanBoarderManager(shiftManager.SelectedFloorplan.Sections);
+            //boarderManager.CalculateOverlappingSectionEdges();
+            //SectionLineDrawer edgeDrawer = new SectionLineDrawer(3f);
+            //Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, 
+            //    boarderManager.IntruderBoxes.SelectMany(i => i.Edges));
+            //pnlFloorPlan.BackgroundImage = edgesBitmap;
             boarderManager = new FloorplanBoarderManager(shiftManager.SelectedFloorplan.Sections);
-            boarderManager.CalculateOverlappingSectionEdges();
             SectionLineDrawer edgeDrawer = new SectionLineDrawer(3f);
-            Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, 
-                boarderManager.IntruderBoxes.SelectMany(i => i.Edges));
+            //Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, boarderManager.SectionBoarderLines);// boarderManager.Sections.SelectMany(s => s.SectionBoarders.Edges));
+            List<Edge> edges = boarderManager.CreateTopBottomMergeOfUnblockedTables();
+            edges.AddRange(boarderManager.CreateLeftRightMergeOfUnblockedTables()); 
+            Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size,edges);
             pnlFloorPlan.BackgroundImage = edgesBitmap;
-            
+
         }
 
        
