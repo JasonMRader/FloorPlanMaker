@@ -72,6 +72,10 @@ namespace FloorplanClassLibrary
         }
         public List<Edge> CreateTopBottomMergeOfUnblockedTables()
         {
+            foreach(Section section in Sections)
+            {
+                section.SectionBoarders.TopEdgeBoarders.Clear();
+            }
             List<Edge> edges = new List<Edge>();
             foreach (Edge topEdge in UnblockedTops)
             {
@@ -88,15 +92,22 @@ namespace FloorplanClassLibrary
 
                         if (!HorizontalCheckIfMergedBoarderIsInAnotherSectionsBoarderBox(edge, topEdge, bottomEdge))
                         {
-                          
+                            //edges.Add(edge);
                         }
-                        edges.Add(edge);
+                        //edges.Add(edge);
+                        topEdge.Section.SectionBoarders.TopEdgeBoarders.Add(edge);
 
                     }
                     
                 }
             }
-            return FilterOverlappingEdgesWithLargerY(edges);
+            foreach (Section section in Sections)
+            {
+                section.SectionBoarders.RemoveUnwantedTopBoarders();
+                edges.AddRange(section.SectionBoarders.TopEdgeBoarders);
+            }
+            return edges;
+            //return FilterOverlappingEdgesWithLargerY(edges);
             
         }
         public List<Edge> FilterOverlappingEdgesWithLargerY(List<Edge> edges)
@@ -156,11 +167,12 @@ namespace FloorplanClassLibrary
                     {
                         foreach (Table table in section.Tables)
                         {
+                            return true;
                             // Check for any table's top or bottom line in the range of merging edges
-                            if (IsLineInRange(mergedEdge, table.TopLeft, table.TopRight) || IsLineInRange(mergedEdge, table.BottomLeft, table.BottomRight))
-                            {
-                                return true;
-                            }
+                            //if (IsLineInRange(mergedEdge, table.TopLeft, table.TopRight) || IsLineInRange(mergedEdge, table.BottomLeft, table.BottomRight))
+                            //{
+                            //    return true;
+                            //}
                         }
                     }
                 }

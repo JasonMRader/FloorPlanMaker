@@ -33,6 +33,7 @@ namespace FloorplanClassLibrary
         public List<Edge> UnblockedLeftEdges { get; set; } = new List<Edge>();
         public List<Edge> UnblockedTopEdges { get; set; } = new List<Edge>();
         public List<Edge> UnblockedBottomEdges { get; set; } = new List<Edge>();
+        public List<Edge> TopEdgeBoarders { get; set; } = new List<Edge>();
         public Edge BoundingBoxLeftEdge { get; set; }
         public Edge BoundingBoxRightEdge { get; set; } //=> RightEdges.OrderByDescending(e => e.EndNode.X).FirstOrDefault();
         public Edge BoundingBoxTopEdge { get; set; } //=> TopEdges.OrderBy(e => e.StartNode.Y).FirstOrDefault();
@@ -235,7 +236,34 @@ namespace FloorplanClassLibrary
             }
             ExtendTopEdges();
         }
+        public void RemoveUnwantedTopBoarders()
+        {
+            List<Edge> filteredEdges = new List<Edge>();    
+            
+            foreach(Edge edge in TopEdgeBoarders)
+            {
+                bool isAboveAnotherEdge = false;
+                foreach(Edge edgeCompared in TopEdgeBoarders)
+                {
+                    if (edgeCompared == edge)
+                        continue;
+                    bool isDirectlyAbove = edge.HorizontalEdgeYPosition <= edgeCompared.HorizontalEdgeYPosition;
+                    bool isHorizontallyOverlapping = (edgeCompared.HorizontalEdgeXStart < edge.HorizontalEdgeXEnd) && (edgeCompared.HorizontalEdgeXEnd > edge.HorizontalEdgeXStart);
 
+                    if (isDirectlyAbove && isHorizontallyOverlapping)
+                    {
+                        isAboveAnotherEdge = true;
+                        break; // Found a table above, no need to check further
+                    }                  
+
+                }
+                if (!isAboveAnotherEdge)
+                {
+                    filteredEdges.Add(edge);
+                }
+            }
+            TopEdgeBoarders = filteredEdges;
+        }
         public void SetUnblockedBottomSides()
         {
             foreach (Table table in this.Section.Tables)
