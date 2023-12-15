@@ -40,6 +40,66 @@ namespace FloorplanClassLibrary
             FindLeftRightNeighbors();
             CreateVerticleBorders();
         }
+        public void FindTableNeighbors(List<Table> tables)
+        {
+            Dictionary<Table, List<Table>> rightNeighbors = new Dictionary<Table, List<Table>>();
+            Dictionary<Table, List<Table>> leftNeighbors = new Dictionary<Table, List<Table>>();
+
+            foreach (var currentTable in tables)
+            {
+                int currentTableRight = currentTable.Right;
+                int currentTableLeft = currentTable.Left;
+
+                foreach (var otherTable in tables)
+                {
+                    if (otherTable == currentTable) continue;
+
+                    int otherTableLeft = otherTable.Left;
+                    int otherTableRight = otherTable.Right;
+
+                    // Check for vertical overlap
+                    bool isVerticalOverlap = (currentTable.Bottom >= otherTable.Top && currentTable.Top <= otherTable.Bottom) ||
+                                             (otherTable.Bottom >= currentTable.Top && otherTable.Top <= currentTable.Bottom);
+
+                    // Check for a table on the right
+                    if (otherTableLeft > currentTableRight)
+                    {
+                        bool isNoOtherTableInBetween = !tables.Any(t => t != currentTable && t != otherTable &&
+                                                                       t.Left > currentTableRight &&
+                                                                       t.Left < otherTableLeft &&
+                                                                       ((t.Bottom >= currentTable.Top && t.Top <= currentTable.Bottom) ||
+                                                                        (currentTable.Bottom >= t.Top && currentTable.Top <= t.Bottom)));
+
+                        if (isVerticalOverlap && isNoOtherTableInBetween)
+                        {
+                            if (!rightNeighbors.ContainsKey(currentTable))
+                                rightNeighbors[currentTable] = new List<Table>();
+                            rightNeighbors[currentTable].Add(otherTable);
+                        }
+                    }
+
+                    // Check for a table on the left
+                    if (otherTableRight < currentTableLeft)
+                    {
+                        bool isNoOtherTableInBetween = !tables.Any(t => t != currentTable && t != otherTable &&
+                                                                       t.Right < currentTableLeft &&
+                                                                       t.Right > otherTableRight &&
+                                                                       ((t.Bottom >= currentTable.Top && t.Top <= currentTable.Bottom) ||
+                                                                        (currentTable.Bottom >= t.Top && currentTable.Top <= t.Bottom)));
+
+                        if (isVerticalOverlap && isNoOtherTableInBetween)
+                        {
+                            if (!leftNeighbors.ContainsKey(currentTable))
+                                leftNeighbors[currentTable] = new List<Table>();
+                            leftNeighbors[currentTable].Add(otherTable);
+                        }
+                    }
+                }
+            }
+
+            // You can now use rightNeighbors and leftNeighbors to draw borders or perform other actions
+        }
+
         public List<Edge> verticalAndHorizontalUnblockedMerge()
         {
             List<Edge> VerticalEdges = CreateLeftRightMergeOfUnblockedTables();

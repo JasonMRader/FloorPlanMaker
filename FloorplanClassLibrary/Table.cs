@@ -39,6 +39,24 @@
         {
             return TableNumber + " TL: " + TopLeft.ToString() + " TR: " + TopRight.ToString() +" BR: " + BottomRight.ToString();
         }
+        public bool IsNeighbor(Table other)
+        {
+            // Define a threshold for considering two tables as neighbors
+            int proximityThreshold = 10; // adjust this based on your requirements
 
+            // Check for a table on the right
+            bool hasRightNeighbor = this.Right < other.Left && Math.Abs(this.Right - other.Left) <= proximityThreshold;
+
+            // Check for a table on the left
+            bool hasLeftNeighbor = this.Left > other.Right && Math.Abs(this.Left - other.Right) <= proximityThreshold;
+
+            // Check for a table above
+            bool hasTopNeighbor = this.Top > other.Bottom && Math.Abs(this.Top - other.Bottom) <= proximityThreshold;
+
+            // Check for a table below
+            bool hasBottomNeighbor = this.Bottom < other.Top && Math.Abs(this.Bottom - other.Top) <= proximityThreshold;
+
+            return hasRightNeighbor || hasLeftNeighbor || hasTopNeighbor || hasBottomNeighbor;
+        }
     }
 }

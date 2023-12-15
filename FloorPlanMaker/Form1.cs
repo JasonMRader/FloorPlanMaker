@@ -760,6 +760,7 @@ namespace FloorPlanMaker
             //Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, boarderManager.SectionBoarderLines);// boarderManager.Sections.SelectMany(s => s.SectionBoarders.Edges));
             List<Edge> edges = boarderManager.CreateTopBottomMergeOfUnblockedTables();
             edges.AddRange(boarderManager.CreateLeftRightMergeOfUnblockedTables());
+            edges.AddRange(boarderManager.Sections.SelectMany(s => s.SectionBoarders.Edges));
             Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size,edges);
             pnlFloorPlan.BackgroundImage = edgesBitmap;
            
