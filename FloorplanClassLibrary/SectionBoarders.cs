@@ -34,6 +34,7 @@ namespace FloorplanClassLibrary
         public List<Edge> UnblockedTopEdges { get; set; } = new List<Edge>();
         public List<Edge> UnblockedBottomEdges { get; set; } = new List<Edge>();
         public List<Edge> TopEdgeBoarders { get; set; } = new List<Edge>();
+        public List<Edge> TopRightBoarders { get; set; } = new List<Edge>();
         public List<Edge>RightEdgeBoarders { get; set; } = new List<Edge>();
         public Edge BoundingBoxLeftEdge { get; set; }
         public Edge BoundingBoxRightEdge { get; set; } //=> RightEdges.OrderByDescending(e => e.EndNode.X).FirstOrDefault();
@@ -139,8 +140,8 @@ namespace FloorplanClassLibrary
         {
             //Add logic to remove to at same places that it was added
         }
-    
        
+
         public void SetUnblockedRightSides()
         {
             

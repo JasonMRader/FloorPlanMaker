@@ -33,6 +33,13 @@ namespace FloorplanClassLibrary
             Section = section;
             
         }
+        public Node(int x, int y)
+        {
+            X = x;
+            Y = y;
+            
+
+        }
         public Node(int x, int y, Section section, bool isTop, bool isRight)
         {
             X = x;

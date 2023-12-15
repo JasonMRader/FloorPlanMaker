@@ -747,6 +747,10 @@ namespace FloorPlanMaker
         //
         private void btnTest_Click(object sender, EventArgs e)
         {
+            TableGrid grid = new TableGrid(shiftManager.SelectedDiningArea.Tables);
+            grid.FindTableTopBottomNeighbors();
+            grid.FindTableNeighbors();
+
             boarderManager = new FloorplanBoarderManager(shiftManager.SelectedFloorplan.Sections);
             SectionLineDrawer edgeDrawer = new SectionLineDrawer(3f);
             Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, boarderManager.Sections.SelectMany(s => s.SectionBoarders.Edges));
