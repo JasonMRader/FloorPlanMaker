@@ -171,7 +171,7 @@ namespace FloorplanClassLibrary
                     UnblockedRightEdges.Add(new Edge(topRightNode, bottomRightNode));
                 }
             }
-            ExtendRightEdges();
+            //ExtendRightEdges();
 
             
         }
@@ -237,7 +237,7 @@ namespace FloorplanClassLibrary
                     UnblockedLeftEdges.Add(new Edge(topLeftNode, bottomLeftNode));
                 }
             }
-            ExtendLeftEdges();
+            //ExtendLeftEdges();
            
         }
         public void SetUnblockedTopSides()
@@ -268,7 +268,7 @@ namespace FloorplanClassLibrary
                     UnblockedTopEdges.Add(new Edge(topLeftNode, topRightNode));
                 }
             }
-            ExtendTopEdges();
+            //ExtendTopEdges();
         }
         public void RemoveUnwantedTopBoarders()
         {
@@ -327,7 +327,7 @@ namespace FloorplanClassLibrary
                     
                 }
             }
-            ExtendBottomEdges();
+            //ExtendBottomEdges();
         }
         private void ExtendTopEdges()
         {
