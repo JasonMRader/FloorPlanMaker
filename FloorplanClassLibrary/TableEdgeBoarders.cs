@@ -18,6 +18,10 @@ namespace FloorplanClassLibrary
         public List<Table> LeftNeighbors { get; set; } = new List<Table>();
         public List<Table> TopNeighbors { get; set; } = new List<Table>();
         public List<Table> BottomNeighbors { get; set; } = new List<Table>();
+        public int TopBorderY { get; private set; }
+        public int BottomBorderY { get; private set; }
+        public int RightBorderX { get; private set; }
+        public int LeftBorderX { get; private set; }
         public Edge RightSide { get; set; } 
         public Edge LeftSide { get; set; }
         public Edge TopSide { get; set; }
@@ -45,6 +49,27 @@ namespace FloorplanClassLibrary
             BottomSide = new Edge(BottomRight, BottomLeft, Edge.Boarder.Bottom);
             LeftSide = new Edge(BottomLeft, TopLeft, Edge.Boarder.Left);
 
+        }
+        public void SetBoarders()
+        {
+            
+            if(RightNeighbors.Count > 0)
+            {
+                RightBorderX = (this.Table.Right + RightNeighbors[0].Left)/2;
+            }
+            if(LeftNeighbors.Count > 0)
+            {
+                LeftBorderX = (this.Table.Left + LeftNeighbors[0].Right)/2;
+            }
+            if (TopNeighbors.Count > 0)
+            {
+                TopBorderY = (this.TopBorderY + TopNeighbors[0].Bottom)/2;
+            }
+            if(BottomNeighbors.Count > 0)
+            {
+                BottomBorderY = (this.BottomBorderY + BottomNeighbors[0].Top)/2;    
+            }
+            
         }
         public override string ToString()
         {

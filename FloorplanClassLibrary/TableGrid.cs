@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,6 +11,7 @@ namespace FloorplanClassLibrary
     {
         public List<Table> Tables { get; set; } = new List<Table>();
         public List<TableEdgeBoarders> TableBoarders { get; set; }
+        
         public TableGrid(List<Table> tables)
         {
             Tables = tables;
@@ -123,9 +125,18 @@ namespace FloorplanClassLibrary
                         }
                     }
                 }
+                
             }
+            
 
 
+        }
+        public void SetTableBoarderMidPoints()
+        {
+            foreach(var table in TableBoarders)
+            {
+                table.SetBoarders();
+            }
         }
 
 

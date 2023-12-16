@@ -750,6 +750,7 @@ namespace FloorPlanMaker
             TableGrid grid = new TableGrid(shiftManager.SelectedDiningArea.Tables);
             grid.FindTableTopBottomNeighbors();
             grid.FindTableNeighbors();
+            grid.SetTableBoarderMidPoints();
 
             boarderManager = new FloorplanBoarderManager(shiftManager.SelectedFloorplan.Sections);
             SectionLineDrawer edgeDrawer = new SectionLineDrawer(3f);
