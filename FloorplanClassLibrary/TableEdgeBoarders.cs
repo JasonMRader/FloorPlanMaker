@@ -22,6 +22,11 @@ namespace FloorplanClassLibrary
         public int BottomBorderY { get; private set; }
         public int RightBorderX { get; private set; }
         public int LeftBorderX { get; private set; }
+        public Node TopLeftNode { get; private set; }
+        public Node TopRightNode { get; private set; }
+        public Node BottomRightNode { get; private set; }
+        public Node BottomLeftNode { get; private set; }
+        public Edge TopBoarder { get; private set; }
         public Edge RightSide { get; set; } 
         public Edge LeftSide { get; set; }
         public Edge TopSide { get; set; }
@@ -70,6 +75,21 @@ namespace FloorplanClassLibrary
                 BottomBorderY = (this.BottomBorderY + BottomNeighbors[0].Top)/2;    
             }
             
+        }
+        public void SetNodesAndEdges()
+        {
+            if (LeftBorderX > 0 && TopBorderY > 0)
+            {
+                TopLeftNode = new Node(LeftBorderX, TopBorderY);
+            }
+            if (TopBorderY > 0 && RightBorderX > 0)
+            {
+                TopRightNode = new Node(RightBorderX, TopBorderY);
+            }
+            if(TopLeftNode != null && TopRightNode != null)
+            {
+                TopBoarder = new Edge(TopLeftNode, TopRightNode);
+            }
         }
         public override string ToString()
         {
