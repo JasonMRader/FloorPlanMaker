@@ -883,8 +883,10 @@ namespace FloorPlanMaker
             grid.FindTableTopBottomNeighbors();
             grid.FindTableNeighbors();
             grid.SetTableBoarderMidPoints();
+            grid.SetSections(this.shiftManager.SelectedFloorplan.Sections);
             SectionLineDrawer edgeDrawer = new SectionLineDrawer(3f);
-            Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, grid.GetTableBoarders());
+            //Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, grid.GetAllTableBoarders());
+            Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, grid.GetSectionTableBoarders());
             pnlFloorPlan.BackgroundImage = edgesBitmap;
         }
     }

@@ -6,18 +6,21 @@ using System.Threading.Tasks;
 
 namespace FloorplanClassLibrary
 {
-    public class TableEdgeBoarders
+    public class TableEdgeBorders
     {
-        public TableEdgeBoarders(Table table)
+        public TableEdgeBorders(Table table)
         {
             this.Table = table;            
             initEdgesAndNodes();
         }
         public Table Table { get; set; }
+        public Section Section { get; set; }
         public List<Table> RightNeighbors { get; set; } = new List<Table>();
         public List<Table> LeftNeighbors { get; set; } = new List<Table>();
         public List<Table> TopNeighbors { get; set; } = new List<Table>();
         public List<Table> BottomNeighbors { get; set; } = new List<Table>();
+        public TableEdgeBorders TopNeighborBoarders { get; set; }
+        public TableEdgeBorders RightNeighborBoarders { get; set; }
         public int TopBorderY { get; private set; }
         public int BottomBorderY { get; private set; }
         public int RightBorderX { get; private set; }
@@ -97,6 +100,7 @@ namespace FloorplanClassLibrary
             {
                 BottomLeftNode = new Node(LeftBorderX, BottomBorderY);
             }
+            //Methods to replace missing node
             if (TopLeftNode != null && TopRightNode == null)
             {
                 TopRightNode = new Node(this.Table.Right + 5, TopLeftNode.Y);
@@ -106,6 +110,14 @@ namespace FloorplanClassLibrary
             {
                TopLeftNode = new Node(this.Table.Left - 5, TopRightNode.Y);
                
+            }
+            if (TopRightNode == null && BottomRightNode != null)
+            {
+                TopRightNode = new Node(BottomRightNode.X, this.Table.Top - 5);
+            }
+            if(BottomRightNode == null && TopRightNode != null)
+            {
+                BottomRightNode = new Node(TopRightNode.X, this.Table.Bottom +5);
             }
             GetBorderEdges();
             
@@ -129,20 +141,8 @@ namespace FloorplanClassLibrary
                 //LeftBorder = new Edge(BottomLeftNode, TopLeftNode);
             }
 
-            //if(TopLeftNode != null && TopRightNode == null)
-            //{
-            //    Node topRightNode = new Node(this.Table.Right + 5, TopLeftNode.Y);
-            //    TopBorder = new Edge(TopLeftNode, topRightNode);
-            //}
-            //if(TopLeftNode == null &&  TopRightNode != null)
-            //{
-            //    Node topLeftNode = new Node(this.Table.Left - 5, TopRightNode.Y);
-            //    TopBorder = new Edge(topLeftNode, TopRightNode);
-            //}
-            if(TopRightNode == null && BottomRightNode != null)
-            {
-
-            }
+           
+           
         }
         public override string ToString()
         {

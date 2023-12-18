@@ -10,15 +10,31 @@ namespace FloorplanClassLibrary
     public class TableGrid
     {
         public List<Table> Tables { get; set; } = new List<Table>();
-        public List<TableEdgeBoarders> TableBoarders { get; set; }
+        public List<TableEdgeBorders> TableBoarders { get; set; }
+        public Dictionary<Table, TableEdgeBorders> TableEdges { get; set; } = new Dictionary<Table, TableEdgeBorders>();
+        public List<Section> Sections { get; private set; }
         
         public TableGrid(List<Table> tables)
         {
             Tables = tables;
-            this.TableBoarders = new List<TableEdgeBoarders>();
+            this.TableBoarders = new List<TableEdgeBorders>();
             foreach (var table in tables)
             {
-                this.TableBoarders.Add(new TableEdgeBoarders(table));
+                TableEdgeBorders edgeBoarders = new TableEdgeBorders(table);
+                this.TableBoarders.Add(edgeBoarders);
+                TableEdges.TryAdd(table, edgeBoarders);
+            }
+        }
+        public void SetSections(List<Section> sections)
+        {
+            Sections = sections;
+            foreach (var section in Sections)
+            {
+                foreach (var table in section.Tables)
+                {
+                    TableEdgeBorders tableBorders = this.TableBoarders.FirstOrDefault(x => x.Table.TableNumber == table.TableNumber);
+                    tableBorders.Section = section;
+                }
             }
         }
         public void FindTableNeighbors()
@@ -28,7 +44,7 @@ namespace FloorplanClassLibrary
                 int currentTableRight = currentTable.Right;
                 int currentTableLeft = currentTable.Left;
 
-                TableEdgeBoarders currentTableBoarders = TableBoarders.First(tb => tb.Table == currentTable);
+                TableEdgeBorders currentTableBoarders = TableBoarders.First(tb => tb.Table == currentTable);
 
                 foreach (var otherTable in Tables)
                 {
@@ -68,6 +84,10 @@ namespace FloorplanClassLibrary
                         if (isVerticalOverlap && isNoOtherTableInBetween)
                         {
                             currentTableBoarders.LeftNeighbors.Add(otherTable);
+                            if (TableEdges.TryGetValue(otherTable, out TableEdgeBorders otherTableBoarders))
+                            {
+                                currentTableBoarders.TopNeighborBoarders = otherTableBoarders;
+                            }
                         }
                     }
                 }
@@ -82,7 +102,7 @@ namespace FloorplanClassLibrary
                 int currentTableTop = currentTable.Top;
                 int currentTableBottom = currentTable.Bottom;
 
-                TableEdgeBoarders currentTableBoarders = TableBoarders.First(tb => tb.Table == currentTable);
+                TableEdgeBorders currentTableBoarders = TableBoarders.First(tb => tb.Table == currentTable);
 
                 foreach (var otherTable in Tables)
                 {
@@ -107,6 +127,10 @@ namespace FloorplanClassLibrary
                         if (isHorizontalOverlap && isNoOtherTableInBetween)
                         {
                             currentTableBoarders.TopNeighbors.Add(otherTable);
+                            if (TableEdges.TryGetValue(otherTable, out TableEdgeBorders otherTableBoarders))
+                            {
+                                currentTableBoarders.TopNeighborBoarders = otherTableBoarders;
+                            }
                         }
                     }
 
@@ -139,7 +163,42 @@ namespace FloorplanClassLibrary
                 table.SetNodesAndEdges();
             }
         }
-        public List<Edge> GetTableBoarders()
+        public List<Edge> GetSectionTableBoarders()
+        {
+            List<Edge> result = new List<Edge>();
+            foreach (var tableEdgePair in TableEdges)
+            {
+                Table table = tableEdgePair.Key;
+                TableEdgeBorders tableEdgeBoarders = tableEdgePair.Value;
+
+               
+                if (tableEdgeBoarders.TopNeighborBoarders != null)
+                {
+                    bool isDifferentSection = tableEdgeBoarders.TopNeighborBoarders.Section == tableEdgeBoarders.Section;
+
+                    if (isDifferentSection)
+                    {
+                        result.Add(tableEdgeBoarders.TopBorder);
+                    }
+                }
+
+               
+                if (tableEdgeBoarders.RightNeighborBoarders != null)
+                {
+                    bool isDifferentSection = tableEdgeBoarders.RightNeighborBoarders.Section == tableEdgeBoarders.Section;
+
+                    if (isDifferentSection)
+                    {
+                        result.Add(tableEdgeBoarders.TopBorder);
+                    }
+                }
+
+                
+            }
+            return result;
+        }
+
+        public List<Edge> GetAllTableBoarders()
         {
             List<Edge> result = new List<Edge>();   
             foreach (var table in TableBoarders) 
