@@ -97,6 +97,16 @@ namespace FloorplanClassLibrary
             {
                 BottomLeftNode = new Node(LeftBorderX, BottomBorderY);
             }
+            if (TopLeftNode != null && TopRightNode == null)
+            {
+                TopRightNode = new Node(this.Table.Right + 5, TopLeftNode.Y);
+                
+            }
+            if (TopLeftNode == null && TopRightNode != null)
+            {
+               TopLeftNode = new Node(this.Table.Left - 5, TopRightNode.Y);
+               
+            }
             GetBorderEdges();
             
         }
@@ -112,16 +122,26 @@ namespace FloorplanClassLibrary
             }
             if (BottomRightNode != null && BottomLeftNode != null)
             {
-                BottomBorder = new Edge(BottomRightNode, BottomLeftNode);
+                //BottomBorder = new Edge(BottomRightNode, BottomLeftNode);
             }
             if (BottomLeftNode != null && TopLeftNode != null)
             {
-                LeftBorder = new Edge(BottomLeftNode, TopLeftNode);
+                //LeftBorder = new Edge(BottomLeftNode, TopLeftNode);
             }
-            if(TopLeftNode != null && TopRightNode == null)
+
+            //if(TopLeftNode != null && TopRightNode == null)
+            //{
+            //    Node topRightNode = new Node(this.Table.Right + 5, TopLeftNode.Y);
+            //    TopBorder = new Edge(TopLeftNode, topRightNode);
+            //}
+            //if(TopLeftNode == null &&  TopRightNode != null)
+            //{
+            //    Node topLeftNode = new Node(this.Table.Left - 5, TopRightNode.Y);
+            //    TopBorder = new Edge(topLeftNode, TopRightNode);
+            //}
+            if(TopRightNode == null && BottomRightNode != null)
             {
-                Node topRightNode = new Node(this.Table.Right + 5, TopLeftNode.Y);
-                TopBorder = new Edge(TopLeftNode, topRightNode);
+
             }
         }
         public override string ToString()
