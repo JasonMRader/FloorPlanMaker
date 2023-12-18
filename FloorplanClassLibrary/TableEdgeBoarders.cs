@@ -97,21 +97,31 @@ namespace FloorplanClassLibrary
             {
                 BottomLeftNode = new Node(LeftBorderX, BottomBorderY);
             }
-            if(TopLeftNode != null && TopRightNode != null)
+            GetBorderEdges();
+            
+        }
+        private void GetBorderEdges()
+        {
+            if (TopLeftNode != null && TopRightNode != null)
             {
                 TopBorder = new Edge(TopLeftNode, TopRightNode);
             }
-            if(TopRightNode != null && BottomRightNode != null)
+            if (TopRightNode != null && BottomRightNode != null)
             {
                 RightBorder = new Edge(TopRightNode, BottomRightNode);
             }
-            if(BottomRightNode != null && BottomLeftNode != null)
+            if (BottomRightNode != null && BottomLeftNode != null)
             {
                 BottomBorder = new Edge(BottomRightNode, BottomLeftNode);
             }
-            if(BottomLeftNode != null && TopLeftNode != null)
+            if (BottomLeftNode != null && TopLeftNode != null)
             {
                 LeftBorder = new Edge(BottomLeftNode, TopLeftNode);
+            }
+            if(TopLeftNode != null && TopRightNode == null)
+            {
+                Node topRightNode = new Node(this.Table.Right + 5, TopLeftNode.Y);
+                TopBorder = new Edge(TopLeftNode, topRightNode);
             }
         }
         public override string ToString()
