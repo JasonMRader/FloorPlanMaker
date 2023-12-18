@@ -71,7 +71,7 @@ namespace FloorplanClassLibrary
                             currentTableBoarders.RightNeighbors.Add(otherTable);
                             if (TableEdges.TryGetValue(otherTable, out TableEdgeBorders otherTableBoarders))
                             {
-                                currentTableBoarders.RightNeighborBoarders = otherTableBoarders;
+                                currentTableBoarders.RightNeighborBorders = otherTableBoarders;
                             }
                         }
                     }
@@ -88,7 +88,11 @@ namespace FloorplanClassLibrary
                         if (isVerticalOverlap && isNoOtherTableInBetween)
                         {
                             currentTableBoarders.LeftNeighbors.Add(otherTable);
-                           
+                            if (TableEdges.TryGetValue(otherTable, out TableEdgeBorders otherTableBoarders))
+                            {
+                                currentTableBoarders.LeftNeighborBorders = otherTableBoarders;
+                            }
+
                         }
                     }
                 }
@@ -130,7 +134,7 @@ namespace FloorplanClassLibrary
                             currentTableBoarders.TopNeighbors.Add(otherTable);
                             if (TableEdges.TryGetValue(otherTable, out TableEdgeBorders otherTableBoarders))
                             {
-                                currentTableBoarders.TopNeighborBoarders = otherTableBoarders;
+                                currentTableBoarders.TopNeighborBorders = otherTableBoarders;
                             }
                         }
                     }
@@ -147,6 +151,10 @@ namespace FloorplanClassLibrary
                         if (isHorizontalOverlap && isNoOtherTableInBetween)
                         {
                             currentTableBoarders.BottomNeighbors.Add(otherTable);
+                            if (TableEdges.TryGetValue(otherTable, out TableEdgeBorders otherTableBoarders))
+                            {
+                                currentTableBoarders.BottomNeighborBorders = otherTableBoarders;
+                            }
                         }
                     }
                 }
@@ -173,28 +181,36 @@ namespace FloorplanClassLibrary
                 TableEdgeBorders tableEdgeBoarders = tableEdgePair.Value;
 
                
-                if (tableEdgeBoarders.TopNeighborBoarders != null)
+                if (tableEdgeBoarders.TopNeighborBorders != null)
                 {
-                    bool isDifferentSection = tableEdgeBoarders.TopNeighborBoarders.Section != tableEdgeBoarders.Section;
+                    bool isDifferentSection = tableEdgeBoarders.TopNeighborBorders.Section != tableEdgeBoarders.Section;
 
                     if (isDifferentSection)
                     {
-                        result.Add(tableEdgeBoarders.TopBorder);
+                        if(tableEdgeBoarders.TopBorder != null)
+                        {
+                            result.Add(tableEdgeBoarders.TopBorder);
+                        }
+                       
                     }
                 }
 
                
-                if (tableEdgeBoarders.RightNeighborBoarders != null)
+                if (tableEdgeBoarders.RightNeighborBorders != null)
                 {
-                    bool isDifferentSection = tableEdgeBoarders.RightNeighborBoarders.Section != tableEdgeBoarders.Section;
+                    bool isDifferentSection = tableEdgeBoarders.RightNeighborBorders.Section != tableEdgeBoarders.Section;
 
                     if (isDifferentSection)
                     {
-                        result.Add(tableEdgeBoarders.RightBorder);
+                        if(tableEdgeBoarders.RightBorder != null)
+                        {
+                            result.Add(tableEdgeBoarders.RightBorder);
+                        }
+                        
                     }
                 }
 
-                
+                //Add Left and Bot also
             }
             return result;
         }
@@ -224,7 +240,16 @@ namespace FloorplanClassLibrary
             }
             return result;
         }
-
+        public List<Edge> ModifyBottomNeighbors()
+        {
+            var result = new List<Edge>();
+            foreach (var table in TableBoarders)
+            {
+                table.AddBottomNeighborsNeighbors();
+                result.AddRange(table.GetEdges());
+            }
+            return result;
+        }
 
     }
 }

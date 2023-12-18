@@ -19,8 +19,78 @@ namespace FloorplanClassLibrary
         public List<Table> LeftNeighbors { get; set; } = new List<Table>();
         public List<Table> TopNeighbors { get; set; } = new List<Table>();
         public List<Table> BottomNeighbors { get; set; } = new List<Table>();
-        public TableEdgeBorders TopNeighborBoarders { get; set; }
-        public TableEdgeBorders RightNeighborBoarders { get; set; }
+        public void AddBottomNeighborsNeighbors()
+        {
+           
+            if(this.BottomNeighborBorders != null)
+            {
+                this.NeighborBorders.Add(BottomNeighborBorders, BottomNeighborBorders.TopBorder);
+                if (BottomNeighborBorders.RightNeighbors.Count > 0)
+                {
+                    if(BottomNeighborBorders.RightBorderX < this.RightBorderX)
+                    {
+                        this.BottomNeighbors.Add(BottomNeighborBorders.RightNeighbors[0]);
+                        //this.NeighborBorders.Add(BottomNeighborBorders, BottomNeighborBorders.TopBorder);
+                        this.NeighborBorders.Add(BottomNeighborBorders.RightNeighborBorders, BottomNeighborBorders.RightNeighborBorders.TopBorder);
+                    }
+                }
+                else if (BottomNeighborBorders.LeftNeighbors.Count > 0)
+                {
+                    if (BottomNeighborBorders.LeftBorderX > this.LeftBorderX)
+                    {
+                        this.BottomNeighbors.Add(BottomNeighborBorders.LeftNeighbors[0]);
+                        //this.NeighborBorders.Add(BottomNeighborBorders, BottomNeighborBorders.TopBorder);
+                        this.NeighborBorders.Add(BottomNeighborBorders.LeftNeighborBorders, BottomNeighborBorders.LeftNeighborBorders.TopBorder);
+                    }
+                }
+               
+            }
+        }
+        public void AddLeftNeighborsNeighbors()
+        {
+           
+            if (this.BottomNeighborBorders != null)
+            {
+                this.NeighborBorders.Add(BottomNeighborBorders, BottomNeighborBorders.TopBorder);
+                if (BottomNeighborBorders.RightNeighbors.Count > 0)
+                {
+                    if (BottomNeighborBorders.RightBorderX < this.RightBorderX)
+                    {
+                        this.BottomNeighbors.Add(BottomNeighborBorders.RightNeighbors[0]);
+                        //this.NeighborBorders.Add(BottomNeighborBorders, BottomNeighborBorders.TopBorder);
+                        this.NeighborBorders.Add(BottomNeighborBorders.RightNeighborBorders, BottomNeighborBorders.RightNeighborBorders.TopBorder);
+                    }
+                }
+                else if (BottomNeighborBorders.LeftNeighbors.Count > 0)
+                {
+                    if (BottomNeighborBorders.LeftBorderX > this.LeftBorderX)
+                    {
+                        this.BottomNeighbors.Add(BottomNeighborBorders.LeftNeighbors[0]);
+                        //this.NeighborBorders.Add(BottomNeighborBorders, BottomNeighborBorders.TopBorder);
+                        this.NeighborBorders.Add(BottomNeighborBorders.LeftNeighborBorders, BottomNeighborBorders.LeftNeighborBorders.TopBorder);
+                    }
+                }
+
+            }
+        }
+        public List<Edge> GetEdges()
+        {
+            List<Edge> result = new List<Edge>();
+            foreach (Edge edge in this.NeighborBorders.Values)
+            {
+                if(edge != null)
+                {
+                    result.Add(edge);
+                }
+               
+            }
+            return result;
+        }
+        public TableEdgeBorders TopNeighborBorders { get; set; }
+        public TableEdgeBorders RightNeighborBorders { get; set; }
+        public TableEdgeBorders LeftNeighborBorders { get; set; }
+        public TableEdgeBorders BottomNeighborBorders { get; set; } 
+        public Dictionary<TableEdgeBorders, Edge> NeighborBorders { get; set; } = new Dictionary<TableEdgeBorders, Edge>();
         public int TopBorderY { get; private set; }
         public int BottomBorderY { get; private set; }
         public int RightBorderX { get; private set; }
@@ -115,9 +185,13 @@ namespace FloorplanClassLibrary
             {
                 TopRightNode = new Node(BottomRightNode.X, this.Table.Top - 5);
             }
-            if(BottomRightNode == null && TopRightNode != null)
+            if(BottomRightNode == null && TopRightNode != null && BottomLeftNode == null)
             {
                 BottomRightNode = new Node(TopRightNode.X, this.Table.Bottom +5);
+            }
+            if (BottomRightNode == null && TopRightNode != null && BottomLeftNode != null)
+            {
+                BottomRightNode = new Node(TopRightNode.X, BottomLeftNode.Y);
             }
             GetBorderEdges();
             
@@ -134,11 +208,11 @@ namespace FloorplanClassLibrary
             }
             if (BottomRightNode != null && BottomLeftNode != null)
             {
-                //BottomBorder = new Edge(BottomRightNode, BottomLeftNode);
+                BottomBorder = new Edge(BottomRightNode, BottomLeftNode);
             }
             if (BottomLeftNode != null && TopLeftNode != null)
             {
-                //LeftBorder = new Edge(BottomLeftNode, TopLeftNode);
+                LeftBorder = new Edge(BottomLeftNode, TopLeftNode);
             }
 
            
