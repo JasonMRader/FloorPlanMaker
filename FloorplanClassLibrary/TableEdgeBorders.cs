@@ -24,14 +24,14 @@ namespace FloorplanClassLibrary
            
             if(this.BottomNeighborBorders != null)
             {
-                this.NeighborBorders.Add(BottomNeighborBorders, BottomNeighborBorders.TopBorder);
+                this.NeighborBorders.TryAdd(BottomNeighborBorders, BottomNeighborBorders.TopBorder);
                 if (BottomNeighborBorders.RightNeighbors.Count > 0)
                 {
                     if(BottomNeighborBorders.RightBorderX < this.RightBorderX)
                     {
                         this.BottomNeighbors.Add(BottomNeighborBorders.RightNeighbors[0]);
                         //this.NeighborBorders.Add(BottomNeighborBorders, BottomNeighborBorders.TopBorder);
-                        this.NeighborBorders.Add(BottomNeighborBorders.RightNeighborBorders, BottomNeighborBorders.RightNeighborBorders.TopBorder);
+                        this.NeighborBorders.TryAdd(BottomNeighborBorders.RightNeighborBorders, BottomNeighborBorders.RightNeighborBorders.TopBorder);
                     }
                 }
                 else if (BottomNeighborBorders.LeftNeighbors.Count > 0)
@@ -40,7 +40,7 @@ namespace FloorplanClassLibrary
                     {
                         this.BottomNeighbors.Add(BottomNeighborBorders.LeftNeighbors[0]);
                         //this.NeighborBorders.Add(BottomNeighborBorders, BottomNeighborBorders.TopBorder);
-                        this.NeighborBorders.Add(BottomNeighborBorders.LeftNeighborBorders, BottomNeighborBorders.LeftNeighborBorders.TopBorder);
+                        this.NeighborBorders.TryAdd(BottomNeighborBorders.LeftNeighborBorders, BottomNeighborBorders.LeftNeighborBorders.TopBorder);
                     }
                 }
                
@@ -48,31 +48,28 @@ namespace FloorplanClassLibrary
         }
         public void AddLeftNeighborsNeighbors()
         {
-           
-            if (this.BottomNeighborBorders != null)
+            if (this.LeftNeighborBorders != null)
             {
-                this.NeighborBorders.Add(BottomNeighborBorders, BottomNeighborBorders.TopBorder);
-                if (BottomNeighborBorders.RightNeighbors.Count > 0)
+                this.NeighborBorders.TryAdd(LeftNeighborBorders, LeftNeighborBorders.RightBorder);
+                if (LeftNeighborBorders.TopNeighbors.Count > 0)
                 {
-                    if (BottomNeighborBorders.RightBorderX < this.RightBorderX)
+                    if (LeftNeighborBorders.TopBorderY > this.TopBorderY)
                     {
-                        this.BottomNeighbors.Add(BottomNeighborBorders.RightNeighbors[0]);
-                        //this.NeighborBorders.Add(BottomNeighborBorders, BottomNeighborBorders.TopBorder);
-                        this.NeighborBorders.Add(BottomNeighborBorders.RightNeighborBorders, BottomNeighborBorders.RightNeighborBorders.TopBorder);
+                        this.LeftNeighbors.Add(LeftNeighborBorders.TopNeighbors[0]);
+                        this.NeighborBorders.TryAdd(LeftNeighborBorders.TopNeighborBorders, LeftNeighborBorders.TopNeighborBorders.RightBorder);
                     }
                 }
-                else if (BottomNeighborBorders.LeftNeighbors.Count > 0)
+                else if (LeftNeighborBorders.BottomNeighbors.Count > 0)
                 {
-                    if (BottomNeighborBorders.LeftBorderX > this.LeftBorderX)
+                    if (LeftNeighborBorders.BottomBorderY < this.BottomBorderY)
                     {
-                        this.BottomNeighbors.Add(BottomNeighborBorders.LeftNeighbors[0]);
-                        //this.NeighborBorders.Add(BottomNeighborBorders, BottomNeighborBorders.TopBorder);
-                        this.NeighborBorders.Add(BottomNeighborBorders.LeftNeighborBorders, BottomNeighborBorders.LeftNeighborBorders.TopBorder);
+                        this.LeftNeighbors.Add(LeftNeighborBorders.BottomNeighbors[0]);
+                        this.NeighborBorders.TryAdd(LeftNeighborBorders.BottomNeighborBorders, LeftNeighborBorders.BottomNeighborBorders.RightBorder);
                     }
                 }
-
             }
         }
+
         public List<Edge> GetEdges()
         {
             List<Edge> result = new List<Edge>();

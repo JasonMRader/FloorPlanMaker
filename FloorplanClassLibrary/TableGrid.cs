@@ -245,7 +245,8 @@ namespace FloorplanClassLibrary
             var result = new List<Edge>();
             foreach (var table in TableBoarders)
             {
-                table.AddBottomNeighborsNeighbors();
+                table.AddBottomNeighborsNeighbors();                
+                table.AddLeftNeighborsNeighbors();
                 result.AddRange(table.GetEdges());
             }
             return result;
