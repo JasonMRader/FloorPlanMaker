@@ -70,6 +70,7 @@ namespace FloorPlanMaker
             rdoViewSectionFlow = new RadioButton();
             toolTip1 = new ToolTip(components);
             pictureBox1 = new PictureBox();
+            button1 = new Button();
             flowSectionSelect.SuspendLayout();
             panel1.SuspendLayout();
             pnlFloorplanContainer.SuspendLayout();
@@ -428,6 +429,7 @@ namespace FloorPlanMaker
             // pnlNavigationWindow
             // 
             pnlNavigationWindow.BackColor = Color.FromArgb(225, 225, 225);
+            pnlNavigationWindow.Controls.Add(button1);
             pnlNavigationWindow.Controls.Add(button4);
             pnlNavigationWindow.Controls.Add(button3);
             pnlNavigationWindow.Controls.Add(button2);
@@ -577,6 +579,16 @@ namespace FloorPlanMaker
             pictureBox1.TabIndex = 21;
             pictureBox1.TabStop = false;
             // 
+            // button1
+            // 
+            button1.Location = new Point(255, 6);
+            button1.Name = "button1";
+            button1.Size = new Size(75, 23);
+            button1.TabIndex = 23;
+            button1.Text = "Grid";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -647,5 +659,6 @@ namespace FloorPlanMaker
         private Button button3;
         private Button button2;
         private Button btnAddNode;
+        private Button button1;
     }
 }
