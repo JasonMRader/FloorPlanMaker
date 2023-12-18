@@ -144,11 +144,23 @@ namespace FloorplanClassLibrary
             List<Edge> result = new List<Edge>();   
             foreach (var table in TableBoarders) 
             {
-                if(table.TopBoarder != null)
+                if(table.TopBorder != null)
                 {
-                    result.Add(table.TopBoarder);
+                    result.Add(table.TopBorder);
                 }
-                
+                if (table.RightBorder != null)
+                {
+                    result.Add(table.RightBorder);
+                }
+                if (table.BottomBorder != null)
+                {
+                    result.Add(table.BottomBorder);
+                }
+                if (table.LeftBorder != null)
+                {
+                    result.Add(table.LeftBorder);
+                }
+
             }
             return result;
         }

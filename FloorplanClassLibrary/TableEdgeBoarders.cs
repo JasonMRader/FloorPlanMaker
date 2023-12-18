@@ -26,7 +26,10 @@ namespace FloorplanClassLibrary
         public Node TopRightNode { get; private set; }
         public Node BottomRightNode { get; private set; }
         public Node BottomLeftNode { get; private set; }
-        public Edge TopBoarder { get; private set; }
+        public Edge TopBorder { get; private set; }
+        public Edge RightBorder { get; private set; }
+        public Edge BottomBorder { get; private set; }
+        public Edge LeftBorder { get; private set; }
         public Edge RightSide { get; set; } 
         public Edge LeftSide { get; set; }
         public Edge TopSide { get; set; }
@@ -68,11 +71,11 @@ namespace FloorplanClassLibrary
             }
             if (TopNeighbors.Count > 0)
             {
-                TopBorderY = (this.TopBorderY + TopNeighbors[0].Bottom)/2;
+                TopBorderY = (this.Table.Top + TopNeighbors[0].Bottom)/2;
             }
             if(BottomNeighbors.Count > 0)
             {
-                BottomBorderY = (this.BottomBorderY + BottomNeighbors[0].Top)/2;    
+                BottomBorderY = (this.Table.Bottom + BottomNeighbors[0].Top)/2;    
             }
             
         }
@@ -86,9 +89,29 @@ namespace FloorplanClassLibrary
             {
                 TopRightNode = new Node(RightBorderX, TopBorderY);
             }
+            if(BottomBorderY > 0 && RightBorderX > 0)
+            {
+                BottomRightNode = new Node(RightBorderX, BottomBorderY);
+            }
+            if(BottomBorderY > 0 &&  LeftBorderX > 0)
+            {
+                BottomLeftNode = new Node(LeftBorderX, BottomBorderY);
+            }
             if(TopLeftNode != null && TopRightNode != null)
             {
-                TopBoarder = new Edge(TopLeftNode, TopRightNode);
+                TopBorder = new Edge(TopLeftNode, TopRightNode);
+            }
+            if(TopRightNode != null && BottomRightNode != null)
+            {
+                RightBorder = new Edge(TopRightNode, BottomRightNode);
+            }
+            if(BottomRightNode != null && BottomLeftNode != null)
+            {
+                BottomBorder = new Edge(BottomRightNode, BottomLeftNode);
+            }
+            if(BottomLeftNode != null && TopLeftNode != null)
+            {
+                LeftBorder = new Edge(BottomLeftNode, TopLeftNode);
             }
         }
         public override string ToString()
