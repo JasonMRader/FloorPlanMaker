@@ -883,6 +883,9 @@ namespace FloorPlanMaker
             grid.FindTableTopBottomNeighbors();
             grid.FindTableNeighbors();
             grid.SetTableBoarderMidPoints();
+            SectionLineDrawer edgeDrawer = new SectionLineDrawer(3f);
+            Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, grid.GetTableBoarders());
+            pnlFloorPlan.BackgroundImage = edgesBitmap;
         }
     }
 }

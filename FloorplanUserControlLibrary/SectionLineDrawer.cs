@@ -25,8 +25,8 @@ namespace FloorplanUserControlLibrary
             {
                 foreach (var edge in edges)
                 {
-                    using (Pen pen = new Pen(edge.Section.Color, LineThickness))
-                    //using (Pen pen = new Pen(Color.Black, LineThickness))
+                    //using (Pen pen = new Pen(edge.Section.Color, LineThickness))
+                    using (Pen pen = new Pen(Color.Black, LineThickness))
                     {
                         Point startPoint = new Point(edge.StartNode.X-3, edge.StartNode.Y);
                         Point endPoint = new Point(edge.EndNode.X-3, edge.EndNode.Y);

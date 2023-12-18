@@ -136,7 +136,21 @@ namespace FloorplanClassLibrary
             foreach(var table in TableBoarders)
             {
                 table.SetBoarders();
+                table.SetNodesAndEdges();
             }
+        }
+        public List<Edge> GetTableBoarders()
+        {
+            List<Edge> result = new List<Edge>();   
+            foreach (var table in TableBoarders) 
+            {
+                if(table.TopBoarder != null)
+                {
+                    result.Add(table.TopBoarder);
+                }
+                
+            }
+            return result;
         }
 
 
