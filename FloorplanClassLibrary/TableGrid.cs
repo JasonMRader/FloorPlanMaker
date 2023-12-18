@@ -69,6 +69,10 @@ namespace FloorplanClassLibrary
                         if (isVerticalOverlap && isNoOtherTableInBetween)
                         {
                             currentTableBoarders.RightNeighbors.Add(otherTable);
+                            if (TableEdges.TryGetValue(otherTable, out TableEdgeBorders otherTableBoarders))
+                            {
+                                currentTableBoarders.RightNeighborBoarders = otherTableBoarders;
+                            }
                         }
                     }
 
@@ -84,10 +88,7 @@ namespace FloorplanClassLibrary
                         if (isVerticalOverlap && isNoOtherTableInBetween)
                         {
                             currentTableBoarders.LeftNeighbors.Add(otherTable);
-                            if (TableEdges.TryGetValue(otherTable, out TableEdgeBorders otherTableBoarders))
-                            {
-                                currentTableBoarders.TopNeighborBoarders = otherTableBoarders;
-                            }
+                           
                         }
                     }
                 }
@@ -174,7 +175,7 @@ namespace FloorplanClassLibrary
                
                 if (tableEdgeBoarders.TopNeighborBoarders != null)
                 {
-                    bool isDifferentSection = tableEdgeBoarders.TopNeighborBoarders.Section == tableEdgeBoarders.Section;
+                    bool isDifferentSection = tableEdgeBoarders.TopNeighborBoarders.Section != tableEdgeBoarders.Section;
 
                     if (isDifferentSection)
                     {
@@ -185,11 +186,11 @@ namespace FloorplanClassLibrary
                
                 if (tableEdgeBoarders.RightNeighborBoarders != null)
                 {
-                    bool isDifferentSection = tableEdgeBoarders.RightNeighborBoarders.Section == tableEdgeBoarders.Section;
+                    bool isDifferentSection = tableEdgeBoarders.RightNeighborBoarders.Section != tableEdgeBoarders.Section;
 
                     if (isDifferentSection)
                     {
-                        result.Add(tableEdgeBoarders.TopBorder);
+                        result.Add(tableEdgeBoarders.RightBorder);
                     }
                 }
 
