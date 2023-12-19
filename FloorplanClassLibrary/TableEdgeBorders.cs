@@ -88,10 +88,10 @@ namespace FloorplanClassLibrary
         public TableEdgeBorders LeftNeighborBorders { get; set; }
         public TableEdgeBorders BottomNeighborBorders { get; set; } 
         public Dictionary<TableEdgeBorders, Edge> NeighborBorders { get; set; } = new Dictionary<TableEdgeBorders, Edge>();
-        public int TopBorderY { get; private set; }
-        public int BottomBorderY { get; private set; }
-        public int RightBorderX { get; private set; }
-        public int LeftBorderX { get; private set; }
+        public int TopBorderY { get; private set; } = -1;
+        public int BottomBorderY { get; private set; } = -1;
+        public int RightBorderX { get; private set; } = -1;
+        public int LeftBorderX { get; private set; } = -1;
         public Node TopLeftNode { get; private set; }
         public Node TopRightNode { get; private set; }
         public Node BottomRightNode { get; private set; }

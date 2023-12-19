@@ -886,7 +886,8 @@ namespace FloorPlanMaker
             //grid.SetSections(this.shiftManager.SelectedFloorplan.Sections);
             SectionLineDrawer edgeDrawer = new SectionLineDrawer(3f);
             //Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, grid.GetAllTableBoarders());
-            Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, grid.ModifyBottomNeighbors());
+            Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, grid.GetNeighborEdges());
+            //Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, grid.ModifyBottomNeighbors());
             //Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, grid.GetSectionTableBoarders());
             pnlFloorPlan.BackgroundImage = edgesBitmap;
         }

@@ -10,7 +10,9 @@ namespace FloorplanClassLibrary
     public class TableGrid
     {
         public List<Table> Tables { get; set; } = new List<Table>();
+        public List<Neighbor> Neighbors { get; set; } = new List<Neighbor> { };
         public List<TableEdgeBorders> TableBoarders { get; set; }
+        public List<TableNeighborManager> TableNeighborManagers { get; set; } = new List<TableNeighborManager> { };
         public Dictionary<Table, TableEdgeBorders> TableEdges { get; set; } = new Dictionary<Table, TableEdgeBorders>();
         public List<Section> Sections { get; private set; }
         
@@ -52,7 +54,7 @@ namespace FloorplanClassLibrary
 
                     int otherTableLeft = otherTable.Left;
                     int otherTableRight = otherTable.Right;
-
+                    //TableEdgeBorders otherTablesBoarders = TableBoarders.First(tb => tb.Table == otherTable);
                     // Check for vertical overlap
                     bool isVerticalOverlap = (currentTable.Bottom >= otherTable.Top && currentTable.Top <= otherTable.Bottom) ||
                                              (otherTable.Bottom >= currentTable.Top && otherTable.Top <= currentTable.Bottom);
@@ -68,6 +70,7 @@ namespace FloorplanClassLibrary
 
                         if (isVerticalOverlap && isNoOtherTableInBetween)
                         {
+                            //Neighbors.Add(new RightLeftNeighbor(otherTablesBoarders, currentTableBoarders));
                             currentTableBoarders.RightNeighbors.Add(otherTable);
                             if (TableEdges.TryGetValue(otherTable, out TableEdgeBorders otherTableBoarders))
                             {
@@ -88,6 +91,7 @@ namespace FloorplanClassLibrary
                         if (isVerticalOverlap && isNoOtherTableInBetween)
                         {
                             currentTableBoarders.LeftNeighbors.Add(otherTable);
+                            //Neighbors.Add(new RightLeftNeighbor(currentTableBoarders, otherTablesBoarders));
                             if (TableEdges.TryGetValue(otherTable, out TableEdgeBorders otherTableBoarders))
                             {
                                 currentTableBoarders.LeftNeighborBorders = otherTableBoarders;
@@ -100,6 +104,7 @@ namespace FloorplanClassLibrary
 
             // The TableEdgeBoarders instances now have their RightNeighbors and LeftNeighbors lists populated.
         }
+        
         public void FindTableTopBottomNeighbors()
         {
             foreach (var currentTable in Tables)
@@ -171,6 +176,31 @@ namespace FloorplanClassLibrary
                 table.SetBoarders();
                 table.SetNodesAndEdges();
             }
+        }
+        public void CreateNeighbors()
+        {
+            foreach(var table in TableBoarders)
+            {
+                //if(table.RightNeighborBorders != null)
+                //{
+                //    Neighbors.Add(new RightLeftNeighbor(table.RightNeighborBorders, table));
+                //}
+                if(table.BottomNeighborBorders != null)
+                {
+                    Neighbors.Add(new TopBottomNeighbor(table, table.BottomNeighborBorders));
+                }
+            }
+        }
+        public List<Edge> GetNeighborEdges()
+        {
+            CreateNeighbors();
+            List<Edge> edges = new List<Edge>();
+            foreach(Neighbor neighbor in Neighbors)
+            {
+                if(neighbor.Edge != null)
+                    edges.Add(neighbor.Edge);
+            }
+            return edges;
         }
         public List<Edge> GetSectionTableBoarders()
         {
