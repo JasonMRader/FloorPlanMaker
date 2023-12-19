@@ -181,11 +181,11 @@ namespace FloorplanClassLibrary
         {
             foreach(var table in TableBoarders)
             {
-                //if(table.RightNeighborBorders != null)
-                //{
-                //    Neighbors.Add(new RightLeftNeighbor(table.RightNeighborBorders, table));
-                //}
-                if(table.BottomNeighborBorders != null)
+                if (table.RightNeighborBorders != null)
+                {
+                    Neighbors.Add(new RightLeftNeighbor(table.RightNeighborBorders, table));
+                }
+                if (table.BottomNeighborBorders != null)
                 {
                     Neighbors.Add(new TopBottomNeighbor(table, table.BottomNeighborBorders));
                 }

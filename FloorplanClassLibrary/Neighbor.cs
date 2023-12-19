@@ -87,8 +87,10 @@ namespace FloorplanClassLibrary
             RightNeighbor = rightNeighbor;
             LeftNeighbor = leftNeighbor;
             MidPoint = (LeftNeighbor.Table.Right + RightNeighbor.Table.Left) / 2;
-            StartNode = new Node(MidPoint, Math.Max(RightNeighbor.TopBorderY, LeftNeighbor.TopBorderY));
-            EndNode = new Node(MidPoint, Math.Min(RightNeighbor.BottomBorderY, LeftNeighbor.BottomBorderY));
+            //StartNode = new Node(MidPoint, Math.Max(RightNeighbor.TopBorderY, LeftNeighbor.TopBorderY));
+            //EndNode = new Node(MidPoint, Math.Min(RightNeighbor.BottomBorderY, LeftNeighbor.BottomBorderY));
+            GetStartNode();
+            GetEndNode();
             Edge = new Edge(StartNode, EndNode);
         }
 
@@ -101,11 +103,44 @@ namespace FloorplanClassLibrary
         }
         public override void GetStartNode()
         {
-            throw new NotImplementedException();
+            // For right and left neighbors, the start node would be determined by the top borders
+            if (RightNeighbor.TopBorderY != -1 && LeftNeighbor.TopBorderY != -1)
+            {
+                StartNode = new Node(MidPoint, Math.Max(RightNeighbor.TopBorderY, LeftNeighbor.TopBorderY));
+            }
+            else if (RightNeighbor.TopBorderY != -1)
+            {
+                StartNode = new Node(MidPoint, RightNeighbor.TopBorderY);
+            }
+            else if (LeftNeighbor.TopBorderY != -1)
+            {
+                StartNode = new Node(MidPoint, LeftNeighbor.TopBorderY);
+            }
+            else
+            {
+                StartNode = new Node(MidPoint, Math.Max(RightNeighbor.Table.Top, LeftNeighbor.Table.Top));
+            }
         }
+
         public override void GetEndNode()
         {
-            throw new NotImplementedException();
+            // For right and left neighbors, the end node would be determined by the bottom borders
+            if (RightNeighbor.BottomBorderY != -1 && LeftNeighbor.BottomBorderY != -1)
+            {
+                EndNode = new Node(MidPoint, Math.Min(RightNeighbor.BottomBorderY, LeftNeighbor.BottomBorderY));
+            }
+            else if (RightNeighbor.BottomBorderY != -1)
+            {
+                EndNode = new Node(MidPoint, RightNeighbor.BottomBorderY);
+            }
+            else if (LeftNeighbor.BottomBorderY != -1)
+            {
+                EndNode = new Node(MidPoint, LeftNeighbor.BottomBorderY);
+            }
+            else
+            {
+                EndNode = new Node(MidPoint, Math.Min(RightNeighbor.Table.Bottom, LeftNeighbor.Table.Bottom));
+            }
         }
     }
 }
