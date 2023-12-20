@@ -13,6 +13,7 @@ namespace FloorplanClassLibrary
             {"42", "41"},
             {"52", "61"},
             {"61", "52"},
+            {"441","300" }
 
         };
 
@@ -21,9 +22,11 @@ namespace FloorplanClassLibrary
             "61-53", 
             "51-63",
             "61-63",
-            "51-53"
-            
-           
+            "51-53",
+            "434-445",
+
+
+
         };
         private string GetPairKey(string tableNumberOne, string tableNumberTwo)
         {
