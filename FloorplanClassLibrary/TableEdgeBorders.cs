@@ -75,7 +75,15 @@ namespace FloorplanClassLibrary
                 }
 
             }
-            Neighbors.AddRange(newNeighbors);
+            foreach (var newNeighbor in newNeighbors)
+            {
+                Neighbors.Add(newNeighbor);
+                if (newNeighbor is TopBottomNeighbor tbNeighbor)
+                {
+                    tbNeighbor.TopNeighbor.Neighbors.Add(tbNeighbor);
+                    tbNeighbor.BottomNeighbor.Neighbors.Add(tbNeighbor);
+                }
+            }
         }
         public bool OverlapsVertically(TableEdgeBorders otherTableBorders)
         {
@@ -131,7 +139,16 @@ namespace FloorplanClassLibrary
                     }
                 }
             }
-            Neighbors.AddRange(newNeighbors);
+            foreach (var newNeighbor in newNeighbors)
+            {
+                Neighbors.Add(newNeighbor);
+                if (newNeighbor is RightLeftNeighbor rightLeftNeighbor)
+                {
+                    rightLeftNeighbor.RightNeighbor.Neighbors.Add(rightLeftNeighbor);
+                    rightLeftNeighbor.LeftNeighbor.Neighbors.Add(rightLeftNeighbor);
+                }
+            }
+            
         }
 
         public void AddBottomNeighborsNeighbors()

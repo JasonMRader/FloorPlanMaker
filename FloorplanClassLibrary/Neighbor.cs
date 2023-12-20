@@ -30,6 +30,8 @@ namespace FloorplanClassLibrary
             GetEndNode();
             //EndNode = new Node(Math.Min(TopNeighbor.RightBorderX, BottomNeighbor.RightBorderX), MidPoint);
             Edge = new Edge(StartNode, EndNode);
+            //TopNeighbor.Neighbors.Add(this);
+            //BottomNeighbor.Neighbors.Add(this);
         }
         public TableEdgeBorders TopNeighbor { get; set; }
         public TableEdgeBorders BottomNeighbor { get; set; }
@@ -93,6 +95,8 @@ namespace FloorplanClassLibrary
             GetStartNode();
             GetEndNode();
             Edge = new Edge(StartNode, EndNode);
+            //RightNeighbor.Neighbors.Add(this);
+           // LeftNeighbor.Neighbors.Add(this);
         }
 
 
