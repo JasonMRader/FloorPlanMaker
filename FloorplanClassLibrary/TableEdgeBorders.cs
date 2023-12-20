@@ -8,41 +8,7 @@ namespace FloorplanClassLibrary
 {
     public class TableEdgeBorders
     {
-        private Dictionary<string, string> hardcodedTopBottomNeighbors = new Dictionary<string, string>()
-        {
-            {"42", "41"},
-            {"52", "61"},
-            {"61", "52"},
-            {"441","300" }
-
-        };
-        private Dictionary<string, string> hardcodedRightLeftNeighbors = new Dictionary<string, string>()
-        {
-            
-
-        };
-
-        private HashSet<string> ignorePairs = new HashSet<string>()
-        {
-            "61-53", 
-            "51-63",
-            "61-63",
-            "51-53",
-            "445-300",
-            "65-54",
-            "434-445",
-            "441-418",
-            "418-441"
-
-
-
-        };
-        private string GetPairKey(string tableNumberOne, string tableNumberTwo)
-        {
-            return tableNumberOne.CompareTo(tableNumberTwo) < 0
-                ? tableNumberOne + "-" + tableNumberTwo
-                : tableNumberTwo + "-" + tableNumberOne;
-        }
+       
 
         public TableEdgeBorders(Table table)
         {
@@ -50,6 +16,7 @@ namespace FloorplanClassLibrary
             initEdgesAndNodes();
         }
         public Table Table { get; set; }
+        private OverriddenTablePairs overriddenPairs = new OverriddenTablePairs(); 
         public Section Section { get; set; }
         public List<Table> RightNeighbors { get; set; } = new List<Table>();
         public List<Table> LeftNeighbors { get; set; } = new List<Table>();
@@ -150,9 +117,9 @@ namespace FloorplanClassLibrary
                 {
                     if (IsSuitableForTopBottomNeighbor(topBottomNeighbor, rlNeighbor))
                     {
-                        string pairKey = GetPairKey(this.Table.TableNumber, rlNeighbor.RightNeighbor.Table.TableNumber);
+                        string pairKey = overriddenPairs.GetPairKey(this.Table.TableNumber, rlNeighbor.RightNeighbor.Table.TableNumber);
 
-                        if (ignorePairs.Contains(pairKey))
+                        if (overriddenPairs.ignorePairs.Contains(pairKey))
                         {
                             continue; // Skip this iteration if the pair should be ignored
                         }
@@ -171,9 +138,9 @@ namespace FloorplanClassLibrary
                 {
                     if (IsSuitableForTopBottomNeighbor(topBottomNeighbor, rlNeighbor))
                     {
-                        string pairKey = GetPairKey(this.Table.TableNumber, rlNeighbor.RightNeighbor.Table.TableNumber);
+                        string pairKey = overriddenPairs.GetPairKey(this.Table.TableNumber, rlNeighbor.RightNeighbor.Table.TableNumber);
 
-                        if (ignorePairs.Contains(pairKey))
+                        if (overriddenPairs.ignorePairs.Contains(pairKey))
                         {
                             continue; // Skip this iteration if the pair should be ignored
                         }
@@ -195,7 +162,7 @@ namespace FloorplanClassLibrary
         }
         private void AddHardcodedNeighbors(List<Neighbor> newNeighbors)
         {
-            foreach (var pair in hardcodedTopBottomNeighbors)
+            foreach (var pair in overriddenPairs.hardcodedTopBottomNeighbors)
             {
                 if (this.Table.TableNumber == pair.Key)
                 {
@@ -308,16 +275,16 @@ namespace FloorplanClassLibrary
             {
                 if (topBottomNeighbor is TopBottomNeighbor tbNeighbor && IsSuitableForRightLeftNeighbor(tbNeighbor, rightLeftNeighbor))
                 {
-                    string pairKeyTop = GetPairKey(this.Table.TableNumber, tbNeighbor.TopNeighbor.Table.TableNumber);
-                    string pairKeyBottom = GetPairKey(this.Table.TableNumber, tbNeighbor.BottomNeighbor.Table.TableNumber);
+                    string pairKeyTop = overriddenPairs.GetPairKey(this.Table.TableNumber, tbNeighbor.TopNeighbor.Table.TableNumber);
+                    string pairKeyBottom = overriddenPairs.GetPairKey(this.Table.TableNumber, tbNeighbor.BottomNeighbor.Table.TableNumber);
 
-                    if (!ignorePairs.Contains(pairKeyTop))
+                    if (!overriddenPairs.ignorePairs.Contains(pairKeyTop))
                     {
                         RightLeftNeighbor newNeighbor = new RightLeftNeighbor(this, tbNeighbor.TopNeighbor);
                         newNeighbors.Add(newNeighbor);
                     }
 
-                    if (!ignorePairs.Contains(pairKeyBottom))
+                    if (!overriddenPairs.ignorePairs.Contains(pairKeyBottom))
                     {
                         RightLeftNeighbor newNeighbor = new RightLeftNeighbor(this, tbNeighbor.BottomNeighbor);
                         newNeighbors.Add(newNeighbor);
@@ -334,16 +301,16 @@ namespace FloorplanClassLibrary
             {
                 if (topBottomNeighbor is TopBottomNeighbor tbNeighbor && IsSuitableForRightLeftNeighbor(tbNeighbor, rightLeftNeighbor))
                 {
-                    string pairKeyTop = GetPairKey(this.Table.TableNumber, tbNeighbor.TopNeighbor.Table.TableNumber);
-                    string pairKeyBottom = GetPairKey(this.Table.TableNumber, tbNeighbor.BottomNeighbor.Table.TableNumber);
+                    string pairKeyTop = overriddenPairs.GetPairKey(this.Table.TableNumber, tbNeighbor.TopNeighbor.Table.TableNumber);
+                    string pairKeyBottom = overriddenPairs.GetPairKey(this.Table.TableNumber, tbNeighbor.BottomNeighbor.Table.TableNumber);
 
-                    if (!ignorePairs.Contains(pairKeyTop))
+                    if (!overriddenPairs.ignorePairs.Contains(pairKeyTop))
                     {
                         RightLeftNeighbor newNeighbor = new RightLeftNeighbor(tbNeighbor.TopNeighbor, this);
                         newNeighbors.Add(newNeighbor);
                     }
 
-                    if (!ignorePairs.Contains(pairKeyBottom))
+                    if (!overriddenPairs.ignorePairs.Contains(pairKeyBottom))
                     {
                         RightLeftNeighbor newNeighbor = new RightLeftNeighbor(tbNeighbor.BottomNeighbor, this);
                         newNeighbors.Add(newNeighbor);
@@ -355,7 +322,7 @@ namespace FloorplanClassLibrary
 
         private void AddHardcodedRightLeftNeighbors(List<Neighbor> newNeighbors)
         {
-            foreach (var pair in hardcodedRightLeftNeighbors)
+            foreach (var pair in overriddenPairs.hardcodedRightLeftNeighbors)
             {
                 if (this.Table.TableNumber == pair.Key)
                 {
