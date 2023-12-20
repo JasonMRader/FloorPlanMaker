@@ -192,6 +192,8 @@ namespace FloorplanClassLibrary
                     //Neighbors.Add(new TopBottomNeighbor(table, table.BottomNeighborBorders));
                 }
                 table.AddTopBottomNeighborsNeighbors();
+                table.AddRightLeftNeighborsNeighbors();
+                
             }
         }
         public List<Edge> GetNeighborEdges()

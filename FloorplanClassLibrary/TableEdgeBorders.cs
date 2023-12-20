@@ -53,7 +53,82 @@ namespace FloorplanClassLibrary
                             }
                         }
                     }
-                    
+                    if (topBottomNeighbor.BottomNeighbor.Table.TableNumber == this.Table.TableNumber)
+                    {
+                        foreach (Neighbor rightLeftNeighbor in topBottomNeighbor.TopNeighbor.Neighbors)
+                        {
+                            if (rightLeftNeighbor is RightLeftNeighbor rlNeighbor)
+                            {
+                                if (OverLapsHorizontally(rlNeighbor.RightNeighbor))
+                                {
+                                    TopBottomNeighbor newNeighbor = new TopBottomNeighbor(rlNeighbor.RightNeighbor, this);
+                                    newNeighbors.Add(newNeighbor);
+                                }
+                                if (OverLapsHorizontally(rlNeighbor.LeftNeighbor))
+                                {
+                                    TopBottomNeighbor newNeighbor = new TopBottomNeighbor(rlNeighbor.LeftNeighbor, this);
+                                    newNeighbors.Add(newNeighbor);
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+            Neighbors.AddRange(newNeighbors);
+        }
+        public bool OverlapsVertically(TableEdgeBorders otherTableBorders)
+        {
+            bool isVerticalOverlap = (this.TopBorderY <= otherTableBorders.BottomBorderY && this.BottomBorderY >= otherTableBorders.TopBorderY) ||
+                                     (otherTableBorders.TopBorderY <= this.BottomBorderY && otherTableBorders.BottomBorderY >= this.TopBorderY);
+            return isVerticalOverlap;
+        }
+        public void AddRightLeftNeighborsNeighbors()
+        {
+            List<Neighbor> newNeighbors = new List<Neighbor>();
+            foreach (Neighbor neighbor in Neighbors)
+            {
+                if (neighbor is RightLeftNeighbor rightLeftNeighbor)
+                {
+                    if (rightLeftNeighbor.RightNeighbor.Table.TableNumber == this.Table.TableNumber)
+                    {
+                        foreach (Neighbor topBottomNeighbor in rightLeftNeighbor.LeftNeighbor.Neighbors)
+                        {
+                            if (topBottomNeighbor is TopBottomNeighbor tbNeighbor)
+                            {
+                                // Check for vertical border overlap with the current table
+                                if (OverlapsVertically(tbNeighbor.TopNeighbor))
+                                {
+                                    RightLeftNeighbor newNeighbor = new RightLeftNeighbor(this, tbNeighbor.TopNeighbor);
+                                    newNeighbors.Add(newNeighbor);
+                                }
+                                if (OverlapsVertically(tbNeighbor.BottomNeighbor))
+                                {
+                                    RightLeftNeighbor newNeighbor = new RightLeftNeighbor(this, tbNeighbor.BottomNeighbor);
+                                    newNeighbors.Add(newNeighbor);
+                                }
+                            }
+                        }
+                    }
+                    if (rightLeftNeighbor.LeftNeighbor.Table.TableNumber == this.Table.TableNumber)
+                    {
+                        foreach (Neighbor topBottomNeighbor in rightLeftNeighbor.RightNeighbor.Neighbors)
+                        {
+                            if (topBottomNeighbor is TopBottomNeighbor tbNeighbor)
+                            {
+                                if (OverlapsVertically(tbNeighbor.TopNeighbor))
+                                {
+                                    RightLeftNeighbor newNeighbor = new RightLeftNeighbor( tbNeighbor.TopNeighbor, this);
+                                    newNeighbors.Add(newNeighbor);
+                                }
+                                if (OverlapsVertically(tbNeighbor.BottomNeighbor))
+                                {
+                                    RightLeftNeighbor newNeighbor = new RightLeftNeighbor(tbNeighbor.BottomNeighbor, this);
+                                    newNeighbors.Add(newNeighbor);
+                                }
+                            }
+                        }
+                    }
                 }
             }
             Neighbors.AddRange(newNeighbors);
