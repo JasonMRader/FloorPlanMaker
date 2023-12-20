@@ -219,6 +219,42 @@ namespace FloorplanClassLibrary
            
             return edges;
         }
+        public List<string> GetTestData()
+        {
+            CreateNeighbors();
+            List<string> data = new List<string>();
+            foreach (var table in TableBoarders)
+            {
+                foreach (Neighbor neighbor in table.Neighbors)
+                {
+                    if(neighbor is TopBottomNeighbor tb)
+                    {
+                        string s = new string( "(" + tb.TopNeighbor.Table.TableNumber + " | " + tb.BottomNeighbor.Table.TableNumber + ")" + "\n" +
+                            tb.TopNeighbor.ToString() +"\n" + tb.BottomNeighbor.ToString() + "\n" + 
+                            " Edge " + tb.MidPoint.ToString() +"Y, From: " + tb.StartNode.X.ToString() + " - "+ tb.EndNode.X.ToString() );
+                        if(tb.TopNeighbor.Table.TableNumber == "67" || tb.BottomNeighbor.Table.TableNumber == "67")
+                        {
+                            data.Add(s);
+                        }
+                        //data.Add(s);
+                    }
+                    if (neighbor is RightLeftNeighbor lr)
+                    {
+                        string s = new string("(" + lr.RightNeighbor.Table.TableNumber + " | " + lr.LeftNeighbor.Table.TableNumber + ")" + "\n" +
+                            lr.RightNeighbor.ToString() + "\n" + lr.LeftNeighbor.ToString() + "\n" +
+                            " Edge " + neighbor.MidPoint.ToString() + "X, From: " + lr.StartNode.Y.ToString() + " - " + lr.EndNode.Y.ToString());
+                        if(lr.RightNeighbor.Table.TableNumber == "67" || lr.LeftNeighbor.Table.TableNumber == "67")
+                        {
+                            data.Add( s);
+                        }
+                        //data.Add(s);
+                    }
+
+                }
+            }
+
+            return data;
+        }
         public List<Edge> GetSectionTableBoarders()
         {
             List<Edge> result = new List<Edge>();

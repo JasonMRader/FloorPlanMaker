@@ -405,7 +405,8 @@ namespace FloorplanClassLibrary
         }
         public override string ToString()
         {
-            return Table.TableNumber;
+            return Table.ToString() + "\n" + " R " + RightBorderX.ToString() + " L " + LeftBorderX.ToString()
+                + " T " + TopBorderY.ToString() + " B " + BottomBorderY.ToString();
         }
     }
 }

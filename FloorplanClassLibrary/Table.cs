@@ -37,7 +37,8 @@
         }
         public override string ToString()
         {
-            return TableNumber + " TL: " + TopLeft.ToString() + " TR: " + TopRight.ToString() +" BR: " + BottomRight.ToString();
+            return "{"+ TableNumber + "} " + "\n" + "Top: " + Top.ToString() + " Right: " + Right.ToString() +
+                " Bottom: " + Bottom.ToString() + " Left: " + Left.ToString();
         }
         public bool IsNeighbor(Table other)
         {
