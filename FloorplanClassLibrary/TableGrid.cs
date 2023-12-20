@@ -15,7 +15,7 @@ namespace FloorplanClassLibrary
         public List<TableNeighborManager> TableNeighborManagers { get; set; } = new List<TableNeighborManager> { };
         public Dictionary<Table, TableEdgeBorders> TableEdges { get; set; } = new Dictionary<Table, TableEdgeBorders>();
         public List<Section> Sections { get; private set; }
-        
+        public TableGrid() { }
         public TableGrid(List<Table> tables)
         {
             Tables = tables;
@@ -200,7 +200,7 @@ namespace FloorplanClassLibrary
                     table.AddNeighbor(new TopBottomNeighbor(table.TopNeighborBorders, table));
                 }
                 table.AddTopBottomNeighborsNeighbors();
-                table.AddRightLeftNeighborsNeighbors();
+                //table.AddRightLeftNeighborsNeighbors();
                 
             }
         }
@@ -218,6 +218,38 @@ namespace FloorplanClassLibrary
             }
            
             return edges;
+        }
+        public List<string> GetNeighborNames(string TableNumber)
+        {
+            List<string> names = new List<string>();
+            TableEdgeBorders selectedTable = this.TableBoarders.FirstOrDefault(t=>t.Table.TableNumber == TableNumber);
+            foreach (Neighbor neighbor in selectedTable.Neighbors)
+            {
+                if(neighbor is TopBottomNeighbor topBottomNeighbor)
+                {
+                    if(topBottomNeighbor.TopNeighbor.Table.TableNumber == selectedTable.Table.TableNumber)
+                    {
+                        names.Add(topBottomNeighbor.BottomNeighbor.Table.TableNumber);
+                    }
+                    else
+                    {
+                        names.Add(topBottomNeighbor.TopNeighbor.Table.TableNumber);
+                    }
+                }
+                if (neighbor is RightLeftNeighbor rightLeftNeighbor)
+                {
+                    if (rightLeftNeighbor.RightNeighbor.Table.TableNumber == selectedTable.Table.TableNumber)
+                    {
+                        names.Add(rightLeftNeighbor.LeftNeighbor.Table.TableNumber);
+                    }
+                    else
+                    {
+                        names.Add(rightLeftNeighbor.RightNeighbor.Table.TableNumber);
+                    }
+                }
+
+            }
+            return names;
         }
         public List<string> GetTestData()
         {
@@ -323,17 +355,17 @@ namespace FloorplanClassLibrary
             }
             return result;
         }
-        public List<Edge> ModifyBottomNeighbors()
-        {
-            var result = new List<Edge>();
-            foreach (var table in TableBoarders)
-            {
-                table.AddBottomNeighborsNeighbors();                
-                table.AddLeftNeighborsNeighbors();
-                result.AddRange(table.GetEdges());
-            }
-            return result;
-        }
+        //public List<Edge> ModifyBottomNeighbors()
+        //{
+        //    var result = new List<Edge>();
+        //    foreach (var table in TableBoarders)
+        //    {
+        //        table.AddBottomNeighborsNeighbors();                
+        //        table.AddLeftNeighborsNeighbors();
+        //        result.AddRange(table.GetEdges());
+        //    }
+        //    return result;
+        //}
 
     }
 }

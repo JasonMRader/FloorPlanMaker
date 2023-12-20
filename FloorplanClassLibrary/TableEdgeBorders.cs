@@ -16,6 +16,11 @@ namespace FloorplanClassLibrary
             {"441","300" }
 
         };
+        private Dictionary<string, string> hardcodedRightLeftNeighbors = new Dictionary<string, string>()
+        {
+            
+
+        };
 
         private HashSet<string> ignorePairs = new HashSet<string>()
         {
@@ -23,7 +28,11 @@ namespace FloorplanClassLibrary
             "51-63",
             "61-63",
             "51-53",
+            "445-300",
+            "65-54",
             "434-445",
+            "441-418",
+            "418-441"
 
 
 
@@ -82,90 +91,19 @@ namespace FloorplanClassLibrary
                      (rlNeighbor.LeftNeighbor == neighborOne && rlNeighbor.RightNeighbor == neighborTwo))));
         }
 
-        public bool OverLapsHorizontally(TableEdgeBorders otherTableBorders)
-        {
-            bool isHorizontalOverlap = (this.RightBorderX >= otherTableBorders.LeftBorderX && this.LeftBorderX <= otherTableBorders.RightBorderX) ||
-                                              (otherTableBorders.RightBorderX >= this.LeftBorderX && otherTableBorders.LeftBorderX <= this.RightBorderX);
-            return isHorizontalOverlap;
-        }
-        private bool IsNotUnder(TableEdgeBorders currentNeighbor, TableEdgeBorders potentialNeighbor)
-        {
-           // return true;
-            return currentNeighbor.Table.Bottom > potentialNeighbor.Table.Top;
-        }
+        
        
-        private bool IsNotAbove(TableEdgeBorders currentNeighbor, TableEdgeBorders potentialNeighbor)
-        {
-            
-            //return true;
-            return potentialNeighbor.Table.Top < currentNeighbor.Table.Bottom;
-        }
-
-        public void oldAddTopBottomNeighborsNeighbors()
-        {
-            List<Neighbor> newNeighbors = new List<Neighbor>();
-            foreach (Neighbor neighbor in Neighbors)
-            {
-                if(neighbor is TopBottomNeighbor topBottomNeighbor)
-                {
-                    if(topBottomNeighbor.TopNeighbor.Table.TableNumber == this.Table.TableNumber)
-                    {
-                        foreach (Neighbor rightLeftNeighbor in topBottomNeighbor.BottomNeighbor.Neighbors)
-                        {
-                            if (rightLeftNeighbor is RightLeftNeighbor rlNeighbor)
-                            {
-                                
-                                // Check for border overlap with the current table
-                                if (OverLapsHorizontally(rlNeighbor.RightNeighbor) && IsNotUnder(topBottomNeighbor.BottomNeighbor, rlNeighbor.RightNeighbor))
-                                {
-                                    TopBottomNeighbor newNeighbor = new TopBottomNeighbor(this, rlNeighbor.RightNeighbor);
-                                    newNeighbors.Add(newNeighbor);
-                                }
-                                if (OverLapsHorizontally(rlNeighbor.LeftNeighbor) && IsNotUnder(topBottomNeighbor.BottomNeighbor, rlNeighbor.LeftNeighbor))
-                                {
-                                    TopBottomNeighbor newNeighbor = new TopBottomNeighbor(this, rlNeighbor.LeftNeighbor);
-                                    newNeighbors.Add(newNeighbor);
-                                }
-                            }
-                        }
-                    }
-                    if (topBottomNeighbor.BottomNeighbor.Table.TableNumber == this.Table.TableNumber)
-                    {
-                        foreach (Neighbor rightLeftNeighbor in topBottomNeighbor.TopNeighbor.Neighbors)
-                        {
-                            if (rightLeftNeighbor is RightLeftNeighbor rlNeighbor)
-                            {
-                                if (OverLapsHorizontally(rlNeighbor.RightNeighbor) && IsNotAbove(topBottomNeighbor.TopNeighbor, rlNeighbor.RightNeighbor))
-                                {
-                                    TopBottomNeighbor newNeighbor = new TopBottomNeighbor(rlNeighbor.RightNeighbor, this);
-                                    newNeighbors.Add(newNeighbor);
-                                }
-                                if (OverLapsHorizontally(rlNeighbor.LeftNeighbor) && IsNotAbove(topBottomNeighbor.TopNeighbor, rlNeighbor.LeftNeighbor))
-                                {
-                                    TopBottomNeighbor newNeighbor = new TopBottomNeighbor(rlNeighbor.LeftNeighbor, this);
-                                    newNeighbors.Add(newNeighbor);
-                                }
-                            }
-                        }
-                    }
-                }
-
-            }
-            foreach (var newNeighbor in newNeighbors)
-            {
-                AddNeighbor(newNeighbor);
-                if (newNeighbor is TopBottomNeighbor tbNeighbor)
-                {
-                    tbNeighbor.TopNeighbor.AddNeighbor(tbNeighbor);
-                    tbNeighbor.BottomNeighbor.AddNeighbor(tbNeighbor);
-                }
-            }
-        }
         public bool OverlapsVertically(TableEdgeBorders otherTableBorders)
         {
             bool isVerticalOverlap = (this.TopBorderY <= otherTableBorders.BottomBorderY && this.BottomBorderY >= otherTableBorders.TopBorderY) ||
                                      (otherTableBorders.TopBorderY <= this.BottomBorderY && otherTableBorders.BottomBorderY >= this.TopBorderY);
             return isVerticalOverlap;
+        }
+        public bool OverlapsHorizontally(TableEdgeBorders otherTableBorders)
+        {
+            bool isHorizontalOverlap = (this.RightBorderX >= otherTableBorders.LeftBorderX && this.LeftBorderX <= otherTableBorders.RightBorderX) ||
+                                              (otherTableBorders.RightBorderX >= this.LeftBorderX && otherTableBorders.LeftBorderX <= this.RightBorderX);
+            return isHorizontalOverlap;
         }
         public void AddTopBottomNeighborsNeighbors()
         {
@@ -253,7 +191,7 @@ namespace FloorplanClassLibrary
             bool isBetweenVertically = rlNeighbor.LeftNeighbor.Table.Top < topBottomNeighbor.TopNeighbor.Table.Bottom &&
                                        rlNeighbor.RightNeighbor.Table.Bottom > topBottomNeighbor.BottomNeighbor.Table.Top;
 
-            return OverLapsHorizontally(rlNeighbor.RightNeighbor) && !isBetweenVertically;
+            return OverlapsHorizontally(rlNeighbor.RightNeighbor) && !isBetweenVertically;
         }
         private void AddHardcodedNeighbors(List<Neighbor> newNeighbors)
         {
@@ -322,7 +260,6 @@ namespace FloorplanClassLibrary
         }
 
 
-
         public void AddRightLeftNeighborsNeighbors()
         {
             List<Neighbor> newNeighbors = new List<Neighbor>();
@@ -330,114 +267,113 @@ namespace FloorplanClassLibrary
             {
                 if (neighbor is RightLeftNeighbor rightLeftNeighbor)
                 {
+                    // Process for the right neighbor
                     if (rightLeftNeighbor.RightNeighbor.Table.TableNumber == this.Table.TableNumber)
                     {
-                        foreach (Neighbor topBottomNeighbor in rightLeftNeighbor.LeftNeighbor.Neighbors)
-                        {
-                            if (topBottomNeighbor is TopBottomNeighbor tbNeighbor)
-                            {
-                                // Check for vertical border overlap with the current table
-                                if (OverlapsVertically(tbNeighbor.TopNeighbor))
-                                {
-                                    if(tbNeighbor.TopNeighbor.Table.TableNumber != this.Table.TableNumber)
-                                    {
-                                        RightLeftNeighbor newNeighbor = new RightLeftNeighbor(this, tbNeighbor.TopNeighbor);
-                                        newNeighbors.Add(newNeighbor);
-                                    }
-                                    
-                                }
-                                if (OverlapsVertically(tbNeighbor.BottomNeighbor))
-                                {
-                                    
-                                    RightLeftNeighbor newNeighbor = new RightLeftNeighbor(this, tbNeighbor.BottomNeighbor);
-                                    newNeighbors.Add(newNeighbor);
-                                }
-                            }
-                        }
+                        ProcessRightNeighbor(rightLeftNeighbor, newNeighbors);
                     }
+                    // Process for the left neighbor
                     if (rightLeftNeighbor.LeftNeighbor.Table.TableNumber == this.Table.TableNumber)
                     {
-                        foreach (Neighbor topBottomNeighbor in rightLeftNeighbor.RightNeighbor.Neighbors)
-                        {
-                            if (topBottomNeighbor is TopBottomNeighbor tbNeighbor)
-                            {
-                                if (OverlapsVertically(tbNeighbor.TopNeighbor))
-                                {
-                                    RightLeftNeighbor newNeighbor = new RightLeftNeighbor( tbNeighbor.TopNeighbor, this);
-                                    newNeighbors.Add(newNeighbor);
-                                }
-                                if (OverlapsVertically(tbNeighbor.BottomNeighbor))
-                                {
-                                    RightLeftNeighbor newNeighbor = new RightLeftNeighbor(tbNeighbor.BottomNeighbor, this);
-                                    newNeighbors.Add(newNeighbor);
-                                }
-                            }
-                        }
+                        ProcessLeftNeighbor(rightLeftNeighbor, newNeighbors);
                     }
                 }
             }
+
+            AddHardcodedRightLeftNeighbors(newNeighbors);
+
+            // Add the new neighbors
             foreach (var newNeighbor in newNeighbors)
             {
                 AddNeighbor(newNeighbor);
-                if (newNeighbor is RightLeftNeighbor rightLeftNeighbor)
+                if (newNeighbor is RightLeftNeighbor rlNeighbor)
                 {
-                    rightLeftNeighbor.RightNeighbor.AddNeighbor(rightLeftNeighbor);
-                    rightLeftNeighbor.LeftNeighbor.AddNeighbor(rightLeftNeighbor);
+                    rlNeighbor.RightNeighbor.AddNeighbor(rlNeighbor);
+                    rlNeighbor.LeftNeighbor.AddNeighbor(rlNeighbor);
                 }
             }
-            
+        }
+        private bool IsSuitableForRightLeftNeighbor(TopBottomNeighbor tbNeighbor, RightLeftNeighbor rlNeighbor)
+        {
+            // Check if rlNeighbor is between top and bottom neighbors horizontally
+            bool isBetweenHorizontally = rlNeighbor.LeftNeighbor.Table.Left < tbNeighbor.TopNeighbor.Table.Right &&
+                                         rlNeighbor.RightNeighbor.Table.Right > tbNeighbor.BottomNeighbor.Table.Left;
+
+            return OverlapsVertically(rlNeighbor.RightNeighbor) && !isBetweenHorizontally;
         }
 
-        public void AddBottomNeighborsNeighbors()
+        private void ProcessRightNeighbor(RightLeftNeighbor rightLeftNeighbor, List<Neighbor> newNeighbors)
         {
-           
-            if(this.BottomNeighborBorders != null)
+            foreach (Neighbor topBottomNeighbor in rightLeftNeighbor.LeftNeighbor.Neighbors)
             {
-                this.NeighborBorders.TryAdd(BottomNeighborBorders, BottomNeighborBorders.TopBorder);
-                if (BottomNeighborBorders.RightNeighbors.Count > 0)
+                if (topBottomNeighbor is TopBottomNeighbor tbNeighbor && IsSuitableForRightLeftNeighbor(tbNeighbor, rightLeftNeighbor))
                 {
-                    if(BottomNeighborBorders.RightBorderX < this.RightBorderX)
+                    string pairKeyTop = GetPairKey(this.Table.TableNumber, tbNeighbor.TopNeighbor.Table.TableNumber);
+                    string pairKeyBottom = GetPairKey(this.Table.TableNumber, tbNeighbor.BottomNeighbor.Table.TableNumber);
+
+                    if (!ignorePairs.Contains(pairKeyTop))
                     {
-                        this.BottomNeighbors.Add(BottomNeighborBorders.RightNeighbors[0]);
-                        //this.NeighborBorders.Add(BottomNeighborBorders, BottomNeighborBorders.TopBorder);
-                        this.NeighborBorders.TryAdd(BottomNeighborBorders.RightNeighborBorders, BottomNeighborBorders.RightNeighborBorders.TopBorder);
+                        RightLeftNeighbor newNeighbor = new RightLeftNeighbor(this, tbNeighbor.TopNeighbor);
+                        newNeighbors.Add(newNeighbor);
                     }
-                }
-                else if (BottomNeighborBorders.LeftNeighbors.Count > 0)
-                {
-                    if (BottomNeighborBorders.LeftBorderX > this.LeftBorderX)
+
+                    if (!ignorePairs.Contains(pairKeyBottom))
                     {
-                        this.BottomNeighbors.Add(BottomNeighborBorders.LeftNeighbors[0]);
-                        //this.NeighborBorders.Add(BottomNeighborBorders, BottomNeighborBorders.TopBorder);
-                        this.NeighborBorders.TryAdd(BottomNeighborBorders.LeftNeighborBorders, BottomNeighborBorders.LeftNeighborBorders.TopBorder);
-                    }
-                }
-               
-            }
-        }
-        public void AddLeftNeighborsNeighbors()
-        {
-            if (this.LeftNeighborBorders != null)
-            {
-                this.NeighborBorders.TryAdd(LeftNeighborBorders, LeftNeighborBorders.RightBorder);
-                if (LeftNeighborBorders.TopNeighbors.Count > 0)
-                {
-                    if (LeftNeighborBorders.TopBorderY > this.TopBorderY)
-                    {
-                        this.LeftNeighbors.Add(LeftNeighborBorders.TopNeighbors[0]);
-                        this.NeighborBorders.TryAdd(LeftNeighborBorders.TopNeighborBorders, LeftNeighborBorders.TopNeighborBorders.RightBorder);
-                    }
-                }
-                else if (LeftNeighborBorders.BottomNeighbors.Count > 0)
-                {
-                    if (LeftNeighborBorders.BottomBorderY < this.BottomBorderY)
-                    {
-                        this.LeftNeighbors.Add(LeftNeighborBorders.BottomNeighbors[0]);
-                        this.NeighborBorders.TryAdd(LeftNeighborBorders.BottomNeighborBorders, LeftNeighborBorders.BottomNeighborBorders.RightBorder);
+                        RightLeftNeighbor newNeighbor = new RightLeftNeighbor(this, tbNeighbor.BottomNeighbor);
+                        newNeighbors.Add(newNeighbor);
                     }
                 }
             }
         }
+
+
+
+        private void ProcessLeftNeighbor(RightLeftNeighbor rightLeftNeighbor, List<Neighbor> newNeighbors)
+        {
+            foreach (Neighbor topBottomNeighbor in rightLeftNeighbor.RightNeighbor.Neighbors)
+            {
+                if (topBottomNeighbor is TopBottomNeighbor tbNeighbor && IsSuitableForRightLeftNeighbor(tbNeighbor, rightLeftNeighbor))
+                {
+                    string pairKeyTop = GetPairKey(this.Table.TableNumber, tbNeighbor.TopNeighbor.Table.TableNumber);
+                    string pairKeyBottom = GetPairKey(this.Table.TableNumber, tbNeighbor.BottomNeighbor.Table.TableNumber);
+
+                    if (!ignorePairs.Contains(pairKeyTop))
+                    {
+                        RightLeftNeighbor newNeighbor = new RightLeftNeighbor(tbNeighbor.TopNeighbor, this);
+                        newNeighbors.Add(newNeighbor);
+                    }
+
+                    if (!ignorePairs.Contains(pairKeyBottom))
+                    {
+                        RightLeftNeighbor newNeighbor = new RightLeftNeighbor(tbNeighbor.BottomNeighbor, this);
+                        newNeighbors.Add(newNeighbor);
+                    }
+                }
+            }
+        }
+
+
+        private void AddHardcodedRightLeftNeighbors(List<Neighbor> newNeighbors)
+        {
+            foreach (var pair in hardcodedRightLeftNeighbors)
+            {
+                if (this.Table.TableNumber == pair.Key)
+                {
+                    TableEdgeBorders hardcodedRightLeftNeighbor = FindTableByNumber(pair.Value);
+                    if (hardcodedRightLeftNeighbor != null)
+                    {
+                        RightLeftNeighbor newNeighbor = new RightLeftNeighbor(this, hardcodedRightLeftNeighbor);
+                        newNeighbors.Add(newNeighbor);
+                    }
+                }
+            }
+        }
+
+        // Existing methods: FindTableByNumber, FindTableByNumberRecursive, etc.
+
+       
+
+       
 
         public List<Edge> GetEdges()
         {
@@ -605,5 +541,192 @@ namespace FloorplanClassLibrary
             return Table.ToString() + "\n" + " R " + RightBorderX.ToString() + " L " + LeftBorderX.ToString()
                 + " T " + TopBorderY.ToString() + " B " + BottomBorderY.ToString();
         }
+        //public void AddRightLeftNeighborsNeighbors()
+        //{
+        //    List<Neighbor> newNeighbors = new List<Neighbor>();
+        //    foreach (Neighbor neighbor in Neighbors)
+        //    {
+        //        if (neighbor is RightLeftNeighbor rightLeftNeighbor)
+        //        {
+        //            if (rightLeftNeighbor.RightNeighbor.Table.TableNumber == this.Table.TableNumber)
+        //            {
+        //                foreach (Neighbor topBottomNeighbor in rightLeftNeighbor.LeftNeighbor.Neighbors)
+        //                {
+        //                    if (topBottomNeighbor is TopBottomNeighbor tbNeighbor)
+        //                    {
+        //                        // Check for vertical border overlap with the current table
+        //                        if (OverlapsVertically(tbNeighbor.TopNeighbor))
+        //                        {
+        //                            if(tbNeighbor.TopNeighbor.Table.TableNumber != this.Table.TableNumber)
+        //                            {
+        //                                RightLeftNeighbor newNeighbor = new RightLeftNeighbor(this, tbNeighbor.TopNeighbor);
+        //                                newNeighbors.Add(newNeighbor);
+        //                            }
+
+        //                        }
+        //                        if (OverlapsVertically(tbNeighbor.BottomNeighbor))
+        //                        {
+
+        //                            RightLeftNeighbor newNeighbor = new RightLeftNeighbor(this, tbNeighbor.BottomNeighbor);
+        //                            newNeighbors.Add(newNeighbor);
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //            if (rightLeftNeighbor.LeftNeighbor.Table.TableNumber == this.Table.TableNumber)
+        //            {
+        //                foreach (Neighbor topBottomNeighbor in rightLeftNeighbor.RightNeighbor.Neighbors)
+        //                {
+        //                    if (topBottomNeighbor is TopBottomNeighbor tbNeighbor)
+        //                    {
+        //                        if (OverlapsVertically(tbNeighbor.TopNeighbor))
+        //                        {
+        //                            RightLeftNeighbor newNeighbor = new RightLeftNeighbor( tbNeighbor.TopNeighbor, this);
+        //                            newNeighbors.Add(newNeighbor);
+        //                        }
+        //                        if (OverlapsVertically(tbNeighbor.BottomNeighbor))
+        //                        {
+        //                            RightLeftNeighbor newNeighbor = new RightLeftNeighbor(tbNeighbor.BottomNeighbor, this);
+        //                            newNeighbors.Add(newNeighbor);
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    }
+        //    foreach (var newNeighbor in newNeighbors)
+        //    {
+        //        AddNeighbor(newNeighbor);
+        //        if (newNeighbor is RightLeftNeighbor rightLeftNeighbor)
+        //        {
+        //            rightLeftNeighbor.RightNeighbor.AddNeighbor(rightLeftNeighbor);
+        //            rightLeftNeighbor.LeftNeighbor.AddNeighbor(rightLeftNeighbor);
+        //        }
+        //    }
+
+        //}
+        //public void AddBottomNeighborsNeighbors()
+        //{
+
+        //    if (this.BottomNeighborBorders != null)
+        //    {
+        //        this.NeighborBorders.TryAdd(BottomNeighborBorders, BottomNeighborBorders.TopBorder);
+        //        if (BottomNeighborBorders.RightNeighbors.Count > 0)
+        //        {
+        //            if (BottomNeighborBorders.RightBorderX < this.RightBorderX)
+        //            {
+        //                this.BottomNeighbors.Add(BottomNeighborBorders.RightNeighbors[0]);
+        //                //this.NeighborBorders.Add(BottomNeighborBorders, BottomNeighborBorders.TopBorder);
+        //                this.NeighborBorders.TryAdd(BottomNeighborBorders.RightNeighborBorders, BottomNeighborBorders.RightNeighborBorders.TopBorder);
+        //            }
+        //        }
+        //        else if (BottomNeighborBorders.LeftNeighbors.Count > 0)
+        //        {
+        //            if (BottomNeighborBorders.LeftBorderX > this.LeftBorderX)
+        //            {
+        //                this.BottomNeighbors.Add(BottomNeighborBorders.LeftNeighbors[0]);
+        //                //this.NeighborBorders.Add(BottomNeighborBorders, BottomNeighborBorders.TopBorder);
+        //                this.NeighborBorders.TryAdd(BottomNeighborBorders.LeftNeighborBorders, BottomNeighborBorders.LeftNeighborBorders.TopBorder);
+        //            }
+        //        }
+
+        //    }
+        //}
+        //public void AddLeftNeighborsNeighbors()
+        //{
+        //    if (this.LeftNeighborBorders != null)
+        //    {
+        //        this.NeighborBorders.TryAdd(LeftNeighborBorders, LeftNeighborBorders.RightBorder);
+        //        if (LeftNeighborBorders.TopNeighbors.Count > 0)
+        //        {
+        //            if (LeftNeighborBorders.TopBorderY > this.TopBorderY)
+        //            {
+        //                this.LeftNeighbors.Add(LeftNeighborBorders.TopNeighbors[0]);
+        //                this.NeighborBorders.TryAdd(LeftNeighborBorders.TopNeighborBorders, LeftNeighborBorders.TopNeighborBorders.RightBorder);
+        //            }
+        //        }
+        //        else if (LeftNeighborBorders.BottomNeighbors.Count > 0)
+        //        {
+        //            if (LeftNeighborBorders.BottomBorderY < this.BottomBorderY)
+        //            {
+        //                this.LeftNeighbors.Add(LeftNeighborBorders.BottomNeighbors[0]);
+        //                this.NeighborBorders.TryAdd(LeftNeighborBorders.BottomNeighborBorders, LeftNeighborBorders.BottomNeighborBorders.RightBorder);
+        //            }
+        //        }
+        //    }
+        //}
+        //private bool IsNotUnder(TableEdgeBorders currentNeighbor, TableEdgeBorders potentialNeighbor)
+        //{
+        //   // return true;
+        //    return currentNeighbor.Table.Bottom > potentialNeighbor.Table.Top;
+        //}
+
+        //private bool IsNotAbove(TableEdgeBorders currentNeighbor, TableEdgeBorders potentialNeighbor)
+        //{
+
+        //    //return true;
+        //    return potentialNeighbor.Table.Top < currentNeighbor.Table.Bottom;
+        //}
+
+        //public void oldAddTopBottomNeighborsNeighbors()
+        //{
+        //    List<Neighbor> newNeighbors = new List<Neighbor>();
+        //    foreach (Neighbor neighbor in Neighbors)
+        //    {
+        //        if(neighbor is TopBottomNeighbor topBottomNeighbor)
+        //        {
+        //            if(topBottomNeighbor.TopNeighbor.Table.TableNumber == this.Table.TableNumber)
+        //            {
+        //                foreach (Neighbor rightLeftNeighbor in topBottomNeighbor.BottomNeighbor.Neighbors)
+        //                {
+        //                    if (rightLeftNeighbor is RightLeftNeighbor rlNeighbor)
+        //                    {
+
+        //                        // Check for border overlap with the current table
+        //                        if (OverLapsHorizontally(rlNeighbor.RightNeighbor) && IsNotUnder(topBottomNeighbor.BottomNeighbor, rlNeighbor.RightNeighbor))
+        //                        {
+        //                            TopBottomNeighbor newNeighbor = new TopBottomNeighbor(this, rlNeighbor.RightNeighbor);
+        //                            newNeighbors.Add(newNeighbor);
+        //                        }
+        //                        if (OverLapsHorizontally(rlNeighbor.LeftNeighbor) && IsNotUnder(topBottomNeighbor.BottomNeighbor, rlNeighbor.LeftNeighbor))
+        //                        {
+        //                            TopBottomNeighbor newNeighbor = new TopBottomNeighbor(this, rlNeighbor.LeftNeighbor);
+        //                            newNeighbors.Add(newNeighbor);
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //            if (topBottomNeighbor.BottomNeighbor.Table.TableNumber == this.Table.TableNumber)
+        //            {
+        //                foreach (Neighbor rightLeftNeighbor in topBottomNeighbor.TopNeighbor.Neighbors)
+        //                {
+        //                    if (rightLeftNeighbor is RightLeftNeighbor rlNeighbor)
+        //                    {
+        //                        if (OverLapsHorizontally(rlNeighbor.RightNeighbor) && IsNotAbove(topBottomNeighbor.TopNeighbor, rlNeighbor.RightNeighbor))
+        //                        {
+        //                            TopBottomNeighbor newNeighbor = new TopBottomNeighbor(rlNeighbor.RightNeighbor, this);
+        //                            newNeighbors.Add(newNeighbor);
+        //                        }
+        //                        if (OverLapsHorizontally(rlNeighbor.LeftNeighbor) && IsNotAbove(topBottomNeighbor.TopNeighbor, rlNeighbor.LeftNeighbor))
+        //                        {
+        //                            TopBottomNeighbor newNeighbor = new TopBottomNeighbor(rlNeighbor.LeftNeighbor, this);
+        //                            newNeighbors.Add(newNeighbor);
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //        }
+
+        //    }
+        //    foreach (var newNeighbor in newNeighbors)
+        //    {
+        //        AddNeighbor(newNeighbor);
+        //        if (newNeighbor is TopBottomNeighbor tbNeighbor)
+        //        {
+        //            tbNeighbor.TopNeighbor.AddNeighbor(tbNeighbor);
+        //            tbNeighbor.BottomNeighbor.AddNeighbor(tbNeighbor);
+        //        }
+        //    }
+        //}
     }
 }

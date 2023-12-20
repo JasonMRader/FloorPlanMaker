@@ -59,6 +59,10 @@
             rdoCoverView = new RadioButton();
             cboDiningAreas = new ComboBox();
             panel5 = new Panel();
+            checkBox1 = new CheckBox();
+            lblSelectedTableNumber = new Label();
+            lblSelectTable = new Label();
+            lbTableNeighbors = new ListBox();
             picAddCircle = new PictureBox();
             picAddDiamond = new PictureBox();
             picAddSquare = new PictureBox();
@@ -445,6 +449,10 @@
             // panel5
             // 
             panel5.BackColor = Color.WhiteSmoke;
+            panel5.Controls.Add(checkBox1);
+            panel5.Controls.Add(lblSelectedTableNumber);
+            panel5.Controls.Add(lblSelectTable);
+            panel5.Controls.Add(lbTableNeighbors);
             panel5.Controls.Add(picAddCircle);
             panel5.Controls.Add(picAddDiamond);
             panel5.Controls.Add(picAddSquare);
@@ -454,10 +462,53 @@
             panel5.Size = new Size(335, 921);
             panel5.TabIndex = 4;
             // 
+            // checkBox1
+            // 
+            checkBox1.Appearance = Appearance.Button;
+            checkBox1.BackColor = Color.FromArgb(100, 130, 180);
+            checkBox1.FlatAppearance.BorderSize = 0;
+            checkBox1.FlatStyle = FlatStyle.Flat;
+            checkBox1.ForeColor = Color.White;
+            checkBox1.Location = new Point(55, 678);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(215, 29);
+            checkBox1.TabIndex = 7;
+            checkBox1.Text = "Edit Table Neighbors";
+            checkBox1.TextAlign = ContentAlignment.MiddleCenter;
+            checkBox1.UseVisualStyleBackColor = false;
+            checkBox1.CheckedChanged += checkBox1_CheckedChanged;
+            // 
+            // lblSelectedTableNumber
+            // 
+            lblSelectedTableNumber.AutoSize = true;
+            lblSelectedTableNumber.Location = new Point(145, 713);
+            lblSelectedTableNumber.Name = "lblSelectedTableNumber";
+            lblSelectedTableNumber.Size = new Size(25, 15);
+            lblSelectedTableNumber.TabIndex = 6;
+            lblSelectedTableNumber.Text = "405";
+            // 
+            // lblSelectTable
+            // 
+            lblSelectTable.AutoSize = true;
+            lblSelectTable.Location = new Point(55, 713);
+            lblSelectTable.Name = "lblSelectTable";
+            lblSelectTable.Size = new Size(84, 15);
+            lblSelectTable.TabIndex = 5;
+            lblSelectTable.Text = "Selected Table:";
+            // 
+            // lbTableNeighbors
+            // 
+            lbTableNeighbors.FormattingEnabled = true;
+            lbTableNeighbors.ItemHeight = 15;
+            lbTableNeighbors.Location = new Point(55, 751);
+            lbTableNeighbors.Name = "lbTableNeighbors";
+            lbTableNeighbors.Size = new Size(215, 94);
+            lbTableNeighbors.TabIndex = 4;
+            // 
             // picAddCircle
             // 
             picAddCircle.Image = Properties.Resources.SmallFilledCircle;
-            picAddCircle.Location = new Point(45, 490);
+            picAddCircle.Location = new Point(55, 490);
             picAddCircle.Name = "picAddCircle";
             picAddCircle.Size = new Size(215, 142);
             picAddCircle.SizeMode = PictureBoxSizeMode.Zoom;
@@ -468,7 +519,7 @@
             // picAddDiamond
             // 
             picAddDiamond.Image = Properties.Resources.DiamondFilled;
-            picAddDiamond.Location = new Point(45, 278);
+            picAddDiamond.Location = new Point(55, 278);
             picAddDiamond.Name = "picAddDiamond";
             picAddDiamond.Size = new Size(215, 160);
             picAddDiamond.SizeMode = PictureBoxSizeMode.Zoom;
@@ -479,7 +530,7 @@
             // picAddSquare
             // 
             picAddSquare.Image = Properties.Resources.SquareTableFilled;
-            picAddSquare.Location = new Point(45, 108);
+            picAddSquare.Location = new Point(55, 108);
             picAddSquare.Name = "picAddSquare";
             picAddSquare.Size = new Size(215, 126);
             picAddSquare.SizeMode = PictureBoxSizeMode.Zoom;
@@ -491,7 +542,7 @@
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label7.Location = new Point(107, 39);
+            label7.Location = new Point(117, 39);
             label7.Name = "label7";
             label7.Size = new Size(93, 21);
             label7.TabIndex = 1;
@@ -573,5 +624,9 @@
         private PictureBox picAddDiamond;
         private PictureBox picAddSquare;
         private RadioButton rdoSalesView;
+        private CheckBox checkBox1;
+        private Label lblSelectedTableNumber;
+        private Label lblSelectTable;
+        private ListBox lbTableNeighbors;
     }
 }

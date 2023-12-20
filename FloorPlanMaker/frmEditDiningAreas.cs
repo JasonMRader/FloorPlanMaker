@@ -1,5 +1,6 @@
 ﻿using FloorplanClassLibrary;
 using FloorPlanMaker;
+using FloorplanUserControlLibrary;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -40,7 +41,7 @@ namespace FloorPlanMakerUI
                 MoveToNextControl();
                 return true; // Indicate that you've handled this key press
             }
-            
+
 
             return base.ProcessCmdKey(ref msg, keyData);
         }
@@ -57,7 +58,7 @@ namespace FloorPlanMakerUI
                 {
                     cboDiningAreas.SelectedIndex = cboDiningAreas.Items.Count - 1;
                 }
-               
+
             }
 
             if (keyData == Keys.Down)
@@ -71,7 +72,7 @@ namespace FloorPlanMakerUI
                 {
                     cboDiningAreas.SelectedIndex = 0;
                 }
-               
+
             }
         }
         private void MoveToNextControl()
@@ -88,8 +89,8 @@ namespace FloorPlanMakerUI
                 }
             }
 
-            
-            
+
+
         }
         private TableDataEditorControl GetFocusedTableDataEditorControl()
         {
@@ -244,8 +245,11 @@ namespace FloorPlanMakerUI
 
 
 
+            refreshSelectedTableNeighbors();
+
 
         }
+
 
 
         private void SaveNewTableByTableControl(TableControl tableControl)
@@ -608,9 +612,9 @@ namespace FloorPlanMakerUI
         }
         private List<TableDataEditorControl> OrderEditorList()
         {
-            var orderedList = tableDataEditors.OrderBy(t=>t.TableNumber).ToList();
+            var orderedList = tableDataEditors.OrderBy(t => t.TableNumber).ToList();
             return orderedList;
-           
+
         }
         private void rdoSalesView_CheckedChanged(object sender, EventArgs e)
         {
@@ -752,5 +756,69 @@ namespace FloorPlanMakerUI
         }
 
 
+        TableGrid grid = new TableGrid();
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked)
+            {
+                MakeNeighborControlsVisible();
+                grid = new TableGrid(areaCreationManager.DiningAreaSelected.Tables);
+                grid.FindTableTopBottomNeighbors();
+                grid.FindTableNeighbors();
+                grid.SetTableBoarderMidPoints();
+                //grid.SetSections(this.shiftManager.SelectedFloorplan.Sections);
+                SectionLineDrawer edgeDrawer = new SectionLineDrawer(3f);
+                //Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, grid.GetAllTableBoarders());
+                List<Edge> edges = grid.GetNeighborEdges();
+                Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, edges);
+                List<string> testing = grid.GetTestData();
+
+                //Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, grid.ModifyBottomNeighbors());
+                //Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, grid.GetSectionTableBoarders());
+                pnlFloorPlan.BackgroundImage = edgesBitmap;
+            }
+            else
+            {
+                MakeNeighborControlsInvisible();
+                pnlFloorPlan.BackgroundImage = null;
+            }
+        }
+        private void refreshSelectedTableNeighbors()
+        {
+            if(checkBox1.Checked)
+            {
+                lblSelectedTableNumber.Text = areaCreationManager.SelectedTable.TableNumber;
+                List<string> tableNumbers = grid.GetNeighborNames(areaCreationManager.SelectedTable.TableNumber);
+                lbTableNeighbors.Items.Clear();
+                foreach (string tableNumber in tableNumbers)
+                {
+                    lbTableNeighbors.Items.Add(tableNumber);
+                }
+                foreach (TableControl tableControl in pnlFloorPlan.Controls)
+                {
+                    if (tableNumbers.Contains(tableControl.Table.TableNumber))
+                    {
+                        tableControl.BackColor = UITheme.CautionColor;
+                    }
+                    else
+                    {
+                        tableControl.BackColor = Color.LightGray;
+                    }
+                }
+            }
+            
+        }
+        private void MakeNeighborControlsInvisible()
+        {
+            lblSelectedTableNumber.Visible = false;
+            lblSelectTable.Visible = false;
+            lbTableNeighbors.Visible = false;
+        }
+        private void MakeNeighborControlsVisible()
+        {
+            lblSelectedTableNumber.Visible = true;
+            lblSelectTable.Visible = true;
+            lbTableNeighbors.Visible = true;
+        }
     }
 }
