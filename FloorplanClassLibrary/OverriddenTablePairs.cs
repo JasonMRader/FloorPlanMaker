@@ -19,7 +19,8 @@ namespace FloorplanClassLibrary
         };
         public Dictionary<string, string> hardcodedRightLeftNeighbors = new Dictionary<string, string>()
         {
-
+            {"34", "42" },
+            {"42","34" }
 
         };
 

@@ -12,6 +12,7 @@ namespace FloorplanClassLibrary
         public List<Table> Tables { get; set; } = new List<Table>();
         public List<Neighbor> Neighbors { get; set; } = new List<Neighbor> { };
         public List<TableEdgeBorders> TableBoarders { get; set; }
+        private OverriddenTablePairs overriddenPairs = new OverriddenTablePairs();
         public List<TableNeighborManager> TableNeighborManagers { get; set; } = new List<TableNeighborManager> { };
         public Dictionary<Table, TableEdgeBorders> TableEdges { get; set; } = new Dictionary<Table, TableEdgeBorders>();
         public List<Section> Sections { get; private set; }
@@ -51,6 +52,9 @@ namespace FloorplanClassLibrary
                 foreach (var otherTable in Tables)
                 {
                     if (otherTable == currentTable) continue;
+
+                    string pairKey = overriddenPairs.GetPairKey(currentTable.TableNumber, otherTable.TableNumber);
+                    if (overriddenPairs.ignorePairs.Contains(pairKey)) continue;
 
                     int otherTableLeft = otherTable.Left;
                     int otherTableRight = otherTable.Right;
@@ -117,6 +121,8 @@ namespace FloorplanClassLibrary
                 foreach (var otherTable in Tables)
                 {
                     if (otherTable == currentTable) continue;
+                    string pairKey = overriddenPairs.GetPairKey(currentTable.TableNumber, otherTable.TableNumber);
+                    if (overriddenPairs.ignorePairs.Contains(pairKey)) continue;
 
                     int otherTableTop = otherTable.Top;
                     int otherTableBottom = otherTable.Bottom;

@@ -785,7 +785,7 @@ namespace FloorPlanMakerUI
         }
         private void refreshSelectedTableNeighbors()
         {
-            if(checkBox1.Checked)
+            if (checkBox1.Checked)
             {
                 lblSelectedTableNumber.Text = areaCreationManager.SelectedTable.TableNumber;
                 List<string> tableNumbers = grid.GetNeighborNames(areaCreationManager.SelectedTable.TableNumber);
@@ -806,7 +806,7 @@ namespace FloorPlanMakerUI
                     }
                 }
             }
-            
+
         }
         private void MakeNeighborControlsInvisible()
         {
@@ -819,6 +819,11 @@ namespace FloorPlanMakerUI
             lblSelectedTableNumber.Visible = true;
             lblSelectTable.Visible = true;
             lbTableNeighbors.Visible = true;
+        }
+
+        private void lbTableNeighbors_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

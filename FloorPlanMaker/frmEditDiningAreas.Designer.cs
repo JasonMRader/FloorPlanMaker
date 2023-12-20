@@ -68,6 +68,9 @@
             picAddSquare = new PictureBox();
             label7 = new Label();
             panel1 = new Panel();
+            lblPairData = new Label();
+            button1 = new Button();
+            button2 = new Button();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
             panel6.SuspendLayout();
@@ -449,6 +452,9 @@
             // panel5
             // 
             panel5.BackColor = Color.WhiteSmoke;
+            panel5.Controls.Add(button2);
+            panel5.Controls.Add(button1);
+            panel5.Controls.Add(lblPairData);
             panel5.Controls.Add(checkBox1);
             panel5.Controls.Add(lblSelectedTableNumber);
             panel5.Controls.Add(lblSelectTable);
@@ -502,8 +508,9 @@
             lbTableNeighbors.ItemHeight = 15;
             lbTableNeighbors.Location = new Point(55, 751);
             lbTableNeighbors.Name = "lbTableNeighbors";
-            lbTableNeighbors.Size = new Size(215, 94);
+            lbTableNeighbors.Size = new Size(54, 94);
             lbTableNeighbors.TabIndex = 4;
+            lbTableNeighbors.SelectedIndexChanged += lbTableNeighbors_SelectedIndexChanged;
             // 
             // picAddCircle
             // 
@@ -557,6 +564,33 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(364, 950);
             panel1.TabIndex = 6;
+            // 
+            // lblPairData
+            // 
+            lblPairData.AutoSize = true;
+            lblPairData.Location = new Point(117, 782);
+            lblPairData.Name = "lblPairData";
+            lblPairData.Size = new Size(54, 15);
+            lblPairData.TabIndex = 8;
+            lblPairData.Text = "Pair Data";
+            // 
+            // button1
+            // 
+            button1.Location = new Point(117, 751);
+            button1.Name = "button1";
+            button1.Size = new Size(121, 23);
+            button1.TabIndex = 9;
+            button1.Text = "Remove Neighbor";
+            button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            button2.Location = new Point(55, 851);
+            button2.Name = "button2";
+            button2.Size = new Size(215, 23);
+            button2.TabIndex = 10;
+            button2.Text = "Add New Neighbor";
+            button2.UseVisualStyleBackColor = true;
             // 
             // frmEditDiningAreas
             // 
@@ -628,5 +662,8 @@
         private Label lblSelectedTableNumber;
         private Label lblSelectTable;
         private ListBox lbTableNeighbors;
+        private Button button2;
+        private Button button1;
+        private Label lblPairData;
     }
 }
