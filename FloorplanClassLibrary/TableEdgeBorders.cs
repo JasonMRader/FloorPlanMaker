@@ -61,6 +61,16 @@ namespace FloorplanClassLibrary
                                               (otherTableBorders.RightBorderX >= this.LeftBorderX && otherTableBorders.LeftBorderX <= this.RightBorderX);
             return isHorizontalOverlap;
         }
+        private bool IsNotUnder(TableEdgeBorders currentNeighbor, TableEdgeBorders potentialNeighbor)
+        {
+            return true;
+            return currentNeighbor.Table.Bottom < potentialNeighbor.Table.Top;
+        }
+        private bool IsNotAbove(TableEdgeBorders currentNeighbor, TableEdgeBorders potentialNeighbor)
+        {
+            return true;
+            //return potentialNeighbor.Table.Bottom > currentNeighbor.Table.Top;
+        }
         public void AddTopBottomNeighborsNeighbors()
         {
             List<Neighbor> newNeighbors = new List<Neighbor>();
@@ -75,12 +85,12 @@ namespace FloorplanClassLibrary
                             if (rightLeftNeighbor is RightLeftNeighbor rlNeighbor)
                             {
                                 // Check for border overlap with the current table
-                                if (OverLapsHorizontally(rlNeighbor.RightNeighbor))
+                                if (OverLapsHorizontally(rlNeighbor.RightNeighbor) && IsNotUnder(topBottomNeighbor.BottomNeighbor, rlNeighbor.RightNeighbor))
                                 {
                                     TopBottomNeighbor newNeighbor = new TopBottomNeighbor(this, rlNeighbor.RightNeighbor);
                                     newNeighbors.Add(newNeighbor);
                                 }
-                                if (OverLapsHorizontally(rlNeighbor.LeftNeighbor))
+                                if (OverLapsHorizontally(rlNeighbor.LeftNeighbor) && IsNotUnder(topBottomNeighbor.BottomNeighbor, rlNeighbor.LeftNeighbor))
                                 {
                                     TopBottomNeighbor newNeighbor = new TopBottomNeighbor(this, rlNeighbor.LeftNeighbor);
                                     newNeighbors.Add(newNeighbor);
@@ -94,12 +104,12 @@ namespace FloorplanClassLibrary
                         {
                             if (rightLeftNeighbor is RightLeftNeighbor rlNeighbor)
                             {
-                                if (OverLapsHorizontally(rlNeighbor.RightNeighbor))
+                                if (OverLapsHorizontally(rlNeighbor.RightNeighbor) && IsNotAbove(topBottomNeighbor.TopNeighbor, rlNeighbor.RightNeighbor))
                                 {
                                     TopBottomNeighbor newNeighbor = new TopBottomNeighbor(rlNeighbor.RightNeighbor, this);
                                     newNeighbors.Add(newNeighbor);
                                 }
-                                if (OverLapsHorizontally(rlNeighbor.LeftNeighbor))
+                                if (OverLapsHorizontally(rlNeighbor.LeftNeighbor) && IsNotAbove(topBottomNeighbor.TopNeighbor, rlNeighbor.LeftNeighbor))
                                 {
                                     TopBottomNeighbor newNeighbor = new TopBottomNeighbor(rlNeighbor.LeftNeighbor, this);
                                     newNeighbors.Add(newNeighbor);
