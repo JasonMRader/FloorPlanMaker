@@ -63,13 +63,13 @@ namespace FloorplanClassLibrary
         }
         private bool IsNotUnder(TableEdgeBorders currentNeighbor, TableEdgeBorders potentialNeighbor)
         {
-            return true;
+            //return true;
             return currentNeighbor.Table.Bottom < potentialNeighbor.Table.Top;
         }
         private bool IsNotAbove(TableEdgeBorders currentNeighbor, TableEdgeBorders potentialNeighbor)
         {
             return true;
-            //return potentialNeighbor.Table.Bottom > currentNeighbor.Table.Top;
+            return potentialNeighbor.Table.Bottom > currentNeighbor.Table.Top;
         }
         public void AddTopBottomNeighborsNeighbors()
         {
