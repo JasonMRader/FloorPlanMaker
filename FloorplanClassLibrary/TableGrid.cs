@@ -183,23 +183,30 @@ namespace FloorplanClassLibrary
             {
                 if (table.RightNeighborBorders != null)
                 {
-                    Neighbors.Add(new RightLeftNeighbor(table.RightNeighborBorders, table));
+                    table.Neighbors.Add(new RightLeftNeighbor(table.RightNeighborBorders, table));
+                    //Neighbors.Add(new RightLeftNeighbor(table.RightNeighborBorders, table));
                 }
                 if (table.BottomNeighborBorders != null)
                 {
-                    Neighbors.Add(new TopBottomNeighbor(table, table.BottomNeighborBorders));
+                    table.Neighbors.Add(new TopBottomNeighbor(table, table.BottomNeighborBorders));
+                    //Neighbors.Add(new TopBottomNeighbor(table, table.BottomNeighborBorders));
                 }
+                table.AddTopBottomNeighborsNeighbors();
             }
         }
         public List<Edge> GetNeighborEdges()
         {
             CreateNeighbors();
             List<Edge> edges = new List<Edge>();
-            foreach(Neighbor neighbor in Neighbors)
+            foreach (var table in TableBoarders)
             {
-                if(neighbor.Edge != null)
-                    edges.Add(neighbor.Edge);
+                foreach (Neighbor neighbor in table.Neighbors)
+                {
+                    if (neighbor.Edge != null)
+                        edges.Add(neighbor.Edge);
+                }
             }
+           
             return edges;
         }
         public List<Edge> GetSectionTableBoarders()

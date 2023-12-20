@@ -19,6 +19,46 @@ namespace FloorplanClassLibrary
         public List<Table> LeftNeighbors { get; set; } = new List<Table>();
         public List<Table> TopNeighbors { get; set; } = new List<Table>();
         public List<Table> BottomNeighbors { get; set; } = new List<Table>();
+        public List<Neighbor> Neighbors { get; set; } = new List<Neighbor> ();
+        public bool OverLapsHorizontally(TableEdgeBorders otherTableBorders)
+        {
+            bool isHorizontalOverlap = (this.RightBorderX >= otherTableBorders.LeftBorderX && this.LeftBorderX <= otherTableBorders.RightBorderX) ||
+                                              (otherTableBorders.RightBorderX >= this.LeftBorderX && otherTableBorders.LeftBorderX <= this.RightBorderX);
+            return isHorizontalOverlap;
+        }
+        public void AddTopBottomNeighborsNeighbors()
+        {
+            List<Neighbor> newNeighbors = new List<Neighbor>();
+            foreach (Neighbor neighbor in Neighbors)
+            {
+                if(neighbor is TopBottomNeighbor topBottomNeighbor)
+                {
+                    if(topBottomNeighbor.TopNeighbor.Table.TableNumber == this.Table.TableNumber)
+                    {
+                        foreach (Neighbor rightLeftNeighbor in topBottomNeighbor.BottomNeighbor.Neighbors)
+                        {
+                            if (rightLeftNeighbor is RightLeftNeighbor rlNeighbor)
+                            {
+                                // Check for border overlap with the current table
+                                if (OverLapsHorizontally(rlNeighbor.RightNeighbor))
+                                {
+                                    TopBottomNeighbor newNeighbor = new TopBottomNeighbor(this, rlNeighbor.RightNeighbor);
+                                    newNeighbors.Add(newNeighbor);
+                                }
+                                if (OverLapsHorizontally(rlNeighbor.LeftNeighbor))
+                                {
+                                    TopBottomNeighbor newNeighbor = new TopBottomNeighbor(this, rlNeighbor.LeftNeighbor);
+                                    newNeighbors.Add(newNeighbor);
+                                }
+                            }
+                        }
+                    }
+                    
+                }
+            }
+            Neighbors.AddRange(newNeighbors);
+        }
+
         public void AddBottomNeighborsNeighbors()
         {
            

@@ -37,6 +37,7 @@ namespace FloorplanClassLibrary
         public override Neighbor GetNeighborsOfNeighbors()
         {
             throw new NotImplementedException();
+
         }
         public override void GetStartNode()
         {
