@@ -8,6 +8,30 @@ namespace FloorplanClassLibrary
 {
     public class TableEdgeBorders
     {
+        private Dictionary<string, string> hardcodedTopBottomNeighbors = new Dictionary<string, string>()
+        {
+            {"42", "41"},
+            {"52", "61"},
+            {"61", "52"},
+
+        };
+
+        private HashSet<string> ignorePairs = new HashSet<string>()
+        {
+            "61-53", 
+            "51-63",
+            "61-63",
+            "51-53"
+            
+           
+        };
+        private string GetPairKey(string tableNumberOne, string tableNumberTwo)
+        {
+            return tableNumberOne.CompareTo(tableNumberTwo) < 0
+                ? tableNumberOne + "-" + tableNumberTwo
+                : tableNumberTwo + "-" + tableNumberOne;
+        }
+
         public TableEdgeBorders(Table table)
         {
             this.Table = table;            
@@ -63,15 +87,18 @@ namespace FloorplanClassLibrary
         }
         private bool IsNotUnder(TableEdgeBorders currentNeighbor, TableEdgeBorders potentialNeighbor)
         {
-            //return true;
-            return currentNeighbor.Table.Bottom < potentialNeighbor.Table.Top;
+           // return true;
+            return currentNeighbor.Table.Bottom > potentialNeighbor.Table.Top;
         }
+       
         private bool IsNotAbove(TableEdgeBorders currentNeighbor, TableEdgeBorders potentialNeighbor)
         {
-            return true;
-            return potentialNeighbor.Table.Bottom > currentNeighbor.Table.Top;
+            
+            //return true;
+            return potentialNeighbor.Table.Top < currentNeighbor.Table.Bottom;
         }
-        public void AddTopBottomNeighborsNeighbors()
+
+        public void oldAddTopBottomNeighborsNeighbors()
         {
             List<Neighbor> newNeighbors = new List<Neighbor>();
             foreach (Neighbor neighbor in Neighbors)
@@ -84,6 +111,7 @@ namespace FloorplanClassLibrary
                         {
                             if (rightLeftNeighbor is RightLeftNeighbor rlNeighbor)
                             {
+                                
                                 // Check for border overlap with the current table
                                 if (OverLapsHorizontally(rlNeighbor.RightNeighbor) && IsNotUnder(topBottomNeighbor.BottomNeighbor, rlNeighbor.RightNeighbor))
                                 {
@@ -136,6 +164,162 @@ namespace FloorplanClassLibrary
                                      (otherTableBorders.TopBorderY <= this.BottomBorderY && otherTableBorders.BottomBorderY >= this.TopBorderY);
             return isVerticalOverlap;
         }
+        public void AddTopBottomNeighborsNeighbors()
+        {
+            List<Neighbor> newNeighbors = new List<Neighbor>();
+            foreach (Neighbor neighbor in Neighbors)
+            {
+                
+
+                if (neighbor is TopBottomNeighbor topBottomNeighbor)
+                {
+                   
+
+                    // Process for the top neighbor
+                    if (topBottomNeighbor.TopNeighbor.Table.TableNumber == this.Table.TableNumber)
+                    {
+                        ProcessTopNeighbor(topBottomNeighbor, newNeighbors);
+                    }
+                    // Process for the bottom neighbor
+                    if (topBottomNeighbor.BottomNeighbor.Table.TableNumber == this.Table.TableNumber)
+                    {
+                        ProcessBottomNeighbor(topBottomNeighbor, newNeighbors);
+                    }
+                    AddHardcodedNeighbors(newNeighbors);
+                }
+            }
+
+            // Add the new neighbors
+            foreach (var newNeighbor in newNeighbors)
+            {
+                AddNeighbor(newNeighbor);
+                if (newNeighbor is TopBottomNeighbor tbNeighbor)
+                {
+                    tbNeighbor.TopNeighbor.AddNeighbor(tbNeighbor);
+                    tbNeighbor.BottomNeighbor.AddNeighbor(tbNeighbor);
+                }
+            }
+        }
+
+        private void ProcessTopNeighbor(TopBottomNeighbor topBottomNeighbor, List<Neighbor> newNeighbors)
+        {
+            foreach (Neighbor rightLeftNeighbor in topBottomNeighbor.BottomNeighbor.Neighbors)
+            {
+                if (rightLeftNeighbor is RightLeftNeighbor rlNeighbor)
+                {
+                    if (IsSuitableForTopBottomNeighbor(topBottomNeighbor, rlNeighbor))
+                    {
+                        string pairKey = GetPairKey(this.Table.TableNumber, rlNeighbor.RightNeighbor.Table.TableNumber);
+
+                        if (ignorePairs.Contains(pairKey))
+                        {
+                            continue; // Skip this iteration if the pair should be ignored
+                        }
+                        TopBottomNeighbor newNeighbor = new TopBottomNeighbor(this, rlNeighbor.RightNeighbor);
+                        newNeighbors.Add(newNeighbor);
+                    }
+                }
+            }
+        }
+
+        private void ProcessBottomNeighbor(TopBottomNeighbor topBottomNeighbor, List<Neighbor> newNeighbors)
+        {
+            foreach (Neighbor rightLeftNeighbor in topBottomNeighbor.TopNeighbor.Neighbors)
+            {
+                if (rightLeftNeighbor is RightLeftNeighbor rlNeighbor)
+                {
+                    if (IsSuitableForTopBottomNeighbor(topBottomNeighbor, rlNeighbor))
+                    {
+                        string pairKey = GetPairKey(this.Table.TableNumber, rlNeighbor.RightNeighbor.Table.TableNumber);
+
+                        if (ignorePairs.Contains(pairKey))
+                        {
+                            continue; // Skip this iteration if the pair should be ignored
+                        }
+                        TopBottomNeighbor newNeighbor = new TopBottomNeighbor(rlNeighbor.RightNeighbor, this);
+                        newNeighbors.Add(newNeighbor);
+                    }
+                }
+            }
+        }
+
+
+        private bool IsSuitableForTopBottomNeighbor(TopBottomNeighbor topBottomNeighbor, RightLeftNeighbor rlNeighbor)
+        {
+            // Check if rlNeighbor is between top and bottom neighbors vertically
+            bool isBetweenVertically = rlNeighbor.LeftNeighbor.Table.Top < topBottomNeighbor.TopNeighbor.Table.Bottom &&
+                                       rlNeighbor.RightNeighbor.Table.Bottom > topBottomNeighbor.BottomNeighbor.Table.Top;
+
+            return OverLapsHorizontally(rlNeighbor.RightNeighbor) && !isBetweenVertically;
+        }
+        private void AddHardcodedNeighbors(List<Neighbor> newNeighbors)
+        {
+            foreach (var pair in hardcodedTopBottomNeighbors)
+            {
+                if (this.Table.TableNumber == pair.Key)
+                {
+                    TableEdgeBorders hardcodedBottomNeighbor = FindTableByNumber(pair.Value);
+                    if (hardcodedBottomNeighbor != null)
+                    {
+                        TopBottomNeighbor newNeighbor = new TopBottomNeighbor(this, hardcodedBottomNeighbor);
+                        newNeighbors.Add(newNeighbor);
+                    }
+                }
+            }
+        }
+        private TableEdgeBorders FindTableByNumber(string tableNumber)
+        {
+            HashSet<string> visitedTables = new HashSet<string>();
+            return FindTableByNumberRecursive(tableNumber, this, visitedTables);
+        }
+
+        private TableEdgeBorders FindTableByNumberRecursive(string tableNumber, TableEdgeBorders currentTable, HashSet<string> visitedTables)
+        {
+            // Check if the current table is the one we're looking for
+            if (currentTable.Table.TableNumber == tableNumber)
+            {
+                return currentTable;
+            }
+
+            // Mark the current table as visited
+            visitedTables.Add(currentTable.Table.TableNumber);
+
+            // Iterate through each neighbor
+            foreach (Neighbor neighbor in currentTable.Neighbors)
+            {
+                TableEdgeBorders nextTable = null;
+
+                // Determine the next table to visit based on the type of neighbor
+                if (neighbor is TopBottomNeighbor topBottomNeighbor)
+                {
+                    nextTable = topBottomNeighbor.TopNeighbor.Table.TableNumber == currentTable.Table.TableNumber
+                                ? topBottomNeighbor.BottomNeighbor
+                                : topBottomNeighbor.TopNeighbor;
+                }
+                else if (neighbor is RightLeftNeighbor rightLeftNeighbor)
+                {
+                    nextTable = rightLeftNeighbor.RightNeighbor.Table.TableNumber == currentTable.Table.TableNumber
+                                ? rightLeftNeighbor.LeftNeighbor
+                                : rightLeftNeighbor.RightNeighbor;
+                }
+
+                // Check if we've already visited this table
+                if (nextTable != null && !visitedTables.Contains(nextTable.Table.TableNumber))
+                {
+                    // Recursively search from the next table
+                    TableEdgeBorders foundTable = FindTableByNumberRecursive(tableNumber, nextTable, visitedTables);
+                    if (foundTable != null)
+                    {
+                        return foundTable; // Found the table
+                    }
+                }
+            }
+
+            return null; // Table not found in the current path
+        }
+
+
+
         public void AddRightLeftNeighborsNeighbors()
         {
             List<Neighbor> newNeighbors = new List<Neighbor>();

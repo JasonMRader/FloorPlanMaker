@@ -200,7 +200,7 @@ namespace FloorplanClassLibrary
                     table.AddNeighbor(new TopBottomNeighbor(table.TopNeighborBorders, table));
                 }
                 table.AddTopBottomNeighborsNeighbors();
-                //table.AddRightLeftNeighborsNeighbors();
+                table.AddRightLeftNeighborsNeighbors();
                 
             }
         }
