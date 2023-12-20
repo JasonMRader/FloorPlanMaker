@@ -183,16 +183,24 @@ namespace FloorplanClassLibrary
             {
                 if (table.RightNeighborBorders != null)
                 {
-                    table.Neighbors.Add(new RightLeftNeighbor(table.RightNeighborBorders, table));
+                    table.AddNeighbor(new RightLeftNeighbor(table.RightNeighborBorders, table));
                     //Neighbors.Add(new RightLeftNeighbor(table.RightNeighborBorders, table));
                 }
                 if (table.BottomNeighborBorders != null)
                 {
-                    table.Neighbors.Add(new TopBottomNeighbor(table, table.BottomNeighborBorders));
+                    table.AddNeighbor(new TopBottomNeighbor(table, table.BottomNeighborBorders));
                     //Neighbors.Add(new TopBottomNeighbor(table, table.BottomNeighborBorders));
                 }
+                if (table.LeftNeighborBorders != null)
+                {
+                    table.AddNeighbor(new RightLeftNeighbor(table, table.LeftNeighborBorders));
+                }
+                if(table.TopNeighborBorders != null)
+                {
+                    table.AddNeighbor(new TopBottomNeighbor(table.TopNeighborBorders, table));
+                }
                 table.AddTopBottomNeighborsNeighbors();
-                table.AddRightLeftNeighborsNeighbors();
+                //table.AddRightLeftNeighborsNeighbors();
                 
             }
         }

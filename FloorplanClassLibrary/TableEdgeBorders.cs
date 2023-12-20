@@ -19,7 +19,42 @@ namespace FloorplanClassLibrary
         public List<Table> LeftNeighbors { get; set; } = new List<Table>();
         public List<Table> TopNeighbors { get; set; } = new List<Table>();
         public List<Table> BottomNeighbors { get; set; } = new List<Table>();
-        public List<Neighbor> Neighbors { get; set; } = new List<Neighbor> ();
+        public List<Neighbor> Neighbors { get; private set; } = new List<Neighbor> ();
+        public void AddNeighbor(Neighbor neighbor)
+        {
+            // Check for null neighbor
+            if (neighbor == null) return;
+
+            // Check for valid neighbor based on type and prevent duplicates
+            if (neighbor is TopBottomNeighbor topBottomNeighbor)
+            {
+                if (!IsDuplicateNeighbor(topBottomNeighbor.TopNeighbor, topBottomNeighbor.BottomNeighbor) &&
+                    topBottomNeighbor.TopNeighbor.Table.TableNumber != topBottomNeighbor.BottomNeighbor.Table.TableNumber)
+                {
+                    Neighbors.Add(neighbor);
+                }
+            }
+            else if (neighbor is RightLeftNeighbor rightLeftNeighbor)
+            {
+                if (!IsDuplicateNeighbor(rightLeftNeighbor.RightNeighbor, rightLeftNeighbor.LeftNeighbor) &&
+                    rightLeftNeighbor.RightNeighbor.Table.TableNumber != rightLeftNeighbor.LeftNeighbor.Table.TableNumber)
+                {
+                    Neighbors.Add(neighbor);
+                }
+            }
+        }
+
+        private bool IsDuplicateNeighbor(TableEdgeBorders neighborOne, TableEdgeBorders neighborTwo)
+        {
+            return Neighbors.Any(n =>
+                (n is TopBottomNeighbor tbNeighbor &&
+                    ((tbNeighbor.TopNeighbor == neighborOne && tbNeighbor.BottomNeighbor == neighborTwo) ||
+                     (tbNeighbor.BottomNeighbor == neighborOne && tbNeighbor.TopNeighbor == neighborTwo))) ||
+                (n is RightLeftNeighbor rlNeighbor &&
+                    ((rlNeighbor.RightNeighbor == neighborOne && rlNeighbor.LeftNeighbor == neighborTwo) ||
+                     (rlNeighbor.LeftNeighbor == neighborOne && rlNeighbor.RightNeighbor == neighborTwo))));
+        }
+
         public bool OverLapsHorizontally(TableEdgeBorders otherTableBorders)
         {
             bool isHorizontalOverlap = (this.RightBorderX >= otherTableBorders.LeftBorderX && this.LeftBorderX <= otherTableBorders.RightBorderX) ||
@@ -77,11 +112,11 @@ namespace FloorplanClassLibrary
             }
             foreach (var newNeighbor in newNeighbors)
             {
-                Neighbors.Add(newNeighbor);
+                AddNeighbor(newNeighbor);
                 if (newNeighbor is TopBottomNeighbor tbNeighbor)
                 {
-                    tbNeighbor.TopNeighbor.Neighbors.Add(tbNeighbor);
-                    tbNeighbor.BottomNeighbor.Neighbors.Add(tbNeighbor);
+                    tbNeighbor.TopNeighbor.AddNeighbor(tbNeighbor);
+                    tbNeighbor.BottomNeighbor.AddNeighbor(tbNeighbor);
                 }
             }
         }
@@ -107,11 +142,16 @@ namespace FloorplanClassLibrary
                                 // Check for vertical border overlap with the current table
                                 if (OverlapsVertically(tbNeighbor.TopNeighbor))
                                 {
-                                    RightLeftNeighbor newNeighbor = new RightLeftNeighbor(this, tbNeighbor.TopNeighbor);
-                                    newNeighbors.Add(newNeighbor);
+                                    if(tbNeighbor.TopNeighbor.Table.TableNumber != this.Table.TableNumber)
+                                    {
+                                        RightLeftNeighbor newNeighbor = new RightLeftNeighbor(this, tbNeighbor.TopNeighbor);
+                                        newNeighbors.Add(newNeighbor);
+                                    }
+                                    
                                 }
                                 if (OverlapsVertically(tbNeighbor.BottomNeighbor))
                                 {
+                                    
                                     RightLeftNeighbor newNeighbor = new RightLeftNeighbor(this, tbNeighbor.BottomNeighbor);
                                     newNeighbors.Add(newNeighbor);
                                 }
@@ -141,11 +181,11 @@ namespace FloorplanClassLibrary
             }
             foreach (var newNeighbor in newNeighbors)
             {
-                Neighbors.Add(newNeighbor);
+                AddNeighbor(newNeighbor);
                 if (newNeighbor is RightLeftNeighbor rightLeftNeighbor)
                 {
-                    rightLeftNeighbor.RightNeighbor.Neighbors.Add(rightLeftNeighbor);
-                    rightLeftNeighbor.LeftNeighbor.Neighbors.Add(rightLeftNeighbor);
+                    rightLeftNeighbor.RightNeighbor.AddNeighbor(rightLeftNeighbor);
+                    rightLeftNeighbor.LeftNeighbor.AddNeighbor(rightLeftNeighbor);
                 }
             }
             
@@ -262,22 +302,38 @@ namespace FloorplanClassLibrary
         }
         public void SetBoarders()
         {
-            
-            if(RightNeighbors.Count > 0)
+
+            if (RightNeighbors.Count > 0)
             {
-                RightBorderX = (this.Table.Right + RightNeighbors[0].Left)/2;
+                RightBorderX = (this.Table.Right + RightNeighbors[0].Left) / 2;
+            }
+            else
+            {
+                RightBorderX = this.Table.Right + 5;
             }
             if(LeftNeighbors.Count > 0)
             {
                 LeftBorderX = (this.Table.Left + LeftNeighbors[0].Right)/2;
             }
+            else
+            {
+                LeftBorderX= this.Table.Left + -5;
+            }
             if (TopNeighbors.Count > 0)
             {
                 TopBorderY = (this.Table.Top + TopNeighbors[0].Bottom)/2;
             }
+            else
+            {
+                TopBorderY = this.Table.Top - 5;
+            }
             if(BottomNeighbors.Count > 0)
             {
                 BottomBorderY = (this.Table.Bottom + BottomNeighbors[0].Top)/2;    
+            }
+            else
+            {
+                BottomBorderY = this.Table.Bottom + 5;
             }
             
         }
