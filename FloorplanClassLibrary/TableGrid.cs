@@ -257,6 +257,38 @@ namespace FloorplanClassLibrary
             }
             return names;
         }
+        public List<TableEdgeBorders> GetNeighborEdges(string TableNumber)
+        {
+            List<TableEdgeBorders> names = new List<TableEdgeBorders>();
+            TableEdgeBorders selectedTable = this.TableBoarders.FirstOrDefault(t => t.Table.TableNumber == TableNumber);
+            foreach (Neighbor neighbor in selectedTable.Neighbors)
+            {
+                if (neighbor is TopBottomNeighbor topBottomNeighbor)
+                {
+                    if (topBottomNeighbor.TopNeighbor.Table.TableNumber == selectedTable.Table.TableNumber)
+                    {
+                        names.Add(topBottomNeighbor.BottomNeighbor);
+                    }
+                    else
+                    {
+                        names.Add(topBottomNeighbor.TopNeighbor);
+                    }
+                }
+                if (neighbor is RightLeftNeighbor rightLeftNeighbor)
+                {
+                    if (rightLeftNeighbor.RightNeighbor.Table.TableNumber == selectedTable.Table.TableNumber)
+                    {
+                        names.Add(rightLeftNeighbor.LeftNeighbor);
+                    }
+                    else
+                    {
+                        names.Add(rightLeftNeighbor.RightNeighbor);
+                    }
+                }
+
+            }
+            return names;
+        }
         public List<string> GetTestData()
         {
             CreateNeighbors();
