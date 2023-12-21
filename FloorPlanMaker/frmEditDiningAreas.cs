@@ -813,12 +813,18 @@ namespace FloorPlanMakerUI
             lblSelectedTableNumber.Visible = false;
             lblSelectTable.Visible = false;
             lbTableNeighbors.Visible = false;
+            btnRemoveNeighbor.Visible = false;
+            btnAddNewNeighbor.Visible = false;
+            lblPairData.Visible = false;
         }
         private void MakeNeighborControlsVisible()
         {
             lblSelectedTableNumber.Visible = true;
             lblSelectTable.Visible = true;
             lbTableNeighbors.Visible = true;
+            btnAddNewNeighbor.Visible = true;
+            btnRemoveNeighbor.Visible = true;
+            lblPairData.Visible = true;
         }
 
         private void lbTableNeighbors_SelectedIndexChanged(object sender, EventArgs e)

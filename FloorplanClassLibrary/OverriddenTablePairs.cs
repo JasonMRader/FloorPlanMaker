@@ -23,6 +23,18 @@ namespace FloorplanClassLibrary
             {"42","34" }
 
         };
+        public Dictionary<string, string> RightLeftNeighborsCustomEdge = new Dictionary<string, string>()
+        {
+            {"34", "42" },
+            {"42","34" }
+
+        };
+        public Dictionary<string, string> TopBottomNeighborsCustomEdge = new Dictionary<string, string>()
+        {
+            {"34", "42" },
+            {"42","34" }
+
+        };
 
         public HashSet<string> ignorePairs = new HashSet<string>()
         {
@@ -31,19 +43,27 @@ namespace FloorplanClassLibrary
             "61-63",
             "51-53",
             "445-300",
+            "300-445",
             "65-54",
             "434-445",
             "441-418",
             "418-441"
-
-
-
         };
         public string GetPairKey(string tableNumberOne, string tableNumberTwo)
         {
             return tableNumberOne.CompareTo(tableNumberTwo) < 0
                 ? tableNumberOne + "-" + tableNumberTwo
                 : tableNumberTwo + "-" + tableNumberOne;
+        }
+        public RightLeftNeighbor CustomRightLeftEdge(int midLocation, int startPoint, int endPoint, TableEdgeBorders rightBorder, TableEdgeBorders leftBorder)
+        {
+            RightLeftNeighbor customNeighbor = new RightLeftNeighbor(midLocation, startPoint, endPoint, rightBorder, leftBorder);   
+            return customNeighbor;
+        }
+        public TopBottomNeighbor CustomTopBottomEdge(int midLocation, int startPoint, int endPoint, TableEdgeBorders TopBorder, TableEdgeBorders BottomBorder)
+        {
+            TopBottomNeighbor customNeighbor = new TopBottomNeighbor(midLocation, startPoint, endPoint, TopBorder, BottomBorder);
+            return customNeighbor;
         }
     }
 }

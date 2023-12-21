@@ -33,6 +33,15 @@ namespace FloorplanClassLibrary
             //TopNeighbor.Neighbors.Add(this);
             //BottomNeighbor.Neighbors.Add(this);
         }
+        public TopBottomNeighbor(int midLocation, int startPoint, int endPoint, TableEdgeBorders topBorder, TableEdgeBorders bottomBorder)
+        {
+            TopNeighbor = topBorder;
+            BottomNeighbor = bottomBorder;
+            MidPoint = midLocation;
+            StartNode = new Node(MidPoint, startPoint);
+            EndNode = new Node(MidPoint, endPoint);
+            Edge = new Edge(StartNode, EndNode);
+        }
         public TableEdgeBorders TopNeighbor { get; set; }
         public TableEdgeBorders BottomNeighbor { get; set; }
 
@@ -103,6 +112,15 @@ namespace FloorplanClassLibrary
            // LeftNeighbor.Neighbors.Add(this);
         }
 
+        public RightLeftNeighbor(int midLocation, int startPoint, int endPoint, TableEdgeBorders rightBorder, TableEdgeBorders leftBorder)
+        {
+            RightNeighbor = rightBorder; 
+            LeftNeighbor = leftBorder;
+            MidPoint = midLocation;
+            StartNode = new Node(MidPoint, startPoint);
+            EndNode = new Node(MidPoint, endPoint);
+            Edge = new Edge(StartNode, EndNode);
+        }
 
         public TableEdgeBorders RightNeighbor { get; set; }
         public TableEdgeBorders LeftNeighbor { get; set; }
