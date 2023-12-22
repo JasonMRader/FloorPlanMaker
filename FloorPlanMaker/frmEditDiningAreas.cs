@@ -816,6 +816,13 @@ namespace FloorPlanMakerUI
             btnRemoveNeighbor.Visible = false;
             btnAddNewNeighbor.Visible = false;
             lblPairData.Visible = false;
+            lblEndPoint.Visible = false;
+            lblMidPoint.Visible = false;
+            lblStartPoint.Visible = false;
+            txtMidPoint.Visible = false;
+            txtStart.Visible = false;
+            txtEnd.Visible = false;
+            cbOnlyShowThisTableLines.Visible = false;
         }
         private void MakeNeighborControlsVisible()
         {
@@ -825,9 +832,21 @@ namespace FloorPlanMakerUI
             btnAddNewNeighbor.Visible = true;
             btnRemoveNeighbor.Visible = true;
             lblPairData.Visible = true;
+            lblEndPoint.Visible = true;
+            lblMidPoint.Visible = true;
+            lblStartPoint.Visible = true;
+            txtMidPoint.Visible = true;
+            txtStart.Visible = true;
+            txtEnd.Visible = true;
+            cbOnlyShowThisTableLines.Visible = true;
         }
 
         private void lbTableNeighbors_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ckBxOnlyShowThisTableLines_CheckedChanged(object sender, EventArgs e)
         {
 
         }

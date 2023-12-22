@@ -59,6 +59,13 @@
             rdoCoverView = new RadioButton();
             cboDiningAreas = new ComboBox();
             panel5 = new Panel();
+            lblEndPoint = new Label();
+            txtEnd = new TextBox();
+            lblStartPoint = new Label();
+            txtStart = new TextBox();
+            lblMidPoint = new Label();
+            txtMidPoint = new TextBox();
+            cbOnlyShowThisTableLines = new CheckBox();
             btnAddNewNeighbor = new Button();
             btnRemoveNeighbor = new Button();
             lblPairData = new Label();
@@ -452,6 +459,13 @@
             // panel5
             // 
             panel5.BackColor = Color.WhiteSmoke;
+            panel5.Controls.Add(lblEndPoint);
+            panel5.Controls.Add(txtEnd);
+            panel5.Controls.Add(lblStartPoint);
+            panel5.Controls.Add(txtStart);
+            panel5.Controls.Add(lblMidPoint);
+            panel5.Controls.Add(txtMidPoint);
+            panel5.Controls.Add(cbOnlyShowThisTableLines);
             panel5.Controls.Add(btnAddNewNeighbor);
             panel5.Controls.Add(btnRemoveNeighbor);
             panel5.Controls.Add(lblPairData);
@@ -468,11 +482,77 @@
             panel5.Size = new Size(335, 921);
             panel5.TabIndex = 4;
             // 
+            // lblEndPoint
+            // 
+            lblEndPoint.AutoSize = true;
+            lblEndPoint.Location = new Point(237, 804);
+            lblEndPoint.Name = "lblEndPoint";
+            lblEndPoint.Size = new Size(27, 15);
+            lblEndPoint.TabIndex = 13;
+            lblEndPoint.Text = "End";
+            lblEndPoint.Visible = false;
+            // 
+            // txtEnd
+            // 
+            txtEnd.Location = new Point(237, 822);
+            txtEnd.Name = "txtEnd";
+            txtEnd.Size = new Size(52, 23);
+            txtEnd.TabIndex = 12;
+            txtEnd.Visible = false;
+            // 
+            // lblStartPoint
+            // 
+            lblStartPoint.AutoSize = true;
+            lblStartPoint.Location = new Point(181, 804);
+            lblStartPoint.Name = "lblStartPoint";
+            lblStartPoint.Size = new Size(31, 15);
+            lblStartPoint.TabIndex = 13;
+            lblStartPoint.Text = "Start";
+            lblStartPoint.Visible = false;
+            // 
+            // txtStart
+            // 
+            txtStart.Location = new Point(179, 822);
+            txtStart.Name = "txtStart";
+            txtStart.Size = new Size(52, 23);
+            txtStart.TabIndex = 12;
+            txtStart.Visible = false;
+            // 
+            // lblMidPoint
+            // 
+            lblMidPoint.AutoSize = true;
+            lblMidPoint.Location = new Point(125, 804);
+            lblMidPoint.Name = "lblMidPoint";
+            lblMidPoint.Size = new Size(56, 15);
+            lblMidPoint.TabIndex = 13;
+            lblMidPoint.Text = "MidPoint";
+            lblMidPoint.Visible = false;
+            // 
+            // txtMidPoint
+            // 
+            txtMidPoint.Location = new Point(123, 822);
+            txtMidPoint.Name = "txtMidPoint";
+            txtMidPoint.Size = new Size(52, 23);
+            txtMidPoint.TabIndex = 12;
+            txtMidPoint.Visible = false;
+            // 
+            // cbOnlyShowThisTableLines
+            // 
+            cbOnlyShowThisTableLines.AutoSize = true;
+            cbOnlyShowThisTableLines.Location = new Point(56, 682);
+            cbOnlyShowThisTableLines.Name = "cbOnlyShowThisTableLines";
+            cbOnlyShowThisTableLines.Size = new Size(198, 19);
+            cbOnlyShowThisTableLines.TabIndex = 11;
+            cbOnlyShowThisTableLines.Text = "Only Show Selected Table's Lines";
+            cbOnlyShowThisTableLines.UseVisualStyleBackColor = true;
+            cbOnlyShowThisTableLines.Visible = false;
+            cbOnlyShowThisTableLines.CheckedChanged += ckBxOnlyShowThisTableLines_CheckedChanged;
+            // 
             // btnAddNewNeighbor
             // 
-            btnAddNewNeighbor.Location = new Point(55, 851);
+            btnAddNewNeighbor.Location = new Point(121, 744);
             btnAddNewNeighbor.Name = "btnAddNewNeighbor";
-            btnAddNewNeighbor.Size = new Size(215, 23);
+            btnAddNewNeighbor.Size = new Size(150, 23);
             btnAddNewNeighbor.TabIndex = 10;
             btnAddNewNeighbor.Text = "Add New Neighbor";
             btnAddNewNeighbor.UseVisualStyleBackColor = true;
@@ -480,9 +560,9 @@
             // 
             // btnRemoveNeighbor
             // 
-            btnRemoveNeighbor.Location = new Point(117, 751);
+            btnRemoveNeighbor.Location = new Point(121, 707);
             btnRemoveNeighbor.Name = "btnRemoveNeighbor";
-            btnRemoveNeighbor.Size = new Size(121, 23);
+            btnRemoveNeighbor.Size = new Size(150, 23);
             btnRemoveNeighbor.TabIndex = 9;
             btnRemoveNeighbor.Text = "Remove Neighbor";
             btnRemoveNeighbor.UseVisualStyleBackColor = true;
@@ -491,11 +571,11 @@
             // lblPairData
             // 
             lblPairData.AutoSize = true;
-            lblPairData.Location = new Point(117, 782);
+            lblPairData.Location = new Point(125, 782);
             lblPairData.Name = "lblPairData";
-            lblPairData.Size = new Size(54, 15);
+            lblPairData.Size = new Size(91, 15);
             lblPairData.TabIndex = 8;
-            lblPairData.Text = "Pair Data";
+            lblPairData.Text = "Border Location";
             lblPairData.Visible = false;
             // 
             // checkBox1
@@ -505,7 +585,7 @@
             checkBox1.FlatAppearance.BorderSize = 0;
             checkBox1.FlatStyle = FlatStyle.Flat;
             checkBox1.ForeColor = Color.White;
-            checkBox1.Location = new Point(55, 678);
+            checkBox1.Location = new Point(55, 619);
             checkBox1.Name = "checkBox1";
             checkBox1.Size = new Size(215, 29);
             checkBox1.TabIndex = 7;
@@ -517,19 +597,21 @@
             // lblSelectedTableNumber
             // 
             lblSelectedTableNumber.AutoSize = true;
-            lblSelectedTableNumber.Location = new Point(145, 713);
+            lblSelectedTableNumber.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            lblSelectedTableNumber.Location = new Point(172, 658);
             lblSelectedTableNumber.Name = "lblSelectedTableNumber";
-            lblSelectedTableNumber.Size = new Size(25, 15);
+            lblSelectedTableNumber.Size = new Size(28, 21);
             lblSelectedTableNumber.TabIndex = 6;
-            lblSelectedTableNumber.Text = "405";
+            lblSelectedTableNumber.Text = "##";
             lblSelectedTableNumber.Visible = false;
             // 
             // lblSelectTable
             // 
             lblSelectTable.AutoSize = true;
-            lblSelectTable.Location = new Point(55, 713);
+            lblSelectTable.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            lblSelectTable.Location = new Point(55, 658);
             lblSelectTable.Name = "lblSelectTable";
-            lblSelectTable.Size = new Size(84, 15);
+            lblSelectTable.Size = new Size(110, 21);
             lblSelectTable.TabIndex = 5;
             lblSelectTable.Text = "Selected Table:";
             lblSelectTable.Visible = false;
@@ -538,9 +620,9 @@
             // 
             lbTableNeighbors.FormattingEnabled = true;
             lbTableNeighbors.ItemHeight = 15;
-            lbTableNeighbors.Location = new Point(55, 751);
+            lbTableNeighbors.Location = new Point(55, 706);
             lbTableNeighbors.Name = "lbTableNeighbors";
-            lbTableNeighbors.Size = new Size(54, 94);
+            lbTableNeighbors.Size = new Size(60, 139);
             lbTableNeighbors.TabIndex = 4;
             lbTableNeighbors.Visible = false;
             lbTableNeighbors.SelectedIndexChanged += lbTableNeighbors_SelectedIndexChanged;
@@ -548,7 +630,7 @@
             // picAddCircle
             // 
             picAddCircle.Image = Properties.Resources.SmallFilledCircle;
-            picAddCircle.Location = new Point(55, 490);
+            picAddCircle.Location = new Point(55, 451);
             picAddCircle.Name = "picAddCircle";
             picAddCircle.Size = new Size(215, 142);
             picAddCircle.SizeMode = PictureBoxSizeMode.Zoom;
@@ -559,7 +641,7 @@
             // picAddDiamond
             // 
             picAddDiamond.Image = Properties.Resources.DiamondFilled;
-            picAddDiamond.Location = new Point(55, 278);
+            picAddDiamond.Location = new Point(56, 244);
             picAddDiamond.Name = "picAddDiamond";
             picAddDiamond.Size = new Size(215, 160);
             picAddDiamond.SizeMode = PictureBoxSizeMode.Zoom;
@@ -570,7 +652,7 @@
             // picAddSquare
             // 
             picAddSquare.Image = Properties.Resources.SquareTableFilled;
-            picAddSquare.Location = new Point(55, 108);
+            picAddSquare.Location = new Point(55, 79);
             picAddSquare.Name = "picAddSquare";
             picAddSquare.Size = new Size(215, 126);
             picAddSquare.SizeMode = PictureBoxSizeMode.Zoom;
@@ -671,5 +753,12 @@
         private Button btnAddNewNeighbor;
         private Button btnRemoveNeighbor;
         private Label lblPairData;
+        private Label lblEndPoint;
+        private TextBox txtEnd;
+        private Label lblStartPoint;
+        private TextBox txtStart;
+        private Label lblMidPoint;
+        private TextBox txtMidPoint;
+        private CheckBox cbOnlyShowThisTableLines;
     }
 }
