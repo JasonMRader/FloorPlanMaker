@@ -27,7 +27,9 @@ namespace FloorplanClassLibrary
         {
             // Check for null neighbor
             if (neighbor == null) return;
-
+            string pairKey = overriddenPairs.GetPairKey(neighbor.table1, neighbor.table2);
+            if (overriddenPairs.ignorePairs.Contains(pairKey)) return;          
+               
             // Check for valid neighbor based on type and prevent duplicates
             if (neighbor is TopBottomNeighbor topBottomNeighbor)
             {

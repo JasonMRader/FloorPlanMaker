@@ -320,9 +320,15 @@ namespace FloorplanClassLibrary
         {
             List<Neighbor> neighbors = new List<Neighbor>();
             TableEdgeBorders selectedTable = this.TableBoarders.FirstOrDefault(t => t.Table.TableNumber == TableNumber);
+            
             foreach (Neighbor neighbor in selectedTable.Neighbors)
             {
-               neighbors.Add(neighbor); 
+                string pairKey = overriddenPairs.GetPairKey(neighbor.table1, neighbor.table2);
+                if (!overriddenPairs.ignorePairs.Contains(pairKey))
+                {
+                    neighbors.Add(neighbor);
+                }
+                
 
             }
             return neighbors;
