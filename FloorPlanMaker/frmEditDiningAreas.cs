@@ -766,16 +766,10 @@ namespace FloorPlanMakerUI
                 grid.FindTableTopBottomNeighbors();
                 grid.FindTableNeighbors();
                 grid.SetTableBoarderMidPoints();
-                //grid.SetSections(this.shiftManager.SelectedFloorplan.Sections);
-                SectionLineDrawer edgeDrawer = new SectionLineDrawer(3f);
-                //Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, grid.GetAllTableBoarders());
-                List<Edge> edges = grid.GetNeighborEdges();
-                Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, edges);
+                ToggleViewAllBorders();
+                
                 List<string> testing = grid.GetTestData();
 
-                //Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, grid.ModifyBottomNeighbors());
-                //Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, grid.GetSectionTableBoarders());
-                pnlFloorPlan.BackgroundImage = edgesBitmap;
             }
             else
             {
@@ -804,7 +798,7 @@ namespace FloorPlanMakerUI
 
                 List<Neighbor> neighbors = grid.GetNeighbors(areaCreationManager.SelectedTable.TableNumber);
                 lbTableNeighbors.Items.Clear();
-                //grid.GetDisplayableNeighbors(neighbors, areaCreationManager.SelectedTable);
+                
                 List<string> displayableNeighbors = grid.GetDisplayableNeighbors(neighbors, areaCreationManager.SelectedTable);
                 foreach (var neighborString in displayableNeighbors)
                 {
@@ -813,16 +807,7 @@ namespace FloorPlanMakerUI
                 txtMidPoint.Text = "";
                 txtStart.Text = "";
                 txtEnd.Text = "";
-                //List<TableEdgeBorders> tableNeighbors = grid.GetNeighborEdges(areaCreationManager.SelectedTable.TableNumber);
-
-                //foreach (string tableNumber in tableNumbers)
-                //{
-                //    lbTableNeighbors.Items.Add(tableNumber);
-                //}
-                //foreach (TableEdgeBorders edgeBorders in tableNeighbors)
-                //{
-                //    lbTableNeighbors.Items.Add(edgeBorders);
-                //}
+                
             }
 
         }
@@ -912,7 +897,8 @@ namespace FloorPlanMakerUI
             string selectedString = lbTableNeighbors.SelectedItem.ToString();
             if (grid.NeighborMapping.TryGetValue(selectedString, out Neighbor selectedNeighbor))
             {
-                grid.overriddenPairs.ignorePairs.Add(selectedNeighbor.table1 + "-" + selectedNeighbor.table2);
+                string pairKey = grid.overriddenPairs.GetPairKey(selectedNeighbor.table1, selectedNeighbor.table2);
+                grid.overriddenPairs.ignorePairs.Add(pairKey);
                 ToggleViewAllBorders();
 
             }

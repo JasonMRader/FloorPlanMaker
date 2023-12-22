@@ -211,8 +211,11 @@ namespace FloorplanClassLibrary
                 foreach(Neighbor neighbor in table.Neighbors)
                 {
                     string pairKey = overriddenPairs.GetPairKey(neighbor.table1, neighbor.table2);
-                    if (overriddenPairs.ignorePairs.Contains(pairKey)) continue;
-                    this.Neighbors.Add(neighbor);
+                    if (!overriddenPairs.ignorePairs.Contains(pairKey)) 
+                    {
+                        this.Neighbors.Add(neighbor);
+                    }
+                   
                 }
                 //table.AddRightLeftNeighborsNeighbors();
                 
