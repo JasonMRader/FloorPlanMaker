@@ -557,6 +557,7 @@
             btnAddNewNeighbor.Text = "Add New Neighbor";
             btnAddNewNeighbor.UseVisualStyleBackColor = true;
             btnAddNewNeighbor.Visible = false;
+            btnAddNewNeighbor.Click += btnAddNewNeighbor_Click;
             // 
             // btnRemoveNeighbor
             // 
@@ -567,6 +568,7 @@
             btnRemoveNeighbor.Text = "Remove Neighbor";
             btnRemoveNeighbor.UseVisualStyleBackColor = true;
             btnRemoveNeighbor.Visible = false;
+            btnRemoveNeighbor.Click += btnRemoveNeighbor_Click;
             // 
             // lblPairData
             // 

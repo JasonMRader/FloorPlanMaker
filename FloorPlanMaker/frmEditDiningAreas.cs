@@ -801,7 +801,7 @@ namespace FloorPlanMakerUI
                     }
                 }
                 ToggleViewAllBorders();
-                
+
                 List<Neighbor> neighbors = grid.GetNeighbors(areaCreationManager.SelectedTable.TableNumber);
                 lbTableNeighbors.Items.Clear();
                 //grid.GetDisplayableNeighbors(neighbors, areaCreationManager.SelectedTable);
@@ -869,7 +869,7 @@ namespace FloorPlanMakerUI
                     txtMidPoint.Text = selectedNeighbor.MidPoint.ToString();
                     txtStart.Text = selectedNeighbor.Start.ToString();
                     txtEnd.Text = selectedNeighbor.End.ToString();
-                   
+
                 }
             }
             else
@@ -905,6 +905,22 @@ namespace FloorPlanMakerUI
                 Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, edges);
                 pnlFloorPlan.BackgroundImage = edgesBitmap;
             }
+        }
+
+        private void btnRemoveNeighbor_Click(object sender, EventArgs e)
+        {
+            string selectedString = lbTableNeighbors.SelectedItem.ToString();
+            if (grid.NeighborMapping.TryGetValue(selectedString, out Neighbor selectedNeighbor))
+            {
+                grid.overriddenPairs.ignorePairs.Add(selectedNeighbor.table1 + "-" + selectedNeighbor.table2);
+                ToggleViewAllBorders();
+
+            }
+        }
+
+        private void btnAddNewNeighbor_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

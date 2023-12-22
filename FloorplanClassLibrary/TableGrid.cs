@@ -12,7 +12,7 @@ namespace FloorplanClassLibrary
         public List<Table> Tables { get; set; } = new List<Table>();
         public List<Neighbor> Neighbors { get; set; } = new List<Neighbor> { };
         public List<TableEdgeBorders> TableBoarders { get; set; }
-        private OverriddenTablePairs overriddenPairs = new OverriddenTablePairs();
+        public OverriddenTablePairs overriddenPairs = new OverriddenTablePairs();
         public List<TableNeighborManager> TableNeighborManagers { get; set; } = new List<TableNeighborManager> { };
         public Dictionary<string, Neighbor> NeighborMapping { get; private set; } = new Dictionary<string, Neighbor> { };
         public Dictionary<Table, TableEdgeBorders> TableEdges { get; set; } = new Dictionary<Table, TableEdgeBorders>();
@@ -186,6 +186,7 @@ namespace FloorplanClassLibrary
         }
         public void CreateNeighbors()
         {
+            this.Neighbors.Clear();
             foreach(var table in TableBoarders)
             {
                 if (table.RightNeighborBorders != null)
@@ -207,6 +208,12 @@ namespace FloorplanClassLibrary
                     table.AddNeighbor(new TopBottomNeighbor(table.TopNeighborBorders, table));
                 }
                 table.AddTopBottomNeighborsNeighbors();
+                foreach(Neighbor neighbor in table.Neighbors)
+                {
+                    string pairKey = overriddenPairs.GetPairKey(neighbor.table1, neighbor.table2);
+                    if (overriddenPairs.ignorePairs.Contains(pairKey)) continue;
+                    this.Neighbors.Add(neighbor);
+                }
                 //table.AddRightLeftNeighborsNeighbors();
                 
             }
@@ -215,14 +222,15 @@ namespace FloorplanClassLibrary
         {
             CreateNeighbors();
             List<Edge> edges = new List<Edge>();
-            foreach (var table in TableBoarders)
+            //foreach (var table in TableBoarders)
+            //{
+            foreach (Neighbor neighbor in Neighbors)
             {
-                foreach (Neighbor neighbor in table.Neighbors)
-                {
-                    if (neighbor.Edge != null)
-                        edges.Add(neighbor.Edge);
-                }
+                    
+                if (neighbor.Edge != null)
+                    edges.Add(neighbor.Edge);
             }
+            //}
            
             return edges;
         }

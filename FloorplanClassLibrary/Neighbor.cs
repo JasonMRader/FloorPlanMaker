@@ -20,6 +20,8 @@ namespace FloorplanClassLibrary
         public abstract Neighbor GetNeighborsOfNeighbors();
         protected abstract void GetStartNode();
         protected abstract void GetEndNode();
+        public string table1 { get; set; }
+        public string table2 { get; set; }
 
 
     }
@@ -34,7 +36,8 @@ namespace FloorplanClassLibrary
             GetEndNode();
             //EndNode = new Node(Math.Min(TopNeighbor.RightBorderX, BottomNeighbor.RightBorderX), MidPoint);
             Edge = new Edge(StartNode, EndNode);
-            
+            table1 = TopNeighbor.Table.TableNumber;
+            table2 = BottomNeighbor.Table.TableNumber;
             //TopNeighbor.Neighbors.Add(this);
             //BottomNeighbor.Neighbors.Add(this);
         }
@@ -46,6 +49,8 @@ namespace FloorplanClassLibrary
             StartNode = new Node(MidPoint, startPoint);
             EndNode = new Node(MidPoint, endPoint);
             Edge = new Edge(StartNode, EndNode);
+            table1 = TopNeighbor.Table.TableNumber;
+            table2 = BottomNeighbor.Table.TableNumber;
 
         }
         public TableEdgeBorders TopNeighbor { get; set; }
@@ -116,7 +121,9 @@ namespace FloorplanClassLibrary
             GetEndNode();
             Edge = new Edge(StartNode, EndNode);
             //RightNeighbor.Neighbors.Add(this);
-           // LeftNeighbor.Neighbors.Add(this);
+            // LeftNeighbor.Neighbors.Add(this);
+            table1 = RightNeighbor.Table.TableNumber;
+            table2 = LeftNeighbor.Table.TableNumber;
         }
 
         public RightLeftNeighbor(int midLocation, int startPoint, int endPoint, TableEdgeBorders rightBorder, TableEdgeBorders leftBorder)
@@ -127,6 +134,8 @@ namespace FloorplanClassLibrary
             StartNode = new Node(MidPoint, startPoint);
             EndNode = new Node(MidPoint, endPoint);
             Edge = new Edge(StartNode, EndNode);
+            table1 = RightNeighbor.Table.TableNumber;
+            table2 = LeftNeighbor.Table.TableNumber;
         }
 
         public TableEdgeBorders RightNeighbor { get; set; }
