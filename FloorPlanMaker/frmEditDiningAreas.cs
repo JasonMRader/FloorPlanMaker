@@ -810,7 +810,9 @@ namespace FloorPlanMakerUI
                 {
                     lbTableNeighbors.Items.Add(neighborString);
                 }
-
+                txtMidPoint.Text = "";
+                txtStart.Text = "";
+                txtEnd.Text = "";
                 //List<TableEdgeBorders> tableNeighbors = grid.GetNeighborEdges(areaCreationManager.SelectedTable.TableNumber);
 
                 //foreach (string tableNumber in tableNumbers)
@@ -869,6 +871,12 @@ namespace FloorPlanMakerUI
                     txtEnd.Text = selectedNeighbor.End.ToString();
                    
                 }
+            }
+            else
+            {
+                txtMidPoint.Text = "";
+                txtStart.Text = "";
+                txtEnd.Text = "";
             }
         }
 
