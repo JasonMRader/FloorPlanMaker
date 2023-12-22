@@ -225,6 +225,21 @@ namespace FloorplanClassLibrary
            
             return edges;
         }
+        public List<Edge> GetNeighborEdgesForOneTable(string TableNumber)
+        {
+           
+            List<Edge> edges = new List<Edge>();
+            TableEdgeBorders selectedTable = this.TableBoarders.FirstOrDefault(t => t.Table.TableNumber == TableNumber);
+           
+            foreach (Neighbor neighbor in selectedTable.Neighbors)
+            {
+                if (neighbor.Edge != null)
+                    edges.Add(neighbor.Edge);
+            }
+            
+
+            return edges;
+        }
         public List<string> GetNeighborNames(string TableNumber)
         {
             List<string> names = new List<string>();
@@ -288,6 +303,17 @@ namespace FloorplanClassLibrary
 
             }
             return names;
+        }
+        public List<Neighbor> GetNeighbors(string TableNumber)
+        {
+            List<Neighbor> neighbors = new List<Neighbor>();
+            TableEdgeBorders selectedTable = this.TableBoarders.FirstOrDefault(t => t.Table.TableNumber == TableNumber);
+            foreach (Neighbor neighbor in selectedTable.Neighbors)
+            {
+               neighbors.Add(neighbor); 
+
+            }
+            return neighbors;
         }
         public List<string> GetTestData()
         {

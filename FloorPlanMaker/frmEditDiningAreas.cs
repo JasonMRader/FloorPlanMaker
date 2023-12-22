@@ -789,10 +789,20 @@ namespace FloorPlanMakerUI
             {
                 lblSelectedTableNumber.Text = areaCreationManager.SelectedTable.TableNumber;
                 List<string> tableNumbers = grid.GetNeighborNames(areaCreationManager.SelectedTable.TableNumber);
+                List<TableEdgeBorders> tableNeighbors = grid.GetNeighborEdges(areaCreationManager.SelectedTable.TableNumber);
+                List<Neighbor> neighbors = grid.GetNeighbors(areaCreationManager.SelectedTable.TableNumber);
                 lbTableNeighbors.Items.Clear();
-                foreach (string tableNumber in tableNumbers)
+                //foreach (string tableNumber in tableNumbers)
+                //{
+                //    lbTableNeighbors.Items.Add(tableNumber);
+                //}
+                //foreach (TableEdgeBorders edgeBorders in tableNeighbors)
+                //{
+                //    lbTableNeighbors.Items.Add(edgeBorders);
+                //}
+                foreach (Neighbor neighbor in neighbors)
                 {
-                    lbTableNeighbors.Items.Add(tableNumber);
+                    lbTableNeighbors.Items.Add(neighbor);
                 }
                 foreach (TableControl tableControl in pnlFloorPlan.Controls)
                 {
@@ -805,6 +815,7 @@ namespace FloorPlanMakerUI
                         tableControl.BackColor = Color.LightGray;
                     }
                 }
+                ToggleViewAllBorders();
             }
 
         }
@@ -848,7 +859,29 @@ namespace FloorPlanMakerUI
 
         private void ckBxOnlyShowThisTableLines_CheckedChanged(object sender, EventArgs e)
         {
-
+            ToggleViewAllBorders();
+        }
+        private void ToggleViewAllBorders()
+        {
+            if (cbOnlyShowThisTableLines.Checked)
+            {
+                if (areaCreationManager.SelectedTable == null)
+                {
+                    return;
+                }
+                SectionLineDrawer edgeDrawer = new SectionLineDrawer(3f);
+                List<Edge> edges = grid.GetNeighborEdgesForOneTable(areaCreationManager.SelectedTable.TableNumber);
+                Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, edges);
+                pnlFloorPlan.BackgroundImage = edgesBitmap;
+            }
+            else
+            {
+                SectionLineDrawer edgeDrawer = new SectionLineDrawer(3f);
+                //Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, grid.GetAllTableBoarders());
+                List<Edge> edges = grid.GetNeighborEdges();
+                Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, edges);
+                pnlFloorPlan.BackgroundImage = edgesBitmap;
+            }
         }
     }
 }

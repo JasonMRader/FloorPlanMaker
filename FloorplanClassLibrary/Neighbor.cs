@@ -93,7 +93,7 @@ namespace FloorplanClassLibrary
         }
         public override string ToString()
         {
-            return "(T/B)" + "T: " + TopNeighbor.Table.TableNumber + ", B: " + BottomNeighbor.Table.TableNumber;
+            return "T: " + TopNeighbor.Table.TableNumber + ", B: " + BottomNeighbor.Table.TableNumber;
         }
     }
     public class RightLeftNeighbor : Neighbor
@@ -171,7 +171,7 @@ namespace FloorplanClassLibrary
         }
         public override string ToString()
         {
-            return "(R/L)" + "R: " + RightNeighbor.Table.TableNumber + ", L: " + LeftNeighbor.Table.TableNumber;
+            return "R: " + RightNeighbor.Table.TableNumber + ", L: " + LeftNeighbor.Table.TableNumber;
         }
     }
 }
