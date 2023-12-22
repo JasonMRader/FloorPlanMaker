@@ -14,6 +14,7 @@ namespace FloorplanClassLibrary
         public List<TableEdgeBorders> TableBoarders { get; set; }
         private OverriddenTablePairs overriddenPairs = new OverriddenTablePairs();
         public List<TableNeighborManager> TableNeighborManagers { get; set; } = new List<TableNeighborManager> { };
+        public Dictionary<string, Neighbor> NeighborMapping { get; private set; } = new Dictionary<string, Neighbor> { };
         public Dictionary<Table, TableEdgeBorders> TableEdges { get; set; } = new Dictionary<Table, TableEdgeBorders>();
         public List<Section> Sections { get; private set; }
         public TableGrid() { }
@@ -314,6 +315,51 @@ namespace FloorplanClassLibrary
 
             }
             return neighbors;
+        }
+        public List<string> GetDisplayableNeighbors(List<Neighbor> neighbors, Table SelectedTable)
+        {
+            var displayableNeighbors = new List<string>();
+            NeighborMapping.Clear();
+
+            foreach (var neighbor in neighbors)
+            {
+                string neighborString = GetNeighborString(neighbor, SelectedTable);
+                if (neighborString != null)
+                {
+                    displayableNeighbors.Add(neighborString);
+                    NeighborMapping[neighborString] = neighbor;
+                }
+            }
+
+            return displayableNeighbors;
+        }
+
+        private string GetNeighborString(Neighbor neighbor, Table SelectedTable)
+        {
+            // Assuming that ToString() is overridden in Neighbor subclasses to return a unique string
+            if (neighbor is TopBottomNeighbor topBottomNeighbor)
+            {
+                if (topBottomNeighbor.TopNeighbor.Table.TableNumber != SelectedTable.TableNumber)
+                {
+                    return topBottomNeighbor.TopNeighbor.Table.TableNumber;
+                }
+                else
+                {
+                    return topBottomNeighbor.BottomNeighbor.Table.TableNumber;
+                }
+            }
+            else if (neighbor is RightLeftNeighbor rightLeftNeighbor)
+            {
+                if (rightLeftNeighbor.RightNeighbor.Table.TableNumber != SelectedTable.TableNumber)
+                {
+                    return rightLeftNeighbor.RightNeighbor.Table.TableNumber;
+                }
+                else
+                {
+                    return rightLeftNeighbor.LeftNeighbor.Table.TableNumber;
+                }
+            }
+            return null;
         }
         public List<string> GetTestData()
         {

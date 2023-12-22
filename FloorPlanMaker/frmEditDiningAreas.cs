@@ -789,21 +789,6 @@ namespace FloorPlanMakerUI
             {
                 lblSelectedTableNumber.Text = areaCreationManager.SelectedTable.TableNumber;
                 List<string> tableNumbers = grid.GetNeighborNames(areaCreationManager.SelectedTable.TableNumber);
-                List<TableEdgeBorders> tableNeighbors = grid.GetNeighborEdges(areaCreationManager.SelectedTable.TableNumber);
-                List<Neighbor> neighbors = grid.GetNeighbors(areaCreationManager.SelectedTable.TableNumber);
-                lbTableNeighbors.Items.Clear();
-                //foreach (string tableNumber in tableNumbers)
-                //{
-                //    lbTableNeighbors.Items.Add(tableNumber);
-                //}
-                //foreach (TableEdgeBorders edgeBorders in tableNeighbors)
-                //{
-                //    lbTableNeighbors.Items.Add(edgeBorders);
-                //}
-                foreach (Neighbor neighbor in neighbors)
-                {
-                    lbTableNeighbors.Items.Add(neighbor);
-                }
                 foreach (TableControl tableControl in pnlFloorPlan.Controls)
                 {
                     if (tableNumbers.Contains(tableControl.Table.TableNumber))
@@ -816,6 +801,26 @@ namespace FloorPlanMakerUI
                     }
                 }
                 ToggleViewAllBorders();
+                
+                List<Neighbor> neighbors = grid.GetNeighbors(areaCreationManager.SelectedTable.TableNumber);
+                lbTableNeighbors.Items.Clear();
+                //grid.GetDisplayableNeighbors(neighbors, areaCreationManager.SelectedTable);
+                List<string> displayableNeighbors = grid.GetDisplayableNeighbors(neighbors, areaCreationManager.SelectedTable);
+                foreach (var neighborString in displayableNeighbors)
+                {
+                    lbTableNeighbors.Items.Add(neighborString);
+                }
+
+                //List<TableEdgeBorders> tableNeighbors = grid.GetNeighborEdges(areaCreationManager.SelectedTable.TableNumber);
+
+                //foreach (string tableNumber in tableNumbers)
+                //{
+                //    lbTableNeighbors.Items.Add(tableNumber);
+                //}
+                //foreach (TableEdgeBorders edgeBorders in tableNeighbors)
+                //{
+                //    lbTableNeighbors.Items.Add(edgeBorders);
+                //}
             }
 
         }
@@ -854,7 +859,15 @@ namespace FloorPlanMakerUI
 
         private void lbTableNeighbors_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            if (lbTableNeighbors.SelectedIndex != -1)
+            {
+                string selectedString = lbTableNeighbors.SelectedItem.ToString();
+                if (grid.NeighborMapping.TryGetValue(selectedString, out Neighbor selectedNeighbor))
+                {
+                    // Now you have access to the selected Neighbor object
+                    // You can access its properties and methods
+                }
+            }
         }
 
         private void ckBxOnlyShowThisTableLines_CheckedChanged(object sender, EventArgs e)
