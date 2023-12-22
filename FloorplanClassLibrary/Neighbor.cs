@@ -13,9 +13,13 @@ namespace FloorplanClassLibrary
         public Node StartNode { get; set; }
         public Node EndNode { get; set; }   
         public Edge Edge { get; set; }
+       
+        public int Start { get; protected set; }
+        public int End { get; protected set; }
+
         public abstract Neighbor GetNeighborsOfNeighbors();
-        public abstract void GetStartNode();
-        public abstract void GetEndNode();
+        protected abstract void GetStartNode();
+        protected abstract void GetEndNode();
 
 
     }
@@ -30,6 +34,7 @@ namespace FloorplanClassLibrary
             GetEndNode();
             //EndNode = new Node(Math.Min(TopNeighbor.RightBorderX, BottomNeighbor.RightBorderX), MidPoint);
             Edge = new Edge(StartNode, EndNode);
+            
             //TopNeighbor.Neighbors.Add(this);
             //BottomNeighbor.Neighbors.Add(this);
         }
@@ -41,6 +46,7 @@ namespace FloorplanClassLibrary
             StartNode = new Node(MidPoint, startPoint);
             EndNode = new Node(MidPoint, endPoint);
             Edge = new Edge(StartNode, EndNode);
+
         }
         public TableEdgeBorders TopNeighbor { get; set; }
         public TableEdgeBorders BottomNeighbor { get; set; }
@@ -50,7 +56,7 @@ namespace FloorplanClassLibrary
             throw new NotImplementedException();
 
         }
-        public override void GetStartNode()
+        protected override void GetStartNode()
         {
             if(TopNeighbor.LeftBorderX != -1 && BottomNeighbor.LeftBorderX != -1)
             {
@@ -68,10 +74,10 @@ namespace FloorplanClassLibrary
             {
                 StartNode = new Node(Math.Max(TopNeighbor.Table.Left, BottomNeighbor.Table.Left), MidPoint);
             }
-
+            Start = StartNode.X;
 
         }
-        public override void GetEndNode()
+        protected override void GetEndNode()
         {
             if (TopNeighbor.RightBorderX != -1 && BottomNeighbor.RightBorderX != -1)
             {
@@ -89,6 +95,7 @@ namespace FloorplanClassLibrary
             {
                 EndNode = new Node(Math.Min(TopNeighbor.Table.Right, BottomNeighbor.Table.Right), MidPoint);
             }
+            End = EndNode.X;
             
         }
         public override string ToString()
@@ -128,7 +135,7 @@ namespace FloorplanClassLibrary
         {
             throw new NotImplementedException();
         }
-        public override void GetStartNode()
+        protected override void GetStartNode()
         {
             // For right and left neighbors, the start node would be determined by the top borders
             if (RightNeighbor.TopBorderY != -1 && LeftNeighbor.TopBorderY != -1)
@@ -147,9 +154,10 @@ namespace FloorplanClassLibrary
             {
                 StartNode = new Node(MidPoint, Math.Max(RightNeighbor.Table.Top, LeftNeighbor.Table.Top));
             }
+            Start = StartNode.Y;
         }
 
-        public override void GetEndNode()
+        protected override void GetEndNode()
         {
             // For right and left neighbors, the end node would be determined by the bottom borders
             if (RightNeighbor.BottomBorderY != -1 && LeftNeighbor.BottomBorderY != -1)
@@ -168,6 +176,7 @@ namespace FloorplanClassLibrary
             {
                 EndNode = new Node(MidPoint, Math.Min(RightNeighbor.Table.Bottom, LeftNeighbor.Table.Bottom));
             }
+            End = EndNode.Y;
         }
         public override string ToString()
         {

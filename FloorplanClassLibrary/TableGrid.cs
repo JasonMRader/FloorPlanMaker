@@ -341,22 +341,22 @@ namespace FloorplanClassLibrary
             {
                 if (topBottomNeighbor.TopNeighbor.Table.TableNumber != SelectedTable.TableNumber)
                 {
-                    return topBottomNeighbor.TopNeighbor.Table.TableNumber;
+                    return topBottomNeighbor.TopNeighbor.Table.TableNumber + " (T)";
                 }
                 else
                 {
-                    return topBottomNeighbor.BottomNeighbor.Table.TableNumber;
+                    return topBottomNeighbor.BottomNeighbor.Table.TableNumber + " (B)";
                 }
             }
             else if (neighbor is RightLeftNeighbor rightLeftNeighbor)
             {
                 if (rightLeftNeighbor.RightNeighbor.Table.TableNumber != SelectedTable.TableNumber)
                 {
-                    return rightLeftNeighbor.RightNeighbor.Table.TableNumber;
+                    return rightLeftNeighbor.RightNeighbor.Table.TableNumber + " (R)";
                 }
                 else
                 {
-                    return rightLeftNeighbor.LeftNeighbor.Table.TableNumber;
+                    return rightLeftNeighbor.LeftNeighbor.Table.TableNumber + " (L)";
                 }
             }
             return null;

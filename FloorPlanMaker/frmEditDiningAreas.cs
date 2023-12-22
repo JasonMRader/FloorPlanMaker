@@ -864,8 +864,10 @@ namespace FloorPlanMakerUI
                 string selectedString = lbTableNeighbors.SelectedItem.ToString();
                 if (grid.NeighborMapping.TryGetValue(selectedString, out Neighbor selectedNeighbor))
                 {
-                    // Now you have access to the selected Neighbor object
-                    // You can access its properties and methods
+                    txtMidPoint.Text = selectedNeighbor.MidPoint.ToString();
+                    txtStart.Text = selectedNeighbor.Start.ToString();
+                    txtEnd.Text = selectedNeighbor.End.ToString();
+                   
                 }
             }
         }
