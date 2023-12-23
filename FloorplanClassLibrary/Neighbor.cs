@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,6 +23,7 @@ namespace FloorplanClassLibrary
         protected abstract void GetEndNode();
         public string table1 { get; set; }
         public string table2 { get; set; }
+        public abstract void SetNewNodes(int newMidPoint, int newStartPoint, int newEndPoint);
 
 
     }
@@ -60,6 +62,12 @@ namespace FloorplanClassLibrary
         {
             throw new NotImplementedException();
 
+        }
+        public override void SetNewNodes(int newMidPoint, int newStartPoint, int newEndPoint)
+        {
+            this.MidPoint = newMidPoint;
+            this.StartNode = new Node(newStartPoint, MidPoint);
+            this.EndNode = new Node(newEndPoint, MidPoint);
         }
         protected override void GetStartNode()
         {
@@ -140,6 +148,12 @@ namespace FloorplanClassLibrary
 
         public TableEdgeBorders RightNeighbor { get; set; }
         public TableEdgeBorders LeftNeighbor { get; set; }
+        public override void SetNewNodes(int newMidPoint, int newStartPoint, int newEndPoint)
+        {
+            this.MidPoint = newMidPoint;
+            this.StartNode = new Node(MidPoint, newStartPoint);
+            this.EndNode = new Node(MidPoint, newEndPoint);
+        }
         public override Neighbor GetNeighborsOfNeighbors()
         {
             throw new NotImplementedException();

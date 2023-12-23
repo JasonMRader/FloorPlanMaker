@@ -49,6 +49,7 @@ namespace FloorplanClassLibrary
             "441-418",
             "418-441"
         };
+        public Dictionary<HashSet<string>, Edge> CustomPairs = new Dictionary<HashSet<string>, Edge>();
         public string GetPairKey(string tableNumberOne, string tableNumberTwo)
         {
             return tableNumberOne.CompareTo(tableNumberTwo) < 0

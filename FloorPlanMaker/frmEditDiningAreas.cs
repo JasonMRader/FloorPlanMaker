@@ -924,7 +924,17 @@ namespace FloorPlanMakerUI
         }
         private void btnChangeNeighborEdge_Click(object sender, EventArgs e)
         {
+            string selectedString = lbTableNeighbors.SelectedItem.ToString();
+            if (grid.NeighborMapping.TryGetValue(selectedString, out Neighbor selectedNeighbor))
+            {
+                int newMidPoint = int.Parse(txtMidPoint.Text);
+                int newStart = int.Parse(txtStart.Text);
+                int newEnd = int.Parse(txtEnd.Text);
+                selectedNeighbor.SetNewNodes(newMidPoint, newStart, newEnd);
+                
+                ToggleViewAllBorders();
 
+            }
         }
 
         
