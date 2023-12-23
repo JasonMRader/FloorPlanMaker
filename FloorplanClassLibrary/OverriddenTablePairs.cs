@@ -38,7 +38,7 @@ namespace FloorplanClassLibrary
 
         public HashSet<string> ignorePairs = new HashSet<string>()
         {
-            "61-53",
+            
             "51-63",
             "61-63",
             "51-53",
