@@ -931,8 +931,12 @@ namespace FloorPlanMakerUI
                 int newStart = int.Parse(txtStart.Text);
                 int newEnd = int.Parse(txtEnd.Text);
                 selectedNeighbor.SetNewNodes(newMidPoint, newStart, newEnd);
-                
-                ToggleViewAllBorders();
+
+                SectionLineDrawer edgeDrawer = new SectionLineDrawer(3f);
+                //Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, grid.GetAllTableBoarders());
+                List<Edge> edges = grid.refreshNeighborEdges();
+                Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, edges);
+                pnlFloorPlan.BackgroundImage = edgesBitmap;
 
             }
         }

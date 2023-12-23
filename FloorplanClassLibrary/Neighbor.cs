@@ -68,6 +68,7 @@ namespace FloorplanClassLibrary
             this.MidPoint = newMidPoint;
             this.StartNode = new Node(newStartPoint, MidPoint);
             this.EndNode = new Node(newEndPoint, MidPoint);
+            Edge = new Edge(StartNode, EndNode);
         }
         protected override void GetStartNode()
         {
@@ -153,6 +154,7 @@ namespace FloorplanClassLibrary
             this.MidPoint = newMidPoint;
             this.StartNode = new Node(MidPoint, newStartPoint);
             this.EndNode = new Node(MidPoint, newEndPoint);
+            Edge = new Edge(StartNode, EndNode);
         }
         public override Neighbor GetNeighborsOfNeighbors()
         {

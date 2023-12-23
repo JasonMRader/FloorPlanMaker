@@ -237,6 +237,22 @@ namespace FloorplanClassLibrary
            
             return edges;
         }
+        public List<Edge> refreshNeighborEdges()
+        {
+           
+            List<Edge> edges = new List<Edge>();
+            //foreach (var table in TableBoarders)
+            //{
+            foreach (Neighbor neighbor in Neighbors)
+            {
+
+                if (neighbor.Edge != null)
+                    edges.Add(neighbor.Edge);
+            }
+            //}
+
+            return edges;
+        }
         public List<Edge> GetNeighborEdgesForOneTable(string TableNumber)
         {
            
