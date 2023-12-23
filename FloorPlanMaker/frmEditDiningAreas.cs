@@ -767,7 +767,7 @@ namespace FloorPlanMakerUI
                 grid.FindTableNeighbors();
                 grid.SetTableBoarderMidPoints();
                 ToggleViewAllBorders();
-                
+
                 List<string> testing = grid.GetTestData();
 
             }
@@ -798,7 +798,7 @@ namespace FloorPlanMakerUI
 
                 List<Neighbor> neighbors = grid.GetNeighbors(areaCreationManager.SelectedTable.TableNumber);
                 lbTableNeighbors.Items.Clear();
-                
+
                 List<string> displayableNeighbors = grid.GetDisplayableNeighbors(neighbors, areaCreationManager.SelectedTable);
                 foreach (var neighborString in displayableNeighbors)
                 {
@@ -807,7 +807,7 @@ namespace FloorPlanMakerUI
                 txtMidPoint.Text = "";
                 txtStart.Text = "";
                 txtEnd.Text = "";
-                
+
             }
 
         }
@@ -817,7 +817,7 @@ namespace FloorPlanMakerUI
             lblSelectTable.Visible = false;
             lbTableNeighbors.Visible = false;
             btnRemoveNeighbor.Visible = false;
-            btnAddNewNeighbor.Visible = false;
+            btnAddRightLeftNeighbor.Visible = false;
             lblPairData.Visible = false;
             lblEndPoint.Visible = false;
             lblMidPoint.Visible = false;
@@ -832,7 +832,7 @@ namespace FloorPlanMakerUI
             lblSelectedTableNumber.Visible = true;
             lblSelectTable.Visible = true;
             lbTableNeighbors.Visible = true;
-            btnAddNewNeighbor.Visible = true;
+            btnAddRightLeftNeighbor.Visible = true;
             btnRemoveNeighbor.Visible = true;
             lblPairData.Visible = true;
             lblEndPoint.Visible = true;
@@ -904,7 +904,18 @@ namespace FloorPlanMakerUI
             }
         }
 
-        private void btnAddNewNeighbor_Click(object sender, EventArgs e)
+        private void btnAddNewRightLeftNeighbor_Click(object sender, EventArgs e)
+        {
+            grid.ManuallyCreateRLNeighbor(areaCreationManager.SelectedTable.TableNumber, txtAddNewNeighbor.Text);
+            ToggleViewAllBorders();
+        }
+
+        private void btnChangeNeighborEdge_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnAddTopBottomNeighbor_Click(object sender, EventArgs e)
         {
 
         }

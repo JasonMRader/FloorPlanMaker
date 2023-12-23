@@ -252,6 +252,15 @@ namespace FloorplanClassLibrary
 
             return edges;
         }
+        public void ManuallyCreateRLNeighbor(string TableNumber1, string TableNumber2)
+        {
+            TableEdgeBorders TableBorders1 = this.TableBoarders.FirstOrDefault(t => t.Table.TableNumber == TableNumber1);
+            TableEdgeBorders TableBorders2 = this.TableBoarders.FirstOrDefault(t => t.Table.TableNumber == TableNumber2);
+            RightLeftNeighbor rlNeighbor = new RightLeftNeighbor(TableBorders1, TableBorders2);
+            TableBorders1.AddNeighbor(rlNeighbor);
+            TableBorders2.AddNeighbor(rlNeighbor);
+            this.Neighbors.Add(rlNeighbor);
+        }
         public List<string> GetNeighborNames(string TableNumber)
         {
             List<string> names = new List<string>();
