@@ -261,6 +261,15 @@ namespace FloorplanClassLibrary
             TableBorders2.AddNeighbor(rlNeighbor);
             this.Neighbors.Add(rlNeighbor);
         }
+        public void ManuallyCreateTBNeighbor(string TableNumber1, string TableNumber2)
+        {
+            TableEdgeBorders TableBorders1 = this.TableBoarders.FirstOrDefault(t => t.Table.TableNumber == TableNumber1);
+            TableEdgeBorders TableBorders2 = this.TableBoarders.FirstOrDefault(t => t.Table.TableNumber == TableNumber2);
+            TopBottomNeighbor tbNeighbor = new TopBottomNeighbor(TableBorders1, TableBorders2);
+            TableBorders1.AddNeighbor(tbNeighbor);
+            TableBorders2.AddNeighbor(tbNeighbor);
+            this.Neighbors.Add(tbNeighbor);
+        }
         public List<string> GetNeighborNames(string TableNumber)
         {
             List<string> names = new List<string>();
@@ -491,6 +500,8 @@ namespace FloorplanClassLibrary
             }
             return result;
         }
+
+        
         //public List<Edge> ModifyBottomNeighbors()
         //{
         //    var result = new List<Edge>();

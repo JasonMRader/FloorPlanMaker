@@ -68,6 +68,7 @@
             lblMidPoint = new Label();
             txtMidPoint = new TextBox();
             cbOnlyShowThisTableLines = new CheckBox();
+            btnAddTopBottomNeighbor = new Button();
             btnAddRightLeftNeighbor = new Button();
             btnRemoveNeighbor = new Button();
             lblPairData = new Label();
@@ -80,7 +81,6 @@
             picAddSquare = new PictureBox();
             label7 = new Label();
             panel1 = new Panel();
-            btnAddTopBottomNeighbor = new Button();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
             panel6.SuspendLayout();
@@ -494,6 +494,7 @@
             txtAddNewNeighbor.Name = "txtAddNewNeighbor";
             txtAddNewNeighbor.Size = new Size(35, 23);
             txtAddNewNeighbor.TabIndex = 15;
+            txtAddNewNeighbor.Visible = false;
             // 
             // btnChangeNeighborEdge
             // 
@@ -503,6 +504,7 @@
             btnChangeNeighborEdge.TabIndex = 14;
             btnChangeNeighborEdge.Text = "Change Neighbor Border";
             btnChangeNeighborEdge.UseVisualStyleBackColor = true;
+            btnChangeNeighborEdge.Visible = false;
             btnChangeNeighborEdge.Click += btnChangeNeighborEdge_Click;
             // 
             // lblEndPoint
@@ -570,6 +572,17 @@
             cbOnlyShowThisTableLines.UseVisualStyleBackColor = true;
             cbOnlyShowThisTableLines.Visible = false;
             cbOnlyShowThisTableLines.CheckedChanged += ckBxOnlyShowThisTableLines_CheckedChanged;
+            // 
+            // btnAddTopBottomNeighbor
+            // 
+            btnAddTopBottomNeighbor.Location = new Point(97, 877);
+            btnAddTopBottomNeighbor.Name = "btnAddTopBottomNeighbor";
+            btnAddTopBottomNeighbor.Size = new Size(150, 23);
+            btnAddTopBottomNeighbor.TabIndex = 10;
+            btnAddTopBottomNeighbor.Text = "Add T/B Neighbor";
+            btnAddTopBottomNeighbor.UseVisualStyleBackColor = true;
+            btnAddTopBottomNeighbor.Visible = false;
+            btnAddTopBottomNeighbor.Click += btnAddTopBottomNeighbor_Click;
             // 
             // btnAddRightLeftNeighbor
             // 
@@ -704,17 +717,6 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(364, 950);
             panel1.TabIndex = 6;
-            // 
-            // btnAddTopBottomNeighbor
-            // 
-            btnAddTopBottomNeighbor.Location = new Point(97, 877);
-            btnAddTopBottomNeighbor.Name = "btnAddTopBottomNeighbor";
-            btnAddTopBottomNeighbor.Size = new Size(150, 23);
-            btnAddTopBottomNeighbor.TabIndex = 10;
-            btnAddTopBottomNeighbor.Text = "Add T/B Neighbor";
-            btnAddTopBottomNeighbor.UseVisualStyleBackColor = true;
-            btnAddTopBottomNeighbor.Visible = false;
-            btnAddTopBottomNeighbor.Click += btnAddTopBottomNeighbor_Click;
             // 
             // frmEditDiningAreas
             // 

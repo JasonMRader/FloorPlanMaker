@@ -826,6 +826,10 @@ namespace FloorPlanMakerUI
             txtStart.Visible = false;
             txtEnd.Visible = false;
             cbOnlyShowThisTableLines.Visible = false;
+            btnChangeNeighborEdge.Visible = false;
+            btnAddRightLeftNeighbor.Visible = false;
+            btnAddTopBottomNeighbor.Visible = false;
+            txtAddNewNeighbor.Visible = false;
         }
         private void MakeNeighborControlsVisible()
         {
@@ -842,6 +846,10 @@ namespace FloorPlanMakerUI
             txtStart.Visible = true;
             txtEnd.Visible = true;
             cbOnlyShowThisTableLines.Visible = true;
+            btnChangeNeighborEdge.Visible = true;
+            btnAddRightLeftNeighbor.Visible = true;
+            btnAddTopBottomNeighbor.Visible = true;
+            txtAddNewNeighbor.Visible = true;
         }
 
         private void lbTableNeighbors_SelectedIndexChanged(object sender, EventArgs e)
@@ -909,15 +917,16 @@ namespace FloorPlanMakerUI
             grid.ManuallyCreateRLNeighbor(areaCreationManager.SelectedTable.TableNumber, txtAddNewNeighbor.Text);
             ToggleViewAllBorders();
         }
-
+        private void btnAddTopBottomNeighbor_Click(object sender, EventArgs e)
+        {
+            grid.ManuallyCreateTBNeighbor(areaCreationManager.SelectedTable.TableNumber, txtAddNewNeighbor.Text);
+            ToggleViewAllBorders();
+        }
         private void btnChangeNeighborEdge_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void btnAddTopBottomNeighbor_Click(object sender, EventArgs e)
-        {
-
-        }
+        
     }
 }
