@@ -125,9 +125,35 @@ namespace FloorplanClassLibrary
                 }
             }
         }
+        public override bool Equals(object obj)
+        {
+            if (obj is Node other)
+            {
+                return X == other.X && Y == other.Y;
+            }
+            return false;
+        }
 
-           
-        
+        public override int GetHashCode()
+        {
+            return X.GetHashCode() ^ Y.GetHashCode();
+        }
+
+        public static bool operator ==(Node a, Node b)
+        {
+            if (ReferenceEquals(a, null) && ReferenceEquals(b, null))
+                return true;
+            if (ReferenceEquals(a, null) || ReferenceEquals(b, null))
+                return false;
+            return a.Equals(b);
+        }
+
+        public static bool operator !=(Node a, Node b)
+        {
+            return !(a == b);
+        }
+
+
 
     }
 }

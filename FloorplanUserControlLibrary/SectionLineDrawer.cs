@@ -1,4 +1,5 @@
 ﻿using FloorplanClassLibrary;
+using FloorPlanMakerUI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,6 +38,30 @@ namespace FloorplanUserControlLibrary
 
             return bitmap;
         }
+        public Bitmap CreateEdgeBitmap(Size size, IEnumerable<Edge> edges, Edge specialEdge)
+        {
+            var bitmap = new Bitmap(size.Width, size.Height);
+
+            using (var graphics = Graphics.FromImage(bitmap))
+            {
+                foreach (var edge in edges)
+                {
+                    // Check if the current edge matches the special edge
+                    bool isSpecialEdge = edge.StartNode == specialEdge.StartNode && edge.EndNode == specialEdge.EndNode;
+                    Color lineColor = isSpecialEdge ? UITheme.HighlightColor : Color.Gray;
+
+                    using (Pen pen = new Pen(lineColor, LineThickness))
+                    {
+                        Point startPoint = new Point(edge.StartNode.X - 3, edge.StartNode.Y);
+                        Point endPoint = new Point(edge.EndNode.X - 3, edge.EndNode.Y);
+                        graphics.DrawLine(pen, startPoint, endPoint);
+                    }
+                }
+            }
+
+            return bitmap;
+        }
+
     }
 
 }

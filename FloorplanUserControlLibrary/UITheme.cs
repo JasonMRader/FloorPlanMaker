@@ -46,7 +46,7 @@ namespace FloorPlanMakerUI
         public static Color CautionFontColor = Color.White;
 
         public static Color HighlightColor = Color.FromArgb(242,143,59);
-        public static Color HighLightFontColor = Color.White;
+        public static Color HighlightFontColor = Color.White;
 
         public static Color HighlightColor2 = Color.FromArgb(237, 174, 73);
 
