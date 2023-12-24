@@ -272,19 +272,42 @@ namespace FloorplanClassLibrary
         {
             TableEdgeBorders TableBorders1 = this.TableBoarders.FirstOrDefault(t => t.Table.TableNumber == TableNumber1);
             TableEdgeBorders TableBorders2 = this.TableBoarders.FirstOrDefault(t => t.Table.TableNumber == TableNumber2);
-            RightLeftNeighbor rlNeighbor = new RightLeftNeighbor(TableBorders1, TableBorders2);
-            TableBorders1.AddNeighbor(rlNeighbor);
-            TableBorders2.AddNeighbor(rlNeighbor);
-            this.Neighbors.Add(rlNeighbor);
+            if(TableBorders1.Table.Left > TableBorders2.Table.Right)
+            {
+                RightLeftNeighbor rlNeighbor = new RightLeftNeighbor(TableBorders1, TableBorders2);
+                TableBorders1.AddNeighbor(rlNeighbor);
+                TableBorders2.AddNeighbor(rlNeighbor);
+                this.Neighbors.Add(rlNeighbor);
+            }
+            else
+            {
+                RightLeftNeighbor rlNeighbor = new RightLeftNeighbor(TableBorders2, TableBorders1);
+                TableBorders1.AddNeighbor(rlNeighbor);
+                TableBorders2.AddNeighbor(rlNeighbor);
+                this.Neighbors.Add(rlNeighbor);
+            }
+           
         }
         public void ManuallyCreateTBNeighbor(string TableNumber1, string TableNumber2)
         {
             TableEdgeBorders TableBorders1 = this.TableBoarders.FirstOrDefault(t => t.Table.TableNumber == TableNumber1);
             TableEdgeBorders TableBorders2 = this.TableBoarders.FirstOrDefault(t => t.Table.TableNumber == TableNumber2);
-            TopBottomNeighbor tbNeighbor = new TopBottomNeighbor(TableBorders1, TableBorders2);
-            TableBorders1.AddNeighbor(tbNeighbor);
-            TableBorders2.AddNeighbor(tbNeighbor);
-            this.Neighbors.Add(tbNeighbor);
+            if(TableBorders1.Table.Bottom < TableBorders2.Table.Top)
+            {
+                TopBottomNeighbor tbNeighbor = new TopBottomNeighbor(TableBorders1, TableBorders2);
+                TableBorders1.AddNeighbor(tbNeighbor);
+                TableBorders2.AddNeighbor(tbNeighbor);
+                this.Neighbors.Add(tbNeighbor);
+            }
+            else
+            {
+                TopBottomNeighbor tbNeighbor = new TopBottomNeighbor(TableBorders2, TableBorders1);
+                TableBorders1.AddNeighbor(tbNeighbor);
+                TableBorders2.AddNeighbor(tbNeighbor);
+                this.Neighbors.Add(tbNeighbor);
+            }
+           
+           
         }
         public List<string> GetNeighborNames(string TableNumber)
         {

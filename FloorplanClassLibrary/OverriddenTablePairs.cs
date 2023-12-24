@@ -11,6 +11,8 @@ namespace FloorplanClassLibrary
         public OverriddenTablePairs() 
         {
             ignorePairs = SqliteDataAccess.LoadAllIgnoredPairs();
+            TopBottomNeighbors = SqliteDataAccess.LoadAllTopBottomNeighbors();
+            RightLeftNeighbors = SqliteDataAccess.LoadAllRightLeftNeighbors();
         }
         public Dictionary<string, string> TopBottomNeighbors = new Dictionary<string, string>()
         {

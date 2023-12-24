@@ -968,6 +968,57 @@ namespace FloorplanClassLibrary
             }
            
         }
+        public static void SaveTopBottomNeighbor(string key, string value)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var sql = "INSERT OR REPLACE INTO TopBottomNeighbors (Key, Value) VALUES (@Key, @Value);";
+                cnn.Execute(sql, new { Key = key, Value = value });
+            }
+        }
+
+        public static void SaveRightLeftNeighbor(string key, string value)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var sql = "INSERT OR REPLACE INTO RightLeftNeighbors (Key, Value) VALUES (@Key, @Value);";
+                cnn.Execute(sql, new { Key = key, Value = value });
+            }
+        }
+        public static void DeleteTopBottomNeighbor(string key)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var sql = "DELETE FROM TopBottomNeighbors WHERE Key = @Key;";
+                cnn.Execute(sql, new { Key = key });
+            }
+        }
+
+        public static void DeleteRightLeftNeighbor(string key)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var sql = "DELETE FROM RightLeftNeighbors WHERE Key = @Key;";
+                cnn.Execute(sql, new { Key = key });
+            }
+        }
+        public static Dictionary<string, string> LoadAllTopBottomNeighbors()
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var sql = "SELECT Key, Value FROM TopBottomNeighbors;";
+                return cnn.Query(sql).ToDictionary(row => (string)row.Key, row => (string)row.Value);
+            }
+        }
+
+        public static Dictionary<string, string> LoadAllRightLeftNeighbors()
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var sql = "SELECT Key, Value FROM RightLeftNeighbors;";
+                return cnn.Query(sql).ToDictionary(row => (string)row.Key, row => (string)row.Value);
+            }
+        }
 
 
 
