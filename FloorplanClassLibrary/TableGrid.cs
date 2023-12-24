@@ -208,7 +208,8 @@ namespace FloorplanClassLibrary
                     table.AddNeighbor(new TopBottomNeighbor(table.TopNeighborBorders, table));
                 }
                 table.AddTopBottomNeighborsNeighbors();
-                foreach(Neighbor neighbor in table.Neighbors)
+                table.AddRightLeftNeighborsNeighbors();
+                foreach (Neighbor neighbor in table.Neighbors)
                 {
                     string pairKey = overriddenPairs.GetPairKey(neighbor.table1, neighbor.table2);
                     if (!overriddenPairs.ignorePairs.Contains(pairKey)) 
@@ -217,7 +218,7 @@ namespace FloorplanClassLibrary
                     }
                    
                 }
-                //table.AddRightLeftNeighborsNeighbors();
+              
                 
             }
         }
@@ -278,6 +279,7 @@ namespace FloorplanClassLibrary
                 TableBorders1.AddNeighbor(rlNeighbor);
                 TableBorders2.AddNeighbor(rlNeighbor);
                 this.Neighbors.Add(rlNeighbor);
+                SqliteDataAccess.SaveRightLeftNeighbor(TableNumber1, TableNumber2 );
             }
             else
             {
@@ -285,6 +287,7 @@ namespace FloorplanClassLibrary
                 TableBorders1.AddNeighbor(rlNeighbor);
                 TableBorders2.AddNeighbor(rlNeighbor);
                 this.Neighbors.Add(rlNeighbor);
+                SqliteDataAccess.SaveRightLeftNeighbor(TableNumber2, TableNumber1);
             }
            
         }
@@ -298,6 +301,7 @@ namespace FloorplanClassLibrary
                 TableBorders1.AddNeighbor(tbNeighbor);
                 TableBorders2.AddNeighbor(tbNeighbor);
                 this.Neighbors.Add(tbNeighbor);
+                SqliteDataAccess.SaveTopBottomNeighbor(TableNumber1, TableNumber2);
             }
             else
             {
@@ -305,6 +309,7 @@ namespace FloorplanClassLibrary
                 TableBorders1.AddNeighbor(tbNeighbor);
                 TableBorders2.AddNeighbor(tbNeighbor);
                 this.Neighbors.Add(tbNeighbor);
+                SqliteDataAccess.SaveTopBottomNeighbor(TableNumber2, TableNumber1);
             }
            
            

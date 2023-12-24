@@ -95,7 +95,7 @@ namespace FloorplanClassLibrary
                     {
                         ProcessBottomNeighbor(topBottomNeighbor, newNeighbors);
                     }
-                    AddHardcodedNeighbors(newNeighbors);
+                    AddOverriddenTopBotNeighbors(newNeighbors);
                 }
             }
 
@@ -162,7 +162,7 @@ namespace FloorplanClassLibrary
 
             return OverlapsHorizontally(rlNeighbor.RightNeighbor) && !isBetweenVertically;
         }
-        private void AddHardcodedNeighbors(List<Neighbor> newNeighbors)
+        private void AddOverriddenTopBotNeighbors(List<Neighbor> newNeighbors)
         {
             foreach (var pair in overriddenPairs.TopBottomNeighbors)
             {
@@ -177,6 +177,7 @@ namespace FloorplanClassLibrary
                 }
             }
         }
+       
         private TableEdgeBorders FindTableByNumber(string tableNumber)
         {
             HashSet<string> visitedTables = new HashSet<string>();
