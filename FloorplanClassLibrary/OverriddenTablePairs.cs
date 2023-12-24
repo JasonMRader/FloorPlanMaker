@@ -8,8 +8,11 @@ namespace FloorplanClassLibrary
 {
     public class OverriddenTablePairs
     {
-        public OverriddenTablePairs() { }
-        public Dictionary<string, string> hardcodedTopBottomNeighbors = new Dictionary<string, string>()
+        public OverriddenTablePairs() 
+        {
+            ignorePairs = SqliteDataAccess.LoadAllIgnoredPairs();
+        }
+        public Dictionary<string, string> TopBottomNeighbors = new Dictionary<string, string>()
         {
             {"42", "41"},
             {"52", "61"},
@@ -17,7 +20,7 @@ namespace FloorplanClassLibrary
             {"441","300" }
 
         };
-        public Dictionary<string, string> hardcodedRightLeftNeighbors = new Dictionary<string, string>()
+        public Dictionary<string, string> RightLeftNeighbors = new Dictionary<string, string>()
         {
             {"34", "42" },
             {"42","34" }
@@ -36,19 +39,8 @@ namespace FloorplanClassLibrary
 
         };
 
-        public HashSet<string> ignorePairs = new HashSet<string>()
-        {
-            
-            "51-63",
-            "61-63",
-            "51-53",
-            "445-300",
-            "300-445",
-            "65-54",
-            "434-445",
-            "441-418",
-            "418-441"
-        };
+        public HashSet<string> ignorePairs = new HashSet<string>();
+       
         public Dictionary<HashSet<string>, Edge> CustomPairs = new Dictionary<HashSet<string>, Edge>();
         public string GetPairKey(string tableNumberOne, string tableNumberTwo)
         {

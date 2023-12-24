@@ -164,7 +164,7 @@ namespace FloorplanClassLibrary
         }
         private void AddHardcodedNeighbors(List<Neighbor> newNeighbors)
         {
-            foreach (var pair in overriddenPairs.hardcodedTopBottomNeighbors)
+            foreach (var pair in overriddenPairs.TopBottomNeighbors)
             {
                 if (this.Table.TableNumber == pair.Key)
                 {
@@ -324,7 +324,7 @@ namespace FloorplanClassLibrary
 
         private void AddHardcodedRightLeftNeighbors(List<Neighbor> newNeighbors)
         {
-            foreach (var pair in overriddenPairs.hardcodedRightLeftNeighbors)
+            foreach (var pair in overriddenPairs.RightLeftNeighbors)
             {
                 if (this.Table.TableNumber == pair.Key)
                 {

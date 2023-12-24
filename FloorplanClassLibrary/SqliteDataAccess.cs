@@ -942,6 +942,32 @@ namespace FloorplanClassLibrary
            
             
         }
+        public static void SaveIgnoredPair(string pair)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var sql = "INSERT INTO IgnoredPairs (Pair) VALUES (@Pair);";
+                cnn.Execute(sql, new { Pair = pair });
+            }            
+        }
+        public static void DeleteIgnoredPair(string pair)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var sql = "DELETE FROM IgnoredPairs WHERE Pair = @Pair;";
+                cnn.Execute(sql, new { Pair = pair });
+            }            
+        }
+        public static HashSet<string> LoadAllIgnoredPairs()
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var sql = "SELECT Pair FROM IgnoredPairs;";
+                return new HashSet<string>(cnn.Query<string>(sql));
+
+            }
+           
+        }
 
 
 

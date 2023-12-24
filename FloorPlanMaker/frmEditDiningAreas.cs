@@ -929,6 +929,7 @@ namespace FloorPlanMakerUI
             if (grid.NeighborMapping.TryGetValue(selectedString, out Neighbor selectedNeighbor))
             {
                 string pairKey = grid.overriddenPairs.GetPairKey(selectedNeighbor.table1, selectedNeighbor.table2);
+                SqliteDataAccess.SaveIgnoredPair(pairKey);
                 grid.overriddenPairs.ignorePairs.Add(pairKey);
                 ToggleViewAllBorders();
 
