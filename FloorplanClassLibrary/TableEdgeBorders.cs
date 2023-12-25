@@ -96,8 +96,10 @@ namespace FloorplanClassLibrary
                         ProcessBottomNeighbor(topBottomNeighbor, newNeighbors);
                     }
                     AddOverriddenTopBotNeighbors(newNeighbors);
+
                 }
             }
+            
 
             // Add the new neighbors
             foreach (var newNeighbor in newNeighbors)

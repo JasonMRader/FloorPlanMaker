@@ -208,7 +208,8 @@ namespace FloorplanClassLibrary
                     table.AddNeighbor(new TopBottomNeighbor(table.TopNeighborBorders, table));
                 }
                 table.AddTopBottomNeighborsNeighbors();
-                table.AddRightLeftNeighborsNeighbors();
+                
+                //table.AddRightLeftNeighborsNeighbors();
                 foreach (Neighbor neighbor in table.Neighbors)
                 {
                     string pairKey = overriddenPairs.GetPairKey(neighbor.table1, neighbor.table2);
