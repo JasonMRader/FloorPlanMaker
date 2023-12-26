@@ -11,23 +11,25 @@ namespace FloorplanClassLibrary
         public OverriddenTablePairs() 
         {
             ignorePairs = SqliteDataAccess.LoadAllIgnoredPairs();
-            TopBottomNeighbors = SqliteDataAccess.LoadAllTopBottomNeighbors();
-            RightLeftNeighbors = SqliteDataAccess.LoadAllRightLeftNeighbors();
+            //TopBottomNeighbors = SqliteDataAccess.LoadAllTopBottomNeighbors();
+            //RightLeftNeighbors = SqliteDataAccess.LoadAllRightLeftNeighbors();
         }
-        public Dictionary<string, string> TopBottomNeighbors = new Dictionary<string, string>()
-        {
-            {"42", "41"},
-            {"52", "61"},
-            {"61", "52"},
-            {"441","300" }
+        public List<TopBottomNeighbor> TopBottomNeighbors { get; set; } = new List<TopBottomNeighbor>();
+        public List<RightLeftNeighbor> RightLeftNeighbors { get; set; } = new List<RightLeftNeighbor>();
+        //public Dictionary<string, string> TopBottomNeighbors = new Dictionary<string, string>()
+        //{
+        //    {"42", "41"},
+        //    {"52", "61"},
+        //    {"61", "52"},
+        //    {"441","300" }
 
-        };
-        public Dictionary<string, string> RightLeftNeighbors = new Dictionary<string, string>()
-        {
-            {"34", "42" },
-            {"42","34" }
+        //};
+        //public Dictionary<string, string> RightLeftNeighbors = new Dictionary<string, string>()
+        //{
+        //    {"34", "42" },
+        //    {"42","34" }
 
-        };
+        //};
         public Dictionary<string, string> RightLeftNeighborsCustomEdge = new Dictionary<string, string>()
         {
             {"34", "42" },

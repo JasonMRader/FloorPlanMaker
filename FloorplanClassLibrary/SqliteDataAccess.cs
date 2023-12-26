@@ -968,57 +968,137 @@ namespace FloorplanClassLibrary
             }
            
         }
-        public static void SaveTopBottomNeighbor(string key, string value)
+        public static void SaveTopBottomNeighbor(TopBottomNeighbor neighbor)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                var sql = "INSERT OR REPLACE INTO TopBottomNeighbors (Key, Value) VALUES (@Key, @Value);";
-                cnn.Execute(sql, new { Key = key, Value = value });
+                var sql = @"
+            INSERT INTO CustomTopBottomNeighbors (MidLocation, StartPoint, EndPoint, TopBorder, BottomBorder) 
+            VALUES (@MidLocation, @StartPoint, @EndPoint, @TopBorder, @BottomBorder);";
+
+                var parameters = new
+                {
+                    MidLocation = neighbor.MidPoint,
+                    StartPoint = neighbor.Start,
+                    EndPoint = neighbor.End,
+                    TopBorder = neighbor.TopNeighbor.Table.TableNumber,
+                    BottomBorder = neighbor.BottomNeighbor.Table.TableNumber
+                };
+
+                cnn.Execute(sql, parameters);
             }
         }
 
-        public static void SaveRightLeftNeighbor(string key, string value)
+
+        public static void SaveRightLeftNeighbor(RightLeftNeighbor neighbor)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                var sql = "INSERT OR REPLACE INTO RightLeftNeighbors (Key, Value) VALUES (@Key, @Value);";
-                cnn.Execute(sql, new { Key = key, Value = value });
-            }
-        }
-        public static void DeleteTopBottomNeighbor(string key)
-        {
-            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
-            {
-                var sql = "DELETE FROM TopBottomNeighbors WHERE Key = @Key;";
-                cnn.Execute(sql, new { Key = key });
+                var sql = @"
+            INSERT INTO CustomRightLeftNeighbors (MidLocation, StartPoint, EndPoint, RightBorder, LeftBorder) 
+            VALUES (@MidLocation, @StartPoint, @EndPoint, @RightBorder, @LeftBorder);";
+
+                var parameters = new
+                {
+                    MidLocation = neighbor.MidPoint,
+                    StartPoint = neighbor.Start,
+                    EndPoint = neighbor.End,
+                    RightBorder = neighbor.RightNeighbor.Table.TableNumber,
+                    LeftBorder = neighbor.LeftNeighbor.Table.TableNumber
+                };
+
+                cnn.Execute(sql, parameters);
             }
         }
 
-        public static void DeleteRightLeftNeighbor(string key)
+
+        public static void DeleteTopBottomNeighbor(int id)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                var sql = "DELETE FROM RightLeftNeighbors WHERE Key = @Key;";
-                cnn.Execute(sql, new { Key = key });
-            }
-        }
-        public static Dictionary<string, string> LoadAllTopBottomNeighbors()
-        {
-            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
-            {
-                var sql = "SELECT Key, Value FROM TopBottomNeighbors;";
-                return cnn.Query(sql).ToDictionary(row => (string)row.Key, row => (string)row.Value);
+                var sql = "DELETE FROM CustomTopBottomNeighbors WHERE Id = @Id;";
+                cnn.Execute(sql, new { Id = id });
             }
         }
 
-        public static Dictionary<string, string> LoadAllRightLeftNeighbors()
+        public static void DeleteRightLeftNeighbor(int id)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                var sql = "SELECT Key, Value FROM RightLeftNeighbors;";
-                return cnn.Query(sql).ToDictionary(row => (string)row.Key, row => (string)row.Value);
+                var sql = "DELETE FROM CustomRightLeftNeighbors WHERE Id = @Id;";
+                cnn.Execute(sql, new { Id = id });
             }
         }
+        public static List<TopBottomNeighbor> LoadAllTopBottomNeighbors()
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var sql = "SELECT * FROM CustomTopBottomNeighbors;";
+                return cnn.Query<TopBottomNeighbor>(sql).ToList();
+            }
+        }
+
+        public static List<RightLeftNeighbor> LoadAllRightLeftNeighbors()
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var sql = "SELECT * FROM CustomRightLeftNeighbors;";
+                return cnn.Query<RightLeftNeighbor>(sql).ToList();
+            }
+        }
+
+
+        //public static void SaveTopBottomNeighbor(string key, string value)
+        //{
+        //    using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+        //    {
+        //        var sql = "INSERT OR REPLACE INTO TopBottomNeighbors (Key, Value) VALUES (@Key, @Value);";
+        //        cnn.Execute(sql, new { Key = key, Value = value });
+        //    }
+        //}
+
+        //public static void SaveRightLeftNeighbor(string key, string value)
+        //{
+        //    using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+        //    {
+        //        var sql = "INSERT OR REPLACE INTO RightLeftNeighbors (Key, Value) VALUES (@Key, @Value);";
+        //        cnn.Execute(sql, new { Key = key, Value = value });
+        //    }
+        //}
+        //public static void DeleteTopBottomNeighbor(string key)
+        //{
+        //    using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+        //    {
+        //        var sql = "DELETE FROM TopBottomNeighbors WHERE Key = @Key;";
+        //        cnn.Execute(sql, new { Key = key });
+        //    }
+        //}
+
+        //public static void DeleteRightLeftNeighbor(string key)
+        //{
+        //    using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+        //    {
+        //        var sql = "DELETE FROM RightLeftNeighbors WHERE Key = @Key;";
+        //        cnn.Execute(sql, new { Key = key });
+        //    }
+        //}
+        //public static Dictionary<string, string> LoadAllTopBottomNeighbors()
+        //{
+        //    using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+        //    {
+        //        var sql = "SELECT Key, Value FROM TopBottomNeighbors;";
+        //        return cnn.Query(sql).ToDictionary(row => (string)row.Key, row => (string)row.Value);
+        //    }
+        //}
+
+        //public static Dictionary<string, string> LoadAllRightLeftNeighbors()
+        //{
+        //    using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+        //    {
+        //        var sql = "SELECT Key, Value FROM RightLeftNeighbors;";
+        //        return cnn.Query(sql).ToDictionary(row => (string)row.Key, row => (string)row.Value);
+        //    }
+        //}
 
 
 

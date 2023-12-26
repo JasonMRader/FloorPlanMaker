@@ -95,7 +95,7 @@ namespace FloorplanClassLibrary
                     {
                         ProcessBottomNeighbor(topBottomNeighbor, newNeighbors);
                     }
-                    AddOverriddenTopBotNeighbors(newNeighbors);
+                    //AddOverriddenTopBotNeighbors(newNeighbors);
 
                 }
             }
@@ -164,21 +164,21 @@ namespace FloorplanClassLibrary
 
             return OverlapsHorizontally(rlNeighbor.RightNeighbor) && !isBetweenVertically;
         }
-        private void AddOverriddenTopBotNeighbors(List<Neighbor> newNeighbors)
-        {
-            foreach (var pair in overriddenPairs.TopBottomNeighbors)
-            {
-                if (this.Table.TableNumber == pair.Key)
-                {
-                    TableEdgeBorders hardcodedBottomNeighbor = FindTableByNumber(pair.Value);
-                    if (hardcodedBottomNeighbor != null)
-                    {
-                        TopBottomNeighbor newNeighbor = new TopBottomNeighbor(this, hardcodedBottomNeighbor);
-                        newNeighbors.Add(newNeighbor);
-                    }
-                }
-            }
-        }
+        //private void AddOverriddenTopBotNeighbors(List<Neighbor> newNeighbors)
+        //{
+        //    foreach (var pair in overriddenPairs.TopBottomNeighbors)
+        //    {
+        //        if (this.Table.TableNumber == pair.Key)
+        //        {
+        //            TableEdgeBorders hardcodedBottomNeighbor = FindTableByNumber(pair.Value);
+        //            if (hardcodedBottomNeighbor != null)
+        //            {
+        //                TopBottomNeighbor newNeighbor = new TopBottomNeighbor(this, hardcodedBottomNeighbor);
+        //                newNeighbors.Add(newNeighbor);
+        //            }
+        //        }
+        //    }
+        //}
        
         private TableEdgeBorders FindTableByNumber(string tableNumber)
         {
@@ -252,7 +252,7 @@ namespace FloorplanClassLibrary
                 }
             }
 
-            AddHardcodedRightLeftNeighbors(newNeighbors);
+            //AddHardcodedRightLeftNeighbors(newNeighbors);
 
             // Add the new neighbors
             foreach (var newNeighbor in newNeighbors)
@@ -325,21 +325,21 @@ namespace FloorplanClassLibrary
         }
 
 
-        private void AddHardcodedRightLeftNeighbors(List<Neighbor> newNeighbors)
-        {
-            foreach (var pair in overriddenPairs.RightLeftNeighbors)
-            {
-                if (this.Table.TableNumber == pair.Key)
-                {
-                    TableEdgeBorders hardcodedRightLeftNeighbor = FindTableByNumber(pair.Value);
-                    if (hardcodedRightLeftNeighbor != null)
-                    {
-                        RightLeftNeighbor newNeighbor = new RightLeftNeighbor(this, hardcodedRightLeftNeighbor);
-                        newNeighbors.Add(newNeighbor);
-                    }
-                }
-            }
-        }
+        //private void AddHardcodedRightLeftNeighbors(List<Neighbor> newNeighbors)
+        //{
+        //    foreach (var pair in overriddenPairs.RightLeftNeighbors)
+        //    {
+        //        if (this.Table.TableNumber == pair.Key)
+        //        {
+        //            TableEdgeBorders hardcodedRightLeftNeighbor = FindTableByNumber(pair.Value);
+        //            if (hardcodedRightLeftNeighbor != null)
+        //            {
+        //                RightLeftNeighbor newNeighbor = new RightLeftNeighbor(this, hardcodedRightLeftNeighbor);
+        //                newNeighbors.Add(newNeighbor);
+        //            }
+        //        }
+        //    }
+        //}
 
         // Existing methods: FindTableByNumber, FindTableByNumberRecursive, etc.
 
