@@ -227,16 +227,16 @@ namespace FloorplanClassLibrary
         {
             CreateNeighbors();
             this.Neighbors.AddRange(SqliteDataAccess.LoadAllRightLeftNeighbors(this.TableBoarders));
+            this.Neighbors.AddRange(SqliteDataAccess.LoadAllTopBottomNeighbors(this.TableBoarders));
             List<Edge> edges = new List<Edge>();
-            //foreach (var table in TableBoarders)
-            //{
+           
             foreach (Neighbor neighbor in Neighbors)
             {
                     
                 if (neighbor.Edge != null)
                     edges.Add(neighbor.Edge);
             }
-            //}
+           
            
             return edges;
         }
@@ -388,10 +388,11 @@ namespace FloorplanClassLibrary
             foreach (Neighbor neighbor in selectedTable.Neighbors)
             {
                 string pairKey = overriddenPairs.GetPairKey(neighbor.table1, neighbor.table2);
-                if (!overriddenPairs.ignorePairs.Contains(pairKey))
-                {
-                    neighbors.Add(neighbor);
-                }
+                neighbors.Add(neighbor);
+                //if (!overriddenPairs.ignorePairs.Contains(pairKey))
+                //{
+                    
+                //}
                 
 
             }

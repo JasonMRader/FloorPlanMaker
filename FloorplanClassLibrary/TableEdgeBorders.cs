@@ -28,12 +28,12 @@ namespace FloorplanClassLibrary
             // Check for null neighbor
             if (neighbor == null) return;
             string pairKey = overriddenPairs.GetPairKey(neighbor.table1, neighbor.table2);
-            if (overriddenPairs.ignorePairs.Contains(pairKey)) return;          
+            if (overriddenPairs.ignorePairs.Contains(pairKey) && !overriddenPairs.CustomPairs.Contains(pairKey)) return;          
                
             // Check for valid neighbor based on type and prevent duplicates
             if (neighbor is TopBottomNeighbor topBottomNeighbor)
             {
-                if (!IsDuplicateNeighbor(topBottomNeighbor.TopNeighbor, topBottomNeighbor.BottomNeighbor) &&
+                if (!IsDuplicateTBNeighbor(topBottomNeighbor.TopNeighbor, topBottomNeighbor.BottomNeighbor) &&
                     topBottomNeighbor.TopNeighbor.Table.TableNumber != topBottomNeighbor.BottomNeighbor.Table.TableNumber)
                 {
                     Neighbors.Add(neighbor);
@@ -41,7 +41,7 @@ namespace FloorplanClassLibrary
             }
             else if (neighbor is RightLeftNeighbor rightLeftNeighbor)
             {
-                if (!IsDuplicateNeighbor(rightLeftNeighbor.RightNeighbor, rightLeftNeighbor.LeftNeighbor) &&
+                if (!IsDuplicateRLNeighbor(rightLeftNeighbor.RightNeighbor, rightLeftNeighbor.LeftNeighbor) &&
                     rightLeftNeighbor.RightNeighbor.Table.TableNumber != rightLeftNeighbor.LeftNeighbor.Table.TableNumber)
                 {
                     Neighbors.Add(neighbor);
@@ -49,19 +49,24 @@ namespace FloorplanClassLibrary
             }
         }
 
-        private bool IsDuplicateNeighbor(TableEdgeBorders neighborOne, TableEdgeBorders neighborTwo)
+        private bool IsDuplicateTBNeighbor(TableEdgeBorders neighborOne, TableEdgeBorders neighborTwo)
         {
             return Neighbors.Any(n =>
                 (n is TopBottomNeighbor tbNeighbor &&
                     ((tbNeighbor.TopNeighbor == neighborOne && tbNeighbor.BottomNeighbor == neighborTwo) ||
-                     (tbNeighbor.BottomNeighbor == neighborOne && tbNeighbor.TopNeighbor == neighborTwo))) ||
+                     (tbNeighbor.BottomNeighbor == neighborOne && tbNeighbor.TopNeighbor == neighborTwo))));
+               
+        }
+        private bool IsDuplicateRLNeighbor(TableEdgeBorders neighborOne, TableEdgeBorders neighborTwo)
+        {
+            return Neighbors.Any(n =>               
                 (n is RightLeftNeighbor rlNeighbor &&
                     ((rlNeighbor.RightNeighbor == neighborOne && rlNeighbor.LeftNeighbor == neighborTwo) ||
                      (rlNeighbor.LeftNeighbor == neighborOne && rlNeighbor.RightNeighbor == neighborTwo))));
         }
 
-        
-       
+
+
         public bool OverlapsVertically(TableEdgeBorders otherTableBorders)
         {
             bool isVerticalOverlap = (this.TopBorderY <= otherTableBorders.BottomBorderY && this.BottomBorderY >= otherTableBorders.TopBorderY) ||

@@ -11,6 +11,7 @@ namespace FloorplanClassLibrary
         public OverriddenTablePairs() 
         {
             ignorePairs = SqliteDataAccess.LoadAllIgnoredPairs();
+            CustomPairs = SqliteDataAccess.LoadAllCustomPairs();
             //TopBottomNeighbors = SqliteDataAccess.LoadAllTopBottomNeighbors();
             //RightLeftNeighbors = SqliteDataAccess.LoadAllRightLeftNeighbors();
         }
@@ -44,8 +45,9 @@ namespace FloorplanClassLibrary
         };
 
         public HashSet<string> ignorePairs = new HashSet<string>();
+        public HashSet<string> CustomPairs = new HashSet<string>();
        
-        public Dictionary<HashSet<string>, Edge> CustomPairs = new Dictionary<HashSet<string>, Edge>();
+        //public Dictionary<HashSet<string>, Edge> CustomPairs = new Dictionary<HashSet<string>, Edge>();
         public string GetPairKey(string tableNumberOne, string tableNumberTwo)
         {
             return tableNumberOne.CompareTo(tableNumberTwo) < 0

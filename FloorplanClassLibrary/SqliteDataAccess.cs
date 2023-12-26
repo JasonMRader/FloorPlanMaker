@@ -968,6 +968,39 @@ namespace FloorplanClassLibrary
             }
            
         }
+        public static HashSet<string> LoadAllCustomPairs()
+        {
+            HashSet<string> customPairs = new HashSet<string>();
+
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                // Load CustomRightLeftNeighbors
+                string sqlRightLeft = "SELECT RightBorder, LeftBorder FROM CustomRightLeftNeighbors;";
+                var rightLeftPairs = cnn.Query<(string RightBorder, string LeftBorder)>(sqlRightLeft);
+                foreach (var pair in rightLeftPairs)
+                {
+                    string pairKey = GetPairKey(pair.RightBorder, pair.LeftBorder);
+                    customPairs.Add(pairKey);
+                }
+
+                // Load CustomTopBottomNeighbors
+                string sqlTopBottom = "SELECT TopBorder, BottomBorder FROM CustomTopBottomNeighbors;";
+                var topBottomPairs = cnn.Query<(string TopBorder, string BottomBorder)>(sqlTopBottom);
+                foreach (var pair in topBottomPairs)
+                {
+                    string pairKey = GetPairKey(pair.TopBorder, pair.BottomBorder);
+                    customPairs.Add(pairKey);
+                }
+            }
+
+            return customPairs;
+        }
+
+        private static string GetPairKey(string borderOne, string borderTwo)
+        {
+            return borderOne.CompareTo(borderTwo) < 0 ? borderOne + "-" + borderTwo : borderTwo + "-" + borderOne;
+        }
+
         public static void SaveTopBottomNeighbor(TopBottomNeighbor neighbor)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -1031,20 +1064,43 @@ namespace FloorplanClassLibrary
         }
         public static List<TopBottomNeighbor> LoadAllTopBottomNeighbors(List<TableEdgeBorders> tableEdgeBorders)
         {
+            List<TopBottomNeighbor> neighbors = new List<TopBottomNeighbor>();
+
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                var sql = "SELECT * FROM CustomTopBottomNeighbors;";
-                var neighbors = cnn.Query<TopBottomNeighbor>(sql).ToList();
-
-                foreach (var neighbor in neighbors)
+                cnn.Open();
+                using (IDbCommand cmd = cnn.CreateCommand())
                 {
-                    //neighbor.TopNeighbor = tableEdgeBorders.First(tb => tb.Table.TableNumber == neighbor.TopBorder);
-                    //neighbor.BottomNeighbor = tableEdgeBorders.First(tb => tb.Table.TableNumber == );
-                }
+                    cmd.CommandText = "SELECT * FROM CustomTopBottomNeighbors";
+                    using (IDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            // Assume columns are similar to RightLeftNeighbors, replace with actual column names
+                            int midLocation = reader.GetInt32(reader.GetOrdinal("MidLocation"));
+                            int startPoint = reader.GetInt32(reader.GetOrdinal("StartPoint"));
+                            int endPoint = reader.GetInt32(reader.GetOrdinal("EndPoint"));
+                            string topBorder = reader.GetString(reader.GetOrdinal("TopBorder"));
+                            string bottomBorder = reader.GetString(reader.GetOrdinal("BottomBorder"));
 
-                return neighbors;
+                            TableEdgeBorders topBorderObj = tableEdgeBorders.FirstOrDefault(t => t.Table.TableNumber == topBorder);
+                            TableEdgeBorders bottomBorderObj = tableEdgeBorders.FirstOrDefault(t => t.Table.TableNumber == bottomBorder);
+
+                            if (topBorderObj != null && bottomBorderObj != null)
+                            {
+                                TopBottomNeighbor neighbor = new TopBottomNeighbor(midLocation, startPoint, endPoint, topBorderObj, bottomBorderObj);
+                                topBorderObj.AddNeighbor(neighbor);
+                                bottomBorderObj.AddNeighbor(neighbor);
+                                neighbors.Add(neighbor);
+                            }
+                        }
+                    }
+                }
             }
+
+            return neighbors;
         }
+
 
         public static List<RightLeftNeighbor> LoadAllRightLeftNeighbors(List<TableEdgeBorders> tableEdgeBorders)
         {
