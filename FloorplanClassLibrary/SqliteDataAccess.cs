@@ -1001,48 +1001,100 @@ namespace FloorplanClassLibrary
             return borderOne.CompareTo(borderTwo) < 0 ? borderOne + "-" + borderTwo : borderTwo + "-" + borderOne;
         }
 
+        //public static void SaveTopBottomNeighbor(TopBottomNeighbor neighbor)
+        //{
+        //    using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+        //    {
+        //        var sql = @"
+        //    INSERT INTO CustomTopBottomNeighbors (MidLocation, StartPoint, EndPoint, TopBorder, BottomBorder) 
+        //    VALUES (@MidLocation, @StartPoint, @EndPoint, @TopBorder, @BottomBorder);";
+
+        //        var parameters = new
+        //        {
+        //            MidLocation = neighbor.MidPoint,
+        //            StartPoint = neighbor.Start,
+        //            EndPoint = neighbor.End,
+        //            TopBorder = neighbor.TopNeighbor.Table.TableNumber,
+        //            BottomBorder = neighbor.BottomNeighbor.Table.TableNumber
+        //        };
+
+        //        cnn.Execute(sql, parameters);
+        //    }
+        //}
         public static void SaveTopBottomNeighbor(TopBottomNeighbor neighbor)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                var sql = @"
-            INSERT INTO CustomTopBottomNeighbors (MidLocation, StartPoint, EndPoint, TopBorder, BottomBorder) 
-            VALUES (@MidLocation, @StartPoint, @EndPoint, @TopBorder, @BottomBorder);";
+                string checkSql = "SELECT Id FROM CustomTopBottomNeighbors WHERE TopBorder = @TopBorder AND BottomBorder = @BottomBorder;";
+                var existingId = cnn.Query<int?>(checkSql, new { TopBorder = neighbor.TopNeighbor.Table.TableNumber, BottomBorder = neighbor.BottomNeighbor.Table.TableNumber }).FirstOrDefault();
 
-                var parameters = new
+                if (existingId.HasValue)
                 {
-                    MidLocation = neighbor.MidPoint,
-                    StartPoint = neighbor.Start,
-                    EndPoint = neighbor.End,
-                    TopBorder = neighbor.TopNeighbor.Table.TableNumber,
-                    BottomBorder = neighbor.BottomNeighbor.Table.TableNumber
-                };
-
-                cnn.Execute(sql, parameters);
+                    // Update existing record
+                    var updateSql = @"
+                UPDATE CustomTopBottomNeighbors 
+                SET MidLocation = @MidLocation, StartPoint = @StartPoint, EndPoint = @EndPoint 
+                WHERE Id = @Id;";
+                    cnn.Execute(updateSql, new { MidLocation = neighbor.MidPoint, StartPoint = neighbor.Start, EndPoint = neighbor.End, Id = existingId.Value });
+                }
+                else
+                {
+                    // Insert new record
+                    var insertSql = @"
+                INSERT INTO CustomTopBottomNeighbors (MidLocation, StartPoint, EndPoint, TopBorder, BottomBorder) 
+                VALUES (@MidLocation, @StartPoint, @EndPoint, @TopBorder, @BottomBorder);";
+                    cnn.Execute(insertSql, new { MidLocation = neighbor.MidPoint, StartPoint = neighbor.Start, EndPoint = neighbor.End, TopBorder = neighbor.TopNeighbor.Table.TableNumber, BottomBorder = neighbor.BottomNeighbor.Table.TableNumber });
+                }
             }
         }
-
-
         public static void SaveRightLeftNeighbor(RightLeftNeighbor neighbor)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                var sql = @"
-            INSERT INTO CustomRightLeftNeighbors (MidLocation, StartPoint, EndPoint, RightBorder, LeftBorder) 
-            VALUES (@MidLocation, @StartPoint, @EndPoint, @RightBorder, @LeftBorder);";
+                string checkSql = "SELECT Id FROM CustomRightLeftNeighbors WHERE RightBorder = @RightBorder AND LeftBorder = @LeftBorder;";
+                var existingId = cnn.Query<int?>(checkSql, new { RightBorder = neighbor.RightNeighbor.Table.TableNumber, LeftBorder = neighbor.LeftNeighbor.Table.TableNumber }).FirstOrDefault();
 
-                var parameters = new
+                if (existingId.HasValue)
                 {
-                    MidLocation = neighbor.MidPoint,
-                    StartPoint = neighbor.Start,
-                    EndPoint = neighbor.End,
-                    RightBorder = neighbor.RightNeighbor.Table.TableNumber,
-                    LeftBorder = neighbor.LeftNeighbor.Table.TableNumber
-                };
-
-                cnn.Execute(sql, parameters);
+                    // Update existing record
+                    var updateSql = @"
+                UPDATE CustomRightLeftNeighbors 
+                SET MidLocation = @MidLocation, StartPoint = @StartPoint, EndPoint = @EndPoint 
+                WHERE Id = @Id;";
+                    cnn.Execute(updateSql, new { MidLocation = neighbor.MidPoint, StartPoint = neighbor.Start, EndPoint = neighbor.End, Id = existingId.Value });
+                }
+                else
+                {
+                    // Insert new record
+                    var insertSql = @"
+                INSERT INTO CustomRightLeftNeighbors (MidLocation, StartPoint, EndPoint, RightBorder, LeftBorder) 
+                VALUES (@MidLocation, @StartPoint, @EndPoint, @RightBorder, @LeftBorder);";
+                    cnn.Execute(insertSql, new { MidLocation = neighbor.MidPoint, StartPoint = neighbor.Start, EndPoint = neighbor.End, RightBorder = neighbor.RightNeighbor.Table.TableNumber, LeftBorder = neighbor.LeftNeighbor.Table.TableNumber });
+                }
             }
         }
+
+
+        //public static void SaveRightLeftNeighbor(RightLeftNeighbor neighbor)
+        //{
+        //    using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+        //    {
+        //        var sql = @"
+        //    INSERT INTO CustomRightLeftNeighbors (MidLocation, StartPoint, EndPoint, RightBorder, LeftBorder) 
+        //    VALUES (@MidLocation, @StartPoint, @EndPoint, @RightBorder, @LeftBorder);";
+
+        //        var parameters = new
+        //        {
+        //            MidLocation = neighbor.MidPoint,
+        //            StartPoint = neighbor.Start,
+        //            EndPoint = neighbor.End,
+        //            RightBorder = neighbor.RightNeighbor.Table.TableNumber,
+        //            LeftBorder = neighbor.LeftNeighbor.Table.TableNumber
+        //        };
+
+        //        cnn.Execute(sql, parameters);
+        //    }
+        //}
 
 
         public static void DeleteTopBottomNeighbor(int id)

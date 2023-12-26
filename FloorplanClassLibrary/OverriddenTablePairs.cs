@@ -12,8 +12,7 @@ namespace FloorplanClassLibrary
         {
             ignorePairs = SqliteDataAccess.LoadAllIgnoredPairs();
             CustomPairs = SqliteDataAccess.LoadAllCustomPairs();
-            //TopBottomNeighbors = SqliteDataAccess.LoadAllTopBottomNeighbors();
-            //RightLeftNeighbors = SqliteDataAccess.LoadAllRightLeftNeighbors();
+           
         }
         public List<TopBottomNeighbor> TopBottomNeighbors { get; set; } = new List<TopBottomNeighbor>();
         public List<RightLeftNeighbor> RightLeftNeighbors { get; set; } = new List<RightLeftNeighbor>();

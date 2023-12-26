@@ -48,8 +48,8 @@ namespace FloorplanClassLibrary
             TopNeighbor = topBorder;
             BottomNeighbor = bottomBorder;
             MidPoint = midLocation;
-            StartNode = new Node(MidPoint, startPoint);
-            EndNode = new Node(MidPoint, endPoint);
+            StartNode = new Node(startPoint, MidPoint);
+            EndNode = new Node(endPoint, MidPoint);
             Edge = new Edge(StartNode, EndNode);
             table1 = TopNeighbor.Table.TableNumber;
             table2 = BottomNeighbor.Table.TableNumber;
