@@ -226,6 +226,7 @@ namespace FloorplanClassLibrary
         public List<Edge> GetNeighborEdges()
         {
             CreateNeighbors();
+            this.Neighbors.AddRange(SqliteDataAccess.LoadAllRightLeftNeighbors(this.TableBoarders));
             List<Edge> edges = new List<Edge>();
             //foreach (var table in TableBoarders)
             //{

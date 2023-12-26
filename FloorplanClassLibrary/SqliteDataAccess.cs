@@ -1048,12 +1048,42 @@ namespace FloorplanClassLibrary
 
         public static List<RightLeftNeighbor> LoadAllRightLeftNeighbors(List<TableEdgeBorders> tableEdgeBorders)
         {
+            List<RightLeftNeighbor> neighbors = new List<RightLeftNeighbor>();
+
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                var sql = "SELECT * FROM CustomRightLeftNeighbors;";
-                return cnn.Query<RightLeftNeighbor>(sql).ToList();
+                cnn.Open();
+                using (IDbCommand cmd = cnn.CreateCommand())
+                {
+                    cmd.CommandText = "SELECT * FROM CustomRightLeftNeighbors";
+                    using (IDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int midLocation = reader.GetInt32(reader.GetOrdinal("MidLocation"));
+                            int startPoint = reader.GetInt32(reader.GetOrdinal("StartPoint"));
+                            int endPoint = reader.GetInt32(reader.GetOrdinal("EndPoint"));
+                            string rightBorder = reader.GetString(reader.GetOrdinal("RightBorder"));
+                            string leftBorder = reader.GetString(reader.GetOrdinal("LeftBorder"));
+
+                            TableEdgeBorders rightBorderObj = tableEdgeBorders.FirstOrDefault(t => t.Table.TableNumber == rightBorder);
+                            TableEdgeBorders leftBorderObj = tableEdgeBorders.FirstOrDefault(t => t.Table.TableNumber == leftBorder);
+
+                            if (rightBorderObj != null && leftBorderObj != null)
+                            {
+                                RightLeftNeighbor neighbor = new RightLeftNeighbor(midLocation, startPoint, endPoint, rightBorderObj, leftBorderObj);
+                                rightBorderObj.AddNeighbor(neighbor);
+                                leftBorderObj.AddNeighbor(neighbor);
+                                neighbors.Add(neighbor);
+                            }
+                        }
+                    }
+                }
             }
+
+            return neighbors;
         }
+
 
 
         //public static void SaveTopBottomNeighbor(string key, string value)
