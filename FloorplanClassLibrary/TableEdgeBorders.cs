@@ -36,7 +36,15 @@ namespace FloorplanClassLibrary
                 if (!IsDuplicateTBNeighbor(topBottomNeighbor.TopNeighbor, topBottomNeighbor.BottomNeighbor) &&
                     topBottomNeighbor.TopNeighbor.Table.TableNumber != topBottomNeighbor.BottomNeighbor.Table.TableNumber)
                 {
-                    Neighbors.Add(neighbor);
+                    if (overriddenPairs.TopBotCustomPairs.Contains(pairKey))
+                    {
+                        Neighbors.Add(SqliteDataAccess.LoadCustomTopBottomNeighbor(topBottomNeighbor.TopNeighbor, topBottomNeighbor.BottomNeighbor));
+                    }
+                    else
+                    {
+                        Neighbors.Add(neighbor);
+                    }
+                   
                 }
             }
             else if (neighbor is RightLeftNeighbor rightLeftNeighbor)
@@ -44,6 +52,14 @@ namespace FloorplanClassLibrary
                 if (!IsDuplicateRLNeighbor(rightLeftNeighbor.RightNeighbor, rightLeftNeighbor.LeftNeighbor) &&
                     rightLeftNeighbor.RightNeighbor.Table.TableNumber != rightLeftNeighbor.LeftNeighbor.Table.TableNumber)
                 {
+                    if (overriddenPairs.RightLeftCustomPairs.Contains(pairKey))
+                    {
+                        Neighbors.Add(SqliteDataAccess.LoadCustomRightLeftNeighbor(rightLeftNeighbor.RightNeighbor, rightLeftNeighbor.LeftNeighbor));
+                    }
+                    else
+                    {
+                        Neighbors.Add(neighbor);
+                    }
                     Neighbors.Add(neighbor);
                 }
             }

@@ -967,6 +967,14 @@ namespace FloorPlanMakerUI
                 int newStart = int.Parse(txtStart.Text);
                 int newEnd = int.Parse(txtEnd.Text);
                 selectedNeighbor.SetNewNodes(newMidPoint, newStart, newEnd);
+                if(selectedNeighbor is RightLeftNeighbor selectedRLneighbor)
+                {
+                    SqliteDataAccess.SaveRightLeftNeighbor(selectedRLneighbor);
+                }
+                else if(selectedNeighbor is TopBottomNeighbor selectedTBNeighbor)
+                {
+                    SqliteDataAccess.SaveTopBottomNeighbor(selectedTBNeighbor);
+                }
 
                 SectionLineDrawer edgeDrawer = new SectionLineDrawer(3f);
                 //Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, grid.GetAllTableBoarders());

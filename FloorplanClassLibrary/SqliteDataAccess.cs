@@ -995,32 +995,88 @@ namespace FloorplanClassLibrary
 
             return customPairs;
         }
+        public static HashSet<string> LoadTopBotCustomPairs()
+        {
+            HashSet<string> customPairs = new HashSet<string>();
 
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+               
+                // Load CustomTopBottomNeighbors
+                string sqlTopBottom = "SELECT TopBorder, BottomBorder FROM CustomTopBottomNeighbors;";
+                var topBottomPairs = cnn.Query<(string TopBorder, string BottomBorder)>(sqlTopBottom);
+                foreach (var pair in topBottomPairs)
+                {
+                    string pairKey = GetPairKey(pair.TopBorder, pair.BottomBorder);
+                    customPairs.Add(pairKey);
+                }
+            }
+
+            return customPairs;
+        }
+        public static HashSet<string> LoadRightLeftCustomPairs()
+        {
+            HashSet<string> customPairs = new HashSet<string>();
+
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                // Load CustomRightLeftNeighbors
+                string sqlRightLeft = "SELECT RightBorder, LeftBorder FROM CustomRightLeftNeighbors;";
+                var rightLeftPairs = cnn.Query<(string RightBorder, string LeftBorder)>(sqlRightLeft);
+                foreach (var pair in rightLeftPairs)
+                {
+                    string pairKey = GetPairKey(pair.RightBorder, pair.LeftBorder);
+                    customPairs.Add(pairKey);
+                }
+
+            }
+
+            return customPairs;
+        }
         private static string GetPairKey(string borderOne, string borderTwo)
         {
             return borderOne.CompareTo(borderTwo) < 0 ? borderOne + "-" + borderTwo : borderTwo + "-" + borderOne;
         }
+        public static TopBottomNeighbor LoadCustomTopBottomNeighbor(TableEdgeBorders topBorder, TableEdgeBorders bottomBorder)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                string sql = @"
+            SELECT MidLocation, StartPoint, EndPoint 
+            FROM CustomTopBottomNeighbors 
+            WHERE TopBorder = @TopBorder AND BottomBorder = @BottomBorder;";
 
-        //public static void SaveTopBottomNeighbor(TopBottomNeighbor neighbor)
-        //{
-        //    using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
-        //    {
-        //        var sql = @"
-        //    INSERT INTO CustomTopBottomNeighbors (MidLocation, StartPoint, EndPoint, TopBorder, BottomBorder) 
-        //    VALUES (@MidLocation, @StartPoint, @EndPoint, @TopBorder, @BottomBorder);";
+                var record = cnn.QueryFirstOrDefault<(int MidLocation, int StartPoint, int EndPoint)>(sql, new { TopBorder = topBorder.Table.TableNumber, BottomBorder = bottomBorder.Table.TableNumber });
 
-        //        var parameters = new
-        //        {
-        //            MidLocation = neighbor.MidPoint,
-        //            StartPoint = neighbor.Start,
-        //            EndPoint = neighbor.End,
-        //            TopBorder = neighbor.TopNeighbor.Table.TableNumber,
-        //            BottomBorder = neighbor.BottomNeighbor.Table.TableNumber
-        //        };
+                if (record != default)
+                {
+                    return new TopBottomNeighbor(record.MidLocation, record.StartPoint, record.EndPoint, topBorder, bottomBorder);
+                }
 
-        //        cnn.Execute(sql, parameters);
-        //    }
-        //}
+                return null; // Or handle the case where no record is found
+            }
+        }
+        public static RightLeftNeighbor LoadCustomRightLeftNeighbor(TableEdgeBorders rightBorder, TableEdgeBorders leftBorder)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                string sql = @"
+            SELECT MidLocation, StartPoint, EndPoint 
+            FROM CustomRightLeftNeighbors 
+            WHERE RightBorder = @RightBorder AND LeftBorder = @LeftBorder;";
+
+                var record = cnn.QueryFirstOrDefault<(int MidLocation, int StartPoint, int EndPoint)>(sql, new { RightBorder = rightBorder.Table.TableNumber, LeftBorder = leftBorder.Table.TableNumber });
+
+                if (record != default)
+                {
+                    return new RightLeftNeighbor(record.MidLocation, record.StartPoint, record.EndPoint, rightBorder, leftBorder);
+                }
+
+                return null; // Or handle the case where no record is found
+            }
+        }
+
+
         public static void SaveTopBottomNeighbor(TopBottomNeighbor neighbor)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
