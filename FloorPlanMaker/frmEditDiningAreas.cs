@@ -174,6 +174,18 @@ namespace FloorPlanMakerUI
             {
                 SetTableControlsToSalesData();
             }
+            if (checkBox1.Checked)
+            {
+                
+                grid = new TableGrid(areaCreationManager.DiningAreaSelected.Tables);
+                grid.FindTableTopBottomNeighbors();
+                grid.FindTableNeighbors();
+                grid.SetTableBoarderMidPoints();
+                ToggleViewAllBorders();
+
+                // List<string> testing = grid.GetTestData();
+
+            }
 
 
         }

@@ -1029,16 +1029,24 @@ namespace FloorplanClassLibrary
                 cnn.Execute(sql, new { Id = id });
             }
         }
-        public static List<TopBottomNeighbor> LoadAllTopBottomNeighbors()
+        public static List<TopBottomNeighbor> LoadAllTopBottomNeighbors(List<TableEdgeBorders> tableEdgeBorders)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 var sql = "SELECT * FROM CustomTopBottomNeighbors;";
-                return cnn.Query<TopBottomNeighbor>(sql).ToList();
+                var neighbors = cnn.Query<TopBottomNeighbor>(sql).ToList();
+
+                foreach (var neighbor in neighbors)
+                {
+                    //neighbor.TopNeighbor = tableEdgeBorders.First(tb => tb.Table.TableNumber == neighbor.TopBorder);
+                    //neighbor.BottomNeighbor = tableEdgeBorders.First(tb => tb.Table.TableNumber == );
+                }
+
+                return neighbors;
             }
         }
 
-        public static List<RightLeftNeighbor> LoadAllRightLeftNeighbors()
+        public static List<RightLeftNeighbor> LoadAllRightLeftNeighbors(List<TableEdgeBorders> tableEdgeBorders)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
