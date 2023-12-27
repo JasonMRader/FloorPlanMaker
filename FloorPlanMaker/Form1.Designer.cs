@@ -39,12 +39,8 @@ namespace FloorPlanMaker
             btnAddSectionLabels = new Button();
             flowSectionSelect = new FlowLayoutPanel();
             cbTableDisplayMode = new CheckBox();
-            btnGenerateSectionLines = new Button();
             btnChooseTemplate = new Button();
             btnPrint = new Button();
-            btnDoAThing = new Button();
-            btnTest2 = new Button();
-            btnTest = new Button();
             pnlFloorPlan = new Panel();
             cboDiningAreas = new ComboBox();
             rdoSections = new RadioButton();
@@ -59,11 +55,6 @@ namespace FloorPlanMaker
             pnlFloorplanContainer = new Panel();
             lblDateSelected = new Label();
             pnlNavigationWindow = new Panel();
-            button1 = new Button();
-            button4 = new Button();
-            button3 = new Button();
-            button2 = new Button();
-            btnAddNode = new Button();
             pnlMainContainer = new Panel();
             pnlTemplateContainer = new Panel();
             pnlSideContainer = new Panel();
@@ -177,19 +168,6 @@ namespace FloorPlanMaker
             cbTableDisplayMode.UseVisualStyleBackColor = false;
             cbTableDisplayMode.CheckedChanged += cbTableDisplayMode_CheckedChanged;
             // 
-            // btnGenerateSectionLines
-            // 
-            btnGenerateSectionLines.FlatAppearance.BorderSize = 0;
-            btnGenerateSectionLines.FlatStyle = FlatStyle.Flat;
-            btnGenerateSectionLines.ForeColor = Color.Black;
-            btnGenerateSectionLines.Location = new Point(3, 375);
-            btnGenerateSectionLines.Name = "btnGenerateSectionLines";
-            btnGenerateSectionLines.Size = new Size(36, 65);
-            btnGenerateSectionLines.TabIndex = 15;
-            btnGenerateSectionLines.Text = "Auto Section Lines";
-            btnGenerateSectionLines.UseVisualStyleBackColor = true;
-            btnGenerateSectionLines.Visible = false;
-            // 
             // btnChooseTemplate
             // 
             btnChooseTemplate.BackColor = Color.FromArgb(100, 130, 180);
@@ -219,40 +197,6 @@ namespace FloorPlanMaker
             toolTip1.SetToolTip(btnPrint, "Print and Save Floorplan");
             btnPrint.UseVisualStyleBackColor = false;
             btnPrint.Click += btnPrint_Click;
-            // 
-            // btnDoAThing
-            // 
-            btnDoAThing.Location = new Point(3, 551);
-            btnDoAThing.Name = "btnDoAThing";
-            btnDoAThing.Size = new Size(26, 23);
-            btnDoAThing.TabIndex = 17;
-            btnDoAThing.Text = "3";
-            btnDoAThing.UseVisualStyleBackColor = true;
-            btnDoAThing.Visible = false;
-            btnDoAThing.Click += btnDoAThing_Click;
-            // 
-            // btnTest2
-            // 
-            btnTest2.Location = new Point(3, 522);
-            btnTest2.Name = "btnTest2";
-            btnTest2.Size = new Size(26, 23);
-            btnTest2.TabIndex = 16;
-            btnTest2.Text = "2";
-            btnTest2.UseVisualStyleBackColor = true;
-            btnTest2.Visible = false;
-            btnTest2.Click += btnTest2_Click;
-            // 
-            // btnTest
-            // 
-            btnTest.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
-            btnTest.Location = new Point(3, 491);
-            btnTest.Name = "btnTest";
-            btnTest.Size = new Size(26, 25);
-            btnTest.TabIndex = 12;
-            btnTest.Text = "1";
-            btnTest.UseVisualStyleBackColor = true;
-            btnTest.Visible = false;
-            btnTest.Click += btnTest_Click;
             // 
             // pnlFloorPlan
             // 
@@ -433,15 +377,6 @@ namespace FloorPlanMaker
             // pnlNavigationWindow
             // 
             pnlNavigationWindow.BackColor = Color.FromArgb(225, 225, 225);
-            pnlNavigationWindow.Controls.Add(button1);
-            pnlNavigationWindow.Controls.Add(button4);
-            pnlNavigationWindow.Controls.Add(button3);
-            pnlNavigationWindow.Controls.Add(button2);
-            pnlNavigationWindow.Controls.Add(btnAddNode);
-            pnlNavigationWindow.Controls.Add(btnTest2);
-            pnlNavigationWindow.Controls.Add(btnDoAThing);
-            pnlNavigationWindow.Controls.Add(btnTest);
-            pnlNavigationWindow.Controls.Add(btnGenerateSectionLines);
             pnlNavigationWindow.Controls.Add(pnlMainContainer);
             pnlNavigationWindow.Controls.Add(pnlSideContainer);
             pnlNavigationWindow.Dock = DockStyle.Bottom;
@@ -449,61 +384,6 @@ namespace FloorPlanMaker
             pnlNavigationWindow.Name = "pnlNavigationWindow";
             pnlNavigationWindow.Size = new Size(1264, 979);
             pnlNavigationWindow.TabIndex = 20;
-            // 
-            // button1
-            // 
-            button1.Location = new Point(255, 6);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 23;
-            button1.Text = "Grid";
-            button1.UseVisualStyleBackColor = true;
-            button1.Visible = false;
-            button1.Click += button1_Click;
-            // 
-            // button4
-            // 
-            button4.Location = new Point(892, 3);
-            button4.Name = "button4";
-            button4.Size = new Size(75, 23);
-            button4.TabIndex = 22;
-            button4.Text = "convexHull";
-            button4.UseVisualStyleBackColor = true;
-            button4.Visible = false;
-            button4.Click += button4_Click;
-            // 
-            // button3
-            // 
-            button3.Location = new Point(818, 3);
-            button3.Name = "button3";
-            button3.Size = new Size(75, 23);
-            button3.TabIndex = 22;
-            button3.Text = "button1";
-            button3.UseVisualStyleBackColor = true;
-            button3.Visible = false;
-            button3.Click += button3_Click;
-            // 
-            // button2
-            // 
-            button2.Location = new Point(599, 3);
-            button2.Name = "button2";
-            button2.Size = new Size(112, 23);
-            button2.TabIndex = 22;
-            button2.Text = "Add Bottoms";
-            button2.UseVisualStyleBackColor = true;
-            button2.Visible = false;
-            button2.Click += button2_Click;
-            // 
-            // btnAddNode
-            // 
-            btnAddNode.Location = new Point(494, 3);
-            btnAddNode.Name = "btnAddNode";
-            btnAddNode.Size = new Size(75, 23);
-            btnAddNode.TabIndex = 22;
-            btnAddNode.Text = "Add Tops";
-            btnAddNode.UseVisualStyleBackColor = true;
-            btnAddNode.Visible = false;
-            btnAddNode.Click += btnAddNode_Click;
             // 
             // pnlMainContainer
             // 
@@ -641,13 +521,9 @@ namespace FloorPlanMaker
         private FlowLayoutPanel flowServersInFloorplan;
         private Button btnSaveFloorplanTemplate;
         private Button btnAddSectionLabels;
-        private Button btnTest;
         private Button btnPrint;
         private Button btnChooseTemplate;
-        private Button btnGenerateSectionLines;
         private CheckBox cbIsAM;
-        private Button btnTest2;
-        private Button btnDoAThing;
         private Button btnDayBefore;
         private Button btnNextDay;
         private Button btnCloseApp;
@@ -665,10 +541,5 @@ namespace FloorPlanMaker
         private PictureBox pictureBox1;
         private Label lblDateSelected;
         private Panel pnlTemplateContainer;
-        private Button button4;
-        private Button button3;
-        private Button button2;
-        private Button btnAddNode;
-        private Button button1;
     }
 }
