@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 namespace FloorplanClassLibrary
 {
     using FloorPlanMaker;
+    using FloorPlanMakerUI;
+    using FloorplanUserControlLibrary;
     using System.Drawing;
     using System.Drawing.Printing;
     using System.Windows.Forms;
@@ -14,6 +16,8 @@ namespace FloorplanClassLibrary
     public class FloorplanPrinter
     {
         private Panel _floorplanPanel;
+        private List<Edge> _edges;
+        private SectionLineDrawer _lineDrawer;
 
         public FloorplanPrinter(Panel floorplanPanel)
         {
@@ -21,10 +25,13 @@ namespace FloorplanClassLibrary
         }
         private List<SectionLine> _sectionLines;
 
-        public FloorplanPrinter(Panel floorplanPanel, List<SectionLine> sectionLines)
+        public FloorplanPrinter(Panel floorplanPanel, SectionLineDrawer lineDrawer, List<Edge> edges)
         {
             _floorplanPanel = floorplanPanel;
-            _sectionLines = sectionLines;
+            //_sectionLines = sectionLines;
+           _edges = edges;
+           _lineDrawer = lineDrawer;
+            
         }
 
         private void HandlePrintPage(object sender, PrintPageEventArgs e)
@@ -61,84 +68,20 @@ namespace FloorplanClassLibrary
                     SectionLabelControl.DrawSectionLabelForPrinting(g, sectionControl);
                 }
             }
-
-            // Draw SectionLines
-            foreach (SectionLine sectionLine in _sectionLines)
+            if (_lineDrawer != null && _edges != null)
             {
-                Point adjustedStart = new Point(sectionLine.StartPoint.X, sectionLine.StartPoint.Y);
-                Point adjustedEnd = new Point(sectionLine.EndPoint.X, sectionLine.EndPoint.Y);
-                DrawingHandler.Printer_Paint(g, sectionLine, adjustedStart, adjustedEnd);
+                _lineDrawer.DrawEdges(g, _edges);
             }
+            // Draw SectionLines
+            //foreach (SectionLine sectionLine in _sectionLines)
+            //{
+            //    Point adjustedStart = new Point(sectionLine.StartPoint.X, sectionLine.StartPoint.Y);
+            //    Point adjustedEnd = new Point(sectionLine.EndPoint.X, sectionLine.EndPoint.Y);
+            //    DrawingHandler.Printer_Paint(g, sectionLine, adjustedStart, adjustedEnd);
+            //}
         }
 
-        //private void HandlePrintPage(object sender, PrintPageEventArgs e)
-        //{
-        //    Graphics g = e.Graphics;
-
-        //    // Calculate the scaling factor
-        //    float scaleWidth = e.MarginBounds.Width / (float)_floorplanPanel.Width;
-        //    float scaleHeight = e.MarginBounds.Height / (float)_floorplanPanel.Height;
-        //    float scale = Math.Min(scaleWidth, scaleHeight);  // Use the smaller scale factor to ensure fit
-
-        //    // Apply the scaling transformation
-        //    g.ScaleTransform(scale, scale);
-
-        //    foreach (Control control in _floorplanPanel.Controls)
-        //    {
-        //        if (control is TableControl tableControl)
-        //        {
-        //            // Draw the table in black and white
-        //            TableControl.DrawTableOnGraphics(g, tableControl, true);
-        //            // Add any other specific drawing logic for TableControl
-        //        }
-        //        else if (control is SectionControl sectionControl)
-        //        {
-        //            SectionControl.DrawSectionLabelForPrinting(g, sectionControl);
-        //            sectionControl.BringToFront();
-        //        }
-        //        foreach (SectionLine sectionLine in _sectionLines)
-        //        {
-        //            Point adjustedStart = new Point(sectionLine.StartPoint.X, sectionLine.StartPoint.Y);
-        //            Point adjustedEnd = new Point(sectionLine.EndPoint.X, sectionLine.EndPoint.Y);
-        //            DrawingHandler.Printer_Paint(g, sectionLine, adjustedStart, adjustedEnd);
-        //        }
-        //    }
-        //}
-
-
-        //private void HandlePrintPage(object sender, PrintPageEventArgs e)
-        //{
-        //    Graphics g = e.Graphics;
-
-        //    // First, draw all the TableControl instances
-        //    foreach (Control control in _floorplanPanel.Controls)
-        //    {
-        //        if (control is TableControl tableControl)
-        //        {
-        //            // Draw the table in black and white
-        //            TableControl.DrawTableOnGraphics(g, tableControl, true);
-        //            // Add any other specific drawing logic for TableControl
-        //        }
-        //    }
-
-        //    // Then, draw all the SectionControl instances so they appear on top
-        //    foreach (Control control in _floorplanPanel.Controls)
-        //    {
-        //        if (control is SectionControl sectionControl)
-        //        {
-        //            SectionControl.DrawSectionLabelForPrinting(g, sectionControl);
-        //            sectionControl.BringToFront(); // Note: this may not have an effect on the Graphics object
-        //        }
-        //    }
-
-        //    foreach (SectionLine sectionLine in _sectionLines)
-        //    {
-        //        Point adjustedStart = new Point(sectionLine.StartPoint.X, sectionLine.StartPoint.Y);
-        //        Point adjustedEnd = new Point(sectionLine.EndPoint.X, sectionLine.EndPoint.Y);
-        //        DrawingHandler.Printer_Paint(g, sectionLine, adjustedStart, adjustedEnd);
-        //    }
-        //}
-
+      
 
         public void ShowPrintPreview()
         {

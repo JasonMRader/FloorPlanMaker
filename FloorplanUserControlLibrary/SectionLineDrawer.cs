@@ -29,8 +29,8 @@ namespace FloorplanUserControlLibrary
                     //using (Pen pen = new Pen(edge.Section.Color, LineThickness))
                     using (Pen pen = new Pen(Color.Black, LineThickness))
                     {
-                        Point startPoint = new Point(edge.StartNode.X-3, edge.StartNode.Y);
-                        Point endPoint = new Point(edge.EndNode.X-3, edge.EndNode.Y);
+                        Point startPoint = new Point(edge.StartNode.X, edge.StartNode.Y);
+                        Point endPoint = new Point(edge.EndNode.X, edge.EndNode.Y);
                         graphics.DrawLine(pen, startPoint, endPoint);
                     }
                 }
@@ -52,14 +52,29 @@ namespace FloorplanUserControlLibrary
 
                     using (Pen pen = new Pen(lineColor, LineThickness))
                     {
-                        Point startPoint = new Point(edge.StartNode.X - 3, edge.StartNode.Y);
-                        Point endPoint = new Point(edge.EndNode.X - 3, edge.EndNode.Y);
+                        Point startPoint = new Point(edge.StartNode.X , edge.StartNode.Y);
+                        Point endPoint = new Point(edge.EndNode.X , edge.EndNode.Y);
                         graphics.DrawLine(pen, startPoint, endPoint);
                     }
                 }
             }
 
             return bitmap;
+        }
+        public void DrawEdges(Graphics graphics, IEnumerable<Edge> edges, Edge specialEdge = null)
+        {
+            foreach (var edge in edges)
+            {
+                bool isSpecialEdge = specialEdge != null && edge.StartNode == specialEdge.StartNode && edge.EndNode == specialEdge.EndNode;
+                Color lineColor = isSpecialEdge ? UITheme.HighlightColor : Color.Black;
+
+                using (Pen pen = new Pen(lineColor, LineThickness))
+                {
+                    Point startPoint = new Point(edge.StartNode.X , edge.StartNode.Y);
+                    Point endPoint = new Point(edge.EndNode.X , edge.EndNode.Y);
+                    graphics.DrawLine(pen, startPoint, endPoint);
+                }
+            }
         }
 
     }

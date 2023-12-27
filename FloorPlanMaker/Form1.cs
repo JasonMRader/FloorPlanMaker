@@ -569,7 +569,20 @@ namespace FloorPlanMaker
                     }
                 }
                 SqliteDataAccess.SaveFloorplanAndSections(shiftManager.SelectedFloorplan);
-                FloorplanPrinter printer = new FloorplanPrinter(pnlFloorPlan, sectionLineManager.SectionLines);
+                TableGrid grid = new TableGrid(shiftManager.SelectedDiningArea.Tables);
+                grid.FindTableTopBottomNeighbors();
+                grid.FindTableNeighbors();
+                grid.SetTableBoarderMidPoints();
+                grid.CreateNeighbors();
+                grid.SetSections(this.shiftManager.SelectedFloorplan.Sections);
+                SectionLineDrawer edgeDrawer = new SectionLineDrawer(3f);
+                Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, grid.GetSectionTableBoarders());
+
+
+                //List<Edge> edges = grid.GetNeighborEdges();
+                //Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, edges);
+                pnlFloorPlan.BackgroundImage = edgesBitmap;
+                FloorplanPrinter printer = new FloorplanPrinter(pnlFloorPlan, edgeDrawer, grid.GetSectionTableBoarders());
                 printer.ShowPrintPreview();
                 printer.Print();
             }
