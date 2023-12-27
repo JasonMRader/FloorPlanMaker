@@ -883,15 +883,13 @@ namespace FloorPlanMaker
             grid.FindTableTopBottomNeighbors();
             grid.FindTableNeighbors();
             grid.SetTableBoarderMidPoints();
-            //grid.SetSections(this.shiftManager.SelectedFloorplan.Sections);
-            SectionLineDrawer edgeDrawer = new SectionLineDrawer(3f);
-            //Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, grid.GetAllTableBoarders());
-            List<Edge> edges = grid.GetNeighborEdges();
-            Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, edges);
-            List<string> testing = grid.GetTestData();
+            grid.SetSections(this.shiftManager.SelectedFloorplan.Sections);
+            SectionLineDrawer edgeDrawer = new SectionLineDrawer(3f);           
+            Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, grid.GetSectionTableBoarders());
             
-            //Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, grid.ModifyBottomNeighbors());
-            //Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, grid.GetSectionTableBoarders());
+
+            List<Edge> edges = grid.GetNeighborEdges();
+            //Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, edges);
             pnlFloorPlan.BackgroundImage = edgesBitmap;
         }
     }
