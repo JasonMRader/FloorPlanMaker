@@ -473,6 +473,7 @@ namespace FloorPlanMaker
         {
             floorplanManager.SetSectionLabels();
             floorplanManager.AddSectionLabels(pnlFloorPlan);
+            CreateSectionBorders();
 
         }
 
@@ -879,14 +880,19 @@ namespace FloorPlanMaker
 
         private void button1_Click(object sender, EventArgs e)
         {
+            
+        }
+        private void CreateSectionBorders()
+        {
             TableGrid grid = new TableGrid(shiftManager.SelectedDiningArea.Tables);
             grid.FindTableTopBottomNeighbors();
             grid.FindTableNeighbors();
             grid.SetTableBoarderMidPoints();
+            grid.CreateNeighbors();
             grid.SetSections(this.shiftManager.SelectedFloorplan.Sections);
-            SectionLineDrawer edgeDrawer = new SectionLineDrawer(3f);           
+            SectionLineDrawer edgeDrawer = new SectionLineDrawer(3f);
             Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, grid.GetSectionTableBoarders());
-            
+
 
             List<Edge> edges = grid.GetNeighborEdges();
             //Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, edges);

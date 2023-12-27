@@ -23,6 +23,8 @@ namespace FloorplanClassLibrary
         protected abstract void GetEndNode();
         public string table1 { get; set; }
         public string table2 { get; set; }
+       
+        public TableEdgeBorders SecondTable { get; set; }
         public abstract void SetNewNodes(int newMidPoint, int newStartPoint, int newEndPoint);
 
 
@@ -32,7 +34,8 @@ namespace FloorplanClassLibrary
         public TopBottomNeighbor(TableEdgeBorders topNeighbor, TableEdgeBorders bottomNeighbor)
         {
             TopNeighbor = topNeighbor;
-            BottomNeighbor = bottomNeighbor;           
+            BottomNeighbor = bottomNeighbor;
+            
             MidPoint = (TopNeighbor.Table.Bottom + BottomNeighbor.Table.Top) / 2;
             GetStartNode();
             GetEndNode();
