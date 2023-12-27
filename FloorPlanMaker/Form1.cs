@@ -373,6 +373,10 @@ namespace FloorPlanMaker
             {
                 CreateSectionBorders();
             }
+            else
+            {
+                pnlFloorPlan.BackgroundImage = null;
+            }
         }
         public void UpdateWithTemplate()
         {
@@ -406,6 +410,14 @@ namespace FloorPlanMaker
 
             floorplanManager.SetViewedFloorplan(dateOnlySelected, cbIsAM.Checked, pnlFloorPlan, flowServersInFloorplan, flowSectionSelect);
             this.sectionLineManager = new SectionLineManager(allTableControls);
+            if (AllTablesAreAssigned())
+            {
+                CreateSectionBorders();
+            }
+            else
+            {
+                pnlFloorPlan.BackgroundImage = null;
+            }
         }
 
         private void rdoSections_CheckedChanged(object sender, EventArgs e)
