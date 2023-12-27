@@ -363,7 +363,12 @@ namespace FloorPlanMaker
             if (floorplanManager.Floorplan == null)
             {
                 NoServersToDisplay();
+                pnlFloorPlan.BackgroundImage = null;
 
+            }
+            else if (AllTablesAreAssigned())
+            {
+                CreateSectionBorders();
             }
         }
         public void UpdateWithTemplate()
@@ -748,7 +753,7 @@ namespace FloorPlanMaker
         //
         private void btnTest_Click(object sender, EventArgs e)
         {
-            
+
 
             boarderManager = new FloorplanBoarderManager(shiftManager.SelectedFloorplan.Sections);
             SectionLineDrawer edgeDrawer = new SectionLineDrawer(3f);
@@ -880,7 +885,7 @@ namespace FloorPlanMaker
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
+
         }
         private void CreateSectionBorders()
         {
@@ -897,6 +902,17 @@ namespace FloorPlanMaker
             List<Edge> edges = grid.GetNeighborEdges();
             //Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, edges);
             pnlFloorPlan.BackgroundImage = edgesBitmap;
+        }
+        private bool AllTablesAreAssigned()
+        {
+            foreach(TableControl tableControl in floorplanManager.TableControls)
+            {
+                if(tableControl.Section == null)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

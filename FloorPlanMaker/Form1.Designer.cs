@@ -58,6 +58,7 @@ namespace FloorPlanMaker
             pnlFloorplanContainer = new Panel();
             lblDateSelected = new Label();
             pnlNavigationWindow = new Panel();
+            button1 = new Button();
             button4 = new Button();
             button3 = new Button();
             button2 = new Button();
@@ -70,7 +71,6 @@ namespace FloorPlanMaker
             rdoViewSectionFlow = new RadioButton();
             toolTip1 = new ToolTip(components);
             pictureBox1 = new PictureBox();
-            button1 = new Button();
             flowSectionSelect.SuspendLayout();
             panel1.SuspendLayout();
             pnlFloorplanContainer.SuspendLayout();
@@ -227,6 +227,7 @@ namespace FloorPlanMaker
             btnDoAThing.TabIndex = 17;
             btnDoAThing.Text = "3";
             btnDoAThing.UseVisualStyleBackColor = true;
+            btnDoAThing.Visible = false;
             btnDoAThing.Click += btnDoAThing_Click;
             // 
             // btnTest2
@@ -237,6 +238,7 @@ namespace FloorPlanMaker
             btnTest2.TabIndex = 16;
             btnTest2.Text = "2";
             btnTest2.UseVisualStyleBackColor = true;
+            btnTest2.Visible = false;
             btnTest2.Click += btnTest2_Click;
             // 
             // btnTest
@@ -248,6 +250,7 @@ namespace FloorPlanMaker
             btnTest.TabIndex = 12;
             btnTest.Text = "1";
             btnTest.UseVisualStyleBackColor = true;
+            btnTest.Visible = false;
             btnTest.Click += btnTest_Click;
             // 
             // pnlFloorPlan
@@ -446,6 +449,17 @@ namespace FloorPlanMaker
             pnlNavigationWindow.Size = new Size(1264, 979);
             pnlNavigationWindow.TabIndex = 20;
             // 
+            // button1
+            // 
+            button1.Location = new Point(255, 6);
+            button1.Name = "button1";
+            button1.Size = new Size(75, 23);
+            button1.TabIndex = 23;
+            button1.Text = "Grid";
+            button1.UseVisualStyleBackColor = true;
+            button1.Visible = false;
+            button1.Click += button1_Click;
+            // 
             // button4
             // 
             button4.Location = new Point(892, 3);
@@ -454,6 +468,7 @@ namespace FloorPlanMaker
             button4.TabIndex = 22;
             button4.Text = "convexHull";
             button4.UseVisualStyleBackColor = true;
+            button4.Visible = false;
             button4.Click += button4_Click;
             // 
             // button3
@@ -464,6 +479,7 @@ namespace FloorPlanMaker
             button3.TabIndex = 22;
             button3.Text = "button1";
             button3.UseVisualStyleBackColor = true;
+            button3.Visible = false;
             button3.Click += button3_Click;
             // 
             // button2
@@ -474,6 +490,7 @@ namespace FloorPlanMaker
             button2.TabIndex = 22;
             button2.Text = "Add Bottoms";
             button2.UseVisualStyleBackColor = true;
+            button2.Visible = false;
             button2.Click += button2_Click;
             // 
             // btnAddNode
@@ -484,6 +501,7 @@ namespace FloorPlanMaker
             btnAddNode.TabIndex = 22;
             btnAddNode.Text = "Add Tops";
             btnAddNode.UseVisualStyleBackColor = true;
+            btnAddNode.Visible = false;
             btnAddNode.Click += btnAddNode_Click;
             // 
             // pnlMainContainer
@@ -578,16 +596,6 @@ namespace FloorPlanMaker
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 21;
             pictureBox1.TabStop = false;
-            // 
-            // button1
-            // 
-            button1.Location = new Point(255, 6);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 23;
-            button1.Text = "Grid";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
             // 
             // Form1
             // 

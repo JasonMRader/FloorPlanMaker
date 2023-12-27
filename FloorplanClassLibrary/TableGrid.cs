@@ -222,12 +222,14 @@ namespace FloorplanClassLibrary
               
                 
             }
+            this.Neighbors.AddRange(SqliteDataAccess.LoadAllRightLeftNeighbors(this.TableBoarders));
+            this.Neighbors.AddRange(SqliteDataAccess.LoadAllTopBottomNeighbors(this.TableBoarders));
         }
         public List<Edge> GetNeighborEdges()
         {
             CreateNeighbors();
-            this.Neighbors.AddRange(SqliteDataAccess.LoadAllRightLeftNeighbors(this.TableBoarders));
-            this.Neighbors.AddRange(SqliteDataAccess.LoadAllTopBottomNeighbors(this.TableBoarders));
+            //this.Neighbors.AddRange(SqliteDataAccess.LoadAllRightLeftNeighbors(this.TableBoarders));
+            //this.Neighbors.AddRange(SqliteDataAccess.LoadAllTopBottomNeighbors(this.TableBoarders));
             List<Edge> edges = new List<Edge>();
            
             foreach (Neighbor neighbor in Neighbors)
