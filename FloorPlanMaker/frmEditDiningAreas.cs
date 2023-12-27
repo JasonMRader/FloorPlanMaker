@@ -801,6 +801,10 @@ namespace FloorPlanMakerUI
                     {
                         tableControl.BackColor = UITheme.CautionColor;
                     }
+                    else if(tableControl.Table.TableNumber == areaCreationManager.SelectedTable.TableNumber)
+                    {
+                        tableControl.BackColor = UITheme.YesColor;
+                    }
                     else
                     {
                         tableControl.BackColor = Color.LightGray;

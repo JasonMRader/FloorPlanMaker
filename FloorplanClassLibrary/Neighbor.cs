@@ -53,6 +53,8 @@ namespace FloorplanClassLibrary
             Edge = new Edge(StartNode, EndNode);
             table1 = TopNeighbor.Table.TableNumber;
             table2 = BottomNeighbor.Table.TableNumber;
+            Start = startPoint;
+            End = endPoint;
 
         }
         public TableEdgeBorders TopNeighbor { get; set; }
@@ -147,6 +149,8 @@ namespace FloorplanClassLibrary
             Edge = new Edge(StartNode, EndNode);
             table1 = RightNeighbor.Table.TableNumber;
             table2 = LeftNeighbor.Table.TableNumber;
+            Start = startPoint;
+            End = endPoint;
         }
 
         public TableEdgeBorders RightNeighbor { get; set; }
