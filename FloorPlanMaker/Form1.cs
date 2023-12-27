@@ -262,6 +262,8 @@ namespace FloorPlanMaker
                     //floorplanManager.RemoveTableControlSection(e.UpdateData as Section, pnlFloorPlan);
                     //floorplanManager.UpdateTableControlColors(pnlFloorPlan);
                     CreateSectionBorders();
+                    floorplanManager.SetSectionLabels();
+                    floorplanManager.AddSectionLabels(pnlFloorPlan);
                     break;
                     // Add more cases as needed
             }
@@ -479,7 +481,7 @@ namespace FloorPlanMaker
         {
             floorplanManager.SetSectionLabels();
             floorplanManager.AddSectionLabels(pnlFloorPlan);
-            CreateSectionBorders();
+            //CreateSectionBorders();
 
         }
 
@@ -576,7 +578,7 @@ namespace FloorPlanMaker
                 grid.SetTableBoarderMidPoints();
                 grid.CreateNeighbors();
                 grid.SetSections(this.shiftManager.SelectedFloorplan.Sections);
-                SectionLineDrawer edgeDrawer = new SectionLineDrawer(3f);
+                SectionLineDrawer edgeDrawer = new SectionLineDrawer(5f);
                 Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, grid.GetSectionTableBoarders());
 
 
@@ -768,7 +770,7 @@ namespace FloorPlanMaker
             grid.SetTableBoarderMidPoints();
             grid.CreateNeighbors();
             grid.SetSections(this.shiftManager.SelectedFloorplan.Sections);
-            SectionLineDrawer edgeDrawer = new SectionLineDrawer(3f);
+            SectionLineDrawer edgeDrawer = new SectionLineDrawer(5f);
             Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, grid.GetSectionTableBoarders());
 
 

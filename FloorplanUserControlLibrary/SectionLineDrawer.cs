@@ -11,7 +11,7 @@ namespace FloorplanUserControlLibrary
    
     public class SectionLineDrawer
     {
-        public float LineThickness { get; set; } = 2.0f; // Default line thickness
+        public float LineThickness { get; set; } = 5.0f; // Default line thickness
 
         public SectionLineDrawer(float lineThickness)
         {
