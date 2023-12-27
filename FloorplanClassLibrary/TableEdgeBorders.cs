@@ -60,7 +60,7 @@ namespace FloorplanClassLibrary
                     {
                         Neighbors.Add(neighbor);
                     }
-                    Neighbors.Add(neighbor);
+                   
                 }
             }
         }
