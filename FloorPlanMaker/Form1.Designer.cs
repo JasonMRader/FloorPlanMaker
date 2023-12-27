@@ -31,6 +31,7 @@ namespace FloorPlanMaker
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             flowServersInFloorplan = new FlowLayoutPanel();
             lblServerMaxCovers = new Label();
             lblServerAverageCovers = new Label();
@@ -608,6 +609,7 @@ namespace FloorPlanMaker
             Controls.Add(panel1);
             Controls.Add(pnlNavigationWindow);
             FormBorderStyle = FormBorderStyle.None;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form1";

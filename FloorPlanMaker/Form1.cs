@@ -918,9 +918,9 @@ namespace FloorPlanMaker
         }
         private bool AllTablesAreAssigned()
         {
-            foreach(TableControl tableControl in floorplanManager.TableControls)
+            foreach (TableControl tableControl in floorplanManager.TableControls)
             {
-                if(tableControl.Section == null)
+                if (tableControl.Section == null)
                 {
                     return false;
                 }
