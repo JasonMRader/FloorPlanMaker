@@ -793,39 +793,43 @@ namespace FloorPlanMakerUI
         {
             if (checkBox1.Checked)
             {
-                lblSelectedTableNumber.Text = areaCreationManager.SelectedTable.TableNumber;
-                List<string> tableNumbers = grid.GetNeighborNames(areaCreationManager.SelectedTable.TableNumber);
-                foreach (TableControl tableControl in pnlFloorPlan.Controls)
-                {
-                    if (tableNumbers.Contains(tableControl.Table.TableNumber))
-                    {
-                        tableControl.BackColor = UITheme.CautionColor;
-                    }
-                    else if(tableControl.Table.TableNumber == areaCreationManager.SelectedTable.TableNumber)
-                    {
-                        tableControl.BackColor = UITheme.YesColor;
-                    }
-                    else
-                    {
-                        tableControl.BackColor = Color.LightGray;
-                    }
-                }
+                NeighborsChanged();
                 ToggleViewAllBorders();
-
-                List<Neighbor> neighbors = grid.GetNeighbors(areaCreationManager.SelectedTable.TableNumber);
-                lbTableNeighbors.Items.Clear();
-
-                List<string> displayableNeighbors = grid.GetDisplayableNeighbors(neighbors, areaCreationManager.SelectedTable);
-                foreach (var neighborString in displayableNeighbors)
-                {
-                    lbTableNeighbors.Items.Add(neighborString);
-                }
-                txtMidPoint.Text = "";
-                txtStart.Text = "";
-                txtEnd.Text = "";
-
             }
 
+        }
+        private void NeighborsChanged()
+        {
+            lblSelectedTableNumber.Text = areaCreationManager.SelectedTable.TableNumber;
+            List<string> tableNumbers = grid.GetNeighborNames(areaCreationManager.SelectedTable.TableNumber);
+            foreach (TableControl tableControl in pnlFloorPlan.Controls)
+            {
+                if (tableNumbers.Contains(tableControl.Table.TableNumber))
+                {
+                    tableControl.BackColor = UITheme.CautionColor;
+                }
+                else if (tableControl.Table.TableNumber == areaCreationManager.SelectedTable.TableNumber)
+                {
+                    tableControl.BackColor = UITheme.YesColor;
+                }
+                else
+                {
+                    tableControl.BackColor = Color.LightGray;
+                }
+            }
+
+
+            List<Neighbor> neighbors = grid.GetNeighbors(areaCreationManager.SelectedTable.TableNumber);
+            lbTableNeighbors.Items.Clear();
+
+            List<string> displayableNeighbors = grid.GetDisplayableNeighbors(neighbors, areaCreationManager.SelectedTable);
+            foreach (var neighborString in displayableNeighbors)
+            {
+                lbTableNeighbors.Items.Add(neighborString);
+            }
+            txtMidPoint.Text = "";
+            txtStart.Text = "";
+            txtEnd.Text = "";
         }
         private void MakeNeighborControlsInvisible()
         {
@@ -950,17 +954,20 @@ namespace FloorPlanMakerUI
                 ToggleViewAllBorders();
 
             }
+            NeighborsChanged();
         }
 
         private void btnAddNewRightLeftNeighbor_Click(object sender, EventArgs e)
         {
             grid.ManuallyCreateRLNeighbor(areaCreationManager.SelectedTable.TableNumber, txtAddNewNeighbor.Text);
             ToggleViewAllBorders();
+            NeighborsChanged();
         }
         private void btnAddTopBottomNeighbor_Click(object sender, EventArgs e)
         {
             grid.ManuallyCreateTBNeighbor(areaCreationManager.SelectedTable.TableNumber, txtAddNewNeighbor.Text);
             ToggleViewAllBorders();
+            NeighborsChanged();
         }
         private void btnChangeNeighborEdge_Click(object sender, EventArgs e)
         {

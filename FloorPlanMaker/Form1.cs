@@ -571,7 +571,7 @@ namespace FloorPlanMaker
                 SqliteDataAccess.SaveFloorplanAndSections(shiftManager.SelectedFloorplan);
                 FloorplanPrinter printer = new FloorplanPrinter(pnlFloorPlan, sectionLineManager.SectionLines);
                 printer.ShowPrintPreview();
-                //printer.Print();
+                printer.Print();
             }
             else
             {
