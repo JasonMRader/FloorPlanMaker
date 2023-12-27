@@ -660,13 +660,27 @@ namespace FloorPlanMakerUI
 
                 
                 clickedTableControl.Invalidate();
+                if (AllTablesAreAssigned())
+                {
+                    UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.TableControl, UpdateType.Refresh, clickedTableControl));
+                }
                 //UpdateSectionLabels(shiftManager.SectionSelected, shiftManager.SectionSelected.MaxCovers, shiftManager.SectionSelected.AverageCovers);
             }
 
             
 
         }
-
+        private bool AllTablesAreAssigned()
+        {
+            foreach (TableControl tableControl in TableControls)
+            {
+                if (tableControl.Section == null)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
         private void UpdateAveragesPerServer()
         {
             coversImageLabel.UpdateText(ShiftManager.SelectedFloorplan.MaxCoversPerServer.ToString("F0"));

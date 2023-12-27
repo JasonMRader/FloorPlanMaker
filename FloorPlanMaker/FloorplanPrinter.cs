@@ -72,13 +72,7 @@ namespace FloorplanClassLibrary
             {
                 _lineDrawer.DrawEdges(g, _edges);
             }
-            // Draw SectionLines
-            //foreach (SectionLine sectionLine in _sectionLines)
-            //{
-            //    Point adjustedStart = new Point(sectionLine.StartPoint.X, sectionLine.StartPoint.Y);
-            //    Point adjustedEnd = new Point(sectionLine.EndPoint.X, sectionLine.EndPoint.Y);
-            //    DrawingHandler.Printer_Paint(g, sectionLine, adjustedStart, adjustedEnd);
-            //}
+           
         }
 
       
