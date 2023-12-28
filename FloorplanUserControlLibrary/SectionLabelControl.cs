@@ -50,7 +50,7 @@ namespace FloorplanClassLibrary
             };
             assignServerButton = new PictureBox
             {
-                //Image = Resource1.Add_Person1,
+                Image = Resources.person,
                 Dock = DockStyle.Right,
                 Size = new Size(23, 23),
                 SizeMode = PictureBoxSizeMode.StretchImage

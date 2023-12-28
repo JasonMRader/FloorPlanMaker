@@ -264,6 +264,7 @@ namespace FloorPlanMaker
                     CreateSectionBorders();
                     floorplanManager.SetSectionLabels();
                     floorplanManager.AddSectionLabels(pnlFloorPlan);
+                    rdoViewServerFlow.Checked = true;
                     break;
                     // Add more cases as needed
             }
