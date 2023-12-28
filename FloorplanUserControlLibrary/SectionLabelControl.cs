@@ -44,7 +44,7 @@ namespace FloorplanClassLibrary
             sectionLabel = new Label
             {
                 Dock = DockStyle.Left,
-                AutoSize = false,
+                AutoSize = true,
                 TextAlign = ContentAlignment.MiddleCenter,
                 Font = new Font("Segoe UI", 12f, FontStyle.Bold)
             };
@@ -64,7 +64,9 @@ namespace FloorplanClassLibrary
             };
             serversPanel = new FlowLayoutPanel { Dock = DockStyle.Bottom, Height = 0 };
             headerPanel = new Panel { Dock = DockStyle.Top, Height = 30 }; // Assuming height of 30, adjust as needed
+            //headerPanel.AutoSize = true;
             this.Height = 30;
+           
             this.AutoSize = true;
             this.Padding = new Padding(5); // Adjust this value based on your desired border thickness.
 
@@ -313,17 +315,7 @@ namespace FloorplanClassLibrary
                     this.headerPanel.Height += 30;
                 }
             }
-            //if (Section.IsTeamWait == true && Section.Server != null)
-            //{
-            //    Section.ServerTeam.Add(assignedServer);
-                
-            //    this.sectionLabel.Height += 30;
-            //    this.headerPanel.Height += 30;
-            //}
-            //else
-            //{
-            //    Section.Server = assignedServer;
-            //}
+           
             serversPanel.Height = 0;
            
             UpdateLabel();
@@ -369,6 +361,16 @@ namespace FloorplanClassLibrary
             else
             {
                 setCloserButton.Image = Resources.Scissors__Copy;
+            }
+            using (Graphics g = this.CreateGraphics())
+            {
+               
+                SizeF stringSize = g.MeasureString(sectionLabel.Text, sectionLabel.Font);
+
+               
+                this.Width = (int)stringSize.Width + 60; // Adding some padding
+                this.Height = 30;
+               
             }
             this.Invalidate();
 
