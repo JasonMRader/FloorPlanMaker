@@ -30,7 +30,7 @@ namespace FloorPlanMaker
                 Margin = new Padding(0,0,0,0)
             };
             Label = new Label
-            {
+            {                
                 Text = Server.AbbreviatedName,
                 AutoSize = false,
                 Height = height,
@@ -45,7 +45,10 @@ namespace FloorPlanMaker
             this.Controls.Add(NamePanel);
             this.Label.Click += (sender, e) => this.OnClick(e);
             this.TabStop = false;
-           
+            if (this.Server.isDouble)
+            {
+                Label.Text = Server.AbbreviatedName + " (Dbl)";
+            }
             
            
             DisplayShifts();

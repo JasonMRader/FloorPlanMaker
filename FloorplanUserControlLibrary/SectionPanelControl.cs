@@ -105,7 +105,7 @@ namespace FloorplanUserControlLibrary
             {
                 if (this.Section.Server.isDouble)
                 {
-                    lblDisplay.Text = Section.Server.Name + "(Double)";
+                    lblDisplay.Text = Section.Server.Name + " (Dbl)";
                 }
                 lblDisplay.BackColor = Section.Color;
                 lblDisplay.Click -= unassignedLabel_Click;

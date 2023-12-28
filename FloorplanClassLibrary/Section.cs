@@ -373,10 +373,14 @@ namespace FloorplanClassLibrary
             }
             if (this.Server != null)
             {
-                displayString = Server.AbbreviatedName;
+                
                 if (Server.isDouble)
                 {
                     displayString = Server.AbbreviatedName + "*";
+                }
+                else
+                {
+                    displayString = Server.AbbreviatedName;
                 }
             }
             
