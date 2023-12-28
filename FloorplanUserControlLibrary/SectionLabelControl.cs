@@ -200,6 +200,18 @@ namespace FloorplanClassLibrary
         }
         private void Close_click(object sender, EventArgs e)
         {
+            if (this.Section.Server.isDouble)
+            {
+                DialogResult result = MessageBox.Show(Section.Server.Name + " is a Double. Assign as closer anyway?",
+                                                 "Continue?",
+                                                 MessageBoxButtons.YesNo,
+                                                 MessageBoxIcon.Question);
+
+                if (result == DialogResult.No)
+                {
+                    return;
+                }
+            }
             this.Section.IsCloser = true;
             this.Section.IsPre = false;
             this.setCloserButton.Image = Resources.Close;

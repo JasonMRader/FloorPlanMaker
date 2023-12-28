@@ -107,6 +107,10 @@ namespace FloorplanUserControlLibrary
                 {
                     lblDisplay.Text = Section.Server.Name + " (Dbl)";
                 }
+                else
+                {
+                    lblDisplay.Text = Section.Server.Name;
+                }
                 lblDisplay.BackColor = Section.Color;
                 lblDisplay.Click -= unassignedLabel_Click;
             }
