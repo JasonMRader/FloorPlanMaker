@@ -103,7 +103,10 @@ namespace FloorplanUserControlLibrary
 
             if (this.Section.Server != null && Section.IsTeamWait == false)
             {
-                lblDisplay.Text = Section.Server.Name;
+                if (this.Section.Server.isDouble)
+                {
+                    lblDisplay.Text = Section.Server.Name + "(Double)";
+                }
                 lblDisplay.BackColor = Section.Color;
                 lblDisplay.Click -= unassignedLabel_Click;
             }
@@ -133,6 +136,10 @@ namespace FloorplanUserControlLibrary
 
                 }
                 
+            }
+            if (this.Section.Server.isDouble)
+            {
+                lblDisplay.Text = Section.Server.Name + "(Double)";
             }
         }
         public void UpdateSalesAndCovers()
@@ -210,6 +217,10 @@ namespace FloorplanUserControlLibrary
             {
                 label.BackColor = this.Section.Color;
                 label.Text = server.Name;
+                if (this.Section.Server.isDouble)
+                {
+                    lblDisplay.Text = Section.Server.Name + "(Double)";
+                }
                 label.Tag = server;
                 removeBox.Tag = server;
                 

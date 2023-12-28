@@ -6,15 +6,7 @@
 
         public int ID { get; set; }
         public string Name { get; set; }
-        //public Section? Section { get; private set; }
-        //public void AssignToSection(Section section)
-        //{
-        //    Section = section;
-        //}
-        //public void RemoveFromSection()
-        //{
-        //    Section = null;
-        //}
+        public bool isDouble { get; set; }
        
 
         private Section? _currentSection;
@@ -71,17 +63,7 @@
             Server other = (Server)obj;
             return this.ID == other.ID;
         }
-        //public event Action<Section> AssignedToSection;
-        //public event Action<Section> RemovedFromSection;
-
-        //public void NotifyAssignedToSection(Section section)
-        //{
-        //    AssignedToSection?.Invoke(section);
-        //}
-        //public void NotifyRemovedFromSection()
-        //{
-        //    RemovedFromSection?.Invoke(null);
-        //}
+       
         public override int GetHashCode()
         {
             return ID.GetHashCode();

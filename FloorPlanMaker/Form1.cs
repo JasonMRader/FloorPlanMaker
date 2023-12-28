@@ -193,6 +193,19 @@ namespace FloorPlanMaker
             {
                 this.shiftManager.AddFloorplanAndServers(fp);
             }
+            if (!shiftManager.IsAM)
+            {
+                List<Floorplan> amFloorplans = SqliteDataAccess.LoadFloorplansByDateAndShift(shiftManagerToAdd.DateOnly, true);
+                if (amFloorplans == null) return;
+                List<Server> amServers = amFloorplans.SelectMany(f=> f.Servers).ToList();
+                foreach(Server s in shiftManagerToAdd.ServersOnShift)
+                {
+                    if (amServers.Contains(s))
+                    {
+                        s.isDouble = true;
+                    }
+                }
+            }
             floorplanManager.SetViewedFloorplan(dateOnlySelected, cbIsAM.Checked, pnlFloorPlan, flowServersInFloorplan, flowSectionSelect);
             rdoSections.Checked = true;
             rdoViewSectionFlow.Checked = true;
