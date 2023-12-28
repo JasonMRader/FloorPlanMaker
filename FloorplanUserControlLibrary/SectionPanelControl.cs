@@ -137,10 +137,7 @@ namespace FloorplanUserControlLibrary
                 }
                 
             }
-            if (this.Section.Server.isDouble)
-            {
-                lblDisplay.Text = Section.Server.Name + "(Double)";
-            }
+            
         }
         public void UpdateSalesAndCovers()
         {

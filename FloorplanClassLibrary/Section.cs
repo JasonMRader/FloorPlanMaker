@@ -374,6 +374,10 @@ namespace FloorplanClassLibrary
             if (this.Server != null)
             {
                 displayString = Server.AbbreviatedName;
+                if (Server.isDouble)
+                {
+                    displayString = Server.AbbreviatedName + "*";
+                }
             }
             
             if (this.IsTeamWait)
@@ -381,7 +385,15 @@ namespace FloorplanClassLibrary
                 displayString = "";
                 foreach (Server server in this.ServerTeam)
                 {
-                    displayString += server.AbbreviatedName;
+                    if (Server.isDouble)
+                    {
+                        displayString += Server.AbbreviatedName + "*";
+                    }
+                    else
+                    {
+                        displayString += server.AbbreviatedName;
+                    }
+                    
                     if(server != ServerTeam.Last())
                     {
                         displayString += "\n ";
