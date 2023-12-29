@@ -61,7 +61,7 @@ namespace FloorPlanMaker
         private void SetColors()
         {
             btnCloseApp.BackColor = Color.Red;
-            UITheme.FormatCTAButton(btnAddSectionLabels);
+
             UITheme.FormatCTAButton(btnPrint);
             UITheme.FormatCTAButton(rdoDiningAreas);
             UITheme.FormatCTAButton(rdoSections);
@@ -87,7 +87,7 @@ namespace FloorPlanMaker
             lblServerMaxCovers.Font = UITheme.LargeFont;
 
             btnChooseTemplate.Font = UITheme.MainFont;
-           
+
             btnSaveFloorplanTemplate.Font = UITheme.MainFont;
             cbTableDisplayMode.Font = UITheme.MainFont;
 
@@ -197,8 +197,8 @@ namespace FloorPlanMaker
             {
                 List<Floorplan> amFloorplans = SqliteDataAccess.LoadFloorplansByDateAndShift(shiftManagerToAdd.DateOnly, true);
                 if (amFloorplans == null) return;
-                List<Server> amServers = amFloorplans.SelectMany(f=> f.Servers).ToList();
-                foreach(Server s in shiftManagerToAdd.ServersOnShift)
+                List<Server> amServers = amFloorplans.SelectMany(f => f.Servers).ToList();
+                foreach (Server s in shiftManagerToAdd.ServersOnShift)
                 {
                     if (amServers.Contains(s))
                     {
@@ -786,8 +786,8 @@ namespace FloorPlanMaker
                 quicklyChoosingAServer = false;
             }
         }
-       
-      
+
+
         private void CreateSectionBorders()
         {
             TableGrid grid = new TableGrid(shiftManager.SelectedDiningArea.Tables);

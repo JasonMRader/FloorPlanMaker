@@ -36,7 +36,6 @@ namespace FloorPlanMaker
             lblServerMaxCovers = new Label();
             lblServerAverageCovers = new Label();
             btnSaveFloorplanTemplate = new Button();
-            btnAddSectionLabels = new Button();
             flowSectionSelect = new FlowLayoutPanel();
             cbTableDisplayMode = new CheckBox();
             btnChooseTemplate = new Button();
@@ -124,21 +123,6 @@ namespace FloorPlanMaker
             btnSaveFloorplanTemplate.UseVisualStyleBackColor = true;
             btnSaveFloorplanTemplate.Click += btnSaveFloorplanTemplate_Click;
             // 
-            // btnAddSectionLabels
-            // 
-            btnAddSectionLabels.BackColor = Color.FromArgb(100, 130, 180);
-            btnAddSectionLabels.FlatAppearance.BorderSize = 0;
-            btnAddSectionLabels.FlatStyle = FlatStyle.Flat;
-            btnAddSectionLabels.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            btnAddSectionLabels.Image = FloorPlanMakerUI.Properties.Resources.lilLabels;
-            btnAddSectionLabels.Location = new Point(3, 3);
-            btnAddSectionLabels.Name = "btnAddSectionLabels";
-            btnAddSectionLabels.Size = new Size(45, 33);
-            btnAddSectionLabels.TabIndex = 13;
-            toolTip1.SetToolTip(btnAddSectionLabels, "Add Section Labels");
-            btnAddSectionLabels.UseVisualStyleBackColor = false;
-            btnAddSectionLabels.Click += btnAddSectionLabels_Click;
-            // 
             // flowSectionSelect
             // 
             flowSectionSelect.BackColor = Color.Silver;
@@ -159,7 +143,7 @@ namespace FloorPlanMaker
             cbTableDisplayMode.FlatStyle = FlatStyle.Flat;
             cbTableDisplayMode.ForeColor = Color.Black;
             cbTableDisplayMode.Image = FloorPlanMakerUI.Properties.Resources.noun_view_Smalll;
-            cbTableDisplayMode.Location = new Point(159, 3);
+            cbTableDisplayMode.Location = new Point(136, 0);
             cbTableDisplayMode.Name = "cbTableDisplayMode";
             cbTableDisplayMode.Size = new Size(45, 33);
             cbTableDisplayMode.TabIndex = 16;
@@ -175,7 +159,7 @@ namespace FloorPlanMaker
             btnChooseTemplate.FlatStyle = FlatStyle.Flat;
             btnChooseTemplate.ForeColor = Color.Black;
             btnChooseTemplate.Image = FloorPlanMakerUI.Properties.Resources.blueSMall;
-            btnChooseTemplate.Location = new Point(107, 3);
+            btnChooseTemplate.Location = new Point(72, 0);
             btnChooseTemplate.Name = "btnChooseTemplate";
             btnChooseTemplate.Size = new Size(45, 33);
             btnChooseTemplate.TabIndex = 14;
@@ -190,7 +174,7 @@ namespace FloorPlanMaker
             btnPrint.FlatStyle = FlatStyle.Flat;
             btnPrint.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             btnPrint.Image = FloorPlanMakerUI.Properties.Resources.lilPrinter;
-            btnPrint.Location = new Point(55, 3);
+            btnPrint.Location = new Point(5, 0);
             btnPrint.Name = "btnPrint";
             btnPrint.Size = new Size(45, 33);
             btnPrint.TabIndex = 13;
@@ -212,9 +196,9 @@ namespace FloorPlanMaker
             cboDiningAreas.FlatStyle = FlatStyle.Flat;
             cboDiningAreas.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             cboDiningAreas.FormattingEnabled = true;
-            cboDiningAreas.Location = new Point(211, 3);
+            cboDiningAreas.Location = new Point(199, 3);
             cboDiningAreas.Name = "cboDiningAreas";
-            cboDiningAreas.Size = new Size(222, 33);
+            cboDiningAreas.Size = new Size(234, 33);
             cboDiningAreas.TabIndex = 7;
             cboDiningAreas.SelectedIndexChanged += cboDiningAreas_SelectedIndexChanged;
             // 
@@ -347,7 +331,6 @@ namespace FloorPlanMaker
             // 
             pnlFloorplanContainer.BackColor = Color.WhiteSmoke;
             pnlFloorplanContainer.Controls.Add(lblDateSelected);
-            pnlFloorplanContainer.Controls.Add(btnAddSectionLabels);
             pnlFloorplanContainer.Controls.Add(btnChooseTemplate);
             pnlFloorplanContainer.Controls.Add(btnPrint);
             pnlFloorplanContainer.Controls.Add(cbTableDisplayMode);
@@ -520,7 +503,6 @@ namespace FloorPlanMaker
         private Panel panel1;
         private FlowLayoutPanel flowServersInFloorplan;
         private Button btnSaveFloorplanTemplate;
-        private Button btnAddSectionLabels;
         private Button btnPrint;
         private Button btnChooseTemplate;
         private CheckBox cbIsAM;

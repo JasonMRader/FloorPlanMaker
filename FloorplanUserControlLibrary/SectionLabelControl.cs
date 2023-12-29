@@ -29,7 +29,7 @@ namespace FloorplanClassLibrary
         private int borderWidth = 5;
         // TODO: rework what apears on SectionLabels
         // TODO: choose selected section from label
-        // TODO: auto add labels when all tables are assigned in an area, remove add section label buttons
+        
         public Section Section { get; set; }
 
         private List<Server> unassignedServers = new List<Server>();
