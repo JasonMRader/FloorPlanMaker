@@ -206,15 +206,8 @@ namespace FloorPlanMaker
                     Floorplan fp = SqliteDataAccess.LoadFloorplanByCriteria(diningArea, date, cbIsAM.Checked);
                     if (fp != null)
                     {
-
                         pastShiftsManager.AddFloorplanAndServers(fp);
-                        //foreach (Control c in flowDiningAreas.Controls)
-                        //{
-                        //    if (c is CheckBox cb && c.Tag == diningArea)
-                        //    {
-                        //        cb.Checked = true;
-                        //    }
-                        //}
+                       
                     }
                 }
                 RefreshFloorplanFlowPanel(pastShiftsManager.Floorplans);
@@ -225,15 +218,10 @@ namespace FloorPlanMaker
                 foreach (DiningArea diningArea in DiningAreaManager.DiningAreas)
                 {
                     Floorplan fp = newShiftManager.Floorplans.FirstOrDefault(fp => fp.DiningArea == diningArea);
+                    //Floorplan existingFP = SqliteDataAccess.LoadFloorplanByCriteria(diningArea, date, cbIsAM.Checked);
                     if (fp != null)
                     {
-                        //foreach (Control c in flowDiningAreas.Controls)
-                        //{
-                        //    if (c is CheckBox cb && c.Tag == diningArea)
-                        //    {
-                        //        cb.Checked = true;
-                        //    }
-                        //}
+                      
                     }
                 }
                 RefreshFloorplanFlowPanel(newShiftManager.Floorplans);
@@ -560,6 +548,7 @@ namespace FloorPlanMaker
             form.BringToFront();
 
         }
+        //TODO have this method load current floorplans
         public void UpdateNewShift(ShiftManager shiftManagerToAdd)
         {
             this.newShiftManager = null;
