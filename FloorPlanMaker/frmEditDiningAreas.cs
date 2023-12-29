@@ -176,7 +176,7 @@ namespace FloorPlanMakerUI
             }
             if (checkBox1.Checked)
             {
-                
+
                 grid = new TableGrid(areaCreationManager.DiningAreaSelected.Tables);
                 grid.FindTableTopBottomNeighbors();
                 grid.FindTableNeighbors();
@@ -780,7 +780,7 @@ namespace FloorPlanMakerUI
                 grid.SetTableBoarderMidPoints();
                 ToggleViewAllBorders();
 
-               // List<string> testing = grid.GetTestData();
+                // List<string> testing = grid.GetTestData();
 
             }
             else
@@ -906,14 +906,14 @@ namespace FloorPlanMakerUI
                 {
                     return;
                 }
-               
+
                 List<Edge> edges = grid.GetNeighborEdgesForOneTable(areaCreationManager.SelectedTable.TableNumber);
                 Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, edges);
                 pnlFloorPlan.BackgroundImage = edgesBitmap;
             }
             else
             {
-                
+
                 //Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, grid.GetAllTableBoarders());
                 List<Edge> edges = grid.GetNeighborEdges();
                 Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, edges);
@@ -978,11 +978,11 @@ namespace FloorPlanMakerUI
                 int newStart = int.Parse(txtStart.Text);
                 int newEnd = int.Parse(txtEnd.Text);
                 selectedNeighbor.SetNewNodes(newMidPoint, newStart, newEnd);
-                if(selectedNeighbor is RightLeftNeighbor selectedRLneighbor)
+                if (selectedNeighbor is RightLeftNeighbor selectedRLneighbor)
                 {
                     SqliteDataAccess.SaveRightLeftNeighbor(selectedRLneighbor);
                 }
-                else if(selectedNeighbor is TopBottomNeighbor selectedTBNeighbor)
+                else if (selectedNeighbor is TopBottomNeighbor selectedTBNeighbor)
                 {
                     SqliteDataAccess.SaveTopBottomNeighbor(selectedTBNeighbor);
                 }
@@ -996,6 +996,6 @@ namespace FloorPlanMakerUI
             }
         }
 
-        
+
     }
 }

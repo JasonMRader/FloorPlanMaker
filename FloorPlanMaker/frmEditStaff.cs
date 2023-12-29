@@ -207,7 +207,7 @@ namespace FloorPlanMaker
                     if (fp != null)
                     {
                         pastShiftsManager.AddFloorplanAndServers(fp);
-                       
+
                     }
                 }
                 RefreshFloorplanFlowPanel(pastShiftsManager.Floorplans);
@@ -221,7 +221,7 @@ namespace FloorPlanMaker
                     //Floorplan existingFP = SqliteDataAccess.LoadFloorplanByCriteria(diningArea, date, cbIsAM.Checked);
                     if (fp != null)
                     {
-                      
+
                     }
                 }
                 RefreshFloorplanFlowPanel(newShiftManager.Floorplans);
@@ -326,7 +326,7 @@ namespace FloorPlanMaker
         List<FloorplanInfoControl> infoPanelList = new List<FloorplanInfoControl>();
 
 
-       
+
 
         private Button CreateServerButton(Server server)
         {
@@ -568,7 +568,7 @@ namespace FloorPlanMaker
             foreach (var server in newShiftManager.UnassignedServers)
             {
                 newShiftManager.ServersNotOnShift.Remove(server);
-                ServerControl newServerControl = new ServerControl(server,  20);
+                ServerControl newServerControl = new ServerControl(server, 20);
                 newServerControl.Click += ServerControl_Click;
                 //newServerControl.AddRemoveButton(flowUnassignedServers, flowAllServers, newShiftManager.UnassignedServers, newShiftManager.ServersNotOnShift, 155, 20);
                 //newServerControl.RemoveButton.Click += serverControl_Click_RemoveFromShift;

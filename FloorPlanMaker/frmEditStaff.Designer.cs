@@ -50,9 +50,9 @@
             btnAssignTables.FlatStyle = FlatStyle.Flat;
             btnAssignTables.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
             btnAssignTables.ForeColor = Color.Black;
-            btnAssignTables.Location = new Point(25, 912);
+            btnAssignTables.Location = new Point(25, 930);
             btnAssignTables.Name = "btnAssignTables";
-            btnAssignTables.Size = new Size(1227, 46);
+            btnAssignTables.Size = new Size(1217, 46);
             btnAssignTables.TabIndex = 4;
             btnAssignTables.Text = "Assign Tables";
             btnAssignTables.UseVisualStyleBackColor = false;
@@ -164,7 +164,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.WhiteSmoke;
-            ClientSize = new Size(1264, 967);
+            ClientSize = new Size(1264, 997);
             Controls.Add(pbForward);
             Controls.Add(pbBack);
             Controls.Add(btnCreateANewShift);

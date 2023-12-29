@@ -238,7 +238,7 @@ namespace FloorPlanMakerUI
             var relevantFloorplans = allFloorplans
                 .Where(fp => fp.Date.Date == dateSelected && fp.IsLunch == cbIsAm.Checked)
                 .ToList();
-            if (relevantFloorplans.Count < 0) 
+            if (relevantFloorplans.Count < 0)
             {
 
             }
@@ -275,7 +275,7 @@ namespace FloorPlanMakerUI
                     AddToShift_Click(btn, e);
                 }
             }
-            
+
 
 
         }

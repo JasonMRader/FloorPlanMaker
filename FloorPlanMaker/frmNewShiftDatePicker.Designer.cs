@@ -65,9 +65,9 @@
             btnOK.FlatAppearance.BorderSize = 0;
             btnOK.FlatStyle = FlatStyle.Flat;
             btnOK.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            btnOK.Location = new Point(31, 907);
+            btnOK.Location = new Point(25, 922);
             btnOK.Name = "btnOK";
-            btnOK.Size = new Size(1205, 35);
+            btnOK.Size = new Size(1208, 35);
             btnOK.TabIndex = 0;
             btnOK.Text = "OK!";
             btnOK.UseVisualStyleBackColor = false;
@@ -162,9 +162,9 @@
             btnCancel.FlatAppearance.BorderSize = 0;
             btnCancel.FlatStyle = FlatStyle.Flat;
             btnCancel.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            btnCancel.Location = new Point(31, 866);
+            btnCancel.Location = new Point(25, 881);
             btnCancel.Name = "btnCancel";
-            btnCancel.Size = new Size(1205, 35);
+            btnCancel.Size = new Size(1208, 35);
             btnCancel.TabIndex = 0;
             btnCancel.Text = "Cancel";
             btnCancel.UseVisualStyleBackColor = false;
@@ -203,7 +203,7 @@
             panel2.Controls.Add(label1);
             panel2.Controls.Add(flowDiningAreas);
             panel2.Controls.Add(flowYesterdayCounts);
-            panel2.Location = new Point(28, 130);
+            panel2.Location = new Point(25, 130);
             panel2.Name = "panel2";
             panel2.Size = new Size(1208, 196);
             panel2.TabIndex = 4;
@@ -244,9 +244,9 @@
             panel3.Controls.Add(pbAddPerson);
             panel3.Controls.Add(flowAllServers);
             panel3.Controls.Add(label5);
-            panel3.Location = new Point(28, 351);
+            panel3.Location = new Point(25, 351);
             panel3.Name = "panel3";
-            panel3.Size = new Size(590, 492);
+            panel3.Size = new Size(595, 512);
             panel3.TabIndex = 5;
             // 
             // pbAddPerson
@@ -267,7 +267,7 @@
             flowAllServers.BackColor = Color.WhiteSmoke;
             flowAllServers.Location = new Point(9, 45);
             flowAllServers.Name = "flowAllServers";
-            flowAllServers.Size = new Size(578, 444);
+            flowAllServers.Size = new Size(578, 456);
             flowAllServers.TabIndex = 1;
             // 
             // label5
@@ -285,17 +285,17 @@
             panel4.BackColor = Color.FromArgb(180, 190, 200);
             panel4.Controls.Add(flowServersOnShift);
             panel4.Controls.Add(label2);
-            panel4.Location = new Point(646, 351);
+            panel4.Location = new Point(638, 351);
             panel4.Name = "panel4";
-            panel4.Size = new Size(590, 492);
+            panel4.Size = new Size(595, 512);
             panel4.TabIndex = 5;
             // 
             // flowServersOnShift
             // 
             flowServersOnShift.BackColor = Color.WhiteSmoke;
-            flowServersOnShift.Location = new Point(3, 45);
+            flowServersOnShift.Location = new Point(8, 45);
             flowServersOnShift.Name = "flowServersOnShift";
-            flowServersOnShift.Size = new Size(584, 444);
+            flowServersOnShift.Size = new Size(578, 456);
             flowServersOnShift.TabIndex = 0;
             // 
             // label2
@@ -315,7 +315,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(225, 225, 225);
             CancelButton = btnCancel;
-            ClientSize = new Size(1255, 964);
+            ClientSize = new Size(1255, 994);
             Controls.Add(panel2);
             Controls.Add(panel4);
             Controls.Add(panel3);

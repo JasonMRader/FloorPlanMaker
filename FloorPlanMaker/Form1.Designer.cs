@@ -365,7 +365,7 @@ namespace FloorPlanMaker
             pnlNavigationWindow.Dock = DockStyle.Bottom;
             pnlNavigationWindow.Location = new Point(0, 43);
             pnlNavigationWindow.Name = "pnlNavigationWindow";
-            pnlNavigationWindow.Size = new Size(1264, 979);
+            pnlNavigationWindow.Size = new Size(1264, 999);
             pnlNavigationWindow.TabIndex = 20;
             // 
             // pnlMainContainer
@@ -466,7 +466,7 @@ namespace FloorPlanMaker
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.WhiteSmoke;
-            ClientSize = new Size(1264, 1022);
+            ClientSize = new Size(1264, 1042);
             Controls.Add(pictureBox1);
             Controls.Add(btnCloseApp);
             Controls.Add(panel1);
