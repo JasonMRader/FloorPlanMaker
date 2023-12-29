@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.DirectoryServices.ActiveDirectory;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -64,7 +65,33 @@ namespace FloorplanClassLibrary
             }
         }
         
-        
+        public void AddFloorplanToShift(Floorplan floorplan)
+        {
+            Floorplan existingFloorplan = this.Floorplans.FirstOrDefault(fp => fp.DiningArea == floorplan.DiningArea);
+            if(existingFloorplan != null)
+            {
+                this._floorplans.Remove(existingFloorplan);
+            }
+            else
+            {
+                this._floorplans.Add(floorplan);
+            }
+            
+            
+        }
+        public void RemoveAssignedServers()
+        {
+            List<Server> servers = new List<Server>();
+            foreach(Floorplan floorplan in this.Floorplans)
+            {
+                if(floorplan.Servers.Count > 0)
+                    servers.AddRange(floorplan.Servers);
+            }
+
+            UnassignedServers.RemoveAll(server => servers.Contains(server));
+           
+           
+        }
         public void AddFloorplanAndServers(Floorplan floorplan)
         {
             this._floorplans.Add(floorplan);

@@ -1,4 +1,6 @@
-﻿namespace FloorplanClassLibrary
+﻿using static System.Runtime.InteropServices.JavaScript.JSType;
+
+namespace FloorplanClassLibrary
 {
     public class Server
     {
@@ -67,6 +69,10 @@
         public override int GetHashCode()
         {
             return ID.GetHashCode();
+        }
+        public override string ToString()
+        {
+            return this.AbbreviatedName;
         }
     }
 }

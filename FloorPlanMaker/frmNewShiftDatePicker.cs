@@ -249,6 +249,7 @@ namespace FloorPlanMakerUI
             {
                 diningAreasUsed.Add(fp.DiningArea);
                 serverUsed.AddRange(fp.Servers);
+                ShiftManagerCreated.AddFloorplanToShift(fp);
             }
             foreach (CheckBox cb in flowDiningAreas.Controls)
             {
@@ -274,19 +275,8 @@ namespace FloorPlanMakerUI
                     AddToShift_Click(btn, e);
                 }
             }
-            //foreach (Button btn in flowServersOnShift.Controls)
-            //{
-            //    serversOnShiftButtons.Add(btn);
-            //}
-            //foreach (Button btn in serversOnShiftButtons)
-            //{
-            //    if (!serverUsed.Contains(btn.Tag))
-            //    {
-            //        EventArgs e = new EventArgs();
-            //        RemoveFromShift_Click(btn, e);
+            
 
-            //    }
-            //}
 
         }
         private Dictionary<DiningArea, int> ServersAssignedPreviousDay(List<Floorplan> floorplans, bool isLunch, int Days)
@@ -411,6 +401,7 @@ namespace FloorPlanMakerUI
                 MessageBox.Show("You have not assigned any servers");
                 return;
             }
+            ShiftManagerCreated.RemoveAssignedServers();
             SetShiftManagerDateAndIsAM();
             frmEditStaff.UpdateNewShift(ShiftManagerCreated);
             this.Close();
