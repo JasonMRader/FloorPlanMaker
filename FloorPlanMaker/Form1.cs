@@ -231,7 +231,7 @@ namespace FloorPlanMaker
             // Subscribe to the event
             //floorplanManager.SectionLabelRemoved += FloorplanManager_SectionLabelRemoved;
             floorplanManager.UpdateRequired += FloorplanManager_UpdateRequired;
-
+            
             //pnlFloorPlan.KeyPreview = true;
         }
         private void FloorplanManager_UpdateRequired(object sender, UpdateEventArgs e)
@@ -370,6 +370,8 @@ namespace FloorPlanMaker
             pnlFloorPlan.BackgroundImage = null;
             pnlFloorPlan.Invalidate();
             UpdateDateLabel(0);
+            coversImageLabel.SetTooltip("Covers per Server");
+            salesImageLabel.SetTooltip("Sales Per Server");
             //rdoViewSectionFlow.Checked = true;
         }
         private void UpdateDateLabel(int days)
@@ -814,6 +816,11 @@ namespace FloorPlanMaker
                 }
             }
             return true;
+        }
+
+        private void toolTip1_Popup(object sender, PopupEventArgs e)
+        {
+
         }
     }
 }

@@ -27,9 +27,10 @@ namespace FloorplanClassLibrary
         private bool isDragging = false; 
         private Color BorderColor = Color.Black;
         private int borderWidth = 5;
+        private ToolTip toolTip;
         // TODO: rework what apears on SectionLabels
         // TODO: choose selected section from label
-        
+
         public Section Section { get; set; }
 
         private List<Server> unassignedServers = new List<Server>();
@@ -94,6 +95,9 @@ namespace FloorplanClassLibrary
             this.Location = new Point(section.MidPoint.X - (this.Width / 2),
                 section.MidPoint.Y - (this.Height / 2));
             this.BringToFront();
+            this.toolTip = new ToolTip();
+            toolTip.SetToolTip(setCloserButton, "Assign Closer");
+            toolTip.SetToolTip(assignServerButton, "Assign Server");
             
         }
         public void UpdateSection(Section section)

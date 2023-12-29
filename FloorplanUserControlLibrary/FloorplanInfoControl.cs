@@ -19,6 +19,7 @@ namespace FloorPlanMakerUI
         private Font infoFont = UITheme.MainFont;
         private Image lastWeek = Resources.small_LastWeek;
         private Image yesterday = Resources.smallyesterday;
+
         public FloorplanInfoControl(Floorplan fp, int width)
         {
             width = width - 8;

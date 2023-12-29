@@ -30,6 +30,8 @@ namespace FloorPlanMakerUI
         public event EventHandler<UpdateEventArgs> UpdateRequired;
         private ImageLabelControl coversImageLabel = new ImageLabelControl();
         private ImageLabelControl salesImageLabel = new ImageLabelControl();
+        private ToolTip toolTip = new ToolTip();
+        
         public TemplateManager TemplateManager { get; set; }
 
 
@@ -439,6 +441,8 @@ namespace FloorPlanMakerUI
             panel.Controls.Clear();
             coversImageLabel = new ImageLabelControl(UITheme.covers, "0", (panel.Width / 2) - 7, 30);
             salesImageLabel = new ImageLabelControl(UITheme.sales, "$0", (panel.Width / 2) - 7, 30);
+            coversImageLabel.SetTooltip("Covers per Server");           
+            salesImageLabel.SetTooltip("Sales Per Server");
             panel.Controls.Add(coversImageLabel);
             panel.Controls.Add(salesImageLabel);
 
@@ -468,6 +472,8 @@ namespace FloorPlanMakerUI
             panel.Controls.Clear();
             coversImageLabel = new ImageLabelControl(UITheme.covers, "0", (panel.Width / 2) - 7, 30);
             salesImageLabel = new ImageLabelControl(UITheme.sales, "$0", (panel.Width / 2) - 7, 30);
+            coversImageLabel.SetTooltip("Covers per Server");
+            salesImageLabel.SetTooltip("Sales Per Server");
             panel.Controls.Add(coversImageLabel);
             panel.Controls.Add(salesImageLabel);
 

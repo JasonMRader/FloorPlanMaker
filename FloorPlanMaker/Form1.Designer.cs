@@ -449,6 +449,7 @@ namespace FloorPlanMaker
             toolTip1.AutoPopDelay = 2500;
             toolTip1.InitialDelay = 500;
             toolTip1.ReshowDelay = 100;
+            toolTip1.Popup += toolTip1_Popup;
             // 
             // pictureBox1
             // 

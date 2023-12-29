@@ -12,6 +12,7 @@ namespace FloorPlanMakerUI
 {
     public partial class ImageLabelControl : UserControl
     {
+        private ToolTip toolTip;
         public ImageLabelControl(Image image, string text, int width, int height)
         {
             
@@ -23,7 +24,14 @@ namespace FloorPlanMakerUI
             lblText.Font = UITheme.MainFont;
             pbImage.Image = image;
             GetLocations();
+            toolTip = new ToolTip();
 
+        }
+        public void SetTooltip(string tooltipText)
+        {
+            toolTip.SetToolTip(this.lblText, tooltipText);
+            toolTip.SetToolTip(this.pbImage, tooltipText);
+            toolTip.SetToolTip(this, tooltipText);
         }
         public ImageLabelControl() 
         {

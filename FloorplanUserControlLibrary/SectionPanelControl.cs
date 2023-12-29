@@ -26,6 +26,7 @@ namespace FloorplanUserControlLibrary
         public event EventHandler ServerRemoved;
         public event Action<Section> SectionRemoved;
         public event Action<Section> SectionAdded;
+        private ToolTip toolTip;
         private List<Label> serverLabels = new List<Label>();
         private List<PictureBox> removeServerPBs = new List<PictureBox>();
         
@@ -46,6 +47,13 @@ namespace FloorplanUserControlLibrary
             this.floorplan = floorplan;
 
             UpdateLabels();
+            this.toolTip = new ToolTip();
+            toolTip.SetToolTip(picSetTeamWait, "Set To TeamWait");
+            toolTip.SetToolTip(picClearSection, "Clear Section");
+            toolTip.SetToolTip(picPlusOneServer, "Add Server Spot");
+            toolTip.SetToolTip(picMinusOneServer, "Remove Server Spot");
+            toolTip.SetToolTip(lblCovers, "Difference from Average Covers");
+            toolTip.SetToolTip(lblSales, "Difference from Average Sales");
 
         }
         public SectionPanelControl(Section section, FloorplanTemplate floorplan)
@@ -58,6 +66,14 @@ namespace FloorplanUserControlLibrary
             //this.floorplan = floorplan;
 
             UpdateLabels();
+            this.toolTip = new ToolTip();
+            toolTip.SetToolTip(picSetTeamWait, "Set To TeamWait");
+            toolTip.SetToolTip(picClearSection, "Clear Section");
+            toolTip.SetToolTip(picPlusOneServer, "Add Server Spot");
+            toolTip.SetToolTip(picMinusOneServer, "Remove Server Spot");
+            toolTip.SetToolTip(lblCovers, "Difference from Average Covers");
+            toolTip.SetToolTip(lblSales, "Difference from Average Sales");
+
 
         }
         public Section Section { get; set; }
@@ -86,8 +102,8 @@ namespace FloorplanUserControlLibrary
 
         public void UpdateLabels()
         {
-
-            if(Section.IsPickUp)
+           
+            if (Section.IsPickUp)
             {
                 this.Height = 25;
                 cbSectionSelect.Text = "Pick-up";
@@ -292,6 +308,7 @@ namespace FloorplanUserControlLibrary
 
             picSetTeamWait.BackColor = UITheme.WarningColor;
             picSetTeamWait.Image = Resources.waiters;
+            toolTip.SetToolTip(picSetTeamWait, "Set To Solo");
         }
 
 
@@ -307,6 +324,7 @@ namespace FloorplanUserControlLibrary
             picMinusOneServer.Click -=picDecreaseServerCount_Click;
             picSetTeamWait.BackColor = UITheme.CTAColor;
             picSetTeamWait.Image = Resources.waiter;
+            toolTip.SetToolTip(picSetTeamWait, "Set To TeamWait");
             this.Invalidate();
         }
         public void SetTeamWaitPictureBoxes()
