@@ -369,7 +369,7 @@ namespace FloorplanClassLibrary
 
                
                 this.Width = (int)stringSize.Width + 60; // Adding some padding
-                this.Height = 30;
+                this.Height = 27;
                
             }
             this.Invalidate();
