@@ -26,7 +26,7 @@ namespace FloorplanUserControlLibrary
         public event EventHandler ServerRemoved;
         public event Action<Section> SectionRemoved;
         public event Action<Section> SectionAdded;
-        private ToolTip toolTip;
+        private ToolTip toolTip = new ToolTip();
         private List<Label> serverLabels = new List<Label>();
         private List<PictureBox> removeServerPBs = new List<PictureBox>();
         
@@ -47,7 +47,7 @@ namespace FloorplanUserControlLibrary
             this.floorplan = floorplan;
 
             UpdateLabels();
-            this.toolTip = new ToolTip();
+           
             toolTip.SetToolTip(picSetTeamWait, "Set To TeamWait");
             toolTip.SetToolTip(picClearSection, "Clear Section");
             toolTip.SetToolTip(picPlusOneServer, "Add Server Spot");
@@ -66,7 +66,7 @@ namespace FloorplanUserControlLibrary
             //this.floorplan = floorplan;
 
             UpdateLabels();
-            this.toolTip = new ToolTip();
+           
             toolTip.SetToolTip(picSetTeamWait, "Set To TeamWait");
             toolTip.SetToolTip(picClearSection, "Clear Section");
             toolTip.SetToolTip(picPlusOneServer, "Add Server Spot");
@@ -109,6 +109,7 @@ namespace FloorplanUserControlLibrary
                 cbSectionSelect.Text = "Pick-up";
                 picSetTeamWait.Visible = false;
                 picClearSection.Image = Resources.Trash;
+                toolTip.SetToolTip(picClearSection, "Delete Section");
                 lblCovers.Text = Section.MaxCovers.ToString("F0");
                 lblSales.Text = Section.FormatAsCurrencyWithoutParentheses(Section.AverageCovers);
                 return;
@@ -129,6 +130,7 @@ namespace FloorplanUserControlLibrary
                 }
                 lblDisplay.BackColor = Section.Color;
                 lblDisplay.Click -= unassignedLabel_Click;
+                toolTip.SetToolTip(picClearSection, "Clear Section");
             }
             else if(this.Section.Server == null && Section.IsTeamWait == false)
             {
@@ -138,6 +140,7 @@ namespace FloorplanUserControlLibrary
                 if (this.Section.IsEmpty())
                 {
                     picClearSection.Image = Resources.Trash;
+                    toolTip.SetToolTip(picClearSection, "Delete Section");
                 }
             }
             else if (this.Section.IsTeamWait)
@@ -146,6 +149,7 @@ namespace FloorplanUserControlLibrary
                 foreach (PictureBox pb in removeServerPBs) { pb.Tag = null; };
                 lblDisplay.Text = this.Section.ServerCount.ToString() + " Team Section";
                 lblDisplay.BackColor = Section.Color;
+                toolTip.SetToolTip(picClearSection, "Clear Section");
                 if (this.serverLabels.Count == 0) { return; }
                 for (int i = 0; i < this.Section.ServerTeam.Count; i++)
                 {
