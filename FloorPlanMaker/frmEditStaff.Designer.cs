@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             btnAssignTables = new Button();
             flowDiningAreaAssignment = new FlowLayoutPanel();
             flowUnassignedServers = new FlowLayoutPanel();
@@ -38,6 +39,7 @@
             panel2 = new Panel();
             pbBack = new PictureBox();
             pbForward = new PictureBox();
+            toolTip1 = new ToolTip(components);
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pbBack).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbForward).BeginInit();
@@ -102,6 +104,7 @@
             cbIsAM.Size = new Size(79, 39);
             cbIsAM.TabIndex = 19;
             cbIsAM.TextAlign = ContentAlignment.MiddleCenter;
+            toolTip1.SetToolTip(cbIsAM, "AM / PM toggle");
             cbIsAM.UseVisualStyleBackColor = false;
             cbIsAM.CheckedChanged += cbIsPM_CheckedChanged;
             // 
@@ -199,5 +202,6 @@
         private Panel panel2;
         private PictureBox pbBack;
         private PictureBox pbForward;
+        private ToolTip toolTip1;
     }
 }

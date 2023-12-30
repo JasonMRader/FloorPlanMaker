@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             pnlFloorPlan = new Panel();
             btnCreateNewDiningArea = new Button();
             btnSaveDiningArea = new Button();
@@ -81,6 +82,7 @@
             picAddSquare = new PictureBox();
             label7 = new Label();
             panel1 = new Panel();
+            toolTip1 = new ToolTip(components);
             panel2.SuspendLayout();
             panel3.SuspendLayout();
             panel6.SuspendLayout();
@@ -111,6 +113,7 @@
             btnCreateNewDiningArea.Name = "btnCreateNewDiningArea";
             btnCreateNewDiningArea.Size = new Size(39, 32);
             btnCreateNewDiningArea.TabIndex = 1;
+            toolTip1.SetToolTip(btnCreateNewDiningArea, "Create New Dining Area");
             btnCreateNewDiningArea.UseVisualStyleBackColor = false;
             btnCreateNewDiningArea.Click += btnCreateNewDiningArea_Click;
             // 
@@ -401,6 +404,7 @@
             rdoDefaultView.Size = new Size(43, 33);
             rdoDefaultView.TabIndex = 6;
             rdoDefaultView.TextAlign = ContentAlignment.MiddleCenter;
+            toolTip1.SetToolTip(rdoDefaultView, "Reset View");
             rdoDefaultView.UseVisualStyleBackColor = false;
             rdoDefaultView.CheckedChanged += rdoDefaultView_CheckedChanged;
             // 
@@ -416,6 +420,7 @@
             rdoEditPositions.Size = new Size(46, 33);
             rdoEditPositions.TabIndex = 6;
             rdoEditPositions.TextAlign = ContentAlignment.MiddleCenter;
+            toolTip1.SetToolTip(rdoEditPositions, "Move Tables");
             rdoEditPositions.UseVisualStyleBackColor = false;
             rdoEditPositions.CheckedChanged += rdoEditPositions_CheckedChanged;
             // 
@@ -431,6 +436,7 @@
             rdoSalesView.Size = new Size(43, 33);
             rdoSalesView.TabIndex = 6;
             rdoSalesView.TextAlign = ContentAlignment.MiddleCenter;
+            toolTip1.SetToolTip(rdoSalesView, "Edit Table Sales");
             rdoSalesView.UseVisualStyleBackColor = false;
             rdoSalesView.CheckedChanged += rdoSalesView_CheckedChanged;
             // 
@@ -446,6 +452,7 @@
             rdoCoverView.Size = new Size(43, 33);
             rdoCoverView.TabIndex = 6;
             rdoCoverView.TextAlign = ContentAlignment.MiddleCenter;
+            toolTip1.SetToolTip(rdoCoverView, "Edit Table Covers");
             rdoCoverView.UseVisualStyleBackColor = false;
             rdoCoverView.CheckedChanged += rdoEditData_CheckedChanged;
             // 
@@ -801,5 +808,6 @@
         private Button btnChangeNeighborEdge;
         private TextBox txtAddNewNeighbor;
         private Button btnAddTopBottomNeighbor;
+        private ToolTip toolTip1;
     }
 }
