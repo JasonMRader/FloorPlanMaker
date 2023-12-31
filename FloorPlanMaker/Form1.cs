@@ -231,7 +231,7 @@ namespace FloorPlanMaker
             // Subscribe to the event
             //floorplanManager.SectionLabelRemoved += FloorplanManager_SectionLabelRemoved;
             floorplanManager.UpdateRequired += FloorplanManager_UpdateRequired;
-            
+
             //pnlFloorPlan.KeyPreview = true;
         }
         private void FloorplanManager_UpdateRequired(object sender, UpdateEventArgs e)

@@ -62,6 +62,7 @@ namespace FloorPlanMaker
             rdoViewSectionFlow = new RadioButton();
             toolTip1 = new ToolTip(components);
             pictureBox1 = new PictureBox();
+            button1 = new Button();
             flowSectionSelect.SuspendLayout();
             panel1.SuspendLayout();
             pnlFloorplanContainer.SuspendLayout();
@@ -319,9 +320,10 @@ namespace FloorPlanMaker
             // 
             btnCloseApp.FlatAppearance.BorderSize = 0;
             btnCloseApp.FlatStyle = FlatStyle.Flat;
-            btnCloseApp.Location = new Point(1232, 3);
+            btnCloseApp.Image = FloorPlanMakerUI.Properties.Resources.X15x;
+            btnCloseApp.Location = new Point(1228, 12);
             btnCloseApp.Name = "btnCloseApp";
-            btnCloseApp.Size = new Size(32, 23);
+            btnCloseApp.Size = new Size(24, 23);
             btnCloseApp.TabIndex = 18;
             btnCloseApp.Text = "X";
             btnCloseApp.UseVisualStyleBackColor = true;
@@ -462,6 +464,20 @@ namespace FloorPlanMaker
             pictureBox1.TabIndex = 21;
             pictureBox1.TabStop = false;
             // 
+            // button1
+            // 
+            button1.BackColor = Color.FromArgb(100, 130, 180);
+            button1.FlatAppearance.BorderSize = 0;
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            button1.Image = FloorPlanMakerUI.Properties.Resources.report35x;
+            button1.Location = new Point(1174, 8);
+            button1.Name = "button1";
+            button1.Size = new Size(31, 29);
+            button1.TabIndex = 13;
+            toolTip1.SetToolTip(button1, "Report Bug / Request Feature");
+            button1.UseVisualStyleBackColor = false;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -470,6 +486,7 @@ namespace FloorPlanMaker
             ClientSize = new Size(1264, 1042);
             Controls.Add(pictureBox1);
             Controls.Add(btnCloseApp);
+            Controls.Add(button1);
             Controls.Add(panel1);
             Controls.Add(pnlNavigationWindow);
             FormBorderStyle = FormBorderStyle.None;
@@ -524,5 +541,6 @@ namespace FloorPlanMaker
         private PictureBox pictureBox1;
         private Label lblDateSelected;
         private Panel pnlTemplateContainer;
+        private Button button1;
     }
 }
