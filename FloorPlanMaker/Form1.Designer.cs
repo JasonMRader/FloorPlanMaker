@@ -61,8 +61,8 @@ namespace FloorPlanMaker
             rdoViewServerFlow = new RadioButton();
             rdoViewSectionFlow = new RadioButton();
             toolTip1 = new ToolTip(components);
+            btnReportBug = new Button();
             pictureBox1 = new PictureBox();
-            button1 = new Button();
             flowSectionSelect.SuspendLayout();
             panel1.SuspendLayout();
             pnlFloorplanContainer.SuspendLayout();
@@ -453,6 +453,21 @@ namespace FloorPlanMaker
             toolTip1.ReshowDelay = 100;
             toolTip1.Popup += toolTip1_Popup;
             // 
+            // btnReportBug
+            // 
+            btnReportBug.BackColor = Color.FromArgb(100, 130, 180);
+            btnReportBug.FlatAppearance.BorderSize = 0;
+            btnReportBug.FlatStyle = FlatStyle.Flat;
+            btnReportBug.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            btnReportBug.Image = FloorPlanMakerUI.Properties.Resources.report35x;
+            btnReportBug.Location = new Point(1174, 8);
+            btnReportBug.Name = "btnReportBug";
+            btnReportBug.Size = new Size(31, 29);
+            btnReportBug.TabIndex = 13;
+            toolTip1.SetToolTip(btnReportBug, "Report Bug / Request Feature");
+            btnReportBug.UseVisualStyleBackColor = false;
+            btnReportBug.Click += btnReportBug_Click;
+            // 
             // pictureBox1
             // 
             pictureBox1.BackColor = Color.FromArgb(100, 130, 180);
@@ -464,20 +479,6 @@ namespace FloorPlanMaker
             pictureBox1.TabIndex = 21;
             pictureBox1.TabStop = false;
             // 
-            // button1
-            // 
-            button1.BackColor = Color.FromArgb(100, 130, 180);
-            button1.FlatAppearance.BorderSize = 0;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            button1.Image = FloorPlanMakerUI.Properties.Resources.report35x;
-            button1.Location = new Point(1174, 8);
-            button1.Name = "button1";
-            button1.Size = new Size(31, 29);
-            button1.TabIndex = 13;
-            toolTip1.SetToolTip(button1, "Report Bug / Request Feature");
-            button1.UseVisualStyleBackColor = false;
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -486,7 +487,7 @@ namespace FloorPlanMaker
             ClientSize = new Size(1264, 1042);
             Controls.Add(pictureBox1);
             Controls.Add(btnCloseApp);
-            Controls.Add(button1);
+            Controls.Add(btnReportBug);
             Controls.Add(panel1);
             Controls.Add(pnlNavigationWindow);
             FormBorderStyle = FormBorderStyle.None;
@@ -541,6 +542,6 @@ namespace FloorPlanMaker
         private PictureBox pictureBox1;
         private Label lblDateSelected;
         private Panel pnlTemplateContainer;
-        private Button button1;
+        private Button btnReportBug;
     }
 }

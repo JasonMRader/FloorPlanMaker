@@ -822,5 +822,11 @@ namespace FloorPlanMaker
         {
 
         }
+
+        private void btnReportBug_Click(object sender, EventArgs e)
+        {
+            frmReporting frmReport = new frmReporting();
+            frmReport.ShowDialog();
+        }
     }
 }
