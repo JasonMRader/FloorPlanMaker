@@ -31,7 +31,7 @@
             rdoBug = new RadioButton();
             rdoFeature = new RadioButton();
             rdoOther = new RadioButton();
-            textBox1 = new TextBox();
+            txtMessageContents = new TextBox();
             lblBugDescription = new Label();
             btnSend = new Button();
             SuspendLayout();
@@ -40,6 +40,7 @@
             // 
             rdoBug.Appearance = Appearance.Button;
             rdoBug.BackColor = Color.FromArgb(100, 130, 180);
+            rdoBug.Checked = true;
             rdoBug.FlatAppearance.BorderSize = 0;
             rdoBug.FlatStyle = FlatStyle.Flat;
             rdoBug.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
@@ -52,6 +53,7 @@
             rdoBug.Text = "Report Bug";
             rdoBug.TextAlign = ContentAlignment.MiddleCenter;
             rdoBug.UseVisualStyleBackColor = false;
+            rdoBug.CheckedChanged += rdoBug_CheckedChanged;
             // 
             // rdoFeature
             // 
@@ -65,10 +67,10 @@
             rdoFeature.Name = "rdoFeature";
             rdoFeature.Size = new Size(200, 30);
             rdoFeature.TabIndex = 0;
-            rdoFeature.TabStop = true;
             rdoFeature.Text = "Request Feature";
             rdoFeature.TextAlign = ContentAlignment.MiddleCenter;
             rdoFeature.UseVisualStyleBackColor = false;
+            rdoFeature.CheckedChanged += rdoFeature_CheckedChanged;
             // 
             // rdoOther
             // 
@@ -82,19 +84,19 @@
             rdoOther.Name = "rdoOther";
             rdoOther.Size = new Size(200, 30);
             rdoOther.TabIndex = 0;
-            rdoOther.TabStop = true;
             rdoOther.Text = "Other";
             rdoOther.TextAlign = ContentAlignment.MiddleCenter;
             rdoOther.UseVisualStyleBackColor = false;
+            rdoOther.CheckedChanged += rdoOther_CheckedChanged;
             // 
-            // textBox1
+            // txtMessageContents
             // 
-            textBox1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            textBox1.Location = new Point(29, 118);
-            textBox1.Multiline = true;
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(734, 285);
-            textBox1.TabIndex = 1;
+            txtMessageContents.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            txtMessageContents.Location = new Point(29, 118);
+            txtMessageContents.Multiline = true;
+            txtMessageContents.Name = "txtMessageContents";
+            txtMessageContents.Size = new Size(734, 285);
+            txtMessageContents.TabIndex = 1;
             // 
             // lblBugDescription
             // 
@@ -118,6 +120,7 @@
             btnSend.TabIndex = 3;
             btnSend.Text = "Send";
             btnSend.UseVisualStyleBackColor = false;
+            btnSend.Click += btnSend_Click;
             // 
             // frmReporting
             // 
@@ -126,11 +129,12 @@
             ClientSize = new Size(800, 504);
             Controls.Add(btnSend);
             Controls.Add(lblBugDescription);
-            Controls.Add(textBox1);
+            Controls.Add(txtMessageContents);
             Controls.Add(rdoOther);
             Controls.Add(rdoFeature);
             Controls.Add(rdoBug);
             Name = "frmReporting";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Send Report";
             ResumeLayout(false);
             PerformLayout();
@@ -141,7 +145,7 @@
         private RadioButton rdoBug;
         private RadioButton rdoFeature;
         private RadioButton rdoOther;
-        private TextBox textBox1;
+        private TextBox txtMessageContents;
         private Label lblBugDescription;
         private Button btnSend;
     }
