@@ -34,6 +34,9 @@
             txtMessageContents = new TextBox();
             lblBugDescription = new Label();
             btnSend = new Button();
+            txtTitle = new TextBox();
+            label1 = new Label();
+            label2 = new Label();
             SuspendLayout();
             // 
             // rdoBug
@@ -92,10 +95,10 @@
             // txtMessageContents
             // 
             txtMessageContents.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            txtMessageContents.Location = new Point(29, 118);
+            txtMessageContents.Location = new Point(29, 175);
             txtMessageContents.Multiline = true;
             txtMessageContents.Name = "txtMessageContents";
-            txtMessageContents.Size = new Size(734, 285);
+            txtMessageContents.Size = new Size(734, 228);
             txtMessageContents.TabIndex = 1;
             // 
             // lblBugDescription
@@ -122,11 +125,39 @@
             btnSend.UseVisualStyleBackColor = false;
             btnSend.Click += btnSend_Click;
             // 
+            // txtTitle
+            // 
+            txtTitle.Location = new Point(29, 131);
+            txtTitle.Name = "txtTitle";
+            txtTitle.Size = new Size(734, 23);
+            txtTitle.TabIndex = 4;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(29, 115);
+            label1.Name = "label1";
+            label1.Size = new Size(32, 15);
+            label1.TabIndex = 5;
+            label1.Text = "Title:";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(29, 157);
+            label2.Name = "label2";
+            label2.Size = new Size(56, 15);
+            label2.TabIndex = 5;
+            label2.Text = "Message:";
+            // 
             // frmReporting
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 504);
+            Controls.Add(label2);
+            Controls.Add(label1);
+            Controls.Add(txtTitle);
             Controls.Add(btnSend);
             Controls.Add(lblBugDescription);
             Controls.Add(txtMessageContents);
@@ -148,5 +179,8 @@
         private TextBox txtMessageContents;
         private Label lblBugDescription;
         private Button btnSend;
+        private TextBox txtTitle;
+        private Label label1;
+        private Label label2;
     }
 }

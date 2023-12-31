@@ -23,9 +23,9 @@ namespace FloorPlanMakerUI
         {
             lblBugDescription.Text = "When reporting a bug, it is VERY helpful to be as detailed as possible." +
                 " What did you do before it happened, what were the effects, so on.";
-            if (rdoBug.Checked )
+            if (rdoBug.Checked)
             {
-                messageType = "**Bug**"; 
+                messageType = "**Bug**";
             }
         }
 
@@ -33,7 +33,7 @@ namespace FloorPlanMakerUI
         {
             lblBugDescription.Text = "What would you like this application to do that it doesn't?" +
                 " What would make it easier to use?";
-            if (rdoFeature.Checked )
+            if (rdoFeature.Checked)
             {
                 messageType = "**FeatureRequest**";
             }
@@ -42,7 +42,7 @@ namespace FloorPlanMakerUI
         private void rdoOther_CheckedChanged(object sender, EventArgs e)
         {
             lblBugDescription.Text = "Anything else I should know?";
-            if (rdoOther.Checked )
+            if (rdoOther.Checked)
             {
                 messageType = "**Other**";
             }
@@ -51,10 +51,29 @@ namespace FloorPlanMakerUI
         private void btnSend_Click(object sender, EventArgs e)
         {
             MailMessage mail = new MailMessage();
-            mail.From = new MailAddress("your_email@example.com");
-            mail.To.Add("recipient_email@example.com");
-           
+            mail.From = new MailAddress("jasonmrader@outlook.com");
+            mail.To.Add("jasonmrader@outlook.com");
+            mail.Subject = messageType + " "  + txtTitle.Text;
             mail.Body = txtMessageContents.Text;
+
+            SmtpClient smtpClient = new SmtpClient("smtp.office365.com");
+            smtpClient.Port = 587; // or 465 if using SSL
+            smtpClient.EnableSsl = true; // SSL/TLS
+            smtpClient.Credentials = new System.Net.NetworkCredential("jasonmrader@outlook.com", "123Pacman!");
+
+
+            try
+            {
+                smtpClient.Send(mail);
+                MessageBox.Show("Email Sent Successfully!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error sending email. " + ex.Message);
+            }
+
+            mail.Dispose();
+            smtpClient.Dispose();
 
         }
     }
