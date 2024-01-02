@@ -54,7 +54,7 @@ namespace FloorPlanMaker
                 form1Reference.UpdateWithTemplate();
             }
         }
-
+        // TODO: replace templates with no table 50
         // TODO: sometimes when viewing templates, the average sales are way off (SEE 3 person FP 1 Teamwait left side)
         private void ApplyTemplate_Clicked(object? sender, EventArgs e)
         {

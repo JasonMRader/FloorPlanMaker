@@ -29,6 +29,7 @@ namespace FloorPlanMakerUI
         // TODO: tableChanges not consistant, sometimes changing dining areas will not allow changes to the next one (specifically moving tables? deleting?)
         // TODO: Moving tables not always saving
         // TODO: dont allow tables to stack on one another?
+        // TODO: way to remove / see forced pairs
         public frmEditDiningAreas()
         {
             InitializeComponent();
