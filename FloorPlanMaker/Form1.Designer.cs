@@ -45,6 +45,7 @@ namespace FloorPlanMaker
             rdoSections = new RadioButton();
             rdoDiningAreas = new RadioButton();
             panel1 = new Panel();
+            rdoSettings = new RadioButton();
             rdoShifts = new RadioButton();
             pnlNavHighlight = new Panel();
             cbIsAM = new CheckBox();
@@ -62,7 +63,6 @@ namespace FloorPlanMaker
             rdoViewSectionFlow = new RadioButton();
             toolTip1 = new ToolTip(components);
             btnReportBug = new Button();
-            rdoSettings = new RadioButton();
             flowSectionSelect.SuspendLayout();
             panel1.SuspendLayout();
             pnlFloorplanContainer.SuspendLayout();
@@ -250,6 +250,24 @@ namespace FloorPlanMaker
             panel1.Name = "panel1";
             panel1.Size = new Size(554, 40);
             panel1.TabIndex = 11;
+            // 
+            // rdoSettings
+            // 
+            rdoSettings.Appearance = Appearance.Button;
+            rdoSettings.BackColor = Color.FromArgb(100, 130, 180);
+            rdoSettings.FlatAppearance.BorderSize = 0;
+            rdoSettings.FlatAppearance.CheckedBackColor = Color.FromArgb(49, 56, 82);
+            rdoSettings.FlatStyle = FlatStyle.Flat;
+            rdoSettings.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            rdoSettings.ForeColor = Color.White;
+            rdoSettings.Image = FloorPlanMakerUI.Properties.Resources.settings34X;
+            rdoSettings.Location = new Point(490, 3);
+            rdoSettings.Name = "rdoSettings";
+            rdoSettings.Size = new Size(47, 37);
+            rdoSettings.TabIndex = 11;
+            rdoSettings.TextAlign = ContentAlignment.MiddleCenter;
+            rdoSettings.UseVisualStyleBackColor = false;
+            rdoSettings.CheckedChanged += rdoSettings_CheckedChanged;
             // 
             // rdoShifts
             // 
@@ -471,23 +489,6 @@ namespace FloorPlanMaker
             toolTip1.SetToolTip(btnReportBug, "Report Bug / Request Feature");
             btnReportBug.UseVisualStyleBackColor = false;
             btnReportBug.Click += btnReportBug_Click;
-            // 
-            // rdoSettings
-            // 
-            rdoSettings.Appearance = Appearance.Button;
-            rdoSettings.BackColor = Color.FromArgb(100, 130, 180);
-            rdoSettings.FlatAppearance.BorderSize = 0;
-            rdoSettings.FlatAppearance.CheckedBackColor = Color.FromArgb(49, 56, 82);
-            rdoSettings.FlatStyle = FlatStyle.Flat;
-            rdoSettings.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            rdoSettings.ForeColor = Color.White;
-            rdoSettings.Location = new Point(490, 3);
-            rdoSettings.Name = "rdoSettings";
-            rdoSettings.Size = new Size(47, 37);
-            rdoSettings.TabIndex = 11;
-            rdoSettings.TextAlign = ContentAlignment.MiddleCenter;
-            rdoSettings.UseVisualStyleBackColor = false;
-            rdoSettings.CheckedChanged += rdoSettings_CheckedChanged;
             // 
             // Form1
             // 

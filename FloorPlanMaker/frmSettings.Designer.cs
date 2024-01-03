@@ -28,46 +28,104 @@
         /// </summary>
         private void InitializeComponent()
         {
-            button1 = new Button();
-            button2 = new Button();
-            button3 = new Button();
+            btnEditServers = new Button();
+            btnImportSalesData = new Button();
+            this.btnImportScheduleData = new Button();
+            this.btnCheckForUpdate = new Button();
+            this.btnBackUpDB = new Button();
+            btnChooseDataBase = new Button();
             SuspendLayout();
             // 
-            // button1
+            // btnEditServers
             // 
-            button1.Location = new Point(171, 71);
-            button1.Name = "button1";
-            button1.Size = new Size(146, 23);
-            button1.TabIndex = 0;
-            button1.Text = "Add Servers";
-            button1.UseVisualStyleBackColor = true;
+            btnEditServers.BackColor = Color.FromArgb(100, 130, 180);
+            btnEditServers.FlatAppearance.BorderSize = 0;
+            btnEditServers.FlatStyle = FlatStyle.Flat;
+            btnEditServers.ForeColor = Color.White;
+            btnEditServers.Location = new Point(171, 71);
+            btnEditServers.Name = "btnEditServers";
+            btnEditServers.Size = new Size(146, 43);
+            btnEditServers.TabIndex = 0;
+            btnEditServers.Text = "Add Servers";
+            btnEditServers.UseVisualStyleBackColor = false;
+            btnEditServers.Click += button1_Click;
             // 
-            // button2
+            // btnImportSalesData
             // 
-            button2.Location = new Point(171, 182);
-            button2.Name = "button2";
-            button2.Size = new Size(146, 23);
-            button2.TabIndex = 0;
-            button2.Text = "Import Sales Data";
-            button2.UseVisualStyleBackColor = true;
+            btnImportSalesData.BackColor = Color.FromArgb(100, 130, 180);
+            btnImportSalesData.FlatAppearance.BorderSize = 0;
+            btnImportSalesData.FlatStyle = FlatStyle.Flat;
+            btnImportSalesData.ForeColor = Color.White;
+            btnImportSalesData.Location = new Point(171, 147);
+            btnImportSalesData.Name = "btnImportSalesData";
+            btnImportSalesData.Size = new Size(146, 43);
+            btnImportSalesData.TabIndex = 0;
+            btnImportSalesData.Text = "Import Sales Data";
+            btnImportSalesData.UseVisualStyleBackColor = false;
             // 
-            // button3
+            // btnImportScheduleData
             // 
-            button3.Location = new Point(171, 239);
-            button3.Name = "button3";
-            button3.Size = new Size(146, 23);
-            button3.TabIndex = 0;
-            button3.Text = "Import Schedule Data";
-            button3.UseVisualStyleBackColor = true;
+            this.btnImportScheduleData.BackColor = Color.FromArgb(100, 130, 180);
+            this.btnImportScheduleData.FlatAppearance.BorderSize = 0;
+            this.btnImportScheduleData.FlatStyle = FlatStyle.Flat;
+            this.btnImportScheduleData.ForeColor = Color.White;
+            this.btnImportScheduleData.Location = new Point(171, 224);
+            this.btnImportScheduleData.Name = "btnImportScheduleData";
+            this.btnImportScheduleData.Size = new Size(146, 43);
+            this.btnImportScheduleData.TabIndex = 0;
+            this.btnImportScheduleData.Text = "Import Schedule Data";
+            this.btnImportScheduleData.UseVisualStyleBackColor = false;
+            // 
+            // btnCheckForUpdate
+            // 
+            this.btnCheckForUpdate.BackColor = Color.FromArgb(100, 130, 180);
+            this.btnCheckForUpdate.FlatAppearance.BorderSize = 0;
+            this.btnCheckForUpdate.FlatStyle = FlatStyle.Flat;
+            this.btnCheckForUpdate.ForeColor = Color.White;
+            this.btnCheckForUpdate.Location = new Point(171, 305);
+            this.btnCheckForUpdate.Name = "btnCheckForUpdate";
+            this.btnCheckForUpdate.Size = new Size(146, 43);
+            this.btnCheckForUpdate.TabIndex = 0;
+            this.btnCheckForUpdate.Text = "Check For Update";
+            this.btnCheckForUpdate.UseVisualStyleBackColor = false;
+            // 
+            // btnBackUpDB
+            // 
+            this.btnBackUpDB.BackColor = Color.FromArgb(100, 130, 180);
+            this.btnBackUpDB.FlatAppearance.BorderSize = 0;
+            this.btnBackUpDB.FlatStyle = FlatStyle.Flat;
+            this.btnBackUpDB.ForeColor = Color.White;
+            this.btnBackUpDB.Location = new Point(171, 387);
+            this.btnBackUpDB.Name = "btnBackUpDB";
+            this.btnBackUpDB.Size = new Size(146, 43);
+            this.btnBackUpDB.TabIndex = 0;
+            this.btnBackUpDB.Text = "Back Up DataBase";
+            this.btnBackUpDB.UseVisualStyleBackColor = false;
+            // 
+            // btnChooseDataBase
+            // 
+            btnChooseDataBase.BackColor = Color.FromArgb(100, 130, 180);
+            btnChooseDataBase.FlatAppearance.BorderSize = 0;
+            btnChooseDataBase.FlatStyle = FlatStyle.Flat;
+            btnChooseDataBase.ForeColor = Color.White;
+            btnChooseDataBase.Location = new Point(171, 466);
+            btnChooseDataBase.Name = "btnChooseDataBase";
+            btnChooseDataBase.Size = new Size(146, 43);
+            btnChooseDataBase.TabIndex = 0;
+            btnChooseDataBase.Text = "Select DataBase";
+            btnChooseDataBase.UseVisualStyleBackColor = false;
             // 
             // frmSettings
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1264, 999);
-            Controls.Add(button3);
-            Controls.Add(button2);
-            Controls.Add(button1);
+            Controls.Add(btnChooseDataBase);
+            Controls.Add(this.btnBackUpDB);
+            Controls.Add(this.btnCheckForUpdate);
+            Controls.Add(this.btnImportScheduleData);
+            Controls.Add(btnImportSalesData);
+            Controls.Add(btnEditServers);
             FormBorderStyle = FormBorderStyle.None;
             Name = "frmSettings";
             Text = "frmSettings";
@@ -76,8 +134,13 @@
 
         #endregion
 
-        private Button button1;
+        private Button btnEditServers;
         private Button button2;
         private Button button3;
+        private Button btnImportSalesData;
+        private Button button5;
+        private Button button6;
+        private Button button7;
+        private Button btnChooseDataBase;
     }
 }
