@@ -30,9 +30,9 @@
         {
             btnEditServers = new Button();
             btnImportSalesData = new Button();
-            this.btnImportScheduleData = new Button();
-            this.btnCheckForUpdate = new Button();
-            this.btnBackUpDB = new Button();
+            btnImportScheduleData = new Button();
+            btnCheckForUpdate = new Button();
+            btnBackUpDB = new Button();
             btnChooseDataBase = new Button();
             SuspendLayout();
             // 
@@ -138,6 +138,9 @@
         private Button button2;
         private Button button3;
         private Button btnImportSalesData;
+        private Button btnImportScheduleData;
+        private Button btnCheckForUpdate;
+        private Button btnBackUpDB;
         private Button button5;
         private Button button6;
         private Button button7;
