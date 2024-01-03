@@ -54,6 +54,7 @@ namespace FloorplanUserControlLibrary
             toolTip.SetToolTip(picMinusOneServer, "Remove Server Spot");
             toolTip.SetToolTip(lblCovers, "Difference from Average Covers");
             toolTip.SetToolTip(lblSales, "Difference from Average Sales");
+            toolTip.SetToolTip(cbSectionSelect, "Press TAB to cycle through Sections");
 
         }
         public SectionPanelControl(Section section, FloorplanTemplate floorplan)
@@ -73,6 +74,7 @@ namespace FloorplanUserControlLibrary
             toolTip.SetToolTip(picMinusOneServer, "Remove Server Spot");
             toolTip.SetToolTip(lblCovers, "Difference from Average Covers");
             toolTip.SetToolTip(lblSales, "Difference from Average Sales");
+            toolTip.SetToolTip(cbSectionSelect, "Press TAB to cycle through Sections");
 
 
         }

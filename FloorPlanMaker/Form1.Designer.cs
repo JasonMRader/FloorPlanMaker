@@ -201,6 +201,7 @@ namespace FloorPlanMaker
             cboDiningAreas.Name = "cboDiningAreas";
             cboDiningAreas.Size = new Size(234, 33);
             cboDiningAreas.TabIndex = 7;
+            toolTip1.SetToolTip(cboDiningAreas, "Up / Down Arrows to Cycle");
             cboDiningAreas.SelectedIndexChanged += cboDiningAreas_SelectedIndexChanged;
             // 
             // rdoSections
@@ -301,6 +302,7 @@ namespace FloorPlanMaker
             btnDayBefore.Name = "btnDayBefore";
             btnDayBefore.Size = new Size(21, 33);
             btnDayBefore.TabIndex = 16;
+            toolTip1.SetToolTip(btnDayBefore, "Left / Right Arrow Keys to Cycle");
             btnDayBefore.UseVisualStyleBackColor = true;
             btnDayBefore.Click += btnDayBefore_Click;
             // 
@@ -313,6 +315,7 @@ namespace FloorPlanMaker
             btnNextDay.Name = "btnNextDay";
             btnNextDay.Size = new Size(21, 33);
             btnNextDay.TabIndex = 17;
+            toolTip1.SetToolTip(btnNextDay, "Left / Right Arrow Keys to Cycle");
             btnNextDay.UseVisualStyleBackColor = true;
             btnNextDay.Click += btnNextDay_Click;
             // 
@@ -357,6 +360,7 @@ namespace FloorPlanMaker
             lblDateSelected.TabIndex = 22;
             lblDateSelected.Text = "Fri, 11/11";
             lblDateSelected.TextAlign = ContentAlignment.MiddleCenter;
+            toolTip1.SetToolTip(lblDateSelected, "Left / Right Arrow Keys to Cycle");
             lblDateSelected.Click += lblDateSelected_Click;
             // 
             // pnlNavigationWindow
