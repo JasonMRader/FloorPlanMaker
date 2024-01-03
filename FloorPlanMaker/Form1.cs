@@ -40,6 +40,7 @@ namespace FloorPlanMaker
         private frmEditDiningAreas _frmEditDiningAreas;
         private frmEditStaff _frmEditStaff;
         private frmTemplateSelection _frmTemplateSelection;
+        private frmSettings _frmSettings;
         private PictureBox loadingScreen = null;
         ImageLabelControl coversImageLabel = new ImageLabelControl();
         ImageLabelControl salesImageLabel = new ImageLabelControl();
@@ -733,6 +734,31 @@ namespace FloorPlanMaker
                 rdoViewSectionFlow.Image = Resources.lilCanvasBook;
             }
         }
+        private void rdoSettings_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rdoSettings.Checked)
+            {
+                pnlNavHighlight.Location = new Point(rdoSettings.Left, 0);
+                pnlNavHighlight.Width = rdoSettings.Width;
+                if (_frmSettings == null)
+                {
+                    _frmSettings = new frmSettings { TopLevel = false, AutoScroll = true };
+                }
+                pnlNavigationWindow.Controls.Add(_frmSettings);
+
+                _frmSettings.Show();
+                pnlNavigationWindow.BringToFront();
+
+            }
+            else
+            {
+                if (_frmSettings != null)
+                {
+                    pnlNavHighlight.Width = 160;
+                    _frmSettings.Hide();
+                }
+            }
+        }
         private void cbIsAM_CheckedChanged(object sender, EventArgs e)
         {
             if (cbIsAM.Checked)
@@ -747,6 +773,7 @@ namespace FloorPlanMaker
             }
             UpdateDateLabel(0);
         }
+
         private void lblDateSelected_Click(object sender, EventArgs e)
         {
             using (frmDateSelect selectDateForm = new frmDateSelect(dateTimeSelected))
@@ -829,5 +856,7 @@ namespace FloorPlanMaker
             frmReporting frmReport = new frmReporting();
             frmReport.ShowDialog();
         }
+
+       
     }
 }

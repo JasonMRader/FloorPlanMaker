@@ -62,7 +62,7 @@ namespace FloorPlanMaker
             rdoViewSectionFlow = new RadioButton();
             toolTip1 = new ToolTip(components);
             btnReportBug = new Button();
-            pictureBox1 = new PictureBox();
+            rdoSettings = new RadioButton();
             flowSectionSelect.SuspendLayout();
             panel1.SuspendLayout();
             pnlFloorplanContainer.SuspendLayout();
@@ -70,7 +70,6 @@ namespace FloorPlanMaker
             pnlMainContainer.SuspendLayout();
             pnlSideContainer.SuspendLayout();
             pnlSectionsAndServers.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // flowServersInFloorplan
@@ -242,6 +241,7 @@ namespace FloorPlanMaker
             // 
             // panel1
             // 
+            panel1.Controls.Add(rdoSettings);
             panel1.Controls.Add(rdoShifts);
             panel1.Controls.Add(rdoDiningAreas);
             panel1.Controls.Add(pnlNavHighlight);
@@ -472,16 +472,22 @@ namespace FloorPlanMaker
             btnReportBug.UseVisualStyleBackColor = false;
             btnReportBug.Click += btnReportBug_Click;
             // 
-            // pictureBox1
+            // rdoSettings
             // 
-            pictureBox1.BackColor = Color.FromArgb(100, 130, 180);
-            pictureBox1.Image = FloorPlanMakerUI.Properties.Resources.settings;
-            pictureBox1.Location = new Point(27, 6);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(37, 37);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.TabIndex = 21;
-            pictureBox1.TabStop = false;
+            rdoSettings.Appearance = Appearance.Button;
+            rdoSettings.BackColor = Color.FromArgb(100, 130, 180);
+            rdoSettings.FlatAppearance.BorderSize = 0;
+            rdoSettings.FlatAppearance.CheckedBackColor = Color.FromArgb(49, 56, 82);
+            rdoSettings.FlatStyle = FlatStyle.Flat;
+            rdoSettings.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            rdoSettings.ForeColor = Color.White;
+            rdoSettings.Location = new Point(490, 3);
+            rdoSettings.Name = "rdoSettings";
+            rdoSettings.Size = new Size(47, 37);
+            rdoSettings.TabIndex = 11;
+            rdoSettings.TextAlign = ContentAlignment.MiddleCenter;
+            rdoSettings.UseVisualStyleBackColor = false;
+            rdoSettings.CheckedChanged += rdoSettings_CheckedChanged;
             // 
             // Form1
             // 
@@ -489,7 +495,6 @@ namespace FloorPlanMaker
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.WhiteSmoke;
             ClientSize = new Size(1264, 1042);
-            Controls.Add(pictureBox1);
             Controls.Add(btnCloseApp);
             Controls.Add(btnReportBug);
             Controls.Add(panel1);
@@ -511,7 +516,6 @@ namespace FloorPlanMaker
             pnlMainContainer.ResumeLayout(false);
             pnlSideContainer.ResumeLayout(false);
             pnlSectionsAndServers.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }
 
@@ -543,9 +547,9 @@ namespace FloorPlanMaker
         private ToolTip toolTip1;
         private Panel pnlMainContainer;
         private Panel pnlSideContainer;
-        private PictureBox pictureBox1;
         private Label lblDateSelected;
         private Panel pnlTemplateContainer;
         private Button btnReportBug;
+        private RadioButton rdoSettings;
     }
 }
