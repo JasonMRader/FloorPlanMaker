@@ -13,7 +13,7 @@ namespace FloorPlanMakerUI
 {
     public partial class frmReporting : Form
     {
-        string messageType = string.Empty;
+        string messageType = "**Bug**";
         public frmReporting()
         {
             InitializeComponent();
@@ -59,7 +59,7 @@ namespace FloorPlanMakerUI
             SmtpClient smtpClient = new SmtpClient("smtp.office365.com");
             smtpClient.Port = 587; // or 465 if using SSL
             smtpClient.EnableSsl = true; // SSL/TLS
-            smtpClient.Credentials = new System.Net.NetworkCredential("jasonmrader@outlook.com", "123Pacman!");
+            smtpClient.Credentials = new System.Net.NetworkCredential("jasonmrader@outlook.com", "123Pacman");
 
 
             try
@@ -74,6 +74,7 @@ namespace FloorPlanMakerUI
 
             mail.Dispose();
             smtpClient.Dispose();
+            this.Close();
 
         }
     }
