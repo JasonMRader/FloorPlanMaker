@@ -21,5 +21,16 @@ namespace FloorPlanMakerUI
         {
 
         }
+
+        private void btnChooseDataBase_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "SQLite Database Files (*.db)|*.db";
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string filePath = openFileDialog.FileName;
+                LoadDatabaseTables(filePath);
+            }
+        }
     }
 }

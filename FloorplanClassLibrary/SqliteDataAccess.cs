@@ -19,6 +19,40 @@ namespace FloorplanClassLibrary
         {
             return ConfigurationManager.ConnectionStrings[id].ConnectionString;
         }
+       public static void LoadDatabaseTables(string dbPath)
+        {
+            string connectionString = $"Data Source={dbPath};Version=3;";
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+                string query = "SELECT name FROM sqlite_master WHERE type='table';";
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                {
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string tableName = reader.GetString(0);
+                            // Now, you can load data from this table
+                            LoadTableData(connection, tableName);
+                        }
+                    }
+                }
+                connection.Close();
+            }
+        }
+        private static void LoadTableData(SQLiteConnection connection, string tableName)
+        {
+            using (SQLiteCommand command = new SQLiteCommand($"SELECT * FROM {tableName}", connection))
+            {
+                using (SQLiteDataReader reader = command.ExecuteReader())
+                {
+                    // Process data from the table
+                    // For example, you can load it into a data structure or display it in your application
+                }
+            }
+        }
+
         public static List<Table> LoadTables(List<DiningArea> diningAreas)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))

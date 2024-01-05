@@ -65,42 +65,42 @@
             // 
             // btnImportScheduleData
             // 
-            this.btnImportScheduleData.BackColor = Color.FromArgb(100, 130, 180);
-            this.btnImportScheduleData.FlatAppearance.BorderSize = 0;
-            this.btnImportScheduleData.FlatStyle = FlatStyle.Flat;
-            this.btnImportScheduleData.ForeColor = Color.White;
-            this.btnImportScheduleData.Location = new Point(171, 224);
-            this.btnImportScheduleData.Name = "btnImportScheduleData";
-            this.btnImportScheduleData.Size = new Size(146, 43);
-            this.btnImportScheduleData.TabIndex = 0;
-            this.btnImportScheduleData.Text = "Import Schedule Data";
-            this.btnImportScheduleData.UseVisualStyleBackColor = false;
+            btnImportScheduleData.BackColor = Color.FromArgb(100, 130, 180);
+            btnImportScheduleData.FlatAppearance.BorderSize = 0;
+            btnImportScheduleData.FlatStyle = FlatStyle.Flat;
+            btnImportScheduleData.ForeColor = Color.White;
+            btnImportScheduleData.Location = new Point(171, 224);
+            btnImportScheduleData.Name = "btnImportScheduleData";
+            btnImportScheduleData.Size = new Size(146, 43);
+            btnImportScheduleData.TabIndex = 0;
+            btnImportScheduleData.Text = "Import Schedule Data";
+            btnImportScheduleData.UseVisualStyleBackColor = false;
             // 
             // btnCheckForUpdate
             // 
-            this.btnCheckForUpdate.BackColor = Color.FromArgb(100, 130, 180);
-            this.btnCheckForUpdate.FlatAppearance.BorderSize = 0;
-            this.btnCheckForUpdate.FlatStyle = FlatStyle.Flat;
-            this.btnCheckForUpdate.ForeColor = Color.White;
-            this.btnCheckForUpdate.Location = new Point(171, 305);
-            this.btnCheckForUpdate.Name = "btnCheckForUpdate";
-            this.btnCheckForUpdate.Size = new Size(146, 43);
-            this.btnCheckForUpdate.TabIndex = 0;
-            this.btnCheckForUpdate.Text = "Check For Update";
-            this.btnCheckForUpdate.UseVisualStyleBackColor = false;
+            btnCheckForUpdate.BackColor = Color.FromArgb(100, 130, 180);
+            btnCheckForUpdate.FlatAppearance.BorderSize = 0;
+            btnCheckForUpdate.FlatStyle = FlatStyle.Flat;
+            btnCheckForUpdate.ForeColor = Color.White;
+            btnCheckForUpdate.Location = new Point(171, 305);
+            btnCheckForUpdate.Name = "btnCheckForUpdate";
+            btnCheckForUpdate.Size = new Size(146, 43);
+            btnCheckForUpdate.TabIndex = 0;
+            btnCheckForUpdate.Text = "Check For Update";
+            btnCheckForUpdate.UseVisualStyleBackColor = false;
             // 
             // btnBackUpDB
             // 
-            this.btnBackUpDB.BackColor = Color.FromArgb(100, 130, 180);
-            this.btnBackUpDB.FlatAppearance.BorderSize = 0;
-            this.btnBackUpDB.FlatStyle = FlatStyle.Flat;
-            this.btnBackUpDB.ForeColor = Color.White;
-            this.btnBackUpDB.Location = new Point(171, 387);
-            this.btnBackUpDB.Name = "btnBackUpDB";
-            this.btnBackUpDB.Size = new Size(146, 43);
-            this.btnBackUpDB.TabIndex = 0;
-            this.btnBackUpDB.Text = "Back Up DataBase";
-            this.btnBackUpDB.UseVisualStyleBackColor = false;
+            btnBackUpDB.BackColor = Color.FromArgb(100, 130, 180);
+            btnBackUpDB.FlatAppearance.BorderSize = 0;
+            btnBackUpDB.FlatStyle = FlatStyle.Flat;
+            btnBackUpDB.ForeColor = Color.White;
+            btnBackUpDB.Location = new Point(171, 387);
+            btnBackUpDB.Name = "btnBackUpDB";
+            btnBackUpDB.Size = new Size(146, 43);
+            btnBackUpDB.TabIndex = 0;
+            btnBackUpDB.Text = "Back Up DataBase";
+            btnBackUpDB.UseVisualStyleBackColor = false;
             // 
             // btnChooseDataBase
             // 
@@ -114,6 +114,7 @@
             btnChooseDataBase.TabIndex = 0;
             btnChooseDataBase.Text = "Select DataBase";
             btnChooseDataBase.UseVisualStyleBackColor = false;
+            btnChooseDataBase.Click += btnChooseDataBase_Click;
             // 
             // frmSettings
             // 
@@ -121,9 +122,9 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1264, 999);
             Controls.Add(btnChooseDataBase);
-            Controls.Add(this.btnBackUpDB);
-            Controls.Add(this.btnCheckForUpdate);
-            Controls.Add(this.btnImportScheduleData);
+            Controls.Add(btnBackUpDB);
+            Controls.Add(btnCheckForUpdate);
+            Controls.Add(btnImportScheduleData);
             Controls.Add(btnImportSalesData);
             Controls.Add(btnEditServers);
             FormBorderStyle = FormBorderStyle.None;
