@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FloorplanClassLibrary;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -29,7 +30,7 @@ namespace FloorPlanMakerUI
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 string filePath = openFileDialog.FileName;
-                LoadDatabaseTables(filePath);
+                SqliteDataAccess.LoadDatabaseTables(filePath);
             }
         }
     }
