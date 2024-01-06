@@ -15,11 +15,26 @@ namespace FloorplanClassLibrary
 {
     public class SqliteDataAccess
     {
+        //private static string LoadConnectionString(string id = "Default")
+        //{
+        //    return ConfigurationManager.ConnectionStrings[id].ConnectionString;
+        //}
         private static string LoadConnectionString(string id = "Default")
         {
-            return ConfigurationManager.ConnectionStrings[id].ConnectionString;
+            var connectionString = ConfigurationManager.ConnectionStrings[id].ConnectionString;
+            var dbPath = ConfigurationManager.AppSettings["DatabasePath"];
+
+            if (!string.IsNullOrEmpty(dbPath))
+            {
+                // Assuming your database file has a fixed name, e.g., FloorplanMakerDB.DB
+                string fullPath = Path.Combine(dbPath, "FloorplanMakerDB.DB");
+                connectionString = connectionString.Replace(".\\FloorplanMakerDB.DB", fullPath);
+            }
+
+            return connectionString;
         }
-       public static void LoadDatabaseTables(string dbPath)
+
+        public static void LoadDatabaseTables(string dbPath)
         {
             string connectionString = $"Data Source={dbPath};Version=3;";
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
