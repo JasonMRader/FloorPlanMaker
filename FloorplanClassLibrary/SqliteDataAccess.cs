@@ -67,6 +67,20 @@ namespace FloorplanClassLibrary
                 }
             }
         }
+        public static void BackupDatabase()
+        {
+            string connectionString = LoadConnectionString();
+            var builder = new System.Data.SQLite.SQLiteConnectionStringBuilder(connectionString);
+            string databasePath = builder.DataSource;
+
+            string backupDirectory = Path.Combine(Path.GetDirectoryName(databasePath), "BackUpDBs");
+            Directory.CreateDirectory(backupDirectory); // Ensure the backup directory exists
+
+            string backupFileName = $"backup_{DateTime.Now:yyyyMMdd}.db";
+            string backupFilePath = Path.Combine(backupDirectory, backupFileName);
+
+            System.IO.File.Copy(databasePath, backupFilePath, overwrite: true);
+        }
 
         public static List<Table> LoadTables(List<DiningArea> diningAreas)
         {
