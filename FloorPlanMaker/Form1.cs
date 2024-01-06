@@ -673,6 +673,7 @@ namespace FloorPlanMaker
         }
         private void btnCloseApp_Click(object sender, EventArgs e)
         {
+            SqliteDataAccess.BackupDatabase();
             this.Close();
         }
         private void cbTableDisplayMode_CheckedChanged(object sender, EventArgs e)

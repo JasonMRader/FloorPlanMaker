@@ -114,7 +114,7 @@ namespace FloorplanClassLibrary
             string backupFilePath = Path.Combine(backupDirectory, backupFileName);
 
             System.IO.File.Copy(databasePath, backupFilePath, overwrite: true);
-            MessageBox.Show("Backup Created");
+            
         }
 
         public static List<Table> LoadTables(List<DiningArea> diningAreas)
