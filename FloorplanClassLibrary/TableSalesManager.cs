@@ -29,16 +29,18 @@ namespace FloorplanClassLibrary
                 if (existingStat != null)
                 {
                     existingStat.Sales += (float)order.Amount;
+                    existingStat.Orders += 1; // Increment the order count
                 }
                 else
                 {
-                    var newStat = new TableStats(order.Table, dayOfWeek, date, isLunch, (float)order.Amount);
+                    var newStat = new TableStats(order.Table, dayOfWeek, date, isLunch, (float)order.Amount, 1);
                     tableStatsList.Add(newStat);
                 }
             }
 
             return tableStatsList;
         }
+
         public List<OrderDetail> ReadOrderDetails(string filePath)
         {
             using (var reader = new StreamReader(filePath))

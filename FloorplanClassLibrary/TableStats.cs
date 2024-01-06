@@ -19,6 +19,7 @@ namespace FloorplanClassLibrary
         public DateOnly Date { get; set; }
         public bool IsLunch { get; set; }
         public float Sales { get; set; }
+        public int Orders { get; set; } = 0;
 
         public TableStats(int table, DayOfWeek dayOfWeek, DateOnly date, bool isLunch, float sales)
         {
@@ -29,13 +30,14 @@ namespace FloorplanClassLibrary
             Sales = sales;
         }
 
-        public TableStats(int? table, DayOfWeek dayOfWeek, DateOnly date, bool isLunch, float amount)
+        public TableStats(int? table, DayOfWeek dayOfWeek, DateOnly date, bool isLunch, float amount, int orders)
         {
             this.table = table;
             DayOfWeek = dayOfWeek;
             Date = date;
             IsLunch = isLunch;
             this.amount = amount;
+            Orders = orders;
         }
     }
 }
