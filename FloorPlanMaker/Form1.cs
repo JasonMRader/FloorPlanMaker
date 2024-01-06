@@ -615,9 +615,9 @@ namespace FloorPlanMaker
                 //List<Edge> edges = grid.GetNeighborEdges();
                 //Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, edges);
                 pnlFloorPlan.BackgroundImage = edgesBitmap;
-                FloorplanPrinter printer = new FloorplanPrinter(pnlFloorPlan, edgeDrawer, grid.GetSectionTableBoarders());
-                printer.ShowPrintPreview();
-                printer.Print();
+                //FloorplanPrinter printer = new FloorplanPrinter(pnlFloorPlan, edgeDrawer, grid.GetSectionTableBoarders());
+                //printer.ShowPrintPreview();
+                //printer.Print();
             }
             else
             {

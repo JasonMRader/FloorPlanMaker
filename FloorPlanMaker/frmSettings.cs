@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -41,15 +42,12 @@ namespace FloorPlanMakerUI
                 if (folderBrowserDialog.ShowDialog() == DialogResult.OK && !string.IsNullOrWhiteSpace(folderBrowserDialog.SelectedPath))
                 {
                     string newDbLocation = folderBrowserDialog.SelectedPath;
-                    UpdateDatabaseLocation(newDbLocation);
+                    SqliteDataAccess.UpdateDatabaseLocation(newDbLocation);
                 }
             }
         }
-        private void UpdateDatabaseLocation(string newLocation)
-        {
-            // Update configuration and handle database file relocation
-            // Similar to the UpdateAppConfig method
-            // You may also need to handle moving the existing database file to the new location
-        }
+        
+        
+
     }
 }

@@ -24,14 +24,48 @@ namespace FloorplanClassLibrary
             var connectionString = ConfigurationManager.ConnectionStrings[id].ConnectionString;
             var dbPath = ConfigurationManager.AppSettings["DatabasePath"];
 
-            if (!string.IsNullOrEmpty(dbPath))
-            {
-                // Assuming your database file has a fixed name, e.g., FloorplanMakerDB.DB
-                string fullPath = Path.Combine(dbPath, "FloorplanMakerDB.DB");
-                connectionString = connectionString.Replace(".\\FloorplanMakerDB.DB", fullPath);
-            }
+            // Assuming your database file has a fixed name, e.g., "FloorplanMakerDB.db"
+            string dbFileName = "FloorplanMakerDB.db";
+
+            // Construct the full path to the database file
+            string fullPath = string.IsNullOrEmpty(dbPath)
+                ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, dbFileName) // Default location
+                : Path.Combine(dbPath, dbFileName);
+
+            connectionString = connectionString.Replace(".\\FloorplanMakerDB.DB", fullPath);
 
             return connectionString;
+        }
+
+        public static void UpdateDatabaseLocation(string newLocation)
+        {
+            try
+            {
+                string dbFileName = "FloorplanMakerDB.db"; // Replace with your actual database file name
+                string currentDbPath = ConfigurationManager.AppSettings["DatabasePath"];
+
+                // Determine the current full path of the database file
+                string fullCurrentPath = string.IsNullOrEmpty(currentDbPath)
+                    ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, dbFileName) // Default location
+                    : Path.Combine(currentDbPath, dbFileName);
+
+                string fullNewPath = Path.Combine(newLocation, dbFileName);
+
+                if (File.Exists(fullCurrentPath))
+                {
+                    File.Copy(fullCurrentPath, fullNewPath, true); // true to overwrite if file already exists
+
+                    // Update configuration
+                    Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                    config.AppSettings.Settings["DatabasePath"].Value = newLocation;
+                    config.Save(ConfigurationSaveMode.Modified);
+                    ConfigurationManager.RefreshSection("appSettings");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle any exceptions, possibly inform the user
+            }
         }
 
         public static void LoadDatabaseTables(string dbPath)
