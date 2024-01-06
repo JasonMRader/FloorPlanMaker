@@ -48,7 +48,28 @@ namespace FloorPlanMakerUI
             MessageBox.Show("Backup Created");
         }
 
+        private void btnImportSalesData_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.InitialDirectory = "c:\\";  // You can set this to a default directory
+                openFileDialog.Filter = "CSV files (*.csv)|*.csv|All files (*.*)|*.*";
+                openFileDialog.FilterIndex = 1;
+                openFileDialog.RestoreDirectory = true;
 
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    // Get the path of specified file
+                    string filePath = openFileDialog.FileName;
 
+                    // Process the file
+                    TableSalesManager salesManager = new TableSalesManager();
+                    var tableStats = salesManager.ProcessCsvFile(filePath);
+
+                    // Further processing or display of tableStats
+                    // For example, display the results in a ListView, DataGridView, etc.
+                }
+            }
+        }
     }
 }

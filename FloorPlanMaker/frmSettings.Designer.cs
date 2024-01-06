@@ -54,7 +54,6 @@
             // btnImportSalesData
             // 
             btnImportSalesData.BackColor = Color.FromArgb(100, 130, 180);
-            btnImportSalesData.Enabled = false;
             btnImportSalesData.FlatAppearance.BorderSize = 0;
             btnImportSalesData.FlatStyle = FlatStyle.Flat;
             btnImportSalesData.ForeColor = Color.White;
@@ -64,6 +63,7 @@
             btnImportSalesData.TabIndex = 0;
             btnImportSalesData.Text = "Import Sales Data";
             btnImportSalesData.UseVisualStyleBackColor = false;
+            btnImportSalesData.Click += btnImportSalesData_Click;
             // 
             // btnImportScheduleData
             // 
