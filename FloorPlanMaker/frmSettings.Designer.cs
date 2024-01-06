@@ -101,6 +101,7 @@
             btnBackUpDB.TabIndex = 0;
             btnBackUpDB.Text = "Back Up DataBase";
             btnBackUpDB.UseVisualStyleBackColor = false;
+            btnBackUpDB.Click += btnBackUpDB_Click;
             // 
             // btnChooseDataBase
             // 

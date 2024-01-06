@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Configuration;
 using System.Threading.Tasks;
 
 namespace FloorplanClassLibrary
 {
+   
+
     public class SetupManager
     {
         public void InitialSetup()
@@ -19,6 +22,9 @@ namespace FloorplanClassLibrary
                 {
                     string userSelectedPath = folderBrowserDialog.SelectedPath;
                     CreateApplicationFolders(userSelectedPath);
+
+                    // Update the app.config with the selected path
+                    UpdateAppConfig(userSelectedPath);
                 }
                 else
                 {
@@ -39,13 +45,21 @@ namespace FloorplanClassLibrary
                 string backupFolderPath = Path.Combine(basePath, "Backups");
                 Directory.CreateDirectory(backupFolderPath);
 
-                // You can also copy the .exe or .db files if needed
-                // Example: File.Copy(sourcePath, Path.Combine(dbFolderPath, "yourdatabase.db"));
+                // Additional code for copying .exe or .db files if needed
             }
             catch (Exception ex)
             {
                 // Handle any exceptions (e.g., permission issues)
             }
         }
+
+        private void UpdateAppConfig(string userSelectedPath)
+        {
+            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            config.AppSettings.Settings["DatabasePath"].Value = userSelectedPath;
+            config.Save(ConfigurationSaveMode.Modified);
+            ConfigurationManager.RefreshSection("appSettings");
+        }
     }
+
 }
