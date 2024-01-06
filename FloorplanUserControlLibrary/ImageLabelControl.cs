@@ -12,7 +12,7 @@ namespace FloorPlanMakerUI
 {
     public partial class ImageLabelControl : UserControl
     {
-        private ToolTip toolTip;
+        private ToolTip toolTip = new ToolTip();
         public ImageLabelControl(Image image, string text, int width, int height)
         {
             

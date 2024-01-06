@@ -21,11 +21,6 @@ namespace FloorPlanMakerUI
 
         private void button1_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void btnChooseDataBase_Click(object sender, EventArgs e)
-        {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "SQLite Database Files (*.db)|*.db";
             if (openFileDialog.ShowDialog() == DialogResult.OK)
@@ -35,7 +30,7 @@ namespace FloorPlanMakerUI
             }
         }
 
-        private void btnBackUpDB_Click(object sender, EventArgs e)
+        private void btnChooseDataBase_Click(object sender, EventArgs e)
         {
             using (var folderBrowserDialog = new FolderBrowserDialog())
             {
@@ -45,6 +40,11 @@ namespace FloorPlanMakerUI
                     SqliteDataAccess.UpdateDatabaseLocation(newDbLocation);
                 }
             }
+        }
+
+        private void btnBackUpDB_Click(object sender, EventArgs e)
+        {
+            SqliteDataAccess.BackupDatabase();
         }
         
         
