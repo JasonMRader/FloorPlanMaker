@@ -45,6 +45,7 @@ namespace FloorPlanMakerUI
         private void btnBackUpDB_Click(object sender, EventArgs e)
         {
             SqliteDataAccess.BackupDatabase();
+            //MessageBox.Show("Backup Created");
         }
         
         

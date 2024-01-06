@@ -110,10 +110,11 @@ namespace FloorplanClassLibrary
             string backupDirectory = Path.Combine(Path.GetDirectoryName(databasePath), "BackUpDBs");
             Directory.CreateDirectory(backupDirectory); // Ensure the backup directory exists
 
-            string backupFileName = $"backup_{DateTime.Now:yyyyMMdd}.db";
+            string backupFileName = $"backup_{DateTime.Now:yyyy_MM_dd}.db";
             string backupFilePath = Path.Combine(backupDirectory, backupFileName);
 
             System.IO.File.Copy(databasePath, backupFilePath, overwrite: true);
+            MessageBox.Show("Backup Created");
         }
 
         public static List<Table> LoadTables(List<DiningArea> diningAreas)
