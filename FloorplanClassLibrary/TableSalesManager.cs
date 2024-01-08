@@ -13,33 +13,28 @@ namespace FloorplanClassLibrary
         public List<TableStats> ProcessCsvFile(string filePath)
         {
             var orders = ReadOrderDetails(filePath);
-            var tableStatsList = new List<TableStats>();
 
-            foreach (var order in orders)
-            {
-                var date = DateOnly.FromDateTime(order.Opened);
-                var dayOfWeek = order.Opened.DayOfWeek;
-                var isLunch = order.Opened.Hour < 16;
-                var tableKey = (order.Table, date, isLunch);
-
-                var existingStat = tableStatsList.FirstOrDefault(ts => ts.Table == tableKey.Table &&
-                                                                       ts.Date == tableKey.date &&
-                                                                       ts.IsLunch == tableKey.isLunch);
-
-                if (existingStat != null)
+            var groupedOrders = orders
+                .GroupBy(order => new
                 {
-                    existingStat.Sales += (float)order.Amount;
-                    existingStat.Orders += 1; // Increment the order count
-                }
-                else
+                    Table = order.Table,
+                    Date = DateOnly.FromDateTime(order.Opened),
+                    IsLunch = order.Opened.Hour < 16
+                })
+                .Select(group => new TableStats
                 {
-                    var newStat = new TableStats(order.Table, dayOfWeek, date, isLunch, (float)order.Amount, 1);
-                    tableStatsList.Add(newStat);
-                }
-            }
+                    Table = (int)group.Key.Table,
+                    Date = group.Key.Date,
+                    DayOfWeek = group.Key.Date.DayOfWeek,
+                    IsLunch = group.Key.IsLunch,
+                    Sales = group.Sum(order => (float)order.Amount),
+                    Orders = group.Count()
+                })
+                .ToList();
 
-            return tableStatsList;
+            return groupedOrders;
         }
+
 
         public List<OrderDetail> ReadOrderDetails(string filePath)
         {

@@ -29,7 +29,7 @@ namespace FloorplanClassLibrary
             IsLunch = isLunch;
             Sales = sales;
         }
-
+        public TableStats() { }
         public TableStats(int? table, DayOfWeek dayOfWeek, DateOnly date, bool isLunch, float amount, int orders)
         {
             this.table = table;
