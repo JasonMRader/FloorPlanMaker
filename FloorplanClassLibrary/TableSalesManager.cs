@@ -36,7 +36,12 @@ namespace FloorplanClassLibrary
 
             return groupedOrders;
         }
-
+        public List<TableStats> GetStatsByShiftAndDayOfWeek(List<TableStats> allStats, bool isLunch, DayOfWeek dayOfWeek)
+        {
+            return allStats
+                .Where(ts => ts.IsLunch == isLunch && ts.DayOfWeek == dayOfWeek)
+                .ToList();
+        }
 
         public List<OrderDetail> ReadOrderDetails(string filePath)
         {

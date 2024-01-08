@@ -63,8 +63,12 @@ namespace FloorPlanMakerUI
                     string filePath = openFileDialog.FileName;
 
                     // Process the file
-                    TableSalesManager salesManager = new TableSalesManager();
-                    var tableStats = salesManager.ProcessCsvFile(filePath);
+                    TableSalesManager tableSalesManager = new TableSalesManager();
+                    var allTableStats = tableSalesManager.ProcessCsvFile(filePath);
+                    var mondayLunchStats = tableSalesManager.GetStatsByShiftAndDayOfWeek(allTableStats, true, DayOfWeek.Monday);
+
+                    // Get all dinner stats for Monday
+                    var mondayDinnerStats = tableSalesManager.GetStatsByShiftAndDayOfWeek(allTableStats, false, DayOfWeek.Monday);
 
                     // Further processing or display of tableStats
                     // For example, display the results in a ListView, DataGridView, etc.
