@@ -36,6 +36,55 @@ namespace FloorplanClassLibrary
 
             return connectionString;
         }
+        public static void SaveTableStat(List<TableStats> tableStats)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                cnn.Open();
+                foreach(TableStats tableStat in  tableStats)
+                {
+                    // Check for existing record
+                    string checkSql = @"SELECT COUNT(*) FROM TableStats 
+                            WHERE TableStatNumber = @TableStatNumber 
+                            AND IsLunch = @IsLunch 
+                            AND Date = @Date";
+                    int count = cnn.Query<int>(checkSql, new
+                    {
+                        TableStatNumber = tableStat.TableStatNumber,
+                        IsLunch = tableStat.IsLunch,
+                        Date = tableStat.Date.ToString("yyyy-MM-dd")
+                    }).Single();
+
+                    if (count == 0)
+                    {
+                        // No existing record, proceed with insertion
+                        var sql = @"INSERT INTO TableStats 
+                        (TableStatNumber, DayOfWeek, Date, IsLunch, Sales, Orders) 
+                        VALUES 
+                        (@TableStatNumber, @DayOfWeek, @Date, @IsLunch, @Sales, @Orders)";
+
+                        cnn.Execute(sql, new
+                        {
+                            TableStatNumber = tableStat.TableStatNumber,
+                            DayOfWeek = tableStat.DayOfWeek.ToString(),
+                            Date = tableStat.Date.ToString("yyyy-MM-dd"),
+                            IsLunch = tableStat.IsLunch,
+                            Sales = tableStat.Sales,
+                            Orders = tableStat.Orders
+                        });
+                    }
+                }
+               
+            }
+        }
+        public static List<TableStats> LoadTableStats()
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var tableStatsList = cnn.Query<TableStats>(@"SELECT * FROM TableStats").ToList();
+                return tableStatsList;
+            }
+        }
 
         public static void UpdateDatabaseLocation(string newLocation)
         {

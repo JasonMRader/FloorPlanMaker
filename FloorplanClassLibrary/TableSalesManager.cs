@@ -24,7 +24,7 @@ namespace FloorplanClassLibrary
                 })
                 .Select(group => new TableStats
                 {
-                    Table = group.Key.Table,
+                    TableStatNumber = group.Key.Table,
                     Date = group.Key.Date,
                     DayOfWeek = group.Key.Date.DayOfWeek,
                     IsLunch = group.Key.IsLunch,

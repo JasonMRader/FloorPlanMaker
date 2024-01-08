@@ -75,7 +75,7 @@ namespace FloorPlanMakerUI
 
                     // Get all stats within the date range
                     var statsInDateRange = tableSalesManager.GetStatsByDateRange(allTableStats, startDate, endDate);
-
+                    SqliteDataAccess.SaveTableStat(allTableStats);
                     // Process the
                     // Further processing or display of tableStats
                     // For example, display the results in a ListView, DataGridView, etc.

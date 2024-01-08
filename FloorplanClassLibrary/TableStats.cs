@@ -14,7 +14,7 @@ namespace FloorplanClassLibrary
         private string table;
         private float amount;
 
-        public string Table { get; set; }
+        public string TableStatNumber { get; set; }
         public DayOfWeek DayOfWeek { get; set; }
         public DateOnly Date { get; set; }
         public bool IsLunch { get; set; }
@@ -23,7 +23,7 @@ namespace FloorplanClassLibrary
 
         public TableStats(string table, DayOfWeek dayOfWeek, DateOnly date, bool isLunch, float sales)
         {
-            Table = table;
+            TableStatNumber = table;
             DayOfWeek = dayOfWeek;
             Date = date;
             IsLunch = isLunch;
