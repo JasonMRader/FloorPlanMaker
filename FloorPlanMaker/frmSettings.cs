@@ -65,30 +65,22 @@ namespace FloorPlanMakerUI
                     // Process the file
                     TableSalesManager tableSalesManager = new TableSalesManager();
                     var allTableStats = tableSalesManager.ProcessCsvFile(filePath);
-                    var mondayLunchStats = tableSalesManager.GetStatsByShiftAndDayOfWeek(allTableStats, true, DayOfWeek.Monday);
-
-                    // Get all dinner stats for Monday
-                    var mondayDinnerStats = tableSalesManager.GetStatsByShiftAndDayOfWeek(allTableStats, false, DayOfWeek.Monday);
-
-                    DateOnly startDate = new DateOnly(2024, 1, 1); // For example, January 1, 2024
-                    DateOnly endDate = new DateOnly(2024, 1, 5);  // For example, January 31, 2024
-
-                    // Get all stats within the date range
-                    var statsInDateRange = tableSalesManager.GetStatsByDateRange(allTableStats, startDate, endDate);
+                   
                     SqliteDataAccess.SaveTableStat(allTableStats);
+                    refreshMissingDateDisplay();
                     // Process the
                     // Further processing or display of tableStats
                     // For example, display the results in a ListView, DataGridView, etc.
                 }
             }
         }
-
-        private void frmSettings_Load(object sender, EventArgs e)
+        private void refreshMissingDateDisplay()
         {
+            lbMissingData.Items.Clear();
             DateOnly endDate = DateOnly.FromDateTime(DateTime.Today);
             endDate = endDate.AddDays(-1);
             DateOnly startDate = endDate.AddDays(-30);
-           
+
             List<DateOnly> missingDates = SqliteDataAccess.GetMissingDates(startDate, endDate);
             List<string> missingDateRanges = new List<string>();
 
@@ -116,7 +108,7 @@ namespace FloorPlanMakerUI
             if (rangeStart != null)
             {
 
-                if(rangeStart == endDate)
+                if (rangeStart == endDate)
                 {
                     string dateRange = $"{rangeStart.Value.ToString("MMM dd")}";
                     missingDateRanges.Add(dateRange);
@@ -126,27 +118,18 @@ namespace FloorPlanMakerUI
                     string dateRange = $"{rangeStart.Value.ToString("MMM dd")} - {endDate.ToString("MMM dd")}";
                     missingDateRanges.Add(dateRange);
                 }
-                
-                
+
+
             }
-            //for (int i = 0; i < missingDates.Count; i++)
-            //{
-            //    if (i + 1 == missingDates.Count)
-            //    if (missingDates[i].AddDays(1) == missingDates[i + 1])
-            //    {
-            //        continue;
-            //    }
-            //    else
-            //    {
-            //        string dateRange = rangeStart.ToString() + " - " + missingDates[i].ToString();
-            //        missingDateRanges.Add(dateRange);
-            //        rangeStart = missingDates[i+1];
-            //    }
-            //}
+
             foreach (string dateRange in missingDateRanges)
             {
                 lbMissingData.Items.Add(dateRange);
             }
+        }
+        private void frmSettings_Load(object sender, EventArgs e)
+        {
+           refreshMissingDateDisplay();
         }
     }
 }
