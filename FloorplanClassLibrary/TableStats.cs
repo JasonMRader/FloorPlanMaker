@@ -11,17 +11,17 @@ namespace FloorplanClassLibrary
 {
     public class TableStats
     {
-        private int? table;
+        private string table;
         private float amount;
 
-        public int? Table { get; set; }
+        public string Table { get; set; }
         public DayOfWeek DayOfWeek { get; set; }
         public DateOnly Date { get; set; }
         public bool IsLunch { get; set; }
         public float? Sales { get; set; }
         public int Orders { get; set; } = 0;
 
-        public TableStats(int table, DayOfWeek dayOfWeek, DateOnly date, bool isLunch, float sales)
+        public TableStats(string table, DayOfWeek dayOfWeek, DateOnly date, bool isLunch, float sales)
         {
             Table = table;
             DayOfWeek = dayOfWeek;
@@ -30,7 +30,7 @@ namespace FloorplanClassLibrary
             Sales = sales;
         }
         public TableStats() { }
-        public TableStats(int? table, DayOfWeek dayOfWeek, DateOnly date, bool isLunch, float amount, int orders)
+        public TableStats(string table, DayOfWeek dayOfWeek, DateOnly date, bool isLunch, float amount, int orders)
         {
             this.table = table;
             DayOfWeek = dayOfWeek;

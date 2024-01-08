@@ -15,10 +15,10 @@ namespace FloorplanClassLibrary
             var orders = ReadOrderDetails(filePath);
 
             var groupedOrders = orders
-                .Where(order => order.Table.HasValue)  // Exclude orders without a table number
+                .Where(order => order.Table != "")  // Exclude orders without a table number
                 .GroupBy(order => new
                 {
-                    Table = order.Table.Value,  // Safe to use .Value here due to the filter above
+                    Table = order.Table,  // Safe to use .Value here due to the filter above
                     Date = DateOnly.FromDateTime(order.Opened),
                     IsLunch = order.Opened.Hour < 16
                 })
