@@ -14,11 +14,11 @@ namespace FloorplanClassLibrary
         private int? table;
         private float amount;
 
-        public int Table { get; set; }
+        public int? Table { get; set; }
         public DayOfWeek DayOfWeek { get; set; }
         public DateOnly Date { get; set; }
         public bool IsLunch { get; set; }
-        public float Sales { get; set; }
+        public float? Sales { get; set; }
         public int Orders { get; set; } = 0;
 
         public TableStats(int table, DayOfWeek dayOfWeek, DateOnly date, bool isLunch, float sales)
