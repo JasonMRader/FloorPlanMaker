@@ -82,5 +82,18 @@ namespace FloorPlanMakerUI
                 }
             }
         }
+
+        private void frmSettings_Load(object sender, EventArgs e)
+        {
+            DateOnly endDate = DateOnly.FromDateTime(DateTime.Today);
+            DateOnly startDate = endDate.AddDays(-30);
+            List<TableStats> tableStats = SqliteDataAccess.LoadTableStats();
+            // Call the GetMissingDates method
+            List<DateOnly> missingDates = SqliteDataAccess.GetMissingDates(startDate, endDate);
+            foreach(DateOnly dateOnly in missingDates)
+            {
+                lbMissingData.Items.Add(dateOnly);
+            }
+        }
     }
 }

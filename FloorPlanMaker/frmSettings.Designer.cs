@@ -36,10 +36,10 @@
             btnChooseDataBase = new Button();
             openFileDialog1 = new OpenFileDialog();
             panel1 = new Panel();
+            label1 = new Label();
+            lbMissingData = new ListBox();
             panel2 = new Panel();
             panel3 = new Panel();
-            lbMissingData = new ListBox();
-            label1 = new Label();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
@@ -145,6 +145,24 @@
             panel1.Size = new Size(350, 800);
             panel1.TabIndex = 1;
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(12, 143);
+            label1.Name = "label1";
+            label1.Size = new Size(104, 15);
+            label1.TabIndex = 2;
+            label1.Text = "Missing Sales Data";
+            // 
+            // lbMissingData
+            // 
+            lbMissingData.FormattingEnabled = true;
+            lbMissingData.ItemHeight = 15;
+            lbMissingData.Location = new Point(12, 164);
+            lbMissingData.Name = "lbMissingData";
+            lbMissingData.Size = new Size(322, 199);
+            lbMissingData.TabIndex = 1;
+            // 
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(180, 190, 200);
@@ -166,24 +184,6 @@
             panel3.Size = new Size(350, 800);
             panel3.TabIndex = 2;
             // 
-            // lbMissingData
-            // 
-            lbMissingData.FormattingEnabled = true;
-            lbMissingData.ItemHeight = 15;
-            lbMissingData.Location = new Point(12, 164);
-            lbMissingData.Name = "lbMissingData";
-            lbMissingData.Size = new Size(322, 199);
-            lbMissingData.TabIndex = 1;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(12, 143);
-            label1.Name = "label1";
-            label1.Size = new Size(104, 15);
-            label1.TabIndex = 2;
-            label1.Text = "Missing Sales Data";
-            // 
             // frmSettings
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -195,6 +195,7 @@
             FormBorderStyle = FormBorderStyle.None;
             Name = "frmSettings";
             Text = "frmSettings";
+            Load += frmSettings_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             panel2.ResumeLayout(false);

@@ -81,10 +81,51 @@ namespace FloorplanClassLibrary
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                var tableStatsList = cnn.Query<TableStats>(@"SELECT * FROM TableStats").ToList();
+                var queryResult = cnn.Query(@"SELECT * FROM TableStats").ToList();
+
+                var tableStatsList = queryResult.Select(row => new TableStats
+                {
+                    // Assign other properties as necessary
+                    TableStatNumber = row.TableStatNumber,
+                    DayOfWeek = (DayOfWeek)Enum.Parse(typeof(DayOfWeek), row.DayOfWeek), // Convert string to DayOfWeek
+                    Date = DateOnly.Parse(row.Date), // Convert string to DateOnly
+                    IsLunch = Convert.ToBoolean(row.IsLunch), // Convert long to bool
+                    Sales = row.Sales != null ? (float?)Convert.ToDouble(row.Sales) : null, // Convert double to float?
+                    Orders = Convert.ToInt32(row.Orders) // Convert long to int
+                }).ToList();
+
                 return tableStatsList;
             }
         }
+
+
+
+
+        public static List<DateOnly> GetMissingDates(DateOnly startDate, DateOnly endDate)
+        {
+            List<DateOnly> missingDates = new List<DateOnly>();
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                // Generate a list of all dates in the range
+                for (DateOnly date = startDate; date <= endDate; date = date.AddDays(1))
+                {
+                    missingDates.Add(date);
+                }
+
+                // Query the database for dates in the range that have records
+                string sql = @"SELECT DISTINCT Date FROM TableStats WHERE Date BETWEEN @StartDate AND @EndDate";
+                var existingDateStrings = cnn.Query<string>(sql, new { StartDate = startDate.ToString("yyyy-MM-dd"), EndDate = endDate.ToString("yyyy-MM-dd") }).ToList();
+
+                // Convert the existing dates from strings to DateOnly objects
+                var existingDates = existingDateStrings.Select(dateStr => DateOnly.Parse(dateStr)).ToList();
+
+                // Remove the dates found in the database from the missingDates list
+                missingDates = missingDates.Except(existingDates).ToList();
+            }
+
+            return missingDates;
+        }
+
 
         public static void UpdateDatabaseLocation(string newLocation)
         {
