@@ -86,13 +86,66 @@ namespace FloorPlanMakerUI
         private void frmSettings_Load(object sender, EventArgs e)
         {
             DateOnly endDate = DateOnly.FromDateTime(DateTime.Today);
+            endDate = endDate.AddDays(-1);
             DateOnly startDate = endDate.AddDays(-30);
-            List<TableStats> tableStats = SqliteDataAccess.LoadTableStats();
-            // Call the GetMissingDates method
+           
             List<DateOnly> missingDates = SqliteDataAccess.GetMissingDates(startDate, endDate);
-            foreach(DateOnly dateOnly in missingDates)
+            List<string> missingDateRanges = new List<string>();
+
+            DateOnly? rangeStart = null;
+            for (DateOnly date = startDate; date <= endDate; date = date.AddDays(1))
             {
-                lbMissingData.Items.Add(dateOnly);
+                if (missingDates.Contains(date))
+                {
+                    // Start of a new range
+                    if (rangeStart == null)
+                    {
+                        rangeStart = date;
+                    }
+                }
+                else if (rangeStart != null)
+                {
+                    // End of a current range
+                    string dateRange = $"{rangeStart.Value.ToString("MMM dd")} - {date.AddDays(-1).ToString("MMM dd")}";
+                    missingDateRanges.Add(dateRange);
+                    rangeStart = null; // Reset for the next range
+                }
+            }
+
+            // Handle case where the last date is part of a missing range
+            if (rangeStart != null)
+            {
+
+                if(rangeStart == endDate)
+                {
+                    string dateRange = $"{rangeStart.Value.ToString("MMM dd")}";
+                    missingDateRanges.Add(dateRange);
+                }
+                else
+                {
+                    string dateRange = $"{rangeStart.Value.ToString("MMM dd")} - {endDate.ToString("MMM dd")}";
+                    missingDateRanges.Add(dateRange);
+                }
+                
+                
+            }
+            //for (int i = 0; i < missingDates.Count; i++)
+            //{
+            //    if (i + 1 == missingDates.Count)
+            //    if (missingDates[i].AddDays(1) == missingDates[i + 1])
+            //    {
+            //        continue;
+            //    }
+            //    else
+            //    {
+            //        string dateRange = rangeStart.ToString() + " - " + missingDates[i].ToString();
+            //        missingDateRanges.Add(dateRange);
+            //        rangeStart = missingDates[i+1];
+            //    }
+            //}
+            foreach (string dateRange in missingDateRanges)
+            {
+                lbMissingData.Items.Add(dateRange);
             }
         }
     }
