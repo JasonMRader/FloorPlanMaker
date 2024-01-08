@@ -142,7 +142,7 @@ namespace FloorPlanMakerUI
                 Shape = this.tableControl.Table.Shape,
                 TableNumber = newTableNumber.ToString(),
                 MaxCovers = this.tableControl.Table.MaxCovers,
-                AverageCovers = this.tableControl.Table.AverageCovers,
+                AverageSales = this.tableControl.Table.AverageSales,
                 YCoordinate = this.tableControl.Table.YCoordinate,
                 XCoordinate = this.tableControl.Table.XCoordinate + this.tableControl.Table.Width + 5,
                 DiningAreaId = this.tableControl.Table.DiningAreaId,

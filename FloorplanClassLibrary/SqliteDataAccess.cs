@@ -250,7 +250,7 @@ namespace FloorplanClassLibrary
                     {
                         TableNumber = table.TableNumber,
                         MaxCovers = table.MaxCovers,
-                        AverageCovers = table.AverageCovers,
+                        AverageCovers = table.AverageSales,
                         DiningAreaID = table.DiningArea.ID,
                         XCoordinate = table.XCoordinate,
                         YCoordinate = table.YCoordinate,
@@ -292,7 +292,7 @@ namespace FloorplanClassLibrary
                     ID = table.ID,
                     TableNumber = table.TableNumber,
                     MaxCovers = table.MaxCovers,
-                    AverageCovers = table.AverageCovers,
+                    AverageCovers = table.AverageSales,
                     DiningAreaID = table.DiningArea.ID,
                     XCoordinate = table.XCoordinate,
                     YCoordinate = table.YCoordinate,

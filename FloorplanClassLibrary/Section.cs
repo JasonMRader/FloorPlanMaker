@@ -331,7 +331,7 @@ namespace FloorplanClassLibrary
             {
                 if (Tables == null || !Tables.Any()) return 0;
                 
-                return Tables.Sum(table => table.AverageCovers);
+                return Tables.Sum(table => table.AverageSales);
             }
         }
         public string AverageCoversDisplay()

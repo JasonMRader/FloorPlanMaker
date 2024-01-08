@@ -15,7 +15,7 @@ namespace FloorplanClassLibrary
             this.ID = table.ID;
             this.TableNumber = table.TableNumber;
             this.MaxCovers = table.MaxCovers;
-            this.AverageCovers = table.AverageCovers;
+            this.AverageSales = table.AverageSales;
             this.DiningArea = table.DiningArea;
             this.DiningAreaId = table.DiningAreaId;
             this.XCoordinate = (int)(table.XCoordinate * factor); 

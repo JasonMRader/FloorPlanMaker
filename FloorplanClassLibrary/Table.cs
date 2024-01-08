@@ -5,7 +5,7 @@
         public int ID {  get; set; }
         public string? TableNumber { get; set; } = "000";
         public int MaxCovers { get; set; } = 2;
-        public float AverageCovers { get; set; } = 1;
+        public float AverageSales { get; set; } = 1;
         public DiningArea DiningArea { get; set; }
         public int DiningAreaId { get; set; }
         

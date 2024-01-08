@@ -35,7 +35,7 @@ namespace FloorPlanMakerUI
             this.tableControl = tableControl;
             txtCovers.Text = tableControl.Table.MaxCovers.ToString();
             this.BackColor = tableControl.BackColor;
-            txtSales.Text = Section.FormatAsCurrencyWithoutParentheses(tableControl.Table.AverageCovers);
+            txtSales.Text = Section.FormatAsCurrencyWithoutParentheses(tableControl.Table.AverageSales);
             SetToCoversOnly();
             setStartLocation();
         }
@@ -113,9 +113,9 @@ namespace FloorPlanMakerUI
             {
                 newAvgSales = avgSales;
             }
-            if (newAvgSales > -1 && newAvgSales != this.tableControl.Table.AverageCovers)
+            if (newAvgSales > -1 && newAvgSales != this.tableControl.Table.AverageSales)
             {
-                this.tableControl.Table.AverageCovers = newAvgSales;
+                this.tableControl.Table.AverageSales = newAvgSales;
                 SqliteDataAccess.UpdateTable(this.tableControl.Table);
             }
         }

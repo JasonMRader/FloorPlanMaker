@@ -45,7 +45,7 @@ namespace FloorplanClassLibrary
             float avgCovers = 0;
             foreach (Table table in Tables)
             {
-                avgCovers += table.AverageCovers;
+                avgCovers += table.AverageSales;
             }
             return avgCovers;
         }

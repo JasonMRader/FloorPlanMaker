@@ -230,7 +230,7 @@ namespace FloorPlanMakerUI
             areaCreationManager.SelectedTables.Add(clickedTable);
             txtTableNumber.Text = clickedTable.TableNumber;
             txtMaxCovers.Text = clickedTable.MaxCovers.ToString();
-            txtAverageCovers.Text = clickedTable.AverageCovers.ToString();
+            txtAverageCovers.Text = clickedTable.AverageSales.ToString();
 
             txtXco.Text = clickedTable.XCoordinate.ToString();
             txtYco.Text = clickedTable.YCoordinate.ToString();
@@ -322,7 +322,7 @@ namespace FloorPlanMakerUI
                 Shape = areaCreationManager.SelectedTable.Shape,
                 TableNumber = newTableNumber.ToString(),
                 MaxCovers = areaCreationManager.SelectedTable.MaxCovers,
-                AverageCovers = areaCreationManager.SelectedTable.AverageCovers,
+                AverageSales = areaCreationManager.SelectedTable.AverageSales,
                 YCoordinate = areaCreationManager.SelectedTable.YCoordinate,
                 XCoordinate = areaCreationManager.SelectedTable.XCoordinate + areaCreationManager.SelectedTable.Width,
                 DiningAreaId = areaCreationManager.SelectedTable.DiningAreaId,
@@ -415,7 +415,7 @@ namespace FloorPlanMakerUI
 
             if (float.TryParse(txtAverageCovers.Text, out float averageCovers))
             {
-                table.AverageCovers = averageCovers;
+                table.AverageSales = averageCovers;
             }
 
 
@@ -455,7 +455,7 @@ namespace FloorPlanMakerUI
 
             if (float.TryParse(txtAverageCovers.Text, out float averageCovers))
             {
-                table.AverageCovers = averageCovers;
+                table.AverageSales = averageCovers;
             }
 
 
