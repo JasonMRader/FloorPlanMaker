@@ -34,6 +34,15 @@
             btnCheckForUpdate = new Button();
             btnBackUpDB = new Button();
             btnChooseDataBase = new Button();
+            openFileDialog1 = new OpenFileDialog();
+            panel1 = new Panel();
+            panel2 = new Panel();
+            panel3 = new Panel();
+            lbMissingData = new ListBox();
+            label1 = new Label();
+            panel1.SuspendLayout();
+            panel2.SuspendLayout();
+            panel3.SuspendLayout();
             SuspendLayout();
             // 
             // btnEditServers
@@ -43,9 +52,9 @@
             btnEditServers.FlatAppearance.BorderSize = 0;
             btnEditServers.FlatStyle = FlatStyle.Flat;
             btnEditServers.ForeColor = Color.White;
-            btnEditServers.Location = new Point(47, 31);
+            btnEditServers.Location = new Point(14, 66);
             btnEditServers.Name = "btnEditServers";
-            btnEditServers.Size = new Size(146, 43);
+            btnEditServers.Size = new Size(322, 43);
             btnEditServers.TabIndex = 0;
             btnEditServers.Text = "Add Servers";
             btnEditServers.UseVisualStyleBackColor = false;
@@ -57,9 +66,9 @@
             btnImportSalesData.FlatAppearance.BorderSize = 0;
             btnImportSalesData.FlatStyle = FlatStyle.Flat;
             btnImportSalesData.ForeColor = Color.White;
-            btnImportSalesData.Location = new Point(216, 31);
+            btnImportSalesData.Location = new Point(12, 66);
             btnImportSalesData.Name = "btnImportSalesData";
-            btnImportSalesData.Size = new Size(146, 43);
+            btnImportSalesData.Size = new Size(322, 43);
             btnImportSalesData.TabIndex = 0;
             btnImportSalesData.Text = "Import Sales Data";
             btnImportSalesData.UseVisualStyleBackColor = false;
@@ -72,9 +81,9 @@
             btnImportScheduleData.FlatAppearance.BorderSize = 0;
             btnImportScheduleData.FlatStyle = FlatStyle.Flat;
             btnImportScheduleData.ForeColor = Color.White;
-            btnImportScheduleData.Location = new Point(384, 31);
+            btnImportScheduleData.Location = new Point(14, 115);
             btnImportScheduleData.Name = "btnImportScheduleData";
-            btnImportScheduleData.Size = new Size(146, 43);
+            btnImportScheduleData.Size = new Size(322, 43);
             btnImportScheduleData.TabIndex = 0;
             btnImportScheduleData.Text = "Import Schedule Data";
             btnImportScheduleData.UseVisualStyleBackColor = false;
@@ -86,9 +95,9 @@
             btnCheckForUpdate.FlatAppearance.BorderSize = 0;
             btnCheckForUpdate.FlatStyle = FlatStyle.Flat;
             btnCheckForUpdate.ForeColor = Color.White;
-            btnCheckForUpdate.Location = new Point(546, 31);
+            btnCheckForUpdate.Location = new Point(14, 164);
             btnCheckForUpdate.Name = "btnCheckForUpdate";
-            btnCheckForUpdate.Size = new Size(146, 43);
+            btnCheckForUpdate.Size = new Size(322, 43);
             btnCheckForUpdate.TabIndex = 0;
             btnCheckForUpdate.Text = "Check For Update";
             btnCheckForUpdate.UseVisualStyleBackColor = false;
@@ -99,9 +108,9 @@
             btnBackUpDB.FlatAppearance.BorderSize = 0;
             btnBackUpDB.FlatStyle = FlatStyle.Flat;
             btnBackUpDB.ForeColor = Color.White;
-            btnBackUpDB.Location = new Point(709, 31);
+            btnBackUpDB.Location = new Point(14, 66);
             btnBackUpDB.Name = "btnBackUpDB";
-            btnBackUpDB.Size = new Size(146, 43);
+            btnBackUpDB.Size = new Size(322, 43);
             btnBackUpDB.TabIndex = 0;
             btnBackUpDB.Text = "Back Up DataBase";
             btnBackUpDB.UseVisualStyleBackColor = false;
@@ -113,28 +122,83 @@
             btnChooseDataBase.FlatAppearance.BorderSize = 0;
             btnChooseDataBase.FlatStyle = FlatStyle.Flat;
             btnChooseDataBase.ForeColor = Color.White;
-            btnChooseDataBase.Location = new Point(871, 31);
+            btnChooseDataBase.Location = new Point(14, 115);
             btnChooseDataBase.Name = "btnChooseDataBase";
-            btnChooseDataBase.Size = new Size(146, 43);
+            btnChooseDataBase.Size = new Size(322, 43);
             btnChooseDataBase.TabIndex = 0;
             btnChooseDataBase.Text = "Select DataBase Location";
             btnChooseDataBase.UseVisualStyleBackColor = false;
             btnChooseDataBase.Click += btnChooseDataBase_Click;
+            // 
+            // openFileDialog1
+            // 
+            openFileDialog1.FileName = "openFileDialog1";
+            // 
+            // panel1
+            // 
+            panel1.BackColor = Color.FromArgb(180, 190, 200);
+            panel1.Controls.Add(label1);
+            panel1.Controls.Add(lbMissingData);
+            panel1.Controls.Add(btnImportSalesData);
+            panel1.Location = new Point(47, 92);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(350, 800);
+            panel1.TabIndex = 1;
+            // 
+            // panel2
+            // 
+            panel2.BackColor = Color.FromArgb(180, 190, 200);
+            panel2.Controls.Add(btnBackUpDB);
+            panel2.Controls.Add(btnChooseDataBase);
+            panel2.Location = new Point(459, 92);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(350, 800);
+            panel2.TabIndex = 2;
+            // 
+            // panel3
+            // 
+            panel3.BackColor = Color.FromArgb(180, 190, 200);
+            panel3.Controls.Add(btnEditServers);
+            panel3.Controls.Add(btnImportScheduleData);
+            panel3.Controls.Add(btnCheckForUpdate);
+            panel3.Location = new Point(871, 92);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(350, 800);
+            panel3.TabIndex = 2;
+            // 
+            // lbMissingData
+            // 
+            lbMissingData.FormattingEnabled = true;
+            lbMissingData.ItemHeight = 15;
+            lbMissingData.Location = new Point(12, 164);
+            lbMissingData.Name = "lbMissingData";
+            lbMissingData.Size = new Size(322, 199);
+            lbMissingData.TabIndex = 1;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(12, 143);
+            label1.Name = "label1";
+            label1.Size = new Size(104, 15);
+            label1.TabIndex = 2;
+            label1.Text = "Missing Sales Data";
             // 
             // frmSettings
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1264, 999);
-            Controls.Add(btnChooseDataBase);
-            Controls.Add(btnBackUpDB);
-            Controls.Add(btnCheckForUpdate);
-            Controls.Add(btnImportScheduleData);
-            Controls.Add(btnImportSalesData);
-            Controls.Add(btnEditServers);
+            Controls.Add(panel3);
+            Controls.Add(panel2);
+            Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
             Name = "frmSettings";
             Text = "frmSettings";
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            panel2.ResumeLayout(false);
+            panel3.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -151,5 +215,11 @@
         private Button button6;
         private Button button7;
         private Button btnChooseDataBase;
+        private OpenFileDialog openFileDialog1;
+        private Panel panel1;
+        private Label label1;
+        private ListBox lbMissingData;
+        private Panel panel2;
+        private Panel panel3;
     }
 }

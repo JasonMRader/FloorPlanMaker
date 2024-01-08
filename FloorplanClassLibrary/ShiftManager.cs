@@ -34,7 +34,12 @@ namespace FloorplanClassLibrary
         {
             get
             {
-                return this.SelectedFloorplan.SectionSelected;
+                if(this.SelectedFloorplan != null)
+                {
+                    return this.SelectedFloorplan.SectionSelected;
+                }
+                return null;
+               
             }
         }
         public void SetSelectedSection(Section section)

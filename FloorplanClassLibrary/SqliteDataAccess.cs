@@ -143,40 +143,55 @@ namespace FloorplanClassLibrary
             {
                 cnn.Open();
 
-                var parameters = new
+                // Check if a table with the same TableNumber already exists
+                string checkSql = "SELECT COUNT(*) FROM DiningTable WHERE TableNumber = @TableNumber";
+                int count = cnn.Query<int>(checkSql, new { TableNumber = table.TableNumber }).Single();
+
+                if (count > 0)
                 {
-                    TableNumber = table.TableNumber,
-                    MaxCovers = table.MaxCovers,
-                    AverageCovers = table.AverageCovers,
-                    DiningAreaID = table.DiningArea.ID,
-                    XCoordinate = table.XCoordinate,
-                    YCoordinate = table.YCoordinate,
-                    Shape = (int)table.Shape,
-                    Width = table.Width,
-                    Height = table.Height
-                };
-
-                using (var transaction = cnn.BeginTransaction())
+                    // Table with the same TableNumber exists, show a message box
+                    MessageBox.Show("A table with this number already exists.");
+                    return -1; // You might want to return a specific value to indicate no record was inserted
+                }
+                else
                 {
-                    string sql = @"INSERT INTO DiningTable 
-                (TableNumber, MaxCovers, AverageCovers, DiningAreaID, XCoordinate, 
-                YCoordinate, Shape, Width, Height) 
-                VALUES 
-                (@TableNumber, @MaxCovers, @AverageCovers, @DiningAreaID, @XCoordinate, 
-                @YCoordinate, @Shape, @Width, @Height)";
+                    // Table with the same TableNumber does not exist, proceed with insertion
+                    var parameters = new
+                    {
+                        TableNumber = table.TableNumber,
+                        MaxCovers = table.MaxCovers,
+                        AverageCovers = table.AverageCovers,
+                        DiningAreaID = table.DiningArea.ID,
+                        XCoordinate = table.XCoordinate,
+                        YCoordinate = table.YCoordinate,
+                        Shape = (int)table.Shape,
+                        Width = table.Width,
+                        Height = table.Height
+                    };
 
-                    cnn.Execute(sql, parameters, transaction);
+                    using (var transaction = cnn.BeginTransaction())
+                    {
+                        string sql = @"INSERT INTO DiningTable 
+                    (TableNumber, MaxCovers, AverageCovers, DiningAreaID, XCoordinate, 
+                    YCoordinate, Shape, Width, Height) 
+                    VALUES 
+                    (@TableNumber, @MaxCovers, @AverageCovers, @DiningAreaID, @XCoordinate, 
+                    @YCoordinate, @Shape, @Width, @Height)";
 
-                    int insertedId = cnn.Query<int>("select last_insert_rowid()", new DynamicParameters()).Single();
+                        cnn.Execute(sql, parameters, transaction);
 
-                    table.ID = insertedId;
+                        int insertedId = cnn.Query<int>("select last_insert_rowid()", new DynamicParameters()).Single();
 
-                    transaction.Commit();
+                        table.ID = insertedId;
 
-                    return insertedId;
+                        transaction.Commit();
+
+                        return insertedId;
+                    }
                 }
             }
         }
+
 
         public static void UpdateTable(Table table)
         {
