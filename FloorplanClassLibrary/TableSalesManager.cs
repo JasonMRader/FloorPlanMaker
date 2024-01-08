@@ -42,7 +42,12 @@ namespace FloorplanClassLibrary
                 .Where(ts => ts.IsLunch == isLunch && ts.DayOfWeek == dayOfWeek)
                 .ToList();
         }
-
+        public List<TableStats> GetStatsByDateRange(List<TableStats> allStats, DateOnly startDate, DateOnly endDate)
+        {
+            return allStats
+                .Where(ts => ts.Date >= startDate && ts.Date <= endDate)
+                .ToList();
+        }
         public List<OrderDetail> ReadOrderDetails(string filePath)
         {
             using (var reader = new StreamReader(filePath))

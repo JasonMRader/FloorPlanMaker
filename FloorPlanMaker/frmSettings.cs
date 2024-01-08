@@ -70,6 +70,13 @@ namespace FloorPlanMakerUI
                     // Get all dinner stats for Monday
                     var mondayDinnerStats = tableSalesManager.GetStatsByShiftAndDayOfWeek(allTableStats, false, DayOfWeek.Monday);
 
+                    DateOnly startDate = new DateOnly(2024, 1, 1); // For example, January 1, 2024
+                    DateOnly endDate = new DateOnly(2024, 1, 5);  // For example, January 31, 2024
+
+                    // Get all stats within the date range
+                    var statsInDateRange = tableSalesManager.GetStatsByDateRange(allTableStats, startDate, endDate);
+
+                    // Process the
                     // Further processing or display of tableStats
                     // For example, display the results in a ListView, DataGridView, etc.
                 }
