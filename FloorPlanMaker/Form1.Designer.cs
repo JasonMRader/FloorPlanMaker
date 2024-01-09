@@ -59,10 +59,12 @@ namespace FloorPlanMaker
             pnlTemplateContainer = new Panel();
             pnlSideContainer = new Panel();
             pnlSectionsAndServers = new Panel();
+            rdoSales = new RadioButton();
             rdoViewServerFlow = new RadioButton();
             rdoViewSectionFlow = new RadioButton();
             toolTip1 = new ToolTip(components);
             btnReportBug = new Button();
+            pnlStatMode = new Panel();
             flowSectionSelect.SuspendLayout();
             panel1.SuspendLayout();
             pnlFloorplanContainer.SuspendLayout();
@@ -421,6 +423,8 @@ namespace FloorPlanMaker
             // pnlSectionsAndServers
             // 
             pnlSectionsAndServers.BackColor = Color.WhiteSmoke;
+            pnlSectionsAndServers.Controls.Add(pnlStatMode);
+            pnlSectionsAndServers.Controls.Add(rdoSales);
             pnlSectionsAndServers.Controls.Add(rdoViewServerFlow);
             pnlSectionsAndServers.Controls.Add(rdoViewSectionFlow);
             pnlSectionsAndServers.Controls.Add(flowServersInFloorplan);
@@ -431,6 +435,23 @@ namespace FloorPlanMaker
             pnlSectionsAndServers.Name = "pnlSectionsAndServers";
             pnlSectionsAndServers.Size = new Size(335, 921);
             pnlSectionsAndServers.TabIndex = 1;
+            // 
+            // rdoSales
+            // 
+            rdoSales.Appearance = Appearance.Button;
+            rdoSales.BackColor = Color.FromArgb(100, 130, 180);
+            rdoSales.FlatAppearance.BorderColor = Color.FromArgb(100, 130, 180);
+            rdoSales.FlatAppearance.CheckedBackColor = Color.WhiteSmoke;
+            rdoSales.FlatStyle = FlatStyle.Flat;
+            rdoSales.ForeColor = Color.Black;
+            rdoSales.Image = FloorPlanMakerUI.Properties.Resources.salesSMall;
+            rdoSales.Location = new Point(126, 0);
+            rdoSales.Name = "rdoSales";
+            rdoSales.Size = new Size(63, 28);
+            rdoSales.TabIndex = 10;
+            rdoSales.TextAlign = ContentAlignment.MiddleCenter;
+            rdoSales.UseVisualStyleBackColor = false;
+            rdoSales.CheckedChanged += rdoSales_CheckedChanged;
             // 
             // rdoViewServerFlow
             // 
@@ -489,6 +510,13 @@ namespace FloorPlanMaker
             toolTip1.SetToolTip(btnReportBug, "Report Bug / Request Feature");
             btnReportBug.UseVisualStyleBackColor = false;
             btnReportBug.Click += btnReportBug_Click;
+            // 
+            // pnlStatMode
+            // 
+            pnlStatMode.Location = new Point(0, 28);
+            pnlStatMode.Name = "pnlStatMode";
+            pnlStatMode.Size = new Size(335, 865);
+            pnlStatMode.TabIndex = 13;
             // 
             // Form1
             // 
@@ -552,5 +580,7 @@ namespace FloorPlanMaker
         private Panel pnlTemplateContainer;
         private Button btnReportBug;
         private RadioButton rdoSettings;
+        private RadioButton rdoSales;
+        private Panel pnlStatMode;
     }
 }
