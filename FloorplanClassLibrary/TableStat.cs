@@ -39,6 +39,11 @@ namespace FloorplanClassLibrary
             this.amount = amount;
             Orders = orders;
         }
+        public override string ToString()
+        {
+            return "{" + TableStatNumber + "} " + ", " + DayOfWeek.ToString() + ", " + Date.ToString() +
+                ", IsLunch: " + IsLunch.ToString() + ", " + Sales.ToString();
+        }
     }
 }
 //    public class TableStats
