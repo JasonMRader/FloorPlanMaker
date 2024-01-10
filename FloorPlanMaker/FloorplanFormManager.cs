@@ -789,7 +789,7 @@ namespace FloorPlanMakerUI
         }
         private void SetTableStats(List<TableStats> tableStats)
         {
-
+            //Add Table stats here
         }
         internal void AddSectionPanel(Section? section, FlowLayoutPanel flowSectionSelect)
         {
