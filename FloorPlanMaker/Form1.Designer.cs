@@ -60,15 +60,17 @@ namespace FloorPlanMaker
             pnlSideContainer = new Panel();
             pnlSectionsAndServers = new Panel();
             pnlStatMode = new Panel();
-            radioButton2 = new RadioButton();
-            radioButton3 = new RadioButton();
-            radioButton1 = new RadioButton();
+            rdoLastWeekdayStats = new RadioButton();
+            rdoYearlyAverageStats = new RadioButton();
+            rdoYesterdayStats = new RadioButton();
             rdoSales = new RadioButton();
             rdoViewServerFlow = new RadioButton();
             rdoViewSectionFlow = new RadioButton();
             toolTip1 = new ToolTip(components);
             btnReportBug = new Button();
-            radioButton4 = new RadioButton();
+            rdoLastFourWeekdayStats = new RadioButton();
+            rdoRangeStats = new RadioButton();
+            rdoSelectedDatesStats = new RadioButton();
             flowSectionSelect.SuspendLayout();
             panel1.SuspendLayout();
             pnlFloorplanContainer.SuspendLayout();
@@ -443,60 +445,62 @@ namespace FloorPlanMaker
             // 
             // pnlStatMode
             // 
-            pnlStatMode.Controls.Add(radioButton2);
-            pnlStatMode.Controls.Add(radioButton4);
-            pnlStatMode.Controls.Add(radioButton3);
-            pnlStatMode.Controls.Add(radioButton1);
+            pnlStatMode.Controls.Add(rdoLastWeekdayStats);
+            pnlStatMode.Controls.Add(rdoSelectedDatesStats);
+            pnlStatMode.Controls.Add(rdoRangeStats);
+            pnlStatMode.Controls.Add(rdoLastFourWeekdayStats);
+            pnlStatMode.Controls.Add(rdoYearlyAverageStats);
+            pnlStatMode.Controls.Add(rdoYesterdayStats);
             pnlStatMode.Location = new Point(0, 28);
             pnlStatMode.Name = "pnlStatMode";
             pnlStatMode.Size = new Size(335, 865);
             pnlStatMode.TabIndex = 13;
             // 
-            // radioButton2
+            // rdoLastWeekdayStats
             // 
-            radioButton2.Appearance = Appearance.Button;
-            radioButton2.BackColor = Color.FromArgb(100, 130, 180);
-            radioButton2.FlatAppearance.BorderSize = 0;
-            radioButton2.FlatStyle = FlatStyle.Flat;
-            radioButton2.Location = new Point(22, 127);
-            radioButton2.Name = "radioButton2";
-            radioButton2.Size = new Size(286, 35);
-            radioButton2.TabIndex = 0;
-            radioButton2.TabStop = true;
-            radioButton2.Text = "Last Week";
-            radioButton2.TextAlign = ContentAlignment.MiddleCenter;
-            radioButton2.UseVisualStyleBackColor = false;
+            rdoLastWeekdayStats.Appearance = Appearance.Button;
+            rdoLastWeekdayStats.BackColor = Color.FromArgb(100, 130, 180);
+            rdoLastWeekdayStats.FlatAppearance.BorderSize = 0;
+            rdoLastWeekdayStats.FlatStyle = FlatStyle.Flat;
+            rdoLastWeekdayStats.Location = new Point(22, 127);
+            rdoLastWeekdayStats.Name = "rdoLastWeekdayStats";
+            rdoLastWeekdayStats.Size = new Size(286, 35);
+            rdoLastWeekdayStats.TabIndex = 0;
+            rdoLastWeekdayStats.TabStop = true;
+            rdoLastWeekdayStats.Text = "Last Week";
+            rdoLastWeekdayStats.TextAlign = ContentAlignment.MiddleCenter;
+            rdoLastWeekdayStats.UseVisualStyleBackColor = false;
             // 
-            // radioButton3
+            // rdoYearlyAverageStats
             // 
-            radioButton3.Appearance = Appearance.Button;
-            radioButton3.BackColor = Color.FromArgb(100, 130, 180);
-            radioButton3.FlatAppearance.BorderSize = 0;
-            radioButton3.FlatStyle = FlatStyle.Flat;
-            radioButton3.Location = new Point(22, 168);
-            radioButton3.Name = "radioButton3";
-            radioButton3.Size = new Size(286, 35);
-            radioButton3.TabIndex = 0;
-            radioButton3.TabStop = true;
-            radioButton3.Text = "Yearly Average";
-            radioButton3.TextAlign = ContentAlignment.MiddleCenter;
-            radioButton3.UseVisualStyleBackColor = false;
+            rdoYearlyAverageStats.Appearance = Appearance.Button;
+            rdoYearlyAverageStats.BackColor = Color.FromArgb(100, 130, 180);
+            rdoYearlyAverageStats.FlatAppearance.BorderSize = 0;
+            rdoYearlyAverageStats.FlatStyle = FlatStyle.Flat;
+            rdoYearlyAverageStats.Location = new Point(22, 168);
+            rdoYearlyAverageStats.Name = "rdoYearlyAverageStats";
+            rdoYearlyAverageStats.Size = new Size(286, 35);
+            rdoYearlyAverageStats.TabIndex = 0;
+            rdoYearlyAverageStats.TabStop = true;
+            rdoYearlyAverageStats.Text = "Yearly Average";
+            rdoYearlyAverageStats.TextAlign = ContentAlignment.MiddleCenter;
+            rdoYearlyAverageStats.UseVisualStyleBackColor = false;
             // 
-            // radioButton1
+            // rdoYesterdayStats
             // 
-            radioButton1.Appearance = Appearance.Button;
-            radioButton1.BackColor = Color.FromArgb(100, 130, 180);
-            radioButton1.FlatAppearance.BorderSize = 0;
-            radioButton1.FlatStyle = FlatStyle.Flat;
-            radioButton1.Location = new Point(22, 86);
-            radioButton1.Name = "radioButton1";
-            radioButton1.Size = new Size(286, 35);
-            radioButton1.TabIndex = 0;
-            radioButton1.TabStop = true;
-            radioButton1.Text = "Yesterday";
-            radioButton1.TextAlign = ContentAlignment.MiddleCenter;
-            radioButton1.UseVisualStyleBackColor = false;
-            radioButton1.CheckedChanged += radioButton1_CheckedChanged;
+            rdoYesterdayStats.Appearance = Appearance.Button;
+            rdoYesterdayStats.BackColor = Color.FromArgb(100, 130, 180);
+            rdoYesterdayStats.FlatAppearance.BorderSize = 0;
+            rdoYesterdayStats.FlatStyle = FlatStyle.Flat;
+            rdoYesterdayStats.Location = new Point(22, 86);
+            rdoYesterdayStats.Name = "rdoYesterdayStats";
+            rdoYesterdayStats.Size = new Size(286, 35);
+            rdoYesterdayStats.TabIndex = 0;
+            rdoYesterdayStats.TabStop = true;
+            rdoYesterdayStats.Text = "Yesterday";
+            rdoYesterdayStats.TextAlign = ContentAlignment.MiddleCenter;
+            rdoYesterdayStats.UseVisualStyleBackColor = false;
+            rdoYesterdayStats.CheckedChanged += rdoYesterdayStats_CheckedChanged;
             // 
             // rdoSales
             // 
@@ -573,20 +577,50 @@ namespace FloorPlanMaker
             btnReportBug.UseVisualStyleBackColor = false;
             btnReportBug.Click += btnReportBug_Click;
             // 
-            // radioButton4
+            // rdoLastFourWeekdayStats
             // 
-            radioButton4.Appearance = Appearance.Button;
-            radioButton4.BackColor = Color.FromArgb(100, 130, 180);
-            radioButton4.FlatAppearance.BorderSize = 0;
-            radioButton4.FlatStyle = FlatStyle.Flat;
-            radioButton4.Location = new Point(22, 209);
-            radioButton4.Name = "radioButton4";
-            radioButton4.Size = new Size(286, 35);
-            radioButton4.TabIndex = 0;
-            radioButton4.TabStop = true;
-            radioButton4.Text = "Yearly Average";
-            radioButton4.TextAlign = ContentAlignment.MiddleCenter;
-            radioButton4.UseVisualStyleBackColor = false;
+            rdoLastFourWeekdayStats.Appearance = Appearance.Button;
+            rdoLastFourWeekdayStats.BackColor = Color.FromArgb(100, 130, 180);
+            rdoLastFourWeekdayStats.FlatAppearance.BorderSize = 0;
+            rdoLastFourWeekdayStats.FlatStyle = FlatStyle.Flat;
+            rdoLastFourWeekdayStats.Location = new Point(22, 209);
+            rdoLastFourWeekdayStats.Name = "rdoLastFourWeekdayStats";
+            rdoLastFourWeekdayStats.Size = new Size(286, 35);
+            rdoLastFourWeekdayStats.TabIndex = 0;
+            rdoLastFourWeekdayStats.TabStop = true;
+            rdoLastFourWeekdayStats.Text = "Last Four Weekday";
+            rdoLastFourWeekdayStats.TextAlign = ContentAlignment.MiddleCenter;
+            rdoLastFourWeekdayStats.UseVisualStyleBackColor = false;
+            // 
+            // rdoRangeStats
+            // 
+            rdoRangeStats.Appearance = Appearance.Button;
+            rdoRangeStats.BackColor = Color.FromArgb(100, 130, 180);
+            rdoRangeStats.FlatAppearance.BorderSize = 0;
+            rdoRangeStats.FlatStyle = FlatStyle.Flat;
+            rdoRangeStats.Location = new Point(22, 250);
+            rdoRangeStats.Name = "rdoRangeStats";
+            rdoRangeStats.Size = new Size(286, 35);
+            rdoRangeStats.TabIndex = 0;
+            rdoRangeStats.TabStop = true;
+            rdoRangeStats.Text = "Range";
+            rdoRangeStats.TextAlign = ContentAlignment.MiddleCenter;
+            rdoRangeStats.UseVisualStyleBackColor = false;
+            // 
+            // rdoSelectedDatesStats
+            // 
+            rdoSelectedDatesStats.Appearance = Appearance.Button;
+            rdoSelectedDatesStats.BackColor = Color.FromArgb(100, 130, 180);
+            rdoSelectedDatesStats.FlatAppearance.BorderSize = 0;
+            rdoSelectedDatesStats.FlatStyle = FlatStyle.Flat;
+            rdoSelectedDatesStats.Location = new Point(22, 433);
+            rdoSelectedDatesStats.Name = "rdoSelectedDatesStats";
+            rdoSelectedDatesStats.Size = new Size(286, 35);
+            rdoSelectedDatesStats.TabIndex = 0;
+            rdoSelectedDatesStats.TabStop = true;
+            rdoSelectedDatesStats.Text = "Selected Dates";
+            rdoSelectedDatesStats.TextAlign = ContentAlignment.MiddleCenter;
+            rdoSelectedDatesStats.UseVisualStyleBackColor = false;
             // 
             // Form1
             // 
@@ -653,9 +687,11 @@ namespace FloorPlanMaker
         private RadioButton rdoSettings;
         private RadioButton rdoSales;
         private Panel pnlStatMode;
-        private RadioButton radioButton1;
-        private RadioButton radioButton2;
-        private RadioButton radioButton3;
-        private RadioButton radioButton4;
+        private RadioButton rdoYesterdayStats;
+        private RadioButton rdoLastWeekdayStats;
+        private RadioButton rdoYearlyAverageStats;
+        private RadioButton rdoLastFourWeekdayStats;
+        private RadioButton rdoSelectedDatesStats;
+        private RadioButton rdoRangeStats;
     }
 }
