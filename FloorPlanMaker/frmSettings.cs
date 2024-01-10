@@ -97,10 +97,20 @@ namespace FloorPlanMakerUI
                 }
                 else if (rangeStart != null)
                 {
-                    // End of a current range
-                    string dateRange = $"{rangeStart.Value.ToString("MMM dd")} - {date.AddDays(-1).ToString("MMM dd")}";
-                    missingDateRanges.Add(dateRange);
-                    rangeStart = null; // Reset for the next range
+                    if(date.AddDays(-1) != rangeStart)
+                    {
+                        // End of a current range
+                        string dateRange = $"{rangeStart.Value.ToString("MMM dd")} - {date.AddDays(-1).ToString("MMM dd")}";
+                        missingDateRanges.Add(dateRange);
+                        rangeStart = null; // Reset for the next range
+                    }
+                    else
+                    {
+                        string dateRange = $"{rangeStart.Value.ToString("MMM dd")}";
+                        missingDateRanges.Add(dateRange);
+                        rangeStart = null; // Reset for the next range
+                    }
+                   
                 }
             }
 
