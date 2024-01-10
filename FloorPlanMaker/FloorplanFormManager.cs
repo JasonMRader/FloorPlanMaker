@@ -787,7 +787,10 @@ namespace FloorPlanMakerUI
             }
            
         }
+        private void SetTableStats(List<TableStats> tableStats)
+        {
 
+        }
         internal void AddSectionPanel(Section? section, FlowLayoutPanel flowSectionSelect)
         {
             SectionPanelControl newPanel = sectionPanelControlBySection(section);

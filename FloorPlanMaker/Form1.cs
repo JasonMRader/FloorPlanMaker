@@ -709,6 +709,7 @@ namespace FloorPlanMaker
             {
                 flowSectionSelect.Visible = true;
                 flowServersInFloorplan.Visible = false;
+                pnlStatMode.Visible = false;
                 rdoViewSectionFlow.Image = Resources.lilCanvasBook;
 
             }
@@ -726,6 +727,7 @@ namespace FloorPlanMaker
             {
                 flowSectionSelect.Visible = false;
                 flowServersInFloorplan.Visible = true;
+                pnlStatMode.Visible = false;
                 rdoViewSectionFlow.Image = Resources.lilBook;
             }
             else
@@ -737,7 +739,7 @@ namespace FloorPlanMaker
         }
         private void rdoSales_CheckedChanged(object sender, EventArgs e)
         {
-
+            pnlStatMode.Visible = true;
         }
         private void rdoSettings_CheckedChanged(object sender, EventArgs e)
         {

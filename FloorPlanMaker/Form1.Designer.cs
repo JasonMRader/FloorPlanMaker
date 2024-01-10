@@ -65,6 +65,9 @@ namespace FloorPlanMaker
             toolTip1 = new ToolTip(components);
             btnReportBug = new Button();
             pnlStatMode = new Panel();
+            radioButton1 = new RadioButton();
+            radioButton2 = new RadioButton();
+            radioButton3 = new RadioButton();
             flowSectionSelect.SuspendLayout();
             panel1.SuspendLayout();
             pnlFloorplanContainer.SuspendLayout();
@@ -72,6 +75,7 @@ namespace FloorPlanMaker
             pnlMainContainer.SuspendLayout();
             pnlSideContainer.SuspendLayout();
             pnlSectionsAndServers.SuspendLayout();
+            pnlStatMode.SuspendLayout();
             SuspendLayout();
             // 
             // flowServersInFloorplan
@@ -513,10 +517,58 @@ namespace FloorPlanMaker
             // 
             // pnlStatMode
             // 
+            pnlStatMode.Controls.Add(radioButton2);
+            pnlStatMode.Controls.Add(radioButton3);
+            pnlStatMode.Controls.Add(radioButton1);
             pnlStatMode.Location = new Point(0, 28);
             pnlStatMode.Name = "pnlStatMode";
             pnlStatMode.Size = new Size(335, 865);
             pnlStatMode.TabIndex = 13;
+            // 
+            // radioButton1
+            // 
+            radioButton1.Appearance = Appearance.Button;
+            radioButton1.BackColor = Color.FromArgb(100, 130, 180);
+            radioButton1.FlatAppearance.BorderSize = 0;
+            radioButton1.FlatStyle = FlatStyle.Flat;
+            radioButton1.Location = new Point(22, 86);
+            radioButton1.Name = "radioButton1";
+            radioButton1.Size = new Size(286, 35);
+            radioButton1.TabIndex = 0;
+            radioButton1.TabStop = true;
+            radioButton1.Text = "Yesterday";
+            radioButton1.TextAlign = ContentAlignment.MiddleCenter;
+            radioButton1.UseVisualStyleBackColor = false;
+            // 
+            // radioButton2
+            // 
+            radioButton2.Appearance = Appearance.Button;
+            radioButton2.BackColor = Color.FromArgb(100, 130, 180);
+            radioButton2.FlatAppearance.BorderSize = 0;
+            radioButton2.FlatStyle = FlatStyle.Flat;
+            radioButton2.Location = new Point(22, 127);
+            radioButton2.Name = "radioButton2";
+            radioButton2.Size = new Size(286, 35);
+            radioButton2.TabIndex = 0;
+            radioButton2.TabStop = true;
+            radioButton2.Text = "Last Week";
+            radioButton2.TextAlign = ContentAlignment.MiddleCenter;
+            radioButton2.UseVisualStyleBackColor = false;
+            // 
+            // radioButton3
+            // 
+            radioButton3.Appearance = Appearance.Button;
+            radioButton3.BackColor = Color.FromArgb(100, 130, 180);
+            radioButton3.FlatAppearance.BorderSize = 0;
+            radioButton3.FlatStyle = FlatStyle.Flat;
+            radioButton3.Location = new Point(22, 168);
+            radioButton3.Name = "radioButton3";
+            radioButton3.Size = new Size(286, 35);
+            radioButton3.TabIndex = 0;
+            radioButton3.TabStop = true;
+            radioButton3.Text = "Yearly Average";
+            radioButton3.TextAlign = ContentAlignment.MiddleCenter;
+            radioButton3.UseVisualStyleBackColor = false;
             // 
             // Form1
             // 
@@ -545,6 +597,7 @@ namespace FloorPlanMaker
             pnlMainContainer.ResumeLayout(false);
             pnlSideContainer.ResumeLayout(false);
             pnlSectionsAndServers.ResumeLayout(false);
+            pnlStatMode.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -582,5 +635,8 @@ namespace FloorPlanMaker
         private RadioButton rdoSettings;
         private RadioButton rdoSales;
         private Panel pnlStatMode;
+        private RadioButton radioButton1;
+        private RadioButton radioButton2;
+        private RadioButton radioButton3;
     }
 }
