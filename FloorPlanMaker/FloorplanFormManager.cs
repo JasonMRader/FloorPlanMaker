@@ -3,6 +3,7 @@ using FloorPlanMaker;
 using FloorplanUserControlLibrary;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -31,6 +32,7 @@ namespace FloorPlanMakerUI
         private ImageLabelControl coversImageLabel = new ImageLabelControl();
         private ImageLabelControl salesImageLabel = new ImageLabelControl();
         private ToolTip toolTip = new ToolTip();
+        private TableSalesManager tableSalesManager = new TableSalesManager();
         
         public TemplateManager TemplateManager { get; set; }
 
@@ -750,6 +752,7 @@ namespace FloorPlanMakerUI
             Panel pnlFloorPlan, FlowLayoutPanel flowServersInFloorplan, FlowLayoutPanel flowSectionSelect)
         {
             //NoServersToDisplay();
+            SetTableSales();
 
             if (ShiftManager.ContainsFloorplan(dateOnlySelected, isAM, ShiftManager.SelectedDiningArea.ID))
             {
@@ -786,6 +789,7 @@ namespace FloorPlanMakerUI
                     pnlFloorPlan.Controls.Remove(sectionLabel);
                 }               
                 UpdateTableControlColors();
+                
             }
            
         }
@@ -810,6 +814,18 @@ namespace FloorPlanMakerUI
                 
             }
            
+        }
+        private void SetTableSales()
+        {
+            foreach (Table table in this.ShiftManager.SelectedDiningArea.Tables)
+            {
+                var matchedStat = tableSalesManager.Stats.FirstOrDefault(t => t.TableStatNumber == table.TableNumber);
+                if (matchedStat != null)
+                {
+                    table.AverageSales = (float)matchedStat.Sales;
+                }
+                else { table.AverageSales = -1; }
+            }
         }
         internal void AddSectionPanel(Section? section, FlowLayoutPanel flowSectionSelect)
         {
@@ -838,5 +854,14 @@ namespace FloorPlanMakerUI
             // If no suitable position is found, the control stays at the end
             return flowPanel.Controls.Count - 2;
         }
+        public void SetSalesManagerStats(List<TableStat> stats)
+        {
+            if (stats != null)
+            {
+                this.tableSalesManager.Stats = stats;
+            }
+            SetTableSales();
+        }
+        
     }
 }

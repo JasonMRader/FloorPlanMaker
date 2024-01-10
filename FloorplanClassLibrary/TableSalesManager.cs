@@ -10,6 +10,8 @@ namespace FloorplanClassLibrary
 {
     public class TableSalesManager
     {
+        public TableSalesManager() { }
+        public List<TableStat> Stats { get; set; } = new List<TableStat>();
         public List<TableStat> ProcessCsvFile(string filePath)
         {
             var orders = ReadOrderDetails(filePath);
