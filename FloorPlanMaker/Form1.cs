@@ -870,5 +870,45 @@ namespace FloorPlanMaker
             tableSalesManager.SetTableStats(floorplanManager.Floorplan.DiningArea.Tables, floorplanManager.Floorplan.IsLunch, dateOnlySelected);
 
         }
+
+        private void rdoLastWeekdayStats_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void rdoYearlyAverageStats_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void rdoLastFourWeekdayStats_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void rdoRangeStats_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void rdoSelectedDatesStats_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnAddCustomDate_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnApplyDates_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnClearDates_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
