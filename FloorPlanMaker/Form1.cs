@@ -868,13 +868,25 @@ namespace FloorPlanMaker
             frmReporting frmReport = new frmReporting();
             frmReport.ShowDialog();
         }
-
+        private void SetTableSalesView()
+        {
+            foreach (Control c in pnlFloorPlan.Controls)
+            {
+                if (c is TableControl tableControl)
+                {
+                    tableControl.CurrentDisplayMode = DisplayMode.AverageCovers;
+                    tableControl.Invalidate();
+                }
+            }
+        }
         private void rdoYesterdayStats_CheckedChanged(object sender, EventArgs e)
         {
             if(rdoYesterdayStats.Checked)
             {
                 List<TableStat> stats = SqliteDataAccess.LoadTableStatsByDateAndLunch(IsLunch, dateOnlySelected.AddDays(-1));
                 floorplanManager.SetSalesManagerStats(stats);
+                SetTableSalesView();
+               
             }
             
             //tableSalesManager.SetTableStats(floorplanManager.Floorplan.DiningArea.Tables, floorplanManager.Floorplan.IsLunch, dateOnlySelected);
@@ -887,6 +899,7 @@ namespace FloorPlanMaker
             {
                 List<TableStat> stats = SqliteDataAccess.LoadTableStatsByDateAndLunch(IsLunch, dateOnlySelected.AddDays(-7));
                 floorplanManager.SetSalesManagerStats(stats);
+                SetTableSalesView();
             }
         }
 
