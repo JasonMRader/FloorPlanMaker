@@ -868,7 +868,7 @@ namespace FloorPlanMaker
         {
             TableSalesManager tableSalesManager = new TableSalesManager();
             tableSalesManager.SetTableStats(floorplanManager.Floorplan.DiningArea.Tables, floorplanManager.Floorplan.IsLunch, dateOnlySelected);
-            
+
         }
     }
 }

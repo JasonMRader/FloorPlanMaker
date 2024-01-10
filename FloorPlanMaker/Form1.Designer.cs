@@ -68,6 +68,7 @@ namespace FloorPlanMaker
             rdoViewSectionFlow = new RadioButton();
             toolTip1 = new ToolTip(components);
             btnReportBug = new Button();
+            radioButton4 = new RadioButton();
             flowSectionSelect.SuspendLayout();
             panel1.SuspendLayout();
             pnlFloorplanContainer.SuspendLayout();
@@ -443,6 +444,7 @@ namespace FloorPlanMaker
             // pnlStatMode
             // 
             pnlStatMode.Controls.Add(radioButton2);
+            pnlStatMode.Controls.Add(radioButton4);
             pnlStatMode.Controls.Add(radioButton3);
             pnlStatMode.Controls.Add(radioButton1);
             pnlStatMode.Location = new Point(0, 28);
@@ -571,6 +573,21 @@ namespace FloorPlanMaker
             btnReportBug.UseVisualStyleBackColor = false;
             btnReportBug.Click += btnReportBug_Click;
             // 
+            // radioButton4
+            // 
+            radioButton4.Appearance = Appearance.Button;
+            radioButton4.BackColor = Color.FromArgb(100, 130, 180);
+            radioButton4.FlatAppearance.BorderSize = 0;
+            radioButton4.FlatStyle = FlatStyle.Flat;
+            radioButton4.Location = new Point(22, 209);
+            radioButton4.Name = "radioButton4";
+            radioButton4.Size = new Size(286, 35);
+            radioButton4.TabIndex = 0;
+            radioButton4.TabStop = true;
+            radioButton4.Text = "Yearly Average";
+            radioButton4.TextAlign = ContentAlignment.MiddleCenter;
+            radioButton4.UseVisualStyleBackColor = false;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -639,5 +656,6 @@ namespace FloorPlanMaker
         private RadioButton radioButton1;
         private RadioButton radioButton2;
         private RadioButton radioButton3;
+        private RadioButton radioButton4;
     }
 }

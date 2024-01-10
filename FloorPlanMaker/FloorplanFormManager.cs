@@ -776,6 +776,7 @@ namespace FloorPlanMakerUI
                 //UpdateServerControlsForFloorplan();
                 coversImageLabel.UpdateText(ShiftManager.SelectedFloorplan.MaxCoversPerServer.ToString("F0"));
                 salesImageLabel.UpdateText(ShiftManager.SelectedFloorplan.AvgSalesPerServer.ToString("C0"));
+                LoadTableSalesForPastDate();
                 
             }
             else
@@ -788,7 +789,28 @@ namespace FloorPlanMakerUI
             }
            
         }
-        
+        private void LoadTableSalesForPastDate()
+        {
+            if(this.Floorplan != null)
+            {
+                List<TableStat> statList = SqliteDataAccess.LoadTableStatsByDateAndLunch(this.Floorplan.IsLunch, this.Floorplan.DateOnly);
+                if(statList.Count > 0)
+                {
+                    foreach (Table table in this.Floorplan.DiningArea.Tables)
+                    {
+                        var matchedStat = statList.FirstOrDefault(t => t.TableStatNumber == table.TableNumber);
+                        if (matchedStat != null)
+                        {
+                            table.AverageSales = (float)matchedStat.Sales;
+                        }
+                        else { table.AverageSales = -1; }
+                    }
+                }
+
+                
+            }
+           
+        }
         internal void AddSectionPanel(Section? section, FlowLayoutPanel flowSectionSelect)
         {
             SectionPanelControl newPanel = sectionPanelControlBySection(section);
