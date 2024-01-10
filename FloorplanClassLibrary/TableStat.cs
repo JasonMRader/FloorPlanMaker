@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace FloorplanClassLibrary
 {
-    public class TableStats
+    public class TableStat
     {
         private string table;
         private float amount;
@@ -21,7 +21,7 @@ namespace FloorplanClassLibrary
         public float? Sales { get; set; }
         public int Orders { get; set; } = 0;
 
-        public TableStats(string table, DayOfWeek dayOfWeek, DateOnly date, bool isLunch, float sales)
+        public TableStat(string table, DayOfWeek dayOfWeek, DateOnly date, bool isLunch, float sales)
         {
             TableStatNumber = table;
             DayOfWeek = dayOfWeek;
@@ -29,8 +29,8 @@ namespace FloorplanClassLibrary
             IsLunch = isLunch;
             Sales = sales;
         }
-        public TableStats() { }
-        public TableStats(string table, DayOfWeek dayOfWeek, DateOnly date, bool isLunch, float amount, int orders)
+        public TableStat() { }
+        public TableStat(string table, DayOfWeek dayOfWeek, DateOnly date, bool isLunch, float amount, int orders)
         {
             this.table = table;
             DayOfWeek = dayOfWeek;

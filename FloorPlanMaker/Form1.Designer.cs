@@ -59,15 +59,15 @@ namespace FloorPlanMaker
             pnlTemplateContainer = new Panel();
             pnlSideContainer = new Panel();
             pnlSectionsAndServers = new Panel();
+            pnlStatMode = new Panel();
+            radioButton2 = new RadioButton();
+            radioButton3 = new RadioButton();
+            radioButton1 = new RadioButton();
             rdoSales = new RadioButton();
             rdoViewServerFlow = new RadioButton();
             rdoViewSectionFlow = new RadioButton();
             toolTip1 = new ToolTip(components);
             btnReportBug = new Button();
-            pnlStatMode = new Panel();
-            radioButton1 = new RadioButton();
-            radioButton2 = new RadioButton();
-            radioButton3 = new RadioButton();
             flowSectionSelect.SuspendLayout();
             panel1.SuspendLayout();
             pnlFloorplanContainer.SuspendLayout();
@@ -440,6 +440,62 @@ namespace FloorPlanMaker
             pnlSectionsAndServers.Size = new Size(335, 921);
             pnlSectionsAndServers.TabIndex = 1;
             // 
+            // pnlStatMode
+            // 
+            pnlStatMode.Controls.Add(radioButton2);
+            pnlStatMode.Controls.Add(radioButton3);
+            pnlStatMode.Controls.Add(radioButton1);
+            pnlStatMode.Location = new Point(0, 28);
+            pnlStatMode.Name = "pnlStatMode";
+            pnlStatMode.Size = new Size(335, 865);
+            pnlStatMode.TabIndex = 13;
+            // 
+            // radioButton2
+            // 
+            radioButton2.Appearance = Appearance.Button;
+            radioButton2.BackColor = Color.FromArgb(100, 130, 180);
+            radioButton2.FlatAppearance.BorderSize = 0;
+            radioButton2.FlatStyle = FlatStyle.Flat;
+            radioButton2.Location = new Point(22, 127);
+            radioButton2.Name = "radioButton2";
+            radioButton2.Size = new Size(286, 35);
+            radioButton2.TabIndex = 0;
+            radioButton2.TabStop = true;
+            radioButton2.Text = "Last Week";
+            radioButton2.TextAlign = ContentAlignment.MiddleCenter;
+            radioButton2.UseVisualStyleBackColor = false;
+            // 
+            // radioButton3
+            // 
+            radioButton3.Appearance = Appearance.Button;
+            radioButton3.BackColor = Color.FromArgb(100, 130, 180);
+            radioButton3.FlatAppearance.BorderSize = 0;
+            radioButton3.FlatStyle = FlatStyle.Flat;
+            radioButton3.Location = new Point(22, 168);
+            radioButton3.Name = "radioButton3";
+            radioButton3.Size = new Size(286, 35);
+            radioButton3.TabIndex = 0;
+            radioButton3.TabStop = true;
+            radioButton3.Text = "Yearly Average";
+            radioButton3.TextAlign = ContentAlignment.MiddleCenter;
+            radioButton3.UseVisualStyleBackColor = false;
+            // 
+            // radioButton1
+            // 
+            radioButton1.Appearance = Appearance.Button;
+            radioButton1.BackColor = Color.FromArgb(100, 130, 180);
+            radioButton1.FlatAppearance.BorderSize = 0;
+            radioButton1.FlatStyle = FlatStyle.Flat;
+            radioButton1.Location = new Point(22, 86);
+            radioButton1.Name = "radioButton1";
+            radioButton1.Size = new Size(286, 35);
+            radioButton1.TabIndex = 0;
+            radioButton1.TabStop = true;
+            radioButton1.Text = "Yesterday";
+            radioButton1.TextAlign = ContentAlignment.MiddleCenter;
+            radioButton1.UseVisualStyleBackColor = false;
+            radioButton1.CheckedChanged += radioButton1_CheckedChanged;
+            // 
             // rdoSales
             // 
             rdoSales.Appearance = Appearance.Button;
@@ -514,61 +570,6 @@ namespace FloorPlanMaker
             toolTip1.SetToolTip(btnReportBug, "Report Bug / Request Feature");
             btnReportBug.UseVisualStyleBackColor = false;
             btnReportBug.Click += btnReportBug_Click;
-            // 
-            // pnlStatMode
-            // 
-            pnlStatMode.Controls.Add(radioButton2);
-            pnlStatMode.Controls.Add(radioButton3);
-            pnlStatMode.Controls.Add(radioButton1);
-            pnlStatMode.Location = new Point(0, 28);
-            pnlStatMode.Name = "pnlStatMode";
-            pnlStatMode.Size = new Size(335, 865);
-            pnlStatMode.TabIndex = 13;
-            // 
-            // radioButton1
-            // 
-            radioButton1.Appearance = Appearance.Button;
-            radioButton1.BackColor = Color.FromArgb(100, 130, 180);
-            radioButton1.FlatAppearance.BorderSize = 0;
-            radioButton1.FlatStyle = FlatStyle.Flat;
-            radioButton1.Location = new Point(22, 86);
-            radioButton1.Name = "radioButton1";
-            radioButton1.Size = new Size(286, 35);
-            radioButton1.TabIndex = 0;
-            radioButton1.TabStop = true;
-            radioButton1.Text = "Yesterday";
-            radioButton1.TextAlign = ContentAlignment.MiddleCenter;
-            radioButton1.UseVisualStyleBackColor = false;
-            // 
-            // radioButton2
-            // 
-            radioButton2.Appearance = Appearance.Button;
-            radioButton2.BackColor = Color.FromArgb(100, 130, 180);
-            radioButton2.FlatAppearance.BorderSize = 0;
-            radioButton2.FlatStyle = FlatStyle.Flat;
-            radioButton2.Location = new Point(22, 127);
-            radioButton2.Name = "radioButton2";
-            radioButton2.Size = new Size(286, 35);
-            radioButton2.TabIndex = 0;
-            radioButton2.TabStop = true;
-            radioButton2.Text = "Last Week";
-            radioButton2.TextAlign = ContentAlignment.MiddleCenter;
-            radioButton2.UseVisualStyleBackColor = false;
-            // 
-            // radioButton3
-            // 
-            radioButton3.Appearance = Appearance.Button;
-            radioButton3.BackColor = Color.FromArgb(100, 130, 180);
-            radioButton3.FlatAppearance.BorderSize = 0;
-            radioButton3.FlatStyle = FlatStyle.Flat;
-            radioButton3.Location = new Point(22, 168);
-            radioButton3.Name = "radioButton3";
-            radioButton3.Size = new Size(286, 35);
-            radioButton3.TabIndex = 0;
-            radioButton3.TabStop = true;
-            radioButton3.Text = "Yearly Average";
-            radioButton3.TextAlign = ContentAlignment.MiddleCenter;
-            radioButton3.UseVisualStyleBackColor = false;
             // 
             // Form1
             // 

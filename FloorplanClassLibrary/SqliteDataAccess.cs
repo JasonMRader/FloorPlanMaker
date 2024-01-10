@@ -36,12 +36,12 @@ namespace FloorplanClassLibrary
 
             return connectionString;
         }
-        public static void SaveTableStat(List<TableStats> tableStats)
+        public static void SaveTableStat(List<TableStat> tableStats)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 cnn.Open();
-                foreach(TableStats tableStat in  tableStats)
+                foreach(TableStat tableStat in  tableStats)
                 {
                     // Check for existing record
                     string checkSql = @"SELECT COUNT(*) FROM TableStats 
@@ -77,13 +77,13 @@ namespace FloorplanClassLibrary
                
             }
         }
-        public static List<TableStats> LoadTableStats()
+        public static List<TableStat> LoadTableStats()
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 var queryResult = cnn.Query(@"SELECT * FROM TableStats").ToList();
 
-                var tableStatsList = queryResult.Select(row => new TableStats
+                var tableStatsList = queryResult.Select(row => new TableStat
                 {
                     // Assign other properties as necessary
                     TableStatNumber = row.TableStatNumber,

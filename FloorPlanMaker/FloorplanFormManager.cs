@@ -776,6 +776,7 @@ namespace FloorPlanMakerUI
                 //UpdateServerControlsForFloorplan();
                 coversImageLabel.UpdateText(ShiftManager.SelectedFloorplan.MaxCoversPerServer.ToString("F0"));
                 salesImageLabel.UpdateText(ShiftManager.SelectedFloorplan.AvgSalesPerServer.ToString("C0"));
+                
             }
             else
             {
@@ -787,10 +788,7 @@ namespace FloorPlanMakerUI
             }
            
         }
-        private void SetTableStats(List<TableStats> tableStats)
-        {
-            //Add Table stats here
-        }
+        
         internal void AddSectionPanel(Section? section, FlowLayoutPanel flowSectionSelect)
         {
             SectionPanelControl newPanel = sectionPanelControlBySection(section);

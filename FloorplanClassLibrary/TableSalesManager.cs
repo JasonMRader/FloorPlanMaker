@@ -10,7 +10,7 @@ namespace FloorplanClassLibrary
 {
     public class TableSalesManager
     {
-        public List<TableStats> ProcessCsvFile(string filePath)
+        public List<TableStat> ProcessCsvFile(string filePath)
         {
             var orders = ReadOrderDetails(filePath);
 
@@ -22,7 +22,7 @@ namespace FloorplanClassLibrary
                     Date = DateOnly.FromDateTime(order.Opened),
                     IsLunch = order.Opened.Hour < 16
                 })
-                .Select(group => new TableStats
+                .Select(group => new TableStat
                 {
                     TableStatNumber = group.Key.Table,
                     Date = group.Key.Date,
@@ -36,17 +36,32 @@ namespace FloorplanClassLibrary
 
             return groupedOrders;
         }
-        public List<TableStats> GetStatsByShiftAndDayOfWeek(List<TableStats> allStats, bool isLunch, DayOfWeek dayOfWeek)
+        public List<TableStat> GetStatsByShiftAndDayOfWeek(List<TableStat> allStats, bool isLunch, DayOfWeek dayOfWeek)
         {
             return allStats
                 .Where(ts => ts.IsLunch == isLunch && ts.DayOfWeek == dayOfWeek)
                 .ToList();
         }
-        public List<TableStats> GetStatsByDateRange(List<TableStats> allStats, DateOnly startDate, DateOnly endDate)
+        public List<TableStat> GetStatsByDateRange(List<TableStat> allStats, DateOnly startDate, DateOnly endDate)
         {
             return allStats
                 .Where(ts => ts.Date >= startDate && ts.Date <= endDate)
                 .ToList();
+        }
+        public void SetTableStats(List<Table> tables, bool isLunch, DateOnly dateOnly)
+        {
+            List<TableStat> tableStats = SqliteDataAccess.LoadTableStats();
+            TableSalesManager tableSalesManager = new TableSalesManager();
+            List<TableStat> filteredTableStats = tableSalesManager.GetStatsByShiftAndDayOfWeek(tableStats, isLunch, dateOnly.DayOfWeek);
+            foreach (Table table in tables)
+            {
+                var matchedStat = filteredTableStats.FirstOrDefault(t => t.TableStatNumber == table.TableNumber);
+                if (matchedStat != null)
+                {
+                    table.AverageSales = (float)matchedStat.Sales;
+                }
+                else { table.AverageSales = -1; }
+            }
         }
         public List<OrderDetail> ReadOrderDetails(string filePath)
         {

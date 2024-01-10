@@ -864,6 +864,10 @@ namespace FloorPlanMaker
             frmReport.ShowDialog();
         }
 
-
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            TableSalesManager tableSalesManager = new TableSalesManager();
+            tableSalesManager.SetTableStats(floorplanManager.Floorplan.DiningArea.Tables, floorplanManager.Floorplan.IsLunch, dateOnlySelected);
+        }
     }
 }
