@@ -779,7 +779,7 @@ namespace FloorPlanMakerUI
                 //UpdateServerControlsForFloorplan();
                 coversImageLabel.UpdateText(ShiftManager.SelectedFloorplan.MaxCoversPerServer.ToString("F0"));
                 salesImageLabel.UpdateText(ShiftManager.SelectedFloorplan.AvgSalesPerServer.ToString("C0"));
-                LoadTableSalesForPastDate();
+                //LoadTableSalesForPastDate();
                 
             }
             else
