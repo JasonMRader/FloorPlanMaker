@@ -65,7 +65,7 @@ namespace FloorPlanMakerUI
                     // Process the file
                     TableSalesManager tableSalesManager = new TableSalesManager();
                     var allTableStats = tableSalesManager.ProcessCsvFile(filePath);
-                   
+
                     SqliteDataAccess.SaveTableStat(allTableStats);
                     refreshMissingDateDisplay();
                     // Process the
@@ -77,9 +77,9 @@ namespace FloorPlanMakerUI
         private void refreshMissingDateDisplay()
         {
             lbMissingData.Items.Clear();
-            DateOnly endDate = DateOnly.FromDateTime(DateTime.Today);
-            endDate = endDate.AddDays(-1);
-            DateOnly startDate = endDate.AddDays(-30);
+            DateOnly endDate = DateOnly.FromDateTime(dtpMissingDateEnd.Value);
+
+            DateOnly startDate = DateOnly.FromDateTime(dtpMissingDateStart.Value);
 
             List<DateOnly> missingDates = SqliteDataAccess.GetMissingDates(startDate, endDate);
             List<string> missingDateRanges = new List<string>();
@@ -97,7 +97,7 @@ namespace FloorPlanMakerUI
                 }
                 else if (rangeStart != null)
                 {
-                    if(date.AddDays(-1) != rangeStart)
+                    if (date.AddDays(-1) != rangeStart)
                     {
                         // End of a current range
                         string dateRange = $"{rangeStart.Value.ToString("MMM dd")} - {date.AddDays(-1).ToString("MMM dd")}";
@@ -110,7 +110,7 @@ namespace FloorPlanMakerUI
                         missingDateRanges.Add(dateRange);
                         rangeStart = null; // Reset for the next range
                     }
-                   
+
                 }
             }
 
@@ -139,7 +139,19 @@ namespace FloorPlanMakerUI
         }
         private void frmSettings_Load(object sender, EventArgs e)
         {
-           refreshMissingDateDisplay();
+            dtpMissingDateEnd.Value = DateTime.Now.AddDays(-1);
+            dtpMissingDateStart.Value = DateTime.Now.AddDays(-60);
+            refreshMissingDateDisplay();
+        }
+
+        private void dtpMissingDateStart_ValueChanged(object sender, EventArgs e)
+        {
+            refreshMissingDateDisplay();
+        }
+
+        private void dtpMissingDateEnd_ValueChanged(object sender, EventArgs e)
+        {
+            refreshMissingDateDisplay();
         }
     }
 }

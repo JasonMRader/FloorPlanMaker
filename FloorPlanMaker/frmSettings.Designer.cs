@@ -36,6 +36,10 @@
             btnChooseDataBase = new Button();
             openFileDialog1 = new OpenFileDialog();
             panel1 = new Panel();
+            dtpMissingDateStart = new DateTimePicker();
+            dtpMissingDateEnd = new DateTimePicker();
+            label3 = new Label();
+            label2 = new Label();
             label1 = new Label();
             lbMissingData = new ListBox();
             panel2 = new Panel();
@@ -137,6 +141,10 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(180, 190, 200);
+            panel1.Controls.Add(dtpMissingDateStart);
+            panel1.Controls.Add(dtpMissingDateEnd);
+            panel1.Controls.Add(label3);
+            panel1.Controls.Add(label2);
             panel1.Controls.Add(label1);
             panel1.Controls.Add(lbMissingData);
             panel1.Controls.Add(btnImportSalesData);
@@ -145,10 +153,44 @@
             panel1.Size = new Size(350, 800);
             panel1.TabIndex = 1;
             // 
+            // dtpMissingDateStart
+            // 
+            dtpMissingDateStart.Location = new Point(134, 123);
+            dtpMissingDateStart.Name = "dtpMissingDateStart";
+            dtpMissingDateStart.Size = new Size(200, 23);
+            dtpMissingDateStart.TabIndex = 3;
+            dtpMissingDateStart.ValueChanged += dtpMissingDateStart_ValueChanged;
+            // 
+            // dtpMissingDateEnd
+            // 
+            dtpMissingDateEnd.Location = new Point(134, 160);
+            dtpMissingDateEnd.Name = "dtpMissingDateEnd";
+            dtpMissingDateEnd.Size = new Size(200, 23);
+            dtpMissingDateEnd.TabIndex = 3;
+            dtpMissingDateEnd.ValueChanged += dtpMissingDateEnd_ValueChanged;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(109, 164);
+            label3.Name = "label3";
+            label3.Size = new Size(19, 15);
+            label3.TabIndex = 2;
+            label3.Text = "To";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(93, 127);
+            label2.Name = "label2";
+            label2.Size = new Size(35, 15);
+            label2.TabIndex = 2;
+            label2.Text = "From";
+            // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(12, 143);
+            label1.Location = new Point(12, 208);
             label1.Name = "label1";
             label1.Size = new Size(104, 15);
             label1.TabIndex = 2;
@@ -158,7 +200,7 @@
             // 
             lbMissingData.FormattingEnabled = true;
             lbMissingData.ItemHeight = 15;
-            lbMissingData.Location = new Point(12, 164);
+            lbMissingData.Location = new Point(12, 229);
             lbMissingData.Name = "lbMissingData";
             lbMissingData.Size = new Size(322, 199);
             lbMissingData.TabIndex = 1;
@@ -222,5 +264,9 @@
         private ListBox lbMissingData;
         private Panel panel2;
         private Panel panel3;
+        private DateTimePicker dtpMissingDateStart;
+        private DateTimePicker dtpMissingDateEnd;
+        private Label label3;
+        private Label label2;
     }
 }
