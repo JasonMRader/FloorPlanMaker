@@ -363,7 +363,7 @@ namespace FloorPlanMaker
         {
             SetColors();
             dateTimeSelected = DateTime.Now;
-
+           
             List<Floorplan> floorplans = SqliteDataAccess.LoadFloorplanList();
             cboDiningAreas.DataSource = areaCreationManager.DiningAreas;
             cboDiningAreas.DisplayMember = "Name";
@@ -376,6 +376,7 @@ namespace FloorPlanMaker
             coversImageLabel.SetTooltip("Covers per Server");
             salesImageLabel.SetTooltip("Sales Per Server");
             //rdoViewSectionFlow.Checked = true;
+            rdoLastFourWeekdayStats.Text = "Last Four " + dateOnlySelected.DayOfWeek.ToString() + "s";
         }
         private void UpdateDateLabel(int days)
         {
@@ -397,6 +398,7 @@ namespace FloorPlanMaker
             {
                 pnlFloorPlan.BackgroundImage = null;
             }
+            rdoLastFourWeekdayStats.Text = "Last Four " + dateOnlySelected.DayOfWeek.ToString() + "s";
         }
         public void UpdateWithTemplate()
         {
