@@ -912,7 +912,22 @@ namespace FloorPlanMaker
 
         private void rdoLastFourWeekdayStats_CheckedChanged(object sender, EventArgs e)
         {
+            var today = DateOnly.FromDateTime(DateTime.Today);
+            var dayOfWeekToday = today.DayOfWeek;
 
+            var previousWeekdays = new List<DateOnly>();
+
+            // Starting from 1 because we are excluding today
+            for (int i = 1; i <= 4; i++)
+            {
+                // Subtract 7 days for each previous week and add to the list
+                previousWeekdays.Add(today.AddDays(-7 * i));
+            }
+
+            
+            List<TableStat> stats = SqliteDataAccess.LoadTableStatsByDateListAndLunch(IsLunch, previousWeekdays);
+            floorplanManager.SetSalesManagerStats(stats);
+            SetTableSalesView();
         }
 
         private void rdoRangeStats_CheckedChanged(object sender, EventArgs e)
