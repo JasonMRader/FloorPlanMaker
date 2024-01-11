@@ -122,6 +122,54 @@ namespace FloorplanClassLibrary
                 return tableStatsList;
             }
         }
+        public static List<TableStat> LoadTableStatsByDateListAndLunch(bool isLunch, List<DateOnly> dates)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                // Convert the list of DateOnly objects to a list of formatted date strings
+                var formattedDates = dates.Select(date => date.ToString("yyyy-MM-dd")).ToList();
+
+                // Prepare your query with parameters
+                var query = @"SELECT * FROM TableStats WHERE IsLunch = @IsLunch AND Date IN @Dates";
+
+                // Execute the query with the provided parameters
+                var queryResult = cnn.Query(query, new { IsLunch = isLunch, Dates = formattedDates }).ToList();
+
+                var tableStatsList = queryResult.Select(row => new TableStat
+                {
+                    // Assign other properties as necessary
+                    TableStatNumber = row.TableStatNumber,
+                    DayOfWeek = (DayOfWeek)Enum.Parse(typeof(DayOfWeek), row.DayOfWeek),
+                    Date = DateOnly.Parse(row.Date),
+                    IsLunch = Convert.ToBoolean(row.IsLunch),
+                    Sales = row.Sales != null ? (float?)Convert.ToDouble(row.Sales) : null,
+                    Orders = Convert.ToInt32(row.Orders)
+                }).ToList();
+                tableStatsList = CalculateAverageSales(tableStatsList, dates.Count);
+                return tableStatsList;
+            }
+        }
+       private static List<TableStat> CalculateAverageSales(List<TableStat> tableStats, int numberOfDays)
+        {
+            // Group the table stats by TableStatNumber
+            var groupedStats = tableStats
+                .GroupBy(ts => ts.TableStatNumber)
+                .Select(group => new
+                {
+                    TableStatNumber = group.Key,
+                    TotalSales = group.Sum(g => g.Sales ?? 0)
+                });
+
+            // Calculate average sales and create new TableStat objects
+            var averageStats = groupedStats
+                .Select(g => new TableStat
+                {
+                    TableStatNumber = g.TableStatNumber,
+                    Sales = g.TotalSales / numberOfDays
+                }).ToList();
+
+            return averageStats;
+        }
 
 
 
