@@ -363,7 +363,7 @@ namespace FloorPlanMaker
         {
             SetColors();
             dateTimeSelected = DateTime.Now;
-           
+
             List<Floorplan> floorplans = SqliteDataAccess.LoadFloorplanList();
             cboDiningAreas.DataSource = areaCreationManager.DiningAreas;
             cboDiningAreas.DisplayMember = "Name";
@@ -387,7 +387,7 @@ namespace FloorPlanMaker
             {
                 NoServersToDisplay();
                 pnlFloorPlan.BackgroundImage = null;
-               // foreach()
+                // foreach()
 
             }
             else if (AllTablesAreAssigned())
@@ -777,7 +777,7 @@ namespace FloorPlanMaker
             {
                 cbIsAM.Image = Resources.smallSunrise;
                 cbIsAM.BackColor = Color.FromArgb(251, 175, 0);
-                
+
             }
             else
             {
@@ -883,14 +883,14 @@ namespace FloorPlanMaker
         }
         private void rdoYesterdayStats_CheckedChanged(object sender, EventArgs e)
         {
-            if(rdoYesterdayStats.Checked)
+            if (rdoYesterdayStats.Checked)
             {
                 List<TableStat> stats = SqliteDataAccess.LoadTableStatsByDateAndLunch(IsLunch, dateOnlySelected.AddDays(-1));
                 floorplanManager.SetSalesManagerStats(stats);
                 SetTableSalesView();
-               
+
             }
-            
+
             //tableSalesManager.SetTableStats(floorplanManager.Floorplan.DiningArea.Tables, floorplanManager.Floorplan.IsLunch, dateOnlySelected);
 
         }
@@ -924,7 +924,7 @@ namespace FloorPlanMaker
                 previousWeekdays.Add(today.AddDays(-7 * i));
             }
 
-            
+
             List<TableStat> stats = SqliteDataAccess.LoadTableStatsByDateListAndLunch(IsLunch, previousWeekdays);
             floorplanManager.SetSalesManagerStats(stats);
             SetTableSalesView();
@@ -942,17 +942,27 @@ namespace FloorPlanMaker
 
         private void btnAddCustomDate_Click(object sender, EventArgs e)
         {
-
+            DateOnly dateOnly = DateOnly.FromDateTime(dtpCustomStatDateSelect.Value);
+            ListBoxDateItem item = new ListBoxDateItem(dateOnly);
+            lbFilteredStatDates.Items.Add(item);
         }
 
         private void btnApplyDates_Click(object sender, EventArgs e)
         {
+            List<DateOnly> dates = new List<DateOnly>();
+            foreach(ListBoxDateItem item in lbFilteredStatDates.Items)
+            {
+                dates.Add(item.DateValue);
+            }
+            List<TableStat> stats = SqliteDataAccess.LoadTableStatsByDateListAndLunch(IsLunch,dates);
+            floorplanManager.SetSalesManagerStats(stats);
+            SetTableSalesView();
 
         }
 
         private void btnClearDates_Click(object sender, EventArgs e)
         {
-
+            lbFilteredStatDates.Items.Clear();
         }
     }
 }
