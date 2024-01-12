@@ -153,5 +153,11 @@ namespace FloorPlanMakerUI
         {
             refreshMissingDateDisplay();
         }
+
+        private void btnDeleteFloorplans_Click(object sender, EventArgs e)
+        {
+            frmConfirmation confirmationForm = new frmConfirmation();
+            confirmationForm.ShowDialog();
+        }
     }
 }

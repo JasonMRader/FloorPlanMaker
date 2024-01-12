@@ -44,6 +44,7 @@
             lbMissingData = new ListBox();
             panel2 = new Panel();
             panel3 = new Panel();
+            btnDeleteFloorplans = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
@@ -220,11 +221,26 @@
             panel3.BackColor = Color.FromArgb(180, 190, 200);
             panel3.Controls.Add(btnEditServers);
             panel3.Controls.Add(btnImportScheduleData);
+            panel3.Controls.Add(btnDeleteFloorplans);
             panel3.Controls.Add(btnCheckForUpdate);
             panel3.Location = new Point(871, 92);
             panel3.Name = "panel3";
             panel3.Size = new Size(350, 800);
             panel3.TabIndex = 2;
+            // 
+            // btnDeleteFloorplans
+            // 
+            btnDeleteFloorplans.BackColor = Color.FromArgb(190, 80, 70);
+            btnDeleteFloorplans.FlatAppearance.BorderSize = 0;
+            btnDeleteFloorplans.FlatStyle = FlatStyle.Flat;
+            btnDeleteFloorplans.ForeColor = Color.White;
+            btnDeleteFloorplans.Location = new Point(115, 749);
+            btnDeleteFloorplans.Name = "btnDeleteFloorplans";
+            btnDeleteFloorplans.Size = new Size(136, 25);
+            btnDeleteFloorplans.TabIndex = 0;
+            btnDeleteFloorplans.Text = "Delete All Floorplans";
+            btnDeleteFloorplans.UseVisualStyleBackColor = false;
+            btnDeleteFloorplans.Click += btnDeleteFloorplans_Click;
             // 
             // frmSettings
             // 
@@ -268,5 +284,6 @@
         private DateTimePicker dtpMissingDateEnd;
         private Label label3;
         private Label label2;
+        private Button btnDeleteFloorplans;
     }
 }
