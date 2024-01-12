@@ -157,7 +157,11 @@ namespace FloorPlanMakerUI
         private void btnDeleteFloorplans_Click(object sender, EventArgs e)
         {
             frmConfirmation confirmationForm = new frmConfirmation();
-            confirmationForm.ShowDialog();
+            DialogResult result = confirmationForm.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                SqliteDataAccess.DeleteAllFloorplans();
+            }
         }
     }
 }

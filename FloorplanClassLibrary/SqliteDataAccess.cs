@@ -1085,6 +1085,33 @@ namespace FloorplanClassLibrary
 
             }
         }
+        public static void DeleteAllFloorplans()
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                // 1. Retrieve all floorplans
+                var allFloorplans = cnn.Query<Floorplan>("SELECT * FROM Floorplan").ToList();
+
+                foreach (var floorplan in allFloorplans)
+                {
+                    // 2. Delete associated records for each floorplan
+                    var relatedSectionIds = cnn.Query<int>("SELECT SectionID FROM FloorplanSections WHERE FloorplanID = @FloorplanID", new { FloorplanID = floorplan.ID }).ToList();
+
+                    cnn.Execute("DELETE FROM FloorplanSections WHERE FloorplanID = @FloorplanID", new { FloorplanID = floorplan.ID });
+
+                    foreach (var sectionId in relatedSectionIds)
+                    {
+                        cnn.Execute("DELETE FROM ServerSections WHERE SectionID = @SectionID", new { SectionID = sectionId });
+                        cnn.Execute("DELETE FROM Shift WHERE SectionID = @SectionID", new { SectionID = sectionId });
+                        cnn.Execute("DELETE FROM Section WHERE ID = @ID", new { ID = sectionId });
+                    }
+                }
+
+                // 3. Finally, delete all floorplan records
+                cnn.Execute("DELETE FROM Floorplan");
+            }
+        }
+
         public static List<Floorplan> LoadFloorplanList()
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
