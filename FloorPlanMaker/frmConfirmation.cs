@@ -21,6 +21,7 @@ namespace FloorPlanMakerUI
         {
             if (txtPassword.Text == "DELETE ALL")
             {
+                this.DialogResult = DialogResult.OK;
                 this.Close();
             }
             else
@@ -31,7 +32,13 @@ namespace FloorPlanMakerUI
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
+            this.DialogResult = DialogResult.Cancel;
             this.Close();
+        }
+
+        private void frmConfirmation_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

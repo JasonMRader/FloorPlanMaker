@@ -114,6 +114,7 @@
             Name = "frmConfirmation";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "frmConfirmation";
+            Load += frmConfirmation_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ResumeLayout(false);

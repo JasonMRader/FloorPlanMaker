@@ -967,8 +967,15 @@ namespace FloorPlanMaker
 
         private void btnDeleteSelectedFloorplan_Click(object sender, EventArgs e)
         {
-            SqliteDataAccess.DeleteFloorplan(floorplanManager.Floorplan);
-            UpdateDateLabel(0);
+            frmConfirmation confirmationForm = new frmConfirmation();
+            DialogResult result = confirmationForm.ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                SqliteDataAccess.DeleteFloorplan(floorplanManager.Floorplan);
+                UpdateDateLabel(0);
+            }
+           
         }
     }
 }
