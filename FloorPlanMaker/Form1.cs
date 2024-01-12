@@ -950,11 +950,11 @@ namespace FloorPlanMaker
         private void btnApplyDates_Click(object sender, EventArgs e)
         {
             List<DateOnly> dates = new List<DateOnly>();
-            foreach(ListBoxDateItem item in lbFilteredStatDates.Items)
+            foreach (ListBoxDateItem item in lbFilteredStatDates.Items)
             {
                 dates.Add(item.DateValue);
             }
-            List<TableStat> stats = SqliteDataAccess.LoadTableStatsByDateListAndLunch(IsLunch,dates);
+            List<TableStat> stats = SqliteDataAccess.LoadTableStatsByDateListAndLunch(IsLunch, dates);
             floorplanManager.SetSalesManagerStats(stats);
             SetTableSalesView();
 
@@ -963,6 +963,12 @@ namespace FloorPlanMaker
         private void btnClearDates_Click(object sender, EventArgs e)
         {
             lbFilteredStatDates.Items.Clear();
+        }
+
+        private void btnDeleteSelectedFloorplan_Click(object sender, EventArgs e)
+        {
+            SqliteDataAccess.DeleteFloorplan(floorplanManager.Floorplan);
+            UpdateDateLabel(0);
         }
     }
 }

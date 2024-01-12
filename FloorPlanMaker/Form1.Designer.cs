@@ -80,6 +80,7 @@ namespace FloorPlanMaker
             rdoViewSectionFlow = new RadioButton();
             toolTip1 = new ToolTip(components);
             btnReportBug = new Button();
+            btnDeleteSelectedFloorplan = new Button();
             flowSectionSelect.SuspendLayout();
             panel1.SuspendLayout();
             pnlFloorplanContainer.SuspendLayout();
@@ -402,6 +403,7 @@ namespace FloorPlanMaker
             // pnlNavigationWindow
             // 
             pnlNavigationWindow.BackColor = Color.FromArgb(225, 225, 225);
+            pnlNavigationWindow.Controls.Add(btnDeleteSelectedFloorplan);
             pnlNavigationWindow.Controls.Add(pnlMainContainer);
             pnlNavigationWindow.Controls.Add(pnlSideContainer);
             pnlNavigationWindow.Dock = DockStyle.Bottom;
@@ -740,6 +742,16 @@ namespace FloorPlanMaker
             btnReportBug.UseVisualStyleBackColor = false;
             btnReportBug.Click += btnReportBug_Click;
             // 
+            // btnDeleteSelectedFloorplan
+            // 
+            btnDeleteSelectedFloorplan.Location = new Point(1211, 968);
+            btnDeleteSelectedFloorplan.Name = "btnDeleteSelectedFloorplan";
+            btnDeleteSelectedFloorplan.Size = new Size(50, 28);
+            btnDeleteSelectedFloorplan.TabIndex = 22;
+            btnDeleteSelectedFloorplan.Text = "Delete";
+            btnDeleteSelectedFloorplan.UseVisualStyleBackColor = true;
+            btnDeleteSelectedFloorplan.Click += btnDeleteSelectedFloorplan_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -821,5 +833,6 @@ namespace FloorPlanMaker
         private Label label1;
         private DateTimePicker dtpStatRangeEnd;
         private DateTimePicker dtpStatRangeStart;
+        private Button btnDeleteSelectedFloorplan;
     }
 }

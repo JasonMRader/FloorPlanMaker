@@ -1072,12 +1072,13 @@ namespace FloorplanClassLibrary
                 {
                     cnn.Execute("DELETE FROM ServerSections WHERE SectionID = @SectionID", new { SectionID = sectionId });
                     cnn.Execute("DELETE FROM Shift WHERE SectionID = @SectionID", new { SectionID = sectionId });
-                    cnn.Execute("DELETE FROM Section WHERE ID = SectionID", new { ID = sectionId });
+                    cnn.Execute("DELETE FROM Section WHERE ID = @ID", new { ID = sectionId });
+
                 }
 
                 // 3. Delete entries from FloorplanSections
-                
-                
+
+
                 // 4. Finally, delete the Floorplan
                 cnn.Execute("DELETE FROM Floorplan WHERE ID = @ID", new { ID = existingFloorplan.ID });
 
