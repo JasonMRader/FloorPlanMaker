@@ -113,7 +113,7 @@ namespace FloorplanUserControlLibrary
                 picClearSection.Image = Resources.Trash;
                 toolTip.SetToolTip(picClearSection, "Delete Section");
                 lblCovers.Text = Section.MaxCovers.ToString("F0");
-                lblSales.Text = Section.FormatAsCurrencyWithoutParentheses(Section.AverageCovers);
+                lblSales.Text = Section.FormatAsCurrencyWithoutParentheses(Section.AverageSales);
                 return;
             }
            

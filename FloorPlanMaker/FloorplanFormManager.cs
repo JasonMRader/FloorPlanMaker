@@ -780,6 +780,7 @@ namespace FloorPlanMakerUI
                 coversImageLabel.UpdateText(ShiftManager.SelectedFloorplan.MaxCoversPerServer.ToString("F0"));
                 salesImageLabel.UpdateText(ShiftManager.SelectedFloorplan.AvgSalesPerServer.ToString("C0"));
                 LoadTableSalesForPastDate();
+                UpdateAveragesPerServer();
                 
             }
             else
@@ -826,6 +827,7 @@ namespace FloorPlanMakerUI
                 }
                 else { table.AverageSales = -1; }
             }
+            
         }
         internal void AddSectionPanel(Section? section, FlowLayoutPanel flowSectionSelect)
         {

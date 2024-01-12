@@ -685,7 +685,7 @@ namespace FloorplanClassLibrary
                 new
                 {
                     MaxCovers = section.MaxCovers,
-                    AverageCovers = section.AverageCovers,                    
+                    AverageCovers = section.AverageSales,                    
                     IsCloser = section.IsCloser,
                     IsPre = section.IsPre,
                     TeamWait = section.IsTeamWait,

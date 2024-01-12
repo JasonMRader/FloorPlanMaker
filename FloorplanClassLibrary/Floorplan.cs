@@ -249,7 +249,7 @@ namespace FloorplanClassLibrary
             {
                 if (section.IsPickUp)
                 {
-                    total += section.AverageCovers;
+                    total += section.AverageSales;
                 }
             }
             return total;
@@ -269,11 +269,11 @@ namespace FloorplanClassLibrary
         {
             if (!section.IsTeamWait)
             {
-                return section.AverageCovers - this.AvgSalesPerServer;
+                return section.AverageSales - this.AvgSalesPerServer;
             }            
             else
             {
-                return section.AverageCovers - (this.AvgSalesPerServer * section.ServerCount);
+                return section.AverageSales - (this.AvgSalesPerServer * section.ServerCount);
             }
         }
         

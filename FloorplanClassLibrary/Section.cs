@@ -325,7 +325,7 @@ namespace FloorplanClassLibrary
             }
         }
 
-        public float AverageCovers
+        public float AverageSales
         {
             get
             {
@@ -334,15 +334,15 @@ namespace FloorplanClassLibrary
                 return Tables.Sum(table => table.AverageSales);
             }
         }
-        public string AverageCoversDisplay()
+        public string AverageSalesDisplay()
         {
             CultureInfo culture = CultureInfo.CurrentCulture;
 
             // If the value is negative, prepend a minus sign and format the absolute value.
             // Otherwise, just format the value as currency.
-            string formattedValue = this.AverageCovers >= 0
-                ? this.AverageCovers.ToString("C0", culture)
-                : "-" + Math.Abs(this.AverageCovers).ToString("C0", culture);
+            string formattedValue = this.AverageSales >= 0
+                ? this.AverageSales.ToString("C0", culture)
+                : "-" + Math.Abs(this.AverageSales).ToString("C0", culture);
 
             return formattedValue;
         }
