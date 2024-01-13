@@ -761,6 +761,11 @@ namespace FloorPlanMakerUI
             else
             {
                 ShiftManager.SelectedFloorplan = SqliteDataAccess.LoadFloorplanByCriteria(ShiftManager.SelectedDiningArea, dateOnlySelected, isAM);
+                if (ShiftManager.SelectedFloorplan != null)
+                {
+                    UpdateAveragesPerServer();
+                }
+               
             }
 
             if (ShiftManager.SelectedFloorplan != null)

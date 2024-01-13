@@ -499,6 +499,7 @@ namespace FloorplanClassLibrary
                 return floorplan;
             }
         }
+        //TODO: instead of loading tables from DB, get them from dining area
         public static List<Floorplan> LoadFloorplansByDateAndShift(DateOnly date, bool isLunch)
         {
             string dateString = date.ToString("yyyy-MM-dd");
@@ -559,7 +560,7 @@ namespace FloorplanClassLibrary
 
             return floorplans;
         }
-
+        //TODO: instead of loading tables from DB, get them from dining area
         public static Floorplan LoadFloorplanByCriteria(DiningArea diningArea, DateOnly date, bool isLunch)
         {
             string dateString = date.ToString("yyyy-MM-dd");
