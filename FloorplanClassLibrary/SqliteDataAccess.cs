@@ -589,12 +589,17 @@ namespace FloorplanClassLibrary
                 foreach (var id in sectionIds)
                 {
                     var section = cnn.QuerySingle<Section>("SELECT * FROM Section WHERE ID = @ID", new { ID = id });
-                    // Populate Tables for each Section from SectionTables
-                    section.SetTableList(cnn.Query<Table>(
-                        "SELECT * FROM DiningTable WHERE ID IN (SELECT TableID FROM SectionTables WHERE SectionID = @SectionID)",
-                        new { SectionID = id }).ToList());
+
+                    // Get Table IDs for each Section from SectionTables
+                    var tableIdsInSection = cnn.Query<int>("SELECT TableID FROM SectionTables WHERE SectionID = @SectionID", new { SectionID = id });
+
+                    // Match tables from DiningArea with the ones in Section
+                    var tablesInSection = diningArea.Tables.Where(table => tableIdsInSection.Contains(table.ID)).ToList();
+                    section.SetTableList(tablesInSection);
+
                     floorplan.AddSection(section);
                 }
+
 
                 var servers = new List<Server>();
 
