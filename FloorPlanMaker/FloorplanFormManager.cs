@@ -344,6 +344,10 @@ namespace FloorPlanMakerUI
             
             //CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
         }
+        private void UpdateAllSectionTotals()
+        {
+
+        }
         private void DeleteSection(Section section)
         {
 
@@ -695,7 +699,7 @@ namespace FloorPlanMakerUI
             salesImageLabel.UpdateText(ShiftManager.SelectedFloorplan.AvgSalesPerServer.ToString("C0"));
             foreach(SectionPanelControl sectionPanel in _sectionPanels)
             {
-                sectionPanel.UpdateSalesAndCovers();
+                sectionPanel.UpdateLabels();
             }
         }
 
