@@ -54,6 +54,7 @@ namespace FloorPlanMaker
             DisplayShifts();
            
         }
+        public Label outsidePercentage = new Label();
         public Panel NamePanel { get; set; }
         private Server _server;
         public Server Server
