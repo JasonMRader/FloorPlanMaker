@@ -33,6 +33,8 @@
             radioButton2 = new RadioButton();
             label1 = new Label();
             label2 = new Label();
+            label3 = new Label();
+            label4 = new Label();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
             SuspendLayout();
             // 
@@ -91,10 +93,30 @@
             label2.TabIndex = 2;
             label2.Text = "OUTSIDE";
             // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(24, 106);
+            label3.Name = "label3";
+            label3.Size = new Size(38, 15);
+            label3.TabIndex = 3;
+            label3.Text = "label3";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(85, 106);
+            label4.Name = "label4";
+            label4.Size = new Size(38, 15);
+            label4.TabIndex = 3;
+            label4.Text = "label3";
+            // 
             // ServerStatDisplayPanel
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(label4);
+            Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(radioButton2);
@@ -113,5 +135,7 @@
         private RadioButton radioButton2;
         private Label label1;
         private Label label2;
+        private Label label3;
+        private Label label4;
     }
 }
