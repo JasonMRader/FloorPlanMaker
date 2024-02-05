@@ -28,30 +28,45 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label1 = new Label();
+            lblName = new Label();
+            flowLayoutPanel1 = new FlowLayoutPanel();
             SuspendLayout();
             // 
-            // label1
+            // lblName
             // 
-            label1.Location = new Point(15, 13);
-            label1.Name = "label1";
-            label1.Size = new Size(100, 23);
-            label1.TabIndex = 0;
-            label1.Text = "Jason Rader";
-            label1.TextAlign = ContentAlignment.MiddleCenter;
+            lblName.BackColor = Color.FromArgb(100, 130, 180);
+            lblName.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lblName.ForeColor = Color.White;
+            lblName.Location = new Point(0, 0);
+            lblName.Name = "lblName";
+            lblName.Size = new Size(191, 27);
+            lblName.TabIndex = 0;
+            lblName.Text = "Adrianna P.";
+            lblName.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // flowLayoutPanel1
+            // 
+            flowLayoutPanel1.BackColor = Color.FromArgb(225, 225, 225);
+            flowLayoutPanel1.Location = new Point(3, 30);
+            flowLayoutPanel1.Name = "flowLayoutPanel1";
+            flowLayoutPanel1.Size = new Size(188, 42);
+            flowLayoutPanel1.TabIndex = 1;
             // 
             // ServerHistoryControl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(label1);
+            BackColor = Color.FromArgb(180, 190, 200);
+            Controls.Add(flowLayoutPanel1);
+            Controls.Add(lblName);
             Name = "ServerHistoryControl";
-            Size = new Size(266, 61);
+            Size = new Size(310, 75);
             ResumeLayout(false);
         }
 
         #endregion
 
-        private Label label1;
+        private Label lblName;
+        private FlowLayoutPanel flowLayoutPanel1;
     }
 }
