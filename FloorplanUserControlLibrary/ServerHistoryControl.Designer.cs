@@ -30,6 +30,12 @@
         {
             lblName = new Label();
             flowLayoutPanel1 = new FlowLayoutPanel();
+            panel1 = new Panel();
+            panel2 = new Panel();
+            panel3 = new Panel();
+            panel4 = new Panel();
+            panel5 = new Panel();
+            flowLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
             // lblName
@@ -39,7 +45,7 @@
             lblName.ForeColor = Color.White;
             lblName.Location = new Point(0, 0);
             lblName.Name = "lblName";
-            lblName.Size = new Size(191, 27);
+            lblName.Size = new Size(205, 27);
             lblName.TabIndex = 0;
             lblName.Text = "Adrianna P.";
             lblName.TextAlign = ContentAlignment.MiddleCenter;
@@ -47,10 +53,56 @@
             // flowLayoutPanel1
             // 
             flowLayoutPanel1.BackColor = Color.FromArgb(225, 225, 225);
+            flowLayoutPanel1.Controls.Add(panel1);
+            flowLayoutPanel1.Controls.Add(panel2);
+            flowLayoutPanel1.Controls.Add(panel3);
+            flowLayoutPanel1.Controls.Add(panel4);
+            flowLayoutPanel1.Controls.Add(panel5);
             flowLayoutPanel1.Location = new Point(3, 30);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(188, 42);
+            flowLayoutPanel1.Padding = new Padding(3, 3, 0, 0);
+            flowLayoutPanel1.Size = new Size(196, 50);
             flowLayoutPanel1.TabIndex = 1;
+            // 
+            // panel1
+            // 
+            panel1.BackColor = Color.WhiteSmoke;
+            panel1.Location = new Point(6, 6);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(32, 39);
+            panel1.TabIndex = 0;
+            // 
+            // panel2
+            // 
+            panel2.BackColor = Color.WhiteSmoke;
+            panel2.Location = new Point(44, 6);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(32, 39);
+            panel2.TabIndex = 1;
+            // 
+            // panel3
+            // 
+            panel3.BackColor = Color.WhiteSmoke;
+            panel3.Location = new Point(82, 6);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(32, 39);
+            panel3.TabIndex = 2;
+            // 
+            // panel4
+            // 
+            panel4.BackColor = Color.WhiteSmoke;
+            panel4.Location = new Point(120, 6);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(32, 39);
+            panel4.TabIndex = 3;
+            // 
+            // panel5
+            // 
+            panel5.BackColor = Color.WhiteSmoke;
+            panel5.Location = new Point(158, 6);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(32, 39);
+            panel5.TabIndex = 4;
             // 
             // ServerHistoryControl
             // 
@@ -60,7 +112,8 @@
             Controls.Add(flowLayoutPanel1);
             Controls.Add(lblName);
             Name = "ServerHistoryControl";
-            Size = new Size(310, 75);
+            Size = new Size(310, 83);
+            flowLayoutPanel1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -68,5 +121,10 @@
 
         private Label lblName;
         private FlowLayoutPanel flowLayoutPanel1;
+        private Panel panel1;
+        private Panel panel2;
+        private Panel panel3;
+        private Panel panel4;
+        private Panel panel5;
     }
 }

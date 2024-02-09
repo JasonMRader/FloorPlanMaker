@@ -76,6 +76,7 @@
             flowUnassignedServers.Name = "flowUnassignedServers";
             flowUnassignedServers.Size = new Size(313, 785);
             flowUnassignedServers.TabIndex = 11;
+            flowUnassignedServers.Paint += flowUnassignedServers_Paint;
             // 
             // lblShiftDate
             // 

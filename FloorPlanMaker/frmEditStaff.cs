@@ -591,5 +591,10 @@ namespace FloorPlanMaker
                 e.Handled = true;
             }
         }
+
+        private void flowUnassignedServers_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
