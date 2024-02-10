@@ -53,7 +53,7 @@ namespace FloorPlanMakerUI
             MailMessage mail = new MailMessage();
             mail.From = new MailAddress("jasonmrader@outlook.com");
             mail.To.Add("jasonmrader@outlook.com");
-            mail.Subject = messageType + " "  + txtTitle.Text;
+            mail.Subject = messageType + " " + txtTitle.Text;
             mail.Body = txtMessageContents.Text;
 
             SmtpClient smtpClient = new SmtpClient("smtp.office365.com");
