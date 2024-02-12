@@ -35,7 +35,7 @@
             panel3 = new Panel();
             panel4 = new Panel();
             panel5 = new Panel();
-            checkBox1 = new CheckBox();
+            cbTimeSpan = new CheckBox();
             flowLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -105,32 +105,32 @@
             panel5.Size = new Size(32, 39);
             panel5.TabIndex = 4;
             // 
-            // checkBox1
+            // cbTimeSpan
             // 
-            checkBox1.Appearance = Appearance.Button;
-            checkBox1.AutoSize = true;
-            checkBox1.FlatStyle = FlatStyle.Flat;
-            checkBox1.Location = new Point(221, 4);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(74, 25);
-            checkBox1.TabIndex = 2;
-            checkBox1.Text = "checkBox1";
-            checkBox1.ThreeState = true;
-            checkBox1.UseVisualStyleBackColor = true;
+            cbTimeSpan.Appearance = Appearance.Button;
+            cbTimeSpan.FlatStyle = FlatStyle.Flat;
+            cbTimeSpan.Location = new Point(221, 4);
+            cbTimeSpan.Name = "cbTimeSpan";
+            cbTimeSpan.Size = new Size(74, 25);
+            cbTimeSpan.TabIndex = 2;
+            cbTimeSpan.Text = "1 Week";
+            cbTimeSpan.TextAlign = ContentAlignment.MiddleCenter;
+            cbTimeSpan.ThreeState = true;
+            cbTimeSpan.UseVisualStyleBackColor = true;
+            cbTimeSpan.CheckedChanged += cbTimeSpan_CheckedChanged;
             // 
             // ServerHistoryControl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(180, 190, 200);
-            Controls.Add(checkBox1);
+            Controls.Add(cbTimeSpan);
             Controls.Add(flowLayoutPanel1);
             Controls.Add(lblName);
             Name = "ServerHistoryControl";
             Size = new Size(310, 83);
             flowLayoutPanel1.ResumeLayout(false);
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -142,6 +142,6 @@
         private Panel panel3;
         private Panel panel4;
         private Panel panel5;
-        private CheckBox checkBox1;
+        private CheckBox cbTimeSpan;
     }
 }

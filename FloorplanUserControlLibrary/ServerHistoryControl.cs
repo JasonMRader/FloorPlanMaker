@@ -16,5 +16,13 @@ namespace FloorplanUserControlLibrary
         {
             InitializeComponent();
         }
+
+        private void cbTimeSpan_CheckedChanged(object sender, EventArgs e)
+        {
+            if(cbTimeSpan.Checked)
+            {
+
+            }
+        }
     }
 }
