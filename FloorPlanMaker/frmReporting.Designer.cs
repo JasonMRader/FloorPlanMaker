@@ -37,6 +37,7 @@
             txtTitle = new TextBox();
             label1 = new Label();
             label2 = new Label();
+            serverHistoryControl1 = new FloorplanUserControlLibrary.ServerHistoryControl();
             SuspendLayout();
             // 
             // rdoBug
@@ -150,11 +151,20 @@
             label2.TabIndex = 5;
             label2.Text = "Message:";
             // 
+            // serverHistoryControl1
+            // 
+            serverHistoryControl1.BackColor = Color.FromArgb(180, 190, 200);
+            serverHistoryControl1.Location = new Point(264, 581);
+            serverHistoryControl1.Name = "serverHistoryControl1";
+            serverHistoryControl1.Size = new Size(310, 83);
+            serverHistoryControl1.TabIndex = 6;
+            // 
             // frmReporting
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 736);
+            Controls.Add(serverHistoryControl1);
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(txtTitle);
@@ -182,5 +192,6 @@
         private TextBox txtTitle;
         private Label label1;
         private Label label2;
+        private FloorplanUserControlLibrary.ServerHistoryControl serverHistoryControl1;
     }
 }

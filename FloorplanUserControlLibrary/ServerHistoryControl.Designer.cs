@@ -108,6 +108,8 @@
             // cbTimeSpan
             // 
             cbTimeSpan.Appearance = Appearance.Button;
+            cbTimeSpan.BackColor = SystemColors.ButtonShadow;
+            cbTimeSpan.FlatAppearance.BorderSize = 0;
             cbTimeSpan.FlatStyle = FlatStyle.Flat;
             cbTimeSpan.Location = new Point(221, 4);
             cbTimeSpan.Name = "cbTimeSpan";
@@ -116,8 +118,9 @@
             cbTimeSpan.Text = "1 Week";
             cbTimeSpan.TextAlign = ContentAlignment.MiddleCenter;
             cbTimeSpan.ThreeState = true;
-            cbTimeSpan.UseVisualStyleBackColor = true;
+            cbTimeSpan.UseVisualStyleBackColor = false;
             cbTimeSpan.CheckedChanged += cbTimeSpan_CheckedChanged;
+            cbTimeSpan.Click += cbTimeSpan_Click;
             // 
             // ServerHistoryControl
             // 
