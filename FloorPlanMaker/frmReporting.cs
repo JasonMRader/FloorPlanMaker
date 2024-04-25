@@ -77,5 +77,10 @@ namespace FloorPlanMakerUI
             this.Close();
 
         }
+
+        private void frmReporting_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

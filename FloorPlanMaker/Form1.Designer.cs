@@ -55,6 +55,7 @@ namespace FloorPlanMaker
             pnlFloorplanContainer = new Panel();
             lblDateSelected = new Label();
             pnlNavigationWindow = new Panel();
+            btnDeleteSelectedFloorplan = new Button();
             pnlMainContainer = new Panel();
             pnlTemplateContainer = new Panel();
             pnlSideContainer = new Panel();
@@ -80,7 +81,8 @@ namespace FloorPlanMaker
             rdoViewSectionFlow = new RadioButton();
             toolTip1 = new ToolTip(components);
             btnReportBug = new Button();
-            btnDeleteSelectedFloorplan = new Button();
+            label3 = new Label();
+            lblTotalSales = new Label();
             flowSectionSelect.SuspendLayout();
             panel1.SuspendLayout();
             pnlFloorplanContainer.SuspendLayout();
@@ -412,6 +414,16 @@ namespace FloorPlanMaker
             pnlNavigationWindow.Size = new Size(1264, 999);
             pnlNavigationWindow.TabIndex = 20;
             // 
+            // btnDeleteSelectedFloorplan
+            // 
+            btnDeleteSelectedFloorplan.Location = new Point(1211, 968);
+            btnDeleteSelectedFloorplan.Name = "btnDeleteSelectedFloorplan";
+            btnDeleteSelectedFloorplan.Size = new Size(50, 28);
+            btnDeleteSelectedFloorplan.TabIndex = 22;
+            btnDeleteSelectedFloorplan.Text = "Delete";
+            btnDeleteSelectedFloorplan.UseVisualStyleBackColor = true;
+            btnDeleteSelectedFloorplan.Click += btnDeleteSelectedFloorplan_Click;
+            // 
             // pnlMainContainer
             // 
             pnlMainContainer.BackColor = Color.FromArgb(180, 190, 200);
@@ -456,6 +468,8 @@ namespace FloorPlanMaker
             // 
             // pnlStatMode
             // 
+            pnlStatMode.Controls.Add(lblTotalSales);
+            pnlStatMode.Controls.Add(label3);
             pnlStatMode.Controls.Add(btnClearDates);
             pnlStatMode.Controls.Add(btnApplyDates);
             pnlStatMode.Controls.Add(btnAddCustomDate);
@@ -742,15 +756,28 @@ namespace FloorPlanMaker
             btnReportBug.UseVisualStyleBackColor = false;
             btnReportBug.Click += btnReportBug_Click;
             // 
-            // btnDeleteSelectedFloorplan
+            // label3
             // 
-            btnDeleteSelectedFloorplan.Location = new Point(1211, 968);
-            btnDeleteSelectedFloorplan.Name = "btnDeleteSelectedFloorplan";
-            btnDeleteSelectedFloorplan.Size = new Size(50, 28);
-            btnDeleteSelectedFloorplan.TabIndex = 22;
-            btnDeleteSelectedFloorplan.Text = "Delete";
-            btnDeleteSelectedFloorplan.UseVisualStyleBackColor = true;
-            btnDeleteSelectedFloorplan.Click += btnDeleteSelectedFloorplan_Click;
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            label3.ForeColor = Color.Black;
+            label3.Location = new Point(66, 37);
+            label3.Name = "label3";
+            label3.Size = new Size(60, 25);
+            label3.TabIndex = 6;
+            label3.Text = "Sales:";
+            // 
+            // lblTotalSales
+            // 
+            lblTotalSales.AutoSize = true;
+            lblTotalSales.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lblTotalSales.ForeColor = Color.Black;
+            lblTotalSales.Location = new Point(129, 37);
+            lblTotalSales.Name = "lblTotalSales";
+            lblTotalSales.Size = new Size(34, 25);
+            lblTotalSales.TabIndex = 6;
+            lblTotalSales.Text = "$0";
+            lblTotalSales.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // Form1
             // 
@@ -834,5 +861,7 @@ namespace FloorPlanMaker
         private DateTimePicker dtpStatRangeEnd;
         private DateTimePicker dtpStatRangeStart;
         private Button btnDeleteSelectedFloorplan;
+        private Label lblTotalSales;
+        private Label label3;
     }
 }

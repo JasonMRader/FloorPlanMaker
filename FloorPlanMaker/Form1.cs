@@ -399,6 +399,11 @@ namespace FloorPlanMaker
                 pnlFloorPlan.BackgroundImage = null;
             }
             rdoLastFourWeekdayStats.Text = "Last Four " + dateOnlySelected.DayOfWeek.ToString() + "s";
+            if(pnlStatMode.Visible)
+            {
+                updateSalesForTables();
+            }
+            
         }
         public void UpdateWithTemplate()
         {
@@ -894,7 +899,41 @@ namespace FloorPlanMaker
             //tableSalesManager.SetTableStats(floorplanManager.Floorplan.DiningArea.Tables, floorplanManager.Floorplan.IsLunch, dateOnlySelected);
 
         }
+        private void updateSalesForTables()
+        {
+            if (rdoYesterdayStats.Checked)
+            {
+                List<TableStat> stats = SqliteDataAccess.LoadTableStatsByDateAndLunch(IsLunch, dateOnlySelected.AddDays(-1));
+                floorplanManager.SetSalesManagerStats(stats);
+                SetTableSalesView();
 
+            }
+            if (rdoLastWeekdayStats.Checked)
+            {
+                List<TableStat> stats = SqliteDataAccess.LoadTableStatsByDateAndLunch(IsLunch, dateOnlySelected.AddDays(-7));
+                floorplanManager.SetSalesManagerStats(stats);
+                SetTableSalesView();
+            }
+            if (rdoLastFourWeekdayStats.Checked)
+            {
+                var today = DateOnly.FromDateTime(DateTime.Today);
+                var dayOfWeekToday = today.DayOfWeek;
+
+                var previousWeekdays = new List<DateOnly>();
+
+                // Starting from 1 because we are excluding today
+                for (int i = 1; i <= 4; i++)
+                {
+                    // Subtract 7 days for each previous week and add to the list
+                    previousWeekdays.Add(today.AddDays(-7 * i));
+                }
+
+
+                List<TableStat> stats = SqliteDataAccess.LoadTableStatsByDateListAndLunch(IsLunch, previousWeekdays);
+                floorplanManager.SetSalesManagerStats(stats);
+                SetTableSalesView();
+            }
+        }
         private void rdoLastWeekdayStats_CheckedChanged(object sender, EventArgs e)
         {
             if (rdoLastWeekdayStats.Checked)
@@ -912,22 +951,25 @@ namespace FloorPlanMaker
 
         private void rdoLastFourWeekdayStats_CheckedChanged(object sender, EventArgs e)
         {
-            var today = DateOnly.FromDateTime(DateTime.Today);
-            var dayOfWeekToday = today.DayOfWeek;
-
-            var previousWeekdays = new List<DateOnly>();
-
-            // Starting from 1 because we are excluding today
-            for (int i = 1; i <= 4; i++)
+            if (rdoLastFourWeekdayStats.Checked)
             {
-                // Subtract 7 days for each previous week and add to the list
-                previousWeekdays.Add(today.AddDays(-7 * i));
+                var today = DateOnly.FromDateTime(DateTime.Today);
+                var dayOfWeekToday = today.DayOfWeek;
+
+                var previousWeekdays = new List<DateOnly>();
+
+                // Starting from 1 because we are excluding today
+                for (int i = 1; i <= 4; i++)
+                {
+                    // Subtract 7 days for each previous week and add to the list
+                    previousWeekdays.Add(today.AddDays(-7 * i));
+                }
+
+
+                List<TableStat> stats = SqliteDataAccess.LoadTableStatsByDateListAndLunch(IsLunch, previousWeekdays);
+                floorplanManager.SetSalesManagerStats(stats);
+                SetTableSalesView(); 
             }
-
-
-            List<TableStat> stats = SqliteDataAccess.LoadTableStatsByDateListAndLunch(IsLunch, previousWeekdays);
-            floorplanManager.SetSalesManagerStats(stats);
-            SetTableSalesView();
         }
 
         private void rdoRangeStats_CheckedChanged(object sender, EventArgs e)
