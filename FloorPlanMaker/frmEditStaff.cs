@@ -178,6 +178,7 @@ namespace FloorPlanMaker
                     }
 
                     infoPanel.UpdatePastLabels(yesterday, lastWeek);
+                    infoPanel.UpdateCurrentLabels();
                 }
             }
         }
