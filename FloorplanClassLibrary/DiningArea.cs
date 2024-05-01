@@ -36,18 +36,18 @@ namespace FloorplanClassLibrary
             }
             return maxCovers;
         }
-        public float GetAverageCovers()
+        public float GetAverageSales()
         {
             if (Tables == null)
             {
                 return 0;
             }
-            float avgCovers = 0;
+            float avgSales = 0;
             foreach (Table table in Tables)
             {
-                avgCovers += table.AverageSales;
+                avgSales += table.AverageSales;
             }
-            return avgCovers;
+            return avgSales;
         }
         public enum SubArea
         {

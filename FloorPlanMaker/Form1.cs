@@ -648,7 +648,7 @@ namespace FloorPlanMaker
             coversImageLabel = new ImageLabelControl(UITheme.covers, "0", (flowSectionSelect.Width / 2) - 7, 30);
             salesImageLabel = new ImageLabelControl(UITheme.sales, "$0", (flowSectionSelect.Width / 2) - 7, 30);
             coversImageLabel.UpdateText(shiftManager.SelectedDiningArea.GetMaxCovers().ToString("F0"));
-            salesImageLabel.UpdateText(shiftManager.SelectedDiningArea.GetAverageCovers().ToString("C0"));
+            salesImageLabel.UpdateText(shiftManager.SelectedDiningArea.GetAverageSales().ToString("C0"));
             flowSectionSelect.Controls.Add(coversImageLabel);
             flowSectionSelect.Controls.Add(salesImageLabel);
             PictureBox noSections = new PictureBox
