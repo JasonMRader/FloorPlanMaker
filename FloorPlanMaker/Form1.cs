@@ -885,6 +885,7 @@ namespace FloorPlanMaker
                     tableControl.Invalidate();
                 }
             }
+            lblTotalSales.Text = floorplanManager.floorplanSalesDisplay;
         }
         private void rdoYesterdayStats_CheckedChanged(object sender, EventArgs e)
         {

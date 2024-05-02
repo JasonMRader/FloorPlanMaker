@@ -825,18 +825,25 @@ namespace FloorPlanMakerUI
             }
            
         }
-        //HERE
+        public string floorplanSalesDisplay { get; set; }
+        private string TestData = "";
         private void SetTableSales()
         {
+            string test = "";
+            float totalAreaSales = 0f;
             foreach (Table table in this.ShiftManager.SelectedDiningArea.Tables)
             {
                 var matchedStat = tableSalesManager.Stats.FirstOrDefault(t => t.TableStatNumber == table.TableNumber);
                 if (matchedStat != null)
                 {
                     table.AverageSales = (float)matchedStat.Sales;
+                    totalAreaSales += (float)matchedStat.Sales;
+                    test += $"\n{table.TableNumber} : {matchedStat.Sales} : {totalAreaSales}";
                 }
                 else { table.AverageSales = 0; }
             }
+            floorplanSalesDisplay = "$" + totalAreaSales.ToString();
+            TestData = test;
             
         }
         internal void AddSectionPanel(Section? section, FlowLayoutPanel flowSectionSelect)

@@ -12,6 +12,13 @@ namespace FloorplanClassLibrary
     {
         public TableSalesManager() { }
         public List<TableStat> Stats { get; set; } = new List<TableStat>();
+        public float? FloorplanSalesTotal
+        {
+            get
+            {
+                return Stats.Sum(stat => stat.Sales);
+            }
+        }
         public List<TableStat> ProcessCsvFile(string filePath)
         {
             var orders = ReadOrderDetails(filePath);
