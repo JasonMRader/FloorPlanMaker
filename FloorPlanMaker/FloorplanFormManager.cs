@@ -825,6 +825,7 @@ namespace FloorPlanMakerUI
             }
            
         }
+        //HERE
         private void SetTableSales()
         {
             foreach (Table table in this.ShiftManager.SelectedDiningArea.Tables)
@@ -834,7 +835,7 @@ namespace FloorPlanMakerUI
                 {
                     table.AverageSales = (float)matchedStat.Sales;
                 }
-                else { table.AverageSales = -1; }
+                else { table.AverageSales = 0; }
             }
             
         }
