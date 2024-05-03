@@ -876,14 +876,18 @@ namespace FloorPlanMaker
         }
         private void SetTableSalesView()
         {
-            foreach (Control c in pnlFloorPlan.Controls)
+            if (cbTableDisplayMode.Checked)
             {
-                if (c is TableControl tableControl)
+                foreach (Control c in pnlFloorPlan.Controls)
                 {
-                    tableControl.CurrentDisplayMode = DisplayMode.AverageCovers;
-                    tableControl.Invalidate();
+                    if (c is TableControl tableControl)
+                    {
+                        tableControl.CurrentDisplayMode = DisplayMode.AverageCovers;
+                        tableControl.Invalidate();
+                    }
                 }
             }
+            
             lblTotalSales.Text = floorplanManager.floorplanSalesDisplay;
         }
         private void rdoYesterdayStats_CheckedChanged(object sender, EventArgs e)
