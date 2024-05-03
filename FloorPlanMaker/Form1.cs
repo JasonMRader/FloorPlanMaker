@@ -445,6 +445,7 @@ namespace FloorPlanMaker
             {
                 pnlFloorPlan.BackgroundImage = null;
             }
+            updateSalesForTables();
         }
 
         private void rdoSections_CheckedChanged(object sender, EventArgs e)
