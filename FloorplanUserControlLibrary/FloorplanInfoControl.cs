@@ -74,7 +74,7 @@ namespace FloorPlanMakerUI
             //    lblCurrentServerCount.Text = "Servers:   " + this.Floorplan.Servers.Count.ToString();
             //}
             lblCoversPerServer.Text = this.Floorplan.MaxCoversPerServer.ToString("F0");
-            lblSalesPerServer.Text = Section.FormatAsCurrencyWithoutParentheses(this.Floorplan.AvgSalesPerServer);
+            lblSalesPerServer.Text = Section.FormatAsCurrencyWithoutParentheses(this.Floorplan.GetAvgSalesPerServer());
             lblCurrentServerCount.Text = this.Floorplan.Servers.Count.ToString();
 
         }

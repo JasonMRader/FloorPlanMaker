@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using static System.Collections.Specialized.BitVector32;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace FloorplanClassLibrary
 {
@@ -229,6 +230,29 @@ namespace FloorplanClassLibrary
                     return (DiningArea.GetAverageSales()  / this.Servers.Count) - (TotalPickUpSectionSales() / this.Servers.Count);
                 return 0;
             }
+        }
+        public float GetAvgSalesPerServer()
+        {          
+            List<TableStat> stats = SqliteDataAccess.LoadTableStatsByDateAndLunch(IsLunch, DateOnly.FromDateTime(Date));
+            float totalAreaSales = 0f;
+            foreach (Table table in DiningArea.Tables)
+            {
+                var matchedStat = stats.FirstOrDefault(t => t.TableStatNumber == table.TableNumber);
+                if (matchedStat != null)
+                {
+                    table.AverageSales = (float)matchedStat.Sales;
+                    totalAreaSales += (float)matchedStat.Sales;
+                   
+                }
+                else { table.AverageSales = 0; }
+                
+            }
+            if(this.Servers.Count > 1) 
+            {
+                return totalAreaSales / this.Servers.Count;
+            }
+            
+            return totalAreaSales;
         }
         private float TotalPickUpSectionCovers()
         {
