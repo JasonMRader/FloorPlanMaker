@@ -842,7 +842,7 @@ namespace FloorPlanMakerUI
                 }
                 else { table.AverageSales = 0; }
             }
-            floorplanSalesDisplay = "$" + totalAreaSales.ToString();
+            floorplanSalesDisplay = Section.FormatAsCurrencyWithoutParentheses(totalAreaSales);
             TestData = test;
             
         }

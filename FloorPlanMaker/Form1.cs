@@ -399,11 +399,10 @@ namespace FloorPlanMaker
                 pnlFloorPlan.BackgroundImage = null;
             }
             rdoLastFourWeekdayStats.Text = "Last Four " + dateOnlySelected.DayOfWeek.ToString() + "s";
-            if(pnlStatMode.Visible)
-            {
-                updateSalesForTables();
-            }
-            
+
+            updateSalesForTables();
+
+
         }
         public void UpdateWithTemplate()
         {
@@ -889,13 +888,7 @@ namespace FloorPlanMaker
         }
         private void rdoYesterdayStats_CheckedChanged(object sender, EventArgs e)
         {
-            if (rdoYesterdayStats.Checked)
-            {
-                List<TableStat> stats = SqliteDataAccess.LoadTableStatsByDateAndLunch(IsLunch, dateOnlySelected.AddDays(-1));
-                floorplanManager.SetSalesManagerStats(stats);
-                SetTableSalesView();
-
-            }
+           updateSalesForTables();
 
             //tableSalesManager.SetTableStats(floorplanManager.Floorplan.DiningArea.Tables, floorplanManager.Floorplan.IsLunch, dateOnlySelected);
 
@@ -934,17 +927,22 @@ namespace FloorPlanMaker
                 floorplanManager.SetSalesManagerStats(stats);
                 SetTableSalesView();
             }
-        }
-        private void rdoLastWeekdayStats_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rdoLastWeekdayStats.Checked)
+            if (rdoDayOfStats.Checked)
             {
-                List<TableStat> stats = SqliteDataAccess.LoadTableStatsByDateAndLunch(IsLunch, dateOnlySelected.AddDays(-7));
+                List<TableStat> stats = SqliteDataAccess.LoadTableStatsByDateAndLunch(IsLunch, dateOnlySelected);
                 floorplanManager.SetSalesManagerStats(stats);
                 SetTableSalesView();
             }
+           
         }
-
+        private void rdoLastWeekdayStats_CheckedChanged(object sender, EventArgs e)
+        {
+            updateSalesForTables();
+        }
+        private void rdoDayOfStats_CheckedChanged(object sender, EventArgs e)
+        {
+            updateSalesForTables();
+        }
         private void rdoYearlyAverageStats_CheckedChanged(object sender, EventArgs e)
         {
 
@@ -952,25 +950,7 @@ namespace FloorPlanMaker
 
         private void rdoLastFourWeekdayStats_CheckedChanged(object sender, EventArgs e)
         {
-            if (rdoLastFourWeekdayStats.Checked)
-            {
-                var day = dateOnlySelected;
-               
-
-                var previousWeekdays = new List<DateOnly>();
-
-               
-                for (int i = 1; i <= 4; i++)
-                {
-                   
-                    previousWeekdays.Add(day.AddDays(-7 * i));
-                }
-
-
-                List<TableStat> stats = SqliteDataAccess.LoadTableStatsByDateListAndLunch(IsLunch, previousWeekdays);
-                floorplanManager.SetSalesManagerStats(stats);
-                SetTableSalesView(); 
-            }
+            updateSalesForTables();
         }
 
         private void rdoRangeStats_CheckedChanged(object sender, EventArgs e)
@@ -1018,7 +998,9 @@ namespace FloorPlanMaker
                 SqliteDataAccess.DeleteFloorplan(floorplanManager.Floorplan);
                 UpdateDateLabel(0);
             }
-           
+
         }
+
+       
     }
 }

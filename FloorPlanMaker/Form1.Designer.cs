@@ -61,6 +61,8 @@ namespace FloorPlanMaker
             pnlSideContainer = new Panel();
             pnlSectionsAndServers = new Panel();
             pnlStatMode = new Panel();
+            lblTotalSales = new Label();
+            label3 = new Label();
             btnClearDates = new Button();
             btnApplyDates = new Button();
             btnAddCustomDate = new Button();
@@ -81,8 +83,7 @@ namespace FloorPlanMaker
             rdoViewSectionFlow = new RadioButton();
             toolTip1 = new ToolTip(components);
             btnReportBug = new Button();
-            label3 = new Label();
-            lblTotalSales = new Label();
+            rdoDayOfStats = new RadioButton();
             flowSectionSelect.SuspendLayout();
             panel1.SuspendLayout();
             pnlFloorplanContainer.SuspendLayout();
@@ -484,11 +485,35 @@ namespace FloorPlanMaker
             pnlStatMode.Controls.Add(rdoRangeStats);
             pnlStatMode.Controls.Add(rdoLastFourWeekdayStats);
             pnlStatMode.Controls.Add(rdoYearlyAverageStats);
+            pnlStatMode.Controls.Add(rdoDayOfStats);
             pnlStatMode.Controls.Add(rdoYesterdayStats);
             pnlStatMode.Location = new Point(0, 28);
             pnlStatMode.Name = "pnlStatMode";
             pnlStatMode.Size = new Size(335, 865);
             pnlStatMode.TabIndex = 13;
+            // 
+            // lblTotalSales
+            // 
+            lblTotalSales.AutoSize = true;
+            lblTotalSales.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lblTotalSales.ForeColor = Color.Black;
+            lblTotalSales.Location = new Point(176, 17);
+            lblTotalSales.Name = "lblTotalSales";
+            lblTotalSales.Size = new Size(34, 25);
+            lblTotalSales.TabIndex = 6;
+            lblTotalSales.Text = "$0";
+            lblTotalSales.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            label3.ForeColor = Color.Black;
+            label3.Location = new Point(113, 17);
+            label3.Name = "label3";
+            label3.Size = new Size(60, 25);
+            label3.TabIndex = 6;
+            label3.Text = "Sales:";
             // 
             // btnClearDates
             // 
@@ -593,7 +618,6 @@ namespace FloorPlanMaker
             rdoLastWeekdayStats.Name = "rdoLastWeekdayStats";
             rdoLastWeekdayStats.Size = new Size(286, 35);
             rdoLastWeekdayStats.TabIndex = 0;
-            rdoLastWeekdayStats.TabStop = true;
             rdoLastWeekdayStats.Text = "Last Week";
             rdoLastWeekdayStats.TextAlign = ContentAlignment.MiddleCenter;
             rdoLastWeekdayStats.UseVisualStyleBackColor = false;
@@ -609,7 +633,6 @@ namespace FloorPlanMaker
             rdoSelectedDatesStats.Name = "rdoSelectedDatesStats";
             rdoSelectedDatesStats.Size = new Size(286, 35);
             rdoSelectedDatesStats.TabIndex = 0;
-            rdoSelectedDatesStats.TabStop = true;
             rdoSelectedDatesStats.Text = "Selected Dates";
             rdoSelectedDatesStats.TextAlign = ContentAlignment.MiddleCenter;
             rdoSelectedDatesStats.UseVisualStyleBackColor = false;
@@ -626,7 +649,6 @@ namespace FloorPlanMaker
             rdoRangeStats.Name = "rdoRangeStats";
             rdoRangeStats.Size = new Size(286, 35);
             rdoRangeStats.TabIndex = 0;
-            rdoRangeStats.TabStop = true;
             rdoRangeStats.Text = "Range";
             rdoRangeStats.TextAlign = ContentAlignment.MiddleCenter;
             rdoRangeStats.UseVisualStyleBackColor = false;
@@ -642,7 +664,6 @@ namespace FloorPlanMaker
             rdoLastFourWeekdayStats.Name = "rdoLastFourWeekdayStats";
             rdoLastFourWeekdayStats.Size = new Size(286, 35);
             rdoLastFourWeekdayStats.TabIndex = 0;
-            rdoLastFourWeekdayStats.TabStop = true;
             rdoLastFourWeekdayStats.Text = "Last Four Weekday";
             rdoLastFourWeekdayStats.TextAlign = ContentAlignment.MiddleCenter;
             rdoLastFourWeekdayStats.UseVisualStyleBackColor = false;
@@ -659,7 +680,6 @@ namespace FloorPlanMaker
             rdoYearlyAverageStats.Name = "rdoYearlyAverageStats";
             rdoYearlyAverageStats.Size = new Size(286, 35);
             rdoYearlyAverageStats.TabIndex = 0;
-            rdoYearlyAverageStats.TabStop = true;
             rdoYearlyAverageStats.Text = "Yearly Average";
             rdoYearlyAverageStats.TextAlign = ContentAlignment.MiddleCenter;
             rdoYearlyAverageStats.UseVisualStyleBackColor = false;
@@ -675,7 +695,6 @@ namespace FloorPlanMaker
             rdoYesterdayStats.Name = "rdoYesterdayStats";
             rdoYesterdayStats.Size = new Size(286, 35);
             rdoYesterdayStats.TabIndex = 0;
-            rdoYesterdayStats.TabStop = true;
             rdoYesterdayStats.Text = "Yesterday";
             rdoYesterdayStats.TextAlign = ContentAlignment.MiddleCenter;
             rdoYesterdayStats.UseVisualStyleBackColor = false;
@@ -756,28 +775,22 @@ namespace FloorPlanMaker
             btnReportBug.UseVisualStyleBackColor = false;
             btnReportBug.Click += btnReportBug_Click;
             // 
-            // label3
+            // rdoDayOfStats
             // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            label3.ForeColor = Color.Black;
-            label3.Location = new Point(66, 37);
-            label3.Name = "label3";
-            label3.Size = new Size(60, 25);
-            label3.TabIndex = 6;
-            label3.Text = "Sales:";
-            // 
-            // lblTotalSales
-            // 
-            lblTotalSales.AutoSize = true;
-            lblTotalSales.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            lblTotalSales.ForeColor = Color.Black;
-            lblTotalSales.Location = new Point(129, 37);
-            lblTotalSales.Name = "lblTotalSales";
-            lblTotalSales.Size = new Size(34, 25);
-            lblTotalSales.TabIndex = 6;
-            lblTotalSales.Text = "$0";
-            lblTotalSales.TextAlign = ContentAlignment.MiddleCenter;
+            rdoDayOfStats.Appearance = Appearance.Button;
+            rdoDayOfStats.BackColor = Color.FromArgb(100, 130, 180);
+            rdoDayOfStats.Checked = true;
+            rdoDayOfStats.FlatAppearance.BorderSize = 0;
+            rdoDayOfStats.FlatStyle = FlatStyle.Flat;
+            rdoDayOfStats.Location = new Point(22, 45);
+            rdoDayOfStats.Name = "rdoDayOfStats";
+            rdoDayOfStats.Size = new Size(286, 35);
+            rdoDayOfStats.TabIndex = 0;
+            rdoDayOfStats.TabStop = true;
+            rdoDayOfStats.Text = "Day Of";
+            rdoDayOfStats.TextAlign = ContentAlignment.MiddleCenter;
+            rdoDayOfStats.UseVisualStyleBackColor = false;
+            rdoDayOfStats.CheckedChanged += rdoDayOfStats_CheckedChanged;
             // 
             // Form1
             // 
@@ -863,5 +876,6 @@ namespace FloorPlanMaker
         private Button btnDeleteSelectedFloorplan;
         private Label lblTotalSales;
         private Label label3;
+        private RadioButton rdoDayOfStats;
     }
 }
