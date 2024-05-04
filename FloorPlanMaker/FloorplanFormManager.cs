@@ -831,16 +831,32 @@ namespace FloorPlanMakerUI
         {
             string test = "";
             float totalAreaSales = 0f;
+
+            var insideBarSales = tableSalesManager.Stats
+                .Where(t => t.TableStatNumber.CompareTo("120") >= 0 && t.TableStatNumber.CompareTo("155") <= 0)
+                .Sum(t => t.Sales);
             foreach (Table table in this.ShiftManager.SelectedDiningArea.Tables)
             {
-                var matchedStat = tableSalesManager.Stats.FirstOrDefault(t => t.TableStatNumber == table.TableNumber);
-                if (matchedStat != null)
+                if (table.TableNumber == "INSIDE BAR")
                 {
-                    table.AverageSales = (float)matchedStat.Sales;
-                    totalAreaSales += (float)matchedStat.Sales;
-                    test += $"\n{table.TableNumber} : {matchedStat.Sales} : {totalAreaSales}";
+                    table.AverageSales = (float)insideBarSales;
+                    totalAreaSales += (float)insideBarSales;
+                    test += $"\n{table.TableNumber} : {insideBarSales} : {totalAreaSales}";
                 }
-                else { table.AverageSales = 0; }
+                else
+                {
+                    var matchedStat = tableSalesManager.Stats.FirstOrDefault(t => t.TableStatNumber == table.TableNumber);
+                    if (matchedStat != null)
+                    {
+                        table.AverageSales = (float)matchedStat.Sales;
+                        totalAreaSales += (float)matchedStat.Sales;
+                        test += $"\n{table.TableNumber} : {matchedStat.Sales} : {totalAreaSales}";
+                    }
+                    else
+                    {
+                        table.AverageSales = 0;
+                    }
+                }
             }
             floorplanSalesDisplay = Section.FormatAsCurrencyWithoutParentheses(totalAreaSales);
             TestData = test;
