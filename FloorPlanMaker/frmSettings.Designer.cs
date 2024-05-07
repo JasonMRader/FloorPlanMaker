@@ -113,7 +113,7 @@
             btnBackUpDB.FlatAppearance.BorderSize = 0;
             btnBackUpDB.FlatStyle = FlatStyle.Flat;
             btnBackUpDB.ForeColor = Color.White;
-            btnBackUpDB.Location = new Point(14, 66);
+            btnBackUpDB.Location = new Point(14, 47);
             btnBackUpDB.Name = "btnBackUpDB";
             btnBackUpDB.Size = new Size(322, 43);
             btnBackUpDB.TabIndex = 0;
