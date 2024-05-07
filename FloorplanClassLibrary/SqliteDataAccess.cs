@@ -311,9 +311,20 @@ namespace FloorplanClassLibrary
 
                 if (count > 0)
                 {
-                    // Table with the same TableNumber exists, show a message box
-                    MessageBox.Show("A table with this number already exists.");
-                    return -1; // You might want to return a specific value to indicate no record was inserted
+                    // Table with the same TableNumber exists
+                    var result = MessageBox.Show("A table with this number already exists. Do you want to replace it?", "Table Exists", MessageBoxButtons.YesNo);
+
+                    if (result == DialogResult.Yes)
+                    {
+                        // User wants to replace the existing table, update it
+                        UpdateTable(table);
+                        return table.ID;
+                    }
+                    else
+                    {
+                        // User doesn't want to replace the table, return -1 or another specific value
+                        return -1; // You might want to return a specific value to indicate no record was inserted
+                    }
                 }
                 else
                 {
@@ -371,8 +382,7 @@ namespace FloorplanClassLibrary
                     Shape = (int)table.Shape,
                     Width = table.Width,
                     Height = table.Height
-                    // If you have a TableID, include it in parameters
-                    // TableID = table.TableID
+                   
                 };
 
                 string sql = @"
