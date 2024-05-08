@@ -163,5 +163,10 @@ namespace FloorPlanMakerUI
                 SqliteDataAccess.DeleteAllFloorplans();
             }
         }
+
+        private void btnPastSection_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
