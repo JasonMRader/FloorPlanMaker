@@ -199,7 +199,7 @@ namespace FloorplanClassLibrary
         }
 
 
-        public static void UpdateDatabaseLocation(string newLocation)
+        public static void SelectNewDatabaseLocation(string newLocation)
         {
             try
             {
@@ -216,12 +216,7 @@ namespace FloorplanClassLibrary
                 if (File.Exists(fullCurrentPath))
                 {
                     File.Copy(fullCurrentPath, fullNewPath, true); // true to overwrite if file already exists
-
-                    // Update configuration
-                    Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                    config.AppSettings.Settings["DatabasePath"].Value = newLocation;
-                    config.Save(ConfigurationSaveMode.Modified);
-                    ConfigurationManager.RefreshSection("appSettings");
+                    UpdateDatabaseLocation(fullNewPath);
                 }
             }
             catch (Exception ex)
@@ -229,7 +224,56 @@ namespace FloorplanClassLibrary
                 // Handle any exceptions, possibly inform the user
             }
         }
+        public static void CheckAndSetDatabaseLocation()
+        {
+            string dbFileName = "FloorplanMakerDB.db";
+            string configPath = ConfigurationManager.AppSettings["DatabasePath"];
 
+            // Check if the database location is already set
+            if (string.IsNullOrEmpty(configPath))
+            {
+                using (var folderBrowser = new FolderBrowserDialog())
+                {
+                    folderBrowser.Description = "Select the folder to store the database:";
+
+                    if (folderBrowser.ShowDialog() == DialogResult.OK)
+                    {
+                        // Set the database location in the config
+                        string selectedPath = folderBrowser.SelectedPath;
+                        UpdateDatabaseLocation(selectedPath);
+
+                        // Optionally move the database file to the selected location
+                        // Ensure the default DB exists or create it if necessary
+                        string sourcePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, dbFileName);
+                        string destinationPath = Path.Combine(selectedPath, dbFileName);
+                        if (!File.Exists(destinationPath))
+                        {
+                            if (File.Exists(sourcePath))
+                            {
+                                File.Copy(sourcePath, destinationPath);
+                            }
+                            else
+                            {
+                                
+                            }
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("No folder selected, the application will close.");
+                        Application.Exit();
+                    }
+                }
+            }
+        }
+
+        private static void UpdateDatabaseLocation(string newLocation)
+        {
+            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            config.AppSettings.Settings["DatabasePath"].Value = newLocation;
+            config.Save(ConfigurationSaveMode.Modified);
+            ConfigurationManager.RefreshSection("appSettings");
+        }
         public static void LoadDatabaseTables(string dbPath)
         {
             string connectionString = $"Data Source={dbPath};Version=3;";

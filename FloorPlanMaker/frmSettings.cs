@@ -37,7 +37,7 @@ namespace FloorPlanMakerUI
                 if (folderBrowserDialog.ShowDialog() == DialogResult.OK && !string.IsNullOrWhiteSpace(folderBrowserDialog.SelectedPath))
                 {
                     string newDbLocation = folderBrowserDialog.SelectedPath;
-                    SqliteDataAccess.UpdateDatabaseLocation(newDbLocation);
+                    SqliteDataAccess.SelectNewDatabaseLocation(newDbLocation);
                 }
             }
         }
