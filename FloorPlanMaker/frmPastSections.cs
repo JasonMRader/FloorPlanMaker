@@ -19,7 +19,34 @@ namespace FloorPlanMakerUI
 
         private void btnReadEntireFile_Click(object sender, EventArgs e)
         {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.InitialDirectory = "c:\\";
+                openFileDialog.Filter = "CSV files (*.csv)|*.csv|All files (*.*)|*.*";
+                openFileDialog.FilterIndex = 1;
+                openFileDialog.RestoreDirectory = true;
 
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string filePath = openFileDialog.FileName;
+
+                    var data = File.ReadAllLines(filePath)
+                                   .Skip(1)
+                                   .Select(line => line.Split(','))
+                                   .GroupBy(parts => parts[3]) // Assuming parts[3] is the server name
+                                   .ToDictionary(group => group.Key, group => group.Select(x => x[4]).Distinct()); // Assuming parts[4] is the table number
+
+                    listBox1.Items.Clear(); // Clear existing items
+
+                    foreach (var entry in data)
+                    {
+                        if (entry.Value.Any(x => !string.IsNullOrEmpty(x))) // Check if there are any non-empty tables
+                        {
+                            listBox1.Items.Add($"{entry.Key}: {string.Join(", ", entry.Value)}");
+                        }
+                    }
+                }
+            }
         }
 
         private void btnReadSpecificDate_Click(object sender, EventArgs e)
