@@ -38,13 +38,17 @@ namespace FloorPlanMakerUI
                     // Use the date selected in the DateTimePicker
                     DateTime selectedDate = dtpShiftDate.Value.Date;  // This ensures we are only comparing the date part
 
+                    TimeSpan timeBoundary = new TimeSpan(16, 0, 0);  // 4:00 PM
+
                     var data = File.ReadAllLines(filePath)
                                    .Skip(1)
                                    .Select(line => line.Split(','))
-                                   .Where(parts => DateTime.TryParse(parts[1], out DateTime date) &&
-                                                   date.Date == selectedDate)  // Filter for the selected date
+                                   .Where(parts => DateTime.TryParse(parts[1], out DateTime dateTime) &&
+                                                   dateTime.Date == selectedDate &&
+                                                   (rdoAM.Checked ? dateTime.TimeOfDay < timeBoundary : dateTime.TimeOfDay >= timeBoundary))
                                    .GroupBy(parts => parts[3]) // Assuming parts[4] is the server name
                                    .ToDictionary(group => group.Key, group => group.Select(x => x[4]).Distinct()); // Assuming parts[5] is the table number
+
 
                     listBox1.Items.Clear(); // Clear existing items
 

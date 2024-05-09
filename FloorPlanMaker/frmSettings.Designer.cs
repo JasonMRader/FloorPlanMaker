@@ -44,12 +44,8 @@
             lbMissingData = new ListBox();
             panel2 = new Panel();
             panel3 = new Panel();
-            rdoPM = new RadioButton();
-            rdoAM = new RadioButton();
-            dtpDateForSections = new DateTimePicker();
             btnDeleteFloorplans = new Button();
             btnPastSection = new Button();
-            listBox1 = new ListBox();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
@@ -224,10 +220,6 @@
             // panel3
             // 
             panel3.BackColor = Color.FromArgb(180, 190, 200);
-            panel3.Controls.Add(listBox1);
-            panel3.Controls.Add(rdoPM);
-            panel3.Controls.Add(rdoAM);
-            panel3.Controls.Add(dtpDateForSections);
             panel3.Controls.Add(btnEditServers);
             panel3.Controls.Add(btnImportScheduleData);
             panel3.Controls.Add(btnDeleteFloorplans);
@@ -237,35 +229,6 @@
             panel3.Name = "panel3";
             panel3.Size = new Size(350, 800);
             panel3.TabIndex = 2;
-            // 
-            // rdoPM
-            // 
-            rdoPM.AutoSize = true;
-            rdoPM.Location = new Point(270, 275);
-            rdoPM.Name = "rdoPM";
-            rdoPM.Size = new Size(43, 19);
-            rdoPM.TabIndex = 2;
-            rdoPM.Text = "PM";
-            rdoPM.UseVisualStyleBackColor = true;
-            // 
-            // rdoAM
-            // 
-            rdoAM.AutoSize = true;
-            rdoAM.Checked = true;
-            rdoAM.Location = new Point(220, 275);
-            rdoAM.Name = "rdoAM";
-            rdoAM.Size = new Size(44, 19);
-            rdoAM.TabIndex = 2;
-            rdoAM.TabStop = true;
-            rdoAM.Text = "AM";
-            rdoAM.UseVisualStyleBackColor = true;
-            // 
-            // dtpDateForSections
-            // 
-            dtpDateForSections.Location = new Point(14, 273);
-            dtpDateForSections.Name = "dtpDateForSections";
-            dtpDateForSections.Size = new Size(200, 23);
-            dtpDateForSections.TabIndex = 1;
             // 
             // btnDeleteFloorplans
             // 
@@ -295,15 +258,6 @@
             btnPastSection.UseVisualStyleBackColor = false;
             btnPastSection.Click += btnPastSection_Click;
             // 
-            // listBox1
-            // 
-            listBox1.FormattingEnabled = true;
-            listBox1.ItemHeight = 15;
-            listBox1.Location = new Point(14, 339);
-            listBox1.Name = "listBox1";
-            listBox1.Size = new Size(322, 349);
-            listBox1.TabIndex = 3;
-            // 
             // frmSettings
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -320,7 +274,6 @@
             panel1.PerformLayout();
             panel2.ResumeLayout(false);
             panel3.ResumeLayout(false);
-            panel3.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -349,9 +302,5 @@
         private Label label2;
         private Button btnDeleteFloorplans;
         private Button btnPastSection;
-        private RadioButton rdoAM;
-        private DateTimePicker dtpDateForSections;
-        private RadioButton rdoPM;
-        private ListBox listBox1;
     }
 }
