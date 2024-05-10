@@ -61,14 +61,25 @@ namespace FloorPlanMakerUI
                 {
                    
                     string filePath = openFileDialog.FileName;
+                    frmLoading loadingForm = new frmLoading();
+                    loadingForm.Show();
+                    this.Enabled = false;
 
-                   
-                    TableSalesManager tableSalesManager = new TableSalesManager();
-                    var allTableStats = tableSalesManager.ProcessCsvFile(filePath);
+                    Task.Run(() =>
+                    {
+                        TableSalesManager tableSalesManager = new TableSalesManager();
+                        var allTableStats = tableSalesManager.ProcessCsvFile(filePath);
+                        SqliteDataAccess.SaveTableStat(allTableStats);
 
-                    SqliteDataAccess.SaveTableStat(allTableStats);
-                    refreshMissingDateDisplay();
-                   
+                        this.Invoke(new Action(() =>
+                        {
+                            // Close the loading form and re-enable the main form
+                            loadingForm.Close();
+                            this.Enabled = true;
+                            refreshMissingDateDisplay();
+                        }));
+                    });
+
                 }
             }
         }
