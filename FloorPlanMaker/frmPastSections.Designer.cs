@@ -99,7 +99,7 @@
             listBox1.ItemHeight = 15;
             listBox1.Location = new Point(40, 85);
             listBox1.Name = "listBox1";
-            listBox1.Size = new Size(450, 349);
+            listBox1.Size = new Size(856, 349);
             listBox1.TabIndex = 6;
             // 
             // frmPastSections
