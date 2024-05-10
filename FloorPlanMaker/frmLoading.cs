@@ -16,5 +16,35 @@ namespace FloorPlanMakerUI
         {
             InitializeComponent();
         }
+        private int dotCount = 1;
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            // Update the text based on the dotCount
+            switch (dotCount)
+            {
+                case 1:
+                    label1.Text = "Parsing.";
+                    dotCount++;
+                    break;
+                case 2:
+                    label1.Text = "Parsing..";
+                    dotCount++;
+                    break;
+                case 3:
+                    label1.Text = "Parsing...";
+                    dotCount = 1;  // Reset to start cycle over
+                    break;
+            }
+        }
+
+        private void frmLoading_Load(object sender, EventArgs e)
+        {
+            timer1.Start();
+        }
+        private void FormLoading_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            timer1.Stop();  
+        }
     }
 }
