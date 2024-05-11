@@ -24,16 +24,24 @@ namespace FloorPlanMakerUI
             switch (dotCount)
             {
                 case 1:
-                    label1.Text = "Parsing.";
+                    label1.Text = "Parsing Data.";
                     dotCount++;
                     break;
                 case 2:
-                    label1.Text = "Parsing..";
+                    label1.Text = "Parsing Data..";
                     dotCount++;
                     break;
                 case 3:
-                    label1.Text = "Parsing...";
-                    dotCount = 1;  // Reset to start cycle over
+                    label1.Text = "Parsing Data...";
+                    dotCount++;  // Reset to start cycle over
+                    break;
+                case 4:
+                    label1.Text = "Parsing Data....";
+                    dotCount++;
+                    break;
+                case 5:
+                    label1.Text = "Parsing Data.....";
+                    dotCount = 1;
                     break;
             }
         }
@@ -44,7 +52,7 @@ namespace FloorPlanMakerUI
         }
         private void FormLoading_FormClosing(object sender, FormClosingEventArgs e)
         {
-            timer1.Stop();  
+            timer1.Stop();
         }
     }
 }

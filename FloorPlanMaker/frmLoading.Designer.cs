@@ -38,33 +38,35 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(109, 38);
+            label1.Font = new Font("Segoe UI Black", 18F, FontStyle.Bold, GraphicsUnit.Point);
+            label1.Location = new Point(27, 25);
             label1.Name = "label1";
-            label1.Size = new Size(135, 25);
+            label1.Size = new Size(187, 32);
             label1.TabIndex = 0;
             label1.Text = "Parsing Data...";
             // 
             // panel2
             // 
-            panel2.BackColor = Color.FromArgb(180, 190, 200);
+            panel2.BackColor = Color.White;
             panel2.Controls.Add(label1);
-            panel2.Location = new Point(26, 12);
+            panel2.Location = new Point(3, 2);
             panel2.Name = "panel2";
             panel2.Padding = new Padding(3);
-            panel2.Size = new Size(357, 120);
+            panel2.Size = new Size(269, 83);
             panel2.TabIndex = 1;
             // 
             // timer1
             // 
             timer1.Enabled = true;
-            timer1.Interval = 1000;
+            timer1.Interval = 300;
+            timer1.Tick += timer_Tick;
             // 
             // frmLoading
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(415, 144);
+            BackColor = Color.Black;
+            ClientSize = new Size(276, 89);
             Controls.Add(panel2);
             FormBorderStyle = FormBorderStyle.None;
             Name = "frmLoading";

@@ -46,6 +46,7 @@
             panel3 = new Panel();
             btnDeleteFloorplans = new Button();
             btnPastSection = new Button();
+            button1 = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
@@ -143,6 +144,7 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(180, 190, 200);
+            panel1.Controls.Add(button1);
             panel1.Controls.Add(dtpMissingDateStart);
             panel1.Controls.Add(dtpMissingDateEnd);
             panel1.Controls.Add(label3);
@@ -258,6 +260,16 @@
             btnPastSection.UseVisualStyleBackColor = false;
             btnPastSection.Click += btnPastSection_Click;
             // 
+            // button1
+            // 
+            button1.Location = new Point(156, 490);
+            button1.Name = "button1";
+            button1.Size = new Size(75, 23);
+            button1.TabIndex = 4;
+            button1.Text = "button1";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click_1;
+            // 
             // frmSettings
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -302,5 +314,6 @@
         private Label label2;
         private Button btnDeleteFloorplans;
         private Button btnPastSection;
+        private Button button1;
     }
 }

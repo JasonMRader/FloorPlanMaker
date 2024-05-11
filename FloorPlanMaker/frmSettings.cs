@@ -52,14 +52,14 @@ namespace FloorPlanMakerUI
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                openFileDialog.InitialDirectory = "c:\\"; 
+                openFileDialog.InitialDirectory = "c:\\";
                 openFileDialog.Filter = "CSV files (*.csv)|*.csv|All files (*.*)|*.*";
                 openFileDialog.FilterIndex = 1;
                 openFileDialog.RestoreDirectory = true;
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                   
+
                     string filePath = openFileDialog.FileName;
                     frmLoading loadingForm = new frmLoading();
                     loadingForm.Show();
@@ -177,6 +177,12 @@ namespace FloorPlanMakerUI
         {
             frmPastSections pastSectionsForm = new frmPastSections();
             pastSectionsForm.ShowDialog();
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            frmLoading loadingForm = new frmLoading();
+            loadingForm.Show();
         }
     }
 }
