@@ -797,7 +797,24 @@ namespace FloorPlanMakerUI
                 foreach(SectionLabelControl sectionLabel in _sectionLabels)
                 {
                     pnlFloorPlan.Controls.Remove(sectionLabel);
-                }               
+                }
+                //TODO: REMOVE THIS TEST CODE!!!!!!
+                //**********************************************************************
+                List<TableStat> statList = SqliteDataAccess.LoadTableStatsByDateAndLunch(isAM, dateOnlySelected);
+                if (statList.Count > 0)
+                {
+                    foreach (Table table in this.ShiftManager.SelectedDiningArea.Tables)
+                    {
+                        var matchedStat = statList.FirstOrDefault(t => t.TableStatNumber == table.TableNumber);
+                        if (matchedStat != null)
+                        {
+                            table.AverageSales = (float)matchedStat.Sales;
+                        }
+                        else { table.AverageSales = 0; }
+                    }
+                }
+                //************************************************************************************
+
                 UpdateTableControlColors();
                 
             }
