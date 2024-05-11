@@ -817,7 +817,7 @@ namespace FloorPlanMakerUI
                         {
                             table.AverageSales = (float)matchedStat.Sales;
                         }
-                        else { table.AverageSales = -1; }
+                        else { table.AverageSales = 0; }
                     }
                 }
 
