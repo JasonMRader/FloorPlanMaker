@@ -696,7 +696,7 @@ namespace FloorPlanMakerUI
         public void UpdateAveragesPerServer()
         {
             coversImageLabel.UpdateText(ShiftManager.SelectedFloorplan.MaxCoversPerServer.ToString("F0"));
-            salesImageLabel.UpdateText(ShiftManager.SelectedFloorplan.AvgSalesPerServer.ToString("C0"));
+            salesImageLabel.UpdateText(ShiftManager.SelectedFloorplan.GetAvgSalesPerServer().ToString("C0"));
             foreach(SectionPanelControl sectionPanel in _sectionPanels)
             {
                 sectionPanel.UpdateLabels();

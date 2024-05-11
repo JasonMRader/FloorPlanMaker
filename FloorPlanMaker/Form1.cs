@@ -890,6 +890,7 @@ namespace FloorPlanMaker
             }
             
             lblTotalSales.Text = floorplanManager.floorplanSalesDisplay;
+            
         }
         private void rdoYesterdayStats_CheckedChanged(object sender, EventArgs e)
         {
@@ -938,6 +939,10 @@ namespace FloorPlanMaker
                 floorplanManager.SetSalesManagerStats(stats);
                 SetTableSalesView();
             }
+            if(floorplanManager.Floorplan != null) {
+                floorplanManager.UpdateAveragesPerServer();
+            }
+           
            
         }
         private void rdoLastWeekdayStats_CheckedChanged(object sender, EventArgs e)
