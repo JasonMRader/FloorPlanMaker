@@ -39,9 +39,9 @@
             // 
             // tvPastServerTables
             // 
-            tvPastServerTables.Location = new Point(12, 449);
+            tvPastServerTables.Location = new Point(494, 85);
             tvPastServerTables.Name = "tvPastServerTables";
-            tvPastServerTables.Size = new Size(913, 75);
+            tvPastServerTables.Size = new Size(587, 349);
             tvPastServerTables.TabIndex = 1;
             // 
             // btnReadEntireFile
@@ -99,14 +99,14 @@
             listBox1.ItemHeight = 15;
             listBox1.Location = new Point(40, 85);
             listBox1.Name = "listBox1";
-            listBox1.Size = new Size(856, 349);
+            listBox1.Size = new Size(448, 349);
             listBox1.TabIndex = 6;
             // 
             // frmPastSections
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(937, 552);
+            ClientSize = new Size(1153, 552);
             Controls.Add(listBox1);
             Controls.Add(rdoPM);
             Controls.Add(rdoAM);

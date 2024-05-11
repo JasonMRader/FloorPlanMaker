@@ -19,6 +19,7 @@ namespace FloorPlanMakerUI
 
         private void btnReadEntireFile_Click(object sender, EventArgs e)
         {
+            
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
                 openFileDialog.InitialDirectory = "c:\\";
@@ -31,22 +32,86 @@ namespace FloorPlanMakerUI
                     string filePath = openFileDialog.FileName;
 
                     var data = File.ReadAllLines(filePath)
-                                   .Skip(1)
-                                   .Select(line => line.Split(','))
-                                   .GroupBy(parts => parts[3]) // Assuming parts[3] is the server name
-                                   .ToDictionary(group => group.Key, group => group.Select(x => x[4]).Distinct()); // Assuming parts[4] is the table number
+                                    .Skip(1)
+                                    .Select(line => line.Split(','))
+                                    .Where(parts => parts.Length > 4 && DateTime.TryParse(parts[1], out _)) 
+                                    .Select(parts => new {
+                                        Date = DateTime.Parse(parts[1]).Date,
+                                        Time = DateTime.Parse(parts[1]).TimeOfDay,
+                                        Server = parts[3],
+                                        Table = parts[4]
+                                    })
+                                    .ToList();
 
-                    listBox1.Items.Clear(); // Clear existing items
+                    // Group by date
+                    var dateGroups = data.GroupBy(x => x.Date).OrderBy(x => x.Key);
 
-                    foreach (var entry in data)
+                    tvPastServerTables.Nodes.Clear();
+
+                    foreach (var dateGroup in dateGroups)
                     {
-                        if (entry.Value.Any(x => !string.IsNullOrEmpty(x))) // Check if there are any non-empty tables
+                        var dateNode = tvPastServerTables.Nodes.Add(dateGroup.Key.ToString("yyyy-MM-dd"));
+
+                        // AM and PM shifts
+                        var amNode = dateNode.Nodes.Add("AM");
+                        var pmNode = dateNode.Nodes.Add("PM");
+
+                        // Group by AM and PM based on time
+                        var amServers = dateGroup.Where(x => x.Time < new TimeSpan(16, 0, 0)).GroupBy(x => x.Server);
+                        var pmServers = dateGroup.Where(x => x.Time >= new TimeSpan(16, 0, 0)).GroupBy(x => x.Server);
+
+                        // Populate AM nodes
+                        foreach (var server in amServers)
                         {
-                            listBox1.Items.Add($"{entry.Key}: {string.Join(", ", entry.Value)}");
+                            var serverNode = amNode.Nodes.Add(server.Key);
+                            foreach (var table in server.Select(x => x.Table).Distinct())
+                            {
+                                serverNode.Nodes.Add("Table " + table);
+                            }
+                        }
+
+                        // Populate PM nodes
+                        foreach (var server in pmServers)
+                        {
+                            var serverNode = pmNode.Nodes.Add(server.Key);
+                            foreach (var table in server.Select(x => x.Table).Distinct())
+                            {
+                                serverNode.Nodes.Add("Table " + table);
+                            }
                         }
                     }
                 }
             }
+            
+
+            //using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            //{
+            //    openFileDialog.InitialDirectory = "c:\\";
+            //    openFileDialog.Filter = "CSV files (*.csv)|*.csv|All files (*.*)|*.*";
+            //    openFileDialog.FilterIndex = 1;
+            //    openFileDialog.RestoreDirectory = true;
+
+            //    if (openFileDialog.ShowDialog() == DialogResult.OK)
+            //    {
+            //        string filePath = openFileDialog.FileName;
+
+            //        var data = File.ReadAllLines(filePath)
+            //                       .Skip(1)
+            //                       .Select(line => line.Split(','))
+            //                       .GroupBy(parts => parts[3]) // Assuming parts[3] is the server name
+            //                       .ToDictionary(group => group.Key, group => group.Select(x => x[4]).Distinct()); // Assuming parts[4] is the table number
+
+            //        listBox1.Items.Clear(); // Clear existing items
+
+            //        foreach (var entry in data)
+            //        {
+            //            if (entry.Value.Any(x => !string.IsNullOrEmpty(x))) // Check if there are any non-empty tables
+            //            {
+            //                listBox1.Items.Add($"{entry.Key}: {string.Join(", ", entry.Value)}");
+            //            }
+            //        }
+            //    }
+            //}
         }
 
         private void btnReadSpecificDate_Click(object sender, EventArgs e)
