@@ -146,7 +146,7 @@ namespace FloorPlanMakerUI
                     FlatStyle = FlatStyle.Flat,
                     ForeColor = Color.White,
                     BackColor = UITheme.CTAColor,
-                    Font = UITheme.MainFont,
+                    Font = UITheme.SmallerFont,
                     TabStop = false
 
                 };

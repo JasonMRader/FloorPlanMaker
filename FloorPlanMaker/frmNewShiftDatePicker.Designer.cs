@@ -175,7 +175,7 @@
             flowDiningAreas.BackColor = Color.WhiteSmoke;
             flowDiningAreas.Location = new Point(109, 34);
             flowDiningAreas.Name = "flowDiningAreas";
-            flowDiningAreas.Size = new Size(964, 40);
+            flowDiningAreas.Size = new Size(1068, 40);
             flowDiningAreas.TabIndex = 3;
             // 
             // flowYesterdayCounts
@@ -183,7 +183,7 @@
             flowYesterdayCounts.BackColor = Color.WhiteSmoke;
             flowYesterdayCounts.Location = new Point(109, 73);
             flowYesterdayCounts.Name = "flowYesterdayCounts";
-            flowYesterdayCounts.Size = new Size(964, 40);
+            flowYesterdayCounts.Size = new Size(1068, 40);
             flowYesterdayCounts.TabIndex = 3;
             // 
             // flowLastWeekdayCounts
@@ -191,7 +191,7 @@
             flowLastWeekdayCounts.BackColor = Color.WhiteSmoke;
             flowLastWeekdayCounts.Location = new Point(109, 112);
             flowLastWeekdayCounts.Name = "flowLastWeekdayCounts";
-            flowLastWeekdayCounts.Size = new Size(964, 53);
+            flowLastWeekdayCounts.Size = new Size(1068, 53);
             flowLastWeekdayCounts.TabIndex = 3;
             // 
             // panel2
