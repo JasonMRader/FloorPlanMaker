@@ -179,10 +179,6 @@ namespace FloorPlanMakerUI
             pastSectionsForm.ShowDialog();
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-            frmLoading loadingForm = new frmLoading();
-            loadingForm.Show();
-        }
+        
     }
 }
