@@ -903,8 +903,10 @@ namespace FloorPlanMaker
         {
             if (rdoYesterdayStats.Checked)
             {
-                List<TableStat> stats = SqliteDataAccess.LoadTableStatsByDateAndLunch(IsLunch, dateOnlySelected.AddDays(-1));
-                floorplanManager.SetSalesManagerStats(stats);
+                //List<TableStat> stats = SqliteDataAccess.LoadTableStatsByDateAndLunch(IsLunch, dateOnlySelected.AddDays(-1));
+                //floorplanManager.SetSalesManagerStats(stats);
+                floorplanManager.ShiftManager.SelectedDiningArea.TableSalesManager.SetDateToToday(dateOnlySelected);
+                floorplanManager.ShiftManager.SelectedDiningArea.ExpectedSales();
                 SetTableSalesView();
 
             }

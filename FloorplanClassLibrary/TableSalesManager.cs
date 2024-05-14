@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace FloorplanClassLibrary
 {
@@ -13,14 +14,49 @@ namespace FloorplanClassLibrary
         public TableSalesManager() { }
         public List<TableStat> Stats { get; set; } = new List<TableStat>();
         public List<DateOnly> DatesAveraged { get; set; }
-        public bool IsAm { get; set; }
-        
-        public float? DiningAreaExpectedSales
+        public bool IsLunch { get; set; }
+        public string DiningAreaTotalSalesDisplay { get; private set; }
+        public float? ShiftExpectedSales
         {
             get
             {
                 return Stats.Sum(stat => stat.Sales);
             }
+        }
+        public float DiningAreaExpectedSales(DiningArea diningArea)
+        {
+            string test = "";
+            float totalAreaSales = 0f;
+
+            var insideBarSales = this.Stats
+                .Where(t => t.TableStatNumber.CompareTo("120") >= 0 && t.TableStatNumber.CompareTo("155") <= 0)
+                .Sum(t => t.Sales);
+            foreach (Table table in diningArea.Tables)
+            {
+                if (table.TableNumber == "INSIDE BAR")
+                {
+                    table.AverageSales = (float)insideBarSales;
+                    totalAreaSales += (float)insideBarSales;
+                    test += $"\n{table.TableNumber} : {insideBarSales} : {totalAreaSales}";
+                }
+                else
+                {
+                    var matchedStat =this.Stats.FirstOrDefault(t => t.TableStatNumber == table.TableNumber);
+                    if (matchedStat != null)
+                    {
+                        table.AverageSales = (float)matchedStat.Sales;
+                        totalAreaSales += (float)matchedStat.Sales;
+                        test += $"\n{table.TableNumber} : {matchedStat.Sales} : {totalAreaSales}";
+                    }
+                    else
+                    {
+                        table.AverageSales = 0;
+                    }
+                }
+            }
+            DiningAreaTotalSalesDisplay = Section.FormatAsCurrencyWithoutParentheses(totalAreaSales);
+            return totalAreaSales;
+            
         }
         public List<TableStat> ProcessCsvFile(string filePath)
         {
@@ -59,15 +95,32 @@ namespace FloorplanClassLibrary
         }
         public void SetDateToToday(DateOnly dateOnly)
         {
-
+            this.Stats = SqliteDataAccess.LoadTableStatsByDateAndLunch(IsLunch, dateOnly);
         }
         public void SetDateToYesterday(DateOnly dateOnly)
         {
-
+            this.Stats = SqliteDataAccess.LoadTableStatsByDateAndLunch(IsLunch, dateOnly.AddDays(-1));
         }
         public void SetDateToLastWeek(DateOnly dateOnly)
         {
+            this.Stats = SqliteDataAccess.LoadTableStatsByDateAndLunch(IsLunch, dateOnly.AddDays(-7));
+        }
+        public void SetDatesToLastFourWeekdays(DateOnly dateOnly)
+        {
+            var day = dateOnly;
 
+
+            var previousWeekdays = new List<DateOnly>();
+
+
+            for (int i = 1; i <= 4; i++)
+            {
+
+                previousWeekdays.Add(day.AddDays(-7 * i));
+            }
+
+
+            this.Stats = SqliteDataAccess.LoadTableStatsByDateListAndLunch(IsLunch, previousWeekdays);
         }
         //public List<TableStat> GetStatsByShiftAndDayOfWeek(List<TableStat> allStats, bool isLunch, DayOfWeek dayOfWeek)
         //{

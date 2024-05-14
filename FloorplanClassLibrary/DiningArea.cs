@@ -15,6 +15,11 @@ namespace FloorplanClassLibrary
         
         }
         public DiningArea() { }
+        public TableSalesManager TableSalesManager = new TableSalesManager();
+        public float ExpectedSales()
+        {
+            return this.TableSalesManager.DiningAreaExpectedSales(this);
+        }
         public int ID { get; set; }
         public string Name { get; set; }
         public override string ToString()
