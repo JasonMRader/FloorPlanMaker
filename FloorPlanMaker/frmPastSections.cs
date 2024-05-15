@@ -191,7 +191,7 @@ namespace FloorPlanMakerUI
                         foreach (var dateGroup in dateGroups)
                         {
                             // Write the date row
-                            writer.WriteLine(dateGroup.Key.ToString("yyyy-MM-dd"));
+                            writer.WriteLine($"{dateGroup.Key.ToString("yyyy-MM-dd")},");
 
                             // AM and PM shifts
                             var amServers = dateGroup.Where(x => x.Time < new TimeSpan(16, 0, 0)).GroupBy(x => x.Server).ToList();
@@ -200,10 +200,11 @@ namespace FloorPlanMakerUI
                             // Write AM servers
                             if (amServers.Any())
                             {
-                                writer.WriteLine("AM Servers");
+                                writer.WriteLine("AM Servers,");
                                 foreach (var server in amServers)
                                 {
-                                    writer.Write(server.Key); // Write server name
+                                    writer.Write(","); // Skip the first column for server names
+                                    writer.Write(server.Key); // Write server name in the second column
                                     foreach (var table in server.Select(x => x.Table).Distinct())
                                     {
                                         writer.Write($",{table}"); // Write tables next to server name
@@ -215,10 +216,11 @@ namespace FloorPlanMakerUI
                             // Write PM servers
                             if (pmServers.Any())
                             {
-                                writer.WriteLine("PM Servers");
+                                writer.WriteLine("PM Servers,");
                                 foreach (var server in pmServers)
                                 {
-                                    writer.Write(server.Key); // Write server name
+                                    writer.Write(","); // Skip the first column for server names
+                                    writer.Write(server.Key); // Write server name in the second column
                                     foreach (var table in server.Select(x => x.Table).Distinct())
                                     {
                                         writer.Write($",{table}"); // Write tables next to server name
@@ -227,13 +229,14 @@ namespace FloorPlanMakerUI
                                 }
                             }
 
-                            writer.WriteLine(); // Blank line after each date
+                            writer.WriteLine(); // Blank line after each date for separation
                         }
                     }
                     MessageBox.Show($"File saved to {savePath}");
                 }
             }
         }
+
 
     }
 }
