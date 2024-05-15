@@ -611,7 +611,31 @@ namespace FloorPlanMaker
                         return;
                     }
                 }
+                if(cbTableDisplayMode.Checked)
+                {
+                    foreach (Control c in pnlFloorPlan.Controls)
+                    {
+                        if (c is TableControl tableControl)
+                        {
+                            tableControl.CurrentDisplayMode = DisplayMode.TableNumber;
+                            tableControl.Invalidate();
+                        }
+                    }
+                }
                 SqliteDataAccess.SaveFloorplanAndSections(shiftManager.SelectedFloorplan);
+               
+                DialogResult printWihtLines = MessageBox.Show("Do you want to use these section lines?",
+                                            "Continue?",
+                                            MessageBoxButtons.YesNo,
+                                            MessageBoxIcon.Question);
+
+                if (printWihtLines == DialogResult.No)
+                {
+                    FloorplanPrinter printerNoLines = new FloorplanPrinter(pnlFloorPlan);
+                    printerNoLines.ShowPrintPreview();
+                    return;
+                }
+                
                 TableGrid grid = new TableGrid(shiftManager.SelectedDiningArea.Tables);
                 grid.FindTableTopBottomNeighbors();
                 grid.FindTableNeighbors();
@@ -625,8 +649,8 @@ namespace FloorPlanMaker
                 //List<Edge> edges = grid.GetNeighborEdges();
                 //Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, edges);
                 pnlFloorPlan.BackgroundImage = edgesBitmap;
-                //FloorplanPrinter printer = new FloorplanPrinter(pnlFloorPlan, edgeDrawer, grid.GetSectionTableBoarders());
-                //printer.ShowPrintPreview();
+                FloorplanPrinter printer = new FloorplanPrinter(pnlFloorPlan, edgeDrawer, grid.GetSectionTableBoarders());
+                printer.ShowPrintPreview();
                 //printer.Print();
             }
             else
