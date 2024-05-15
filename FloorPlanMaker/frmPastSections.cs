@@ -19,7 +19,7 @@ namespace FloorPlanMakerUI
 
         private void btnReadEntireFile_Click(object sender, EventArgs e)
         {
-            
+
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
                 openFileDialog.InitialDirectory = "c:\\";
@@ -34,8 +34,9 @@ namespace FloorPlanMakerUI
                     var data = File.ReadAllLines(filePath)
                                     .Skip(1)
                                     .Select(line => line.Split(','))
-                                    .Where(parts => parts.Length > 4 && DateTime.TryParse(parts[1], out _)) 
-                                    .Select(parts => new {
+                                    .Where(parts => parts.Length > 4 && DateTime.TryParse(parts[1], out _))
+                                    .Select(parts => new
+                                    {
                                         Date = DateTime.Parse(parts[1]).Date,
                                         Time = DateTime.Parse(parts[1]).TimeOfDay,
                                         Server = parts[3],
@@ -82,7 +83,7 @@ namespace FloorPlanMakerUI
                     }
                 }
             }
-            
+
 
             //using (OpenFileDialog openFileDialog = new OpenFileDialog())
             //{
@@ -154,5 +155,85 @@ namespace FloorPlanMakerUI
                 }
             }
         }
+
+        private void btnWriteFileToSpreadSheet_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.InitialDirectory = "c:\\";
+                openFileDialog.Filter = "CSV files (*.csv)|*.csv|All files (*.*)|*.*";
+                openFileDialog.FilterIndex = 1;
+                openFileDialog.RestoreDirectory = true;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string filePath = openFileDialog.FileName;
+
+                    var data = File.ReadAllLines(filePath)
+                                    .Skip(1)
+                                    .Select(line => line.Split(','))
+                                    .Where(parts => parts.Length > 4 && DateTime.TryParse(parts[1], out _))
+                                    .Select(parts => new {
+                                        Date = DateTime.Parse(parts[1]).Date,
+                                        Time = DateTime.Parse(parts[1]).TimeOfDay,
+                                        Server = parts[3],
+                                        Table = parts[4]
+                                    })
+                                    .ToList();
+
+                    // Group by date
+                    var dateGroups = data.GroupBy(x => x.Date).OrderBy(x => x.Key);
+
+                    // Setup file to write
+                    string savePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "ServerTables.csv");
+                    using (StreamWriter writer = new StreamWriter(savePath))
+                    {
+                        foreach (var dateGroup in dateGroups)
+                        {
+                            // Write the date row
+                            writer.WriteLine(dateGroup.Key.ToString("yyyy-MM-dd"));
+
+                            // AM and PM shifts
+                            var amServers = dateGroup.Where(x => x.Time < new TimeSpan(16, 0, 0)).GroupBy(x => x.Server).ToList();
+                            var pmServers = dateGroup.Where(x => x.Time >= new TimeSpan(16, 0, 0)).GroupBy(x => x.Server).ToList();
+
+                            // Write AM servers
+                            if (amServers.Any())
+                            {
+                                writer.WriteLine("AM Servers");
+                                foreach (var server in amServers)
+                                {
+                                    writer.Write(server.Key); // Write server name
+                                    foreach (var table in server.Select(x => x.Table).Distinct())
+                                    {
+                                        writer.Write($",{table}"); // Write tables next to server name
+                                    }
+                                    writer.WriteLine();
+                                }
+                            }
+
+                            // Write PM servers
+                            if (pmServers.Any())
+                            {
+                                writer.WriteLine("PM Servers");
+                                foreach (var server in pmServers)
+                                {
+                                    writer.Write(server.Key); // Write server name
+                                    foreach (var table in server.Select(x => x.Table).Distinct())
+                                    {
+                                        writer.Write($",{table}"); // Write tables next to server name
+                                    }
+                                    writer.WriteLine();
+                                }
+                            }
+
+                            writer.WriteLine(); // Blank line after each date
+                        }
+                    }
+                    MessageBox.Show($"File saved to {savePath}");
+                }
+            }
+        }
+
     }
 }

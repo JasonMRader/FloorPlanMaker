@@ -35,6 +35,8 @@
             rdoAM = new RadioButton();
             rdoPM = new RadioButton();
             listBox1 = new ListBox();
+            btnWriteFileToSpreadSheet = new Button();
+            btnServersByTable = new Button();
             SuspendLayout();
             // 
             // tvPastServerTables
@@ -102,11 +104,32 @@
             listBox1.Size = new Size(448, 349);
             listBox1.TabIndex = 6;
             // 
+            // btnWriteFileToSpreadSheet
+            // 
+            btnWriteFileToSpreadSheet.Location = new Point(12, 41);
+            btnWriteFileToSpreadSheet.Name = "btnWriteFileToSpreadSheet";
+            btnWriteFileToSpreadSheet.Size = new Size(160, 23);
+            btnWriteFileToSpreadSheet.TabIndex = 7;
+            btnWriteFileToSpreadSheet.Text = "Create CSV";
+            btnWriteFileToSpreadSheet.UseVisualStyleBackColor = true;
+            btnWriteFileToSpreadSheet.Click += btnWriteFileToSpreadSheet_Click;
+            // 
+            // btnServersByTable
+            // 
+            btnServersByTable.Location = new Point(214, 41);
+            btnServersByTable.Name = "btnServersByTable";
+            btnServersByTable.Size = new Size(160, 23);
+            btnServersByTable.TabIndex = 8;
+            btnServersByTable.Text = "Servers By Table";
+            btnServersByTable.UseVisualStyleBackColor = true;
+            // 
             // frmPastSections
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1153, 552);
+            Controls.Add(btnServersByTable);
+            Controls.Add(btnWriteFileToSpreadSheet);
             Controls.Add(listBox1);
             Controls.Add(rdoPM);
             Controls.Add(rdoAM);
@@ -129,5 +152,7 @@
         private RadioButton rdoAM;
         private RadioButton rdoPM;
         private ListBox listBox1;
+        private Button btnWriteFileToSpreadSheet;
+        private Button btnServersByTable;
     }
 }
