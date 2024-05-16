@@ -264,6 +264,7 @@
             // 
             // flowAllServers
             // 
+            flowAllServers.AutoScroll = true;
             flowAllServers.BackColor = Color.WhiteSmoke;
             flowAllServers.Location = new Point(9, 45);
             flowAllServers.Name = "flowAllServers";

@@ -29,6 +29,7 @@ namespace FloorPlanMakerUI
             };
             newServers.Add(server);
             txtServerName.Clear();
+            txtServerName.Focus();
         }
 
         private void btnDone_Click(object sender, EventArgs e)
@@ -44,8 +45,8 @@ namespace FloorPlanMakerUI
 
         private void frmAddServer_Load(object sender, EventArgs e)
         {
-            
+
         }
-        
+
     }
 }
