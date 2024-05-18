@@ -156,6 +156,7 @@
             Controls.Add(lbServers);
             Name = "frmAddRemoveStaff";
             Text = "frmAddRemoveStaff";
+            Load += frmAddRemoveStaff_Load;
             ResumeLayout(false);
             PerformLayout();
         }

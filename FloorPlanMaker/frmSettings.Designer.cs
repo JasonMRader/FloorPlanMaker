@@ -54,7 +54,6 @@
             // btnEditServers
             // 
             btnEditServers.BackColor = Color.FromArgb(100, 130, 180);
-            btnEditServers.Enabled = false;
             btnEditServers.FlatAppearance.BorderSize = 0;
             btnEditServers.FlatStyle = FlatStyle.Flat;
             btnEditServers.ForeColor = Color.White;
@@ -64,7 +63,7 @@
             btnEditServers.TabIndex = 0;
             btnEditServers.Text = "Edit Servers";
             btnEditServers.UseVisualStyleBackColor = false;
-            btnEditServers.Click += button1_Click;
+            btnEditServers.Click += btnEditServers_Click;
             // 
             // btnImportSalesData
             // 

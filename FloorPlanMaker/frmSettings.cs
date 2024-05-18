@@ -179,6 +179,10 @@ namespace FloorPlanMakerUI
             pastSectionsForm.ShowDialog();
         }
 
-        
+        private void btnEditServers_Click(object sender, EventArgs e)
+        {
+            frmAddRemoveStaff addRemoveStaffForm = new frmAddRemoveStaff();
+            addRemoveStaffForm.ShowDialog();
+        }
     }
 }
