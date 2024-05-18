@@ -62,7 +62,7 @@
             btnEditServers.Name = "btnEditServers";
             btnEditServers.Size = new Size(322, 43);
             btnEditServers.TabIndex = 0;
-            btnEditServers.Text = "Add Servers";
+            btnEditServers.Text = "Edit Servers";
             btnEditServers.UseVisualStyleBackColor = false;
             btnEditServers.Click += button1_Click;
             // 
