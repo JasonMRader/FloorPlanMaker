@@ -632,7 +632,7 @@ namespace FloorPlanMaker
                 if (printWihtLines == DialogResult.No)
                 {
                     FloorplanPrinter printerNoLines = new FloorplanPrinter(pnlFloorPlan);
-                    printerNoLines.ShowPrintPreview();
+                    //printerNoLines.ShowPrintPreview();
                     return;
                 }
                 
@@ -650,7 +650,7 @@ namespace FloorPlanMaker
                 //Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, edges);
                 pnlFloorPlan.BackgroundImage = edgesBitmap;
                 FloorplanPrinter printer = new FloorplanPrinter(pnlFloorPlan, edgeDrawer, grid.GetSectionTableBoarders());
-                printer.ShowPrintPreview();
+               // printer.ShowPrintPreview();
                 //printer.Print();
             }
             else
