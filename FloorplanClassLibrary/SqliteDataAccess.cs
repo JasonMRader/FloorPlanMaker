@@ -761,7 +761,40 @@ namespace FloorplanClassLibrary
                 }
             }
         }
+        // section, , server section,
+        //public static void DeleteFloorplan(Floorplan floorplan)
+        //{
+        //    int floorplanId = floorplan.ID;
 
+        //    using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+        //    {
+        //        cnn.Open();
+        //        using (var transaction = cnn.BeginTransaction())
+        //        {
+        //            try
+        //            {
+                        
+        //                cnn.Execute("DELETE FROM FloorplanSections WHERE FloorplanID = @FloorplanID", new { FloorplanID = floorplanId }, transaction);
+        //                cnn.Execute("DELETE FROM Shift WHERE FloorplanID = @FloorplanID", new { FloorplanID = floorplanId }, transaction);
+
+
+        //                cnn.Execute("DELETE FROM Floorplan WHERE ID = @ID", new { ID = floorplanId }, transaction);
+        //                foreach(Section section in floorplan.Sections)
+        //                {
+        //                    cnn.Execute("DELETE FROM ServerSections WHERE SectionID = @SectionID", new { SectionID = section.ID }, transaction);
+        //                    cnn.Execute("DELETE FROM Section WHERE ID = @ID", new { ID = section.ID }, transaction);
+        //                }
+
+        //                transaction.Commit();
+        //            }
+        //            catch
+        //            {
+        //                transaction.Rollback();
+        //                throw;
+        //            }
+        //        }
+        //    }
+        //}
         public static void SaveSection(Section section)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
