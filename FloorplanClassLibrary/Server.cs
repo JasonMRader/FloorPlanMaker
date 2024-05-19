@@ -9,6 +9,8 @@ namespace FloorplanClassLibrary
         public int ID { get; set; }
         public string Name { get; set; }
         public bool isDouble { get; set; }
+        public bool isArchived { get; set; }
+        public string DisplayName { get; set; }
        
 
         private Section? _currentSection;

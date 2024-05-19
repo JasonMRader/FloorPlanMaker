@@ -30,15 +30,15 @@
         {
             lbServers = new ListBox();
             btnAddNewServer = new Button();
-            textBox1 = new TextBox();
-            radioButton1 = new RadioButton();
-            radioButton2 = new RadioButton();
-            textBox2 = new TextBox();
-            textBox3 = new TextBox();
+            txtNewServerName = new TextBox();
+            rdoShowActive = new RadioButton();
+            rdoShowArchived = new RadioButton();
+            txtServerName = new TextBox();
+            txtServerDisplayName = new TextBox();
             label1 = new Label();
             label2 = new Label();
-            button1 = new Button();
-            button2 = new Button();
+            btnSaveServer = new Button();
+            btnArchiveServer = new Button();
             SuspendLayout();
             // 
             // lbServers
@@ -49,6 +49,7 @@
             lbServers.Name = "lbServers";
             lbServers.Size = new Size(247, 349);
             lbServers.TabIndex = 0;
+            lbServers.SelectedIndexChanged += lbServers_SelectedIndexChanged;
             // 
             // btnAddNewServer
             // 
@@ -58,49 +59,52 @@
             btnAddNewServer.TabIndex = 1;
             btnAddNewServer.Text = "Add New Server";
             btnAddNewServer.UseVisualStyleBackColor = true;
+            btnAddNewServer.Click += btnAddNewServer_Click;
             // 
-            // textBox1
+            // txtNewServerName
             // 
-            textBox1.Location = new Point(12, 397);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(247, 23);
-            textBox1.TabIndex = 2;
+            txtNewServerName.Location = new Point(12, 397);
+            txtNewServerName.Name = "txtNewServerName";
+            txtNewServerName.Size = new Size(247, 23);
+            txtNewServerName.TabIndex = 2;
             // 
-            // radioButton1
+            // rdoShowActive
             // 
-            radioButton1.AutoSize = true;
-            radioButton1.Checked = true;
-            radioButton1.Location = new Point(12, 12);
-            radioButton1.Name = "radioButton1";
-            radioButton1.Size = new Size(90, 19);
-            radioButton1.TabIndex = 3;
-            radioButton1.TabStop = true;
-            radioButton1.Text = "Show Active";
-            radioButton1.UseVisualStyleBackColor = true;
+            rdoShowActive.AutoSize = true;
+            rdoShowActive.Checked = true;
+            rdoShowActive.Location = new Point(12, 12);
+            rdoShowActive.Name = "rdoShowActive";
+            rdoShowActive.Size = new Size(90, 19);
+            rdoShowActive.TabIndex = 3;
+            rdoShowActive.TabStop = true;
+            rdoShowActive.Text = "Show Active";
+            rdoShowActive.UseVisualStyleBackColor = true;
+            rdoShowActive.CheckedChanged += rdoShowActive_CheckedChanged;
             // 
-            // radioButton2
+            // rdoShowArchived
             // 
-            radioButton2.AutoSize = true;
-            radioButton2.Location = new Point(127, 12);
-            radioButton2.Name = "radioButton2";
-            radioButton2.Size = new Size(104, 19);
-            radioButton2.TabIndex = 3;
-            radioButton2.Text = "Show Archived";
-            radioButton2.UseVisualStyleBackColor = true;
+            rdoShowArchived.AutoSize = true;
+            rdoShowArchived.Location = new Point(127, 12);
+            rdoShowArchived.Name = "rdoShowArchived";
+            rdoShowArchived.Size = new Size(104, 19);
+            rdoShowArchived.TabIndex = 3;
+            rdoShowArchived.Text = "Show Archived";
+            rdoShowArchived.UseVisualStyleBackColor = true;
+            rdoShowArchived.CheckedChanged += rdoShowArchived_CheckedChanged;
             // 
-            // textBox2
+            // txtServerName
             // 
-            textBox2.Location = new Point(358, 42);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(247, 23);
-            textBox2.TabIndex = 2;
+            txtServerName.Location = new Point(358, 42);
+            txtServerName.Name = "txtServerName";
+            txtServerName.Size = new Size(247, 23);
+            txtServerName.TabIndex = 2;
             // 
-            // textBox3
+            // txtServerDisplayName
             // 
-            textBox3.Location = new Point(358, 71);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(247, 23);
-            textBox3.TabIndex = 2;
+            txtServerDisplayName.Location = new Point(358, 71);
+            txtServerDisplayName.Name = "txtServerDisplayName";
+            txtServerDisplayName.Size = new Size(247, 23);
+            txtServerDisplayName.TabIndex = 2;
             // 
             // label1
             // 
@@ -120,38 +124,40 @@
             label2.TabIndex = 4;
             label2.Text = "Display Name:";
             // 
-            // button1
+            // btnSaveServer
             // 
-            button1.Location = new Point(358, 100);
-            button1.Name = "button1";
-            button1.Size = new Size(247, 23);
-            button1.TabIndex = 5;
-            button1.Text = "Save Changes";
-            button1.UseVisualStyleBackColor = true;
+            btnSaveServer.Location = new Point(358, 100);
+            btnSaveServer.Name = "btnSaveServer";
+            btnSaveServer.Size = new Size(247, 23);
+            btnSaveServer.TabIndex = 5;
+            btnSaveServer.Text = "Save Changes";
+            btnSaveServer.UseVisualStyleBackColor = true;
+            btnSaveServer.Click += btnSaveServer_Click;
             // 
-            // button2
+            // btnArchiveServer
             // 
-            button2.Location = new Point(358, 129);
-            button2.Name = "button2";
-            button2.Size = new Size(247, 23);
-            button2.TabIndex = 5;
-            button2.Text = "Archive This Server";
-            button2.UseVisualStyleBackColor = true;
+            btnArchiveServer.Location = new Point(358, 129);
+            btnArchiveServer.Name = "btnArchiveServer";
+            btnArchiveServer.Size = new Size(247, 23);
+            btnArchiveServer.TabIndex = 5;
+            btnArchiveServer.Text = "Archive This Server";
+            btnArchiveServer.UseVisualStyleBackColor = true;
+            btnArchiveServer.Click += btnArchiveServer_Click;
             // 
             // frmAddRemoveStaff
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(659, 497);
-            Controls.Add(button2);
-            Controls.Add(button1);
+            Controls.Add(btnArchiveServer);
+            Controls.Add(btnSaveServer);
             Controls.Add(label2);
             Controls.Add(label1);
-            Controls.Add(radioButton2);
-            Controls.Add(radioButton1);
-            Controls.Add(textBox3);
-            Controls.Add(textBox2);
-            Controls.Add(textBox1);
+            Controls.Add(rdoShowArchived);
+            Controls.Add(rdoShowActive);
+            Controls.Add(txtServerDisplayName);
+            Controls.Add(txtServerName);
+            Controls.Add(txtNewServerName);
             Controls.Add(btnAddNewServer);
             Controls.Add(lbServers);
             Name = "frmAddRemoveStaff";
@@ -165,14 +171,14 @@
 
         private ListBox lbServers;
         private Button btnAddNewServer;
-        private TextBox textBox1;
-        private RadioButton radioButton1;
-        private RadioButton radioButton2;
-        private TextBox textBox2;
-        private TextBox textBox3;
+        private TextBox txtNewServerName;
+        private RadioButton rdoShowActive;
+        private RadioButton rdoShowArchived;
+        private TextBox txtServerName;
+        private TextBox txtServerDisplayName;
         private Label label1;
         private Label label2;
-        private Button button1;
-        private Button button2;
+        private Button btnSaveServer;
+        private Button btnArchiveServer;
     }
 }

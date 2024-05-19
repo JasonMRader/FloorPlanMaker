@@ -496,7 +496,7 @@ namespace FloorplanClassLibrary
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                cnn.Execute("INSERT INTO Server (Name) VALUES (@Name)", server);
+                cnn.Execute("INSERT INTO Server (Name, Archived, DisplayName) VALUES (@Name, @Archived, @DisplayName)", server);
             }
         }
         public static List<Server> LoadServers()
@@ -504,6 +504,13 @@ namespace FloorplanClassLibrary
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 return cnn.Query<Server>("SELECT * FROM Server").ToList();
+            }
+        }
+        public static void UpdateServer(Server server)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                cnn.Execute("UPDATE Server SET Name = @Name, Archived = @Archived, DisplayName = @DisplayName WHERE ID = @ID", server);
             }
         }
         public static void SaveFloorplan(Floorplan floorplan)
