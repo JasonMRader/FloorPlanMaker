@@ -77,13 +77,13 @@ namespace FloorPlanMaker
             rdoRangeStats = new RadioButton();
             rdoLastFourWeekdayStats = new RadioButton();
             rdoYearlyAverageStats = new RadioButton();
+            rdoDayOfStats = new RadioButton();
             rdoYesterdayStats = new RadioButton();
             rdoSales = new RadioButton();
             rdoViewServerFlow = new RadioButton();
             rdoViewSectionFlow = new RadioButton();
             toolTip1 = new ToolTip(components);
             btnReportBug = new Button();
-            rdoDayOfStats = new RadioButton();
             flowSectionSelect.SuspendLayout();
             panel1.SuspendLayout();
             pnlFloorplanContainer.SuspendLayout();
@@ -685,6 +685,23 @@ namespace FloorPlanMaker
             rdoYearlyAverageStats.UseVisualStyleBackColor = false;
             rdoYearlyAverageStats.CheckedChanged += rdoYearlyAverageStats_CheckedChanged;
             // 
+            // rdoDayOfStats
+            // 
+            rdoDayOfStats.Appearance = Appearance.Button;
+            rdoDayOfStats.BackColor = Color.FromArgb(100, 130, 180);
+            rdoDayOfStats.Checked = true;
+            rdoDayOfStats.FlatAppearance.BorderSize = 0;
+            rdoDayOfStats.FlatStyle = FlatStyle.Flat;
+            rdoDayOfStats.Location = new Point(22, 45);
+            rdoDayOfStats.Name = "rdoDayOfStats";
+            rdoDayOfStats.Size = new Size(286, 35);
+            rdoDayOfStats.TabIndex = 0;
+            rdoDayOfStats.TabStop = true;
+            rdoDayOfStats.Text = "Day Of";
+            rdoDayOfStats.TextAlign = ContentAlignment.MiddleCenter;
+            rdoDayOfStats.UseVisualStyleBackColor = false;
+            rdoDayOfStats.CheckedChanged += rdoDayOfStats_CheckedChanged;
+            // 
             // rdoYesterdayStats
             // 
             rdoYesterdayStats.Appearance = Appearance.Button;
@@ -774,23 +791,6 @@ namespace FloorPlanMaker
             toolTip1.SetToolTip(btnReportBug, "Report Bug / Request Feature");
             btnReportBug.UseVisualStyleBackColor = false;
             btnReportBug.Click += btnReportBug_Click;
-            // 
-            // rdoDayOfStats
-            // 
-            rdoDayOfStats.Appearance = Appearance.Button;
-            rdoDayOfStats.BackColor = Color.FromArgb(100, 130, 180);
-            rdoDayOfStats.Checked = true;
-            rdoDayOfStats.FlatAppearance.BorderSize = 0;
-            rdoDayOfStats.FlatStyle = FlatStyle.Flat;
-            rdoDayOfStats.Location = new Point(22, 45);
-            rdoDayOfStats.Name = "rdoDayOfStats";
-            rdoDayOfStats.Size = new Size(286, 35);
-            rdoDayOfStats.TabIndex = 0;
-            rdoDayOfStats.TabStop = true;
-            rdoDayOfStats.Text = "Day Of";
-            rdoDayOfStats.TextAlign = ContentAlignment.MiddleCenter;
-            rdoDayOfStats.UseVisualStyleBackColor = false;
-            rdoDayOfStats.CheckedChanged += rdoDayOfStats_CheckedChanged;
             // 
             // Form1
             // 
