@@ -9,7 +9,7 @@ namespace FloorplanClassLibrary
         public int ID { get; set; }
         public string Name { get; set; }
         public bool isDouble { get; set; }
-        public bool isArchived { get; set; }
+        public bool Archived { get; set; }
         public string DisplayName { get; set; }
        
 
@@ -57,6 +57,21 @@ namespace FloorplanClassLibrary
                 return Name; // If there's only one part, return it as is.
             }
         }
+        public string FirstName
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(Name))
+                    return "";
+
+                var nameParts = Name.Split(' ');
+                if (nameParts.Length > 1)
+                {
+                    return $"{nameParts[0]}";
+                }
+                return Name; // If there's only one part, return it as is.
+            }
+        }
         public override bool Equals(object obj)
         {
             if (obj == null || GetType() != obj.GetType())
@@ -74,7 +89,13 @@ namespace FloorplanClassLibrary
         }
         public override string ToString()
         {
+            if(this.DisplayName != null && this.DisplayName != "")
+            {
+                return this.DisplayName;
+            }
             return this.AbbreviatedName;
         }
+
     }
+
 }

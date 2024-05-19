@@ -10,8 +10,11 @@ namespace FloorplanClassLibrary
     {
         public EmployeeManager() 
         {
-            AllServers = SqliteDataAccess.LoadServers();
+            ActiveServers = SqliteDataAccess.LoadActiveServers();
+            InactiveServers = SqliteDataAccess.LoadArchivedServers();
         }
+        public List<Server> ActiveServers { get; set; }
+        public List<Server> InactiveServers { get; set; }
         public List<Server> AllServers { get; set; }
         public List<Server>? ServersOnShift { get; set; }
     }

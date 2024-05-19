@@ -161,6 +161,7 @@
             Controls.Add(btnAddNewServer);
             Controls.Add(lbServers);
             Name = "frmAddRemoveStaff";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "frmAddRemoveStaff";
             Load += frmAddRemoveStaff_Load;
             ResumeLayout(false);

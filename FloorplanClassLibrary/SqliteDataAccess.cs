@@ -13,8 +13,10 @@ using System.Collections.Generic;
 
 namespace FloorplanClassLibrary
 {
+
     public class SqliteDataAccess
     {
+
         //private static string LoadConnectionString(string id = "Default")
         //{
         //    return ConfigurationManager.ConnectionStrings[id].ConnectionString;
@@ -510,9 +512,26 @@ namespace FloorplanClassLibrary
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                cnn.Execute("UPDATE Server SET Name = @Name, Archived = @Archived, DisplayName = @DisplayName WHERE ID = @ID", server);
+                var query = "UPDATE Server SET Name = @Name, Archived = @Archived, DisplayName = @DisplayName WHERE ID = @ID";
+                cnn.Execute(query, new { Name = server.Name, Archived = server.Archived, DisplayName = server.DisplayName, ID = server.ID });
             }
         }
+        public static List<Server> LoadActiveServers()
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                return cnn.Query<Server>("SELECT * FROM Server WHERE Archived = 0").ToList();
+            }
+        }
+
+        public static List<Server> LoadArchivedServers()
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                return cnn.Query<Server>("SELECT * FROM Server WHERE Archived = 1").ToList();
+            }
+        }
+
         public static void SaveFloorplan(Floorplan floorplan)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))

@@ -22,10 +22,7 @@ namespace FloorPlanMakerUI
 
         private void frmAddRemoveStaff_Load(object sender, EventArgs e)
         {
-            foreach (Server server in employeeManager.AllServers)
-            {
-                lbServers.Items.Add(server);
-            }
+            RefreshServerListBox();
         }
 
         private void lbServers_SelectedIndexChanged(object sender, EventArgs e)
@@ -45,22 +42,59 @@ namespace FloorPlanMakerUI
 
         private void btnSaveServer_Click(object sender, EventArgs e)
         {
-
+            SelectedServer.Name = txtServerName.Text;
+            SelectedServer.DisplayName = txtServerDisplayName.Text;
+            SqliteDataAccess.UpdateServer(SelectedServer);
+            RefreshServerListBox();
         }
 
         private void btnArchiveServer_Click(object sender, EventArgs e)
         {
+            if (SelectedServer != null)
+            {
+                SelectedServer.Archived = !SelectedServer.Archived;
+                SqliteDataAccess.UpdateServer(SelectedServer);
 
+                RefreshServerListBox();
+
+              
+                lbServers.ClearSelected();
+                SelectedServer = null;
+                txtServerName.Text = string.Empty;
+                txtServerDisplayName.Text = string.Empty;
+            }
         }
+
 
         private void rdoShowActive_CheckedChanged(object sender, EventArgs e)
         {
-
+            RefreshServerListBox();
         }
 
         private void rdoShowArchived_CheckedChanged(object sender, EventArgs e)
         {
-
+            RefreshServerListBox();
+        }
+        private void RefreshServerListBox()
+        {
+            employeeManager = new EmployeeManager();
+            lbServers.Items.Clear();
+            if (rdoShowActive.Checked)
+            {
+                btnArchiveServer.Text = "Archive Server";
+                foreach (Server server in employeeManager.ActiveServers)
+                {
+                    lbServers.Items.Add(server);
+                }
+            }
+            if (rdoShowArchived.Checked)
+            {
+                btnArchiveServer.Text = "Activate Server";
+                foreach (Server server in employeeManager.InactiveServers)
+                {
+                    lbServers.Items.Add(server);
+                }
+            }
         }
     }
 }
