@@ -31,7 +31,7 @@ namespace FloorPlanMaker
             };
             Label = new Label
             {                
-                Text = Server.AbbreviatedName,
+                Text = Server.ToString(),
                 AutoSize = false,
                 Height = height,
                 Width = 300,
@@ -47,7 +47,7 @@ namespace FloorPlanMaker
             this.TabStop = false;
             if (this.Server.isDouble)
             {
-                Label.Text = Server.AbbreviatedName + " (Dbl)";
+                Label.Text = Server.ToString() + " (Dbl)";
             }
             
            

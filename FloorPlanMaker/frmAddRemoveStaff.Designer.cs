@@ -39,6 +39,7 @@
             label2 = new Label();
             btnSaveServer = new Button();
             btnArchiveServer = new Button();
+            btnSetDisplayToFirstName = new Button();
             SuspendLayout();
             // 
             // lbServers
@@ -126,7 +127,7 @@
             // 
             // btnSaveServer
             // 
-            btnSaveServer.Location = new Point(358, 100);
+            btnSaveServer.Location = new Point(358, 131);
             btnSaveServer.Name = "btnSaveServer";
             btnSaveServer.Size = new Size(247, 23);
             btnSaveServer.TabIndex = 5;
@@ -136,7 +137,7 @@
             // 
             // btnArchiveServer
             // 
-            btnArchiveServer.Location = new Point(358, 129);
+            btnArchiveServer.Location = new Point(358, 160);
             btnArchiveServer.Name = "btnArchiveServer";
             btnArchiveServer.Size = new Size(247, 23);
             btnArchiveServer.TabIndex = 5;
@@ -144,12 +145,23 @@
             btnArchiveServer.UseVisualStyleBackColor = true;
             btnArchiveServer.Click += btnArchiveServer_Click;
             // 
+            // btnSetDisplayToFirstName
+            // 
+            btnSetDisplayToFirstName.Location = new Point(358, 102);
+            btnSetDisplayToFirstName.Name = "btnSetDisplayToFirstName";
+            btnSetDisplayToFirstName.Size = new Size(247, 23);
+            btnSetDisplayToFirstName.TabIndex = 5;
+            btnSetDisplayToFirstName.Text = "Set Display To First Name";
+            btnSetDisplayToFirstName.UseVisualStyleBackColor = true;
+            btnSetDisplayToFirstName.Click += btnSetDisplayToFirstName_Click;
+            // 
             // frmAddRemoveStaff
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(659, 497);
             Controls.Add(btnArchiveServer);
+            Controls.Add(btnSetDisplayToFirstName);
             Controls.Add(btnSaveServer);
             Controls.Add(label2);
             Controls.Add(label1);
@@ -181,5 +193,6 @@
         private Label label2;
         private Button btnSaveServer;
         private Button btnArchiveServer;
+        private Button btnSetDisplayToFirstName;
     }
 }

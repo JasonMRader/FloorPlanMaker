@@ -338,7 +338,7 @@ namespace FloorPlanMaker
                 AutoSize = false,
                 TextAlign = ContentAlignment.MiddleCenter,
                 Margin = new Padding(5),
-                Text = server.AbbreviatedName,
+                Text = server.ToString(),
                 FlatStyle = FlatStyle.Flat,
                 BackColor = UITheme.ButtonColor,
                 ForeColor = Color.Black,

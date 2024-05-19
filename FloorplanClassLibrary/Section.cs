@@ -376,11 +376,11 @@ namespace FloorplanClassLibrary
                 
                 if (Server.isDouble)
                 {
-                    displayString = Server.AbbreviatedName + "*";
+                    displayString = Server.ToString() + "*";
                 }
                 else
                 {
-                    displayString = Server.AbbreviatedName;
+                    displayString = Server.ToString();
                 }
             }
             
@@ -391,11 +391,11 @@ namespace FloorplanClassLibrary
                 {
                     if (Server.isDouble)
                     {
-                        displayString += Server.AbbreviatedName + "*";
+                        displayString += Server.ToString() + "*";
                     }
                     else
                     {
-                        displayString += server.AbbreviatedName;
+                        displayString += server.ToString();
                     }
                     
                     if(server != ServerTeam.Last())

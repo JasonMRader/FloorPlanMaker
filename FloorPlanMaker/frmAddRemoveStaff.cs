@@ -27,7 +27,7 @@ namespace FloorPlanMakerUI
 
         private void lbServers_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(lbServers.SelectedIndex != -1)
+            if (lbServers.SelectedIndex != -1)
             {
                 SelectedServer = lbServers.SelectedItem as Server;
                 txtServerName.Text = SelectedServer.Name;
@@ -57,7 +57,7 @@ namespace FloorPlanMakerUI
 
                 RefreshServerListBox();
 
-              
+
                 lbServers.ClearSelected();
                 SelectedServer = null;
                 txtServerName.Text = string.Empty;
@@ -95,6 +95,14 @@ namespace FloorPlanMakerUI
                     lbServers.Items.Add(server);
                 }
             }
+        }
+
+        private void btnSetDisplayToFirstName_Click(object sender, EventArgs e)
+        {
+            SelectedServer.DisplayName = SelectedServer.FirstName;
+            txtServerDisplayName.Text = SelectedServer.DisplayName;
+            SqliteDataAccess.UpdateServer(SelectedServer);
+            RefreshServerListBox();
         }
     }
 }
