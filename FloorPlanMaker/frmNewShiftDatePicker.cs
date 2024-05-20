@@ -11,25 +11,30 @@ using System.Runtime.Intrinsics.Arm;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace FloorPlanMakerUI
 {
     public partial class frmNewShiftDatePicker : Form
     {
         private DateTime dateSelected = DateTime.Today;
+        private DateOnly dateOnlySelected => new DateOnly(dateSelected.Year, dateSelected.Month, dateSelected.Day);
+
         private bool isAM { get { return cbIsAm.Checked; } }
-        public ShiftManager ShiftManagerCreated = new ShiftManager();
+        private ShiftManager ShiftManagerCreated = new ShiftManager();
         private DiningAreaCreationManager DiningAreaManager = new DiningAreaCreationManager();
         private List<Floorplan> allFloorplans = new List<Floorplan>();
         private List<Server> allServers = new List<Server>();
         private frmEditStaff frmEditStaff { get; set; }
-        public frmNewShiftDatePicker(DiningAreaCreationManager diningAreaManager, List<Floorplan> allFloorplans, List<Server> allServers, frmEditStaff frmEditStaff)
+        public frmNewShiftDatePicker(DiningAreaCreationManager diningAreaManager, List<Floorplan> allFloorplans, 
+            List<Server> allServers, frmEditStaff frmEditStaff, ShiftManager shiftManager)
         {
             InitializeComponent();
             DiningAreaManager = diningAreaManager;
             this.allFloorplans = allFloorplans;
             this.allServers = allServers;
             this.frmEditStaff = frmEditStaff;
+            this.ShiftManagerCreated = shiftManager;
         }
         //TODO: when reopening after closing, the floorplans are reset, one that was just created is gone
         private void SetColors()
@@ -229,8 +234,11 @@ namespace FloorPlanMakerUI
         }
         private void RefreshForDateSelected()
         {
-            ShiftManagerCreated.ClearFloorplans();
-            ShiftManagerCreated.UnassignedServers.Clear();
+            if (ShiftManagerCreated.DateOnly != dateOnlySelected || ShiftManagerCreated.IsAM != cbIsAm.Checked)
+            {
+                ShiftManagerCreated.ClearFloorplans();
+                ShiftManagerCreated.UnassignedServers.Clear(); 
+            }
             flowServersOnShift.Controls.Clear();
             PopulateServersNotOnShift(allServers);
             List<Button> serversOnShiftButtons = new List<Button>();
