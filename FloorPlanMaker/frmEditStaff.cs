@@ -407,7 +407,7 @@ namespace FloorPlanMaker
 
             if (newShiftManager.UnassignedServers.Contains(server))
             {
-                newShiftManager.UnassignedServers.Remove(server);
+                newShiftManager.AddServerToAFloorplan(server);
                 flowUnassignedServers.Controls.Remove(serverControl);
             }
             else
@@ -566,6 +566,7 @@ namespace FloorPlanMaker
         }
         private void PopulateUnassignedServers()
         {
+            flowUnassignedServers.Controls.Clear();
             foreach (var server in newShiftManager.UnassignedServers)
             {
                 newShiftManager.ServersNotOnShift.Remove(server);

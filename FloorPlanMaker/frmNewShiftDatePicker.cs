@@ -113,8 +113,8 @@ namespace FloorPlanMakerUI
         {
             Button serverButton = (Button)sender;
             Server server = (Server)serverButton.Tag;
-            ShiftManagerCreated.UnassignedServers.Add(server);
-            ShiftManagerCreated.ServersNotOnShift.Remove(server);
+            ShiftManagerCreated.AddNewUnassignedServer(server);
+            //ShiftManagerCreated.ServersNotOnShift.Remove(server);
             serverButton.Click -= AddToShift_Click;
             serverButton.Click += RemoveFromShift_Click;
             serverButton.BackColor = UITheme.YesColor;
@@ -126,8 +126,8 @@ namespace FloorPlanMakerUI
         {
             Button serverButton = (Button)sender;
             Server server = (Server)serverButton.Tag;
-            ShiftManagerCreated.ServersNotOnShift.Add(server);
-            ShiftManagerCreated.UnassignedServers.Remove(server);
+            ShiftManagerCreated.RemoveServerFromShift(server);
+            //ShiftManagerCreated.UnassignedServers.Remove(server);
             serverButton.Click += AddToShift_Click;
             serverButton.Click -= RemoveFromShift_Click;
             serverButton.BackColor = UITheme.CTAColor;
@@ -257,14 +257,10 @@ namespace FloorPlanMakerUI
             List<Floorplan> shiftFloorplans = new List<Floorplan>();
             shiftFloorplans.AddRange(ShiftManagerCreated.Floorplans);
             List<DiningArea> diningAreasUsed = new List<DiningArea>();
+            diningAreasUsed.AddRange(ShiftManagerCreated.DiningAreasUsed);
             List<Server> serverUsed = new List<Server>();
-
-            foreach (var fp in shiftFloorplans)
-            {
-                diningAreasUsed.Add(fp.DiningArea);
-                serverUsed.AddRange(fp.Servers);
-                ShiftManagerCreated.AddFloorplanToShift(fp);
-            }
+            serverUsed.AddRange(ShiftManagerCreated.ServersOnShift);
+            
             foreach (CheckBox cb in flowDiningAreas.Controls)
             {
                 if (diningAreasUsed.Contains(cb.Tag))

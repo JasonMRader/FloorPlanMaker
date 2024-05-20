@@ -222,7 +222,7 @@ namespace FloorPlanMaker
             InitializeComponent();
             drawingHandler = new DrawingHandler(pnlFloorPlan);
             shiftManager = new ShiftManager();
-            shiftManager.ServersNotOnShift = SqliteDataAccess.LoadServers();
+            //shiftManager.ServersNotOnShift = SqliteDataAccess.LoadServers();
             this.KeyDown += pnlFloorPlan_KeyDown;
             pnlFloorPlan.MouseDown += pnlFloorplan_MouseDown;
             pnlFloorPlan.MouseUp += pnlFloorplan_MouseUp;

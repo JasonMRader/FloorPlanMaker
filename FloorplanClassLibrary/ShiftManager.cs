@@ -26,10 +26,54 @@ namespace FloorplanClassLibrary
         public Floorplan? SelectedFloorplan { get; set; }
         //public Floorplan? ViewedFloorplan { get; set; }
         public List<DiningArea> DiningAreasUsed => Floorplans.Select(fp => fp.DiningArea).Distinct().ToList();
-        public List<Server> ServersNotOnShift = new List<Server>();
-        public List<Server> UnassignedServers = new List<Server>();
+        public List<Server> ServersNotOnShift { get; private set; } = new List<Server>();
+        public List<Server> ServersOnShift { get; private set; } = new List<Server> { };
+        public List<Server> UnassignedServers { get; private set; } = new List<Server>();
         public List<Server> AllServers = new List<Server>();
         public List<Section> Sections = new List<Section>();
+        public void AddNewUnassignedServer(Server server)
+        {
+            if (!UnassignedServers.Contains(server))
+            {
+                this.UnassignedServers.Add(server);
+            }
+            
+            this.ServersNotOnShift.Remove(server);
+            if (!ServersOnShift.Contains(server))
+            {
+                this.ServersOnShift.Add(server);
+            }
+           
+        }
+        public void RemoveServerFromShift(Server server)
+        {
+            if (!ServersNotOnShift.Contains((Server)server))
+            {
+                this.ServersNotOnShift.Add(server);
+            }
+            
+            this.ServersOnShift.Remove(server);
+            this.UnassignedServers.Remove(server);
+            if(this.Floorplans != null)
+            {
+                foreach(Floorplan fp in this.Floorplans)
+                {
+                    if (fp.Servers.Contains(server))
+                    {
+                        fp.RemoveServerAndSection(server);
+                    }
+                }
+            }
+        }
+        public void AddServerToAFloorplan(Server server)
+        {
+            this.UnassignedServers.Remove(server);
+
+        }
+        //public bool ShiftContainsServer(Server server)
+        //{
+        //    return ServersOnShift.Contains(server);
+        //}
         public Section SectionSelected
         {
             get
@@ -58,17 +102,8 @@ namespace FloorplanClassLibrary
         public FloorplanTemplate? SelectedTemplate { get; set; }
         
         
-        public List<Server> ServersOnShift
-        {
-            get
-            {
-                // Get all servers from floorplans.
-                var serversFromFloorplans = Floorplans.SelectMany(fp => fp.Servers);
-
-                // Concatenate servers from floorplans and unassigned servers.
-                return serversFromFloorplans.Concat(UnassignedServers).Distinct().ToList();
-            }
-        }
+        
+        
         
         public void AddFloorplanToShift(Floorplan floorplan)
         {
