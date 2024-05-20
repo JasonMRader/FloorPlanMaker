@@ -234,22 +234,75 @@ namespace FloorPlanMakerUI
         }
         private void RefreshForDateSelected()
         {
+
             if (ShiftManagerCreated.DateOnly != dateOnlySelected || ShiftManagerCreated.IsAM != cbIsAm.Checked)
             {
-                ShiftManagerCreated.ClearFloorplans();
-                ShiftManagerCreated.UnassignedServers.Clear(); 
+                SetToShiftFromDatabase();
             }
+            else
+            {
+                SetToNewShift();
+            }
+
+
+        }
+        private void SetToNewShift()
+        {
+
+            
             flowServersOnShift.Controls.Clear();
             PopulateServersNotOnShift(allServers);
-            List<Button> serversOnShiftButtons = new List<Button>();
+            //List<Button> serversOnShiftButtons = new List<Button>();
+            List<Button> serversNotOnShiftButtons = new List<Button>();
+            List<Floorplan> shiftFloorplans = new List<Floorplan>();
+            shiftFloorplans.AddRange(ShiftManagerCreated.Floorplans);
+            List<DiningArea> diningAreasUsed = new List<DiningArea>();
+            List<Server> serverUsed = new List<Server>();
+
+            foreach (var fp in shiftFloorplans)
+            {
+                diningAreasUsed.Add(fp.DiningArea);
+                serverUsed.AddRange(fp.Servers);
+                ShiftManagerCreated.AddFloorplanToShift(fp);
+            }
+            foreach (CheckBox cb in flowDiningAreas.Controls)
+            {
+                if (diningAreasUsed.Contains(cb.Tag))
+                {
+                    cb.Checked = true;
+                }
+                else
+                {
+                    cb.Checked = false;
+                }
+            }
+            foreach (Button btn in flowAllServers.Controls)
+            {
+                serversNotOnShiftButtons.Add(btn);
+
+            }
+            foreach (Button btn in serversNotOnShiftButtons)
+            {
+                if (serverUsed.Contains(btn.Tag))
+                {
+                    EventArgs e = new EventArgs();
+                    AddToShift_Click(btn, e);
+                }
+            }
+        }
+        private void SetToShiftFromDatabase()
+        {
+           
+            ShiftManagerCreated.ClearFloorplans();
+            ShiftManagerCreated.UnassignedServers.Clear();
+            flowServersOnShift.Controls.Clear();
+            PopulateServersNotOnShift(allServers);
+            //List<Button> serversOnShiftButtons = new List<Button>();
             List<Button> serversNotOnShiftButtons = new List<Button>();
             var relevantFloorplans = allFloorplans
                 .Where(fp => fp.Date.Date == dateSelected && fp.IsLunch == cbIsAm.Checked)
                 .ToList();
-            if (relevantFloorplans.Count < 0)
-            {
-
-            }
+           
             List<DiningArea> diningAreasUsed = new List<DiningArea>();
             List<Server> serverUsed = new List<Server>();
 
@@ -283,9 +336,6 @@ namespace FloorPlanMakerUI
                     AddToShift_Click(btn, e);
                 }
             }
-
-
-
         }
         private Dictionary<DiningArea, int> ServersAssignedPreviousDay(List<Floorplan> floorplans, bool isLunch, int Days)
         {
