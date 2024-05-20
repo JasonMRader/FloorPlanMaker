@@ -37,7 +37,12 @@ namespace FloorPlanMakerUI
 
         private void btnAddNewServer_Click(object sender, EventArgs e)
         {
-
+            Server newServer = new Server();
+            newServer.Name = txtNewServerName.Text;
+            newServer.Archived = false;
+            SqliteDataAccess.SaveNewServer(newServer);
+            RefreshServerListBox();
+            txtNewServerName.Clear();
         }
 
         private void btnSaveServer_Click(object sender, EventArgs e)
