@@ -40,6 +40,8 @@
             pbBack = new PictureBox();
             pbForward = new PictureBox();
             toolTip1 = new ToolTip(components);
+            cboSalesMethod = new ComboBox();
+            label1 = new Label();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pbBack).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbForward).BeginInit();
@@ -84,7 +86,7 @@
             lblShiftDate.ForeColor = Color.Black;
             lblShiftDate.Location = new Point(505, 17);
             lblShiftDate.Name = "lblShiftDate";
-            lblShiftDate.Size = new Size(551, 39);
+            lblShiftDate.Size = new Size(504, 39);
             lblShiftDate.TabIndex = 16;
             lblShiftDate.Text = "Date";
             lblShiftDate.TextAlign = ContentAlignment.MiddleCenter;
@@ -100,7 +102,7 @@
             cbIsAM.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             cbIsAM.ForeColor = Color.Black;
             cbIsAM.Image = FloorPlanMakerUI.Properties.Resources.smallSunrise;
-            cbIsAM.Location = new Point(1062, 17);
+            cbIsAM.Location = new Point(1025, 17);
             cbIsAM.Name = "cbIsAM";
             cbIsAM.Size = new Size(79, 39);
             cbIsAM.TabIndex = 19;
@@ -155,7 +157,7 @@
             // pbForward
             // 
             pbForward.Image = FloorPlanMakerUI.Properties.Resources.forward;
-            pbForward.Location = new Point(1168, 15);
+            pbForward.Location = new Point(1110, 15);
             pbForward.Name = "pbForward";
             pbForward.Size = new Size(55, 43);
             pbForward.SizeMode = PictureBoxSizeMode.Zoom;
@@ -163,12 +165,32 @@
             pbForward.TabStop = false;
             pbForward.Click += btnDateUp_Click;
             // 
+            // cboSalesMethod
+            // 
+            cboSalesMethod.FormattingEnabled = true;
+            cboSalesMethod.Location = new Point(1174, 35);
+            cboSalesMethod.Name = "cboSalesMethod";
+            cboSalesMethod.Size = new Size(78, 23);
+            cboSalesMethod.TabIndex = 29;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.ForeColor = Color.Black;
+            label1.Location = new Point(1178, 12);
+            label1.Name = "label1";
+            label1.Size = new Size(67, 15);
+            label1.TabIndex = 30;
+            label1.Text = "Sales From:";
+            // 
             // frmEditStaff
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.WhiteSmoke;
             ClientSize = new Size(1264, 997);
+            Controls.Add(label1);
+            Controls.Add(cboSalesMethod);
             Controls.Add(pbForward);
             Controls.Add(pbBack);
             Controls.Add(btnCreateANewShift);
@@ -190,6 +212,7 @@
             ((System.ComponentModel.ISupportInitialize)pbBack).EndInit();
             ((System.ComponentModel.ISupportInitialize)pbForward).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -204,5 +227,7 @@
         private PictureBox pbBack;
         private PictureBox pbForward;
         private ToolTip toolTip1;
+        private ComboBox cboSalesMethod;
+        private Label label1;
     }
 }

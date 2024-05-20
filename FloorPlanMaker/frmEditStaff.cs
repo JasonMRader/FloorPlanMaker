@@ -190,7 +190,10 @@ namespace FloorPlanMaker
             lblShiftDate.Text = dateSelected.ToString("dddd, MMMM dd");
             SetColorTheme();
             SetFloorplansForShiftManager();
-
+            cboSalesMethod.Items.Clear();
+            cboSalesMethod.Items.Add("Yesterday");
+            cboSalesMethod.Items.Add("Last Weekday");
+            cboSalesMethod.Items.Add("Last 4 Weekday");
 
         }
 
