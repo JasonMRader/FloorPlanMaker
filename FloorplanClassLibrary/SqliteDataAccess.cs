@@ -456,6 +456,25 @@ namespace FloorplanClassLibrary
                 cnn.Execute(sql, new { ID = table.ID });
             }
         }
+        public static void DeleteTableStatsByDateRange(DateTime startDate, DateTime endDate)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                cnn.Open();
+
+                // Define the SQL query for deleting records within the date range
+                string deleteSql = @"DELETE FROM TableStats 
+                             WHERE Date >= @StartDate 
+                             AND Date <= @EndDate";
+
+                // Execute the delete query with the provided date range
+                cnn.Execute(deleteSql, new
+                {
+                    StartDate = startDate.ToString("yyyy-MM-dd"),
+                    EndDate = endDate.ToString("yyyy-MM-dd")
+                });
+            }
+        }
 
         public static void DeleteTablesByDiningArea(DiningArea diningArea)
         {
