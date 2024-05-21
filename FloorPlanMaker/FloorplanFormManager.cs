@@ -852,6 +852,9 @@ namespace FloorPlanMakerUI
             var insideBarSales = tableSalesManager.Stats
                 .Where(t => t.TableStatNumber.CompareTo("120") >= 0 && t.TableStatNumber.CompareTo("155") <= 0)
                 .Sum(t => t.Sales);
+            var outsideBarSales = tableSalesManager.Stats
+                .Where(t => t.TableStatNumber.CompareTo("1300") >= 0 && t.TableStatNumber.CompareTo("1699") <= 0)
+                .Sum(t => t.Sales);
             foreach (Table table in this.ShiftManager.SelectedDiningArea.Tables)
             {
                 if (table.TableNumber == "INSIDE BAR")
@@ -859,6 +862,12 @@ namespace FloorPlanMakerUI
                     table.AverageSales = (float)insideBarSales;
                     totalAreaSales += (float)insideBarSales;
                     test += $"\n{table.TableNumber} : {insideBarSales} : {totalAreaSales}";
+                }
+                if (table.TableNumber == "OUTSIDE BAR")
+                {
+                    table.AverageSales = (float)outsideBarSales;
+                    totalAreaSales += (float)outsideBarSales;
+                    //test += $"\n{table.TableNumber} : {insideBarSales} : {totalAreaSales}";
                 }
                 else
                 {
