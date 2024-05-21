@@ -233,7 +233,7 @@ namespace FloorplanClassLibrary
         }
         public float GetAvgSalesPerServer()
         {          
-            List<TableStat> stats = SqliteDataAccess.LoadTableStatsByDateAndLunch(IsLunch, DateOnly.FromDateTime(Date).AddDays(-7));
+            List<TableStat> stats = SqliteDataAccess.LoadTableStatsByDateAndLunch(IsLunch, DateOnly.FromDateTime(Date).AddDays(0));
             float totalAreaSales = 0f;
             foreach (Table table in DiningArea.Tables)
             {

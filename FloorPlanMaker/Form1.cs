@@ -714,6 +714,7 @@ namespace FloorPlanMaker
         {
             if (cbTableDisplayMode.Checked)
             {
+               // floorplanManager.TableControlDisplayModeToSales();
                 foreach (Control c in pnlFloorPlan.Controls)
                 {
                     if (c is TableControl tableControl)

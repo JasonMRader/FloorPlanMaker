@@ -608,7 +608,13 @@ namespace FloorPlanMakerUI
               
 
         }
-
+        public void TableControlDisplayModeToSales()
+        {
+            foreach(TableControl tableControl in this._tableControls)
+            {
+                tableControl.CurrentDisplayMode = DisplayMode.AverageCovers;
+            }
+        }
         public void UpdateTableControlSections(Panel panel)
         {
             foreach(Control ctrl in panel.Controls)
