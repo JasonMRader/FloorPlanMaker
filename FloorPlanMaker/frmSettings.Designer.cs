@@ -266,13 +266,13 @@
             rdoPM.Name = "rdoPM";
             rdoPM.Size = new Size(43, 19);
             rdoPM.TabIndex = 4;
-            rdoPM.TabStop = true;
             rdoPM.Text = "PM";
             rdoPM.UseVisualStyleBackColor = true;
             // 
             // rdoAM
             // 
             rdoAM.AutoSize = true;
+            rdoAM.Checked = true;
             rdoAM.Location = new Point(14, 477);
             rdoAM.Name = "rdoAM";
             rdoAM.Size = new Size(44, 19);

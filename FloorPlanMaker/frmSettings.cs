@@ -14,6 +14,7 @@ namespace FloorPlanMakerUI
 {
     public partial class frmSettings : Form
     {
+        private DiningAreaCreationManager areaCreationManager = new DiningAreaCreationManager();
         public frmSettings()
         {
             InitializeComponent();
@@ -151,6 +152,9 @@ namespace FloorPlanMakerUI
             dtpMissingDateEnd.Value = DateTime.Now.AddDays(-1);
             dtpMissingDateStart.Value = DateTime.Now.AddDays(-60);
             refreshMissingDateDisplay();
+            cboDiningAreas.DataSource = areaCreationManager.DiningAreas;
+            cboDiningAreas.DisplayMember = "Name";
+            cboDiningAreas.ValueMember = "ID";
         }
 
         private void dtpMissingDateStart_ValueChanged(object sender, EventArgs e)
@@ -187,7 +191,19 @@ namespace FloorPlanMakerUI
 
         private void btnCreateTestData_Click(object sender, EventArgs e)
         {
-            TableStat newStat = new TableStat();
+            List<TableStat> newStats = new List<TableStat>();
+            DiningArea area = cboDiningAreas.SelectedItem as DiningArea;
+            DateTime dateSelected = dtpTestDataDate.Value;
+            DateOnly dateOnly = new DateOnly(dateSelected.Year, dateSelected.Month, dateSelected.Day);
+            bool isLunch = rdoAM.Checked;
+            float sales = float.Parse(txtSales.Text);
+            foreach (Table table in area.Tables)
+            {
+                TableStat stat = new TableStat(table.TableNumber, dateSelected.DayOfWeek, dateOnly, isLunch, sales);
+                newStats.Add(stat);
+            }
+            SqliteDataAccess.SaveTableStat(newStats);
+
             //SqliteDataAccess.DeleteTableStatsByDateRange(new DateTime(2024, 5, 1), DateTime.Today);
 
         }
