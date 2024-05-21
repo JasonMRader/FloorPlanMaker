@@ -44,15 +44,15 @@
             lbMissingData = new ListBox();
             panel2 = new Panel();
             panel3 = new Panel();
+            label4 = new Label();
+            txtSales = new TextBox();
+            rdoPM = new RadioButton();
+            rdoAM = new RadioButton();
+            dtpTestDataDate = new DateTimePicker();
+            cboDiningAreas = new ComboBox();
             btnCreateTestData = new Button();
             btnDeleteFloorplans = new Button();
             btnPastSection = new Button();
-            comboBox1 = new ComboBox();
-            dateTimePicker1 = new DateTimePicker();
-            radioButton1 = new RadioButton();
-            radioButton2 = new RadioButton();
-            textBox1 = new TextBox();
-            label4 = new Label();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
@@ -227,11 +227,11 @@
             // 
             panel3.BackColor = Color.FromArgb(180, 190, 200);
             panel3.Controls.Add(label4);
-            panel3.Controls.Add(textBox1);
-            panel3.Controls.Add(radioButton2);
-            panel3.Controls.Add(radioButton1);
-            panel3.Controls.Add(dateTimePicker1);
-            panel3.Controls.Add(comboBox1);
+            panel3.Controls.Add(txtSales);
+            panel3.Controls.Add(rdoPM);
+            panel3.Controls.Add(rdoAM);
+            panel3.Controls.Add(dtpTestDataDate);
+            panel3.Controls.Add(cboDiningAreas);
             panel3.Controls.Add(btnCreateTestData);
             panel3.Controls.Add(btnEditServers);
             panel3.Controls.Add(btnImportScheduleData);
@@ -243,14 +243,68 @@
             panel3.Size = new Size(350, 800);
             panel3.TabIndex = 2;
             // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(14, 508);
+            label4.Name = "label4";
+            label4.Size = new Size(101, 15);
+            label4.TabIndex = 6;
+            label4.Text = "Amount Per Table";
+            // 
+            // txtSales
+            // 
+            txtSales.Location = new Point(14, 526);
+            txtSales.Name = "txtSales";
+            txtSales.Size = new Size(100, 23);
+            txtSales.TabIndex = 5;
+            // 
+            // rdoPM
+            // 
+            rdoPM.AutoSize = true;
+            rdoPM.Location = new Point(132, 477);
+            rdoPM.Name = "rdoPM";
+            rdoPM.Size = new Size(43, 19);
+            rdoPM.TabIndex = 4;
+            rdoPM.TabStop = true;
+            rdoPM.Text = "PM";
+            rdoPM.UseVisualStyleBackColor = true;
+            // 
+            // rdoAM
+            // 
+            rdoAM.AutoSize = true;
+            rdoAM.Location = new Point(14, 477);
+            rdoAM.Name = "rdoAM";
+            rdoAM.Size = new Size(44, 19);
+            rdoAM.TabIndex = 4;
+            rdoAM.TabStop = true;
+            rdoAM.Text = "AM";
+            rdoAM.UseVisualStyleBackColor = true;
+            // 
+            // dtpTestDataDate
+            // 
+            dtpTestDataDate.Location = new Point(14, 422);
+            dtpTestDataDate.Name = "dtpTestDataDate";
+            dtpTestDataDate.Size = new Size(322, 23);
+            dtpTestDataDate.TabIndex = 3;
+            // 
+            // cboDiningAreas
+            // 
+            cboDiningAreas.FormattingEnabled = true;
+            cboDiningAreas.Location = new Point(14, 374);
+            cboDiningAreas.Name = "cboDiningAreas";
+            cboDiningAreas.Size = new Size(322, 23);
+            cboDiningAreas.TabIndex = 2;
+            // 
             // btnCreateTestData
             // 
+            btnCreateTestData.BackColor = Color.FromArgb(255, 192, 192);
             btnCreateTestData.Location = new Point(14, 329);
             btnCreateTestData.Name = "btnCreateTestData";
             btnCreateTestData.Size = new Size(322, 23);
             btnCreateTestData.TabIndex = 1;
             btnCreateTestData.Text = "Create Test Data";
-            btnCreateTestData.UseVisualStyleBackColor = true;
+            btnCreateTestData.UseVisualStyleBackColor = false;
             btnCreateTestData.Click += btnCreateTestData_Click;
             // 
             // btnDeleteFloorplans
@@ -280,59 +334,6 @@
             btnPastSection.Text = "Get Sections for Past Shift";
             btnPastSection.UseVisualStyleBackColor = false;
             btnPastSection.Click += btnPastSection_Click;
-            // 
-            // comboBox1
-            // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(14, 374);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(322, 23);
-            comboBox1.TabIndex = 2;
-            // 
-            // dateTimePicker1
-            // 
-            dateTimePicker1.Location = new Point(14, 422);
-            dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(322, 23);
-            dateTimePicker1.TabIndex = 3;
-            // 
-            // radioButton1
-            // 
-            radioButton1.AutoSize = true;
-            radioButton1.Location = new Point(14, 477);
-            radioButton1.Name = "radioButton1";
-            radioButton1.Size = new Size(94, 19);
-            radioButton1.TabIndex = 4;
-            radioButton1.TabStop = true;
-            radioButton1.Text = "radioButton1";
-            radioButton1.UseVisualStyleBackColor = true;
-            // 
-            // radioButton2
-            // 
-            radioButton2.AutoSize = true;
-            radioButton2.Location = new Point(132, 477);
-            radioButton2.Name = "radioButton2";
-            radioButton2.Size = new Size(94, 19);
-            radioButton2.TabIndex = 4;
-            radioButton2.TabStop = true;
-            radioButton2.Text = "radioButton1";
-            radioButton2.UseVisualStyleBackColor = true;
-            // 
-            // textBox1
-            // 
-            textBox1.Location = new Point(14, 526);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(100, 23);
-            textBox1.TabIndex = 5;
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Location = new Point(14, 508);
-            label4.Name = "label4";
-            label4.Size = new Size(101, 15);
-            label4.TabIndex = 6;
-            label4.Text = "Amount Per Table";
             // 
             // frmSettings
             // 
@@ -381,10 +382,10 @@
         private Button btnPastSection;
         private Button btnCreateTestData;
         private Label label4;
-        private TextBox textBox1;
-        private RadioButton radioButton2;
-        private RadioButton radioButton1;
-        private DateTimePicker dateTimePicker1;
-        private ComboBox comboBox1;
+        private TextBox txtSales;
+        private RadioButton rdoPM;
+        private RadioButton rdoAM;
+        private DateTimePicker dtpTestDataDate;
+        private ComboBox cboDiningAreas;
     }
 }

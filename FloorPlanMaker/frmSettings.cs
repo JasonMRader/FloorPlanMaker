@@ -187,8 +187,8 @@ namespace FloorPlanMakerUI
 
         private void btnCreateTestData_Click(object sender, EventArgs e)
         {
-            //TableStat newStat = new TableStat();
-            SqliteDataAccess.DeleteTableStatsByDateRange(new DateTime(2024, 5, 1), DateTime.Today);
+            TableStat newStat = new TableStat();
+            //SqliteDataAccess.DeleteTableStatsByDateRange(new DateTime(2024, 5, 1), DateTime.Today);
 
         }
     }
