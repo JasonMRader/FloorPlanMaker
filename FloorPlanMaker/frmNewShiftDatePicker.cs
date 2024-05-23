@@ -121,6 +121,11 @@ namespace FloorPlanMakerUI
             serverButton.ForeColor = Color.Black;
             flowServersOnShift.Controls.Add(serverButton);
             flowAllServers.Controls.Remove(serverButton);
+            if(txtServerSearch.Text.Length > 0 )
+            {
+                txtServerSearch.Clear();
+                txtServerSearch.Focus();
+            }
         }
         private void RemoveFromShift_Click(object sender, EventArgs e)
         {

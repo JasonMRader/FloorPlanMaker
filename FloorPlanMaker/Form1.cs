@@ -601,7 +601,7 @@ namespace FloorPlanMaker
             {
                 if (!shiftManager.SelectedFloorplan.CheckIfCloserIsAssigned())
                 {
-                    DialogResult result = MessageBox.Show("There is not a closer assigned",
+                    DialogResult result = MessageBox.Show("There is not a closer assigned. \n Continue anyway?",
                                                 "Continue?",
                                                 MessageBoxButtons.YesNo,
                                                 MessageBoxIcon.Question);
