@@ -65,6 +65,20 @@ namespace FloorplanClassLibrary
                 }
             }
         }
+        public void UnassignServer(Server server)
+        {
+            if (this.Floorplans != null)
+            {
+                foreach (Floorplan fp in this.Floorplans)
+                {
+                    if (fp.Servers.Contains(server))
+                    {
+                        fp.RemoveServerAndSection(server);
+                    }
+                }
+            }
+            AddNewUnassignedServer(server);
+        }
         public void AddServerToAFloorplan(Server server)
         {
             this.UnassignedServers.Remove(server);
@@ -128,8 +142,9 @@ namespace FloorplanClassLibrary
                     servers.AddRange(floorplan.Servers);
             }
 
-            UnassignedServers.RemoveAll(server => servers.Contains(server));
-           
+            UnassignedServers.RemoveAll(server => servers.Contains(server)); 
+            ServersOnShift.RemoveAll(server => servers.Contains(server));
+            ServersNotOnShift = AllServers;
            
         }
         public void AddFloorplanAndServers(Floorplan floorplan)
@@ -166,6 +181,7 @@ namespace FloorplanClassLibrary
         }
         public void ClearFloorplans()
         {
+            RemoveAssignedServers();
             this._floorplans.Clear();
         }
         public bool ContainsFloorplan(DateOnly date, bool isLunch, int ID)
