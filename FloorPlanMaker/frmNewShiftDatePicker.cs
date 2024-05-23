@@ -65,7 +65,7 @@ namespace FloorPlanMakerUI
             lblDate.Text = dateSelected.ToString("dddd, MMMM dd");
             LoadDiningAreas();
             RefreshPreviousFloorplanCounts();
-            PopulateServersNotOnShift(ShiftManagerCreated.AllServers);
+            PopulateServers(ShiftManagerCreated.AllServers);
             SetShiftManagerDateAndIsAM();
             RefreshForDateSelected();
 
@@ -74,21 +74,40 @@ namespace FloorPlanMakerUI
         {
             Dictionary<DiningArea, int> thisDaysFloorplans = ServersAssignedPreviousDay(allFloorplans, cbIsAm.Checked, 0);
         }
-        private void PopulateServersNotOnShift(List<Server> servers)
+        private void PopulateServers(List<Server> servers)
+        {
+            PopulateNotOnServers(ShiftManagerCreated.ServersNotOnShift);
+            PopulateServersOnShift(ShiftManagerCreated.ServersOnShift);
+        }
+        private void PopulateNotOnServers(List<Server> servers)
         {
             servers = servers.OrderBy(s => s.Name).ToList();
             flowAllServers.Controls.Clear();
             foreach (Server server in servers)
             {
                 server.Shifts = SqliteDataAccess.GetShiftsForServer(server);
-                Button ServerButton = CreateServerButton(server);
+                Button ServerButton = CreateNotOnShiftServerButton(server);
                 //ServerButton.Click += AddToShift_Click;
 
-                ServerButton.Click += AddToShift_Click;
+
                 flowAllServers.Controls.Add(ServerButton);
             }
         }
-        private Button CreateServerButton(Server server)
+        private void PopulateServersOnShift(List<Server> servers)
+        {
+            servers = servers.OrderBy(s => s.Name).ToList();
+            flowServersOnShift.Controls.Clear();
+            foreach (Server server in servers)
+            {
+                server.Shifts = SqliteDataAccess.GetShiftsForServer(server);
+                Button ServerButton = CreateOnShiftServerButton(server);
+                //ServerButton.Click += AddToShift_Click;
+
+                //ServerButton.Click += RemoveFromShift_Click;
+                flowServersOnShift.Controls.Add(ServerButton);
+            }
+        }
+        private Button CreateNotOnShiftServerButton(Server server)
         {
 
             Button b = new Button
@@ -108,7 +127,30 @@ namespace FloorPlanMakerUI
 
             };
 
-            //b.Click += ServerButton_Click;
+            b.Click += AddToShift_Click;
+            return b;
+        }
+        private Button CreateOnShiftServerButton(Server server)
+        {
+
+            Button b = new Button
+            {
+                Width = 130,
+                Height = 30,
+                AutoSize = false,
+                TextAlign = ContentAlignment.MiddleCenter,
+                Margin = new Padding(5),
+                Text = server.ToString(),
+                FlatStyle = FlatStyle.Flat,
+                BackColor = UITheme.YesColor,
+                ForeColor = Color.Black,
+                Font = UITheme.MainFont,
+                TabStop = false,
+                Tag = server,
+
+            };
+            b.Click += RemoveFromShift_Click;
+            
             return b;
         }
         private void AddToShift_Click(object sender, EventArgs e)
@@ -259,7 +301,7 @@ namespace FloorPlanMakerUI
 
 
             flowServersOnShift.Controls.Clear();
-            PopulateServersNotOnShift(ShiftManagerCreated.AllServers);
+            PopulateServers(ShiftManagerCreated.AllServers);
             //List<Button> serversOnShiftButtons = new List<Button>();
             List<Button> serversNotOnShiftButtons = new List<Button>();
             List<Floorplan> shiftFloorplans = new List<Floorplan>();
@@ -300,7 +342,7 @@ namespace FloorPlanMakerUI
             ShiftManagerCreated.ClearFloorplans();
             ShiftManagerCreated.UnassignedServers.Clear();
             flowServersOnShift.Controls.Clear();
-            PopulateServersNotOnShift(ShiftManagerCreated.AllServers);
+            PopulateServers(ShiftManagerCreated.AllServers);
             //List<Button> serversOnShiftButtons = new List<Button>();
             List<Button> serversNotOnShiftButtons = new List<Button>();
             var relevantFloorplans = allFloorplans
@@ -505,7 +547,7 @@ namespace FloorPlanMakerUI
                     SqliteDataAccess.SaveNewServer(server);
                 }
                 ShiftManagerCreated.ReloadAllServerList();
-                PopulateServersNotOnShift(ShiftManagerCreated.AllServers);
+                PopulateServers(ShiftManagerCreated.AllServers);
             }
 
 
@@ -520,11 +562,11 @@ namespace FloorPlanMakerUI
                     .OrderByFirstLetter()
                     .ToList();
 
-                PopulateServersNotOnShift(filteredServers);
+                PopulateServers(filteredServers);
             }
             else
             {
-                PopulateServersNotOnShift(ShiftManagerCreated.ServersNotOnShift);
+                PopulateServers(ShiftManagerCreated.ServersNotOnShift);
             }
         }
 
