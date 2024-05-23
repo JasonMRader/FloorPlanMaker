@@ -24,7 +24,7 @@ namespace FloorPlanMakerUI
         private ShiftManager ShiftManagerCreated = new ShiftManager();
         private DiningAreaCreationManager DiningAreaManager = new DiningAreaCreationManager();
         private List<Floorplan> allFloorplans = new List<Floorplan>();
-        private List<Server> allServers = new List<Server>();
+        
         private frmEditStaff frmEditStaff { get; set; }
         public frmNewShiftDatePicker(DiningAreaCreationManager diningAreaManager, List<Floorplan> allFloorplans,
             List<Server> allServers, frmEditStaff frmEditStaff, ShiftManager shiftManager)
@@ -32,9 +32,11 @@ namespace FloorPlanMakerUI
             InitializeComponent();
             DiningAreaManager = diningAreaManager;
             this.allFloorplans = allFloorplans;
-            this.allServers = allServers;
+            
             this.frmEditStaff = frmEditStaff;
             this.ShiftManagerCreated = shiftManager;
+            this.dateSelected = shiftManager.DateOnly.ToDateTime(TimeOnly.MinValue);
+            cbIsAm.Checked = shiftManager.IsAM;
         }
         //TODO: when reopening after closing, the floorplans are reset, one that was just created is gone
         private void SetColors()
@@ -63,7 +65,7 @@ namespace FloorPlanMakerUI
             lblDate.Text = dateSelected.ToString("dddd, MMMM dd");
             LoadDiningAreas();
             RefreshPreviousFloorplanCounts();
-            PopulateServersNotOnShift(allServers);
+            PopulateServersNotOnShift(ShiftManagerCreated.AllServers);
             SetShiftManagerDateAndIsAM();
             RefreshForDateSelected();
 
@@ -239,15 +241,16 @@ namespace FloorPlanMakerUI
         }
         private void RefreshForDateSelected()
         {
+            SetToShiftFromDatabase();
 
-            if (ShiftManagerCreated.DateOnly != dateOnlySelected || ShiftManagerCreated.IsAM != cbIsAm.Checked)
-            {
-                SetToShiftFromDatabase();
-            }
-            else
-            {
-                SetToNewShift();
-            }
+            //if (ShiftManagerCreated.DateOnly != dateOnlySelected || ShiftManagerCreated.IsAM != cbIsAm.Checked)
+            //{
+            //    //SetToShiftFromDatabase();
+            //}
+            //else
+            //{
+            //    SetToNewShift();
+            //}
 
 
         }
@@ -256,7 +259,7 @@ namespace FloorPlanMakerUI
 
 
             flowServersOnShift.Controls.Clear();
-            PopulateServersNotOnShift(allServers);
+            PopulateServersNotOnShift(ShiftManagerCreated.AllServers);
             //List<Button> serversOnShiftButtons = new List<Button>();
             List<Button> serversNotOnShiftButtons = new List<Button>();
             List<Floorplan> shiftFloorplans = new List<Floorplan>();
@@ -297,7 +300,7 @@ namespace FloorPlanMakerUI
             ShiftManagerCreated.ClearFloorplans();
             ShiftManagerCreated.UnassignedServers.Clear();
             flowServersOnShift.Controls.Clear();
-            PopulateServersNotOnShift(allServers);
+            PopulateServersNotOnShift(ShiftManagerCreated.AllServers);
             //List<Button> serversOnShiftButtons = new List<Button>();
             List<Button> serversNotOnShiftButtons = new List<Button>();
             var relevantFloorplans = allFloorplans
@@ -501,8 +504,8 @@ namespace FloorPlanMakerUI
                 {
                     SqliteDataAccess.SaveNewServer(server);
                 }
-                allServers = SqliteDataAccess.LoadServers();
-                PopulateServersNotOnShift(allServers);
+                ShiftManagerCreated.ReloadAllServerList();
+                PopulateServersNotOnShift(ShiftManagerCreated.AllServers);
             }
 
 

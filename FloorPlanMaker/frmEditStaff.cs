@@ -5,6 +5,7 @@ using FloorPlanMakerUI.Properties;
 using System;
 using System.Data;
 using System.Windows.Forms;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace FloorPlanMaker
 {
@@ -533,23 +534,49 @@ namespace FloorPlanMaker
         }
         private void setIsNewShiftBool()
         {
-            DateOnly dateOnlySelected = DateOnly.FromDateTime(dateSelected);
-            if (dateOnlySelected == newShiftManager.DateOnly)
+            DateOnly date = DateOnly.FromDateTime(dateSelected);
+            foreach (DiningArea diningArea in DiningAreaManager.DiningAreas)
             {
-                isNewShift = true;
+                Floorplan fp = SqliteDataAccess.LoadFloorplanByCriteria(diningArea, date , cbIsAM.Checked);
+                if (fp != null)
+                {
+                    isNewShift = false;
+                    return;
+
+                }
             }
-            else
-            {
-                isNewShift = false;
-            }
+            isNewShift = true;
+
+            //DateOnly dateOnlySelected = DateOnly.FromDateTime(dateSelected);
+            //if (dateOnlySelected == newShiftManager.DateOnly)
+            //{
+            //    isNewShift = true;
+            //}
+            //else
+            //{
+            //    isNewShift = false;
+            //}
         }
         private void btnCreateANewShift_Click(object sender, EventArgs e)
         {
-            frmNewShiftDatePicker form = new frmNewShiftDatePicker(DiningAreaManager, allFloorplans, employeeManager.ActiveServers, this, newShiftManager);
-            form.TopLevel = false;
-            this.Controls.Add(form);
-            form.Show();
-            form.BringToFront();
+            if(isNewShift)
+            {
+                frmNewShiftDatePicker form = new frmNewShiftDatePicker(DiningAreaManager, allFloorplans, employeeManager.ActiveServers, this, newShiftManager);
+                form.TopLevel = false;
+                this.Controls.Add(form);
+                form.Show();
+                form.BringToFront();
+            }
+            else
+            {
+                frmNewShiftDatePicker form = new frmNewShiftDatePicker(DiningAreaManager, allFloorplans, employeeManager.ActiveServers, this, pastShiftsManager);
+                form.TopLevel = false;
+                this.Controls.Add(form);
+                form.Show();
+                form.BringToFront();
+            }
+            
+            
 
         }
         //TODO have this method load current floorplans

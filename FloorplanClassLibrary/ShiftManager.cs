@@ -12,12 +12,12 @@ namespace FloorplanClassLibrary
         public ShiftManager(DiningArea diningArea)
         {
             SelectedDiningArea = diningArea;
-            AllServers = SqliteDataAccess.LoadServers();
+            AllServers = SqliteDataAccess.LoadActiveServers();
             ServersNotOnShift = this.AllServers;
         }
         public ShiftManager() 
         {
-            AllServers = SqliteDataAccess.LoadServers();
+            AllServers = SqliteDataAccess.LoadActiveServers();
             ServersNotOnShift = this.AllServers;
         }
         public bool IsAM { get; set; }
@@ -29,8 +29,13 @@ namespace FloorplanClassLibrary
         public List<Server> ServersNotOnShift { get; private set; } = new List<Server>();
         public List<Server> ServersOnShift { get; private set; } = new List<Server> { };
         public List<Server> UnassignedServers { get; private set; } = new List<Server>();
-        public List<Server> AllServers = new List<Server>();
+        public List<Server> AllServers { get; private set; } = new List<Server>();
         public List<Section> Sections = new List<Section>();
+        public void ReloadAllServerList()
+        {
+            AllServers.Clear();
+            AllServers = SqliteDataAccess.LoadActiveServers();
+        }
         public void AddNewUnassignedServer(Server server)
         {
             if (!UnassignedServers.Contains(server))
@@ -165,6 +170,8 @@ namespace FloorplanClassLibrary
                     this.ServersOnShift.Add(server);
                 }
             }
+            this.DateOnly = floorplan.DateOnly;
+            this.IsAM = floorplan.IsLunch;
             //ServersNotOnShift = ServersNotOnShift.OrderBy(s => s.Name).ToList();
         }
 
