@@ -204,7 +204,7 @@ namespace FloorPlanMakerUI
             }
             SqliteDataAccess.SaveTableStat(newStats);
 
-            //SqliteDataAccess.DeleteTableStatsByDateRange(new DateTime(2024, 5, 1), DateTime.Today);
+            //SqliteDataAccess.DeleteTableStatsByDateRange(new DateTime(2024, 5, 22), new DateTime(2024, 5, 22));
 
         }
     }

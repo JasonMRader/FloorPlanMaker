@@ -52,6 +52,8 @@
             flowServersOnShift = new FlowLayoutPanel();
             label2 = new Label();
             toolTip1 = new ToolTip(components);
+            txtServerSearch = new TextBox();
+            label6 = new Label();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
@@ -241,8 +243,10 @@
             // panel3
             // 
             panel3.BackColor = Color.FromArgb(180, 190, 200);
+            panel3.Controls.Add(txtServerSearch);
             panel3.Controls.Add(pbAddPerson);
             panel3.Controls.Add(flowAllServers);
+            panel3.Controls.Add(label6);
             panel3.Controls.Add(label5);
             panel3.Location = new Point(25, 351);
             panel3.Name = "panel3";
@@ -275,7 +279,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            label5.Location = new Point(228, 14);
+            label5.Location = new Point(9, 12);
             label5.Name = "label5";
             label5.Size = new Size(139, 25);
             label5.TabIndex = 0;
@@ -308,6 +312,26 @@
             label2.Size = new Size(150, 25);
             label2.TabIndex = 0;
             label2.Text = "Servers On Shift";
+            // 
+            // txtServerSearch
+            // 
+            txtServerSearch.BorderStyle = BorderStyle.None;
+            txtServerSearch.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            txtServerSearch.Location = new Point(338, 11);
+            txtServerSearch.Name = "txtServerSearch";
+            txtServerSearch.Size = new Size(100, 26);
+            txtServerSearch.TabIndex = 3;
+            txtServerSearch.TextChanged += txtServerSearch_TextChanged;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            label6.Location = new Point(258, 12);
+            label6.Name = "label6";
+            label6.Size = new Size(74, 25);
+            label6.TabIndex = 0;
+            label6.Text = "Search:";
             // 
             // frmNewShiftDatePicker
             // 
@@ -364,5 +388,7 @@
         private FlowLayoutPanel flowServersOnShift;
         private PictureBox pbAddPerson;
         private ToolTip toolTip1;
+        private TextBox txtServerSearch;
+        private Label label6;
     }
 }

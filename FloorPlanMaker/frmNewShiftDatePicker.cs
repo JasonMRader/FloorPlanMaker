@@ -26,7 +26,7 @@ namespace FloorPlanMakerUI
         private List<Floorplan> allFloorplans = new List<Floorplan>();
         private List<Server> allServers = new List<Server>();
         private frmEditStaff frmEditStaff { get; set; }
-        public frmNewShiftDatePicker(DiningAreaCreationManager diningAreaManager, List<Floorplan> allFloorplans, 
+        public frmNewShiftDatePicker(DiningAreaCreationManager diningAreaManager, List<Floorplan> allFloorplans,
             List<Server> allServers, frmEditStaff frmEditStaff, ShiftManager shiftManager)
         {
             InitializeComponent();
@@ -249,7 +249,7 @@ namespace FloorPlanMakerUI
         private void SetToNewShift()
         {
 
-            
+
             flowServersOnShift.Controls.Clear();
             PopulateServersNotOnShift(allServers);
             //List<Button> serversOnShiftButtons = new List<Button>();
@@ -260,7 +260,7 @@ namespace FloorPlanMakerUI
             diningAreasUsed.AddRange(ShiftManagerCreated.DiningAreasUsed);
             List<Server> serverUsed = new List<Server>();
             serverUsed.AddRange(ShiftManagerCreated.ServersOnShift);
-            
+
             foreach (CheckBox cb in flowDiningAreas.Controls)
             {
                 if (diningAreasUsed.Contains(cb.Tag))
@@ -288,7 +288,7 @@ namespace FloorPlanMakerUI
         }
         private void SetToShiftFromDatabase()
         {
-           
+
             ShiftManagerCreated.ClearFloorplans();
             ShiftManagerCreated.UnassignedServers.Clear();
             flowServersOnShift.Controls.Clear();
@@ -298,7 +298,7 @@ namespace FloorPlanMakerUI
             var relevantFloorplans = allFloorplans
                 .Where(fp => fp.Date.Date == dateSelected && fp.IsLunch == cbIsAm.Checked)
                 .ToList();
-           
+
             List<DiningArea> diningAreasUsed = new List<DiningArea>();
             List<Server> serverUsed = new List<Server>();
 
@@ -500,6 +500,11 @@ namespace FloorPlanMakerUI
                 PopulateServersNotOnShift(allServers);
             }
 
+
+        }
+
+        private void txtServerSearch_TextChanged(object sender, EventArgs e)
+        {
 
         }
     }
