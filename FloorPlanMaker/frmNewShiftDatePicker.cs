@@ -502,10 +502,29 @@ namespace FloorPlanMakerUI
 
 
         }
+        private void FilterServers(string searchText)
+        {
+            if (!string.IsNullOrWhiteSpace(searchText))
+            {
+                var filteredServers = ShiftManagerCreated.ServersNotOnShift
+                    .Where(server => server.Name.StartsWith(searchText, StringComparison.OrdinalIgnoreCase) ||
+                                     (server.DisplayName != null && server.DisplayName.StartsWith(searchText, StringComparison.OrdinalIgnoreCase)))
+                    .OrderByFirstLetter()
+                    .ToList();
+
+                PopulateServersNotOnShift(filteredServers);
+            }
+            else
+            {
+                PopulateServersNotOnShift(ShiftManagerCreated.ServersNotOnShift);
+            }
+        }
+
 
         private void txtServerSearch_TextChanged(object sender, EventArgs e)
         {
-
+            var searchText = txtServerSearch.Text;
+            FilterServers(searchText);
         }
     }
 }
