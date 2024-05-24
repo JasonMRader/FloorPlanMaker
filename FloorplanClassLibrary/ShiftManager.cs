@@ -12,14 +12,24 @@ namespace FloorplanClassLibrary
         public ShiftManager(DiningArea diningArea)
         {
             SelectedDiningArea = diningArea;
-            AllServers = SqliteDataAccess.LoadActiveServers();
-            ServersNotOnShift = this.AllServers;
+            InitializeServers();
         }
         public ShiftManager() 
         {
-            AllServers = SqliteDataAccess.LoadActiveServers();
-            ServersNotOnShift = this.AllServers;
+            InitializeServers();
         }
+        public ShiftManager(DateOnly dateOnly, bool isAM)
+        {
+            this.DateOnly = dateOnly;
+            this.IsAM = isAM;
+            InitializeServers();
+        }
+        private void InitializeServers()
+        {
+            _allServers = SqliteDataAccess.LoadActiveServers();
+            _serversNotOnShift = new List<Server>(_allServers); 
+        }
+
         public bool IsAM { get; set; }
         public DateOnly DateOnly { get; set; }
         public DiningArea? SelectedDiningArea { get; set; }
@@ -30,27 +40,44 @@ namespace FloorplanClassLibrary
         private List<Server> _serversNotOnShift = new List<Server>();
         private List<Server> _unassignedServers = new List<Server>();
         private List<Server> _allServers = new List<Server>();
-        public List<Server> ServersNotOnShift { get; private set; } = new List<Server>();
-        public List<Server> ServersOnShift { get; private set; } = new List<Server> { };
-        public List<Server> UnassignedServers { get; private set; } = new List<Server>();
-        public List<Server> AllServers { get; private set; } = new List<Server>();
+        public List<Server> ServersNotOnShift
+        {
+            get { return _serversNotOnShift; }
+            private set { _serversNotOnShift = value; }
+        }
+        public List<Server> ServersOnShift
+        {
+            get { return _serversOnShift; }
+            private set { _serversOnShift = value; }
+        }
+
+        public List<Server> UnassignedServers
+        {
+            get { return _unassignedServers; }
+            private set { _unassignedServers = value; }
+        }
+        public List<Server> AllServers
+        {
+            get { return _allServers; }
+            private set { _allServers = value; }
+        }
         public List<Section> Sections = new List<Section>();
         public void ReloadAllServerList()
         {
-            AllServers.Clear();
-            AllServers = SqliteDataAccess.LoadActiveServers();
+            _allServers.Clear();
+            _allServers = SqliteDataAccess.LoadActiveServers();
         }
         public void AddNewUnassignedServer(Server server)
         {
             if (!UnassignedServers.Contains(server))
             {
-                this.UnassignedServers.Add(server);
+                this._unassignedServers.Add(server);
             }
             
-            this.ServersNotOnShift.Remove(server);
+            this._serversNotOnShift.Remove(server);
             if (!ServersOnShift.Contains(server))
             {
-                this.ServersOnShift.Add(server);
+                this._serversOnShift.Add(server);
             }
            
         }
@@ -58,11 +85,11 @@ namespace FloorplanClassLibrary
         {
             if (!ServersNotOnShift.Contains((Server)server))
             {
-                this.ServersNotOnShift.Add(server);
+                this._serversNotOnShift.Add(server);
             }
             
-            this.ServersOnShift.Remove(server);
-            this.UnassignedServers.Remove(server);
+            this._serversOnShift.Remove(server);
+            this._unassignedServers.Remove(server);
             if(this.Floorplans != null)
             {
                 foreach(Floorplan fp in this.Floorplans)
@@ -90,7 +117,7 @@ namespace FloorplanClassLibrary
         }
         public void AddServerToAFloorplan(Server server)
         {
-            this.UnassignedServers.Remove(server);
+            this._unassignedServers.Remove(server);
 
         }
         //public bool ShiftContainsServer(Server server)
@@ -151,9 +178,9 @@ namespace FloorplanClassLibrary
                     servers.AddRange(floorplan.Servers);
             }
 
-            UnassignedServers.RemoveAll(server => servers.Contains(server)); 
-            ServersOnShift.RemoveAll(server => servers.Contains(server));
-            ServersNotOnShift = AllServers;
+            _unassignedServers.RemoveAll(server => servers.Contains(server)); 
+            _serversOnShift.RemoveAll(server => servers.Contains(server));
+            _serversNotOnShift = _allServers;
            
         }
         public void AddFloorplanAndServers(Floorplan floorplan)
@@ -164,14 +191,14 @@ namespace FloorplanClassLibrary
             var assignedServerIds = new HashSet<int>(floorplan.Servers.Select(s => s.ID));
 
             // Remove all servers by ID that are in the floorplan's server list
-            this.ServersNotOnShift.RemoveAll(server => assignedServerIds.Contains(server.ID));
+            this._serversNotOnShift.RemoveAll(server => assignedServerIds.Contains(server.ID));
 
             // Assuming ServersOnShift is not a HashSet, and you want to avoid duplicates:
             foreach (var server in floorplan.Servers)
             {
-                if (!this.ServersOnShift.Any(s => s.ID == server.ID))
+                if (!this._serversOnShift.Any(s => s.ID == server.ID))
                 {
-                    this.ServersOnShift.Add(server);
+                    this._serversOnShift.Add(server);
                 }
             }
             this.DateOnly = floorplan.DateOnly;
@@ -185,8 +212,8 @@ namespace FloorplanClassLibrary
             var assignedServersSet = new HashSet<Server>(floorplan.Servers);
 
             // Remove all servers that are in the floorplan's server list
-            this.ServersOnShift.RemoveAll(assignedServersSet.Contains);
-            this.ServersNotOnShift.AddRange(floorplan.Servers);
+            this._serversOnShift.RemoveAll(assignedServersSet.Contains);
+            this._serversNotOnShift.AddRange(floorplan.Servers);
             //ServersNotOnShift = ServersNotOnShift.OrderBy(s => s.Name).ToList();
             
         }

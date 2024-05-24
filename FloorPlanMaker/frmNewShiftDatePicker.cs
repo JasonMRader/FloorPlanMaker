@@ -36,7 +36,7 @@ namespace FloorPlanMakerUI
             this.frmEditStaff = frmEditStaff;
             this.ShiftManagerCreated = shiftManager;
             this.dateSelected = shiftManager.DateOnly.ToDateTime(TimeOnly.MinValue);
-            cbIsAm.Checked = shiftManager.IsAM;
+            //cbIsAm.Checked = shiftManager.IsAM;
         }
         //TODO: when reopening after closing, the floorplans are reset, one that was just created is gone
         private void SetColors()

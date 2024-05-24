@@ -220,15 +220,16 @@ namespace FloorPlanMaker
             }
             else
             {
-                foreach (DiningArea diningArea in DiningAreaManager.DiningAreas)
-                {
-                    Floorplan fp = newShiftManager.Floorplans.FirstOrDefault(fp => fp.DiningArea == diningArea);
-                    //Floorplan existingFP = SqliteDataAccess.LoadFloorplanByCriteria(diningArea, date, cbIsAM.Checked);
-                    if (fp != null)
-                    {
+                //foreach (DiningArea diningArea in DiningAreaManager.DiningAreas)
+                //{
+                //    Floorplan fp = newShiftManager.Floorplans.FirstOrDefault(fp => fp.DiningArea == diningArea);
+                //    //Floorplan existingFP = SqliteDataAccess.LoadFloorplanByCriteria(diningArea, date, cbIsAM.Checked);
+                //    if (fp != null)
+                //    {
 
-                    }
-                }
+                //    }
+                //}
+                newShiftManager = new ShiftManager(date, cbIsAM.Checked);
                 RefreshFloorplanFlowPanel(newShiftManager.Floorplans);
 
             }
