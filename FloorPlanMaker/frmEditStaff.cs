@@ -201,6 +201,7 @@ namespace FloorPlanMaker
 
         private void SetFloorplansForShiftManager()
         {
+            setIsNewShiftBool();
             flowDiningAreaAssignment.Controls.Clear();
             DateOnly date = DateOnly.FromDateTime(dateSelected);
             if (!isNewShift)
@@ -519,7 +520,7 @@ namespace FloorPlanMaker
         {
             dateSelected = dateSelected.AddDays(1);
             lblShiftDate.Text = dateSelected.ToString("dddd, MMMM dd");
-            setIsNewShiftBool();
+            
             SetFloorplansForShiftManager();
         }
         private void btnDateDown_Click(object sender, EventArgs e)
@@ -530,7 +531,7 @@ namespace FloorPlanMaker
         {
             dateSelected = dateSelected.AddDays(-1);
             lblShiftDate.Text = dateSelected.ToString("dddd, MMMM dd");
-            setIsNewShiftBool();
+            
             SetFloorplansForShiftManager();
         }
         private void setIsNewShiftBool()
@@ -588,8 +589,9 @@ namespace FloorPlanMaker
             dateSelected = newShiftManager.DateOnly.ToDateTime(new TimeOnly(0, 0));
             lblShiftDate.Text = dateSelected.ToString("dddd, MMMM dd");
             cbIsAM.Checked = newShiftManager.IsAM;
-            setIsNewShiftBool();
-            SetFloorplansForShiftManager();
+
+            //SetFloorplansForShiftManager();
+            RefreshFloorplanFlowPanel(newShiftManager.Floorplans);
             PopulateUnassignedServers();
             //btnCreateANewShift.Visible = false;
             UpdateCountLabels();

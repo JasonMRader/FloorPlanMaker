@@ -562,7 +562,7 @@ namespace FloorPlanMakerUI
                     .OrderByFirstLetter()
                     .ToList();
 
-                PopulateServers(filteredServers);
+                PopulateNotOnServers(filteredServers);
             }
             else
             {
