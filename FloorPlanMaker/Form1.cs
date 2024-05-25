@@ -24,7 +24,7 @@ namespace FloorPlanMaker
         // when saving a floorplan
         private DiningAreaCreationManager areaCreationManager = new DiningAreaCreationManager();
         EmployeeManager employeeManager = new EmployeeManager();
-        private ShiftManager shiftManager;
+        private Shift shiftManager;
         private int LastTableNumberSelected;
         private TableControl currentEmphasizedTableControl = null;
         private DrawingHandler drawingHandler;
@@ -187,7 +187,7 @@ namespace FloorPlanMaker
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
-        public void UpdateForm1ShiftManager(ShiftManager shiftManagerToAdd)
+        public void UpdateForm1ShiftManager(Shift shiftManagerToAdd)
         {
             dateTimeSelected = new DateTime(shiftManagerToAdd.DateOnly.Year, shiftManagerToAdd.DateOnly.Month, shiftManagerToAdd.DateOnly.Day);
             UpdateDateLabel(0);
@@ -221,7 +221,7 @@ namespace FloorPlanMaker
         {
             InitializeComponent();
             drawingHandler = new DrawingHandler(pnlFloorPlan);
-            shiftManager = new ShiftManager();
+            shiftManager = new Shift();
             //shiftManager.ServersNotOnShift = SqliteDataAccess.LoadServers();
             this.KeyDown += pnlFloorPlan_KeyDown;
             pnlFloorPlan.MouseDown += pnlFloorplan_MouseDown;

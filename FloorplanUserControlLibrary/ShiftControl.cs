@@ -11,9 +11,9 @@ namespace FloorPlanMaker
         private PictureBox _picClose;
         private PictureBox _picTeam;
         private PictureBox _picWeekDay;
-        public Shift Shift { get; set; }
+        public EmployeeShift Shift { get; set; }
 
-        public ShiftControl(Shift shift, int width, int height)
+        public ShiftControl(EmployeeShift shift, int width, int height)
         {
             this.Height = height;
             this.Width = width;

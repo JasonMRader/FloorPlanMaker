@@ -13,8 +13,8 @@ namespace FloorPlanMaker
     {
         //public List<Server> AllServers = new List<Server>();
         public EmployeeManager employeeManager;
-        private ShiftManager newShiftManager = new ShiftManager();
-        private ShiftManager pastShiftsManager;
+        private Shift newShiftManager = new Shift();
+        private Shift pastShiftsManager;
         private DiningAreaCreationManager DiningAreaManager = new DiningAreaCreationManager();
         private DateTime dateSelected = DateTime.MinValue;
         private List<Floorplan> allFloorplans = new List<Floorplan>();
@@ -75,7 +75,7 @@ namespace FloorPlanMaker
 
 
 
-        public frmEditStaff(EmployeeManager staffManager, ShiftManager shiftManager, Form1 form1)
+        public frmEditStaff(EmployeeManager staffManager, Shift shiftManager, Form1 form1)
         {
             InitializeComponent();
             this.employeeManager = staffManager;
@@ -589,7 +589,7 @@ namespace FloorPlanMaker
 
         }
         //TODO have this method load current floorplans
-        public void UpdateNewShift(ShiftManager shiftManagerToAdd)
+        public void UpdateNewShift(Shift shiftManagerToAdd)
         {
             this.newShiftManager = null;
             this.newShiftManager = shiftManagerToAdd;

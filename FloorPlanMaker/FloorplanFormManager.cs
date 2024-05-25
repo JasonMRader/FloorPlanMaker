@@ -22,7 +22,7 @@ namespace FloorPlanMakerUI
                 return this.ShiftManager.SelectedFloorplan;
             }
         }
-        public ShiftManager ShiftManager;
+        public Shift ShiftManager;
         private List<TableControl> _tableControls = new List<TableControl>();    
         private List<SectionLabelControl> _sectionLabels = new List<SectionLabelControl>();
         private List<SectionPanelControl> _sectionPanels = new List<SectionPanelControl>();
@@ -37,7 +37,7 @@ namespace FloorPlanMakerUI
         public TemplateManager TemplateManager { get; set; }
 
 
-        public FloorplanFormManager(ShiftManager shiftManager)
+        public FloorplanFormManager(Shift shiftManager)
         {
             //this.Floorplan = shiftManager.SelectedFloorplan;
             this.ShiftManager = shiftManager;

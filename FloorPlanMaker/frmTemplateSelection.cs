@@ -18,7 +18,7 @@ namespace FloorPlanMaker
 {
     public partial class frmTemplateSelection : Form
     {
-        ShiftManager ShiftManager;
+        Shift ShiftManager;
         private FloorplanFormManager floorplanManager { get; set; }
         private Form1 form1Reference;
         private int serverCount;

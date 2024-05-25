@@ -13,7 +13,7 @@ namespace FloorPlanMakerUI
     internal static class ImageSetter
     {
        
-        public static void SetShiftImages(ShiftControl shiftControl, Shift shift)
+        public static void SetShiftImages(ShiftControl shiftControl, EmployeeShift shift)
         {
             if (shift.IsInside)
             {
@@ -44,7 +44,7 @@ namespace FloorPlanMakerUI
         {
             foreach(ShiftControl shiftControl in serverControl.ShiftControls)
             {
-                Shift shift = (Shift)shiftControl.Tag;
+                EmployeeShift shift = (EmployeeShift)shiftControl.Tag;
                 if (shift.IsInside)
                 {
                     shiftControl.PicOutside.Image = Resources.InsideSolid;

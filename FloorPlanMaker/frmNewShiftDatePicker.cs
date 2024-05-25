@@ -21,13 +21,13 @@ namespace FloorPlanMakerUI
         private DateOnly dateOnlySelected => new DateOnly(dateSelected.Year, dateSelected.Month, dateSelected.Day);
 
         private bool isAM { get { return cbIsAm.Checked; } }
-        private ShiftManager ShiftManagerCreated = new ShiftManager();
+        private Shift ShiftManagerCreated = new Shift();
         private DiningAreaCreationManager DiningAreaManager = new DiningAreaCreationManager();
         private List<Floorplan> allFloorplans = new List<Floorplan>();
         
         private frmEditStaff frmEditStaff { get; set; }
         public frmNewShiftDatePicker(DiningAreaCreationManager diningAreaManager, List<Floorplan> allFloorplans,
-            List<Server> allServers, frmEditStaff frmEditStaff, ShiftManager shiftManager)
+            List<Server> allServers, frmEditStaff frmEditStaff, Shift shiftManager)
         {
             InitializeComponent();
             DiningAreaManager = diningAreaManager;

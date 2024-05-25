@@ -1316,7 +1316,7 @@ namespace FloorplanClassLibrary
 
 
         }
-        public static List<Shift> LoadShiftsForServer(Server server)
+        public static List<EmployeeShift> LoadShiftsForServer(Server server)
         {
             using (IDbConnection connection = new SQLiteConnection(LoadConnectionString()))
             {
@@ -1330,7 +1330,7 @@ namespace FloorplanClassLibrary
                     INNER JOIN Floorplan fp ON s.FloorplanID = fp.ID
                     WHERE s.ServerID = @ID";
 
-                List<Shift> allShifts = connection.Query<Shift, Section, DiningArea, Floorplan, Shift>(
+                List<EmployeeShift> allShifts = connection.Query<EmployeeShift, Section, DiningArea, Floorplan, EmployeeShift>(
            sql,
            (shift, section, diningArea, floorplan) =>
            {
@@ -1352,7 +1352,7 @@ namespace FloorplanClassLibrary
                 return allShifts;
             }
         }
-        public static List<Shift> GetShiftsForServer(Server server)
+        public static List<EmployeeShift> GetShiftsForServer(Server server)
         {
             using IDbConnection dbConnection = new SQLiteConnection(LoadConnectionString());
             {
@@ -1377,7 +1377,7 @@ namespace FloorplanClassLibrary
             INNER JOIN DiningArea d ON s.DiningAreaID = d.ID
             WHERE s.ServerID = @ServerID";
 
-                return dbConnection.Query<Shift>(query, new { ServerID = server.ID }).ToList();
+                return dbConnection.Query<EmployeeShift>(query, new { ServerID = server.ID }).ToList();
                 
             }
            

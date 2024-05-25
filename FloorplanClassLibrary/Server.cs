@@ -4,7 +4,7 @@ namespace FloorplanClassLibrary
 {
     public class Server
     {
-        private List<Shift> shifts;
+        private List<EmployeeShift> shifts;
 
         public int ID { get; set; }
         public string Name { get; set; }
@@ -27,12 +27,12 @@ namespace FloorplanClassLibrary
             }
         }
 
-        public List<Shift> Shifts
+        public List<EmployeeShift> Shifts
         {
             get
             {
                
-                shifts ??= new List<Shift>();
+                shifts ??= new List<EmployeeShift>();
 
                 return shifts.OrderByDescending(shift => shift.Date).ToList();
             }
