@@ -39,7 +39,7 @@ namespace FloorPlanMakerUI
             //cbIsAm.Checked = shiftManager.IsAM;
         }
         public frmNewShiftDatePicker(DiningAreaCreationManager diningAreaManager, List<Floorplan> allFloorplans,
-           List<Server> allServers, frmEditStaff frmEditStaff, DateTime date, bool isAm)
+           frmEditStaff frmEditStaff, DateTime date, bool isAm)
         {
             InitializeComponent();
             DiningAreaManager = diningAreaManager;
@@ -82,10 +82,10 @@ namespace FloorPlanMakerUI
             RefreshForDateSelected();
 
         }
-        private void UpdateAreasAndServersForDateAndShift()
-        {
-            Dictionary<DiningArea, int> thisDaysFloorplans = ServersAssignedPreviousDay(allFloorplans, cbIsAm.Checked, 0);
-        }
+        //private void UpdateAreasAndServersForDateAndShift()
+        //{
+        //    Dictionary<DiningArea, int> thisDaysFloorplans = ServersAssignedPreviousDay(allFloorplans, cbIsAm.Checked, 0);
+        //}
         private void PopulateServers(List<Server> servers)
         {
             PopulateNotOnServers(ShiftManagerCreated.ServersNotOnShift);

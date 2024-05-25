@@ -561,24 +561,31 @@ namespace FloorPlanMaker
         }
         private void btnCreateANewShift_Click(object sender, EventArgs e)
         {
-            if(isNewShift)
-            {
-                frmNewShiftDatePicker form = new frmNewShiftDatePicker(DiningAreaManager, allFloorplans, employeeManager.ActiveServers, this, newShiftManager);
-                form.TopLevel = false;
-                this.Controls.Add(form);
-                form.Show();
-                form.BringToFront();
-            }
-            else
-            {
-                frmNewShiftDatePicker form = new frmNewShiftDatePicker(DiningAreaManager, allFloorplans, employeeManager.ActiveServers, this, pastShiftsManager);
-                form.TopLevel = false;
-                this.Controls.Add(form);
-                form.Show();
-                form.BringToFront();
-            }
-            
-            
+            frmNewShiftDatePicker form = new frmNewShiftDatePicker(DiningAreaManager, allFloorplans, this, dateSelected, cbIsAM.Checked);
+            form.TopLevel = false;
+            this.Controls.Add(form);
+            form.Show();
+            form.BringToFront();
+
+            //if (isNewShift)
+            //{
+            //    frmNewShiftDatePicker form = new frmNewShiftDatePicker(DiningAreaManager, allFloorplans, employeeManager.ActiveServers, this, newShiftManager);
+            //    form.TopLevel = false;
+            //    this.Controls.Add(form);
+            //    form.Show();
+            //    form.BringToFront();
+            //}
+            //else
+            //{
+            //    //frmNewShiftDatePicker form = new frmNewShiftDatePicker(DiningAreaManager, allFloorplans, employeeManager.ActiveServers, this, pastShiftsManager);
+            //    frmNewShiftDatePicker form = new frmNewShiftDatePicker(DiningAreaManager, allFloorplans, this, dateSelected, cbIsAM.Checked);
+            //    form.TopLevel = false;
+            //    this.Controls.Add(form);
+            //    form.Show();
+            //    form.BringToFront();
+            //}
+
+
 
         }
         //TODO have this method load current floorplans
