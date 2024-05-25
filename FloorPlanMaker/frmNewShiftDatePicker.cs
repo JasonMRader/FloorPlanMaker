@@ -431,9 +431,9 @@ namespace FloorPlanMakerUI
             {
                 cbArea.BackColor = UITheme.CTAColor;
                 cbArea.ForeColor = Color.White;
-                //var floorplanToRemove = ShiftManagerCreated.Floorplans.FirstOrDefault(fp => fp.DiningArea == area);
+                var floorplanToRemove = ShiftManagerCreated.Floorplans.FirstOrDefault(fp => fp.DiningArea == area);
                 ShiftManagerCreated.DiningAreasUsed.Remove(area);
-                //ShiftManagerCreated.RemoveFloorplan(floorplanToRemove);
+                ShiftManagerCreated.RemoveFloorplan(floorplanToRemove);
 
             }
 

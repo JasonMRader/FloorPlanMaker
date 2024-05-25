@@ -208,13 +208,16 @@ namespace FloorplanClassLibrary
 
         public void RemoveFloorplan(Floorplan floorplan)
         {
-            this._floorplans.Remove(floorplan);
-            var assignedServersSet = new HashSet<Server>(floorplan.Servers);
+            if (floorplan != null)
+            {
+                this._floorplans.Remove(floorplan);
+                var assignedServersSet = new HashSet<Server>(floorplan.Servers);
 
-            // Remove all servers that are in the floorplan's server list
-            this._serversOnShift.RemoveAll(assignedServersSet.Contains);
-            this._serversNotOnShift.AddRange(floorplan.Servers);
-            //ServersNotOnShift = ServersNotOnShift.OrderBy(s => s.Name).ToList();
+                // Remove all servers that are in the floorplan's server list
+                this._serversOnShift.RemoveAll(assignedServersSet.Contains);
+                this._serversNotOnShift.AddRange(floorplan.Servers); 
+            }
+            
             
         }
         public void ClearFloorplans()
