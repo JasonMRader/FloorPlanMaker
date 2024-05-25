@@ -230,7 +230,7 @@ namespace FloorPlanMaker
 
                 //    }
                 //}
-                newShiftManager = new ShiftManager(date, cbIsAM.Checked);
+                //newShiftManager = new ShiftManager(date, cbIsAM.Checked);
                 RefreshFloorplanFlowPanel(newShiftManager.Floorplans);
 
             }

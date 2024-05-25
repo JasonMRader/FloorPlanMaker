@@ -38,6 +38,18 @@ namespace FloorPlanMakerUI
             this.dateSelected = shiftManager.DateOnly.ToDateTime(TimeOnly.MinValue);
             //cbIsAm.Checked = shiftManager.IsAM;
         }
+        public frmNewShiftDatePicker(DiningAreaCreationManager diningAreaManager, List<Floorplan> allFloorplans,
+           List<Server> allServers, frmEditStaff frmEditStaff, DateTime date, bool isAm)
+        {
+            InitializeComponent();
+            DiningAreaManager = diningAreaManager;
+            this.allFloorplans = allFloorplans;
+
+            this.frmEditStaff = frmEditStaff;
+           
+            this.dateSelected = date;
+            cbIsAm.Checked = isAm;
+        }
         //TODO: when reopening after closing, the floorplans are reset, one that was just created is gone
         private void SetColors()
         {
