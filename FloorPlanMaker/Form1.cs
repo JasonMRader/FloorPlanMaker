@@ -391,8 +391,8 @@ namespace FloorPlanMaker
 
             }
             else if (AllTablesAreAssigned())
-            {
-                CreateSectionBorders();
+            {  //TODO SECTIONBOARDERS DISABLED
+               // CreateSectionBorders();
             }
             else
             {
@@ -439,7 +439,8 @@ namespace FloorPlanMaker
             this.sectionLineManager = new SectionLineManager(allTableControls);
             if (AllTablesAreAssigned())
             {
-                CreateSectionBorders();
+                //TODO SECTION BOARDERS DISABLED
+               // CreateSectionBorders();
             }
             else
             {
@@ -623,34 +624,39 @@ namespace FloorPlanMaker
                     }
                 }
                 SqliteDataAccess.SaveFloorplanAndSections(shiftManager.SelectedFloorplan);
+
+                //TODO SECTIONLINES DISABLED
                
-                DialogResult printWihtLines = MessageBox.Show("Do you want to use these section lines?",
-                                            "Continue?",
-                                            MessageBoxButtons.YesNo,
-                                            MessageBoxIcon.Question);
+                //DialogResult printWihtLines = MessageBox.Show("Do you want to use these section lines?",
+                //                            "Continue?",
+                //                            MessageBoxButtons.YesNo,
+                //                            MessageBoxIcon.Question);
 
-                if (printWihtLines == DialogResult.No)
-                {
-                    FloorplanPrinter printerNoLines = new FloorplanPrinter(pnlFloorPlan);
-                    printerNoLines.ShowPrintPreview();
-                    return;
-                }
+                //if (printWihtLines == DialogResult.No)
+                //{
+                //    FloorplanPrinter printerNoLines = new FloorplanPrinter(pnlFloorPlan);
+                //    printerNoLines.ShowPrintPreview();
+                //    return;
+                //}
                 
-                TableGrid grid = new TableGrid(shiftManager.SelectedDiningArea.Tables);
-                grid.FindTableTopBottomNeighbors();
-                grid.FindTableNeighbors();
-                grid.SetTableBoarderMidPoints();
-                grid.CreateNeighbors();
-                grid.SetSections(this.shiftManager.SelectedFloorplan.Sections);
-                SectionLineDrawer edgeDrawer = new SectionLineDrawer(5f);
-                Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, grid.GetSectionTableBoarders());
+                //TableGrid grid = new TableGrid(shiftManager.SelectedDiningArea.Tables);
+                //grid.FindTableTopBottomNeighbors();
+                //grid.FindTableNeighbors();
+                //grid.SetTableBoarderMidPoints();
+                //grid.CreateNeighbors();
+                //grid.SetSections(this.shiftManager.SelectedFloorplan.Sections);
+                //SectionLineDrawer edgeDrawer = new SectionLineDrawer(5f);
+                //Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, grid.GetSectionTableBoarders());
 
 
-                //List<Edge> edges = grid.GetNeighborEdges();
-                //Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, edges);
-                pnlFloorPlan.BackgroundImage = edgesBitmap;
-                FloorplanPrinter printer = new FloorplanPrinter(pnlFloorPlan, edgeDrawer, grid.GetSectionTableBoarders());
-                printer.ShowPrintPreview();
+                ////List<Edge> edges = grid.GetNeighborEdges();
+                ////Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, edges);
+
+               // pnlFloorPlan.BackgroundImage = edgesBitmap;
+                //FloorplanPrinter printer = new FloorplanPrinter(pnlFloorPlan, edgeDrawer, grid.GetSectionTableBoarders());
+                //printer.ShowPrintPreview();
+                FloorplanPrinter printerNoLines = new FloorplanPrinter(pnlFloorPlan);
+                printerNoLines.ShowPrintPreview();
                 //printer.Print();
             }
             else
