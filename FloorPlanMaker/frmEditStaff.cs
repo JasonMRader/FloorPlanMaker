@@ -235,6 +235,7 @@ namespace FloorPlanMaker
                 RefreshFloorplanFlowPanel(newShiftManager.Floorplans);
 
             }
+            ShiftManager.SetSelectedShift(date, cbIsAM.Checked);
 
         }
 
