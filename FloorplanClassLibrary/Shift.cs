@@ -24,6 +24,16 @@ namespace FloorplanClassLibrary
             this.IsAM = isAM;
             InitializeServers();
         }
+        public Shift(DateOnly date, bool isAm, List<Floorplan> floorplans) 
+        { 
+            this.DateOnly = date;
+            this.IsAM = isAm;
+            InitializeServers();
+            foreach (Floorplan floorplan in floorplans)
+            {
+                AddFloorplanAndServers(floorplan);
+            }
+        }
         private void InitializeServers()
         {
             _allServers = SqliteDataAccess.LoadActiveServers();
@@ -201,6 +211,7 @@ namespace FloorplanClassLibrary
                     this._serversOnShift.Add(server);
                 }
             }
+            //TODO unnecisary / redundant assignment below?
             this.DateOnly = floorplan.DateOnly;
             this.IsAM = floorplan.IsLunch;
             //ServersNotOnShift = ServersNotOnShift.OrderBy(s => s.Name).ToList();

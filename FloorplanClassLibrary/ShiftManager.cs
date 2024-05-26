@@ -9,9 +9,32 @@ namespace FloorplanClassLibrary
     public class ShiftManager
     {
         public ShiftManager() { }
-        public Shift SelectedShift { get; set; }
         public DateOnly DateOnly { get; set; }
-        public bool IsAM {  get; set; } 
-        public Shift NewShift { get; set; }
+        public bool IsAM { get; set; }
+        public Shift? SelectedShift 
+        { get { return _selectedShift; } set { _selectedShift = value; } }
+        private Shift? _selectedShift {  get; set; }
+       
+        public Shift? NewShift
+        { get { return _newShift; } set { _newShift = value; }}
+        private Shift? _newShift {  get; set; }
+       
+        public void CreateNewShift(DateOnly dateOnly, bool isAM)
+        {
+            _newShift = new Shift(dateOnly, isAM);
+        }
+
+        public void SetSelectedShift(DateOnly dateOnly, bool isAM)
+        {
+            if(this._newShift != null && dateOnly == _newShift.DateOnly && isAM == _newShift.IsAM)
+            {
+                _selectedShift = _newShift;
+            }
+            else
+            {
+                List<Floorplan> floorplans = SqliteDataAccess.LoadFloorplansByDateAndShift(dateOnly, isAM);
+                _selectedShift = new Shift(dateOnly, isAM, floorplans);
+            }
+        }
     }
 }

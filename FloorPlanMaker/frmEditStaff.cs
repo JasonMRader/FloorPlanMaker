@@ -235,6 +235,7 @@ namespace FloorPlanMaker
                 RefreshFloorplanFlowPanel(newShiftManager.Floorplans);
 
             }
+
         }
 
         private void RefreshFloorplanFlowPanel(IReadOnlyList<Floorplan> floorplans)
