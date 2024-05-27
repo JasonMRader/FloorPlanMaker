@@ -37,6 +37,8 @@ namespace FloorplanClassLibrary
         public SectionLabelControl(Section section, List<Server> unassignedServers)
         {
             this.Section = section;
+            section.ServerAssigned += RemoveServerFromAvailable;
+            section.ServerRemoved += AddServerToAvailable;
             this.Section.SubscribeObserver(this);
             this.unassignedServers = unassignedServers;
             closerPanel = new FlowLayoutPanel { Dock = DockStyle.Top, Height = 0 };
@@ -100,6 +102,17 @@ namespace FloorplanClassLibrary
             toolTip.SetToolTip(assignServerButton, "Assign Server");
             
         }
+
+        private void AddServerToAvailable(Server server, Section section)
+        {
+            unassignedServers.Add(server);
+        }
+
+        private void RemoveServerFromAvailable(Server server, Section section)
+        {
+            unassignedServers.Remove(server);
+        }
+
         public void UpdateSection(Section section)
         {
             this.isSelected = this.Section.IsSelected;
@@ -298,7 +311,7 @@ namespace FloorplanClassLibrary
         }
         private void UnassignButton_Click(Object sender, EventArgs e)
         {            
-            unassignedServers.Add(this.Section.Server);
+            //unassignedServers.Add(this.Section.Server);
             Section.RemoveServer(this.Section.Server);
             RefreshUnassignedServerPanel();
             UpdateLabel();
@@ -309,7 +322,7 @@ namespace FloorplanClassLibrary
             var clickedButton = (Button)sender;
             var assignedServer = (Server)clickedButton.Tag;
             
-            unassignedServers.Remove(assignedServer);
+            //unassignedServers.Remove(assignedServer);
             Section.AddServer(assignedServer);
             if(Section.ServerTeam != null)
             {
@@ -344,7 +357,7 @@ namespace FloorplanClassLibrary
             {
                 headerPanel.BackColor = Section.MuteColor(1.5f);
                 this.BorderColor = Section.MuteColor(2);
-                this.borderWidth = 10;
+                this.borderWidth = 20;
                
             }
             else

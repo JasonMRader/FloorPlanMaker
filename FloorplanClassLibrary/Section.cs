@@ -85,7 +85,7 @@ namespace FloorplanClassLibrary
                 return _nodeManager;
             }
         }
-
+        //public List<Server> UnassignedServers = new List<Server>();
         public Floorplan? Floorplan { get; set; }
         public int ServerCount { get; private set; } = 1;
         public int TemplateServerCount { get; set; }
@@ -244,6 +244,7 @@ namespace FloorplanClassLibrary
             }
             
             server.CurrentSection = this;
+            
             NotifyServerAssigned(server);
             NotifyObservers();
         }
@@ -255,6 +256,7 @@ namespace FloorplanClassLibrary
                 ServerTeam.Remove(server);
                 server.CurrentSection = null;
                 //if (ServerCount > ServerTeam.Count)
+                
                 NotifyRemovedFromSection(server);
                 NotifyObservers();
             }
