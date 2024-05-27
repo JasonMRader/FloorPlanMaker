@@ -9,14 +9,17 @@ namespace FloorplanClassLibrary
     public class ShiftManager
     {
         public ShiftManager() { }
-        public DateOnly DateOnly { get; set; }
-        public bool IsAM { get; set; }
+        public DateOnly DateOnly => _selectedShift.DateOnly;
+       
+        public bool IsAM => _selectedShift.IsAM;
         public Shift? SelectedShift 
-        { get { return _selectedShift; } set { _selectedShift = value; } }
+        { get { return _selectedShift; } 
+            set { _selectedShift = value; } }
         private Shift? _selectedShift {  get; set; }
        
         public Shift? NewShift
-        { get { return _newShift; } set { _newShift = value; }}
+        { get { return _newShift; } 
+            set { _newShift = value; }}
         private Shift? _newShift {  get; set; }
        
         public void CreateNewShift(DateOnly dateOnly, bool isAM)
