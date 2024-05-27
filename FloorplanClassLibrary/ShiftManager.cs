@@ -26,6 +26,12 @@ namespace FloorplanClassLibrary
         {
             _newShift = new Shift(dateOnly, isAM);
         }
+        public void CreateNewShift(DateOnly dateOnly, bool isAM, List<Floorplan> floorplans)
+        {
+            _newShift = new Shift(dateOnly, isAM, floorplans);
+            
+        }
+        public void SetNewShiftToSelectedShift() { _newShift = this._selectedShift;}
 
         public void SetSelectedShift(DateOnly dateOnly, bool isAM)
         {

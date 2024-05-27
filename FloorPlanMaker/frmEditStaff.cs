@@ -589,7 +589,7 @@ namespace FloorPlanMaker
             //cbIsAM.Checked = newShiftManager.IsAM;
 
             //RefreshFloorplanFlowPanel(newShiftManager.Floorplans);
-            this.ShiftManager.SelectedShift = null;
+            //this.ShiftManager.SelectedShift = null;
             this.ShiftManager = shiftManager;
             dateSelected = ShiftManager.DateOnly.ToDateTime(new TimeOnly(0, 0));
             lblShiftDate.Text = dateSelected.ToString("dddd, MMMM dd");
