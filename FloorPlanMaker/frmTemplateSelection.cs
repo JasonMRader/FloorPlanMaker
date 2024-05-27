@@ -48,7 +48,7 @@ namespace FloorPlanMaker
 
         private void CancelViewedTemplate(object? sender, EventArgs e)
         {
-            if (floorplanManager.ShiftManager.SelectedFloorplan != null)
+            if (floorplanManager.Shift.SelectedFloorplan != null)
             {
                 floorplanManager.ResetSections();
                 form1Reference.UpdateWithTemplate();
@@ -66,7 +66,7 @@ namespace FloorPlanMaker
         {
             //Button btnClicked = (Button)sender;
             FloorplanTemplate template = (FloorplanTemplate)sender;
-            if (floorplanManager.ShiftManager.SelectedFloorplan != null)
+            if (floorplanManager.Shift.SelectedFloorplan != null)
             {
                 floorplanManager.CopyTemplateSections(template);
                 form1Reference.UpdateWithTemplate();
