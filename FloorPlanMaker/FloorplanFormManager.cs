@@ -250,7 +250,7 @@ namespace FloorPlanMakerUI
             foreach (Server server in Shift.SelectedFloorplan.Servers)
             {
                 server.Shifts = SqliteDataAccess.GetShiftsForServer(server);
-                ServerControl serverControl = new ServerControl(server, 20);
+                ServerControl serverControl = new ServerControl(server, 20, Floorplan.Sections);
                 serverControl.Click += ServerControl_Click;
                 foreach (ShiftControl shiftControl in serverControl.ShiftControls)
                 {

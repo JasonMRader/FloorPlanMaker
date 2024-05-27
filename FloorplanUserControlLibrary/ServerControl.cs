@@ -54,6 +54,56 @@ namespace FloorPlanMaker
             DisplayShifts();
            
         }
+        public ServerControl(Server server, int height, List<Section> sections)
+        {
+            this.Server = server;
+
+            this.Height = height * 2;
+            this.Width = 300;//this.Parent.Width - 20;
+            this.BackColor = UITheme.AccentColor;
+            this.AutoSize = true;
+            this.MaximumSize = new Size(300, height * 10);// new Size(this.Parent.Width - 20, height*10);
+            this.Padding = new Padding(0, 0, 0, 0);
+            this.Margin = new Padding(0, 4, 0, 0);
+            NamePanel = new Panel()
+            {
+                Height = height,
+                Width = 300,
+                Margin = new Padding(0, 0, 0, 0)
+            };
+            Label = new Label
+            {
+                Text = Server.ToString(),
+                AutoSize = false,
+                Height = height,
+                Width = 300,
+                Font = new Font("Segoe UI", 12, FontStyle.Bold),
+                BackColor = UITheme.ButtonColor,
+                ForeColor = Color.Black,
+                Margin = new Padding(0),
+                TextAlign = ContentAlignment.MiddleCenter
+            };
+            this.NamePanel.Controls.Add(Label);
+            this.Controls.Add(NamePanel);
+            this.Label.Click += (sender, e) => this.OnClick(e);
+            this.TabStop = false;
+            if (this.Server.isDouble)
+            {
+                Label.Text = Server.ToString() + " (Dbl)";
+            }
+
+            subscribeToSectionEvents(sections);
+            DisplayShifts();
+
+        }
+        private void subscribeToSectionEvents(List<Section> sections)
+        {
+            foreach (Section section in sections)
+            {
+                section.ServerAssigned += OnServerAssignedToSection;
+                section.ServerRemoved += OnServerRemovedFromSection;
+            }
+        }
         public Label outsidePercentage = new Label();
         public Panel NamePanel { get; set; }
         private Server _server;
@@ -135,7 +185,7 @@ namespace FloorPlanMaker
         public Button RemoveButton { get; set; }
         public void UpdateSection(Section section)
         {
-            
+            this.Label.BackColor = section.Color;           
             
 
         }
