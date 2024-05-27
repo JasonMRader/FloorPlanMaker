@@ -277,10 +277,10 @@ namespace FloorPlanMaker
                 case ControlType.TableControl:
                     //floorplanManager.RemoveTableControlSection(e.UpdateData as Section, pnlFloorPlan);
                     //floorplanManager.UpdateTableControlColors(pnlFloorPlan);
-                    CreateSectionBorders();
+                    //CreateSectionBorders();
                     floorplanManager.SetSectionLabels();
                     floorplanManager.AddSectionLabels(pnlFloorPlan);
-                    rdoViewServerFlow.Checked = true;
+                    //rdoViewServerFlow.Checked = true;
                     break;
                     // Add more cases as needed
             }

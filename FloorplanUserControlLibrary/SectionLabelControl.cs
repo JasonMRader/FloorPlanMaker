@@ -105,7 +105,11 @@ namespace FloorplanClassLibrary
 
         private void AddServerToAvailable(Server server, Section section)
         {
-            unassignedServers.Add(server);
+            if (!unassignedServers.Contains(server))
+            {
+                unassignedServers.Add(server);
+            }
+            
         }
 
         private void RemoveServerFromAvailable(Server server, Section section)

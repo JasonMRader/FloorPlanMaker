@@ -439,6 +439,7 @@ namespace FloorPlanMakerUI
             {
                 panel.Controls.Add(sectionLabelControl);
                 sectionLabelControl.UpdateLabel();
+               
                 sectionLabelControl.BringToFront();
             }
         }
