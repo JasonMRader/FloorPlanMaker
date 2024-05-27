@@ -571,7 +571,7 @@ namespace FloorPlanMaker
         }
         private void btnCreateANewShift_Click(object sender, EventArgs e)
         {
-            frmNewShiftDatePicker form = new frmNewShiftDatePicker(DiningAreaManager, allFloorplans, this, dateSelected, cbIsAM.Checked);
+            frmNewShiftDatePicker form = new frmNewShiftDatePicker(DiningAreaManager, allFloorplans, this, dateSelected, cbIsAM.Checked, ShiftManager);
             form.TopLevel = false;
             this.Controls.Add(form);
             form.Show();

@@ -22,6 +22,7 @@ namespace FloorPlanMakerUI
 
         private bool isAM { get { return cbIsAm.Checked; } }
         private Shift ShiftManagerCreated = new Shift();
+        private ShiftManager shiftManager;
         private DiningAreaManager DiningAreaManager = new DiningAreaManager();
         private List<Floorplan> allFloorplans = new List<Floorplan>();
         
@@ -34,16 +35,17 @@ namespace FloorPlanMakerUI
             this.allFloorplans = allFloorplans;
             
             this.frmEditStaff = frmEditStaff;
-            this.ShiftManagerCreated = shiftManager;
+            //this.ShiftManagerCreated = shiftManager;
             this.dateSelected = shiftManager.DateOnly.ToDateTime(TimeOnly.MinValue);
             //cbIsAm.Checked = shiftManager.IsAM;
         }
         public frmNewShiftDatePicker(DiningAreaManager diningAreaManager, List<Floorplan> allFloorplans,
-           frmEditStaff frmEditStaff, DateTime date, bool isAm)
+           frmEditStaff frmEditStaff, DateTime date, bool isAm, ShiftManager shiftManager)
         {
             InitializeComponent();
             DiningAreaManager = diningAreaManager;
             this.allFloorplans = allFloorplans;
+            this.shiftManager = shiftManager;
 
             this.frmEditStaff = frmEditStaff;
            
