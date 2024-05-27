@@ -363,14 +363,14 @@ namespace FloorPlanMakerUI
             PopulateServers();
             //////List<Button> serversOnShiftButtons = new List<Button>();
             List<Button> serversNotOnShiftButtons = new List<Button>();
-            var relevantFloorplans = allFloorplans
-                .Where(fp => fp.Date.Date == dateSelected && fp.IsLunch == cbIsAm.Checked)
-                .ToList();
+            //var relevantFloorplans = allFloorplans
+            //    .Where(fp => fp.Date.Date == dateSelected && fp.IsLunch == cbIsAm.Checked)
+            //    .ToList();
 
             List<DiningArea> diningAreasUsed = new List<DiningArea>();
             List<Server> serverUsed = new List<Server>();
 
-            foreach (var fp in relevantFloorplans)
+            foreach (Floorplan fp in shiftManager.SelectedShift.Floorplans)
             {
                 diningAreasUsed.Add(fp.DiningArea);
                 serverUsed.AddRange(fp.Servers);
