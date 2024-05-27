@@ -412,8 +412,17 @@ namespace FloorplanClassLibrary
         }
         public void RemoveServerAndSection(Server server)
         {
-            this.ServersWithoutSection.Remove(server);
-            RemoveHighestNumberedEmptySection();
+            if(server.CurrentSection == null)
+            {
+                this.ServersWithoutSection.Remove(server);
+                RemoveHighestNumberedEmptySection();
+            }
+            else
+            {
+                DeleteSection(server.CurrentSection);
+                this.ServersWithoutSection.Remove(server);
+            }
+           
         }
 
        
