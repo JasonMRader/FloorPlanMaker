@@ -132,6 +132,7 @@ namespace FloorplanUserControlLibrary
                 }
                 lblDisplay.BackColor = Section.Color;
                 lblDisplay.Click -= unassignedLabel_Click;
+                picClearSection.Image = Resources.erase;
                 toolTip.SetToolTip(picClearSection, "Clear Section");
             }
             else if(this.Section.Server == null && Section.IsTeamWait == false)
