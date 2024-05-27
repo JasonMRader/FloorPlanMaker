@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace FloorplanClassLibrary
 {
-    public class DiningAreaCreationManager
+    public class DiningAreaManager
     {
-        public DiningAreaCreationManager() 
+        public DiningAreaManager() 
         {
             
             DiningAreas = SqliteDataAccess.LoadDiningAreas();

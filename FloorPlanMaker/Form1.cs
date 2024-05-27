@@ -22,7 +22,7 @@ namespace FloorPlanMaker
     {
         // TODO: keep data Updated when making changes (ie UPdate dining rooms when adding tables, update floorplan Lists
         // when saving a floorplan
-        private DiningAreaCreationManager areaCreationManager = new DiningAreaCreationManager();
+        private DiningAreaManager areaCreationManager = new DiningAreaManager();
         EmployeeManager employeeManager = new EmployeeManager();
         private Shift shiftManager;
         private int LastTableNumberSelected;

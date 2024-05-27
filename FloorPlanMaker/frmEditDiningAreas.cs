@@ -16,7 +16,7 @@ namespace FloorPlanMakerUI
     public partial class frmEditDiningAreas : Form
     {
 
-        private DiningAreaCreationManager areaCreationManager = new DiningAreaCreationManager();
+        private DiningAreaManager areaCreationManager = new DiningAreaManager();
         private TableControl currentEmphasizedTableControl = null;
         private DrawingHandler drawingHandler;
         List<TableControl> emphasizedTablesList = new List<TableControl>();

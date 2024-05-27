@@ -344,6 +344,25 @@ namespace FloorplanClassLibrary
                 return tables;
             }
         }
+        public static List<Table> LoadTables(DiningArea diningArea)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var tables = cnn.Query<Table>("SELECT * FROM DiningTable WHERE DiningAreaID = @ID", new { ID = diningArea.ID,}).ToList();
+
+                foreach (var table in tables)
+                {
+                    
+                    
+                    if (diningArea != null)
+                    {
+                        table.DiningArea = diningArea;
+                    }
+                }
+
+                return tables;
+            }
+        }
         // TODO: Remove unused methods
         public static int SaveTable(Table table)
         {
@@ -619,7 +638,10 @@ namespace FloorplanClassLibrary
                 {
                     // You might need to adjust this based on the structure of your DiningArea table
                     var diningArea = cnn.QuerySingle<DiningArea>("SELECT * FROM DiningArea WHERE ID = @ID", new { ID = floorplan.DiningAreaID });
+                    //diningArea.Tables = LoadTables(diningArea);
                     floorplan.DiningArea = diningArea;
+                    diningArea.Tables = LoadTables(diningArea);
+                    
 
                     // Populate Sections from FloorplanSections
                     var sectionIds = cnn.Query<int>("SELECT SectionID FROM FloorplanSections WHERE FloorplanID = @FloorplanID", new { FloorplanID = floorplan.ID });

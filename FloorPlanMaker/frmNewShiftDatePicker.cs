@@ -22,11 +22,11 @@ namespace FloorPlanMakerUI
 
         private bool isAM { get { return cbIsAm.Checked; } }
         private Shift ShiftManagerCreated = new Shift();
-        private DiningAreaCreationManager DiningAreaManager = new DiningAreaCreationManager();
+        private DiningAreaManager DiningAreaManager = new DiningAreaManager();
         private List<Floorplan> allFloorplans = new List<Floorplan>();
         
         private frmEditStaff frmEditStaff { get; set; }
-        public frmNewShiftDatePicker(DiningAreaCreationManager diningAreaManager, List<Floorplan> allFloorplans,
+        public frmNewShiftDatePicker(DiningAreaManager diningAreaManager, List<Floorplan> allFloorplans,
             List<Server> allServers, frmEditStaff frmEditStaff, Shift shiftManager)
         {
             InitializeComponent();
@@ -38,7 +38,7 @@ namespace FloorPlanMakerUI
             this.dateSelected = shiftManager.DateOnly.ToDateTime(TimeOnly.MinValue);
             //cbIsAm.Checked = shiftManager.IsAM;
         }
-        public frmNewShiftDatePicker(DiningAreaCreationManager diningAreaManager, List<Floorplan> allFloorplans,
+        public frmNewShiftDatePicker(DiningAreaManager diningAreaManager, List<Floorplan> allFloorplans,
            frmEditStaff frmEditStaff, DateTime date, bool isAm)
         {
             InitializeComponent();
@@ -82,10 +82,10 @@ namespace FloorPlanMakerUI
             RefreshForDateSelected();
 
         }
-        //private void UpdateAreasAndServersForDateAndShift()
-        //{
-        //    Dictionary<DiningArea, int> thisDaysFloorplans = ServersAssignedPreviousDay(allFloorplans, cbIsAm.Checked, 0);
-        //}
+        //////private void UpdateAreasAndServersForDateAndShift()
+        //////{
+        //////    Dictionary<DiningArea, int> thisDaysFloorplans = ServersAssignedPreviousDay(allFloorplans, cbIsAm.Checked, 0);
+        //////}
         private void PopulateServers(List<Server> servers)
         {
             PopulateNotOnServers(ShiftManagerCreated.ServersNotOnShift);
@@ -99,7 +99,7 @@ namespace FloorPlanMakerUI
             {
                 server.Shifts = SqliteDataAccess.GetShiftsForServer(server);
                 Button ServerButton = CreateNotOnShiftServerButton(server);
-                //ServerButton.Click += AddToShift_Click;
+                //////ServerButton.Click += AddToShift_Click;
 
 
                 flowAllServers.Controls.Add(ServerButton);
@@ -113,9 +113,9 @@ namespace FloorPlanMakerUI
             {
                 server.Shifts = SqliteDataAccess.GetShiftsForServer(server);
                 Button ServerButton = CreateOnShiftServerButton(server);
-                //ServerButton.Click += AddToShift_Click;
+                //////ServerButton.Click += AddToShift_Click;
 
-                //ServerButton.Click += RemoveFromShift_Click;
+                //////ServerButton.Click += RemoveFromShift_Click;
                 flowServersOnShift.Controls.Add(ServerButton);
             }
         }
@@ -170,7 +170,7 @@ namespace FloorPlanMakerUI
             Button serverButton = (Button)sender;
             Server server = (Server)serverButton.Tag;
             ShiftManagerCreated.AddNewUnassignedServer(server);
-            //ShiftManagerCreated.ServersNotOnShift.Remove(server);
+            //////ShiftManagerCreated.ServersNotOnShift.Remove(server);
             serverButton.Click -= AddToShift_Click;
             serverButton.Click += RemoveFromShift_Click;
             serverButton.BackColor = UITheme.YesColor;
@@ -188,7 +188,7 @@ namespace FloorPlanMakerUI
             Button serverButton = (Button)sender;
             Server server = (Server)serverButton.Tag;
             ShiftManagerCreated.RemoveServerFromShift(server);
-            //ShiftManagerCreated.UnassignedServers.Remove(server);
+            //////ShiftManagerCreated.UnassignedServers.Remove(server);
             serverButton.Click += AddToShift_Click;
             serverButton.Click -= RemoveFromShift_Click;
             serverButton.BackColor = UITheme.CTAColor;
@@ -225,14 +225,14 @@ namespace FloorPlanMakerUI
 
         private void RefreshPreviousFloorplanCounts()
         {
-            // Obtain the counts for last week and yesterday
+           
             Dictionary<DiningArea, int> lastWeekFloorplans = ServersAssignedPreviousDay(allFloorplans, cbIsAm.Checked, -7);
             Dictionary<DiningArea, int> yesterdayFloorplans = ServersAssignedPreviousDay(allFloorplans, cbIsAm.Checked, -1);
 
-            // Update labels for last week
+           
             UpdateLabels(flowLastWeekdayCounts, lastWeekFloorplans);
 
-            // Update labels for yesterday
+            
             UpdateLabels(flowYesterdayCounts, yesterdayFloorplans);
         }
 
@@ -242,7 +242,7 @@ namespace FloorPlanMakerUI
             {
                 if (lbl.Tag is DiningArea area && floorplanCounts.TryGetValue(area, out int count))
                 {
-                    lbl.Text = $"{count}"; // Update the text of the label
+                    lbl.Text = $"{count}"; 
                     if (count > 0)
                     {
                         lbl.BackColor = UITheme.YesColor;
@@ -297,14 +297,14 @@ namespace FloorPlanMakerUI
         {
             SetToShiftFromDatabase();
 
-            //if (ShiftManagerCreated.DateOnly != dateOnlySelected || ShiftManagerCreated.IsAM != cbIsAm.Checked)
-            //{
-            //    //SetToShiftFromDatabase();
-            //}
-            //else
-            //{
-            //    SetToNewShift();
-            //}
+            //////if (ShiftManagerCreated.DateOnly != dateOnlySelected || ShiftManagerCreated.IsAM != cbIsAm.Checked)
+            //////{
+            //////    //SetToShiftFromDatabase();
+            //////}
+            //////else
+            //////{
+            //////    SetToNewShift();
+            //////}
 
 
         }
@@ -314,7 +314,7 @@ namespace FloorPlanMakerUI
 
             flowServersOnShift.Controls.Clear();
             PopulateServers(ShiftManagerCreated.AllServers);
-            //List<Button> serversOnShiftButtons = new List<Button>();
+            //////List<Button> serversOnShiftButtons = new List<Button>();
             List<Button> serversNotOnShiftButtons = new List<Button>();
             List<Floorplan> shiftFloorplans = new List<Floorplan>();
             shiftFloorplans.AddRange(ShiftManagerCreated.Floorplans);
@@ -355,7 +355,7 @@ namespace FloorPlanMakerUI
             ShiftManagerCreated.UnassignedServers.Clear();
             flowServersOnShift.Controls.Clear();
             PopulateServers(ShiftManagerCreated.AllServers);
-            //List<Button> serversOnShiftButtons = new List<Button>();
+            //////List<Button> serversOnShiftButtons = new List<Button>();
             List<Button> serversNotOnShiftButtons = new List<Button>();
             var relevantFloorplans = allFloorplans
                 .Where(fp => fp.Date.Date == dateSelected && fp.IsLunch == cbIsAm.Checked)
@@ -404,16 +404,15 @@ namespace FloorPlanMakerUI
 
             var result = new Dictionary<DiningArea, int>();
 
-            // Initialize all dining areas with zero count
+            
             foreach (var area in DiningAreaManager.DiningAreas)
             {
                 result[area] = 0;
             }
 
-            // Count servers for the relevant floorplans
+            
             foreach (var fp in relevantFloorplans)
-            {
-                // Now this should update the entry instead of creating a new one
+            {               
                 result[fp.DiningArea] += fp.Servers.Count;
             }
 
@@ -519,7 +518,7 @@ namespace FloorPlanMakerUI
             }
             ShiftManagerCreated.RemoveAssignedServers();
             SetShiftManagerDateAndIsAM();
-            frmEditStaff.UpdateNewShift(ShiftManagerCreated);
+            //****frmEditStaff.UpdateNewShift(ShiftManagerCreated);
             this.Close();
 
         }
@@ -531,7 +530,7 @@ namespace FloorPlanMakerUI
 
         private void cbIsAm_CheckedChanged(object sender, EventArgs e)
         {
-            //isAM = cbIsAm.Checked;
+           
             if (isAM)
             {
                 cbIsAm.Image = Resources.smallSunrise;

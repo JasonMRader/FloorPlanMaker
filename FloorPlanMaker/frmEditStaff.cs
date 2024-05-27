@@ -16,7 +16,7 @@ namespace FloorPlanMaker
         //private Shift newShiftManager = new Shift();
         //private Shift pastShiftsManager;
         private ShiftManager ShiftManager = new ShiftManager();
-        private DiningAreaCreationManager DiningAreaManager = new DiningAreaCreationManager();
+        private DiningAreaManager DiningAreaManager = new DiningAreaManager();
         private DateTime dateSelected = DateTime.MinValue;
         private List<Floorplan> allFloorplans = new List<Floorplan>();
         private int currentFocusedFloorplanIndex = 0;

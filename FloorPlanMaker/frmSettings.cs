@@ -14,7 +14,7 @@ namespace FloorPlanMakerUI
 {
     public partial class frmSettings : Form
     {
-        private DiningAreaCreationManager areaCreationManager = new DiningAreaCreationManager();
+        private DiningAreaManager areaCreationManager = new DiningAreaManager();
         public frmSettings()
         {
             InitializeComponent();
