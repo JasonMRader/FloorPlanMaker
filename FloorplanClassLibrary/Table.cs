@@ -37,8 +37,9 @@
         }
         public override string ToString()
         {
-            return "{"+ TableNumber + "} " + "\n" + "Top: " + Top.ToString() + " Right: " + Right.ToString() +
-                " Bottom: " + Bottom.ToString() + " Left: " + Left.ToString();
+            //return "{"+ TableNumber + "} " + "\n" + "Top: " + Top.ToString() + " Right: " + Right.ToString() +
+            //    " Bottom: " + Bottom.ToString() + " Left: " + Left.ToString();
+            return "{" + TableNumber + "} " + "$" + AverageSales.ToString();
         }
         public bool IsNeighbor(Table other)
         {

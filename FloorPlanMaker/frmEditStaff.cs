@@ -477,13 +477,20 @@ namespace FloorPlanMaker
 
         private void btnAssignTables_Click(object sender, EventArgs e)
         {
-            //foreach (Floorplan fp in newShiftManager.Floorplans)
+            bool emptyFloorplan = false;
             foreach (Floorplan fp in ShiftManager.SelectedShift.Floorplans)
             {
                 fp.Date = dateSelected;
+                if (fp.Servers.Count == 0)
+                {
+                    emptyFloorplan = true;
+                }
             }
-            //newShiftManager.DateOnly = new DateOnly(dateSelected.Year, dateSelected.Month, dateSelected.Day);
-            //form1Reference.UpdateForm1ShiftManager(this.newShiftManager);
+            if (emptyFloorplan)
+            {
+                MessageBox.Show("All floorplans must have a servers assigned.");
+                return;
+            }
             ShiftManager.SelectedShift.DateOnly = new DateOnly(dateSelected.Year, dateSelected.Month, dateSelected.Day);
             form1Reference.UpdateForm1ShiftManager(this.ShiftManager.SelectedShift);
 

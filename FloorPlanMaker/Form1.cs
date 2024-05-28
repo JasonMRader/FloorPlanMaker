@@ -24,7 +24,7 @@ namespace FloorPlanMaker
         // when saving a floorplan
         private DiningAreaManager areaCreationManager = new DiningAreaManager();
         EmployeeManager employeeManager = new EmployeeManager();
-        private Shift shiftManager;
+        private Shift shift;
         private int LastTableNumberSelected;
         private TableControl currentEmphasizedTableControl = null;
         private DrawingHandler drawingHandler;
@@ -194,9 +194,9 @@ namespace FloorPlanMaker
             cbIsAM.Checked = shiftManagerToAdd.IsAM;
             foreach (Floorplan fp in shiftManagerToAdd.Floorplans)
             {
-                this.shiftManager.AddFloorplanAndServers(fp);
+                this.shift.AddFloorplanAndServers(fp);
             }
-            if (!shiftManager.IsAM)
+            if (!shift.IsAM)
             {
                 List<Floorplan> amFloorplans = SqliteDataAccess.LoadFloorplansByDateAndShift(shiftManagerToAdd.DateOnly, true);
                 if (amFloorplans == null) return;
@@ -221,7 +221,7 @@ namespace FloorPlanMaker
         {
             InitializeComponent();
             drawingHandler = new DrawingHandler(pnlFloorPlan);
-            shiftManager = new Shift();
+            shift = new Shift();
             //shiftManager.ServersNotOnShift = SqliteDataAccess.LoadServers();
             this.KeyDown += pnlFloorPlan_KeyDown;
             pnlFloorPlan.MouseDown += pnlFloorplan_MouseDown;
@@ -229,7 +229,7 @@ namespace FloorPlanMaker
             pnlFloorPlan.MouseMove += pnlFloorplan_MouseMove;
             pnlFloorPlan.Paint += PnlFloorplan_Paint;
             this.sectionLineManager = new SectionLineManager(allTableControls);
-            floorplanManager = new FloorplanFormManager(shiftManager);
+            floorplanManager = new FloorplanFormManager(shift);
 
             // Subscribe to the event
             //floorplanManager.SectionLabelRemoved += FloorplanManager_SectionLabelRemoved;
@@ -401,7 +401,7 @@ namespace FloorPlanMaker
             rdoLastFourWeekdayStats.Text = "Last Four " + dateOnlySelected.DayOfWeek.ToString() + "s";
 
             updateSalesForTables();
-
+            //float areaSales = floorplanManager.Floorplan.DiningArea.GetAverageSales();
 
         }
         public void UpdateWithTemplate()
@@ -432,7 +432,7 @@ namespace FloorPlanMaker
         }
         private void cboDiningAreas_SelectedIndexChanged(object sender, EventArgs e)
         {
-            shiftManager.SelectedDiningArea = (DiningArea?)cboDiningAreas.SelectedItem;
+            shift.SelectedDiningArea = (DiningArea?)cboDiningAreas.SelectedItem;
             floorplanManager.AddTableControls(pnlFloorPlan);
 
             floorplanManager.SetViewedFloorplan(dateOnlySelected, cbIsAM.Checked, pnlFloorPlan, flowServersInFloorplan, flowSectionSelect);
@@ -480,7 +480,7 @@ namespace FloorPlanMaker
                 pnlNavHighlight.Location = new Point(rdoShifts.Left, 0);
                 if (_frmEditStaff == null)
                 {
-                    _frmEditStaff = new frmEditStaff(employeeManager, shiftManager, this) { TopLevel = false, AutoScroll = true };
+                    _frmEditStaff = new frmEditStaff(employeeManager, shift, this) { TopLevel = false, AutoScroll = true };
                 }
                 pnlNavigationWindow.Controls.Add(_frmEditStaff);
                 _frmEditStaff.Show();
@@ -529,7 +529,7 @@ namespace FloorPlanMaker
         private void btnSaveFloorplanTemplate_Click(object sender, EventArgs e)
         {
 
-            FloorplanTemplate template = new FloorplanTemplate(shiftManager.SelectedFloorplan);
+            FloorplanTemplate template = new FloorplanTemplate(shift.SelectedFloorplan);
             if (template.IsDuplicate())
             {
                 MessageBox.Show("This Template Already Exists");
@@ -545,7 +545,7 @@ namespace FloorPlanMaker
         {
             if (_frmTemplateSelection == null)
             {
-                _frmTemplateSelection = new frmTemplateSelection(floorplanManager, shiftManager.SelectedDiningArea, this)
+                _frmTemplateSelection = new frmTemplateSelection(floorplanManager, shift.SelectedDiningArea, this)
                 { TopLevel = false, AutoScroll = true };
                 pnlTemplateContainer.Controls.Add(_frmTemplateSelection);
             }
@@ -560,17 +560,17 @@ namespace FloorPlanMaker
             Section pickUpSection = new Section(floorplanManager.Floorplan);
             pickUpSection.IsPickUp = true;
             //shiftManager.SelectedFloorplan = shiftManager.ViewedFloorplan;
-            shiftManager.SelectedFloorplan.Date = dateTimeSelected;
-            shiftManager.SelectedFloorplan.IsLunch = cbIsAM.Checked;
+            shift.SelectedFloorplan.Date = dateTimeSelected;
+            shift.SelectedFloorplan.IsLunch = cbIsAM.Checked;
             foreach (Control control in pnlFloorPlan.Controls)
             {
                 if (control is TableControl tableControl)
                 {
                     if (tableControl.Section == null)
                     {
-                        pickUpSection.DiningAreaID = shiftManager.SelectedFloorplan.DiningArea.ID;
+                        pickUpSection.DiningAreaID = shift.SelectedFloorplan.DiningArea.ID;
                         pickUpSection.Name = "Pick Up";
-                        shiftManager.SelectedFloorplan.Sections.Add(pickUpSection);
+                        shift.SelectedFloorplan.Sections.Add(pickUpSection);
                         pickUpAdded = true;
                     }
                     break;
@@ -594,13 +594,13 @@ namespace FloorPlanMaker
             {
                 //UpdateSectionLabels(shiftManager.SectionSelected, shiftManager.SectionSelected.MaxCovers, shiftManager.SectionSelected.AverageCovers);
                 //CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
-                SectionLabelControl sectionControl = new SectionLabelControl(pickUpSection, shiftManager.SelectedFloorplan.ServersWithoutSection);
+                SectionLabelControl sectionControl = new SectionLabelControl(pickUpSection, shift.SelectedFloorplan.ServersWithoutSection);
                 pnlFloorPlan.Controls.Add(sectionControl);
                 sectionControl.BringToFront();
             }
-            if (shiftManager.SelectedFloorplan.CheckIfAllSectionsAssigned())
+            if (shift.SelectedFloorplan.CheckIfAllSectionsAssigned())
             {
-                if (!shiftManager.SelectedFloorplan.CheckIfCloserIsAssigned())
+                if (!shift.SelectedFloorplan.CheckIfCloserIsAssigned())
                 {
                     DialogResult result = MessageBox.Show("There is not a closer assigned. \n Continue anyway?",
                                                 "Continue?",
@@ -623,7 +623,7 @@ namespace FloorPlanMaker
                         }
                     }
                 }
-                SqliteDataAccess.SaveFloorplanAndSections(shiftManager.SelectedFloorplan);
+                SqliteDataAccess.SaveFloorplanAndSections(shift.SelectedFloorplan);
 
                 //TODO SECTIONLINES DISABLED
                
@@ -677,8 +677,8 @@ namespace FloorPlanMaker
             flowSectionSelect.Controls.Clear();
             coversImageLabel = new ImageLabelControl(UITheme.covers, "0", (flowSectionSelect.Width / 2) - 7, 30);
             salesImageLabel = new ImageLabelControl(UITheme.sales, "$0", (flowSectionSelect.Width / 2) - 7, 30);
-            coversImageLabel.UpdateText(shiftManager.SelectedDiningArea.GetMaxCovers().ToString("F0"));
-            salesImageLabel.UpdateText(shiftManager.SelectedDiningArea.GetAverageSales().ToString("C0"));
+            coversImageLabel.UpdateText(shift.SelectedDiningArea.GetMaxCovers().ToString("F0"));
+            salesImageLabel.UpdateText(shift.SelectedDiningArea.GetAverageSales().ToString("C0"));
             flowSectionSelect.Controls.Add(coversImageLabel);
             flowSectionSelect.Controls.Add(salesImageLabel);
             PictureBox noSections = new PictureBox
@@ -870,12 +870,12 @@ namespace FloorPlanMaker
 
         private void CreateSectionBorders()
         {
-            TableGrid grid = new TableGrid(shiftManager.SelectedDiningArea.Tables);
+            TableGrid grid = new TableGrid(shift.SelectedDiningArea.Tables);
             grid.FindTableTopBottomNeighbors();
             grid.FindTableNeighbors();
             grid.SetTableBoarderMidPoints();
             grid.CreateNeighbors();
-            grid.SetSections(this.shiftManager.SelectedFloorplan.Sections);
+            grid.SetSections(this.shift.SelectedFloorplan.Sections);
             SectionLineDrawer edgeDrawer = new SectionLineDrawer(5f);
             Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, grid.GetSectionTableBoarders());
 
@@ -920,7 +920,7 @@ namespace FloorPlanMaker
                 }
             }
             
-            lblTotalSales.Text = floorplanManager.floorplanSalesDisplay;
+            lblTotalSales.Text = floorplanManager.Shift.SelectedDiningArea.ExpectedSales.ToString();
             
         }
         private void rdoYesterdayStats_CheckedChanged(object sender, EventArgs e)
@@ -972,9 +972,9 @@ namespace FloorPlanMaker
                 floorplanManager.SetSalesManagerStats(stats);
                 SetTableSalesView();
             }
-            if(floorplanManager.Floorplan != null) {
-                floorplanManager.UpdateAveragesPerServer();
-            }
+            //if(floorplanManager.Floorplan != null) {
+            //    floorplanManager.UpdateAveragesPerServer();
+            //}
            
            
         }

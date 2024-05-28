@@ -764,7 +764,7 @@ namespace FloorPlanMakerUI
             Panel pnlFloorPlan, FlowLayoutPanel flowServersInFloorplan, FlowLayoutPanel flowSectionSelect)
         {
             //NoServersToDisplay();
-            SetTableSales();
+            //SetTableSales();
 
             if (Shift.ContainsFloorplan(dateOnlySelected, isAM, Shift.SelectedDiningArea.ID))
             {
@@ -929,7 +929,9 @@ namespace FloorPlanMakerUI
             {
                 this.tableSalesManager.Stats = stats;
             }
-            SetTableSales();
+            //SetTableSales();
+            Shift.SelectedDiningArea.SetTableSales(stats);
+            //UpdateAveragesPerServer();
         }
         
     }
