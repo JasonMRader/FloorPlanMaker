@@ -96,7 +96,7 @@ namespace FloorPlanMakerUI
         }
         private void PopulateNotOnServers(List<Server> servers)
         {
-            servers = servers.OrderBy(s => s.Name).ToList();
+            servers = servers.OrderByFirstLetter().ToList();
             flowAllServers.Controls.Clear();
             foreach (Server server in servers)
             {
@@ -110,7 +110,7 @@ namespace FloorPlanMakerUI
         }
         private void PopulateServersOnShift(List<Server> servers)
         {
-            servers = servers.OrderBy(s => s.Name).ToList();
+            servers = servers.OrderByFirstLetter().ToList();
             flowServersOnShift.Controls.Clear();
             foreach (Server server in servers)
             {
