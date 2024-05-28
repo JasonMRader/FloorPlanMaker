@@ -172,6 +172,7 @@
             cboSalesMethod.Name = "cboSalesMethod";
             cboSalesMethod.Size = new Size(78, 23);
             cboSalesMethod.TabIndex = 29;
+            cboSalesMethod.Visible = false;
             // 
             // label1
             // 
@@ -182,6 +183,7 @@
             label1.Size = new Size(67, 15);
             label1.TabIndex = 30;
             label1.Text = "Sales From:";
+            label1.Visible = false;
             // 
             // frmEditStaff
             // 
