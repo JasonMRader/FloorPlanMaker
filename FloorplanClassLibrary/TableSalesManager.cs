@@ -122,6 +122,27 @@ namespace FloorplanClassLibrary
 
             this.Stats = SqliteDataAccess.LoadTableStatsByDateListAndLunch(IsLunch, previousWeekdays);
         }
+        private static List<TableStat> CalculateAverageSales(List<TableStat> tableStats, int numberOfDays)
+        {
+            // Group the table stats by TableStatNumber
+            var groupedStats = tableStats
+                .GroupBy(ts => ts.TableStatNumber)
+                .Select(group => new
+                {
+                    TableStatNumber = group.Key,
+                    TotalSales = group.Sum(g => g.Sales ?? 0)
+                });
+
+            // Calculate average sales and create new TableStat objects
+            var averageStats = groupedStats
+                .Select(g => new TableStat
+                {
+                    TableStatNumber = g.TableStatNumber,
+                    Sales = g.TotalSales / numberOfDays
+                }).ToList();
+
+            return averageStats;
+        }
         //public List<TableStat> GetStatsByShiftAndDayOfWeek(List<TableStat> allStats, bool isLunch, DayOfWeek dayOfWeek)
         //{
         //    return allStats

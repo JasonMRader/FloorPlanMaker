@@ -440,7 +440,7 @@ namespace FloorPlanMakerUI
                 //Changed here
                 if (!shiftManager.SelectedShift.DiningAreasUsed.Contains(area))
                 {
-                    shiftManager.SelectedShift.CreateFloorplanForDiningArea(area, DateTime.Now, isAM, 0, 0);
+                    shiftManager.SelectedShift.CreateFloorplanForDiningArea(area, 0, 0);
                 }
 
 

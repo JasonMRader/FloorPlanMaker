@@ -214,7 +214,7 @@ namespace FloorPlanMaker
             DateOnly date = DateOnly.FromDateTime(dateSelected);
             ShiftManager.SetSelectedShift(date, cbIsAM.Checked);
             RefreshFloorplanFlowPanel(ShiftManager.SelectedShift.Floorplans);
-            UpdateCountLabels();
+            //UpdateCountLabels();
 
             //if (!isNewShift)
             //{

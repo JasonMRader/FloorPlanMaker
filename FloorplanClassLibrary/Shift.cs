@@ -280,10 +280,10 @@ namespace FloorplanClassLibrary
             this.TemplateSections.Clear();
             this.TemplateSections.AddRange(template.Sections);
         }
-        public Floorplan CreateFloorplanForDiningArea(DiningArea diningArea,DateTime date, bool isLunch, int serverCount, int sectionCount)
+        public Floorplan CreateFloorplanForDiningArea(DiningArea diningArea, int serverCount, int sectionCount)
         {
-            DateOnly dateOnly = new DateOnly(date.Year, date.Month, date.Day);
-            Floorplan newFloorplan = new Floorplan(diningArea, date, isLunch,0,0);
+            DateTime date = new DateTime(this.DateOnly.Year, this.DateOnly.Month, this.DateOnly.Day);
+            Floorplan newFloorplan = new Floorplan(diningArea, date, this.IsAM ,0,0);
             _floorplans.Add(newFloorplan);
             //if(newFloorplan != null)
             //{
