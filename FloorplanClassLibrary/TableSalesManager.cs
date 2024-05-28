@@ -1,6 +1,7 @@
 ﻿using CsvHelper;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -13,9 +14,17 @@ namespace FloorplanClassLibrary
     {
         public TableSalesManager() { }
         public List<TableStat> Stats { get; set; } = new List<TableStat>();
+        public StatsPeriod CurrentStatsPeriod { get; set; } = StatsPeriod.Today;
         public List<DateOnly> DatesAveraged { get; set; }
         public bool IsLunch { get; set; }
         public string DiningAreaTotalSalesDisplay { get; private set; }
+        public enum StatsPeriod
+        {
+            Today,
+            Yesterday,
+            LastWeekday,
+            LastFourWeekDays
+        }
         public float? ShiftExpectedSales
         {
             get
@@ -93,19 +102,37 @@ namespace FloorplanClassLibrary
                 return records;
             }
         }
-        public void SetDateToToday(DateOnly dateOnly)
+        public void SetStatsList(bool isAm, DateOnly dateOnly)
         {
-            this.Stats = SqliteDataAccess.LoadTableStatsByDateAndLunch(IsLunch, dateOnly);
+            switch (this.CurrentStatsPeriod)
+            {
+                case StatsPeriod.Today:
+                    SetDateToToday(isAm, dateOnly); 
+                    break;
+                case StatsPeriod.Yesterday:
+                    SetDateToYesterday(isAm, dateOnly);
+                    break;
+                case StatsPeriod.LastWeekday:
+                    SetDateToLastWeek(isAm, dateOnly);
+                    break;
+                case StatsPeriod.LastFourWeekDays:
+                    SetDatesToLastFourWeekdays(isAm, dateOnly);
+                    break;
+            }
         }
-        public void SetDateToYesterday(DateOnly dateOnly)
+        public void SetDateToToday(bool isAM, DateOnly dateOnly)
         {
-            this.Stats = SqliteDataAccess.LoadTableStatsByDateAndLunch(IsLunch, dateOnly.AddDays(-1));
+            this.Stats = SqliteDataAccess.LoadTableStatsByDateAndLunch(isAM, dateOnly);
         }
-        public void SetDateToLastWeek(DateOnly dateOnly)
+        public void SetDateToYesterday(bool isAM, DateOnly dateOnly)
         {
-            this.Stats = SqliteDataAccess.LoadTableStatsByDateAndLunch(IsLunch, dateOnly.AddDays(-7));
+            this.Stats = SqliteDataAccess.LoadTableStatsByDateAndLunch(isAM, dateOnly.AddDays(-1));
         }
-        public void SetDatesToLastFourWeekdays(DateOnly dateOnly)
+        public void SetDateToLastWeek(bool isAM, DateOnly dateOnly)
+        {
+            this.Stats = SqliteDataAccess.LoadTableStatsByDateAndLunch(isAM, dateOnly.AddDays(-7));
+        }
+        public void SetDatesToLastFourWeekdays(bool isAM, DateOnly dateOnly)
         {
             var day = dateOnly;
 
@@ -120,7 +147,7 @@ namespace FloorplanClassLibrary
             }
 
 
-            this.Stats = SqliteDataAccess.LoadTableStatsByDateListAndLunch(IsLunch, previousWeekdays);
+            this.Stats = SqliteDataAccess.LoadTableStatsByDateListAndLunch(isAM, previousWeekdays);
         }
         private static List<TableStat> CalculateAverageSales(List<TableStat> tableStats, int numberOfDays)
         {

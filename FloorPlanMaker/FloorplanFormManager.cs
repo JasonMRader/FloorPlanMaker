@@ -33,6 +33,8 @@ namespace FloorPlanMakerUI
         private ImageLabelControl salesImageLabel = new ImageLabelControl();
         private ToolTip toolTip = new ToolTip();
         private TableSalesManager tableSalesManager = new TableSalesManager();
+        public DateOnly dateOnly => this.Shift.DateOnly;
+        public bool isAm => this.Shift.IsAM;
         
         public TemplateManager TemplateManager { get; set; }
 
@@ -701,15 +703,7 @@ namespace FloorPlanMakerUI
             }
             return true;
         }
-        public void UpdateAveragesPerServer()
-        {
-            coversImageLabel.UpdateText(Shift.SelectedFloorplan.MaxCoversPerServer.ToString("F0"));
-            salesImageLabel.UpdateText(Shift.SelectedFloorplan.GetAvgSalesPerServer().ToString("C0"));
-            foreach(SectionPanelControl sectionPanel in _sectionPanels)
-            {
-                sectionPanel.UpdateLabels();
-            }
-        }
+        
 
         public void SelectTables(List<TableControl> selectedTables)
         {
@@ -760,98 +754,46 @@ namespace FloorPlanMakerUI
         {
            
         }
-        public void SetViewedFloorplan(DateOnly dateOnlySelected, bool isAM,
-            Panel pnlFloorPlan, FlowLayoutPanel flowServersInFloorplan, FlowLayoutPanel flowSectionSelect)
-        {
-            //NoServersToDisplay();
-            //SetTableSales();
+        
+        //private void LoadTableSalesForPastDate()
+        //{
+        //    if(this.Floorplan != null)
+        //    {
+        //        List<TableStat> statList = SqliteDataAccess.LoadTableStatsByDateAndLunch(this.Floorplan.IsLunch, this.Floorplan.DateOnly);
+        //        if(statList.Count > 0)
+        //        {
+        //            foreach (Table table in this.Floorplan.DiningArea.Tables)
+        //            {
+        //                var matchedStat = statList.FirstOrDefault(t => t.TableStatNumber == table.TableNumber);
+        //                if (matchedStat != null)
+        //                {
+        //                    table.AverageSales = (float)matchedStat.Sales;
+        //                }
+        //                else { table.AverageSales = 0; }
+        //            }
+        //        }
 
-            if (Shift.ContainsFloorplan(dateOnlySelected, isAM, Shift.SelectedDiningArea.ID))
-            {
-                Shift.SetSelectedFloorplan(dateOnlySelected, isAM, Shift.SelectedDiningArea.ID);
-            }
-            else
-            {
-                Shift.SelectedFloorplan = SqliteDataAccess.LoadFloorplanByCriteria(Shift.SelectedDiningArea, dateOnlySelected, isAM);
-                if (Shift.SelectedFloorplan != null)
-                {
-                    UpdateAveragesPerServer();
-                }
-               
-            }
-
-            if (Shift.SelectedFloorplan != null)
-            {
-                AddTableControls(pnlFloorPlan);
-                SetSectionLabels();
-                SetSectionPanels();
-                AddSectionLabels(pnlFloorPlan);
-                SetServerControls();
-                UpdateTableControlColors();
-                flowSectionSelect.Controls.Clear();
-                flowServersInFloorplan.Controls.Clear();
-                AddServerControls(flowServersInFloorplan);
-                AddSectionPanels(flowSectionSelect);
-                AddSectionLabels(pnlFloorPlan);
-                //UpdateServerControlsForFloorplan();
-                coversImageLabel.UpdateText(Shift.SelectedFloorplan.MaxCoversPerServer.ToString("F0"));
-                salesImageLabel.UpdateText(Shift.SelectedFloorplan.AvgSalesPerServer.ToString("C0"));
-                LoadTableSalesForPastDate();
-                UpdateAveragesPerServer();
                 
-            }
-            else
-            {
-                foreach(SectionLabelControl sectionLabel in _sectionLabels)
-                {
-                    pnlFloorPlan.Controls.Remove(sectionLabel);
-                }
-                //TODO: REMOVE THIS TEST CODE!!!!!!
-                //**********************************************************************
-                List<TableStat> statList = SqliteDataAccess.LoadTableStatsByDateAndLunch(isAM, dateOnlySelected);
-                if (statList.Count > 0)
-                {
-                    foreach (Table table in this.Shift.SelectedDiningArea.Tables)
-                    {
-                        var matchedStat = statList.FirstOrDefault(t => t.TableStatNumber == table.TableNumber);
-                        if (matchedStat != null)
-                        {
-                            table.AverageSales = (float)matchedStat.Sales;
-                        }
-                        else { table.AverageSales = 0; }
-                    }
-                }
-                //************************************************************************************
-
-                UpdateTableControlColors();
-                
-            }
+        //    }
            
-        }
-        private void LoadTableSalesForPastDate()
-        {
-            if(this.Floorplan != null)
-            {
-                List<TableStat> statList = SqliteDataAccess.LoadTableStatsByDateAndLunch(this.Floorplan.IsLunch, this.Floorplan.DateOnly);
-                if(statList.Count > 0)
-                {
-                    foreach (Table table in this.Floorplan.DiningArea.Tables)
-                    {
-                        var matchedStat = statList.FirstOrDefault(t => t.TableStatNumber == table.TableNumber);
-                        if (matchedStat != null)
-                        {
-                            table.AverageSales = (float)matchedStat.Sales;
-                        }
-                        else { table.AverageSales = 0; }
-                    }
-                }
-
-                
-            }
-           
-        }
+        //}
         public string floorplanSalesDisplay { get; set; }
         private string TestData = "";
+        private void SetTableSalesTEST()
+        {
+            if (tableSalesManager.Stats.Count > 0)
+            {
+                foreach (Table table in this.Shift.SelectedDiningArea.Tables)
+                {
+                    var matchedStat = tableSalesManager.Stats.FirstOrDefault(t => t.TableStatNumber == table.TableNumber);
+                    if (matchedStat != null)
+                    {
+                        table.AverageSales = (float)matchedStat.Sales;
+                    }
+                    else { table.AverageSales = 0; }
+                }
+            }
+        }
         private void SetTableSales()
         {
             string test = "";
@@ -923,16 +865,120 @@ namespace FloorPlanMakerUI
             // If no suitable position is found, the control stays at the end
             return flowPanel.Controls.Count - 2;
         }
-        public void SetSalesManagerStats(List<TableStat> stats)
+        //public void SetSalesManagerStats(List<TableStat> stats)
+        //{
+        //    if (stats != null)
+        //    {
+        //        this.tableSalesManager.Stats = stats;
+        //    }
+        //    //SetTableSales();
+            
+        //    //UpdateAveragesPerServer();
+        //}
+        public void SetTableSalesStatsPeriod(TableSalesManager.StatsPeriod statsPeriod)
         {
-            if (stats != null)
+            this.tableSalesManager.CurrentStatsPeriod = statsPeriod;
+            UpdateTableStats();
+            if(this.Floorplan == null)
             {
-                this.tableSalesManager.Stats = stats;
+                coversImageLabel.UpdateText(Shift.SelectedDiningArea.GetMaxCovers().ToString("F0"));
+                salesImageLabel.UpdateText(Shift.SelectedDiningArea.ExpectedSales.ToString("C0"));
+                coversImageLabel.Invalidate();
+                salesImageLabel.Invalidate();
             }
-            //SetTableSales();
-            Shift.SelectedDiningArea.SetTableSales(stats);
-            //UpdateAveragesPerServer();
+            else
+            {
+                UpdateAveragesPerServer();
+            }
+            
+
         }
-        
+        private void UpdateTableStats()
+        {
+            this.tableSalesManager.SetStatsList(this.isAm, this.dateOnly);
+            Shift.SelectedDiningArea.SetTableSales(tableSalesManager.Stats);
+        }
+        public void UpdateAveragesPerServer()
+        {
+            float averagerPerServer = Shift.SelectedDiningArea.ExpectedSales / Floorplan.Servers.Count;
+            coversImageLabel.UpdateText(Shift.SelectedFloorplan.MaxCoversPerServer.ToString("F0"));
+            salesImageLabel.UpdateText(averagerPerServer.ToString("C0"));
+            coversImageLabel.Invalidate();
+            salesImageLabel.Invalidate();
+            foreach (SectionPanelControl sectionPanel in _sectionPanels)
+            {
+                sectionPanel.UpdateLabels();
+            }
+        }
+        public void SetViewedFloorplan(DateOnly dateOnlySelected, bool isAM,
+            Panel pnlFloorPlan, FlowLayoutPanel flowServersInFloorplan, FlowLayoutPanel flowSectionSelect)
+        {
+            //NoServersToDisplay();
+            //SetTableSales();
+            this.Shift.DateOnly = dateOnlySelected;
+            this.Shift.IsAM = isAM;
+
+            if (Shift.ContainsFloorplan(dateOnlySelected, isAM, Shift.SelectedDiningArea.ID))
+            {
+                Shift.SetSelectedFloorplan(dateOnlySelected, isAM, Shift.SelectedDiningArea.ID);
+            }
+            else
+            {
+                Shift.SelectedFloorplan = SqliteDataAccess.LoadFloorplanByCriteria(Shift.SelectedDiningArea, dateOnlySelected, isAM);
+                if (Shift.SelectedFloorplan != null)
+                {
+                    UpdateAveragesPerServer();
+                }
+
+            }
+
+            if (Shift.SelectedFloorplan != null)
+            {
+                AddTableControls(pnlFloorPlan);
+                SetSectionLabels();
+                SetSectionPanels();
+                AddSectionLabels(pnlFloorPlan);
+                SetServerControls();
+                UpdateTableControlColors();
+                flowSectionSelect.Controls.Clear();
+                flowServersInFloorplan.Controls.Clear();
+                AddServerControls(flowServersInFloorplan);
+                AddSectionPanels(flowSectionSelect);
+                AddSectionLabels(pnlFloorPlan);
+                //UpdateServerControlsForFloorplan();
+
+                //LoadTableSalesForPastDate();
+                // SetTableSales();
+                UpdateTableStats();
+                UpdateAveragesPerServer();
+                coversImageLabel.UpdateText(Shift.SelectedFloorplan.MaxCoversPerServer.ToString("F0"));
+                salesImageLabel.UpdateText(Shift.SelectedFloorplan.AvgSalesPerServer.ToString("C0"));
+                coversImageLabel.Invalidate();
+                salesImageLabel.Invalidate();
+
+            }
+            else
+            {
+                foreach (SectionLabelControl sectionLabel in _sectionLabels)
+                {
+                    pnlFloorPlan.Controls.Remove(sectionLabel);
+                }
+                //TODO: REMOVE THIS TEST CODE!!!!!!
+                //**********************************************************************
+                // List<TableStat> statList = SqliteDataAccess.LoadTableStatsByDateAndLunch(isAM, dateOnlySelected);
+
+                //************************************************************************************
+                //SetTableSales();
+                UpdateTableControlColors();
+                UpdateTableStats();
+                coversImageLabel.UpdateText(Shift.SelectedDiningArea.GetMaxCovers().ToString("F0"));
+                salesImageLabel.UpdateText(Shift.SelectedDiningArea.ExpectedSales.ToString("C0"));
+                coversImageLabel.Invalidate();
+                salesImageLabel.Invalidate();
+
+            }
+
+        }
+
     }
 }
