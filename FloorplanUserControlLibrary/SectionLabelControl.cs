@@ -307,7 +307,7 @@ namespace FloorplanClassLibrary
             serversPanel.Controls.Clear();
             foreach (var server in unassignedServers)
             {
-                var serverButton = new Button { Text = server.Name, Tag = server, Dock = DockStyle.Top, Width = this.Width - 20 };
+                var serverButton = new Button { Text = server.ToString(), Tag = server, Dock = DockStyle.Top, Width = this.Width - 20 };
                 serverButton.Click += ServerButton_Click;
                 serversPanel.Controls.Add(serverButton);
             }
