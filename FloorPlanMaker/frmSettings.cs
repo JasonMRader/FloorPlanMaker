@@ -214,5 +214,10 @@ namespace FloorPlanMakerUI
             SqliteDataAccess.DeleteFloorplanTemplate(templateID);
 
         }
+
+        private void btnUpdateNotes_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

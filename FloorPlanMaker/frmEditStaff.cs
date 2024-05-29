@@ -36,10 +36,10 @@ namespace FloorPlanMaker
             UITheme.FormatAccentColor(this);
 
         }
-       
+
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-           
+
             if (keyData == Keys.Tab)
             {
                 MoveToNextFloorplan();
@@ -49,10 +49,10 @@ namespace FloorPlanMaker
             if (keyData == Keys.Left)
             {
                 MovedDateBack();
-                return true; 
+                return true;
             }
 
-           
+
             if (keyData == Keys.Right)
             {
                 MoveDateForward();
@@ -546,7 +546,7 @@ namespace FloorPlanMaker
         {
             dateSelected = dateSelected.AddDays(1);
             lblShiftDate.Text = dateSelected.ToString("dddd, MMMM dd");
-            
+
             SetFloorplansForShiftManager();
         }
         private void btnDateDown_Click(object sender, EventArgs e)
@@ -557,7 +557,7 @@ namespace FloorPlanMaker
         {
             dateSelected = dateSelected.AddDays(-1);
             lblShiftDate.Text = dateSelected.ToString("dddd, MMMM dd");
-            
+
             SetFloorplansForShiftManager();
         }
         private void setIsNewShiftBool()
@@ -565,7 +565,7 @@ namespace FloorPlanMaker
             DateOnly date = DateOnly.FromDateTime(dateSelected);
             foreach (DiningArea diningArea in DiningAreaManager.DiningAreas)
             {
-                Floorplan fp = SqliteDataAccess.LoadFloorplanByCriteria(diningArea, date , cbIsAM.Checked);
+                Floorplan fp = SqliteDataAccess.LoadFloorplanByCriteria(diningArea, date, cbIsAM.Checked);
                 if (fp != null)
                 {
                     isNewShift = false;
@@ -603,7 +603,7 @@ namespace FloorPlanMaker
             cbIsAM.Checked = ShiftManager.IsAM;
 
             RefreshFloorplanFlowPanel(ShiftManager.SelectedShift.Floorplans);
-            PopulateUnassignedServers();           
+            PopulateUnassignedServers();
             UpdateCountLabels();
 
         }
@@ -616,7 +616,7 @@ namespace FloorPlanMaker
                 //newShiftManager.ServersNotOnShift.Remove(server);
                 ShiftManager.SelectedShift.ServersNotOnShift.Remove(server);
                 ServerControl newServerControl = new ServerControl(server, 20);
-                newServerControl.Click += ServerControl_Click;               
+                newServerControl.Click += ServerControl_Click;
                 ImageSetter.SetShiftControlImages(newServerControl);
                 flowUnassignedServers.Controls.Add(newServerControl);
 
@@ -638,6 +638,11 @@ namespace FloorPlanMaker
         }
 
         private void flowUnassignedServers_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void cboSalesMethod_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

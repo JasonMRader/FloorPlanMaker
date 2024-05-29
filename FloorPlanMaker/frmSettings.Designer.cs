@@ -56,6 +56,7 @@
             btnCreateTestData = new Button();
             btnDeleteFloorplans = new Button();
             btnPastSection = new Button();
+            btnUpdateNotes = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudTemplateID).BeginInit();
@@ -225,6 +226,7 @@
             panel2.Controls.Add(nudTemplateID);
             panel2.Controls.Add(btnBackUpDB);
             panel2.Controls.Add(btnChooseDataBase);
+            panel2.Controls.Add(btnUpdateNotes);
             panel2.Location = new Point(459, 92);
             panel2.Name = "panel2";
             panel2.Size = new Size(350, 800);
@@ -368,6 +370,21 @@
             btnPastSection.UseVisualStyleBackColor = false;
             btnPastSection.Click += btnPastSection_Click;
             // 
+            // btnUpdateNotes
+            // 
+            btnUpdateNotes.BackColor = Color.FromArgb(100, 130, 180);
+            btnUpdateNotes.Enabled = false;
+            btnUpdateNotes.FlatAppearance.BorderSize = 0;
+            btnUpdateNotes.FlatStyle = FlatStyle.Flat;
+            btnUpdateNotes.ForeColor = Color.White;
+            btnUpdateNotes.Location = new Point(14, 208);
+            btnUpdateNotes.Name = "btnUpdateNotes";
+            btnUpdateNotes.Size = new Size(322, 43);
+            btnUpdateNotes.TabIndex = 0;
+            btnUpdateNotes.Text = "Version History";
+            btnUpdateNotes.UseVisualStyleBackColor = false;
+            btnUpdateNotes.Click += btnUpdateNotes_Click;
+            // 
             // frmSettings
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -425,5 +442,6 @@
         private Button btnDeleteTemplate;
         private NumericUpDown nudTemplateID;
         private Label label5;
+        private Button btnUpdateNotes;
     }
 }
