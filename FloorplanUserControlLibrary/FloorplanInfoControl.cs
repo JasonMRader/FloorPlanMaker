@@ -26,7 +26,7 @@ namespace FloorPlanMakerUI
             InitializeComponent();
             this.Width = width;
             this.Floorplan = fp;
-            this.UpdateCurrentLabels();
+            this.UpdateCurrentLabels(0);
             this.BackColor = UITheme.CanvasColor;
             setLabelSizes();
             this.Invalidate();
@@ -59,7 +59,7 @@ namespace FloorPlanMakerUI
 
 
         }
-        public void UpdateCurrentLabels()
+        public void UpdateCurrentLabels(int daysAgo)
         {
             //if (this.Width < 200)
             //{
@@ -74,7 +74,7 @@ namespace FloorPlanMakerUI
             //    lblCurrentServerCount.Text = "Servers:   " + this.Floorplan.Servers.Count.ToString();
             //}
             lblCoversPerServer.Text = this.Floorplan.MaxCoversPerServer.ToString("F0");
-            lblSalesPerServer.Text = Section.FormatAsCurrencyWithoutParentheses(this.Floorplan.GetAvgSalesPerServer());
+            lblSalesPerServer.Text = Section.FormatAsCurrencyWithoutParentheses(this.Floorplan.GetAvgSalesPerServerByDay(daysAgo));
             lblCurrentServerCount.Text = this.Floorplan.Servers.Count.ToString();
 
         }

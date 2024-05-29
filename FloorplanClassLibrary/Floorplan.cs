@@ -254,6 +254,29 @@ namespace FloorplanClassLibrary
             
             return totalAreaSales;
         }
+        public float GetAvgSalesPerServerByDay(int daysAgo)
+        {
+            List<TableStat> stats = SqliteDataAccess.LoadTableStatsByDateAndLunch(IsLunch, DateOnly.FromDateTime(Date).AddDays(daysAgo));
+            float totalAreaSales = 0f;
+            foreach (Table table in DiningArea.Tables)
+            {
+                var matchedStat = stats.FirstOrDefault(t => t.TableStatNumber == table.TableNumber);
+                if (matchedStat != null)
+                {
+                    table.AverageSales = (float)matchedStat.Sales;
+                    totalAreaSales += (float)matchedStat.Sales;
+
+                }
+                else { table.AverageSales = 0; }
+
+            }
+            if (this.Servers.Count > 1)
+            {
+                return totalAreaSales / this.Servers.Count;
+            }
+
+            return totalAreaSales;
+        }
         private float TotalPickUpSectionCovers()
         {
             float total = 0;

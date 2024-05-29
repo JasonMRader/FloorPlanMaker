@@ -20,6 +20,7 @@ namespace FloorPlanMaker
         private DateTime dateSelected = DateTime.MinValue;
         private List<Floorplan> allFloorplans = new List<Floorplan>();
         private int currentFocusedFloorplanIndex = 0;
+        private int DaysAgoStats = -1;
 
         private Form1 form1Reference;
         private bool isNewShift = false;
@@ -187,7 +188,7 @@ namespace FloorPlanMaker
                     }
 
                     infoPanel.UpdatePastLabels(yesterday, lastWeek);
-                    infoPanel.UpdateCurrentLabels();
+                    infoPanel.UpdateCurrentLabels(DaysAgoStats);
                 }
             }
         }
@@ -202,7 +203,7 @@ namespace FloorPlanMaker
             cboSalesMethod.Items.Clear();
             cboSalesMethod.Items.Add("Yesterday");
             cboSalesMethod.Items.Add("Last Weekday");
-            cboSalesMethod.Items.Add("Last 4 Weekday");
+            //cboSalesMethod.Items.Add("Last 4 Weekday");
 
         }
 
@@ -500,7 +501,7 @@ namespace FloorPlanMaker
         {
             foreach (FloorplanInfoControl info in infoPanelList)
             {
-                info.UpdateCurrentLabels();
+                info.UpdateCurrentLabels(DaysAgoStats);
             }
 
 
@@ -644,6 +645,15 @@ namespace FloorPlanMaker
 
         private void cboSalesMethod_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if(cboSalesMethod.SelectedItem == "Yesterday")
+            {
+                DaysAgoStats = -1;
+            }
+            if(cboSalesMethod.SelectedItem == "Last Weekday")
+            {
+                DaysAgoStats = -7;
+            }
+            RefreshFloorplanCountLabels();
 
         }
     }
