@@ -989,6 +989,13 @@ namespace FloorPlanMaker
             //salesImageLabel = new ImageLabelControl(UITheme.sales, "$0", (flowSectionSelect.Width / 2) - 7, 30);
             coversImageLabel.UpdateText(shift.SelectedDiningArea.GetMaxCovers().ToString("F0"));
             salesImageLabel.UpdateText(shift.SelectedDiningArea.GetAverageSales().ToString("C0"));
+            if (floorplanManager.Floorplan!= null && floorplanManager.Floorplan.Sections.Count > 0)
+            {
+                foreach(Section section in floorplanManager.Floorplan.Sections)
+                {
+                    section.Notify();  
+                }
+            }
 
 
 

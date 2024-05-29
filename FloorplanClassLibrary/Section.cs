@@ -336,6 +336,7 @@ namespace FloorplanClassLibrary
                 return Tables.Sum(table => table.AverageSales);
             }
         }
+
         public string AverageSalesDisplay()
         {
             CultureInfo culture = CultureInfo.CurrentCulture;

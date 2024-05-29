@@ -291,6 +291,7 @@ namespace FloorplanClassLibrary
         }
         public float GetSalesDifferenceForSection(Section section)
         {
+            
             if (!section.IsTeamWait)
             {
                 return section.AverageSales - this.AvgSalesPerServer;
