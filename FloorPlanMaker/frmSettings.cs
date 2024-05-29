@@ -207,5 +207,12 @@ namespace FloorPlanMakerUI
             //SqliteDataAccess.DeleteTableStatsByDateRange(new DateTime(2024, 5, 22), new DateTime(2024, 5, 22));
 
         }
+
+        private void btnDeleteTemplate_Click(object sender, EventArgs e)
+        {
+            int templateID = (int)nudTemplateID.Value;
+            SqliteDataAccess.DeleteFloorplanTemplate(templateID);
+
+        }
     }
 }

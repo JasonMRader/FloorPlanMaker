@@ -43,6 +43,9 @@
             label1 = new Label();
             lbMissingData = new ListBox();
             panel2 = new Panel();
+            label5 = new Label();
+            btnDeleteTemplate = new Button();
+            nudTemplateID = new NumericUpDown();
             panel3 = new Panel();
             label4 = new Label();
             txtSales = new TextBox();
@@ -55,6 +58,7 @@
             btnPastSection = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)nudTemplateID).BeginInit();
             panel3.SuspendLayout();
             SuspendLayout();
             // 
@@ -216,12 +220,41 @@
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(180, 190, 200);
+            panel2.Controls.Add(label5);
+            panel2.Controls.Add(btnDeleteTemplate);
+            panel2.Controls.Add(nudTemplateID);
             panel2.Controls.Add(btnBackUpDB);
             panel2.Controls.Add(btnChooseDataBase);
             panel2.Location = new Point(459, 92);
             panel2.Name = "panel2";
             panel2.Size = new Size(350, 800);
             panel2.TabIndex = 2;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(14, 490);
+            label5.Name = "label5";
+            label5.Size = new Size(18, 15);
+            label5.TabIndex = 3;
+            label5.Text = "ID";
+            // 
+            // btnDeleteTemplate
+            // 
+            btnDeleteTemplate.Location = new Point(79, 508);
+            btnDeleteTemplate.Name = "btnDeleteTemplate";
+            btnDeleteTemplate.Size = new Size(152, 23);
+            btnDeleteTemplate.TabIndex = 2;
+            btnDeleteTemplate.Text = "Delete Template by ID";
+            btnDeleteTemplate.UseVisualStyleBackColor = true;
+            btnDeleteTemplate.Click += btnDeleteTemplate_Click;
+            // 
+            // nudTemplateID
+            // 
+            nudTemplateID.Location = new Point(14, 508);
+            nudTemplateID.Name = "nudTemplateID";
+            nudTemplateID.Size = new Size(48, 23);
+            nudTemplateID.TabIndex = 1;
             // 
             // panel3
             // 
@@ -283,7 +316,7 @@
             // 
             // dtpTestDataDate
             // 
-            dtpTestDataDate.Location = new Point(14, 422);
+            dtpTestDataDate.Location = new Point(14, 448);
             dtpTestDataDate.Name = "dtpTestDataDate";
             dtpTestDataDate.Size = new Size(322, 23);
             dtpTestDataDate.TabIndex = 3;
@@ -291,7 +324,7 @@
             // cboDiningAreas
             // 
             cboDiningAreas.FormattingEnabled = true;
-            cboDiningAreas.Location = new Point(14, 374);
+            cboDiningAreas.Location = new Point(14, 419);
             cboDiningAreas.Name = "cboDiningAreas";
             cboDiningAreas.Size = new Size(322, 23);
             cboDiningAreas.TabIndex = 2;
@@ -299,7 +332,7 @@
             // btnCreateTestData
             // 
             btnCreateTestData.BackColor = Color.FromArgb(255, 192, 192);
-            btnCreateTestData.Location = new Point(14, 329);
+            btnCreateTestData.Location = new Point(14, 555);
             btnCreateTestData.Name = "btnCreateTestData";
             btnCreateTestData.Size = new Size(322, 23);
             btnCreateTestData.TabIndex = 1;
@@ -350,6 +383,8 @@
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             panel2.ResumeLayout(false);
+            panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)nudTemplateID).EndInit();
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
             ResumeLayout(false);
@@ -387,5 +422,8 @@
         private RadioButton rdoAM;
         private DateTimePicker dtpTestDataDate;
         private ComboBox cboDiningAreas;
+        private Button btnDeleteTemplate;
+        private NumericUpDown nudTemplateID;
+        private Label label5;
     }
 }
