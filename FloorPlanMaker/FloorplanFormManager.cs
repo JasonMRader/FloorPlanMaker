@@ -897,6 +897,11 @@ namespace FloorPlanMakerUI
         {
             this.tableSalesManager.SetStatsList(this.isAm, this.dateOnly);
             Shift.SelectedDiningArea.SetTableSales(tableSalesManager.Stats);
+            //TODO: reformate ineffecient, setting tables twice
+            if(Floorplan != null)
+            {
+                Floorplan.DiningArea.SetTableSales(tableSalesManager.Stats);
+            }
         }
         public void UpdateAveragesPerServer()
         {
