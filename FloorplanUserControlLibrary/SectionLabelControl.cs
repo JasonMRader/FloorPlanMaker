@@ -223,6 +223,14 @@ namespace FloorplanClassLibrary
         }
         private void Close_click(object sender, EventArgs e)
         {
+            if (this.Section.IsTeamWait)
+            {
+                closerPanelOpen = !closerPanelOpen;
+                MessageBox.Show("Assigning a teamwait section as close is not supported at this time");
+               
+                return;
+
+            }
             if (this.Section.Server.isDouble)
             {
                 DialogResult result = MessageBox.Show(Section.Server.Name + " is a Double. Assign as closer anyway?",
@@ -248,6 +256,14 @@ namespace FloorplanClassLibrary
         }
         private void Pre_Click(object sender, EventArgs e)
         {
+            if (this.Section.IsTeamWait)
+            {
+                closerPanelOpen = !closerPanelOpen;
+                MessageBox.Show("Assigning a teamwait section as close is not supported at this time");
+                
+                return;
+
+            }
             this.Section.IsCloser = false;
             this.Section.IsPre = true;
             this.setCloserButton.Image = Resources.Pre2;
