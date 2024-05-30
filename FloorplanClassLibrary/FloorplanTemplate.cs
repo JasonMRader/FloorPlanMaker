@@ -61,7 +61,7 @@ namespace FloorplanClassLibrary
             this.Tables = new List<TemplateTable>();
             foreach (Section originalSection in sectionsToCopy)
             {  
-                Section sectionCopy = originalSection.CopySection();
+                Section sectionCopy = originalSection.CopySectionForTemplate();
                 this.Sections.Add(sectionCopy);
                 //foreach (Table table in sectionCopy.Tables)
                 //{

@@ -137,6 +137,10 @@ namespace FloorPlanMakerUI
         {
             Shift.SelectedFloorplan.CopyTemplateSections(template.Sections);
             SetSectionPanels();
+            foreach(SectionPanelControl sectionPanel in this._sectionPanels)
+            {
+                sectionPanel.UpdateLabels();
+            }
         }
         public void ResetSections()
         { 

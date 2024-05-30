@@ -986,8 +986,8 @@ namespace FloorplanClassLibrary
                 foreach (var template in templates)
                 {
                     if (template.DiningAreaID == null) break;
-                    template.DiningArea = cnn.QuerySingle<DiningArea>("SELECT * FROM DiningArea WHERE ID = @ID", new { ID = template.DiningAreaID });
-
+                    //template.DiningArea = cnn.QuerySingle<DiningArea>("SELECT * FROM DiningArea WHERE ID = @ID", new { ID = template.DiningAreaID });
+                    template.DiningArea = diningArea;
                     // Include ServerCount in the query for Section
                     template.Sections = cnn.Query<Section>(
                         "SELECT s.*, s.ServerCount FROM Section s " +

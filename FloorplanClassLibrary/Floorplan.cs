@@ -330,7 +330,7 @@ namespace FloorplanClassLibrary
             this.Sections.Clear();
             foreach (Section section in sections)
             {
-                Section SectionCopy = section.CopySection();
+                Section SectionCopy = section.CopySection(this.DiningArea);
                 
                 Sections.Add(SectionCopy);
             }

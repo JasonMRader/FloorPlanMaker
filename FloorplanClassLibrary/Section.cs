@@ -42,7 +42,7 @@ namespace FloorplanClassLibrary
             this.DiningAreaID = section.DiningAreaID; 
             this.SetTableList( section.Tables.ToList());
         }
-        public Section CopySection()
+        public Section CopySection(DiningArea diningArea)
         {
             Section copy = new Section();
             copy.Number = this.Number;
@@ -55,7 +55,44 @@ namespace FloorplanClassLibrary
             copy.SetSectionPropertiesFromTemplateSection(this);
             copy.DiningAreaID = this.DiningAreaID;
             copy.SetTableList(this.Tables.ToList());
+            CopyTableSalesEstimates(diningArea.Tables);
+            //copy.NotifyObservers();
             return copy;
+        }
+        public Section CopySectionForTemplate()
+        {
+            Section copy = new Section();
+            copy.Number = this.Number;
+            copy.IsCloser = this.IsCloser;
+            copy.IsPickUp = this.IsPickUp;
+            copy.IsPre = this.IsPre;
+            copy.Name = this.Name;
+            //this.Floorplan = section.Floorplan;
+            //this.ServerCount = section.ServerTeam.Count;
+            copy.SetSectionPropertiesFromTemplateSection(this);
+            copy.DiningAreaID = this.DiningAreaID;
+            copy.SetTableList(this.Tables.ToList());
+            //CopyTableSalesEstimates(diningArea.Tables);
+            //copy.NotifyObservers();
+            return copy;
+        }
+        public void CopyTableSalesEstimates(List<Table> tablesToCopy)
+        {
+            foreach(Table table in this.Tables)
+            {
+                Table tableToCopy = tablesToCopy.FirstOrDefault(t => t.TableNumber == table.TableNumber);
+                table.AverageSales = tableToCopy.AverageSales;
+            }
+        }
+        public void CopyTemplateSection(Section sectionToCopied)
+        {
+            this.IsCloser = sectionToCopied.IsCloser;
+            this.IsPickUp = sectionToCopied.IsPickUp;
+            this.IsPre = sectionToCopied.IsPre;
+            this.Name = sectionToCopied.Name;
+            this.SetSectionPropertiesFromTemplateSection(sectionToCopied);
+
+
         }
         private SectionBoarders _SectionBoarders;
         public SectionBoarders SectionBoarders
@@ -284,6 +321,7 @@ namespace FloorplanClassLibrary
         public void SetTableList(List<Table> tables)
         {
             this._tables = tables;
+
             NotifyObservers();
         }
         public void ClearTables()
