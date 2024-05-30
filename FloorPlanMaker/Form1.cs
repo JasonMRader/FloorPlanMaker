@@ -624,6 +624,7 @@ namespace FloorPlanMaker
                     }
                 }
                 SqliteDataAccess.SaveFloorplanAndSections(shift.SelectedFloorplan);
+                MessageBox.Show("Floorplan Saved");
 
                 //TODO SECTIONLINES DISABLED
                
@@ -656,7 +657,7 @@ namespace FloorPlanMaker
                 //FloorplanPrinter printer = new FloorplanPrinter(pnlFloorPlan, edgeDrawer, grid.GetSectionTableBoarders());
                 //printer.ShowPrintPreview();
                 FloorplanPrinter printerNoLines = new FloorplanPrinter(pnlFloorPlan);
-                printerNoLines.ShowPrintPreview();
+                //printerNoLines.ShowPrintPreview();
                 //printer.Print();
             }
             else

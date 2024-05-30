@@ -91,6 +91,7 @@ namespace FloorplanClassLibrary
             sectionLabel.MouseDown += SectionControl_MouseDown;
             sectionLabel.MouseMove += SectionControl_MouseMove;
             sectionLabel.MouseUp += SectionControl_MouseUp;
+            sectionLabel.Click += SectionLabel_Click1;
             this.ResizeRedraw = true;
 
             UpdateLabel();
@@ -101,6 +102,11 @@ namespace FloorplanClassLibrary
             toolTip.SetToolTip(setCloserButton, "Assign Closer");
             toolTip.SetToolTip(assignServerButton, "Assign Server");
             
+        }
+
+        private void SectionLabel_Click1(object? sender, EventArgs e)
+        {
+             this.Section.SetToSelected();
         }
 
         private void AddServerToAvailable(Server server, Section section)
@@ -159,6 +165,7 @@ namespace FloorplanClassLibrary
             closerPanelOpen = !closerPanelOpen;
 
         }
+        
 
         private void SectionControl_Paint(object sender, PaintEventArgs e)
         {           
