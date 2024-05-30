@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Windows.Forms;
+using static System.Collections.Specialized.BitVector32;
 
 namespace FloorplanClassLibrary
 {
@@ -365,7 +366,7 @@ namespace FloorplanClassLibrary
         
         public string GetDisplayString()
         {
-            string displayString = "";
+            string displayString = $"Section {this.Number}";
             //if (this.Server == null)
             //{
             //    displayString =
