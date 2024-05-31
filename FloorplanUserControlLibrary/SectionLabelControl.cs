@@ -34,13 +34,15 @@ namespace FloorplanClassLibrary
         public Section Section { get; set; }
 
         private List<Server> unassignedServers = new List<Server>();
-        public SectionLabelControl(Section section, List<Server> unassignedServers)
+        private List<Server> allServers = new List<Server>();
+        public SectionLabelControl(Section section, List<Server> unassignedServers, List<Server> allServers)
         {
             this.Section = section;
             section.ServerAssigned += RemoveServerFromAvailable;
             section.ServerRemoved += AddServerToAvailable;
             this.Section.SubscribeObserver(this);
             this.unassignedServers = unassignedServers;
+            this.allServers = allServers;
             closerPanel = new FlowLayoutPanel { Dock = DockStyle.Top, Height = 0 };
             closerPanel.AutoSize = true;
 
@@ -286,11 +288,15 @@ namespace FloorplanClassLibrary
         {
             if (serverPanelOpen == false)
             {
-                if (this.Section.Server == null)
+                if (this.Section.Server == null && !this.Section.IsPickUp)
                 {
                     RefreshUnassignedServerPanel();
                 }
-                
+                if (this.Section.Server == null && this.Section.IsPickUp)
+                {
+                    RefreshAllServerPanelForPickUpSection();
+                }
+
                 if (this.Section.Server != null)
                 {
                     Button unassign = new Button { Text = "Unassign", Dock = DockStyle.Top, Width = this.Width - 20 };
@@ -335,6 +341,18 @@ namespace FloorplanClassLibrary
                 serversPanel.Controls.Add(serverButton);
             }
             serversPanel.Height = (unassignedServers.Count * 30);
+
+        }
+        private void RefreshAllServerPanelForPickUpSection()
+        {
+            serversPanel.Controls.Clear();
+            foreach (var server in allServers)
+            {
+                var serverButton = new Button { Text = server.ToString(), Tag = server, Dock = DockStyle.Top, Width = this.Width - 20 };
+                serverButton.Click += ServerButton_Click;
+                serversPanel.Controls.Add(serverButton);
+            }
+            serversPanel.Height = (allServers.Count * 30);
         }
         private void UnassignButton_Click(Object sender, EventArgs e)
         {            

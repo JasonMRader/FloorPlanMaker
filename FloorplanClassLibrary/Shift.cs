@@ -4,13 +4,16 @@ using System.DirectoryServices.ActiveDirectory;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace FloorplanClassLibrary
 {
     public class Shift
     {
-        public Shift(DiningArea diningArea)
+        public Shift(DiningArea diningArea, DateOnly date, bool isAm)
         {
+            this.DateOnly = date;
+            this.IsAM = isAm;
             SelectedDiningArea = diningArea;
             InitializeServers();
         }

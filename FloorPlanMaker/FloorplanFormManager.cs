@@ -117,7 +117,7 @@ namespace FloorPlanMakerUI
                 
                 if (section.Tables.Count > 0)
                 {
-                    SectionLabelControl sectionControl = new SectionLabelControl(section, Shift.SelectedFloorplan.ServersWithoutSection);
+                    SectionLabelControl sectionControl = new SectionLabelControl(section, Shift.SelectedFloorplan.ServersWithoutSection, Shift.ServersOnShift);
                     
                     this._sectionLabels.Add(sectionControl);
                     
@@ -933,7 +933,8 @@ namespace FloorPlanMakerUI
             }
             else
             {
-                Shift.SelectedFloorplan = SqliteDataAccess.LoadFloorplanByCriteria(Shift.SelectedDiningArea, dateOnlySelected, isAM);
+                //Shift.SelectedFloorplan = SqliteDataAccess.LoadFloorplanByCriteria(Shift.SelectedDiningArea, dateOnlySelected, isAM);
+                Shift = SqliteDataAccess.LoadShift(Shift.SelectedDiningArea, dateOnlySelected, isAM);
                 if (Shift.SelectedFloorplan != null)
                 {
                     UpdateAveragesPerServer();
