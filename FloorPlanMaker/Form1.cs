@@ -625,7 +625,7 @@ namespace FloorPlanMaker
                     }
                 }
                 SqliteDataAccess.SaveFloorplanAndSections(shift.SelectedFloorplan);
-                MessageBox.Show("Floorplan Saved");
+                
 
                 //TODO SECTIONLINES DISABLED
                
@@ -657,8 +657,18 @@ namespace FloorPlanMaker
                // pnlFloorPlan.BackgroundImage = edgesBitmap;
                 //FloorplanPrinter printer = new FloorplanPrinter(pnlFloorPlan, edgeDrawer, grid.GetSectionTableBoarders());
                 //printer.ShowPrintPreview();
-                FloorplanPrinter printerNoLines = new FloorplanPrinter(pnlFloorPlan);
-                printerNoLines.ShowPrintPreview();
+                
+                try
+                {
+                    //MessageBox.Show("Floorplan saved, but An error occurred while trying to print: " + ex.Message, "Print Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    FloorplanPrinter printerNoLines = new FloorplanPrinter(pnlFloorPlan);
+                    printerNoLines.ShowPrintPreview();
+                  
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Floorplan saved, but An error occurred while trying to print: " + ex.Message, "Print Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
                 //printer.Print();
             }
             else
