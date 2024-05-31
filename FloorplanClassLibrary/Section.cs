@@ -429,6 +429,10 @@ namespace FloorplanClassLibrary
             if (this.IsTeamWait)
             {
                 displayString = "";
+                if(this.Server == null)
+                {
+                    displayString = $"Team {this.Number}";
+                }
                 foreach (Server server in this.ServerTeam)
                 {
                     if (Server.isDouble)

@@ -657,7 +657,7 @@ namespace FloorPlanMaker
                 //FloorplanPrinter printer = new FloorplanPrinter(pnlFloorPlan, edgeDrawer, grid.GetSectionTableBoarders());
                 //printer.ShowPrintPreview();
                 FloorplanPrinter printerNoLines = new FloorplanPrinter(pnlFloorPlan);
-                //printerNoLines.ShowPrintPreview();
+                printerNoLines.ShowPrintPreview();
                 //printer.Print();
             }
             else
