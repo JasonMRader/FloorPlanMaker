@@ -265,7 +265,7 @@ namespace FloorplanClassLibrary
                     " Or Increase the Team Size");
                 return;
             }
-            if (server.CurrentSection != null && server.CurrentSection != this)
+            if (server.CurrentSection != null && server.CurrentSection != this && !this.IsPickUp)
             {
                 server.CurrentSection.RemoveServer(server);
                 //NotifyRemovedFromSection(server);

@@ -560,6 +560,7 @@ namespace FloorPlanMaker
             Section pickUpSection = new Section(floorplanManager.Floorplan);
             pickUpSection.IsPickUp = true;
             //shiftManager.SelectedFloorplan = shiftManager.ViewedFloorplan;
+            shift = floorplanManager.Shift;
             shift.SelectedFloorplan.Date = dateTimeSelected;
             shift.SelectedFloorplan.IsLunch = cbIsAM.Checked;
             foreach (Control control in pnlFloorPlan.Controls)
