@@ -232,10 +232,10 @@ namespace FloorplanClassLibrary
         {
             if (this.Section.IsTeamWait)
             {
-                closerPanelOpen = !closerPanelOpen;
-                MessageBox.Show("Assigning a teamwait section as close is not supported at this time");
+                //closerPanelOpen = !closerPanelOpen;
+                //MessageBox.Show("Assigning a teamwait section as close is not supported at this time");
                
-                return;
+                //return;
 
             }
             if (this.Section.Server.isDouble)
@@ -265,10 +265,10 @@ namespace FloorplanClassLibrary
         {
             if (this.Section.IsTeamWait)
             {
-                closerPanelOpen = !closerPanelOpen;
-                MessageBox.Show("Assigning a teamwait section as close is not supported at this time");
+                //closerPanelOpen = !closerPanelOpen;
+                //MessageBox.Show("Assigning a teamwait section as close is not supported at this time");
                 
-                return;
+                //return;
 
             }
             this.Section.IsCloser = false;

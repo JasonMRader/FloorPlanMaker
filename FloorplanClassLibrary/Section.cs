@@ -462,7 +462,22 @@ namespace FloorplanClassLibrary
             }
             if(this.IsPickUp)
             {
-                displayString = "PickUp";
+
+                if (this.Server != null)
+                {
+                     
+                    if (Server.isDouble)
+                    {
+                        displayString = Server.ToString() + "*" + "++";
+                    }
+                    else
+                    {
+                        displayString = Server.ToString() + "++";
+                    }
+                }
+                else 
+                { displayString = "Pickup"; }
+                
             }
             //NotifyObservers();
             return displayString;
