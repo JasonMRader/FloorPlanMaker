@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace FloorPlanMakerUI
 {
-   public class FloorplanFormManager : ISectionObserver
+    public class FloorplanFormManager : ISectionObserver
     {
         //TODO: CLicking on Unassigned Label sometiems causes long delay and flickering (When doing it multiple times? espesially when there are lots of servers / sections?
         public Floorplan? Floorplan
@@ -23,7 +23,7 @@ namespace FloorPlanMakerUI
             }
         }
         public Shift Shift;
-        private List<TableControl> _tableControls = new List<TableControl>();    
+        private List<TableControl> _tableControls = new List<TableControl>();
         private List<SectionLabelControl> _sectionLabels = new List<SectionLabelControl>();
         private List<SectionPanelControl> _sectionPanels = new List<SectionPanelControl>();
         private List<ServerControl> _serverControls = new List<ServerControl>();
@@ -35,7 +35,7 @@ namespace FloorPlanMakerUI
         private TableSalesManager tableSalesManager = new TableSalesManager();
         public DateOnly dateOnly => this.Shift.DateOnly;
         public bool isAm => this.Shift.IsAM;
-        
+
         public TemplateManager TemplateManager { get; set; }
 
 
@@ -44,8 +44,10 @@ namespace FloorPlanMakerUI
             //this.Floorplan = shiftManager.SelectedFloorplan;
             this.Shift = shiftManager;
             this.TemplateManager = new TemplateManager(shiftManager.SelectedDiningArea);
-
-
+        }
+        public FloorplanFormManager() 
+        {
+            this.Shift = new Shift();
         }
         public void UpdateTemplatesBasedOnFloorplan()
         {

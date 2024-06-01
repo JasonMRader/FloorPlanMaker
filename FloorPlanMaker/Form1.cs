@@ -24,7 +24,7 @@ namespace FloorPlanMaker
         // when saving a floorplan
         private DiningAreaManager areaCreationManager = new DiningAreaManager();
         EmployeeManager employeeManager = new EmployeeManager();
-        private Shift shift;
+        private Shift shift { get { return this.floorplanManager.Shift; } }
         private int LastTableNumberSelected;
         private TableControl currentEmphasizedTableControl = null;
         private DrawingHandler drawingHandler;
@@ -44,7 +44,7 @@ namespace FloorPlanMaker
         private PictureBox loadingScreen = null;
         ImageLabelControl coversImageLabel = new ImageLabelControl();
         ImageLabelControl salesImageLabel = new ImageLabelControl();
-        private FloorplanFormManager floorplanManager;
+        private FloorplanFormManager floorplanManager = new FloorplanFormManager();
         private bool quicklyChoosingAServer = false;
         private TableSalesManager tableSalesManager = new TableSalesManager();
         private DateOnly dateOnlySelected
@@ -221,7 +221,7 @@ namespace FloorPlanMaker
         {
             InitializeComponent();
             drawingHandler = new DrawingHandler(pnlFloorPlan);
-            shift = new Shift();
+            //shift = new Shift();
             //shiftManager.ServersNotOnShift = SqliteDataAccess.LoadServers();
             this.KeyDown += pnlFloorPlan_KeyDown;
             pnlFloorPlan.MouseDown += pnlFloorplan_MouseDown;
@@ -229,7 +229,7 @@ namespace FloorPlanMaker
             pnlFloorPlan.MouseMove += pnlFloorplan_MouseMove;
             pnlFloorPlan.Paint += PnlFloorplan_Paint;
             this.sectionLineManager = new SectionLineManager(allTableControls);
-            floorplanManager = new FloorplanFormManager(shift);
+            floorplanManager = new FloorplanFormManager();
 
             // Subscribe to the event
             //floorplanManager.SectionLabelRemoved += FloorplanManager_SectionLabelRemoved;
@@ -560,7 +560,7 @@ namespace FloorPlanMaker
             Section pickUpSection = new Section(floorplanManager.Floorplan);
             pickUpSection.IsPickUp = true;
             //shiftManager.SelectedFloorplan = shiftManager.ViewedFloorplan;
-            shift = floorplanManager.Shift;
+            //shift = floorplanManager.Shift;
             shift.SelectedFloorplan.Date = dateTimeSelected;
             shift.SelectedFloorplan.IsLunch = cbIsAM.Checked;
             foreach (Control control in pnlFloorPlan.Controls)
