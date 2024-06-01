@@ -50,6 +50,12 @@
             label6 = new Label();
             tbarSection = new TrackBar();
             label7 = new Label();
+            lblCocktail = new Label();
+            lblClosing = new Label();
+            lblOutside = new Label();
+            lblTeamWait = new Label();
+            lblPerferedSections = new Label();
+            lblServerName = new Label();
             ((System.ComponentModel.ISupportInitialize)tbarCocktail).BeginInit();
             ((System.ComponentModel.ISupportInitialize)tbarClosing).BeginInit();
             ((System.ComponentModel.ISupportInitialize)tbarOutside).BeginInit();
@@ -172,15 +178,16 @@
             // 
             // tbarCocktail
             // 
-            tbarCocktail.Location = new Point(293, 78);
+            tbarCocktail.Location = new Point(310, 116);
             tbarCocktail.Name = "tbarCocktail";
             tbarCocktail.Size = new Size(246, 45);
             tbarCocktail.TabIndex = 6;
+            tbarCocktail.Scroll += tbarCocktail_Scroll;
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(293, 42);
+            label3.Location = new Point(310, 80);
             label3.Name = "label3";
             label3.Size = new Size(109, 15);
             label3.TabIndex = 7;
@@ -188,15 +195,16 @@
             // 
             // tbarClosing
             // 
-            tbarClosing.Location = new Point(293, 177);
+            tbarClosing.Location = new Point(310, 215);
             tbarClosing.Name = "tbarClosing";
             tbarClosing.Size = new Size(246, 45);
             tbarClosing.TabIndex = 6;
+            tbarClosing.Scroll += tbarClosing_Scroll;
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(293, 141);
+            label4.Location = new Point(310, 179);
             label4.Name = "label4";
             label4.Size = new Size(105, 15);
             label4.TabIndex = 7;
@@ -204,15 +212,16 @@
             // 
             // tbarOutside
             // 
-            tbarOutside.Location = new Point(293, 277);
+            tbarOutside.Location = new Point(310, 315);
             tbarOutside.Name = "tbarOutside";
             tbarOutside.Size = new Size(246, 45);
             tbarOutside.TabIndex = 6;
+            tbarOutside.Scroll += tbarOutside_Scroll;
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(293, 241);
+            label5.Location = new Point(310, 279);
             label5.Name = "label5";
             label5.Size = new Size(106, 15);
             label5.TabIndex = 7;
@@ -220,15 +229,16 @@
             // 
             // tbarTeamWait
             // 
-            tbarTeamWait.Location = new Point(293, 381);
+            tbarTeamWait.Location = new Point(310, 419);
             tbarTeamWait.Name = "tbarTeamWait";
             tbarTeamWait.Size = new Size(246, 45);
             tbarTeamWait.TabIndex = 6;
+            tbarTeamWait.Scroll += tbarTeamWait_Scroll;
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(293, 345);
+            label6.Location = new Point(310, 383);
             label6.Name = "label6";
             label6.Size = new Size(121, 15);
             label6.TabIndex = 7;
@@ -236,25 +246,92 @@
             // 
             // tbarSection
             // 
-            tbarSection.Location = new Point(293, 488);
+            tbarSection.Location = new Point(310, 526);
             tbarSection.Name = "tbarSection";
             tbarSection.Size = new Size(246, 45);
             tbarSection.TabIndex = 6;
+            tbarSection.Scroll += tbarSection_Scroll;
             // 
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(293, 452);
+            label7.Location = new Point(310, 490);
             label7.Name = "label7";
             label7.Size = new Size(134, 15);
             label7.TabIndex = 7;
             label7.Text = "Prefered Section Weight";
+            // 
+            // lblCocktail
+            // 
+            lblCocktail.AutoSize = true;
+            lblCocktail.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lblCocktail.Location = new Point(562, 116);
+            lblCocktail.Name = "lblCocktail";
+            lblCocktail.Size = new Size(23, 25);
+            lblCocktail.TabIndex = 8;
+            lblCocktail.Text = "0";
+            // 
+            // lblClosing
+            // 
+            lblClosing.AutoSize = true;
+            lblClosing.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lblClosing.Location = new Point(562, 215);
+            lblClosing.Name = "lblClosing";
+            lblClosing.Size = new Size(23, 25);
+            lblClosing.TabIndex = 8;
+            lblClosing.Text = "0";
+            // 
+            // lblOutside
+            // 
+            lblOutside.AutoSize = true;
+            lblOutside.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lblOutside.Location = new Point(562, 315);
+            lblOutside.Name = "lblOutside";
+            lblOutside.Size = new Size(23, 25);
+            lblOutside.TabIndex = 8;
+            lblOutside.Text = "0";
+            // 
+            // lblTeamWait
+            // 
+            lblTeamWait.AutoSize = true;
+            lblTeamWait.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lblTeamWait.Location = new Point(562, 419);
+            lblTeamWait.Name = "lblTeamWait";
+            lblTeamWait.Size = new Size(23, 25);
+            lblTeamWait.TabIndex = 8;
+            lblTeamWait.Text = "0";
+            // 
+            // lblPerferedSections
+            // 
+            lblPerferedSections.AutoSize = true;
+            lblPerferedSections.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lblPerferedSections.Location = new Point(562, 526);
+            lblPerferedSections.Name = "lblPerferedSections";
+            lblPerferedSections.Size = new Size(23, 25);
+            lblPerferedSections.TabIndex = 8;
+            lblPerferedSections.Text = "0";
+            // 
+            // lblServerName
+            // 
+            lblServerName.AutoSize = true;
+            lblServerName.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
+            lblServerName.Location = new Point(399, 12);
+            lblServerName.Name = "lblServerName";
+            lblServerName.Size = new Size(75, 30);
+            lblServerName.TabIndex = 9;
+            lblServerName.Text = "Server";
             // 
             // frmAddRemoveStaff
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(753, 663);
+            Controls.Add(lblServerName);
+            Controls.Add(lblPerferedSections);
+            Controls.Add(lblTeamWait);
+            Controls.Add(lblOutside);
+            Controls.Add(lblClosing);
+            Controls.Add(lblCocktail);
             Controls.Add(label7);
             Controls.Add(tbarSection);
             Controls.Add(label6);
@@ -314,5 +391,11 @@
         private Label label6;
         private TrackBar tbarSection;
         private Label label7;
+        private Label lblCocktail;
+        private Label lblClosing;
+        private Label lblOutside;
+        private Label lblTeamWait;
+        private Label lblPerferedSections;
+        private Label lblServerName;
     }
 }

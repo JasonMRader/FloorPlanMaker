@@ -32,6 +32,11 @@ namespace FloorPlanMakerUI
                 SelectedServer = lbServers.SelectedItem as Server;
                 txtServerName.Text = SelectedServer.Name;
                 txtServerDisplayName.Text = SelectedServer.DisplayName;
+                lblServerName.Text = SelectedServer.Name;
+            }
+            else
+            {
+                lblServerName.Text = "Server";
             }
         }
 
@@ -108,6 +113,31 @@ namespace FloorPlanMakerUI
             txtServerDisplayName.Text = SelectedServer.DisplayName;
             SqliteDataAccess.UpdateServer(SelectedServer);
             RefreshServerListBox();
+        }
+
+        private void tbarCocktail_Scroll(object sender, EventArgs e)
+        {
+            lblCocktail.Text = tbarCocktail.Value.ToString();
+        }
+
+        private void tbarClosing_Scroll(object sender, EventArgs e)
+        {
+            lblClosing.Text = tbarClosing.Value.ToString();
+        }
+
+        private void tbarOutside_Scroll(object sender, EventArgs e)
+        {
+            lblOutside.Text = tbarOutside.Value.ToString();
+        }
+
+        private void tbarTeamWait_Scroll(object sender, EventArgs e)
+        {
+            lblTeamWait.Text = tbarTeamWait.Value.ToString();
+        }
+
+        private void tbarSection_Scroll(object sender, EventArgs e)
+        {
+            lblPerferedSections.Text = tbarSection.Value.ToString();
         }
     }
 }
