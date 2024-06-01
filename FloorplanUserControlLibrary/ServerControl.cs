@@ -104,7 +104,7 @@ namespace FloorPlanMaker
                 section.ServerRemoved += OnServerRemovedFromSection;
             }
         }
-        public Label outsidePercentage = new Label();
+        public Label lblOutsidePercentage = new Label();
         public Panel NamePanel { get; set; }
         private Server _server;
         public Server Server
@@ -223,7 +223,8 @@ namespace FloorPlanMaker
             };
             this.Controls.Add(ShiftsDisplay);
             // Assuming you have loaded shifts for this server
-
+            float OutsidePercentage = 0f;
+            
             if (this.Server.Shifts != null)
             {
                 var lastShifts = this.Server.Shifts.Take(maxShiftsToShow);
@@ -234,8 +235,26 @@ namespace FloorPlanMaker
                     ShiftControl shiftControl = new ShiftControl(shift, this.Width / 8, 80);  // Adjust width and height as needed
                     this.ShiftControls.Add(shiftControl);
                     this.ShiftsDisplay.Controls.Add(shiftControl);
-                } 
+                }
+                var lastShiftsForPercentage = this.Server.Shifts.Take(20);
+                int OutsideShifts = 0;
+                foreach (var shift in lastShiftsForPercentage)
+                {
+                    if (!shift.IsInside)
+                    {
+                        OutsideShifts += 1;    
+                    }
+                }
+                OutsidePercentage = (float)OutsideShifts / (float)lastShiftsForPercentage.Count();
+                string formattedPercentage = $"{(int)(OutsidePercentage * 100)}%";
+                this.lblOutsidePercentage.Text = $"Last {lastShiftsForPercentage.Count()}: {formattedPercentage}";
+                this.lblOutsidePercentage.Font = UITheme.SmallerFont;
+                this.lblOutsidePercentage.Margin = new Padding(6);
+                ShiftsDisplay.Controls.Add(this.lblOutsidePercentage);
+
+
             }
+            
         }
         public void HideShifts()
         {
