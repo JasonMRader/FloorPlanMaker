@@ -608,15 +608,42 @@ namespace FloorPlanMaker
             UpdateCountLabels();
 
         }
+        private Button AutoAssignButton()
+        {
+            Button btnAutoAssign = new Button()
+            {
+                Dock = DockStyle.Top,
+                Text = "Auto-Assign",
+                Size = new Size(305, 25)
+            };
+            btnAutoAssign.Click += btnAutoAssign_Click;
+            
+            return btnAutoAssign;
+        }
+
+        private void btnAutoAssign_Click(object? sender, EventArgs e)
+        {
+            string FloorplansString = "";
+            foreach (Floorplan fp in ShiftManager.SelectedShift.Floorplans)
+            {
+                FloorplansString += fp.DiningArea.Name + ", ";
+            }
+            MessageBox.Show(FloorplansString);
+        }
+
         private void PopulateUnassignedServers()
         {
             flowUnassignedServers.Controls.Clear();
-            //foreach (var server in newShiftManager.UnassignedServers)
+            Button btnAutoAssign = this.AutoAssignButton();
+           
+            flowUnassignedServers.Controls.Add((Control)btnAutoAssign);
+
             foreach (var server in ShiftManager.SelectedShift.UnassignedServers)
             {
                 //newShiftManager.ServersNotOnShift.Remove(server);
                 ShiftManager.SelectedShift.ServersNotOnShift.Remove(server);
                 ServerControl newServerControl = new ServerControl(server, 20);
+                newServerControl.Margin = new Padding(5);
                 newServerControl.Click += ServerControl_Click;
                 ImageSetter.SetShiftControlImages(newServerControl);
                 flowUnassignedServers.Controls.Add(newServerControl);
@@ -645,11 +672,11 @@ namespace FloorPlanMaker
 
         private void cboSalesMethod_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(cboSalesMethod.SelectedItem == "Yesterday")
+            if (cboSalesMethod.SelectedItem == "Yesterday")
             {
                 DaysAgoStats = -1;
             }
-            if(cboSalesMethod.SelectedItem == "Last Weekday")
+            if (cboSalesMethod.SelectedItem == "Last Weekday")
             {
                 DaysAgoStats = -7;
             }
