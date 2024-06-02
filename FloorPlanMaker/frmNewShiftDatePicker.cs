@@ -110,7 +110,7 @@ namespace FloorPlanMakerUI
         }
         private void PopulateServersOnShift(List<Server> servers)
         {
-            servers = servers.OrderByFirstLetter().ToList();
+            //servers = servers.OrderByFirstLetter().ToList();
             flowServersOnShift.Controls.Clear();
             foreach (Server server in servers)
             {
