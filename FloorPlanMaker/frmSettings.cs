@@ -219,5 +219,10 @@ namespace FloorPlanMakerUI
         {
 
         }
+
+        private void btnSaleStats_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

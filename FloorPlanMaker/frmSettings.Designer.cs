@@ -46,6 +46,7 @@
             label5 = new Label();
             btnDeleteTemplate = new Button();
             nudTemplateID = new NumericUpDown();
+            btnUpdateNotes = new Button();
             panel3 = new Panel();
             label4 = new Label();
             txtSales = new TextBox();
@@ -55,8 +56,8 @@
             cboDiningAreas = new ComboBox();
             btnCreateTestData = new Button();
             btnDeleteFloorplans = new Button();
+            btnSaleStats = new Button();
             btnPastSection = new Button();
-            btnUpdateNotes = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudTemplateID).BeginInit();
@@ -258,6 +259,21 @@
             nudTemplateID.Size = new Size(48, 23);
             nudTemplateID.TabIndex = 1;
             // 
+            // btnUpdateNotes
+            // 
+            btnUpdateNotes.BackColor = Color.FromArgb(100, 130, 180);
+            btnUpdateNotes.Enabled = false;
+            btnUpdateNotes.FlatAppearance.BorderSize = 0;
+            btnUpdateNotes.FlatStyle = FlatStyle.Flat;
+            btnUpdateNotes.ForeColor = Color.White;
+            btnUpdateNotes.Location = new Point(14, 208);
+            btnUpdateNotes.Name = "btnUpdateNotes";
+            btnUpdateNotes.Size = new Size(322, 43);
+            btnUpdateNotes.TabIndex = 0;
+            btnUpdateNotes.Text = "Version History";
+            btnUpdateNotes.UseVisualStyleBackColor = false;
+            btnUpdateNotes.Click += btnUpdateNotes_Click;
+            // 
             // panel3
             // 
             panel3.BackColor = Color.FromArgb(180, 190, 200);
@@ -271,6 +287,7 @@
             panel3.Controls.Add(btnEditServers);
             panel3.Controls.Add(btnImportScheduleData);
             panel3.Controls.Add(btnDeleteFloorplans);
+            panel3.Controls.Add(btnSaleStats);
             panel3.Controls.Add(btnPastSection);
             panel3.Controls.Add(btnCheckForUpdate);
             panel3.Location = new Point(871, 92);
@@ -356,6 +373,20 @@
             btnDeleteFloorplans.UseVisualStyleBackColor = false;
             btnDeleteFloorplans.Click += btnDeleteFloorplans_Click;
             // 
+            // btnSaleStats
+            // 
+            btnSaleStats.BackColor = Color.FromArgb(100, 130, 180);
+            btnSaleStats.FlatAppearance.BorderSize = 0;
+            btnSaleStats.FlatStyle = FlatStyle.Flat;
+            btnSaleStats.ForeColor = Color.White;
+            btnSaleStats.Location = new Point(14, 262);
+            btnSaleStats.Name = "btnSaleStats";
+            btnSaleStats.Size = new Size(322, 43);
+            btnSaleStats.TabIndex = 0;
+            btnSaleStats.Text = "Sales Stats";
+            btnSaleStats.UseVisualStyleBackColor = false;
+            btnSaleStats.Click += btnSaleStats_Click;
+            // 
             // btnPastSection
             // 
             btnPastSection.BackColor = Color.FromArgb(100, 130, 180);
@@ -369,21 +400,6 @@
             btnPastSection.Text = "Get Sections for Past Shift";
             btnPastSection.UseVisualStyleBackColor = false;
             btnPastSection.Click += btnPastSection_Click;
-            // 
-            // btnUpdateNotes
-            // 
-            btnUpdateNotes.BackColor = Color.FromArgb(100, 130, 180);
-            btnUpdateNotes.Enabled = false;
-            btnUpdateNotes.FlatAppearance.BorderSize = 0;
-            btnUpdateNotes.FlatStyle = FlatStyle.Flat;
-            btnUpdateNotes.ForeColor = Color.White;
-            btnUpdateNotes.Location = new Point(14, 208);
-            btnUpdateNotes.Name = "btnUpdateNotes";
-            btnUpdateNotes.Size = new Size(322, 43);
-            btnUpdateNotes.TabIndex = 0;
-            btnUpdateNotes.Text = "Version History";
-            btnUpdateNotes.UseVisualStyleBackColor = false;
-            btnUpdateNotes.Click += btnUpdateNotes_Click;
             // 
             // frmSettings
             // 
@@ -443,5 +459,6 @@
         private NumericUpDown nudTemplateID;
         private Label label5;
         private Button btnUpdateNotes;
+        private Button btnSaleStats;
     }
 }
