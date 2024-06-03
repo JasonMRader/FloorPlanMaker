@@ -432,6 +432,7 @@ namespace FloorPlanMaker
         }
         private void cboDiningAreas_SelectedIndexChanged(object sender, EventArgs e)
         {
+            
             shift.SelectedDiningArea = (DiningArea?)cboDiningAreas.SelectedItem;
             floorplanManager.AddTableControls(pnlFloorPlan);
 
