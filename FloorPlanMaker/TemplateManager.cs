@@ -158,7 +158,7 @@ namespace FloorPlanMakerUI
                 {
                     panel.Controls.Add(miniTable);
                 }
-                CreateSectionPicBox(selectedTemplate, panel);
+                //CreateSectionPicBox(selectedTemplate, panel);
             }
         }
         

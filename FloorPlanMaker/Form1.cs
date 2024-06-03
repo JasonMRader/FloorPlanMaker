@@ -543,6 +543,7 @@ namespace FloorPlanMaker
         }
         private void btnChooseTemplate_Click(object sender, EventArgs e)
         {
+            floorplanManager.TemplateManager = new TemplateManager(floorplanManager.Shift.SelectedDiningArea);
             if (_frmTemplateSelection == null)
             {
                 _frmTemplateSelection = new frmTemplateSelection(floorplanManager, shift.SelectedDiningArea, this)

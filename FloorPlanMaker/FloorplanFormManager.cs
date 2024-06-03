@@ -48,6 +48,7 @@ namespace FloorPlanMakerUI
         public FloorplanFormManager() 
         {
             this.Shift = new Shift();
+            
         }
         public void UpdateTemplatesBasedOnFloorplan()
         {
