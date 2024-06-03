@@ -21,12 +21,12 @@ namespace FloorPlanMakerUI
         private DateOnly dateOnlySelected => new DateOnly(dateSelected.Year, dateSelected.Month, dateSelected.Day);
 
         private bool isAM { get { return cbIsAm.Checked; } }
-        
+
         //private Shift ShiftManagerCreated = new Shift();
         private ShiftManager shiftManager;
         private DiningAreaManager DiningAreaManager = new DiningAreaManager();
         private List<Floorplan> allFloorplans = new List<Floorplan>();
-        
+
         private frmEditStaff frmEditStaff { get; set; }
         public frmNewShiftDatePicker(DiningAreaManager diningAreaManager, List<Floorplan> allFloorplans,
             List<Server> allServers, frmEditStaff frmEditStaff, Shift shiftManager)
@@ -34,7 +34,7 @@ namespace FloorPlanMakerUI
             InitializeComponent();
             DiningAreaManager = diningAreaManager;
             this.allFloorplans = allFloorplans;
-            
+
             this.frmEditStaff = frmEditStaff;
             //this.ShiftManagerCreated = shiftManager;
             this.dateSelected = shiftManager.DateOnly.ToDateTime(TimeOnly.MinValue);
@@ -49,7 +49,7 @@ namespace FloorPlanMakerUI
             this.shiftManager = shiftManager;
 
             this.frmEditStaff = frmEditStaff;
-           
+
             this.dateSelected = date;
             cbIsAm.Checked = isAm;
         }
@@ -89,6 +89,18 @@ namespace FloorPlanMakerUI
         //////{
         //////    Dictionary<DiningArea, int> thisDaysFloorplans = ServersAssignedPreviousDay(allFloorplans, cbIsAm.Checked, 0);
         //////}
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+
+            if (keyData == Keys.Enter)
+            {
+                AddFirstServerToShift();
+
+                return true;
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
         private void PopulateServers()
         {
             PopulateNotOnServers(shiftManager.SelectedShift.ServersNotOnShift);
@@ -165,7 +177,7 @@ namespace FloorPlanMakerUI
 
             };
             b.Click += RemoveFromShift_Click;
-            
+
             return b;
         }
         private void AddToShift_Click(object sender, EventArgs e)
@@ -181,7 +193,7 @@ namespace FloorPlanMakerUI
             serverButton.ForeColor = Color.Black;
             flowServersOnShift.Controls.Add(serverButton);
             flowAllServers.Controls.Remove(serverButton);
-            if(txtServerSearch.Text.Length > 0 )
+            if (txtServerSearch.Text.Length > 0)
             {
                 txtServerSearch.Clear();
                 txtServerSearch.Focus();
@@ -230,14 +242,14 @@ namespace FloorPlanMakerUI
 
         private void RefreshPreviousFloorplanCounts()
         {
-           
+
             Dictionary<DiningArea, int> lastWeekFloorplans = ServersAssignedPreviousDay(allFloorplans, cbIsAm.Checked, -7);
             Dictionary<DiningArea, int> yesterdayFloorplans = ServersAssignedPreviousDay(allFloorplans, cbIsAm.Checked, -1);
 
-           
+
             UpdateLabels(flowLastWeekdayCounts, lastWeekFloorplans);
 
-            
+
             UpdateLabels(flowYesterdayCounts, yesterdayFloorplans);
         }
 
@@ -247,7 +259,7 @@ namespace FloorPlanMakerUI
             {
                 if (lbl.Tag is DiningArea area && floorplanCounts.TryGetValue(area, out int count))
                 {
-                    lbl.Text = $"{count}"; 
+                    lbl.Text = $"{count}";
                     if (count > 0)
                     {
                         lbl.BackColor = UITheme.YesColor;
@@ -410,15 +422,15 @@ namespace FloorPlanMakerUI
 
             var result = new Dictionary<DiningArea, int>();
 
-            
+
             foreach (var area in DiningAreaManager.DiningAreas)
             {
                 result[area] = 0;
             }
 
-            
+
             foreach (var fp in relevantFloorplans)
-            {               
+            {
                 result[fp.DiningArea] += fp.Servers.Count;
             }
 
@@ -539,7 +551,7 @@ namespace FloorPlanMakerUI
 
         private void cbIsAm_CheckedChanged(object sender, EventArgs e)
         {
-           
+
             if (isAM)
             {
                 cbIsAm.Image = Resources.smallSunrise;
@@ -595,6 +607,18 @@ namespace FloorPlanMakerUI
         {
             var searchText = txtServerSearch.Text;
             FilterServers(searchText);
+        }
+               
+        private void AddFirstServerToShift()
+        {
+            if (flowAllServers.Controls.Count > 0)
+            {
+                Control ctr = flowAllServers.Controls[0];
+                if (ctr is Button btn)
+                {
+                    btn.PerformClick();
+                }
+            }
         }
     }
 }

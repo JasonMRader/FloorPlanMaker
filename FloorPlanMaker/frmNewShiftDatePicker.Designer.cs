@@ -45,15 +45,15 @@
             label3 = new Label();
             label1 = new Label();
             panel3 = new Panel();
+            txtServerSearch = new TextBox();
             pbAddPerson = new PictureBox();
             flowAllServers = new FlowLayoutPanel();
+            label6 = new Label();
             label5 = new Label();
             panel4 = new Panel();
             flowServersOnShift = new FlowLayoutPanel();
             label2 = new Label();
             toolTip1 = new ToolTip(components);
-            txtServerSearch = new TextBox();
-            label6 = new Label();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
@@ -253,6 +253,16 @@
             panel3.Size = new Size(595, 512);
             panel3.TabIndex = 5;
             // 
+            // txtServerSearch
+            // 
+            txtServerSearch.BorderStyle = BorderStyle.None;
+            txtServerSearch.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            txtServerSearch.Location = new Point(338, 11);
+            txtServerSearch.Name = "txtServerSearch";
+            txtServerSearch.Size = new Size(100, 26);
+            txtServerSearch.TabIndex = 3;
+            txtServerSearch.TextChanged += txtServerSearch_TextChanged;
+            // 
             // pbAddPerson
             // 
             pbAddPerson.BackColor = SystemColors.ButtonShadow;
@@ -274,6 +284,16 @@
             flowAllServers.Name = "flowAllServers";
             flowAllServers.Size = new Size(578, 456);
             flowAllServers.TabIndex = 1;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            label6.Location = new Point(258, 12);
+            label6.Name = "label6";
+            label6.Size = new Size(74, 25);
+            label6.TabIndex = 0;
+            label6.Text = "Search:";
             // 
             // label5
             // 
@@ -313,29 +333,8 @@
             label2.TabIndex = 0;
             label2.Text = "Servers On Shift";
             // 
-            // txtServerSearch
-            // 
-            txtServerSearch.BorderStyle = BorderStyle.None;
-            txtServerSearch.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
-            txtServerSearch.Location = new Point(338, 11);
-            txtServerSearch.Name = "txtServerSearch";
-            txtServerSearch.Size = new Size(100, 26);
-            txtServerSearch.TabIndex = 3;
-            txtServerSearch.TextChanged += txtServerSearch_TextChanged;
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            label6.Location = new Point(258, 12);
-            label6.Name = "label6";
-            label6.Size = new Size(74, 25);
-            label6.TabIndex = 0;
-            label6.Text = "Search:";
-            // 
             // frmNewShiftDatePicker
             // 
-            AcceptButton = btnOK;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(225, 225, 225);
