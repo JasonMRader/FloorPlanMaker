@@ -499,9 +499,18 @@ namespace FloorPlanMaker
 
         private void RefreshFloorplanCountLabels()
         {
+            List<TableStat> stats = SqliteDataAccess.LoadTableStatsByDateAndLunch(
+                ShiftManager.IsAM, ShiftManager.DateOnly.AddDays(DaysAgoStats));
             foreach (FloorplanInfoControl info in infoPanelList)
             {
                 info.UpdateCurrentLabels(DaysAgoStats);
+            }
+            if(ShiftManager.SelectedShift.DiningAreasUsed.Count !=0)
+            {
+                foreach(DiningArea area in ShiftManager.SelectedShift.DiningAreasUsed)
+                {
+                    area.SetTableSales(stats);
+                }
             }
 
 
@@ -590,6 +599,7 @@ namespace FloorPlanMaker
         //TODO have this method load current floorplans
         public void UpdateNewShift(ShiftManager shiftManager)
         {
+            cboSalesMethod.SelectedIndex = 1;
             //this.newShiftManager = null;
             //this.newShiftManager = shiftManagerToAdd;
             //dateSelected = newShiftManager.DateOnly.ToDateTime(new TimeOnly(0, 0));
@@ -624,9 +634,17 @@ namespace FloorPlanMaker
         private void btnAutoAssign_Click(object? sender, EventArgs e)
         {
             string FloorplansString = "";
-            foreach (Floorplan fp in ShiftManager.SelectedShift.Floorplans)
+            Dictionary<DiningArea, int> distributions = 
+                FloorplanGenerator.GetServerDistribution(ShiftManager.SelectedShift.DiningAreasUsed, 
+                ShiftManager.SelectedShift.ServersOnShift.Count());
+
+            //foreach (Floorplan fp in ShiftManager.SelectedShift.Floorplans)
+            //{
+            //    FloorplansString += fp.DiningArea.Name + ", ";
+            //}
+            foreach (DiningArea area in distributions.Keys)
             {
-                FloorplansString += fp.DiningArea.Name + ", ";
+                FloorplansString += area + ": " + distributions[area].ToString() + "\n";
             }
             MessageBox.Show(FloorplansString);
         }
