@@ -222,10 +222,10 @@ namespace FloorPlanMakerUI
             UpdateSectionNumbers();
             this.FilterTemplates(serverCount: serverCount);
         }
-        public void GetAllFloorplanTemplates()
+        public void GetAllFloorplanTemplatesForDiningArea()
         {
             //this.Templates.Clear();
-            this.Templates = SqliteDataAccess.LoadAllFloorplanTemplates();
+            this.Templates = SqliteDataAccess.LoadTemplatesByDiningArea(this.DiningArea);
             UpdateSectionNumbers();
             this.FilterTemplates(serverCount: serverCount);
 

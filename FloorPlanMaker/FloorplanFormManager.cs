@@ -61,7 +61,7 @@ namespace FloorPlanMakerUI
             else
             {
                 // If Floorplan is null, get all floorplan templates
-                this.TemplateManager.GetAllFloorplanTemplates();
+                this.TemplateManager.GetAllFloorplanTemplatesForDiningArea();
             }
         }
         public List<TableControl> TableControls
