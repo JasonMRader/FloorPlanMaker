@@ -17,10 +17,32 @@ namespace FloorPlanMakerUI
         {
             InitializeComponent();
         }
-        
+        private DiningAreaManager areaManager = new DiningAreaManager();
+        private TableSalesManager tableSalesManager = new TableSalesManager();
         private void frmSalesStats_Load(object sender, EventArgs e)
         {
 
+        }
+        private List<DateTime> GetDateRange(DateTime startDate, DateTime endDate)
+        {
+            List<DateTime> dateList = new List<DateTime>();
+
+
+            if (startDate <= endDate)
+            {
+                DateTime currentDate = startDate;
+                while (currentDate <= endDate)
+                {
+                    dateList.Add(currentDate);
+                    currentDate = currentDate.AddDays(1);
+                }
+            }
+            else
+            {
+                MessageBox.Show("The start date must be earlier than or equal to the end date.");
+            }
+
+            return dateList;
         }
         public List<SalesData> GetSalesData(List<DiningArea> diningAreas, List<DateTime> dates)
         {
@@ -35,14 +57,15 @@ namespace FloorPlanMakerUI
                 };
 
                 float totalSalesForDate = 0;
-
+                DateOnly dateOnly = new DateOnly(date.Year, date.Month, date.Day);
+                List<TableStat> tableStats = GetTableStatsForFilters(dateOnly);
                 foreach (var diningArea in diningAreas)
                 {
-                    //diningArea.TableSalesManager.LoadTableStats(date); 
-                    //diningArea.SetTableSales(diningArea.TableSalesManager.TableStats);
 
-                    //salesData.SalesByDiningArea[diningArea.Name] = diningArea.ExpectedSales;
-                    //totalSalesForDate += diningArea.ExpectedSales;
+                    diningArea.SetTableSales(tableStats);
+
+                    salesData.SalesByDiningArea[diningArea.Name] = diningArea.ExpectedSales;
+                    totalSalesForDate += diningArea.ExpectedSales;
                 }
 
                 salesData.TotalSales = totalSalesForDate;
@@ -50,6 +73,28 @@ namespace FloorPlanMakerUI
             }
 
             return salesDataList;
+        }
+        private List<TableStat> GetTableStatsForFilters(DateOnly dateOnly)
+        {
+            List<TableStat> statList = new List<TableStat>();
+            
+           
+            if (rdoAm.Checked)
+            {
+
+                statList.AddRange(SqliteDataAccess.LoadTableStatsByDateAndLunch(true, dateOnly));
+            }
+            if (rdoPm.Checked)
+            {
+                statList.AddRange(SqliteDataAccess.LoadTableStatsByDateAndLunch(false, dateOnly));
+            }
+            if (rdoBoth.Checked)
+            {
+                statList.AddRange(SqliteDataAccess.LoadTableStatsByDateAllDay( dateOnly));
+            }
+            
+            
+            return statList;
         }
         public void PopulateDataGridView(DataGridView dgvDiningAreas, List<DiningArea> diningAreas, List<SalesData> salesDataList)
         {
@@ -80,5 +125,19 @@ namespace FloorPlanMakerUI
             }
         }
 
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            List<DateTime> dateList = GetDateRange(dtpStartDate.Value, dtpEndDate.Value);
+            
+
+            List<SalesData> salesData = GetSalesData(areaManager.DiningAreas, dateList);
+            PopulateDataGridView(dgvDiningAreas, areaManager.DiningAreas, salesData);
+
+        }
+
+        private void rdoAm_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

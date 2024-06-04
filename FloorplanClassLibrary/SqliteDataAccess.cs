@@ -124,6 +124,30 @@ namespace FloorplanClassLibrary
                 return tableStatsList;
             }
         }
+        public static List<TableStat> LoadTableStatsByDateAllDay( DateOnly date)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                // Prepare your query with parameters
+                var query = @"SELECT * FROM TableStats WHERE Date = @Date";
+
+                // Execute the query with the provided parameters
+                var queryResult = cnn.Query(query, new { Date = date.ToString("yyyy-MM-dd") }).ToList();
+
+                var tableStatsList = queryResult.Select(row => new TableStat
+                {
+                    // Assign other properties as necessary
+                    TableStatNumber = row.TableStatNumber,
+                    DayOfWeek = (DayOfWeek)Enum.Parse(typeof(DayOfWeek), row.DayOfWeek),
+                    Date = DateOnly.Parse(row.Date),
+                    IsLunch = Convert.ToBoolean(row.IsLunch),
+                    Sales = row.Sales != null ? (float?)Convert.ToDouble(row.Sales) : null,
+                    Orders = Convert.ToInt32(row.Orders)
+                }).ToList();
+
+                return tableStatsList;
+            }
+        }
         public static List<TableStat> LoadTableStatsByDateListAndLunch(bool isLunch, List<DateOnly> dates)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
