@@ -98,6 +98,35 @@ namespace FloorPlanMakerUI
             
             return statList;
         }
+        //public void PopulateDataGridView(DataGridView dgvDiningAreas, List<DiningArea> diningAreas, List<SalesData> salesDataList)
+        //{
+        //    dgvDiningAreas.Columns.Clear();
+        //    dgvDiningAreas.Rows.Clear();
+
+        //    // Add columns for each dining area and total sales
+        //    dgvDiningAreas.Columns.Add("Date", "Date");
+
+        //    foreach (var diningArea in diningAreas)
+        //    {
+        //        dgvDiningAreas.Columns.Add(diningArea.Name, diningArea.Name);
+        //    }
+        //    dgvDiningAreas.Columns.Add("Total", "Total");
+
+        //    // Add rows for each date's sales data
+        //    foreach (var salesData in salesDataList)
+        //    {
+        //        var row = new List<object> { salesData.Date.ToString("ddd, M/d") };
+
+        //        foreach (var diningArea in diningAreas)
+        //        {
+        //            row.Add(salesData.SalesByDiningArea[diningArea.Name]);
+        //        }
+        //        row.Add(salesData.TotalSales);
+
+        //        dgvDiningAreas.Rows.Add(row.ToArray());
+        //    }
+
+        //}
         public void PopulateDataGridView(DataGridView dgvDiningAreas, List<DiningArea> diningAreas, List<SalesData> salesDataList)
         {
             dgvDiningAreas.Columns.Clear();
@@ -108,9 +137,28 @@ namespace FloorPlanMakerUI
 
             foreach (var diningArea in diningAreas)
             {
-                dgvDiningAreas.Columns.Add(diningArea.Name, diningArea.Name);
+                var column = new DataGridViewTextBoxColumn
+                {
+                    Name = diningArea.Name,
+                    HeaderText = diningArea.Name,
+                    DefaultCellStyle = new DataGridViewCellStyle
+                    {
+                        Format = "C0" // Format as currency with no decimals
+                    }
+                };
+                dgvDiningAreas.Columns.Add(column);
             }
-            dgvDiningAreas.Columns.Add("Total", "Total");
+
+            var totalColumn = new DataGridViewTextBoxColumn
+            {
+                Name = "Total",
+                HeaderText = "Total",
+                DefaultCellStyle = new DataGridViewCellStyle
+                {
+                    Format = "C0" // Format as currency with no decimals
+                }
+            };
+            dgvDiningAreas.Columns.Add(totalColumn);
 
             // Add rows for each date's sales data
             foreach (var salesData in salesDataList)
@@ -126,6 +174,7 @@ namespace FloorPlanMakerUI
                 dgvDiningAreas.Rows.Add(row.ToArray());
             }
         }
+
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
