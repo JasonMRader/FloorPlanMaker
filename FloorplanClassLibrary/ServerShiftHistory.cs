@@ -56,6 +56,21 @@ namespace FloorplanClassLibrary
             
             return this.Server.AbbreviatedName + " (History)";
         }
+        public List<EmployeeShift> GetShiftsForDateRange(DateOnly start, DateOnly end)
+        {
+            List<EmployeeShift> employeeShifts = new List<EmployeeShift>();
+
+            foreach (EmployeeShift shift in this.Server.Shifts)
+            {
+                DateOnly shiftDate = DateOnly.FromDateTime(shift.Date);
+                if (shiftDate >= start && shiftDate <= end)
+                {
+                    employeeShifts.Add(shift);
+                }
+            }
+
+            return employeeShifts;
+        }
 
 
     }
