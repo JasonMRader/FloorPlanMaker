@@ -478,17 +478,17 @@ namespace FloorPlanMakerUI
                 BackColor = UITheme.ButtonColor,
                 ForeColor = Color.Black
             };
-            Button btnAddSection = new Button
-            {
-                Text = "Add A Section",
-                AutoSize = false,
-                Size = new Size(panel.Width - 10, 25),
-                Font = new Font("Segoe UI", 10F),
-                FlatStyle = FlatStyle.Flat,
-                BackColor = UITheme.ButtonColor,
-                ForeColor = Color.Black
-            };
-            btnAddSection.Click += btnAddSection_Click;
+            //Button btnAddSection = new Button
+            //{
+            //    Text = "Add A Section",
+            //    AutoSize = false,
+            //    Size = new Size(panel.Width - 10, 25),
+            //    Font = new Font("Segoe UI", 10F),
+            //    FlatStyle = FlatStyle.Flat,
+            //    BackColor = UITheme.ButtonColor,
+            //    ForeColor = Color.Black
+            //};
+            //btnAddSection.Click += btnAddSection_Click;
             btnAddPickup.Click += btnAddPickupSection_Click;
             panel.Controls.Add(btnAddSection);
             panel.Controls.Add(btnAddPickup);
