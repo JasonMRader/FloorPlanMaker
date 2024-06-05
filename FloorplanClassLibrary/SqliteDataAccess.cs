@@ -1011,6 +1011,28 @@ namespace FloorplanClassLibrary
                 cnn.Close();
             }
         }
+        public static Section LoadSectionForShiftHistory(int sectionId)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                cnn.Open();
+
+                var section = cnn.QuerySingleOrDefault<Section>("SELECT * FROM Section WHERE ID = @ID", new { ID = sectionId });
+
+                if (section != null)
+                {
+                    var tables = cnn.Query<Table>("SELECT t.* FROM DiningTable t INNER JOIN SectionTables st ON t.ID = st.TableID WHERE st.SectionID = @SectionID", new { SectionID = sectionId }).ToList();
+                    section.SetTableList(tables);
+
+                    //var servers = cnn.Query<Server>("SELECT s.* FROM Server s INNER JOIN ServerSections ss ON s.ID = ss.ServerID WHERE ss.SectionID = @SectionID", new { SectionID = sectionId }).ToList();
+                    //section.ServerTeam = servers;
+                }
+
+                cnn.Close();
+                return section;
+            }
+        }
+
 
         public static List<FloorplanTemplate> oldLoadAllFloorplanTemplates()
         {

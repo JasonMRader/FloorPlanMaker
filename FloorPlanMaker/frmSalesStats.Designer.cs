@@ -58,6 +58,7 @@
             // rdoDiningAreaSales
             // 
             rdoDiningAreaSales.AutoSize = true;
+            rdoDiningAreaSales.Checked = true;
             rdoDiningAreaSales.Location = new Point(3, 17);
             rdoDiningAreaSales.Name = "rdoDiningAreaSales";
             rdoDiningAreaSales.Size = new Size(116, 19);
@@ -73,9 +74,9 @@
             rdoServerShifts.Name = "rdoServerShifts";
             rdoServerShifts.Size = new Size(125, 19);
             rdoServerShifts.TabIndex = 1;
-            rdoServerShifts.TabStop = true;
             rdoServerShifts.Text = "Server Shift History";
             rdoServerShifts.UseVisualStyleBackColor = true;
+            rdoServerShifts.CheckedChanged += rdoServerShifts_CheckedChanged;
             // 
             // btnUpdate
             // 
@@ -90,6 +91,7 @@
             // rdoAm
             // 
             rdoAm.AutoSize = true;
+            rdoAm.Checked = true;
             rdoAm.Location = new Point(0, 14);
             rdoAm.Name = "rdoAm";
             rdoAm.Size = new Size(44, 19);
@@ -106,7 +108,6 @@
             rdoPm.Name = "rdoPm";
             rdoPm.Size = new Size(43, 19);
             rdoPm.TabIndex = 3;
-            rdoPm.TabStop = true;
             rdoPm.Text = "PM";
             rdoPm.UseVisualStyleBackColor = true;
             // 
@@ -117,7 +118,6 @@
             rdoBoth.Name = "rdoBoth";
             rdoBoth.Size = new Size(50, 19);
             rdoBoth.TabIndex = 3;
-            rdoBoth.TabStop = true;
             rdoBoth.Text = "Both";
             rdoBoth.UseVisualStyleBackColor = true;
             // 

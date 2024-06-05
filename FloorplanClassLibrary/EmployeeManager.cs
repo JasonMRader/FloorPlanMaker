@@ -16,8 +16,14 @@ namespace FloorplanClassLibrary
         }
         public List<Server> ActiveServers { get; set; }
         public List<Server> InactiveServers { get; set; }
-        public List<Server> AllServers { get; set; }
-        public List<Server>? ServersOnShift { get; set; }
+        public void LoadShiftsForActiveServers()
+        {
+            foreach (var server in ActiveServers)
+            {
+                server.Shifts = SqliteDataAccess.GetShiftsForServer(server);
+            }
+        }
+      
        
     }
 }

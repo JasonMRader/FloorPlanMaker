@@ -19,11 +19,19 @@ namespace FloorPlanMakerUI
         }
         private DiningAreaManager areaManager = new DiningAreaManager();
         private TableSalesManager tableSalesManager = new TableSalesManager();
+        private EmployeeManager employeeManager = new EmployeeManager();
         private void frmSalesStats_Load(object sender, EventArgs e)
         {
-            
+
             dtpEndDate.Value = DateTime.Now.AddDays(-1);
             dtpStartDate.Value = DateTime.Now.AddDays(-8);
+            employeeManager.LoadShiftsForActiveServers();
+            List<ServerShiftHistory> history = new List<ServerShiftHistory>();
+            foreach(Server server in employeeManager.ActiveServers)
+            {
+                ServerShiftHistory shiftHistory = new ServerShiftHistory(server);
+                history.Add(shiftHistory);
+            }
         }
         private List<DateTime> GetDateRange(DateTime startDate, DateTime endDate)
         {
@@ -79,8 +87,8 @@ namespace FloorPlanMakerUI
         private List<TableStat> GetTableStatsForFilters(DateOnly dateOnly)
         {
             List<TableStat> statList = new List<TableStat>();
-            
-           
+
+
             if (rdoAm.Checked)
             {
 
@@ -92,10 +100,10 @@ namespace FloorPlanMakerUI
             }
             if (rdoBoth.Checked)
             {
-                statList.AddRange(SqliteDataAccess.LoadTableStatsByDateAllDay( dateOnly));
+                statList.AddRange(SqliteDataAccess.LoadTableStatsByDateAllDay(dateOnly));
             }
-            
-            
+
+
             return statList;
         }
         //public void PopulateDataGridView(DataGridView dgvDiningAreas, List<DiningArea> diningAreas, List<SalesData> salesDataList)
@@ -127,7 +135,7 @@ namespace FloorPlanMakerUI
         //    }
 
         //}
-        public void PopulateDataGridView(DataGridView dgvDiningAreas, List<DiningArea> diningAreas, List<SalesData> salesDataList)
+        public void PopulateDGVForAreaSales(DataGridView dgvDiningAreas, List<DiningArea> diningAreas, List<SalesData> salesDataList)
         {
             dgvDiningAreas.Columns.Clear();
             dgvDiningAreas.Rows.Clear();
@@ -178,15 +186,26 @@ namespace FloorPlanMakerUI
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            List<DateTime> dateList = GetDateRange(dtpStartDate.Value, dtpEndDate.Value);
-            
+            if (rdoDiningAreaSales.Checked)
+            {
+                List<DateTime> dateList = GetDateRange(dtpStartDate.Value, dtpEndDate.Value);
+                List<SalesData> salesData = GetSalesData(areaManager.DiningAreas, dateList);
+                PopulateDGVForAreaSales(dgvDiningAreas, areaManager.DiningAreas, salesData);
+            }
+            if (rdoServerShifts.Checked)
+            {
 
-            List<SalesData> salesData = GetSalesData(areaManager.DiningAreas, dateList);
-            PopulateDataGridView(dgvDiningAreas, areaManager.DiningAreas, salesData);
+            }
+
 
         }
 
         private void rdoAm_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void rdoServerShifts_CheckedChanged(object sender, EventArgs e)
         {
 
         }

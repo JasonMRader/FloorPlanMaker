@@ -490,7 +490,7 @@ namespace FloorPlanMakerUI
             //};
             //btnAddSection.Click += btnAddSection_Click;
             btnAddPickup.Click += btnAddPickupSection_Click;
-            panel.Controls.Add(btnAddSection);
+            //panel.Controls.Add(btnAddSection);
             panel.Controls.Add(btnAddPickup);
             
         }
