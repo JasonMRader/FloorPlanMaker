@@ -21,7 +21,9 @@ namespace FloorPlanMakerUI
         private TableSalesManager tableSalesManager = new TableSalesManager();
         private void frmSalesStats_Load(object sender, EventArgs e)
         {
-
+            
+            dtpEndDate.Value = DateTime.Now.AddDays(-1);
+            dtpStartDate.Value = DateTime.Now.AddDays(-8);
         }
         private List<DateTime> GetDateRange(DateTime startDate, DateTime endDate)
         {
@@ -113,7 +115,7 @@ namespace FloorPlanMakerUI
             // Add rows for each date's sales data
             foreach (var salesData in salesDataList)
             {
-                var row = new List<object> { salesData.Date.ToShortDateString() };
+                var row = new List<object> { salesData.Date.ToString("ddd, M/d") };
 
                 foreach (var diningArea in diningAreas)
                 {
