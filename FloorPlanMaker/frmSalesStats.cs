@@ -27,7 +27,7 @@ namespace FloorPlanMakerUI
             dtpStartDate.Value = DateTime.Now.AddDays(-8);
             employeeManager.LoadShiftsForActiveServers();
             List<ServerShiftHistory> history = new List<ServerShiftHistory>();
-            foreach(Server server in employeeManager.ActiveServers)
+            foreach (Server server in employeeManager.ActiveServers)
             {
                 ServerShiftHistory shiftHistory = new ServerShiftHistory(server);
                 history.Add(shiftHistory);
@@ -208,6 +208,18 @@ namespace FloorPlanMakerUI
         private void rdoServerShifts_CheckedChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void dtpStartDate_ValueChanged(object sender, EventArgs e)
+        {
+            dtpEndDate.Value = dtpStartDate.Value.AddDays(7);
+            timer1.Start();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            timer1.Stop();
+            dtpEndDate.Focus();
         }
     }
 }

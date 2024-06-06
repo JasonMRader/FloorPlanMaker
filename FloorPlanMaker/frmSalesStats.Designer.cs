@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             dgvDiningAreas = new DataGridView();
             rdoDiningAreaSales = new RadioButton();
             rdoServerShifts = new RadioButton();
@@ -41,6 +42,7 @@
             dtpEndDate = new DateTimePicker();
             label1 = new Label();
             label2 = new Label();
+            timer1 = new System.Windows.Forms.Timer(components);
             ((System.ComponentModel.ISupportInitialize)dgvDiningAreas).BeginInit();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
@@ -146,6 +148,7 @@
             dtpStartDate.Name = "dtpStartDate";
             dtpStartDate.Size = new Size(200, 23);
             dtpStartDate.TabIndex = 5;
+            dtpStartDate.ValueChanged += dtpStartDate_ValueChanged;
             // 
             // dtpEndDate
             // 
@@ -171,6 +174,10 @@
             label2.Size = new Size(22, 15);
             label2.TabIndex = 6;
             label2.Text = "To:";
+            // 
+            // timer1
+            // 
+            timer1.Tick += timer1_Tick;
             // 
             // frmSalesStats
             // 
@@ -212,5 +219,6 @@
         private DateTimePicker dtpEndDate;
         private Label label1;
         private Label label2;
+        private System.Windows.Forms.Timer timer1;
     }
 }
