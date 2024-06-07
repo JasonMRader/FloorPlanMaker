@@ -28,12 +28,30 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "frmServerDistributionSelection";
+            flowDistributionSelect = new FlowLayoutPanel();
+            SuspendLayout();
+            // 
+            // flowDistributionSelect
+            // 
+            flowDistributionSelect.Location = new Point(29, 59);
+            flowDistributionSelect.Name = "flowDistributionSelect";
+            flowDistributionSelect.Size = new Size(645, 345);
+            flowDistributionSelect.TabIndex = 0;
+            // 
+            // frmServerDistributionSelection
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(702, 450);
+            Controls.Add(flowDistributionSelect);
+            Name = "frmServerDistributionSelection";
+            Text = "frmServerDistributionSelection";
+            Load += frmServerDistributionSelection_Load;
+            ResumeLayout(false);
         }
 
         #endregion
+
+        private FlowLayoutPanel flowDistributionSelect;
     }
 }

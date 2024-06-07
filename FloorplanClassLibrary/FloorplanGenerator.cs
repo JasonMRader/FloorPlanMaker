@@ -6,19 +6,25 @@ using System.Threading.Tasks;
 
 namespace FloorplanClassLibrary
 {
-    public static class FloorplanGenerator
+    public class FloorplanGenerator
     {
-        public static Dictionary<DiningArea, int> GetServerDistribution(List<DiningArea> diningAreas, int ServerCount)
+        public FloorplanGenerator() { } 
+        public FloorplanGenerator(Shift shift)
+        {
+            this.shift = shift;
+        } 
+        public Shift shift { get; set; }
+        public  Dictionary<DiningArea, int> GetServerDistribution()
         {
             Dictionary<DiningArea, int> DiningAreaServerCounts = new Dictionary<DiningArea, int>();
-            float totalSales = diningAreas.Sum(da => da.ExpectedSales);
+            float totalSales = shift.DiningAreasUsed.Sum(da => da.ExpectedSales);
             if (totalSales == 0)
             {
                 return null;
             }
-            float salesPerServer =  totalSales/ ServerCount;
+            float salesPerServer =  totalSales/ shift.ServersOnShift.Count;
             
-            foreach (DiningArea area in diningAreas)
+            foreach (DiningArea area in shift.DiningAreasUsed)
             {
                 
                 int roundedDownServers = (int)Math.Floor(area.ExpectedSales / salesPerServer);

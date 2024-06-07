@@ -634,19 +634,21 @@ namespace FloorPlanMaker
         private void btnAutoAssign_Click(object? sender, EventArgs e)
         {
             string FloorplansString = "";
-            Dictionary<DiningArea, int> distributions = 
-                FloorplanGenerator.GetServerDistribution(ShiftManager.SelectedShift.DiningAreasUsed, 
-                ShiftManager.SelectedShift.ServersOnShift.Count());
+            //Dictionary<DiningArea, int> distributions = 
+            //    FloorplanGenerator.GetServerDistribution(ShiftManager.SelectedShift.DiningAreasUsed, 
+            //    ShiftManager.SelectedShift.ServersOnShift.Count());
 
-            //foreach (Floorplan fp in ShiftManager.SelectedShift.Floorplans)
+            ////foreach (Floorplan fp in ShiftManager.SelectedShift.Floorplans)
+            ////{
+            ////    FloorplansString += fp.DiningArea.Name + ", ";
+            ////}
+            //foreach (DiningArea area in distributions.Keys)
             //{
-            //    FloorplansString += fp.DiningArea.Name + ", ";
+            //    FloorplansString += area + ": " + distributions[area].ToString() + "\n";
             //}
-            foreach (DiningArea area in distributions.Keys)
-            {
-                FloorplansString += area + ": " + distributions[area].ToString() + "\n";
-            }
-            MessageBox.Show(FloorplansString);
+            //MessageBox.Show(FloorplansString);
+            frmServerDistributionSelection frmDistribution = new frmServerDistributionSelection(ShiftManager);
+            frmDistribution.ShowDialog();
         }
 
         private void PopulateUnassignedServers()
