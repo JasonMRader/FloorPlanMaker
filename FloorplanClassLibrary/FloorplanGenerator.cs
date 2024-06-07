@@ -14,6 +14,16 @@ namespace FloorplanClassLibrary
             this.shift = shift;
         } 
         public Shift shift { get; set; }
+        public int ServerCount
+        {
+            get
+            {
+                return shift.ServersOnShift.Count;
+            }
+        }
+        public int ServerRemainder { get; set; }
+       
+        public int minimumServersAssigned { get; set; } 
         public  Dictionary<DiningArea, int> GetServerDistribution()
         {
             Dictionary<DiningArea, int> DiningAreaServerCounts = new Dictionary<DiningArea, int>();
@@ -23,14 +33,17 @@ namespace FloorplanClassLibrary
                 return null;
             }
             float salesPerServer =  totalSales/ shift.ServersOnShift.Count;
-            
+            int serversAssigned = 0;
             foreach (DiningArea area in shift.DiningAreasUsed)
             {
                 
                 int roundedDownServers = (int)Math.Floor(area.ExpectedSales / salesPerServer);
                 DiningAreaServerCounts[area] = roundedDownServers;
+                serversAssigned += roundedDownServers;
 
             }
+            minimumServersAssigned = serversAssigned;
+            ServerRemainder = ServerCount - minimumServersAssigned; 
             return DiningAreaServerCounts;
         }
     }

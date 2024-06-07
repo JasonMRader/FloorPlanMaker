@@ -34,7 +34,9 @@ namespace FloorPlanMakerUI
             {
                 FloorplansString += area + ": " + distributions[area].ToString() + "\n";
             }
-            MessageBox.Show(FloorplansString);
+            lblDistribution.Text = FloorplansString;
+            lblServerCount.Text = floorplanGenerator.ServerCount.ToString();
+            lblServerRemainder.Text = floorplanGenerator.ServerRemainder.ToString();
         }
     }
 }
