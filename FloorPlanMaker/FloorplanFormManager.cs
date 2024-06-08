@@ -33,6 +33,9 @@ namespace FloorPlanMakerUI
         private ImageLabelControl salesImageLabel = new ImageLabelControl();
         private ToolTip toolTip = new ToolTip();
         private TableSalesManager tableSalesManager = new TableSalesManager();
+        private Panel pnlFloorplan { get; set; }
+        private FlowLayoutPanel flowSectionsPanel {  get; set; }
+        private FlowLayoutPanel flowServersPanel { get; set; }
         public DateOnly dateOnly => this.Shift.DateOnly;
         public bool isAm => this.Shift.IsAM;
 
@@ -515,17 +518,17 @@ namespace FloorPlanMakerUI
             UpdateTemplatesBasedOnFloorplan();
             FloorplanTemplate template = SelectTheIdealFloorplanTemplate();
             CopyTemplateSections(template);
-            //AddTableControls(pnlFloorPlan);
+            AddTableControls(pnlFloorplan);
             SetSectionLabels();
             SetSectionPanels();
             //AddSectionLabels(pnlFloorPlan);
             SetServerControls();
             UpdateTableControlColors();
-           // flowSectionSelect.Controls.Clear();
-            //flowServersInFloorplan.Controls.Clear();
-            //AddServerControls(flowServersInFloorplan);
-            //AddSectionPanels(flowSectionSelect);
-            //AddSectionLabels(pnlFloorPlan);
+            flowSectionsPanel.Controls.Clear();
+            flowServersPanel.Controls.Clear();
+            AddServerControls(flowServersPanel);
+            AddSectionPanels(flowSectionsPanel);
+            AddSectionLabels(pnlFloorplan);
             //UpdateServerControlsForFloorplan();
 
             //LoadTableSalesForPastDate();
@@ -1013,6 +1016,9 @@ namespace FloorPlanMakerUI
             //SetTableSales();
             this.Shift.DateOnly = dateOnlySelected;
             this.Shift.IsAM = isAM;
+            this.flowSectionsPanel = flowSectionSelect;
+            this.flowServersPanel = flowServersInFloorplan;
+            this.pnlFloorplan = pnlFloorPlan;
 
             if (Shift.ContainsFloorplan(dateOnlySelected, isAM, Shift.SelectedDiningArea.ID))
             {
