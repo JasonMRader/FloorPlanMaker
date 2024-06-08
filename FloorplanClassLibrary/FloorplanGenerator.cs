@@ -76,9 +76,8 @@ namespace FloorplanClassLibrary
                 }
             }
             
-
-            
         }
+        public void Assign
 
     }
 }

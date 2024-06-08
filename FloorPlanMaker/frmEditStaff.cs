@@ -655,6 +655,7 @@ namespace FloorPlanMaker
             PopulateUnassignedServers();
 
             RefreshFloorplanFlowPanel(ShiftManager.SelectedShift.Floorplans);
+            RefreshFloorplanCountLabels();
         }
 
         private void PopulateUnassignedServers()
