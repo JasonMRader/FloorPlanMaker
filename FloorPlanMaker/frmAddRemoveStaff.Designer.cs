@@ -56,11 +56,13 @@
             lblTeamWait = new Label();
             lblPerferedSections = new Label();
             lblServerName = new Label();
+            dgvServers = new DataGridView();
             ((System.ComponentModel.ISupportInitialize)tbarCocktail).BeginInit();
             ((System.ComponentModel.ISupportInitialize)tbarClosing).BeginInit();
             ((System.ComponentModel.ISupportInitialize)tbarOutside).BeginInit();
             ((System.ComponentModel.ISupportInitialize)tbarTeamWait).BeginInit();
             ((System.ComponentModel.ISupportInitialize)tbarSection).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvServers).BeginInit();
             SuspendLayout();
             // 
             // lbServers
@@ -321,11 +323,21 @@
             lblServerName.TabIndex = 9;
             lblServerName.Text = "Server";
             // 
+            // dgvServers
+            // 
+            dgvServers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvServers.Location = new Point(614, 28);
+            dgvServers.Name = "dgvServers";
+            dgvServers.RowTemplate.Height = 25;
+            dgvServers.Size = new Size(540, 614);
+            dgvServers.TabIndex = 10;
+            // 
             // frmAddRemoveStaff
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(753, 663);
+            ClientSize = new Size(1205, 663);
+            Controls.Add(dgvServers);
             Controls.Add(lblServerName);
             Controls.Add(lblPerferedSections);
             Controls.Add(lblTeamWait);
@@ -363,6 +375,7 @@
             ((System.ComponentModel.ISupportInitialize)tbarOutside).EndInit();
             ((System.ComponentModel.ISupportInitialize)tbarTeamWait).EndInit();
             ((System.ComponentModel.ISupportInitialize)tbarSection).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvServers).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -397,5 +410,6 @@
         private Label lblTeamWait;
         private Label lblPerferedSections;
         private Label lblServerName;
+        private DataGridView dgvServers;
     }
 }

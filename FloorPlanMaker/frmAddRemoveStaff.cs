@@ -18,6 +18,7 @@ namespace FloorPlanMakerUI
         public frmAddRemoveStaff()
         {
             InitializeComponent();
+            BindDataGridView();
         }
 
         private void frmAddRemoveStaff_Load(object sender, EventArgs e)
@@ -159,5 +160,34 @@ namespace FloorPlanMakerUI
             SelectedServer.PreferedSectionWeight = tbarSection.Value;
             SqliteDataAccess.UpdateServer(SelectedServer);
         }
+        private void BindDataGridView()
+        {
+            var serverDisplayList = employeeManager.ActiveServers
+                .Select(s => new
+                {
+                    Server = s.DisplayName,
+                    Cocktail = s.CocktailPreference,
+                    Close = s.CloseFrequency,
+                    TeamWait = s.TeamWaitFrequency,
+                    Outside = s.OutsideFrequency,
+                    Section = s.PreferedSectionWeight
+                }).ToList();
+
+            dgvServers.DataSource = serverDisplayList;
+            foreach (DataGridViewColumn column in dgvServers.Columns)
+            {
+                column.SortMode = DataGridViewColumnSortMode.Automatic;
+            }
+            // Optionally, rename columns
+            dgvServers.Columns["Server"].HeaderText = "Server";
+            dgvServers.Columns["Cocktail"].HeaderText = "Cocktail";
+            dgvServers.Columns["Close"].HeaderText = "Close";
+            dgvServers.Columns["TeamWait"].HeaderText = "TeamWait";
+            dgvServers.Columns["Outside"].HeaderText = "Outside";
+            dgvServers.Columns["Section"].HeaderText = "Section";
+        }
+
+
+
     }
 }
