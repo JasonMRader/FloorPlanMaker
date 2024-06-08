@@ -27,6 +27,7 @@ namespace FloorplanClassLibrary
             return Name;
         }
         public bool IsInside { get; set; }
+        public bool IsCocktail { get; set; }
         public List<Table>? Tables { get; set; }
         public void SetTableSales(List<TableStat> tableStats)
         {

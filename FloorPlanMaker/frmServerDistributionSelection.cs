@@ -37,6 +37,7 @@ namespace FloorPlanMakerUI
             lblDistribution.Text = FloorplansString;
             lblServerCount.Text = floorplanGenerator.ServerCount.ToString();
             lblServerRemainder.Text = floorplanGenerator.ServerRemainder.ToString();
+            floorplanGenerator.AssignCocktailers();
         }
     }
 }

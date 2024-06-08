@@ -14,6 +14,7 @@ namespace FloorplanClassLibrary
             this.shift = shift;
         } 
         public Shift shift { get; set; }
+        public Dictionary<DiningArea, int> ServerDistribution { get;set; }
         public int ServerCount
         {
             get
@@ -44,7 +45,40 @@ namespace FloorplanClassLibrary
             }
             minimumServersAssigned = serversAssigned;
             ServerRemainder = ServerCount - minimumServersAssigned; 
+            ServerDistribution = new Dictionary<DiningArea, int>();
+            ServerDistribution = DiningAreaServerCounts;
             return DiningAreaServerCounts;
         }
+        public void AssignCocktailers()
+        {
+            
+            int CocktailersNeeded = 0;
+            int CocktailAreas = 0;
+            foreach(DiningArea area in shift.DiningAreasUsed)
+            {
+                if (area.IsCocktail)
+                {
+                    CocktailersNeeded += ServerDistribution[area];
+                    CocktailAreas ++;
+                }
+            }
+            List<Server> Cocktailers = shift.ServersOnShift
+                .OrderByDescending(s => s.CocktailPreference)
+                .Take(CocktailersNeeded)
+                .ToList();
+            if(CocktailAreas == 1)
+            {
+                shift.SelectedFloorplan = shift.Floorplans.FirstOrDefault(fp => fp.DiningArea.IsCocktail);
+                foreach(Server server in Cocktailers)
+                {
+                    shift.AddServerToAFloorplan(server);
+                    shift.SelectedFloorplan.AddServerAndSection(server);
+                }
+            }
+            
+
+            
+        }
+
     }
 }
