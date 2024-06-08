@@ -52,9 +52,13 @@ namespace FloorPlanMakerUI
         }
         public void UpdateTemplatesBasedOnFloorplan()
         {
+            if (this.TemplateManager == null)
+            {
+                this.TemplateManager = new TemplateManager();
+            }
             if (this.Floorplan != null)
             {
-                // If Floorplan is not null, get templates for the specific floorplan
+                
                 this.TemplateManager.GetTemplatesForFloorplan(this.Floorplan);
                 this.TemplateManager.serverCount = this.Floorplan.Servers.Count;
             }
@@ -461,7 +465,18 @@ namespace FloorPlanMakerUI
             salesImageLabel.SetTooltip("Sales Per Server");
             panel.Controls.Add(coversImageLabel);
             panel.Controls.Add(salesImageLabel);
-
+            Button btnAutoSelectTemplate = new Button
+            {
+                Text = "Auto Generate Template",
+                AutoSize = false,
+                Size = new Size(panel.Width - 10, 25),
+                Font = new Font("Segoe UI", 10F),
+                FlatStyle = FlatStyle.Flat,
+                BackColor = UITheme.CTAColor,
+                ForeColor = UITheme.CTAFontColor
+            };
+            btnAutoSelectTemplate.Click += btnAutoSelectTemplate_Click;
+            panel.Controls.Add(btnAutoSelectTemplate);
             foreach (SectionPanelControl sectionPanel in _sectionPanels)
             {
                 sectionPanel.Width = panel.Width - 10;
@@ -493,6 +508,47 @@ namespace FloorPlanMakerUI
             //panel.Controls.Add(btnAddSection);
             panel.Controls.Add(btnAddPickup);
             
+        }
+
+        private void btnAutoSelectTemplate_Click(object? sender, EventArgs e)
+        {
+            UpdateTemplatesBasedOnFloorplan();
+            FloorplanTemplate template = SelectTheIdealFloorplanTemplate();
+            CopyTemplateSections(template);
+            //AddTableControls(pnlFloorPlan);
+            SetSectionLabels();
+            SetSectionPanels();
+            //AddSectionLabels(pnlFloorPlan);
+            SetServerControls();
+            UpdateTableControlColors();
+           // flowSectionSelect.Controls.Clear();
+            //flowServersInFloorplan.Controls.Clear();
+            //AddServerControls(flowServersInFloorplan);
+            //AddSectionPanels(flowSectionSelect);
+            //AddSectionLabels(pnlFloorPlan);
+            //UpdateServerControlsForFloorplan();
+
+            //LoadTableSalesForPastDate();
+            // SetTableSales();
+            UpdateTableStats();
+            UpdateAveragesPerServer();
+            coversImageLabel.UpdateText(Shift.SelectedFloorplan.MaxCoversPerServer.ToString("F0"));
+            salesImageLabel.UpdateText(Shift.SelectedFloorplan.AvgSalesPerServer.ToString("C0"));
+            coversImageLabel.Invalidate();
+            salesImageLabel.Invalidate();
+
+        }
+
+        private FloorplanTemplate SelectTheIdealFloorplanTemplate()
+        {
+            
+            FloorplanTemplate template = TemplateManager.Templates.FirstOrDefault();
+            if(template == null)
+            {
+                MessageBox.Show("There is no Template that meets these requirements");
+                return null;
+            }
+            return template;
         }
 
         private void btnAddSection_Click(object? sender, EventArgs e)
@@ -978,7 +1034,7 @@ namespace FloorPlanMakerUI
                 AddTableControls(pnlFloorPlan);
                 SetSectionLabels();
                 SetSectionPanels();
-                AddSectionLabels(pnlFloorPlan);
+                //AddSectionLabels(pnlFloorPlan);
                 SetServerControls();
                 UpdateTableControlColors();
                 flowSectionSelect.Controls.Clear();

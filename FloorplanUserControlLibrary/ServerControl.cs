@@ -236,7 +236,7 @@ namespace FloorPlanMaker
                     this.ShiftControls.Add(shiftControl);
                     this.ShiftsDisplay.Controls.Add(shiftControl);
                 }
-                var lastShiftsForPercentage = this.Server.Shifts.Take(20);
+                var lastShiftsForPercentage = this.Server.Shifts.Take(10);
                 int OutsideShifts = 0;
                 foreach (var shift in lastShiftsForPercentage)
                 {

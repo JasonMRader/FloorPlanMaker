@@ -196,6 +196,7 @@ namespace FloorPlanMaker
             {
                 this.shift.AddFloorplanAndServers(fp);
             }
+            //Checking for doubles
             if (!shift.IsAM)
             {
                 List<Floorplan> amFloorplans = SqliteDataAccess.LoadFloorplansByDateAndShift(shiftManagerToAdd.DateOnly, true);

@@ -651,7 +651,7 @@ namespace FloorPlanMaker
             //frmDistribution.ShowDialog();
             FloorplanGenerator floorplanGenerator = new FloorplanGenerator(ShiftManager.SelectedShift);
             floorplanGenerator.GetServerDistribution();
-            floorplanGenerator.AssignCocktailers();
+            floorplanGenerator.AutoAssignDiningAreas();
             PopulateUnassignedServers();
 
             RefreshFloorplanFlowPanel(ShiftManager.SelectedShift.Floorplans);

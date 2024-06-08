@@ -16,6 +16,29 @@ namespace FloorplanClassLibrary
         public int TeamWaitFrequency { get; set; }
         public int OutsideFrequency { get; set; }
         public int PreferedSectionWeight { get; set; }
+        public float lastTenOutsideRatio
+        {
+            get
+            {
+                var lastShiftsForPercentage = this.Shifts.Take(10);
+                int OutsideShifts = 0;
+                foreach (var shift in lastShiftsForPercentage)
+                {
+                    if (!shift.IsInside)
+                    {
+                        OutsideShifts += 1;
+                    }
+                }
+                return ((float)OutsideShifts / (float)lastShiftsForPercentage.Count())*10;
+            }
+        }
+        public float AdjustedOutsidePriority
+        {
+            get
+            {
+                return (float)OutsideFrequency - lastTenOutsideRatio;
+            }
+        }
        
 
         private Section? _currentSection;
