@@ -33,6 +33,16 @@ namespace FloorPlanMakerUI
                 txtServerName.Text = SelectedServer.Name;
                 txtServerDisplayName.Text = SelectedServer.DisplayName;
                 lblServerName.Text = SelectedServer.Name;
+                tbarClosing.Value = SelectedServer.CloseFrequency;
+                tbarCocktail.Value = SelectedServer.CocktailPreference;
+                tbarOutside.Value = SelectedServer.OutsideFrequency;
+                tbarTeamWait.Value = SelectedServer.TeamWaitFrequency;
+                tbarSection.Value = SelectedServer.PreferedSectionWeight;
+                lblClosing.Text = SelectedServer.CloseFrequency.ToString();
+                lblCocktail.Text = SelectedServer.CocktailPreference.ToString();
+                lblOutside.Text = SelectedServer.OutsideFrequency.ToString();
+                lblTeamWait.Text = SelectedServer.TeamWaitFrequency.ToString();
+                lblPerferedSections.Text = SelectedServer.PreferedSectionWeight.ToString();
             }
             else
             {
@@ -118,26 +128,36 @@ namespace FloorPlanMakerUI
         private void tbarCocktail_Scroll(object sender, EventArgs e)
         {
             lblCocktail.Text = tbarCocktail.Value.ToString();
+            SelectedServer.CocktailPreference = tbarCocktail.Value;
+            SqliteDataAccess.UpdateServer(SelectedServer);
         }
 
         private void tbarClosing_Scroll(object sender, EventArgs e)
         {
             lblClosing.Text = tbarClosing.Value.ToString();
+            SelectedServer.CloseFrequency = tbarClosing.Value;
+            SqliteDataAccess.UpdateServer(SelectedServer);
         }
 
         private void tbarOutside_Scroll(object sender, EventArgs e)
         {
             lblOutside.Text = tbarOutside.Value.ToString();
+            SelectedServer.OutsideFrequency = tbarOutside.Value;
+            SqliteDataAccess.UpdateServer(SelectedServer);
         }
 
         private void tbarTeamWait_Scroll(object sender, EventArgs e)
         {
             lblTeamWait.Text = tbarTeamWait.Value.ToString();
+            SelectedServer.TeamWaitFrequency = tbarTeamWait.Value;
+            SqliteDataAccess.UpdateServer(SelectedServer);
         }
 
         private void tbarSection_Scroll(object sender, EventArgs e)
         {
             lblPerferedSections.Text = tbarSection.Value.ToString();
+            SelectedServer.PreferedSectionWeight = tbarSection.Value;
+            SqliteDataAccess.UpdateServer(SelectedServer);
         }
     }
 }

@@ -574,10 +574,26 @@ namespace FloorplanClassLibrary
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                var query = "UPDATE Server SET Name = @Name, Archived = @Archived, DisplayName = @DisplayName WHERE ID = @ID";
-                cnn.Execute(query, new { Name = server.Name, Archived = server.Archived, DisplayName = server.DisplayName, ID = server.ID });
+                var query = "UPDATE Server SET Name = @Name, Archived = @Archived, DisplayName = @DisplayName, " +
+                            "CocktailPreference = @CocktailPreference, CloseFrequency = @CloseFrequency, " +
+                            "TeamWaitFrequency = @TeamWaitFrequency, OutsideFrequency = @OutsideFrequency, " +
+                            "PreferedSectionWeight = @PreferedSectionWeight WHERE ID = @ID";
+
+                cnn.Execute(query, new
+                {
+                    Name = server.Name,
+                    Archived = server.Archived,
+                    DisplayName = server.DisplayName,
+                    CocktailPreference = server.CocktailPreference,
+                    CloseFrequency = server.CloseFrequency,
+                    TeamWaitFrequency = server.TeamWaitFrequency,
+                    OutsideFrequency = server.OutsideFrequency,
+                    PreferedSectionWeight = server.PreferedSectionWeight,
+                    ID = server.ID
+                });
             }
         }
+
         public static List<Server> LoadActiveServers()
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
