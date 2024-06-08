@@ -19,6 +19,7 @@ namespace FloorPlanMakerUI
         {
             InitializeComponent();
             BindDataGridView();
+            dgvServers.CellValueChanged += DgvServers_CellValueChanged;
         }
 
         private void frmAddRemoveStaff_Load(object sender, EventArgs e)
@@ -162,10 +163,11 @@ namespace FloorPlanMakerUI
         }
         private void BindDataGridView()
         {
+            // Transform the list of servers into a list of ServerDisplay objects
             var serverDisplayList = employeeManager.ActiveServers
-                .Select(s => new
+                .Select(s => new ServerDisplay
                 {
-                    Server = s.DisplayName,
+                    Server = s.ToString(),
                     Cocktail = s.CocktailPreference,
                     Close = s.CloseFrequency,
                     TeamWait = s.TeamWaitFrequency,
@@ -173,21 +175,54 @@ namespace FloorPlanMakerUI
                     Section = s.PreferedSectionWeight
                 }).ToList();
 
-            dgvServers.DataSource = serverDisplayList;
+            var bindingList = new SortableBindingList<ServerDisplay>(serverDisplayList);
+            var source = new BindingSource(bindingList, null);
+            dgvServers.DataSource = source;
+
+            // Set columns to be sortable
             foreach (DataGridViewColumn column in dgvServers.Columns)
             {
                 column.SortMode = DataGridViewColumnSortMode.Automatic;
             }
-            // Optionally, rename columns
-            dgvServers.Columns["Server"].HeaderText = "Server";
-            dgvServers.Columns["Cocktail"].HeaderText = "Cocktail";
-            dgvServers.Columns["Close"].HeaderText = "Close";
+
+            dgvServers.Columns["Server"].Width = 90;
+            dgvServers.Columns["Cocktail"].Width = 70;             
+            dgvServers.Columns["Close"].Width = 70;
             dgvServers.Columns["TeamWait"].HeaderText = "TeamWait";
+            dgvServers.Columns["TeamWait"].Width = 70; 
             dgvServers.Columns["Outside"].HeaderText = "Outside";
+            dgvServers.Columns["Outside"].Width = 70; 
             dgvServers.Columns["Section"].HeaderText = "Section";
+            dgvServers.Columns["Section"].Width = 70;
+        }
+        private void DgvServers_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                var row = dgvServers.Rows[e.RowIndex];
+                var serverDisplay = row.DataBoundItem as ServerDisplay;
+
+                if (serverDisplay != null)
+                {
+                    // Find the corresponding server object
+                    var server = employeeManager.ActiveServers.FirstOrDefault(s => s.ToString() == serverDisplay.Server);
+
+                    if (server != null)
+                    {
+                        // Update the server's properties with the new values
+                        server.CocktailPreference = serverDisplay.Cocktail;
+                        server.CloseFrequency = serverDisplay.Close;
+                        server.TeamWaitFrequency = serverDisplay.TeamWait;
+                        server.OutsideFrequency = serverDisplay.Outside;
+                        server.PreferedSectionWeight = serverDisplay.Section;
+
+                        // Update the server in the database
+                        SqliteDataAccess.UpdateServer(server);
+                    }
+                }
+            }
         }
 
-
-
     }
+
 }
