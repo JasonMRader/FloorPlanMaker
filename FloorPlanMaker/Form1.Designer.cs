@@ -321,10 +321,12 @@ namespace FloorPlanMaker
             // cbIsAM
             // 
             cbIsAM.Appearance = Appearance.Button;
-            cbIsAM.BackColor = Color.FromArgb(117, 70, 104);
+            cbIsAM.BackColor = Color.FromArgb(251, 175, 0);
+            cbIsAM.Checked = true;
+            cbIsAM.CheckState = CheckState.Checked;
             cbIsAM.FlatStyle = FlatStyle.Flat;
             cbIsAM.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point);
-            cbIsAM.Image = FloorPlanMakerUI.Properties.Resources.smallMoon;
+            cbIsAM.Image = FloorPlanMakerUI.Properties.Resources.smallSunrise;
             cbIsAM.Location = new Point(623, 3);
             cbIsAM.Name = "cbIsAM";
             cbIsAM.Size = new Size(56, 33);
