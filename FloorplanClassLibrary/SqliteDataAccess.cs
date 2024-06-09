@@ -1892,6 +1892,48 @@ namespace FloorplanClassLibrary
 
             return neighbors;
         }
+        public static void SaveNewEventDate(SpecialEventDate specialEvent)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                string sql = @"
+            INSERT INTO SpecialEventDates (DateOnly, Type, ShouldIgnoreSales, Name) 
+            VALUES (@DateOnly, @Type, @ShouldIgnoreSales, @Name)";
+
+                var parameters = new
+                {                   
+                    DateOnly = specialEvent.DateOnly.ToString("yyyy-MM-dd"),
+                    Type = specialEvent.Type.ToString(),
+                    ShouldIgnoreSales = specialEvent.ShouldIgnoreSales,
+                    Name = specialEvent.Name 
+                };
+
+                cnn.Execute(sql, parameters);
+            }
+        }
+        public static List<SpecialEventDate> LoadSpecialEvents()
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var specialEventDates = cnn.Query<dynamic>("SELECT Id, DateOnly, Type, ShouldIgnoreSales, Name FROM SpecialEventDates").ToList();
+
+                List<SpecialEventDate> results = new List<SpecialEventDate>();
+
+                foreach (var row in specialEventDates)
+                {
+                    long id = row.Id;
+                    DateOnly dateOnly = DateOnly.Parse((string)row.DateOnly);
+                    SpecialEventDate.OutlierType type = Enum.Parse<SpecialEventDate.OutlierType>((string)row.Type);
+                    bool shouldIgnoreSales = row.ShouldIgnoreSales == 1;
+                    string name = row.Name;
+
+                    results.Add(new SpecialEventDate((int)id, dateOnly, type, shouldIgnoreSales, name));
+                }
+
+                return results;
+            }
+        }
+
 
 
 

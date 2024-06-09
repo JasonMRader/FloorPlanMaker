@@ -228,7 +228,8 @@ namespace FloorPlanMakerUI
 
         private void btnEventDates_Click(object sender, EventArgs e)
         {
-
+            frmSpecialDates frmEventDates = new frmSpecialDates();
+            frmEventDates.ShowDialog();
         }
     }
 }

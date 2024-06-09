@@ -36,12 +36,15 @@
             btnChooseDataBase = new Button();
             openFileDialog1 = new OpenFileDialog();
             panel1 = new Panel();
+            label6 = new Label();
+            listBox1 = new ListBox();
             dtpMissingDateStart = new DateTimePicker();
             dtpMissingDateEnd = new DateTimePicker();
             label3 = new Label();
             label2 = new Label();
             label1 = new Label();
             lbMissingData = new ListBox();
+            btnEventDates = new Button();
             panel2 = new Panel();
             label5 = new Label();
             btnDeleteTemplate = new Button();
@@ -58,9 +61,6 @@
             btnDeleteFloorplans = new Button();
             btnSaleStats = new Button();
             btnPastSection = new Button();
-            btnEventDates = new Button();
-            listBox1 = new ListBox();
-            label6 = new Label();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudTemplateID).BeginInit();
@@ -173,6 +173,26 @@
             panel1.Size = new Size(350, 800);
             panel1.TabIndex = 1;
             // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label6.Location = new Point(12, 526);
+            label6.Name = "label6";
+            label6.Size = new Size(137, 21);
+            label6.TabIndex = 5;
+            label6.Text = "Upcoming Events";
+            // 
+            // listBox1
+            // 
+            listBox1.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            listBox1.FormattingEnabled = true;
+            listBox1.ItemHeight = 25;
+            listBox1.Location = new Point(12, 557);
+            listBox1.Name = "listBox1";
+            listBox1.Size = new Size(322, 204);
+            listBox1.TabIndex = 4;
+            // 
             // dtpMissingDateStart
             // 
             dtpMissingDateStart.Location = new Point(134, 123);
@@ -225,6 +245,20 @@
             lbMissingData.Name = "lbMissingData";
             lbMissingData.Size = new Size(322, 193);
             lbMissingData.TabIndex = 1;
+            // 
+            // btnEventDates
+            // 
+            btnEventDates.BackColor = Color.FromArgb(100, 130, 180);
+            btnEventDates.FlatAppearance.BorderSize = 0;
+            btnEventDates.FlatStyle = FlatStyle.Flat;
+            btnEventDates.ForeColor = Color.White;
+            btnEventDates.Location = new Point(12, 465);
+            btnEventDates.Name = "btnEventDates";
+            btnEventDates.Size = new Size(322, 43);
+            btnEventDates.TabIndex = 0;
+            btnEventDates.Text = "Manage Event Dates";
+            btnEventDates.UseVisualStyleBackColor = false;
+            btnEventDates.Click += btnEventDates_Click;
             // 
             // panel2
             // 
@@ -407,41 +441,6 @@
             btnPastSection.Text = "Get Sections for Past Shift";
             btnPastSection.UseVisualStyleBackColor = false;
             btnPastSection.Click += btnPastSection_Click;
-            // 
-            // btnEventDates
-            // 
-            btnEventDates.BackColor = Color.FromArgb(100, 130, 180);
-            btnEventDates.Enabled = false;
-            btnEventDates.FlatAppearance.BorderSize = 0;
-            btnEventDates.FlatStyle = FlatStyle.Flat;
-            btnEventDates.ForeColor = Color.White;
-            btnEventDates.Location = new Point(12, 465);
-            btnEventDates.Name = "btnEventDates";
-            btnEventDates.Size = new Size(322, 43);
-            btnEventDates.TabIndex = 0;
-            btnEventDates.Text = "Manage Event Dates";
-            btnEventDates.UseVisualStyleBackColor = false;
-            btnEventDates.Click += btnEventDates_Click;
-            // 
-            // listBox1
-            // 
-            listBox1.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
-            listBox1.FormattingEnabled = true;
-            listBox1.ItemHeight = 25;
-            listBox1.Location = new Point(12, 557);
-            listBox1.Name = "listBox1";
-            listBox1.Size = new Size(322, 204);
-            listBox1.TabIndex = 4;
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label6.Location = new Point(12, 526);
-            label6.Name = "label6";
-            label6.Size = new Size(137, 21);
-            label6.TabIndex = 5;
-            label6.Text = "Upcoming Events";
             // 
             // frmSettings
             // 

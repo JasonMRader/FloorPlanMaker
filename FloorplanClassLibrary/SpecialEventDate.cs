@@ -8,31 +8,42 @@ namespace FloorplanClassLibrary
 {
     public class SpecialEventDate
     {
+        public int ID { get; set; }
         public DateTime Date { get; private set; }
         public DateOnly DateOnly { get; private set; }
         public string Name { get; set; }
-
+        public SpecialEventDate() { }
         public OutlierType Type { get; set; }
+        public bool ShouldIgnoreSales { get; set; }
 
         public enum OutlierType
         {
-            BusyDay,
-            SlowDay,
+            SpecialEvent,
             Holiday,
             Closed,
             Convention,
             Other
         }
 
-        public SpecialEventDate(DateTime date, OutlierType type)
+        public SpecialEventDate(DateTime date, OutlierType type, string name)
         {
             SetDate(date);
             Type = type;
+            Name = name;
         }
-        public SpecialEventDate(DateOnly dateOnly, OutlierType type)
+        public SpecialEventDate(DateOnly dateOnly, OutlierType type, string name)
         {
             SetDate(dateOnly);
             Type = type;
+            Name = name;
+        }
+        public SpecialEventDate(int id, DateOnly dateOnly, OutlierType type, bool shouldIgnoreSales, string name)
+        {
+            ID = id;
+            DateOnly = dateOnly;
+            Type = type;
+            ShouldIgnoreSales = shouldIgnoreSales;
+            Name = name;
         }
         public void SetDate(DateTime date)
         {
@@ -44,12 +55,13 @@ namespace FloorplanClassLibrary
             this.DateOnly = dateOnly;
             this.Date = dateOnly.ToDateTime(TimeOnly.MinValue);
         }
-        public bool ShouldIgnoreSales()
+       
+        public override string ToString()
         {
-            return Type == OutlierType.Closed;
+            return Name + " " + DateOnly.ToString();    
         }
 
-       
+
     }
 
 }
