@@ -681,36 +681,53 @@ namespace FloorplanClassLibrary
                     //diningArea.Tables = LoadTables(diningArea);
                     floorplan.DiningArea = diningArea;
                     diningArea.Tables = LoadTables(diningArea);
-                    
+
 
                     // Populate Sections from FloorplanSections
                     var sectionIds = cnn.Query<int>("SELECT SectionID FROM FloorplanSections WHERE FloorplanID = @FloorplanID", new { FloorplanID = floorplan.ID });
                     foreach (var id in sectionIds)
                     {
                         var section = cnn.QuerySingle<Section>("SELECT * FROM Section WHERE ID = @ID", new { ID = id });
-                        section.SetTableList(cnn.Query<Table>(
-                            "SELECT * FROM DiningTable WHERE ID IN (SELECT TableID FROM SectionTables WHERE SectionID = @SectionID)",
-                            new { SectionID = id }).ToList());
+
+                        // Get Table IDs for each Section from SectionTables
+                        var tableIdsInSection = cnn.Query<int>("SELECT TableID FROM SectionTables WHERE SectionID = @SectionID", new { SectionID = id });
+
+                        // Match tables from DiningArea with the ones in Section
+                        var tablesInSection = diningArea.Tables.Where(table => tableIdsInSection.Contains(table.ID)).ToList();
+                        section.SetTableList(tablesInSection);
+
                         floorplan.AddSection(section);
                     }
 
+
                     var servers = new List<Server>();
+
+                    // Fetch the server-section relationships directly as anonymous types
                     var serverSections = cnn.Query("SELECT * FROM ServerSections WHERE SectionID IN @SectionIds", new { SectionIds = sectionIds })
-                                            .Select(x => new { ServerID = (int)x.ServerID, SectionID = (int)x.SectionID })
-                                            .ToList();
+                                             .Select(x => new { ServerID = (int)x.ServerID, SectionID = (int)x.SectionID })
+                                             .ToList();
+                    var relevantServerIds = serverSections.Select(ss => ss.ServerID).Distinct().ToList();
+                    var allRelevantServers = cnn.Query<Server>("SELECT * FROM Server WHERE ID IN @ServerIDs", new { ServerIDs = relevantServerIds }).ToList();
+
+
 
                     foreach (var ss in serverSections)
                     {
-                        if (!servers.Any(s => s.ID == ss.ServerID))
-                        {
-                            var server = cnn.QuerySingle<Server>("SELECT * FROM Server WHERE ID = @ID", new { ID = ss.ServerID });
-                            servers.Add(server);
-                        }
-
+                        var server = allRelevantServers.FirstOrDefault(s => s.ID == ss.ServerID);
                         var matchedSection = floorplan.Sections.FirstOrDefault(s => s.ID == ss.SectionID);
-                        if (matchedSection != null)
+
+                        if (server != null && matchedSection != null)
                         {
-                            matchedSection.AddServer(servers.First(s => s.ID == ss.ServerID));
+                            matchedSection.ServerTeam.Add(server);
+                        }
+                    }
+
+                    // After adding all servers, set IsTeamWait appropriately
+                    foreach (var section in floorplan.Sections)
+                    {
+                        if (section.ServerTeam.Count > 1)
+                        {
+                            section.MakeTeamWait();
                         }
                     }
 
