@@ -155,6 +155,7 @@ namespace FloorPlanMakerUI
             cboDiningAreas.DataSource = areaCreationManager.DiningAreas;
             cboDiningAreas.DisplayMember = "Name";
             cboDiningAreas.ValueMember = "ID";
+            RefreshSpecialEventListBoxes();
         }
 
         private void dtpMissingDateStart_ValueChanged(object sender, EventArgs e)
@@ -230,6 +231,17 @@ namespace FloorPlanMakerUI
         {
             frmSpecialDates frmEventDates = new frmSpecialDates();
             frmEventDates.ShowDialog();
+        }
+        private void RefreshSpecialEventListBoxes()
+        {
+            lbUpcomingEvents.Items.Clear();           
+            DateOnly today = new DateOnly(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            List<SpecialEventDate> allEvents = SqliteDataAccess.LoadSpecialEvents();           
+            List<SpecialEventDate> futureEvents = allEvents.Where(e => e.DateOnly >= today).OrderBy(e => e.DateOnly).ToList();           
+            foreach (SpecialEventDate specialEventDate in futureEvents)
+            {
+                lbUpcomingEvents.Items.Add(specialEventDate.GetUpcomingEventString());
+            }
         }
     }
 }

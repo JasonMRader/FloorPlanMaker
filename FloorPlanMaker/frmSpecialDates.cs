@@ -37,8 +37,8 @@ namespace FloorPlanMakerUI
             lbPastEvents.Items.Clear();
             DateOnly today = new DateOnly(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
             List<SpecialEventDate> allEvents = SqliteDataAccess.LoadSpecialEvents();
-            List<SpecialEventDate> pastEvents = allEvents.Where(e => e.DateOnly < today).ToList();
-            List<SpecialEventDate> futureEvents = allEvents.Where(e => e.DateOnly >= today).ToList();
+            List<SpecialEventDate> pastEvents = allEvents.Where(e => e.DateOnly < today).OrderByDescending(e => e.DateOnly).ToList();
+            List<SpecialEventDate> futureEvents = allEvents.Where(e => e.DateOnly >= today).OrderBy(e => e.DateOnly).ToList();
             foreach(SpecialEventDate specialEventDate in pastEvents)
             {
                 lbPastEvents.Items.Add(specialEventDate);

@@ -37,7 +37,7 @@
             openFileDialog1 = new OpenFileDialog();
             panel1 = new Panel();
             label6 = new Label();
-            listBox1 = new ListBox();
+            lbUpcomingEvents = new ListBox();
             dtpMissingDateStart = new DateTimePicker();
             dtpMissingDateEnd = new DateTimePicker();
             label3 = new Label();
@@ -159,7 +159,7 @@
             // 
             panel1.BackColor = Color.FromArgb(180, 190, 200);
             panel1.Controls.Add(label6);
-            panel1.Controls.Add(listBox1);
+            panel1.Controls.Add(lbUpcomingEvents);
             panel1.Controls.Add(dtpMissingDateStart);
             panel1.Controls.Add(dtpMissingDateEnd);
             panel1.Controls.Add(label3);
@@ -183,15 +183,15 @@
             label6.TabIndex = 5;
             label6.Text = "Upcoming Events";
             // 
-            // listBox1
+            // lbUpcomingEvents
             // 
-            listBox1.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
-            listBox1.FormattingEnabled = true;
-            listBox1.ItemHeight = 25;
-            listBox1.Location = new Point(12, 557);
-            listBox1.Name = "listBox1";
-            listBox1.Size = new Size(322, 204);
-            listBox1.TabIndex = 4;
+            lbUpcomingEvents.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            lbUpcomingEvents.FormattingEnabled = true;
+            lbUpcomingEvents.ItemHeight = 25;
+            lbUpcomingEvents.Location = new Point(12, 557);
+            lbUpcomingEvents.Name = "lbUpcomingEvents";
+            lbUpcomingEvents.Size = new Size(322, 204);
+            lbUpcomingEvents.TabIndex = 4;
             // 
             // dtpMissingDateStart
             // 
@@ -502,7 +502,7 @@
         private Button btnUpdateNotes;
         private Button btnSaleStats;
         private Label label6;
-        private ListBox listBox1;
+        private ListBox lbUpcomingEvents;
         private Button btnEventDates;
     }
 }

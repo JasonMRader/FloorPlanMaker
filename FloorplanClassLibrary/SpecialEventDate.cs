@@ -60,6 +60,12 @@ namespace FloorplanClassLibrary
         {
             return Name + " " + DateOnly.ToString();    
         }
+        public string GetUpcomingEventString()
+        {
+            DateTime eventDate = this.DateOnly.ToDateTime(TimeOnly.MinValue);
+            int daysAway = (eventDate - DateTime.Now.Date).Days;
+            return $"{this.Name} ({daysAway} days)";
+        }
 
 
     }

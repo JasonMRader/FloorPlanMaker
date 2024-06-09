@@ -1933,6 +1933,30 @@ namespace FloorplanClassLibrary
                 return results;
             }
         }
+        public static SpecialEventDate GetEventByDate(DateOnly date)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                string sql = "SELECT Id, DateOnly, Type, ShouldIgnoreSales, Name FROM SpecialEventDates WHERE DateOnly = @DateOnly LIMIT 1";
+                var parameters = new { DateOnly = date.ToString("yyyy-MM-dd") };
+
+                var result = cnn.QueryFirstOrDefault(sql, parameters);
+
+                if (result != null)
+                {
+                    return new SpecialEventDate(
+                        result.Id,
+                        DateOnly.Parse(result.DateOnly),
+                        Enum.Parse<SpecialEventDate.OutlierType>(result.Type),
+                        result.ShouldIgnoreSales == 0,
+                        result.Name
+                    );
+                }
+                return null;
+            }
+        }
+
+
 
 
 
