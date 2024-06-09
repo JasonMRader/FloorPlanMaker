@@ -1945,7 +1945,7 @@ namespace FloorplanClassLibrary
                 if (result != null)
                 {
                     return new SpecialEventDate(
-                        result.Id,
+                        (int)result.Id,
                         DateOnly.Parse(result.DateOnly),
                         Enum.Parse<SpecialEventDate.OutlierType>(result.Type),
                         result.ShouldIgnoreSales == 0,

@@ -383,6 +383,11 @@ namespace FloorPlanMaker
         {
             dateTimeSelected = dateTimeSelected.AddDays(days);
             lblDateSelected.Text = dateOnlySelected.ToString("ddd, MMM d");
+            SpecialEventDate specialEventDate = SqliteDataAccess.GetEventByDate(dateOnlySelected);
+            if (specialEventDate != null)
+            {
+                lblDateSelected.Text = specialEventDate.Name;
+            }
             floorplanManager.SetViewedFloorplan(dateOnlySelected, cbIsAM.Checked, pnlFloorPlan, flowServersInFloorplan, flowSectionSelect);
             if (floorplanManager.Floorplan == null)
             {

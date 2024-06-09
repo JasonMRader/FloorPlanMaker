@@ -18,6 +18,7 @@ namespace FloorPlanMaker
         private ShiftManager ShiftManager = new ShiftManager();
         private DiningAreaManager DiningAreaManager = new DiningAreaManager();
         private DateTime dateSelected = DateTime.MinValue;
+        private DateOnly dateOnlySelected => new DateOnly(dateSelected.Year, dateSelected.Month, dateSelected.Day);
         private List<Floorplan> allFloorplans = new List<Floorplan>();
         private int currentFocusedFloorplanIndex = 0;
         private int DaysAgoStats = -1;
@@ -556,6 +557,11 @@ namespace FloorPlanMaker
         {
             dateSelected = dateSelected.AddDays(1);
             lblShiftDate.Text = dateSelected.ToString("dddd, MMMM dd");
+            SpecialEventDate specialEventDate = SqliteDataAccess.GetEventByDate(dateOnlySelected);
+            if (specialEventDate != null)
+            {
+                lblShiftDate.Text = specialEventDate.Name + " (" + dateSelected.ToString("ddd, M/dd") + ")";
+            }
 
             SetFloorplansForShiftManager();
         }
@@ -567,6 +573,11 @@ namespace FloorPlanMaker
         {
             dateSelected = dateSelected.AddDays(-1);
             lblShiftDate.Text = dateSelected.ToString("dddd, MMMM dd");
+            SpecialEventDate specialEventDate = SqliteDataAccess.GetEventByDate(dateOnlySelected);
+            if (specialEventDate != null)
+            {
+                lblShiftDate.Text = specialEventDate.Name + " (" + dateSelected.ToString("ddd, M/dd") + ")";
+            }
 
             SetFloorplansForShiftManager();
         }
