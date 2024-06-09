@@ -13,9 +13,11 @@ namespace FloorplanClassLibrary
         public string DisplayName { get; set; }
         public int CocktailPreference { get; set; }
         public int CloseFrequency { get; set; }
+
         public int TeamWaitFrequency { get; set; }
         public int OutsideFrequency { get; set; }
         public int PreferedSectionWeight { get; set; }
+        public float SalesFromPickupSection = 0f;
         public float lastTenOutsideRatio
         {
             get

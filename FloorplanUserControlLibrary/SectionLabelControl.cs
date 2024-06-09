@@ -29,7 +29,7 @@ namespace FloorplanClassLibrary
         private int borderWidth = 5;
         private ToolTip toolTip;
         // TODO: rework what apears on SectionLabels
-        // TODO: choose selected section from label
+      
 
         public Section Section { get; set; }
 
@@ -414,6 +414,7 @@ namespace FloorplanClassLibrary
                 }
             }
             Section.AddServer(assignedServer);
+            assignedServer.SalesFromPickupSection = this.Section.AdditionalPickupSales;
             if(Section.ServerTeam != null)
             {
                 for(int i = 0;  i < Section.ServerTeam.Count; i++) 

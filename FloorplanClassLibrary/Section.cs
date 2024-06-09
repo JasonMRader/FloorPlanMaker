@@ -132,6 +132,32 @@ namespace FloorplanClassLibrary
         public int ID {  get; set; }
         public bool IsPickUp { get; set; }
         public int DiningAreaID { get; set; }
+        public float AdditionalPickupSales 
+        { 
+            get 
+            {
+                if (IsPickUp && ServerTeam.Count() > 0)
+                {
+                    return this.AverageSales / ServerTeam.Count();
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+        }
+        public float SalesFromPickps
+        {
+            get
+            {
+                float sales = 0f;
+                foreach(Server server in ServerTeam)
+                {
+                    sales += server.SalesFromPickupSection;
+                }
+                return sales;
+            }
+        }
         public List<TemplateTable> TemplateTables { get; set; } = new List<TemplateTable>();
 
         public bool IsSelected { get; private set; } = false;
@@ -308,7 +334,9 @@ namespace FloorplanClassLibrary
         {
             foreach (Server server in ServerTeam)
             {
+                //server.SalesFromPickupSection = 0;
                 NotifyRemovedFromSection(server);
+
             }
             this.ServerTeam.Clear();
             NotifyObservers();
@@ -386,7 +414,7 @@ namespace FloorplanClassLibrary
             {
                 if (Tables == null || !Tables.Any()) return 0;
                 
-                return Tables.Sum(table => table.AverageSales);
+                return Tables.Sum(table => table.AverageSales) + SalesFromPickps;
             }
         }
 

@@ -53,6 +53,21 @@ namespace FloorplanClassLibrary
         private List<Server> _serversNotOnShift = new List<Server>();
         private List<Server> _unassignedServers = new List<Server>();
         private List<Server> _allServers = new List<Server>();
+        public float PickupSectionSales(Server server)
+        {
+            float pickupSales = 0f;
+            foreach(Floorplan floorplan in this.Floorplans)
+            {
+                foreach(Section section in floorplan.Sections)
+                {
+                    if(section.IsPickUp && section.ServerTeam.Contains(server))
+                    {
+                        pickupSales += section.AverageSales / section.ServerTeam.Count();
+                    }
+                }
+            }
+            return pickupSales;
+        }
         public List<Server> ServersNotOnShift
         {
             get { return _serversNotOnShift; }
