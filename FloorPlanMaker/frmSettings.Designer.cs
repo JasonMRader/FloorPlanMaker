@@ -58,6 +58,9 @@
             btnDeleteFloorplans = new Button();
             btnSaleStats = new Button();
             btnPastSection = new Button();
+            btnEventDates = new Button();
+            listBox1 = new ListBox();
+            label6 = new Label();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudTemplateID).BeginInit();
@@ -155,6 +158,8 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(180, 190, 200);
+            panel1.Controls.Add(label6);
+            panel1.Controls.Add(listBox1);
             panel1.Controls.Add(dtpMissingDateStart);
             panel1.Controls.Add(dtpMissingDateEnd);
             panel1.Controls.Add(label3);
@@ -162,6 +167,7 @@
             panel1.Controls.Add(label1);
             panel1.Controls.Add(lbMissingData);
             panel1.Controls.Add(btnImportSalesData);
+            panel1.Controls.Add(btnEventDates);
             panel1.Location = new Point(47, 92);
             panel1.Name = "panel1";
             panel1.Size = new Size(350, 800);
@@ -212,11 +218,12 @@
             // 
             // lbMissingData
             // 
+            lbMissingData.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             lbMissingData.FormattingEnabled = true;
-            lbMissingData.ItemHeight = 15;
+            lbMissingData.ItemHeight = 21;
             lbMissingData.Location = new Point(12, 229);
             lbMissingData.Name = "lbMissingData";
-            lbMissingData.Size = new Size(322, 199);
+            lbMissingData.Size = new Size(322, 193);
             lbMissingData.TabIndex = 1;
             // 
             // panel2
@@ -401,6 +408,40 @@
             btnPastSection.UseVisualStyleBackColor = false;
             btnPastSection.Click += btnPastSection_Click;
             // 
+            // btnEventDates
+            // 
+            btnEventDates.BackColor = Color.FromArgb(100, 130, 180);
+            btnEventDates.Enabled = false;
+            btnEventDates.FlatAppearance.BorderSize = 0;
+            btnEventDates.FlatStyle = FlatStyle.Flat;
+            btnEventDates.ForeColor = Color.White;
+            btnEventDates.Location = new Point(12, 465);
+            btnEventDates.Name = "btnEventDates";
+            btnEventDates.Size = new Size(322, 43);
+            btnEventDates.TabIndex = 0;
+            btnEventDates.Text = "Manage Event Dates";
+            btnEventDates.UseVisualStyleBackColor = false;
+            // 
+            // listBox1
+            // 
+            listBox1.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            listBox1.FormattingEnabled = true;
+            listBox1.ItemHeight = 25;
+            listBox1.Location = new Point(12, 557);
+            listBox1.Name = "listBox1";
+            listBox1.Size = new Size(322, 204);
+            listBox1.TabIndex = 4;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label6.Location = new Point(12, 526);
+            label6.Name = "label6";
+            label6.Size = new Size(137, 21);
+            label6.TabIndex = 5;
+            label6.Text = "Upcoming Events";
+            // 
             // frmSettings
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -460,5 +501,8 @@
         private Label label5;
         private Button btnUpdateNotes;
         private Button btnSaleStats;
+        private Label label6;
+        private ListBox listBox1;
+        private Button btnEventDates;
     }
 }
