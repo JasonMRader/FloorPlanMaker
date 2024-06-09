@@ -341,6 +341,7 @@ namespace FloorplanClassLibrary
                 serversPanel.Controls.Add(serverButton);
             }
             serversPanel.Height = (unassignedServers.Count * 30);
+            this.BringToFront();
 
         }
         private void RefreshAllServerPanelForPickUpSection()

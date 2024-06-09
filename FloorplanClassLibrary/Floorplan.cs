@@ -531,6 +531,11 @@ namespace FloorplanClassLibrary
             }
             return allSectionsAssigned;
         }
+        public void OrderSectionsByAvgSales()
+        {
+            var sortedSections = this.Sections.OrderByDescending(s => s.AverageSales).ToList();
+            this.Sections = sortedSections;
+        }
         public bool NotEnoughUnassignedServersCheck(Section section)
         {
             if (section.ServerCount - section.ServerTeam.Count >= this.ServersWithoutSection.Count)
