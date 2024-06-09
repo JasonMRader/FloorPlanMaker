@@ -421,6 +421,7 @@
             btnEventDates.TabIndex = 0;
             btnEventDates.Text = "Manage Event Dates";
             btnEventDates.UseVisualStyleBackColor = false;
+            btnEventDates.Click += btnEventDates_Click;
             // 
             // listBox1
             // 

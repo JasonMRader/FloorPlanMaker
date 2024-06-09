@@ -225,5 +225,10 @@ namespace FloorPlanMakerUI
             frmSalesStats statsForm = new frmSalesStats();
             statsForm.ShowDialog();
         }
+
+        private void btnEventDates_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
