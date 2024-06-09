@@ -242,6 +242,11 @@ namespace FloorplanClassLibrary
                 //MessageBox.Show("You must choose a server to remove to decrease the size of the team.");
                 return false;
             }   
+            if(this.ServerCount == 2)
+            {
+                MakeSoloSection();
+                return true;
+            }
             ServerCount--;
             
             NotifyObservers();
@@ -298,6 +303,15 @@ namespace FloorplanClassLibrary
                 NotifyRemovedFromSection(server);
                 NotifyObservers();
             }
+        }
+        public void ClearAllServers()
+        {
+            foreach (Server server in ServerTeam)
+            {
+                NotifyRemovedFromSection(server);
+            }
+            this.ServerTeam.Clear();
+            NotifyObservers();
         }
         public void NotifyServerAssigned(Server server)
         {
@@ -413,16 +427,37 @@ namespace FloorplanClassLibrary
             {
                 displayString = this.Name;
             }
+            if (this.IsPickUp && this.Server == null)
+            {
+                displayString = "Pickup";
+                return displayString;
+                if (this.Server == null)                         
+                {
+                   
+                    if (Server.isDouble)
+                    {
+                        displayString = Server.ToString() + "*" + "++";
+                    }
+                    else
+                    {
+                        displayString = Server.ToString() + "++";
+                    }
+                }
+               
+               
+
+            }
             if (this.Server != null)
             {
                 
-                if (Server.isDouble)
-                {
-                    displayString = Server.ToString() + "*";
+                if (Server.isDouble) {
+                    displayString = Server.ToString() + "*";                 
                 }
-                else
-                {
+                else {
                     displayString = Server.ToString();
+                }
+                if (IsPickUp) { 
+                    displayString += " ++";
                 }
             }
             
@@ -443,8 +478,12 @@ namespace FloorplanClassLibrary
                     {
                         displayString += server.ToString();
                     }
-                    
-                    if(server != ServerTeam.Last())
+                    if (IsPickUp)
+                    {
+                        displayString += " ++";
+                    }
+
+                    if (server != ServerTeam.Last())
                     {
                         displayString += "\n ";
                     }
@@ -460,25 +499,25 @@ namespace FloorplanClassLibrary
             {
                 displayString = displayString + "(PRE)";
             }
-            if(this.IsPickUp)
-            {
+            //if(this.IsPickUp)
+            //{
 
-                if (this.Server != null)
-                {
+            //    if (this.Server != null)
+            //    {
                      
-                    if (Server.isDouble)
-                    {
-                        displayString = Server.ToString() + "*" + "++";
-                    }
-                    else
-                    {
-                        displayString = Server.ToString() + "++";
-                    }
-                }
-                else 
-                { displayString = "Pickup"; }
+            //        if (Server.isDouble)
+            //        {
+            //            displayString = Server.ToString() + "*" + "++";
+            //        }
+            //        else
+            //        {
+            //            displayString = Server.ToString() + "++";
+            //        }
+            //    }
+            //    else 
+            //    { displayString = "Pickup"; }
                 
-            }
+            //}
             //NotifyObservers();
             return displayString;
             

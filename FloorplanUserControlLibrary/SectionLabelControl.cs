@@ -288,11 +288,19 @@ namespace FloorplanClassLibrary
         {
             if (serverPanelOpen == false)
             {
-                if (this.Section.Server == null && !this.Section.IsPickUp)
+                //if (this.Section.Server == null && !this.Section.IsPickUp)
+                //{
+                //    RefreshUnassignedServerPanel();
+                //}
+                //if (this.Section.Server == null && this.Section.IsPickUp)
+                //{
+                //    RefreshAllServerPanelForPickUpSection();
+                //}
+                if (!this.Section.IsPickUp && this.Section.ServerTeam.Count() < this.Section.ServerCount)
                 {
                     RefreshUnassignedServerPanel();
                 }
-                if (this.Section.Server == null && this.Section.IsPickUp)
+                if (this.Section.IsPickUp)
                 {
                     RefreshAllServerPanelForPickUpSection();
                 }
@@ -303,14 +311,26 @@ namespace FloorplanClassLibrary
                     unassign.Click += UnassignButton_Click;
                     serversPanel.Controls.Add(unassign);
                     serversPanel.Height += 30;
+                    //TODO: Disabled making teamwait from section label, need to make it update number of sections in sectionPanel also
+                    //if (this.Section.IsTeamWait == false)
+                    //{
+                    //    Button teamWait = new Button { Text = "TeamWait", Dock = DockStyle.Top, Width = this.Width - 20 };
+                    //    teamWait.Click += teamWaitButton_Click;
+                    //    serversPanel.Controls.Add(teamWait);
+                    //    serversPanel.Height += 30;
+                    //}
+                    //if (this.Section.IsTeamWait && this.Section.ServerCount > this.Section.ServerTeam.Count())
+                    //{
+                    //    if (this.Section.IsPickUp)
+                    //    {
 
-                    if (this.Section.IsTeamWait == false)
-                    {
-                        Button teamWait = new Button { Text = "TeamWait", Dock = DockStyle.Top, Width = this.Width - 20 };
-                        teamWait.Click += teamWaitButton_Click;
-                        serversPanel.Controls.Add(teamWait);
-                        serversPanel.Height += 30;
-                    }
+                    //    }
+                    //    else
+                    //    {
+
+                    //    }
+                    //}
+                    
                     
                 }              
                                
@@ -334,11 +354,18 @@ namespace FloorplanClassLibrary
         private void RefreshUnassignedServerPanel()
         {
             serversPanel.Controls.Clear();
+            if (this.Section.Server != null)
+            {
+                Button unassign = new Button { Text = "Unassign", Dock = DockStyle.Top, Width = this.Width - 20 };
+                unassign.Click += UnassignButton_Click;
+                serversPanel.Controls.Add(unassign);
+                serversPanel.Height += 30;
+            }
             foreach (var server in unassignedServers)
             {
-                var serverButton = new Button { Text = server.ToString(), Tag = server, Dock = DockStyle.Top, Width = this.Width - 20 };
-                serverButton.Click += ServerButton_Click;
-                serversPanel.Controls.Add(serverButton);
+            var serverButton = new Button { Text = server.ToString(), Tag = server, Dock = DockStyle.Top, Width = this.Width - 20 };
+            serverButton.Click += ServerButton_Click;
+            serversPanel.Controls.Add(serverButton);
             }
             serversPanel.Height = (unassignedServers.Count * 30);
             this.BringToFront();
@@ -347,6 +374,13 @@ namespace FloorplanClassLibrary
         private void RefreshAllServerPanelForPickUpSection()
         {
             serversPanel.Controls.Clear();
+            if (this.Section.Server != null)
+            {
+                Button unassign = new Button { Text = "Unassign", Dock = DockStyle.Top, Width = this.Width - 20 };
+                unassign.Click += UnassignButton_Click;
+                serversPanel.Controls.Add(unassign);
+                serversPanel.Height += 30;
+            }
             foreach (var server in allServers)
             {
                 var serverButton = new Button { Text = server.ToString(), Tag = server, Dock = DockStyle.Top, Width = this.Width - 20 };
@@ -356,9 +390,13 @@ namespace FloorplanClassLibrary
             serversPanel.Height = (allServers.Count * 30);
         }
         private void UnassignButton_Click(Object sender, EventArgs e)
-        {            
-            //unassignedServers.Add(this.Section.Server);
-            Section.RemoveServer(this.Section.Server);
+        {
+            this.Section.ClearAllServers();
+            if (this.Section.IsPickUp)
+            {
+                this.Section.MakeSoloSection();
+            }
+            
             RefreshUnassignedServerPanel();
             UpdateLabel();
         }
@@ -367,8 +405,14 @@ namespace FloorplanClassLibrary
         {
             var clickedButton = (Button)sender;
             var assignedServer = (Server)clickedButton.Tag;
-            
-            //unassignedServers.Remove(assignedServer);
+
+            if (this.Section.IsPickUp)
+            {
+                if(this.Section.ServerTeam.Count() == this.Section.ServerCount)
+                {
+                    this.Section.IncreaseServerCount();
+                }
+            }
             Section.AddServer(assignedServer);
             if(Section.ServerTeam != null)
             {
