@@ -365,7 +365,7 @@ namespace FloorPlanMaker
             SetColors();
             dateTimeSelected = DateTime.Now;
 
-            
+
             cboDiningAreas.DataSource = areaCreationManager.DiningAreas;
             cboDiningAreas.DisplayMember = "Name";
             cboDiningAreas.ValueMember = "ID";
@@ -433,7 +433,7 @@ namespace FloorPlanMaker
         }
         private void cboDiningAreas_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
             shift.SelectedDiningArea = (DiningArea?)cboDiningAreas.SelectedItem;
             floorplanManager.AddTableControls(pnlFloorPlan);
 
@@ -442,7 +442,7 @@ namespace FloorPlanMaker
             if (AllTablesAreAssigned())
             {
                 //TODO SECTION BOARDERS DISABLED
-               // CreateSectionBorders();
+                // CreateSectionBorders();
             }
             else
             {
@@ -616,7 +616,7 @@ namespace FloorPlanMaker
                         return;
                     }
                 }
-                if(cbTableDisplayMode.Checked)
+                if (cbTableDisplayMode.Checked)
                 {
                     foreach (Control c in pnlFloorPlan.Controls)
                     {
@@ -628,10 +628,10 @@ namespace FloorPlanMaker
                     }
                 }
                 SqliteDataAccess.SaveFloorplanAndSections(shift.SelectedFloorplan);
-                
+
 
                 //TODO SECTIONLINES DISABLED
-               
+
                 //DialogResult printWihtLines = MessageBox.Show("Do you want to use these section lines?",
                 //                            "Continue?",
                 //                            MessageBoxButtons.YesNo,
@@ -643,7 +643,7 @@ namespace FloorPlanMaker
                 //    printerNoLines.ShowPrintPreview();
                 //    return;
                 //}
-                
+
                 //TableGrid grid = new TableGrid(shiftManager.SelectedDiningArea.Tables);
                 //grid.FindTableTopBottomNeighbors();
                 //grid.FindTableNeighbors();
@@ -657,16 +657,16 @@ namespace FloorPlanMaker
                 ////List<Edge> edges = grid.GetNeighborEdges();
                 ////Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, edges);
 
-               // pnlFloorPlan.BackgroundImage = edgesBitmap;
+                // pnlFloorPlan.BackgroundImage = edgesBitmap;
                 //FloorplanPrinter printer = new FloorplanPrinter(pnlFloorPlan, edgeDrawer, grid.GetSectionTableBoarders());
                 //printer.ShowPrintPreview();
-                
+
                 try
                 {
                     //MessageBox.Show("Floorplan saved, but An error occurred while trying to print: " + ex.Message, "Print Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     FloorplanPrinter printerNoLines = new FloorplanPrinter(pnlFloorPlan);
                     printerNoLines.ShowPrintPreview();
-                  
+
                 }
                 catch (Exception ex)
                 {
@@ -735,7 +735,7 @@ namespace FloorPlanMaker
         {
             if (cbTableDisplayMode.Checked)
             {
-               // floorplanManager.TableControlDisplayModeToSales();
+                // floorplanManager.TableControlDisplayModeToSales();
                 foreach (Control c in pnlFloorPlan.Controls)
                 {
                     if (c is TableControl tableControl)
@@ -934,17 +934,17 @@ namespace FloorPlanMaker
                     }
                 }
             }
-            
+
             lblTotalSales.Text = floorplanManager.Shift.SelectedDiningArea.ExpectedSales.ToString();
-            
+
         }
         private void rdoYesterdayStats_CheckedChanged(object sender, EventArgs e)
         {
-            if(rdoYesterdayStats.Checked)
+            if (rdoYesterdayStats.Checked)
             {
                 updateSalesForTables();
             }
-          
+
 
             //tableSalesManager.SetTableStats(floorplanManager.Floorplan.DiningArea.Tables, floorplanManager.Floorplan.IsLunch, dateOnlySelected);
 
@@ -953,8 +953,8 @@ namespace FloorPlanMaker
         {
             //TODO: exit each if statment if manager.TableStats is already set to correct stats period, otherwise it calls the methods twice
             if (rdoYesterdayStats.Checked)
-             {
-                
+            {
+
                 floorplanManager.SetTableSalesStatsPeriod(TableSalesManager.StatsPeriod.Yesterday);
                 //List<TableStat> stats = SqliteDataAccess.LoadTableStatsByDateAndLunch(IsLunch, dateOnlySelected.AddDays(-1));
                 //floorplanManager.SetSalesManagerStats(stats);
@@ -986,14 +986,14 @@ namespace FloorPlanMaker
                 }
 
 
-               // List<TableStat> stats = SqliteDataAccess.LoadTableStatsByDateListAndLunch(IsLunch, previousWeekdays);
+                // List<TableStat> stats = SqliteDataAccess.LoadTableStatsByDateListAndLunch(IsLunch, previousWeekdays);
                 //floorplanManager.SetSalesManagerStats(stats);
                 SetTableSalesView();
             }
             if (rdoDayOfStats.Checked)
             {
                 floorplanManager.SetTableSalesStatsPeriod(TableSalesManager.StatsPeriod.Today);
-               // List<TableStat> stats = SqliteDataAccess.LoadTableStatsByDateAndLunch(IsLunch, dateOnlySelected);
+                // List<TableStat> stats = SqliteDataAccess.LoadTableStatsByDateAndLunch(IsLunch, dateOnlySelected);
                 //floorplanManager.SetSalesManagerStats(stats);
                 SetTableSalesView();
             }
@@ -1004,11 +1004,11 @@ namespace FloorPlanMaker
             //salesImageLabel = new ImageLabelControl(UITheme.sales, "$0", (flowSectionSelect.Width / 2) - 7, 30);
             coversImageLabel.UpdateText(shift.SelectedDiningArea.GetMaxCovers().ToString("F0"));
             salesImageLabel.UpdateText(shift.SelectedDiningArea.GetAverageSales().ToString("C0"));
-            if (floorplanManager.Floorplan!= null && floorplanManager.Floorplan.Sections.Count > 0)
+            if (floorplanManager.Floorplan != null && floorplanManager.Floorplan.Sections.Count > 0)
             {
-                foreach(Section section in floorplanManager.Floorplan.Sections)
+                foreach (Section section in floorplanManager.Floorplan.Sections)
                 {
-                    section.Notify();  
+                    section.Notify();
                 }
             }
 
@@ -1019,7 +1019,7 @@ namespace FloorPlanMaker
         {
             if (rdoLastWeekdayStats.Checked)
             {
-                updateSalesForTables(); 
+                updateSalesForTables();
             }
         }
         private void rdoDayOfStats_CheckedChanged(object sender, EventArgs e)
@@ -1090,6 +1090,6 @@ namespace FloorPlanMaker
 
         }
 
-       
+
     }
 }

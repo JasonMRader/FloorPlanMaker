@@ -96,6 +96,7 @@ namespace FloorPlanMaker
             // 
             // flowServersInFloorplan
             // 
+            flowServersInFloorplan.AutoScroll = true;
             flowServersInFloorplan.BackColor = Color.WhiteSmoke;
             flowServersInFloorplan.Location = new Point(0, 28);
             flowServersInFloorplan.Name = "flowServersInFloorplan";

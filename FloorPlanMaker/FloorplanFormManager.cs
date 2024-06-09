@@ -468,18 +468,38 @@ namespace FloorPlanMakerUI
             salesImageLabel.SetTooltip("Sales Per Server");
             panel.Controls.Add(coversImageLabel);
             panel.Controls.Add(salesImageLabel);
-            Button btnAutoSelectTemplate = new Button
+            if (!AllTablesAreAssigned())
             {
-                Text = "Auto Generate Template",
-                AutoSize = false,
-                Size = new Size(panel.Width - 10, 25),
-                Font = new Font("Segoe UI", 10F),
-                FlatStyle = FlatStyle.Flat,
-                BackColor = UITheme.CTAColor,
-                ForeColor = UITheme.CTAFontColor
-            };
-            btnAutoSelectTemplate.Click += btnAutoSelectTemplate_Click;
-            panel.Controls.Add(btnAutoSelectTemplate);
+                Button btnAutoSelectTemplate = new Button
+                {
+                    Text = "Auto Generate Template",
+                    AutoSize = false,
+                    Size = new Size(panel.Width - 10, 25),
+                    Font = new Font("Segoe UI", 10F),
+                    FlatStyle = FlatStyle.Flat,
+                    BackColor = UITheme.CTAColor,
+                    ForeColor = UITheme.CTAFontColor
+                };
+                btnAutoSelectTemplate.Click += btnAutoSelectTemplate_Click;
+                panel.Controls.Add(btnAutoSelectTemplate);
+            }
+            else 
+            {
+                Button btnAutoAssignServers = new Button
+                {
+                    Text = "Auto Assign Sections",
+                    AutoSize = false,
+                    Size = new Size(panel.Width - 10, 25),
+                    Font = new Font("Segoe UI", 10F),
+                    FlatStyle = FlatStyle.Flat,
+                    BackColor = UITheme.CTAColor,
+                    ForeColor = UITheme.CTAFontColor
+                };
+                btnAutoAssignServers.Click += btnAutoAssignServers_Click;
+
+                panel.Controls.Add(btnAutoAssignServers);
+            }
+           
             foreach (SectionPanelControl sectionPanel in _sectionPanels)
             {
                 sectionPanel.Width = panel.Width - 10;
@@ -513,6 +533,11 @@ namespace FloorPlanMakerUI
             
         }
 
+        private void btnAutoAssignServers_Click(object? sender, EventArgs e)
+        {
+            this.Floorplan.Sections.OrderByDescending(s => s.AverageSales).ToList();
+        }
+
         private void btnAutoSelectTemplate_Click(object? sender, EventArgs e)
         {
             UpdateTemplatesBasedOnFloorplan();
@@ -541,6 +566,7 @@ namespace FloorPlanMakerUI
             salesImageLabel.Invalidate();
 
         }
+
 
         private FloorplanTemplate SelectTheIdealFloorplanTemplate()
         {
