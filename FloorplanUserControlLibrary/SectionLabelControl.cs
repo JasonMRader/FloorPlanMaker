@@ -414,7 +414,7 @@ namespace FloorplanClassLibrary
                 }
             }
             Section.AddServer(assignedServer);
-            assignedServer.SalesFromPickupSection = this.Section.AdditionalPickupSales;
+            //assignedServer.SalesFromPickupSection = this.Section.AdditionalPickupSales;
             if(Section.ServerTeam != null)
             {
                 for(int i = 0;  i < Section.ServerTeam.Count; i++) 

@@ -1115,6 +1115,7 @@ namespace FloorPlanMakerUI
                 salesImageLabel.Invalidate();
 
             }
+            Shift.PickupSectionUpdate();
 
         }
 

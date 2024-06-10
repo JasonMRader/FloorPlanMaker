@@ -40,7 +40,8 @@ namespace FloorplanClassLibrary
         private void InitializeServers()
         {
             _allServers = SqliteDataAccess.LoadActiveServers();
-            _serversNotOnShift = new List<Server>(_allServers); 
+            _serversNotOnShift = new List<Server>(_allServers);
+            
         }
 
         public bool IsAM { get; set; }
@@ -53,20 +54,21 @@ namespace FloorplanClassLibrary
         private List<Server> _serversNotOnShift = new List<Server>();
         private List<Server> _unassignedServers = new List<Server>();
         private List<Server> _allServers = new List<Server>();
-        public float PickupSectionSales(Server server)
+        private List<Section> _pickUpSections = new List<Section>();
+        public void PickupSectionUpdate()
         {
-            float pickupSales = 0f;
-            foreach(Floorplan floorplan in this.Floorplans)
+            foreach(Server server in _serversOnShift)
             {
-                foreach(Section section in floorplan.Sections)
+                server.pickUpSections.Clear();
+                foreach(Section section in _pickUpSections)
                 {
-                    if(section.IsPickUp && section.ServerTeam.Contains(server))
+                    if (section.ServerTeam.Contains(server))
                     {
-                        pickupSales += section.ExpectedTotalSales / section.ServerTeam.Count();
+                        server.pickUpSections.Add(section);
                     }
                 }
             }
-            return pickupSales;
+           
         }
         public List<Server> ServersNotOnShift
         {
@@ -229,6 +231,13 @@ namespace FloorplanClassLibrary
                     this._serversOnShift.Add(server);
                 }
             }
+            foreach (var section in floorplan.Sections)
+            {
+                if (section.IsPickUp)
+                {
+                    _pickUpSections.Add(section);
+                }
+            }
             //TODO unnecisary / redundant assignment below?
             this.DateOnly = floorplan.DateOnly;
             this.IsAM = floorplan.IsLunch;
@@ -241,10 +250,17 @@ namespace FloorplanClassLibrary
             {
                 this._floorplans.Remove(floorplan);
                 var assignedServersSet = new HashSet<Server>(floorplan.Servers);
-
+               
                 // Remove all servers that are in the floorplan's server list
                 this._serversOnShift.RemoveAll(assignedServersSet.Contains);
-                this._serversNotOnShift.AddRange(floorplan.Servers); 
+                this._serversNotOnShift.AddRange(floorplan.Servers);
+                foreach (var section in floorplan.Sections)
+                {
+                    if (section.IsPickUp)
+                    {
+                        _pickUpSections.Remove(section);
+                    }
+                }
             }
             
             

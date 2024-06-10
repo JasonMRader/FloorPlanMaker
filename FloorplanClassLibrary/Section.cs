@@ -273,7 +273,11 @@ namespace FloorplanClassLibrary
                 MakeSoloSection();
                 return true;
             }
-            ServerCount--;
+            if(this.ServerCount > 1 && !this.IsPickUp)
+            {
+                ServerCount--;
+            }
+            
             
             NotifyObservers();
             return true;
@@ -436,7 +440,7 @@ namespace FloorplanClassLibrary
         {
             get
             {
-                if(ServerTeam.Count > 0)
+                if(ServerCount > 0)
                 {
                     return ExpectedTotalSales / ServerCount;
                 }

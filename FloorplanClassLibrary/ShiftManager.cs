@@ -43,6 +43,7 @@ namespace FloorplanClassLibrary
             {
                 List<Floorplan> floorplans = SqliteDataAccess.LoadFloorplansByDateAndShift(dateOnly, isAM);
                 _selectedShift = new Shift(dateOnly, isAM, floorplans);
+                _selectedShift.PickupSectionUpdate();
             }
         }
     }
