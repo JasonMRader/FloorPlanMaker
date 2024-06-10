@@ -500,7 +500,7 @@ namespace FloorplanClassLibrary
                 {
                     if (Server.isDouble)
                     {
-                        displayString += Server.ToString() + "*";
+                        displayString += server.ToString() + "*";
                     }
                     else
                     {
