@@ -432,8 +432,15 @@ namespace FloorplanClassLibrary
             get
             {
                 if (Tables == null || !Tables.Any()) return 0;
+                if (!this.IsPickUp)
+                {
+                    return Tables.Sum(table => table.AverageSales) + SalesFromPickps;
+                }
+                else
+                {
+                    return Tables.Sum(table => table.AverageSales);
+                }
                 
-                return Tables.Sum(table => table.AverageSales) + SalesFromPickps;
             }
         }
         public float ExpectedSalesPerServer
