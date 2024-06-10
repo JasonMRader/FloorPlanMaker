@@ -29,7 +29,7 @@ namespace FloorplanUserControlLibrary
         private ToolTip toolTip = new ToolTip();
         private List<Label> serverLabels = new List<Label>();
         private List<PictureBox> removeServerPBs = new List<PictureBox>();
-        
+
         private Floorplan floorplan { get; set; }
         public bool CheckBoxChecked
         {
@@ -47,13 +47,14 @@ namespace FloorplanUserControlLibrary
             this.floorplan = floorplan;
 
             UpdateLabels();
-           
+
             toolTip.SetToolTip(picSetTeamWait, "Set To TeamWait");
             toolTip.SetToolTip(picClearSection, "Clear Section");
             toolTip.SetToolTip(picPlusOneServer, "Add Server Spot");
             toolTip.SetToolTip(picMinusOneServer, "Remove Server Spot");
             toolTip.SetToolTip(lblCovers, "Difference from Average Covers");
-            toolTip.SetToolTip(lblSales, "Difference from Average Sales");
+            toolTip.SetToolTip(lblSales, "Estimated Sales");
+            toolTip.SetToolTip(lblSalesDif, "Difference from Average Sales");
             toolTip.SetToolTip(cbSectionSelect, "Press TAB to cycle through Sections");
 
         }
@@ -67,7 +68,7 @@ namespace FloorplanUserControlLibrary
             //this.floorplan = floorplan;
 
             UpdateLabels();
-           
+
             toolTip.SetToolTip(picSetTeamWait, "Set To TeamWait");
             toolTip.SetToolTip(picClearSection, "Clear Section");
             toolTip.SetToolTip(picPlusOneServer, "Add Server Spot");
@@ -104,7 +105,7 @@ namespace FloorplanUserControlLibrary
 
         public void UpdateLabels()
         {
-           
+
             if (Section.IsPickUp)
             {
                 this.Height = 25;
@@ -116,8 +117,8 @@ namespace FloorplanUserControlLibrary
                 lblSales.Text = Section.FormatAsCurrencyWithoutParentheses(Section.AverageSales);
                 return;
             }
-           
-            cbSectionSelect.Text = "Section " + this.Section.Number.ToString();
+
+            cbSectionSelect.Text = "# " + this.Section.Number.ToString();
             UpdateSalesAndCovers();
 
             if (this.Section.Server != null && Section.IsTeamWait == false)
@@ -135,7 +136,7 @@ namespace FloorplanUserControlLibrary
                 picClearSection.Image = Resources.erase;
                 toolTip.SetToolTip(picClearSection, "Clear Section");
             }
-            else if(this.Section.Server == null && Section.IsTeamWait == false)
+            else if (this.Section.Server == null && Section.IsTeamWait == false)
             {
                 lblDisplay.Text = "Unassigned";
                 lblDisplay.BackColor = UITheme.ButtonColor;
@@ -162,21 +163,26 @@ namespace FloorplanUserControlLibrary
                     removeServerPBs[i].Tag = Section.ServerTeam[i];
 
                 }
-                
+
             }
-            
+
         }
         public void UpdateSalesAndCovers()
         {
-            if(this.Section.IsPickUp) { return; }
+            if (this.Section.IsPickUp) { return; }
             lblCovers.Text = floorplan.GetCoverDifferenceForSection(Section).ToString("F0");
+            lblSales.Text = Section.AverageSalesDisplay();
             if (floorplan.GetSalesDifferenceForSection(Section) > 0)
             {
-                lblSales.Text = "+" + Section.FormatAsCurrencyWithoutParentheses(floorplan.GetSalesDifferenceForSection(Section));
+                lblSalesDif.Text = 
+                     Section.FormatAsCurrencyWithoutParentheses(floorplan.GetSalesDifferenceForSection(Section));
+                lblSalesDif.BackColor = Color.Green;
             }
             else
             {
-                lblSales.Text = Section.FormatAsCurrencyWithoutParentheses(floorplan.GetSalesDifferenceForSection(Section));
+                lblSalesDif.Text = 
+                     Section.FormatAsCurrencyWithoutParentheses(floorplan.GetSalesDifferenceForSection(Section));
+                lblSalesDif.BackColor = Color.Red;
             }
         }
         public void PickUpSectionAdjusted()
@@ -232,12 +238,12 @@ namespace FloorplanUserControlLibrary
         }
         private void SetLabelToAssigned(int index)
         {
-            
+
             Server server = Section.ServerTeam[index];
             Label label = serverLabels[index];
             label.Click -= unassignedSpotClicked;
             PictureBox removeBox = removeServerPBs[index];
-            if(server != null)
+            if (server != null)
             {
                 label.BackColor = this.Section.Color;
                 label.Text = server.Name;
@@ -247,7 +253,7 @@ namespace FloorplanUserControlLibrary
                 }
                 label.Tag = server;
                 removeBox.Tag = server;
-                
+
             }
             else
             {
@@ -257,9 +263,9 @@ namespace FloorplanUserControlLibrary
                 removeBox.Tag = null;
                 label.Click += unassignedSpotClicked;
             }
-           
-           
-            
+
+
+
         }
         private void unassignedLabel_Click(object sender, EventArgs e)
         {
@@ -267,7 +273,7 @@ namespace FloorplanUserControlLibrary
         }
         private void RemoveServer_Click(object? sender, EventArgs e)
         {
-           
+
             PictureBox clickedBox = sender as PictureBox;
             Server serverToRemove = (Server)clickedBox.Tag;
             this.Section.RemoveServer(serverToRemove);
@@ -287,7 +293,7 @@ namespace FloorplanUserControlLibrary
             UpdateLabels();
         }
 
-       
+
         public void RemoveServerRow()
         {
 
@@ -328,7 +334,7 @@ namespace FloorplanUserControlLibrary
             picMinusOneServer.Visible = false;
             picPlusOneServer.Visible = false;
             picPlusOneServer.Click -= picIncreaseServerCount_Click;
-            picMinusOneServer.Click -=picDecreaseServerCount_Click;
+            picMinusOneServer.Click -= picDecreaseServerCount_Click;
             picSetTeamWait.BackColor = UITheme.CTAColor;
             picSetTeamWait.Image = Resources.waiter;
             toolTip.SetToolTip(picSetTeamWait, "Set To TeamWait");
@@ -352,11 +358,11 @@ namespace FloorplanUserControlLibrary
         }
         private void picDecreaseServerCount_Click(object sender, EventArgs e)
         {
-            
+
             picSubtractServerClicked?.Invoke(this, e);
 
         }
-        
+
 
 
         public void CheckBox()
@@ -376,6 +382,6 @@ namespace FloorplanUserControlLibrary
             CheckBoxChanged?.Invoke(this, e);
 
         }
-        
+
     }
 }

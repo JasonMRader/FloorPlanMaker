@@ -37,6 +37,7 @@
             picSetTeamWait = new PictureBox();
             picMinusOneServer = new PictureBox();
             picPlusOneServer = new PictureBox();
+            lblSalesDif = new Label();
             ((System.ComponentModel.ISupportInitialize)picClearSection).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picSetTeamWait).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picMinusOneServer).BeginInit();
@@ -45,25 +46,27 @@
             // 
             // lblCovers
             // 
+            lblCovers.BackColor = Color.Silver;
             lblCovers.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            lblCovers.Location = new Point(110, 1);
+            lblCovers.Location = new Point(64, 2);
             lblCovers.Margin = new Padding(0);
             lblCovers.Name = "lblCovers";
-            lblCovers.Size = new Size(52, 25);
+            lblCovers.Size = new Size(37, 23);
             lblCovers.TabIndex = 1;
-            lblCovers.Text = "10";
+            lblCovers.Text = "333";
             lblCovers.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // lblSales
             // 
+            lblSales.BackColor = Color.Silver;
             lblSales.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            lblSales.Location = new Point(162, 2);
+            lblSales.Location = new Point(107, 2);
             lblSales.Margin = new Padding(0);
             lblSales.Name = "lblSales";
-            lblSales.Size = new Size(68, 23);
+            lblSales.Size = new Size(65, 23);
             lblSales.TabIndex = 1;
             lblSales.Text = "$1023";
-            lblSales.TextAlign = ContentAlignment.MiddleLeft;
+            lblSales.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // picClearSection
             // 
@@ -98,7 +101,7 @@
             cbSectionSelect.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             cbSectionSelect.Location = new Point(0, -2);
             cbSectionSelect.Name = "cbSectionSelect";
-            cbSectionSelect.Size = new Size(104, 25);
+            cbSectionSelect.Size = new Size(61, 25);
             cbSectionSelect.TabIndex = 3;
             cbSectionSelect.Text = "Section 1";
             cbSectionSelect.TextAlign = ContentAlignment.MiddleCenter;
@@ -147,6 +150,18 @@
             picPlusOneServer.TabStop = false;
             picPlusOneServer.Visible = false;
             // 
+            // lblSalesDif
+            // 
+            lblSalesDif.BackColor = Color.Silver;
+            lblSalesDif.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lblSalesDif.Location = new Point(178, 2);
+            lblSalesDif.Margin = new Padding(0);
+            lblSalesDif.Name = "lblSalesDif";
+            lblSalesDif.Size = new Size(65, 23);
+            lblSalesDif.TabIndex = 1;
+            lblSalesDif.Text = "$1023";
+            lblSalesDif.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // SectionPanelControl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -157,6 +172,7 @@
             Controls.Add(picMinusOneServer);
             Controls.Add(picSetTeamWait);
             Controls.Add(picClearSection);
+            Controls.Add(lblSalesDif);
             Controls.Add(lblSales);
             Controls.Add(lblDisplay);
             Controls.Add(lblCovers);
@@ -178,6 +194,7 @@
         private CheckBox cbSectionSelect;
         private PictureBox picMinusOneServer;
         private PictureBox picPlusOneServer;
+        private Label lblSalesDif;
         //private PictureBox picSetTeamWait;
     }
 }

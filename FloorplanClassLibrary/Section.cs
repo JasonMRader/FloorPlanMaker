@@ -430,6 +430,10 @@ namespace FloorplanClassLibrary
 
             return formattedValue;
         }
+        public string ExpectedSalesDisplay()
+        {
+            return this.AverageSales.ToString();
+        }
         public static string FormatAsCurrencyWithoutParentheses(float value)
         {
             // Using current culture's currency format
