@@ -661,12 +661,14 @@ namespace FloorPlanMaker
             // 
             rdoLastFourWeekdayStats.Appearance = Appearance.Button;
             rdoLastFourWeekdayStats.BackColor = Color.FromArgb(100, 130, 180);
+            rdoLastFourWeekdayStats.Checked = true;
             rdoLastFourWeekdayStats.FlatAppearance.BorderSize = 0;
             rdoLastFourWeekdayStats.FlatStyle = FlatStyle.Flat;
             rdoLastFourWeekdayStats.Location = new Point(22, 209);
             rdoLastFourWeekdayStats.Name = "rdoLastFourWeekdayStats";
             rdoLastFourWeekdayStats.Size = new Size(286, 35);
             rdoLastFourWeekdayStats.TabIndex = 0;
+            rdoLastFourWeekdayStats.TabStop = true;
             rdoLastFourWeekdayStats.Text = "Last Four Weekday";
             rdoLastFourWeekdayStats.TextAlign = ContentAlignment.MiddleCenter;
             rdoLastFourWeekdayStats.UseVisualStyleBackColor = false;
@@ -692,14 +694,12 @@ namespace FloorPlanMaker
             // 
             rdoDayOfStats.Appearance = Appearance.Button;
             rdoDayOfStats.BackColor = Color.FromArgb(100, 130, 180);
-            rdoDayOfStats.Checked = true;
             rdoDayOfStats.FlatAppearance.BorderSize = 0;
             rdoDayOfStats.FlatStyle = FlatStyle.Flat;
             rdoDayOfStats.Location = new Point(22, 45);
             rdoDayOfStats.Name = "rdoDayOfStats";
             rdoDayOfStats.Size = new Size(286, 35);
             rdoDayOfStats.TabIndex = 0;
-            rdoDayOfStats.TabStop = true;
             rdoDayOfStats.Text = "Day Of";
             rdoDayOfStats.TextAlign = ContentAlignment.MiddleCenter;
             rdoDayOfStats.UseVisualStyleBackColor = false;

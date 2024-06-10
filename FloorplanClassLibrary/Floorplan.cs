@@ -296,7 +296,7 @@ namespace FloorplanClassLibrary
             {
                 if (section.IsPickUp)
                 {
-                    total += section.AverageSales;
+                    total += section.ExpectedTotalSales;
                 }
             }
             return total;
@@ -314,15 +314,16 @@ namespace FloorplanClassLibrary
         }
         public float GetSalesDifferenceForSection(Section section)
         {
-            
-            if (!section.IsTeamWait)
-            {
-                return section.AverageSales - this.AvgSalesPerServer;
-            }            
-            else
-            {
-                return section.AverageSales - (this.AvgSalesPerServer * section.ServerCount);
-            }
+            return section.ExpectedSalesPerServer - this.AvgSalesPerServer;
+
+            //if (!section.IsTeamWait)
+            //{
+            //    return section.ExpectedTotalSales - this.AvgSalesPerServer;
+            //}            
+            //else
+            //{
+            //    return section.ExpectedTotalSales - (this.AvgSalesPerServer * section.ServerCount);
+            //}
         }
         
         public void CopyTemplateSections(List<Section> sections)
@@ -533,7 +534,7 @@ namespace FloorplanClassLibrary
         }
         public void OrderSectionsByAvgSales()
         {
-            var sortedSections = this.Sections.OrderByDescending(s => s.AverageSales).ToList();
+            var sortedSections = this.Sections.OrderByDescending(s => s.ExpectedTotalSales).ToList();
             this.Sections = sortedSections;
         }
         public bool NotEnoughUnassignedServersCheck(Section section)

@@ -46,7 +46,7 @@
             // 
             // lblCovers
             // 
-            lblCovers.BackColor = Color.Silver;
+            lblCovers.BackColor = Color.FromArgb(103, 178, 216);
             lblCovers.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             lblCovers.Location = new Point(64, 2);
             lblCovers.Margin = new Padding(0);
@@ -58,7 +58,7 @@
             // 
             // lblSales
             // 
-            lblSales.BackColor = Color.Silver;
+            lblSales.BackColor = Color.FromArgb(103, 178, 216);
             lblSales.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             lblSales.Location = new Point(107, 2);
             lblSales.Margin = new Padding(0);

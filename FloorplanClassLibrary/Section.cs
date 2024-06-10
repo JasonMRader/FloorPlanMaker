@@ -138,7 +138,7 @@ namespace FloorplanClassLibrary
             {
                 if (IsPickUp && ServerTeam.Count() > 0)
                 {
-                    return this.AverageSales / ServerTeam.Count();
+                    return this.ExpectedTotalSales / ServerTeam.Count();
                 }
                 else
                 {
@@ -311,8 +311,15 @@ namespace FloorplanClassLibrary
             {
                 ServerTeam.Add(server);
             }
-            
-            server.CurrentSection = this;
+            if (this.IsPickUp)
+            {
+                server.pickUpSections.Add(this);
+            }
+            if (!this.IsPickUp)
+            {
+                server.CurrentSection = this;
+            }
+        
             
             NotifyServerAssigned(server);
             NotifyObservers();
@@ -323,8 +330,16 @@ namespace FloorplanClassLibrary
             if (ServerTeam.Contains(server))
             {
                 ServerTeam.Remove(server);
-                server.CurrentSection = null;
-                //if (ServerCount > ServerTeam.Count)
+                if(!this.IsPickUp)
+                {
+                    server.CurrentSection = null;
+                }
+                if(this.IsPickUp)
+                {
+                    server.pickUpSections.Remove(this);
+                }
+               
+                
                 
                 NotifyRemovedFromSection(server);
                 NotifyObservers();
@@ -408,13 +423,24 @@ namespace FloorplanClassLibrary
             }
         }
 
-        public float AverageSales
+        public float ExpectedTotalSales
         {
             get
             {
                 if (Tables == null || !Tables.Any()) return 0;
                 
                 return Tables.Sum(table => table.AverageSales) + SalesFromPickps;
+            }
+        }
+        public float ExpectedSalesPerServer
+        {
+            get
+            {
+                if(ServerTeam.Count > 0)
+                {
+                    return ExpectedTotalSales / ServerCount;
+                }
+                else { return ExpectedTotalSales; }
             }
         }
 
@@ -424,15 +450,15 @@ namespace FloorplanClassLibrary
 
             // If the value is negative, prepend a minus sign and format the absolute value.
             // Otherwise, just format the value as currency.
-            string formattedValue = this.AverageSales >= 0
-                ? this.AverageSales.ToString("C0", culture)
-                : "-" + Math.Abs(this.AverageSales).ToString("C0", culture);
+            string formattedValue = this.ExpectedSalesPerServer >= 0
+                ? this.ExpectedSalesPerServer.ToString("C0", culture)
+                : "-" + Math.Abs(this.ExpectedTotalSales).ToString("C0", culture);
 
             return formattedValue;
         }
         public string ExpectedSalesDisplay()
         {
-            return this.AverageSales.ToString();
+            return this.ExpectedTotalSales.ToString();
         }
         public static string FormatAsCurrencyWithoutParentheses(float value)
         {

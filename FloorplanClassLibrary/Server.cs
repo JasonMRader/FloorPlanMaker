@@ -17,7 +17,18 @@ namespace FloorplanClassLibrary
         public int TeamWaitFrequency { get; set; }
         public int OutsideFrequency { get; set; }
         public int PreferedSectionWeight { get; set; }
-        public float SalesFromPickupSection = 0f;
+        public float SalesFromPickupSection
+        {
+            get
+            {
+                if(pickUpSections.Count() > 0)
+                {
+                    return pickUpSections.Sum(s => s.ExpectedSalesPerServer);
+                }
+                return 0;
+            }
+        }
+        public List<Section> pickUpSections { get; set; } = new List<Section>();
         public float lastTenOutsideRatio
         {
             get

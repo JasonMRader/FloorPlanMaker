@@ -1022,7 +1022,7 @@ namespace FloorplanClassLibrary
                 new
                 {
                     MaxCovers = section.MaxCovers,
-                    AverageCovers = section.AverageSales,                    
+                    AverageCovers = section.ExpectedTotalSales,                    
                     IsCloser = section.IsCloser,
                     IsPre = section.IsPre,
                     TeamWait = section.IsTeamWait,

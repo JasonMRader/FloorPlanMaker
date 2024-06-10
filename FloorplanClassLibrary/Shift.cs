@@ -62,7 +62,7 @@ namespace FloorplanClassLibrary
                 {
                     if(section.IsPickUp && section.ServerTeam.Contains(server))
                     {
-                        pickupSales += section.AverageSales / section.ServerTeam.Count();
+                        pickupSales += section.ExpectedTotalSales / section.ServerTeam.Count();
                     }
                 }
             }

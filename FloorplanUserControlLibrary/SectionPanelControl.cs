@@ -44,6 +44,8 @@ namespace FloorplanUserControlLibrary
             this.Section.SubscribeObserver(this);
             this.BackColor = Section.Color;
             this.ForeColor = Section.FontColor;
+            lblCovers.BackColor = Section.Color;
+            lblSales.BackColor = Section.Color;
             this.floorplan = floorplan;
 
             UpdateLabels();
@@ -114,7 +116,8 @@ namespace FloorplanUserControlLibrary
                 picClearSection.Image = Resources.Trash;
                 toolTip.SetToolTip(picClearSection, "Delete Section");
                 lblCovers.Text = Section.MaxCovers.ToString("F0");
-                lblSales.Text = Section.FormatAsCurrencyWithoutParentheses(Section.AverageSales);
+                lblSales.Text = Section.FormatAsCurrencyWithoutParentheses(Section.ExpectedTotalSales);
+                lblSalesDif.Visible = false;
                 return;
             }
 
@@ -172,17 +175,19 @@ namespace FloorplanUserControlLibrary
             if (this.Section.IsPickUp) { return; }
             lblCovers.Text = floorplan.GetCoverDifferenceForSection(Section).ToString("F0");
             lblSales.Text = Section.AverageSalesDisplay();
-            if (floorplan.GetSalesDifferenceForSection(Section) > 0)
+            if (floorplan.GetSalesDifferenceForSection(Section) >= 0)
             {
-                lblSalesDif.Text = 
+                lblSalesDif.Text =
                      Section.FormatAsCurrencyWithoutParentheses(floorplan.GetSalesDifferenceForSection(Section));
-                lblSalesDif.BackColor = Color.Green;
+                lblSalesDif.BackColor = Color.LightGreen;
+                lblSalesDif.ForeColor = Color.Black;
             }
             else
             {
-                lblSalesDif.Text = 
+                lblSalesDif.Text =
                      Section.FormatAsCurrencyWithoutParentheses(floorplan.GetSalesDifferenceForSection(Section));
-                lblSalesDif.BackColor = Color.Red;
+                lblSalesDif.BackColor = Color.Pink;
+                lblSalesDif.ForeColor = Color.Black;
             }
         }
         public void PickUpSectionAdjusted()
@@ -381,6 +386,10 @@ namespace FloorplanUserControlLibrary
         {
             CheckBoxChanged?.Invoke(this, e);
 
+        }
+        public override string ToString()
+        {
+            return this.Section.GetDisplayString();
         }
 
     }
