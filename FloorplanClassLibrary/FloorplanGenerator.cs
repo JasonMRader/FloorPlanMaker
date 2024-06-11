@@ -54,11 +54,12 @@ namespace FloorplanClassLibrary
             
             int CocktailersNeeded = 0;
             int CocktailAreas = 0;
-            foreach(DiningArea area in shift.DiningAreasUsed)
+            foreach(Floorplan fp in shift.Floorplans)
             {
-                if (area.IsCocktail)
+                if (fp.DiningArea.IsCocktail)
                 {
-                    CocktailersNeeded += ServerDistribution[area];
+                    CocktailersNeeded += ServerDistribution[fp.DiningArea];
+                    CocktailersNeeded -= fp.Servers.Count();
                     CocktailAreas ++;
                 }
             }
@@ -81,11 +82,12 @@ namespace FloorplanClassLibrary
         {
             int OutsideServersNeeded = 0;
             int OutsideServersAreas = 0;
-            foreach(DiningArea area in shift.DiningAreasUsed)
+            foreach(Floorplan fp in shift.Floorplans)
             {
-                if(!area.IsInside && !area.IsCocktail)
+                if(!fp.DiningArea.IsInside && !fp.DiningArea.IsCocktail)
                 {
-                    OutsideServersNeeded += ServerDistribution[area];
+                    OutsideServersNeeded += ServerDistribution[fp.DiningArea];
+                    OutsideServersNeeded -= fp.Servers.Count();
                     OutsideServersAreas ++;
                 }
             }
@@ -107,11 +109,12 @@ namespace FloorplanClassLibrary
         {
             int insideServersNeeded = 0;
             int insideServersAreas = 0;
-            foreach (DiningArea area in shift.DiningAreasUsed)
+            foreach (Floorplan fp in shift.Floorplans)
             {
-                if (area.IsInside && !area.IsCocktail)
+                if (fp.DiningArea.IsInside && !fp.DiningArea.IsCocktail)
                 {
-                    insideServersNeeded += ServerDistribution[area];
+                    insideServersNeeded += ServerDistribution[fp.DiningArea];
+                    insideServersNeeded -= fp.Servers.Count();
                     insideServersAreas++;
                 }
             }

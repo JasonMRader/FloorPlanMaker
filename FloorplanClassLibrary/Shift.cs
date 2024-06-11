@@ -55,6 +55,11 @@ namespace FloorplanClassLibrary
         private List<Server> _unassignedServers = new List<Server>();
         private List<Server> _allServers = new List<Server>();
         private List<Section> _pickUpSections = new List<Section>();
+        private List<Floorplan> _floorplans = new List<Floorplan>();
+        public IReadOnlyList<Floorplan> Floorplans => _floorplans.AsReadOnly();
+        public List<FloorplanTemplate> Templates = new List<FloorplanTemplate>();
+        public List<Section> TemplateSections = new List<Section>();
+        public FloorplanTemplate? SelectedTemplate { get; set; }
         public void PickupSectionUpdate()
         {
             foreach(Server server in _serversOnShift)
@@ -174,16 +179,7 @@ namespace FloorplanClassLibrary
             }
         }
         
-        private List<Floorplan> _floorplans = new List<Floorplan>();
-
-        public IReadOnlyList<Floorplan> Floorplans => _floorplans.AsReadOnly();
-        public List<FloorplanTemplate> Templates = new List<FloorplanTemplate>();
-        public List<Section> TemplateSections = new List<Section>();
-        public FloorplanTemplate? SelectedTemplate { get; set; }
-        
-        
-        
-        
+         
         
         public void AddFloorplanToShift(Floorplan floorplan)
         {
