@@ -8,6 +8,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 //using static System.Collections.Specialized.BitVector32;
 
 namespace FloorPlanMakerUI
@@ -1044,6 +1045,49 @@ namespace FloorPlanMakerUI
                 sectionPanel.UpdateLabels();
             }
         }
+        public void SetViewedFloorplanToNone(FlowLayoutPanel panel)
+        {
+           
+            panel.Controls.Clear();
+            coversImageLabel = new ImageLabelControl(UITheme.covers, "0", (panel.Width / 2) - 7, 30);
+            salesImageLabel = new ImageLabelControl(UITheme.sales, "$0", (panel.Width / 2) - 7, 30);
+            coversImageLabel.SetTooltip("Covers per Server");
+            salesImageLabel.SetTooltip("Sales Per Server");
+            panel.Controls.Add(coversImageLabel);
+            panel.Controls.Add(salesImageLabel);
+            Button btnCreateTemplate = new Button
+            {
+                Text = "Create a Floorplan Template",
+                AutoSize = false,
+                Size = new Size(flowSectionsPanel.Width - 10, 25),
+                Font = new Font("Segoe UI", 10F),
+                FlatStyle = FlatStyle.Flat,
+                BackColor = UITheme.CTAColor,
+                ForeColor = UITheme.CTAFontColor
+            };
+            btnCreateTemplate.Click += btnCreateTemplate_Click;
+            panel.Controls.Add(btnCreateTemplate);
+
+        }
+
+        private void btnCreateTemplate_Click(object? sender, EventArgs e)
+        {
+            Button btnCreateTemplate = sender as Button;
+            FlowLayoutPanel panel = btnCreateTemplate.Parent as FlowLayoutPanel;
+            Button btnAddSection = new Button
+            {
+                Text = "Add a Section",
+                AutoSize = false,
+                Size = new Size(flowSectionsPanel.Width - 10, 25),
+                Font = new Font("Segoe UI", 10F),
+                FlatStyle = FlatStyle.Flat,
+                BackColor = UITheme.CTAColor,
+                ForeColor = UITheme.CTAFontColor
+            };
+            panel.Controls.Add((Button)btnAddSection);
+
+        }
+
         public void SetViewedFloorplan(DateOnly dateOnlySelected, bool isAM,
             Panel pnlFloorPlan, FlowLayoutPanel flowServersInFloorplan, FlowLayoutPanel flowSectionSelect)
         {
@@ -1066,6 +1110,10 @@ namespace FloorPlanMakerUI
                 if (Shift.SelectedFloorplan != null)
                 {
                     UpdateAveragesPerServer();
+                }
+                else
+                {
+                    
                 }
 
             }
@@ -1113,6 +1161,7 @@ namespace FloorPlanMakerUI
                 salesImageLabel.UpdateText(Shift.SelectedDiningArea.ExpectedSales.ToString("C0"));
                 coversImageLabel.Invalidate();
                 salesImageLabel.Invalidate();
+                SetViewedFloorplanToNone(flowSectionSelect);
 
             }
             Shift.PickupSectionUpdate();

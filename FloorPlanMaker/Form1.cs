@@ -391,7 +391,7 @@ namespace FloorPlanMaker
             floorplanManager.SetViewedFloorplan(dateOnlySelected, cbIsAM.Checked, pnlFloorPlan, flowServersInFloorplan, flowSectionSelect);
             if (floorplanManager.Floorplan == null)
             {
-                NoServersToDisplay();
+                //NoServersToDisplay();
                 pnlFloorPlan.BackgroundImage = null;
                 // foreach()
 
@@ -443,7 +443,7 @@ namespace FloorPlanMaker
             floorplanManager.AddTableControls(pnlFloorPlan);
 
             floorplanManager.SetViewedFloorplan(dateOnlySelected, cbIsAM.Checked, pnlFloorPlan, flowServersInFloorplan, flowSectionSelect);
-            this.sectionLineManager = new SectionLineManager(allTableControls);
+            //this.sectionLineManager = new SectionLineManager(allTableControls);
             if (AllTablesAreAssigned())
             {
                 //TODO SECTION BOARDERS DISABLED
