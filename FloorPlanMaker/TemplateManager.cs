@@ -158,7 +158,7 @@ namespace FloorPlanMakerUI
                 {
                     panel.Controls.Add(miniTable);
                 }
-                //CreateSectionPicBox(selectedTemplate, panel);
+                CreateSectionPicBox(selectedTemplate, panel);
             }
         }
         
@@ -187,7 +187,7 @@ namespace FloorPlanMakerUI
                     Image = Resources.waiter,
                     SizeMode = PictureBoxSizeMode.Zoom
                 };
-                if(section.TemplateTeamWait)
+                if(section.TemplateTeamWait || section.IsTeamWait)
                 {
                     picBox.Image = Resources.waiters;
                 }
@@ -196,9 +196,12 @@ namespace FloorPlanMakerUI
                     picBox.Image = null;
                 }
                // picSectionLabels.Add(picBox);
+              
                 displayPanel.Controls.Add(picBox);
                 panel.Controls.Add(displayPanel);
                 displayPanel.BringToFront();
+                
+               
             }
         }
         
