@@ -205,6 +205,8 @@ namespace FloorplanClassLibrary
             get { return _sections; }
             private set { _sections = value; }  
         }
+        public List<Section> UnassignedSections { get { return _sections.Where(s => s.Server == null).ToList(); } }
+       
         public float MaxCoversPerServer
         {
             
@@ -534,8 +536,8 @@ namespace FloorplanClassLibrary
         }
         public void OrderSectionsByAvgSales()
         {
-            var sortedSections = this.Sections.OrderByDescending(s => s.ExpectedTotalSales).ToList();
-            this.Sections = sortedSections;
+            var sortedSections = this._sections.OrderByDescending(s => s.ExpectedTotalSales).ToList();
+            this._sections= sortedSections;
         }
         public bool NotEnoughUnassignedServersCheck(Section section)
         {

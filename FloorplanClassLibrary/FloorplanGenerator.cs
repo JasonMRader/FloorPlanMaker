@@ -152,6 +152,15 @@ namespace FloorplanClassLibrary
                 AssignOutsideServers();
                 AssignInsideServers();
             }
+            else if(shift.DiningAreasUsed.Count == 1)
+            {
+                List<Server> servers = shift.UnassignedServers.ToList();
+                foreach (Server server in servers)
+                {
+                    shift.AddServerToAFloorplan(server);
+                    shift.SelectedFloorplan.AddServerAndSection(server);
+                }
+            }
             else
             {
                 MessageBox.Show("Currently auto assign is only supported when the " +

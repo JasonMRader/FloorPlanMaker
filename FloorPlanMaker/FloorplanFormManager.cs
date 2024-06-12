@@ -544,11 +544,20 @@ namespace FloorPlanMakerUI
             }
             this.Floorplan.OrderSectionsByAvgSales();
             List<Server> orderedServers = this.Floorplan.ServersWithoutSection.OrderByDescending(s => s.PreferedSectionWeight).ToList();
-            for(int i = 0; i < orderedServers.Count(); i++)
+            List<Section> unassignedSections = this.Floorplan.UnassignedSections;
+            int serverIndex = 0;
+
+            for (int i = 0; i < unassignedSections.Count && serverIndex < orderedServers.Count; i++)
             {
-                if (Floorplan.Sections[i].IsPickUp) continue;
-                Floorplan.Sections[i].AddServer(orderedServers[i]);
+                if (unassignedSections[i].IsPickUp)
+                {
+                    continue;
+                }
+
+                unassignedSections[i].AddServer(orderedServers[serverIndex]);
+                serverIndex++;
             }
+
         }
 
         private void btnAutoSelectTemplate_Click(object? sender, EventArgs e)
