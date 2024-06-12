@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Collections.Specialized.BitVector32;
 
 namespace FloorplanClassLibrary
 {
@@ -14,10 +15,31 @@ namespace FloorplanClassLibrary
             this.Server = server;
             PopulateServerSections();
             PopulateTableCounts();
+            SetInsideOutsidePercentage();
         }
         public Server Server { get; set; }  
         public List<Section> Sections { get; set; }
         public Dictionary<string, int> TableCounts { get; set; }
+        public float OutsidePercentage { get; set; } = 0f;
+        public void SetInsideOutsidePercentage()
+        {
+            int shifts = this.Server.Shifts.Count();
+            int OutsideCount = 0;
+            foreach (EmployeeShift empShift in this.Server.Shifts)
+            {
+                if (!empShift.IsInside)
+                {
+                    OutsideCount++;
+                }
+            }
+            if (shifts > 0)
+            {
+                OutsidePercentage = (float)OutsideCount / (float)shifts;
+            }
+
+
+
+        }
         public void PopulateServerSections()
         {
             List<Section> sections = new List<Section>();

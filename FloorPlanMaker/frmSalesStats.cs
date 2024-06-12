@@ -20,6 +20,32 @@ namespace FloorPlanMakerUI
         private DiningAreaManager areaManager = new DiningAreaManager();
         private TableSalesManager tableSalesManager = new TableSalesManager();
         private EmployeeManager employeeManager = new EmployeeManager();
+
+        private List<DayOfWeek> daysOfWeekFiltered()
+        {
+            List<DayOfWeek> allDays = new List<DayOfWeek>
+            {
+                 DayOfWeek.Monday,
+            DayOfWeek.Tuesday,
+            DayOfWeek.Wednesday,
+            DayOfWeek.Thursday,
+            DayOfWeek.Friday,
+            DayOfWeek.Saturday,
+            DayOfWeek.Sunday
+            };
+            return allDays;
+
+        }
+        private List<DayOfWeek> FilteredDaysOfWeek = new List<DayOfWeek>
+             {
+                 DayOfWeek.Monday,
+            DayOfWeek.Tuesday,
+            DayOfWeek.Wednesday,
+            DayOfWeek.Thursday,
+            DayOfWeek.Friday,
+            DayOfWeek.Saturday,
+            DayOfWeek.Sunday
+            };
         private void frmSalesStats_Load(object sender, EventArgs e)
         {
 
@@ -37,13 +63,15 @@ namespace FloorPlanMakerUI
         {
             List<DateTime> dateList = new List<DateTime>();
 
-
             if (startDate <= endDate)
             {
                 DateTime currentDate = startDate;
                 while (currentDate <= endDate)
                 {
-                    dateList.Add(currentDate);
+                    if (FilteredDaysOfWeek.Contains(currentDate.DayOfWeek))
+                    {
+                        dateList.Add(currentDate);
+                    }
                     currentDate = currentDate.AddDays(1);
                 }
             }
@@ -54,6 +82,7 @@ namespace FloorPlanMakerUI
 
             return dateList;
         }
+
         public List<SalesData> GetSalesData(List<DiningArea> diningAreas, List<DateTime> dates)
         {
             var salesDataList = new List<SalesData>();
@@ -166,11 +195,12 @@ namespace FloorPlanMakerUI
             }
             if (rdoServerShifts.Checked)
             {
-
+                List<DateTime> dateList = GetDateRange(dtpStartDate.Value, dtpEndDate.Value);
             }
 
 
         }
+
 
         private void rdoAm_CheckedChanged(object sender, EventArgs e)
         {
@@ -201,7 +231,155 @@ namespace FloorPlanMakerUI
 
         private void cbAllWeekdays_CheckedChanged(object sender, EventArgs e)
         {
-            cbFri.Checked = true;
+            if (cbAllWeekdays.Checked)
+            {
+                cbMon.Checked = true;
+                cbTues.Checked = true;
+                cbWed.Checked = true;
+                cbThurs.Checked = true;
+                cbFri.Checked = true;
+                cbSat.Checked = true;
+                cbSun.Checked = true;
+                cbAllWeekdays.Text = "Uncheck All";
+            }
+            else
+            {
+                cbMon.Checked = false;
+                cbTues.Checked = false;
+                cbWed.Checked = false;
+                cbThurs.Checked = false;
+                cbFri.Checked = false;
+                cbSat.Checked = false;
+                cbSun.Checked = false;
+                cbAllWeekdays.Text = "Check All";
+            }
+
+        }
+
+        private void cbMon_CheckedChanged(object sender, EventArgs e)
+        {
+            if(!cbMon.Checked)
+            {
+                if (FilteredDaysOfWeek.Contains(DayOfWeek.Monday))
+                {
+                    FilteredDaysOfWeek.Remove(DayOfWeek.Monday);
+                }
+            }
+            if(cbMon.Checked)
+            {
+                if (!FilteredDaysOfWeek.Contains(DayOfWeek.Monday))
+                {
+                    FilteredDaysOfWeek.Add(DayOfWeek.Monday);
+                }
+            }
+        }
+
+        private void cbTues_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!cbTues.Checked)
+            {
+                if (FilteredDaysOfWeek.Contains(DayOfWeek.Tuesday))
+                {
+                    FilteredDaysOfWeek.Remove(DayOfWeek.Tuesday);
+                }
+            }
+            if (cbTues.Checked)
+            {
+                if (!FilteredDaysOfWeek.Contains(DayOfWeek.Tuesday))
+                {
+                    FilteredDaysOfWeek.Add(DayOfWeek.Tuesday);
+                }
+            }
+        }
+
+        private void cbWed_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!cbWed.Checked)
+            {
+                if (FilteredDaysOfWeek.Contains(DayOfWeek.Wednesday))
+                {
+                    FilteredDaysOfWeek.Remove(DayOfWeek.Wednesday);
+                }
+            }
+            if (cbWed.Checked)
+            {
+                if (!FilteredDaysOfWeek.Contains(DayOfWeek.Wednesday))
+                {
+                    FilteredDaysOfWeek.Add(DayOfWeek.Wednesday);
+                }
+            }
+        }
+
+        private void cbThurs_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!cbThurs.Checked)
+            {
+                if (FilteredDaysOfWeek.Contains(DayOfWeek.Thursday))
+                {
+                    FilteredDaysOfWeek.Remove(DayOfWeek.Thursday);
+                }
+            }
+            if (cbThurs.Checked)
+            {
+                if (!FilteredDaysOfWeek.Contains(DayOfWeek.Thursday))
+                {
+                    FilteredDaysOfWeek.Add(DayOfWeek.Thursday);
+                }
+            }
+        }
+
+        private void cbFri_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!cbFri.Checked)
+            {
+                if (FilteredDaysOfWeek.Contains(DayOfWeek.Friday))
+                {
+                    FilteredDaysOfWeek.Remove(DayOfWeek.Friday);
+                }
+            }
+            if (cbFri.Checked)
+            {
+                if (!FilteredDaysOfWeek.Contains(DayOfWeek.Friday))
+                {
+                    FilteredDaysOfWeek.Add(DayOfWeek.Friday);
+                }
+            }
+        }
+
+        private void cbSat_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!cbSat.Checked)
+            {
+                if (FilteredDaysOfWeek.Contains(DayOfWeek.Saturday))
+                {
+                    FilteredDaysOfWeek.Remove(DayOfWeek.Saturday);
+                }
+            }
+            if (cbSat.Checked)
+            {
+                if (!FilteredDaysOfWeek.Contains(DayOfWeek.Saturday))
+                {
+                    FilteredDaysOfWeek.Add(DayOfWeek.Saturday);
+                }
+            }
+        }
+
+        private void cbSun_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!cbSun.Checked)
+            {
+                if (FilteredDaysOfWeek.Contains(DayOfWeek.Sunday))
+                {
+                    FilteredDaysOfWeek.Remove(DayOfWeek.Sunday);
+                }
+            }
+            if (cbSun.Checked)
+            {
+                if (!FilteredDaysOfWeek.Contains(DayOfWeek.Sunday))
+                {
+                    FilteredDaysOfWeek.Add(DayOfWeek.Sunday);
+                }
+            }
         }
     }
 }

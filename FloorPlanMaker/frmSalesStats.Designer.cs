@@ -44,14 +44,14 @@
             label2 = new Label();
             timer1 = new System.Windows.Forms.Timer(components);
             panel3 = new Panel();
-            cbMon = new CheckBox();
-            cbTues = new CheckBox();
-            cbWed = new CheckBox();
-            cbThurs = new CheckBox();
-            cbFri = new CheckBox();
-            cbSat = new CheckBox();
-            cbSun = new CheckBox();
             cbAllWeekdays = new CheckBox();
+            cbSun = new CheckBox();
+            cbSat = new CheckBox();
+            cbFri = new CheckBox();
+            cbThurs = new CheckBox();
+            cbWed = new CheckBox();
+            cbTues = new CheckBox();
+            cbMon = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)dgvDiningAreas).BeginInit();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
@@ -202,80 +202,21 @@
             panel3.Controls.Add(cbMon);
             panel3.Location = new Point(276, 72);
             panel3.Name = "panel3";
-            panel3.Size = new Size(447, 54);
+            panel3.Size = new Size(464, 54);
             panel3.TabIndex = 7;
             // 
-            // cbMon
+            // cbAllWeekdays
             // 
-            cbMon.Appearance = Appearance.Button;
-            cbMon.Checked = true;
-            cbMon.CheckState = CheckState.Checked;
-            cbMon.Location = new Point(13, 14);
-            cbMon.Name = "cbMon";
-            cbMon.Size = new Size(46, 25);
-            cbMon.TabIndex = 0;
-            cbMon.Text = "Mon";
-            cbMon.UseVisualStyleBackColor = true;
-            // 
-            // cbTues
-            // 
-            cbTues.Appearance = Appearance.Button;
-            cbTues.Checked = true;
-            cbTues.CheckState = CheckState.Checked;
-            cbTues.Location = new Point(65, 14);
-            cbTues.Name = "cbTues";
-            cbTues.Size = new Size(46, 25);
-            cbTues.TabIndex = 0;
-            cbTues.Text = "Tues";
-            cbTues.UseVisualStyleBackColor = true;
-            // 
-            // cbWed
-            // 
-            cbWed.Appearance = Appearance.Button;
-            cbWed.Checked = true;
-            cbWed.CheckState = CheckState.Checked;
-            cbWed.Location = new Point(117, 14);
-            cbWed.Name = "cbWed";
-            cbWed.Size = new Size(46, 25);
-            cbWed.TabIndex = 0;
-            cbWed.Text = "Wed";
-            cbWed.UseVisualStyleBackColor = true;
-            // 
-            // cbThurs
-            // 
-            cbThurs.Appearance = Appearance.Button;
-            cbThurs.Checked = true;
-            cbThurs.CheckState = CheckState.Checked;
-            cbThurs.Location = new Point(169, 14);
-            cbThurs.Name = "cbThurs";
-            cbThurs.Size = new Size(46, 25);
-            cbThurs.TabIndex = 0;
-            cbThurs.Text = "Thurs";
-            cbThurs.UseVisualStyleBackColor = true;
-            // 
-            // cbFri
-            // 
-            cbFri.Appearance = Appearance.Button;
-            cbFri.Checked = true;
-            cbFri.CheckState = CheckState.Checked;
-            cbFri.Location = new Point(221, 14);
-            cbFri.Name = "cbFri";
-            cbFri.Size = new Size(46, 25);
-            cbFri.TabIndex = 0;
-            cbFri.Text = "Fri";
-            cbFri.UseVisualStyleBackColor = true;
-            // 
-            // cbSat
-            // 
-            cbSat.Appearance = Appearance.Button;
-            cbSat.Checked = true;
-            cbSat.CheckState = CheckState.Checked;
-            cbSat.Location = new Point(273, 14);
-            cbSat.Name = "cbSat";
-            cbSat.Size = new Size(46, 25);
-            cbSat.TabIndex = 0;
-            cbSat.Text = "Sat";
-            cbSat.UseVisualStyleBackColor = true;
+            cbAllWeekdays.Appearance = Appearance.Button;
+            cbAllWeekdays.Checked = true;
+            cbAllWeekdays.CheckState = CheckState.Checked;
+            cbAllWeekdays.Location = new Point(377, 14);
+            cbAllWeekdays.Name = "cbAllWeekdays";
+            cbAllWeekdays.Size = new Size(84, 25);
+            cbAllWeekdays.TabIndex = 0;
+            cbAllWeekdays.Text = "Uncheck All";
+            cbAllWeekdays.UseVisualStyleBackColor = true;
+            cbAllWeekdays.CheckedChanged += cbAllWeekdays_CheckedChanged;
             // 
             // cbSun
             // 
@@ -288,18 +229,85 @@
             cbSun.TabIndex = 0;
             cbSun.Text = "Sun";
             cbSun.UseVisualStyleBackColor = true;
+            cbSun.CheckedChanged += cbSun_CheckedChanged;
             // 
-            // cbAllWeekdays
+            // cbSat
             // 
-            cbAllWeekdays.Appearance = Appearance.Button;
-            cbAllWeekdays.AutoSize = true;
-            cbAllWeekdays.Location = new Point(377, 14);
-            cbAllWeekdays.Name = "cbAllWeekdays";
-            cbAllWeekdays.Size = new Size(67, 25);
-            cbAllWeekdays.TabIndex = 0;
-            cbAllWeekdays.Text = "Check All";
-            cbAllWeekdays.UseVisualStyleBackColor = true;
-            cbAllWeekdays.CheckedChanged += cbAllWeekdays_CheckedChanged;
+            cbSat.Appearance = Appearance.Button;
+            cbSat.Checked = true;
+            cbSat.CheckState = CheckState.Checked;
+            cbSat.Location = new Point(273, 14);
+            cbSat.Name = "cbSat";
+            cbSat.Size = new Size(46, 25);
+            cbSat.TabIndex = 0;
+            cbSat.Text = "Sat";
+            cbSat.UseVisualStyleBackColor = true;
+            cbSat.CheckedChanged += cbSat_CheckedChanged;
+            // 
+            // cbFri
+            // 
+            cbFri.Appearance = Appearance.Button;
+            cbFri.Checked = true;
+            cbFri.CheckState = CheckState.Checked;
+            cbFri.Location = new Point(221, 14);
+            cbFri.Name = "cbFri";
+            cbFri.Size = new Size(46, 25);
+            cbFri.TabIndex = 0;
+            cbFri.Text = "Fri";
+            cbFri.UseVisualStyleBackColor = true;
+            cbFri.CheckedChanged += cbFri_CheckedChanged;
+            // 
+            // cbThurs
+            // 
+            cbThurs.Appearance = Appearance.Button;
+            cbThurs.Checked = true;
+            cbThurs.CheckState = CheckState.Checked;
+            cbThurs.Location = new Point(169, 14);
+            cbThurs.Name = "cbThurs";
+            cbThurs.Size = new Size(46, 25);
+            cbThurs.TabIndex = 0;
+            cbThurs.Text = "Thurs";
+            cbThurs.UseVisualStyleBackColor = true;
+            cbThurs.CheckedChanged += cbThurs_CheckedChanged;
+            // 
+            // cbWed
+            // 
+            cbWed.Appearance = Appearance.Button;
+            cbWed.Checked = true;
+            cbWed.CheckState = CheckState.Checked;
+            cbWed.Location = new Point(117, 14);
+            cbWed.Name = "cbWed";
+            cbWed.Size = new Size(46, 25);
+            cbWed.TabIndex = 0;
+            cbWed.Text = "Wed";
+            cbWed.UseVisualStyleBackColor = true;
+            cbWed.CheckedChanged += cbWed_CheckedChanged;
+            // 
+            // cbTues
+            // 
+            cbTues.Appearance = Appearance.Button;
+            cbTues.Checked = true;
+            cbTues.CheckState = CheckState.Checked;
+            cbTues.Location = new Point(65, 14);
+            cbTues.Name = "cbTues";
+            cbTues.Size = new Size(46, 25);
+            cbTues.TabIndex = 0;
+            cbTues.Text = "Tues";
+            cbTues.UseVisualStyleBackColor = true;
+            cbTues.CheckedChanged += cbTues_CheckedChanged;
+            // 
+            // cbMon
+            // 
+            cbMon.Appearance = Appearance.Button;
+            cbMon.Checked = true;
+            cbMon.CheckState = CheckState.Checked;
+            cbMon.Location = new Point(13, 14);
+            cbMon.Name = "cbMon";
+            cbMon.Size = new Size(46, 25);
+            cbMon.TabIndex = 0;
+            cbMon.Text = "Mon";
+            cbMon.UseVisualStyleBackColor = true;
+            cbMon.CheckedChanged += cbMon_CheckedChanged;
             // 
             // frmSalesStats
             // 
@@ -325,7 +333,6 @@
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             panel3.ResumeLayout(false);
-            panel3.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
