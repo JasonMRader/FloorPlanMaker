@@ -43,6 +43,7 @@ namespace FloorPlanMakerUI
         public TemplateManager TemplateManager { get; set; }
         public TemplateCreator TemplateCreator { get; set; }
         public Floorplan floorplanTemplateTEMP { get; set; }
+        public FloorplanGenerator floorplanGenerator = new FloorplanGenerator();
 
 
         public FloorplanFormManager(Shift shiftManager)
@@ -64,7 +65,7 @@ namespace FloorPlanMakerUI
             }
             if (this.Floorplan != null)
             {
-                
+                this.TemplateManager.DiningArea = Floorplan.DiningArea;
                 this.TemplateManager.GetTemplatesForFloorplan(this.Floorplan);
                 this.TemplateManager.serverCount = this.Floorplan.Servers.Count;
             }
@@ -552,8 +553,10 @@ namespace FloorPlanMakerUI
 
         private void btnAutoSelectTemplate_Click(object? sender, EventArgs e)
         {
+            
             UpdateTemplatesBasedOnFloorplan();
-            FloorplanTemplate template = SelectTheIdealFloorplanTemplate();
+            floorplanGenerator = new FloorplanGenerator(this.Shift);
+            FloorplanTemplate template = floorplanGenerator.SelectIdealTemplate(TemplateManager.Templates);
             CopyTemplateSections(template);
             AddTableControls(pnlFloorplan);
             SetSectionLabels();
@@ -567,10 +570,10 @@ namespace FloorPlanMakerUI
             AddSectionPanels(flowSectionsPanel);
             AddSectionLabels(pnlFloorplan);
             //UpdateServerControlsForFloorplan();
-
+            UpdateTableStats();
             //LoadTableSalesForPastDate();
             // SetTableSales();
-            UpdateTableStats();
+
             UpdateAveragesPerServer();
             coversImageLabel.UpdateText(Shift.SelectedFloorplan.MaxCoversPerServer.ToString("F0"));
             salesImageLabel.UpdateText(Shift.SelectedFloorplan.AvgSalesPerServer.ToString("C0"));

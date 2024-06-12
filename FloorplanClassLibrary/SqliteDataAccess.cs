@@ -1222,6 +1222,11 @@ namespace FloorplanClassLibrary
                             "SELECT t.* FROM DiningTable t JOIN SectionTables st ON t.ID = st.TableID WHERE st.SectionID = @SectionID",
                             new { SectionID = section.ID }
                         ).ToList());
+                        foreach(Table table in section.Tables)
+                        {
+                            Table diningTable = diningArea.Tables.FirstOrDefault(t=> t.ID == table.ID);
+                            table.AverageSales = diningTable.AverageSales;
+                        }
                     }
                 }
 

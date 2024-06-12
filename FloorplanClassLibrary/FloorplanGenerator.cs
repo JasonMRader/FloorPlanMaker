@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NetTopologySuite.Algorithm;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -213,6 +214,35 @@ namespace FloorplanClassLibrary
             }
 
             return true;
+        }
+        public FloorplanTemplate SelectIdealTemplate(List<FloorplanTemplate> templates)
+        {
+            Dictionary<FloorplanTemplate, float> templateVarience = GetTemplateSectionVarience(templates);
+            var idealTemplate = templateVarience.OrderBy(kv => kv.Value).FirstOrDefault().Key;
+            return idealTemplate;
+        }
+        public Dictionary<FloorplanTemplate, float> GetTemplateSectionVarience(List<FloorplanTemplate> templates)
+        {
+            Dictionary<FloorplanTemplate, float> templateVarience = new Dictionary<FloorplanTemplate, float>();
+            float avgSales = shift.SelectedFloorplan.AvgSalesPerServer;
+            if (avgSales == 0)
+            {
+                return null;
+            }
+           
+            foreach (FloorplanTemplate template in templates)
+            {
+                float varience = 0f;
+                foreach(Section section in  template.Sections)
+                {
+                    varience += Math.Abs(avgSales - section.ExpectedSalesPerServer);
+                }
+
+                templateVarience[template] = varience;
+
+            }
+           
+            return templateVarience;
         }
 
     }
