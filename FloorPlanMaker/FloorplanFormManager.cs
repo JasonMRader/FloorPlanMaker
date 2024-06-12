@@ -41,6 +41,7 @@ namespace FloorPlanMakerUI
         public bool isAm => this.Shift.IsAM;
 
         public TemplateManager TemplateManager { get; set; }
+        public TemplateCreator TemplateCreator { get; set; }
 
 
         public FloorplanFormManager(Shift shiftManager)
@@ -1085,7 +1086,19 @@ namespace FloorPlanMakerUI
                 ForeColor = UITheme.CTAFontColor
             };
             panel.Controls.Add((Button)btnAddSection);
+            btnCreateTemplate.Click -= btnCreateTemplate_Click;
+            btnCreateTemplate.Click += btnSaveFloorplan_Click;
+            btnCreateTemplate.Text = "Save Template";
+            this.TemplateCreator = new TemplateCreator(Shift.SelectedDiningArea);
 
+        }
+
+        private void btnSaveFloorplan_Click(object? sender, EventArgs e)
+        {
+            Button btnSaveTemplate = sender as Button;
+            btnSaveTemplate.Click += btnCreateTemplate_Click;
+            btnSaveTemplate.Click -= btnSaveFloorplan_Click;
+            btnSaveTemplate.Text = "Create A Floorplan Template";
         }
 
         public void SetViewedFloorplan(DateOnly dateOnlySelected, bool isAM,

@@ -137,7 +137,7 @@ namespace FloorplanClassLibrary
         {
             int teamSections = 0;            
             foreach (var section in this.Sections)            {
-                if (section.ServerCount > 1)
+                if (section.ServerCount > 1 && !section.IsPickUp)
                 {
                     section.MakeTeamWait();
                     section.DecreaseServerCount();
