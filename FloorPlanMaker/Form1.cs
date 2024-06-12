@@ -391,7 +391,7 @@ namespace FloorPlanMaker
             floorplanManager.SetViewedFloorplan(dateOnlySelected, cbIsAM.Checked, pnlFloorPlan, flowServersInFloorplan, flowSectionSelect);
             if (floorplanManager.Floorplan == null)
             {
-                //NoServersToDisplay();
+                NoServersToDisplay();
                 pnlFloorPlan.BackgroundImage = null;
                 // foreach()
 
@@ -550,13 +550,14 @@ namespace FloorPlanMaker
         }
         private void btnChooseTemplate_Click(object sender, EventArgs e)
         {
+            
             floorplanManager.TemplateManager = new TemplateManager(floorplanManager.Shift.SelectedDiningArea);
-            if (_frmTemplateSelection == null)
-            {
-                _frmTemplateSelection = new frmTemplateSelection(floorplanManager, shift.SelectedDiningArea, this)
-                { TopLevel = false, AutoScroll = true };
-                pnlTemplateContainer.Controls.Add(_frmTemplateSelection);
-            }
+
+            
+            _frmTemplateSelection = new frmTemplateSelection(floorplanManager, shift.SelectedDiningArea, this)
+            { TopLevel = false, AutoScroll = true };
+            pnlTemplateContainer.Controls.Add(_frmTemplateSelection);
+            
 
             _frmTemplateSelection.Show();
             pnlTemplateContainer.BringToFront();
@@ -701,14 +702,14 @@ namespace FloorPlanMaker
             salesImageLabel.UpdateText(shift.SelectedDiningArea.GetAverageSales().ToString("C0"));
             flowSectionSelect.Controls.Add(coversImageLabel);
             flowSectionSelect.Controls.Add(salesImageLabel);
-            PictureBox noSections = new PictureBox
-            {
-                Image = Resources._no_data_Lighter,
-                SizeMode = PictureBoxSizeMode.Zoom,
-                Size = new System.Drawing.Size(flowSectionSelect.Width - 50, flowSectionSelect.Height - 300),
-                Margin = new Padding(35, 0, 0, 0)
+            //PictureBox noSections = new PictureBox
+            //{
+            //    Image = Resources._no_data_Lighter,
+            //    SizeMode = PictureBoxSizeMode.Zoom,
+            //    Size = new System.Drawing.Size(flowSectionSelect.Width - 50, flowSectionSelect.Height - 300),
+            //    Margin = new Padding(35, 0, 0, 0)
 
-            };
+            //};
             PictureBox noServers = new PictureBox
             {
                 Image = Resources._no_data_Lighter,
@@ -718,11 +719,30 @@ namespace FloorPlanMaker
 
 
             };
-            noSections.BringToFront();
+            Button btnCreateTemplate = new Button
+            {
+                Text = "Create a Floorplan Template",
+                AutoSize = false,
+                Size = new Size(flowSectionSelect.Width - 10, 25),
+                Font = new Font("Segoe UI", 10F),
+                FlatStyle = FlatStyle.Flat,
+                BackColor = UITheme.CTAColor,
+                ForeColor = UITheme.CTAFontColor
+            };
+            btnCreateTemplate.Click += btnCreateTemplate_Click;
+            
+           
             noServers.BringToFront();
-            flowSectionSelect.Controls.Add(noSections);
+            flowSectionSelect.Controls.Add(btnCreateTemplate);
             flowServersInFloorplan.Controls.Add(noServers);
         }
+
+        private void btnCreateTemplate_Click(object? sender, EventArgs e)
+        {
+           
+           
+        }
+
         private void btnDayBefore_Click(object sender, EventArgs e)
         {
             UpdateDateSelected(-1);

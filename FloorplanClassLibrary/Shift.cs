@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.DirectoryServices.ActiveDirectory;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -17,7 +18,7 @@ namespace FloorplanClassLibrary
             SelectedDiningArea = diningArea;
             InitializeServers();
         }
-        public Shift() 
+        public Shift()
         {
             InitializeServers();
         }
@@ -27,8 +28,8 @@ namespace FloorplanClassLibrary
             this.IsAM = isAM;
             InitializeServers();
         }
-        public Shift(DateOnly date, bool isAm, List<Floorplan> floorplans) 
-        { 
+        public Shift(DateOnly date, bool isAm, List<Floorplan> floorplans)
+        {
             this.DateOnly = date;
             this.IsAM = isAm;
             InitializeServers();
@@ -41,11 +42,19 @@ namespace FloorplanClassLibrary
         {
             _allServers = SqliteDataAccess.LoadActiveServers();
             _serversNotOnShift = new List<Server>(_allServers);
-            
+
         }
 
         public bool IsAM { get; set; }
         public DateOnly DateOnly { get; set; }
+        public DateTime DateTime
+        {
+            get
+            {
+                
+                return DateOnly.ToDateTime(TimeOnly.MinValue);
+            }
+        }
         public DiningArea? SelectedDiningArea { get; set; }
         public Floorplan? SelectedFloorplan { get; set; }
         //public Floorplan? ViewedFloorplan { get; set; }

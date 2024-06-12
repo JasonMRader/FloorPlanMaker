@@ -135,9 +135,19 @@ namespace FloorplanClassLibrary
 
         public void AutoAssignDiningAreas()
         {
-            if(CheckDiningAreas())
+            if(CheckForInOutAndCocktail())
             {
                 AssignCocktailers();
+                AssignOutsideServers();
+                AssignInsideServers();
+            }
+            else if (CheckForOutAndCocktail())
+            {
+                AssignCocktailers();
+                AssignOutsideServers();
+            }
+            else if (CheckForInAndOutDining())
+            {
                 AssignOutsideServers();
                 AssignInsideServers();
             }
@@ -145,12 +155,12 @@ namespace FloorplanClassLibrary
             {
                 MessageBox.Show("Currently auto assign is only supported when the " +
                     "floorplans used are: Inside Dining, Outside Dining, and " +
-                    "Outside Cocktail");
+                    "Outside Cocktail OR Outside Dining and Cocktail OR Inside and Outside Dining");
             }
             
 
         }
-        private bool CheckDiningAreas()
+        private bool CheckForInOutAndCocktail()
         {
             if (shift.DiningAreasUsed.Count != 3)
             {
@@ -158,6 +168,42 @@ namespace FloorplanClassLibrary
             }
 
             var requiredAreas = new List<string> { "Inside Dining", "Outside Dining", "Outside Cocktail" };
+            foreach (var requiredArea in requiredAreas)
+            {
+                if (!shift.DiningAreasUsed.Any(area => area.Name == requiredArea))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+        private bool CheckForOutAndCocktail()
+        {
+            if (shift.DiningAreasUsed.Count != 2)
+            {
+                return false;
+            }
+
+            var requiredAreas = new List<string> { "Outside Dining", "Outside Cocktail" };
+            foreach (var requiredArea in requiredAreas)
+            {
+                if (!shift.DiningAreasUsed.Any(area => area.Name == requiredArea))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+        private bool CheckForInAndOutDining()
+        {
+            if (shift.DiningAreasUsed.Count != 2)
+            {
+                return false;
+            }
+
+            var requiredAreas = new List<string> { "Outside Dining", "Inside Dining" };
             foreach (var requiredArea in requiredAreas)
             {
                 if (!shift.DiningAreasUsed.Any(area => area.Name == requiredArea))

@@ -42,6 +42,7 @@ namespace FloorPlanMakerUI
 
         public TemplateManager TemplateManager { get; set; }
         public TemplateCreator TemplateCreator { get; set; }
+        public Floorplan floorplanTemplateTEMP { get; set; }
 
 
         public FloorplanFormManager(Shift shiftManager)
@@ -1090,7 +1091,21 @@ namespace FloorPlanMakerUI
             btnCreateTemplate.Click -= btnCreateTemplate_Click;
             btnCreateTemplate.Click += btnSaveFloorplan_Click;
             btnCreateTemplate.Text = "Save Template";
-            this.TemplateCreator = new TemplateCreator(Shift.SelectedDiningArea);
+            floorplanTemplateTEMP = new Floorplan(Shift.SelectedDiningArea, Shift.DateTime, Shift.IsAM, 1, 1);
+            AddSectionPanels(flowSectionsPanel);
+             
+            //UpdateServerControlsForFloorplan();
+
+            //LoadTableSalesForPastDate();
+            // SetTableSales();
+            UpdateTableStats();
+            UpdateAveragesPerServer();
+            coversImageLabel.UpdateText(Shift.SelectedFloorplan.MaxCoversPerServer.ToString("F0"));
+            salesImageLabel.UpdateText(Shift.SelectedFloorplan.AvgSalesPerServer.ToString("C0"));
+            coversImageLabel.Invalidate();
+            salesImageLabel.Invalidate();
+            //this.TemplateCreator = new TemplateCreator(Shift.SelectedDiningArea);
+
 
         }
 
@@ -1175,7 +1190,7 @@ namespace FloorPlanMakerUI
                 salesImageLabel.UpdateText(Shift.SelectedDiningArea.ExpectedSales.ToString("C0"));
                 coversImageLabel.Invalidate();
                 salesImageLabel.Invalidate();
-                SetViewedFloorplanToNone(flowSectionSelect);
+                //SetViewedFloorplanToNone(flowSectionSelect);
 
             }
             Shift.PickupSectionUpdate();
