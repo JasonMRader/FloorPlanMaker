@@ -32,45 +32,56 @@ namespace FloorplanClassLibrary
         public void SetTableSales(List<TableStat> tableStats)
         {
             float totalSales = 0f;
-            var insideBarSales = tableStats
-               .Where(t => t.TableStatNumber.CompareTo("120") >= 0 && t.TableStatNumber.CompareTo("155") <= 0)
-               .Sum(t => t.Sales);
-            var outsideBarSales = tableStats
+
+            // Separate AM and PM sales
+            var amStats = tableStats.Where(t => t.IsLunch).ToList();
+            var pmStats = tableStats.Where(t => !t.IsLunch).ToList();
+
+            var insideBarSalesAM = amStats
+                .Where(t => t.TableStatNumber.CompareTo("120") >= 0 && t.TableStatNumber.CompareTo("155") <= 0)
+                .Sum(t => t.Sales ?? 0);
+            var outsideBarSalesAM = amStats
                 .Where(t => t.TableStatNumber.CompareTo("1300") >= 0 && t.TableStatNumber.CompareTo("1699") <= 0)
-                .Sum(t => t.Sales);
+                .Sum(t => t.Sales ?? 0);
+
+            var insideBarSalesPM = pmStats
+                .Where(t => t.TableStatNumber.CompareTo("120") >= 0 && t.TableStatNumber.CompareTo("155") <= 0)
+                .Sum(t => t.Sales ?? 0);
+            var outsideBarSalesPM = pmStats
+                .Where(t => t.TableStatNumber.CompareTo("1300") >= 0 && t.TableStatNumber.CompareTo("1699") <= 0)
+                .Sum(t => t.Sales ?? 0);
+
             foreach (Table table in this.Tables)
             {
                 if (table.TableNumber == "INSIDE BAR")
                 {
-                    table.AverageSales = (float)insideBarSales;
-                    totalSales += (float)insideBarSales;
-                    //test += $"\n{table.TableNumber} : {insideBarSales} : {totalAreaSales}";
+                    float insideBarSales = insideBarSalesAM + insideBarSalesPM;
+                    table.AverageSales = insideBarSales;
+                    totalSales += insideBarSales;
                 }
-                if (table.TableNumber == "OUTSIDE BAR")
+                else if (table.TableNumber == "OUTSIDE BAR")
                 {
-                    table.AverageSales = (float)outsideBarSales;
-                    totalSales += (float)outsideBarSales;
-                    //test += $"\n{table.TableNumber} : {insideBarSales} : {totalAreaSales}";
+                    float outsideBarSales = outsideBarSalesAM + outsideBarSalesPM;
+                    table.AverageSales = outsideBarSales;
+                    totalSales += outsideBarSales;
                 }
                 else
                 {
-                    var matchedStat = tableStats.FirstOrDefault(t => t.TableStatNumber == table.TableNumber);
-                    if (matchedStat != null)
-                    {
-                        table.AverageSales = (float)matchedStat.Sales;
-                        totalSales += (float)matchedStat.Sales;
-                        //test += $"\n{table.TableNumber} : {matchedStat.Sales} : {totalAreaSales}";
-                    }
-                    else
-                    {
-                        table.AverageSales = 0;
-                    }
+                    var matchedStatAM = amStats.FirstOrDefault(t => t.TableStatNumber == table.TableNumber);
+                    var matchedStatPM = pmStats.FirstOrDefault(t => t.TableStatNumber == table.TableNumber);
+
+                    float matchedSalesAM = matchedStatAM?.Sales ?? 0;
+                    float matchedSalesPM = matchedStatPM?.Sales ?? 0;
+
+                    table.AverageSales = matchedSalesAM + matchedSalesPM;
+                    totalSales += matchedSalesAM + matchedSalesPM;
                 }
             }
             ExpectedSales = totalSales;
         }
-       
-        
+
+
+
         public int GetMaxCovers()
         {
             if (Tables == null)

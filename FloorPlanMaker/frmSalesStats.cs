@@ -106,35 +106,7 @@ namespace FloorPlanMakerUI
 
             return statList;
         }
-        //public void PopulateDataGridView(DataGridView dgvDiningAreas, List<DiningArea> diningAreas, List<SalesData> salesDataList)
-        //{
-        //    dgvDiningAreas.Columns.Clear();
-        //    dgvDiningAreas.Rows.Clear();
 
-        //    // Add columns for each dining area and total sales
-        //    dgvDiningAreas.Columns.Add("Date", "Date");
-
-        //    foreach (var diningArea in diningAreas)
-        //    {
-        //        dgvDiningAreas.Columns.Add(diningArea.Name, diningArea.Name);
-        //    }
-        //    dgvDiningAreas.Columns.Add("Total", "Total");
-
-        //    // Add rows for each date's sales data
-        //    foreach (var salesData in salesDataList)
-        //    {
-        //        var row = new List<object> { salesData.Date.ToString("ddd, M/d") };
-
-        //        foreach (var diningArea in diningAreas)
-        //        {
-        //            row.Add(salesData.SalesByDiningArea[diningArea.Name]);
-        //        }
-        //        row.Add(salesData.TotalSales);
-
-        //        dgvDiningAreas.Rows.Add(row.ToArray());
-        //    }
-
-        //}
         public void PopulateDGVForAreaSales(DataGridView dgvDiningAreas, List<DiningArea> diningAreas, List<SalesData> salesDataList)
         {
             dgvDiningAreas.Columns.Clear();
@@ -220,6 +192,16 @@ namespace FloorPlanMakerUI
         {
             timer1.Stop();
             dtpEndDate.Focus();
+        }
+
+        private void rdoBoth_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cbAllWeekdays_CheckedChanged(object sender, EventArgs e)
+        {
+            cbFri.Checked = true;
         }
     }
 }
