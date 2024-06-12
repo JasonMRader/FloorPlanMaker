@@ -28,7 +28,6 @@ namespace FloorplanClassLibrary
             this.DiningAreaID = floorplan.DiningArea.ID;
             this.Floorplan = floorplan;
            
-            
         }
         public Section(Section section)
         {

@@ -593,17 +593,17 @@ namespace FloorPlanMakerUI
 
         private void btnAddSection_Click(object? sender, EventArgs e)
         {
-            Section pickUp = new Section(Floorplan);
+            Section section = new Section();
 
-            pickUp.IsPickUp = false;
-            Floorplan.AddSection(pickUp);
-            SectionPanelControl newSectionPanel = new SectionPanelControl(pickUp, this.Shift.SelectedFloorplan);
+            section.IsPickUp = false;
+            TemplateCreator.Sections.Add(section);
+            SectionPanelControl newSectionPanel = new SectionPanelControl(section, this.TemplateCreator.Template);
             newSectionPanel.CheckBoxChanged += setSelectedSection;
             newSectionPanel.picEraseSectionClicked += EraseSectionClicked;
             
             this._sectionPanels.Add(newSectionPanel);
-            UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionPanel, UpdateType.Add, pickUp));
-            Floorplan.SetSelectedSection(pickUp);
+            UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionPanel, UpdateType.Add, section));
+            TemplateCreator.SelectedSection = section;
         }
 
         public void RefreshSectionPanels()
@@ -1086,6 +1086,7 @@ namespace FloorPlanMakerUI
                 ForeColor = UITheme.CTAFontColor
             };
             panel.Controls.Add((Button)btnAddSection);
+            btnAddSection.Click += btnAddSection_Click;
             btnCreateTemplate.Click -= btnCreateTemplate_Click;
             btnCreateTemplate.Click += btnSaveFloorplan_Click;
             btnCreateTemplate.Text = "Save Template";
