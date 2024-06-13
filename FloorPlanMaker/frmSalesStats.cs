@@ -20,22 +20,10 @@ namespace FloorPlanMakerUI
         private DiningAreaManager areaManager = new DiningAreaManager();
         private TableSalesManager tableSalesManager = new TableSalesManager();
         private EmployeeManager employeeManager = new EmployeeManager();
+        private DateOnly dateOnlyStart = new DateOnly();
+        private DateOnly dateOnlyEnd = new DateOnly();
 
-        private List<DayOfWeek> daysOfWeekFiltered()
-        {
-            List<DayOfWeek> allDays = new List<DayOfWeek>
-            {
-                 DayOfWeek.Monday,
-            DayOfWeek.Tuesday,
-            DayOfWeek.Wednesday,
-            DayOfWeek.Thursday,
-            DayOfWeek.Friday,
-            DayOfWeek.Saturday,
-            DayOfWeek.Sunday
-            };
-            return allDays;
-
-        }
+        
         private List<DayOfWeek> FilteredDaysOfWeek = new List<DayOfWeek>
              {
                  DayOfWeek.Monday,
@@ -52,12 +40,12 @@ namespace FloorPlanMakerUI
             dtpEndDate.Value = DateTime.Now.AddDays(-1);
             dtpStartDate.Value = DateTime.Now.AddDays(-8);
             employeeManager.LoadShiftsForActiveServers();
-            List<ServerShiftHistory> history = new List<ServerShiftHistory>();
-            foreach (Server server in employeeManager.ActiveServers)
-            {
-                ServerShiftHistory shiftHistory = new ServerShiftHistory(server);
-                history.Add(shiftHistory);
-            }
+            //List<ServerShiftHistory> history = new List<ServerShiftHistory>();
+            //foreach (Server server in employeeManager.ActiveServers)
+            //{
+            //    ServerShiftHistory shiftHistory = new ServerShiftHistory(server);
+            //    history.Add(shiftHistory);
+            //}
         }
         private List<DateTime> GetDateRange(DateTime startDate, DateTime endDate)
         {
@@ -83,7 +71,7 @@ namespace FloorPlanMakerUI
             return dateList;
         }
 
-        public List<SalesData> GetSalesData(List<DiningArea> diningAreas, List<DateTime> dates)
+        private List<SalesData> GetSalesData(List<DiningArea> diningAreas, List<DateTime> dates)
         {
             var salesDataList = new List<SalesData>();
 
@@ -113,6 +101,7 @@ namespace FloorPlanMakerUI
 
             return salesDataList;
         }
+       
         private List<TableStat> GetTableStatsForFilters(DateOnly dateOnly)
         {
             List<TableStat> statList = new List<TableStat>();
@@ -183,7 +172,10 @@ namespace FloorPlanMakerUI
                 dgvDiningAreas.Rows.Add(row.ToArray());
             }
         }
+        private void PopulateDGVForServerHistory(List<ServerShiftHistory> serverHistory)
+        {
 
+        }
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
@@ -196,11 +188,26 @@ namespace FloorPlanMakerUI
             if (rdoServerShifts.Checked)
             {
                 List<DateTime> dateList = GetDateRange(dtpStartDate.Value, dtpEndDate.Value);
+                List<ServerShiftHistory> serverHistory = GetServerHistory(employeeManager.ActiveServers);
+                PopulateDGVForServerHistory(serverHistory);
             }
 
 
         }
 
+       
+
+        private List<ServerShiftHistory> GetServerHistory(List<Server> servers)
+        {
+            var serverHistorys = new List<ServerShiftHistory>();
+
+            foreach (var server in servers)
+            {
+                var serverShiftHistory = new ServerShiftHistory(server, dateOnlyStart, dateOnlyEnd);
+            }
+
+            return serverHistorys;
+        }
 
         private void rdoAm_CheckedChanged(object sender, EventArgs e)
         {
@@ -212,16 +219,12 @@ namespace FloorPlanMakerUI
 
         }
 
-        private void dtpStartDate_ValueChanged(object sender, EventArgs e)
-        {
-            dtpEndDate.Value = dtpStartDate.Value.AddDays(7);
-            timer1.Start();
-        }
+       
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            timer1.Stop();
-            dtpEndDate.Focus();
+            //timer1.Stop();
+            //dtpEndDate.Focus();
         }
 
         private void rdoBoth_CheckedChanged(object sender, EventArgs e)
@@ -258,14 +261,14 @@ namespace FloorPlanMakerUI
 
         private void cbMon_CheckedChanged(object sender, EventArgs e)
         {
-            if(!cbMon.Checked)
+            if (!cbMon.Checked)
             {
                 if (FilteredDaysOfWeek.Contains(DayOfWeek.Monday))
                 {
                     FilteredDaysOfWeek.Remove(DayOfWeek.Monday);
                 }
             }
-            if(cbMon.Checked)
+            if (cbMon.Checked)
             {
                 if (!FilteredDaysOfWeek.Contains(DayOfWeek.Monday))
                 {
@@ -380,6 +383,16 @@ namespace FloorPlanMakerUI
                     FilteredDaysOfWeek.Add(DayOfWeek.Sunday);
                 }
             }
+        }
+        private void dtpStartDate_ValueChanged(object sender, EventArgs e)
+        {
+            //dtpEndDate.Value = dtpStartDate.Value.AddDays(7);
+            //timer1.Start();
+            dateOnlyStart = new DateOnly(dtpStartDate.Value.Year, dtpStartDate.Value.Month, dtpStartDate.Value.Day);
+        }
+        private void dtpEndDate_ValueChanged(object sender, EventArgs e)
+        {
+            dateOnlyEnd = new DateOnly(dtpEndDate.Value.Year, dtpEndDate.Value.Month, dtpEndDate.Value.Day);
         }
     }
 }

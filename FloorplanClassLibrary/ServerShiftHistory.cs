@@ -10,9 +10,10 @@ namespace FloorplanClassLibrary
 {
     public class ServerShiftHistory
     {
-        public ServerShiftHistory(Server server)
+        public ServerShiftHistory(Server server, DateOnly start, DateOnly end)
         {
             this.Server = server;
+            GetShiftsForDateRange(start, end);
             PopulateServerSections();
             PopulateTableCounts();
             SetInsideOutsidePercentage();
@@ -24,9 +25,9 @@ namespace FloorplanClassLibrary
         public List<EmployeeShift> filteredShifts = new List<EmployeeShift>();  
         public void SetInsideOutsidePercentage()
         {
-            int shifts = this.Server.Shifts.Count();
+            int shifts = this.filteredShifts.Count();
             int OutsideCount = 0;
-            foreach (EmployeeShift empShift in this.Server.Shifts)
+            foreach (EmployeeShift empShift in this.filteredShifts)
             {
                 if (!empShift.IsInside)
                 {
@@ -37,19 +38,15 @@ namespace FloorplanClassLibrary
             {
                 OutsidePercentage = (float)OutsideCount / (float)shifts;
             }
-
-
-
         }
         public void PopulateServerSections()
         {
             List<Section> sections = new List<Section>();
-            foreach(EmployeeShift empShift in this.Server.Shifts)
+            foreach(EmployeeShift empShift in this.filteredShifts)
             {
                 sections.Add(SqliteDataAccess.LoadSectionForShiftHistory(empShift.SectionID));
             }
-            this.Sections = sections;
-            
+            this.Sections = sections;            
         }
         public void PopulateTableCounts()
         {
@@ -79,7 +76,7 @@ namespace FloorplanClassLibrary
             
             return this.Server.AbbreviatedName + " (History)";
         }
-        public List<EmployeeShift> GetShiftsForDateRange(DateOnly start, DateOnly end)
+        public void GetShiftsForDateRange(DateOnly start, DateOnly end)
         {
             List<EmployeeShift> employeeShifts = new List<EmployeeShift>();
 
@@ -92,7 +89,22 @@ namespace FloorplanClassLibrary
                 }
             }
 
-            return employeeShifts;
+            filteredShifts = employeeShifts;
+        }
+        public void GetShiftsForDateRangeAndIsLunch(DateOnly start, DateOnly end, bool isLunch)
+        {
+            List<EmployeeShift> employeeShifts = new List<EmployeeShift>();
+
+            foreach (EmployeeShift shift in this.Server.Shifts)
+            {
+                DateOnly shiftDate = DateOnly.FromDateTime(shift.Date);
+                if (shiftDate >= start && shiftDate <= end && shift.isLunch == isLunch)
+                {
+                    employeeShifts.Add(shift);
+                }
+            }
+
+            filteredShifts = employeeShifts;
         }
 
 

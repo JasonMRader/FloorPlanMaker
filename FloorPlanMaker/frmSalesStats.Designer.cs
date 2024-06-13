@@ -167,6 +167,7 @@
             dtpEndDate.Name = "dtpEndDate";
             dtpEndDate.Size = new Size(200, 23);
             dtpEndDate.TabIndex = 5;
+            dtpEndDate.ValueChanged += dtpEndDate_ValueChanged;
             // 
             // label1
             // 
