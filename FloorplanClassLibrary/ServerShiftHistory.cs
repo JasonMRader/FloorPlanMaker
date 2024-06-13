@@ -21,6 +21,7 @@ namespace FloorplanClassLibrary
         public List<Section> Sections { get; set; }
         public Dictionary<string, int> TableCounts { get; set; }
         public float OutsidePercentage { get; set; } = 0f;
+        public List<EmployeeShift> filteredShifts = new List<EmployeeShift>();  
         public void SetInsideOutsidePercentage()
         {
             int shifts = this.Server.Shifts.Count();
