@@ -23,7 +23,7 @@ namespace FloorPlanMakerUI
         private DateOnly dateOnlyStart = new DateOnly();
         private DateOnly dateOnlyEnd = new DateOnly();
 
-        
+
         private List<DayOfWeek> FilteredDaysOfWeek = new List<DayOfWeek>
              {
                  DayOfWeek.Monday,
@@ -101,7 +101,7 @@ namespace FloorPlanMakerUI
 
             return salesDataList;
         }
-       
+
         private List<TableStat> GetTableStatsForFilters(DateOnly dateOnly)
         {
             List<TableStat> statList = new List<TableStat>();
@@ -174,6 +174,125 @@ namespace FloorPlanMakerUI
         }
         private void PopulateDGVForServerHistory(List<ServerShiftHistory> serverHistory)
         {
+            dgvDiningAreas.Columns.Clear();
+            dgvDiningAreas.Rows.Clear();
+
+            // Add columns for each dining area and total sales
+            dgvDiningAreas.Columns.Add("Server", "Server");
+
+            var shiftColumn = new DataGridViewTextBoxColumn
+            {
+                Name = "ShiftCount",
+                HeaderText = "Shifts",
+                DefaultCellStyle = new DataGridViewCellStyle
+                {
+                    Format = "0"
+                }
+            };
+            var outsideCountColumn = new DataGridViewTextBoxColumn
+            {
+                Name = "OutsideCount",
+                HeaderText = "Outside",
+                DefaultCellStyle = new DataGridViewCellStyle
+                {
+                    Format = "0"
+                }
+            };
+            var outsidePercentageColumn = new DataGridViewTextBoxColumn
+            {
+                Name = "OutsidePercentage",
+                HeaderText = "Outside %",
+                DefaultCellStyle = new DataGridViewCellStyle
+                {
+                    Format = "P0"
+                }
+            };
+            var cocktailCountColumn = new DataGridViewTextBoxColumn
+            {
+                Name = "CocktailCount",
+                HeaderText = "Cocktail",
+                DefaultCellStyle = new DataGridViewCellStyle
+                {
+                    Format = "0"
+                }
+            };
+            var cocktailPercentageColumn = new DataGridViewTextBoxColumn
+            {
+                Name = "CocktailPercentage",
+                HeaderText = "Cocktail %",
+                DefaultCellStyle = new DataGridViewCellStyle
+                {
+                    Format = "P0"
+                }
+            };
+            var closeCountColumn = new DataGridViewTextBoxColumn
+            {
+                Name = "CloseCount",
+                HeaderText = "Close",
+                DefaultCellStyle = new DataGridViewCellStyle
+                {
+                    Format = "0"
+                }
+            };
+            var closePercentageColumn = new DataGridViewTextBoxColumn
+            {
+                Name = "closePercentage",
+                HeaderText = "close %",
+                DefaultCellStyle = new DataGridViewCellStyle
+                {
+                    Format = "P0"
+                }
+            };
+            var TeamCountColumn = new DataGridViewTextBoxColumn
+            {
+                Name = "TeamCount",
+                HeaderText = "Team",
+                DefaultCellStyle = new DataGridViewCellStyle
+                {
+                    Format = "0"
+                }
+            };
+            var TeamPercentageColumn = new DataGridViewTextBoxColumn
+            {
+                Name = "TeamPercentage",
+                HeaderText = "Team %",
+                DefaultCellStyle = new DataGridViewCellStyle
+                {
+                    Format = "P0"
+                }
+            };
+
+            dgvDiningAreas.Columns.Add(shiftColumn);
+            dgvDiningAreas.Columns.Add(outsideCountColumn);
+            dgvDiningAreas.Columns.Add(outsidePercentageColumn);
+            dgvDiningAreas.Columns.Add(cocktailCountColumn);
+            dgvDiningAreas.Columns.Add(cocktailPercentageColumn);
+            dgvDiningAreas.Columns.Add(closeCountColumn);
+            dgvDiningAreas.Columns.Add(closePercentageColumn);
+            dgvDiningAreas.Columns.Add(TeamCountColumn);
+            dgvDiningAreas.Columns.Add(TeamPercentageColumn);
+
+
+
+            //dgvDiningAreas.Columns.Add(totalColumn);
+
+            // Add rows for each date's sales data
+            foreach (var history in serverHistory)
+            {
+                var row = new List<object> { history.Server.ToString() };
+                row.Add(history.filteredShifts.Count);
+                row.Add(history.OutsideShiftCount);
+                row.Add(history.OutsidePercentage);
+                row.Add(history.CocktailShiftCount);
+                row.Add(history.CocktailShiftPercentage);
+                row.Add(history.ClosingShiftCount);
+                row.Add(history.ClosingPercentage);
+                row.Add(history.TeamWaitShiftCount);
+                row.Add(history.TeamWaitPercentage);
+
+
+                dgvDiningAreas.Rows.Add(row.ToArray());
+            }
 
         }
 
@@ -195,7 +314,7 @@ namespace FloorPlanMakerUI
 
         }
 
-       
+
 
         private List<ServerShiftHistory> GetServerHistory(List<Server> servers)
         {
@@ -204,6 +323,7 @@ namespace FloorPlanMakerUI
             foreach (var server in servers)
             {
                 var serverShiftHistory = new ServerShiftHistory(server, dateOnlyStart, dateOnlyEnd);
+                serverHistorys.Add(serverShiftHistory);
             }
 
             return serverHistorys;
@@ -216,10 +336,17 @@ namespace FloorPlanMakerUI
 
         private void rdoServerShifts_CheckedChanged(object sender, EventArgs e)
         {
-
+            if (rdoServerShifts.Checked)
+            {
+                cboServerSelect.DataSource = employeeManager.ActiveServers;
+            }
+            else
+            {
+                cboServerSelect.DataSource = areaManager.DiningAreas;
+            }
         }
 
-       
+
 
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -394,5 +521,51 @@ namespace FloorPlanMakerUI
         {
             dateOnlyEnd = new DateOnly(dtpEndDate.Value.Year, dtpEndDate.Value.Month, dtpEndDate.Value.Day);
         }
+
+        private void btnIndividualStats_Click(object sender, EventArgs e)
+        {
+            if (rdoServerShifts.Checked)
+            {
+                Server serverSelected = (Server)cboServerSelect.SelectedItem;
+                PopulateDGVForIndividualServer(serverSelected);
+            }
+        }
+
+        private void PopulateDGVForIndividualServer(Server serverSelected)
+        {
+            dgvDiningAreas.Columns.Clear();
+            dgvDiningAreas.Rows.Clear();
+
+            // Create a ServerShiftHistory instance
+            var serverShiftHistory = new ServerShiftHistory(serverSelected, dateOnlyStart, dateOnlyEnd);
+
+            // Add the Server column
+            dgvDiningAreas.Columns.Add("Server", "Server");
+
+            // Add a column for each unique table
+            foreach (var table in serverShiftHistory.TableCounts)
+            {
+                var column = new DataGridViewTextBoxColumn
+                {
+                    Name = table.Key,
+                    HeaderText = table.Key,
+                    DefaultCellStyle = new DataGridViewCellStyle
+                    {
+                        Format = "N0" // Format as number with no decimals
+                    }
+                };
+                dgvDiningAreas.Columns.Add(column);
+            }
+
+            // Add a row for the server and populate the counts for each table
+            var row = new List<object> { serverShiftHistory.Server.ToString() };
+            foreach (var table in serverShiftHistory.TableCounts)
+            {
+                row.Add(table.Value);
+            }
+
+            dgvDiningAreas.Rows.Add(row.ToArray());
+        }
+
     }
 }

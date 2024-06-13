@@ -19,6 +19,7 @@ namespace FloorplanClassLibrary
         public bool IsPre { get; set; }
         public bool IsInside { get; set; }
         public bool IsTeamWait { get; set; }
+        public bool IsCocktail { get; set; }
         
         //... Other relevant properties
     }

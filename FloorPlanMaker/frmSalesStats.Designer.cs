@@ -52,26 +52,31 @@
             cbWed = new CheckBox();
             cbTues = new CheckBox();
             cbMon = new CheckBox();
+            panel4 = new Panel();
+            lblComboLabel = new Label();
+            btnIndividualStats = new Button();
+            cboServerSelect = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)dgvDiningAreas).BeginInit();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
+            panel4.SuspendLayout();
             SuspendLayout();
             // 
             // dgvDiningAreas
             // 
             dgvDiningAreas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvDiningAreas.Location = new Point(12, 138);
+            dgvDiningAreas.Location = new Point(12, 179);
             dgvDiningAreas.Name = "dgvDiningAreas";
             dgvDiningAreas.RowTemplate.Height = 25;
-            dgvDiningAreas.Size = new Size(892, 683);
+            dgvDiningAreas.Size = new Size(1035, 683);
             dgvDiningAreas.TabIndex = 0;
             // 
             // rdoDiningAreaSales
             // 
             rdoDiningAreaSales.AutoSize = true;
             rdoDiningAreaSales.Checked = true;
-            rdoDiningAreaSales.Location = new Point(3, 17);
+            rdoDiningAreaSales.Location = new Point(0, 3);
             rdoDiningAreaSales.Name = "rdoDiningAreaSales";
             rdoDiningAreaSales.Size = new Size(116, 19);
             rdoDiningAreaSales.TabIndex = 1;
@@ -82,7 +87,7 @@
             // rdoServerShifts
             // 
             rdoServerShifts.AutoSize = true;
-            rdoServerShifts.Location = new Point(137, 17);
+            rdoServerShifts.Location = new Point(126, 3);
             rdoServerShifts.Name = "rdoServerShifts";
             rdoServerShifts.Size = new Size(125, 19);
             rdoServerShifts.TabIndex = 1;
@@ -92,9 +97,9 @@
             // 
             // btnUpdate
             // 
-            btnUpdate.Location = new Point(746, 109);
+            btnUpdate.Location = new Point(33, 138);
             btnUpdate.Name = "btnUpdate";
-            btnUpdate.Size = new Size(158, 23);
+            btnUpdate.Size = new Size(688, 23);
             btnUpdate.TabIndex = 2;
             btnUpdate.Text = "Update";
             btnUpdate.UseVisualStyleBackColor = true;
@@ -104,7 +109,7 @@
             // 
             rdoAm.AutoSize = true;
             rdoAm.Checked = true;
-            rdoAm.Location = new Point(0, 14);
+            rdoAm.Location = new Point(0, 3);
             rdoAm.Name = "rdoAm";
             rdoAm.Size = new Size(44, 19);
             rdoAm.TabIndex = 3;
@@ -116,7 +121,7 @@
             // rdoPm
             // 
             rdoPm.AutoSize = true;
-            rdoPm.Location = new Point(68, 14);
+            rdoPm.Location = new Point(69, 3);
             rdoPm.Name = "rdoPm";
             rdoPm.Size = new Size(43, 19);
             rdoPm.TabIndex = 3;
@@ -126,7 +131,7 @@
             // rdoBoth
             // 
             rdoBoth.AutoSize = true;
-            rdoBoth.Location = new Point(117, 14);
+            rdoBoth.Location = new Point(126, 3);
             rdoBoth.Name = "rdoBoth";
             rdoBoth.Size = new Size(50, 19);
             rdoBoth.TabIndex = 3;
@@ -140,7 +145,7 @@
             panel1.Controls.Add(rdoDiningAreaSales);
             panel1.Location = new Point(30, 12);
             panel1.Name = "panel1";
-            panel1.Size = new Size(280, 54);
+            panel1.Size = new Size(258, 31);
             panel1.TabIndex = 4;
             // 
             // panel2
@@ -148,14 +153,14 @@
             panel2.Controls.Add(rdoBoth);
             panel2.Controls.Add(rdoAm);
             panel2.Controls.Add(rdoPm);
-            panel2.Location = new Point(33, 72);
+            panel2.Location = new Point(30, 49);
             panel2.Name = "panel2";
-            panel2.Size = new Size(200, 54);
+            panel2.Size = new Size(177, 25);
             panel2.TabIndex = 4;
             // 
             // dtpStartDate
             // 
-            dtpStartDate.Location = new Point(490, 29);
+            dtpStartDate.Location = new Point(310, 27);
             dtpStartDate.Name = "dtpStartDate";
             dtpStartDate.Size = new Size(200, 23);
             dtpStartDate.TabIndex = 5;
@@ -163,7 +168,7 @@
             // 
             // dtpEndDate
             // 
-            dtpEndDate.Location = new Point(701, 29);
+            dtpEndDate.Location = new Point(521, 27);
             dtpEndDate.Name = "dtpEndDate";
             dtpEndDate.Size = new Size(200, 23);
             dtpEndDate.TabIndex = 5;
@@ -172,7 +177,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(490, 11);
+            label1.Location = new Point(310, 9);
             label1.Name = "label1";
             label1.Size = new Size(38, 15);
             label1.TabIndex = 6;
@@ -181,7 +186,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(701, 11);
+            label2.Location = new Point(521, 9);
             label2.Name = "label2";
             label2.Size = new Size(22, 15);
             label2.TabIndex = 6;
@@ -201,9 +206,9 @@
             panel3.Controls.Add(cbWed);
             panel3.Controls.Add(cbTues);
             panel3.Controls.Add(cbMon);
-            panel3.Location = new Point(276, 72);
+            panel3.Location = new Point(30, 77);
             panel3.Name = "panel3";
-            panel3.Size = new Size(464, 54);
+            panel3.Size = new Size(464, 44);
             panel3.TabIndex = 7;
             // 
             // cbAllWeekdays
@@ -211,7 +216,7 @@
             cbAllWeekdays.Appearance = Appearance.Button;
             cbAllWeekdays.Checked = true;
             cbAllWeekdays.CheckState = CheckState.Checked;
-            cbAllWeekdays.Location = new Point(377, 14);
+            cbAllWeekdays.Location = new Point(367, 14);
             cbAllWeekdays.Name = "cbAllWeekdays";
             cbAllWeekdays.Size = new Size(84, 25);
             cbAllWeekdays.TabIndex = 0;
@@ -224,7 +229,7 @@
             cbSun.Appearance = Appearance.Button;
             cbSun.Checked = true;
             cbSun.CheckState = CheckState.Checked;
-            cbSun.Location = new Point(325, 14);
+            cbSun.Location = new Point(315, 14);
             cbSun.Name = "cbSun";
             cbSun.Size = new Size(46, 25);
             cbSun.TabIndex = 0;
@@ -237,7 +242,7 @@
             cbSat.Appearance = Appearance.Button;
             cbSat.Checked = true;
             cbSat.CheckState = CheckState.Checked;
-            cbSat.Location = new Point(273, 14);
+            cbSat.Location = new Point(263, 14);
             cbSat.Name = "cbSat";
             cbSat.Size = new Size(46, 25);
             cbSat.TabIndex = 0;
@@ -250,7 +255,7 @@
             cbFri.Appearance = Appearance.Button;
             cbFri.Checked = true;
             cbFri.CheckState = CheckState.Checked;
-            cbFri.Location = new Point(221, 14);
+            cbFri.Location = new Point(211, 14);
             cbFri.Name = "cbFri";
             cbFri.Size = new Size(46, 25);
             cbFri.TabIndex = 0;
@@ -263,7 +268,7 @@
             cbThurs.Appearance = Appearance.Button;
             cbThurs.Checked = true;
             cbThurs.CheckState = CheckState.Checked;
-            cbThurs.Location = new Point(169, 14);
+            cbThurs.Location = new Point(159, 14);
             cbThurs.Name = "cbThurs";
             cbThurs.Size = new Size(46, 25);
             cbThurs.TabIndex = 0;
@@ -276,7 +281,7 @@
             cbWed.Appearance = Appearance.Button;
             cbWed.Checked = true;
             cbWed.CheckState = CheckState.Checked;
-            cbWed.Location = new Point(117, 14);
+            cbWed.Location = new Point(107, 14);
             cbWed.Name = "cbWed";
             cbWed.Size = new Size(46, 25);
             cbWed.TabIndex = 0;
@@ -289,7 +294,7 @@
             cbTues.Appearance = Appearance.Button;
             cbTues.Checked = true;
             cbTues.CheckState = CheckState.Checked;
-            cbTues.Location = new Point(65, 14);
+            cbTues.Location = new Point(55, 14);
             cbTues.Name = "cbTues";
             cbTues.Size = new Size(46, 25);
             cbTues.TabIndex = 0;
@@ -302,7 +307,7 @@
             cbMon.Appearance = Appearance.Button;
             cbMon.Checked = true;
             cbMon.CheckState = CheckState.Checked;
-            cbMon.Location = new Point(13, 14);
+            cbMon.Location = new Point(3, 14);
             cbMon.Name = "cbMon";
             cbMon.Size = new Size(46, 25);
             cbMon.TabIndex = 0;
@@ -310,11 +315,49 @@
             cbMon.UseVisualStyleBackColor = true;
             cbMon.CheckedChanged += cbMon_CheckedChanged;
             // 
+            // panel4
+            // 
+            panel4.Controls.Add(lblComboLabel);
+            panel4.Controls.Add(btnIndividualStats);
+            panel4.Controls.Add(cboServerSelect);
+            panel4.Location = new Point(760, 27);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(287, 146);
+            panel4.TabIndex = 8;
+            // 
+            // lblComboLabel
+            // 
+            lblComboLabel.AutoSize = true;
+            lblComboLabel.Location = new Point(13, 18);
+            lblComboLabel.Name = "lblComboLabel";
+            lblComboLabel.Size = new Size(44, 15);
+            lblComboLabel.TabIndex = 2;
+            lblComboLabel.Text = "Servers";
+            // 
+            // btnIndividualStats
+            // 
+            btnIndividualStats.Location = new Point(13, 111);
+            btnIndividualStats.Name = "btnIndividualStats";
+            btnIndividualStats.Size = new Size(259, 23);
+            btnIndividualStats.TabIndex = 1;
+            btnIndividualStats.Text = "See Individual Stats";
+            btnIndividualStats.UseVisualStyleBackColor = true;
+            btnIndividualStats.Click += btnIndividualStats_Click;
+            // 
+            // cboServerSelect
+            // 
+            cboServerSelect.FormattingEnabled = true;
+            cboServerSelect.Location = new Point(13, 36);
+            cboServerSelect.Name = "cboServerSelect";
+            cboServerSelect.Size = new Size(259, 23);
+            cboServerSelect.TabIndex = 0;
+            // 
             // frmSalesStats
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(916, 833);
+            ClientSize = new Size(1059, 874);
+            Controls.Add(panel4);
             Controls.Add(panel3);
             Controls.Add(label2);
             Controls.Add(label1);
@@ -334,6 +377,8 @@
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             panel3.ResumeLayout(false);
+            panel4.ResumeLayout(false);
+            panel4.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -363,5 +408,9 @@
         private CheckBox cbWed;
         private CheckBox cbTues;
         private CheckBox cbMon;
+        private Panel panel4;
+        private ComboBox cboServerSelect;
+        private Label lblComboLabel;
+        private Button btnIndividualStats;
     }
 }

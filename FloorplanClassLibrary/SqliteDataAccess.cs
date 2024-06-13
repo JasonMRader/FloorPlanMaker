@@ -1542,6 +1542,7 @@ namespace FloorplanClassLibrary
 
 
         }
+        //**** DOESNT HAVE IS COCKTAIL *********
         public static List<EmployeeShift> LoadShiftsForServer(Server server)
         {
             using (IDbConnection connection = new SQLiteConnection(LoadConnectionString()))
@@ -1596,6 +1597,7 @@ namespace FloorplanClassLibrary
                 sec.IsCloser,
                 sec.IsPre,
                 d.IsInside,
+                d.IsCockTail,
                 sec.TeamWait AS IsTeamWait
             FROM Shift s
             INNER JOIN Floorplan f ON s.FloorplanID = f.ID

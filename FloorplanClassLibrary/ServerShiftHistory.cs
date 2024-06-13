@@ -16,27 +16,57 @@ namespace FloorplanClassLibrary
             GetShiftsForDateRange(start, end);
             PopulateServerSections();
             PopulateTableCounts();
-            SetInsideOutsidePercentage();
+            SetPercentagesAndCounts();
         }
         public Server Server { get; set; }  
         public List<Section> Sections { get; set; }
         public Dictionary<string, int> TableCounts { get; set; }
         public float OutsidePercentage { get; set; } = 0f;
+        public float CocktailShiftPercentage { get; set; } = 0f;
+        public float ClosingPercentage { get; set; } = 0f;
+        public float TeamWaitPercentage { get; set; } = 0f;
         public List<EmployeeShift> filteredShifts = new List<EmployeeShift>();  
-        public void SetInsideOutsidePercentage()
+        public int OutsideShiftCount { get; set; }
+        public int CocktailShiftCount { get; set; }
+        public int ClosingShiftCount { get; set; }
+        public int TeamWaitShiftCount { get; set; }
+        public void SetPercentagesAndCounts()
         {
             int shifts = this.filteredShifts.Count();
-            int OutsideCount = 0;
+            int outsideCount = 0;
+            int coctailCount = 0;
+            int closingCount = 0;
+            int TeamWaitCount = 0;
             foreach (EmployeeShift empShift in this.filteredShifts)
             {
                 if (!empShift.IsInside)
                 {
-                    OutsideCount++;
+                    outsideCount++;
+                }
+                if (empShift.IsCloser) 
+                {
+                    closingCount++;
+                }
+                if (empShift.IsCocktail)
+                {
+                    coctailCount++;
+                }
+                if(empShift.IsTeamWait)
+                {
+                    TeamWaitCount++;
                 }
             }
             if (shifts > 0)
             {
-                OutsidePercentage = (float)OutsideCount / (float)shifts;
+                OutsideShiftCount = outsideCount;
+                CocktailShiftCount = coctailCount;
+                ClosingShiftCount = closingCount;
+                TeamWaitShiftCount = TeamWaitCount;
+
+                OutsidePercentage = (float)outsideCount / (float)shifts;
+                CocktailShiftPercentage = (float)coctailCount / (float)shifts;
+                ClosingPercentage = (float)closingCount / (float)shifts;
+                TeamWaitPercentage = (float)TeamWaitCount / (float)shifts;
             }
         }
         public void PopulateServerSections()
