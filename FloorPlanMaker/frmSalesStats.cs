@@ -601,41 +601,38 @@ namespace FloorPlanMakerUI
                 PopulateDGVForServerShiftHistory(serverSelected);
             }
         }
-        public void PopulateDGVForServerShiftHistory(Server server)
+        public void PopulateDGVForServerShiftHistory(Server serverSelected)
         {
             dgvDiningAreas.Columns.Clear();
             dgvDiningAreas.Rows.Clear();
 
             // Add columns for each dining area and total sales
             dgvDiningAreas.Columns.Add("Date", "Date");
+            var serverShiftHistory = new ServerShiftHistory();
+            if (rdoBoth.Checked)
+            {
+                serverShiftHistory = new ServerShiftHistory(serverSelected, dateOnlyStart, dateOnlyEnd, FilteredDaysOfWeek);
+            }
+            else
+            {
+                serverShiftHistory = new ServerShiftHistory(serverSelected, dateOnlyStart, dateOnlyEnd, rdoAm.Checked, FilteredDaysOfWeek);
+            }
 
-            //foreach (var diningArea in diningAreas)
-            //{
-            //    var column = new DataGridViewTextBoxColumn
-            //    {
-            //        Name = diningArea.Name,
-            //        HeaderText = diningArea.Name,
-            //        DefaultCellStyle = new DataGridViewCellStyle
-            //        {
-            //            Format = "C0" // Format as currency with no decimals
-            //        }
-            //    };
-            //    dgvDiningAreas.Columns.Add(column);
-            //}
 
-            //var totalColumn = new DataGridViewTextBoxColumn
-            //{
-            //    Name = "Total",
-            //    HeaderText = "Total",
-            //    DefaultCellStyle = new DataGridViewCellStyle
-            //    {
-            //        Format = "C0" // Format as currency with no decimals
-            //    }
-            //};
-            //dgvDiningAreas.Columns.Add(totalColumn);
+
+            var tablesColumn = new DataGridViewTextBoxColumn
+            {
+                Name = "Tables",
+                HeaderText = "Tables",
+                DefaultCellStyle = new DataGridViewCellStyle
+                {
+                    Format = "C0" // Format as currency with no decimals
+                }
+            };
+            dgvDiningAreas.Columns.Add(tablesColumn);
 
             // Add rows for each date's sales data
-            foreach (var empShift in server.Shifts)
+            foreach (var empShift in serverShiftHistory.filteredShifts)
             {
                 var row = new List<object> { empShift.Date.ToString("ddd, M/d") };
 

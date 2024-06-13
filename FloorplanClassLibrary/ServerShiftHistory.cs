@@ -48,6 +48,9 @@ namespace FloorplanClassLibrary
         public Server Server { get; set; }  
         public List<Section> Sections { get; set; }
         public Dictionary<string, int> TableCounts { get; set; }
+        public Dictionary<EmployeeShift, string> ShiftTables { get; set; } = new Dictionary<EmployeeShift, string>();
+
+
         public float OutsidePercentage { get; set; } = 0f;
         public float CocktailShiftPercentage { get; set; } = 0f;
         public float ClosingPercentage { get; set; } = 0f;
@@ -177,6 +180,25 @@ namespace FloorplanClassLibrary
             filteredShifts.Clear();
             filteredShifts = weekdayFilteredShifts;
         }
+        public void PopulateShiftTables()
+        {
+            Dictionary<EmployeeShift, string> shiftTables = new Dictionary<EmployeeShift, string>();
+
+            foreach (EmployeeShift empShift in this.filteredShifts)
+            {
+                var section = SqliteDataAccess.LoadSectionForShiftHistory(empShift.SectionID);
+                if (section.Tables != null)
+                {
+                    var tableNumbers = section.Tables.Select(t => t.TableNumber).ToList();
+                    string tableNumbersString = string.Join(", ", tableNumbers);
+                    shiftTables[empShift] = tableNumbersString;
+                }
+            }
+
+            this.ShiftTables = shiftTables;
+        }
+
+
 
 
     }
