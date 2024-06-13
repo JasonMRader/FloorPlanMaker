@@ -18,6 +18,7 @@ namespace FloorplanClassLibrary
             PopulateServerSections();
             PopulateTableCounts();
             SetPercentagesAndCounts();
+            PopulateShiftTables();
         }
         public ServerShiftHistory(Server server, DateOnly start, DateOnly end, List<DayOfWeek> days)
         {
@@ -27,6 +28,7 @@ namespace FloorplanClassLibrary
             PopulateServerSections();
             PopulateTableCounts();
             SetPercentagesAndCounts();
+            PopulateShiftTables();
         }
         public ServerShiftHistory(Server server, DateOnly start, DateOnly end, bool isLunch)
         {
@@ -35,6 +37,7 @@ namespace FloorplanClassLibrary
             PopulateServerSections();
             PopulateTableCounts();
             SetPercentagesAndCounts();
+            PopulateShiftTables();
         }
         public ServerShiftHistory(Server server, DateOnly start, DateOnly end, bool isLunch, List<DayOfWeek> days)
         {
@@ -44,6 +47,7 @@ namespace FloorplanClassLibrary
             PopulateServerSections();
             PopulateTableCounts();
             SetPercentagesAndCounts();
+            PopulateShiftTables();
         }
         public Server Server { get; set; }  
         public List<Section> Sections { get; set; }

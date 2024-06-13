@@ -636,11 +636,10 @@ namespace FloorPlanMakerUI
             {
                 var row = new List<object> { empShift.Date.ToString("ddd, M/d") };
 
-                //foreach (var diningArea in diningAreas)
-                //{
-                //    row.Add(salesData.SalesByDiningArea[diningArea.Name]);
-                //}
-                //row.Add(salesData.TotalSales);
+                
+                row.Add(serverShiftHistory.ShiftTables[empShift]);
+                
+               
 
                 dgvDiningAreas.Rows.Add(row.ToArray());
             }
