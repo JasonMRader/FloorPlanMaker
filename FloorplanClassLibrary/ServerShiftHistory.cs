@@ -18,6 +18,32 @@ namespace FloorplanClassLibrary
             PopulateTableCounts();
             SetPercentagesAndCounts();
         }
+        public ServerShiftHistory(Server server, DateOnly start, DateOnly end, List<DayOfWeek> days)
+        {
+            this.Server = server;
+            GetShiftsForDateRange(start, end);
+            FilterByWeekDay(days);
+            PopulateServerSections();
+            PopulateTableCounts();
+            SetPercentagesAndCounts();
+        }
+        public ServerShiftHistory(Server server, DateOnly start, DateOnly end, bool isLunch)
+        {
+            this.Server = server;
+            GetShiftsForDateRangeAndIsLunch(start, end, isLunch);
+            PopulateServerSections();
+            PopulateTableCounts();
+            SetPercentagesAndCounts();
+        }
+        public ServerShiftHistory(Server server, DateOnly start, DateOnly end, bool isLunch, List<DayOfWeek> days)
+        {
+            this.Server = server;
+            GetShiftsForDateRangeAndIsLunch(start, end, isLunch);
+            FilterByWeekDay(days);
+            PopulateServerSections();
+            PopulateTableCounts();
+            SetPercentagesAndCounts();
+        }
         public Server Server { get; set; }  
         public List<Section> Sections { get; set; }
         public Dictionary<string, int> TableCounts { get; set; }
@@ -25,7 +51,8 @@ namespace FloorplanClassLibrary
         public float CocktailShiftPercentage { get; set; } = 0f;
         public float ClosingPercentage { get; set; } = 0f;
         public float TeamWaitPercentage { get; set; } = 0f;
-        public List<EmployeeShift> filteredShifts = new List<EmployeeShift>();  
+        public List<EmployeeShift> filteredShifts = new List<EmployeeShift>();
+        public List<EmployeeShift> weekdayFilteredShifts = new List<EmployeeShift>();
         public int OutsideShiftCount { get; set; }
         public int CocktailShiftCount { get; set; }
         public int ClosingShiftCount { get; set; }
@@ -135,6 +162,19 @@ namespace FloorplanClassLibrary
             }
 
             filteredShifts = employeeShifts;
+        }
+        public void FilterByWeekDay(List<DayOfWeek> daysUsed)
+        {
+            weekdayFilteredShifts.Clear();
+            foreach(EmployeeShift shift in this.filteredShifts)
+            {
+                if (daysUsed.Contains(shift.Date.DayOfWeek))
+                {
+                    weekdayFilteredShifts.Add(shift);
+                }
+            }
+            filteredShifts.Clear();
+            filteredShifts = weekdayFilteredShifts;
         }
 
 

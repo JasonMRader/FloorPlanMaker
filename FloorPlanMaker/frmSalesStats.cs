@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -319,12 +320,31 @@ namespace FloorPlanMakerUI
         private List<ServerShiftHistory> GetServerHistory(List<Server> servers)
         {
             var serverHistorys = new List<ServerShiftHistory>();
-
-            foreach (var server in servers)
+            if (rdoAm.Checked)
             {
-                var serverShiftHistory = new ServerShiftHistory(server, dateOnlyStart, dateOnlyEnd);
-                serverHistorys.Add(serverShiftHistory);
+                foreach (var server in servers)
+                {
+                    var serverShiftHistory = new ServerShiftHistory(server, dateOnlyStart, dateOnlyEnd, true, FilteredDaysOfWeek);
+                    serverHistorys.Add(serverShiftHistory);
+                }
             }
+            if (rdoPm.Checked)
+            {
+                foreach (var server in servers)
+                {
+                    var serverShiftHistory = new ServerShiftHistory(server, dateOnlyStart, dateOnlyEnd, false, FilteredDaysOfWeek);
+                    serverHistorys.Add(serverShiftHistory);
+                }
+            }
+            if (rdoBoth.Checked)
+            {
+                foreach (var server in servers)
+                {
+                    var serverShiftHistory = new ServerShiftHistory(server, dateOnlyStart, dateOnlyEnd);
+                    serverHistorys.Add(serverShiftHistory);
+                }
+            }
+            
 
             return serverHistorys;
         }
@@ -385,7 +405,6 @@ namespace FloorPlanMakerUI
             }
 
         }
-
         private void cbMon_CheckedChanged(object sender, EventArgs e)
         {
             if (!cbMon.Checked)
@@ -403,7 +422,6 @@ namespace FloorPlanMakerUI
                 }
             }
         }
-
         private void cbTues_CheckedChanged(object sender, EventArgs e)
         {
             if (!cbTues.Checked)
@@ -421,7 +439,6 @@ namespace FloorPlanMakerUI
                 }
             }
         }
-
         private void cbWed_CheckedChanged(object sender, EventArgs e)
         {
             if (!cbWed.Checked)
@@ -439,7 +456,6 @@ namespace FloorPlanMakerUI
                 }
             }
         }
-
         private void cbThurs_CheckedChanged(object sender, EventArgs e)
         {
             if (!cbThurs.Checked)
@@ -457,7 +473,6 @@ namespace FloorPlanMakerUI
                 }
             }
         }
-
         private void cbFri_CheckedChanged(object sender, EventArgs e)
         {
             if (!cbFri.Checked)
@@ -475,7 +490,6 @@ namespace FloorPlanMakerUI
                 }
             }
         }
-
         private void cbSat_CheckedChanged(object sender, EventArgs e)
         {
             if (!cbSat.Checked)
@@ -493,7 +507,6 @@ namespace FloorPlanMakerUI
                 }
             }
         }
-
         private void cbSun_CheckedChanged(object sender, EventArgs e)
         {
             if (!cbSun.Checked)
@@ -512,16 +525,13 @@ namespace FloorPlanMakerUI
             }
         }
         private void dtpStartDate_ValueChanged(object sender, EventArgs e)
-        {
-            //dtpEndDate.Value = dtpStartDate.Value.AddDays(7);
-            //timer1.Start();
+        {           
             dateOnlyStart = new DateOnly(dtpStartDate.Value.Year, dtpStartDate.Value.Month, dtpStartDate.Value.Day);
         }
         private void dtpEndDate_ValueChanged(object sender, EventArgs e)
         {
             dateOnlyEnd = new DateOnly(dtpEndDate.Value.Year, dtpEndDate.Value.Month, dtpEndDate.Value.Day);
         }
-
         private void btnIndividualStats_Click(object sender, EventArgs e)
         {
             if (rdoServerShifts.Checked)
@@ -530,19 +540,17 @@ namespace FloorPlanMakerUI
                 PopulateDGVForIndividualServer(serverSelected);
             }
         }
-
         private void PopulateDGVForIndividualServer(Server serverSelected)
         {
             dgvDiningAreas.Columns.Clear();
             dgvDiningAreas.Rows.Clear();
 
-            // Create a ServerShiftHistory instance
+     
             var serverShiftHistory = new ServerShiftHistory(serverSelected, dateOnlyStart, dateOnlyEnd);
 
-            // Add the Server column
+      
             dgvDiningAreas.Columns.Add("Server", "Server");
 
-            // Add a column for each unique table
             foreach (var table in serverShiftHistory.TableCounts)
             {
                 var column = new DataGridViewTextBoxColumn
@@ -551,13 +559,12 @@ namespace FloorPlanMakerUI
                     HeaderText = table.Key,
                     DefaultCellStyle = new DataGridViewCellStyle
                     {
-                        Format = "N0" // Format as number with no decimals
+                        Format = "N0" 
                     }
                 };
                 dgvDiningAreas.Columns.Add(column);
             }
 
-            // Add a row for the server and populate the counts for each table
             var row = new List<object> { serverShiftHistory.Server.ToString() };
             foreach (var table in serverShiftHistory.TableCounts)
             {
