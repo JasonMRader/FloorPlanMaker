@@ -340,11 +340,11 @@ namespace FloorPlanMakerUI
             {
                 foreach (var server in servers)
                 {
-                    var serverShiftHistory = new ServerShiftHistory(server, dateOnlyStart, dateOnlyEnd);
+                    var serverShiftHistory = new ServerShiftHistory(server, dateOnlyStart, dateOnlyEnd, FilteredDaysOfWeek);
                     serverHistorys.Add(serverShiftHistory);
                 }
             }
-            
+
 
             return serverHistorys;
         }
@@ -525,7 +525,7 @@ namespace FloorPlanMakerUI
             }
         }
         private void dtpStartDate_ValueChanged(object sender, EventArgs e)
-        {           
+        {
             dateOnlyStart = new DateOnly(dtpStartDate.Value.Year, dtpStartDate.Value.Month, dtpStartDate.Value.Day);
         }
         private void dtpEndDate_ValueChanged(object sender, EventArgs e)
@@ -544,14 +544,33 @@ namespace FloorPlanMakerUI
         {
             dgvDiningAreas.Columns.Clear();
             dgvDiningAreas.Rows.Clear();
+            var serverShiftHistory = new ServerShiftHistory();
+            if (rdoBoth.Checked)
+            {
+                serverShiftHistory = new ServerShiftHistory(serverSelected, dateOnlyStart, dateOnlyEnd, FilteredDaysOfWeek);
+            }
+            else
+            {
+                serverShiftHistory = new ServerShiftHistory(serverSelected, dateOnlyStart, dateOnlyEnd, rdoAm.Checked, FilteredDaysOfWeek);
+            }
 
-     
-            var serverShiftHistory = new ServerShiftHistory(serverSelected, dateOnlyStart, dateOnlyEnd);
 
-      
+
             dgvDiningAreas.Columns.Add("Server", "Server");
+            var numericTableCounts = serverShiftHistory.TableCounts
+                .Where(kvp => int.TryParse(kvp.Key, out _))
+                .OrderBy(kvp => int.Parse(kvp.Key))
+                .ToList();
 
-            foreach (var table in serverShiftHistory.TableCounts)
+            var nonNumericTableCounts = serverShiftHistory.TableCounts
+                .Where(kvp => !int.TryParse(kvp.Key, out _))
+                .OrderBy(kvp => kvp.Key)
+                .ToList();
+
+            // Combine the sorted numeric and non-numeric lists
+            var sortedTableCounts = numericTableCounts.Concat(nonNumericTableCounts);
+
+            foreach (var table in sortedTableCounts)
             {
                 var column = new DataGridViewTextBoxColumn
                 {
@@ -559,14 +578,14 @@ namespace FloorPlanMakerUI
                     HeaderText = table.Key,
                     DefaultCellStyle = new DataGridViewCellStyle
                     {
-                        Format = "N0" 
+                        Format = "N0"
                     }
                 };
                 dgvDiningAreas.Columns.Add(column);
             }
 
             var row = new List<object> { serverShiftHistory.Server.ToString() };
-            foreach (var table in serverShiftHistory.TableCounts)
+            foreach (var table in sortedTableCounts)
             {
                 row.Add(table.Value);
             }
@@ -574,5 +593,60 @@ namespace FloorPlanMakerUI
             dgvDiningAreas.Rows.Add(row.ToArray());
         }
 
+        private void btnIndividualServerShifts_Click(object sender, EventArgs e)
+        {
+            if (rdoServerShifts.Checked)
+            {
+                Server serverSelected = (Server)cboServerSelect.SelectedItem;
+                PopulateDGVForServerShiftHistory(serverSelected);
+            }
+        }
+        public void PopulateDGVForServerShiftHistory(Server server)
+        {
+            dgvDiningAreas.Columns.Clear();
+            dgvDiningAreas.Rows.Clear();
+
+            // Add columns for each dining area and total sales
+            dgvDiningAreas.Columns.Add("Date", "Date");
+
+            //foreach (var diningArea in diningAreas)
+            //{
+            //    var column = new DataGridViewTextBoxColumn
+            //    {
+            //        Name = diningArea.Name,
+            //        HeaderText = diningArea.Name,
+            //        DefaultCellStyle = new DataGridViewCellStyle
+            //        {
+            //            Format = "C0" // Format as currency with no decimals
+            //        }
+            //    };
+            //    dgvDiningAreas.Columns.Add(column);
+            //}
+
+            //var totalColumn = new DataGridViewTextBoxColumn
+            //{
+            //    Name = "Total",
+            //    HeaderText = "Total",
+            //    DefaultCellStyle = new DataGridViewCellStyle
+            //    {
+            //        Format = "C0" // Format as currency with no decimals
+            //    }
+            //};
+            //dgvDiningAreas.Columns.Add(totalColumn);
+
+            // Add rows for each date's sales data
+            foreach (var empShift in server.Shifts)
+            {
+                var row = new List<object> { empShift.Date.ToString("ddd, M/d") };
+
+                //foreach (var diningArea in diningAreas)
+                //{
+                //    row.Add(salesData.SalesByDiningArea[diningArea.Name]);
+                //}
+                //row.Add(salesData.TotalSales);
+
+                dgvDiningAreas.Rows.Add(row.ToArray());
+            }
+        }
     }
 }

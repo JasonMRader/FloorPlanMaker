@@ -10,6 +10,7 @@ namespace FloorplanClassLibrary
 {
     public class ServerShiftHistory
     {
+        public ServerShiftHistory() { }
         public ServerShiftHistory(Server server, DateOnly start, DateOnly end)
         {
             this.Server = server;

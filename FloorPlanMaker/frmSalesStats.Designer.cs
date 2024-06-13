@@ -56,6 +56,7 @@
             lblComboLabel = new Label();
             btnIndividualStats = new Button();
             cboServerSelect = new ComboBox();
+            btnIndividualServerShifts = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvDiningAreas).BeginInit();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
@@ -317,6 +318,7 @@
             // 
             // panel4
             // 
+            panel4.Controls.Add(btnIndividualServerShifts);
             panel4.Controls.Add(lblComboLabel);
             panel4.Controls.Add(btnIndividualStats);
             panel4.Controls.Add(cboServerSelect);
@@ -336,7 +338,7 @@
             // 
             // btnIndividualStats
             // 
-            btnIndividualStats.Location = new Point(13, 111);
+            btnIndividualStats.Location = new Point(13, 71);
             btnIndividualStats.Name = "btnIndividualStats";
             btnIndividualStats.Size = new Size(259, 23);
             btnIndividualStats.TabIndex = 1;
@@ -351,6 +353,16 @@
             cboServerSelect.Name = "cboServerSelect";
             cboServerSelect.Size = new Size(259, 23);
             cboServerSelect.TabIndex = 0;
+            // 
+            // btnIndividualServerShifts
+            // 
+            btnIndividualServerShifts.Location = new Point(13, 100);
+            btnIndividualServerShifts.Name = "btnIndividualServerShifts";
+            btnIndividualServerShifts.Size = new Size(259, 23);
+            btnIndividualServerShifts.TabIndex = 3;
+            btnIndividualServerShifts.Text = "See Server Shifts";
+            btnIndividualServerShifts.UseVisualStyleBackColor = true;
+            btnIndividualServerShifts.Click += btnIndividualServerShifts_Click;
             // 
             // frmSalesStats
             // 
@@ -412,5 +424,6 @@
         private ComboBox cboServerSelect;
         private Label lblComboLabel;
         private Button btnIndividualStats;
+        private Button btnIndividualServerShifts;
     }
 }
