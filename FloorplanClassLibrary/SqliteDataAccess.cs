@@ -1198,6 +1198,66 @@ namespace FloorplanClassLibrary
                 return templates;
             }
         }
+        //public static List<FloorplanTemplate> LoadTemplatesByDiningAreaAndServerCount(DiningArea diningArea, int serverCount)
+        //{
+        //    using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+        //    {
+        //        var templates = cnn.Query<FloorplanTemplate>(
+        //            "SELECT * FROM FloorplanTemplate WHERE DiningAreaID = @DiningAreaID AND ServerCount = @ServerCount",
+        //            new { DiningAreaID = diningArea.ID, ServerCount = serverCount }
+        //        ).ToList();
+
+        //        foreach (var template in templates)
+        //        {
+        //            if (template.DiningAreaID == null) break;
+        //            //template.DiningArea = cnn.QuerySingle<DiningArea>("SELECT * FROM DiningArea WHERE ID = @ID", new { ID = template.DiningAreaID });
+        //            template.DiningArea = diningArea;
+        //            // Include ServerCount in the query for Section
+        //            template.Sections = cnn.Query<Section>(
+        //                "SELECT s.*, s.ServerCount FROM Section s " +
+        //                "JOIN TemplateSections ts ON s.ID = ts.SectionID " +
+        //                "WHERE ts.TemplateID = @TemplateID",
+        //                    new { TemplateID = template.ID }
+        //                    ).ToList();
+
+        //            foreach (var section in template.Sections)
+        //            {
+        //                // Set TemplateTeamWait based on the Section table
+        //                var teamWaitValue = cnn.ExecuteScalar<bool>(
+        //                    "SELECT TeamWait FROM Section WHERE ID = @SectionID",
+        //                    new { SectionID = section.ID }
+        //                );
+        //                section.SetTeamWait(teamWaitValue);
+        //                if (teamWaitValue)
+        //                {
+        //                    template.SetTeamWaitValue(true);
+        //                }
+        //                // Set TemplateServerCount using the ServerCount column
+        //                section.TemplateServerCount = section.ServerCount; // Assuming ServerCount is part of the Section model
+
+        //                // Set TemplatePickUp based on the Section table
+        //                section.TemplatePickUp = section.IsPickUp;
+        //                if (section.IsPickUp)
+        //                {
+        //                    template.SetPickUpValue(true);
+        //                }
+
+        //                // Set table list for each section
+        //                section.SetTableList(cnn.Query<Table>(
+        //                    "SELECT t.* FROM DiningTable t JOIN SectionTables st ON t.ID = st.TableID WHERE st.SectionID = @SectionID",
+        //                    new { SectionID = section.ID }
+        //                ).ToList());
+        //                foreach(Table table in section.Tables)
+        //                {
+        //                    Table diningTable = diningArea.Tables.FirstOrDefault(t=> t.ID == table.ID);
+        //                    table.AverageSales = diningTable.AverageSales;
+        //                }
+        //            }
+        //        }
+
+        //        return templates;
+        //    }
+        //}
         public static List<FloorplanTemplate> LoadTemplatesByDiningAreaAndServerCount(DiningArea diningArea, int serverCount)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -1210,19 +1270,16 @@ namespace FloorplanClassLibrary
                 foreach (var template in templates)
                 {
                     if (template.DiningAreaID == null) break;
-                    //template.DiningArea = cnn.QuerySingle<DiningArea>("SELECT * FROM DiningArea WHERE ID = @ID", new { ID = template.DiningAreaID });
                     template.DiningArea = diningArea;
-                    // Include ServerCount in the query for Section
                     template.Sections = cnn.Query<Section>(
                         "SELECT s.*, s.ServerCount FROM Section s " +
                         "JOIN TemplateSections ts ON s.ID = ts.SectionID " +
                         "WHERE ts.TemplateID = @TemplateID",
-                            new { TemplateID = template.ID }
-                            ).ToList();
+                        new { TemplateID = template.ID }
+                    ).ToList();
 
                     foreach (var section in template.Sections)
                     {
-                        // Set TemplateTeamWait based on the Section table
                         var teamWaitValue = cnn.ExecuteScalar<bool>(
                             "SELECT TeamWait FROM Section WHERE ID = @SectionID",
                             new { SectionID = section.ID }
@@ -1232,27 +1289,28 @@ namespace FloorplanClassLibrary
                         {
                             template.SetTeamWaitValue(true);
                         }
-                        // Set TemplateServerCount using the ServerCount column
-                        section.TemplateServerCount = section.ServerCount; // Assuming ServerCount is part of the Section model
-
-                        // Set TemplatePickUp based on the Section table
+                        section.TemplateServerCount = section.ServerCount;
                         section.TemplatePickUp = section.IsPickUp;
                         if (section.IsPickUp)
                         {
                             template.SetPickUpValue(true);
                         }
 
-                        // Set table list for each section
                         section.SetTableList(cnn.Query<Table>(
                             "SELECT t.* FROM DiningTable t JOIN SectionTables st ON t.ID = st.TableID WHERE st.SectionID = @SectionID",
                             new { SectionID = section.ID }
                         ).ToList());
-                        foreach(Table table in section.Tables)
+
+                        foreach (Table table in section.Tables)
                         {
-                            Table diningTable = diningArea.Tables.FirstOrDefault(t=> t.ID == table.ID);
-                            table.AverageSales = diningTable.AverageSales;
+                            Table diningTable = diningArea.Tables.FirstOrDefault(t => t.ID == table.ID);
+                            table.AverageSales = diningTable?.AverageSales ?? 0;
                         }
                     }
+
+                    template.floorplanLines = cnn.Query<FloorplanLine>("SELECT StartX, StartY, EndX, EndY FROM FloorplanLines WHERE TemplateID = @TemplateID", new { TemplateID = template.ID })
+                        .Select(line => new FloorplanLine(new Point(line.StartX, line.StartY), new Point(line.EndX, line.EndY)))
+                        .ToList();
                 }
 
                 return templates;

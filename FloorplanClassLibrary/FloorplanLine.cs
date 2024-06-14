@@ -8,8 +8,32 @@ namespace FloorplanClassLibrary
 {
     public class FloorplanLine
     {
-        public Point StartPoint { get; set; }
-        public Point EndPoint { get; set; }
+        public FloorplanLine() { }
+        public int StartX { get; set; }
+        public int StartY { get; set; }
+        public int EndX { get; set; }
+        public int EndY { get; set; }
+
+        public Point StartPoint
+        {
+            get => new Point(StartX, StartY);
+            set
+            {
+                StartX = value.X;
+                StartY = value.Y;
+            }
+        }
+
+        public Point EndPoint
+        {
+            get => new Point(EndX, EndY);
+            set
+            {
+                EndX = value.X;
+                EndY = value.Y;
+            }
+        }
+
         public Color LineColor { get; set; } = Color.Black;
         public float LineThickness { get; set; } = 2.0f;
 
