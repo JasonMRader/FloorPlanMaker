@@ -339,7 +339,7 @@ namespace FloorPlanMakerUI
         public static Dictionary<DateOnly, int> GetFeelsLikeHiData(List<DateTime> dates)
         {
             List<WeatherData> weatherDataList = SqliteDataAccess.LoadWeatherDataByDateTimes(dates);
-            Dictionary<DateOnly, int> feelsLikeHiData = weatherDataList.ToDictionary(wd => wd.Date, wd => wd.FeelsLikeHi);
+            Dictionary<DateOnly, int> feelsLikeHiData = weatherDataList.ToDictionary(wd => wd.DateOnly, wd => wd.FeelsLikeHi);
             return feelsLikeHiData;
         }
 

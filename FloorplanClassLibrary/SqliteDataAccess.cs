@@ -1542,43 +1542,7 @@ namespace FloorplanClassLibrary
 
 
         }
-        //**** DOESNT HAVE IS COCKTAIL *********
-        public static List<EmployeeShift> LoadShiftsForServer(Server server)
-        {
-            using (IDbConnection connection = new SQLiteConnection(LoadConnectionString()))
-            {
-               
-                // Load shifts along with details from Section and DiningArea
-                var sql = @"
-                    SELECT s.*, sec.IsCloser, sec.TeamWait, da.IsInside, fp.Date as FloorplanDate
-                    FROM Shift s
-                    INNER JOIN Section sec ON s.SectionID = sec.ID
-                    INNER JOIN DiningArea da ON s.DiningAreaID = da.ID
-                    INNER JOIN Floorplan fp ON s.FloorplanID = fp.ID
-                    WHERE s.ServerID = @ID";
-
-                List<EmployeeShift> allShifts = connection.Query<EmployeeShift, Section, DiningArea, Floorplan, EmployeeShift>(
-           sql,
-           (shift, section, diningArea, floorplan) =>
-           {
-               shift.IsCloser = section.IsCloser;
-               shift.IsTeamWait = section.IsTeamWait;
-               shift.IsInside = diningArea.IsInside;
-               shift.Date = floorplan.Date; // Assign the date from the Floorplan to the Shift object
-               return shift;
-           },
-           splitOn: "IsCloser,IsInside,FloorplanDate",
-           param: new { ID = server.ID }
-       ).ToList();
-                var rawData = connection.Query<dynamic>(sql, new { ID = server.ID }).ToList();
-                foreach (var data in rawData)
-                {
-                    Console.WriteLine(data.FloorplanDate);
-                }
-
-                return allShifts;
-            }
-        }
+        
         public static List<EmployeeShift> GetShiftsForServer(Server server)
         {
             using IDbConnection dbConnection = new SQLiteConnection(LoadConnectionString());
@@ -1984,19 +1948,25 @@ namespace FloorplanClassLibrary
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                cnn.Execute("INSERT INTO WeatherData (Date, TempHi, TempLow, TempAvg, FeelsLikeHi, FeelsLikeLow, FeelsLikeAvg) VALUES (@Date, @TempHi, @TempLow, @TempAvg, @FeelsLikeHi, @FeelsLikeLow, @FeelsLikeAvg)",
-                            new
-                            {
-                                Date = weatherData.Date.ToString("yyyy-MM-dd"),
-                                weatherData.TempHi,
-                                weatherData.TempLow,
-                                weatherData.TempAvg,
-                                weatherData.FeelsLikeHi,
-                                weatherData.FeelsLikeLow,
-                                weatherData.FeelsLikeAvg
-                            });
+                string sql = @"
+                    INSERT INTO WeatherData (Date, TempHi, TempLow, TempAvg, FeelsLikeHi, FeelsLikeLow, FeelsLikeAvg) 
+                    VALUES (@Date, @TempHi, @TempLow, @TempAvg, @FeelsLikeHi, @FeelsLikeLow, @FeelsLikeAvg)";
+
+                var parameters = new
+                {
+                    Date = weatherData.DateOnly.ToString("yyyy-MM-dd"), // Use DateOnly for conversion
+                    weatherData.TempHi,
+                    weatherData.TempLow,
+                    weatherData.TempAvg,
+                    weatherData.FeelsLikeHi,
+                    weatherData.FeelsLikeLow,
+                    weatherData.FeelsLikeAvg
+                };
+
+                cnn.Execute(sql, parameters);
             }
         }
+
 
         public static List<WeatherData> LoadWeatherDataByDate(DateOnly date)
         {
@@ -2019,26 +1989,45 @@ namespace FloorplanClassLibrary
                                               }).ToList();
             }
         }
+
         public static List<WeatherData> LoadWeatherDataByDateTimes(List<DateTime> dateTimes)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                // Convert the list of DateTime to a list of strings in the 'yyyy-MM-dd' format
                 var dateStrings = dateTimes.Select(dateTime => dateTime.ToString("yyyy-MM-dd")).ToList();
-
-                // Generate a SQL query with the appropriate number of parameters
                 string sql = $"SELECT * FROM WeatherData WHERE Date IN ({string.Join(",", dateStrings.Select((s, i) => $"@Date{i}"))})";
 
-                // Create a dynamic parameters object
                 var parameters = new DynamicParameters();
                 for (int i = 0; i < dateStrings.Count; i++)
                 {
                     parameters.Add($"@Date{i}", dateStrings[i]);
                 }
 
-                return cnn.Query<WeatherData>(sql, parameters).ToList();
+                var weatherDataList = cnn.Query<dynamic>(sql, parameters).ToList();
+
+                List<WeatherData> results = new List<WeatherData>();
+
+                foreach (var row in weatherDataList)
+                {
+                    var weatherData = new WeatherData
+                    {
+                        ID = (int)row.ID,
+                        Date = row.Date,
+                        TempHi = (int)row.TempHi,
+                        TempLow = (int)row.TempLow,
+                        TempAvg = (int)row.TempAvg,
+                        FeelsLikeHi = (int)row.FeelsLikeHi,
+                        FeelsLikeLow = (int)row.FeelsLikeLow,
+                        FeelsLikeAvg = (int)row.FeelsLikeAvg
+                    };
+
+                    results.Add(weatherData);
+                }
+
+                return results;
             }
         }
+
 
         public static List<WeatherData> LoadWeatherDataByDates(List<DateOnly> dates)
         {
@@ -2060,43 +2049,40 @@ namespace FloorplanClassLibrary
                 return cnn.Query<WeatherData>(sql, parameters).ToList();
             }
         }
-
         public static void SaveOrUpdateWeatherData(WeatherData weatherData)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                var existingData = cnn.Query<WeatherData>("SELECT * FROM WeatherData WHERE Date = @Date", new { Date = weatherData.Date.ToString("yyyy-MM-dd") }).FirstOrDefault();
+                var existingData = cnn.Query<WeatherData>("SELECT * FROM WeatherData WHERE Date = @Date", new { Date = weatherData.DateOnly.ToString("yyyy-MM-dd") }).FirstOrDefault();
 
                 if (existingData == null)
                 {
-                    cnn.Execute("INSERT INTO WeatherData (Date, TempHi, TempLow, TempAvg, FeelsLikeHi, FeelsLikeLow, FeelsLikeAvg) VALUES (@Date, @TempHi, @TempLow, @TempAvg, @FeelsLikeHi, @FeelsLikeLow, @FeelsLikeAvg)",
-                                new
-                                {
-                                    Date = weatherData.Date.ToString("yyyy-MM-dd"),
-                                    weatherData.TempHi,
-                                    weatherData.TempLow,
-                                    weatherData.TempAvg,
-                                    weatherData.FeelsLikeHi,
-                                    weatherData.FeelsLikeLow,
-                                    weatherData.FeelsLikeAvg
-                                });
+                    SaveNewWeatherData(weatherData); // Use the existing SaveNewWeatherData method
                 }
                 else
                 {
-                    cnn.Execute("UPDATE WeatherData SET TempHi = @TempHi, TempLow = @TempLow, TempAvg = @TempAvg, FeelsLikeHi = @FeelsLikeHi, FeelsLikeLow = @FeelsLikeLow, FeelsLikeAvg = @FeelsLikeAvg WHERE Date = @Date",
-                                new
-                                {
-                                    Date = weatherData.Date.ToString("yyyy-MM-dd"),
-                                    weatherData.TempHi,
-                                    weatherData.TempLow,
-                                    weatherData.TempAvg,
-                                    weatherData.FeelsLikeHi,
-                                    weatherData.FeelsLikeLow,
-                                    weatherData.FeelsLikeAvg
-                                });
+                    string sql = @"
+                        UPDATE WeatherData 
+                        SET TempHi = @TempHi, TempLow = @TempLow, TempAvg = @TempAvg, FeelsLikeHi = @FeelsLikeHi, FeelsLikeLow = @FeelsLikeLow, FeelsLikeAvg = @FeelsLikeAvg 
+                        WHERE Date = @Date";
+
+                    var parameters = new
+                    {
+                        Date = weatherData.DateOnly.ToString("yyyy-MM-dd"), // Use DateOnly for conversion
+                        weatherData.TempHi,
+                        weatherData.TempLow,
+                        weatherData.TempAvg,
+                        weatherData.FeelsLikeHi,
+                        weatherData.FeelsLikeLow,
+                        weatherData.FeelsLikeAvg
+                    };
+
+                    cnn.Execute(sql, parameters);
                 }
             }
         }
+
+        
 
 
 
