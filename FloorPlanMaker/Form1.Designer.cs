@@ -84,6 +84,7 @@ namespace FloorPlanMaker
             rdoViewSectionFlow = new RadioButton();
             toolTip1 = new ToolTip(components);
             btnReportBug = new Button();
+            cbDrawToggle = new CheckBox();
             flowSectionSelect.SuspendLayout();
             panel1.SuspendLayout();
             pnlFloorplanContainer.SuspendLayout();
@@ -166,7 +167,7 @@ namespace FloorPlanMaker
             cbTableDisplayMode.FlatStyle = FlatStyle.Flat;
             cbTableDisplayMode.ForeColor = Color.Black;
             cbTableDisplayMode.Image = FloorPlanMakerUI.Properties.Resources.noun_view_Smalll;
-            cbTableDisplayMode.Location = new Point(136, 0);
+            cbTableDisplayMode.Location = new Point(135, 4);
             cbTableDisplayMode.Name = "cbTableDisplayMode";
             cbTableDisplayMode.Size = new Size(45, 33);
             cbTableDisplayMode.TabIndex = 16;
@@ -182,7 +183,7 @@ namespace FloorPlanMaker
             btnChooseTemplate.FlatStyle = FlatStyle.Flat;
             btnChooseTemplate.ForeColor = Color.Black;
             btnChooseTemplate.Image = FloorPlanMakerUI.Properties.Resources.blueSMall;
-            btnChooseTemplate.Location = new Point(72, 0);
+            btnChooseTemplate.Location = new Point(75, 4);
             btnChooseTemplate.Name = "btnChooseTemplate";
             btnChooseTemplate.Size = new Size(45, 33);
             btnChooseTemplate.TabIndex = 14;
@@ -197,7 +198,7 @@ namespace FloorPlanMaker
             btnPrint.FlatStyle = FlatStyle.Flat;
             btnPrint.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             btnPrint.Image = FloorPlanMakerUI.Properties.Resources.lilPrinter;
-            btnPrint.Location = new Point(5, 0);
+            btnPrint.Location = new Point(8, 4);
             btnPrint.Name = "btnPrint";
             btnPrint.Size = new Size(45, 33);
             btnPrint.TabIndex = 13;
@@ -460,6 +461,7 @@ namespace FloorPlanMaker
             pnlSectionsAndServers.Controls.Add(pnlStatMode);
             pnlSectionsAndServers.Controls.Add(rdoSales);
             pnlSectionsAndServers.Controls.Add(rdoViewServerFlow);
+            pnlSectionsAndServers.Controls.Add(cbDrawToggle);
             pnlSectionsAndServers.Controls.Add(rdoViewSectionFlow);
             pnlSectionsAndServers.Controls.Add(flowServersInFloorplan);
             pnlSectionsAndServers.Controls.Add(flowSectionSelect);
@@ -795,6 +797,22 @@ namespace FloorPlanMaker
             btnReportBug.UseVisualStyleBackColor = false;
             btnReportBug.Click += btnReportBug_Click;
             // 
+            // cbDrawToggle
+            // 
+            cbDrawToggle.Appearance = Appearance.Button;
+            cbDrawToggle.BackColor = Color.FromArgb(100, 130, 180);
+            cbDrawToggle.FlatAppearance.BorderSize = 0;
+            cbDrawToggle.FlatStyle = FlatStyle.Flat;
+            cbDrawToggle.ForeColor = Color.Black;
+            cbDrawToggle.Image = FloorPlanMakerUI.Properties.Resources.bluePrintSmall;
+            cbDrawToggle.Location = new Point(207, 2);
+            cbDrawToggle.Name = "cbDrawToggle";
+            cbDrawToggle.Size = new Size(45, 24);
+            cbDrawToggle.TabIndex = 16;
+            cbDrawToggle.TextAlign = ContentAlignment.MiddleCenter;
+            cbDrawToggle.UseVisualStyleBackColor = false;
+            cbDrawToggle.CheckedChanged += cbDrawToggle_CheckedChanged;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -880,5 +898,6 @@ namespace FloorPlanMaker
         private Label lblTotalSales;
         private Label label3;
         private RadioButton rdoDayOfStats;
+        private CheckBox cbDrawToggle;
     }
 }

@@ -16,23 +16,30 @@ namespace FloorplanClassLibrary
     public class FloorplanPrinter
     {
         private Panel _floorplanPanel;
-        private List<Edge> _edges;
-        private SectionLineDrawer _lineDrawer;
+        private List<FloorplanLine> _lines;
+       // private List<Edge> _edges;
+        //private SectionLineDrawer _lineDrawer;
 
         public FloorplanPrinter(Panel floorplanPanel)
         {
             _floorplanPanel = floorplanPanel;
         }
-        private List<SectionLine> _sectionLines;
+        public FloorplanPrinter(Panel floorplanPanel, List<FloorplanLine> lines)
 
-        public FloorplanPrinter(Panel floorplanPanel, SectionLineDrawer lineDrawer, List<Edge> edges)
         {
             _floorplanPanel = floorplanPanel;
-            //_sectionLines = sectionLines;
-           _edges = edges;
-           _lineDrawer = lineDrawer;
-            
+            _lines = lines;
         }
+        private List<SectionLine> _sectionLines;
+
+        //public FloorplanPrinter(Panel floorplanPanel, SectionLineDrawer lineDrawer, List<Edge> edges)
+        //{
+        //    _floorplanPanel = floorplanPanel;
+        //    //_sectionLines = sectionLines;
+        //   //_edges = edges;
+        //  // _lineDrawer = lineDrawer;
+            
+        //}
 
         private void HandlePrintPage(object sender, PrintPageEventArgs e)
         {
@@ -68,11 +75,18 @@ namespace FloorplanClassLibrary
                     SectionLabelControl.DrawSectionLabelForPrinting(g, sectionControl);
                 }
             }
-            if (_lineDrawer != null && _edges != null)
+            foreach (var line in _lines)
             {
-                _lineDrawer.DrawEdges(g, _edges);
+                using (Pen pen = new Pen(line.LineColor, line.LineThickness))
+                {
+                    e.Graphics.DrawLine(pen, line.StartPoint, line.EndPoint);
+                }
             }
-           
+            //if (_lineDrawer != null && _edges != null)
+            //{
+            //    _lineDrawer.DrawEdges(g, _edges);
+            //}
+
         }
 
       

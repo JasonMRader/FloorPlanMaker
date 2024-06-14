@@ -47,6 +47,10 @@ namespace FloorPlanMaker
         private FloorplanFormManager floorplanManager = new FloorplanFormManager();
         private bool quicklyChoosingAServer = false;
         private TableSalesManager tableSalesManager = new TableSalesManager();
+        private bool _isDrawingModeEnabled = false;
+        private Point? _startPoint = null;
+        private List<FloorplanLine> _lines = new List<FloorplanLine>();
+
         private DateOnly dateOnlySelected
         {
             get
@@ -296,23 +300,42 @@ namespace FloorPlanMaker
                     e.Graphics.DrawRectangle(dragPen, dragRectangle);
                 }
             }
+            foreach (var line in _lines)
+            {
+                using (Pen pen = new Pen(line.LineColor, line.LineThickness))
+                {
+                    e.Graphics.DrawLine(pen, line.StartPoint, line.EndPoint);
+                }
+            }
+
+            if (_isDrawingModeEnabled && _startPoint.HasValue)
+            {
+                using (Pen pen = new Pen(Color.Gray, 2.0f))
+                {
+                    e.Graphics.DrawLine(pen, _startPoint.Value, pnlFloorPlan.PointToClient(Cursor.Position));
+                }
+            }
         }
 
         private void pnlFloorplan_MouseDown(object sender, MouseEventArgs e)
         {
             if (!rdoDiningAreas.Checked)
             {
-                if (rdoSections.Checked)
+                if (rdoSections.Checked && !_isDrawingModeEnabled)
                 {
                     isDragging = true;
                     dragStartPoint = e.Location;
                 }
             }
+            if (_isDrawingModeEnabled)
+            {
+                _startPoint = e.Location;
+            }
         }
 
         private void pnlFloorplan_MouseUp(object sender, MouseEventArgs e)
         {
-            if (isDragging)
+            if (isDragging && !_isDrawingModeEnabled)
             {
                 isDragging = false;
                 dragRectangle = new Rectangle(
@@ -331,13 +354,19 @@ namespace FloorPlanMaker
 
                 pnlFloorPlan.Invalidate();
             }
+            if (_isDrawingModeEnabled && _startPoint.HasValue)
+            {
+                _lines.Add(new FloorplanLine(_startPoint.Value, e.Location));
+                _startPoint = null;
+                pnlFloorPlan.Invalidate();
+            }
         }
 
         private void pnlFloorplan_MouseMove(object sender, MouseEventArgs e)
         {
             if (!rdoDiningAreas.Checked)
             {
-                if (isDragging)
+                if (isDragging && !_isDrawingModeEnabled)
                 {
                     dragRectangle = new Rectangle(
                         Math.Min(dragStartPoint.X, e.X),
@@ -348,6 +377,11 @@ namespace FloorPlanMaker
 
                     pnlFloorPlan.Invalidate(); // Redraw the form
                 }
+            }
+            if (_isDrawingModeEnabled && _startPoint.HasValue)
+            {
+                // Redraw the panel to show the line while drawing
+                pnlFloorPlan.Invalidate();
             }
         }
 
@@ -381,6 +415,7 @@ namespace FloorPlanMaker
         }
         private void UpdateDateSelected(int days)
         {
+            _lines.Clear();
             dateTimeSelected = dateTimeSelected.AddDays(days);
             lblDateSelected.Text = dateOnlySelected.ToString("ddd, MMM d");
             SpecialEventDate specialEventDate = SqliteDataAccess.GetEventByDate(dateOnlySelected);
@@ -438,7 +473,7 @@ namespace FloorPlanMaker
         }
         private void cboDiningAreas_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            _lines.Clear();
             shift.SelectedDiningArea = (DiningArea?)cboDiningAreas.SelectedItem;
             floorplanManager.AddTableControls(pnlFloorPlan);
 
@@ -550,14 +585,14 @@ namespace FloorPlanMaker
         }
         private void btnChooseTemplate_Click(object sender, EventArgs e)
         {
-            
+
             floorplanManager.TemplateManager = new TemplateManager(floorplanManager.Shift.SelectedDiningArea);
 
-            
+
             _frmTemplateSelection = new frmTemplateSelection(floorplanManager, shift.SelectedDiningArea, this)
             { TopLevel = false, AutoScroll = true };
             pnlTemplateContainer.Controls.Add(_frmTemplateSelection);
-            
+
 
             _frmTemplateSelection.Show();
             pnlTemplateContainer.BringToFront();
@@ -670,7 +705,7 @@ namespace FloorPlanMaker
                 try
                 {
                     //MessageBox.Show("Floorplan saved, but An error occurred while trying to print: " + ex.Message, "Print Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    FloorplanPrinter printerNoLines = new FloorplanPrinter(pnlFloorPlan);
+                    FloorplanPrinter printerNoLines = new FloorplanPrinter(pnlFloorPlan, _lines);
                     printerNoLines.ShowPrintPreview();
 
                 }
@@ -730,8 +765,8 @@ namespace FloorPlanMaker
                 ForeColor = UITheme.CTAFontColor
             };
             btnCreateTemplate.Click += btnCreateTemplate_Click;
-            
-           
+
+
             noServers.BringToFront();
             flowSectionSelect.Controls.Add(btnCreateTemplate);
             flowServersInFloorplan.Controls.Add(noServers);
@@ -739,8 +774,8 @@ namespace FloorPlanMaker
 
         private void btnCreateTemplate_Click(object? sender, EventArgs e)
         {
-           
-           
+
+
         }
 
         private void btnDayBefore_Click(object sender, EventArgs e)
@@ -1115,6 +1150,15 @@ namespace FloorPlanMaker
 
         }
 
-
+        private void cbDrawToggle_CheckedChanged(object sender, EventArgs e)
+        {
+            if(cbDrawToggle.Checked == true)
+            {
+                _isDrawingModeEnabled = true;
+                _lines.Clear();
+                pnlFloorPlan.Invalidate();
+            }
+            else { _isDrawingModeEnabled = false; }
+        }
     }
 }
