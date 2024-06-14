@@ -160,6 +160,10 @@ namespace FloorplanClassLibrary
         public List<TemplateTable> TemplateTables { get; set; } = new List<TemplateTable>();
 
         public bool IsSelected { get; private set; } = false;
+        public void SetServerCount()
+        {
+            ServerCount = this.ServerTeam.Count;
+        }
         public void SetToSelected()
         {
             this.IsSelected = true;

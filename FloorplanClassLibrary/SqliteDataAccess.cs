@@ -851,6 +851,7 @@ namespace FloorplanClassLibrary
                     {
                         section.MakeTeamWait();
                     }
+                    section.SetServerCount();
                 }
 
                 return floorplan;
