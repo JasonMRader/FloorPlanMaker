@@ -1980,7 +1980,82 @@ namespace FloorplanClassLibrary
             }
         }
 
+        public static void SaveNewWeatherData(WeatherData weatherData)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                cnn.Execute("INSERT INTO WeatherData (Date, TempHi, TempLow, TempAvg, FeelsLikeHi, FeelsLikeLow, FeelsLikeAvg) VALUES (@Date, @TempHi, @TempLow, @TempAvg, @FeelsLikeHi, @FeelsLikeLow, @FeelsLikeAvg)",
+                            new
+                            {
+                                Date = weatherData.Date.ToString("yyyy-MM-dd"),
+                                weatherData.TempHi,
+                                weatherData.TempLow,
+                                weatherData.TempAvg,
+                                weatherData.FeelsLikeHi,
+                                weatherData.FeelsLikeLow,
+                                weatherData.FeelsLikeAvg
+                            });
+            }
+        }
 
+        public static List<WeatherData> LoadWeatherDataByDate(DateOnly date)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                return cnn.Query<WeatherData>("SELECT * FROM WeatherData WHERE Date = @Date",
+                                              new { Date = date.ToString("yyyy-MM-dd") }).ToList();
+            }
+        }
+
+        public static List<WeatherData> LoadWeatherDataByDateRange(DateOnly startDate, DateOnly endDate)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                return cnn.Query<WeatherData>("SELECT * FROM WeatherData WHERE Date BETWEEN @StartDate AND @EndDate",
+                                              new
+                                              {
+                                                  StartDate = startDate.ToString("yyyy-MM-dd"),
+                                                  EndDate = endDate.ToString("yyyy-MM-dd")
+                                              }).ToList();
+            }
+        }
+
+        public static void SaveOrUpdateWeatherData(WeatherData weatherData)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var existingData = cnn.Query<WeatherData>("SELECT * FROM WeatherData WHERE Date = @Date", new { Date = weatherData.Date.ToString("yyyy-MM-dd") }).FirstOrDefault();
+
+                if (existingData == null)
+                {
+                    cnn.Execute("INSERT INTO WeatherData (Date, TempHi, TempLow, TempAvg, FeelsLikeHi, FeelsLikeLow, FeelsLikeAvg) VALUES (@Date, @TempHi, @TempLow, @TempAvg, @FeelsLikeHi, @FeelsLikeLow, @FeelsLikeAvg)",
+                                new
+                                {
+                                    Date = weatherData.Date.ToString("yyyy-MM-dd"),
+                                    weatherData.TempHi,
+                                    weatherData.TempLow,
+                                    weatherData.TempAvg,
+                                    weatherData.FeelsLikeHi,
+                                    weatherData.FeelsLikeLow,
+                                    weatherData.FeelsLikeAvg
+                                });
+                }
+                else
+                {
+                    cnn.Execute("UPDATE WeatherData SET TempHi = @TempHi, TempLow = @TempLow, TempAvg = @TempAvg, FeelsLikeHi = @FeelsLikeHi, FeelsLikeLow = @FeelsLikeLow, FeelsLikeAvg = @FeelsLikeAvg WHERE Date = @Date",
+                                new
+                                {
+                                    Date = weatherData.Date.ToString("yyyy-MM-dd"),
+                                    weatherData.TempHi,
+                                    weatherData.TempLow,
+                                    weatherData.TempAvg,
+                                    weatherData.FeelsLikeHi,
+                                    weatherData.FeelsLikeLow,
+                                    weatherData.FeelsLikeAvg
+                                });
+                }
+            }
+        }
 
 
 
