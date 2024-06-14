@@ -35,7 +35,7 @@ namespace FloorplanClassLibrary
         }
 
         public Color LineColor { get; set; } = Color.Black;
-        public float LineThickness { get; set; } = 2.0f;
+        public float LineThickness { get; set; } = 5.0f;
 
         public FloorplanLine(Point startPoint, Point endPoint)
         {
