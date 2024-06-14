@@ -448,6 +448,9 @@ namespace FloorPlanMaker
         public void UpdateWithTemplate()
         {
             floorplanManager.SetViewedFloorplan(dateOnlySelected, cbIsAM.Checked, pnlFloorPlan, flowServersInFloorplan, flowSectionSelect);
+            _lines.Clear();
+            _lines = floorplanManager.Floorplan.floorplanLines;
+
             //CreateSectionBorders();
         }
         private void Form1_MouseDown(object sender, MouseEventArgs e)

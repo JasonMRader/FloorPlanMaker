@@ -155,6 +155,7 @@ namespace FloorPlanMakerUI
             {
                 sectionPanel.UpdateLabels();
             }
+            Floorplan.floorplanLines = template.floorplanLines;
         }
         public void ResetSections()
         { 
