@@ -98,16 +98,16 @@
             // btnImportScheduleData
             // 
             btnImportScheduleData.BackColor = Color.FromArgb(100, 130, 180);
-            btnImportScheduleData.Enabled = false;
             btnImportScheduleData.FlatAppearance.BorderSize = 0;
             btnImportScheduleData.FlatStyle = FlatStyle.Flat;
             btnImportScheduleData.ForeColor = Color.White;
-            btnImportScheduleData.Location = new Point(14, 115);
+            btnImportScheduleData.Location = new Point(14, 277);
             btnImportScheduleData.Name = "btnImportScheduleData";
             btnImportScheduleData.Size = new Size(322, 43);
             btnImportScheduleData.TabIndex = 0;
-            btnImportScheduleData.Text = "Import Schedule Data";
+            btnImportScheduleData.Text = "Import Weather Data";
             btnImportScheduleData.UseVisualStyleBackColor = false;
+            btnImportScheduleData.Click += btnImportScheduleData_Click;
             // 
             // btnCheckForUpdate
             // 
@@ -269,6 +269,7 @@
             panel2.Controls.Add(btnBackUpDB);
             panel2.Controls.Add(btnChooseDataBase);
             panel2.Controls.Add(btnUpdateNotes);
+            panel2.Controls.Add(btnImportScheduleData);
             panel2.Location = new Point(459, 92);
             panel2.Name = "panel2";
             panel2.Size = new Size(350, 800);
@@ -326,7 +327,6 @@
             panel3.Controls.Add(cboDiningAreas);
             panel3.Controls.Add(btnCreateTestData);
             panel3.Controls.Add(btnEditServers);
-            panel3.Controls.Add(btnImportScheduleData);
             panel3.Controls.Add(btnDeleteFloorplans);
             panel3.Controls.Add(btnSaleStats);
             panel3.Controls.Add(btnPastSection);

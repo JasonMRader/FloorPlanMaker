@@ -1,10 +1,13 @@
-﻿using FloorplanClassLibrary;
+﻿using CsvHelper.Configuration;
+using CsvHelper;
+using FloorplanClassLibrary;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -234,13 +237,72 @@ namespace FloorPlanMakerUI
         }
         private void RefreshSpecialEventListBoxes()
         {
-            lbUpcomingEvents.Items.Clear();           
+            lbUpcomingEvents.Items.Clear();
             DateOnly today = new DateOnly(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-            List<SpecialEventDate> allEvents = SqliteDataAccess.LoadSpecialEvents();           
-            List<SpecialEventDate> futureEvents = allEvents.Where(e => e.DateOnly >= today).OrderBy(e => e.DateOnly).ToList();           
+            List<SpecialEventDate> allEvents = SqliteDataAccess.LoadSpecialEvents();
+            List<SpecialEventDate> futureEvents = allEvents.Where(e => e.DateOnly >= today).OrderBy(e => e.DateOnly).ToList();
             foreach (SpecialEventDate specialEventDate in futureEvents)
             {
                 lbUpcomingEvents.Items.Add(specialEventDate.GetUpcomingEventString());
+            }
+        }
+
+        private void btnImportScheduleData_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.InitialDirectory = "c:\\";
+                openFileDialog.Filter = "CSV files (*.csv)|*.csv|All files (*.*)|*.*";
+                openFileDialog.FilterIndex = 1;
+                openFileDialog.RestoreDirectory = true;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+
+                    string filePath = openFileDialog.FileName;
+                    frmLoading loadingForm = new frmLoading();
+                    loadingForm.Show();
+                    this.Enabled = false;
+
+                    Task.Run(() =>
+                    {
+                        var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+                        {
+                            PrepareHeaderForMatch = args => args.Header.ToLower(),
+                        };
+
+                        using (var reader = new StreamReader(filePath))
+                        using (var csv = new CsvReader(reader, config))
+                        {
+                            var records = csv.GetRecords<dynamic>();
+
+                            foreach (var record in records)
+                            {
+                                var weatherData = new WeatherData
+                                {
+                                    Date = DateOnly.Parse(record.datetime),
+                                    TempHi = (int)Math.Round(decimal.Parse(record.tempmax)),
+                                    TempLow = (int)Math.Round(decimal.Parse(record.tempmin)),
+                                    TempAvg = (int)Math.Round(decimal.Parse(record.temp)),
+                                    FeelsLikeHi = (int)Math.Round(decimal.Parse(record.feelslikemax)),
+                                    FeelsLikeLow = (int)Math.Round(decimal.Parse(record.feelslikemin)),
+                                    FeelsLikeAvg = (int)Math.Round(decimal.Parse(record.feelslike))
+                                };
+
+                                SqliteDataAccess.SaveOrUpdateWeatherData(weatherData);
+                            }
+                        }
+
+                        this.Invoke(new Action(() =>
+                        {
+                            // Close the loading form and re-enable the main form
+                            loadingForm.Close();
+                            this.Enabled = true;
+                           
+                        }));
+                    });
+
+                }
             }
         }
     }
