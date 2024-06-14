@@ -199,7 +199,7 @@ namespace FloorPlanMakerUI
             // Add rows for each date's sales data
             foreach (var salesData in salesDataList)
             {
-                var row = new List<object> { salesData.Date.ToString("ddd, M/d") };
+                var row = new List<object> { salesData.DateDisplay() };
 
                 foreach (var diningArea in diningAreas)
                 {

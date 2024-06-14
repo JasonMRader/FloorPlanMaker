@@ -10,7 +10,7 @@ namespace FloorplanClassLibrary
     public class WeatherData
     {
         public int ID { get; set; }
-        public string Date { get; set; } // Store date as string in 'yyyy-MM-dd' format
+        public string Date { get; set; }
 
         public int TempHi { get; set; }
         public int TempLow { get; set; }
@@ -20,7 +20,7 @@ namespace FloorplanClassLibrary
         public int FeelsLikeAvg { get; set; }
 
         [NotMapped]
-        public DateOnly DateOnly => DateOnly.Parse(Date); // Map date string to DateOnly
+        public DateOnly DateOnly => DateOnly.Parse(Date);
     }
 
 

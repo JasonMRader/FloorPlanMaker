@@ -960,7 +960,7 @@ namespace FloorPlanMaker
                 }
             }
 
-            lblTotalSales.Text = floorplanManager.Shift.SelectedDiningArea.ExpectedSales.ToString();
+            lblTotalSales.Text = floorplanManager.Shift.SelectedDiningArea.ExpectedSales.ToString("C0");
 
         }
         private void rdoYesterdayStats_CheckedChanged(object sender, EventArgs e)

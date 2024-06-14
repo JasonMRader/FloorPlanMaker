@@ -280,7 +280,7 @@ namespace FloorPlanMakerUI
                             {
                                 var weatherData = new WeatherData
                                 {
-                                    Date = DateOnly.Parse(record.datetime),
+                                    Date = DateOnly.Parse(record.datetime).ToString("yyyy-MM-dd"),
                                     TempHi = (int)Math.Round(decimal.Parse(record.tempmax)),
                                     TempLow = (int)Math.Round(decimal.Parse(record.tempmin)),
                                     TempAvg = (int)Math.Round(decimal.Parse(record.temp)),
