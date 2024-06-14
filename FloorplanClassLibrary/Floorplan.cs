@@ -316,16 +316,16 @@ namespace FloorplanClassLibrary
         }
         public float GetSalesDifferenceForSection(Section section)
         {
-            return section.ExpectedSalesPerServer - this.AvgSalesPerServer;
+            //return section.ExpectedSalesPerServer - this.AvgSalesPerServer;
 
-            //if (!section.IsTeamWait)
-            //{
-            //    return section.ExpectedTotalSales - this.AvgSalesPerServer;
-            //}            
-            //else
-            //{
-            //    return section.ExpectedTotalSales - (this.AvgSalesPerServer * section.ServerCount);
-            //}
+            if (!section.IsTeamWait)
+            {
+                return section.ExpectedTotalSales - this.AvgSalesPerServer;
+            }
+            else
+            {
+                return section.ExpectedTotalSales - (this.AvgSalesPerServer * section.ServerCount);
+            }
         }
         
         public void CopyTemplateSections(List<Section> sections)
