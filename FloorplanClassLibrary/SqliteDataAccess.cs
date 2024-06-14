@@ -2019,6 +2019,47 @@ namespace FloorplanClassLibrary
                                               }).ToList();
             }
         }
+        public static List<WeatherData> LoadWeatherDataByDateTimes(List<DateTime> dateTimes)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                // Convert the list of DateTime to a list of strings in the 'yyyy-MM-dd' format
+                var dateStrings = dateTimes.Select(dateTime => dateTime.ToString("yyyy-MM-dd")).ToList();
+
+                // Generate a SQL query with the appropriate number of parameters
+                string sql = $"SELECT * FROM WeatherData WHERE Date IN ({string.Join(",", dateStrings.Select((s, i) => $"@Date{i}"))})";
+
+                // Create a dynamic parameters object
+                var parameters = new DynamicParameters();
+                for (int i = 0; i < dateStrings.Count; i++)
+                {
+                    parameters.Add($"@Date{i}", dateStrings[i]);
+                }
+
+                return cnn.Query<WeatherData>(sql, parameters).ToList();
+            }
+        }
+
+        public static List<WeatherData> LoadWeatherDataByDates(List<DateOnly> dates)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                // Convert the list of dates to a list of strings in the 'yyyy-MM-dd' format
+                var dateStrings = dates.Select(date => date.ToString("yyyy-MM-dd")).ToList();
+
+                // Generate a SQL query with the appropriate number of parameters
+                string sql = $"SELECT * FROM WeatherData WHERE Date IN ({string.Join(",", dateStrings.Select((s, i) => $"@Date{i}"))})";
+
+                // Create a dynamic parameters object
+                var parameters = new DynamicParameters();
+                for (int i = 0; i < dateStrings.Count; i++)
+                {
+                    parameters.Add($"@Date{i}", dateStrings[i]);
+                }
+
+                return cnn.Query<WeatherData>(sql, parameters).ToList();
+            }
+        }
 
         public static void SaveOrUpdateWeatherData(WeatherData weatherData)
         {

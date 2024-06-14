@@ -126,7 +126,8 @@ namespace FloorPlanMakerUI
             return statList;
         }
 
-        public void PopulateDGVForAreaSales(DataGridView dgvDiningAreas, List<DiningArea> diningAreas, List<SalesData> salesDataList)
+        public void PopulateDGVForAreaSales(DataGridView dgvDiningAreas, List<DiningArea> diningAreas, List<SalesData> salesDataList,
+            Dictionary<DateOnly, int> feelsLikeHiData)
         {
             dgvDiningAreas.Columns.Clear();
             dgvDiningAreas.Rows.Clear();
@@ -158,6 +159,18 @@ namespace FloorPlanMakerUI
                 }
             };
             dgvDiningAreas.Columns.Add(totalColumn);
+
+            var tempColumn = new DataGridViewTextBoxColumn
+            {
+                Name = "Temp",
+                HeaderText = "Temp (FeelsLikeHi)",
+                DefaultCellStyle = new DataGridViewCellStyle
+                {
+                    Format = "N0" // Format as integer
+                }
+            };
+            dgvDiningAreas.Columns.Add(tempColumn);
+
 
             // Calculate averages for each dining area and the total sales
             var averageSalesByDiningArea = new Dictionary<string, float>();
@@ -193,6 +206,8 @@ namespace FloorPlanMakerUI
                     row.Add(salesData.SalesByDiningArea[diningArea.Name]);
                 }
                 row.Add(salesData.TotalSales);
+                feelsLikeHiData.TryGetValue(DateOnly.FromDateTime(salesData.Date), out int feelsLikeHi);
+                row.Add(feelsLikeHi);
 
                 dgvDiningAreas.Rows.Add(row.ToArray());
             }
@@ -321,6 +336,12 @@ namespace FloorPlanMakerUI
             }
 
         }
+        public static Dictionary<DateOnly, int> GetFeelsLikeHiData(List<DateTime> dates)
+        {
+            List<WeatherData> weatherDataList = SqliteDataAccess.LoadWeatherDataByDateTimes(dates);
+            Dictionary<DateOnly, int> feelsLikeHiData = weatherDataList.ToDictionary(wd => wd.Date, wd => wd.FeelsLikeHi);
+            return feelsLikeHiData;
+        }
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
@@ -328,7 +349,8 @@ namespace FloorPlanMakerUI
             {
                 List<DateTime> dateList = GetDateRange(dtpStartDate.Value, dtpEndDate.Value);
                 List<SalesData> salesData = GetSalesData(areaManager.DiningAreas, dateList);
-                PopulateDGVForAreaSales(dgvDiningAreas, areaManager.DiningAreas, salesData);
+                Dictionary<DateOnly, int> weatherData = GetFeelsLikeHiData(dateList);
+                PopulateDGVForAreaSales(dgvDiningAreas, areaManager.DiningAreas, salesData, weatherData);
             }
             if (rdoServerShifts.Checked)
             {
