@@ -159,6 +159,30 @@ namespace FloorPlanMakerUI
             };
             dgvDiningAreas.Columns.Add(totalColumn);
 
+            // Calculate averages for each dining area and the total sales
+            var averageSalesByDiningArea = new Dictionary<string, float>();
+            float totalSalesSum = 0;
+            int dataCount = salesDataList.Count;
+
+            foreach (var diningArea in diningAreas)
+            {
+                float areaSalesSum = salesDataList.Sum(sd => sd.SalesByDiningArea.ContainsKey(diningArea.Name) ? sd.SalesByDiningArea[diningArea.Name] : 0);
+                averageSalesByDiningArea[diningArea.Name] = areaSalesSum / dataCount;
+            }
+
+            totalSalesSum = salesDataList.Sum(sd => sd.TotalSales);
+            float averageTotalSales = totalSalesSum / dataCount;
+
+            // Add the average row
+            var averageRow = new List<object> { "Average" };
+            foreach (var diningArea in diningAreas)
+            {
+                averageRow.Add(averageSalesByDiningArea[diningArea.Name]);
+            }
+            averageRow.Add(averageTotalSales);
+
+            dgvDiningAreas.Rows.Add(averageRow.ToArray());
+
             // Add rows for each date's sales data
             foreach (var salesData in salesDataList)
             {
@@ -173,6 +197,7 @@ namespace FloorPlanMakerUI
                 dgvDiningAreas.Rows.Add(row.ToArray());
             }
         }
+
         private void PopulateDGVForServerHistory(List<ServerShiftHistory> serverHistory)
         {
             dgvDiningAreas.Columns.Clear();
