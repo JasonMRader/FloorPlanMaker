@@ -37,7 +37,7 @@ namespace FloorPlanMakerUI
             };
         private void frmSalesStats_Load(object sender, EventArgs e)
         {
-
+            UITheme.FormatCTAButton(btnUpdate);
             dtpEndDate.Value = DateTime.Now.AddDays(-1);
             dtpStartDate.Value = DateTime.Now.AddDays(-8);
             employeeManager.LoadShiftsForActiveServers();
@@ -359,11 +359,20 @@ namespace FloorPlanMakerUI
             if (rdoServerShifts.Checked)
             {
                 cboServerSelect.DataSource = employeeManager.ActiveServers;
+                lblComboLabel.Text = "Servers";
+                btnIndividualStats.Text = "Server Table History";
+                btnIndividualServerShifts.Visible = true;
             }
             else
             {
                 cboServerSelect.DataSource = areaManager.DiningAreas;
+                lblComboLabel.Text = "Dining Areas";
+                btnIndividualStats.Text = "Area Table History";
+                btnIndividualServerShifts.Visible = false;
+
+
             }
+
         }
 
 
@@ -636,10 +645,10 @@ namespace FloorPlanMakerUI
             {
                 var row = new List<object> { empShift.Date.ToString("ddd, M/d") };
 
-                
+
                 row.Add(serverShiftHistory.ShiftTables[empShift]);
-                
-               
+
+
 
                 dgvDiningAreas.Rows.Add(row.ToArray());
             }

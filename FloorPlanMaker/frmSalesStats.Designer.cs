@@ -53,10 +53,10 @@
             cbTues = new CheckBox();
             cbMon = new CheckBox();
             panel4 = new Panel();
+            btnIndividualServerShifts = new Button();
             lblComboLabel = new Label();
             btnIndividualStats = new Button();
             cboServerSelect = new ComboBox();
-            btnIndividualServerShifts = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvDiningAreas).BeginInit();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
@@ -98,9 +98,10 @@
             // 
             // btnUpdate
             // 
-            btnUpdate.Location = new Point(33, 138);
+            btnUpdate.FlatStyle = FlatStyle.Flat;
+            btnUpdate.Location = new Point(30, 138);
             btnUpdate.Name = "btnUpdate";
-            btnUpdate.Size = new Size(688, 23);
+            btnUpdate.Size = new Size(688, 35);
             btnUpdate.TabIndex = 2;
             btnUpdate.Text = "Update";
             btnUpdate.UseVisualStyleBackColor = true;
@@ -109,12 +110,10 @@
             // rdoAm
             // 
             rdoAm.AutoSize = true;
-            rdoAm.Checked = true;
-            rdoAm.Location = new Point(0, 3);
+            rdoAm.Location = new Point(126, 3);
             rdoAm.Name = "rdoAm";
             rdoAm.Size = new Size(44, 19);
             rdoAm.TabIndex = 3;
-            rdoAm.TabStop = true;
             rdoAm.Text = "AM";
             rdoAm.UseVisualStyleBackColor = true;
             rdoAm.CheckedChanged += rdoAm_CheckedChanged;
@@ -122,7 +121,7 @@
             // rdoPm
             // 
             rdoPm.AutoSize = true;
-            rdoPm.Location = new Point(69, 3);
+            rdoPm.Location = new Point(73, 3);
             rdoPm.Name = "rdoPm";
             rdoPm.Size = new Size(43, 19);
             rdoPm.TabIndex = 3;
@@ -132,11 +131,13 @@
             // rdoBoth
             // 
             rdoBoth.AutoSize = true;
-            rdoBoth.Location = new Point(126, 3);
+            rdoBoth.Checked = true;
+            rdoBoth.Location = new Point(3, 3);
             rdoBoth.Name = "rdoBoth";
-            rdoBoth.Size = new Size(50, 19);
+            rdoBoth.Size = new Size(62, 19);
             rdoBoth.TabIndex = 3;
-            rdoBoth.Text = "Both";
+            rdoBoth.TabStop = true;
+            rdoBoth.Text = "All Day";
             rdoBoth.UseVisualStyleBackColor = true;
             rdoBoth.CheckedChanged += rdoBoth_CheckedChanged;
             // 
@@ -327,14 +328,25 @@
             panel4.Size = new Size(287, 146);
             panel4.TabIndex = 8;
             // 
+            // btnIndividualServerShifts
+            // 
+            btnIndividualServerShifts.Location = new Point(13, 100);
+            btnIndividualServerShifts.Name = "btnIndividualServerShifts";
+            btnIndividualServerShifts.Size = new Size(259, 23);
+            btnIndividualServerShifts.TabIndex = 3;
+            btnIndividualServerShifts.Text = "See Server Shifts";
+            btnIndividualServerShifts.UseVisualStyleBackColor = true;
+            btnIndividualServerShifts.Visible = false;
+            btnIndividualServerShifts.Click += btnIndividualServerShifts_Click;
+            // 
             // lblComboLabel
             // 
             lblComboLabel.AutoSize = true;
             lblComboLabel.Location = new Point(13, 18);
             lblComboLabel.Name = "lblComboLabel";
-            lblComboLabel.Size = new Size(44, 15);
+            lblComboLabel.Size = new Size(74, 15);
             lblComboLabel.TabIndex = 2;
-            lblComboLabel.Text = "Servers";
+            lblComboLabel.Text = "Dining Areas";
             // 
             // btnIndividualStats
             // 
@@ -342,7 +354,7 @@
             btnIndividualStats.Name = "btnIndividualStats";
             btnIndividualStats.Size = new Size(259, 23);
             btnIndividualStats.TabIndex = 1;
-            btnIndividualStats.Text = "See Individual Stats";
+            btnIndividualStats.Text = "Server Table History";
             btnIndividualStats.UseVisualStyleBackColor = true;
             btnIndividualStats.Click += btnIndividualStats_Click;
             // 
@@ -353,16 +365,6 @@
             cboServerSelect.Name = "cboServerSelect";
             cboServerSelect.Size = new Size(259, 23);
             cboServerSelect.TabIndex = 0;
-            // 
-            // btnIndividualServerShifts
-            // 
-            btnIndividualServerShifts.Location = new Point(13, 100);
-            btnIndividualServerShifts.Name = "btnIndividualServerShifts";
-            btnIndividualServerShifts.Size = new Size(259, 23);
-            btnIndividualServerShifts.TabIndex = 3;
-            btnIndividualServerShifts.Text = "See Server Shifts";
-            btnIndividualServerShifts.UseVisualStyleBackColor = true;
-            btnIndividualServerShifts.Click += btnIndividualServerShifts_Click;
             // 
             // frmSalesStats
             // 
