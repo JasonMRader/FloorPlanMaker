@@ -31,13 +31,15 @@ namespace FloorplanClassLibrary
                 //section.SubscribeObserver(this);
             }
         }
-        public FloorplanEdgesManager LinesManager { get; private set; }
+        public List<FloorplanLine> floorplanLines = new List<FloorplanLine>();
+      
         
         public Floorplan(FloorplanTemplate template)
         {
             this.DiningArea = template.DiningArea;
             
             this.ServerCount = template.ServerCount;
+            this.floorplanLines = template.floorplanLines;
             SectionServerMap = new Dictionary<Section, List<Server>>();
             CopyTemplateSections(template.Sections);
             //MoveToNextSection();

@@ -32,6 +32,7 @@ namespace FloorplanClassLibrary
         public int ID { get; set; }
 
         private int _teamWaitSections;
+        public List<FloorplanLine> floorplanLines = new List<FloorplanLine>();
                    
        
         private bool _hasTeamWait = false;

@@ -937,6 +937,24 @@ namespace FloorplanClassLibrary
             }
         }
 
+        //public static void SaveFloorplanTemplate(FloorplanTemplate template)
+        //{
+        //    using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+        //    {
+        //        cnn.Open();
+        //        cnn.Execute("INSERT INTO FloorplanTemplate (Name, DiningAreaID, ServerCount, HasTeamWait, HasPickUp)" +
+        //            " VALUES (@Name, @DiningAreaID, @ServerCount, @HasTeamWait, @HasPickUp)", template);
+
+        //        template.ID = cnn.Query<int>("select last_insert_rowid()", new DynamicParameters()).Single();
+
+        //        foreach (Section section in template.Sections)
+        //        {
+        //            SaveSection(section);
+        //            cnn.Execute("INSERT INTO TemplateSections (SectionID, TemplateID) VALUES (@SectionID, @TemplateID)", new { SectionID = section.ID, TemplateID = template.ID });
+        //        }
+        //    }
+
+        //}
         public static void SaveFloorplanTemplate(FloorplanTemplate template)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -952,9 +970,15 @@ namespace FloorplanClassLibrary
                     SaveSection(section);
                     cnn.Execute("INSERT INTO TemplateSections (SectionID, TemplateID) VALUES (@SectionID, @TemplateID)", new { SectionID = section.ID, TemplateID = template.ID });
                 }
-            }
 
+                foreach (var line in template.floorplanLines)
+                {
+                    cnn.Execute("INSERT INTO FloorplanLines (TemplateID, StartX, StartY, EndX, EndY) VALUES (@TemplateID, @StartX, @StartY, @EndX, @EndY)",
+                        new { TemplateID = template.ID, StartX = line.StartPoint.X, StartY = line.StartPoint.Y, EndX = line.EndPoint.X, EndY = line.EndPoint.Y });
+                }
+            }
         }
+
         public static void DeleteFloorplanTemplate(int templateId)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))

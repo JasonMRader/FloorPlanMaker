@@ -572,6 +572,10 @@ namespace FloorPlanMaker
         {
 
             FloorplanTemplate template = new FloorplanTemplate(shift.SelectedFloorplan);
+            if (_lines.Count > 0)
+            {
+                template.floorplanLines = _lines;
+            }
             if (template.IsDuplicate())
             {
                 MessageBox.Show("This Template Already Exists");
