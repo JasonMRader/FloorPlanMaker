@@ -72,6 +72,7 @@ namespace FloorPlanMakerUI
             else
             {
                 // If Floorplan is null, get all floorplan templates
+                this.TemplateManager.DiningArea = Shift.SelectedDiningArea;
                 this.TemplateManager.GetAllFloorplanTemplatesForDiningArea();
             }
         }
@@ -1210,5 +1211,21 @@ namespace FloorPlanMakerUI
 
         }
 
+        public void SetFloorplanToTemplate(FloorplanTemplate? template)
+        {
+            template.DiningArea = Shift.SelectedDiningArea;
+            Shift.SelectedFloorplan = new Floorplan(template);
+            Shift.SelectedFloorplan.Date = Shift.DateTime;
+            Shift.SelectedFloorplan.IsLunch = Shift.IsAM;
+            Shift.AddFloorplanToShift(Shift.SelectedFloorplan);
+            //Shift.SelectedFloorplan.CopyTemplateSections(template.Sections);
+            SetSectionPanels();
+            foreach (SectionPanelControl sectionPanel in this._sectionPanels)
+            {
+                sectionPanel.UpdateLabels();
+            }
+
+            Floorplan.floorplanLines = template.floorplanLines;
+        }
     }
 }

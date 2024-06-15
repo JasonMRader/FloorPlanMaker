@@ -71,6 +71,11 @@ namespace FloorPlanMaker
                 floorplanManager.CopyTemplateSections(template);
                 form1Reference.UpdateWithTemplate();
             }
+            else
+            {
+                floorplanManager.SetFloorplanToTemplate(template);
+                form1Reference.UpdateWithTemplate();
+            }
 
         }
 
