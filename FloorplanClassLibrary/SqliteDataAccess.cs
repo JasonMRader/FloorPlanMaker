@@ -978,7 +978,21 @@ namespace FloorplanClassLibrary
                 }
             }
         }
+        public static void UpdateTemplateLines(int id, List<FloorplanLine> lines)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                cnn.Open();
+                var sql = "DELETE FROM FloorplanLines WHERE TemplateID = @Id;";
+                cnn.Execute(sql, new { Id = id });
 
+                foreach (var line in lines)
+                {
+                    cnn.Execute("INSERT INTO FloorplanLines (TemplateID, StartX, StartY, EndX, EndY) VALUES (@TemplateID, @StartX, @StartY, @EndX, @EndY)",
+                        new { TemplateID = id, StartX = line.StartPoint.X, StartY = line.StartPoint.Y, EndX = line.EndPoint.X, EndY = line.EndPoint.Y });
+                }
+            }
+        }
         public static void DeleteFloorplanTemplate(int templateId)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -2165,7 +2179,9 @@ namespace FloorplanClassLibrary
             }
         }
 
-        
+       
+
+
 
 
 

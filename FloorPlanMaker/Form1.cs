@@ -583,7 +583,20 @@ namespace FloorPlanMaker
             }
             if (template.IsDuplicate())
             {
-                MessageBox.Show("This Template Already Exists");
+                DialogResult result = MessageBox.Show("This Template Already Exists, Do you Want to Update the Section Lines?",
+                                                " Floorplan Exists",
+                                                MessageBoxButtons.YesNo,
+                                                MessageBoxIcon.Question);
+
+                if (result == DialogResult.No)
+                {
+                    return;
+                }
+                else
+                {
+                    SqliteDataAccess.UpdateTemplateLines(template.ID, _lines);
+                    MessageBox.Show("Template Saved!");
+                }
             }
             else
             {
