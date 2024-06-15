@@ -145,5 +145,10 @@ namespace FloorPlanMakerUI
             form1Reference.CloseTemplateCreator();
             this.Close();
         }
+
+        private void btnAddSection_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

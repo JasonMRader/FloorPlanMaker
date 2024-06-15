@@ -59,6 +59,7 @@
             btnAddSection.TabIndex = 2;
             btnAddSection.Text = "Add Section";
             btnAddSection.UseVisualStyleBackColor = true;
+            btnAddSection.Click += btnAddSection_Click;
             // 
             // btnRemoveSection
             // 
