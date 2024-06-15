@@ -39,6 +39,7 @@ namespace FloorPlanMaker
         private SectionLineManager sectionLineManager;
         private frmEditDiningAreas _frmEditDiningAreas;
         private frmEditStaff _frmEditStaff;
+        private frmTemplateCreator _frmTemplateCreator;
         private frmTemplateSelection _frmTemplateSelection;
         private frmSettings _frmSettings;
         private PictureBox loadingScreen = null;
@@ -221,6 +222,7 @@ namespace FloorPlanMaker
             flowServersInFloorplan.Visible = false;
             rdoViewSectionFlow.Image = Resources.lilCanvasBook;
         }
+        
 
         public Form1()
         {
@@ -1159,13 +1161,35 @@ namespace FloorPlanMaker
 
         private void cbDrawToggle_CheckedChanged(object sender, EventArgs e)
         {
-            if(cbDrawToggle.Checked == true)
+            if (cbDrawToggle.Checked == true)
             {
                 _isDrawingModeEnabled = true;
                 _lines.Clear();
                 pnlFloorPlan.Invalidate();
             }
             else { _isDrawingModeEnabled = false; }
+        }
+
+        private void btnTemplateCreator_Click(object sender, EventArgs e)
+        {
+            frmTemplateCreator frm = new frmTemplateCreator(shift.SelectedDiningArea, this) { TopLevel = false, AutoScroll = true };
+            
+            pnlNavigationWindow.Controls.Add(frm);
+            frm.Show();
+            pnlMainContainer.Visible = false;
+            //pnlSideBar.Visible = false;
+            pnlSideContainer.Visible = false;
+            pnlNavigationWindow.BringToFront();
+        }
+        public void CloseTemplateCreator()
+        {
+            rdoSections.Checked = true;
+            rdoViewSectionFlow.Checked = true;
+            flowSectionSelect.Visible = true;
+            flowServersInFloorplan.Visible = false;
+            pnlMainContainer.Visible = true;
+            pnlSideContainer.Visible = true;
+            rdoViewSectionFlow.Image = Resources.lilCanvasBook;
         }
     }
 }

@@ -15,14 +15,16 @@ namespace FloorPlanMakerUI
 {
     public partial class frmTemplateCreator : Form
     {
-        public frmTemplateCreator(DiningArea area)
+        public frmTemplateCreator(DiningArea area, Form1 form1)
         {
             InitializeComponent();
             this.diningArea = area;
             this.floorplan = new Floorplan(this.diningArea, DateTime.Now, true, 1, 1);
+            this.form1Reference = form1;
         }
-        DiningArea diningArea = new DiningArea();
-        Floorplan floorplan = new Floorplan();
+        private Form1 form1Reference;
+        private DiningArea diningArea = new DiningArea();
+        private Floorplan floorplan = new Floorplan();
         private ImageLabelControl coversImageLabel = new ImageLabelControl();
         private ImageLabelControl salesImageLabel = new ImageLabelControl();
         private List<SectionPanelControl> _sectionPanels = new List<SectionPanelControl>();
@@ -52,7 +54,7 @@ namespace FloorPlanMakerUI
             }
         }
 
-       
+
         private void TableControl_TableClicked(object sender, TableClickedEventArgs e)
         {
 
@@ -136,6 +138,12 @@ namespace FloorPlanMakerUI
                 }
             }
             return true;
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            form1Reference.CloseTemplateCreator();
+            this.Close();
         }
     }
 }

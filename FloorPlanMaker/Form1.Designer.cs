@@ -81,10 +81,11 @@ namespace FloorPlanMaker
             rdoYesterdayStats = new RadioButton();
             rdoSales = new RadioButton();
             rdoViewServerFlow = new RadioButton();
+            cbDrawToggle = new CheckBox();
             rdoViewSectionFlow = new RadioButton();
             toolTip1 = new ToolTip(components);
             btnReportBug = new Button();
-            cbDrawToggle = new CheckBox();
+            btnTemplateCreator = new Button();
             flowSectionSelect.SuspendLayout();
             panel1.SuspendLayout();
             pnlFloorplanContainer.SuspendLayout();
@@ -458,6 +459,7 @@ namespace FloorPlanMaker
             // pnlSectionsAndServers
             // 
             pnlSectionsAndServers.BackColor = Color.WhiteSmoke;
+            pnlSectionsAndServers.Controls.Add(btnTemplateCreator);
             pnlSectionsAndServers.Controls.Add(pnlStatMode);
             pnlSectionsAndServers.Controls.Add(rdoSales);
             pnlSectionsAndServers.Controls.Add(rdoViewServerFlow);
@@ -757,6 +759,22 @@ namespace FloorPlanMaker
             rdoViewServerFlow.UseVisualStyleBackColor = false;
             rdoViewServerFlow.CheckedChanged += rdoViewServerFlow_CheckedChanged;
             // 
+            // cbDrawToggle
+            // 
+            cbDrawToggle.Appearance = Appearance.Button;
+            cbDrawToggle.BackColor = Color.FromArgb(100, 130, 180);
+            cbDrawToggle.FlatAppearance.BorderSize = 0;
+            cbDrawToggle.FlatStyle = FlatStyle.Flat;
+            cbDrawToggle.ForeColor = Color.Black;
+            cbDrawToggle.Image = FloorPlanMakerUI.Properties.Resources.bluePrintSmall;
+            cbDrawToggle.Location = new Point(207, 2);
+            cbDrawToggle.Name = "cbDrawToggle";
+            cbDrawToggle.Size = new Size(45, 24);
+            cbDrawToggle.TabIndex = 16;
+            cbDrawToggle.TextAlign = ContentAlignment.MiddleCenter;
+            cbDrawToggle.UseVisualStyleBackColor = false;
+            cbDrawToggle.CheckedChanged += cbDrawToggle_CheckedChanged;
+            // 
             // rdoViewSectionFlow
             // 
             rdoViewSectionFlow.Appearance = Appearance.Button;
@@ -797,21 +815,16 @@ namespace FloorPlanMaker
             btnReportBug.UseVisualStyleBackColor = false;
             btnReportBug.Click += btnReportBug_Click;
             // 
-            // cbDrawToggle
+            // btnTemplateCreator
             // 
-            cbDrawToggle.Appearance = Appearance.Button;
-            cbDrawToggle.BackColor = Color.FromArgb(100, 130, 180);
-            cbDrawToggle.FlatAppearance.BorderSize = 0;
-            cbDrawToggle.FlatStyle = FlatStyle.Flat;
-            cbDrawToggle.ForeColor = Color.Black;
-            cbDrawToggle.Image = FloorPlanMakerUI.Properties.Resources.bluePrintSmall;
-            cbDrawToggle.Location = new Point(207, 2);
-            cbDrawToggle.Name = "cbDrawToggle";
-            cbDrawToggle.Size = new Size(45, 24);
-            cbDrawToggle.TabIndex = 16;
-            cbDrawToggle.TextAlign = ContentAlignment.MiddleCenter;
-            cbDrawToggle.UseVisualStyleBackColor = false;
-            cbDrawToggle.CheckedChanged += cbDrawToggle_CheckedChanged;
+            btnTemplateCreator.BackColor = Color.DimGray;
+            btnTemplateCreator.Location = new Point(256, 5);
+            btnTemplateCreator.Name = "btnTemplateCreator";
+            btnTemplateCreator.Size = new Size(29, 23);
+            btnTemplateCreator.TabIndex = 23;
+            btnTemplateCreator.Text = "button1";
+            btnTemplateCreator.UseVisualStyleBackColor = false;
+            btnTemplateCreator.Click += btnTemplateCreator_Click;
             // 
             // Form1
             // 
@@ -899,5 +912,6 @@ namespace FloorPlanMaker
         private Label label3;
         private RadioButton rdoDayOfStats;
         private CheckBox cbDrawToggle;
+        private Button btnTemplateCreator;
     }
 }
