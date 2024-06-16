@@ -46,10 +46,10 @@ namespace FloorplanUserControlLibrary
         {
             var lastFiveShifts = shiftHistory.filteredShifts.OrderByDescending(s => s.Date).ToList();
             lastFiveShifts = lastFiveShifts.Take(5).ToList();
-            List<ShiftControl> shiftControls = new List<ShiftControl>();
+            List<ShiftImgDisplay> shiftControls = new List<ShiftImgDisplay>();
             foreach (var shift in lastFiveShifts)
             {
-                ShiftControl shiftControl = new ShiftControl(shift, pnlShift1.Width, pnlShift1.Height);
+                ShiftImgDisplay shiftControl = new ShiftImgDisplay(shift);
                 shiftControls.Add(shiftControl);
             }
             pnlShift5.Controls.Add(shiftControls[0]);
