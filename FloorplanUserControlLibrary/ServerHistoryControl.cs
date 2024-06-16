@@ -17,12 +17,14 @@ namespace FloorplanUserControlLibrary
         public ServerHistoryControl(Server server, DateOnly start, DateOnly end, bool isLunch, bool isCollapsible)
         {
             InitializeComponent();
-            this.server = server;
+            this.Server = server;
             this.shiftHistory = new ServerShiftHistory(server, start, end, isLunch);
             this.isLunch = isLunch;
             InitializeControls();
             SetShiftControls();
             SetIsCollapsible(isCollapsible);
+            this.btnServer.Click += (sender, e) => this.OnClick(e);
+            this.TabStop = false;
         }
         private bool isLunch;
         private bool isCollapsible;
@@ -43,11 +45,11 @@ namespace FloorplanUserControlLibrary
             if (this.isLunch) { return "AM"; }
             else { return "PM"; }
         }
-        public Server server { get; private set; }
+        public Server Server { get; private set; }
         public ServerShiftHistory shiftHistory { get; private set; }
         private void InitializeControls()
         {
-            btnServer.Text = this.server.ToString();
+            btnServer.Text = this.Server.ToString();
 
             lblDescription.Text = $"Last {shiftHistory.filteredShifts.Count} {GetIsLunchDisplay()} Shifts";
             lblOutsidePercentage.Text = $"{FormattedPercentage(shiftHistory.OutsidePercentage)} Outside";

@@ -415,7 +415,7 @@ namespace FloorPlanMaker
         private void ServerControl_Click(object sender, EventArgs e)
         {
             Server server = new Server();
-            ServerControl serverControl = sender as ServerControl;
+            ServerHistoryControl serverControl = sender as ServerHistoryControl;
             if (sender is ServerControl)
             {
                 if (serverControl == null) return;
