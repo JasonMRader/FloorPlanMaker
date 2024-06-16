@@ -14,7 +14,7 @@ namespace FloorplanUserControlLibrary
 {
     public partial class ServerHistoryControl : UserControl
     {
-        public ServerHistoryControl(Server server, DateOnly start, DateOnly end, bool isLunch)
+        public ServerHistoryControl(Server server, DateOnly start, DateOnly end, bool isLunch, bool isCollapsible)
         {
             InitializeComponent();
             this.server = server;
@@ -22,8 +22,22 @@ namespace FloorplanUserControlLibrary
             this.isLunch = isLunch;
             InitializeControls();
             SetShiftControls();
+            SetIsCollapsible(isCollapsible);
         }
         private bool isLunch;
+        private bool isCollapsible;
+        public void SetIsCollapsible(bool collapsible)
+        {
+            isCollapsible = collapsible;
+            if (isCollapsible)
+            {
+                this.Height = btnServer.Height;
+            }
+            else
+            {
+                this.Height = 80;
+            }
+        }
         private string GetIsLunchDisplay()
         {
             if (this.isLunch) { return "AM"; }
@@ -52,15 +66,32 @@ namespace FloorplanUserControlLibrary
                 ShiftImgDisplay shiftControl = new ShiftImgDisplay(shift);
                 shiftControls.Add(shiftControl);
             }
-            pnlShift5.Controls.Add(shiftControls[0]);
-            pnlShift4.Controls.Add(shiftControls[1]);
-            pnlShift3.Controls.Add(shiftControls[2]);
-            pnlShift2.Controls.Add(shiftControls[3]);
-            pnlShift1.Controls.Add(shiftControls[4]);
+            if (shiftControls.Count > 0) { pnlShift5.Controls.Add(shiftControls[0]); }
+            if (shiftControls.Count > 1) { pnlShift4.Controls.Add(shiftControls[1]); }
+            if (shiftControls.Count > 2) { pnlShift3.Controls.Add(shiftControls[2]); }
+            if (shiftControls.Count > 3) { pnlShift2.Controls.Add(shiftControls[3]); }
+            if (shiftControls.Count > 4) { pnlShift1.Controls.Add(shiftControls[4]); }
+
         }
         private void ServerHistoryControl_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnServer_MouseHover(object sender, EventArgs e)
+        {
+            if (this.isCollapsible)
+            {
+                this.Height = 80;
+            }
+        }
+
+        private void btnServer_MouseLeave(object sender, EventArgs e)
+        {
+            if (this.isCollapsible)
+            {
+                this.Height = btnServer.Height;
+            }
         }
     }
 }

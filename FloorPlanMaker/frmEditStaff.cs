@@ -682,7 +682,7 @@ namespace FloorPlanMaker
                 //newShiftManager.ServersNotOnShift.Remove(server);
                 ShiftManager.SelectedShift.ServersNotOnShift.Remove(server);
                 
-                ServerHistoryControl newServerControl = new ServerHistoryControl(server, dateOnlySelected.AddDays(-30), dateOnlySelected, ShiftManager.IsAM);
+                ServerHistoryControl newServerControl = new ServerHistoryControl(server, dateOnlySelected.AddDays(-30), dateOnlySelected, ShiftManager.IsAM, true);
                 newServerControl.Margin = new Padding(5);
                 newServerControl.Click += ServerControl_Click;
                 //ImageSetter.SetShiftControlImages(newServerControl);

@@ -107,6 +107,8 @@
             btnServer.TabIndex = 2;
             btnServer.Text = "Adrianna";
             btnServer.UseVisualStyleBackColor = false;
+            btnServer.MouseLeave += btnServer_MouseLeave;
+            btnServer.MouseHover += btnServer_MouseHover;
             // 
             // lblDescription
             // 
@@ -121,7 +123,7 @@
             // 
             lblOutsidePercentage.AutoSize = true;
             lblOutsidePercentage.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            lblOutsidePercentage.Location = new Point(199, 48);
+            lblOutsidePercentage.Location = new Point(199, 50);
             lblOutsidePercentage.Name = "lblOutsidePercentage";
             lblOutsidePercentage.Size = new Size(94, 20);
             lblOutsidePercentage.TabIndex = 4;
@@ -137,7 +139,7 @@
             Controls.Add(btnServer);
             Controls.Add(flowLayoutPanel1);
             Name = "ServerHistoryControl";
-            Size = new Size(300, 84);
+            Size = new Size(300, 80);
             Load += ServerHistoryControl_Load;
             flowLayoutPanel1.ResumeLayout(false);
             ResumeLayout(false);
