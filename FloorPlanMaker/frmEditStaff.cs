@@ -2,6 +2,7 @@
 using FloorplanClassLibrary;
 using FloorPlanMakerUI;
 using FloorPlanMakerUI.Properties;
+using FloorplanUserControlLibrary;
 using System;
 using System.Data;
 using System.Windows.Forms;
@@ -674,6 +675,26 @@ namespace FloorPlanMaker
             flowUnassignedServers.Controls.Clear();
             Button btnAutoAssign = this.AutoAssignButton();
            
+            flowUnassignedServers.Controls.Add((Control)btnAutoAssign);
+
+            foreach (var server in ShiftManager.SelectedShift.UnassignedServers)
+            {
+                //newShiftManager.ServersNotOnShift.Remove(server);
+                ShiftManager.SelectedShift.ServersNotOnShift.Remove(server);
+                
+                ServerHistoryControl newServerControl = new ServerHistoryControl(server, dateOnlySelected.AddDays(-30), dateOnlySelected, ShiftManager.IsAM);
+                newServerControl.Margin = new Padding(5);
+                newServerControl.Click += ServerControl_Click;
+                //ImageSetter.SetShiftControlImages(newServerControl);
+                flowUnassignedServers.Controls.Add(newServerControl);
+
+            }
+        }
+        private void PopulateUnassignedServersOLD()
+        {
+            flowUnassignedServers.Controls.Clear();
+            Button btnAutoAssign = this.AutoAssignButton();
+
             flowUnassignedServers.Controls.Add((Control)btnAutoAssign);
 
             foreach (var server in ShiftManager.SelectedShift.UnassignedServers)

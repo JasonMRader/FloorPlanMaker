@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FloorplanClassLibrary;
+using FloorPlanMaker;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,60 +14,53 @@ namespace FloorplanUserControlLibrary
 {
     public partial class ServerHistoryControl : UserControl
     {
-        public ServerHistoryControl()
+        public ServerHistoryControl(Server server, DateOnly start, DateOnly end, bool isLunch)
         {
             InitializeComponent();
+            this.server = server;
+            this.shiftHistory = new ServerShiftHistory(server, start, end, isLunch);
+            this.isLunch = isLunch;
+            InitializeControls();
+            SetShiftControls();
         }
-
-        private void cbTimeSpan_CheckedChanged(object sender, EventArgs e)
+        private bool isLunch;
+        private string GetIsLunchDisplay()
         {
-            //switch (cbTimeSpan.CheckState)
-            //{
-
-            //    case CheckState.Unchecked:
-            //        cbTimeSpan.CheckState = CheckState.Checked;
-            //        cbTimeSpan.Text = "1 Month";
-
-            //        break;
-            //    case CheckState.Checked:
-            //        cbTimeSpan.CheckState = CheckState.Indeterminate;
-            //        cbTimeSpan.Text = "3 Months";
-            //        break;
-            //    case CheckState.Indeterminate:
-            //        cbTimeSpan.CheckState = CheckState.Unchecked;
-            //        cbTimeSpan.Text = "1 Week";
-            //        break;
-            //}
-            //if (cbTimeSpan.Checked)
-            //{
-
-            //}
-
+            if (this.isLunch) { return "AM"; }
+            else { return "PM"; }
         }
-
-        private void cbTimeSpan_Click(object sender, EventArgs e)
+        public Server server { get; private set; }
+        public ServerShiftHistory shiftHistory { get; private set; }
+        private void InitializeControls()
         {
-            switch (cbTimeSpan.CheckState)
+            btnServer.Text = this.server.ToString();
+
+            lblDescription.Text = $"Last {shiftHistory.filteredShifts.Count} {GetIsLunchDisplay()} Shifts";
+            lblOutsidePercentage.Text = $"{FormattedPercentage(shiftHistory.OutsidePercentage)} Outside";
+        }
+        private string FormattedPercentage(float num)
+        {
+            return $"{(int)(num * 100)}%";
+        }
+        private void SetShiftControls()
+        {
+            var lastFiveShifts = shiftHistory.filteredShifts.OrderByDescending(s => s.Date).ToList();
+            lastFiveShifts = lastFiveShifts.Take(5).ToList();
+            List<ShiftControl> shiftControls = new List<ShiftControl>();
+            foreach (var shift in lastFiveShifts)
             {
-
-                case CheckState.Unchecked:
-                    cbTimeSpan.CheckState = CheckState.Checked;
-                    cbTimeSpan.Text = "3 Months";
-
-                    break;
-                case CheckState.Checked:
-                    cbTimeSpan.CheckState = CheckState.Indeterminate;
-                    cbTimeSpan.Text = "1 Month";
-                    break;
-                case CheckState.Indeterminate:
-                    cbTimeSpan.CheckState = CheckState.Unchecked;
-                    cbTimeSpan.Text = "1 Week";
-                    break;
+                ShiftControl shiftControl = new ShiftControl(shift, pnlShift1.Width, pnlShift1.Height);
+                shiftControls.Add(shiftControl);
             }
-            if (cbTimeSpan.Checked)
-            {
+            pnlShift5.Controls.Add(shiftControls[0]);
+            pnlShift4.Controls.Add(shiftControls[1]);
+            pnlShift3.Controls.Add(shiftControls[2]);
+            pnlShift2.Controls.Add(shiftControls[3]);
+            pnlShift1.Controls.Add(shiftControls[4]);
+        }
+        private void ServerHistoryControl_Load(object sender, EventArgs e)
+        {
 
-            }
         }
     }
 }
