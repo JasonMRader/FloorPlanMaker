@@ -14,7 +14,8 @@ namespace FloorplanUserControlLibrary
 {
     public partial class ServerHistoryControl : UserControl
     {
-        public ServerHistoryControl(Server server, DateOnly start, DateOnly end, bool isLunch, bool isCollapsible)
+        public ServerHistoryControl(Server server, DateOnly start, DateOnly end, bool isLunch,
+            bool isCollapsible, int width)
         {
             InitializeComponent();
             this.Server = server;
@@ -25,6 +26,8 @@ namespace FloorplanUserControlLibrary
             SetIsCollapsible(isCollapsible);
             this.btnServer.Click += (sender, e) => this.OnClick(e);
             this.TabStop = false;
+            this.Width = width;
+            this.btnServer.Width = width;
         }
         private bool isLunch;
         private bool isCollapsible;
@@ -39,6 +42,24 @@ namespace FloorplanUserControlLibrary
             {
                 this.Height = 80;
             }
+            SetCollapsibleDisplay();
+        }
+        public void SetCollapsibleDisplay()
+        {
+            if(isCollapsible)
+            {
+                lblOutsidePercentage.AutoSize = false;
+                this.lblOutsidePercentage.Size = new System.Drawing.Size(this.Width, 50);
+                this.lblOutsidePercentage.Location = new System.Drawing.Point(0, 30);
+            }
+            else
+            {
+                lblOutsidePercentage.AutoSize = true;
+                this.lblOutsidePercentage.Size = new System.Drawing.Size(94, 20);
+                this.lblOutsidePercentage.Location = new System.Drawing.Point(199, 50);
+            }
+            
+
         }
         private string GetIsLunchDisplay()
         {

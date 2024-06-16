@@ -363,6 +363,7 @@ namespace FloorPlanMaker
             };
             return b;
         }
+        
         private void MoveFromFloorplanServerButton_Click(object sender, EventArgs e)
         {
             Button serverButton = sender as Button;
@@ -416,7 +417,7 @@ namespace FloorPlanMaker
         {
             Server server = new Server();
             ServerHistoryControl serverControl = sender as ServerHistoryControl;
-            if (sender is ServerControl)
+            if (sender is ServerHistoryControl)
             {
                 if (serverControl == null) return;
                 server = serverControl.Server;
@@ -453,10 +454,32 @@ namespace FloorPlanMaker
             //newShiftManager.SelectedFloorplan.AddServerAndSection(server);
             //NewAddServerButtonToFloorplan(newShiftManager.SelectedFloorplan, server);
             ShiftManager.SelectedShift.SelectedFloorplan.AddServerAndSection(server);
-            NewAddServerButtonToFloorplan(ShiftManager.SelectedShift.SelectedFloorplan, server);
+            NewAddServerButtonToFloorplan(ShiftManager.SelectedShift.SelectedFloorplan, server, serverControl);
             RefreshFloorplanCountLabels();
         }
-        private void NewAddServerButtonToFloorplan(Floorplan floorplan, Server server)
+        private void NewAddServerButtonToFloorplan(Floorplan floorplan, Server server, ServerHistoryControl serverHistory)
+        {
+            FlowLayoutPanel SelectedTargetPanel = null;
+            foreach (Control control in flowDiningAreaAssignment.Controls)
+            {
+                if (control is FlowLayoutPanel panel && panel.Tag == floorplan)
+                {
+                    SelectedTargetPanel = panel;
+                    break;
+                }
+            }
+            if (SelectedTargetPanel != null)
+            {
+               
+                serverHistory.Width = SelectedTargetPanel.Width - 8;
+                serverHistory.Click += MoveFromFloorplanServerButton_Click;
+                serverHistory.SetIsCollapsible(true);
+                SelectedTargetPanel.Controls.Add(serverHistory);
+
+            }
+            RefreshFloorplanCountLabels();
+        }
+        private void OLDAddServerButtonToFloorplan(Floorplan floorplan, Server server)
         {
             FlowLayoutPanel SelectedTargetPanel = null;
             foreach (Control control in flowDiningAreaAssignment.Controls)
@@ -477,7 +500,6 @@ namespace FloorPlanMaker
             }
             RefreshFloorplanCountLabels();
         }
-
         private void btnAssignTables_Click(object sender, EventArgs e)
         {
             bool emptyFloorplan = false;
@@ -682,7 +704,8 @@ namespace FloorPlanMaker
                 //newShiftManager.ServersNotOnShift.Remove(server);
                 ShiftManager.SelectedShift.ServersNotOnShift.Remove(server);
                 
-                ServerHistoryControl newServerControl = new ServerHistoryControl(server, dateOnlySelected.AddDays(-30), dateOnlySelected, ShiftManager.IsAM, true);
+                ServerHistoryControl newServerControl = new ServerHistoryControl(server, dateOnlySelected.AddDays(-30), 
+                    dateOnlySelected, ShiftManager.IsAM, false, 300);
                 newServerControl.Margin = new Padding(5);
                 newServerControl.Click += ServerControl_Click;
                 //ImageSetter.SetShiftControlImages(newServerControl);

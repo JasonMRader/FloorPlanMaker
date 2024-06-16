@@ -97,6 +97,7 @@
             // btnServer
             // 
             btnServer.BackColor = Color.FromArgb(100, 130, 180);
+            btnServer.Dock = DockStyle.Top;
             btnServer.FlatAppearance.BorderSize = 0;
             btnServer.FlatStyle = FlatStyle.Flat;
             btnServer.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
