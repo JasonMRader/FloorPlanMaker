@@ -57,11 +57,13 @@
             lblComboLabel = new Label();
             btnIndividualStats = new Button();
             cboServerSelect = new ComboBox();
+            numericUpDown1 = new NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)dgvDiningAreas).BeginInit();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
             panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
             SuspendLayout();
             // 
             // dgvDiningAreas
@@ -319,18 +321,19 @@
             // 
             // panel4
             // 
+            panel4.Controls.Add(numericUpDown1);
             panel4.Controls.Add(btnIndividualServerShifts);
             panel4.Controls.Add(lblComboLabel);
             panel4.Controls.Add(btnIndividualStats);
             panel4.Controls.Add(cboServerSelect);
-            panel4.Location = new Point(760, 27);
+            panel4.Location = new Point(760, 9);
             panel4.Name = "panel4";
-            panel4.Size = new Size(287, 146);
+            panel4.Size = new Size(287, 164);
             panel4.TabIndex = 8;
             // 
             // btnIndividualServerShifts
             // 
-            btnIndividualServerShifts.Location = new Point(13, 100);
+            btnIndividualServerShifts.Location = new Point(13, 85);
             btnIndividualServerShifts.Name = "btnIndividualServerShifts";
             btnIndividualServerShifts.Size = new Size(259, 23);
             btnIndividualServerShifts.TabIndex = 3;
@@ -342,7 +345,7 @@
             // lblComboLabel
             // 
             lblComboLabel.AutoSize = true;
-            lblComboLabel.Location = new Point(13, 18);
+            lblComboLabel.Location = new Point(13, 3);
             lblComboLabel.Name = "lblComboLabel";
             lblComboLabel.Size = new Size(74, 15);
             lblComboLabel.TabIndex = 2;
@@ -350,7 +353,7 @@
             // 
             // btnIndividualStats
             // 
-            btnIndividualStats.Location = new Point(13, 71);
+            btnIndividualStats.Location = new Point(13, 56);
             btnIndividualStats.Name = "btnIndividualStats";
             btnIndividualStats.Size = new Size(259, 23);
             btnIndividualStats.TabIndex = 1;
@@ -361,10 +364,17 @@
             // cboServerSelect
             // 
             cboServerSelect.FormattingEnabled = true;
-            cboServerSelect.Location = new Point(13, 36);
+            cboServerSelect.Location = new Point(13, 21);
             cboServerSelect.Name = "cboServerSelect";
             cboServerSelect.Size = new Size(259, 23);
             cboServerSelect.TabIndex = 0;
+            // 
+            // numericUpDown1
+            // 
+            numericUpDown1.Location = new Point(52, 123);
+            numericUpDown1.Name = "numericUpDown1";
+            numericUpDown1.Size = new Size(120, 23);
+            numericUpDown1.TabIndex = 4;
             // 
             // frmSalesStats
             // 
@@ -393,6 +403,7 @@
             panel3.ResumeLayout(false);
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -427,5 +438,6 @@
         private Label lblComboLabel;
         private Button btnIndividualStats;
         private Button btnIndividualServerShifts;
+        private NumericUpDown numericUpDown1;
     }
 }

@@ -595,7 +595,7 @@ namespace FloorPlanMaker
                 else
                 {
                     SqliteDataAccess.UpdateTemplateLines(template.ID, _lines);
-                    MessageBox.Show("Template Saved!");
+                    MessageBox.Show("Lines updated");
                 }
             }
             else

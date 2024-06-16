@@ -184,6 +184,11 @@ namespace FloorplanClassLibrary
             filteredShifts.Clear();
             filteredShifts = weekdayFilteredShifts;
         }
+        public void FilterByMaxNumberOfShifts(int numberOfShifts)
+        {
+            filteredShifts = filteredShifts.OrderByDescending(s => s.Date).ToList();
+            filteredShifts = filteredShifts.Take(numberOfShifts).ToList();
+        }
         public void PopulateShiftTables()
         {
             Dictionary<EmployeeShift, string> shiftTables = new Dictionary<EmployeeShift, string>();

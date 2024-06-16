@@ -668,6 +668,7 @@ namespace FloorPlanMakerUI
             if (rdoBoth.Checked)
             {
                 serverShiftHistory = new ServerShiftHistory(serverSelected, dateOnlyStart, dateOnlyEnd, FilteredDaysOfWeek);
+                serverShiftHistory.FilterByMaxNumberOfShifts((int)numericUpDown1.Value);
             }
             else
             {
