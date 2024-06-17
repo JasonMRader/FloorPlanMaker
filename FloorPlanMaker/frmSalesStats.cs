@@ -23,6 +23,7 @@ namespace FloorPlanMakerUI
         private EmployeeManager employeeManager = new EmployeeManager();
         private DateOnly dateOnlyStart = new DateOnly();
         private DateOnly dateOnlyEnd = new DateOnly();
+        
 
 
         private List<DayOfWeek> FilteredDaysOfWeek = new List<DayOfWeek>
@@ -78,11 +79,7 @@ namespace FloorPlanMakerUI
 
             foreach (var date in dates)
             {
-                var salesData = new SalesData
-                {
-                    Date = date,
-                    SalesByDiningArea = new Dictionary<string, float>()
-                };
+                var salesData = new SalesData(date);                
 
                 float totalSalesForDate = 0;
                 DateOnly dateOnly = new DateOnly(date.Year, date.Month, date.Day);

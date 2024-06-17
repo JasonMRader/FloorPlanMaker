@@ -2065,12 +2065,12 @@ namespace FloorplanClassLibrary
         }
 
 
-        public static List<WeatherData> LoadWeatherDataByDate(DateOnly date)
+        public static WeatherData LoadWeatherDataByDate(DateOnly date)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                return cnn.Query<WeatherData>("SELECT * FROM WeatherData WHERE Date = @Date",
-                                              new { Date = date.ToString("yyyy-MM-dd") }).ToList();
+                return cnn.QuerySingle<WeatherData>("SELECT * FROM WeatherData WHERE Date = @Date",
+                                              new { Date = date.ToString("yyyy-MM-dd") });
             }
         }
 

@@ -9,10 +9,16 @@ namespace FloorplanClassLibrary
 {
     public class SalesData
     {
+        public SalesData() { }
+        public SalesData(DateTime dateTime)
+        {
+            this.Date = dateTime;
+            this.WeatherData = SqliteDataAccess.LoadWeatherDataByDate(DateOnly);
+        }
         private TableSalesManager tableSalesManager { get; set; }
         public DateTime Date { get; set; }
         public DateOnly DateOnly => DateOnly.FromDateTime(Date);
-        public Dictionary<string, float> SalesByDiningArea { get; set; }
+        public Dictionary<string, float> SalesByDiningArea { get; set; } = new Dictionary<string, float>();
         public float TotalSales { get; set; }
         public string DateDisplay()
         {
@@ -23,7 +29,7 @@ namespace FloorplanClassLibrary
             }
             return Date.ToString("ddd, M/d");
         }
-        public WeatherData WeatherData { get; set; }
+        public WeatherData WeatherData { get; set; } = new WeatherData();
 
     }
 }
