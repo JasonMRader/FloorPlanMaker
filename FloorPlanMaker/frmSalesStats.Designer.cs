@@ -431,6 +431,7 @@
             cbJul.TabIndex = 0;
             cbJul.Text = "Jul";
             cbJul.UseVisualStyleBackColor = true;
+            cbJul.CheckedChanged += cbJul_CheckedChanged;
             // 
             // cbDec
             // 
@@ -443,6 +444,7 @@
             cbDec.TabIndex = 0;
             cbDec.Text = "Dec";
             cbDec.UseVisualStyleBackColor = true;
+            cbDec.CheckedChanged += cbDec_CheckedChanged;
             // 
             // cbJun
             // 
@@ -455,6 +457,7 @@
             cbJun.TabIndex = 0;
             cbJun.Text = "Jun";
             cbJun.UseVisualStyleBackColor = true;
+            cbJun.CheckedChanged += cbJun_CheckedChanged;
             // 
             // cbNov
             // 
@@ -467,6 +470,7 @@
             cbNov.TabIndex = 0;
             cbNov.Text = "Nov";
             cbNov.UseVisualStyleBackColor = true;
+            cbNov.CheckedChanged += cbNov_CheckedChanged;
             // 
             // cbMay
             // 
@@ -479,6 +483,7 @@
             cbMay.TabIndex = 0;
             cbMay.Text = "May";
             cbMay.UseVisualStyleBackColor = true;
+            cbMay.CheckedChanged += cbMay_CheckedChanged;
             // 
             // cbOct
             // 
@@ -491,6 +496,7 @@
             cbOct.TabIndex = 0;
             cbOct.Text = "Oct";
             cbOct.UseVisualStyleBackColor = true;
+            cbOct.CheckedChanged += cbOct_CheckedChanged;
             // 
             // cbSep
             // 
@@ -503,6 +509,7 @@
             cbSep.TabIndex = 0;
             cbSep.Text = "Sep";
             cbSep.UseVisualStyleBackColor = true;
+            cbSep.CheckedChanged += cbSep_CheckedChanged;
             // 
             // cbApr
             // 
@@ -515,6 +522,7 @@
             cbApr.TabIndex = 0;
             cbApr.Text = "Apr";
             cbApr.UseVisualStyleBackColor = true;
+            cbApr.CheckedChanged += cbApr_CheckedChanged;
             // 
             // cbAug
             // 
@@ -527,6 +535,7 @@
             cbAug.TabIndex = 0;
             cbAug.Text = "Aug";
             cbAug.UseVisualStyleBackColor = true;
+            cbAug.CheckedChanged += cbAug_CheckedChanged;
             // 
             // cbMar
             // 
@@ -539,6 +548,7 @@
             cbMar.TabIndex = 0;
             cbMar.Text = "Mar";
             cbMar.UseVisualStyleBackColor = true;
+            cbMar.CheckedChanged += cbMar_CheckedChanged;
             // 
             // cbFeb
             // 
@@ -551,6 +561,7 @@
             cbFeb.TabIndex = 0;
             cbFeb.Text = "Feb";
             cbFeb.UseVisualStyleBackColor = true;
+            cbFeb.CheckedChanged += cbFeb_CheckedChanged;
             // 
             // cbJan
             // 
@@ -563,6 +574,7 @@
             cbJan.TabIndex = 0;
             cbJan.Text = "Jan";
             cbJan.UseVisualStyleBackColor = true;
+            cbJan.CheckedChanged += cbJan_CheckedChanged;
             // 
             // nudLowTemp
             // 
@@ -572,6 +584,7 @@
             nudLowTemp.Size = new Size(60, 23);
             nudLowTemp.TabIndex = 9;
             nudLowTemp.Value = new decimal(new int[] { 32, 0, 0, 0 });
+            nudLowTemp.ValueChanged += nudLowTemp_ValueChanged;
             // 
             // cbFilterByTempRange
             // 
@@ -592,6 +605,7 @@
             nudHiTemp.Size = new Size(60, 23);
             nudHiTemp.TabIndex = 9;
             nudHiTemp.Value = new decimal(new int[] { 85, 0, 0, 0 });
+            nudHiTemp.ValueChanged += nudHiTemp_ValueChanged;
             // 
             // lblTo
             // 

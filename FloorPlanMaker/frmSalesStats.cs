@@ -23,22 +23,31 @@ namespace FloorPlanMakerUI
         private EmployeeManager employeeManager = new EmployeeManager();
         private DateOnly dateOnlyStart = new DateOnly();
         private DateOnly dateOnlyEnd = new DateOnly();
-        
+        private List<WeatherData> allWeatherData = new List<WeatherData>();
+        private int MinFeelsLikeHi = -150;
+        private int MaxFeelsLikeHi = 150;
+
 
 
         private List<DayOfWeek> FilteredDaysOfWeek = new List<DayOfWeek>
-             {
-                 DayOfWeek.Monday,
+        {
+            DayOfWeek.Monday,
             DayOfWeek.Tuesday,
             DayOfWeek.Wednesday,
             DayOfWeek.Thursday,
             DayOfWeek.Friday,
             DayOfWeek.Saturday,
             DayOfWeek.Sunday
-            };
+        };
+        private List<int> FilteredMonths = new List<int>
+        {
+           1,2,3,4,5,6,7,8,9,10,11,12
+        };
+
         private void frmSalesStats_Load(object sender, EventArgs e)
         {
             UITheme.FormatCTAButton(btnUpdate);
+            allWeatherData = SqliteDataAccess.LoadAllWeatherData();
             dtpEndDate.Value = DateTime.Now.AddDays(-1);
             dtpStartDate.Value = DateTime.Now.AddDays(-8);
             employeeManager.LoadShiftsForActiveServers();
@@ -49,16 +58,22 @@ namespace FloorPlanMakerUI
             //    history.Add(shiftHistory);
             //}
         }
-        private List<DateTime> GetDateRange(DateTime startDate, DateTime endDate)
+        public List<DateTime> GetFilteredDates(DateTime startDate, DateTime endDate)
         {
             List<DateTime> dateList = new List<DateTime>();
 
             if (startDate <= endDate)
             {
                 DateTime currentDate = startDate;
-                while (currentDate <= endDate.AddDays(1))
+                while (currentDate <= endDate)
                 {
-                    if (FilteredDaysOfWeek.Contains(currentDate.DayOfWeek))
+                    var weatherDataForDate = allWeatherData.FirstOrDefault(wd => wd.DateOnly == DateOnly.FromDateTime(currentDate));
+
+                    if (weatherDataForDate != null &&
+                        FilteredDaysOfWeek.Contains(currentDate.DayOfWeek) &&
+                        FilteredMonths.Contains(currentDate.Month) &&
+                        weatherDataForDate.FeelsLikeHi >= MinFeelsLikeHi &&
+                        weatherDataForDate.FeelsLikeHi <= MaxFeelsLikeHi)
                     {
                         dateList.Add(currentDate);
                     }
@@ -79,7 +94,7 @@ namespace FloorPlanMakerUI
 
             foreach (var date in dates)
             {
-                var salesData = new SalesData(date);                
+                var salesData = new SalesData(date);
 
                 float totalSalesForDate = 0;
                 DateOnly dateOnly = new DateOnly(date.Year, date.Month, date.Day);
@@ -202,7 +217,7 @@ namespace FloorPlanMakerUI
                     row.Add(salesData.SalesByDiningArea[diningArea.Name]);
                 }
                 row.Add(salesData.TotalSales);
-                
+
                 row.Add(salesData.WeatherData.FeelsLikeHi);
 
                 dgvDiningAreas.Rows.Add(row.ToArray());
@@ -343,14 +358,14 @@ namespace FloorPlanMakerUI
         {
             if (rdoDiningAreaSales.Checked)
             {
-                List<DateTime> dateList = GetDateRange(dtpStartDate.Value, dtpEndDate.Value);
+                List<DateTime> dateList = GetFilteredDates(dtpStartDate.Value, dtpEndDate.Value);
                 List<SalesData> salesData = GetSalesData(areaManager.DiningAreas, dateList);
-                //Dictionary<DateOnly, int> weatherData = GetFeelsLikeHiData(dateList);
+
                 PopulateDGVForAreaSales(dgvDiningAreas, areaManager.DiningAreas, salesData);
             }
             if (rdoServerShifts.Checked)
             {
-                List<DateTime> dateList = GetDateRange(dtpStartDate.Value, dtpEndDate.Value);
+                List<DateTime> dateList = GetFilteredDates(dtpStartDate.Value, dtpEndDate.Value);
                 List<ServerShiftHistory> serverHistory = GetServerHistory(employeeManager.ActiveServers);
                 PopulateDGVForServerHistory(serverHistory);
             }
@@ -748,6 +763,248 @@ namespace FloorPlanMakerUI
                 cbDec.Checked = false;
                 cbAllMonths.Text = "All Months";
             }
+        }
+
+        private void cbJan_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!cbJan.Checked)
+            {
+                if (FilteredMonths.Contains(1))
+                {
+                    FilteredMonths.Remove(1);
+                }
+            }
+            if (cbJan.Checked)
+            {
+                if (!FilteredMonths.Contains(1))
+                {
+                    FilteredMonths.Add(1);
+                }
+            }
+        }
+
+        private void cbFeb_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!cbFeb.Checked)
+            {
+                if (FilteredMonths.Contains(2))
+                {
+                    FilteredMonths.Remove(2);
+                }
+            }
+            if (cbFeb.Checked)
+            {
+                if (!FilteredMonths.Contains(2))
+                {
+                    FilteredMonths.Add(2);
+                }
+            }
+        }
+
+        private void cbMar_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!cbMar.Checked)
+            {
+                if (FilteredMonths.Contains(3))
+                {
+                    FilteredMonths.Remove(3);
+                }
+            }
+            if (cbMar.Checked)
+            {
+                if (!FilteredMonths.Contains(3))
+                {
+                    FilteredMonths.Add(3);
+                }
+            }
+        }
+
+        private void cbApr_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!cbApr.Checked)
+            {
+                if (FilteredMonths.Contains(4))
+                {
+                    FilteredMonths.Remove(4);
+                }
+            }
+            if (cbApr.Checked)
+            {
+                if (!FilteredMonths.Contains(4))
+                {
+                    FilteredMonths.Add(4);
+                }
+            }
+        }
+
+        private void cbMay_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!cbMay.Checked)
+            {
+                if (FilteredMonths.Contains(5))
+                {
+                    FilteredMonths.Remove(5);
+                }
+            }
+            if (cbMay.Checked)
+            {
+                if (!FilteredMonths.Contains(5))
+                {
+                    FilteredMonths.Add(5);
+                }
+            }
+        }
+
+        private void cbJun_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!cbJun.Checked)
+            {
+                if (FilteredMonths.Contains(6))
+                {
+                    FilteredMonths.Remove(6);
+                }
+            }
+            if (cbJun.Checked)
+            {
+                if (!FilteredMonths.Contains(6))
+                {
+                    FilteredMonths.Add(6);
+                }
+            }
+        }
+
+        private void cbJul_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!cbJul.Checked)
+            {
+                if (FilteredMonths.Contains(7))
+                {
+                    FilteredMonths.Remove(7);
+                }
+            }
+            if (cbJul.Checked)
+            {
+                if (!FilteredMonths.Contains(7))
+                {
+                    FilteredMonths.Add(7);
+                }
+            }
+        }
+
+        private void cbAug_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!cbAug.Checked)
+            {
+                if (FilteredMonths.Contains(8))
+                {
+                    FilteredMonths.Remove(8);
+                }
+            }
+            if (cbAug.Checked)
+            {
+                if (!FilteredMonths.Contains(8))
+                {
+                    FilteredMonths.Add(8);
+                }
+            }
+        }
+
+        private void cbSep_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!cbSep.Checked)
+            {
+                if (FilteredMonths.Contains(9))
+                {
+                    FilteredMonths.Remove(9);
+                }
+            }
+            if (cbSep.Checked)
+            {
+                if (!FilteredMonths.Contains(9))
+                {
+                    FilteredMonths.Add(9);
+                }
+            }
+        }
+
+        private void cbOct_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!cbOct.Checked)
+            {
+                if (FilteredMonths.Contains(10))
+                {
+                    FilteredMonths.Remove(10);
+                }
+            }
+            if (cbOct.Checked)
+            {
+                if (!FilteredMonths.Contains(10))
+                {
+                    FilteredMonths.Add(10);
+                }
+            }
+        }
+
+        private void cbNov_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!cbNov.Checked)
+            {
+                if (FilteredMonths.Contains(11))
+                {
+                    FilteredMonths.Remove(11);
+                }
+            }
+            if (cbNov.Checked)
+            {
+                if (!FilteredMonths.Contains(11))
+                {
+                    FilteredMonths.Add(11);
+                }
+            }
+        }
+
+        private void cbDec_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!cbDec.Checked)
+            {
+                if (FilteredMonths.Contains(12))
+                {
+                    FilteredMonths.Remove(12);
+                }
+            }
+            if (cbDec.Checked)
+            {
+                if (!FilteredMonths.Contains(12))
+                {
+                    FilteredMonths.Add(12);
+                }
+            }
+        }
+
+        private void nudLowTemp_ValueChanged(object sender, EventArgs e)
+        {
+            if(cbFilterByTempRange.Checked)
+            {
+                MinFeelsLikeHi = (int)nudLowTemp.Value;
+            }
+            else
+            {
+                MinFeelsLikeHi = -150;
+            }
+            
+        }
+
+        private void nudHiTemp_ValueChanged(object sender, EventArgs e)
+        {
+            if (cbFilterByTempRange.Checked)
+            {
+                MaxFeelsLikeHi = ((int)nudHiTemp.Value);
+            }
+            else
+            {
+                MaxFeelsLikeHi = 150;
+            }
+               
         }
     }
 }

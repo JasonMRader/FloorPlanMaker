@@ -2073,6 +2073,14 @@ namespace FloorplanClassLibrary
                                               new { Date = date.ToString("yyyy-MM-dd") });
             }
         }
+        public static List<WeatherData> LoadAllWeatherData()
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                return cnn.Query<WeatherData>("SELECT * FROM WeatherData").ToList();
+                                             //, new { Date = date.ToString("yyyy-MM-dd") }).ToList();
+            }
+        }
 
         public static List<WeatherData> LoadWeatherDataByDateRange(DateOnly startDate, DateOnly endDate)
         {
