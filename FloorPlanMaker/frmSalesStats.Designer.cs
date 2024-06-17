@@ -57,20 +57,41 @@
             lblComboLabel = new Label();
             btnIndividualStats = new Button();
             cboServerSelect = new ComboBox();
+            panel5 = new Panel();
+            cbAllMonths = new CheckBox();
+            cbJul = new CheckBox();
+            cbDec = new CheckBox();
+            cbJun = new CheckBox();
+            cbNov = new CheckBox();
+            cbMay = new CheckBox();
+            cbOct = new CheckBox();
+            cbSep = new CheckBox();
+            cbApr = new CheckBox();
+            cbAug = new CheckBox();
+            cbMar = new CheckBox();
+            cbFeb = new CheckBox();
+            cbJan = new CheckBox();
+            nudLowTemp = new NumericUpDown();
+            cbFilterByTempRange = new CheckBox();
+            nudHiTemp = new NumericUpDown();
+            lblTo = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvDiningAreas).BeginInit();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
             panel4.SuspendLayout();
+            panel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)nudLowTemp).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudHiTemp).BeginInit();
             SuspendLayout();
             // 
             // dgvDiningAreas
             // 
             dgvDiningAreas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvDiningAreas.Location = new Point(12, 179);
+            dgvDiningAreas.Location = new Point(12, 247);
             dgvDiningAreas.Name = "dgvDiningAreas";
             dgvDiningAreas.RowTemplate.Height = 25;
-            dgvDiningAreas.Size = new Size(1035, 683);
+            dgvDiningAreas.Size = new Size(1035, 615);
             dgvDiningAreas.TabIndex = 0;
             // 
             // rdoDiningAreaSales
@@ -99,9 +120,9 @@
             // btnUpdate
             // 
             btnUpdate.FlatStyle = FlatStyle.Flat;
-            btnUpdate.Location = new Point(30, 138);
+            btnUpdate.Location = new Point(12, 206);
             btnUpdate.Name = "btnUpdate";
-            btnUpdate.Size = new Size(688, 35);
+            btnUpdate.Size = new Size(737, 35);
             btnUpdate.TabIndex = 2;
             btnUpdate.Text = "Update";
             btnUpdate.UseVisualStyleBackColor = true;
@@ -222,7 +243,7 @@
             cbAllWeekdays.Name = "cbAllWeekdays";
             cbAllWeekdays.Size = new Size(84, 25);
             cbAllWeekdays.TabIndex = 0;
-            cbAllWeekdays.Text = "Uncheck All";
+            cbAllWeekdays.Text = "No Days";
             cbAllWeekdays.UseVisualStyleBackColor = true;
             cbAllWeekdays.CheckedChanged += cbAllWeekdays_CheckedChanged;
             // 
@@ -366,12 +387,233 @@
             cboServerSelect.Size = new Size(259, 23);
             cboServerSelect.TabIndex = 0;
             // 
+            // panel5
+            // 
+            panel5.Controls.Add(cbAllMonths);
+            panel5.Controls.Add(cbJul);
+            panel5.Controls.Add(cbDec);
+            panel5.Controls.Add(cbJun);
+            panel5.Controls.Add(cbNov);
+            panel5.Controls.Add(cbMay);
+            panel5.Controls.Add(cbOct);
+            panel5.Controls.Add(cbSep);
+            panel5.Controls.Add(cbApr);
+            panel5.Controls.Add(cbAug);
+            panel5.Controls.Add(cbMar);
+            panel5.Controls.Add(cbFeb);
+            panel5.Controls.Add(cbJan);
+            panel5.Location = new Point(30, 129);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(724, 44);
+            panel5.TabIndex = 7;
+            // 
+            // cbAllMonths
+            // 
+            cbAllMonths.Appearance = Appearance.Button;
+            cbAllMonths.Checked = true;
+            cbAllMonths.CheckState = CheckState.Checked;
+            cbAllMonths.Location = new Point(635, 14);
+            cbAllMonths.Name = "cbAllMonths";
+            cbAllMonths.Size = new Size(84, 25);
+            cbAllMonths.TabIndex = 0;
+            cbAllMonths.Text = "No Months";
+            cbAllMonths.UseVisualStyleBackColor = true;
+            cbAllMonths.CheckedChanged += cbAllMonths_CheckedChanged;
+            // 
+            // cbJul
+            // 
+            cbJul.Appearance = Appearance.Button;
+            cbJul.Checked = true;
+            cbJul.CheckState = CheckState.Checked;
+            cbJul.Location = new Point(315, 14);
+            cbJul.Name = "cbJul";
+            cbJul.Size = new Size(46, 25);
+            cbJul.TabIndex = 0;
+            cbJul.Text = "Jul";
+            cbJul.UseVisualStyleBackColor = true;
+            // 
+            // cbDec
+            // 
+            cbDec.Appearance = Appearance.Button;
+            cbDec.Checked = true;
+            cbDec.CheckState = CheckState.Checked;
+            cbDec.Location = new Point(574, 14);
+            cbDec.Name = "cbDec";
+            cbDec.Size = new Size(46, 25);
+            cbDec.TabIndex = 0;
+            cbDec.Text = "Dec";
+            cbDec.UseVisualStyleBackColor = true;
+            // 
+            // cbJun
+            // 
+            cbJun.Appearance = Appearance.Button;
+            cbJun.Checked = true;
+            cbJun.CheckState = CheckState.Checked;
+            cbJun.Location = new Point(263, 14);
+            cbJun.Name = "cbJun";
+            cbJun.Size = new Size(46, 25);
+            cbJun.TabIndex = 0;
+            cbJun.Text = "Jun";
+            cbJun.UseVisualStyleBackColor = true;
+            // 
+            // cbNov
+            // 
+            cbNov.Appearance = Appearance.Button;
+            cbNov.Checked = true;
+            cbNov.CheckState = CheckState.Checked;
+            cbNov.Location = new Point(522, 14);
+            cbNov.Name = "cbNov";
+            cbNov.Size = new Size(46, 25);
+            cbNov.TabIndex = 0;
+            cbNov.Text = "Nov";
+            cbNov.UseVisualStyleBackColor = true;
+            // 
+            // cbMay
+            // 
+            cbMay.Appearance = Appearance.Button;
+            cbMay.Checked = true;
+            cbMay.CheckState = CheckState.Checked;
+            cbMay.Location = new Point(211, 14);
+            cbMay.Name = "cbMay";
+            cbMay.Size = new Size(46, 25);
+            cbMay.TabIndex = 0;
+            cbMay.Text = "May";
+            cbMay.UseVisualStyleBackColor = true;
+            // 
+            // cbOct
+            // 
+            cbOct.Appearance = Appearance.Button;
+            cbOct.Checked = true;
+            cbOct.CheckState = CheckState.Checked;
+            cbOct.Location = new Point(470, 14);
+            cbOct.Name = "cbOct";
+            cbOct.Size = new Size(46, 25);
+            cbOct.TabIndex = 0;
+            cbOct.Text = "Oct";
+            cbOct.UseVisualStyleBackColor = true;
+            // 
+            // cbSep
+            // 
+            cbSep.Appearance = Appearance.Button;
+            cbSep.Checked = true;
+            cbSep.CheckState = CheckState.Checked;
+            cbSep.Location = new Point(418, 14);
+            cbSep.Name = "cbSep";
+            cbSep.Size = new Size(46, 25);
+            cbSep.TabIndex = 0;
+            cbSep.Text = "Sep";
+            cbSep.UseVisualStyleBackColor = true;
+            // 
+            // cbApr
+            // 
+            cbApr.Appearance = Appearance.Button;
+            cbApr.Checked = true;
+            cbApr.CheckState = CheckState.Checked;
+            cbApr.Location = new Point(159, 14);
+            cbApr.Name = "cbApr";
+            cbApr.Size = new Size(46, 25);
+            cbApr.TabIndex = 0;
+            cbApr.Text = "Apr";
+            cbApr.UseVisualStyleBackColor = true;
+            // 
+            // cbAug
+            // 
+            cbAug.Appearance = Appearance.Button;
+            cbAug.Checked = true;
+            cbAug.CheckState = CheckState.Checked;
+            cbAug.Location = new Point(366, 14);
+            cbAug.Name = "cbAug";
+            cbAug.Size = new Size(46, 25);
+            cbAug.TabIndex = 0;
+            cbAug.Text = "Aug";
+            cbAug.UseVisualStyleBackColor = true;
+            // 
+            // cbMar
+            // 
+            cbMar.Appearance = Appearance.Button;
+            cbMar.Checked = true;
+            cbMar.CheckState = CheckState.Checked;
+            cbMar.Location = new Point(107, 14);
+            cbMar.Name = "cbMar";
+            cbMar.Size = new Size(46, 25);
+            cbMar.TabIndex = 0;
+            cbMar.Text = "Mar";
+            cbMar.UseVisualStyleBackColor = true;
+            // 
+            // cbFeb
+            // 
+            cbFeb.Appearance = Appearance.Button;
+            cbFeb.Checked = true;
+            cbFeb.CheckState = CheckState.Checked;
+            cbFeb.Location = new Point(55, 14);
+            cbFeb.Name = "cbFeb";
+            cbFeb.Size = new Size(46, 25);
+            cbFeb.TabIndex = 0;
+            cbFeb.Text = "Feb";
+            cbFeb.UseVisualStyleBackColor = true;
+            // 
+            // cbJan
+            // 
+            cbJan.Appearance = Appearance.Button;
+            cbJan.Checked = true;
+            cbJan.CheckState = CheckState.Checked;
+            cbJan.Location = new Point(3, 14);
+            cbJan.Name = "cbJan";
+            cbJan.Size = new Size(46, 25);
+            cbJan.TabIndex = 0;
+            cbJan.Text = "Jan";
+            cbJan.UseVisualStyleBackColor = true;
+            // 
+            // nudLowTemp
+            // 
+            nudLowTemp.Enabled = false;
+            nudLowTemp.Location = new Point(521, 100);
+            nudLowTemp.Name = "nudLowTemp";
+            nudLowTemp.Size = new Size(60, 23);
+            nudLowTemp.TabIndex = 9;
+            nudLowTemp.Value = new decimal(new int[] { 32, 0, 0, 0 });
+            // 
+            // cbFilterByTempRange
+            // 
+            cbFilterByTempRange.AutoSize = true;
+            cbFilterByTempRange.Location = new Point(521, 65);
+            cbFilterByTempRange.Name = "cbFilterByTempRange";
+            cbFilterByTempRange.Size = new Size(137, 19);
+            cbFilterByTempRange.TabIndex = 10;
+            cbFilterByTempRange.Text = "Filter By Temperature";
+            cbFilterByTempRange.UseVisualStyleBackColor = true;
+            cbFilterByTempRange.CheckedChanged += cbFilterByTempRange_CheckedChanged;
+            // 
+            // nudHiTemp
+            // 
+            nudHiTemp.Enabled = false;
+            nudHiTemp.Location = new Point(618, 100);
+            nudHiTemp.Name = "nudHiTemp";
+            nudHiTemp.Size = new Size(60, 23);
+            nudHiTemp.TabIndex = 9;
+            nudHiTemp.Value = new decimal(new int[] { 85, 0, 0, 0 });
+            // 
+            // lblTo
+            // 
+            lblTo.AutoSize = true;
+            lblTo.Enabled = false;
+            lblTo.Location = new Point(587, 106);
+            lblTo.Name = "lblTo";
+            lblTo.Size = new Size(21, 15);
+            lblTo.TabIndex = 11;
+            lblTo.Text = "to:";
+            // 
             // frmSalesStats
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1059, 874);
+            Controls.Add(lblTo);
+            Controls.Add(nudHiTemp);
+            Controls.Add(cbFilterByTempRange);
+            Controls.Add(nudLowTemp);
             Controls.Add(panel4);
+            Controls.Add(panel5);
             Controls.Add(panel3);
             Controls.Add(label2);
             Controls.Add(label1);
@@ -393,6 +635,9 @@
             panel3.ResumeLayout(false);
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
+            panel5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)nudLowTemp).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudHiTemp).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -427,5 +672,23 @@
         private Label lblComboLabel;
         private Button btnIndividualStats;
         private Button btnIndividualServerShifts;
+        private Panel panel5;
+        private CheckBox cbAllMonths;
+        private CheckBox cbJul;
+        private CheckBox cbDec;
+        private CheckBox cbJun;
+        private CheckBox cbNov;
+        private CheckBox cbMay;
+        private CheckBox cbOct;
+        private CheckBox cbSep;
+        private CheckBox cbApr;
+        private CheckBox cbAug;
+        private CheckBox cbMar;
+        private CheckBox cbFeb;
+        private CheckBox cbJan;
+        private NumericUpDown nudLowTemp;
+        private CheckBox cbFilterByTempRange;
+        private NumericUpDown nudHiTemp;
+        private Label lblTo;
     }
 }

@@ -23,5 +23,7 @@ namespace FloorplanClassLibrary
             }
             return Date.ToString("ddd, M/d");
         }
+        public WeatherData WeatherData { get; set; }
+
     }
 }

@@ -446,7 +446,7 @@ namespace FloorPlanMakerUI
                 cbFri.Checked = true;
                 cbSat.Checked = true;
                 cbSun.Checked = true;
-                cbAllWeekdays.Text = "Uncheck All";
+                cbAllWeekdays.Text = "No Days";
             }
             else
             {
@@ -457,7 +457,7 @@ namespace FloorPlanMakerUI
                 cbFri.Checked = false;
                 cbSat.Checked = false;
                 cbSun.Checked = false;
-                cbAllWeekdays.Text = "Check All";
+                cbAllWeekdays.Text = "All Days";
             }
 
         }
@@ -699,6 +699,58 @@ namespace FloorPlanMakerUI
 
 
                 dgvDiningAreas.Rows.Add(row.ToArray());
+            }
+        }
+
+        private void cbFilterByTempRange_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbFilterByTempRange.Checked)
+            {
+                nudHiTemp.Enabled = true;
+                nudLowTemp.Enabled = true;
+                lblTo.Enabled = true;
+            }
+            else
+            {
+                nudHiTemp.Enabled = false;
+                nudLowTemp.Enabled = false;
+                lblTo.Enabled = false;
+            }
+        }
+
+        private void cbAllMonths_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbAllMonths.Checked)
+            {
+                cbJan.Checked = true;
+                cbFeb.Checked = true;
+                cbMar.Checked = true;
+                cbApr.Checked = true;
+                cbMay.Checked = true;
+                cbJun.Checked = true;
+                cbJul.Checked = true;
+                cbAug.Checked = true;
+                cbSep.Checked = true;
+                cbOct.Checked = true;
+                cbNov.Checked = true;
+                cbDec.Checked = true;
+                cbAllMonths.Text = "No Months";
+            }
+            if (!cbAllMonths.Checked)
+            {
+                cbJan.Checked = false;
+                cbFeb.Checked = false;
+                cbMar.Checked = false;
+                cbApr.Checked = false;
+                cbMay.Checked = false;
+                cbJun.Checked = false;
+                cbJul.Checked = false;
+                cbAug.Checked = false;
+                cbSep.Checked = false;
+                cbOct.Checked = false;
+                cbNov.Checked = false;
+                cbDec.Checked = false;
+                cbAllMonths.Text = "All Months";
             }
         }
     }
