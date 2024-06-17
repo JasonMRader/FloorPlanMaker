@@ -55,7 +55,7 @@ namespace FloorPlanMakerUI
             if (startDate <= endDate)
             {
                 DateTime currentDate = startDate;
-                while (currentDate <= endDate)
+                while (currentDate <= endDate.AddDays(1))
                 {
                     if (FilteredDaysOfWeek.Contains(currentDate.DayOfWeek))
                     {
