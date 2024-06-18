@@ -20,7 +20,7 @@ namespace FloorplanClassLibrary
             this.DiningArea = diningArea;
             this.Date = date;
             this.IsLunch = isLunch;
-            this.ServerCount = serverCount;
+            
             this.SectionCount = sectionCount;
             this.SectionServerMap = new Dictionary<Section, List<Server>>();
             
@@ -38,7 +38,7 @@ namespace FloorplanClassLibrary
         {
             this.DiningArea = template.DiningArea;
             
-            this.ServerCount = template.ServerCount;
+            
             this.floorplanLines = template.floorplanLines;
             SectionServerMap = new Dictionary<Section, List<Server>>();
             CopyTemplateSections(template.Sections);
@@ -170,28 +170,30 @@ namespace FloorplanClassLibrary
         {
             get
             {
-                var serversFromSections = Sections.SelectMany(s =>
-                {
-                    // Create a list combining Server and ServerTeam
-                    var combinedServers = new List<Server>();
-                   
-                    if (s.ServerTeam != null)
+                var serversFromSections = Sections
+                    .Where(s => !s.IsPickUp) 
+                    .SelectMany(s =>
                     {
-                        combinedServers.AddRange(s.ServerTeam);
-                    }
+                        var combinedServers = new List<Server>();
 
-                    return combinedServers;
-                })
+                        if (s.ServerTeam != null)
+                        {
+                            combinedServers.AddRange(s.ServerTeam);
+                        }
+
+                        return combinedServers;
+                    })
                     .Where(s => s != null)
                     .Distinct()
                     .ToList();
-
-                // Concatenate with UnassignedServers and ensure uniqueness
-                return ServersWithoutSection.Concat(serversFromSections)
-                                            .Distinct()
-                                            .ToList();
+               
+                return ServersWithoutSection
+                    .Concat(serversFromSections)
+                    .Distinct()
+                    .ToList();
             }
         }
+
         public List<Server> ServersWithoutSection 
         { 
             get
@@ -454,19 +456,23 @@ namespace FloorplanClassLibrary
            
         }
 
-       
-        private int _serverCount = 0;
+
         public int ServerCount
         {
-            get { return _serverCount; }
-            set
+            get
             {
-                if (value < 0) // Optional check if you don't want negative values
-                    _serverCount = 0;
-                else
-                    _serverCount = value;
+                int count = 0;
+                foreach (Section section in this._sections)
+                {
+                    if (!section.IsPickUp)
+                    {
+                        count += section.ServerCount;
+                    }
+                }
+                return count;
             }
         }
+        
 
         private int _sectionCount = 0;
         public int SectionCount
