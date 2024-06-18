@@ -36,6 +36,15 @@ namespace FloorPlanMaker
             this.floorplanManager = floorplanManager;
             this.form1Reference = form1Reference;
             this.area = diningArea;
+            if(floorplanManager.Floorplan != null)
+            {
+                serverCount = floorplanManager.Floorplan.ServerCount;
+            }
+            else
+            {
+                serverCount = 5;
+            }
+            
             floorplanManager.TemplateManager.serverCount = serverCount;
             floorplanManager.TemplateManager.DiningArea = diningArea;
             floorplanManager.UpdateTemplatesBasedOnFloorplan();

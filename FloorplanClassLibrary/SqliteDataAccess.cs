@@ -1189,7 +1189,11 @@ namespace FloorplanClassLibrary
                             new { SectionID = section.ID }
                         ).ToList());
                     }
+                    template.floorplanLines = cnn.Query<FloorplanLine>("SELECT StartX, StartY, EndX, EndY FROM FloorplanLines WHERE TemplateID = @TemplateID", new { TemplateID = template.ID })
+                      .Select(line => new FloorplanLine(new Point(line.StartX, line.StartY), new Point(line.EndX, line.EndY)))
+                      .ToList();
                 }
+               
 
                 return templates;
             }
@@ -1218,6 +1222,9 @@ namespace FloorplanClassLibrary
                     {
                         section.SetTableList(cnn.Query<Table>("SELECT t.* FROM DiningTable t JOIN SectionTables st ON t.ID = st.TableID WHERE st.SectionID = @SectionID", new { SectionID = section.ID }).ToList());
                     }
+                    template.floorplanLines = cnn.Query<FloorplanLine>("SELECT StartX, StartY, EndX, EndY FROM FloorplanLines WHERE TemplateID = @TemplateID", new { TemplateID = template.ID })
+                       .Select(line => new FloorplanLine(new Point(line.StartX, line.StartY), new Point(line.EndX, line.EndY)))
+                       .ToList();
                 }
 
                 return templates;

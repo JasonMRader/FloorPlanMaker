@@ -348,7 +348,7 @@ namespace FloorPlanMakerUI
                     BackColor = UITheme.CTAColor,
                     FlatStyle = FlatStyle.Flat,
                     Location = new Point(0, 0),
-                    Text = "Apply",
+                    Text = $"Apply ({template.ID})",
                     Size = new Size(268, 30),
                     Font = UITheme.MainFont,
                     Tag = template
