@@ -28,9 +28,16 @@ namespace FloorplanUserControlLibrary
             this.TabStop = false;
             this.Width = width;
             this.btnServer.Width = width;
+            pnlInfo.Width = width;
+        }
+        public void SetWidth(int width)
+        {
+            this.Width = width;
+            pnlInfo.Width = width;
         }
         private bool isLunch;
         private bool isCollapsible;
+        private FlowLayoutPanel displayPanel = new FlowLayoutPanel();
         public void SetIsCollapsible(bool collapsible)
         {
             isCollapsible = collapsible;
@@ -48,15 +55,29 @@ namespace FloorplanUserControlLibrary
         {
             if(isCollapsible)
             {
-                lblOutsidePercentage.AutoSize = false;
-                this.lblOutsidePercentage.Size = new System.Drawing.Size(this.Width, 50);
-                this.lblOutsidePercentage.Location = new System.Drawing.Point(0, 30);
+                
+                this.lblOutsidePercentage.Size = new System.Drawing.Size(this.Width, 20);
+                this.lblOutsidePercentage.Location = new System.Drawing.Point(0, 18);
+                lblDescription.Size = new Size(this.Width, 15);
+                lblDescription.Location = new Point(0, 3);
+
+                //lblDescription.Dock = DockStyle.Top;
+                //this.lblOutsidePercentage.Dock = DockStyle.Bottom;
+                flowShiftDisplay.Visible = false;
+                pnlInfo.BringToFront();
+                lblDescription.BringToFront();
+                lblOutsidePercentage.BringToFront();
             }
             else
             {
-                lblOutsidePercentage.AutoSize = true;
+                //this.lblDescription.Dock = DockStyle.None;
+                //this.lblOutsidePercentage.Dock = DockStyle.None;
+                flowShiftDisplay.Visible = true;
                 this.lblOutsidePercentage.Size = new System.Drawing.Size(94, 20);
-                this.lblOutsidePercentage.Location = new System.Drawing.Point(199, 50);
+                this.lblOutsidePercentage.Location = new System.Drawing.Point(199, 18);
+                this.lblDescription.Size = new System.Drawing.Size(98, 15);
+                this.lblDescription.Location = new System.Drawing.Point(199, 3);
+                pnlInfo.SendToBack();
             }
             
 

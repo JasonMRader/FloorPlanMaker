@@ -450,7 +450,7 @@ namespace FloorPlanMaker
             if (SelectedTargetPanel != null)
             {
                
-                serverHistory.Width = SelectedTargetPanel.Width - 8;
+                serverHistory.SetWidth(SelectedTargetPanel.Width - 8);
                 serverHistory.Click += MoveFromFloorplanServerButton_Click;
                 serverHistory.SetIsCollapsible(true);
                 SelectedTargetPanel.Controls.Add(serverHistory);

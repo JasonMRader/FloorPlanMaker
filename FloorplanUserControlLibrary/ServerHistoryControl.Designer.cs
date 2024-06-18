@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            flowLayoutPanel1 = new FlowLayoutPanel();
+            flowShiftDisplay = new FlowLayoutPanel();
             pnlShift1 = new Panel();
             pnlShift2 = new Panel();
             pnlShift3 = new Panel();
@@ -37,22 +37,24 @@
             btnServer = new Button();
             lblDescription = new Label();
             lblOutsidePercentage = new Label();
-            flowLayoutPanel1.SuspendLayout();
+            pnlInfo = new Panel();
+            flowShiftDisplay.SuspendLayout();
+            pnlInfo.SuspendLayout();
             SuspendLayout();
             // 
-            // flowLayoutPanel1
+            // flowShiftDisplay
             // 
-            flowLayoutPanel1.BackColor = Color.FromArgb(225, 225, 225);
-            flowLayoutPanel1.Controls.Add(pnlShift1);
-            flowLayoutPanel1.Controls.Add(pnlShift2);
-            flowLayoutPanel1.Controls.Add(pnlShift3);
-            flowLayoutPanel1.Controls.Add(pnlShift4);
-            flowLayoutPanel1.Controls.Add(pnlShift5);
-            flowLayoutPanel1.Location = new Point(3, 30);
-            flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Padding = new Padding(3, 3, 0, 0);
-            flowLayoutPanel1.Size = new Size(196, 50);
-            flowLayoutPanel1.TabIndex = 1;
+            flowShiftDisplay.BackColor = Color.FromArgb(225, 225, 225);
+            flowShiftDisplay.Controls.Add(pnlShift1);
+            flowShiftDisplay.Controls.Add(pnlShift2);
+            flowShiftDisplay.Controls.Add(pnlShift3);
+            flowShiftDisplay.Controls.Add(pnlShift4);
+            flowShiftDisplay.Controls.Add(pnlShift5);
+            flowShiftDisplay.Location = new Point(3, 30);
+            flowShiftDisplay.Name = "flowShiftDisplay";
+            flowShiftDisplay.Padding = new Padding(3, 3, 0, 0);
+            flowShiftDisplay.Size = new Size(196, 50);
+            flowShiftDisplay.TabIndex = 1;
             // 
             // pnlShift1
             // 
@@ -113,44 +115,52 @@
             // 
             // lblDescription
             // 
-            lblDescription.AutoSize = true;
-            lblDescription.Location = new Point(199, 33);
+            lblDescription.Location = new Point(199, 3);
             lblDescription.Name = "lblDescription";
             lblDescription.Size = new Size(98, 15);
             lblDescription.TabIndex = 3;
             lblDescription.Text = "Last 20 PM shifts:";
+            lblDescription.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // lblOutsidePercentage
             // 
-            lblOutsidePercentage.AutoSize = true;
             lblOutsidePercentage.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            lblOutsidePercentage.Location = new Point(199, 50);
+            lblOutsidePercentage.Location = new Point(199, 18);
             lblOutsidePercentage.Name = "lblOutsidePercentage";
             lblOutsidePercentage.Size = new Size(94, 20);
             lblOutsidePercentage.TabIndex = 4;
             lblOutsidePercentage.Text = "55% Outside";
+            lblOutsidePercentage.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // pnlInfo
+            // 
+            pnlInfo.Controls.Add(lblOutsidePercentage);
+            pnlInfo.Controls.Add(lblDescription);
+            pnlInfo.Location = new Point(0, 30);
+            pnlInfo.Name = "pnlInfo";
+            pnlInfo.Size = new Size(300, 50);
+            pnlInfo.TabIndex = 5;
             // 
             // ServerHistoryControl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(180, 190, 200);
-            Controls.Add(lblOutsidePercentage);
-            Controls.Add(lblDescription);
             Controls.Add(btnServer);
-            Controls.Add(flowLayoutPanel1);
+            Controls.Add(flowShiftDisplay);
+            Controls.Add(pnlInfo);
             Name = "ServerHistoryControl";
             Size = new Size(300, 80);
             Load += ServerHistoryControl_Load;
-            flowLayoutPanel1.ResumeLayout(false);
+            flowShiftDisplay.ResumeLayout(false);
+            pnlInfo.ResumeLayout(false);
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
 
         private Label lblName;
-        private FlowLayoutPanel flowLayoutPanel1;
+        private FlowLayoutPanel flowShiftDisplay;
         private Panel pnlShift1;
         private Panel pnlShift2;
         private Panel pnlShift3;
@@ -161,5 +171,6 @@
         private Label lblOutsidePercentage;
         private CheckBox cbTimeSpan;
         private NumericUpDown numericUpDown1;
+        private Panel pnlInfo;
     }
 }
