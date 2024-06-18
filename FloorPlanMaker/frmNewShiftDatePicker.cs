@@ -112,7 +112,7 @@ namespace FloorPlanMakerUI
             flowAllServers.Controls.Clear();
             foreach (Server server in servers)
             {
-                server.Shifts = SqliteDataAccess.GetShiftsForServer(server);
+                
                 Button ServerButton = CreateNotOnShiftServerButton(server);
                 //////ServerButton.Click += AddToShift_Click;
 
@@ -126,7 +126,7 @@ namespace FloorPlanMakerUI
             flowServersOnShift.Controls.Clear();
             foreach (Server server in servers)
             {
-                server.Shifts = SqliteDataAccess.GetShiftsForServer(server);
+               
                 Button ServerButton = CreateOnShiftServerButton(server);
                 //////ServerButton.Click += AddToShift_Click;
 

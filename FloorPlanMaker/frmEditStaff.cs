@@ -312,10 +312,12 @@ namespace FloorPlanMaker
                 flowList.Add(serversInFloorplanPanel);
                 foreach (var server in fp.Servers)
                 {
-                    Button newServerButton = CreateServerButton(server);
+                    server.Shifts = SqliteDataAccess.GetShiftsForServer(server);
+                    ServerHistoryControl newServerButton = new ServerHistoryControl(server, dateOnlySelected.AddDays(-30),
+                    dateOnlySelected, ShiftManager.IsAM, true, serversInFloorplanPanel.Width - 8);
                     newServerButton.Click += MoveFromFloorplanServerButton_Click;
                     newServerButton.TabStop = false;
-                    newServerButton.Width = serversInFloorplanPanel.Width - 8;
+                    
                     serversInFloorplanPanel.Controls.Add(newServerButton);
                 }
 
@@ -340,36 +342,12 @@ namespace FloorPlanMaker
         private List<Control> DiningAreaRBs = new List<Control>();
         List<FloorplanInfoControl> infoPanelList = new List<FloorplanInfoControl>();
 
-
-
-
-        private Button CreateServerButton(Server server)
-        {
-            Button b = new Button
-            {
-                Width = 130,
-                Height = 30,
-                AutoSize = false,
-                TextAlign = ContentAlignment.MiddleCenter,
-                Margin = new Padding(5),
-                Text = server.ToString(),
-                FlatStyle = FlatStyle.Flat,
-                BackColor = UITheme.ButtonColor,
-                ForeColor = Color.Black,
-                Font = UITheme.MainFont,
-                TabStop = false,
-                Tag = server,
-                Dock = DockStyle.Top
-            };
-            return b;
-        }
-        
         private void MoveFromFloorplanServerButton_Click(object sender, EventArgs e)
         {
-            Button serverButton = sender as Button;
+            ServerHistoryControl serverButton = sender as ServerHistoryControl;
             if (serverButton == null) return;
 
-            Server server = (Server)serverButton.Tag;
+            Server server = (Server)serverButton.Server;
 
             foreach (Control c in flowDiningAreaAssignment.Controls)
             {
@@ -377,8 +355,8 @@ namespace FloorPlanMaker
                 {
                     foreach (Control c2 in flowLayoutPanel.Controls)
                     {
-                        if (c2.Tag == server)
-                        {
+                        if (c2 == serverButton)
+                        {                           
                             flowLayoutPanel.Controls.Remove(c2);
                             if (flowLayoutPanel.Tag is Floorplan fp)
                             {
@@ -405,9 +383,10 @@ namespace FloorPlanMaker
             }
             if (SelectedTargetPanel != null)
             {
-                Button newServerButton = CreateServerButton(server);
+                ServerHistoryControl newServerButton = new ServerHistoryControl(server, dateOnlySelected.AddDays(-30),
+                   dateOnlySelected, ShiftManager.IsAM, true, SelectedTargetPanel.Width - 8);
                 newServerButton.Click += MoveFromFloorplanServerButton_Click;
-                newServerButton.Width = SelectedTargetPanel.Width - 8;
+                newServerButton.TabStop = false;               
 
                 SelectedTargetPanel.Controls.Add(newServerButton);
             }
@@ -479,27 +458,47 @@ namespace FloorPlanMaker
             }
             RefreshFloorplanCountLabels();
         }
-        private void OLDAddServerButtonToFloorplan(Floorplan floorplan, Server server)
-        {
-            FlowLayoutPanel SelectedTargetPanel = null;
-            foreach (Control control in flowDiningAreaAssignment.Controls)
-            {
-                if (control is FlowLayoutPanel panel && panel.Tag == floorplan)
-                {
-                    SelectedTargetPanel = panel;
-                    break;
-                }
-            }
-            if (SelectedTargetPanel != null)
-            {
-                Button newServerButton = CreateServerButton(server);
-                newServerButton.Width = SelectedTargetPanel.Width - 8;
-                newServerButton.Click += MoveFromFloorplanServerButton_Click;
+        //private void OLDAddServerButtonToFloorplan(Floorplan floorplan, Server server)
+        //{
+        //    FlowLayoutPanel SelectedTargetPanel = null;
+        //    foreach (Control control in flowDiningAreaAssignment.Controls)
+        //    {
+        //        if (control is FlowLayoutPanel panel && panel.Tag == floorplan)
+        //        {
+        //            SelectedTargetPanel = panel;
+        //            break;
+        //        }
+        //    }
+        //    if (SelectedTargetPanel != null)
+        //    {
+        //        Button newServerButton = CreateServerButton(server);
+        //        newServerButton.Width = SelectedTargetPanel.Width - 8;
+        //        newServerButton.Click += MoveFromFloorplanServerButton_Click;
 
-                SelectedTargetPanel.Controls.Add(newServerButton);
-            }
-            RefreshFloorplanCountLabels();
-        }
+        //        SelectedTargetPanel.Controls.Add(newServerButton);
+        //    }
+        //    RefreshFloorplanCountLabels();
+        //}
+        //private Button CreateServerButton(Server server)
+        //{
+        //    Button b = new Button
+        //    {
+        //        Width = 130,
+        //        Height = 30,
+        //        AutoSize = false,
+        //        TextAlign = ContentAlignment.MiddleCenter,
+        //        Margin = new Padding(5),
+        //        Text = server.ToString(),
+        //        FlatStyle = FlatStyle.Flat,
+        //        BackColor = UITheme.ButtonColor,
+        //        ForeColor = Color.Black,
+        //        Font = UITheme.MainFont,
+        //        TabStop = false,
+        //        Tag = server,
+        //        Dock = DockStyle.Top
+        //    };
+        //    return b;
+        //}
         private void btnAssignTables_Click(object sender, EventArgs e)
         {
             bool emptyFloorplan = false;
@@ -701,6 +700,7 @@ namespace FloorPlanMaker
 
             foreach (var server in ShiftManager.SelectedShift.UnassignedServers)
             {
+                server.Shifts = SqliteDataAccess.GetShiftsForServer(server);
                 //newShiftManager.ServersNotOnShift.Remove(server);
                 ShiftManager.SelectedShift.ServersNotOnShift.Remove(server);
                 
