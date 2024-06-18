@@ -186,7 +186,11 @@ namespace FloorPlanMakerUI
                 //sectionPanel.UpdateRequired += FloorplanManager_UpdateRequired;
                 this._sectionPanels.Add(sectionPanel);
             }
-            Floorplan.SetSelectedSection(Floorplan.Sections[0]);
+            if(this.Floorplan.Sections.Count > 0)
+            {
+                Floorplan.SetSelectedSection(Floorplan.Sections[0]);
+            }
+            
         }
 
         private void ServerRemovedFromSection(object? sender, EventArgs e)

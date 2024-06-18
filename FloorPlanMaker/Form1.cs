@@ -595,11 +595,9 @@ namespace FloorPlanMaker
                 }
                 else
                 {
-                    var existingTemplate = SqliteDataAccess.LoadTemplatesByDiningAreaAndServerCount(template.DiningArea, template.ServerCount);
-                    if(existingTemplate.Count == 1)
-                    {
-                        template.ID = existingTemplate[0].ID;
-                    }
+                   
+                    template.ID = template.duplicateTemplate().ID;
+                    
                     SqliteDataAccess.UpdateTemplateLines(template.ID, _lines);
                     MessageBox.Show("Lines updated");
                 }

@@ -220,8 +220,9 @@ namespace FloorPlanMakerUI
         }
         public void GetTemplatesForFloorplan(Floorplan floorplan)
         {
-            //this.Templates.Clear();
-            this.Templates = SqliteDataAccess.LoadTemplatesByDiningAreaAndServerCount(floorplan.DiningArea, floorplan.Servers.Count);
+            //CHanged templates to include all server counts
+            //this.Templates = SqliteDataAccess.LoadTemplatesByDiningAreaAndServerCount(floorplan.DiningArea, floorplan.Servers.Count);
+            this.Templates = SqliteDataAccess.LoadTemplatesByDiningArea(this.DiningArea);
             UpdateSectionNumbers();
             this.FilterTemplates(serverCount: serverCount);
         }

@@ -97,7 +97,29 @@ namespace FloorplanClassLibrary
 
             return false; 
         }
+        public FloorplanTemplate duplicateTemplate()
+        {
+            var existingTemplates = SqliteDataAccess.LoadTemplatesByDiningAreaAndServerCount(this.DiningArea, this.ServerCount);
 
+            foreach (var existingTemplate in existingTemplates)
+            {
+
+                if (existingTemplate.HasTeamWait != this.HasTeamWait ||
+                    existingTemplate.HasPickUp != this.HasPickUp ||
+                    existingTemplate.Sections.Count != this.Sections.Count)
+                {
+                    continue;
+                }
+
+                // Check if sections and their tables match
+                if (AreSectionsEquivalent(this.Sections, existingTemplate.Sections))
+                {
+                    return existingTemplate;
+                }
+            }
+
+            return null;
+        }
         private bool AreSectionsEquivalent(List<Section> sections1, List<Section> sections2)
         {
             foreach (Section section1 in sections1)
