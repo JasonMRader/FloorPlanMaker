@@ -216,6 +216,7 @@ namespace FloorPlanMakerUI
         {
             int templateID = (int)nudTemplateID.Value;
             SqliteDataAccess.DeleteFloorplanTemplate(templateID);
+            //SqliteDataAccess.TestDeleteLines(templateID);
 
         }
 

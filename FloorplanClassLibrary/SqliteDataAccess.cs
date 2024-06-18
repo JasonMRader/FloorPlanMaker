@@ -978,6 +978,16 @@ namespace FloorplanClassLibrary
                 }
             }
         }
+        public static void TestDeleteLines(int id)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                cnn.Open();
+                var sql = "DELETE FROM FloorplanLines WHERE TemplateID = @Id;";
+                cnn.Execute(sql, new { Id = id });
+
+            }
+        }
         public static void UpdateTemplateLines(int id, List<FloorplanLine> lines)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -1003,6 +1013,7 @@ namespace FloorplanClassLibrary
                     try
                     {
                         // First, delete records from linking tables
+                        cnn.Execute("DELETE FROM FloorplanLines WHERE TemplateID = @TemplateID", new { TemplateID = templateId }, transaction);
                         cnn.Execute("DELETE FROM TemplateSections WHERE TemplateID = @TemplateID", new { TemplateID = templateId }, transaction);
 
                         // Then, delete the template itself
