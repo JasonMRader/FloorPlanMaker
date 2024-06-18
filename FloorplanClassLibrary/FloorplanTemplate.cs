@@ -20,6 +20,7 @@ namespace FloorplanClassLibrary
             GetSectionCopies(floorplan.Sections);
            
             this.DiningAreaID = floorplan.DiningArea.ID;
+            this.UpdateTeamWaitAndPickUp();
             //AssignSectionNumbers();
         }
         public FloorplanTemplate() 
