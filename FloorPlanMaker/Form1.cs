@@ -418,6 +418,7 @@ namespace FloorPlanMaker
         private void UpdateDateSelected(int days)
         {
             _lines.Clear();
+            pnlFloorPlan.Invalidate();
             dateTimeSelected = dateTimeSelected.AddDays(days);
             lblDateSelected.Text = dateOnlySelected.ToString("ddd, MMM d");
             SpecialEventDate specialEventDate = SqliteDataAccess.GetEventByDate(dateOnlySelected);
@@ -594,6 +595,11 @@ namespace FloorPlanMaker
                 }
                 else
                 {
+                    var existingTemplate = SqliteDataAccess.LoadTemplatesByDiningAreaAndServerCount(template.DiningArea, template.ServerCount);
+                    if(existingTemplate.Count == 1)
+                    {
+                        template.ID = existingTemplate[0].ID;
+                    }
                     SqliteDataAccess.UpdateTemplateLines(template.ID, _lines);
                     MessageBox.Show("Lines updated");
                 }
@@ -603,6 +609,7 @@ namespace FloorPlanMaker
                 SqliteDataAccess.SaveFloorplanTemplate(template);
                 MessageBox.Show("Template Saved!");
             }
+            this.pnlFloorPlan.Invalidate();
 
         }
         private void btnChooseTemplate_Click(object sender, EventArgs e)
