@@ -373,7 +373,7 @@ namespace FloorPlanMakerUI
                         loadingForm.Close();
                         this.Enabled = true;
                         
-                        //this.BringToFront();
+                        this.BringToFront();
 
                     }));
                 });
@@ -393,6 +393,7 @@ namespace FloorPlanMakerUI
                         loadingForm.Close();
                         this.Enabled = true;
                         PopulateDGVForServerHistory(serverHistory);
+                        this.BringToFront();
 
 
                     }));
