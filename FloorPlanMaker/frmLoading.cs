@@ -12,10 +12,12 @@ namespace FloorPlanMakerUI
 {
     public partial class frmLoading : Form
     {
-        public frmLoading()
+        public frmLoading(string display)
         {
             InitializeComponent();
+            this.display = display;
         }
+        string display;
         private int dotCount = 1;
 
         private void timer_Tick(object sender, EventArgs e)
@@ -24,23 +26,23 @@ namespace FloorPlanMakerUI
             switch (dotCount)
             {
                 case 1:
-                    label1.Text = "Parsing Data.";
+                    label1.Text = display + ".";
                     dotCount++;
                     break;
                 case 2:
-                    label1.Text = "Parsing Data..";
+                    label1.Text = display + "..";
                     dotCount++;
                     break;
                 case 3:
-                    label1.Text = "Parsing Data...";
+                    label1.Text = display + "...";
                     dotCount++;  // Reset to start cycle over
                     break;
                 case 4:
-                    label1.Text = "Parsing Data....";
+                    label1.Text = display + "....";
                     dotCount++;
                     break;
                 case 5:
-                    label1.Text = "Parsing Data.....";
+                    label1.Text = display + ".....";
                     dotCount = 1;
                     break;
             }
@@ -53,6 +55,11 @@ namespace FloorPlanMakerUI
         private void FormLoading_FormClosing(object sender, FormClosingEventArgs e)
         {
             timer1.Stop();
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

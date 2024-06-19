@@ -65,7 +65,7 @@ namespace FloorPlanMakerUI
                 {
 
                     string filePath = openFileDialog.FileName;
-                    frmLoading loadingForm = new frmLoading();
+                    frmLoading loadingForm = new frmLoading("Parsing");
                     loadingForm.Show();
                     this.Enabled = false;
 
@@ -261,7 +261,7 @@ namespace FloorPlanMakerUI
                 {
 
                     string filePath = openFileDialog.FileName;
-                    frmLoading loadingForm = new frmLoading();
+                    frmLoading loadingForm = new frmLoading("Importing");
                     loadingForm.Show();
                     this.Enabled = false;
 

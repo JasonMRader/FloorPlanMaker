@@ -31,7 +31,7 @@ namespace FloorPlanMakerUI
                 {
 
                     string filePath = openFileDialog.FileName;
-                    frmLoading loadingForm = new frmLoading();
+                    frmLoading loadingForm = new frmLoading("Loading");
                     loadingForm.Show();
                     this.Enabled = false;
 

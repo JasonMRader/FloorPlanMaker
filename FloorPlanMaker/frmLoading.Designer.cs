@@ -41,9 +41,9 @@
             label1.Font = new Font("Segoe UI Black", 18F, FontStyle.Bold, GraphicsUnit.Point);
             label1.Location = new Point(27, 25);
             label1.Name = "label1";
-            label1.Size = new Size(187, 32);
+            label1.Size = new Size(130, 32);
             label1.TabIndex = 0;
-            label1.Text = "Parsing Data...";
+            label1.Text = "Waiting...";
             // 
             // panel2
             // 
@@ -54,6 +54,7 @@
             panel2.Padding = new Padding(3);
             panel2.Size = new Size(269, 83);
             panel2.TabIndex = 1;
+            panel2.Paint += panel2_Paint;
             // 
             // timer1
             // 

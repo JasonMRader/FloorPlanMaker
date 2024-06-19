@@ -92,7 +92,7 @@ namespace FloorPlanMaker
         }
         private async void LoadFloorplansAsync()
         {
-            frmLoading loadingForm = new frmLoading();
+            frmLoading loadingForm = new frmLoading("Loading");
             loadingForm.Show();
             this.Enabled = false;
             try
