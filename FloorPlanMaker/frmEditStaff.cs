@@ -87,11 +87,13 @@ namespace FloorPlanMaker
             //this.pastShiftsManager = shiftManager;
             this.ShiftManager.SetSelectedShift(shiftManager.DateOnly, shiftManager.IsAM);
             this.form1Reference = form1;
+            //allFloorplans = SqliteDataAccess.LoadFloorplanList();
             LoadFloorplansAsync();
         }
         private async void LoadFloorplansAsync()
         {
-            // Disable the form or show a loading indicator
+            frmLoading loadingForm = new frmLoading();
+            loadingForm.Show();
             this.Enabled = false;
             try
             {
@@ -99,11 +101,11 @@ namespace FloorPlanMaker
             }
             finally
             {
-                // Re-enable the form or hide the loading indicator
+                loadingForm.Close();
                 this.Enabled = true;
             }
 
-            // You can now use allFloorplans here
+           
         }
         private Dictionary<DiningArea, int> PreviousServerCountsForNewShift(int Days)
         {
