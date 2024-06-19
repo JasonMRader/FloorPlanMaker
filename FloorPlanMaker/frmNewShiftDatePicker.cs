@@ -112,7 +112,7 @@ namespace FloorPlanMakerUI
             flowAllServers.Controls.Clear();
             foreach (Server server in servers)
             {
-                
+
                 Button ServerButton = CreateNotOnShiftServerButton(server);
                 //////ServerButton.Click += AddToShift_Click;
 
@@ -126,7 +126,7 @@ namespace FloorPlanMakerUI
             flowServersOnShift.Controls.Clear();
             foreach (Server server in servers)
             {
-               
+
                 Button ServerButton = CreateOnShiftServerButton(server);
                 //////ServerButton.Click += AddToShift_Click;
 
@@ -608,7 +608,7 @@ namespace FloorPlanMakerUI
             var searchText = txtServerSearch.Text;
             FilterServers(searchText);
         }
-               
+
         private void AddFirstServerToShift()
         {
             if (flowAllServers.Controls.Count > 0)
@@ -619,6 +619,31 @@ namespace FloorPlanMakerUI
                     btn.PerformClick();
                 }
             }
+        }
+
+        private void btnImportServers_Click(object sender, EventArgs e)
+        {
+            List<int> controlIndex = new List<int>();
+            Random random = new Random();
+
+            for (int i = 0; i < 3; i++)
+            {
+                int index;
+                do
+                {
+                    index = random.Next(0, flowAllServers.Controls.Count);
+                } while (controlIndex.Contains(index));
+
+                Button btn = (Button)flowAllServers.Controls[index];
+                btn.PerformClick();
+            }
+
+
+        }
+
+        private void flowServersOnShift_ControlsChanged(object sender, ControlEventArgs e)
+        {
+
         }
     }
 }

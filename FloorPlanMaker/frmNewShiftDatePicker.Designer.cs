@@ -51,8 +51,9 @@
             label6 = new Label();
             label5 = new Label();
             panel4 = new Panel();
+            btnImportServers = new Button();
             flowServersOnShift = new FlowLayoutPanel();
-            label2 = new Label();
+            lblServersOnShift = new Label();
             toolTip1 = new ToolTip(components);
             panel1.SuspendLayout();
             panel2.SuspendLayout();
@@ -308,12 +309,26 @@
             // panel4
             // 
             panel4.BackColor = Color.FromArgb(180, 190, 200);
+            panel4.Controls.Add(btnImportServers);
             panel4.Controls.Add(flowServersOnShift);
-            panel4.Controls.Add(label2);
+            panel4.Controls.Add(lblServersOnShift);
             panel4.Location = new Point(638, 351);
             panel4.Name = "panel4";
             panel4.Size = new Size(595, 512);
             panel4.TabIndex = 5;
+            // 
+            // btnImportServers
+            // 
+            btnImportServers.BackColor = Color.FromArgb(100, 130, 180);
+            btnImportServers.FlatAppearance.BorderSize = 0;
+            btnImportServers.FlatStyle = FlatStyle.Flat;
+            btnImportServers.Location = new Point(470, 11);
+            btnImportServers.Name = "btnImportServers";
+            btnImportServers.Size = new Size(116, 28);
+            btnImportServers.TabIndex = 1;
+            btnImportServers.Text = "Add 3 Random";
+            btnImportServers.UseVisualStyleBackColor = false;
+            btnImportServers.Click += btnImportServers_Click;
             // 
             // flowServersOnShift
             // 
@@ -322,16 +337,17 @@
             flowServersOnShift.Name = "flowServersOnShift";
             flowServersOnShift.Size = new Size(578, 456);
             flowServersOnShift.TabIndex = 0;
+            flowServersOnShift.ControlAdded += flowServersOnShift_ControlsChanged;
             // 
-            // label2
+            // lblServersOnShift
             // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            label2.Location = new Point(209, 14);
-            label2.Name = "label2";
-            label2.Size = new Size(150, 25);
-            label2.TabIndex = 0;
-            label2.Text = "Servers On Shift";
+            lblServersOnShift.AutoSize = true;
+            lblServersOnShift.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lblServersOnShift.Location = new Point(209, 14);
+            lblServersOnShift.Name = "lblServersOnShift";
+            lblServersOnShift.Size = new Size(150, 25);
+            lblServersOnShift.TabIndex = 0;
+            lblServersOnShift.Text = "Servers On Shift";
             // 
             // frmNewShiftDatePicker
             // 
@@ -382,12 +398,13 @@
         private Panel panel3;
         private Label label5;
         private Panel panel4;
-        private Label label2;
+        private Label lblServersOnShift;
         private FlowLayoutPanel flowAllServers;
         private FlowLayoutPanel flowServersOnShift;
         private PictureBox pbAddPerson;
         private ToolTip toolTip1;
         private TextBox txtServerSearch;
         private Label label6;
+        private Button btnImportServers;
     }
 }
