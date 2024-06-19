@@ -356,19 +356,51 @@ namespace FloorPlanMakerUI
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
+            frmLoading loadingForm = new frmLoading("Parsing");
+            loadingForm.Show();
+            this.Enabled = false;
             if (rdoDiningAreaSales.Checked)
             {
-                List<DateTime> dateList = GetFilteredDates(dtpStartDate.Value, dtpEndDate.Value);
-                List<SalesData> salesData = GetSalesData(areaManager.DiningAreas, dateList);
+                Task.Run(() =>
+                {
+                    List<DateTime> dateList = GetFilteredDates(dtpStartDate.Value, dtpEndDate.Value);
+                    List<SalesData> salesData = GetSalesData(areaManager.DiningAreas, dateList);
 
-                PopulateDGVForAreaSales(dgvDiningAreas, areaManager.DiningAreas, salesData);
+                    this.Invoke(new Action(() =>
+                    {
+                        // Close the loading form and re-enable the main form
+                        PopulateDGVForAreaSales(dgvDiningAreas, areaManager.DiningAreas, salesData);
+                        loadingForm.Close();
+                        this.Enabled = true;
+                        
+                        //this.BringToFront();
+
+                    }));
+                });
+                
             }
             if (rdoServerShifts.Checked)
             {
-                List<DateTime> dateList = GetFilteredDates(dtpStartDate.Value, dtpEndDate.Value);
-                List<ServerShiftHistory> serverHistory = GetServerHistory(employeeManager.ActiveServers);
-                PopulateDGVForServerHistory(serverHistory);
+                Task.Run(() =>
+                {
+                    List<DateTime> dateList = GetFilteredDates(dtpStartDate.Value, dtpEndDate.Value);
+                    List<ServerShiftHistory> serverHistory = GetServerHistory(employeeManager.ActiveServers);
+                   
+                    this.Invoke(new Action(() =>
+                    {
+                        // Close the loading form and re-enable the main form
+
+                        loadingForm.Close();
+                        this.Enabled = true;
+                        PopulateDGVForServerHistory(serverHistory);
+
+
+                    }));
+                });
+               
             }
+            
+            
 
 
         }
