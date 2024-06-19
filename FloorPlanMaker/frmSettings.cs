@@ -299,12 +299,18 @@ namespace FloorPlanMakerUI
                             // Close the loading form and re-enable the main form
                             loadingForm.Close();
                             this.Enabled = true;
-                           
+
                         }));
                     });
 
                 }
             }
+        }
+
+        private void btnTest_Click(object sender, EventArgs e)
+        {
+            frmTest testForm = new frmTest();
+            testForm.ShowDialog();
         }
     }
 }

@@ -60,6 +60,7 @@ namespace FloorPlanMaker
             pnlTemplateContainer = new Panel();
             pnlSideContainer = new Panel();
             pnlSectionsAndServers = new Panel();
+            btnTemplateCreator = new Button();
             pnlStatMode = new Panel();
             lblTotalSales = new Label();
             label3 = new Label();
@@ -85,7 +86,6 @@ namespace FloorPlanMaker
             rdoViewSectionFlow = new RadioButton();
             toolTip1 = new ToolTip(components);
             btnReportBug = new Button();
-            btnTemplateCreator = new Button();
             flowSectionSelect.SuspendLayout();
             panel1.SuspendLayout();
             pnlFloorplanContainer.SuspendLayout();
@@ -474,6 +474,19 @@ namespace FloorPlanMaker
             pnlSectionsAndServers.Size = new Size(335, 921);
             pnlSectionsAndServers.TabIndex = 1;
             // 
+            // btnTemplateCreator
+            // 
+            btnTemplateCreator.BackColor = Color.DimGray;
+            btnTemplateCreator.Enabled = false;
+            btnTemplateCreator.Location = new Point(256, 5);
+            btnTemplateCreator.Name = "btnTemplateCreator";
+            btnTemplateCreator.Size = new Size(29, 23);
+            btnTemplateCreator.TabIndex = 23;
+            btnTemplateCreator.Text = "button1";
+            btnTemplateCreator.UseVisualStyleBackColor = false;
+            btnTemplateCreator.Visible = false;
+            btnTemplateCreator.Click += btnTemplateCreator_Click;
+            // 
             // pnlStatMode
             // 
             pnlStatMode.Controls.Add(lblTotalSales);
@@ -814,17 +827,6 @@ namespace FloorPlanMaker
             toolTip1.SetToolTip(btnReportBug, "Report Bug / Request Feature");
             btnReportBug.UseVisualStyleBackColor = false;
             btnReportBug.Click += btnReportBug_Click;
-            // 
-            // btnTemplateCreator
-            // 
-            btnTemplateCreator.BackColor = Color.DimGray;
-            btnTemplateCreator.Location = new Point(256, 5);
-            btnTemplateCreator.Name = "btnTemplateCreator";
-            btnTemplateCreator.Size = new Size(29, 23);
-            btnTemplateCreator.TabIndex = 23;
-            btnTemplateCreator.Text = "button1";
-            btnTemplateCreator.UseVisualStyleBackColor = false;
-            btnTemplateCreator.Click += btnTemplateCreator_Click;
             // 
             // Form1
             // 

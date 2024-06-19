@@ -222,7 +222,7 @@ namespace FloorPlanMaker
             flowServersInFloorplan.Visible = false;
             rdoViewSectionFlow.Image = Resources.lilCanvasBook;
         }
-        
+
 
         public Form1()
         {
@@ -595,9 +595,9 @@ namespace FloorPlanMaker
                 }
                 else
                 {
-                   
+
                     template.ID = template.duplicateTemplate().ID;
-                    
+
                     SqliteDataAccess.UpdateTemplateLines(template.ID, _lines);
                     MessageBox.Show("Lines updated");
                 }
@@ -1191,7 +1191,7 @@ namespace FloorPlanMaker
         private void btnTemplateCreator_Click(object sender, EventArgs e)
         {
             frmTemplateCreator frm = new frmTemplateCreator(shift.SelectedDiningArea, this) { TopLevel = false, AutoScroll = true };
-            
+
             pnlNavigationWindow.Controls.Add(frm);
             frm.Show();
             pnlMainContainer.Visible = false;
