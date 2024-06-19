@@ -643,7 +643,7 @@ namespace FloorPlanMakerUI
 
         private void flowServersOnShift_ControlsChanged(object sender, ControlEventArgs e)
         {
-
+            lblServersOnShift.Text = $"{shiftManager.SelectedShift.ServersOnShift.Count} Servers On Shift";
         }
     }
 }

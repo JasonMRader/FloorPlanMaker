@@ -338,6 +338,7 @@
             flowServersOnShift.Size = new Size(578, 456);
             flowServersOnShift.TabIndex = 0;
             flowServersOnShift.ControlAdded += flowServersOnShift_ControlsChanged;
+            flowServersOnShift.ControlRemoved += flowServersOnShift_ControlsChanged;
             // 
             // lblServersOnShift
             // 
