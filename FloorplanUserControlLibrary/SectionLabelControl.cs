@@ -338,7 +338,7 @@ namespace FloorplanClassLibrary
                 Button unassign = new Button { Text = "Unassign", Dock = DockStyle.Top, Width = this.Width - 20 };
                 unassign.Click += UnassignButton_Click;
                 serversPanel.Controls.Add(unassign);
-                serversPanel.Height += 30;
+                //serversPanel.Height += 30;
             }
             foreach (var server in unassignedServers)
             {
@@ -346,7 +346,17 @@ namespace FloorplanClassLibrary
             serverButton.Click += ServerButton_Click;
             serversPanel.Controls.Add(serverButton);
             }
-            serversPanel.Height = (unassignedServers.Count * 30);
+           
+            if (this.Section.ServerCount == this.Section.ServerTeam.Count())
+            {
+                serversPanel.Height = 0;
+                serverPanelOpen = false;               
+            }
+            else
+            {
+                serversPanel.Height = (serversPanel.Controls.Count * 30);
+            }
+
             this.BringToFront();
 
         }
@@ -406,6 +416,11 @@ namespace FloorplanClassLibrary
             {
                 serversPanel.Height = 0;
                 serverPanelOpen = false;
+                RefreshUnassignedServerPanel();
+            }
+            else
+            {
+                RefreshUnassignedServerPanel();
             }
             
            
