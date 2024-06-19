@@ -311,29 +311,8 @@ namespace FloorplanClassLibrary
                     unassign.Click += UnassignButton_Click;
                     serversPanel.Controls.Add(unassign);
                     serversPanel.Height += 30;
-                    //TODO: Disabled making teamwait from section label, need to make it update number of sections in sectionPanel also
-                    //if (this.Section.IsTeamWait == false)
-                    //{
-                    //    Button teamWait = new Button { Text = "TeamWait", Dock = DockStyle.Top, Width = this.Width - 20 };
-                    //    teamWait.Click += teamWaitButton_Click;
-                    //    serversPanel.Controls.Add(teamWait);
-                    //    serversPanel.Height += 30;
-                    //}
-                    //if (this.Section.IsTeamWait && this.Section.ServerCount > this.Section.ServerTeam.Count())
-                    //{
-                    //    if (this.Section.IsPickUp)
-                    //    {
-
-                    //    }
-                    //    else
-                    //    {
-
-                    //    }
-                    //}
                     
-                    
-                }              
-                               
+                }      
             }
             if (serverPanelOpen == true)
             {
@@ -423,8 +402,12 @@ namespace FloorplanClassLibrary
                     this.headerPanel.Height += 30;
                 }
             }
-           
-            serversPanel.Height = 0;
+            if(this.Section.ServerCount == this.Section.ServerTeam.Count())
+            {
+                serversPanel.Height = 0;
+                serverPanelOpen = false;
+            }
+            
            
             UpdateLabel();
             
