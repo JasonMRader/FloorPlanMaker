@@ -317,7 +317,7 @@ namespace FloorPlanMaker
                     dateOnlySelected, ShiftManager.IsAM, true, serversInFloorplanPanel.Width - 8);
                     newServerButton.Click += MoveFromFloorplanServerButton_Click;
                     newServerButton.TabStop = false;
-                    
+
                     serversInFloorplanPanel.Controls.Add(newServerButton);
                 }
 
@@ -356,7 +356,7 @@ namespace FloorPlanMaker
                     foreach (Control c2 in flowLayoutPanel.Controls)
                     {
                         if (c2 == serverButton)
-                        {                           
+                        {
                             flowLayoutPanel.Controls.Remove(c2);
                             if (flowLayoutPanel.Tag is Floorplan fp)
                             {
@@ -386,7 +386,7 @@ namespace FloorPlanMaker
                 ServerHistoryControl newServerButton = new ServerHistoryControl(server, dateOnlySelected.AddDays(-30),
                    dateOnlySelected, ShiftManager.IsAM, true, SelectedTargetPanel.Width - 8);
                 newServerButton.Click += MoveFromFloorplanServerButton_Click;
-                newServerButton.TabStop = false;               
+                newServerButton.TabStop = false;
 
                 SelectedTargetPanel.Controls.Add(newServerButton);
             }
@@ -449,7 +449,7 @@ namespace FloorPlanMaker
             }
             if (SelectedTargetPanel != null)
             {
-               
+
                 serverHistory.SetWidth(SelectedTargetPanel.Width - 8);
                 serverHistory.Click += MoveFromFloorplanServerButton_Click;
                 serverHistory.SetIsCollapsible(true);
@@ -528,9 +528,9 @@ namespace FloorPlanMaker
             {
                 info.UpdateCurrentLabels(DaysAgoStats);
             }
-            if(ShiftManager.SelectedShift.DiningAreasUsed.Count !=0)
+            if (ShiftManager.SelectedShift.DiningAreasUsed.Count != 0)
             {
-                foreach(DiningArea area in ShiftManager.SelectedShift.DiningAreasUsed)
+                foreach (DiningArea area in ShiftManager.SelectedShift.DiningAreasUsed)
                 {
                     area.SetTableSales(stats);
                 }
@@ -660,7 +660,7 @@ namespace FloorPlanMaker
                 Size = new Size(305, 25)
             };
             btnAutoAssign.Click += btnAutoAssign_Click;
-            
+
             return btnAutoAssign;
         }
 
@@ -695,7 +695,7 @@ namespace FloorPlanMaker
         {
             flowUnassignedServers.Controls.Clear();
             Button btnAutoAssign = this.AutoAssignButton();
-           
+
             flowUnassignedServers.Controls.Add((Control)btnAutoAssign);
 
             foreach (var server in ShiftManager.SelectedShift.UnassignedServers)
@@ -703,8 +703,8 @@ namespace FloorPlanMaker
                 server.Shifts = SqliteDataAccess.GetShiftsForServer(server);
                 //newShiftManager.ServersNotOnShift.Remove(server);
                 ShiftManager.SelectedShift.ServersNotOnShift.Remove(server);
-                
-                ServerHistoryControl newServerControl = new ServerHistoryControl(server, dateOnlySelected.AddDays(-30), 
+
+                ServerHistoryControl newServerControl = new ServerHistoryControl(server, dateOnlySelected.AddDays(-30),
                     dateOnlySelected, ShiftManager.IsAM, false, 300);
                 newServerControl.Margin = new Padding(5);
                 newServerControl.Click += ServerControl_Click;
