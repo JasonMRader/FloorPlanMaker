@@ -11,47 +11,96 @@ namespace FloorplanClassLibrary
 {
     public static class CsvScheduleReader
     {
-
         public static List<ScheduledShift> GetScheduledShifts(string csvFilePath)
         {
             var scheduledShifts = new List<ScheduledShift>();
 
-            using (var reader = new StreamReader(csvFilePath))
+            using (var reader = new StreamReader(csvFilePath, Encoding.UTF8))
             using (var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture)
             {
                 HasHeaderRecord = false,
-                MissingFieldFound = null
+                MissingFieldFound = null,
+                IgnoreBlankLines = true,
+                TrimOptions = TrimOptions.Trim,
+                BadDataFound = null
             }))
             {
                 // Skip lines until you reach the headers of the data
-                for (int i = 0; i < 13; i++)
+                for (int i = 0; i < 11; i++)
                 {
                     csv.Read();
+                }
+
+                // Read the header line with dates
+                csv.Read();
+                var headers = csv.Parser.Record.Select(h => h.Clean()).ToArray();
+
+                Console.WriteLine("Headers:");
+                foreach (var header in headers)
+                {
+                    Console.WriteLine(header);
                 }
 
                 csv.Context.RegisterClassMap<CsvServerRecordMap>();
                 var records = csv.GetRecords<CsvServerRecord>().ToList();
 
+                Console.WriteLine("Records:");
                 foreach (var record in records)
                 {
-                    AddScheduledShift(scheduledShifts, record.Mon, record.EmployeeName, DayOfWeek.Monday);
-                    AddScheduledShift(scheduledShifts, record.Tue, record.EmployeeName, DayOfWeek.Tuesday);
-                    AddScheduledShift(scheduledShifts, record.Wed, record.EmployeeName, DayOfWeek.Wednesday);
-                    AddScheduledShift(scheduledShifts, record.Thu, record.EmployeeName, DayOfWeek.Thursday);
-                    AddScheduledShift(scheduledShifts, record.Fri, record.EmployeeName, DayOfWeek.Friday);
-                    AddScheduledShift(scheduledShifts, record.Sat, record.EmployeeName, DayOfWeek.Saturday);
-                    AddScheduledShift(scheduledShifts, record.Sun, record.EmployeeName, DayOfWeek.Sunday);
+                    // Clean special characters in JobCode and EmployeeName
+                    record.JobCode = record.JobCode.Clean();
+                    record.EmployeeName = record.EmployeeName.Clean();
+                    Console.WriteLine($"{record.JobCode}, {record.EmployeeName}");
+                }
+
+                records = records
+                          .Where(r => r.JobCode == "Server" || r.JobCode == "Bartender")
+                          .ToList();
+
+                foreach (var record in records)
+                {
+                    AddScheduledShifts(scheduledShifts, record, headers);
                 }
             }
 
             return scheduledShifts;
         }
 
-        private static void AddScheduledShift(List<ScheduledShift> scheduledShifts, string timeSlot, string employeeName, DayOfWeek dayOfWeek)
+        private static void AddScheduledShifts(List<ScheduledShift> scheduledShifts, CsvServerRecord record, string[] headers)
+        {
+            // Ensure headers array has the expected number of elements
+            if (headers.Length < 9)
+            {
+                Console.WriteLine("Error: Headers array does not have the expected number of elements.");
+                return;
+            }
+
+            try
+            {
+                AddScheduledShift(scheduledShifts, record.Mon, record.EmployeeName, DateOnly.Parse(headers[2].Split(',')[1].Trim()));
+                AddScheduledShift(scheduledShifts, record.Tue, record.EmployeeName, DateOnly.Parse(headers[3].Split(',')[1].Trim()));
+                AddScheduledShift(scheduledShifts, record.Wed, record.EmployeeName, DateOnly.Parse(headers[4].Split(',')[1].Trim()));
+                AddScheduledShift(scheduledShifts, record.Thu, record.EmployeeName, DateOnly.Parse(headers[5].Split(',')[1].Trim()));
+                AddScheduledShift(scheduledShifts, record.Fri, record.EmployeeName, DateOnly.Parse(headers[6].Split(',')[1].Trim()));
+                AddScheduledShift(scheduledShifts, record.Sat, record.EmployeeName, DateOnly.Parse(headers[7].Split(',')[1].Trim()));
+                AddScheduledShift(scheduledShifts, record.Sun, record.EmployeeName, DateOnly.Parse(headers[8].Split(',')[1].Trim()));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error in AddScheduledShifts: " + ex.Message);
+                Console.WriteLine("Headers:");
+                foreach (var header in headers)
+                {
+                    Console.WriteLine(header);
+                }
+            }
+        }
+
+
+        private static void AddScheduledShift(List<ScheduledShift> scheduledShifts, string timeSlot, string employeeName, DateOnly date)
         {
             if (string.IsNullOrEmpty(timeSlot)) return;
 
-            var date = GetDateOfCurrentWeek(dayOfWeek);
             bool isAm = timeSlot.Contains("AM");
 
             var scheduledShift = scheduledShifts.FirstOrDefault(s => s.Date == date && s.IsAm == isAm);
@@ -67,6 +116,7 @@ namespace FloorplanClassLibrary
 
             scheduledShift.Servers.Add(employeeName);
         }
+    
 
         private static DateOnly GetDateOfCurrentWeek(DayOfWeek dayOfWeek)
         {
@@ -99,7 +149,7 @@ namespace FloorplanClassLibrary
                 csv.Read();
                 csv.ReadHeader();
                 var headers = csv.HeaderRecord;
-                testString ="CSV Headers: ";
+                testString = "CSV Headers: ";
                 foreach (var header in headers)
                 {
                     testString += header;
@@ -107,9 +157,9 @@ namespace FloorplanClassLibrary
             }
             return testString;
         }
-       
-
 
 
     }
+
+    
 }

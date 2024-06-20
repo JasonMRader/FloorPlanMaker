@@ -29,11 +29,12 @@
         private void InitializeComponent()
         {
             button1 = new Button();
+            textBox1 = new TextBox();
             SuspendLayout();
             // 
             // button1
             // 
-            button1.Location = new Point(207, 104);
+            button1.Location = new Point(310, 484);
             button1.Name = "button1";
             button1.Size = new Size(142, 23);
             button1.TabIndex = 0;
@@ -41,19 +42,30 @@
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(12, 12);
+            textBox1.Multiline = true;
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(761, 466);
+            textBox1.TabIndex = 1;
+            // 
             // frmTest
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 519);
+            Controls.Add(textBox1);
             Controls.Add(button1);
             Name = "frmTest";
             Text = "frmTest";
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
         private Button button1;
+        private TextBox textBox1;
     }
 }
