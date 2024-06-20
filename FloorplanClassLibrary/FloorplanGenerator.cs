@@ -226,6 +226,7 @@ namespace FloorplanClassLibrary
         }
         public FloorplanTemplate SelectIdealTemplate(List<FloorplanTemplate> templates)
         {
+            templates = templates.Where(t => t.ServerCount == shift.SelectedFloorplan.Servers.Count).ToList();
             Dictionary<FloorplanTemplate, float> templateVarience = GetTemplateSectionVarience(templates);
             var idealTemplate = templateVarience.OrderBy(kv => kv.Value).FirstOrDefault().Key;
             return idealTemplate;
