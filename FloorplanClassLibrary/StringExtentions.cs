@@ -7,17 +7,17 @@ using System.Threading.Tasks;
 namespace FloorplanClassLibrary
 {
     
-        public static class StringExtensions
+    public static class StringExtensions
+    {
+        public static string Clean(this string input)
         {
-            public static string Clean(this string input)
-            {
-                if (string.IsNullOrEmpty(input))
-                    return input;
+            if (string.IsNullOrEmpty(input))
+                return input;
 
-                // Keep only alphanumeric characters and spaces
-                return new string(input.Where(c => char.IsLetterOrDigit(c) || char.IsWhiteSpace(c)).ToArray()).Trim();
-            }
+            // Keep only alphanumeric characters, spaces, commas, and slashes
+            return new string(input.Where(c => char.IsLetterOrDigit(c) || char.IsWhiteSpace(c) || c == ',' || c == '/').ToArray()).Trim();
         }
+    }
 
     
 

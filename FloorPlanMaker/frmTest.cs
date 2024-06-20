@@ -18,17 +18,18 @@ namespace FloorPlanMakerUI
         {
             InitializeComponent();
         }
-        private void GetTestRecordData(List<ScheduledShift> shifts)
+        private string GetTestRecordData(List<ScheduledShift> shifts)
         {
             string s = "";
             foreach (ScheduledShift shift in shifts)
             {
-                s += shift.ToString() + "\n";
+                s += shift.ToString() + Environment.NewLine; // Use Environment.NewLine for new line
             }
-            textBox1.Text = s;
+            return s;
         }
         private void button1_Click(object sender, EventArgs e)
         {
+            
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
                 string defaultDirectory = @"C:\Users\Jason\OneDrive\Working On Now\misc";
@@ -59,13 +60,15 @@ namespace FloorPlanMakerUI
                     {
                         List<ScheduledShift> records = CsvScheduleReader.GetScheduledShifts(filePath);
                         //var records = CsvScheduleReader.InspectCsvFile(filePath);
-                        GetTestRecordData(records);
+                        records.OrderBy(r => r.Date).ToList();
+                        string s = GetTestRecordData(records);
 
                         this.Invoke(new Action(() =>
                         {
                             // Close the loading form and re-enable the main form
                             loadingForm.Close();
                             this.Enabled = true;
+                            textBox1.Text = s;
 
                         }));
                     });
