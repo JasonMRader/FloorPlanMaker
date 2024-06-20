@@ -23,6 +23,7 @@ namespace FloorPlanMaker
         private List<Floorplan> allFloorplans = new List<Floorplan>();
         private int currentFocusedFloorplanIndex = 0;
         private int DaysAgoStats = -1;
+        frmLoading loadingForm = new frmLoading("Loading");
 
         private Form1 form1Reference;
         private bool isNewShift = false;
@@ -82,6 +83,7 @@ namespace FloorPlanMaker
 
         public frmEditStaff(EmployeeManager staffManager, Shift shiftManager, Form1 form1)
         {
+            loadingForm.Show();
             InitializeComponent();
             this.employeeManager = staffManager;
             //this.pastShiftsManager = shiftManager;
@@ -92,8 +94,8 @@ namespace FloorPlanMaker
         }
         private async void LoadFloorplansAsync()
         {
-            frmLoading loadingForm = new frmLoading("Loading");
-            loadingForm.Show();
+            
+            
             this.Enabled = false;
             try
             {
