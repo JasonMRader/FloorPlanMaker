@@ -645,5 +645,20 @@ namespace FloorPlanMakerUI
         {
             lblServersOnShift.Text = $"{shiftManager.SelectedShift.ServersOnShift.Count} Servers On Shift";
         }
+
+        private void btnAddBartender_Click(object sender, EventArgs e)
+        {
+            Button serverButton = (Button)sender;
+            Server server = (Server)serverButton.Tag;
+            //ShiftManagerCreated.RemoveServerFromShift(server);
+            shiftManager.SelectedShift.RemoveServerFromShift(server);
+            //////ShiftManagerCreated.UnassignedServers.Remove(server);
+            serverButton.Click += AddToShift_Click;
+            serverButton.Click -= RemoveFromShift_Click;
+            serverButton.BackColor = UITheme.CTAColor;
+            serverButton.ForeColor = Color.White;
+            flowServersOnShift.Controls.Remove(serverButton);
+            flowAllServers.Controls.Add(serverButton);
+        }
     }
 }

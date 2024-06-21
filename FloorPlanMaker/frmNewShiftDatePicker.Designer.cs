@@ -51,11 +51,12 @@
             label6 = new Label();
             label5 = new Label();
             panel4 = new Panel();
+            button1 = new Button();
             btnImportServers = new Button();
             flowServersOnShift = new FlowLayoutPanel();
             lblServersOnShift = new Label();
             toolTip1 = new ToolTip(components);
-            button1 = new Button();
+            btnAddBartender = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
@@ -311,6 +312,7 @@
             // 
             panel4.BackColor = Color.FromArgb(180, 190, 200);
             panel4.Controls.Add(button1);
+            panel4.Controls.Add(btnAddBartender);
             panel4.Controls.Add(btnImportServers);
             panel4.Controls.Add(flowServersOnShift);
             panel4.Controls.Add(lblServersOnShift);
@@ -319,16 +321,28 @@
             panel4.Size = new Size(595, 512);
             panel4.TabIndex = 5;
             // 
+            // button1
+            // 
+            button1.BackColor = Color.FromArgb(100, 130, 180);
+            button1.FlatAppearance.BorderSize = 0;
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.Location = new Point(10, 11);
+            button1.Name = "button1";
+            button1.Size = new Size(116, 28);
+            button1.TabIndex = 1;
+            button1.Text = "Import Servers";
+            button1.UseVisualStyleBackColor = false;
+            // 
             // btnImportServers
             // 
             btnImportServers.BackColor = Color.FromArgb(100, 130, 180);
             btnImportServers.FlatAppearance.BorderSize = 0;
             btnImportServers.FlatStyle = FlatStyle.Flat;
-            btnImportServers.Location = new Point(470, 11);
+            btnImportServers.Location = new Point(556, 11);
             btnImportServers.Name = "btnImportServers";
-            btnImportServers.Size = new Size(116, 28);
+            btnImportServers.Size = new Size(30, 28);
             btnImportServers.TabIndex = 1;
-            btnImportServers.Text = "Add 3 Random";
+            btnImportServers.Text = "+3";
             btnImportServers.UseVisualStyleBackColor = false;
             btnImportServers.Click += btnImportServers_Click;
             // 
@@ -352,17 +366,18 @@
             lblServersOnShift.TabIndex = 0;
             lblServersOnShift.Text = "Servers On Shift";
             // 
-            // button1
+            // btnAddBartender
             // 
-            button1.BackColor = Color.FromArgb(100, 130, 180);
-            button1.FlatAppearance.BorderSize = 0;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Location = new Point(10, 11);
-            button1.Name = "button1";
-            button1.Size = new Size(116, 28);
-            button1.TabIndex = 1;
-            button1.Text = "Import Servers";
-            button1.UseVisualStyleBackColor = false;
+            btnAddBartender.BackColor = Color.FromArgb(100, 130, 180);
+            btnAddBartender.FlatAppearance.BorderSize = 0;
+            btnAddBartender.FlatStyle = FlatStyle.Flat;
+            btnAddBartender.Location = new Point(463, 11);
+            btnAddBartender.Name = "btnAddBartender";
+            btnAddBartender.Size = new Size(87, 28);
+            btnAddBartender.TabIndex = 1;
+            btnAddBartender.Text = "+ Bartender";
+            btnAddBartender.UseVisualStyleBackColor = false;
+            btnAddBartender.Click += btnAddBartender_Click;
             // 
             // frmNewShiftDatePicker
             // 
@@ -422,5 +437,6 @@
         private Label label6;
         private Button btnImportServers;
         private Button button1;
+        private Button btnAddBartender;
     }
 }
