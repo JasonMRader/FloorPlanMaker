@@ -11,7 +11,23 @@ namespace FloorplanClassLibrary
         public DateOnly Date { get; set; }
         public bool IsAm { get; set; }
         public List<string> Servers { get; set; } = new List<string>();
+        public List<Server> GetServersFromRecord(List<Server> allServers)
+        {
+            List<Server> scheduledServers = new List<Server>();
+            foreach(string s in Servers)
+            {
+                string normalizedServerName = s.ToLower();
 
+                foreach (Server server in allServers)
+                {
+                    if (server.Name.ToLower() == normalizedServerName)
+                    {
+                        scheduledServers.Add(server);
+                    }
+                }
+            }
+            return scheduledServers;
+        }
         public override string ToString()
         {
             string s = Date.ToString();
