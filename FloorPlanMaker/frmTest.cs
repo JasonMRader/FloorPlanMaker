@@ -20,11 +20,15 @@ namespace FloorPlanMakerUI
         }
         private string GetTestRecordData(List<ScheduledShift> shifts)
         {
+            DateOnly dateOnly = new DateOnly(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day);
+            ScheduledShift scheduledShift = shifts.FirstOrDefault(s => s.Date == dateOnly && s.IsAm == false);
             string s = "";
-            foreach (ScheduledShift shift in shifts)
-            {
-                s += shift.ToString() + Environment.NewLine; // Use Environment.NewLine for new line
-            }
+            s = scheduledShift.ToString();
+            
+            //foreach (ScheduledShift shift in shifts)
+            //{
+            //    s += shift.ToString() + Environment.NewLine; // Use Environment.NewLine for new line
+            //}
             return s;
         }
         private void button1_Click(object sender, EventArgs e)

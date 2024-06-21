@@ -660,8 +660,13 @@ namespace FloorPlanMakerUI
             {
                 return;
             }
-            bartenderCount--;           
+            bartenderCount--;
             lblBartenderCount.Text = bartenderCount.ToString();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
