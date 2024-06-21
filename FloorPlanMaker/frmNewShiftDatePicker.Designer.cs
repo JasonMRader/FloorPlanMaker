@@ -56,7 +56,10 @@
             flowServersOnShift = new FlowLayoutPanel();
             lblServersOnShift = new Label();
             toolTip1 = new ToolTip(components);
+            label2 = new Label();
             btnAddBartender = new Button();
+            btnSubtractBartender = new Button();
+            lblBartenderCount = new Label();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
@@ -248,6 +251,7 @@
             panel3.BackColor = Color.FromArgb(180, 190, 200);
             panel3.Controls.Add(txtServerSearch);
             panel3.Controls.Add(pbAddPerson);
+            panel3.Controls.Add(btnImportServers);
             panel3.Controls.Add(flowAllServers);
             panel3.Controls.Add(label6);
             panel3.Controls.Add(label5);
@@ -311,10 +315,12 @@
             // panel4
             // 
             panel4.BackColor = Color.FromArgb(180, 190, 200);
-            panel4.Controls.Add(button1);
+            panel4.Controls.Add(btnSubtractBartender);
             panel4.Controls.Add(btnAddBartender);
-            panel4.Controls.Add(btnImportServers);
+            panel4.Controls.Add(button1);
             panel4.Controls.Add(flowServersOnShift);
+            panel4.Controls.Add(lblBartenderCount);
+            panel4.Controls.Add(label2);
             panel4.Controls.Add(lblServersOnShift);
             panel4.Location = new Point(638, 351);
             panel4.Name = "panel4";
@@ -326,7 +332,7 @@
             button1.BackColor = Color.FromArgb(100, 130, 180);
             button1.FlatAppearance.BorderSize = 0;
             button1.FlatStyle = FlatStyle.Flat;
-            button1.Location = new Point(10, 11);
+            button1.Location = new Point(10, 9);
             button1.Name = "button1";
             button1.Size = new Size(116, 28);
             button1.TabIndex = 1;
@@ -338,7 +344,7 @@
             btnImportServers.BackColor = Color.FromArgb(100, 130, 180);
             btnImportServers.FlatAppearance.BorderSize = 0;
             btnImportServers.FlatStyle = FlatStyle.Flat;
-            btnImportServers.Location = new Point(556, 11);
+            btnImportServers.Location = new Point(154, 10);
             btnImportServers.Name = "btnImportServers";
             btnImportServers.Size = new Size(30, 28);
             btnImportServers.TabIndex = 1;
@@ -360,24 +366,51 @@
             // 
             lblServersOnShift.AutoSize = true;
             lblServersOnShift.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            lblServersOnShift.Location = new Point(209, 14);
+            lblServersOnShift.Location = new Point(186, 11);
             lblServersOnShift.Name = "lblServersOnShift";
             lblServersOnShift.Size = new Size(150, 25);
             lblServersOnShift.TabIndex = 0;
             lblServersOnShift.Text = "Servers On Shift";
             // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            label2.Location = new Point(433, 11);
+            label2.Name = "label2";
+            label2.Size = new Size(105, 25);
+            label2.TabIndex = 0;
+            label2.Text = "Bartenders";
+            // 
             // btnAddBartender
             // 
-            btnAddBartender.BackColor = Color.FromArgb(100, 130, 180);
-            btnAddBartender.FlatAppearance.BorderSize = 0;
-            btnAddBartender.FlatStyle = FlatStyle.Flat;
-            btnAddBartender.Location = new Point(463, 11);
+            btnAddBartender.Location = new Point(544, 0);
             btnAddBartender.Name = "btnAddBartender";
-            btnAddBartender.Size = new Size(87, 28);
-            btnAddBartender.TabIndex = 1;
-            btnAddBartender.Text = "+ Bartender";
-            btnAddBartender.UseVisualStyleBackColor = false;
+            btnAddBartender.Size = new Size(42, 20);
+            btnAddBartender.TabIndex = 2;
+            btnAddBartender.Text = "+";
+            btnAddBartender.UseVisualStyleBackColor = true;
             btnAddBartender.Click += btnAddBartender_Click;
+            // 
+            // btnSubtractBartender
+            // 
+            btnSubtractBartender.Location = new Point(544, 24);
+            btnSubtractBartender.Name = "btnSubtractBartender";
+            btnSubtractBartender.Size = new Size(42, 20);
+            btnSubtractBartender.TabIndex = 2;
+            btnSubtractBartender.Text = "-";
+            btnSubtractBartender.UseVisualStyleBackColor = true;
+            btnSubtractBartender.Click += btnSubtractBartender_Click;
+            // 
+            // lblBartenderCount
+            // 
+            lblBartenderCount.AutoSize = true;
+            lblBartenderCount.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lblBartenderCount.Location = new Point(407, 11);
+            lblBartenderCount.Name = "lblBartenderCount";
+            lblBartenderCount.Size = new Size(20, 25);
+            lblBartenderCount.TabIndex = 0;
+            lblBartenderCount.Text = "1";
             // 
             // frmNewShiftDatePicker
             // 
@@ -437,6 +470,9 @@
         private Label label6;
         private Button btnImportServers;
         private Button button1;
+        private Button btnSubtractBartender;
         private Button btnAddBartender;
+        private Label lblBartenderCount;
+        private Label label2;
     }
 }
