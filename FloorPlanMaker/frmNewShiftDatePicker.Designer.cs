@@ -55,6 +55,7 @@
             flowServersOnShift = new FlowLayoutPanel();
             lblServersOnShift = new Label();
             toolTip1 = new ToolTip(components);
+            button1 = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
@@ -309,6 +310,7 @@
             // panel4
             // 
             panel4.BackColor = Color.FromArgb(180, 190, 200);
+            panel4.Controls.Add(button1);
             panel4.Controls.Add(btnImportServers);
             panel4.Controls.Add(flowServersOnShift);
             panel4.Controls.Add(lblServersOnShift);
@@ -349,6 +351,18 @@
             lblServersOnShift.Size = new Size(150, 25);
             lblServersOnShift.TabIndex = 0;
             lblServersOnShift.Text = "Servers On Shift";
+            // 
+            // button1
+            // 
+            button1.BackColor = Color.FromArgb(100, 130, 180);
+            button1.FlatAppearance.BorderSize = 0;
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.Location = new Point(10, 11);
+            button1.Name = "button1";
+            button1.Size = new Size(116, 28);
+            button1.TabIndex = 1;
+            button1.Text = "Import Servers";
+            button1.UseVisualStyleBackColor = false;
             // 
             // frmNewShiftDatePicker
             // 
@@ -407,5 +421,6 @@
         private TextBox txtServerSearch;
         private Label label6;
         private Button btnImportServers;
+        private Button button1;
     }
 }
