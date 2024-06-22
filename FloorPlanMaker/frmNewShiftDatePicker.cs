@@ -243,15 +243,9 @@ namespace FloorPlanMakerUI
 
         private void RefreshPreviousFloorplanCounts()
         {
-
-            Dictionary<DiningArea, int> lastWeekFloorplans = ServersAssignedPreviousDay(allFloorplans, cbIsAm.Checked, -7);
-            Dictionary<DiningArea, int> yesterdayFloorplans = ServersAssignedPreviousDay(allFloorplans, cbIsAm.Checked, -1);
             List<AreaHistory> lastWeekAreaHistories = GetAreaHistories(cbIsAm.Checked, -7);
             List<AreaHistory> yesterdayAreaHistories = GetAreaHistories(cbIsAm.Checked, -1);
 
-
-            //UpdateLabels(flowLastWeekdayCounts, lastWeekFloorplans);
-            //UpdateLabels(flowYesterdayCounts, yesterdayFloorplans);
             CreateAreaHistoryLabels(flowLastWeekdayCounts, lastWeekAreaHistories);
             CreateAreaHistoryLabels(flowYesterdayCounts, yesterdayAreaHistories);
         }
@@ -278,12 +272,18 @@ namespace FloorPlanMakerUI
                         lbl.ForeColor = Color.LightGray;
                         lbl.Text = "";
                     }
-                    else if (history.ServerCount < 0)
+                    else if (history.Sales == 0f)
                     {
                         lbl.BackColor = Color.Gray;
                         lbl.ForeColor = Color.LightGray;
                         lbl.Text = "";
-                    }    
+                    }
+                    else if (history.Sales > 0f && history.Sales < 1000f)
+                    {
+                        lbl.BackColor = Color.Gray;
+                        lbl.ForeColor = Color.LightGray;
+                        lbl.Text = "|" + history.ServerCount.ToString() + "| " + history.Sales.ToString("C0");
+                    }
                     else
                     {
                         lbl.BackColor = UITheme.YesColor;
@@ -760,6 +760,11 @@ namespace FloorPlanMakerUI
         private void PopulateServersFromCsv(List<ScheduledShift> records)
         {
             ScheduledShift scheduledShift = records.FirstOrDefault(s => s.Date == shiftManager.DateOnly && s.IsAm == shiftManager.IsAM);
+            if (scheduledShift == null) 
+            {
+                MessageBox.Show("No shift was found in that file for the date selected");
+                return;
+            }
             try
             {
                 List<Server> scheduledServers = scheduledShift.GetServersFromRecord(shiftManager.SelectedShift.AllServers);
