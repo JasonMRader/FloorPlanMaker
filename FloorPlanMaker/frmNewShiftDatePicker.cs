@@ -765,6 +765,12 @@ namespace FloorPlanMakerUI
             {
                 shiftManager.SelectedShift.AddNewUnassignedServer(server);
             }
+            Server barServer = shiftManager.SelectedShift.AllServers.FirstOrDefault(s => s.Name == "BAR");
+            if(barServer != null)
+            {
+                shiftManager.SelectedShift.AddNewUnassignedServer(barServer);
+            }
+           
            
         }
     }
