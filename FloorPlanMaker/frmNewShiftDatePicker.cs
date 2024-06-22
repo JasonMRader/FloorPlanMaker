@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+//using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace FloorPlanMakerUI
 {
@@ -644,6 +645,81 @@ namespace FloorPlanMakerUI
         private void flowServersOnShift_ControlsChanged(object sender, ControlEventArgs e)
         {
             lblServersOnShift.Text = $"{shiftManager.SelectedShift.ServersOnShift.Count} Servers On Shift";
+        }
+
+        private void btnAddBartender_Click(object sender, EventArgs e)
+        {
+            int bartenderCount = Int32.Parse(lblBartenderCount.Text);
+            bartenderCount++;
+            lblBartenderCount.Text = bartenderCount.ToString();
+        }
+
+        private void btnSubtractBartender_Click(object sender, EventArgs e)
+        {
+            int bartenderCount = Int32.Parse(lblBartenderCount.Text);
+            if (bartenderCount == 0)
+            {
+                return;
+            }
+            bartenderCount--;
+            lblBartenderCount.Text = bartenderCount.ToString();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                string defaultDirectory = @"C:\Users\Jason\OneDrive\Working On Now\misc";
+                string fallbackDirectory = @"C:\";
+
+                // Check if the default directory exists
+                if (Directory.Exists(defaultDirectory))
+                {
+                    openFileDialog.InitialDirectory = defaultDirectory;
+                }
+                else
+                {
+                    openFileDialog.InitialDirectory = fallbackDirectory;
+                }
+                openFileDialog.Filter = "CSV files (*.csv)|*.csv|All files (*.*)|*.*";
+                openFileDialog.FilterIndex = 1;
+                openFileDialog.RestoreDirectory = true;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+
+                    string filePath = openFileDialog.FileName;
+                    frmLoading loadingForm = new frmLoading("Loading");
+                    loadingForm.Show();
+                    this.Enabled = false;
+
+                    Task.Run(() =>
+                    {
+                        List<ScheduledShift> records = CsvScheduleReader.GetScheduledShifts(filePath);
+                       
+                        records.OrderBy(r => r.Date).ToList();
+                        PopulateServersFromCsv(records);
+                        //string s = GetTestRecordData(records);
+
+                        this.Invoke(new Action(() =>
+                        {
+                            
+                            loadingForm.Close();
+                            this.Enabled = true;
+                            //textBox1.Text = s;
+
+                        }));
+                    });
+
+                }
+
+            }
+        }
+
+        private void PopulateServersFromCsv(List<ScheduledShift> records)
+        {
+            ScheduledShift scheduledShift = records.FirstOrDefault(s => s.Date == shiftManager.DateOnly && s.IsAm == shiftManager.IsAM);
+            List<Server> scheduledServers = scheduledShift.GetServersFromRecord(shiftManager.SelectedShift.AllServers);
         }
     }
 }
