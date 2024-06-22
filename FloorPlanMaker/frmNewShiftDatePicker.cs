@@ -760,16 +760,24 @@ namespace FloorPlanMakerUI
         private void PopulateServersFromCsv(List<ScheduledShift> records)
         {
             ScheduledShift scheduledShift = records.FirstOrDefault(s => s.Date == shiftManager.DateOnly && s.IsAm == shiftManager.IsAM);
-            List<Server> scheduledServers = scheduledShift.GetServersFromRecord(shiftManager.SelectedShift.AllServers);
-            foreach (Server server in scheduledServers)
+            try
             {
-                shiftManager.SelectedShift.AddNewUnassignedServer(server);
+                List<Server> scheduledServers = scheduledShift.GetServersFromRecord(shiftManager.SelectedShift.AllServers);
+                foreach (Server server in scheduledServers)
+                {
+                    shiftManager.SelectedShift.AddNewUnassignedServer(server);
+                }
+                Server barServer = shiftManager.SelectedShift.AllServers.FirstOrDefault(s => s.Name == "BAR");
+                if (barServer != null)
+                {
+                    shiftManager.SelectedShift.AddNewUnassignedServer(barServer);
+                }
             }
-            Server barServer = shiftManager.SelectedShift.AllServers.FirstOrDefault(s => s.Name == "BAR");
-            if(barServer != null)
+            catch (Exception ex)
             {
-                shiftManager.SelectedShift.AddNewUnassignedServer(barServer);
+                MessageBox.Show(ex.Message);
             }
+            
            
            
         }
