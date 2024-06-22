@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CsvHelper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -79,7 +80,7 @@ namespace FloorplanClassLibrary
             }
             ExpectedSales = totalSales;
         }
-        public float GetTotalSalesForShift(bool isLunch, DateOnly dateOnly)
+        public float GetTotalSalesForDateAndIsAm(bool isLunch, DateOnly dateOnly)
         {
             List<TableStat> stats = SqliteDataAccess.LoadTableStatsByDateAndLunch(isLunch, dateOnly);
             float totalAreaSales = 0f;
@@ -153,5 +154,6 @@ namespace FloorplanClassLibrary
             // Assuming ID is an int and a unique identifier for DiningArea
             return this.ID.GetHashCode();
         }
+        
     }
 }

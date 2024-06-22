@@ -246,14 +246,54 @@ namespace FloorPlanMakerUI
 
             Dictionary<DiningArea, int> lastWeekFloorplans = ServersAssignedPreviousDay(allFloorplans, cbIsAm.Checked, -7);
             Dictionary<DiningArea, int> yesterdayFloorplans = ServersAssignedPreviousDay(allFloorplans, cbIsAm.Checked, -1);
+            List<AreaHistory> lastWeekAreaHistories = GetAreaHistories(cbIsAm.Checked, -7);
+            List<AreaHistory> yesterdayAreaHistories = GetAreaHistories(cbIsAm.Checked, -1);
 
 
-            UpdateLabels(flowLastWeekdayCounts, lastWeekFloorplans);
-
-
-            UpdateLabels(flowYesterdayCounts, yesterdayFloorplans);
+            //UpdateLabels(flowLastWeekdayCounts, lastWeekFloorplans);
+            //UpdateLabels(flowYesterdayCounts, yesterdayFloorplans);
+            CreateAreaHistoryLabels(flowLastWeekdayCounts, lastWeekAreaHistories);
+            CreateAreaHistoryLabels(flowYesterdayCounts, yesterdayAreaHistories);
         }
+              
+        private List<AreaHistory> GetAreaHistories(bool isAm, int v)
+        {
+            List<AreaHistory> areaHistories = new List<AreaHistory>();
+            foreach(DiningArea area in this.DiningAreaManager.DiningAreas)
+            {
+                areaHistories.Add(new AreaHistory(area, dateOnlySelected.AddDays(v), isAm));
+            }
+            return areaHistories;
+        }
+        private void CreateAreaHistoryLabels(FlowLayoutPanel panel, List<AreaHistory> areaHistories)
+        {
+            foreach (Label lbl in panel.Controls.OfType<Label>())
+            {
+                if (lbl.Tag is DiningArea area)
+                {
+                    AreaHistory history = areaHistories.FirstOrDefault(x => x.DiningArea == area);
+                    if (history == null)
+                    {
+                        lbl.BackColor = Color.Gray;
+                        lbl.ForeColor = Color.LightGray;
+                        lbl.Text = "";
+                    }
+                    else if (history.ServerCount < 0)
+                    {
+                        lbl.BackColor = Color.Gray;
+                        lbl.ForeColor = Color.LightGray;
+                        lbl.Text = "";
+                    }    
+                    else
+                    {
+                        lbl.BackColor = UITheme.YesColor;
+                        lbl.ForeColor = Color.Black;
+                        lbl.Text = "|" + history.ServerCount.ToString() + "| " + history.Sales.ToString("C0");
+                    }
 
+                }
+            }
+        }
         private void UpdateLabels(FlowLayoutPanel panel, Dictionary<DiningArea, int> floorplanCounts)
         {
             foreach (Label lbl in panel.Controls.OfType<Label>())
