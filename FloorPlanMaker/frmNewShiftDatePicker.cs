@@ -689,9 +689,22 @@ namespace FloorPlanMakerUI
 
         private void btnAddBartender_Click(object sender, EventArgs e)
         {
-            int bartenderCount = Int32.Parse(lblBartenderCount.Text);
+            int bartenderCount = Int32.Parse(lblBartenderCount.Text); 
+            if (bartenderCount == 6)
+            {
+                return;
+            }
             bartenderCount++;
             lblBartenderCount.Text = bartenderCount.ToString();
+        }
+        private void SetBartendersOnShiftCount(int bartenderCount)
+        {
+            if(bartenderCount == 0) 
+            { 
+                
+                return; 
+            }
+
         }
 
         private void btnSubtractBartender_Click(object sender, EventArgs e)
@@ -772,7 +785,7 @@ namespace FloorPlanMakerUI
                 {
                     shiftManager.SelectedShift.AddNewUnassignedServer(server);
                 }
-                Server barServer = shiftManager.SelectedShift.AllServers.FirstOrDefault(s => s.Name == "BAR");
+                Server barServer = shiftManager.SelectedShift.AllServers.FirstOrDefault(s => s.Name == "BAR1");
                 if (barServer != null)
                 {
                     shiftManager.SelectedShift.AddNewUnassignedServer(barServer);

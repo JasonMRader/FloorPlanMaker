@@ -4,6 +4,7 @@ using System.DirectoryServices.ActiveDirectory;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -44,7 +45,13 @@ namespace FloorplanClassLibrary
             _serversNotOnShift = new List<Server>(_allServers);
 
         }
+        public List<Server> allBartenders(List<Server> servers)
+        {
+           
+            Regex regex = new Regex(@"^BAR\d+$");
+            return servers.Where(s => regex.IsMatch(s.Name)).ToList();
 
+        }
         public bool IsAM { get; set; }
         public DateOnly DateOnly { get; set; }
         public DateTime DateTime
