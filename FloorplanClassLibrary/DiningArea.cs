@@ -79,7 +79,26 @@ namespace FloorplanClassLibrary
             }
             ExpectedSales = totalSales;
         }
+        public float GetTotalSalesForShift(bool isLunch, DateOnly dateOnly)
+        {
+            List<TableStat> stats = SqliteDataAccess.LoadTableStatsByDateAndLunch(isLunch, dateOnly);
+            float totalAreaSales = 0f;
+            foreach (Table table in Tables)
+            {
+                var matchedStat = stats.FirstOrDefault(t => t.TableStatNumber == table.TableNumber);
+                if (matchedStat != null)
+                {
+                    table.AverageSales = (float)matchedStat.Sales;
+                    totalAreaSales += (float)matchedStat.Sales;
 
+                }
+                else { table.AverageSales = 0; }
+
+            }
+            
+
+            return totalAreaSales;
+        }
 
 
         public int GetMaxCovers()
