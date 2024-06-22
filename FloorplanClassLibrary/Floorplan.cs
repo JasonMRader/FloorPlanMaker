@@ -559,5 +559,12 @@ namespace FloorplanClassLibrary
         {
             //UpdateSectionServerMap();
         }
+        public override string ToString()
+        {
+            string isAM = "AM";
+            if (!this.IsLunch) {
+                isAM = "PM"; }
+            return $"{DateOnly} {isAM} {DiningArea.Name} | {this.Servers.Count} Servers";
+        }
     }
 }

@@ -458,6 +458,7 @@ namespace FloorPlanMaker
         private void NewAddServerButtonToFloorplan(Floorplan floorplan, Server server, ServerHistoryControl serverHistory)
         {
             FlowLayoutPanel SelectedTargetPanel = null;
+            serverHistory.Click -= ServerControl_Click;
             foreach (Control control in flowDiningAreaAssignment.Controls)
             {
                 if (control is FlowLayoutPanel panel && panel.Tag == floorplan)
