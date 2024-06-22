@@ -706,6 +706,7 @@ namespace FloorPlanMakerUI
                             
                             loadingForm.Close();
                             this.Enabled = true;
+                            PopulateServers();
                             //textBox1.Text = s;
 
                         }));
@@ -720,6 +721,11 @@ namespace FloorPlanMakerUI
         {
             ScheduledShift scheduledShift = records.FirstOrDefault(s => s.Date == shiftManager.DateOnly && s.IsAm == shiftManager.IsAM);
             List<Server> scheduledServers = scheduledShift.GetServersFromRecord(shiftManager.SelectedShift.AllServers);
+            foreach (Server server in scheduledServers)
+            {
+                shiftManager.SelectedShift.AddNewUnassignedServer(server);
+            }
+           
         }
     }
 }
