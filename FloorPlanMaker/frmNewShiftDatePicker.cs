@@ -79,6 +79,7 @@ namespace FloorPlanMakerUI
         {
             SetColors();
             lblDate.Text = dateSelected.ToString("dddd, MMMM dd");
+            GetDateLabel();
             LoadDiningAreas();
             RefreshPreviousFloorplanCounts();
             PopulateServers();
@@ -513,22 +514,7 @@ namespace FloorPlanMakerUI
         {
             dateSelected = dateSelected.AddDays(-1);
             lblDate.Text = dateSelected.ToString("dddd, MMMM dd");
-            if (dateSelected.Date == DateTime.Today)
-            {
-                lblIsToday.Text = "(Today)";
-            }
-            else if (dateSelected.Date == DateTime.Today.AddDays(-1))
-            {
-                lblIsToday.Text = "(Yesterday)";
-            }
-            else if (dateSelected.Date == DateTime.Today.AddDays(1))
-            {
-                lblIsToday.Text = "(Tomorrow)";
-            }
-            else
-            {
-                lblIsToday.Text = "";
-            }
+            GetDateLabel();
             RefreshPreviousFloorplanCounts();
             RefreshForDateSelected();
         }
@@ -537,6 +523,12 @@ namespace FloorPlanMakerUI
         {
             dateSelected = dateSelected.AddDays(1);
             lblDate.Text = dateSelected.ToString("dddd, MMMM dd");
+            GetDateLabel();
+            RefreshPreviousFloorplanCounts();
+            RefreshForDateSelected();
+        }
+        private void GetDateLabel()
+        {
             if (dateSelected.Date == DateTime.Today)
             {
                 lblIsToday.Text = "(Today)";
@@ -553,10 +545,7 @@ namespace FloorPlanMakerUI
             {
                 lblIsToday.Text = "";
             }
-            RefreshPreviousFloorplanCounts();
-            RefreshForDateSelected();
         }
-
 
 
         private void btnCancel_Click(object sender, EventArgs e)
