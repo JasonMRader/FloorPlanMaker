@@ -348,6 +348,68 @@ namespace FloorplanClassLibrary
             System.IO.File.Copy(databasePath, backupFilePath, overwrite: true);
             
         }
+        public static void DeleteOldBackups()
+        {
+            try
+            {
+                
+                string connectionString = LoadConnectionString();
+               
+                var builder = new System.Data.SQLite.SQLiteConnectionStringBuilder(connectionString);
+                string databasePath = builder.DataSource;
+                               
+                string backupDirectory = Path.Combine(Path.GetDirectoryName(databasePath), "BackUpDBs");
+               
+                if (!Directory.Exists(backupDirectory))
+                {
+                    MessageBox.Show("Backup directory does not exist.");
+                    return;
+                }
+                // Get all backup files in the directory
+                string[] backupFiles = Directory.GetFiles(backupDirectory, "backup_*.db");
+
+                // Sort the backup files by date in descending order
+                Array.Sort(backupFiles, (x, y) => File.GetCreationTime(y).CompareTo(File.GetCreationTime(x)));
+
+                // Determine the cutoff date for old backups
+                DateTime cutoffDate = DateTime.Now.AddMonths(-2);
+
+                // Filter out backups older than the cutoff date
+                List<string> oldBackups = new List<string>();
+                foreach (string backupFile in backupFiles)
+                {
+                    string fileName = Path.GetFileNameWithoutExtension(backupFile);
+                    string dateString = fileName.Replace("backup_", "");
+
+                    if (DateTime.TryParseExact(dateString, "yyyy_MM_dd", null, System.Globalization.DateTimeStyles.None, out DateTime backupDate))
+                    {
+                        if (backupDate < cutoffDate)
+                        {
+                            oldBackups.Add(backupFile);
+                        }
+                    }
+                }
+
+                // Delete old backups if there will be at least 10 backups remaining
+                if (backupFiles.Length - oldBackups.Count >= 10)
+                {
+                    foreach (string oldBackup in oldBackups)
+                    {
+                        File.Delete(oldBackup);
+                        Console.WriteLine($"Deleted old backup: {oldBackup}");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Not enough backups would remain after deletion, so no files were deleted.");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log the error
+                Console.WriteLine($"Error during deleting old backups: {ex.Message}");
+            }
+        }
 
         public static List<Table> LoadTables(List<DiningArea> diningAreas)
         {
