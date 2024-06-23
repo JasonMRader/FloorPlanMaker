@@ -52,6 +52,43 @@ namespace FloorplanClassLibrary
             return servers.Where(s => regex.IsMatch(s.Name)).ToList();
 
         }
+        public void SetBartendersToShift(int bartenderCount)
+        {
+           
+            List<Server> currentBartenders = ServersOnShift
+                .Where(s => s.Name.StartsWith("BAR"))
+                .OrderBy(s => s.Name)
+                .ToList();            
+            int currentCount = currentBartenders.Count;
+            if (bartenderCount > currentCount)            {
+                
+                for (int i = currentCount + 1; i <= bartenderCount; i++)
+                {
+                    string bartenderName = $"BAR{i}";
+                    Server newBartender = AllServers.FirstOrDefault(s => s.Name == bartenderName);
+                    if (newBartender != null)
+                    {
+                        newBartender.IsBartender = true;
+                        AddNewUnassignedServer(newBartender);
+                    }
+                }
+            }
+            else if (bartenderCount < currentCount)
+            {               
+                for (int i = currentCount; i > bartenderCount; i--)
+                {
+                    string bartenderName = $"BAR{i}";
+                    Server bartenderToRemove = ServersOnShift.FirstOrDefault(s => s.Name == bartenderName);
+                    if (bartenderToRemove != null)
+                    {
+                        RemoveServerFromShift(bartenderToRemove);
+                    }
+                }
+            }
+        }
+              
+       
+
         public bool IsAM { get; set; }
         public DateOnly DateOnly { get; set; }
         public DateTime DateTime

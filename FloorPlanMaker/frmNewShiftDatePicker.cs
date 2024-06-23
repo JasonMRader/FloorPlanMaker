@@ -685,17 +685,9 @@ namespace FloorPlanMakerUI
             }
             bartenderCount++;
             lblBartenderCount.Text = bartenderCount.ToString();
-        }
-        private void SetBartendersOnShiftCount(int bartenderCount)
-        {
-            if(bartenderCount == 0) 
-            { 
-                
-                return; 
-            }
-
-        }
-
+            shiftManager.SelectedShift.SetBartendersToShift(bartenderCount);
+            //PopulateServers();
+        }        
         private void btnSubtractBartender_Click(object sender, EventArgs e)
         {
             int bartenderCount = Int32.Parse(lblBartenderCount.Text);
@@ -705,6 +697,8 @@ namespace FloorPlanMakerUI
             }
             bartenderCount--;
             lblBartenderCount.Text = bartenderCount.ToString();
+            shiftManager.SelectedShift.SetBartendersToShift(bartenderCount);
+            //PopulateServers();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -774,11 +768,11 @@ namespace FloorPlanMakerUI
                 {
                     shiftManager.SelectedShift.AddNewUnassignedServer(server);
                 }
-                Server barServer = shiftManager.SelectedShift.AllServers.FirstOrDefault(s => s.Name == "BAR1");
-                if (barServer != null)
-                {
-                    shiftManager.SelectedShift.AddNewUnassignedServer(barServer);
-                }
+                //Server barServer = shiftManager.SelectedShift.AllServers.FirstOrDefault(s => s.Name == "BAR1");
+                //if (barServer != null)
+                //{
+                //    shiftManager.SelectedShift.AddNewUnassignedServer(barServer);
+                //}
             }
             catch (Exception ex)
             {
