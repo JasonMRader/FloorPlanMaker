@@ -55,19 +55,29 @@ namespace FloorplanClassLibrary
             
             int CocktailersNeeded = 0;
             int CocktailAreas = 0;
+            List<Server> unassignedBartenders = shift.ServersOnShift.Where(s => s.IsBartender).ToList();
             foreach(Floorplan fp in shift.Floorplans)
             {
                 if (fp.DiningArea.IsCocktail)
                 {
-                    CocktailersNeeded += ServerDistribution[fp.DiningArea];
+                    CocktailersNeeded += ServerDistribution[fp.DiningArea]; 
+                    if(unassignedBartenders.Count > 0)
+                    {
+                        shift.SelectedFloorplan = fp;
+                        shift.AddServerToAFloorplan(unassignedBartenders[0]);
+                        shift.SelectedFloorplan.AddServerAndSection(unassignedBartenders[0]);
+                        unassignedBartenders.Remove(unassignedBartenders[0]);
+                    };
                     CocktailersNeeded -= fp.Servers.Count();
                     CocktailAreas ++;
                 }
             }
+            CocktailersNeeded -= unassignedBartenders.Count();
             List<Server> Cocktailers = shift.UnassignedServers
                 .OrderByDescending(s => s.CocktailPreference)
                 .Take(CocktailersNeeded)
                 .ToList();
+            Cocktailers.AddRange(unassignedBartenders);
             if(CocktailAreas == 1)
             {
                 shift.SelectedFloorplan = shift.Floorplans.FirstOrDefault(fp => fp.DiningArea.IsCocktail);
