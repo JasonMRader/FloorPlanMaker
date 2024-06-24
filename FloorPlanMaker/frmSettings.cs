@@ -56,7 +56,18 @@ namespace FloorPlanMakerUI
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                openFileDialog.InitialDirectory = "c:\\";
+                string defaultDirectory = @"C:\Users\Jason\OneDrive\Source\Databases\LiveDB\Order History";
+                string fallbackDirectory = @"C:\";
+
+                // Check if the default directory exists
+                if (Directory.Exists(defaultDirectory))
+                {
+                    openFileDialog.InitialDirectory = defaultDirectory;
+                }
+                else
+                {
+                    openFileDialog.InitialDirectory = fallbackDirectory;
+                }
                 openFileDialog.Filter = "CSV files (*.csv)|*.csv|All files (*.*)|*.*";
                 openFileDialog.FilterIndex = 1;
                 openFileDialog.RestoreDirectory = true;
