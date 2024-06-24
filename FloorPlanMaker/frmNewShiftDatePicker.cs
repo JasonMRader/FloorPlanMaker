@@ -53,6 +53,7 @@ namespace FloorPlanMakerUI
 
             this.dateSelected = date;
             cbIsAm.Checked = isAm;
+
         }
         //TODO: when reopening after closing, the floorplans are reset, one that was just created is gone
         private void SetColors()
@@ -565,6 +566,8 @@ namespace FloorPlanMakerUI
                 MessageBox.Show("You have not assigned any servers");
                 return;
             }
+            int bartenderCount = Int32.Parse(lblBartenderCount.Text);
+            shiftManager.SelectedShift.SetBartendersToShift(bartenderCount);
             //ShiftManagerCreated.RemoveAssignedServers();
             //SetShiftManagerDateAndIsAM();
             //****frmEditStaff.UpdateNewShift(ShiftManagerCreated);
@@ -685,6 +688,7 @@ namespace FloorPlanMakerUI
             }
             bartenderCount++;
             lblBartenderCount.Text = bartenderCount.ToString();
+            //lblBartenderCount.Text = shiftManager.SelectedShift.BartenderCount.ToString();
             shiftManager.SelectedShift.SetBartendersToShift(bartenderCount);
             //PopulateServers();
         }        
@@ -698,6 +702,7 @@ namespace FloorPlanMakerUI
             bartenderCount--;
             lblBartenderCount.Text = bartenderCount.ToString();
             shiftManager.SelectedShift.SetBartendersToShift(bartenderCount);
+            //lblBartenderCount.Text = shiftManager.SelectedShift.BartenderCount.ToString();
             //PopulateServers();
         }
 

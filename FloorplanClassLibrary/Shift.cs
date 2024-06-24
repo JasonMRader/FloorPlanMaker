@@ -12,6 +12,7 @@ namespace FloorplanClassLibrary
 {
     public class Shift
     {
+        
         public Shift(DiningArea diningArea, DateOnly date, bool isAm)
         {
             this.DateOnly = date;
@@ -44,6 +45,22 @@ namespace FloorplanClassLibrary
             _allServers = SqliteDataAccess.LoadActiveServers();
             _serversNotOnShift = new List<Server>(_allServers);
 
+        }
+       
+        public int BartenderCount
+        {
+            get 
+            {
+                int bartenderCount = 0;
+                foreach (Server server in _serversOnShift)
+                {
+                    if(server.IsBartender)
+                    {
+                        bartenderCount++;
+                    }
+                }
+                return bartenderCount;
+            }
         }
         public List<Server> allBartenders(List<Server> servers)
         {
@@ -85,6 +102,7 @@ namespace FloorplanClassLibrary
                     }
                 }
             }
+            
         }
               
        
