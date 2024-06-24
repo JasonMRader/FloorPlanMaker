@@ -150,13 +150,30 @@ namespace FloorplanClassLibrary
                .OrderBy(s => s.AdjustedOutsidePriority)
                .Take(insideServersNeeded)
                .ToList();
-            if (insideServersAreas == 1)
+            //if (insideServersAreas == 1)
+            //{
+            //    shift.SelectedFloorplan = shift.Floorplans.FirstOrDefault(fp => !fp.DiningArea.IsCocktail && fp.DiningArea.IsInside);
+            //    foreach (Server server in insideServers)
+            //    {
+            //        shift.AddServerToAFloorplan(server);
+            //        shift.SelectedFloorplan.AddServerAndSection(server);
+            //    }
+            //}
+            int serverIndex = 0;
+            foreach (Floorplan floorplan in shift.Floorplans)
             {
-                shift.SelectedFloorplan = shift.Floorplans.FirstOrDefault(fp => !fp.DiningArea.IsCocktail && fp.DiningArea.IsInside);
-                foreach (Server server in insideServers)
+
+                if (floorplan.DiningArea.IsInside && !floorplan.DiningArea.IsCocktail)
                 {
-                    shift.AddServerToAFloorplan(server);
-                    shift.SelectedFloorplan.AddServerAndSection(server);
+                    shift.SelectedFloorplan = floorplan;
+                    int serversNeeded = ServerDistribution[floorplan.DiningArea] - floorplan.Servers.Count;
+                    while (serversNeeded > 0)
+                    {
+                        shift.AddServerToAFloorplan(insideServers[serverIndex]);
+                        shift.SelectedFloorplan.AddServerAndSection(insideServers[serverIndex]);
+                        serverIndex++;
+                        serversNeeded--;
+                    }
                 }
             }
         }
