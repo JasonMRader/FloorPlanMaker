@@ -53,16 +53,17 @@
             lblSalesPerServer5 = new Label();
             lblTotalSales = new Label();
             lblSalesPerServerTotal = new Label();
+            button2 = new Button();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
             SuspendLayout();
             // 
             // button1
             // 
-            button1.Location = new Point(306, 484);
+            button1.Location = new Point(86, 348);
             button1.Name = "button1";
             button1.Size = new Size(142, 23);
             button1.TabIndex = 0;
-            button1.Text = "button1";
+            button1.Text = "generate";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
@@ -270,11 +271,22 @@
             lblSalesPerServerTotal.TabIndex = 2;
             lblSalesPerServerTotal.Text = "label1";
             // 
+            // button2
+            // 
+            button2.Location = new Point(507, 348);
+            button2.Name = "button2";
+            button2.Size = new Size(116, 23);
+            button2.TabIndex = 4;
+            button2.Text = "Randomize";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
+            // 
             // frmTest
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 519);
+            Controls.Add(button2);
             Controls.Add(label6);
             Controls.Add(numericUpDown1);
             Controls.Add(label5);
@@ -334,5 +346,6 @@
         private Label lblSalesPerServer5;
         private Label lblTotalSales;
         private Label lblSalesPerServerTotal;
+        private Button button2;
     }
 }
