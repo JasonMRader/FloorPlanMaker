@@ -17,9 +17,18 @@ namespace FloorplanClassLibrary
             IsInside = isInside;
         
         }
+        public DiningArea(string name, bool isInside, bool isCocktail, int ID, float testSales)
+        {
+            this.Name = name;
+            this.IsInside = isInside;
+            this.ID = ID;
+            this.TestSales = testSales;
+            this.IsCocktail = isCocktail;
+        }
         public DiningArea() { }
         public TableSalesManager TableSalesManager = new TableSalesManager();
         public float ExpectedSales { get; private set; }
+        public float TestSales { get; set; }
        
         public int ID { get; set; }
         public string Name { get; set; }

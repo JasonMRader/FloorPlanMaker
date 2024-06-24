@@ -14,73 +14,66 @@ namespace FloorPlanMakerUI
 {
     public partial class frmTest : Form
     {
+        private int ServerCount = 0;
+        private Shift shift = new Shift(); 
+        
         public frmTest()
         {
             InitializeComponent();
         }
-        private string GetTestRecordData(List<ScheduledShift> shifts)
-        {
-            DateOnly dateOnly = new DateOnly(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day);
-            ScheduledShift scheduledShift = shifts.FirstOrDefault(s => s.Date == dateOnly && s.IsAm == false);
-            string s = "";
-            s = scheduledShift.ToString();
-            
-            //foreach (ScheduledShift shift in shifts)
-            //{
-            //    s += shift.ToString() + Environment.NewLine; // Use Environment.NewLine for new line
-            //}
-            return s;
-        }
+
         private void button1_Click(object sender, EventArgs e)
         {
-            
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            ServerCount = (int)numericUpDown1.Value;
+            GetAreas();
+            float totalSales = shift.DiningAreasUsed.Sum(da => da.TestSales);
+            lblTotalSales.Text = totalSales.ToString("C0");
+            lblSalesPerServerTotal.Text = (totalSales / ServerCount).ToString();
+
+        }
+        private void GetAreas()
+        {
+            if (txtInsideSales.Text != "")
             {
-                string defaultDirectory = @"C:\Users\Jason\OneDrive\Working On Now\misc";
-                string fallbackDirectory = @"C:\";
-
-                // Check if the default directory exists
-                if (Directory.Exists(defaultDirectory))
-                {
-                    openFileDialog.InitialDirectory = defaultDirectory;
-                }
-                else
-                {
-                    openFileDialog.InitialDirectory = fallbackDirectory;
-                }
-                openFileDialog.Filter = "CSV files (*.csv)|*.csv|All files (*.*)|*.*";
-                openFileDialog.FilterIndex = 1;
-                openFileDialog.RestoreDirectory = true;
-
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
-                {
-
-                    string filePath = openFileDialog.FileName;
-                    frmLoading loadingForm = new frmLoading("Loading");
-                    loadingForm.Show();
-                    this.Enabled = false;
-
-                    Task.Run(() =>
-                    {
-                        List<ScheduledShift> records = CsvScheduleReader.GetScheduledShifts(filePath);
-                        //var records = CsvScheduleReader.InspectCsvFile(filePath);
-                        records.OrderBy(r => r.Date).ToList();
-                        string s = GetTestRecordData(records);
-
-                        this.Invoke(new Action(() =>
-                        {
-                            // Close the loading form and re-enable the main form
-                            loadingForm.Close();
-                            this.Enabled = true;
-                            textBox1.Text = s;
-
-                        }));
-                    });
-
-                }
+                float sales = float.Parse(txtInsideSales.Text);
+                DiningArea insideDining = new DiningArea("insideDining", true, false, 1, sales);              
                 
+                shift.CreateFloorplanForDiningArea(insideDining, 0, 0);
+
             }
-           
+            if (txtOutsideSales.Text != "")
+            {
+                float sales = float.Parse(txtOutsideSales.Text);
+                DiningArea OutsideDining = new DiningArea("outsideDining", false, false, 2, sales);               
+               
+                shift.CreateFloorplanForDiningArea(OutsideDining, 0, 0);
+
+            }
+            if (txtOutsideCocktailSales.Text != "")
+            {
+                float sales = float.Parse(txtOutsideCocktailSales.Text);
+                DiningArea outCocktail = new DiningArea("outCocktail", false, true, 3, sales);
+
+                shift.CreateFloorplanForDiningArea(outCocktail, 0, 0);
+
+            }
+            if (txtInsideCocktailSales.Text != "")
+            {
+                float sales = float.Parse(txtInsideCocktailSales.Text);
+                DiningArea inCocktail = new DiningArea("inCocktail", true, true, 4, sales);
+
+                shift.CreateFloorplanForDiningArea(inCocktail, 0, 0);
+
+            }
+            if (txtUpperSales.Text != "")
+            {
+                float sales = float.Parse(txtUpperSales.Text);
+                DiningArea upper = new DiningArea("upper", true, false, 5, sales);
+
+                shift.CreateFloorplanForDiningArea(upper, 0, 0);
+
+            }
+            
         }
     }
 }
