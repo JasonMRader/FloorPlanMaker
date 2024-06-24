@@ -75,6 +75,14 @@ namespace FloorplanClassLibrary
 
         }
         private int currentFocusedSectionIndex = 0;
+        public void CreateBarSection()
+        {
+            List<Server> bartenders = this.Servers.Where(s => s.IsBartender).ToList();
+            if(bartenders.Count > 0)
+            {
+                _sections[0].MakeBarSection(bartenders);
+            }
+        }
         public void SetSelectedSection(Section selectedSection)
         {
             foreach (Section section in this.Sections)
@@ -435,11 +443,38 @@ namespace FloorplanClassLibrary
         }
         public void AddServerAndSection(Server server)
         {
-            this.ServersWithoutSection.Add(server);
-            Section newSection = new Section(this);
-            newSection.ServerAssigned += UpdateSectionServerMap;
-            newSection.ServerRemoved += RemoveServerFromSection;
-            AddSection(newSection);
+            if (server.IsBartender)
+            {
+                AddBartender(server);
+
+            }
+            else
+            {
+                this.ServersWithoutSection.Add(server);
+                Section newSection = new Section(this);
+                newSection.ServerAssigned += UpdateSectionServerMap;
+                newSection.ServerRemoved += RemoveServerFromSection;
+                AddSection(newSection);
+            }
+            
+        }
+        public void AddBartender(Server server)
+        {
+            if (server.IsBartender)
+            {
+                Section barSection = this._sections.FirstOrDefault(s => s.IsBarSection);
+                if (barSection == null)
+                {
+                    Section newSection = new Section(this);
+                    newSection.SetToBarSection();
+                    newSection.AddBartender(server);
+                    AddSection(newSection);
+                }
+                else
+                {
+                    barSection.AddBartender(server);
+                }
+            }
         }
         public void RemoveServerAndSection(Server server)
         {

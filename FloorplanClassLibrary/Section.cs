@@ -131,6 +131,8 @@ namespace FloorplanClassLibrary
         public int ID {  get; set; }
         public bool IsPickUp { get; set; }
         public int DiningAreaID { get; set; }
+        private bool _isBarSection {  get; set; }
+        public bool IsBarSection { get { return _isBarSection; } }
         public float AdditionalPickupSales 
         { 
             get 
@@ -231,6 +233,49 @@ namespace FloorplanClassLibrary
             TemplateTeamWait = true;
             ServerCount++;
             NotifyObservers();
+        }
+        public void MakeBarSection(List<Server> bartenders)
+        { 
+            if(bartenders.Count == 1)
+            {
+                AddServer(bartenders[0]);
+            }
+            if (bartenders.Count > 1)
+            {
+                _isTeamWait = true;
+                TemplateTeamWait = true;
+                ServerCount = bartenders.Count;
+                this.ServerTeam.AddRange(bartenders);
+                foreach (Server b in bartenders)
+                {
+                    NotifyServerAssigned(b);
+                }
+                NotifyObservers();
+
+            }
+            _isBarSection = true;
+        }
+        public void SetToBarSection()
+        {
+            this._isBarSection = true;
+        }
+        public void AddBartender(Server bartender)
+        {
+            int bartenderCount = this.ServerTeam.Count;
+            if(bartenderCount == 0)
+            {
+                AddServer(bartender);
+            }
+            if(bartenderCount == 1)
+            {
+                MakeTeamWait();
+                AddServer(bartender);
+            }
+            if(bartenderCount > 1)
+            {
+                IncreaseServerCount();
+                AddServer(bartender);
+            }
         }
         private void SetSectionPropertiesFromTemplateSection(Section sectionToCopy)
         {
@@ -570,6 +615,10 @@ namespace FloorplanClassLibrary
             if (this.IsPre)
             {
                 displayString = displayString + "(PRE)";
+            }
+            if (this.IsBarSection)
+            {
+                displayString = "BAR";
             }
             //if(this.IsPickUp)
             //{

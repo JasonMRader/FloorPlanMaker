@@ -43,7 +43,16 @@ namespace FloorplanClassLibrary
         private void InitializeServers()
         {
             _allServers = SqliteDataAccess.LoadActiveServers();
+            List<Server> currentBartenders = _allServers
+             .Where(s => s.Name.StartsWith("BAR"))
+             .OrderBy(s => s.Name)
+             .ToList();
+            foreach (Server server in currentBartenders)
+            {
+                server.IsBartender = true;
+            }
             _serversNotOnShift = new List<Server>(_allServers);
+           
 
         }
        

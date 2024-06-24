@@ -115,7 +115,7 @@ namespace FloorPlanMakerUI
             flowAllServers.Controls.Clear();
             foreach (Server server in servers)
             {
-
+                if(server.IsBartender) { continue; }
                 Button ServerButton = CreateNotOnShiftServerButton(server);
                 //////ServerButton.Click += AddToShift_Click;
 

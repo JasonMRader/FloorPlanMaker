@@ -313,8 +313,11 @@ namespace FloorplanUserControlLibrary
             lblDisplay.Text = this.Section.ServerCount.ToString() + " Team Section";
             lblDisplay.Width = 245;
             //this.Height += 25;
-            AddServerRow();
-            AddServerRow();
+
+            for(int i = 0; i < this.Section.ServerCount; i++)
+            {
+                AddServerRow();
+            }
 
 
 

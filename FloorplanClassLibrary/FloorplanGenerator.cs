@@ -87,6 +87,10 @@ namespace FloorplanClassLibrary
                     shift.SelectedFloorplan.AddServerAndSection(server);
                 }
             }
+            foreach(Floorplan floorplan in shift.Floorplans)
+            {
+                
+            }
             
         }
         public void AssignOutsideServers()
