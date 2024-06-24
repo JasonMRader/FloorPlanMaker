@@ -78,18 +78,31 @@ namespace FloorplanClassLibrary
                 .Take(CocktailersNeeded)
                 .ToList();
             Cocktailers.AddRange(unassignedBartenders);
-            if(CocktailAreas == 1)
+            //if(CocktailAreas == 1)
+            //{
+            //    shift.SelectedFloorplan = shift.Floorplans.FirstOrDefault(fp => fp.DiningArea.IsCocktail);
+            //    foreach(Server server in Cocktailers)
+            //    {
+            //        shift.AddServerToAFloorplan(server);
+            //        shift.SelectedFloorplan.AddServerAndSection(server);
+            //    }
+            //}
+            int serverIndex = 0;
+            foreach (Floorplan floorplan in shift.Floorplans)
             {
-                shift.SelectedFloorplan = shift.Floorplans.FirstOrDefault(fp => fp.DiningArea.IsCocktail);
-                foreach(Server server in Cocktailers)
+               
+                if(floorplan.DiningArea.IsCocktail)
                 {
-                    shift.AddServerToAFloorplan(server);
-                    shift.SelectedFloorplan.AddServerAndSection(server);
+                    shift.SelectedFloorplan = floorplan;
+                    int serversNeeded = ServerDistribution[floorplan.DiningArea] - floorplan.Servers.Count;
+                    while(serversNeeded > 0)
+                    {
+                        shift.AddServerToAFloorplan(Cocktailers[serverIndex]);
+                        shift.SelectedFloorplan.AddServerAndSection(Cocktailers[serverIndex]);
+                        serverIndex++;
+                        serversNeeded--;
+                    }
                 }
-            }
-            foreach(Floorplan floorplan in shift.Floorplans)
-            {
-                
             }
             
         }
@@ -150,23 +163,7 @@ namespace FloorplanClassLibrary
 
         public void AutoAssignDiningAreas()
         {
-            if(CheckForInOutAndCocktail())
-            {
-                AssignCocktailers();
-                AssignOutsideServers();
-                AssignInsideServers();
-            }
-            else if (CheckForOutAndCocktail())
-            {
-                AssignCocktailers();
-                AssignOutsideServers();
-            }
-            else if (CheckForInAndOutDining())
-            {
-                AssignOutsideServers();
-                AssignInsideServers();
-            }
-            else if(shift.DiningAreasUsed.Count == 1)
+            if (shift.DiningAreasUsed.Count == 1)
             {
                 List<Server> servers = shift.UnassignedServers.ToList();
                 foreach (Server server in servers)
@@ -177,10 +174,41 @@ namespace FloorplanClassLibrary
             }
             else
             {
-                MessageBox.Show("Currently auto assign is only supported when the " +
-                    "floorplans used are: Inside Dining, Outside Dining, and " +
-                    "Outside Cocktail OR Outside Dining and Cocktail OR Inside and Outside Dining");
+                AssignCocktailers();
+                AssignOutsideServers();
+                AssignInsideServers();
             }
+            //if (CheckForInOutAndCocktail())
+            //{
+            //    AssignCocktailers();
+            //    AssignOutsideServers();
+            //    AssignInsideServers();
+            //}
+            //else if (CheckForOutAndCocktail())
+            //{
+            //    AssignCocktailers();
+            //    AssignOutsideServers();
+            //}
+            //else if (CheckForInAndOutDining())
+            //{
+            //    AssignOutsideServers();
+            //    AssignInsideServers();
+            //}
+            //else if(shift.DiningAreasUsed.Count == 1)
+            //{
+            //    List<Server> servers = shift.UnassignedServers.ToList();
+            //    foreach (Server server in servers)
+            //    {
+            //        shift.AddServerToAFloorplan(server);
+            //        shift.SelectedFloorplan.AddServerAndSection(server);
+            //    }
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Currently auto assign is only supported when the " +
+            //        "floorplans used are: Inside Dining, Outside Dining, and " +
+            //        "Outside Cocktail OR Outside Dining and Cocktail OR Inside and Outside Dining");
+            //}
             
 
         }
