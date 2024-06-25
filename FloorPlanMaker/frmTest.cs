@@ -16,7 +16,9 @@ namespace FloorPlanMakerUI
     {
         private int ServerCount = 0;
         private Shift shift = new Shift();
-        private List<Label> labels = new List<Label>();
+        private FloorplanGenerator floorplanGenerator = new FloorplanGenerator();
+        private List<Label> serverCountLabels = new List<Label>();
+        private List<Label> salesPerServerLabels = new List<Label>();
 
         public frmTest()
         {
@@ -25,31 +27,29 @@ namespace FloorPlanMakerUI
 
         private void button1_Click(object sender, EventArgs e)
         {
-            shift = new Shift();
-            ServerCount = (int)numericUpDown1.Value;
-            GetAreas();
-            float totalSales = shift.DiningAreasUsed.Sum(da => da.TestSales);
-            lblTotalSales.Text = totalSales.ToString("C0");
-            lblSalesPerServerTotal.Text = (totalSales / ServerCount).ToString("C0");
-            FloorplanGenerator floorplanGenerator = new FloorplanGenerator(shift);
-            floorplanGenerator.TestAddServers(ServerCount);
-            floorplanGenerator.TESTGetServerDistribution();
-            SetServerCountLabels(floorplanGenerator);
+            CalculateDistribution();
 
         }
 
         private void SetServerCountLabels(FloorplanGenerator floorplanGenerator)
         {
-            foreach(DiningArea diningArea in floorplanGenerator.shift.DiningAreasUsed)
+            foreach (DiningArea diningArea in floorplanGenerator.shift.DiningAreasUsed)
             {
-                foreach (Label label in labels)
+                foreach (Label label in serverCountLabels)
                 {
-                    if(label.Tag == (DiningArea)diningArea)
+                    if (label.Tag == (DiningArea)diningArea)
                     {
                         label.Text = floorplanGenerator.ServerDistribution[diningArea].ToString();
                     }
                 }
-            }  
+                foreach (Label label in salesPerServerLabels)
+                {
+                    if (label.Tag == (DiningArea)diningArea)
+                    {
+                        label.Text = floorplanGenerator.AreaPerServerSales[diningArea].ToString("C0");
+                    }
+                }
+            }
         }
 
         private void GetAreas()
@@ -61,7 +61,9 @@ namespace FloorPlanMakerUI
 
                 shift.CreateFloorplanForDiningArea(insideDining, 0, 0);
                 lblArea1Servers.Tag = insideDining;
-                labels.Add(lblArea1Servers);
+                serverCountLabels.Add(lblArea1Servers);
+                lblSalesPerServer1.Tag = insideDining;
+                salesPerServerLabels.Add(lblSalesPerServer1);
 
             }
             if (txtOutsideSales.Text != "")
@@ -71,7 +73,9 @@ namespace FloorPlanMakerUI
 
                 shift.CreateFloorplanForDiningArea(OutsideDining, 0, 0);
                 lblArea2Servers.Tag = OutsideDining;
-                labels.Add(lblArea2Servers);
+                serverCountLabels.Add(lblArea2Servers);
+                lblSalesPerServer2.Tag = OutsideDining;
+                salesPerServerLabels.Add(lblSalesPerServer2);
             }
             if (txtOutsideCocktailSales.Text != "")
             {
@@ -80,7 +84,9 @@ namespace FloorPlanMakerUI
 
                 shift.CreateFloorplanForDiningArea(outCocktail, 0, 0);
                 lblArea3Servers.Tag = outCocktail;
-                labels.Add(lblArea3Servers);
+                serverCountLabels.Add(lblArea3Servers);
+                lblSalesPerServer3.Tag = outCocktail;
+                salesPerServerLabels.Add(lblSalesPerServer3);
             }
             if (txtInsideCocktailSales.Text != "")
             {
@@ -89,7 +95,9 @@ namespace FloorPlanMakerUI
 
                 shift.CreateFloorplanForDiningArea(inCocktail, 0, 0);
                 lblArea4Servers.Tag = inCocktail;
-                labels.Add(lblArea4Servers);
+                serverCountLabels.Add(lblArea4Servers);
+                lblSalesPerServer4.Tag = inCocktail;
+                salesPerServerLabels.Add(lblSalesPerServer4);
             }
             if (txtUpperSales.Text != "")
             {
@@ -98,16 +106,40 @@ namespace FloorPlanMakerUI
 
                 shift.CreateFloorplanForDiningArea(upper, 0, 0);
                 lblArea5Servers.Tag = upper;
-                labels.Add(lblArea5Servers);
+                serverCountLabels.Add(lblArea5Servers);
+                lblSalesPerServer5.Tag = upper;
+                salesPerServerLabels.Add(lblSalesPerServer5);
             }
 
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
+           
+            GetRandomNumbers();
+            CalculateDistribution();
+           
+        }
+        private void CalculateDistribution()
+        {
+            shift = new Shift();
+            ServerCount = (int)numericUpDown1.Value;
+            GetAreas();
+            float totalSales = shift.DiningAreasUsed.Sum(da => da.TestSales);
+            lblTotalSales.Text = totalSales.ToString("C0");
+            lblSalesPerServerTotal.Text = (totalSales / ServerCount).ToString("C0");
+            floorplanGenerator = new FloorplanGenerator(shift);
+            floorplanGenerator.TestAddServers(ServerCount);
+            floorplanGenerator.TESTGetServerDistribution();
+            SetServerCountLabels(floorplanGenerator);
+            lblServersAssigned.Text = floorplanGenerator.minimumServersAssigned.ToString();
+            lblServersRemaining.Text = floorplanGenerator.ServerRemainder.ToString();
+        }
+        private void GetRandomNumbers()
+        {
             Random rnd = new Random();
-            
-            int insideSales = rnd.Next(3000,9000 + 1);
+
+            int insideSales = rnd.Next(3000, 9000 + 1);
             int outsideSales = rnd.Next(7000, 17000);
             int outCocktail = rnd.Next(4000, 15000);
             int inCocktail = rnd.Next(200, 3000);
@@ -118,6 +150,10 @@ namespace FloorPlanMakerUI
             txtInsideCocktailSales.Text = inCocktail.ToString();
             txtUpperSales.Text = upperSales.ToString();
             numericUpDown1.Value = rnd.Next(11, 30);
+        }
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            CalculateDistribution();
         }
     }
 }
