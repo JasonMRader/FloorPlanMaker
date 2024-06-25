@@ -9,6 +9,13 @@ namespace FloorplanClassLibrary
 {
     public class FloorplanGenerator
     {
+        public void TestAddServers(int servers)
+        {
+            for (int i = 0; i < servers; i++)
+            {
+                shift.AddNewUnassignedServer(shift.AllServers[i]);
+            }
+        }
         public FloorplanGenerator() { } 
         public FloorplanGenerator(Shift shift)
         {
@@ -16,6 +23,7 @@ namespace FloorplanClassLibrary
         } 
         public Shift shift { get; set; }
         public Dictionary<DiningArea, int> ServerDistribution { get;set; }
+        public Dictionary<DiningArea, float> AreaPerServerSales { get;set; }
         public int ServerCount
         {
             get
@@ -48,6 +56,34 @@ namespace FloorplanClassLibrary
             ServerRemainder = ServerCount - minimumServersAssigned; 
             ServerDistribution = new Dictionary<DiningArea, int>();
             ServerDistribution = DiningAreaServerCounts;
+            return DiningAreaServerCounts;
+        }
+        public Dictionary<DiningArea, int> TESTGetServerDistribution()
+        {
+            Dictionary<DiningArea, int> DiningAreaServerCounts = new Dictionary<DiningArea, int>();
+            Dictionary<DiningArea, float> areaPerServerSales = new Dictionary<DiningArea, float>();
+        float totalSales = shift.DiningAreasUsed.Sum(da => da.TestSales);
+            if (totalSales == 0)
+            {
+                return null;
+            }
+            float salesPerServer = totalSales / shift.ServersOnShift.Count;
+            int serversAssigned = 0;
+            foreach (DiningArea area in shift.DiningAreasUsed)
+            {
+
+                int roundedDownServers = (int)Math.Floor(area.TestSales / salesPerServer);
+                DiningAreaServerCounts[area] = roundedDownServers;
+                serversAssigned += roundedDownServers;
+                areaPerServerSales[area] = (float)(area.TestSales / roundedDownServers);
+
+            }
+            minimumServersAssigned = serversAssigned;
+            ServerRemainder = ServerCount - minimumServersAssigned;
+            ServerDistribution = new Dictionary<DiningArea, int>();
+            ServerDistribution = DiningAreaServerCounts;
+            AreaPerServerSales = new Dictionary<DiningArea, float>();
+            AreaPerServerSales = areaPerServerSales;
             return DiningAreaServerCounts;
         }
         public void AssignCocktailers()

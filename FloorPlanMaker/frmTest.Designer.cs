@@ -69,35 +69,35 @@
             // 
             // txtInsideSales
             // 
-            txtInsideSales.Location = new Point(65, 109);
+            txtInsideSales.Location = new Point(80, 155);
             txtInsideSales.Name = "txtInsideSales";
             txtInsideSales.Size = new Size(100, 23);
             txtInsideSales.TabIndex = 1;
             // 
             // txtOutsideSales
             // 
-            txtOutsideSales.Location = new Point(213, 109);
+            txtOutsideSales.Location = new Point(228, 155);
             txtOutsideSales.Name = "txtOutsideSales";
             txtOutsideSales.Size = new Size(100, 23);
             txtOutsideSales.TabIndex = 1;
             // 
             // txtOutsideCocktailSales
             // 
-            txtOutsideCocktailSales.Location = new Point(338, 109);
+            txtOutsideCocktailSales.Location = new Point(353, 155);
             txtOutsideCocktailSales.Name = "txtOutsideCocktailSales";
             txtOutsideCocktailSales.Size = new Size(100, 23);
             txtOutsideCocktailSales.TabIndex = 1;
             // 
             // txtInsideCocktailSales
             // 
-            txtInsideCocktailSales.Location = new Point(465, 109);
+            txtInsideCocktailSales.Location = new Point(480, 155);
             txtInsideCocktailSales.Name = "txtInsideCocktailSales";
             txtInsideCocktailSales.Size = new Size(100, 23);
             txtInsideCocktailSales.TabIndex = 1;
             // 
             // txtUpperSales
             // 
-            txtUpperSales.Location = new Point(598, 109);
+            txtUpperSales.Location = new Point(613, 155);
             txtUpperSales.Name = "txtUpperSales";
             txtUpperSales.Size = new Size(100, 23);
             txtUpperSales.TabIndex = 1;
@@ -105,7 +105,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(65, 82);
+            label1.Location = new Point(80, 128);
             label1.Name = "label1";
             label1.Size = new Size(38, 15);
             label1.TabIndex = 2;
@@ -114,7 +114,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(213, 82);
+            label2.Location = new Point(228, 128);
             label2.Name = "label2";
             label2.Size = new Size(48, 15);
             label2.TabIndex = 2;
@@ -123,7 +123,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(338, 82);
+            label3.Location = new Point(353, 128);
             label3.Name = "label3";
             label3.Size = new Size(94, 15);
             label3.TabIndex = 2;
@@ -132,7 +132,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(465, 82);
+            label4.Location = new Point(480, 128);
             label4.Name = "label4";
             label4.Size = new Size(84, 15);
             label4.TabIndex = 2;
@@ -141,7 +141,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(598, 82);
+            label5.Location = new Point(613, 128);
             label5.Name = "label5";
             label5.Size = new Size(39, 15);
             label5.TabIndex = 2;
@@ -166,7 +166,7 @@
             // lblArea1Servers
             // 
             lblArea1Servers.AutoSize = true;
-            lblArea1Servers.Location = new Point(65, 135);
+            lblArea1Servers.Location = new Point(80, 181);
             lblArea1Servers.Name = "lblArea1Servers";
             lblArea1Servers.Size = new Size(38, 15);
             lblArea1Servers.TabIndex = 2;
@@ -175,7 +175,7 @@
             // lblArea2Servers
             // 
             lblArea2Servers.AutoSize = true;
-            lblArea2Servers.Location = new Point(215, 135);
+            lblArea2Servers.Location = new Point(230, 181);
             lblArea2Servers.Name = "lblArea2Servers";
             lblArea2Servers.Size = new Size(38, 15);
             lblArea2Servers.TabIndex = 2;
@@ -184,7 +184,7 @@
             // lblArea3Servers
             // 
             lblArea3Servers.AutoSize = true;
-            lblArea3Servers.Location = new Point(338, 135);
+            lblArea3Servers.Location = new Point(353, 181);
             lblArea3Servers.Name = "lblArea3Servers";
             lblArea3Servers.Size = new Size(38, 15);
             lblArea3Servers.TabIndex = 2;
@@ -193,7 +193,7 @@
             // lblArea5Servers
             // 
             lblArea5Servers.AutoSize = true;
-            lblArea5Servers.Location = new Point(598, 135);
+            lblArea5Servers.Location = new Point(613, 181);
             lblArea5Servers.Name = "lblArea5Servers";
             lblArea5Servers.Size = new Size(38, 15);
             lblArea5Servers.TabIndex = 2;
@@ -202,7 +202,7 @@
             // lblArea4Servers
             // 
             lblArea4Servers.AutoSize = true;
-            lblArea4Servers.Location = new Point(465, 135);
+            lblArea4Servers.Location = new Point(480, 181);
             lblArea4Servers.Name = "lblArea4Servers";
             lblArea4Servers.Size = new Size(38, 15);
             lblArea4Servers.TabIndex = 2;
@@ -211,7 +211,7 @@
             // lblSalesPerServer1
             // 
             lblSalesPerServer1.AutoSize = true;
-            lblSalesPerServer1.Location = new Point(65, 162);
+            lblSalesPerServer1.Location = new Point(80, 208);
             lblSalesPerServer1.Name = "lblSalesPerServer1";
             lblSalesPerServer1.Size = new Size(38, 15);
             lblSalesPerServer1.TabIndex = 2;
@@ -220,7 +220,7 @@
             // lblSalesPerServer2
             // 
             lblSalesPerServer2.AutoSize = true;
-            lblSalesPerServer2.Location = new Point(213, 162);
+            lblSalesPerServer2.Location = new Point(228, 208);
             lblSalesPerServer2.Name = "lblSalesPerServer2";
             lblSalesPerServer2.Size = new Size(38, 15);
             lblSalesPerServer2.TabIndex = 2;
@@ -229,7 +229,7 @@
             // lblSalesPerServer3
             // 
             lblSalesPerServer3.AutoSize = true;
-            lblSalesPerServer3.Location = new Point(338, 162);
+            lblSalesPerServer3.Location = new Point(353, 208);
             lblSalesPerServer3.Name = "lblSalesPerServer3";
             lblSalesPerServer3.Size = new Size(38, 15);
             lblSalesPerServer3.TabIndex = 2;
@@ -238,7 +238,7 @@
             // lblSalesPerServer4
             // 
             lblSalesPerServer4.AutoSize = true;
-            lblSalesPerServer4.Location = new Point(465, 162);
+            lblSalesPerServer4.Location = new Point(480, 208);
             lblSalesPerServer4.Name = "lblSalesPerServer4";
             lblSalesPerServer4.Size = new Size(38, 15);
             lblSalesPerServer4.TabIndex = 2;
@@ -247,7 +247,7 @@
             // lblSalesPerServer5
             // 
             lblSalesPerServer5.AutoSize = true;
-            lblSalesPerServer5.Location = new Point(599, 162);
+            lblSalesPerServer5.Location = new Point(614, 208);
             lblSalesPerServer5.Name = "lblSalesPerServer5";
             lblSalesPerServer5.Size = new Size(38, 15);
             lblSalesPerServer5.TabIndex = 2;
@@ -256,20 +256,20 @@
             // lblTotalSales
             // 
             lblTotalSales.AutoSize = true;
-            lblTotalSales.Location = new Point(704, 112);
+            lblTotalSales.Location = new Point(338, 23);
             lblTotalSales.Name = "lblTotalSales";
-            lblTotalSales.Size = new Size(38, 15);
+            lblTotalSales.Size = new Size(60, 15);
             lblTotalSales.TabIndex = 2;
-            lblTotalSales.Text = "label1";
+            lblTotalSales.Text = "total Sales";
             // 
             // lblSalesPerServerTotal
             // 
             lblSalesPerServerTotal.AutoSize = true;
-            lblSalesPerServerTotal.Location = new Point(306, 54);
+            lblSalesPerServerTotal.Location = new Point(338, 48);
             lblSalesPerServerTotal.Name = "lblSalesPerServerTotal";
-            lblSalesPerServerTotal.Size = new Size(38, 15);
+            lblSalesPerServerTotal.Size = new Size(87, 15);
             lblSalesPerServerTotal.TabIndex = 2;
-            lblSalesPerServerTotal.Text = "label1";
+            lblSalesPerServerTotal.Text = "sales Per Server";
             // 
             // button2
             // 
@@ -313,6 +313,7 @@
             Controls.Add(txtInsideSales);
             Controls.Add(button1);
             Name = "frmTest";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "frmTest";
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
             ResumeLayout(false);

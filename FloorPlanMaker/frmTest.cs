@@ -16,6 +16,7 @@ namespace FloorPlanMakerUI
     {
         private int ServerCount = 0;
         private Shift shift = new Shift();
+        private List<Label> labels = new List<Label>();
 
         public frmTest()
         {
@@ -29,9 +30,28 @@ namespace FloorPlanMakerUI
             GetAreas();
             float totalSales = shift.DiningAreasUsed.Sum(da => da.TestSales);
             lblTotalSales.Text = totalSales.ToString("C0");
-            lblSalesPerServerTotal.Text = (totalSales / ServerCount).ToString();
+            lblSalesPerServerTotal.Text = (totalSales / ServerCount).ToString("C0");
+            FloorplanGenerator floorplanGenerator = new FloorplanGenerator(shift);
+            floorplanGenerator.TestAddServers(ServerCount);
+            floorplanGenerator.TESTGetServerDistribution();
+            SetServerCountLabels(floorplanGenerator);
 
         }
+
+        private void SetServerCountLabels(FloorplanGenerator floorplanGenerator)
+        {
+            foreach(DiningArea diningArea in floorplanGenerator.shift.DiningAreasUsed)
+            {
+                foreach (Label label in labels)
+                {
+                    if(label.Tag == (DiningArea)diningArea)
+                    {
+                        label.Text = floorplanGenerator.ServerDistribution[diningArea].ToString();
+                    }
+                }
+            }  
+        }
+
         private void GetAreas()
         {
             if (txtInsideSales.Text != "")
@@ -40,6 +60,8 @@ namespace FloorPlanMakerUI
                 DiningArea insideDining = new DiningArea("insideDining", true, false, 1, sales);
 
                 shift.CreateFloorplanForDiningArea(insideDining, 0, 0);
+                lblArea1Servers.Tag = insideDining;
+                labels.Add(lblArea1Servers);
 
             }
             if (txtOutsideSales.Text != "")
@@ -48,7 +70,8 @@ namespace FloorPlanMakerUI
                 DiningArea OutsideDining = new DiningArea("outsideDining", false, false, 2, sales);
 
                 shift.CreateFloorplanForDiningArea(OutsideDining, 0, 0);
-
+                lblArea2Servers.Tag = OutsideDining;
+                labels.Add(lblArea2Servers);
             }
             if (txtOutsideCocktailSales.Text != "")
             {
@@ -56,7 +79,8 @@ namespace FloorPlanMakerUI
                 DiningArea outCocktail = new DiningArea("outCocktail", false, true, 3, sales);
 
                 shift.CreateFloorplanForDiningArea(outCocktail, 0, 0);
-
+                lblArea3Servers.Tag = outCocktail;
+                labels.Add(lblArea3Servers);
             }
             if (txtInsideCocktailSales.Text != "")
             {
@@ -64,7 +88,8 @@ namespace FloorPlanMakerUI
                 DiningArea inCocktail = new DiningArea("inCocktail", true, true, 4, sales);
 
                 shift.CreateFloorplanForDiningArea(inCocktail, 0, 0);
-
+                lblArea4Servers.Tag = inCocktail;
+                labels.Add(lblArea4Servers);
             }
             if (txtUpperSales.Text != "")
             {
@@ -72,7 +97,8 @@ namespace FloorPlanMakerUI
                 DiningArea upper = new DiningArea("upper", true, false, 5, sales);
 
                 shift.CreateFloorplanForDiningArea(upper, 0, 0);
-
+                lblArea5Servers.Tag = upper;
+                labels.Add(lblArea5Servers);
             }
 
         }
