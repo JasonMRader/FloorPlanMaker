@@ -20,6 +20,7 @@ namespace FloorplanClassLibrary
         public DateOnly DateOnly => DateOnly.FromDateTime(Date);
         public Dictionary<string, float> SalesByDiningArea { get; set; } = new Dictionary<string, float>();
         public float TotalSales { get; set; }
+        public int ServersScheduled { get; set; }
         public string DateDisplay()
         {
             SpecialEventDate specialEventDate = SqliteDataAccess.GetEventByDate(DateOnly);
