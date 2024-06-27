@@ -86,6 +86,7 @@ namespace FloorPlanMakerUI
             PopulateServers();
             //SetShiftManagerDateAndIsAM();
             RefreshForDateSelected();
+            txtServerSearch.Focus();
 
         }
         //////private void UpdateAreasAndServersForDateAndShift()
@@ -201,6 +202,7 @@ namespace FloorPlanMakerUI
                 txtServerSearch.Clear();
                 txtServerSearch.Focus();
             }
+            txtServerSearch.Focus();
         }
         private void RemoveFromShift_Click(object sender, EventArgs e)
         {
@@ -215,6 +217,7 @@ namespace FloorPlanMakerUI
             serverButton.ForeColor = Color.White;
             flowServersOnShift.Controls.Remove(serverButton);
             flowAllServers.Controls.Add(serverButton);
+            txtServerSearch.Focus();
         }
         private void LoadDiningAreas()
         {
@@ -509,7 +512,7 @@ namespace FloorPlanMakerUI
                 shiftManager.SelectedShift.RemoveFloorplan(floorplanToRemove);
 
             }
-
+            txtServerSearch.Focus();
         }
         private void btnBackDay_Click(object sender, EventArgs e)
         {
@@ -518,6 +521,7 @@ namespace FloorPlanMakerUI
             GetDateLabel();
             RefreshPreviousFloorplanCounts();
             RefreshForDateSelected();
+            txtServerSearch.Focus();
         }
 
         private void btnForwardDay_Click(object sender, EventArgs e)
@@ -527,6 +531,7 @@ namespace FloorPlanMakerUI
             GetDateLabel();
             RefreshPreviousFloorplanCounts();
             RefreshForDateSelected();
+            txtServerSearch.Focus();
         }
         private void GetDateLabel()
         {
@@ -598,6 +603,7 @@ namespace FloorPlanMakerUI
             }
             RefreshPreviousFloorplanCounts();
             RefreshForDateSelected();
+            txtServerSearch.Focus();
         }
 
         private void pbAddPerson_Click(object sender, EventArgs e)
@@ -615,7 +621,7 @@ namespace FloorPlanMakerUI
                 PopulateServers();
             }
 
-
+            txtServerSearch.Focus();
         }
         private void FilterServers(string searchText)
         {
@@ -671,7 +677,7 @@ namespace FloorPlanMakerUI
                 btn.PerformClick();
             }
 
-
+            txtServerSearch.Focus();
         }
 
         private void flowServersOnShift_ControlsChanged(object sender, ControlEventArgs e)
@@ -691,6 +697,7 @@ namespace FloorPlanMakerUI
             //lblBartenderCount.Text = shiftManager.SelectedShift.BartenderCount.ToString();
             shiftManager.SelectedShift.SetBartendersToShift(bartenderCount);
             //PopulateServers();
+            txtServerSearch.Focus();
         }        
         private void btnSubtractBartender_Click(object sender, EventArgs e)
         {
@@ -704,6 +711,7 @@ namespace FloorPlanMakerUI
             shiftManager.SelectedShift.SetBartendersToShift(bartenderCount);
             //lblBartenderCount.Text = shiftManager.SelectedShift.BartenderCount.ToString();
             //PopulateServers();
+            txtServerSearch.Focus();
         }
 
         private void button1_Click(object sender, EventArgs e)
