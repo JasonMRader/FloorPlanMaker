@@ -686,7 +686,8 @@ namespace FloorPlanMaker
 
             RefreshFloorplanFlowPanel(ShiftManager.SelectedShift.Floorplans);
             PopulateUnassignedServers();
-            UpdateCountLabels();
+            //UpdateCountLabels();
+            RefreshFloorplanCountLabels();
 
         }
         private Button AutoAssignButton()
