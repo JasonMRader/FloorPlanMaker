@@ -224,7 +224,7 @@ namespace FloorPlanMaker
             cboSalesMethod.Items.Clear();
             cboSalesMethod.Items.Add("Yesterday");
             cboSalesMethod.Items.Add("Last Weekday");
-            //cboSalesMethod.Items.Add("Last 4 Weekday");
+            cboSalesMethod.Items.Add("Last 4 Weekday");
 
         }
 
@@ -542,11 +542,23 @@ namespace FloorPlanMaker
 
         private void RefreshFloorplanCountLabels()
         {
-            List<TableStat> stats = SqliteDataAccess.LoadTableStatsByDateAndLunch(
-                ShiftManager.IsAM, ShiftManager.DateOnly.AddDays(DaysAgoStats));
-            foreach (FloorplanInfoControl info in infoPanelList)
+            List<TableStat> stats = new List<TableStat>();
+            if(cboSalesMethod.SelectedIndex == 2)
             {
-                info.UpdateCurrentLabels(DaysAgoStats);
+                var previousWeekdays = new List<DateOnly>();
+                for (int i = 1; i <= 4; i++)
+                {
+                    previousWeekdays.Add(ShiftManager.SelectedShift.DateOnly.AddDays(-7 * i));
+                }
+
+                stats = SqliteDataAccess.LoadTableStatsByDateListAndLunch(ShiftManager.SelectedShift.IsAM, previousWeekdays);
+
+                
+            }
+            else
+            {
+                stats = SqliteDataAccess.LoadTableStatsByDateAndLunch(
+               ShiftManager.IsAM, ShiftManager.DateOnly.AddDays(DaysAgoStats));
             }
             if (ShiftManager.SelectedShift.DiningAreasUsed.Count != 0)
             {
@@ -555,6 +567,11 @@ namespace FloorPlanMaker
                     area.SetTableSales(stats);
                 }
             }
+            foreach (FloorplanInfoControl info in infoPanelList)
+            {
+                info.UpdateCurrentLabelsForLastFour();
+            }
+           
 
 
         }
@@ -766,6 +783,10 @@ namespace FloorPlanMaker
             if (cboSalesMethod.SelectedItem == "Last Weekday")
             {
                 DaysAgoStats = -7;
+            }
+            if (cboSalesMethod.SelectedItem == "Last 4 Weekday")
+            {
+                DaysAgoStats = -13;
             }
             RefreshFloorplanCountLabels();
 

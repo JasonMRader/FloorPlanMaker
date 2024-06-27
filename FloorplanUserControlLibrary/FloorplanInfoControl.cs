@@ -19,6 +19,7 @@ namespace FloorPlanMakerUI
         private Font infoFont = UITheme.MainFont;
         private Image lastWeek = Resources.small_LastWeek;
         private Image yesterday = Resources.smallyesterday;
+        public AreaHistory AreaHistory { get; set; }
 
         public FloorplanInfoControl(Floorplan fp, int width)
         {
@@ -35,6 +36,7 @@ namespace FloorPlanMakerUI
             lblCurrentServerCount.Font = this.infoFont;
             lblCoversPerServer.Font = this.infoFont;
             lblSalesPerServer.Font = this.infoFont;
+            AreaHistory = new AreaHistory(fp.DiningArea, fp.DateOnly, fp.IsLunch);
 
 
         }
@@ -61,22 +63,23 @@ namespace FloorPlanMakerUI
         }
         public void UpdateCurrentLabels(int daysAgo)
         {
-            //if (this.Width < 200)
-            //{
-            //    lblCoversPerServer.Text = this.Floorplan.MaxCoversPerServer.ToString("F0");
-            //    lblSalesPerServer.Text = Section.FormatAsCurrencyWithoutParentheses(this.Floorplan.AvgCoversPerServer);
-            //    lblCurrentServerCount.Text = this.Floorplan.Servers.Count.ToString();
-            //}
-            //else
-            //{
-            //    lblCoversPerServer.Text = "Covers:   " + this.Floorplan.MaxCoversPerServer.ToString("F0");
-            //    lblSalesPerServer.Text = "Sales:  " + Section.FormatAsCurrencyWithoutParentheses(this.Floorplan.AvgCoversPerServer);
-            //    lblCurrentServerCount.Text = "Servers:   " + this.Floorplan.Servers.Count.ToString();
-            //}
+            
             lblCoversPerServer.Text = this.Floorplan.MaxCoversPerServer.ToString("F0");
             lblSalesPerServer.Text = Section.FormatAsCurrencyWithoutParentheses(this.Floorplan.GetAvgSalesPerServerByDay(daysAgo));
             lblCurrentServerCount.Text = this.Floorplan.Servers.Count.ToString();
 
+        }
+        public void UpdateCurrentLabelsForLastFour()
+        {
+            float salesPerServer = this.Floorplan.DiningArea.ExpectedSales / (float)this.Floorplan.Servers.Count();
+            lblCoversPerServer.Text = this.Floorplan.MaxCoversPerServer.ToString("F0");
+            lblSalesPerServer.Text = Section.FormatAsCurrencyWithoutParentheses(salesPerServer);
+            lblCurrentServerCount.Text = this.Floorplan.Servers.Count.ToString();
+
+        }
+        public void SetSalesToLastFour()
+        {
+            this.AreaHistory.SetDatesToLastFourWeekdays();
         }
         public void UpdatePastLabels(int yesterdayCount, int LastWeekCount)
         {
