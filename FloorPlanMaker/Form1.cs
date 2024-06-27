@@ -282,14 +282,12 @@ namespace FloorPlanMaker
                     }
                     break;
                 case ControlType.TableControl:
-                    //floorplanManager.RemoveTableControlSection(e.UpdateData as Section, pnlFloorPlan);
-                    //floorplanManager.UpdateTableControlColors(pnlFloorPlan);
-                    //CreateSectionBorders();
+                    
                     floorplanManager.SetSectionLabels();
                     floorplanManager.AddSectionLabels(pnlFloorPlan);
-                    //rdoViewServerFlow.Checked = true;
+                    
                     break;
-                    // Add more cases as needed
+                    
             }
         }
 
@@ -315,6 +313,19 @@ namespace FloorPlanMaker
                 using (Pen pen = new Pen(Color.Gray, 2.0f))
                 {
                     e.Graphics.DrawLine(pen, _startPoint.Value, pnlFloorPlan.PointToClient(Cursor.Position));
+                }
+            }
+            if(floorplanManager.Floorplan != null)
+            {
+                if(floorplanManager.Floorplan.floorplanLines.Count > 0)
+                {
+                    foreach (var line in floorplanManager.Floorplan.floorplanLines)
+                    {
+                        using (Pen pen = new Pen(line.LineColor, line.LineThickness))
+                        {
+                            e.Graphics.DrawLine(pen, line.StartPoint, line.EndPoint);
+                        }
+                    }
                 }
             }
         }
