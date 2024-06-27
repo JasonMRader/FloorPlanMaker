@@ -41,7 +41,6 @@
             flowYesterdayCounts = new FlowLayoutPanel();
             flowLastWeekdayCounts = new FlowLayoutPanel();
             panel2 = new Panel();
-            label4 = new Label();
             label3 = new Label();
             label1 = new Label();
             panel3 = new Panel();
@@ -60,6 +59,7 @@
             label2 = new Label();
             lblServersOnShift = new Label();
             toolTip1 = new ToolTip(components);
+            cbStatsType = new CheckBox();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
@@ -205,8 +205,8 @@
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(180, 190, 200);
+            panel2.Controls.Add(cbStatsType);
             panel2.Controls.Add(flowLastWeekdayCounts);
-            panel2.Controls.Add(label4);
             panel2.Controls.Add(label3);
             panel2.Controls.Add(label1);
             panel2.Controls.Add(flowDiningAreas);
@@ -215,16 +215,6 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(1208, 196);
             panel2.TabIndex = 4;
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            label4.Location = new Point(4, 124);
-            label4.Name = "label4";
-            label4.Size = new Size(99, 25);
-            label4.TabIndex = 4;
-            label4.Text = "Last Week";
             // 
             // label3
             // 
@@ -413,6 +403,23 @@
             lblServersOnShift.TabIndex = 0;
             lblServersOnShift.Text = "Servers On Shift";
             // 
+            // cbStatsType
+            // 
+            cbStatsType.Appearance = Appearance.Button;
+            cbStatsType.BackColor = Color.FromArgb(100, 130, 180);
+            cbStatsType.FlatAppearance.BorderSize = 0;
+            cbStatsType.FlatStyle = FlatStyle.Flat;
+            cbStatsType.Font = new Font("Segoe UI Semibold", 12.25F, FontStyle.Bold, GraphicsUnit.Point);
+            cbStatsType.ForeColor = Color.White;
+            cbStatsType.Location = new Point(3, 112);
+            cbStatsType.Name = "cbStatsType";
+            cbStatsType.Size = new Size(103, 45);
+            cbStatsType.TabIndex = 5;
+            cbStatsType.Text = "Last Week";
+            cbStatsType.TextAlign = ContentAlignment.MiddleCenter;
+            cbStatsType.UseVisualStyleBackColor = false;
+            cbStatsType.CheckedChanged += cbStatsType_CheckedChanged;
+            // 
             // frmNewShiftDatePicker
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -456,7 +463,6 @@
         private FlowLayoutPanel flowYesterdayCounts;
         private FlowLayoutPanel flowLastWeekdayCounts;
         private Panel panel2;
-        private Label label4;
         private Label label3;
         private Label label1;
         private Panel panel3;
@@ -475,5 +481,6 @@
         private Button btnAddBartender;
         private Label lblBartenderCount;
         private Label label2;
+        private CheckBox cbStatsType;
     }
 }

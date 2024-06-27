@@ -116,7 +116,7 @@ namespace FloorPlanMakerUI
             flowAllServers.Controls.Clear();
             foreach (Server server in servers)
             {
-                if(server.IsBartender) { continue; }
+                if (server.IsBartender) { continue; }
                 Button ServerButton = CreateNotOnShiftServerButton(server);
                 //////ServerButton.Click += AddToShift_Click;
 
@@ -248,17 +248,35 @@ namespace FloorPlanMakerUI
 
         private void RefreshPreviousFloorplanCounts()
         {
-            List<AreaHistory> lastWeekAreaHistories = GetAreaHistories(cbIsAm.Checked, -7);
+            List<AreaHistory>lastWeekAreaHistories = new List<AreaHistory>();
+            if(cbStatsType.Checked)
+            {
+                lastWeekAreaHistories = GetHistoryForLastFour();
+            }
+            else
+            {
+                lastWeekAreaHistories = GetAreaHistories(cbIsAm.Checked, -7);
+            }            
             List<AreaHistory> yesterdayAreaHistories = GetAreaHistories(cbIsAm.Checked, -1);
 
             CreateAreaHistoryLabels(flowLastWeekdayCounts, lastWeekAreaHistories);
             CreateAreaHistoryLabels(flowYesterdayCounts, yesterdayAreaHistories);
         }
-              
+        private List<AreaHistory> GetHistoryForLastFour()
+        {
+            List<AreaHistory> areaHistories = new List<AreaHistory>();
+            foreach (DiningArea area in this.DiningAreaManager.DiningAreas)
+            {
+                AreaHistory history = new AreaHistory(area, dateOnlySelected, cbIsAm.Checked);
+                history.SetDatesToLastFourWeekdays();
+                areaHistories.Add(history);
+            }
+            return areaHistories;
+        }
         private List<AreaHistory> GetAreaHistories(bool isAm, int v)
         {
             List<AreaHistory> areaHistories = new List<AreaHistory>();
-            foreach(DiningArea area in this.DiningAreaManager.DiningAreas)
+            foreach (DiningArea area in this.DiningAreaManager.DiningAreas)
             {
                 areaHistories.Add(new AreaHistory(area, dateOnlySelected.AddDays(v), isAm));
             }
@@ -266,6 +284,13 @@ namespace FloorPlanMakerUI
         }
         private void CreateAreaHistoryLabels(FlowLayoutPanel panel, List<AreaHistory> areaHistories)
         {
+            if (cbStatsType.Checked)
+            {
+                foreach(AreaHistory areaHistory in areaHistories)
+                {
+                    areaHistory.SetDatesToLastFourWeekdays();
+                }
+            }
             foreach (Label lbl in panel.Controls.OfType<Label>())
             {
                 if (lbl.Tag is DiningArea area)
@@ -687,7 +712,7 @@ namespace FloorPlanMakerUI
 
         private void btnAddBartender_Click(object sender, EventArgs e)
         {
-            int bartenderCount = Int32.Parse(lblBartenderCount.Text); 
+            int bartenderCount = Int32.Parse(lblBartenderCount.Text);
             if (bartenderCount == 6)
             {
                 return;
@@ -698,7 +723,7 @@ namespace FloorPlanMakerUI
             shiftManager.SelectedShift.SetBartendersToShift(bartenderCount);
             //PopulateServers();
             txtServerSearch.Focus();
-        }        
+        }
         private void btnSubtractBartender_Click(object sender, EventArgs e)
         {
             int bartenderCount = Int32.Parse(lblBartenderCount.Text);
@@ -745,14 +770,14 @@ namespace FloorPlanMakerUI
                     Task.Run(() =>
                     {
                         List<ScheduledShift> records = CsvScheduleReader.GetScheduledShifts(filePath);
-                       
+
                         records.OrderBy(r => r.Date).ToList();
                         PopulateServersFromCsv(records);
                         //string s = GetTestRecordData(records);
 
                         this.Invoke(new Action(() =>
                         {
-                            
+
                             loadingForm.Close();
                             this.Enabled = true;
                             PopulateServers();
@@ -770,7 +795,7 @@ namespace FloorPlanMakerUI
         private void PopulateServersFromCsv(List<ScheduledShift> records)
         {
             ScheduledShift scheduledShift = records.FirstOrDefault(s => s.Date == shiftManager.DateOnly && s.IsAm == shiftManager.IsAM);
-            if (scheduledShift == null) 
+            if (scheduledShift == null)
             {
                 MessageBox.Show("No shift was found in that file for the date selected");
                 return;
@@ -792,9 +817,22 @@ namespace FloorPlanMakerUI
             {
                 MessageBox.Show(ex.Message);
             }
-            
-           
-           
+
+
+
+        }
+
+        private void cbStatsType_CheckedChanged(object sender, EventArgs e)
+        {
+            RefreshPreviousFloorplanCounts();
+            if(cbStatsType.Checked)
+            {
+                cbStatsType.Text = "Last 4";
+            }
+            else
+            {
+                cbStatsType.Text = "Last Week";
+            }
         }
     }
 }
