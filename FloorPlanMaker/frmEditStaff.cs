@@ -225,6 +225,7 @@ namespace FloorPlanMaker
             cboSalesMethod.Items.Add("Yesterday");
             cboSalesMethod.Items.Add("Last Weekday");
             cboSalesMethod.Items.Add("Last 4 Weekday");
+            cboSalesMethod.SelectedIndex = 2;
 
         }
 
@@ -669,7 +670,7 @@ namespace FloorPlanMaker
         //TODO have this method load current floorplans
         public void UpdateNewShift(ShiftManager shiftManager)
         {
-            cboSalesMethod.SelectedIndex = 1;
+            cboSalesMethod.SelectedIndex = 2;
             //this.newShiftManager = null;
             //this.newShiftManager = shiftManagerToAdd;
             //dateSelected = newShiftManager.DateOnly.ToDateTime(new TimeOnly(0, 0));
