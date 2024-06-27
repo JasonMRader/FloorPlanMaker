@@ -764,6 +764,7 @@ namespace FloorPlanMakerUI
                 }
 
             }
+            txtServerSearch.Focus();
         }
 
         private void PopulateServersFromCsv(List<ScheduledShift> records)
