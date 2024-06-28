@@ -71,7 +71,12 @@ namespace FloorPlanMakerUI
         }
         public void UpdateCurrentLabelsForLastFour()
         {
-            float salesPerServer = this.Floorplan.DiningArea.ExpectedSales / (float)this.Floorplan.Servers.Count();
+            float salesPerServer = Floorplan.DiningArea.ExpectedSales;
+            if(Floorplan.Servers.Count > 0)
+            {
+                salesPerServer = this.Floorplan.DiningArea.ExpectedSales / (float)this.Floorplan.Servers.Count();
+            }
+           
             lblCoversPerServer.Text = this.Floorplan.MaxCoversPerServer.ToString("F0");
             lblSalesPerServer.Text = Section.FormatAsCurrencyWithoutParentheses(salesPerServer);
             lblCurrentServerCount.Text = this.Floorplan.Servers.Count.ToString();

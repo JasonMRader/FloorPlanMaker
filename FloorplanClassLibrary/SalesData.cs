@@ -13,8 +13,13 @@ namespace FloorplanClassLibrary
         public SalesData(DateTime dateTime)
         {
             this.Date = dateTime;
-            this.WeatherData = SqliteDataAccess.LoadWeatherDataByDate(DateOnly);
+            var weatherData = SqliteDataAccess.LoadWeatherDataByDate(DateOnly);
+            if (weatherData != null)
+            {
+                this.WeatherData = weatherData;
+            }
         }
+
         private TableSalesManager tableSalesManager { get; set; }
         public DateTime Date { get; set; }
         public DateOnly DateOnly => DateOnly.FromDateTime(Date);

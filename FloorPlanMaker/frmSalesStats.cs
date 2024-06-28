@@ -73,7 +73,14 @@ namespace FloorPlanMakerUI
                         FilteredDaysOfWeek.Contains(currentDate.DayOfWeek) &&
                         FilteredMonths.Contains(currentDate.Month) &&
                         weatherDataForDate.FeelsLikeHi >= MinFeelsLikeHi &&
-                        weatherDataForDate.FeelsLikeHi <= MaxFeelsLikeHi)
+                        weatherDataForDate.FeelsLikeHi <= MaxFeelsLikeHi &&
+                        cbFilterByTempRange.Checked)
+                    {
+                        dateList.Add(currentDate);
+                    }
+                    if (!cbFilterByTempRange.Checked &&
+                        FilteredDaysOfWeek.Contains(currentDate.DayOfWeek) &&
+                        FilteredMonths.Contains(currentDate.Month))
                     {
                         dateList.Add(currentDate);
                     }

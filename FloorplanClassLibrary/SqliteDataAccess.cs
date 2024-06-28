@@ -2180,10 +2180,11 @@ namespace FloorplanClassLibrary
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                return cnn.QuerySingle<WeatherData>("SELECT * FROM WeatherData WHERE Date = @Date",
-                                              new { Date = date.ToString("yyyy-MM-dd") });
+                return cnn.QuerySingleOrDefault<WeatherData>("SELECT * FROM WeatherData WHERE Date = @Date",
+                                                      new { Date = date.ToString("yyyy-MM-dd") });
             }
         }
+
         public static List<WeatherData> LoadAllWeatherData()
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))

@@ -37,32 +37,92 @@ namespace FloorplanClassLibrary
         public  Dictionary<DiningArea, int> GetServerDistribution()
         {
             Dictionary<DiningArea, int> DiningAreaServerCounts = new Dictionary<DiningArea, int>();
+            Dictionary<DiningArea, float> areaPerServerSales = new Dictionary<DiningArea, float>();
             float totalSales = shift.DiningAreasUsed.Sum(da => da.ExpectedSales);
             if (totalSales == 0)
             {
                 return null;
             }
-            float salesPerServer =  totalSales/ shift.ServersOnShift.Count;
+            float shiftSalesPerServer = totalSales / shift.ServersOnShift.Count;
             int serversAssigned = 0;
             foreach (DiningArea area in shift.DiningAreasUsed)
             {
-                
-                int roundedDownServers = (int)Math.Floor(area.ExpectedSales / salesPerServer);
+
+                int roundedDownServers = (int)Math.Floor(area.ExpectedSales / shiftSalesPerServer);
                 DiningAreaServerCounts[area] = roundedDownServers;
                 serversAssigned += roundedDownServers;
+                if (roundedDownServers == 0)
+                {
+                    areaPerServerSales[area] = -1f;
+                }
+                else
+                {
+                    areaPerServerSales[area] = (float)(area.ExpectedSales / roundedDownServers);
+                }
+
 
             }
             minimumServersAssigned = serversAssigned;
-            ServerRemainder = ServerCount - minimumServersAssigned; 
+            ServerRemainder = ServerCount - minimumServersAssigned;
+            for (int i = 0; i < ServerRemainder; i++)
+            {
+                float smallestImpact = float.MaxValue;
+                DiningArea areaToAddTo = null;
+
+                foreach (DiningArea diningArea in shift.DiningAreasUsed)
+                {
+                    float currentDifferenceFromAvg = areaPerServerSales[diningArea] - shiftSalesPerServer;
+                    float salesIfServerAdded = diningArea.ExpectedSales / (DiningAreaServerCounts[diningArea] + 1);
+                    float newSalesPerServer = Math.Abs(salesIfServerAdded - shiftSalesPerServer);
+
+                    if (newSalesPerServer < smallestImpact)
+                    {
+                        smallestImpact = newSalesPerServer;
+                        areaToAddTo = diningArea;
+                    }
+                }
+
+                if (areaToAddTo != null)
+                {
+                    DiningAreaServerCounts[areaToAddTo]++;
+                    areaPerServerSales[areaToAddTo] = areaToAddTo.ExpectedSales / DiningAreaServerCounts[areaToAddTo];
+                }
+            }
             ServerDistribution = new Dictionary<DiningArea, int>();
             ServerDistribution = DiningAreaServerCounts;
+            AreaPerServerSales = new Dictionary<DiningArea, float>();
+            AreaPerServerSales = areaPerServerSales;
             return DiningAreaServerCounts;
         }
+        //public Dictionary<DiningArea, int> OLDGetServerDistribution()
+        //{
+        //    Dictionary<DiningArea, int> DiningAreaServerCounts = new Dictionary<DiningArea, int>();
+        //    float totalSales = shift.DiningAreasUsed.Sum(da => da.ExpectedSales);
+        //    if (totalSales == 0)
+        //    {
+        //        return null;
+        //    }
+        //    float salesPerServer = totalSales / shift.ServersOnShift.Count;
+        //    int serversAssigned = 0;
+        //    foreach (DiningArea area in shift.DiningAreasUsed)
+        //    {
+
+        //        int roundedDownServers = (int)Math.Floor(area.ExpectedSales / salesPerServer);
+        //        DiningAreaServerCounts[area] = roundedDownServers;
+        //        serversAssigned += roundedDownServers;
+
+        //    }
+        //    minimumServersAssigned = serversAssigned;
+        //    ServerRemainder = ServerCount - minimumServersAssigned;
+        //    ServerDistribution = new Dictionary<DiningArea, int>();
+        //    ServerDistribution = DiningAreaServerCounts;
+        //    return DiningAreaServerCounts;
+        //}
         public Dictionary<DiningArea, int> TESTGetServerDistribution()
         {
             Dictionary<DiningArea, int> DiningAreaServerCounts = new Dictionary<DiningArea, int>();
             Dictionary<DiningArea, float> areaPerServerSales = new Dictionary<DiningArea, float>();
-        float totalSales = shift.DiningAreasUsed.Sum(da => da.TestSales);
+            float totalSales = shift.DiningAreasUsed.Sum(da => da.TestSales);
             if (totalSales == 0)
             {
                 return null;
