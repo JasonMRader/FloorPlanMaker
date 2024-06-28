@@ -150,6 +150,18 @@ namespace FloorPlanMakerUI
         /// </summary>
         public void CopyTemplateSections(FloorplanTemplate template)
         {
+            if(Floorplan.ServersWithoutSection.Count != Floorplan.Servers.Count)
+            {
+                DialogResult result = MessageBox.Show("There are already servers assigned to sections," +
+                    " to you want to clear these sections?",
+                    "Clear Sections?",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+                if(result == DialogResult.No)
+                {
+                    return;
+                }
+            }
             Shift.SelectedFloorplan.CopyTemplateSections(template.Sections);
             SetSectionPanels();
             foreach(SectionPanelControl sectionPanel in this._sectionPanels)
