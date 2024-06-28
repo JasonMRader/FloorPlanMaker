@@ -58,6 +58,7 @@ namespace FloorPlanMakerUI
             lblCurrentServerCount.Text = "Server Count";
             lblCoversPerServer.Text = "Covers Each";
             lblSalesPerServer.Text = "Sales Each";
+               
 
 
         }
@@ -67,6 +68,7 @@ namespace FloorPlanMakerUI
             lblCoversPerServer.Text = this.Floorplan.MaxCoversPerServer.ToString("F0");
             lblSalesPerServer.Text = Section.FormatAsCurrencyWithoutParentheses(this.Floorplan.GetAvgSalesPerServerByDay(daysAgo));
             lblCurrentServerCount.Text = this.Floorplan.Servers.Count.ToString();
+            toolTip1.SetToolTip(lblSalesPerServer, "Sales Per Server" + "\n" + "Total Sales:" + Floorplan.DiningArea.ExpectedSales.ToString("C0"));
 
         }
         public void UpdateCurrentLabelsForLastFour()
@@ -80,6 +82,7 @@ namespace FloorPlanMakerUI
             lblCoversPerServer.Text = this.Floorplan.MaxCoversPerServer.ToString("F0");
             lblSalesPerServer.Text = Section.FormatAsCurrencyWithoutParentheses(salesPerServer);
             lblCurrentServerCount.Text = this.Floorplan.Servers.Count.ToString();
+            toolTip1.SetToolTip(lblSalesPerServer, "Sales Per Server" + "\n" + "Total Sales:" + Floorplan.DiningArea.ExpectedSales.ToString("C0"));
 
         }
         public void SetSalesToLastFour()

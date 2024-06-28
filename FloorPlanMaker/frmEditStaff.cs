@@ -225,6 +225,7 @@ namespace FloorPlanMaker
             cboSalesMethod.Items.Add("Yesterday");
             cboSalesMethod.Items.Add("Last Weekday");
             cboSalesMethod.Items.Add("Last 4 Weekday");
+            cboSalesMethod.Items.Add("Day Of");
             cboSalesMethod.SelectedIndex = 2;
 
         }
@@ -789,6 +790,10 @@ namespace FloorPlanMaker
             if (cboSalesMethod.SelectedItem == "Last 4 Weekday")
             {
                 DaysAgoStats = -13;
+            }
+            if(cboSalesMethod.SelectedItem == "Day Of")
+            {
+                DaysAgoStats = 0;
             }
             RefreshFloorplanCountLabels();
 
