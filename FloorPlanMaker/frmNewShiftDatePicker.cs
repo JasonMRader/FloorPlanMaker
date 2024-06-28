@@ -280,7 +280,15 @@ namespace FloorPlanMakerUI
                     {
                         lbl.BackColor = Color.Gray;
                         lbl.ForeColor = Color.LightGray;
-                        lbl.Text = "";
+                        if (history.ServerCount > 0)
+                        {
+                            lbl.Text = "|" + history.ServerCount.ToString() + "| " + "  ?";
+                        }
+                        else
+                        {
+                            lbl.Text = "";
+                        }
+                        
                     }
                     else if (history.Sales > 0f && history.Sales < 1000f)
                     {
