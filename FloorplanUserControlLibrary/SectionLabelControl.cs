@@ -290,7 +290,7 @@ namespace FloorplanClassLibrary
             if(this.Section.IsPickUp)
             {
                 AssignPickup?.Invoke(this, e);
-                Section.AssignAPickupSection();
+               
                 return;
             }
             if (serverPanelOpen == false)

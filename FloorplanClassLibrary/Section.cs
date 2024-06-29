@@ -765,10 +765,7 @@ namespace FloorplanClassLibrary
             return Number.ToString();
         }
 
-        public void AssignAPickupSection()
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }
 
