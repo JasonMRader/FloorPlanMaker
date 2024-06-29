@@ -47,19 +47,32 @@ namespace FloorplanClassLibrary
             var amStats = tableStats.Where(t => t.IsLunch).ToList();
             var pmStats = tableStats.Where(t => !t.IsLunch).ToList();
 
+            // Convert TableStatNumber to int for accurate filtering
+            int minInsideTable = 120;
+            int maxInsideTable = 154;
+            int minOutsideTable = 1300;
+            int maxOutsideTable = 1699;
+
+            // Filter and calculate inside bar sales for AM
             var insideBarSalesAM = amStats
-                .Where(t => t.TableStatNumber.CompareTo("120") >= 0 && t.TableStatNumber.CompareTo("155") <= 0)
-                .Sum(t => t.Sales ?? 0);
-            var outsideBarSalesAM = amStats
-                .Where(t => t.TableStatNumber.CompareTo("1300") >= 0 && t.TableStatNumber.CompareTo("1699") <= 0)
+                .Where(t => int.TryParse(t.TableStatNumber, out int num) && num >= minInsideTable && num <= maxInsideTable)
                 .Sum(t => t.Sales ?? 0);
 
+            // Filter and calculate outside bar sales for AM
+            var outsideBarSalesAM = amStats
+                .Where(t => int.TryParse(t.TableStatNumber, out int num) && num >= minOutsideTable && num <= maxOutsideTable)
+                .Sum(t => t.Sales ?? 0);
+
+            // Filter and calculate inside bar sales for PM
             var insideBarSalesPM = pmStats
-                .Where(t => t.TableStatNumber.CompareTo("120") >= 0 && t.TableStatNumber.CompareTo("155") <= 0)
+                .Where(t => int.TryParse(t.TableStatNumber, out int num) && num >= minInsideTable && num <= maxInsideTable)
                 .Sum(t => t.Sales ?? 0);
+
+            // Filter and calculate outside bar sales for PM
             var outsideBarSalesPM = pmStats
-                .Where(t => t.TableStatNumber.CompareTo("1300") >= 0 && t.TableStatNumber.CompareTo("1699") <= 0)
+                .Where(t => int.TryParse(t.TableStatNumber, out int num) && num >= minOutsideTable && num <= maxOutsideTable)
                 .Sum(t => t.Sales ?? 0);
+
 
             foreach (Table table in this.Tables)
             {
