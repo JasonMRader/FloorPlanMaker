@@ -28,6 +28,7 @@ namespace FloorplanClassLibrary
         private Color BorderColor = Color.Black;
         private int borderWidth = 5;
         private ToolTip toolTip;
+        public event EventHandler AssignPickup;   
         // TODO: rework what apears on SectionLabels
       
 
@@ -286,6 +287,12 @@ namespace FloorplanClassLibrary
         }
         private void AssignServerButton_Click(object sender, EventArgs e)
         {
+            if(this.Section.IsPickUp)
+            {
+                AssignPickup?.Invoke(this, e);
+                Section.AssignAPickupSection();
+                return;
+            }
             if (serverPanelOpen == false)
             {
                
@@ -293,10 +300,10 @@ namespace FloorplanClassLibrary
                 {
                     RefreshUnassignedServerPanel();
                 }
-                if (this.Section.IsPickUp)
-                {
-                    RefreshAllServerPanelForPickUpSection();
-                }
+                //if (this.Section.IsPickUp)
+                //{
+                //    RefreshAllServerPanelForPickUpSection();
+                //}
 
                 if (this.Section.Server != null)
                 {

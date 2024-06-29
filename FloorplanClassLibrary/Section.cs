@@ -130,6 +130,7 @@ namespace FloorplanClassLibrary
         public bool TemplatePickUp { get; set; }    
         public int ID {  get; set; }
         public bool IsPickUp { get; set; }
+       
         public int DiningAreaID { get; set; }
         private bool _isBarSection {  get; set; }
         public bool IsBarSection { get { return _isBarSection; } }
@@ -762,6 +763,11 @@ namespace FloorplanClassLibrary
         public override string ToString()
         {
             return Number.ToString();
+        }
+
+        public void AssignAPickupSection()
+        {
+            throw new NotImplementedException();
         }
     }
 }

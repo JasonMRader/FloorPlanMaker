@@ -133,7 +133,7 @@ namespace FloorPlanMakerUI
                 if (section.Tables.Count > 0)
                 {
                     SectionLabelControl sectionControl = new SectionLabelControl(section, Shift.SelectedFloorplan.ServersWithoutSection, Shift.ServersOnShift);
-                    
+                    sectionControl.AssignPickup += SectionLabelAssignPickup;
                     this._sectionLabels.Add(sectionControl);
                     
                 }
@@ -145,6 +145,15 @@ namespace FloorPlanMakerUI
                 }
             }
         }
+
+        private void SectionLabelAssignPickup(object? sender, EventArgs e)
+        {
+            SectionLabelControl controlClicked= (SectionLabelControl)sender;
+            Section section = controlClicked.Section;
+            frmPickupSectionAssignment pickUpForm = new frmPickupSectionAssignment(section, Shift);
+            pickUpForm.ShowDialog();
+        }
+
         /// <summary>
         /// ///SET SELECTED TEMPLATE TO ACTIVE TEMPLATE PREVIEW WILL SET SECTION PANELS AND KEEP TEMPLATE FORM OPEN!!!!!!!!!!!!!!!
         /// </summary>
