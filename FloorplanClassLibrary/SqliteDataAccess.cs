@@ -909,6 +909,13 @@ namespace FloorplanClassLibrary
                 // After adding all servers, set IsTeamWait appropriately
                 foreach (var section in floorplan.Sections)
                 {
+                    if(section.Server != null)
+                    {
+                        if (section.Server.Name.StartsWith("BAR"))
+                        {
+                            section.SetToBarSection();
+                        }
+                    }
                     if (section.ServerTeam.Count > 1)
                     {
                         section.MakeTeamWait();

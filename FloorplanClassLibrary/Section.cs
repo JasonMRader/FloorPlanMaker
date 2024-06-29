@@ -536,10 +536,7 @@ namespace FloorplanClassLibrary
         public string GetDisplayString()
         {
             string displayString = $"Section {this.Number}";
-            //if (this.Server == null)
-            //{
-            //    displayString =
-            //}
+            
             if (this.Name != null)
             {
                 displayString = this.Name;
@@ -547,26 +544,10 @@ namespace FloorplanClassLibrary
             if (this.IsPickUp && this.Server == null)
             {
                 displayString = "Pickup";
-                return displayString;
-                if (this.Server == null)                         
-                {
-                   
-                    if (Server.isDouble)
-                    {
-                        displayString = Server.ToString() + "*" + "++";
-                    }
-                    else
-                    {
-                        displayString = Server.ToString() + "++";
-                    }
-                }
-               
-               
-
+                return displayString;                      
             }
             if (this.Server != null)
-            {
-                
+            {                
                 if (Server.isDouble) {
                     displayString = Server.ToString() + "*";                 
                 }
@@ -576,8 +557,7 @@ namespace FloorplanClassLibrary
                 if (IsPickUp) { 
                     displayString += " ++";
                 }
-            }
-            
+            }            
             if (this.IsTeamWait)
             {
                 displayString = "";
@@ -603,10 +583,8 @@ namespace FloorplanClassLibrary
                     if (server != ServerTeam.Last())
                     {
                         displayString += "\n ";
-                    }
-            
-                }
-               
+                    }            
+                }               
             }
             if (this.IsCloser)
             {
@@ -619,27 +597,7 @@ namespace FloorplanClassLibrary
             if (this.IsBarSection)
             {
                 displayString = "BAR";
-            }
-            //if(this.IsPickUp)
-            //{
-
-            //    if (this.Server != null)
-            //    {
-                     
-            //        if (Server.isDouble)
-            //        {
-            //            displayString = Server.ToString() + "*" + "++";
-            //        }
-            //        else
-            //        {
-            //            displayString = Server.ToString() + "++";
-            //        }
-            //    }
-            //    else 
-            //    { displayString = "Pickup"; }
-                
-            //}
-            //NotifyObservers();
+            }           
             return displayString;
             
         }

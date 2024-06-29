@@ -288,14 +288,7 @@ namespace FloorplanClassLibrary
         {
             if (serverPanelOpen == false)
             {
-                //if (this.Section.Server == null && !this.Section.IsPickUp)
-                //{
-                //    RefreshUnassignedServerPanel();
-                //}
-                //if (this.Section.Server == null && this.Section.IsPickUp)
-                //{
-                //    RefreshAllServerPanelForPickUpSection();
-                //}
+               
                 if (!this.Section.IsPickUp && this.Section.ServerTeam.Count() < this.Section.ServerCount)
                 {
                     RefreshUnassignedServerPanel();
@@ -433,7 +426,7 @@ namespace FloorplanClassLibrary
             
             sectionLabel.Text = Section.GetDisplayString();
             headerPanel.Height = 30;
-            if(Section.ServerTeam.Count > 1)
+            if(Section.ServerTeam.Count > 1 && !Section.IsBarSection)
             {
                 for(int i = 0; i < Section.ServerTeam.Count-1; i++)
                 {
