@@ -31,6 +31,47 @@ namespace FloorPlanMakerUI
             {
                 RadioButton radioButton = CreateRadioForFloorplan(floorplan);
                 flowDiningAreas.Controls.Add(radioButton);
+                
+            }
+            CheckAppropriateDiningArea();
+           
+        }
+        private void CheckAppropriateDiningArea()
+        {
+            if(pickUpSection.PairedSection == null)
+            {
+                RadioButton rdo = (RadioButton)flowDiningAreas.Controls[0];
+                rdo.PerformClick();
+            }
+            else
+            {
+                Floorplan floorplan = shift.Floorplans.FirstOrDefault(fp => fp.Sections.Contains(pickUpSection.PairedSection));
+                foreach(Control control in flowDiningAreas.Controls)
+                {
+                    if(control is RadioButton rdo)
+                    {
+                        if(rdo.Tag == floorplan)
+                        {
+                            rdo.PerformClick();
+                        }
+                    }
+                }
+            }
+        }
+        private void CheckAppropriateSection()
+        {
+            if(pickUpSection.PairedSection != null)
+            {
+                foreach (Control control in flowSections.Controls)
+                {
+                    if (control is RadioButton rdo)
+                    {
+                        if (rdo.Tag == pickUpSection.PairedSection)
+                        {
+                            rdo.PerformClick();
+                        }
+                    }
+                }
             }
         }
         private RadioButton CreateRadioForFloorplan(Floorplan floorplan)
@@ -60,6 +101,7 @@ namespace FloorPlanMakerUI
                 }
 
             }
+            CheckAppropriateSection();
         }
 
         private RadioButton CreateRadioForSection(Section section)
