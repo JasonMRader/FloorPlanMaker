@@ -837,6 +837,7 @@ namespace FloorplanClassLibrary
                 shift.AddFloorplanAndServers(LoadFloorplanByCriteria(floorplan.DiningAreaID, date, isLunch));
             }
             shift.SetSelectedFloorplan(date, isLunch, diningAreaSelected.ID);
+            shift.PickupSectionUpdate();
             return shift;
 
         }

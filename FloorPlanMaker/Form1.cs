@@ -493,7 +493,7 @@ namespace FloorPlanMaker
             _lines.Clear();
             shift.SelectedDiningArea = (DiningArea?)cboDiningAreas.SelectedItem;
             floorplanManager.AddTableControls(pnlFloorPlan);
-
+           
             floorplanManager.SetViewedFloorplan(dateOnlySelected, cbIsAM.Checked, pnlFloorPlan, flowServersInFloorplan, flowSectionSelect);
             //this.sectionLineManager = new SectionLineManager(allTableControls);
             if (AllTablesAreAssigned())
@@ -506,6 +506,7 @@ namespace FloorPlanMaker
                 pnlFloorPlan.BackgroundImage = null;
             }
             updateSalesForTables();
+
         }
 
         private void rdoSections_CheckedChanged(object sender, EventArgs e)

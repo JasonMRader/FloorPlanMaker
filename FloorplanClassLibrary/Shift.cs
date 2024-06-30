@@ -170,6 +170,7 @@ namespace FloorplanClassLibrary
         public FloorplanTemplate? SelectedTemplate { get; set; }
         public void PickupSectionUpdate()
         {
+            List<Server> serversWithPickupSections = new List<Server>();
             foreach(Server server in _serversOnShift)
             {
                 server.pickUpSections.Clear();
@@ -178,10 +179,32 @@ namespace FloorplanClassLibrary
                     if (section.ServerTeam.Contains(server))
                     {
                         server.pickUpSections.Add(section);
+                        serversWithPickupSections.Add(server);
                     }
                 }
             }
-           
+            foreach (Floorplan floorplan in _floorplans)
+            {
+                foreach (Section section in floorplan.Sections)
+                {
+                    if(section.IsPickUp)
+                    {
+                        continue;
+                    }
+                    if (serversWithPickupSections.Contains(section.Server))
+                    {
+                        foreach (Section pickUpSection in _pickUpSections)
+                        {
+                            if (pickUpSection.ServerTeam.Contains(section.Server))
+                            {
+                                section.AssignPickupSection(pickUpSection);
+                                //pickUpSection.AssignPickupSection(section);
+                            }
+                        }
+                    }
+                    
+                }
+            }
         }
         public List<Server> ServersNotOnShift
         {

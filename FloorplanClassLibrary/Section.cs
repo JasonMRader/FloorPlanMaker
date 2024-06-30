@@ -804,7 +804,17 @@ namespace FloorplanClassLibrary
         }
         public override string ToString()
         {
-            return Number.ToString();
+            string servers = "";
+            foreach (Server server in ServerTeam)
+            {
+                servers += " | " + server.ToString();
+            }
+            string pairedSection = "";
+            if (this._pairedSection != null)
+            {
+                pairedSection = "Paired: " + _pairedSection.Number + " " + _pairedSection.ExpectedTotalSales;
+            }
+            return $"{Number} {ExpectedTotalSales} {servers} {pairedSection}";
         }
 
        

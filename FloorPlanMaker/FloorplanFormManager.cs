@@ -1069,9 +1069,13 @@ namespace FloorPlanMakerUI
             this.tableSalesManager.SetStatsList(this.isAm, this.dateOnly);
             Shift.SelectedDiningArea.SetTableSales(tableSalesManager.Stats);
             //TODO: reformate ineffecient, setting tables twice
-            if(Floorplan != null)
+            if(Shift.Floorplans != null)
             {
-                Floorplan.DiningArea.SetTableSales(tableSalesManager.Stats);
+                foreach(Floorplan floorplan in  Shift.Floorplans)
+                {
+                    floorplan.DiningArea.SetTableSales(tableSalesManager.Stats);
+                }
+               
             }
         }
         public void UpdateAveragesPerServer()
@@ -1174,16 +1178,7 @@ namespace FloorPlanMakerUI
             else
             {
                 //Shift.SelectedFloorplan = SqliteDataAccess.LoadFloorplanByCriteria(Shift.SelectedDiningArea, dateOnlySelected, isAM);
-                Shift = SqliteDataAccess.LoadShift(Shift.SelectedDiningArea, dateOnlySelected, isAM);
-                if (Shift.SelectedFloorplan != null)
-                {
-                    UpdateAveragesPerServer();
-                }
-                else
-                {
-                    
-                }
-
+                Shift = SqliteDataAccess.LoadShift(Shift.SelectedDiningArea, dateOnlySelected, isAM);                
             }
 
             if (Shift.SelectedFloorplan != null)
@@ -1205,6 +1200,7 @@ namespace FloorPlanMakerUI
                 // SetTableSales();
                 UpdateTableStats();
                 UpdateAveragesPerServer();
+                //Shift.PickupSectionUpdate();
                 coversImageLabel.UpdateText(Shift.SelectedFloorplan.MaxCoversPerServer.ToString("F0"));
                 salesImageLabel.UpdateText(Shift.SelectedFloorplan.AvgSalesPerServer.ToString("C0"));
                 coversImageLabel.Invalidate();
@@ -1232,7 +1228,7 @@ namespace FloorPlanMakerUI
                 //SetViewedFloorplanToNone(flowSectionSelect);
 
             }
-            Shift.PickupSectionUpdate();
+            
 
         }
 
