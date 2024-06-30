@@ -33,6 +33,7 @@
             flowSections = new FlowLayoutPanel();
             label1 = new Label();
             label2 = new Label();
+            btnUnassignSection = new Button();
             SuspendLayout();
             // 
             // btnOK
@@ -41,7 +42,7 @@
             btnOK.FlatAppearance.BorderSize = 0;
             btnOK.FlatStyle = FlatStyle.Flat;
             btnOK.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
-            btnOK.Location = new Point(32, 488);
+            btnOK.Location = new Point(32, 519);
             btnOK.Name = "btnOK";
             btnOK.Size = new Size(563, 54);
             btnOK.TabIndex = 1;
@@ -82,17 +83,33 @@
             label2.TabIndex = 3;
             label2.Text = "Select Dining Area:";
             // 
+            // btnUnassignSection
+            // 
+            btnUnassignSection.BackColor = Color.FromArgb(190, 80, 70);
+            btnUnassignSection.FlatAppearance.BorderSize = 0;
+            btnUnassignSection.FlatStyle = FlatStyle.Flat;
+            btnUnassignSection.Font = new Font("Segoe UI Semibold", 12.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnUnassignSection.Location = new Point(32, 477);
+            btnUnassignSection.Name = "btnUnassignSection";
+            btnUnassignSection.Size = new Size(563, 36);
+            btnUnassignSection.TabIndex = 1;
+            btnUnassignSection.Text = "Unassign Pickup Section";
+            btnUnassignSection.UseVisualStyleBackColor = false;
+            btnUnassignSection.Click += btnUnassignSection_Click;
+            // 
             // frmPickupSectionAssignment
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(631, 554);
+            ClientSize = new Size(631, 585);
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(flowSections);
             Controls.Add(flowDiningAreas);
+            Controls.Add(btnUnassignSection);
             Controls.Add(btnOK);
             Name = "frmPickupSectionAssignment";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Assign Pickup Section";
             Load += frmPickupSectionAssignment_Load;
             ResumeLayout(false);
@@ -106,5 +123,6 @@
         private FlowLayoutPanel flowSections;
         private Label label1;
         private Label label2;
+        private Button btnUnassignSection;
     }
 }

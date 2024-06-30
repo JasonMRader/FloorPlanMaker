@@ -83,14 +83,27 @@ namespace FloorPlanMakerUI
             if (rdo.Checked)
             {
                 string displayString = section.GetDisplayString().Replace("\n", " &&");
-
+                sectionAssigned = section;
                 btnOK.Text = "Assign to " + displayString;
             }
         }
 
         private void btnOK_Click(object sender, EventArgs e)
         {
+            pickUpSection.AssignPickupSection(sectionAssigned);
+            sectionAssigned.AssignPickupSection(pickUpSection);
+            this.Close();
+        }
 
+        private void btnUnassignSection_Click(object sender, EventArgs e)
+        {
+            if(pickUpSection.PairedSection != null)
+            {
+                pickUpSection.PairedSection.RemovePairedSection();
+                pickUpSection.RemovePairedSection();
+            }
+           
+            this.Close();
         }
     }
 }

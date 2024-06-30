@@ -148,15 +148,19 @@ namespace FloorplanClassLibrary
                 }
             }
         }
-        public float SalesFromPickps
+        private float SalesFromPickps
         {
             get
             {
                 float sales = 0f;
-                foreach(Server server in ServerTeam)
+                if(_pairedSection != null)
                 {
-                    sales += server.SalesFromPickupSection;
+                    foreach (Table table in _pairedSection.Tables)
+                    {
+                        sales += table.AverageSales;
+                    }
                 }
+               
                 return sales;
             }
         }
@@ -475,7 +479,45 @@ namespace FloorplanClassLibrary
                 return Tables.Sum(table => table.MaxCovers);               
             }
         }
+        public Section PairedSection { get { return this._pairedSection; } }
+        private Section _pairedSection { get; set; }
+        public void AssignPickupSection(Section section)
+        {
+            if (this.IsPickUp)
+            {
+                if(_pairedSection != null)
+                {
+                    this._pairedSection.RemovePairedSection();
 
+                }
+                this._pairedSection = section;
+                this._isTeamWait = section.IsTeamWait;
+                this.ServerCount = section.ServerCount;
+                this.ServerTeam = section.ServerTeam;
+            }
+            if (!this.IsPickUp)
+            {
+                this._pairedSection = section;
+            }
+            NotifyObservers();
+        }
+        public void RemovePairedSection()
+        {
+            if (_pairedSection != null)
+            {
+                Section section = _pairedSection;
+                this._pairedSection = null;
+                NotifyObservers();
+                if(IsPickUp)
+                {
+                    this.ServerTeam.Clear();
+                    this.ServerCount = 0;
+                    this._isTeamWait = false;
+                }
+               
+                
+            }
+        }
         public float ExpectedTotalSales
         {
             get
