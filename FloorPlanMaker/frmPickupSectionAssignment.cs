@@ -101,6 +101,7 @@ namespace FloorPlanMakerUI
             {
                 pickUpSection.PairedSection.RemovePairedSection();
                 pickUpSection.RemovePairedSection();
+                pickUpSection.Notify();
             }
            
             this.Close();

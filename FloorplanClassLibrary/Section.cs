@@ -505,17 +505,17 @@ namespace FloorplanClassLibrary
         {
             if (_pairedSection != null)
             {
-                Section section = _pairedSection;
+                Section tempPairedSection = _pairedSection;
                 this._pairedSection = null;
                 NotifyObservers();
-                if(IsPickUp)
+                if (this.IsPickUp)
                 {
-                    this.ServerTeam.Clear();
-                    this.ServerCount = 0;
+                    this.ServerTeam = new List<Server>();
+                    this.ServerCount = 1;
                     this._isTeamWait = false;
                 }
-               
-                
+
+
             }
         }
         public float ExpectedTotalSales
