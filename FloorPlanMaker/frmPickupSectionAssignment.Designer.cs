@@ -46,6 +46,7 @@
             btnOK.Size = new Size(563, 54);
             btnOK.TabIndex = 1;
             btnOK.UseVisualStyleBackColor = false;
+            btnOK.Click += btnOK_Click;
             // 
             // flowDiningAreas
             // 

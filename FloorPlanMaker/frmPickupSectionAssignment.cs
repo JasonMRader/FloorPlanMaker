@@ -87,5 +87,10 @@ namespace FloorPlanMakerUI
                 btnOK.Text = "Assign to " + displayString;
             }
         }
+
+        private void btnOK_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
