@@ -49,6 +49,7 @@ namespace FloorPlanMakerUI
             this.shiftManager = shiftManager;
             this.frmEditStaff = frmEditStaff;
             this.dateSelected = date;
+            this.shiftManager.SelectedShift.SetBartendersToShift(shiftManager.SelectedShift.BartenderCount);
             cbIsAm.Checked = isAm;
 
         }
@@ -79,10 +80,10 @@ namespace FloorPlanMakerUI
             GetDateLabel();
             LoadDiningAreas();
             RefreshPreviousFloorplanCounts();
-            PopulateServers();           
+            PopulateServers();
             RefreshForDateSelected();
             txtServerSearch.Focus();
-        }       
+        }
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             if (keyData == Keys.Enter)
@@ -106,17 +107,17 @@ namespace FloorPlanMakerUI
             foreach (Server server in servers)
             {
                 if (server.IsBartender) { continue; }
-                Button ServerButton = CreateNotOnShiftServerButton(server);            
+                Button ServerButton = CreateNotOnShiftServerButton(server);
 
                 flowAllServers.Controls.Add(ServerButton);
             }
         }
         private void PopulateServersOnShift(List<Server> servers)
-        {           
+        {
             flowServersOnShift.Controls.Clear();
             foreach (Server server in servers)
             {
-                Button ServerButton = CreateOnShiftServerButton(server);              
+                Button ServerButton = CreateOnShiftServerButton(server);
                 flowServersOnShift.Controls.Add(ServerButton);
             }
         }
@@ -166,8 +167,8 @@ namespace FloorPlanMakerUI
         private void AddToShift_Click(object sender, EventArgs e)
         {
             Button serverButton = (Button)sender;
-            Server server = (Server)serverButton.Tag;           
-            shiftManager.SelectedShift.AddNewUnassignedServer(server);           
+            Server server = (Server)serverButton.Tag;
+            shiftManager.SelectedShift.AddNewUnassignedServer(server);
             serverButton.Click -= AddToShift_Click;
             serverButton.Click += RemoveFromShift_Click;
             serverButton.BackColor = UITheme.YesColor;
@@ -184,8 +185,8 @@ namespace FloorPlanMakerUI
         private void RemoveFromShift_Click(object sender, EventArgs e)
         {
             Button serverButton = (Button)sender;
-            Server server = (Server)serverButton.Tag;            
-            shiftManager.SelectedShift.RemoveServerFromShift(server);          
+            Server server = (Server)serverButton.Tag;
+            shiftManager.SelectedShift.RemoveServerFromShift(server);
             serverButton.Click += AddToShift_Click;
             serverButton.Click -= RemoveFromShift_Click;
             serverButton.BackColor = UITheme.CTAColor;
@@ -222,15 +223,15 @@ namespace FloorPlanMakerUI
         }
         private void RefreshPreviousFloorplanCounts()
         {
-            List<AreaHistory>lastWeekAreaHistories = new List<AreaHistory>();
-            if(cbStatsType.Checked)
+            List<AreaHistory> lastWeekAreaHistories = new List<AreaHistory>();
+            if (cbStatsType.Checked)
             {
                 lastWeekAreaHistories = GetHistoryForLastFour();
             }
             else
             {
                 lastWeekAreaHistories = GetAreaHistories(cbIsAm.Checked, -7);
-            }            
+            }
             List<AreaHistory> yesterdayAreaHistories = GetAreaHistories(cbIsAm.Checked, -1);
 
             CreateAreaHistoryLabels(flowLastWeekdayCounts, lastWeekAreaHistories);
@@ -260,7 +261,7 @@ namespace FloorPlanMakerUI
         {
             if (cbStatsType.Checked)
             {
-                foreach(AreaHistory areaHistory in areaHistories)
+                foreach (AreaHistory areaHistory in areaHistories)
                 {
                     areaHistory.SetDatesToLastFourWeekdays();
                 }
@@ -288,7 +289,7 @@ namespace FloorPlanMakerUI
                         {
                             lbl.Text = "";
                         }
-                        
+
                     }
                     else if (history.Sales > 0f && history.Sales < 1000f)
                     {
@@ -365,24 +366,24 @@ namespace FloorPlanMakerUI
         }
         private void RefreshForDateSelected()
         {
-            SetToShiftFromDatabase();           
+            SetToShiftFromDatabase();
 
-        }       
+        }
         private void SetToShiftFromDatabase()
         {
 
-           
+
             shiftManager.SetSelectedShift(dateOnlySelected, cbIsAm.Checked);
             flowServersOnShift.Controls.Clear();
-            PopulateServers();           
-            List<Button> serversNotOnShiftButtons = new List<Button>();            
+            PopulateServers();
+            List<Button> serversNotOnShiftButtons = new List<Button>();
             List<DiningArea> diningAreasUsed = new List<DiningArea>();
             List<Server> serverUsed = new List<Server>();
 
             foreach (Floorplan fp in shiftManager.SelectedShift.Floorplans)
             {
                 diningAreasUsed.Add(fp.DiningArea);
-                serverUsed.AddRange(fp.Servers);               
+                serverUsed.AddRange(fp.Servers);
             }
             foreach (CheckBox cb in flowDiningAreas.Controls)
             {
@@ -408,7 +409,7 @@ namespace FloorPlanMakerUI
                     AddToShift_Click(btn, e);
                 }
             }
-        }      
+        }
         private void cbDiningArea_CheckChanged(object sender, EventArgs e)
         {
             CheckBox cbArea = sender as CheckBox;
@@ -493,12 +494,12 @@ namespace FloorPlanMakerUI
                 return;
             }
             int bartenderCount = Int32.Parse(lblBartenderCount.Text);
-            shiftManager.SelectedShift.SetBartendersToShift(bartenderCount);           
+            shiftManager.SelectedShift.SetBartendersToShift(bartenderCount);
             shiftManager.SetNewShiftToSelectedShift();
             frmEditStaff.UpdateNewShift(shiftManager);
             this.Close();
 
-        }      
+        }
 
         private void cbIsAm_CheckedChanged(object sender, EventArgs e)
         {
@@ -571,20 +572,22 @@ namespace FloorPlanMakerUI
         }
         private void btnImportServers_Click(object sender, EventArgs e)
         {
-            
-            //List<int> controlIndex = new List<int>();
-            //Random random = new Random();
-            //for (int i = 0; i < 3; i++)
-            //{
-            //    int index;
-            //    do
-            //    {
-            //        index = random.Next(0, flowAllServers.Controls.Count);
-            //    } while (controlIndex.Contains(index));
+            Shift matchedShift = SqliteDataAccess.LoadShift(shiftManager.DateOnly.AddDays(-7), shiftManager.IsAM);
+            shiftManager.SelectedShift.CopyServersAndDiningAreas(matchedShift);
+            PopulateServers();
+            foreach (CheckBox cb in flowDiningAreas.Controls)
+            {
+                if (shiftManager.SelectedShift.DiningAreasUsed.Contains(cb.Tag))
+                {
+                    cb.Checked = true;
+                }
+                else
+                {
+                    cb.Checked = false;
+                }
+            }
 
-            //    Button btn = (Button)flowAllServers.Controls[index];
-            //    btn.PerformClick();
-            //}
+
             txtServerSearch.Focus();
         }
 
@@ -601,8 +604,8 @@ namespace FloorPlanMakerUI
                 return;
             }
             bartenderCount++;
-            lblBartenderCount.Text = bartenderCount.ToString();            
-            shiftManager.SelectedShift.SetBartendersToShift(bartenderCount);          
+            lblBartenderCount.Text = bartenderCount.ToString();
+            shiftManager.SelectedShift.SetBartendersToShift(bartenderCount);
             txtServerSearch.Focus();
         }
         private void btnSubtractBartender_Click(object sender, EventArgs e)
@@ -614,7 +617,7 @@ namespace FloorPlanMakerUI
             }
             bartenderCount--;
             lblBartenderCount.Text = bartenderCount.ToString();
-            shiftManager.SelectedShift.SetBartendersToShift(bartenderCount);            
+            shiftManager.SelectedShift.SetBartendersToShift(bartenderCount);
             txtServerSearch.Focus();
         }
 
@@ -624,7 +627,7 @@ namespace FloorPlanMakerUI
             {
                 string defaultDirectory = @"C:\Users\Jason\OneDrive\Working On Now\misc";
                 string fallbackDirectory = @"C:\";
-               
+
                 if (Directory.Exists(defaultDirectory))
                 {
                     openFileDialog.InitialDirectory = defaultDirectory;
@@ -650,14 +653,14 @@ namespace FloorPlanMakerUI
                         List<ScheduledShift> records = CsvScheduleReader.GetScheduledShifts(filePath);
 
                         records.OrderBy(r => r.Date).ToList();
-                        PopulateServersFromCsv(records);                        
+                        PopulateServersFromCsv(records);
 
                         this.Invoke(new Action(() =>
                         {
 
                             loadingForm.Close();
                             this.Enabled = true;
-                            PopulateServers();                            
+                            PopulateServers();
 
                         }));
                     });
@@ -682,7 +685,7 @@ namespace FloorPlanMakerUI
                 foreach (Server server in scheduledServers)
                 {
                     shiftManager.SelectedShift.AddNewUnassignedServer(server);
-                }               
+                }
             }
             catch (Exception ex)
             {
@@ -693,7 +696,7 @@ namespace FloorPlanMakerUI
         private void cbStatsType_CheckedChanged(object sender, EventArgs e)
         {
             RefreshPreviousFloorplanCounts();
-            if(cbStatsType.Checked)
+            if (cbStatsType.Checked)
             {
                 cbStatsType.Text = "Last 4";
             }

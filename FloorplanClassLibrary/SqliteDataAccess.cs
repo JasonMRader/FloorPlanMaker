@@ -831,6 +831,36 @@ namespace FloorplanClassLibrary
             return shift;
 
         }
+        public static Shift LoadShift(DateOnly date, bool isLunch)
+        {
+            string dateString = date.ToString("yyyy-MM-dd");
+            List<Floorplan> allFloorplans = new List<Floorplan>();
+            Shift shift = new Shift(date, isLunch);
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                allFloorplans = cnn.Query<Floorplan>("SELECT * FROM Floorplan WHERE Date = @Date AND IsLunch = @IsLunch",
+                    new
+                    {
+
+                        Date = dateString,
+                        IsLunch = isLunch
+                    }
+                    ).ToList();
+                if (allFloorplans == null)
+                {
+                    return null;
+                }
+
+            }
+
+            foreach (Floorplan floorplan in allFloorplans)
+            {
+                shift.AddFloorplanAndServers(LoadFloorplanByCriteria(floorplan.DiningAreaID, date, isLunch));
+            }
+           
+            return shift;
+
+        }
         public static Floorplan LoadFloorplanByCriteria(int diningAreaID, DateOnly date, bool isLunch)
         {
             string dateString = date.ToString("yyyy-MM-dd");

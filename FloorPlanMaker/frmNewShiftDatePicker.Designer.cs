@@ -41,6 +41,7 @@
             flowYesterdayCounts = new FlowLayoutPanel();
             flowLastWeekdayCounts = new FlowLayoutPanel();
             panel2 = new Panel();
+            cbStatsType = new CheckBox();
             label3 = new Label();
             label1 = new Label();
             panel3 = new Panel();
@@ -59,7 +60,6 @@
             label2 = new Label();
             lblServersOnShift = new Label();
             toolTip1 = new ToolTip(components);
-            cbStatsType = new CheckBox();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
@@ -216,6 +216,23 @@
             panel2.Size = new Size(1208, 196);
             panel2.TabIndex = 4;
             // 
+            // cbStatsType
+            // 
+            cbStatsType.Appearance = Appearance.Button;
+            cbStatsType.BackColor = Color.FromArgb(100, 130, 180);
+            cbStatsType.FlatAppearance.BorderSize = 0;
+            cbStatsType.FlatStyle = FlatStyle.Flat;
+            cbStatsType.Font = new Font("Segoe UI Semibold", 12.25F, FontStyle.Bold, GraphicsUnit.Point);
+            cbStatsType.ForeColor = Color.White;
+            cbStatsType.Location = new Point(3, 112);
+            cbStatsType.Name = "cbStatsType";
+            cbStatsType.Size = new Size(103, 45);
+            cbStatsType.TabIndex = 5;
+            cbStatsType.Text = "Last Week";
+            cbStatsType.TextAlign = ContentAlignment.MiddleCenter;
+            cbStatsType.UseVisualStyleBackColor = false;
+            cbStatsType.CheckedChanged += cbStatsType_CheckedChanged;
+            // 
             // label3
             // 
             label3.AutoSize = true;
@@ -278,11 +295,12 @@
             btnImportServers.BackColor = Color.FromArgb(100, 130, 180);
             btnImportServers.FlatAppearance.BorderSize = 0;
             btnImportServers.FlatStyle = FlatStyle.Flat;
-            btnImportServers.Location = new Point(154, 10);
+            btnImportServers.Location = new Point(154, 11);
             btnImportServers.Name = "btnImportServers";
-            btnImportServers.Size = new Size(30, 28);
+            btnImportServers.Size = new Size(48, 28);
             btnImportServers.TabIndex = 1;
-            btnImportServers.Text = "+3";
+            btnImportServers.Text = "Copy";
+            toolTip1.SetToolTip(btnImportServers, "Copy Last Week");
             btnImportServers.UseVisualStyleBackColor = false;
             btnImportServers.Click += btnImportServers_Click;
             // 
@@ -402,23 +420,6 @@
             lblServersOnShift.Size = new Size(150, 25);
             lblServersOnShift.TabIndex = 0;
             lblServersOnShift.Text = "Servers On Shift";
-            // 
-            // cbStatsType
-            // 
-            cbStatsType.Appearance = Appearance.Button;
-            cbStatsType.BackColor = Color.FromArgb(100, 130, 180);
-            cbStatsType.FlatAppearance.BorderSize = 0;
-            cbStatsType.FlatStyle = FlatStyle.Flat;
-            cbStatsType.Font = new Font("Segoe UI Semibold", 12.25F, FontStyle.Bold, GraphicsUnit.Point);
-            cbStatsType.ForeColor = Color.White;
-            cbStatsType.Location = new Point(3, 112);
-            cbStatsType.Name = "cbStatsType";
-            cbStatsType.Size = new Size(103, 45);
-            cbStatsType.TabIndex = 5;
-            cbStatsType.Text = "Last Week";
-            cbStatsType.TextAlign = ContentAlignment.MiddleCenter;
-            cbStatsType.UseVisualStyleBackColor = false;
-            cbStatsType.CheckedChanged += cbStatsType_CheckedChanged;
             // 
             // frmNewShiftDatePicker
             // 

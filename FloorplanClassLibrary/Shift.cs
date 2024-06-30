@@ -40,6 +40,7 @@ namespace FloorplanClassLibrary
                 AddFloorplanAndServers(floorplan);
             }
         }
+
         private void InitializeServers()
         {
             _allServers = SqliteDataAccess.LoadActiveServers();
@@ -55,7 +56,19 @@ namespace FloorplanClassLibrary
            
 
         }
-       
+        public void CopyServersAndDiningAreas(Shift shiftToCopy)
+        {
+            this._unassignedServers = shiftToCopy.ServersOnShift;
+            this._serversNotOnShift = shiftToCopy.ServersNotOnShift;
+            this._serversOnShift = shiftToCopy.ServersOnShift;
+            foreach (Floorplan floorplan in shiftToCopy.Floorplans)
+            {
+                if(!this.DiningAreasUsed.Contains(floorplan.DiningArea))
+                {
+                    CreateFloorplanForDiningArea(floorplan.DiningArea,0,0);
+                }
+            }
+        }
         public int BartenderCount
         {
             get 
