@@ -53,7 +53,7 @@ namespace FloorplanClassLibrary
         {
             this._unassignedServers = shiftToCopy.ServersOnShift;
             this._serversNotOnShift = shiftToCopy.ServersNotOnShift;
-            this._serversOnShift = shiftToCopy.ServersOnShift;
+           
             foreach (Floorplan floorplan in shiftToCopy.Floorplans)
             {
                 if(!this.DiningAreasUsed.Contains(floorplan.DiningArea))
@@ -136,7 +136,29 @@ namespace FloorplanClassLibrary
         public Floorplan? SelectedFloorplan { get; set; }
        
         public List<DiningArea> DiningAreasUsed => Floorplans.Select(fp => fp.DiningArea).Distinct().ToList();
-        private List<Server> _serversOnShift = new List<Server>();
+       
+        public List<Server> _serversOnShift
+        {
+            get
+            {
+                var serversFromFloorplans = _floorplans                    
+                    .SelectMany(f =>
+                    {
+                        var combinedServers = new List<Server>();                        
+                        combinedServers.AddRange(f.Servers);                       
+
+                        return combinedServers;
+                    })
+                    .Where(f => f != null)
+                    .Distinct()
+                    .ToList();
+
+                return _unassignedServers
+                    .Concat(serversFromFloorplans)
+                    .Distinct()
+                    .ToList();
+            }
+        }
         private List<Server> _serversNotOnShift = new List<Server>();
         private List<Server> _unassignedServers = new List<Server>();
         private List<Server> _allServers = new List<Server>();
@@ -169,7 +191,7 @@ namespace FloorplanClassLibrary
         public List<Server> ServersOnShift
         {
             get { return _serversOnShift; }
-            private set { _serversOnShift = value; }
+           
         }
 
         public List<Server> UnassignedServers
