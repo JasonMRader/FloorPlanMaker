@@ -27,7 +27,7 @@ namespace FloorPlanMakerUI
 
         private void frmPickupSectionAssignment_Load(object sender, EventArgs e)
         {
-            foreach(Floorplan floorplan in shift.Floorplans)
+            foreach (Floorplan floorplan in shift.Floorplans)
             {
                 RadioButton radioButton = CreateRadioForFloorplan(floorplan);
                 flowDiningAreas.Controls.Add(radioButton);
@@ -51,21 +51,21 @@ namespace FloorPlanMakerUI
             flowSections.Controls.Clear();
             RadioButton rdoBtn = (RadioButton)sender;
             Floorplan floorplan = (Floorplan)rdoBtn.Tag;
-            foreach(Section section in floorplan.Sections)
+            foreach (Section section in floorplan.Sections)
             {
-                if(!section.IsPickUp)
+                if (!section.IsPickUp)
                 {
                     RadioButton radioButton = CreateRadioForSection(section);
                     flowSections.Controls.Add(radioButton);
                 }
-               
+
             }
         }
 
         private RadioButton CreateRadioForSection(Section section)
         {
             RadioButton radioButton = new RadioButton();
-            string displayString = section.GetDisplayString().Replace("\n", " & ");
+            string displayString = section.GetDisplayString().Replace("\n", " &&");
             radioButton.Text = displayString;
             radioButton.Tag = section;
             radioButton.Appearance = Appearance.Button;
@@ -80,9 +80,9 @@ namespace FloorPlanMakerUI
         {
             RadioButton rdo = (RadioButton)sender;
             Section section = (Section)rdo.Tag;
-            if(rdo.Checked)
+            if (rdo.Checked)
             {
-                string displayString = section.GetDisplayString().Replace("\n", " & ");
+                string displayString = section.GetDisplayString().Replace("\n", " &&");
 
                 btnOK.Text = "Assign to " + displayString;
             }

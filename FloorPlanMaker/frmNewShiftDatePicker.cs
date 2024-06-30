@@ -571,19 +571,20 @@ namespace FloorPlanMakerUI
         }
         private void btnImportServers_Click(object sender, EventArgs e)
         {
-            List<int> controlIndex = new List<int>();
-            Random random = new Random();
-            for (int i = 0; i < 3; i++)
-            {
-                int index;
-                do
-                {
-                    index = random.Next(0, flowAllServers.Controls.Count);
-                } while (controlIndex.Contains(index));
+            
+            //List<int> controlIndex = new List<int>();
+            //Random random = new Random();
+            //for (int i = 0; i < 3; i++)
+            //{
+            //    int index;
+            //    do
+            //    {
+            //        index = random.Next(0, flowAllServers.Controls.Count);
+            //    } while (controlIndex.Contains(index));
 
-                Button btn = (Button)flowAllServers.Controls[index];
-                btn.PerformClick();
-            }
+            //    Button btn = (Button)flowAllServers.Controls[index];
+            //    btn.PerformClick();
+            //}
             txtServerSearch.Focus();
         }
 

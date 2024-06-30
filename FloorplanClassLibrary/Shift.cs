@@ -128,7 +128,7 @@ namespace FloorplanClassLibrary
         }
         public DiningArea? SelectedDiningArea { get; set; }
         public Floorplan? SelectedFloorplan { get; set; }
-        //public Floorplan? ViewedFloorplan { get; set; }
+       
         public List<DiningArea> DiningAreasUsed => Floorplans.Select(fp => fp.DiningArea).Distinct().ToList();
         private List<Server> _serversOnShift = new List<Server>();
         private List<Server> _serversNotOnShift = new List<Server>();

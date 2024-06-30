@@ -37,13 +37,15 @@
             // 
             // btnOK
             // 
+            btnOK.BackColor = Color.FromArgb(100, 130, 180);
+            btnOK.FlatAppearance.BorderSize = 0;
+            btnOK.FlatStyle = FlatStyle.Flat;
             btnOK.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
             btnOK.Location = new Point(32, 488);
             btnOK.Name = "btnOK";
             btnOK.Size = new Size(563, 54);
             btnOK.TabIndex = 1;
-            btnOK.Text = "OK";
-            btnOK.UseVisualStyleBackColor = true;
+            btnOK.UseVisualStyleBackColor = false;
             // 
             // flowDiningAreas
             // 
@@ -90,7 +92,7 @@
             Controls.Add(flowDiningAreas);
             Controls.Add(btnOK);
             Name = "frmPickupSectionAssignment";
-            Text = "frmPickupSectionAssignment";
+            Text = "Assign Pickup Section";
             Load += frmPickupSectionAssignment_Load;
             ResumeLayout(false);
             PerformLayout();
