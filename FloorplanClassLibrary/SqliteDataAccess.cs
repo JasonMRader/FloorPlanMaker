@@ -660,7 +660,16 @@ namespace FloorplanClassLibrary
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                return cnn.Query<Server>("SELECT * FROM Server WHERE Archived = 0").ToList();
+                List<Server> servers = cnn.Query<Server>("SELECT * FROM Server WHERE Archived = 0").ToList();
+                //List<Server> currentBartenders = servers
+                // .Where(s => s.Name.StartsWith("BAR"))
+                // .OrderBy(s => s.Name)
+                // .ToList();
+                //foreach (Server server in currentBartenders)
+                //{
+                //    server.IsBartender = true;
+                //}
+                return servers;
             }
         }
 

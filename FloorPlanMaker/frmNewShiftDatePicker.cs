@@ -594,6 +594,7 @@ namespace FloorPlanMakerUI
         private void flowServersOnShift_ControlsChanged(object sender, ControlEventArgs e)
         {
             lblServersOnShift.Text = $"{shiftManager.SelectedShift.ServersOnShift.Count} Servers On Shift";
+            lblBartenderCount.Text = shiftManager.SelectedShift.BartenderCount.ToString() ;
         }
 
         private void btnAddBartender_Click(object sender, EventArgs e)
