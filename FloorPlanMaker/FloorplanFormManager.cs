@@ -735,6 +735,7 @@ namespace FloorPlanMakerUI
             AddServerControls(this.flowServersPanel);
             SetSectionPanels();
             AddSectionPanels(this.flowSectionsPanel);
+            UpdateAveragesPerServer();
         }
 
         public void UpdateTableControlColors(Panel panel)
