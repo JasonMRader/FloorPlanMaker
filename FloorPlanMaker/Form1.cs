@@ -513,6 +513,14 @@ namespace FloorPlanMaker
                         tableControl.Moveable = false;
                     }
                 }
+                //if (rdoViewSectionFlow.Checked)
+                //{
+                //    flowSectionSelect.Visible = true;
+                //    flowServersInFloorplan.Visible = false;
+                //    pnlStatMode.Visible = false;
+                //    rdoViewSectionFlow.Image = Resources.lilCanvasBook;
+
+                //}
             }
             else
             {
@@ -859,7 +867,7 @@ namespace FloorPlanMaker
             else
             {
                 flowSectionSelect.Visible = false;
-                //flowServersInFloorplan.Visible = true;
+                
                 rdoViewSectionFlow.Image = Resources.lilBook;
             }
         }
