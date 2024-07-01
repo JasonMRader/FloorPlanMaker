@@ -1183,6 +1183,7 @@ namespace FloorPlanMakerUI
 
             if (Shift.SelectedFloorplan != null)
             {
+                Shift.SetDoubles();
                 AddTableControls(pnlFloorPlan);
                 SetSectionLabels();
                 SetSectionPanels();
@@ -1195,7 +1196,7 @@ namespace FloorPlanMakerUI
                 AddSectionPanels(flowSectionSelect);
                 AddSectionLabels(pnlFloorPlan);
                 //UpdateServerControlsForFloorplan();
-
+                
                 //LoadTableSalesForPastDate();
                 // SetTableSales();
                 UpdateTableStats();

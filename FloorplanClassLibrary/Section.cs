@@ -597,7 +597,7 @@ namespace FloorplanClassLibrary
                 else {
                     displayString = Server.ToString();
                 }
-                if (IsPickUp) { 
+                if (this._pairedSection != null) { 
                     displayString += " ++";
                 }
             }            
@@ -618,7 +618,7 @@ namespace FloorplanClassLibrary
                     {
                         displayString += server.ToString();
                     }
-                    if (IsPickUp)
+                    if (IsPickUp || this.PairedSection != null)
                     {
                         displayString += " ++";
                     }

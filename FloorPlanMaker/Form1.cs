@@ -202,19 +202,7 @@ namespace FloorPlanMaker
                 this.shift.AddFloorplanAndServers(fp);
             }
             //Checking for doubles
-            if (!shift.IsAM)
-            {
-                List<Floorplan> amFloorplans = SqliteDataAccess.LoadFloorplansByDateAndShift(shiftManagerToAdd.DateOnly, true);
-                if (amFloorplans == null) return;
-                List<Server> amServers = amFloorplans.SelectMany(f => f.Servers).ToList();
-                foreach (Server s in shiftManagerToAdd.ServersOnShift)
-                {
-                    if (amServers.Contains(s))
-                    {
-                        s.isDouble = true;
-                    }
-                }
-            }
+            //shiftManagerToAdd.SetDoubles();
             floorplanManager.SetViewedFloorplan(dateOnlySelected, cbIsAM.Checked, pnlFloorPlan, flowServersInFloorplan, flowSectionSelect);
             rdoSections.Checked = true;
             rdoViewSectionFlow.Checked = true;

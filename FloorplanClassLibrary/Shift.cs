@@ -168,6 +168,22 @@ namespace FloorplanClassLibrary
         public List<FloorplanTemplate> Templates = new List<FloorplanTemplate>();
         public List<Section> TemplateSections = new List<Section>();
         public FloorplanTemplate? SelectedTemplate { get; set; }
+        public void SetDoubles()
+        {
+            if (!IsAM)
+            {
+                List<Floorplan> amFloorplans = SqliteDataAccess.LoadFloorplansByDateAndShift(DateOnly, true);
+                if (amFloorplans == null) return;
+                List<Server> amServers = amFloorplans.SelectMany(f => f.Servers).ToList();
+                foreach (Server s in ServersOnShift)
+                {
+                    if (amServers.Contains(s))
+                    {
+                        s.isDouble = true;
+                    }
+                }
+            }
+        }
         public void PickupSectionUpdate()
         {
             List<Server> serversWithPickupSections = new List<Server>();
