@@ -67,11 +67,13 @@ namespace FloorPlanMakerUI
                 {
                     shift.SelectedFloorplan.RemoveServerAndSection(server);
                     secondaryFloorplan.AddServerAndSection(server);
+                    PopulateOtherFloorplanServers();
                 }
                 
             }
             PopulateSelectedFloorplanServerButtons();
-            PopulateCboAreas();
+            
+            //PopulateCboAreas();
         }
 
         private void PopulateSecondaryFloorplanServerButtons()
@@ -95,8 +97,8 @@ namespace FloorPlanMakerUI
                 shift.SelectedFloorplan.AddServerAndSection(server);
             }
             PopulateSelectedFloorplanServerButtons();
-            
-            PopulateCboAreas();
+            PopulateSecondaryFloorplanServerButtons();
+            //PopulateCboAreas();
         }
 
         private Button CreateServerButton(Server server)
