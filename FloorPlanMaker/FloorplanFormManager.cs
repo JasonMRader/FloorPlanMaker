@@ -705,6 +705,18 @@ namespace FloorPlanMakerUI
         }
         public void AddServerControls(FlowLayoutPanel panel)
         {
+            Button btnEditRoster = new Button
+            {
+                Text = "Edit Server Roster",
+                AutoSize = false,
+                Size = new Size(panel.Width - 30, 25),
+                Font = new Font("Segoe UI", 10F),
+                FlatStyle = FlatStyle.Flat,
+                BackColor = UITheme.CTAColor,
+                ForeColor = UITheme.CTAFontColor
+            };
+            btnEditRoster.Click += btnEditRoster_Click;
+            panel.Controls.Add(btnEditRoster);
             foreach (ServerControl serverControl in _serverControls)
             {
                 serverControl.Width = panel.Width -10;
@@ -712,6 +724,13 @@ namespace FloorPlanMakerUI
                 panel.Controls.Add(serverControl);
             }
         }
+
+        private void btnEditRoster_Click(object? sender, EventArgs e)
+        {
+            frmEditShiftRoster editRosterForm = new frmEditShiftRoster(Shift);
+            editRosterForm.ShowDialog();
+        }
+
         public void UpdateTableControlColors(Panel panel)
         {
             foreach (Control ctrl in panel.Controls)
