@@ -47,12 +47,12 @@ namespace FloorPlanMakerUI
             foreach (Server server in shift.SelectedFloorplan.Servers)
             {
                 Button button = CreateServerButton(server);
-                button.Click += MoveServerOffOfSelectedFloorplan;
+                button.Click += MoveServerToSecondaryFloorplan;
                 flowThisFloorplan.Controls.Add(button);
             }
         }
 
-        private void MoveServerOffOfSelectedFloorplan(object? sender, EventArgs e)
+        private void MoveServerToSecondaryFloorplan(object? sender, EventArgs e)
         {
             Button btn = (Button)sender;
             Server server = (Server)btn.Tag;
@@ -65,15 +65,30 @@ namespace FloorPlanMakerUI
             PopulateCboAreas();
         }
 
-        private void PopulateFloorplanServerButtons(List<Server> servers, FlowLayoutPanel flowPanel)
+        private void PopulateSecondaryFloorplanServerButtons()
         {
-            flowPanel.Controls.Clear();
-            foreach (Server server in servers)
+            flowOtherServers.Controls.Clear();
+            foreach (Server server in secondaryFloorplan.Servers)
             {
                 Button button = CreateServerButton(server);
-                flowPanel.Controls.Add(button);
+                button.Click += TakeServerFromSecondarySection;
+                flowOtherServers.Controls.Add(button);
             }
         }
+
+        private void TakeServerFromSecondarySection(object? sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            Server server = (Server)btn.Tag;
+            if (secondaryFloorplan.Servers.Contains(server))
+            {
+                secondaryFloorplan.RemoveServerAndSection(server);
+                shift.SelectedFloorplan.AddServerAndSection(server);
+            }
+            PopulateSelectedFloorplanServerButtons();
+            PopulateCboAreas();
+        }
+
         private Button CreateServerButton(Server server)
         {
             Button button = new Button();
@@ -93,8 +108,9 @@ namespace FloorPlanMakerUI
             txtSearchServers.Visible = cbServersNotOnShift.Checked;
             if (cbServersNotOnShift.Checked)
             {
-                PopulateFloorplanServerButtons(shift.ServersNotOnShift, flowOtherServers);
+                PopulateServersNotOnShiftServerButtons(shift.ServersNotOnShift);
                 txtSearchServers.Focus();
+                secondaryFloorplan = null;
             }
             else
             {
@@ -103,18 +119,30 @@ namespace FloorPlanMakerUI
             }
         }
 
+        private void PopulateServersNotOnShiftServerButtons(List<Server> servers)
+        {
+            flowOtherServers.Controls.Clear();
+            foreach (Server server in servers)
+            {
+                Button button = CreateServerButton(server);
+                //button.Click += TakeServerFromSecondarySection;
+                flowOtherServers.Controls.Add(button);
+            }
+        }
+
         private void PopulateOtherFloorplanServers()
         {
             Floorplan floorplanSelected = (Floorplan)cboFloorplans.SelectedItem;
+            secondaryFloorplan = floorplanSelected;
             if (floorplanSelected != null)
             {
-                PopulateFloorplanServerButtons(floorplanSelected.Servers, flowOtherServers);
+                PopulateSecondaryFloorplanServerButtons();
             }
         }
 
         private void cboFloorplans_SelectedIndexChanged(object sender, EventArgs e)
         {
-            secondaryFloorplan = (Floorplan)cboFloorplans.SelectedItem;
+            //secondaryFloorplan = (Floorplan)cboFloorplans.SelectedItem;
             PopulateOtherFloorplanServers();
 
         }
@@ -134,12 +162,12 @@ namespace FloorPlanMakerUI
                     .OrderByFirstLetter()
                     .ToList();
 
-                PopulateFloorplanServerButtons(filteredServers, flowOtherServers);
+                PopulateServersNotOnShiftServerButtons(filteredServers);
                 txtSearchServers.Focus();
             }
             else
             {
-                PopulateFloorplanServerButtons(shift.ServersNotOnShift, flowOtherServers);
+                PopulateServersNotOnShiftServerButtons(shift.ServersNotOnShift);
                 txtSearchServers.Focus();
             }
         }

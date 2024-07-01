@@ -955,6 +955,7 @@ namespace FloorplanClassLibrary
                         {
                             section.SetToBarSection();
                         }
+                        section.Server.CurrentSection = section;
                     }
                     if (section.ServerTeam.Count > 1)
                     {
