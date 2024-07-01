@@ -594,6 +594,10 @@ namespace FloorplanClassLibrary
         {
             //UpdateSectionServerMap();
         }
+        public void MovePickupSectionsToEndOfList()
+        {
+            this.Sections = this.Sections.OrderBy(s => s.IsPickUp).ToList();
+        }
         public override string ToString()
         {
             //string isAM = "AM";
