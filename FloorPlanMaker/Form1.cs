@@ -513,14 +513,14 @@ namespace FloorPlanMaker
                         tableControl.Moveable = false;
                     }
                 }
-                //if (rdoViewSectionFlow.Checked)
-                //{
-                //    flowSectionSelect.Visible = true;
-                //    flowServersInFloorplan.Visible = false;
-                //    pnlStatMode.Visible = false;
-                //    rdoViewSectionFlow.Image = Resources.lilCanvasBook;
+                if (rdoViewSectionFlow.Checked)
+                {
+                    flowSectionSelect.Visible = true;
+                    flowServersInFloorplan.Visible = false;
+                    pnlStatMode.Visible = false;
+                    rdoViewSectionFlow.Image = Resources.lilCanvasBook;
 
-                //}
+                }
             }
             else
             {
