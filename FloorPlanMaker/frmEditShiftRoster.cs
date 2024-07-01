@@ -58,8 +58,17 @@ namespace FloorPlanMakerUI
             Server server = (Server)btn.Tag;
             if(shift.SelectedFloorplan.Servers.Contains(server))
             {
-                shift.SelectedFloorplan.RemoveServerAndSection(server);
-                secondaryFloorplan.AddServerAndSection(server);
+                if(cbServersNotOnShift.Checked)
+                {
+                    shift.RemoveServerFromShift(server);
+                    PopulateServersNotOnShiftServerButtons(shift.ServersNotOnShift);
+                }
+                else
+                {
+                    shift.SelectedFloorplan.RemoveServerAndSection(server);
+                    secondaryFloorplan.AddServerAndSection(server);
+                }
+                
             }
             PopulateSelectedFloorplanServerButtons();
             PopulateCboAreas();
@@ -86,6 +95,7 @@ namespace FloorPlanMakerUI
                 shift.SelectedFloorplan.AddServerAndSection(server);
             }
             PopulateSelectedFloorplanServerButtons();
+            
             PopulateCboAreas();
         }
 
@@ -125,9 +135,22 @@ namespace FloorPlanMakerUI
             foreach (Server server in servers)
             {
                 Button button = CreateServerButton(server);
-                //button.Click += TakeServerFromSecondarySection;
+                button.Click += TakeServerFromServersNotOnShift;
                 flowOtherServers.Controls.Add(button);
             }
+        }
+
+        private void TakeServerFromServersNotOnShift(object? sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            Server server = (Server)btn.Tag;
+            if (shift.ServersNotOnShift.Contains(server))
+            {
+                shift.AddServerToSelectedFloorplan(server);   
+            }
+            PopulateServersNotOnShiftServerButtons(shift.ServersNotOnShift);
+            PopulateSelectedFloorplanServerButtons();
+            //PopulateCboAreas();
         }
 
         private void PopulateOtherFloorplanServers()

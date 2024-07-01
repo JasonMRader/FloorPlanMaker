@@ -731,9 +731,10 @@ namespace FloorPlanMakerUI
            
             frmEditShiftRoster editRosterForm = new frmEditShiftRoster(Shift);
             editRosterForm.ShowDialog();
-            SetServerControls();
-            
+            SetServerControls();            
             AddServerControls(this.flowServersPanel);
+            SetSectionPanels();
+            AddSectionPanels(this.flowSectionsPanel);
         }
 
         public void UpdateTableControlColors(Panel panel)

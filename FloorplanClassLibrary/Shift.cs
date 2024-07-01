@@ -302,6 +302,12 @@ namespace FloorplanClassLibrary
             this._unassignedServers.Remove(server);
 
         }
+        public void AddServerToSelectedFloorplan(Server server)
+        {
+            AddNewUnassignedServer(server);
+            AddServerToAFloorplan(server);
+            this.SelectedFloorplan.AddServerAndSection(server);
+        }
         //public bool ShiftContainsServer(Server server)
         //{
         //    return ServersOnShift.Contains(server);
