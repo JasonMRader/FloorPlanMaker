@@ -14,6 +14,7 @@ namespace FloorPlanMakerUI
     public partial class frmEditShiftRoster : Form
     {
         private Shift shift { get; set; }
+        private Floorplan secondaryFloorplan { get; set; }
         public frmEditShiftRoster(Shift shift)
         {
             InitializeComponent();
@@ -23,7 +24,7 @@ namespace FloorPlanMakerUI
         private void frmEditShiftRoster_Load(object sender, EventArgs e)
         {
             lblSelectedDiningArea.Text = shift.SelectedFloorplan.DiningArea.Name;
-            PopulateFloorplanServerButtons(shift.SelectedFloorplan.Servers, flowThisFloorplan);
+            PopulateSelectedFloorplanServerButtons();
             PopulateCboAreas();
 
         }
@@ -40,6 +41,30 @@ namespace FloorPlanMakerUI
             cboFloorplans.SelectedIndex = 0;
 
         }
+        private void PopulateSelectedFloorplanServerButtons()
+        {
+            flowThisFloorplan.Controls.Clear();
+            foreach (Server server in shift.SelectedFloorplan.Servers)
+            {
+                Button button = CreateServerButton(server);
+                button.Click += MoveServerOffOfSelectedFloorplan;
+                flowThisFloorplan.Controls.Add(button);
+            }
+        }
+
+        private void MoveServerOffOfSelectedFloorplan(object? sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            Server server = (Server)btn.Tag;
+            if(shift.SelectedFloorplan.Servers.Contains(server))
+            {
+                shift.SelectedFloorplan.RemoveServerAndSection(server);
+                secondaryFloorplan.AddServerAndSection(server);
+            }
+            PopulateSelectedFloorplanServerButtons();
+            PopulateCboAreas();
+        }
+
         private void PopulateFloorplanServerButtons(List<Server> servers, FlowLayoutPanel flowPanel)
         {
             flowPanel.Controls.Clear();
@@ -89,6 +114,7 @@ namespace FloorPlanMakerUI
 
         private void cboFloorplans_SelectedIndexChanged(object sender, EventArgs e)
         {
+            secondaryFloorplan = (Floorplan)cboFloorplans.SelectedItem;
             PopulateOtherFloorplanServers();
 
         }

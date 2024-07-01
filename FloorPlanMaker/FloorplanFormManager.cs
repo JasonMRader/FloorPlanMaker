@@ -705,6 +705,7 @@ namespace FloorPlanMakerUI
         }
         public void AddServerControls(FlowLayoutPanel panel)
         {
+            panel.Controls.Clear();
             Button btnEditRoster = new Button
             {
                 Text = "Edit Server Roster",
@@ -727,8 +728,12 @@ namespace FloorPlanMakerUI
 
         private void btnEditRoster_Click(object? sender, EventArgs e)
         {
+           
             frmEditShiftRoster editRosterForm = new frmEditShiftRoster(Shift);
             editRosterForm.ShowDialog();
+            SetServerControls();
+            
+            AddServerControls(this.flowServersPanel);
         }
 
         public void UpdateTableControlColors(Panel panel)
