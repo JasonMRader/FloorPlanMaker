@@ -31,6 +31,7 @@ namespace FloorplanClassLibrary
                 //section.SubscribeObserver(this);
             }
         }
+
         public List<FloorplanLine> floorplanLines = new List<FloorplanLine>();
       
         

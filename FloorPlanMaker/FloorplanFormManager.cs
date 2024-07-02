@@ -159,7 +159,7 @@ namespace FloorPlanMakerUI
             {
                 sectionPanel.UpdateLabels();
             }
-            Floorplan.floorplanLines = template.floorplanLines;
+            Floorplan.floorplanLines.AddRange(template.floorplanLines);
         }
         public void ResetSections()
         { 
@@ -1117,7 +1117,7 @@ namespace FloorPlanMakerUI
             {
                 sectionPanel.UpdateLabels();
             }
-            Floorplan.floorplanLines = template.floorplanLines;
+            Floorplan.floorplanLines.AddRange(template.floorplanLines);
         }
     }
 }
