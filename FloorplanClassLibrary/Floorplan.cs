@@ -444,6 +444,13 @@ namespace FloorplanClassLibrary
                 section.IsPre = false;
             }
         }
+        public void RemoveAllServersFromSections()
+        {
+            foreach(Section section in Sections)
+            {
+                UnassignSection (section);
+            }
+        }
         public void AddServerAndSection(Server server)
         {
             if (server.IsBartender)

@@ -548,6 +548,11 @@ namespace FloorPlanMaker
            
             floorplanManager.SetViewedFloorplan(dateOnlySelected, cbIsAM.Checked, pnlFloorPlan, flowServersInFloorplan, flowSectionSelect);
             //this.sectionLineManager = new SectionLineManager(allTableControls);
+            if(floorplanManager.Floorplan != null)
+            {
+                _lines = floorplanManager.Floorplan.floorplanLines;
+            }
+            
             if (AllTablesAreAssigned())
             {
                 //TODO SECTION BOARDERS DISABLED

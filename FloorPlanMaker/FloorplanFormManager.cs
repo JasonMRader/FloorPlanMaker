@@ -89,6 +89,7 @@ namespace FloorPlanMakerUI
         {
             _tableControls.Clear();
             panel.Controls.Clear();
+            panel.Invalidate();
             if (this.Shift != null && this.Shift.SelectedDiningArea != null)
             {
                 foreach (Table table in this.Shift.SelectedDiningArea.Tables)
@@ -104,7 +105,7 @@ namespace FloorPlanMakerUI
         public void SetSectionLabels()
         {
             _sectionLabels.Clear();
-            if(Shift.SelectedFloorplan == null || Shift.SelectedFloorplan.DiningArea != Shift.SelectedDiningArea) { return; }
+            if(Shift.SelectedFloorplan == null) { return; }
            
             foreach (Section section in Shift.SelectedFloorplan.Sections)
             {                
@@ -147,6 +148,11 @@ namespace FloorPlanMakerUI
                     return;
                 }
             }
+            if(Shift.SelectedFloorplan != null)
+            {
+                Shift.SelectedFloorplan.RemoveAllServersFromSections();
+            }
+           
             Shift.SelectedFloorplan.CopyTemplateSections(template.Sections);
             SetSectionPanels();
             foreach(SectionPanelControl sectionPanel in this._sectionPanels)
@@ -255,7 +261,7 @@ namespace FloorPlanMakerUI
         public void SetServerControls()
         {
             _serverControls.Clear();
-            if (Shift.SelectedFloorplan == null || Shift.SelectedFloorplan.DiningArea != Shift.SelectedDiningArea) { return; }
+            if (Shift.SelectedFloorplan == null) { return; }
             if (Shift.SelectedFloorplan.Servers.Count <= 0) { return; }
             foreach (Server server in Shift.SelectedFloorplan.Servers)
             {
@@ -521,7 +527,7 @@ namespace FloorPlanMakerUI
             AddTableControls(pnlFloorplan);
             SetSectionLabels();
             SetSectionPanels();
-            //AddSectionLabels(pnlFloorPlan);
+           // AddSectionLabels(pnlFloorPlan);
             SetServerControls();
             UpdateTableControlColors();
             flowSectionsPanel.Controls.Clear();
@@ -1065,6 +1071,7 @@ namespace FloorPlanMakerUI
                 AddSectionPanels(flowSectionsPanel);
                 AddSectionLabels(pnlFloorplan);
                 UpdateTableStats();
+                AddSectionLines();
                 UpdateAveragesPerServer();
                 coversImageLabel.UpdateText(Shift.SelectedFloorplan.MaxCoversPerServer.ToString("F0"));
                 salesImageLabel.UpdateText(Shift.SelectedFloorplan.AvgSalesPerServer.ToString("C0"));
@@ -1091,6 +1098,11 @@ namespace FloorPlanMakerUI
                 salesImageLabel.Invalidate();
 
             }
+        }
+
+        private void AddSectionLines()
+        {
+            //throw new NotImplementedException();
         }
 
         public void SetFloorplanToTemplate(FloorplanTemplate? template)
