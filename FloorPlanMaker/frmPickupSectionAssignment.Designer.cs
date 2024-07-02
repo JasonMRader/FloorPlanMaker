@@ -51,6 +51,7 @@
             // 
             // flowDiningAreas
             // 
+            flowDiningAreas.BackColor = Color.WhiteSmoke;
             flowDiningAreas.Location = new Point(32, 62);
             flowDiningAreas.Name = "flowDiningAreas";
             flowDiningAreas.Size = new Size(269, 412);
@@ -58,6 +59,7 @@
             // 
             // flowSections
             // 
+            flowSections.BackColor = Color.WhiteSmoke;
             flowSections.Location = new Point(326, 62);
             flowSections.Name = "flowSections";
             flowSections.Size = new Size(269, 412);

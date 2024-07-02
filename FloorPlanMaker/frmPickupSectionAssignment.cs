@@ -31,14 +31,14 @@ namespace FloorPlanMakerUI
             {
                 RadioButton radioButton = CreateRadioForFloorplan(floorplan);
                 flowDiningAreas.Controls.Add(radioButton);
-                
+
             }
             CheckAppropriateDiningArea();
-           
+
         }
         private void CheckAppropriateDiningArea()
         {
-            if(pickUpSection.PairedSection == null)
+            if (pickUpSection.PairedSection == null)
             {
                 RadioButton rdo = (RadioButton)flowDiningAreas.Controls[0];
                 rdo.PerformClick();
@@ -46,11 +46,11 @@ namespace FloorPlanMakerUI
             else
             {
                 Floorplan floorplan = shift.Floorplans.FirstOrDefault(fp => fp.Sections.Contains(pickUpSection.PairedSection));
-                foreach(Control control in flowDiningAreas.Controls)
+                foreach (Control control in flowDiningAreas.Controls)
                 {
-                    if(control is RadioButton rdo)
+                    if (control is RadioButton rdo)
                     {
-                        if(rdo.Tag == floorplan)
+                        if (rdo.Tag == floorplan)
                         {
                             rdo.PerformClick();
                         }
@@ -60,7 +60,7 @@ namespace FloorPlanMakerUI
         }
         private void CheckAppropriateSection()
         {
-            if(pickUpSection.PairedSection != null)
+            if (pickUpSection.PairedSection != null)
             {
                 foreach (Control control in flowSections.Controls)
                 {
@@ -139,13 +139,13 @@ namespace FloorPlanMakerUI
 
         private void btnUnassignSection_Click(object sender, EventArgs e)
         {
-            if(pickUpSection.PairedSection != null)
+            if (pickUpSection.PairedSection != null)
             {
                 pickUpSection.PairedSection.RemovePairedSection();
                 pickUpSection.RemovePairedSection();
                 pickUpSection.Notify();
             }
-           
+
             this.Close();
         }
     }
