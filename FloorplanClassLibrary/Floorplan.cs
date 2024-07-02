@@ -149,16 +149,19 @@ namespace FloorplanClassLibrary
         public void MoveToNextSection()
         {
 
-            if (this.Sections == null || this.Sections.Count == 0) return;
-
-            // Increment the index and wrap around if needed
-            currentFocusedSectionIndex = (currentFocusedSectionIndex + 1) % this.Sections.Count;
-
-            // Directly set the selected section using the index
+            if (this.Sections == null || this.Sections.Count == 0) return;            
+            currentFocusedSectionIndex = (currentFocusedSectionIndex + 1) % this.Sections.Count;            
             _sectionSelected = this.Sections[currentFocusedSectionIndex];
             HighlightSelectedSection();
            
 
+        }
+        public void MoveToPreviousSection()
+        {
+            if (this.Sections == null || this.Sections.Count == 0) return;
+            currentFocusedSectionIndex = (currentFocusedSectionIndex - 1 + this.Sections.Count) % this.Sections.Count;
+            _sectionSelected = this.Sections[currentFocusedSectionIndex];
+            HighlightSelectedSection();
         }
         private void HighlightSelectedSection()
         {
@@ -606,5 +609,7 @@ namespace FloorplanClassLibrary
             //return $"{DateOnly} {isAM} {DiningArea.Name} | {this.Servers.Count} Servers";
             return DiningArea.Name;
         }
+
+        
     }
 }

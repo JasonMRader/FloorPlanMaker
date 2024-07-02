@@ -109,24 +109,25 @@ namespace FloorPlanMaker
         }
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            // Check if the Tab key is pressed
+            
             if (keyData == Keys.Tab)
             {
                 floorplanManager.IncrementSelectedSection();
-                //shiftManager.SelectedFloorplan.MoveToNextSection();
-                return true; // Indicate that you've handled this key press
+               
+                return true; 
             }
+            
             if (_frmEditStaff != null && _frmEditStaff.Visible)
             {
                 if (keyData == Keys.Left)
                 {
                     _frmEditStaff.MovedDateBack();
-                    return true; // Indicate that you've handled this key press
+                    return true; 
                 }
                 else if (keyData == Keys.Right)
                 {
                     _frmEditStaff.MoveDateForward();
-                    return true; // Indicate that you've handled this key press
+                    return true; 
                 }
             }
             else
@@ -136,14 +137,11 @@ namespace FloorPlanMaker
                     UpdateDateSelected(-1);
                     return true;
                 }
-
-
                 if (keyData == Keys.Right)
                 {
                     UpdateDateSelected(1);
                     return true;
                 }
-
             }
             if (_frmEditDiningAreas != null && _frmEditDiningAreas.Visible)
             {
@@ -162,8 +160,7 @@ namespace FloorPlanMaker
             else
             {
                 if (keyData == Keys.Up)
-                {
-                    // Ensure the index stays within bounds
+                {                   
                     if (cboDiningAreas.SelectedIndex > 0)
                     {
                         cboDiningAreas.SelectedIndex--;
@@ -176,8 +173,7 @@ namespace FloorPlanMaker
                 }
 
                 if (keyData == Keys.Down)
-                {
-                    // Ensure the index stays within bounds
+                {                    
                     if (cboDiningAreas.SelectedIndex < cboDiningAreas.Items.Count - 1)
                     {
                         cboDiningAreas.SelectedIndex++;
@@ -191,6 +187,74 @@ namespace FloorPlanMaker
             }
             return base.ProcessCmdKey(ref msg, keyData);
         }
+        protected override void OnMouseWheel(MouseEventArgs e)
+        {
+            base.OnMouseWheel(e);
+
+            bool isShiftPressed = (Control.ModifierKeys & Keys.Shift) == Keys.Shift;
+
+            if (isShiftPressed)
+            {
+                // Handle scrolling with Shift key pressed
+                if (e.Delta > 0)
+                {
+                    ChangeDiningAreaUp();
+                }
+                else if (e.Delta < 0)
+                {
+                    ChangeDiningAreaDown();
+                }
+            }
+            else
+            {
+                // Handle normal scrolling
+                if (e.Delta > 0)
+                {
+                    HandleScrollUp();
+                }
+                else if (e.Delta < 0)
+                {
+                    HandleScrollDown();
+                }
+            }
+        }
+
+        private void HandleScrollUp()
+        {
+            floorplanManager.DecrementSelectedSection();
+        }
+
+        private void HandleScrollDown()
+        {
+            floorplanManager.IncrementSelectedSection();
+        }
+
+        private void ChangeDiningAreaUp()
+        {
+            if (cboDiningAreas.SelectedIndex > 0)
+            {
+                cboDiningAreas.SelectedIndex--;
+            }
+            else
+            {
+                cboDiningAreas.SelectedIndex = cboDiningAreas.Items.Count - 1;
+            }
+        }
+
+        private void ChangeDiningAreaDown()
+        {
+            if (cboDiningAreas.SelectedIndex < cboDiningAreas.Items.Count - 1)
+            {
+                cboDiningAreas.SelectedIndex++;
+            }
+            else
+            {
+                cboDiningAreas.SelectedIndex = 0;
+            }
+        }
+
+       
+
 
         public void UpdateForm1ShiftManager(Shift shiftManagerToAdd)
         {

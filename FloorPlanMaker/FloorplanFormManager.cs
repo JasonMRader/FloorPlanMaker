@@ -104,7 +104,8 @@ namespace FloorPlanMakerUI
         public void SetSectionLabels()
         {
             _sectionLabels.Clear();
-            if(Shift.SelectedFloorplan == null) { return; }
+            if(Shift.SelectedFloorplan == null || Shift.SelectedFloorplan.DiningArea != Shift.SelectedDiningArea) { return; }
+           
             foreach (Section section in Shift.SelectedFloorplan.Sections)
             {                
                 if (section.Tables.Count > 0)
@@ -254,7 +255,7 @@ namespace FloorPlanMakerUI
         public void SetServerControls()
         {
             _serverControls.Clear();
-            if (Shift.SelectedFloorplan == null) { return; }
+            if (Shift.SelectedFloorplan == null || Shift.SelectedFloorplan.DiningArea != Shift.SelectedDiningArea) { return; }
             if (Shift.SelectedFloorplan.Servers.Count <= 0) { return; }
             foreach (Server server in Shift.SelectedFloorplan.Servers)
             {
@@ -303,6 +304,11 @@ namespace FloorPlanMakerUI
         {
             if(this.Floorplan == null) { return; }
             this.Floorplan.MoveToNextSection();
+        }
+        public void DecrementSelectedSection()
+        {
+            if (this.Floorplan == null) { return; }
+            this.Floorplan.MoveToPreviousSection();
         }
         private void TeamWaitClicked(object? sender, EventArgs e)
         {
@@ -422,7 +428,7 @@ namespace FloorPlanMakerUI
             salesImageLabel.SetTooltip("Sales Per Server");
             panel.Controls.Add(coversImageLabel);
             panel.Controls.Add(salesImageLabel);
-            
+            if (this.Floorplan == null) { return; }
             Button btnAutoSelectTemplate = new Button
             {
                 Text = "Auto Generate Template",
@@ -595,28 +601,14 @@ namespace FloorPlanMakerUI
 
         }
         private void btnAddPickupSection_Click(object sender, EventArgs e)
-        {
-            //Section pickUpSection = new Section(Floorplan);
-            //pickUpSection.Name = "Pickup";
-            //pickUpSection.IsPickUp = true;
-            //Floorplan.AddSection(pickUpSection);
-            //SectionPanelControl sectionPanel = new SectionPanelControl(pickUpSection, this.ShiftManager.SelectedFloorplan);
-            //sectionPanel.CheckBoxChanged += setSelectedSection;
-            ////sectionPanel.picEraseSectionClicked += EraseSectionClicked;
-            ////sectionPanel.picTeamWaitClicked += TeamWaitClicked;
-            //this._sectionPanels.Add(sectionPanel);
-            //RefreshSectionPanels();
-            ////CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
+        {            
             Section pickUp = new Section(Floorplan);
             pickUp.Name = "Pickup";
             pickUp.IsPickUp = true;            
             Floorplan.AddSection(pickUp);
             SectionPanelControl newSectionPanel = new SectionPanelControl(pickUp, this.Shift.SelectedFloorplan);
             newSectionPanel.CheckBoxChanged += setSelectedSection;
-            newSectionPanel.picEraseSectionClicked += EraseSectionClicked;
-            //newSectionPanel.picTeamWaitClicked += TeamWaitClicked;
-            //newSectionPanel.picAddServerClicked += SectionAddServerClicked;
-            //sectionPanel.picSubtractServerClicked += SectionSubtractServerClicked;
+            newSectionPanel.picEraseSectionClicked += EraseSectionClicked;            
             this._sectionPanels.Add(newSectionPanel);
             UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionPanel, UpdateType.Add, pickUp));
             Floorplan.SetSelectedSection(pickUp);
@@ -624,6 +616,7 @@ namespace FloorPlanMakerUI
         public void AddServerControls(FlowLayoutPanel panel)
         {
             panel.Controls.Clear();
+            if(this.Floorplan == null) { return; }
             Button btnEditRoster = new Button
             {
                 Text = "Edit Server Roster",
@@ -1054,42 +1047,50 @@ namespace FloorPlanMakerUI
                 Shift = SqliteDataAccess.LoadShift(Shift.SelectedDiningArea, dateOnlySelected, isAM);                
             }
 
+            ChangeDiningAreaSelected();
+        }
+        public void ChangeDiningAreaSelected()
+        {
             if (Shift.SelectedFloorplan != null)
             {
                 Shift.SetDoubles();
-                AddTableControls(pnlFloorPlan);
+                AddTableControls(pnlFloorplan);
                 SetSectionLabels();
-                SetSectionPanels();               
+                SetSectionPanels();
                 SetServerControls();
                 UpdateTableControlColors();
-                flowSectionSelect.Controls.Clear();
-                flowServersInFloorplan.Controls.Clear();
-                AddServerControls(flowServersInFloorplan);
-                AddSectionPanels(flowSectionSelect);
-                AddSectionLabels(pnlFloorPlan);               
+                flowSectionsPanel.Controls.Clear();
+                flowServersPanel.Controls.Clear();
+                AddServerControls(flowServersPanel);
+                AddSectionPanels(flowSectionsPanel);
+                AddSectionLabels(pnlFloorplan);
                 UpdateTableStats();
-                UpdateAveragesPerServer();               
+                UpdateAveragesPerServer();
                 coversImageLabel.UpdateText(Shift.SelectedFloorplan.MaxCoversPerServer.ToString("F0"));
                 salesImageLabel.UpdateText(Shift.SelectedFloorplan.AvgSalesPerServer.ToString("C0"));
                 coversImageLabel.Invalidate();
                 salesImageLabel.Invalidate();
-
             }
             else
             {
                 foreach (SectionLabelControl sectionLabel in _sectionLabels)
                 {
-                    pnlFloorPlan.Controls.Remove(sectionLabel);
-                }               
+                    pnlFloorplan.Controls.Remove(sectionLabel);
+                }
                 UpdateTableControlColors();
                 UpdateTableStats();
+                SetSectionPanels();
+                SetServerControls();
+                flowSectionsPanel.Controls.Clear();
+                flowServersPanel.Controls.Clear();
+                AddServerControls(flowServersPanel);
+                AddSectionPanels(flowSectionsPanel);
                 coversImageLabel.UpdateText(Shift.SelectedDiningArea.GetMaxCovers().ToString("F0"));
                 salesImageLabel.UpdateText(Shift.SelectedDiningArea.ExpectedSales.ToString("C0"));
                 coversImageLabel.Invalidate();
-                salesImageLabel.Invalidate();               
+                salesImageLabel.Invalidate();
 
-            }            
-
+            }
         }
 
         public void SetFloorplanToTemplate(FloorplanTemplate? template)
