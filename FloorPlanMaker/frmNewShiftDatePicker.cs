@@ -306,47 +306,7 @@ namespace FloorPlanMakerUI
 
                 }
             }
-        }
-        private void UpdateLabels(FlowLayoutPanel panel, Dictionary<DiningArea, int> floorplanCounts)
-        {
-            foreach (Label lbl in panel.Controls.OfType<Label>())
-            {
-                if (lbl.Tag is DiningArea area && floorplanCounts.TryGetValue(area, out int count))
-                {
-                    lbl.Text = $"{count}";
-                    if (count > 0)
-                    {
-                        lbl.BackColor = UITheme.YesColor;
-                        lbl.ForeColor = Color.Black;
-                    }
-                    else
-                    {
-                        lbl.BackColor = Color.Gray;
-                        lbl.ForeColor = Color.LightGray;
-                    }
-
-                }
-            }
-        }
-
-
-        private void CreateLabel(FlowLayoutPanel panel, string areaName, int count)
-        {
-            int width = (flowDiningAreas.Width / (DiningAreaManager.DiningAreas.Count)) - 20;
-            Label lbl = new Label
-            {
-                Font = new Font("Segoe UI", 12f, FontStyle.Bold),
-                Text = $"{count} Servers",
-                AutoSize = false,
-
-                Size = new Size(width, 35),
-                Margin = new Padding(10, 10, 10, 10),
-                BackColor = UITheme.ButtonColor,
-                TextAlign = ContentAlignment.MiddleCenter
-
-            };
-            panel.Controls.Add(lbl);
-        }
+        }       
         private void CreateCountLabel(FlowLayoutPanel panel, DiningArea diningArea)
         {
             int width = (flowDiningAreas.Width / (DiningAreaManager.DiningAreas.Count)) - 20;
@@ -430,7 +390,7 @@ namespace FloorPlanMakerUI
             {
                 cbArea.BackColor = UITheme.CTAColor;
                 cbArea.ForeColor = Color.White;
-                var floorplanToRemove = shiftManager.SelectedShift.Floorplans.FirstOrDefault(fp => fp.DiningArea == area);
+                var floorplanToRemove = shiftManager.SelectedShift.Floorplans.FirstOrDefault(fp => fp.DiningArea.ID == area.ID);
                 shiftManager.SelectedShift.DiningAreasUsed.Remove(area);
                 shiftManager.SelectedShift.RemoveFloorplan(floorplanToRemove);
             }
