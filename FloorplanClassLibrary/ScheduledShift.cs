@@ -11,6 +11,29 @@ namespace FloorplanClassLibrary
         public DateOnly Date { get; set; }
         public bool IsAm { get; set; }
         public List<string> Servers { get; set; } = new List<string>();
+
+        public List<string> GetMissedServerNames(List<Server> allServers)
+        {
+            List<string> missedServers = new List<string>();
+            foreach (string s in Servers)
+            {
+                string normalizedServerName = s.ToLower();
+                bool matchFound = false;
+                foreach (Server server in allServers)
+                {
+                    if (server.Name.ToLower() == normalizedServerName)
+                    {
+                        matchFound = true;
+                    }
+                }
+                if (!matchFound)
+                {
+                    missedServers.Add(s);
+                }
+            }
+            return missedServers;
+        }
+
         public List<Server> GetServersFromRecord(List<Server> allServers)
         {
             List<Server> scheduledServers = new List<Server>();

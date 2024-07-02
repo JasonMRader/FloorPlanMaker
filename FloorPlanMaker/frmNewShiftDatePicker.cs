@@ -643,9 +643,21 @@ namespace FloorPlanMakerUI
             try
             {
                 List<Server> scheduledServers = scheduledShift.GetServersFromRecord(shiftManager.SelectedShift.AllServers);
+                List<string> serversNotMatched = scheduledShift.GetMissedServerNames(shiftManager.SelectedShift.AllServers);
                 foreach (Server server in scheduledServers)
                 {
                     shiftManager.SelectedShift.AddNewUnassignedServer(server);
+                }
+                if(serversNotMatched.Count > 0)
+                {
+                    string serversMissed = "\n";
+                    int i = 1;
+                    foreach (string server in serversNotMatched)
+                    {
+                        serversMissed += i.ToString() + ") " + server + "\n";
+                        i++;
+                    }
+                    MessageBox.Show("Could not find: " + serversMissed);
                 }
             }
             catch (Exception ex)
