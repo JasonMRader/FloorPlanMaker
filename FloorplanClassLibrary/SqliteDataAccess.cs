@@ -1598,7 +1598,7 @@ namespace FloorplanClassLibrary
 
                 if (existingFloorplan != null)
                 {
-                    DialogResult result = MessageBox.Show("A floorplan with the same criteria already exists. Do you want to replace it?",
+                    DialogResult result = MessageBox.Show("A floorplan for this area and shift already exists. Do you want to replace it?",
                                                  "Replace Floorplan?",
                                                  MessageBoxButtons.YesNo,
                                                  MessageBoxIcon.Question);
