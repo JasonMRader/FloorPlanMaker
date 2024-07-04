@@ -86,6 +86,8 @@ namespace FloorPlanMaker
             rdoViewSectionFlow = new RadioButton();
             toolTip1 = new ToolTip(components);
             btnReportBug = new Button();
+            helpProvider1 = new HelpProvider();
+            btnHelp = new Button();
             flowSectionSelect.SuspendLayout();
             panel1.SuspendLayout();
             pnlFloorplanContainer.SuspendLayout();
@@ -828,6 +830,19 @@ namespace FloorPlanMaker
             btnReportBug.UseVisualStyleBackColor = false;
             btnReportBug.Click += btnReportBug_Click;
             // 
+            // btnHelp
+            // 
+            btnHelp.BackColor = Color.FromArgb(100, 130, 180);
+            btnHelp.FlatAppearance.BorderSize = 0;
+            btnHelp.FlatStyle = FlatStyle.Flat;
+            btnHelp.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            btnHelp.Image = FloorPlanMakerUI.Properties.Resources.lilPrinter;
+            btnHelp.Location = new Point(673, 6);
+            btnHelp.Name = "btnHelp";
+            btnHelp.Size = new Size(45, 33);
+            btnHelp.TabIndex = 13;
+            btnHelp.UseVisualStyleBackColor = false;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -836,6 +851,7 @@ namespace FloorPlanMaker
             ClientSize = new Size(1264, 1042);
             Controls.Add(btnCloseApp);
             Controls.Add(btnReportBug);
+            Controls.Add(btnHelp);
             Controls.Add(panel1);
             Controls.Add(pnlNavigationWindow);
             FormBorderStyle = FormBorderStyle.None;
@@ -915,5 +931,7 @@ namespace FloorPlanMaker
         private RadioButton rdoDayOfStats;
         private CheckBox cbDrawToggle;
         private Button btnTemplateCreator;
+        private HelpProvider helpProvider1;
+        private Button btnHelp;
     }
 }
