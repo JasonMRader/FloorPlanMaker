@@ -64,7 +64,7 @@ namespace FloorPlanMakerUI
 
         private void frmTutorialVideos_Load(object sender, EventArgs e)
         {
-            currentTutorialImages = GetForm1Images();
+            SetCurrentTutorial();
 
             pbTutorial.Image = currentTutorialImages[currentTutorialIndex];
             UpdateImageLabelCount();
@@ -142,6 +142,10 @@ namespace FloorPlanMakerUI
             else if (this.tutorialFormType == TutorialForm.Form1)
             {
                 currentTutorialImages = GetForm1Images();
+            }
+            else if (this.tutorialFormType == TutorialForm.CreateShift)
+            {
+                currentTutorialImages = GetNewShiftImages();
             }
         }
 

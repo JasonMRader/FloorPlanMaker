@@ -438,6 +438,7 @@ namespace FloorPlanMakerUI
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
+            frmEditStaff.NotifyNewShiftClosed();
             this.Close();
         }
 

@@ -51,7 +51,7 @@ namespace FloorPlanMaker
         private bool _isDrawingModeEnabled = false;
         private Point? _startPoint = null;
         private List<FloorplanLine> _lines = new List<FloorplanLine>();
-        private frmTutorialVideos.TutorialForm tutorialType = frmTutorialVideos.TutorialForm.Form1;
+        public frmTutorialVideos.TutorialForm tutorialType = frmTutorialVideos.TutorialForm.Form1;
 
         private DateOnly dateOnlySelected
         {
