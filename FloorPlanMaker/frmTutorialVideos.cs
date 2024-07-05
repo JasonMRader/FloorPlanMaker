@@ -16,5 +16,15 @@ namespace FloorPlanMakerUI
         {
             InitializeComponent();
         }
+
+        private void btnNextPic_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnPreviousPic_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
