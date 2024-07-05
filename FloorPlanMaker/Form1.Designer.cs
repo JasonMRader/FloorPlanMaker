@@ -58,6 +58,7 @@ namespace FloorPlanMaker
             btnDeleteSelectedFloorplan = new Button();
             pnlMainContainer = new Panel();
             pnlTemplateContainer = new Panel();
+            btnHelp = new Button();
             pnlSideContainer = new Panel();
             pnlSectionsAndServers = new Panel();
             btnTemplateCreator = new Button();
@@ -87,7 +88,6 @@ namespace FloorPlanMaker
             toolTip1 = new ToolTip(components);
             btnReportBug = new Button();
             helpProvider1 = new HelpProvider();
-            btnHelp = new Button();
             flowSectionSelect.SuspendLayout();
             panel1.SuspendLayout();
             pnlFloorplanContainer.SuspendLayout();
@@ -448,6 +448,21 @@ namespace FloorPlanMaker
             pnlTemplateContainer.Name = "pnlTemplateContainer";
             pnlTemplateContainer.Size = new Size(684, 921);
             pnlTemplateContainer.TabIndex = 22;
+            // 
+            // btnHelp
+            // 
+            btnHelp.BackColor = Color.FromArgb(120, 180, 120);
+            btnHelp.FlatAppearance.BorderSize = 0;
+            btnHelp.FlatStyle = FlatStyle.Flat;
+            btnHelp.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            btnHelp.ForeColor = Color.Black;
+            btnHelp.Location = new Point(1130, 8);
+            btnHelp.Name = "btnHelp";
+            btnHelp.Size = new Size(31, 29);
+            btnHelp.TabIndex = 13;
+            btnHelp.Text = "?";
+            btnHelp.UseVisualStyleBackColor = false;
+            btnHelp.Click += btnHelp_Click;
             // 
             // pnlSideContainer
             // 
@@ -829,21 +844,6 @@ namespace FloorPlanMaker
             toolTip1.SetToolTip(btnReportBug, "Report Bug / Request Feature");
             btnReportBug.UseVisualStyleBackColor = false;
             btnReportBug.Click += btnReportBug_Click;
-            // 
-            // btnHelp
-            // 
-            btnHelp.BackColor = Color.FromArgb(100, 130, 180);
-            btnHelp.FlatAppearance.BorderSize = 0;
-            btnHelp.FlatStyle = FlatStyle.Flat;
-            btnHelp.Font = new Font("Segoe UI Semibold", 14F, FontStyle.Bold, GraphicsUnit.Point);
-            btnHelp.ForeColor = Color.White;
-            btnHelp.Location = new Point(642, 6);
-            btnHelp.Name = "btnHelp";
-            btnHelp.Size = new Size(178, 35);
-            btnHelp.TabIndex = 13;
-            btnHelp.Text = "? Getting Started";
-            btnHelp.UseVisualStyleBackColor = false;
-            btnHelp.Click += btnHelp_Click;
             // 
             // Form1
             // 

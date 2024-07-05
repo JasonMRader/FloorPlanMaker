@@ -51,6 +51,7 @@ namespace FloorPlanMaker
         private bool _isDrawingModeEnabled = false;
         private Point? _startPoint = null;
         private List<FloorplanLine> _lines = new List<FloorplanLine>();
+        private frmTutorialVideos.TutorialForm tutorialType = frmTutorialVideos.TutorialForm.Form1;
 
         private DateOnly dateOnlySelected
         {
@@ -570,6 +571,7 @@ namespace FloorPlanMaker
         {
             if (rdoSections.Checked)
             {
+                this.tutorialType = frmTutorialVideos.TutorialForm.Form1;
                 pnlNavigationWindow.SendToBack();
                 pnlNavHighlight.Location = new Point(rdoSections.Left, 0);
                 pnlMainContainer.Visible = true;
@@ -602,6 +604,7 @@ namespace FloorPlanMaker
         {
             if (rdoShifts.Checked)
             {
+                this.tutorialType = frmTutorialVideos.TutorialForm.EditDistribution;
                 pnlNavHighlight.Location = new Point(rdoShifts.Left, 0);
                 if (_frmEditStaff == null)
                 {
@@ -1289,7 +1292,7 @@ namespace FloorPlanMaker
 
         private void btnHelp_Click(object sender, EventArgs e)
         {
-            frmTutorialVideos tutorialForm = new frmTutorialVideos();
+            frmTutorialVideos tutorialForm = new frmTutorialVideos(this.tutorialType);
             tutorialForm.Show();
         }
     }

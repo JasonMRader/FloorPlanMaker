@@ -34,6 +34,7 @@
             btnClose = new Button();
             btnNextPic = new Button();
             btnPreviousPic = new Button();
+            lblIndex = new Label();
             ((System.ComponentModel.ISupportInitialize)pbTutorial).BeginInit();
             SuspendLayout();
             // 
@@ -46,11 +47,13 @@
             pbTutorial.SizeMode = PictureBoxSizeMode.StretchImage;
             pbTutorial.TabIndex = 3;
             pbTutorial.TabStop = false;
+            pbTutorial.Click += pbTutorial_Click;
             // 
             // rdoGettingStarted
             // 
             rdoGettingStarted.Appearance = Appearance.Button;
             rdoGettingStarted.BackColor = Color.FromArgb(100, 130, 180);
+            rdoGettingStarted.Checked = true;
             rdoGettingStarted.FlatAppearance.BorderSize = 0;
             rdoGettingStarted.FlatStyle = FlatStyle.Flat;
             rdoGettingStarted.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
@@ -60,7 +63,7 @@
             rdoGettingStarted.Size = new Size(360, 40);
             rdoGettingStarted.TabIndex = 4;
             rdoGettingStarted.TabStop = true;
-            rdoGettingStarted.Text = "Getting Started";
+            rdoGettingStarted.Text = "This Form";
             rdoGettingStarted.TextAlign = ContentAlignment.MiddleCenter;
             rdoGettingStarted.UseVisualStyleBackColor = false;
             rdoGettingStarted.CheckedChanged += rdoGettingStarted_CheckedChanged;
@@ -77,7 +80,6 @@
             rdoCreatingAShiftWalkthrough.Name = "rdoCreatingAShiftWalkthrough";
             rdoCreatingAShiftWalkthrough.Size = new Size(394, 40);
             rdoCreatingAShiftWalkthrough.TabIndex = 4;
-            rdoCreatingAShiftWalkthrough.TabStop = true;
             rdoCreatingAShiftWalkthrough.Text = "Creating a Shift Walkthrough";
             rdoCreatingAShiftWalkthrough.TextAlign = ContentAlignment.MiddleCenter;
             rdoCreatingAShiftWalkthrough.UseVisualStyleBackColor = false;
@@ -122,11 +124,21 @@
             btnPreviousPic.UseVisualStyleBackColor = false;
             btnPreviousPic.Click += btnPreviousPic_Click;
             // 
+            // lblIndex
+            // 
+            lblIndex.AutoSize = true;
+            lblIndex.Location = new Point(1215, 886);
+            lblIndex.Name = "lblIndex";
+            lblIndex.Size = new Size(24, 15);
+            lblIndex.TabIndex = 7;
+            lblIndex.Text = "0/0";
+            // 
             // frmTutorialVideos
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1264, 1042);
+            Controls.Add(lblIndex);
             Controls.Add(btnPreviousPic);
             Controls.Add(btnNextPic);
             Controls.Add(btnClose);
@@ -140,6 +152,7 @@
             Load += frmTutorialVideos_Load;
             ((System.ComponentModel.ISupportInitialize)pbTutorial).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -153,5 +166,6 @@
         private Button btnClose;
         private Button btnNextPic;
         private Button btnPreviousPic;
+        private Label lblIndex;
     }
 }
