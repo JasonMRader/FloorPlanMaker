@@ -63,6 +63,7 @@
             rdoGettingStarted.Text = "Getting Started";
             rdoGettingStarted.TextAlign = ContentAlignment.MiddleCenter;
             rdoGettingStarted.UseVisualStyleBackColor = false;
+            rdoGettingStarted.CheckedChanged += rdoGettingStarted_CheckedChanged;
             // 
             // rdoCreatingAShiftWalkthrough
             // 
@@ -80,6 +81,7 @@
             rdoCreatingAShiftWalkthrough.Text = "Creating a Shift Walkthrough";
             rdoCreatingAShiftWalkthrough.TextAlign = ContentAlignment.MiddleCenter;
             rdoCreatingAShiftWalkthrough.UseVisualStyleBackColor = false;
+            rdoCreatingAShiftWalkthrough.CheckedChanged += rdoCreatingAShiftWalkthrough_CheckedChanged;
             // 
             // btnClose
             // 
