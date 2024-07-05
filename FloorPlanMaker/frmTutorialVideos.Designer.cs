@@ -92,6 +92,7 @@
             btnClose.Size = new Size(35, 23);
             btnClose.TabIndex = 5;
             btnClose.UseVisualStyleBackColor = false;
+            btnClose.Click += btnClose_Click;
             // 
             // btnNextPic
             // 
@@ -134,6 +135,7 @@
             Name = "frmTutorialVideos";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "frmTutorialVideos";
+            Load += frmTutorialVideos_Load;
             ((System.ComponentModel.ISupportInitialize)pbTutorial).EndInit();
             ResumeLayout(false);
         }

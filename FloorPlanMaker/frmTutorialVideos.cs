@@ -26,5 +26,20 @@ namespace FloorPlanMakerUI
         {
 
         }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void frmTutorialVideos_Load(object sender, EventArgs e)
+        {
+
+        }
+        private List<Image> GetForm1Images()
+        {
+            List<Image> images = new List<Image>(); 
+            images.Add()
+        }
     }
 }

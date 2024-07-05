@@ -118,7 +118,55 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="CreateShift1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CreateShift1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CreateShift2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CreateShift2.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Form1Overview1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Form1Overview1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Form1Overview2ShiftButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Form1Overview2ShiftButton.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Form1OverviewEditDiningButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Form1OverviewEditDiningButton.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Form1OverviewFeedBackDescription" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Form1OverviewFeedBackDescription.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Form1OverviewSettingsButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Form1OverviewSettingsButton.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NewShiftAreaHistoryStatsCreateShift7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NewShiftAreaHistoryStatsCreateShift7.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NewShiftDateCreateShift3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NewShiftDateCreateShift3.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NewShiftImportCreateShift4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NewShiftImportCreateShift4.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NewShiftManualBartenderAddCreateShift6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NewShiftManualBartenderAddCreateShift6.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NewShiftManualServerAddCreateShift5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NewShiftManualServerAddCreateShift5.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NewShiftSelectAreasCreateShift8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NewShiftSelectAreasCreateShift8.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ServerAssignAutoAssignCreateShift10" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ServerAssignAutoAssignCreateShift10.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ServerAssignFloorplanStatsCreateShift12" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ServerAssignFloorplanStatsCreateShift12.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ServerAssignManualAssignCreateShift11" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ServerAssignManualAssignCreateShift11.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ServerAssignStatsCreateShift9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ServerAssignStatsCreateShift9.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

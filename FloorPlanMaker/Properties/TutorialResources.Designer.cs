@@ -63,9 +63,169 @@ namespace FloorPlanMakerUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap CreateShift1 {
+            get {
+                object obj = ResourceManager.GetObject("CreateShift1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap CreateShift2 {
+            get {
+                object obj = ResourceManager.GetObject("CreateShift2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Form1Overview1 {
             get {
                 object obj = ResourceManager.GetObject("Form1Overview1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Form1Overview2ShiftButton {
+            get {
+                object obj = ResourceManager.GetObject("Form1Overview2ShiftButton", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Form1OverviewEditDiningButton {
+            get {
+                object obj = ResourceManager.GetObject("Form1OverviewEditDiningButton", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Form1OverviewFeedBackDescription {
+            get {
+                object obj = ResourceManager.GetObject("Form1OverviewFeedBackDescription", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Form1OverviewSettingsButton {
+            get {
+                object obj = ResourceManager.GetObject("Form1OverviewSettingsButton", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap NewShiftAreaHistoryStatsCreateShift7 {
+            get {
+                object obj = ResourceManager.GetObject("NewShiftAreaHistoryStatsCreateShift7", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap NewShiftDateCreateShift3 {
+            get {
+                object obj = ResourceManager.GetObject("NewShiftDateCreateShift3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap NewShiftImportCreateShift4 {
+            get {
+                object obj = ResourceManager.GetObject("NewShiftImportCreateShift4", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap NewShiftManualBartenderAddCreateShift6 {
+            get {
+                object obj = ResourceManager.GetObject("NewShiftManualBartenderAddCreateShift6", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap NewShiftManualServerAddCreateShift5 {
+            get {
+                object obj = ResourceManager.GetObject("NewShiftManualServerAddCreateShift5", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap NewShiftSelectAreasCreateShift8 {
+            get {
+                object obj = ResourceManager.GetObject("NewShiftSelectAreasCreateShift8", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ServerAssignAutoAssignCreateShift10 {
+            get {
+                object obj = ResourceManager.GetObject("ServerAssignAutoAssignCreateShift10", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ServerAssignFloorplanStatsCreateShift12 {
+            get {
+                object obj = ResourceManager.GetObject("ServerAssignFloorplanStatsCreateShift12", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ServerAssignManualAssignCreateShift11 {
+            get {
+                object obj = ResourceManager.GetObject("ServerAssignManualAssignCreateShift11", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ServerAssignStatsCreateShift9 {
+            get {
+                object obj = ResourceManager.GetObject("ServerAssignStatsCreateShift9", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
