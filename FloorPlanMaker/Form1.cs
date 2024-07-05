@@ -109,25 +109,25 @@ namespace FloorPlanMaker
         }
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            
+
             if (keyData == Keys.Tab)
             {
                 floorplanManager.IncrementSelectedSection();
-               
-                return true; 
+
+                return true;
             }
-            
+
             if (_frmEditStaff != null && _frmEditStaff.Visible)
             {
                 if (keyData == Keys.Left)
                 {
                     _frmEditStaff.MovedDateBack();
-                    return true; 
+                    return true;
                 }
                 else if (keyData == Keys.Right)
                 {
                     _frmEditStaff.MoveDateForward();
-                    return true; 
+                    return true;
                 }
             }
             else
@@ -160,7 +160,7 @@ namespace FloorPlanMaker
             else
             {
                 if (keyData == Keys.Up)
-                {                   
+                {
                     if (cboDiningAreas.SelectedIndex > 0)
                     {
                         cboDiningAreas.SelectedIndex--;
@@ -173,7 +173,7 @@ namespace FloorPlanMaker
                 }
 
                 if (keyData == Keys.Down)
-                {                    
+                {
                     if (cboDiningAreas.SelectedIndex < cboDiningAreas.Items.Count - 1)
                     {
                         cboDiningAreas.SelectedIndex++;
@@ -253,7 +253,7 @@ namespace FloorPlanMaker
             }
         }
 
-       
+
 
 
         public void UpdateForm1ShiftManager(Shift shiftManagerToAdd)
@@ -334,12 +334,12 @@ namespace FloorPlanMaker
                     }
                     break;
                 case ControlType.TableControl:
-                    
+
                     floorplanManager.SetSectionLabels();
                     floorplanManager.AddSectionLabels(pnlFloorPlan);
-                    
+
                     break;
-                    
+
             }
         }
 
@@ -367,9 +367,9 @@ namespace FloorPlanMaker
                     e.Graphics.DrawLine(pen, _startPoint.Value, pnlFloorPlan.PointToClient(Cursor.Position));
                 }
             }
-            if(floorplanManager.Floorplan != null)
+            if (floorplanManager.Floorplan != null)
             {
-                if(floorplanManager.Floorplan.floorplanLines.Count > 0)
+                if (floorplanManager.Floorplan.floorplanLines.Count > 0)
                 {
                     foreach (var line in floorplanManager.Floorplan.floorplanLines)
                     {
@@ -545,14 +545,14 @@ namespace FloorPlanMaker
             //_lines.Clear();
             shift.SelectedDiningArea = (DiningArea?)cboDiningAreas.SelectedItem;
             floorplanManager.AddTableControls(pnlFloorPlan);
-           
+
             floorplanManager.SetViewedFloorplan(dateOnlySelected, cbIsAM.Checked, pnlFloorPlan, flowServersInFloorplan, flowSectionSelect);
             //this.sectionLineManager = new SectionLineManager(allTableControls);
-            if(floorplanManager.Floorplan != null)
+            if (floorplanManager.Floorplan != null)
             {
                 _lines = floorplanManager.Floorplan.floorplanLines;
             }
-            
+
             if (AllTablesAreAssigned())
             {
                 //TODO SECTION BOARDERS DISABLED
@@ -936,7 +936,7 @@ namespace FloorPlanMaker
             else
             {
                 flowSectionSelect.Visible = false;
-                
+
                 rdoViewSectionFlow.Image = Resources.lilBook;
             }
         }
@@ -1285,6 +1285,12 @@ namespace FloorPlanMaker
             pnlMainContainer.Visible = true;
             pnlSideContainer.Visible = true;
             rdoViewSectionFlow.Image = Resources.lilCanvasBook;
+        }
+
+        private void btnHelp_Click(object sender, EventArgs e)
+        {
+            frmTutorialVideos tutorialForm = new frmTutorialVideos();
+            tutorialForm.Show();
         }
     }
 }

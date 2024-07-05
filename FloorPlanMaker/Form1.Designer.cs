@@ -835,13 +835,15 @@ namespace FloorPlanMaker
             btnHelp.BackColor = Color.FromArgb(100, 130, 180);
             btnHelp.FlatAppearance.BorderSize = 0;
             btnHelp.FlatStyle = FlatStyle.Flat;
-            btnHelp.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            btnHelp.Image = FloorPlanMakerUI.Properties.Resources.lilPrinter;
-            btnHelp.Location = new Point(673, 6);
+            btnHelp.Font = new Font("Segoe UI Semibold", 14F, FontStyle.Bold, GraphicsUnit.Point);
+            btnHelp.ForeColor = Color.White;
+            btnHelp.Location = new Point(642, 6);
             btnHelp.Name = "btnHelp";
-            btnHelp.Size = new Size(45, 33);
+            btnHelp.Size = new Size(178, 35);
             btnHelp.TabIndex = 13;
+            btnHelp.Text = "? Getting Started";
             btnHelp.UseVisualStyleBackColor = false;
+            btnHelp.Click += btnHelp_Click;
             // 
             // Form1
             // 

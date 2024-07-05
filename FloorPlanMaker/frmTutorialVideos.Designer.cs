@@ -28,54 +28,45 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmTutorialVideos));
-            axWindowsMediaPlayer = new AxWMPLib.AxWindowsMediaPlayer();
-            comboBox1 = new ComboBox();
-            label1 = new Label();
-            ((System.ComponentModel.ISupportInitialize)axWindowsMediaPlayer).BeginInit();
+            pbTutorial = new PictureBox();
+            rdoGettingStarted = new RadioButton();
+            ((System.ComponentModel.ISupportInitialize)pbTutorial).BeginInit();
             SuspendLayout();
             // 
-            // axWindowsMediaPlayer
+            // pbTutorial
             // 
-            axWindowsMediaPlayer.Enabled = true;
-            axWindowsMediaPlayer.Location = new Point(12, 120);
-            axWindowsMediaPlayer.Name = "axWindowsMediaPlayer";
-            axWindowsMediaPlayer.OcxState = (AxHost.State)resources.GetObject("axWindowsMediaPlayer.OcxState");
-            axWindowsMediaPlayer.Size = new Size(1224, 847);
-            axWindowsMediaPlayer.TabIndex = 0;
+            pbTutorial.Image = Properties.TutorialResources.Form1Overview1;
+            pbTutorial.Location = new Point(87, 134);
+            pbTutorial.Name = "pbTutorial";
+            pbTutorial.Size = new Size(1066, 875);
+            pbTutorial.SizeMode = PictureBoxSizeMode.StretchImage;
+            pbTutorial.TabIndex = 3;
+            pbTutorial.TabStop = false;
             // 
-            // comboBox1
+            // rdoGettingStarted
             // 
-            comboBox1.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(12, 63);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(1224, 33);
-            comboBox1.TabIndex = 1;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(12, 30);
-            label1.Name = "label1";
-            label1.Size = new Size(91, 30);
-            label1.TabIndex = 2;
-            label1.Text = "How To:";
+            rdoGettingStarted.Appearance = Appearance.Button;
+            rdoGettingStarted.Location = new Point(109, 86);
+            rdoGettingStarted.Name = "rdoGettingStarted";
+            rdoGettingStarted.Size = new Size(138, 24);
+            rdoGettingStarted.TabIndex = 4;
+            rdoGettingStarted.TabStop = true;
+            rdoGettingStarted.Text = "Getting Started";
+            rdoGettingStarted.TextAlign = ContentAlignment.MiddleCenter;
+            rdoGettingStarted.UseVisualStyleBackColor = true;
             // 
             // frmTutorialVideos
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1248, 1003);
-            Controls.Add(label1);
-            Controls.Add(comboBox1);
-            Controls.Add(axWindowsMediaPlayer);
+            Controls.Add(rdoGettingStarted);
+            Controls.Add(pbTutorial);
             Name = "frmTutorialVideos";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "frmTutorialVideos";
-            ((System.ComponentModel.ISupportInitialize)axWindowsMediaPlayer).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pbTutorial).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -83,5 +74,7 @@
         private AxWMPLib.AxWindowsMediaPlayer axWindowsMediaPlayer;
         private ComboBox comboBox1;
         private Label label1;
+        private PictureBox pbTutorial;
+        private RadioButton rdoGettingStarted;
     }
 }
