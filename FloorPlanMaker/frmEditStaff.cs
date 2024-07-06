@@ -460,7 +460,7 @@ namespace FloorPlanMaker
         }
         private void btnCreateANewShift_Click(object sender, EventArgs e)
         {
-            form1Reference.tutorialType = frmTutorialVideos.TutorialForm.CreateShift;
+            form1Reference.tutorialType = TutorialImages.TutorialForm.CreateShift;
             frmNewShiftDatePicker form = new frmNewShiftDatePicker(DiningAreaManager, allFloorplans, this, dateSelected, cbIsAM.Checked, ShiftManager);
             form.TopLevel = false;
             this.Controls.Add(form);
@@ -482,7 +482,7 @@ namespace FloorPlanMaker
             RefreshFloorplanFlowPanel(ShiftManager.SelectedShift.Floorplans);
             PopulateUnassignedServers();           
             RefreshFloorplanCountLabels();
-            form1Reference.tutorialType = frmTutorialVideos.TutorialForm.EditDistribution;
+            form1Reference.tutorialType = TutorialImages.TutorialForm.EditDistribution;
 
         }
         private Button AutoAssignButton()
@@ -591,7 +591,7 @@ namespace FloorPlanMaker
 
         internal void NotifyNewShiftClosed()
         {
-            form1Reference.tutorialType = frmTutorialVideos.TutorialForm.EditDistribution;
+            form1Reference.tutorialType = TutorialImages.TutorialForm.EditDistribution;
         }
         private Dictionary<DiningArea, int> PreviousServerCountsForNewShift(int Days)
         {
