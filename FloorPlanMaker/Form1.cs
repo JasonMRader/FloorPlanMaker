@@ -645,6 +645,32 @@ namespace FloorPlanMaker
                 }
             }
         }
+        private void rdoSettings_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rdoSettings.Checked)
+            {
+                this.tutorialType = frmTutorialVideos.TutorialForm.Settings;
+                pnlNavHighlight.Location = new Point(rdoSettings.Left, 0);
+                pnlNavHighlight.Width = rdoSettings.Width;
+                if (_frmSettings == null)
+                {
+                    _frmSettings = new frmSettings { TopLevel = false, AutoScroll = true };
+                }
+                pnlNavigationWindow.Controls.Add(_frmSettings);
+
+                _frmSettings.Show();
+                pnlNavigationWindow.BringToFront();
+
+            }
+            else
+            {
+                if (_frmSettings != null)
+                {
+                    pnlNavHighlight.Width = 160;
+                    _frmSettings.Hide();
+                }
+            }
+        }
 
         private void btnAddSectionLabels_Click(object sender, EventArgs e)
         {
@@ -964,31 +990,7 @@ namespace FloorPlanMaker
         {
             pnlStatMode.Visible = true;
         }
-        private void rdoSettings_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rdoSettings.Checked)
-            {
-                pnlNavHighlight.Location = new Point(rdoSettings.Left, 0);
-                pnlNavHighlight.Width = rdoSettings.Width;
-                if (_frmSettings == null)
-                {
-                    _frmSettings = new frmSettings { TopLevel = false, AutoScroll = true };
-                }
-                pnlNavigationWindow.Controls.Add(_frmSettings);
-
-                _frmSettings.Show();
-                pnlNavigationWindow.BringToFront();
-
-            }
-            else
-            {
-                if (_frmSettings != null)
-                {
-                    pnlNavHighlight.Width = 160;
-                    _frmSettings.Hide();
-                }
-            }
-        }
+       
         private void cbIsAM_CheckedChanged(object sender, EventArgs e)
         {
             if (cbIsAM.Checked)

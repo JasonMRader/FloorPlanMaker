@@ -124,6 +124,15 @@
   <data name="CreateShift2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CreateShift2.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Floorplans_OpenTemplateForm_CreateShift16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Floorplans_OpenTemplateForm_CreateShift16.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Floorplans_SectionStats_CreateShift15" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Floorplans_SectionStats_CreateShift15.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Floorplans_SelectingSections_CreateShift14" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Floorplans_SelectingSections_CreateShift14.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Form1Overview1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Form1Overview1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -160,6 +169,9 @@
   <data name="ServerAssignAutoAssignCreateShift10" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ServerAssignAutoAssignCreateShift10.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="ServerAssignBalanceSalesCreateShift13" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ServerAssignBalanceSalesCreateShift13.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="ServerAssignFloorplanStatsCreateShift12" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ServerAssignFloorplanStatsCreateShift12.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -168,5 +180,8 @@
   </data>
   <data name="ServerAssignStatsCreateShift9" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ServerAssignStatsCreateShift9.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="test" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\test.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -78,6 +78,9 @@ namespace FloorPlanMakerUI
             images.Add(TutorialResources.Form1OverviewEditDiningButton);
             images.Add(TutorialResources.Form1OverviewSettingsButton);
             images.Add(TutorialResources.Form1OverviewFeedBackDescription);
+            images.Add(TutorialResources.Floorplans_SelectingSections_CreateShift14);
+            images.Add(TutorialResources.Floorplans_SectionStats_CreateShift15);
+            images.Add(TutorialResources.Floorplans_OpenTemplateForm_CreateShift16);
             return images;
         }
         private List<Image> GetNewShiftImages()
@@ -101,6 +104,7 @@ namespace FloorPlanMakerUI
             images.Add(TutorialResources.ServerAssignAutoAssignCreateShift10);
             images.Add(TutorialResources.ServerAssignManualAssignCreateShift11);
             images.Add(TutorialResources.ServerAssignFloorplanStatsCreateShift12);
+            images.Add(TutorialResources.ServerAssignBalanceSalesCreateShift13);
             return images;
         }
         private List<Image> GetShiftCreateImages()
@@ -118,6 +122,17 @@ namespace FloorPlanMakerUI
             images.Add(TutorialResources.ServerAssignAutoAssignCreateShift10);
             images.Add(TutorialResources.ServerAssignManualAssignCreateShift11);
             images.Add(TutorialResources.ServerAssignFloorplanStatsCreateShift12);
+            images.Add(TutorialResources.ServerAssignBalanceSalesCreateShift13);
+            images.Add(TutorialResources.Floorplans_SelectingSections_CreateShift14);
+            images.Add(TutorialResources.Floorplans_SectionStats_CreateShift15);
+            images.Add(TutorialResources.Floorplans_OpenTemplateForm_CreateShift16);
+            return images;
+        }
+        private List<Image> GetSettingsImages()
+        {
+            List<Image> images = new List<Image>();
+            images.Add(TutorialResources.test);
+            
             return images;
         }
 
@@ -146,6 +161,10 @@ namespace FloorPlanMakerUI
             else if (this.tutorialFormType == TutorialForm.CreateShift)
             {
                 currentTutorialImages = GetNewShiftImages();
+            }
+            else if (this.tutorialFormType == TutorialForm.Settings)
+            {
+                currentTutorialImages = GetSettingsImages();
             }
         }
 
