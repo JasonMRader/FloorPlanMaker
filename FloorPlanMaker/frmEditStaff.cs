@@ -206,6 +206,7 @@ namespace FloorPlanMaker
             {
                 flowDiningAreaAssignment.Controls.Add((Control)c);
             }
+            UpdateCountLabels();
 
         }
 
@@ -374,7 +375,8 @@ namespace FloorPlanMaker
             foreach (FloorplanInfoControl info in infoPanelList)
             {
                 info.UpdateCurrentLabelsForLastFour();
-            }         
+            }
+           
 
         }
         private void FloorplanRadioButton_CheckedChanged(object? sender, EventArgs e)
@@ -590,6 +592,70 @@ namespace FloorPlanMaker
         internal void NotifyNewShiftClosed()
         {
             form1Reference.tutorialType = frmTutorialVideos.TutorialForm.EditDistribution;
+        }
+        private Dictionary<DiningArea, int> PreviousServerCountsForNewShift(int Days)
+        {
+            DateTime targetDate = dateSelected.AddDays(Days);
+            DateOnly dateOnly = new DateOnly(targetDate.Year, targetDate.Month, targetDate.Day);
+            List<Floorplan> floorplansResults = new List<Floorplan>();
+
+
+           
+            foreach (Floorplan floorplan in ShiftManager.SelectedShift.Floorplans)
+            {
+                
+                Floorplan fp = SqliteDataAccess.LoadFloorplanByCriteria(floorplan.DiningArea, dateOnly, ShiftManager.IsAM);
+                if (fp != null)
+                {
+                    floorplansResults.Add(fp);
+                }
+            }
+
+            var result = new Dictionary<DiningArea, int>();
+
+           
+            foreach (var floorplan in ShiftManager.SelectedShift.Floorplans)
+            {
+                result[floorplan.DiningArea] = 0;
+            }
+
+
+            foreach (var fp in floorplansResults)
+            {
+                result[fp.DiningArea] += fp.Servers.Count;
+            }
+
+            return result;
+        }
+       
+
+        private void UpdateCountLabels()
+        {
+            Dictionary<DiningArea, int> LastWeekFloorplans = new Dictionary<DiningArea, int>();
+            Dictionary<DiningArea, int> yesterdayCounts = new Dictionary<DiningArea, int>();
+            LastWeekFloorplans = PreviousServerCountsForNewShift(-7);
+            yesterdayCounts = PreviousServerCountsForNewShift(-1);           
+            foreach (FloorplanInfoControl infoPanel in infoPanelList)
+            {
+                if (infoPanel.Floorplan.DiningArea is DiningArea area)
+                {
+                    int yesterday = 0;
+                    int lastWeek = 0;
+
+                    if (yesterdayCounts.TryGetValue(area, out int yesterdayCount))
+                    {
+                        yesterday = yesterdayCount;
+                    }
+
+                    if (LastWeekFloorplans.TryGetValue(area, out int lastWeekCount))
+                    {
+                        lastWeek = lastWeekCount;
+                    }
+
+                    
+                    infoPanel.UpdatePastCountLabels(yesterday, lastWeek);
+                }
+            }
         }
     }
 }

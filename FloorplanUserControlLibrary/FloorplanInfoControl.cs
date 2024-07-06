@@ -83,13 +83,14 @@ namespace FloorPlanMakerUI
             lblSalesPerServer.Text = Section.FormatAsCurrencyWithoutParentheses(salesPerServer);
             lblCurrentServerCount.Text = this.Floorplan.Servers.Count.ToString();
             toolTip1.SetToolTip(lblSalesPerServer, "Sales Per Server" + "\n" + "Total Sales:" + Floorplan.DiningArea.ExpectedSales.ToString("C0"));
+            
 
         }
         public void SetSalesToLastFour()
         {
             this.AreaHistory.SetDatesToLastFourWeekdays();
         }
-        public void UpdatePastLabels(int yesterdayCount, int LastWeekCount)
+        public void UpdatePastCountLabels(int yesterdayCount, int LastWeekCount)
         {
             if (this.Width < 200)
             {
