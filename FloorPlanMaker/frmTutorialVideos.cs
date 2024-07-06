@@ -18,18 +18,18 @@ namespace FloorPlanMakerUI
         {
             InitializeComponent();
             this.tutorialImages.tutorialFormType = tutorialType;
-            
-        }       
+
+        }
         private void btnNextPic_Click(object sender, EventArgs e)
         {
             tutorialImages.GoToNextImage();
             UpdateUIElements();
-        }    
+        }
         private void btnPreviousPic_Click(object sender, EventArgs e)
         {
             tutorialImages.GoToPreviousImage();
             UpdateUIElements();
-        }        
+        }
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -38,7 +38,7 @@ namespace FloorPlanMakerUI
         {
             tutorialImages.SetCurrentTutorial();
             UpdateUIElements();
-        }       
+        }
 
         private void rdoGettingStarted_CheckedChanged(object sender, EventArgs e)
         {
@@ -47,8 +47,8 @@ namespace FloorPlanMakerUI
                 tutorialImages.SetCurrentTutorial();
             }
             UpdateUIElements();
-        }        
-       
+        }
+
         private void rdoCreatingAShiftWalkthrough_CheckedChanged(object sender, EventArgs e)
         {
             if (rdoCreatingAShiftWalkthrough.Checked)
@@ -61,12 +61,12 @@ namespace FloorPlanMakerUI
         {
             tutorialImages.GoToNextImage();
             UpdateUIElements();
-            
+
         }
         private void UpdateUIElements()
         {
             pbTutorial.Image = tutorialImages.imageSelected;
-            lblIndex.Text=tutorialImages.imageLabelCountString;
+            lblIndex.Text = tutorialImages.imageLabelCountString;
         }
     }
 }
