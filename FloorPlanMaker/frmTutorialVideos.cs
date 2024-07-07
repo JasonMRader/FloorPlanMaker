@@ -18,17 +18,24 @@ namespace FloorPlanMakerUI
         {
             InitializeComponent();
             this.tutorialImages.tutorialTypeSelected = tutorialType;
+            this.tutorialImages.ImageSelectedChanged += TutorialImages_ImageSelectedChanged;
 
         }
+
+        private void TutorialImages_ImageSelectedChanged(object? sender, EventArgs e)
+        {
+            UpdateUIElements();
+        }
+
         private void btnNextPic_Click(object sender, EventArgs e)
         {
             tutorialImages.GoToNextImage();
-            UpdateUIElements();
+            //UpdateUIElements();
         }
         private void btnPreviousPic_Click(object sender, EventArgs e)
         {
             tutorialImages.GoToPreviousImage();
-            UpdateUIElements();
+            //UpdateUIElements();
         }
         private void btnClose_Click(object sender, EventArgs e)
         {
@@ -46,7 +53,7 @@ namespace FloorPlanMakerUI
             {
                 tutorialImages.SetCurrentTutorial(143, 112);
             }
-            UpdateUIElements();
+           UpdateUIElements();
         }
 
         private void rdoCreatingAShiftWalkthrough_CheckedChanged(object sender, EventArgs e)
@@ -60,7 +67,7 @@ namespace FloorPlanMakerUI
         private void pbTutorial_Click(object sender, EventArgs e)
         {
             tutorialImages.GoToNextImage();
-            UpdateUIElements();
+           // UpdateUIElements();
 
         }
         private void UpdateUIElements()

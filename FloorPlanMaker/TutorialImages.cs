@@ -11,16 +11,30 @@ namespace FloorPlanMakerUI
 {
     public class TutorialImages
     {
-        public Image imageSelected { get; private set; }
-        public TutorialThumbNailManager ThumbnailManager { get; private set; } 
-        public TutorialImages() 
+        public TutorialImages()
         {
             ThumbnailManager = new TutorialThumbNailManager(this);
         }
-       
+        public event EventHandler ImageSelectedChanged;
+
+        private Image _imageSelected;
+        public Image imageSelected
+        {
+            get { return _imageSelected; }
+            private set
+            {
+                if (_imageSelected != value)
+                {
+                    _imageSelected = value;
+                    ImageSelectedChanged?.Invoke(this, EventArgs.Empty);
+                }
+            }
+        }
+        public TutorialThumbNailManager ThumbnailManager { get; private set; }        
         public List<Image> currentTutorialImages { get; private set; } = new List<Image>();
         public int currentTutorialIndex { get; private set; } = 0;
         public TutorialType tutorialTypeSelected;
+        public event EventHandler<EventArgs> UpdateRequired;
         public string imageLabelCountString
         {
             get
@@ -123,6 +137,7 @@ namespace FloorPlanMakerUI
         }
         public void SetCurrentTutorial(int width, int height)
         {
+            currentTutorialIndex = 0;
             if (this.tutorialTypeSelected == TutorialType.EditDistribution)
             {
                 currentTutorialImages = GetEditDistributionImages();
@@ -145,6 +160,7 @@ namespace FloorPlanMakerUI
         }
         public void SetToShiftCreationWalkthough(int width, int height)
         {
+            currentTutorialIndex = 0;
             currentTutorialImages = GetShiftCreateImages();
             imageSelected = currentTutorialImages[currentTutorialIndex];
             this.ThumbnailManager.SetPictureBoxesForImages(width, height);
@@ -154,6 +170,9 @@ namespace FloorPlanMakerUI
         {
             currentTutorialIndex = index;
             imageSelected = currentTutorialImages[currentTutorialIndex];
+           
         }
+       
+
     }
 }

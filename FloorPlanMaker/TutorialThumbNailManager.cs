@@ -25,12 +25,19 @@ namespace FloorplanUserControlLibrary
                     Size = new Size(width, height),
                     SizeMode = PictureBoxSizeMode.Zoom,
                     Image = img,
-                    Margin = new Padding(0)
+                    Margin = new Padding(0),
                     
                 };
+                pictureBox.Click += PictureBox_Click;
                 PictureBoxes.Add(pictureBox);
             }
         }
 
+        private void PictureBox_Click(object? sender, EventArgs e)
+        {
+            PictureBox pictureBox = (PictureBox)sender;
+            int index = PictureBoxes.IndexOf(pictureBox);
+            TutorialImages.SetSelectedImage(index);
+        }
     }
 }
