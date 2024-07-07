@@ -30,12 +30,12 @@ namespace FloorPlanMakerUI
         private void btnNextPic_Click(object sender, EventArgs e)
         {
             tutorialImages.GoToNextImage();
-            //UpdateUIElements();
+            UpdateUIElements();
         }
         private void btnPreviousPic_Click(object sender, EventArgs e)
         {
             tutorialImages.GoToPreviousImage();
-            //UpdateUIElements();
+            UpdateUIElements();
         }
         private void btnClose_Click(object sender, EventArgs e)
         {
@@ -67,7 +67,7 @@ namespace FloorPlanMakerUI
         private void pbTutorial_Click(object sender, EventArgs e)
         {
             tutorialImages.GoToNextImage();
-           // UpdateUIElements();
+            UpdateUIElements();
 
         }
         private void UpdateUIElements()
@@ -75,11 +75,12 @@ namespace FloorPlanMakerUI
             pbTutorial.Image = tutorialImages.imageSelected;
             lblIndex.Text = tutorialImages.imageLabelCountString;
             flowThumbnails.Controls.Clear();
-            foreach (PictureBox pb in tutorialImages.ThumbnailManager.PictureBoxes)
+            foreach (PictureBox pb in tutorialImages.ThumbnailManager.ViewedPictureBoxes)
             {
                 flowThumbnails.Controls.Add(pb);
             }
-            UpdateHighlightPanelLocation();
+            pnlHighlight.Location = new Point(tutorialImages.ThumbnailManager.HighlightPanelLocation, 0);
+            //UpdateHighlightPanelLocation();
         }
         private void UpdateHighlightPanelLocation()
         {

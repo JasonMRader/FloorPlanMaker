@@ -26,7 +26,7 @@ namespace FloorPlanMakerUI
                 if (_imageSelected != value)
                 {
                     _imageSelected = value;
-                    ImageSelectedChanged?.Invoke(this, EventArgs.Empty);
+                   
                 }
             }
         }
@@ -58,7 +58,9 @@ namespace FloorPlanMakerUI
             }
 
             imageSelected = currentTutorialImages[currentTutorialIndex];
-           
+            this.ThumbnailManager.SetViewedPictureBoxes();
+            ImageSelectedChanged?.Invoke(this, EventArgs.Empty);
+
         }
         public void GoToPreviousImage()
         {
@@ -68,7 +70,9 @@ namespace FloorPlanMakerUI
             }
 
             imageSelected = currentTutorialImages[currentTutorialIndex];
-            
+            this.ThumbnailManager.SetViewedPictureBoxes();
+            ImageSelectedChanged?.Invoke(this, EventArgs.Empty);
+
         }
         private List<Image> GetForm1Images()
         {
@@ -156,6 +160,7 @@ namespace FloorPlanMakerUI
             }
             imageSelected = currentTutorialImages[currentTutorialIndex];
             this.ThumbnailManager.SetPictureBoxesForImages(width, height);
+            ImageSelectedChanged?.Invoke(this, EventArgs.Empty);
 
         }
         public void SetToShiftCreationWalkthough(int width, int height)
@@ -164,13 +169,16 @@ namespace FloorPlanMakerUI
             currentTutorialImages = GetShiftCreateImages();
             imageSelected = currentTutorialImages[currentTutorialIndex];
             this.ThumbnailManager.SetPictureBoxesForImages(width, height);
+            ImageSelectedChanged?.Invoke(this, EventArgs.Empty);
         }
 
         internal void SetSelectedImage(int index)
         {
             currentTutorialIndex = index;
             imageSelected = currentTutorialImages[currentTutorialIndex];
-           
+            this.ThumbnailManager.SetViewedPictureBoxes();
+            ImageSelectedChanged?.Invoke(this, EventArgs.Empty);
+
         }
        
 
