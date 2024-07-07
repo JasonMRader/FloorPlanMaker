@@ -35,7 +35,7 @@
             btnNextPic = new Button();
             btnPreviousPic = new Button();
             lblIndex = new Label();
-            flowLayoutPanel1 = new FlowLayoutPanel();
+            flowThumbnails = new FlowLayoutPanel();
             pictureBox1 = new PictureBox();
             pictureBox2 = new PictureBox();
             pictureBox3 = new PictureBox();
@@ -44,7 +44,7 @@
             pictureBox6 = new PictureBox();
             pictureBox7 = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)pbTutorial).BeginInit();
-            flowLayoutPanel1.SuspendLayout();
+            flowThumbnails.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
@@ -150,19 +150,19 @@
             lblIndex.TabIndex = 7;
             lblIndex.Text = "0/0";
             // 
-            // flowLayoutPanel1
+            // flowThumbnails
             // 
-            flowLayoutPanel1.Controls.Add(pictureBox1);
-            flowLayoutPanel1.Controls.Add(pictureBox2);
-            flowLayoutPanel1.Controls.Add(pictureBox3);
-            flowLayoutPanel1.Controls.Add(pictureBox4);
-            flowLayoutPanel1.Controls.Add(pictureBox5);
-            flowLayoutPanel1.Controls.Add(pictureBox6);
-            flowLayoutPanel1.Controls.Add(pictureBox7);
-            flowLayoutPanel1.Location = new Point(82, 855);
-            flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(1063, 117);
-            flowLayoutPanel1.TabIndex = 8;
+            flowThumbnails.Controls.Add(pictureBox1);
+            flowThumbnails.Controls.Add(pictureBox2);
+            flowThumbnails.Controls.Add(pictureBox3);
+            flowThumbnails.Controls.Add(pictureBox4);
+            flowThumbnails.Controls.Add(pictureBox5);
+            flowThumbnails.Controls.Add(pictureBox6);
+            flowThumbnails.Controls.Add(pictureBox7);
+            flowThumbnails.Location = new Point(82, 855);
+            flowThumbnails.Name = "flowThumbnails";
+            flowThumbnails.Size = new Size(1063, 117);
+            flowThumbnails.TabIndex = 8;
             // 
             // pictureBox1
             // 
@@ -226,7 +226,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlDark;
             ClientSize = new Size(1264, 1042);
-            Controls.Add(flowLayoutPanel1);
+            Controls.Add(flowThumbnails);
             Controls.Add(lblIndex);
             Controls.Add(btnPreviousPic);
             Controls.Add(btnNextPic);
@@ -240,7 +240,7 @@
             Text = "frmTutorialVideos";
             Load += frmTutorialVideos_Load;
             ((System.ComponentModel.ISupportInitialize)pbTutorial).EndInit();
-            flowLayoutPanel1.ResumeLayout(false);
+            flowThumbnails.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
@@ -264,7 +264,7 @@
         private Button btnNextPic;
         private Button btnPreviousPic;
         private Label lblIndex;
-        private FlowLayoutPanel flowLayoutPanel1;
+        private FlowLayoutPanel flowThumbnails;
         private PictureBox pictureBox1;
         private PictureBox pictureBox2;
         private PictureBox pictureBox3;

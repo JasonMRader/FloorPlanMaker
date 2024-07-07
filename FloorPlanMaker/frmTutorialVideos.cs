@@ -36,7 +36,7 @@ namespace FloorPlanMakerUI
         }
         private void frmTutorialVideos_Load(object sender, EventArgs e)
         {
-            tutorialImages.SetCurrentTutorial(143,112);
+            tutorialImages.SetCurrentTutorial(143, 112);
             UpdateUIElements();
         }
 
@@ -67,6 +67,11 @@ namespace FloorPlanMakerUI
         {
             pbTutorial.Image = tutorialImages.imageSelected;
             lblIndex.Text = tutorialImages.imageLabelCountString;
+            flowThumbnails.Controls.Clear();
+            foreach(PictureBox pb in tutorialImages.ThumbnailManager.PictureBoxes)
+            {
+                flowThumbnails.Controls.Add(pb);
+            }
         }
     }
 }
