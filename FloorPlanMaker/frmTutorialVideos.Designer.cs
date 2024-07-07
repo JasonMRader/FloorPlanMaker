@@ -43,6 +43,8 @@
             pictureBox5 = new PictureBox();
             pictureBox6 = new PictureBox();
             pictureBox7 = new PictureBox();
+            panel1 = new Panel();
+            pnlHighlight = new Panel();
             ((System.ComponentModel.ISupportInitialize)pbTutorial).BeginInit();
             flowThumbnails.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -52,6 +54,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // pbTutorial
@@ -120,9 +123,9 @@
             btnNextPic.FlatAppearance.BorderSize = 0;
             btnNextPic.FlatStyle = FlatStyle.Flat;
             btnNextPic.Image = Properties.Resources.forward;
-            btnNextPic.Location = new Point(1151, 855);
+            btnNextPic.Location = new Point(1128, 868);
             btnNextPic.Name = "btnNextPic";
-            btnNextPic.Size = new Size(51, 117);
+            btnNextPic.Size = new Size(42, 117);
             btnNextPic.TabIndex = 6;
             btnNextPic.UseVisualStyleBackColor = false;
             btnNextPic.Click += btnNextPic_Click;
@@ -133,9 +136,9 @@
             btnPreviousPic.FlatAppearance.BorderSize = 0;
             btnPreviousPic.FlatStyle = FlatStyle.Flat;
             btnPreviousPic.Image = Properties.Resources.back;
-            btnPreviousPic.Location = new Point(12, 855);
+            btnPreviousPic.Location = new Point(12, 866);
             btnPreviousPic.Name = "btnPreviousPic";
-            btnPreviousPic.Size = new Size(53, 117);
+            btnPreviousPic.Size = new Size(42, 117);
             btnPreviousPic.TabIndex = 6;
             btnPreviousPic.UseVisualStyleBackColor = false;
             btnPreviousPic.Click += btnPreviousPic_Click;
@@ -159,9 +162,9 @@
             flowThumbnails.Controls.Add(pictureBox5);
             flowThumbnails.Controls.Add(pictureBox6);
             flowThumbnails.Controls.Add(pictureBox7);
-            flowThumbnails.Location = new Point(82, 855);
+            flowThumbnails.Location = new Point(72, 868);
             flowThumbnails.Name = "flowThumbnails";
-            flowThumbnails.Size = new Size(1063, 117);
+            flowThumbnails.Size = new Size(1050, 117);
             flowThumbnails.TabIndex = 8;
             // 
             // pictureBox1
@@ -220,12 +223,29 @@
             pictureBox7.TabIndex = 1;
             pictureBox7.TabStop = false;
             // 
+            // panel1
+            // 
+            panel1.Controls.Add(pnlHighlight);
+            panel1.Location = new Point(72, 858);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(1037, 7);
+            panel1.TabIndex = 9;
+            // 
+            // pnlHighlight
+            // 
+            pnlHighlight.BackColor = Color.FromArgb(255, 103, 0);
+            pnlHighlight.Location = new Point(3, 2);
+            pnlHighlight.Name = "pnlHighlight";
+            pnlHighlight.Size = new Size(143, 7);
+            pnlHighlight.TabIndex = 10;
+            // 
             // frmTutorialVideos
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlDark;
             ClientSize = new Size(1264, 1042);
+            Controls.Add(panel1);
             Controls.Add(flowThumbnails);
             Controls.Add(lblIndex);
             Controls.Add(btnPreviousPic);
@@ -248,6 +268,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).EndInit();
+            panel1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -272,5 +293,7 @@
         private PictureBox pictureBox5;
         private PictureBox pictureBox6;
         private PictureBox pictureBox7;
+        private Panel panel1;
+        private Panel pnlHighlight;
     }
 }

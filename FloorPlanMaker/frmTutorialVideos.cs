@@ -68,10 +68,16 @@ namespace FloorPlanMakerUI
             pbTutorial.Image = tutorialImages.imageSelected;
             lblIndex.Text = tutorialImages.imageLabelCountString;
             flowThumbnails.Controls.Clear();
-            foreach(PictureBox pb in tutorialImages.ThumbnailManager.PictureBoxes)
+            foreach (PictureBox pb in tutorialImages.ThumbnailManager.PictureBoxes)
             {
                 flowThumbnails.Controls.Add(pb);
             }
+            UpdateHighlightPanelLocation();
+        }
+        private void UpdateHighlightPanelLocation()
+        {
+            int x = 143 * (tutorialImages.currentTutorialIndex);
+            pnlHighlight.Location = new Point(x, 0);
         }
     }
 }
