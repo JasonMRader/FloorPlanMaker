@@ -65,6 +65,7 @@
             btnTest = new Button();
             btnDeleteFloorplans = new Button();
             btnPastSection = new Button();
+            btnHelpImportSales = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudTemplateID).BeginInit();
@@ -164,6 +165,7 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(180, 190, 200);
+            panel1.Controls.Add(btnHelpImportSales);
             panel1.Controls.Add(label6);
             panel1.Controls.Add(lbUpcomingEvents);
             panel1.Controls.Add(dtpMissingDateStart);
@@ -491,6 +493,21 @@
             btnPastSection.UseVisualStyleBackColor = false;
             btnPastSection.Click += btnPastSection_Click;
             // 
+            // btnHelpImportSales
+            // 
+            btnHelpImportSales.BackColor = Color.FromArgb(120, 180, 120);
+            btnHelpImportSales.FlatAppearance.BorderSize = 0;
+            btnHelpImportSales.FlatStyle = FlatStyle.Flat;
+            btnHelpImportSales.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            btnHelpImportSales.ForeColor = Color.Black;
+            btnHelpImportSales.Location = new Point(303, 18);
+            btnHelpImportSales.Name = "btnHelpImportSales";
+            btnHelpImportSales.Size = new Size(31, 29);
+            btnHelpImportSales.TabIndex = 14;
+            btnHelpImportSales.Text = "?";
+            btnHelpImportSales.UseVisualStyleBackColor = false;
+            btnHelpImportSales.Click += btnHelpImportSales_Click;
+            // 
             // frmSettings
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -560,5 +577,6 @@
         private Panel panel5;
         private Panel panel4;
         private Button btnTest;
+        private Button btnHelpImportSales;
     }
 }

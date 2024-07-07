@@ -43,7 +43,7 @@ namespace FloorPlanMakerUI
         }
         private void frmTutorialVideos_Load(object sender, EventArgs e)
         {
-            tutorialImages.SetCurrentTutorial(143, 112);
+            tutorialImages.SetCurrentTutorial(165, 129);
             UpdateUIElements();
         }
 
@@ -51,7 +51,7 @@ namespace FloorPlanMakerUI
         {
             if (rdoGettingStarted.Checked)
             {
-                tutorialImages.SetCurrentTutorial(143, 112);
+                tutorialImages.SetCurrentTutorial(165, 129);
             }
            UpdateUIElements();
         }
@@ -60,7 +60,7 @@ namespace FloorPlanMakerUI
         {
             if (rdoCreatingAShiftWalkthrough.Checked)
             {
-                tutorialImages.SetToShiftCreationWalkthough(143, 112);
+                tutorialImages.SetToShiftCreationWalkthough(165, 129);
             }
             UpdateUIElements();
         }

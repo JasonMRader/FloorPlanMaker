@@ -60,9 +60,9 @@
             // pbTutorial
             // 
             pbTutorial.Image = Properties.TutorialResources.Form1Overview1;
-            pbTutorial.Location = new Point(60, 46);
+            pbTutorial.Location = new Point(12, 12);
             pbTutorial.Name = "pbTutorial";
-            pbTutorial.Size = new Size(1000, 793);
+            pbTutorial.Size = new Size(1048, 827);
             pbTutorial.SizeMode = PictureBoxSizeMode.StretchImage;
             pbTutorial.TabIndex = 3;
             pbTutorial.TabStop = false;
@@ -123,7 +123,7 @@
             btnNextPic.FlatAppearance.BorderSize = 0;
             btnNextPic.FlatStyle = FlatStyle.Flat;
             btnNextPic.Image = Properties.Resources.forward;
-            btnNextPic.Location = new Point(1068, 842);
+            btnNextPic.Location = new Point(1222, 842);
             btnNextPic.Name = "btnNextPic";
             btnNextPic.Size = new Size(42, 133);
             btnNextPic.TabIndex = 6;
@@ -147,7 +147,7 @@
             // 
             lblIndex.AutoSize = true;
             lblIndex.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
-            lblIndex.Location = new Point(1014, 13);
+            lblIndex.Location = new Point(1064, 9);
             lblIndex.Name = "lblIndex";
             lblIndex.Size = new Size(46, 30);
             lblIndex.TabIndex = 7;
@@ -164,7 +164,7 @@
             flowThumbnails.Controls.Add(pictureBox7);
             flowThumbnails.Location = new Point(60, 858);
             flowThumbnails.Name = "flowThumbnails";
-            flowThumbnails.Size = new Size(1002, 117);
+            flowThumbnails.Size = new Size(1156, 135);
             flowThumbnails.TabIndex = 8;
             // 
             // pictureBox1
@@ -235,7 +235,7 @@
             panel1.Controls.Add(pnlHighlight);
             panel1.Location = new Point(60, 845);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1002, 10);
+            panel1.Size = new Size(1156, 10);
             panel1.TabIndex = 9;
             // 
             // pnlHighlight

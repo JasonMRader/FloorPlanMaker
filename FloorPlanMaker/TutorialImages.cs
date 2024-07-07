@@ -49,6 +49,7 @@ namespace FloorPlanMakerUI
             CreateShift,
             EditDiningAreas,
             Settings,
+            UpdatingOrderHistory
         }
         public void GoToNextImage()
         {
@@ -133,6 +134,13 @@ namespace FloorPlanMakerUI
             return images;
         }
         private List<Image> GetSettingsImages()
+        {
+            List<Image> images = new List<Image>();
+            images.Add(TutorialResources.test);
+
+            return images;
+        }
+        private List<Image> GetUpdatingOrderHistoryImages()
         {
             List<Image> images = new List<Image>();
             images.Add(TutorialResources.test);

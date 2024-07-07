@@ -323,5 +323,11 @@ namespace FloorPlanMakerUI
             frmTest testForm = new frmTest();
             testForm.ShowDialog();
         }
+
+        private void btnHelpImportSales_Click(object sender, EventArgs e)
+        {
+            frmTutorialVideos tutorialForm = new frmTutorialVideos(TutorialImages.TutorialType.UpdatingOrderHistory);
+            tutorialForm.Show();
+        }
     }
 }
