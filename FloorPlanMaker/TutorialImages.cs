@@ -1,4 +1,5 @@
 ﻿using FloorPlanMakerUI.Properties;
+using FloorplanUserControlLibrary;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,12 +11,16 @@ namespace FloorPlanMakerUI
 {
     public class TutorialImages
     {
-        public Image imageSelected { get; private set; }    
-        
+        public Image imageSelected { get; private set; }
+        public TutorialThumbNailManager ThumbnailManager { get; private set; } 
+        public TutorialImages() 
+        {
+            ThumbnailManager = new TutorialThumbNailManager(this);
+        }
        
-        private List<Image> currentTutorialImages = new List<Image>();
-        private int currentTutorialIndex = 0;
-        public TutorialForm tutorialFormType;
+        public List<Image> currentTutorialImages { get; private set; } = new List<Image>();
+        public int currentTutorialIndex { get; private set; } = 0;
+        public TutorialType tutorialTypeSelected;
         public string imageLabelCountString
         {
             get
@@ -23,7 +28,7 @@ namespace FloorPlanMakerUI
                 return $"{currentTutorialIndex + 1}/{currentTutorialImages.Count}";
             }
         }
-        public enum TutorialForm
+        public enum TutorialType
         {
             Form1,
             EditDistribution,
@@ -116,31 +121,33 @@ namespace FloorPlanMakerUI
 
             return images;
         }
-        public void SetCurrentTutorial()
+        public void SetCurrentTutorial(int width, int height)
         {
-            if (this.tutorialFormType == TutorialForm.EditDistribution)
+            if (this.tutorialTypeSelected == TutorialType.EditDistribution)
             {
                 currentTutorialImages = GetEditDistributionImages();
             }
-            else if (this.tutorialFormType == TutorialForm.Form1)
+            else if (this.tutorialTypeSelected == TutorialType.Form1)
             {
                 currentTutorialImages = GetForm1Images();
             }
-            else if (this.tutorialFormType == TutorialForm.CreateShift)
+            else if (this.tutorialTypeSelected == TutorialType.CreateShift)
             {
                 currentTutorialImages = GetNewShiftImages();
             }
-            else if (this.tutorialFormType == TutorialForm.Settings)
+            else if (this.tutorialTypeSelected == TutorialType.Settings)
             {
                 currentTutorialImages = GetSettingsImages();
             }
             imageSelected = currentTutorialImages[currentTutorialIndex];
+            this.ThumbnailManager.SetPictureBoxesForImages(width, height);
 
         }
-        public void SetToShiftCreationWalkthough()
+        public void SetToShiftCreationWalkthough(int width, int height)
         {
             currentTutorialImages = GetShiftCreateImages();
             imageSelected = currentTutorialImages[currentTutorialIndex];
+            this.ThumbnailManager.SetPictureBoxesForImages(width, height);
         }
     }
 }

@@ -14,10 +14,10 @@ namespace FloorPlanMakerUI
     public partial class frmTutorialVideos : Form
     {
         public TutorialImages tutorialImages = new TutorialImages();
-        public frmTutorialVideos(TutorialImages.TutorialForm tutorialType)
+        public frmTutorialVideos(TutorialImages.TutorialType tutorialType)
         {
             InitializeComponent();
-            this.tutorialImages.tutorialFormType = tutorialType;
+            this.tutorialImages.tutorialTypeSelected = tutorialType;
 
         }
         private void btnNextPic_Click(object sender, EventArgs e)
@@ -36,7 +36,7 @@ namespace FloorPlanMakerUI
         }
         private void frmTutorialVideos_Load(object sender, EventArgs e)
         {
-            tutorialImages.SetCurrentTutorial();
+            tutorialImages.SetCurrentTutorial(143,112);
             UpdateUIElements();
         }
 
@@ -44,7 +44,7 @@ namespace FloorPlanMakerUI
         {
             if (rdoGettingStarted.Checked)
             {
-                tutorialImages.SetCurrentTutorial();
+                tutorialImages.SetCurrentTutorial(143, 112);
             }
             UpdateUIElements();
         }
@@ -53,7 +53,7 @@ namespace FloorPlanMakerUI
         {
             if (rdoCreatingAShiftWalkthrough.Checked)
             {
-                tutorialImages.SetToShiftCreationWalkthough();
+                tutorialImages.SetToShiftCreationWalkthough(143, 112);
             }
             UpdateUIElements();
         }

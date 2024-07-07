@@ -42,6 +42,7 @@
             pictureBox4 = new PictureBox();
             pictureBox5 = new PictureBox();
             pictureBox6 = new PictureBox();
+            pictureBox7 = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)pbTutorial).BeginInit();
             flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -50,6 +51,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
             SuspendLayout();
             // 
             // pbTutorial
@@ -156,6 +158,7 @@
             flowLayoutPanel1.Controls.Add(pictureBox4);
             flowLayoutPanel1.Controls.Add(pictureBox5);
             flowLayoutPanel1.Controls.Add(pictureBox6);
+            flowLayoutPanel1.Controls.Add(pictureBox7);
             flowLayoutPanel1.Location = new Point(82, 855);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
             flowLayoutPanel1.Size = new Size(1063, 117);
@@ -209,6 +212,14 @@
             pictureBox6.TabIndex = 0;
             pictureBox6.TabStop = false;
             // 
+            // pictureBox7
+            // 
+            pictureBox7.Location = new Point(897, 3);
+            pictureBox7.Name = "pictureBox7";
+            pictureBox7.Size = new Size(143, 112);
+            pictureBox7.TabIndex = 1;
+            pictureBox7.TabStop = false;
+            // 
             // frmTutorialVideos
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -236,6 +247,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox7).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -259,5 +271,6 @@
         private PictureBox pictureBox4;
         private PictureBox pictureBox5;
         private PictureBox pictureBox6;
+        private PictureBox pictureBox7;
     }
 }
