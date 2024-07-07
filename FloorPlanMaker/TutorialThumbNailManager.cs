@@ -24,7 +24,9 @@ namespace FloorplanUserControlLibrary
                 {
                     Size = new Size(width, height),
                     SizeMode = PictureBoxSizeMode.Zoom,
-                    Image = img
+                    Image = img,
+                    Margin = new Padding(0)
+                    
                 };
                 PictureBoxes.Add(pictureBox);
             }

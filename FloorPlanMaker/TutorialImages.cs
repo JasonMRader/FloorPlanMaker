@@ -149,5 +149,11 @@ namespace FloorPlanMakerUI
             imageSelected = currentTutorialImages[currentTutorialIndex];
             this.ThumbnailManager.SetPictureBoxesForImages(width, height);
         }
+
+        internal void SetSelectedImage(int index)
+        {
+            currentTutorialIndex = index;
+            imageSelected = currentTutorialImages[currentTutorialIndex];
+        }
     }
 }

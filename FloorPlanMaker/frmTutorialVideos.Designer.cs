@@ -123,9 +123,9 @@
             btnNextPic.FlatAppearance.BorderSize = 0;
             btnNextPic.FlatStyle = FlatStyle.Flat;
             btnNextPic.Image = Properties.Resources.forward;
-            btnNextPic.Location = new Point(1128, 868);
+            btnNextPic.Location = new Point(1068, 842);
             btnNextPic.Name = "btnNextPic";
-            btnNextPic.Size = new Size(42, 117);
+            btnNextPic.Size = new Size(42, 133);
             btnNextPic.TabIndex = 6;
             btnNextPic.UseVisualStyleBackColor = false;
             btnNextPic.Click += btnNextPic_Click;
@@ -136,9 +136,9 @@
             btnPreviousPic.FlatAppearance.BorderSize = 0;
             btnPreviousPic.FlatStyle = FlatStyle.Flat;
             btnPreviousPic.Image = Properties.Resources.back;
-            btnPreviousPic.Location = new Point(12, 866);
+            btnPreviousPic.Location = new Point(12, 842);
             btnPreviousPic.Name = "btnPreviousPic";
-            btnPreviousPic.Size = new Size(42, 117);
+            btnPreviousPic.Size = new Size(42, 133);
             btnPreviousPic.TabIndex = 6;
             btnPreviousPic.UseVisualStyleBackColor = false;
             btnPreviousPic.Click += btnPreviousPic_Click;
@@ -162,14 +162,15 @@
             flowThumbnails.Controls.Add(pictureBox5);
             flowThumbnails.Controls.Add(pictureBox6);
             flowThumbnails.Controls.Add(pictureBox7);
-            flowThumbnails.Location = new Point(72, 868);
+            flowThumbnails.Location = new Point(60, 858);
             flowThumbnails.Name = "flowThumbnails";
-            flowThumbnails.Size = new Size(1050, 117);
+            flowThumbnails.Size = new Size(1002, 117);
             flowThumbnails.TabIndex = 8;
             // 
             // pictureBox1
             // 
-            pictureBox1.Location = new Point(3, 3);
+            pictureBox1.Location = new Point(0, 0);
+            pictureBox1.Margin = new Padding(0);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(143, 112);
             pictureBox1.TabIndex = 0;
@@ -177,7 +178,8 @@
             // 
             // pictureBox2
             // 
-            pictureBox2.Location = new Point(152, 3);
+            pictureBox2.Location = new Point(143, 0);
+            pictureBox2.Margin = new Padding(0);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(143, 112);
             pictureBox2.TabIndex = 0;
@@ -185,7 +187,8 @@
             // 
             // pictureBox3
             // 
-            pictureBox3.Location = new Point(301, 3);
+            pictureBox3.Location = new Point(286, 0);
+            pictureBox3.Margin = new Padding(0);
             pictureBox3.Name = "pictureBox3";
             pictureBox3.Size = new Size(143, 112);
             pictureBox3.TabIndex = 0;
@@ -193,7 +196,8 @@
             // 
             // pictureBox4
             // 
-            pictureBox4.Location = new Point(450, 3);
+            pictureBox4.Location = new Point(429, 0);
+            pictureBox4.Margin = new Padding(0);
             pictureBox4.Name = "pictureBox4";
             pictureBox4.Size = new Size(143, 112);
             pictureBox4.TabIndex = 0;
@@ -201,7 +205,8 @@
             // 
             // pictureBox5
             // 
-            pictureBox5.Location = new Point(599, 3);
+            pictureBox5.Location = new Point(572, 0);
+            pictureBox5.Margin = new Padding(0);
             pictureBox5.Name = "pictureBox5";
             pictureBox5.Size = new Size(143, 112);
             pictureBox5.TabIndex = 0;
@@ -209,7 +214,8 @@
             // 
             // pictureBox6
             // 
-            pictureBox6.Location = new Point(748, 3);
+            pictureBox6.Location = new Point(715, 0);
+            pictureBox6.Margin = new Padding(0);
             pictureBox6.Name = "pictureBox6";
             pictureBox6.Size = new Size(143, 112);
             pictureBox6.TabIndex = 0;
@@ -217,7 +223,8 @@
             // 
             // pictureBox7
             // 
-            pictureBox7.Location = new Point(897, 3);
+            pictureBox7.Location = new Point(858, 0);
+            pictureBox7.Margin = new Padding(0);
             pictureBox7.Name = "pictureBox7";
             pictureBox7.Size = new Size(143, 112);
             pictureBox7.TabIndex = 1;
@@ -226,9 +233,9 @@
             // panel1
             // 
             panel1.Controls.Add(pnlHighlight);
-            panel1.Location = new Point(72, 858);
+            panel1.Location = new Point(60, 845);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1037, 7);
+            panel1.Size = new Size(1002, 10);
             panel1.TabIndex = 9;
             // 
             // pnlHighlight
