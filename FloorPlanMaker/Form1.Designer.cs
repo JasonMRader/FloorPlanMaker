@@ -58,7 +58,6 @@ namespace FloorPlanMaker
             btnDeleteSelectedFloorplan = new Button();
             pnlMainContainer = new Panel();
             pnlTemplateContainer = new Panel();
-            btnHelp = new Button();
             pnlSideContainer = new Panel();
             pnlSectionsAndServers = new Panel();
             btnTemplateCreator = new Button();
@@ -85,6 +84,7 @@ namespace FloorPlanMaker
             rdoViewServerFlow = new RadioButton();
             cbDrawToggle = new CheckBox();
             rdoViewSectionFlow = new RadioButton();
+            btnHelp = new Button();
             toolTip1 = new ToolTip(components);
             btnReportBug = new Button();
             helpProvider1 = new HelpProvider();
@@ -152,6 +152,7 @@ namespace FloorPlanMaker
             // 
             // flowSectionSelect
             // 
+            flowSectionSelect.AutoScroll = true;
             flowSectionSelect.BackColor = Color.Silver;
             flowSectionSelect.Controls.Add(lblServerMaxCovers);
             flowSectionSelect.Controls.Add(lblServerAverageCovers);
@@ -448,21 +449,6 @@ namespace FloorPlanMaker
             pnlTemplateContainer.Name = "pnlTemplateContainer";
             pnlTemplateContainer.Size = new Size(684, 921);
             pnlTemplateContainer.TabIndex = 22;
-            // 
-            // btnHelp
-            // 
-            btnHelp.BackColor = Color.FromArgb(120, 180, 120);
-            btnHelp.FlatAppearance.BorderSize = 0;
-            btnHelp.FlatStyle = FlatStyle.Flat;
-            btnHelp.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            btnHelp.ForeColor = Color.Black;
-            btnHelp.Location = new Point(1130, 8);
-            btnHelp.Name = "btnHelp";
-            btnHelp.Size = new Size(31, 29);
-            btnHelp.TabIndex = 13;
-            btnHelp.Text = "?";
-            btnHelp.UseVisualStyleBackColor = false;
-            btnHelp.Click += btnHelp_Click;
             // 
             // pnlSideContainer
             // 
@@ -822,6 +808,21 @@ namespace FloorPlanMaker
             toolTip1.SetToolTip(rdoViewSectionFlow, "Sections");
             rdoViewSectionFlow.UseVisualStyleBackColor = false;
             rdoViewSectionFlow.CheckedChanged += rdoViewSectionFlow_CheckedChanged;
+            // 
+            // btnHelp
+            // 
+            btnHelp.BackColor = Color.FromArgb(120, 180, 120);
+            btnHelp.FlatAppearance.BorderSize = 0;
+            btnHelp.FlatStyle = FlatStyle.Flat;
+            btnHelp.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            btnHelp.ForeColor = Color.Black;
+            btnHelp.Location = new Point(1130, 8);
+            btnHelp.Name = "btnHelp";
+            btnHelp.Size = new Size(31, 29);
+            btnHelp.TabIndex = 13;
+            btnHelp.Text = "?";
+            btnHelp.UseVisualStyleBackColor = false;
+            btnHelp.Click += btnHelp_Click;
             // 
             // toolTip1
             // 

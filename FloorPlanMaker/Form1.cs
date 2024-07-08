@@ -990,7 +990,7 @@ namespace FloorPlanMaker
         {
             pnlStatMode.Visible = true;
         }
-       
+
         private void cbIsAM_CheckedChanged(object sender, EventArgs e)
         {
             if (cbIsAM.Checked)

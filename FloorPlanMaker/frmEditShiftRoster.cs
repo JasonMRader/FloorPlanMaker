@@ -38,7 +38,11 @@ namespace FloorPlanMakerUI
                     cboFloorplans.DisplayMember = floorplan.DiningArea.Name;
                 }
             }
-            cboFloorplans.SelectedIndex = 0;
+            if(cboFloorplans.Items.Count > 0)
+            {
+                cboFloorplans.SelectedIndex = 0;
+            }
+           
 
         }
         private void PopulateSelectedFloorplanServerButtons()

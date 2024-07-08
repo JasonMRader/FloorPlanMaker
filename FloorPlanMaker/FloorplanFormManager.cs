@@ -88,6 +88,10 @@ namespace FloorPlanMakerUI
         public void AddTableControls(Panel panel)
         {
             _tableControls.Clear();
+            foreach(Control control in panel.Controls)
+            {
+                control.Dispose();
+            }
             panel.Controls.Clear();
             panel.Invalidate();
             if (this.Shift != null && this.Shift.SelectedDiningArea != null)
