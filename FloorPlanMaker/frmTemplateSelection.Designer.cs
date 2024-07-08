@@ -54,6 +54,7 @@
             btnClose = new Button();
             btnNextTemplates = new Button();
             btnPreviousTemplates = new Button();
+            btnAutomatic = new Button();
             panel5.SuspendLayout();
             panel6.SuspendLayout();
             panel7.SuspendLayout();
@@ -134,6 +135,7 @@
             // panel9
             // 
             panel9.BackColor = Color.FromArgb(180, 190, 200);
+            panel9.Controls.Add(btnAutomatic);
             panel9.Controls.Add(panel11);
             panel9.Controls.Add(panel10);
             panel9.Controls.Add(btnDecreaseServers);
@@ -268,7 +270,7 @@
             btnDecreaseServers.FlatAppearance.BorderSize = 0;
             btnDecreaseServers.FlatStyle = FlatStyle.Flat;
             btnDecreaseServers.Image = FloorPlanMakerUI.Properties.Resources.ResizedDown;
-            btnDecreaseServers.Location = new Point(130, 43);
+            btnDecreaseServers.Location = new Point(142, 42);
             btnDecreaseServers.Name = "btnDecreaseServers";
             btnDecreaseServers.Size = new Size(30, 12);
             btnDecreaseServers.TabIndex = 2;
@@ -280,7 +282,7 @@
             btnIncreaseServers.FlatAppearance.BorderSize = 0;
             btnIncreaseServers.FlatStyle = FlatStyle.Flat;
             btnIncreaseServers.Image = FloorPlanMakerUI.Properties.Resources.ResizedUp;
-            btnIncreaseServers.Location = new Point(130, 31);
+            btnIncreaseServers.Location = new Point(142, 31);
             btnIncreaseServers.Name = "btnIncreaseServers";
             btnIncreaseServers.Size = new Size(30, 12);
             btnIncreaseServers.TabIndex = 2;
@@ -292,9 +294,9 @@
             lblServerCount.BackColor = Color.WhiteSmoke;
             lblServerCount.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             lblServerCount.ForeColor = Color.Black;
-            lblServerCount.Location = new Point(59, 31);
+            lblServerCount.Location = new Point(88, 31);
             lblServerCount.Name = "lblServerCount";
-            lblServerCount.Size = new Size(54, 23);
+            lblServerCount.Size = new Size(48, 23);
             lblServerCount.TabIndex = 1;
             lblServerCount.Text = "6";
             lblServerCount.TextAlign = ContentAlignment.MiddleRight;
@@ -329,9 +331,9 @@
             lblServerDisplay.BackColor = Color.WhiteSmoke;
             lblServerDisplay.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             lblServerDisplay.ForeColor = Color.Black;
-            lblServerDisplay.Location = new Point(23, 9);
+            lblServerDisplay.Location = new Point(77, 9);
             lblServerDisplay.Name = "lblServerDisplay";
-            lblServerDisplay.Size = new Size(175, 52);
+            lblServerDisplay.Size = new Size(121, 52);
             lblServerDisplay.TabIndex = 0;
             lblServerDisplay.Text = "Server Count";
             lblServerDisplay.TextAlign = ContentAlignment.TopCenter;
@@ -374,6 +376,20 @@
             btnPreviousTemplates.TabIndex = 10;
             btnPreviousTemplates.UseVisualStyleBackColor = false;
             btnPreviousTemplates.Click += btnPreviousTemplates_Click;
+            // 
+            // btnAutomatic
+            // 
+            btnAutomatic.BackColor = Color.GreenYellow;
+            btnAutomatic.FlatAppearance.BorderSize = 0;
+            btnAutomatic.FlatStyle = FlatStyle.Flat;
+            btnAutomatic.Image = FloorPlanMakerUI.Properties.Resources.LightlingSmall;
+            btnAutomatic.Location = new Point(10, 9);
+            btnAutomatic.Margin = new Padding(3, 7, 3, 7);
+            btnAutomatic.Name = "btnAutomatic";
+            btnAutomatic.Size = new Size(52, 52);
+            btnAutomatic.TabIndex = 18;
+            btnAutomatic.UseVisualStyleBackColor = false;
+            btnAutomatic.Click += btnAutomatic_Click;
             // 
             // frmTemplateSelection
             // 
@@ -433,5 +449,6 @@
         private Button btnClose;
         private Button btnNextTemplates;
         private Button btnPreviousTemplates;
+        private Button btnAutomatic;
     }
 }

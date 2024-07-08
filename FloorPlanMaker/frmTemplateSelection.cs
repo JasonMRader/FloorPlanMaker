@@ -36,7 +36,7 @@ namespace FloorPlanMaker
             this.floorplanManager = floorplanManager;
             this.form1Reference = form1Reference;
             this.area = diningArea;
-            if(floorplanManager.Floorplan != null)
+            if (floorplanManager.Floorplan != null)
             {
                 serverCount = floorplanManager.Floorplan.ServerCount;
             }
@@ -44,7 +44,7 @@ namespace FloorPlanMaker
             {
                 serverCount = 5;
             }
-            
+
             floorplanManager.TemplateManager.serverCount = serverCount;
             floorplanManager.TemplateManager.DiningArea = diningArea;
             floorplanManager.UpdateTemplatesBasedOnFloorplan();
@@ -154,6 +154,8 @@ namespace FloorPlanMaker
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
+            
+            form1Reference.UpdateWithTemplate();
             this.Parent.SendToBack();
             this.Hide();
         }
@@ -273,10 +275,7 @@ namespace FloorPlanMaker
                 SetTemplatePanels(floorplanManager.TemplateManager.GetFilteredList());
             }
         }
-        public void GetFilteredList()
-        {
-
-        }
+        
 
         private void btnNextTemplates_Click(object sender, EventArgs e)
         {
@@ -317,6 +316,33 @@ namespace FloorPlanMaker
             {
                 btnPreviousTemplates.Enabled = true;
             }
+        }
+
+        private void btnAutomatic_Click(object sender, EventArgs e)
+        {
+            List<FloorplanTemplate> templates = floorplanManager.TemplateManager.GetFilteredList();
+            if (templates.Count > 0)
+            {
+                FloorplanTemplate template = templates[0];
+                if (floorplanManager.Shift.SelectedFloorplan != null)
+                {
+                    floorplanManager.CopyTemplateSections(template);
+                    form1Reference.UpdateWithTemplate();
+                }
+                else
+                {
+                    floorplanManager.SetFloorplanToTemplate(template);
+                    form1Reference.UpdateWithTemplate();
+                }
+                this.Parent.SendToBack();
+                this.Hide();
+            }
+            else
+            {
+                MessageBox.Show("There are no templates saved for these critera");
+            }
+            
+            
         }
 
         //public void AddSectionPanels(FlowLayoutPanel panel)

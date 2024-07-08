@@ -52,6 +52,7 @@ namespace FloorPlanMaker
         private Point? _startPoint = null;
         private List<FloorplanLine> _lines = new List<FloorplanLine>();
         public TutorialImages.TutorialType tutorialType = TutorialImages.TutorialType.Form1;
+        //private bool isViewingTemplates;
 
         private DateOnly dateOnlySelected
         {
@@ -514,6 +515,7 @@ namespace FloorPlanMaker
         }
         public void UpdateWithTemplate()
         {
+            btnAutomatic.Enabled = true;
             floorplanManager.SetViewedFloorplan(dateOnlySelected, cbIsAM.Checked);
             _lines.Clear();
             _lines = floorplanManager.Floorplan.floorplanLines;
@@ -718,7 +720,7 @@ namespace FloorPlanMaker
         }
         private void btnChooseTemplate_Click(object sender, EventArgs e)
         {
-
+            btnAutomatic.Enabled = false;
             floorplanManager.TemplateManager = new TemplateManager(floorplanManager.Shift.SelectedDiningArea);
 
 
@@ -1308,6 +1310,7 @@ namespace FloorPlanMaker
             {
                 btnChooseTemplate.PerformClick();
             }
+            
             else if (floorplanManager.AllTablesAreAssigned())
             {
                 floorplanManager.AutoAssignSections();
