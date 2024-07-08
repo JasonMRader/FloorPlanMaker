@@ -310,6 +310,7 @@ namespace FloorPlanMakerUI
             if (sectionPanelSender.isChecked())
             {
                 this.Shift.SetSelectedSection(sectionPanelSender.Section);
+                this.pnlMainContainer.BackColor = sectionPanelSender.Section.Color;
                 foreach (SectionPanelControl sectionPanelControl in this._sectionPanels)
                 {
                     if (sectionPanelControl != sectionPanelSender)
