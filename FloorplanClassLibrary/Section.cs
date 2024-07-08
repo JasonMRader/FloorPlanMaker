@@ -694,7 +694,7 @@ namespace FloorplanClassLibrary
         {
             get
             {
-                int[] whiteFontNumbers = { 3, 5, 6,9,10,12,13,17,19 };
+                int[] whiteFontNumbers = { 4, 5, 6,9,10,12,13,17,19 };
                 if (whiteFontNumbers.Contains(Number))
                 {
                     return Color.White;

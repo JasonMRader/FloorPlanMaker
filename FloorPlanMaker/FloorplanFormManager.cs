@@ -690,7 +690,7 @@ namespace FloorPlanMakerUI
                                 tableControl.MuteColors();
                                 if (section == this.Shift.SectionSelected)
                                 {
-                                    tableControl.BackColor = section.MuteColor(1.35f);
+                                    //tableControl.BackColor = section.MuteColor(1f);
                                 }
 
                                 //tableControl.ForeColor = section.FontColor;
@@ -725,9 +725,11 @@ namespace FloorPlanMakerUI
                             tableControl.SetSection(section);
                             //tableControl.BackColor = section.MuteColor(0.35f);
                             tableControl.MuteColors();
+                            tableControl.TextColor = section.FontColor;
                             if (section == this.Shift.SectionSelected)
                             {
-                                tableControl.BackColor = section.MuteColor(1.35f);
+                                tableControl.BackColor = section.MuteColor(1.15f);
+                                
                             }
 
                             //tableControl.ForeColor = section.FontColor;

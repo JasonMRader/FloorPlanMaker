@@ -36,11 +36,13 @@ namespace FloorPlanMaker
                 if (section.IsSelected)
                 {
                     this.BackColor = section.MuteColor(1.2f);
+                    this.TextColor = section.FontColor;
 
                 }
                 else
                 {
-                    this.BackColor = section.MuteColor(.8f);
+                    this.TextColor = section.FontColor;
+                    this.BackColor = section.MuteColor(.95f);
                 }
             }
            
@@ -182,8 +184,8 @@ namespace FloorPlanMaker
         public void MuteColors()
         {
             if(this.Section == null) { return; }
-            this.BackColor = UITheme.MuteColor(.5f, this.Section.Color);
-            this.TextColor = Color.White;
+            this.BackColor = UITheme.MuteColor(.9f, this.Section.Color);
+            this.TextColor = this.Section.FontColor;
         }
 
         public TableControl() : this(new Table()) { }
