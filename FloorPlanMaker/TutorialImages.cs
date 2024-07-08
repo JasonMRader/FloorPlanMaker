@@ -131,20 +131,27 @@ namespace FloorPlanMakerUI
             images.Add(TutorialResources.Floorplans_SelectingSections_CreateShift14);
             images.Add(TutorialResources.Floorplans_SectionStats_CreateShift15);
             images.Add(TutorialResources.Floorplans_OpenTemplateForm_CreateShift16);
+            images.Add(TutorialResources.TemplateSelectCreateShift17);
+            images.Add(TutorialResources.TemplateSelectCreateShift18);
+            images.Add(TutorialResources.TemplateSelectCreateShift19);
             return images;
         }
         private List<Image> GetSettingsImages()
         {
             List<Image> images = new List<Image>();
-            images.Add(TutorialResources.test);
-
+            images.Add(TutorialResources.SettingsForm1);
+            images.Add(TutorialResources.SettingsForm2);
+            images.Add(TutorialResources.SettingsForm3);
+            images.Add(TutorialResources.SettingsForm4);
             return images;
         }
         private List<Image> GetUpdatingOrderHistoryImages()
         {
             List<Image> images = new List<Image>();
-            images.Add(TutorialResources.test);
-
+            images.Add(TutorialResources.ImportOrders1);
+            images.Add(TutorialResources.ImportOrders2);
+            images.Add(TutorialResources.ImportOrders3);
+            images.Add(TutorialResources.ImportOrders4);
             return images;
         }
         public void SetCurrentTutorial(int width, int height)
@@ -165,6 +172,10 @@ namespace FloorPlanMakerUI
             else if (this.tutorialTypeSelected == TutorialType.Settings)
             {
                 currentTutorialImages = GetSettingsImages();
+            }
+            else if (this.tutorialTypeSelected == TutorialType.UpdatingOrderHistory)
+            {
+                currentTutorialImages = GetUpdatingOrderHistoryImages();
             }
             imageSelected = currentTutorialImages[currentTutorialIndex];
             this.ThumbnailManager.SetPictureBoxesForImages(width, height);

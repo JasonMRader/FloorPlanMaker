@@ -124,6 +124,9 @@
   <data name="CreateShift2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CreateShift2.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="EditServers1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\EditServers1.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Floorplans_OpenTemplateForm_CreateShift16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Floorplans_OpenTemplateForm_CreateShift16.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -147,6 +150,18 @@
   </data>
   <data name="Form1OverviewSettingsButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Form1OverviewSettingsButton.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ImportOrders1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ImportOrders1.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ImportOrders2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ImportOrders2.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ImportOrders3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ImportOrders3.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ImportOrders4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ImportOrders4.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="NewShiftAreaHistoryStatsCreateShift7" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\NewShiftAreaHistoryStatsCreateShift7.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -180,6 +195,27 @@
   </data>
   <data name="ServerAssignStatsCreateShift9" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ServerAssignStatsCreateShift9.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SettingsForm1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SettingsForm1.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SettingsForm2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SettingsForm2.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SettingsForm3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SettingsForm3.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SettingsForm4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SettingsForm4.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TemplateSelectCreateShift17" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TemplateSelectCreateShift17.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TemplateSelectCreateShift18" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TemplateSelectCreateShift18.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TemplateSelectCreateShift19" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TemplateSelectCreateShift19.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="test" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\test.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
