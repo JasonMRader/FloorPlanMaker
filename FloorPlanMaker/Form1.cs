@@ -268,7 +268,7 @@ namespace FloorPlanMaker
             }
             //Checking for doubles
             //shiftManagerToAdd.SetDoubles();
-            floorplanManager.SetViewedFloorplan(dateOnlySelected, cbIsAM.Checked, pnlFloorPlan, flowServersInFloorplan, flowSectionSelect);
+            floorplanManager.SetViewedFloorplan(dateOnlySelected, cbIsAM.Checked );
             rdoSections.Checked = true;
             rdoViewSectionFlow.Checked = true;
             flowSectionSelect.Visible = true;
@@ -289,7 +289,7 @@ namespace FloorPlanMaker
             pnlFloorPlan.MouseMove += pnlFloorplan_MouseMove;
             pnlFloorPlan.Paint += PnlFloorplan_Paint;
             this.sectionLineManager = new SectionLineManager(allTableControls);
-            floorplanManager = new FloorplanFormManager();
+            floorplanManager = new FloorplanFormManager(pnlFloorPlan, flowServersInFloorplan, flowSectionSelect, pnlMainContainer);
 
             // Subscribe to the event
             //floorplanManager.SectionLabelRemoved += FloorplanManager_SectionLabelRemoved;
@@ -490,7 +490,7 @@ namespace FloorPlanMaker
             {
                 lblDateSelected.Text = specialEventDate.Name;
             }
-            floorplanManager.SetViewedFloorplan(dateOnlySelected, cbIsAM.Checked, pnlFloorPlan, flowServersInFloorplan, flowSectionSelect);
+            floorplanManager.SetViewedFloorplan(dateOnlySelected, cbIsAM.Checked);
             if (floorplanManager.Floorplan == null)
             {
                 NoServersToDisplay();
@@ -514,7 +514,7 @@ namespace FloorPlanMaker
         }
         public void UpdateWithTemplate()
         {
-            floorplanManager.SetViewedFloorplan(dateOnlySelected, cbIsAM.Checked, pnlFloorPlan, flowServersInFloorplan, flowSectionSelect);
+            floorplanManager.SetViewedFloorplan(dateOnlySelected, cbIsAM.Checked);
             _lines.Clear();
             _lines = floorplanManager.Floorplan.floorplanLines;
 
@@ -547,7 +547,7 @@ namespace FloorPlanMaker
             shift.SelectedDiningArea = (DiningArea?)cboDiningAreas.SelectedItem;
             floorplanManager.AddTableControls(pnlFloorPlan);
 
-            floorplanManager.SetViewedFloorplan(dateOnlySelected, cbIsAM.Checked, pnlFloorPlan, flowServersInFloorplan, flowSectionSelect);
+            floorplanManager.SetViewedFloorplan(dateOnlySelected, cbIsAM.Checked);
             //this.sectionLineManager = new SectionLineManager(allTableControls);
             if (floorplanManager.Floorplan != null)
             {
@@ -856,7 +856,7 @@ namespace FloorPlanMaker
 
         private void dtpFloorplan_ValueChanged(object sender, EventArgs e)
         {
-            floorplanManager.SetViewedFloorplan(dateOnlySelected, cbIsAM.Checked, pnlFloorPlan, flowServersInFloorplan, flowSectionSelect);
+            floorplanManager.SetViewedFloorplan(dateOnlySelected, cbIsAM.Checked);
             this.sectionLineManager = new SectionLineManager(allTableControls);
         }
 

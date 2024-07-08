@@ -33,6 +33,7 @@ namespace FloorPlanMakerUI
         private ImageLabelControl coversImageLabel = new ImageLabelControl();
         private ImageLabelControl salesImageLabel = new ImageLabelControl();        
         private TableSalesManager tableSalesManager = new TableSalesManager();
+        private Panel pnlMainContainer {  get; set; }   
         private Panel pnlFloorplan { get; set; }
         private FlowLayoutPanel flowSectionsPanel {  get; set; }
         private FlowLayoutPanel flowServersPanel { get; set; }
@@ -45,6 +46,14 @@ namespace FloorPlanMakerUI
         public FloorplanFormManager() 
         {
             this.Shift = new Shift();            
+        }
+        public FloorplanFormManager(Panel pnlFloorPlan, FlowLayoutPanel flowServersInFloorplan, FlowLayoutPanel flowSectionSelect, Panel pnlContainer)
+        {
+            this.Shift = new Shift();
+            this.flowSectionsPanel = flowSectionSelect;
+            this.flowServersPanel = flowServersInFloorplan;
+            this.pnlFloorplan = pnlFloorPlan;
+            this.pnlMainContainer = pnlContainer;
         }
         public void UpdateTemplatesBasedOnFloorplan()
         {
@@ -1039,14 +1048,11 @@ namespace FloorPlanMakerUI
             btnSaveTemplate.Text = "Create A Floorplan Template";
         }
 
-        public void SetViewedFloorplan(DateOnly dateOnlySelected, bool isAM,
-            Panel pnlFloorPlan, FlowLayoutPanel flowServersInFloorplan, FlowLayoutPanel flowSectionSelect)
+        public void SetViewedFloorplan(DateOnly dateOnlySelected, bool isAM)
         {            
             this.Shift.DateOnly = dateOnlySelected;
             this.Shift.IsAM = isAM;
-            this.flowSectionsPanel = flowSectionSelect;
-            this.flowServersPanel = flowServersInFloorplan;
-            this.pnlFloorplan = pnlFloorPlan;
+           
 
             if (Shift.ContainsFloorplan(dateOnlySelected, isAM, Shift.SelectedDiningArea.ID))
             {
