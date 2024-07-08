@@ -268,7 +268,7 @@ namespace FloorPlanMaker
             }
             //Checking for doubles
             //shiftManagerToAdd.SetDoubles();
-            floorplanManager.SetViewedFloorplan(dateOnlySelected, cbIsAM.Checked );
+            floorplanManager.SetViewedFloorplan(dateOnlySelected, cbIsAM.Checked);
             rdoSections.Checked = true;
             rdoViewSectionFlow.Checked = true;
             flowSectionSelect.Visible = true;
@@ -1296,6 +1296,22 @@ namespace FloorPlanMaker
         {
             frmTutorialVideos tutorialForm = new frmTutorialVideos(this.tutorialType);
             tutorialForm.Show();
+        }
+
+        private void btnAutomatic_Click(object sender, EventArgs e)
+        {
+            if(floorplanManager.Floorplan == null)
+            {
+                rdoShifts.PerformClick();
+            }
+            else if (!floorplanManager.AllTablesAreAssigned())
+            {
+                btnChooseTemplate.PerformClick();
+            }
+            else if (floorplanManager.AllTablesAreAssigned())
+            {
+                floorplanManager.AutoAssignSections();
+            }
         }
     }
 }

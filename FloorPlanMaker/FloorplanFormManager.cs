@@ -508,6 +508,11 @@ namespace FloorPlanMakerUI
 
         private void btnAutoAssignServers_Click(object? sender, EventArgs e)
         {
+            AutoAssignSections();
+
+        }
+        public void AutoAssignSections()
+        {
             if (!AllTablesAreAssigned())
             {
                 MessageBox.Show("All tables are not assigned");
@@ -528,7 +533,6 @@ namespace FloorPlanMakerUI
                 unassignedSections[i].AddServer(orderedServers[serverIndex]);
                 serverIndex++;
             }
-
         }
 
         private void btnAutoSelectTemplate_Click(object? sender, EventArgs e)
@@ -590,36 +594,7 @@ namespace FloorPlanMakerUI
             TemplateCreator.SelectedSection = section;
         }
 
-        public void RefreshSectionPanels()
-        {
-            FlowLayoutPanel panel = coversImageLabel.Parent as FlowLayoutPanel;
-            panel.Controls.Clear();
-            coversImageLabel = new ImageLabelControl(UITheme.covers, "0", (panel.Width / 2) - 7, 30);
-            salesImageLabel = new ImageLabelControl(UITheme.sales, "$0", (panel.Width / 2) - 7, 30);
-            coversImageLabel.SetTooltip("Covers per Server");
-            salesImageLabel.SetTooltip("Sales Per Server");
-            panel.Controls.Add(coversImageLabel);
-            panel.Controls.Add(salesImageLabel);
-
-            foreach (SectionPanelControl sectionPanel in _sectionPanels)
-            {
-               
-                panel.Controls.Add(sectionPanel);
-            }
-            Button btnAddPickup = new Button
-            {
-                Text = "Add Pick-Up Section",
-                AutoSize = false,
-                Size = new Size(panel.Width - 10, 25),
-                Font = new Font("Segoe UI", 10F),
-                FlatStyle = FlatStyle.Flat,
-                BackColor = UITheme.ButtonColor,
-                ForeColor = Color.Black
-            };
-            btnAddPickup.Click += btnAddPickupSection_Click;
-            panel.Controls.Add(btnAddPickup);
-
-        }
+       
         private void btnAddPickupSection_Click(object sender, EventArgs e)
         {            
             Section pickUp = new Section(Floorplan);
@@ -669,40 +644,7 @@ namespace FloorPlanMakerUI
             UpdateAveragesPerServer();
         }
 
-        public void UpdateTableControlColors(Panel panel)
-        {
-            foreach (Control ctrl in panel.Controls)
-            {
-
-                if (ctrl is TableControl tableControl)
-                {
-                    tableControl.BackColor = panel.BackColor;
-                    tableControl.TextColor = panel.ForeColor;
-                    foreach (Section section in Shift.SelectedFloorplan.Sections)
-                    {
-
-                        foreach (Table table in section.Tables)
-                        {
-                            if (tableControl.Table.TableNumber == table.TableNumber)
-                            {
-                                tableControl.SetSection(section);
-                                //tableControl.BackColor = section.MuteColor(0.35f);
-                                tableControl.MuteColors();
-                                if (section == this.Shift.SectionSelected)
-                                {
-                                    //tableControl.BackColor = section.MuteColor(1f);
-                                }
-
-                                //tableControl.ForeColor = section.FontColor;
-                                tableControl.Invalidate();
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-
-        }
+        
         public void UpdateTableControlColors()
         {
             foreach (TableControl tableControl in this._tableControls)
@@ -822,7 +764,7 @@ namespace FloorPlanMakerUI
             
 
         }
-        private bool AllTablesAreAssigned()
+        public bool AllTablesAreAssigned()
         {
             foreach (TableControl tableControl in TableControls)
             {

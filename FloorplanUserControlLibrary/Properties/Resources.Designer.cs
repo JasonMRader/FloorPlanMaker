@@ -423,6 +423,16 @@ namespace FloorplanUserControlLibrary.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap erase_Small {
+            get {
+                object obj = ResourceManager.GetObject("erase_Small", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ExtraSmallSave {
             get {
                 object obj = ResourceManager.GetObject("ExtraSmallSave", resourceCulture);
@@ -456,6 +466,26 @@ namespace FloorplanUserControlLibrary.Properties {
         internal static System.Drawing.Bitmap FridayText {
             get {
                 object obj = ResourceManager.GetObject("FridayText", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap HelpSolidExtraSmall {
+            get {
+                object obj = ResourceManager.GetObject("HelpSolidExtraSmall", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap HelpSolidSmall {
+            get {
+                object obj = ResourceManager.GetObject("HelpSolidSmall", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

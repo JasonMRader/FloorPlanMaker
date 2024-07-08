@@ -42,6 +42,7 @@
             toolTip1 = new ToolTip(components);
             cboSalesMethod = new ComboBox();
             label1 = new Label();
+            btnAutomatic = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pbBack).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbForward).BeginInit();
@@ -74,9 +75,9 @@
             // 
             flowUnassignedServers.AutoScroll = true;
             flowUnassignedServers.BackColor = Color.WhiteSmoke;
-            flowUnassignedServers.Location = new Point(17, 15);
+            flowUnassignedServers.Location = new Point(17, 59);
             flowUnassignedServers.Name = "flowUnassignedServers";
-            flowUnassignedServers.Size = new Size(313, 785);
+            flowUnassignedServers.Size = new Size(313, 741);
             flowUnassignedServers.TabIndex = 11;
             flowUnassignedServers.Paint += flowUnassignedServers_Paint;
             // 
@@ -129,6 +130,7 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(180, 190, 200);
+            panel1.Controls.Add(btnAutomatic);
             panel1.Controls.Add(flowUnassignedServers);
             panel1.Location = new Point(25, 81);
             panel1.Name = "panel1";
@@ -185,6 +187,20 @@
             label1.Text = "Sales From:";
             label1.Visible = false;
             // 
+            // btnAutomatic
+            // 
+            btnAutomatic.BackColor = Color.GreenYellow;
+            btnAutomatic.FlatAppearance.BorderSize = 0;
+            btnAutomatic.FlatStyle = FlatStyle.Flat;
+            btnAutomatic.Image = FloorPlanMakerUI.Properties.Resources.LightlingSmall;
+            btnAutomatic.Location = new Point(17, 11);
+            btnAutomatic.Margin = new Padding(3, 7, 3, 7);
+            btnAutomatic.Name = "btnAutomatic";
+            btnAutomatic.Size = new Size(313, 38);
+            btnAutomatic.TabIndex = 18;
+            toolTip1.SetToolTip(btnAutomatic, "Automate The Next Step");
+            btnAutomatic.UseVisualStyleBackColor = false;
+            // 
             // frmEditStaff
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -231,5 +247,6 @@
         private ToolTip toolTip1;
         private ComboBox cboSalesMethod;
         private Label label1;
+        private Button btnAutomatic;
     }
 }
