@@ -618,6 +618,9 @@ namespace FloorplanClassLibrary
             return DiningArea.Name;
         }
 
-        
+        public void ClearSectionsOfTables()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

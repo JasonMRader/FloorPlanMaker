@@ -509,6 +509,7 @@ namespace FloorPlanMaker
             btnEraseAllSections.TabIndex = 17;
             toolTip1.SetToolTip(btnEraseAllSections, "Clear All Sections");
             btnEraseAllSections.UseVisualStyleBackColor = false;
+            btnEraseAllSections.Click += btnEraseAllSections_Click;
             // 
             // pnlTemplateContainer
             // 

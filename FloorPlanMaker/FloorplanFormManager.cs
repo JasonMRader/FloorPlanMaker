@@ -175,9 +175,20 @@ namespace FloorPlanMakerUI
             Floorplan.floorplanLines.AddRange(template.floorplanLines);
         }
         public void ResetSections()
-        { 
-            Floorplan.Sections.Clear();
-            Floorplan.CreateSectionsForServers();            
+        {
+            Floorplan.RemoveAllServersFromSections();
+            //Floorplan.ClearSectionsOfTables();
+            Floorplan.floorplanLines.Clear();
+           // Floorplan.CreateSectionsForServers();
+            UpdateTableControlColors();
+            UpdateServerControls();
+            RemoveAllSectionLabels();
+            _sectionLabels.Clear();
+            foreach(SectionPanelControl sectionPanelControl in this._sectionPanels)
+            {
+                sectionPanelControl.UpdateLabels();
+            }
+
         }
         public void SetSectionPanels()
         {
@@ -411,6 +422,16 @@ namespace FloorPlanMakerUI
         {
             panel.Controls.Remove(sectionLabelBySection((Section)section));            
             panel.Invalidate();
+        }
+        private void RemoveAllSectionLabels()
+        {
+            foreach(SectionLabelControl sectionLabel in this._sectionLabels)
+            {
+                pnlFloorplan.Controls.Remove(sectionLabel);
+                sectionLabel.Dispose();
+
+            }
+            pnlFloorplan.Invalidate();  
         }
         public void RemoveSectionPanel(Section section, FlowLayoutPanel panel)
         {

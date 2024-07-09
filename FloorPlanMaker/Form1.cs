@@ -1302,7 +1302,7 @@ namespace FloorPlanMaker
 
         private void btnAutomatic_Click(object sender, EventArgs e)
         {
-            if(floorplanManager.Floorplan == null)
+            if (floorplanManager.Floorplan == null)
             {
                 rdoShifts.PerformClick();
             }
@@ -1310,10 +1310,28 @@ namespace FloorPlanMaker
             {
                 btnChooseTemplate.PerformClick();
             }
-            
+
             else if (floorplanManager.AllTablesAreAssigned())
             {
                 floorplanManager.AutoAssignSections();
+            }
+        }
+
+        private void btnEraseAllSections_Click(object sender, EventArgs e)
+        {
+            if(floorplanManager.Floorplan == null) { return; }
+            DialogResult result = MessageBox.Show("Do you want to unassign all tables and sections?",
+                                                "Clear Sections?",
+                                                MessageBoxButtons.YesNo,
+                                                MessageBoxIcon.Question);
+
+            if (result == DialogResult.No)
+            {
+                return;
+            }
+            if (result == DialogResult.Yes)
+            {
+                floorplanManager.ResetSections();
             }
         }
     }
