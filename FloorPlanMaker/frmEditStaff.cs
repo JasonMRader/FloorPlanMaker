@@ -660,11 +660,15 @@ namespace FloorPlanMaker
 
         private void btnAutomatic_Click(object sender, EventArgs e)
         {
-            if(ShiftManager.SelectedShift == null)
+            if (ShiftManager.SelectedShift.Floorplans == null)
             {
                 btnCreateANewShift.PerformClick();
             }
-            else
+            if (ShiftManager.SelectedShift.Floorplans.Count == 0)
+            {
+                btnCreateANewShift.PerformClick();
+            }
+            else if (ShiftManager.SelectedShift.UnassignedServers.Count > 0)
             {
                 FloorplanGenerator floorplanGenerator = new FloorplanGenerator(ShiftManager.SelectedShift);
                 floorplanGenerator.GetServerDistribution();
@@ -672,6 +676,10 @@ namespace FloorPlanMaker
                 PopulateUnassignedServers();
                 RefreshFloorplanFlowPanel(ShiftManager.SelectedShift.Floorplans);
                 RefreshFloorplanCountLabels();
+            }
+            else if (ShiftManager.SelectedShift.UnassignedServers.Count == 0)
+            {
+                btnAssignTables.PerformClick();
             }
         }
     }

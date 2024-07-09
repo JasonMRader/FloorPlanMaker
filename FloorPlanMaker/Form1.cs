@@ -1311,9 +1311,13 @@ namespace FloorPlanMaker
                 btnChooseTemplate.PerformClick();
             }
 
-            else if (floorplanManager.AllTablesAreAssigned())
+            else if (floorplanManager.AllTablesAreAssigned() && !shift.SelectedFloorplan.CheckIfAllSectionsAssigned())
             {
                 floorplanManager.AutoAssignSections();
+            }
+            else if (floorplanManager.AllTablesAreAssigned() && shift.SelectedFloorplan.CheckIfAllSectionsAssigned())
+            {
+                btnPrint.PerformClick();
             }
         }
 
