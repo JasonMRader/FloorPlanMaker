@@ -36,13 +36,13 @@
             cbIsAM = new CheckBox();
             btnCreateANewShift = new Button();
             panel1 = new Panel();
+            btnAutomatic = new Button();
             panel2 = new Panel();
             pbBack = new PictureBox();
             pbForward = new PictureBox();
             toolTip1 = new ToolTip(components);
             cboSalesMethod = new ComboBox();
             label1 = new Label();
-            btnAutomatic = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pbBack).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbForward).BeginInit();
@@ -137,6 +137,21 @@
             panel1.Size = new Size(352, 816);
             panel1.TabIndex = 26;
             // 
+            // btnAutomatic
+            // 
+            btnAutomatic.BackColor = Color.GreenYellow;
+            btnAutomatic.FlatAppearance.BorderSize = 0;
+            btnAutomatic.FlatStyle = FlatStyle.Flat;
+            btnAutomatic.Image = FloorPlanMakerUI.Properties.Resources.LightlingSmall;
+            btnAutomatic.Location = new Point(17, 11);
+            btnAutomatic.Margin = new Padding(3, 7, 3, 7);
+            btnAutomatic.Name = "btnAutomatic";
+            btnAutomatic.Size = new Size(313, 38);
+            btnAutomatic.TabIndex = 18;
+            toolTip1.SetToolTip(btnAutomatic, "Automate The Next Step");
+            btnAutomatic.UseVisualStyleBackColor = false;
+            btnAutomatic.Click += btnAutomatic_Click;
+            // 
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(180, 190, 200);
@@ -186,20 +201,6 @@
             label1.TabIndex = 30;
             label1.Text = "Sales From:";
             label1.Visible = false;
-            // 
-            // btnAutomatic
-            // 
-            btnAutomatic.BackColor = Color.GreenYellow;
-            btnAutomatic.FlatAppearance.BorderSize = 0;
-            btnAutomatic.FlatStyle = FlatStyle.Flat;
-            btnAutomatic.Image = FloorPlanMakerUI.Properties.Resources.LightlingSmall;
-            btnAutomatic.Location = new Point(17, 11);
-            btnAutomatic.Margin = new Padding(3, 7, 3, 7);
-            btnAutomatic.Name = "btnAutomatic";
-            btnAutomatic.Size = new Size(313, 38);
-            btnAutomatic.TabIndex = 18;
-            toolTip1.SetToolTip(btnAutomatic, "Automate The Next Step");
-            btnAutomatic.UseVisualStyleBackColor = false;
             // 
             // frmEditStaff
             // 

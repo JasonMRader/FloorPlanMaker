@@ -657,5 +657,22 @@ namespace FloorPlanMaker
                 }
             }
         }
+
+        private void btnAutomatic_Click(object sender, EventArgs e)
+        {
+            if(ShiftManager.SelectedShift == null)
+            {
+                btnCreateANewShift.PerformClick();
+            }
+            else
+            {
+                FloorplanGenerator floorplanGenerator = new FloorplanGenerator(ShiftManager.SelectedShift);
+                floorplanGenerator.GetServerDistribution();
+                floorplanGenerator.AutoAssignDiningAreas();
+                PopulateUnassignedServers();
+                RefreshFloorplanFlowPanel(ShiftManager.SelectedShift.Floorplans);
+                RefreshFloorplanCountLabels();
+            }
+        }
     }
 }
