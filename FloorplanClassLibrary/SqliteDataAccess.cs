@@ -1077,6 +1077,8 @@ namespace FloorplanClassLibrary
 
                 foreach (Section section in template.Sections)
                 {
+                    section.IsCloser = false;
+                    section.IsPre = false;
                     SaveSection(section);
                     cnn.Execute("INSERT INTO TemplateSections (SectionID, TemplateID) VALUES (@SectionID, @TemplateID)", new { SectionID = section.ID, TemplateID = template.ID });
                 }
