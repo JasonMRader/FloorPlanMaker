@@ -1095,5 +1095,15 @@ namespace FloorPlanMakerUI
             }
             Floorplan.floorplanLines.AddRange(template.floorplanLines);
         }
+
+        internal void AutoAssignCloser()
+        {
+            this.Floorplan.AutoAssignCloser();
+            foreach(SectionLabelControl sectionLabelControl in this._sectionLabels)
+            {
+                sectionLabelControl.UpdateLabel();
+                sectionLabelControl.Invalidate();
+            }
+        }
     }
 }

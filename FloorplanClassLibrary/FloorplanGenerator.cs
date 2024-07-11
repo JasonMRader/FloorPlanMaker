@@ -33,8 +33,56 @@ namespace FloorplanClassLibrary
         }
         public int ServerRemainder { get; set; }
        
-        public int minimumServersAssigned { get; set; } 
-        public  Dictionary<DiningArea, int> GetServerDistribution()
+        public int minimumServersAssigned { get; set; }
+        public static void SetClosersForFloorplan(Floorplan floorplan)
+        {
+            List<Server> potentialClosingServers = new List<Server>();
+            potentialClosingServers = floorplan.Servers.Where(s => s.isDouble == false).ToList();
+            Dictionary<Server, int> closingServersWeight = new Dictionary<Server, int>();
+            potentialClosingServers = potentialClosingServers.OrderByDescending(s => s.CloseFrequency).ToList();
+            int highestCloseRank = potentialClosingServers[0].CloseFrequency;
+            potentialClosingServers.RemoveAll(s => s.CloseFrequency < highestCloseRank - 4);
+            
+            Random random = new Random(); 
+            foreach (Server server in potentialClosingServers)
+            {
+                int closingRank = random.Next(0, server.CloseFrequency);
+                closingServersWeight.Add(server, closingRank);
+            }
+            Server closer = null;
+            Server precloser = null;
+            if (closingServersWeight.Count > 0)
+            {
+                closer = closingServersWeight.Aggregate((x, y) => x.Value > y.Value ? x : y).Key;
+                closingServersWeight.Remove(closer);
+                precloser = closingServersWeight.Aggregate((x, y) => x.Value > y.Value ? x : y).Key;
+
+            }
+
+            if (closer != null)
+            {
+                Section closingSection = floorplan.Sections.FirstOrDefault(s => s.Server.ID == closer.ID);
+                if (closingSection != null)
+                {
+                    
+                    closingSection.IsCloser = true;
+                    
+                }                
+            }
+            if(precloser != null)
+            {
+                Section preclosingSection = floorplan.Sections.FirstOrDefault(s => s.Server.ID == precloser.ID);
+                if (preclosingSection != null)
+                {
+
+                    preclosingSection.IsPre = true;
+
+                }
+            }
+           
+        }
+
+        public Dictionary<DiningArea, int> GetServerDistribution()
         {
             Dictionary<DiningArea, int> DiningAreaServerCounts = new Dictionary<DiningArea, int>();
             Dictionary<DiningArea, float> areaPerServerSales = new Dictionary<DiningArea, float>();

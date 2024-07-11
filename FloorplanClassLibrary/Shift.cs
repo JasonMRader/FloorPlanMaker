@@ -503,5 +503,10 @@ namespace FloorplanClassLibrary
             }
             this.IsAM = false;
         }
+
+        public void AutoAssignCloser()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

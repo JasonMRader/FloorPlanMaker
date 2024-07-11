@@ -1311,11 +1311,20 @@ namespace FloorPlanMaker
                 btnChooseTemplate.PerformClick();
             }
 
-            else if (floorplanManager.AllTablesAreAssigned() && !shift.SelectedFloorplan.CheckIfAllSectionsAssigned())
+            else if (floorplanManager.AllTablesAreAssigned() && 
+                !shift.SelectedFloorplan.CheckIfAllSectionsAssigned())
             {
                 floorplanManager.AutoAssignSections();
             }
-            else if (floorplanManager.AllTablesAreAssigned() && shift.SelectedFloorplan.CheckIfAllSectionsAssigned())
+            else if (floorplanManager.AllTablesAreAssigned() && 
+                shift.SelectedFloorplan.CheckIfAllSectionsAssigned() &&
+                !shift.SelectedFloorplan.CheckIfCloserIsAssigned())
+            {
+                floorplanManager.AutoAssignCloser();
+            }
+            else if (floorplanManager.AllTablesAreAssigned() &&
+                shift.SelectedFloorplan.CheckIfAllSectionsAssigned() &&
+                shift.SelectedFloorplan.CheckIfCloserIsAssigned())
             {
                 btnPrint.PerformClick();
             }

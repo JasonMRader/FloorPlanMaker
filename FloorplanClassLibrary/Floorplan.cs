@@ -622,5 +622,10 @@ namespace FloorplanClassLibrary
         {
             throw new NotImplementedException();
         }
+
+        public void AutoAssignCloser()
+        {
+           FloorplanGenerator.SetClosersForFloorplan(this);
+        }
     }
 }
