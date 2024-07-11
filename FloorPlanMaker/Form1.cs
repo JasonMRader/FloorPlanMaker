@@ -1323,7 +1323,7 @@ namespace FloorPlanMaker
 
         private void btnEraseAllSections_Click(object sender, EventArgs e)
         {
-            if(floorplanManager.Floorplan == null) { return; }
+            if (floorplanManager.Floorplan == null) { return; }
             DialogResult result = MessageBox.Show("Do you want to unassign all tables and sections?",
                                                 "Clear Sections?",
                                                 MessageBoxButtons.YesNo,

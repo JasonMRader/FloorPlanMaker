@@ -141,16 +141,18 @@ namespace FloorPlanMaker
             // 
             // btnSaveFloorplanTemplate
             // 
+            btnSaveFloorplanTemplate.BackColor = Color.FromArgb(100, 130, 180);
             btnSaveFloorplanTemplate.FlatAppearance.BorderSize = 0;
             btnSaveFloorplanTemplate.FlatStyle = FlatStyle.Flat;
             btnSaveFloorplanTemplate.ForeColor = Color.Black;
             btnSaveFloorplanTemplate.Image = FloorPlanMakerUI.Properties.Resources.ExtraSmallSave;
-            btnSaveFloorplanTemplate.Location = new Point(291, 0);
+            btnSaveFloorplanTemplate.Location = new Point(8, 120);
+            btnSaveFloorplanTemplate.Margin = new Padding(3, 3, 3, 10);
             btnSaveFloorplanTemplate.Name = "btnSaveFloorplanTemplate";
-            btnSaveFloorplanTemplate.Size = new Size(41, 28);
+            btnSaveFloorplanTemplate.Size = new Size(45, 45);
             btnSaveFloorplanTemplate.TabIndex = 12;
             toolTip1.SetToolTip(btnSaveFloorplanTemplate, "Save the Current Sections as a Template");
-            btnSaveFloorplanTemplate.UseVisualStyleBackColor = true;
+            btnSaveFloorplanTemplate.UseVisualStyleBackColor = false;
             btnSaveFloorplanTemplate.Click += btnSaveFloorplanTemplate_Click;
             // 
             // flowSectionSelect
@@ -429,9 +431,9 @@ namespace FloorPlanMaker
             // 
             // btnDeleteSelectedFloorplan
             // 
-            btnDeleteSelectedFloorplan.Location = new Point(1211, 968);
+            btnDeleteSelectedFloorplan.Location = new Point(1220, 800);
             btnDeleteSelectedFloorplan.Name = "btnDeleteSelectedFloorplan";
-            btnDeleteSelectedFloorplan.Size = new Size(50, 28);
+            btnDeleteSelectedFloorplan.Size = new Size(41, 28);
             btnDeleteSelectedFloorplan.TabIndex = 22;
             btnDeleteSelectedFloorplan.Text = "Delete";
             btnDeleteSelectedFloorplan.UseVisualStyleBackColor = true;
@@ -454,6 +456,7 @@ namespace FloorPlanMaker
             flowLayoutPanel2.BackColor = Color.WhiteSmoke;
             flowLayoutPanel2.Controls.Add(btnAutomatic);
             flowLayoutPanel2.Controls.Add(btnChooseTemplate);
+            flowLayoutPanel2.Controls.Add(btnSaveFloorplanTemplate);
             flowLayoutPanel2.Controls.Add(cbDrawToggle);
             flowLayoutPanel2.Controls.Add(btnEraseAllSections);
             flowLayoutPanel2.FlowDirection = FlowDirection.TopDown;
@@ -486,7 +489,7 @@ namespace FloorPlanMaker
             cbDrawToggle.FlatStyle = FlatStyle.Flat;
             cbDrawToggle.ForeColor = Color.Black;
             cbDrawToggle.Image = FloorPlanMakerUI.Properties.Resources.bluePrintSmall;
-            cbDrawToggle.Location = new Point(8, 120);
+            cbDrawToggle.Location = new Point(8, 178);
             cbDrawToggle.Margin = new Padding(3, 3, 3, 10);
             cbDrawToggle.Name = "cbDrawToggle";
             cbDrawToggle.Size = new Size(45, 45);
@@ -502,7 +505,7 @@ namespace FloorPlanMaker
             btnEraseAllSections.FlatAppearance.BorderSize = 0;
             btnEraseAllSections.FlatStyle = FlatStyle.Flat;
             btnEraseAllSections.Image = FloorPlanMakerUI.Properties.Resources.erase_Small;
-            btnEraseAllSections.Location = new Point(8, 178);
+            btnEraseAllSections.Location = new Point(8, 236);
             btnEraseAllSections.Margin = new Padding(3, 3, 3, 7);
             btnEraseAllSections.Name = "btnEraseAllSections";
             btnEraseAllSections.Size = new Size(45, 45);
@@ -537,7 +540,6 @@ namespace FloorPlanMaker
             pnlSectionsAndServers.Controls.Add(rdoViewSectionFlow);
             pnlSectionsAndServers.Controls.Add(flowServersInFloorplan);
             pnlSectionsAndServers.Controls.Add(flowSectionSelect);
-            pnlSectionsAndServers.Controls.Add(btnSaveFloorplanTemplate);
             pnlSectionsAndServers.ForeColor = Color.White;
             pnlSectionsAndServers.Location = new Point(13, 17);
             pnlSectionsAndServers.Name = "pnlSectionsAndServers";
