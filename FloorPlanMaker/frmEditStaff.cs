@@ -390,6 +390,7 @@ namespace FloorPlanMaker
 
         private void cbIsPM_CheckedChanged(object sender, EventArgs e)
         {
+            SetFloorplansForShiftManager();
             if (cbIsAM.Checked)
             {
                 cbIsAM.Image = Resources.smallSunrise;
@@ -406,7 +407,7 @@ namespace FloorPlanMaker
                 ShiftManager.SelectedShift.SetFloorplansToPM();
 
             }
-            SetFloorplansForShiftManager();
+           
 
         }
 
