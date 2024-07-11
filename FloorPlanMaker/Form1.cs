@@ -1338,5 +1338,19 @@ namespace FloorPlanMaker
                 floorplanManager.ResetSections();
             }
         }
+
+        internal void SelectDiningAreaWithFirstFloorplan(Floorplan? floorplan)
+        {
+            DiningArea selectedDiningArea = floorplan.DiningArea;
+            foreach (var item in cboDiningAreas.Items)
+            {
+                if (item is DiningArea diningArea && diningArea.ID == selectedDiningArea.ID)
+                {
+                    cboDiningAreas.SelectedItem = item;
+                    break;
+                }
+            }
+
+        }
     }
 }
