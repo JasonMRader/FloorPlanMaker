@@ -1103,6 +1103,16 @@ namespace FloorPlanMakerUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap waiterSmall {
+            get {
+                object obj = ResourceManager.GetObject("waiterSmall", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap WednesdayText {
             get {
                 object obj = ResourceManager.GetObject("WednesdayText", resourceCulture);

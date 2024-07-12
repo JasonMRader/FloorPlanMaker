@@ -1311,12 +1311,12 @@ namespace FloorPlanMaker
                 btnChooseTemplate.PerformClick();
             }
 
-            else if (floorplanManager.AllTablesAreAssigned() && 
+            else if (floorplanManager.AllTablesAreAssigned() &&
                 !shift.SelectedFloorplan.CheckIfAllSectionsAssigned())
             {
                 floorplanManager.AutoAssignSections();
             }
-            else if (floorplanManager.AllTablesAreAssigned() && 
+            else if (floorplanManager.AllTablesAreAssigned() &&
                 shift.SelectedFloorplan.CheckIfAllSectionsAssigned() &&
                 !shift.SelectedFloorplan.CheckIfCloserIsAssigned())
             {
@@ -1360,6 +1360,12 @@ namespace FloorPlanMaker
                 }
             }
 
+        }
+
+        private void btnEditRoster_Click(object sender, EventArgs e)
+        {
+            if (floorplanManager.Floorplan == null) { return; }
+            floorplanManager.EditRosterClicked();
         }
     }
 }

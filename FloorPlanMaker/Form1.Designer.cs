@@ -61,6 +61,7 @@ namespace FloorPlanMaker
             btnAutomatic = new Button();
             cbDrawToggle = new CheckBox();
             btnEraseAllSections = new Button();
+            btnEditRoster = new Button();
             pnlTemplateContainer = new Panel();
             pnlSideContainer = new Panel();
             pnlSectionsAndServers = new Panel();
@@ -146,7 +147,7 @@ namespace FloorPlanMaker
             btnSaveFloorplanTemplate.FlatStyle = FlatStyle.Flat;
             btnSaveFloorplanTemplate.ForeColor = Color.Black;
             btnSaveFloorplanTemplate.Image = FloorPlanMakerUI.Properties.Resources.ExtraSmallSave;
-            btnSaveFloorplanTemplate.Location = new Point(8, 120);
+            btnSaveFloorplanTemplate.Location = new Point(8, 230);
             btnSaveFloorplanTemplate.Margin = new Padding(3, 3, 3, 10);
             btnSaveFloorplanTemplate.Name = "btnSaveFloorplanTemplate";
             btnSaveFloorplanTemplate.Size = new Size(45, 45);
@@ -456,9 +457,10 @@ namespace FloorPlanMaker
             flowLayoutPanel2.BackColor = Color.WhiteSmoke;
             flowLayoutPanel2.Controls.Add(btnAutomatic);
             flowLayoutPanel2.Controls.Add(btnChooseTemplate);
+            flowLayoutPanel2.Controls.Add(btnEditRoster);
+            flowLayoutPanel2.Controls.Add(btnEraseAllSections);
             flowLayoutPanel2.Controls.Add(btnSaveFloorplanTemplate);
             flowLayoutPanel2.Controls.Add(cbDrawToggle);
-            flowLayoutPanel2.Controls.Add(btnEraseAllSections);
             flowLayoutPanel2.FlowDirection = FlowDirection.TopDown;
             flowLayoutPanel2.Location = new Point(11, 17);
             flowLayoutPanel2.Name = "flowLayoutPanel2";
@@ -489,7 +491,7 @@ namespace FloorPlanMaker
             cbDrawToggle.FlatStyle = FlatStyle.Flat;
             cbDrawToggle.ForeColor = Color.Black;
             cbDrawToggle.Image = FloorPlanMakerUI.Properties.Resources.bluePrintSmall;
-            cbDrawToggle.Location = new Point(8, 178);
+            cbDrawToggle.Location = new Point(8, 288);
             cbDrawToggle.Margin = new Padding(3, 3, 3, 10);
             cbDrawToggle.Name = "cbDrawToggle";
             cbDrawToggle.Size = new Size(45, 45);
@@ -501,11 +503,11 @@ namespace FloorPlanMaker
             // 
             // btnEraseAllSections
             // 
-            btnEraseAllSections.BackColor = Color.FromArgb(100, 130, 180);
+            btnEraseAllSections.BackColor = Color.FromArgb(190, 80, 70);
             btnEraseAllSections.FlatAppearance.BorderSize = 0;
             btnEraseAllSections.FlatStyle = FlatStyle.Flat;
             btnEraseAllSections.Image = FloorPlanMakerUI.Properties.Resources.erase_Small;
-            btnEraseAllSections.Location = new Point(8, 236);
+            btnEraseAllSections.Location = new Point(8, 175);
             btnEraseAllSections.Margin = new Padding(3, 3, 3, 7);
             btnEraseAllSections.Name = "btnEraseAllSections";
             btnEraseAllSections.Size = new Size(45, 45);
@@ -513,6 +515,21 @@ namespace FloorPlanMaker
             toolTip1.SetToolTip(btnEraseAllSections, "Clear All Sections");
             btnEraseAllSections.UseVisualStyleBackColor = false;
             btnEraseAllSections.Click += btnEraseAllSections_Click;
+            // 
+            // btnEditRoster
+            // 
+            btnEditRoster.BackColor = Color.FromArgb(100, 130, 180);
+            btnEditRoster.FlatAppearance.BorderSize = 0;
+            btnEditRoster.FlatStyle = FlatStyle.Flat;
+            btnEditRoster.Image = FloorPlanMakerUI.Properties.Resources.waiterSmall;
+            btnEditRoster.Location = new Point(8, 120);
+            btnEditRoster.Margin = new Padding(3, 3, 3, 7);
+            btnEditRoster.Name = "btnEditRoster";
+            btnEditRoster.Size = new Size(45, 45);
+            btnEditRoster.TabIndex = 17;
+            toolTip1.SetToolTip(btnEditRoster, "Add / Remove Servers From Floorplan");
+            btnEditRoster.UseVisualStyleBackColor = false;
+            btnEditRoster.Click += btnEditRoster_Click;
             // 
             // pnlTemplateContainer
             // 
@@ -979,5 +996,6 @@ namespace FloorPlanMaker
         private FlowLayoutPanel flowLayoutPanel2;
         private Button btnAutomatic;
         private Button btnEraseAllSections;
+        private Button btnEditRoster;
     }
 }

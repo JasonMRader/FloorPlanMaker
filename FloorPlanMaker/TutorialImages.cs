@@ -79,14 +79,26 @@ namespace FloorPlanMakerUI
         private List<Image> GetForm1Images()
         {
             List<Image> images = new List<Image>();
-            images.Add(TutorialResources.Form1Overview1);
-            images.Add(TutorialResources.Form1Overview2ShiftButton);
-            images.Add(TutorialResources.Form1OverviewEditDiningButton);
-            images.Add(TutorialResources.Form1OverviewSettingsButton);
-            images.Add(TutorialResources.Form1OverviewFeedBackDescription);
-            images.Add(TutorialResources.Floorplans_SelectingSections_CreateShift14);
-            images.Add(TutorialResources.Floorplans_SectionStats_CreateShift15);
-            images.Add(TutorialResources.Floorplans_OpenTemplateForm_CreateShift16);
+            images.Add(TutorialResources.MainForm_1);
+            images.Add(TutorialResources.MainForm_2);
+            images.Add(TutorialResources.MainForm_3);
+            images.Add(TutorialResources.MainForm_4);
+            images.Add(TutorialResources.MainForm_5);
+            images.Add(TutorialResources.MainForm_6);
+            images.Add(TutorialResources.MainForm_7);
+            images.Add(TutorialResources.MainForm_8);
+            images.Add(TutorialResources.MainForm_9);
+            images.Add(TutorialResources.MainForm_10);
+            images.Add(TutorialResources.MainForm_11);
+            images.Add(TutorialResources.MainForm_12);
+            images.Add(TutorialResources.MainForm_13);
+            images.Add(TutorialResources.MainForm_14);
+            images.Add(TutorialResources.MainForm_15);
+            images.Add(TutorialResources.MainForm_16);
+            images.Add(TutorialResources.MainForm_17);
+            images.Add(TutorialResources.MainForm_18);
+            images.Add(TutorialResources.MainForm_19);
+            images.Add(TutorialResources.MainForm_20);
             return images;
         }
         private List<Image> GetNewShiftImages()
@@ -117,6 +129,7 @@ namespace FloorPlanMakerUI
         {
             List<Image> images = new List<Image>();
             images.Add(TutorialResources.CreateShift1);
+            images.Add(TutorialResources.MainForm_10);           
             images.Add(TutorialResources.CreateShift2);
             images.Add(TutorialResources.NewShiftDateCreateShift3);
             images.Add(TutorialResources.NewShiftImportCreateShift4);
@@ -129,6 +142,11 @@ namespace FloorPlanMakerUI
             images.Add(TutorialResources.ServerAssignManualAssignCreateShift11);
             images.Add(TutorialResources.ServerAssignFloorplanStatsCreateShift12);
             images.Add(TutorialResources.ServerAssignBalanceSalesCreateShift13);
+            images.Add(TutorialResources.CreatingFloorplansAuto_1);
+            images.Add(TutorialResources.CreatingFloorplansAuto_2);
+            images.Add(TutorialResources.CreatingFloorplansAuto_3);
+            images.Add(TutorialResources.CreatingFloorplansAuto_4);
+            images.Add(TutorialResources.CreatingFloorplansAuto_5);
             images.Add(TutorialResources.Floorplans_SelectingSections_CreateShift14);
             images.Add(TutorialResources.Floorplans_SectionStats_CreateShift15);
             images.Add(TutorialResources.Floorplans_OpenTemplateForm_CreateShift16);

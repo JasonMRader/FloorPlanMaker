@@ -124,6 +124,21 @@
   <data name="CreateShift2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CreateShift2.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="CreatingFloorplansAuto_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CreatingFloorplansAuto_1.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CreatingFloorplansAuto_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CreatingFloorplansAuto_2.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CreatingFloorplansAuto_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CreatingFloorplansAuto_3.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CreatingFloorplansAuto_4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CreatingFloorplansAuto_4.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CreatingFloorplansAuto_5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CreatingFloorplansAuto_5.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="EditServers1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\EditServers1.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -162,6 +177,66 @@
   </data>
   <data name="ImportOrders4" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ImportOrders4.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MainForm_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MainForm_1.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MainForm_10" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MainForm_10.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MainForm_11" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MainForm_11.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MainForm_12" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MainForm_12.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MainForm_13" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MainForm_13.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MainForm_14" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MainForm_14.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MainForm_15" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MainForm_15.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MainForm_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MainForm_16.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MainForm_17" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MainForm_17.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MainForm_18" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MainForm_18.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MainForm_19" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MainForm_19.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MainForm_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MainForm_2.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MainForm_20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MainForm_20.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MainForm_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MainForm_3.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MainForm_4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MainForm_4.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MainForm_5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MainForm_5.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MainForm_6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MainForm_6.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MainForm_7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MainForm_7.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MainForm_8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MainForm_8.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MainForm_9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MainForm_9.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="NewShiftAreaHistoryStatsCreateShift7" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\NewShiftAreaHistoryStatsCreateShift7.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
