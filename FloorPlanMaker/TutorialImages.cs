@@ -49,7 +49,8 @@ namespace FloorPlanMakerUI
             CreateShift,
             EditDiningAreas,
             Settings,
-            UpdatingOrderHistory
+            UpdatingOrderHistory,
+            Servers
         }
         public void GoToNextImage()
         {
@@ -154,6 +155,20 @@ namespace FloorPlanMakerUI
             images.Add(TutorialResources.ImportOrders4);
             return images;
         }
+        private List<Image> GetServerImages()
+        {
+            List<Image> images = new List<Image>();
+            images.Add(TutorialResources.ServerForm_1);
+            images.Add(TutorialResources.ServerForm_2);
+            images.Add(TutorialResources.ServerForm_3);
+            images.Add(TutorialResources.ServerForm_4);
+            images.Add(TutorialResources.ServerForm_5);
+            images.Add(TutorialResources.ServerForm_6);
+            images.Add(TutorialResources.ServerForm_7);
+            images.Add(TutorialResources.ServerForm_8);
+            images.Add(TutorialResources.ServerForm_9);
+            return images;
+        }
         public void SetCurrentTutorial(int width, int height)
         {
             currentTutorialIndex = 0;
@@ -176,6 +191,10 @@ namespace FloorPlanMakerUI
             else if (this.tutorialTypeSelected == TutorialType.UpdatingOrderHistory)
             {
                 currentTutorialImages = GetUpdatingOrderHistoryImages();
+            }
+            else if (this.tutorialTypeSelected == TutorialType.Servers)
+            {
+                currentTutorialImages = GetServerImages();
             }
             imageSelected = currentTutorialImages[currentTutorialIndex];
             this.ThumbnailManager.SetPictureBoxesForImages(width, height);

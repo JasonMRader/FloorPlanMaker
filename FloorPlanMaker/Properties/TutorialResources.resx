@@ -196,6 +196,33 @@
   <data name="ServerAssignStatsCreateShift9" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ServerAssignStatsCreateShift9.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="ServerForm_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ServerForm_1.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ServerForm_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ServerForm_2.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ServerForm_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ServerForm_3.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ServerForm_4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ServerForm_4.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ServerForm_5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ServerForm_5.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ServerForm_6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ServerForm_6.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ServerForm_7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ServerForm_7.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ServerForm_8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ServerForm_8.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ServerForm_9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ServerForm_9.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="SettingsForm1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SettingsForm1.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

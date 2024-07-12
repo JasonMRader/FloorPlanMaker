@@ -186,12 +186,12 @@ namespace FloorPlanMakerUI
             }
 
             dgvServers.Columns["Server"].Width = 90;
-            dgvServers.Columns["Cocktail"].Width = 70;             
+            dgvServers.Columns["Cocktail"].Width = 70;
             dgvServers.Columns["Close"].Width = 70;
             dgvServers.Columns["TeamWait"].HeaderText = "TeamWait";
-            dgvServers.Columns["TeamWait"].Width = 70; 
+            dgvServers.Columns["TeamWait"].Width = 70;
             dgvServers.Columns["Outside"].HeaderText = "Outside";
-            dgvServers.Columns["Outside"].Width = 70; 
+            dgvServers.Columns["Outside"].Width = 70;
             dgvServers.Columns["Section"].HeaderText = "Section";
             dgvServers.Columns["Section"].Width = 70;
         }
@@ -223,6 +223,11 @@ namespace FloorPlanMakerUI
             }
         }
 
+        private void btnHelp_Click(object sender, EventArgs e)
+        {
+            frmTutorialVideos tutorialForm = new frmTutorialVideos(TutorialImages.TutorialType.Servers);
+            tutorialForm.Show();
+        }
     }
 
 }

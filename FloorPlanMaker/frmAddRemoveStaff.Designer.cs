@@ -57,6 +57,7 @@
             lblPerferedSections = new Label();
             lblServerName = new Label();
             dgvServers = new DataGridView();
+            btnHelp = new Button();
             ((System.ComponentModel.ISupportInitialize)tbarCocktail).BeginInit();
             ((System.ComponentModel.ISupportInitialize)tbarClosing).BeginInit();
             ((System.ComponentModel.ISupportInitialize)tbarOutside).BeginInit();
@@ -332,11 +333,25 @@
             dgvServers.Size = new Size(540, 614);
             dgvServers.TabIndex = 10;
             // 
+            // btnHelp
+            // 
+            btnHelp.BackColor = Color.Orange;
+            btnHelp.FlatAppearance.BorderSize = 0;
+            btnHelp.FlatStyle = FlatStyle.Popup;
+            btnHelp.Image = Properties.Resources.HelpOpenSmall;
+            btnHelp.Location = new Point(1163, 7);
+            btnHelp.Name = "btnHelp";
+            btnHelp.Size = new Size(30, 29);
+            btnHelp.TabIndex = 11;
+            btnHelp.UseVisualStyleBackColor = false;
+            btnHelp.Click += btnHelp_Click;
+            // 
             // frmAddRemoveStaff
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1205, 663);
+            Controls.Add(btnHelp);
             Controls.Add(dgvServers);
             Controls.Add(lblServerName);
             Controls.Add(lblPerferedSections);
@@ -411,5 +426,6 @@
         private Label lblPerferedSections;
         private Label lblServerName;
         private DataGridView dgvServers;
+        private Button btnHelp;
     }
 }
