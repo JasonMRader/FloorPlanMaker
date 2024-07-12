@@ -66,8 +66,12 @@ namespace FloorPlanMaker
             if (ShiftManager.SelectedShift == null) { return; }
             currentFocusedFloorplanIndex++;
             if (currentFocusedFloorplanIndex == DiningAreaRBs.Count) { currentFocusedFloorplanIndex = 0; }
-            var rbToFocus = DiningAreaRBs[currentFocusedFloorplanIndex];
-            rbToFocus.Focus();
+            if (currentFocusedFloorplanIndex < DiningAreaRBs.Count)
+            {
+                var rbToFocus = DiningAreaRBs[currentFocusedFloorplanIndex];
+                rbToFocus.Focus();
+            }
+            
         }
 
         public frmEditStaff(EmployeeManager staffManager, Shift shiftManager, Form1 form1)
