@@ -128,8 +128,9 @@ namespace FloorPlanMakerUI
         private List<Image> GetShiftCreateImages()
         {
             List<Image> images = new List<Image>();
+            
+            images.Add(TutorialResources.MainForm_10);
             images.Add(TutorialResources.CreateShift1);
-            images.Add(TutorialResources.MainForm_10);           
             images.Add(TutorialResources.CreateShift2);
             images.Add(TutorialResources.NewShiftDateCreateShift3);
             images.Add(TutorialResources.NewShiftImportCreateShift4);
@@ -142,17 +143,30 @@ namespace FloorPlanMakerUI
             images.Add(TutorialResources.ServerAssignManualAssignCreateShift11);
             images.Add(TutorialResources.ServerAssignFloorplanStatsCreateShift12);
             images.Add(TutorialResources.ServerAssignBalanceSalesCreateShift13);
+            images.Add(TutorialResources.Floorplans_SectionStats_CreateShift15);
             images.Add(TutorialResources.CreatingFloorplansAuto_1);
+            
+            //
             images.Add(TutorialResources.CreatingFloorplansAuto_2);
             images.Add(TutorialResources.CreatingFloorplansAuto_3);
             images.Add(TutorialResources.CreatingFloorplansAuto_4);
             images.Add(TutorialResources.CreatingFloorplansAuto_5);
-            images.Add(TutorialResources.Floorplans_SelectingSections_CreateShift14);
-            images.Add(TutorialResources.Floorplans_SectionStats_CreateShift15);
-            images.Add(TutorialResources.Floorplans_OpenTemplateForm_CreateShift16);
-            images.Add(TutorialResources.TemplateSelectCreateShift17);
-            images.Add(TutorialResources.TemplateSelectCreateShift18);
-            images.Add(TutorialResources.TemplateSelectCreateShift19);
+            images.Add(TutorialResources.ManualSections_1);
+            images.Add(TutorialResources.ManualSections_2);
+            images.Add(TutorialResources.ManualSections_3);
+            images.Add(TutorialResources.ManualSections_4);
+            images.Add(TutorialResources.ManualSections_5);
+            images.Add(TutorialResources.ManualSections_6);
+            images.Add(TutorialResources.ManualSections_7);
+            images.Add(TutorialResources.ManualSections_8);
+            images.Add(TutorialResources.ManualSections_9);
+            images.Add(TutorialResources.ManualSections_10);
+            //images.Add(TutorialResources.Floorplans_SelectingSections_CreateShift14);
+
+            //images.Add(TutorialResources.Floorplans_OpenTemplateForm_CreateShift16);
+            //images.Add(TutorialResources.TemplateSelectCreateShift17);
+            //images.Add(TutorialResources.TemplateSelectCreateShift18);
+            //images.Add(TutorialResources.TemplateSelectCreateShift19);
             return images;
         }
         private List<Image> GetSettingsImages()

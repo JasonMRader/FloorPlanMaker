@@ -238,6 +238,36 @@
   <data name="MainForm_9" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MainForm_9.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="ManualSections_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ManualSections_1.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ManualSections_10" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ManualSections_10.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ManualSections_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ManualSections_2.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ManualSections_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ManualSections_3.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ManualSections_4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ManualSections_4.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ManualSections_5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ManualSections_5.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ManualSections_6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ManualSections_6.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ManualSections_7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ManualSections_7.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ManualSections_8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ManualSections_8.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ManualSections_9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ManualSections_9.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="NewShiftAreaHistoryStatsCreateShift7" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\NewShiftAreaHistoryStatsCreateShift7.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
