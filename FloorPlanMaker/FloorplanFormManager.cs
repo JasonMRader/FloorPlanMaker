@@ -836,10 +836,12 @@ namespace FloorPlanMakerUI
                 if (server.CurrentSection != null)
                 {
                     serverControl.Label.BackColor = server.CurrentSection.Color;
+                    serverControl.Label.ForeColor = server.CurrentSection.FontColor;
                 }
                 else
                 {
-                    serverControl.Label.BackColor = UITheme.ButtonColor; // Replace DefaultColor with your default color
+                    serverControl.Label.BackColor = UITheme.ButtonColor; 
+                    serverControl.Label.ForeColor= Color.Black;
                 }
                 serverControl.Invalidate();
             }

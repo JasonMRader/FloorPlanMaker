@@ -17,10 +17,10 @@ namespace FloorPlanMaker
             this.Server = server;
 
             this.Height = height *2 ;
-            this.Width = 300;//this.Parent.Width - 20;
+            this.Width = 300;
             this.BackColor = UITheme.AccentColor;
             this.AutoSize = true;
-            this.MaximumSize = new Size(300, height * 10);// new Size(this.Parent.Width - 20, height*10);
+            this.MaximumSize = new Size(300, height * 10);
             this.Padding = new Padding(0,0,0,0);
             this.Margin = new Padding(0,4,0,0);
             NamePanel = new Panel()
@@ -59,10 +59,10 @@ namespace FloorPlanMaker
             this.Server = server;
 
             this.Height = height * 2;
-            this.Width = 300;//this.Parent.Width - 20;
+            this.Width = 300;
             this.BackColor = UITheme.AccentColor;
             this.AutoSize = true;
-            this.MaximumSize = new Size(300, height * 10);// new Size(this.Parent.Width - 20, height*10);
+            this.MaximumSize = new Size(300, height * 10);
             this.Padding = new Padding(0, 0, 0, 0);
             this.Margin = new Padding(0, 4, 0, 0);
             NamePanel = new Panel()
@@ -116,7 +116,7 @@ namespace FloorPlanMaker
                 {
                     if (_server != null && _server.CurrentSection != null)
                     {
-                        // Unsubscribe from the old section's events
+                        
                         _server.CurrentSection.ServerAssigned -= OnServerAssignedToSection;
                         _server.CurrentSection.ServerRemoved -= OnServerRemovedFromSection;
                     }
@@ -125,12 +125,12 @@ namespace FloorPlanMaker
 
                     if (_server != null && _server.CurrentSection != null)
                     {
-                        // Subscribe to the new section's events
+                       
                         _server.CurrentSection.ServerAssigned += OnServerAssignedToSection;
                         _server.CurrentSection.ServerRemoved += OnServerRemovedFromSection;
                     }
 
-                    // Additional logic as needed
+                  
                 }
             }
         }
@@ -150,7 +150,7 @@ namespace FloorPlanMaker
         }
         private void OnServerAssignedToSection(Server server, Section section)
         {
-            // Logic to handle server assignment to section
+            
             if (server == this.Server)
             {
                 this.Section = section;
@@ -160,41 +160,29 @@ namespace FloorPlanMaker
 
         private void OnServerRemovedFromSection(Server server, Section section)
         {
-            // Logic to handle server removal from section
+            
             if (server == this.Server)
             {
                 this.Section = null;
                 this.Label.BackColor = UITheme.ButtonColor;
+                this.Label.ForeColor = Color.Black;
             }
         }
-        //private void OnServerRemovedFromSection(Section obj)
-        //{
-        //    this.Section = null;
-        //    this.Label.BackColor = UITheme.ButtonColor;
-
-        //}
-
-        //private void OnServerAssignedToSection(Section section)
-        //{
-        //    this.Section = section;
-        //    this.UpdateSection(section);
-        //}
+       
         public FlowLayoutPanel ShiftsDisplay { get; set; }
         public Label Label { get; set; }
         public Section? Section { get; set; }
         public Button RemoveButton { get; set; }
         public void UpdateSection(Section section)
         {
-            this.Label.BackColor = section.Color;           
+            this.Label.BackColor = section.Color;     
+            this.Label.ForeColor = section.FontColor;
             
-
         }
         public void AddRemoveButton(FlowLayoutPanel flowStart, FlowLayoutPanel flowEnd, List<Server> startList, List<Server> endList, int width, int height)
-        {
-            // Adjust the label width
+        {            
             this.Label.Width -= this.Label.Height;
-
-            // Create a new button
+            
             RemoveButton = new Button
             {
                 Height = this.Label.Height,
@@ -204,8 +192,7 @@ namespace FloorPlanMaker
                 BackColor = Color.Red,
                 Padding = new Padding(0),
                 TabStop = false
-            };
-            
+            };            
            
             this.NamePanel.Controls.Add(RemoveButton);
         }
@@ -222,7 +209,7 @@ namespace FloorPlanMaker
                 Margin = new Padding(0)
             };
             this.Controls.Add(ShiftsDisplay);
-            // Assuming you have loaded shifts for this server
+           
             float OutsidePercentage = 0f;
             
             if (this.Server.Shifts != null)
@@ -232,7 +219,7 @@ namespace FloorPlanMaker
 
                 foreach (var shift in lastShifts)
                 {
-                    ShiftControl shiftControl = new ShiftControl(shift, this.Width / 8, 80);  // Adjust width and height as needed
+                    ShiftControl shiftControl = new ShiftControl(shift, this.Width / 8, 80); 
                     this.ShiftControls.Add(shiftControl);
                     this.ShiftsDisplay.Controls.Add(shiftControl);
                 }
@@ -245,27 +232,30 @@ namespace FloorPlanMaker
                         OutsideShifts += 1;    
                     }
                 }
-                OutsidePercentage = (float)OutsideShifts / (float)lastShiftsForPercentage.Count();
-                string formattedPercentage = $"{(int)(OutsidePercentage * 100)}%";
-                this.lblOutsidePercentage.Text = $"Last {lastShiftsForPercentage.Count()}: {formattedPercentage}";
-                this.lblOutsidePercentage.Font = UITheme.SmallerFont;
-                this.lblOutsidePercentage.Margin = new Padding(6);
+                //OutsidePercentage = (float)OutsideShifts / (float)lastShiftsForPercentage.Count();
+                //string formattedPercentage = $"{(int)(OutsidePercentage * 100)}%";
+                //this.lblOutsidePercentage.Text = $"Last {lastShiftsForPercentage.Count()}: {formattedPercentage}";
+                string serverRatingDisplay =
+                    $"Section:       {this.Server.PreferedSectionWeight}\n" +
+                    $"TeamWait:  {this.Server.TeamWaitFrequency}\n" +
+                    $"Close:           {this.Server.CloseFrequency}";
+                this.lblOutsidePercentage.Text = serverRatingDisplay;
+                //this.lblOutsidePercentage.Font = UITheme.SmallerFont;
+                this.lblOutsidePercentage.Font = new Font("Segoe UI", 9f, FontStyle.Bold);
+                this.lblOutsidePercentage.Margin = new Padding(10,4,0,0);
+                this.lblOutsidePercentage.AutoSize = false;
+                this.lblOutsidePercentage.Size = new Size(90, 50);
                 ShiftsDisplay.Controls.Add(this.lblOutsidePercentage);
-
-
-            }
-            
+            }            
         }
         public void HideShifts()
         {
-
             this.ShiftsDisplay.AutoSize = false;
             this.ShiftsDisplay.MaximumSize = new Size(this.Width, 0);
         }
         public void ShowShifts()
         {
-            this.ShiftsDisplay.AutoSize = true;
-            
+            this.ShiftsDisplay.AutoSize = true;            
         }
 
         
