@@ -60,7 +60,7 @@ namespace FloorplanUserControlLibrary
             {
 
                 this.lblOutsidePercentage.Size = new System.Drawing.Size(this.Width, 20);
-                this.lblOutsidePercentage.Location = new System.Drawing.Point(0, 18);
+                this.lblOutsidePercentage.Location = new System.Drawing.Point(0, 22);
                 this.lblServerRatings.Size = new Size(this.Width, 15);
                 this.lblServerRatings.Location = new Point(0, 3);
 
@@ -77,7 +77,7 @@ namespace FloorplanUserControlLibrary
                 //this.lblOutsidePercentage.Dock = DockStyle.None;
                 flowShiftDisplay.Visible = true;
                 this.lblOutsidePercentage.Size = new System.Drawing.Size(94, 20);
-                this.lblOutsidePercentage.Location = new System.Drawing.Point(203, 4);
+                this.lblOutsidePercentage.Location = new System.Drawing.Point(203, 2);
                 this.lblServerRatings.Size = new Size(94, 20);
                 this.lblServerRatings.Location = new Point(203, 25);
                 //this.lblDescription.Size = new System.Drawing.Size(98, 15);
