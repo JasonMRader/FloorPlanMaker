@@ -115,12 +115,12 @@
             // 
             // lblOutsidePercentage
             // 
-            lblOutsidePercentage.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lblOutsidePercentage.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             lblOutsidePercentage.Location = new Point(203, 4);
             lblOutsidePercentage.Name = "lblOutsidePercentage";
             lblOutsidePercentage.Size = new Size(94, 20);
             lblOutsidePercentage.TabIndex = 4;
-            lblOutsidePercentage.Text = "55% Outside";
+            lblOutsidePercentage.Text = "55% ";
             lblOutsidePercentage.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // pnlInfo

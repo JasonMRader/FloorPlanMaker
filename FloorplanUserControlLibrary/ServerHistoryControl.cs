@@ -31,6 +31,8 @@ namespace FloorplanUserControlLibrary
             pnlInfo.Width = width;
             toolTip.SetToolTip(lblOutsidePercentage, $"Percentage of {GetIsLunchDisplay()} Shifts Outside for the Last 30 Days, \n" +
                 $"{shiftHistory.filteredShifts.Count} Shifts for this Server");
+            toolTip.SetToolTip(lblServerRatings, "Server Outside Rating  |  Server Cocktail Rating");
+            toolTip.SetToolTip(btnServer, "Click to Move to the SELECTED Floorplan");
         }
         public void SetWidth(int width)
         {
@@ -68,7 +70,7 @@ namespace FloorplanUserControlLibrary
                 //this.lblOutsidePercentage.Dock = DockStyle.Bottom;
                 flowShiftDisplay.Visible = false;
                 pnlInfo.BringToFront();
-               // lblDescription.BringToFront();
+                // lblDescription.BringToFront();
                 lblOutsidePercentage.BringToFront();
             }
             else
@@ -98,8 +100,9 @@ namespace FloorplanUserControlLibrary
         {
             btnServer.Text = this.Server.ToString();
 
-           // lblDescription.Text = $"Last {shiftHistory.filteredShifts.Count} {GetIsLunchDisplay()} Shifts";
-            lblOutsidePercentage.Text = $"{FormattedPercentage(shiftHistory.OutsidePercentage)} Outside";
+            // lblDescription.Text = $"Last {shiftHistory.filteredShifts.Count} {GetIsLunchDisplay()} Shifts";
+            lblOutsidePercentage.Text = $"{FormattedPercentage(shiftHistory.OutsidePercentage)}";
+            lblServerRatings.Text = $"{this.Server.OutsideFrequency}   |   {this.Server.CocktailPreference}";
         }
         private string FormattedPercentage(float num)
         {
