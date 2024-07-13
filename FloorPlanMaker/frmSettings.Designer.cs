@@ -36,6 +36,7 @@
             btnChooseDataBase = new Button();
             openFileDialog1 = new OpenFileDialog();
             panel1 = new Panel();
+            btnHelpImportSales = new Button();
             label6 = new Label();
             lbUpcomingEvents = new ListBox();
             dtpMissingDateStart = new DateTimePicker();
@@ -65,7 +66,6 @@
             btnTest = new Button();
             btnDeleteFloorplans = new Button();
             btnPastSection = new Button();
-            btnHelpImportSales = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudTemplateID).BeginInit();
@@ -80,7 +80,7 @@
             btnEditServers.FlatAppearance.BorderSize = 0;
             btnEditServers.FlatStyle = FlatStyle.Flat;
             btnEditServers.ForeColor = Color.White;
-            btnEditServers.Location = new Point(14, 180);
+            btnEditServers.Location = new Point(14, 66);
             btnEditServers.Name = "btnEditServers";
             btnEditServers.Size = new Size(322, 43);
             btnEditServers.TabIndex = 0;
@@ -108,7 +108,7 @@
             btnImportScheduleData.FlatAppearance.BorderSize = 0;
             btnImportScheduleData.FlatStyle = FlatStyle.Flat;
             btnImportScheduleData.ForeColor = Color.White;
-            btnImportScheduleData.Location = new Point(14, 246);
+            btnImportScheduleData.Location = new Point(14, 25);
             btnImportScheduleData.Name = "btnImportScheduleData";
             btnImportScheduleData.Size = new Size(322, 43);
             btnImportScheduleData.TabIndex = 0;
@@ -123,7 +123,7 @@
             btnCheckForUpdate.FlatAppearance.BorderSize = 0;
             btnCheckForUpdate.FlatStyle = FlatStyle.Flat;
             btnCheckForUpdate.ForeColor = Color.White;
-            btnCheckForUpdate.Location = new Point(14, 194);
+            btnCheckForUpdate.Location = new Point(14, 275);
             btnCheckForUpdate.Name = "btnCheckForUpdate";
             btnCheckForUpdate.Size = new Size(322, 43);
             btnCheckForUpdate.TabIndex = 0;
@@ -136,7 +136,7 @@
             btnBackUpDB.FlatAppearance.BorderSize = 0;
             btnBackUpDB.FlatStyle = FlatStyle.Flat;
             btnBackUpDB.ForeColor = Color.White;
-            btnBackUpDB.Location = new Point(14, 47);
+            btnBackUpDB.Location = new Point(14, 123);
             btnBackUpDB.Name = "btnBackUpDB";
             btnBackUpDB.Size = new Size(322, 43);
             btnBackUpDB.TabIndex = 0;
@@ -150,7 +150,7 @@
             btnChooseDataBase.FlatAppearance.BorderSize = 0;
             btnChooseDataBase.FlatStyle = FlatStyle.Flat;
             btnChooseDataBase.ForeColor = Color.White;
-            btnChooseDataBase.Location = new Point(14, 115);
+            btnChooseDataBase.Location = new Point(14, 74);
             btnChooseDataBase.Name = "btnChooseDataBase";
             btnChooseDataBase.Size = new Size(322, 43);
             btnChooseDataBase.TabIndex = 0;
@@ -180,6 +180,21 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(350, 800);
             panel1.TabIndex = 1;
+            // 
+            // btnHelpImportSales
+            // 
+            btnHelpImportSales.BackColor = Color.Orange;
+            btnHelpImportSales.FlatAppearance.BorderSize = 0;
+            btnHelpImportSales.FlatStyle = FlatStyle.Flat;
+            btnHelpImportSales.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            btnHelpImportSales.ForeColor = Color.Black;
+            btnHelpImportSales.Image = Properties.Resources.HelpOpenExtraSmall;
+            btnHelpImportSales.Location = new Point(312, 38);
+            btnHelpImportSales.Name = "btnHelpImportSales";
+            btnHelpImportSales.Size = new Size(22, 22);
+            btnHelpImportSales.TabIndex = 14;
+            btnHelpImportSales.UseVisualStyleBackColor = false;
+            btnHelpImportSales.Click += btnHelpImportSales_Click;
             // 
             // label6
             // 
@@ -271,9 +286,6 @@
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(180, 190, 200);
-            panel2.Controls.Add(btnBackUpDB);
-            panel2.Controls.Add(btnChooseDataBase);
-            panel2.Controls.Add(btnImportScheduleData);
             panel2.Controls.Add(btnEditServers);
             panel2.Controls.Add(btnSaleStats);
             panel2.Location = new Point(459, 92);
@@ -287,7 +299,7 @@
             btnSaleStats.FlatAppearance.BorderSize = 0;
             btnSaleStats.FlatStyle = FlatStyle.Flat;
             btnSaleStats.ForeColor = Color.White;
-            btnSaleStats.Location = new Point(14, 317);
+            btnSaleStats.Location = new Point(14, 123);
             btnSaleStats.Name = "btnSaleStats";
             btnSaleStats.Size = new Size(322, 43);
             btnSaleStats.TabIndex = 0;
@@ -328,7 +340,7 @@
             btnUpdateNotes.FlatAppearance.BorderSize = 0;
             btnUpdateNotes.FlatStyle = FlatStyle.Flat;
             btnUpdateNotes.ForeColor = Color.White;
-            btnUpdateNotes.Location = new Point(14, 140);
+            btnUpdateNotes.Location = new Point(14, 221);
             btnUpdateNotes.Name = "btnUpdateNotes";
             btnUpdateNotes.Size = new Size(322, 43);
             btnUpdateNotes.TabIndex = 0;
@@ -339,6 +351,9 @@
             // panel3
             // 
             panel3.BackColor = Color.FromArgb(180, 190, 200);
+            panel3.Controls.Add(btnImportScheduleData);
+            panel3.Controls.Add(btnChooseDataBase);
+            panel3.Controls.Add(btnBackUpDB);
             panel3.Controls.Add(label7);
             panel3.Controls.Add(panel5);
             panel3.Controls.Add(panel4);
@@ -347,6 +362,7 @@
             panel3.Controls.Add(btnDeleteFloorplans);
             panel3.Controls.Add(btnPastSection);
             panel3.Controls.Add(btnCheckForUpdate);
+            panel3.Enabled = false;
             panel3.Location = new Point(871, 92);
             panel3.Name = "panel3";
             panel3.Size = new Size(350, 800);
@@ -355,7 +371,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(14, 18);
+            label7.Location = new Point(14, 0);
             label7.Name = "label7";
             label7.Size = new Size(159, 15);
             label7.TabIndex = 9;
@@ -367,7 +383,7 @@
             panel5.Controls.Add(label5);
             panel5.Controls.Add(nudTemplateID);
             panel5.Controls.Add(btnDeleteTemplate);
-            panel5.Location = new Point(22, 559);
+            panel5.Location = new Point(22, 627);
             panel5.Name = "panel5";
             panel5.Size = new Size(314, 100);
             panel5.TabIndex = 8;
@@ -382,7 +398,7 @@
             panel4.Controls.Add(rdoAM);
             panel4.Controls.Add(rdoPM);
             panel4.Controls.Add(txtSales);
-            panel4.Location = new Point(14, 301);
+            panel4.Location = new Point(14, 405);
             panel4.Name = "panel4";
             panel4.Size = new Size(322, 205);
             panel4.TabIndex = 7;
@@ -457,7 +473,7 @@
             btnTest.FlatAppearance.BorderSize = 0;
             btnTest.FlatStyle = FlatStyle.Flat;
             btnTest.ForeColor = Color.White;
-            btnTest.Location = new Point(14, 66);
+            btnTest.Location = new Point(14, 172);
             btnTest.Name = "btnTest";
             btnTest.Size = new Size(322, 43);
             btnTest.TabIndex = 0;
@@ -485,28 +501,13 @@
             btnPastSection.FlatAppearance.BorderSize = 0;
             btnPastSection.FlatStyle = FlatStyle.Flat;
             btnPastSection.ForeColor = Color.White;
-            btnPastSection.Location = new Point(14, 243);
+            btnPastSection.Location = new Point(14, 324);
             btnPastSection.Name = "btnPastSection";
             btnPastSection.Size = new Size(322, 43);
             btnPastSection.TabIndex = 0;
             btnPastSection.Text = "Get Sections for Past Shift";
             btnPastSection.UseVisualStyleBackColor = false;
             btnPastSection.Click += btnPastSection_Click;
-            // 
-            // btnHelpImportSales
-            // 
-            btnHelpImportSales.BackColor = Color.FromArgb(120, 180, 120);
-            btnHelpImportSales.FlatAppearance.BorderSize = 0;
-            btnHelpImportSales.FlatStyle = FlatStyle.Flat;
-            btnHelpImportSales.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            btnHelpImportSales.ForeColor = Color.Black;
-            btnHelpImportSales.Location = new Point(303, 18);
-            btnHelpImportSales.Name = "btnHelpImportSales";
-            btnHelpImportSales.Size = new Size(31, 29);
-            btnHelpImportSales.TabIndex = 14;
-            btnHelpImportSales.Text = "?";
-            btnHelpImportSales.UseVisualStyleBackColor = false;
-            btnHelpImportSales.Click += btnHelpImportSales_Click;
             // 
             // frmSettings
             // 

@@ -59,9 +59,9 @@ namespace FloorPlanMaker
             pnlMainContainer = new Panel();
             flowLayoutPanel2 = new FlowLayoutPanel();
             btnAutomatic = new Button();
-            cbDrawToggle = new CheckBox();
-            btnEraseAllSections = new Button();
             btnEditRoster = new Button();
+            btnEraseAllSections = new Button();
+            cbDrawToggle = new CheckBox();
             pnlTemplateContainer = new Panel();
             pnlSideContainer = new Panel();
             pnlSectionsAndServers = new Panel();
@@ -432,12 +432,14 @@ namespace FloorPlanMaker
             // 
             // btnDeleteSelectedFloorplan
             // 
-            btnDeleteSelectedFloorplan.Location = new Point(1220, 800);
+            btnDeleteSelectedFloorplan.Enabled = false;
+            btnDeleteSelectedFloorplan.Location = new Point(1220, 342);
             btnDeleteSelectedFloorplan.Name = "btnDeleteSelectedFloorplan";
             btnDeleteSelectedFloorplan.Size = new Size(41, 28);
             btnDeleteSelectedFloorplan.TabIndex = 22;
             btnDeleteSelectedFloorplan.Text = "Delete";
             btnDeleteSelectedFloorplan.UseVisualStyleBackColor = true;
+            btnDeleteSelectedFloorplan.Visible = false;
             btnDeleteSelectedFloorplan.Click += btnDeleteSelectedFloorplan_Click;
             // 
             // pnlMainContainer
@@ -483,6 +485,36 @@ namespace FloorPlanMaker
             btnAutomatic.UseVisualStyleBackColor = false;
             btnAutomatic.Click += btnAutomatic_Click;
             // 
+            // btnEditRoster
+            // 
+            btnEditRoster.BackColor = Color.FromArgb(100, 130, 180);
+            btnEditRoster.FlatAppearance.BorderSize = 0;
+            btnEditRoster.FlatStyle = FlatStyle.Flat;
+            btnEditRoster.Image = FloorPlanMakerUI.Properties.Resources.waiterSmall;
+            btnEditRoster.Location = new Point(8, 120);
+            btnEditRoster.Margin = new Padding(3, 3, 3, 7);
+            btnEditRoster.Name = "btnEditRoster";
+            btnEditRoster.Size = new Size(45, 45);
+            btnEditRoster.TabIndex = 17;
+            toolTip1.SetToolTip(btnEditRoster, "Add / Remove Servers From Floorplan");
+            btnEditRoster.UseVisualStyleBackColor = false;
+            btnEditRoster.Click += btnEditRoster_Click;
+            // 
+            // btnEraseAllSections
+            // 
+            btnEraseAllSections.BackColor = Color.FromArgb(190, 80, 70);
+            btnEraseAllSections.FlatAppearance.BorderSize = 0;
+            btnEraseAllSections.FlatStyle = FlatStyle.Flat;
+            btnEraseAllSections.Image = FloorPlanMakerUI.Properties.Resources.erase_Small;
+            btnEraseAllSections.Location = new Point(8, 175);
+            btnEraseAllSections.Margin = new Padding(3, 3, 3, 7);
+            btnEraseAllSections.Name = "btnEraseAllSections";
+            btnEraseAllSections.Size = new Size(45, 45);
+            btnEraseAllSections.TabIndex = 17;
+            toolTip1.SetToolTip(btnEraseAllSections, "Clear All Sections");
+            btnEraseAllSections.UseVisualStyleBackColor = false;
+            btnEraseAllSections.Click += btnEraseAllSections_Click;
+            // 
             // cbDrawToggle
             // 
             cbDrawToggle.Appearance = Appearance.Button;
@@ -500,36 +532,6 @@ namespace FloorPlanMaker
             toolTip1.SetToolTip(cbDrawToggle, "Toggle Draw Section Lines");
             cbDrawToggle.UseVisualStyleBackColor = false;
             cbDrawToggle.CheckedChanged += cbDrawToggle_CheckedChanged;
-            // 
-            // btnEraseAllSections
-            // 
-            btnEraseAllSections.BackColor = Color.FromArgb(190, 80, 70);
-            btnEraseAllSections.FlatAppearance.BorderSize = 0;
-            btnEraseAllSections.FlatStyle = FlatStyle.Flat;
-            btnEraseAllSections.Image = FloorPlanMakerUI.Properties.Resources.erase_Small;
-            btnEraseAllSections.Location = new Point(8, 175);
-            btnEraseAllSections.Margin = new Padding(3, 3, 3, 7);
-            btnEraseAllSections.Name = "btnEraseAllSections";
-            btnEraseAllSections.Size = new Size(45, 45);
-            btnEraseAllSections.TabIndex = 17;
-            toolTip1.SetToolTip(btnEraseAllSections, "Clear All Sections");
-            btnEraseAllSections.UseVisualStyleBackColor = false;
-            btnEraseAllSections.Click += btnEraseAllSections_Click;
-            // 
-            // btnEditRoster
-            // 
-            btnEditRoster.BackColor = Color.FromArgb(100, 130, 180);
-            btnEditRoster.FlatAppearance.BorderSize = 0;
-            btnEditRoster.FlatStyle = FlatStyle.Flat;
-            btnEditRoster.Image = FloorPlanMakerUI.Properties.Resources.waiterSmall;
-            btnEditRoster.Location = new Point(8, 120);
-            btnEditRoster.Margin = new Padding(3, 3, 3, 7);
-            btnEditRoster.Name = "btnEditRoster";
-            btnEditRoster.Size = new Size(45, 45);
-            btnEditRoster.TabIndex = 17;
-            toolTip1.SetToolTip(btnEditRoster, "Add / Remove Servers From Floorplan");
-            btnEditRoster.UseVisualStyleBackColor = false;
-            btnEditRoster.Click += btnEditRoster_Click;
             // 
             // pnlTemplateContainer
             // 
