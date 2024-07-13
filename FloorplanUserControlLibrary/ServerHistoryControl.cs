@@ -29,6 +29,8 @@ namespace FloorplanUserControlLibrary
             this.Width = width;
             this.btnServer.Width = width;
             pnlInfo.Width = width;
+            toolTip.SetToolTip(lblOutsidePercentage, $"Percentage of {GetIsLunchDisplay()} Shifts Outside for the Last 30 Days, \n" +
+                $"{shiftHistory.filteredShifts.Count} Shifts for this Server");
         }
         public void SetWidth(int width)
         {
@@ -38,6 +40,7 @@ namespace FloorplanUserControlLibrary
         private bool isLunch;
         private bool isCollapsible;
         private FlowLayoutPanel displayPanel = new FlowLayoutPanel();
+        private ToolTip toolTip = new ToolTip();
         public void SetIsCollapsible(bool collapsible)
         {
             isCollapsible = collapsible;
@@ -53,19 +56,19 @@ namespace FloorplanUserControlLibrary
         }
         public void SetCollapsibleDisplay()
         {
-            if(isCollapsible)
+            if (isCollapsible)
             {
-                
+
                 this.lblOutsidePercentage.Size = new System.Drawing.Size(this.Width, 20);
                 this.lblOutsidePercentage.Location = new System.Drawing.Point(0, 18);
-                lblDescription.Size = new Size(this.Width, 15);
-                lblDescription.Location = new Point(0, 3);
+                this.lblServerRatings.Size = new Size(this.Width, 15);
+                this.lblServerRatings.Location = new Point(0, 3);
 
                 //lblDescription.Dock = DockStyle.Top;
                 //this.lblOutsidePercentage.Dock = DockStyle.Bottom;
                 flowShiftDisplay.Visible = false;
                 pnlInfo.BringToFront();
-                lblDescription.BringToFront();
+               // lblDescription.BringToFront();
                 lblOutsidePercentage.BringToFront();
             }
             else
@@ -74,12 +77,14 @@ namespace FloorplanUserControlLibrary
                 //this.lblOutsidePercentage.Dock = DockStyle.None;
                 flowShiftDisplay.Visible = true;
                 this.lblOutsidePercentage.Size = new System.Drawing.Size(94, 20);
-                this.lblOutsidePercentage.Location = new System.Drawing.Point(199, 18);
-                this.lblDescription.Size = new System.Drawing.Size(98, 15);
-                this.lblDescription.Location = new System.Drawing.Point(199, 3);
+                this.lblOutsidePercentage.Location = new System.Drawing.Point(203, 4);
+                this.lblServerRatings.Size = new Size(94, 20);
+                this.lblServerRatings.Location = new Point(203, 25);
+                //this.lblDescription.Size = new System.Drawing.Size(98, 15);
+                //this.lblDescription.Location = new System.Drawing.Point(199, 3);
                 pnlInfo.SendToBack();
             }
-            
+
 
         }
         private string GetIsLunchDisplay()
@@ -93,7 +98,7 @@ namespace FloorplanUserControlLibrary
         {
             btnServer.Text = this.Server.ToString();
 
-            lblDescription.Text = $"Last {shiftHistory.filteredShifts.Count} {GetIsLunchDisplay()} Shifts";
+           // lblDescription.Text = $"Last {shiftHistory.filteredShifts.Count} {GetIsLunchDisplay()} Shifts";
             lblOutsidePercentage.Text = $"{FormattedPercentage(shiftHistory.OutsidePercentage)} Outside";
         }
         private string FormattedPercentage(float num)

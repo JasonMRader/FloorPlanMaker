@@ -35,9 +35,9 @@
             pnlShift4 = new Panel();
             pnlShift5 = new Panel();
             btnServer = new Button();
-            lblDescription = new Label();
             lblOutsidePercentage = new Label();
             pnlInfo = new Panel();
+            lblServerRatings = new Label();
             flowShiftDisplay.SuspendLayout();
             pnlInfo.SuspendLayout();
             SuspendLayout();
@@ -113,19 +113,10 @@
             btnServer.MouseLeave += btnServer_MouseLeave;
             btnServer.MouseHover += btnServer_MouseHover;
             // 
-            // lblDescription
-            // 
-            lblDescription.Location = new Point(199, 3);
-            lblDescription.Name = "lblDescription";
-            lblDescription.Size = new Size(98, 15);
-            lblDescription.TabIndex = 3;
-            lblDescription.Text = "Last 20 PM shifts:";
-            lblDescription.TextAlign = ContentAlignment.MiddleCenter;
-            // 
             // lblOutsidePercentage
             // 
             lblOutsidePercentage.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            lblOutsidePercentage.Location = new Point(199, 18);
+            lblOutsidePercentage.Location = new Point(203, 4);
             lblOutsidePercentage.Name = "lblOutsidePercentage";
             lblOutsidePercentage.Size = new Size(94, 20);
             lblOutsidePercentage.TabIndex = 4;
@@ -134,12 +125,22 @@
             // 
             // pnlInfo
             // 
+            pnlInfo.Controls.Add(lblServerRatings);
             pnlInfo.Controls.Add(lblOutsidePercentage);
-            pnlInfo.Controls.Add(lblDescription);
             pnlInfo.Location = new Point(0, 30);
             pnlInfo.Name = "pnlInfo";
             pnlInfo.Size = new Size(300, 50);
             pnlInfo.TabIndex = 5;
+            // 
+            // lblServerRatings
+            // 
+            lblServerRatings.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lblServerRatings.Location = new Point(203, 25);
+            lblServerRatings.Name = "lblServerRatings";
+            lblServerRatings.Size = new Size(94, 20);
+            lblServerRatings.TabIndex = 4;
+            lblServerRatings.Text = "9   |   3";
+            lblServerRatings.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // ServerHistoryControl
             // 
@@ -167,10 +168,10 @@
         private Panel pnlShift4;
         private Panel pnlShift5;
         private Button btnServer;
-        private Label lblDescription;
         private Label lblOutsidePercentage;
         private CheckBox cbTimeSpan;
         private NumericUpDown numericUpDown1;
         private Panel pnlInfo;
+        private Label lblServerRatings;
     }
 }
