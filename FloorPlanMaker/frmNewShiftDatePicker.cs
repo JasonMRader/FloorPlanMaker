@@ -504,7 +504,8 @@ namespace FloorPlanMakerUI
             {
                 var filteredServers = shiftManager.SelectedShift.ServersNotOnShift
                     .Where(server => server.Name.StartsWith(searchText, StringComparison.OrdinalIgnoreCase) ||
-                                     (server.DisplayName != null && server.DisplayName.StartsWith(searchText, StringComparison.OrdinalIgnoreCase)))
+                                        server.LastName.StartsWith(searchText, StringComparison.OrdinalIgnoreCase) ||
+                                        (server.DisplayName != null && server.DisplayName.StartsWith(searchText, StringComparison.OrdinalIgnoreCase)))
                     .OrderByFirstLetter()
                     .ToList();
 

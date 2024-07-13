@@ -102,7 +102,7 @@ namespace FloorplanClassLibrary
                 {
                     return $"{nameParts[0]} {nameParts[1][0]}.";
                 }
-                return Name; // If there's only one part, return it as is.
+                return Name; 
             }
         }
         public string FirstName
@@ -117,9 +117,25 @@ namespace FloorplanClassLibrary
                 {
                     return $"{nameParts[0]}";
                 }
-                return Name; // If there's only one part, return it as is.
+                return Name;
             }
         }
+        public string LastName
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(Name))
+                    return "";
+
+                var nameParts = Name.Split(' ');
+                if (nameParts.Length > 1)
+                {
+                    return $"{nameParts[nameParts.Length - 1]}";
+                }
+                return Name; 
+            }
+        }
+
         public override bool Equals(object obj)
         {
             if (obj == null || GetType() != obj.GetType())
