@@ -25,6 +25,7 @@ namespace FloorPlanMakerUI
         private void frmAddRemoveStaff_Load(object sender, EventArgs e)
         {
             RefreshServerListBox();
+            lbServers.SelectedIndex = 0;
         }
 
         private void lbServers_SelectedIndexChanged(object sender, EventArgs e)

@@ -70,7 +70,7 @@
             // 
             lbServers.FormattingEnabled = true;
             lbServers.ItemHeight = 15;
-            lbServers.Location = new Point(12, 42);
+            lbServers.Location = new Point(12, 95);
             lbServers.Name = "lbServers";
             lbServers.Size = new Size(247, 349);
             lbServers.TabIndex = 0;
@@ -78,7 +78,7 @@
             // 
             // btnAddNewServer
             // 
-            btnAddNewServer.Location = new Point(12, 426);
+            btnAddNewServer.Location = new Point(12, 66);
             btnAddNewServer.Name = "btnAddNewServer";
             btnAddNewServer.Size = new Size(247, 23);
             btnAddNewServer.TabIndex = 1;
@@ -88,8 +88,9 @@
             // 
             // txtNewServerName
             // 
-            txtNewServerName.Location = new Point(12, 397);
+            txtNewServerName.Location = new Point(12, 37);
             txtNewServerName.Name = "txtNewServerName";
+            txtNewServerName.PlaceholderText = "Enter New Server's Full Name";
             txtNewServerName.Size = new Size(247, 23);
             txtNewServerName.TabIndex = 2;
             // 
@@ -316,13 +317,13 @@
             // 
             // lblServerName
             // 
-            lblServerName.AutoSize = true;
             lblServerName.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
-            lblServerName.Location = new Point(399, 12);
+            lblServerName.Location = new Point(265, 12);
             lblServerName.Name = "lblServerName";
-            lblServerName.Size = new Size(75, 30);
+            lblServerName.Size = new Size(343, 36);
             lblServerName.TabIndex = 9;
             lblServerName.Text = "Server";
+            lblServerName.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // dgvServers
             // 
