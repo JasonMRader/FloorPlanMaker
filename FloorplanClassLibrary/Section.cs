@@ -696,6 +696,10 @@ namespace FloorplanClassLibrary
         {
             get
             {
+                if(this.IsBarSection)
+                {
+                    return Color.White;
+                }
                 int[] whiteFontNumbers = { 4, 5, 6,9,10,12,13,17,19 };
                 if (whiteFontNumbers.Contains(Number))
                 {
