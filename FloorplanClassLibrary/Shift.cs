@@ -451,10 +451,19 @@ namespace FloorplanClassLibrary
         public void AssignSectionNumbers(List<Section> sections)
         {
             int sectionNumber = 1;
+            int pickupNumber = 100;
             foreach (var section in sections)
             {
-                section.Number = sectionNumber;
-                sectionNumber++;
+                if (!section.IsPickUp)
+                {
+                    section.SetSectionNumber(sectionNumber);
+                    sectionNumber++;
+                }
+                if (section.IsPickUp)
+                {
+                    section.SetSectionNumber(pickupNumber);
+                    pickupNumber++;
+                }
             }
         }
         

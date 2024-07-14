@@ -470,30 +470,30 @@ namespace FloorPlanMakerUI
             panel.Controls.Add(coversImageLabel);
             panel.Controls.Add(salesImageLabel);
             if (this.Floorplan == null) { return; }
-            Button btnAutoSelectTemplate = new Button
-            {
-                Text = "Auto Generate Template",
-                AutoSize = false,
-                Size = new Size(panel.Width - 10, 25),
-                Font = new Font("Segoe UI", 10F),
-                FlatStyle = FlatStyle.Flat,                
-                BackColor = UITheme.CTAColor,
-                ForeColor = UITheme.CTAFontColor
-            };
-            btnAutoSelectTemplate.Click += btnAutoSelectTemplate_Click;
-            panel.Controls.Add(btnAutoSelectTemplate);  
-            Button btnAutoAssignServers = new Button
-            {
-                Text = "Auto Assign Sections",
-                AutoSize = false,
-                Size = new Size(panel.Width - 10, 25),
-                Font = new Font("Segoe UI", 10F),
-                FlatStyle = FlatStyle.Flat,
-                BackColor = UITheme.CTAColor,
-                ForeColor = UITheme.CTAFontColor
-            };
-            btnAutoAssignServers.Click += btnAutoAssignServers_Click;
-            panel.Controls.Add(btnAutoAssignServers);
+            //Button btnAutoSelectTemplate = new Button
+            //{
+            //    Text = "Auto Generate Template",
+            //    AutoSize = false,
+            //    Size = new Size(panel.Width - 10, 25),
+            //    Font = new Font("Segoe UI", 10F),
+            //    FlatStyle = FlatStyle.Flat,                
+            //    BackColor = UITheme.CTAColor,
+            //    ForeColor = UITheme.CTAFontColor
+            //};
+            //btnAutoSelectTemplate.Click += btnAutoSelectTemplate_Click;
+            //panel.Controls.Add(btnAutoSelectTemplate);  
+            //Button btnAutoAssignServers = new Button
+            //{
+            //    Text = "Auto Assign Sections",
+            //    AutoSize = false,
+            //    Size = new Size(panel.Width - 10, 25),
+            //    Font = new Font("Segoe UI", 10F),
+            //    FlatStyle = FlatStyle.Flat,
+            //    BackColor = UITheme.CTAColor,
+            //    ForeColor = UITheme.CTAFontColor
+            //};
+            //btnAutoAssignServers.Click += btnAutoAssignServers_Click;
+            //panel.Controls.Add(btnAutoAssignServers);
             foreach (SectionPanelControl sectionPanel in _sectionPanels)
             {
                 sectionPanel.Width = panel.Width - 10;

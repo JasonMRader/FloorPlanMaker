@@ -363,16 +363,27 @@ namespace FloorplanClassLibrary
         }
         public void AddSection(Section section)
         {
-
-            // Find the first missing section number
             int newSectionNumber = 1;
-            while (_sections.Any(s => s.Number == newSectionNumber))
+            if (!section.IsPickUp)
             {
-                newSectionNumber++;
+                while (_sections.Any(s => s.Number == newSectionNumber))
+                {
+                    newSectionNumber++;
+                }
             }
+            if(section.IsPickUp)
+            {
+                newSectionNumber = 100;
+                while (_sections.Any(s => s.Number == newSectionNumber))
+                {
+                    newSectionNumber++;
+                }
+            }
+           
+           
 
             // Assign the missing number to the new section
-            section.Number = newSectionNumber;
+           section.SetSectionNumber(newSectionNumber);
 
             // Set the section name if the server is null
             if (section.Server == null)
@@ -541,7 +552,7 @@ namespace FloorplanClassLibrary
                 for (int i = 0; i < SectionCount; i++) 
                 {
                     Section s = new Section(this);
-                    s.Number = i +1 ;
+                    s.SetSectionNumber(i +1);
                     s.Name = $"Section {i +1}";
                     Sections.Add(s);
                 }

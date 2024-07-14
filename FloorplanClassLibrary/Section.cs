@@ -31,7 +31,7 @@ namespace FloorplanClassLibrary
         }
         public Section(Section section)
         {
-            this.Number = section.Number;
+            this._number = section.Number;
             this.IsCloser = section.IsCloser;
             this.IsPickUp = section.IsPickUp;
             this.IsPre = section.IsPre;
@@ -44,7 +44,7 @@ namespace FloorplanClassLibrary
         public Section CopySection(DiningArea diningArea)
         {
             Section copy = new Section();
-            copy.Number = this.Number;
+            copy._number = this.Number;
             copy.IsCloser = this.IsCloser;
             copy.IsPickUp = this.IsPickUp;
             copy.IsPre = this.IsPre;
@@ -61,7 +61,7 @@ namespace FloorplanClassLibrary
         public Section CopySectionForTemplate()
         {
             Section copy = new Section();
-            copy.Number = this.Number;
+            copy._number = this.Number;
             copy.IsCloser = this.IsCloser;
             copy.IsPickUp = this.IsPickUp;
             copy.IsPre = this.IsPre;
@@ -649,19 +649,24 @@ namespace FloorplanClassLibrary
         
 
        
-        public int Number { get; set; }
+        public int Number { get { return _number; } }
+        private int _number {  get; set; }
+        public void SetSectionNumber(int number)
+        {
+            this._number = number;
+        }
         public Color Color
         {
             get
             {
-                if (this.IsPickUp && this.Server != null)
-                {
-                    return Color.DarkGray;
-                }
-                else if (this.IsPickUp && this.Server == null)
-                {
-                    return Color.LightGray;
-                }
+                //if (this.IsPickUp && this.Server != null)
+                //{
+                //    return Color.DarkGray;
+                //}
+                //else if (this.IsPickUp && this.Server == null)
+                //{
+                //    return Color.LightGray;
+                //}
                 
                 if (Colors.TryGetValue(Number, out Color value))
                 {
@@ -731,7 +736,10 @@ namespace FloorplanClassLibrary
             { 17, Color.FromArgb(7,79,87) },
             { 18, Color.FromArgb(65,234,212) },
             { 19, Color.FromArgb(88,44,77) },
-            { 20, Color.FromArgb(176,46,12) }
+            { 20, Color.FromArgb(176,46,12) },
+            {100, Color.LightGray },
+            {101, Color.Gray },
+            {102, Color.DarkGray }
         };
 
         public Point MidPoint
