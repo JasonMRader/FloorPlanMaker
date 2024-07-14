@@ -507,13 +507,14 @@ namespace FloorplanClassLibrary
             {
                 Section tempPairedSection = _pairedSection;
                 this._pairedSection = null;
-                NotifyObservers();
+                
                 if (this.IsPickUp)
                 {
                     this.ServerTeam = new List<Server>();
                     this.ServerCount = 1;
                     this._isTeamWait = false;
                 }
+                NotifyObservers();
 
 
             }
@@ -653,9 +654,13 @@ namespace FloorplanClassLibrary
         {
             get
             {
-                if (this.IsPickUp)
+                if (this.IsPickUp && this.Server != null)
                 {
                     return Color.DarkGray;
+                }
+                else if (this.IsPickUp && this.Server == null)
+                {
+                    return Color.LightGray;
                 }
                 
                 if (Colors.TryGetValue(Number, out Color value))
