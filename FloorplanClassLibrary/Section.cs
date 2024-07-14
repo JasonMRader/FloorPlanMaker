@@ -659,15 +659,10 @@ namespace FloorplanClassLibrary
         {
             get
             {
-                //if (this.IsPickUp && this.Server != null)
-                //{
-                //    return Color.DarkGray;
-                //}
-                //else if (this.IsPickUp && this.Server == null)
-                //{
-                //    return Color.LightGray;
-                //}
-                
+                if (this.IsBarSection)
+                {                   
+                    return Color.FromArgb(23, 26, 33);
+                }
                 if (Colors.TryGetValue(Number, out Color value))
                 {
                     return value;
@@ -675,10 +670,7 @@ namespace FloorplanClassLibrary
                 
                 return Color.White;
             }
-            set
-            {
-                
-            }
+           
         }
         public Color MuteColor(float amount)
         {
@@ -727,16 +719,15 @@ namespace FloorplanClassLibrary
             { 8, Color.FromArgb(250,127,127) },
             { 9, Color.FromArgb(87,61,28) },
             { 10, Color.FromArgb(26,83,92) },
-            { 11, Color.FromArgb(194,178,180) },
-            { 12, Color.FromArgb(23,26,33) },
+            { 11, Color.FromArgb(65, 234, 212) },
+            { 12, Color.FromArgb(194, 178, 180) },
             { 13, Color.FromArgb(84,92,82) },
             { 14, Color.FromArgb(243,227,124) },
             { 15, Color.FromArgb(244,192,149) },
             { 16, Color.FromArgb(180,134,159) },
-            { 17, Color.FromArgb(7,79,87) },
-            { 18, Color.FromArgb(65,234,212) },
-            { 19, Color.FromArgb(88,44,77) },
-            { 20, Color.FromArgb(176,46,12) },
+            { 17, Color.FromArgb(7,79,87) },           
+            { 18, Color.FromArgb(88,44,77) },
+            { 19, Color.FromArgb(176,46,12) },
             {100, Color.LightGray },
             {101, Color.Gray },
             {102, Color.DarkGray }
