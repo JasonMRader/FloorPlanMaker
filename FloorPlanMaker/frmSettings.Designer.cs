@@ -362,7 +362,6 @@
             panel3.Controls.Add(btnDeleteFloorplans);
             panel3.Controls.Add(btnPastSection);
             panel3.Controls.Add(btnCheckForUpdate);
-            panel3.Enabled = false;
             panel3.Location = new Point(871, 92);
             panel3.Name = "panel3";
             panel3.Size = new Size(350, 800);

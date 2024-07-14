@@ -518,7 +518,11 @@ namespace FloorPlanMaker
             btnAutomatic.Enabled = true;
             floorplanManager.SetViewedFloorplan(dateOnlySelected, cbIsAM.Checked);
             _lines.Clear();
-            _lines = floorplanManager.Floorplan.floorplanLines;
+            if(floorplanManager.Floorplan != null)
+            {
+                _lines = floorplanManager.Floorplan.floorplanLines;
+            }
+            
 
             //CreateSectionBorders();
         }
