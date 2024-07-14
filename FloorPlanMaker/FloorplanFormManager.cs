@@ -476,7 +476,7 @@ namespace FloorPlanMakerUI
                 AutoSize = false,
                 Size = new Size(panel.Width - 10, 25),
                 Font = new Font("Segoe UI", 10F),
-                FlatStyle = FlatStyle.Flat,
+                FlatStyle = FlatStyle.Flat,                
                 BackColor = UITheme.CTAColor,
                 ForeColor = UITheme.CTAFontColor
             };
@@ -510,19 +510,19 @@ namespace FloorPlanMakerUI
                 BackColor = UITheme.ButtonColor,
                 ForeColor = Color.Black
             };
-            //Button btnAddSection = new Button
-            //{
-            //    Text = "Add A Section",
-            //    AutoSize = false,
-            //    Size = new Size(panel.Width - 10, 25),
-            //    Font = new Font("Segoe UI", 10F),
-            //    FlatStyle = FlatStyle.Flat,
-            //    BackColor = UITheme.ButtonColor,
-            //    ForeColor = Color.Black
-            //};
-            //btnAddSection.Click += btnAddSection_Click;
+            Button btnAddSection = new Button
+            {
+                Text = "Add A Section",
+                AutoSize = false,
+                Size = new Size(panel.Width - 10, 25),
+                Font = new Font("Segoe UI", 10F),
+                FlatStyle = FlatStyle.Flat,
+                BackColor = UITheme.ButtonColor,
+                ForeColor = Color.Black
+            };
+            btnAddSection.Click += btnAddSection_Click;
             btnAddPickup.Click += btnAddPickupSection_Click;
-            //panel.Controls.Add(btnAddSection);
+            panel.Controls.Add(btnAddSection);
             panel.Controls.Add(btnAddPickup);
             
         }
@@ -605,14 +605,18 @@ namespace FloorPlanMakerUI
             Section section = new Section();
 
             section.IsPickUp = false;
-            TemplateCreator.Sections.Add(section);
-            SectionPanelControl newSectionPanel = new SectionPanelControl(section, this.TemplateCreator.Template);
+            Floorplan.AddSection(section);
+           // TemplateCreator.Sections.Add(section);
+            SectionPanelControl newSectionPanel = new SectionPanelControl(section, this.Shift.SelectedFloorplan);
+            newSectionPanel.Width = flowSectionsPanel.Width - 10;
+            newSectionPanel.Margin = new Padding(5);
+            
             newSectionPanel.CheckBoxChanged += setSelectedSection;
             newSectionPanel.picEraseSectionClicked += EraseSectionClicked;
             
             this._sectionPanels.Add(newSectionPanel);
             UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionPanel, UpdateType.Add, section));
-            TemplateCreator.SelectedSection = section;
+            Floorplan.SetSelectedSection(section);
         }
 
        
@@ -895,7 +899,7 @@ namespace FloorPlanMakerUI
         {
             if (section.IsPickUp)
             {
-                return flowPanel.Controls.Count - 2;
+                return flowPanel.Controls.Count - 3;
             }
             for (int i = 0; i < flowPanel.Controls.Count; i++)
             {
@@ -907,7 +911,7 @@ namespace FloorPlanMakerUI
             }
 
             // If no suitable position is found, the control stays at the end
-            return flowPanel.Controls.Count - 2;
+            return flowPanel.Controls.Count - 3;
         }
        
         public void SetTableSalesStatsPeriod(TableSalesManager.StatsPeriod statsPeriod)
