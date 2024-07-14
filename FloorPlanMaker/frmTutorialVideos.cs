@@ -30,7 +30,7 @@ namespace FloorPlanMakerUI
                 tutorialImages.GoToNextImage();
                 UpdateUIElements();
                 return true;
-            }           
+            }
             if (keyData == Keys.Left)
             {
                 tutorialImages.GoToPreviousImage();
@@ -42,17 +42,17 @@ namespace FloorPlanMakerUI
                 tutorialImages.GoToNextImage();
                 UpdateUIElements();
                 return true;
-            }            
+            }
             if (keyData == Keys.Up)
             {
-                   
+
                 return true;
             }
             if (keyData == Keys.Down)
             {
-                   
+
                 return true;
-            }            
+            }
             return base.ProcessCmdKey(ref msg, keyData);
         }
         private void TutorialImages_ImageSelectedChanged(object? sender, EventArgs e)
@@ -86,7 +86,7 @@ namespace FloorPlanMakerUI
             {
                 tutorialImages.SetCurrentTutorial(165, 129);
             }
-           UpdateUIElements();
+            UpdateUIElements();
         }
 
         private void rdoCreatingAShiftWalkthrough_CheckedChanged(object sender, EventArgs e)

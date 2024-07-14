@@ -45,6 +45,7 @@
             pictureBox7 = new PictureBox();
             panel1 = new Panel();
             pnlHighlight = new Panel();
+            flowLayoutPanel1 = new FlowLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)pbTutorial).BeginInit();
             flowThumbnails.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -110,7 +111,7 @@
             btnClose.FlatAppearance.BorderSize = 0;
             btnClose.FlatStyle = FlatStyle.Flat;
             btnClose.Image = Properties.Resources.X15x;
-            btnClose.Location = new Point(1205, 12);
+            btnClose.Location = new Point(1217, 12);
             btnClose.Name = "btnClose";
             btnClose.Size = new Size(35, 23);
             btnClose.TabIndex = 5;
@@ -146,12 +147,12 @@
             // lblIndex
             // 
             lblIndex.AutoSize = true;
-            lblIndex.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
-            lblIndex.Location = new Point(1064, 9);
+            lblIndex.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lblIndex.Location = new Point(1102, 6);
             lblIndex.Name = "lblIndex";
-            lblIndex.Size = new Size(46, 30);
+            lblIndex.Size = new Size(75, 37);
             lblIndex.TabIndex = 7;
-            lblIndex.Text = "0/0";
+            lblIndex.Text = "0 / 0";
             // 
             // flowThumbnails
             // 
@@ -246,12 +247,20 @@
             pnlHighlight.Size = new Size(143, 7);
             pnlHighlight.TabIndex = 10;
             // 
+            // flowLayoutPanel1
+            // 
+            flowLayoutPanel1.Location = new Point(1068, 166);
+            flowLayoutPanel1.Name = "flowLayoutPanel1";
+            flowLayoutPanel1.Size = new Size(200, 100);
+            flowLayoutPanel1.TabIndex = 10;
+            // 
             // frmTutorialVideos
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlDark;
             ClientSize = new Size(1264, 1042);
+            Controls.Add(flowLayoutPanel1);
             Controls.Add(panel1);
             Controls.Add(flowThumbnails);
             Controls.Add(lblIndex);
@@ -302,5 +311,6 @@
         private PictureBox pictureBox7;
         private Panel panel1;
         private Panel pnlHighlight;
+        private FlowLayoutPanel flowLayoutPanel1;
     }
 }

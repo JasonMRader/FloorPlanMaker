@@ -39,7 +39,7 @@ namespace FloorPlanMakerUI
         {
             get
             {
-                return $"{currentTutorialIndex + 1}/{currentTutorialImages.Count}";
+                return $"{currentTutorialIndex + 1} / {currentTutorialImages.Count}";
             }
         }
         public enum TutorialType
