@@ -893,6 +893,10 @@ namespace FloorPlanMakerUI
         }
         private int FindInsertionIndex(Section? section, FlowLayoutPanel flowPanel)
         {
+            if (section.IsPickUp)
+            {
+                return flowPanel.Controls.Count - 2;
+            }
             for (int i = 0; i < flowPanel.Controls.Count; i++)
             {
                 var panelControl = flowPanel.Controls[i] as SectionPanelControl;
