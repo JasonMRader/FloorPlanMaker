@@ -1,4 +1,5 @@
-﻿using FloorPlanMakerUI.Properties;
+﻿using FloorPlanMaker;
+using FloorPlanMakerUI.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,7 +22,39 @@ namespace FloorPlanMakerUI
             this.tutorialImages.ImageSelectedChanged += TutorialImages_ImageSelectedChanged;
 
         }
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
 
+            if (keyData == Keys.Space)
+            {
+                tutorialImages.GoToNextImage();
+                UpdateUIElements();
+                return true;
+            }           
+            if (keyData == Keys.Left)
+            {
+                tutorialImages.GoToPreviousImage();
+                UpdateUIElements();
+                return true;
+            }
+            else if (keyData == Keys.Right)
+            {
+                tutorialImages.GoToNextImage();
+                UpdateUIElements();
+                return true;
+            }            
+            if (keyData == Keys.Up)
+            {
+                   
+                return true;
+            }
+            if (keyData == Keys.Down)
+            {
+                   
+                return true;
+            }            
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
         private void TutorialImages_ImageSelectedChanged(object? sender, EventArgs e)
         {
             UpdateUIElements();
