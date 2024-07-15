@@ -45,9 +45,9 @@ namespace FloorplanClassLibrary
         {
             Section copy = new Section();
             copy._number = this.Number;
-            copy.IsCloser = this.IsCloser;
+            //copy.IsCloser = this.IsCloser;
             copy.IsPickUp = this.IsPickUp;
-            copy.IsPre = this.IsPre;
+            //copy.IsPre = this.IsPre;
             copy.Name = this.Name;
             if (this.TemplateTeamWait)
             {
@@ -66,9 +66,9 @@ namespace FloorplanClassLibrary
         {
             Section copy = new Section();
             copy._number = this.Number;
-            copy.IsCloser = this.IsCloser;
+            copy.IsCloser = false;
             copy.IsPickUp = this.IsPickUp;
-            copy.IsPre = this.IsPre;
+            copy.IsPre = false;
             copy.Name = this.Name;
             //this.Floorplan = section.Floorplan;
             //this.ServerCount = section.ServerTeam.Count;
