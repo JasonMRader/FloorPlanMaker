@@ -289,8 +289,8 @@ namespace FloorplanClassLibrary
         private void SetSectionPropertiesFromTemplateSection(Section sectionToCopy)
         {
             
-            if(sectionToCopy.TemplateTeamWait)
-            {
+            if(sectionToCopy.TemplateTeamWait && sectionToCopy.ServerCount > this.ServerCount)
+            {              
                 _isTeamWait = true;
                 ServerCount = sectionToCopy.ServerCount;
             }
