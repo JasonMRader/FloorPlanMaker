@@ -158,7 +158,7 @@ namespace FloorplanUserControlLibrary
                 lblDisplay.BackColor = Section.Color;
                 toolTip.SetToolTip(picClearSection, "Clear Section");
                 if (this.serverLabels.Count == 0) { return; }
-                for (int i = 0; i < this.Section.ServerTeam.Count; i++)
+                for (int i = 0; i < this.Section.ServerCount; i++)
                 {
                     SetLabelToAssigned(i);
                     //serverLabels[i].Text = Section.ServerTeam[i].Name;

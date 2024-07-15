@@ -49,6 +49,10 @@ namespace FloorplanClassLibrary
             copy.IsPickUp = this.IsPickUp;
             copy.IsPre = this.IsPre;
             copy.Name = this.Name;
+            if (this.TemplateTeamWait)
+            {
+                copy.MakeTeamWait();
+            }
             //this.Floorplan = section.Floorplan;
             //this.ServerCount = section.ServerTeam.Count;
             copy.SetSectionPropertiesFromTemplateSection(this);

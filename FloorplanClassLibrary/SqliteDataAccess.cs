@@ -8,8 +8,7 @@ using Dapper;
 using System.Data;
 using System.Data.SQLite;
 using System.Collections.Generic;
-
-
+using System.Diagnostics.Eventing.Reader;
 
 namespace FloorplanClassLibrary
 {
@@ -1582,7 +1581,32 @@ namespace FloorplanClassLibrary
                 cnn.Close();
             }
         }
+        public static bool CheckIfFloorplanExistsForDate(DateOnly dateOnly, bool isLunch, int diningAreaID)
+        {
+            string fpDateOnlyString =dateOnly.ToString("yyyy-MM-dd");
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                cnn.Open();
+                var existingFloorplan = cnn.QueryFirstOrDefault<Floorplan>(
+            "SELECT * FROM Floorplan WHERE Date = @Date AND IsLunch = @IsLunch AND DiningAreaID = @DiningAreaID",
+            new
+            {
+                Date = fpDateOnlyString,
+                IsLunch = isLunch,
+                DiningAreaID = diningAreaID
+            });
 
+                if (existingFloorplan != null)
+                { 
+                        cnn.Close();
+                        return true;                    
+                }
+                cnn.Close();
+                return false;
+            
+
+            }
+        }
         public static void SaveFloorplanAndSections(Floorplan floorplan)
         {
             string fpDateOnlyString = DateOnly.FromDateTime(floorplan.Date).ToString("yyyy-MM-dd");

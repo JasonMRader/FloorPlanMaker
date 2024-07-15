@@ -37,6 +37,19 @@ namespace FloorplanClassLibrary
         public static void SetClosersForFloorplan(Floorplan floorplan)
         {
             List<Server> potentialClosingServers = new List<Server>();
+            List<Section> potentialClosingSections = floorplan.Sections.Where(s => !s.IsBarSection && !s.IsTeamWait && !s.IsPickUp).ToList();
+            if(potentialClosingSections.Count == 0)
+            {
+                MessageBox.Show("No Available Closing Sections\n \n" +
+                    "By Default, Teamwait Sections or Sections with Doubles\n" +
+                    " are Not Auto Assigned as Closers");
+                return;
+            }
+            if(potentialClosingSections.Count == 1)
+            {
+                potentialClosingSections.First().IsCloser = true;
+                return;
+            }
             potentialClosingServers = floorplan.Servers.Where(s => s.isDouble == false).ToList();
             Dictionary<Server, int> closingServersWeight = new Dictionary<Server, int>();
             potentialClosingServers = potentialClosingServers.OrderByDescending(s => s.CloseFrequency).ToList();

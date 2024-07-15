@@ -737,13 +737,12 @@ namespace FloorPlanMaker
             pnlTemplateContainer.BringToFront();
 
         }
-        private void btnPrint_Click(object sender, EventArgs e)
+        private void MakeUnassignedTablesPickup()
         {
             bool pickUpAdded = false;
             Section pickUpSection = new Section(floorplanManager.Floorplan);
             pickUpSection.IsPickUp = true;
-            //shiftManager.SelectedFloorplan = shiftManager.ViewedFloorplan;
-            //shift = floorplanManager.Shift;
+           
             shift.SelectedFloorplan.Date = dateTimeSelected;
             shift.SelectedFloorplan.IsLunch = cbIsAM.Checked;
             foreach (Control control in pnlFloorPlan.Controls)
@@ -782,6 +781,11 @@ namespace FloorPlanMaker
                 pnlFloorPlan.Controls.Add(sectionControl);
                 sectionControl.BringToFront();
             }
+        }
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
+            MakeUnassignedTablesPickup();
+           
             if (shift.SelectedFloorplan.CheckIfAllSectionsAssigned())
             {
                 if (!shift.SelectedFloorplan.CheckIfCloserIsAssigned())
@@ -1330,7 +1334,8 @@ namespace FloorPlanMaker
             }
             else if (floorplanManager.AllTablesAreAssigned() &&
                 shift.SelectedFloorplan.CheckIfAllSectionsAssigned() &&
-                shift.SelectedFloorplan.CheckIfCloserIsAssigned())
+                shift.SelectedFloorplan.CheckIfCloserIsAssigned() &&
+                !SqliteDataAccess.CheckIfFloorplanExistsForDate(shift.DateOnly, shift.IsAM, shift.SelectedDiningArea.ID))
             {
                 btnPrint.PerformClick();
             }
