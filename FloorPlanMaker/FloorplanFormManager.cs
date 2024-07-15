@@ -1038,9 +1038,13 @@ namespace FloorPlanMakerUI
             {
                 Shift.SetSelectedFloorplan(dateOnlySelected, isAM, Shift.SelectedDiningArea.ID);
             }
+            else if(Shift.Floorplans.Count > 0)
+            {
+                Shift.SelectedFloorplan = null;                               
+            }
             else
-            {               
-                Shift = SqliteDataAccess.LoadShift(Shift.SelectedDiningArea, dateOnlySelected, isAM);                
+            {
+                Shift = SqliteDataAccess.LoadShift(Shift.SelectedDiningArea, dateOnlySelected, isAM);
             }
 
             ChangeDiningAreaSelected();

@@ -477,6 +477,10 @@ namespace FloorplanClassLibrary
             DateTime date = new DateTime(this.DateOnly.Year, this.DateOnly.Month, this.DateOnly.Day);
             Floorplan newFloorplan = new Floorplan(diningArea, date, this.IsAM ,0,0);
             _floorplans.Add(newFloorplan);
+            //if(_floorplans.Count == 1)
+            //{
+            //    this.SelectedFloorplan = newFloorplan;
+            //}
             //if(newFloorplan != null)
             //{
             //    this.AddFloorplanAndServers(newFloorplan);
