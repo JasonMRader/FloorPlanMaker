@@ -913,7 +913,7 @@ namespace FloorPlanMaker
 
         private void btnCreateTemplate_Click(object? sender, EventArgs e)
         {
-            floorplanManager.Shift.CreateFloorplanForDiningArea(floorplanManager.Shift.SelectedDiningArea,0,0);
+            floorplanManager.Shift.SelectedFloorplan = floorplanManager.Shift.CreateFloorplanForDiningArea(floorplanManager.Shift.SelectedDiningArea,0,0);
             
             floorplanManager.ChangeDiningAreaSelected();
 
