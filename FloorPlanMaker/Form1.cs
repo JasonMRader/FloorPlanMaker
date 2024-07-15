@@ -559,6 +559,10 @@ namespace FloorPlanMaker
             {
                 _lines = floorplanManager.Floorplan.floorplanLines;
             }
+            else
+            {
+                _lines.Clear();
+            }
 
             if (AllTablesAreAssigned())
             {
