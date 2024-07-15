@@ -1032,7 +1032,7 @@ namespace FloorPlanMakerUI
         {            
             this.Shift.DateOnly = dateOnlySelected;
             this.Shift.IsAM = isAM;
-           
+            this.Shift.RemoveFloorplansFromDifferentShift();
 
             if (Shift.ContainsFloorplan(dateOnlySelected, isAM, Shift.SelectedDiningArea.ID))
             {

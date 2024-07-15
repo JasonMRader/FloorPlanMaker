@@ -431,6 +431,10 @@ namespace FloorplanClassLibrary
                                                        fp.IsLunch == isLunch &&
                                                        fp.DiningArea.ID == ID);
         }
+        public void RemoveFloorplansFromDifferentShift()
+        {
+            _floorplans.RemoveAll(fp => fp.IsLunch != this.IsAM || fp.DateOnly != this.DateOnly);
+        }
 
 
         public void RemoveServerFromFloorplanByDiningArea(Server server, Floorplan targetFloorplan)
