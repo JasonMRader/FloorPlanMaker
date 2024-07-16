@@ -308,6 +308,7 @@ namespace FloorPlanMaker
             // 
             rdoShifts.Appearance = Appearance.Button;
             rdoShifts.BackColor = Color.FromArgb(100, 130, 180);
+            rdoShifts.Checked = true;
             rdoShifts.FlatAppearance.BorderSize = 0;
             rdoShifts.FlatAppearance.CheckedBackColor = Color.FromArgb(49, 56, 82);
             rdoShifts.FlatStyle = FlatStyle.Flat;
@@ -317,6 +318,7 @@ namespace FloorPlanMaker
             rdoShifts.Name = "rdoShifts";
             rdoShifts.Size = new Size(160, 37);
             rdoShifts.TabIndex = 0;
+            rdoShifts.TabStop = true;
             rdoShifts.Text = "Shifts";
             rdoShifts.TextAlign = ContentAlignment.MiddleCenter;
             rdoShifts.UseVisualStyleBackColor = false;

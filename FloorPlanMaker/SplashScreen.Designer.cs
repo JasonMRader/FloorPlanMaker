@@ -68,6 +68,10 @@
             lblLoading.TabIndex = 1;
             lblLoading.Text = "Loading.";
             // 
+            // timer1
+            // 
+            timer1.Interval = 300;
+            // 
             // SplashScreen
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);

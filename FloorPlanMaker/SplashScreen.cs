@@ -1,4 +1,5 @@
 ﻿using FloorplanClassLibrary;
+using FloorPlanMaker;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,11 +19,14 @@ namespace FloorPlanMakerUI
             InitializeComponent();
             backgroundWorker1.DoWork += BackgroundWorker1_DoWork;
             backgroundWorker1.RunWorkerCompleted += BackgroundWorker1_RunWorkerCompleted;
+            timer1.Tick += timer_Tick;
+            timer1.Start();
+            this.FormClosing += SplashScreen_FormClosing;
         }
         private int dotCount = 1;
         private void SplashScreen_Load(object sender, EventArgs e)
         {
-            timer1.Start();
+           
             backgroundWorker1.RunWorkerAsync();
         }
         private void timer_Tick(object sender, EventArgs e)
@@ -58,10 +62,16 @@ namespace FloorPlanMakerUI
             SqliteDataAccess.BackupDatabase();
             SqliteDataAccess.DeleteOldBackups();
         }
-
+        public frmEditStaff LoadEditStaffForm(EmployeeManager employeeManager, Shift shift, Form1 form)
+        {
+            frmEditStaff editStaffForm =  new frmEditStaff(employeeManager, shift, form) { TopLevel = false, AutoScroll = true };
+            editStaffForm.UpdateUI();
+            this.Close();
+            return editStaffForm;
+        }
         private void BackgroundWorker1_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
-            this.Close();
+            //this.Close();
         }
 
         private void SplashScreen_FormClosing(object sender, FormClosingEventArgs e)

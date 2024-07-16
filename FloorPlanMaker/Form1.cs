@@ -83,7 +83,7 @@ namespace FloorPlanMaker
                 cboDiningAreas.DataSource = areaCreationManager.DiningAreas;
                 cboDiningAreas.DisplayMember = "Name";
                 cboDiningAreas.ValueMember = "ID";
-                rdoSections.Checked = true;
+                //rdoSections.Checked = true;
                 rdoViewSectionFlow.Checked = true;
                 pnlFloorPlan.BackgroundImage = null;
                 pnlFloorPlan.Invalidate();
@@ -92,8 +92,19 @@ namespace FloorPlanMaker
                 salesImageLabel.SetTooltip("Sales Per Server");
                 //rdoViewSectionFlow.Checked = true;
                 rdoLastFourWeekdayStats.Text = "Last Four " + dateOnlySelected.DayOfWeek.ToString() + "s";
-                rdoShifts.Checked = true;
+                this.tutorialType = TutorialImages.TutorialType.EditDistribution;
+                pnlNavHighlight.Location = new Point(rdoShifts.Left, 0);
+
+                _frmEditStaff = splashScreen.LoadEditStaffForm(employeeManager, shift, this);
+               
+               
             }
+            pnlNavigationWindow.Controls.Add(_frmEditStaff);
+            _frmEditStaff.Show();
+            pnlNavigationWindow.BringToFront();
+            pnlMainContainer.Visible = false;
+            //pnlSideBar.Visible = false;
+            pnlSideContainer.Visible = false;
 
         }
         private void SetColors()

@@ -81,8 +81,8 @@ namespace FloorPlanMaker
             this.employeeManager = staffManager;
             this.ShiftManager.SetSelectedShift(shiftManager.DateOnly, shiftManager.IsAM);
             this.form1Reference = form1;
-            //allFloorplans = SqliteDataAccess.LoadFloorplanList();
-            LoadFloorplansAsync();
+            allFloorplans = SqliteDataAccess.LoadFloorplanList();
+            //LoadFloorplansAsync();
         }
         private async void LoadFloorplansAsync()
         {
@@ -100,6 +100,19 @@ namespace FloorPlanMaker
         }
 
         private void frmEditStaff_Load(object sender, EventArgs e)
+        {
+            //dateSelected = DateTime.Now;
+            //lblShiftDate.Text = dateSelected.ToString("dddd, MMMM dd");
+            //SetColorTheme();
+            //SetFloorplansForShiftManager();
+            //cboSalesMethod.Items.Clear();
+            //cboSalesMethod.Items.Add("Yesterday");
+            //cboSalesMethod.Items.Add("Last Weekday");
+            //cboSalesMethod.Items.Add("Last 4 Weekday");
+            //cboSalesMethod.Items.Add("Day Of");
+            //cboSalesMethod.SelectedIndex = 2;
+        }
+        public void UpdateUI()
         {
             dateSelected = DateTime.Now;
             lblShiftDate.Text = dateSelected.ToString("dddd, MMMM dd");
