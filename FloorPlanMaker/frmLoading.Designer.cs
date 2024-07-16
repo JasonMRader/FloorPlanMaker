@@ -38,21 +38,23 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI Black", 18F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(27, 25);
+            label1.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point);
+            label1.ForeColor = Color.White;
+            label1.Location = new Point(80, 74);
             label1.Name = "label1";
-            label1.Size = new Size(130, 32);
+            label1.Size = new Size(164, 45);
             label1.TabIndex = 0;
             label1.Text = "Waiting...";
             // 
             // panel2
             // 
-            panel2.BackColor = Color.White;
+            panel2.BackColor = Color.Indigo;
             panel2.Controls.Add(label1);
-            panel2.Location = new Point(3, 2);
+            panel2.Dock = DockStyle.Fill;
+            panel2.Location = new Point(0, 0);
             panel2.Name = "panel2";
             panel2.Padding = new Padding(3);
-            panel2.Size = new Size(269, 83);
+            panel2.Size = new Size(400, 200);
             panel2.TabIndex = 1;
             panel2.Paint += panel2_Paint;
             // 
@@ -67,12 +69,13 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Black;
-            ClientSize = new Size(276, 89);
+            ClientSize = new Size(400, 200);
             Controls.Add(panel2);
             FormBorderStyle = FormBorderStyle.None;
             Name = "frmLoading";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "frmLoading";
+            TopMost = true;
             FormClosing += FormLoading_FormClosing;
             Load += frmLoading_Load;
             panel2.ResumeLayout(false);

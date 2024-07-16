@@ -68,6 +68,34 @@ namespace FloorPlanMaker
 
 
         private SectionControlsManager sectionControlsManager { get; set; }
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            SplashScreen splashScreen = new SplashScreen();
+            splashScreen.Show();
+            Application.DoEvents();
+
+            // Wait for the splash screen to complete loading
+            while (splashScreen.Visible)
+            {
+                Application.DoEvents();
+                SetColors();
+                dateTimeSelected = DateTime.Now;
+                cboDiningAreas.DataSource = areaCreationManager.DiningAreas;
+                cboDiningAreas.DisplayMember = "Name";
+                cboDiningAreas.ValueMember = "ID";
+                rdoSections.Checked = true;
+                rdoViewSectionFlow.Checked = true;
+                pnlFloorPlan.BackgroundImage = null;
+                pnlFloorPlan.Invalidate();
+                UpdateDateSelected(0);
+                coversImageLabel.SetTooltip("Covers per Server");
+                salesImageLabel.SetTooltip("Sales Per Server");
+                //rdoViewSectionFlow.Checked = true;
+                rdoLastFourWeekdayStats.Text = "Last Four " + dateOnlySelected.DayOfWeek.ToString() + "s";
+                rdoShifts.Checked = true;
+            }
+
+        }
         private void SetColors()
         {
             btnCloseApp.BackColor = Color.Red;
@@ -461,25 +489,7 @@ namespace FloorPlanMaker
             }
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            SetColors();
-            dateTimeSelected = DateTime.Now;
-
-
-            cboDiningAreas.DataSource = areaCreationManager.DiningAreas;
-            cboDiningAreas.DisplayMember = "Name";
-            cboDiningAreas.ValueMember = "ID";
-            rdoSections.Checked = true;
-            rdoViewSectionFlow.Checked = true;
-            pnlFloorPlan.BackgroundImage = null;
-            pnlFloorPlan.Invalidate();
-            UpdateDateSelected(0);
-            coversImageLabel.SetTooltip("Covers per Server");
-            salesImageLabel.SetTooltip("Sales Per Server");
-            //rdoViewSectionFlow.Checked = true;
-            rdoLastFourWeekdayStats.Text = "Last Four " + dateOnlySelected.DayOfWeek.ToString() + "s";
-        }
+       
         private void UpdateDateSelected(int days)
         {
             _lines.Clear();

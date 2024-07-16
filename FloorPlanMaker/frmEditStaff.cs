@@ -76,7 +76,7 @@ namespace FloorPlanMaker
 
         public frmEditStaff(EmployeeManager staffManager, Shift shiftManager, Form1 form1)
         {
-            loadingForm.Show();
+            //loadingForm.Show();
             InitializeComponent();
             this.employeeManager = staffManager;
             this.ShiftManager.SetSelectedShift(shiftManager.DateOnly, shiftManager.IsAM);
@@ -94,7 +94,7 @@ namespace FloorPlanMaker
             }
             finally
             {
-                loadingForm.Close();
+                //loadingForm.Close();
                 this.Enabled = true;
             }
         }

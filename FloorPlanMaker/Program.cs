@@ -1,5 +1,6 @@
 using Dapper;
 using FloorplanClassLibrary;
+using FloorPlanMakerUI;
 
 namespace FloorPlanMaker
 {
@@ -14,10 +15,9 @@ namespace FloorPlanMaker
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            SqliteDataAccess.CheckAndSetDatabaseLocation();
-            SqliteDataAccess.BackupDatabase();
-            SqliteDataAccess.DeleteOldBackups();
-            
+           
+
+
             Application.Run(new Form1 ());
         }
     }
