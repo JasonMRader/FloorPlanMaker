@@ -30,6 +30,7 @@ namespace FloorPlanMakerUI
         private List<ServerControl> _serverControls = new List<ServerControl>();
         public event EventHandler SectionLabelRemoved;
         public event EventHandler<UpdateEventArgs> UpdateRequired;
+        private ImageLabelControl serverCountImageLabel = new ImageLabelControl();
         private ImageLabelControl coversImageLabel = new ImageLabelControl();
         private ImageLabelControl salesImageLabel = new ImageLabelControl();        
         private TableSalesManager tableSalesManager = new TableSalesManager();
@@ -469,15 +470,25 @@ namespace FloorPlanMakerUI
                 sectionLabelControl.BringToFront();
             }
         }
+
+        private void SetSectionImageLabels(FlowLayoutPanel panel)
+        {
+            serverCountImageLabel = new ImageLabelControl(UITheme.waiter, "0", (panel.Width / 4) - 7, 30);
+            serverCountImageLabel.Margin = new Padding(6,3,3,3);
+            coversImageLabel = new ImageLabelControl(UITheme.covers, "0", (panel.Width / 4) - 7, 30);
+            salesImageLabel = new ImageLabelControl(UITheme.sales, "$0", (panel.Width / 2) - 7, 30);
+            serverCountImageLabel.SetTooltip("Servers Assigned to this Floorplan");
+            coversImageLabel.SetTooltip("Covers per Server");
+            salesImageLabel.SetTooltip("Sales Per Server");
+            panel.Controls.Add(serverCountImageLabel);
+            panel.Controls.Add(coversImageLabel);
+            panel.Controls.Add(salesImageLabel);
+        }
         public void AddSectionPanels(FlowLayoutPanel panel)
         {
             panel.Controls.Clear();
-            coversImageLabel = new ImageLabelControl(UITheme.covers, "0", (panel.Width / 2) - 7, 30);
-            salesImageLabel = new ImageLabelControl(UITheme.sales, "$0", (panel.Width / 2) - 7, 30);
-            coversImageLabel.SetTooltip("Covers per Server");           
-            salesImageLabel.SetTooltip("Sales Per Server");
-            panel.Controls.Add(coversImageLabel);
-            panel.Controls.Add(salesImageLabel);
+            SetSectionImageLabels(panel);
+            
             if (this.Floorplan == null) { return; }
             //Button btnAutoSelectTemplate = new Button
             //{
@@ -589,11 +600,29 @@ namespace FloorPlanMakerUI
             // SetTableSales();
 
             UpdateAveragesPerServer();
-            coversImageLabel.UpdateText(Shift.SelectedFloorplan.MaxCoversPerServer.ToString("F0"));
-            salesImageLabel.UpdateText(Shift.SelectedFloorplan.AvgSalesPerServer.ToString("C0"));
+            UpdateImageLabels();
+           
+
+        }
+        private void UpdateImageLabels()
+        {
+            if (this.Floorplan == null)
+            {
+                serverCountImageLabel.UpdateText("0");
+                coversImageLabel.UpdateText(Shift.SelectedDiningArea.GetMaxCovers().ToString("F0"));
+                salesImageLabel.UpdateText(Shift.SelectedDiningArea.ExpectedSales.ToString("C0"));
+               
+            }
+            else
+            {
+                serverCountImageLabel.UpdateText(Floorplan.Servers.Count.ToString());
+                coversImageLabel.UpdateText(Shift.SelectedFloorplan.MaxCoversPerServer.ToString("F0"));
+                salesImageLabel.UpdateText(Shift.SelectedFloorplan.AvgSalesPerServer.ToString("C0"));
+            }
+            
+            serverCountImageLabel.Invalidate();
             coversImageLabel.Invalidate();
             salesImageLabel.Invalidate();
-
         }
 
 
@@ -957,10 +986,7 @@ namespace FloorPlanMakerUI
             UpdateTableStats();
             if(this.Floorplan == null)
             {
-                coversImageLabel.UpdateText(Shift.SelectedDiningArea.GetMaxCovers().ToString("F0"));
-                salesImageLabel.UpdateText(Shift.SelectedDiningArea.ExpectedSales.ToString("C0"));
-                coversImageLabel.Invalidate();
-                salesImageLabel.Invalidate();
+                UpdateImageLabels();
             }
             else
             {
@@ -985,11 +1011,7 @@ namespace FloorPlanMakerUI
         }
         public void UpdateAveragesPerServer()
         {
-            float averagerPerServer = Shift.SelectedDiningArea.ExpectedSales / Floorplan.Servers.Count;
-            coversImageLabel.UpdateText(Shift.SelectedFloorplan.MaxCoversPerServer.ToString("F0"));
-            salesImageLabel.UpdateText(averagerPerServer.ToString("C0"));
-            coversImageLabel.Invalidate();
-            salesImageLabel.Invalidate();
+            UpdateImageLabels();
             foreach (SectionPanelControl sectionPanel in _sectionPanels)
             {
                 sectionPanel.UpdateLabels();
@@ -999,12 +1021,7 @@ namespace FloorPlanMakerUI
         {
            
             panel.Controls.Clear();
-            coversImageLabel = new ImageLabelControl(UITheme.covers, "0", (panel.Width / 2) - 7, 30);
-            salesImageLabel = new ImageLabelControl(UITheme.sales, "$0", (panel.Width / 2) - 7, 30);
-            coversImageLabel.SetTooltip("Covers per Server");
-            salesImageLabel.SetTooltip("Sales Per Server");
-            panel.Controls.Add(coversImageLabel);
-            panel.Controls.Add(salesImageLabel);
+            SetSectionImageLabels(panel);
             Button btnCreateTemplate = new Button
             {
                 Text = "Create a Floorplan Template",
@@ -1048,10 +1065,7 @@ namespace FloorPlanMakerUI
             // SetTableSales();
             UpdateTableStats();
             UpdateAveragesPerServer();
-            coversImageLabel.UpdateText(Shift.SelectedFloorplan.MaxCoversPerServer.ToString("F0"));
-            salesImageLabel.UpdateText(Shift.SelectedFloorplan.AvgSalesPerServer.ToString("C0"));
-            coversImageLabel.Invalidate();
-            salesImageLabel.Invalidate();
+            UpdateImageLabels();
             //this.TemplateCreator = new TemplateCreator(Shift.SelectedDiningArea);
 
 
@@ -1104,10 +1118,7 @@ namespace FloorPlanMakerUI
                 UpdateTableStats();
                 AddSectionLines();
                 UpdateAveragesPerServer();
-                coversImageLabel.UpdateText(Shift.SelectedFloorplan.MaxCoversPerServer.ToString("F0"));
-                salesImageLabel.UpdateText(Shift.SelectedFloorplan.AvgSalesPerServer.ToString("C0"));
-                coversImageLabel.Invalidate();
-                salesImageLabel.Invalidate();
+                UpdateImageLabels();
             }
             else
             {
@@ -1123,10 +1134,7 @@ namespace FloorPlanMakerUI
                 flowServersPanel.Controls.Clear();
                 AddServerControls(flowServersPanel);
                 AddSectionPanels(flowSectionsPanel);
-                coversImageLabel.UpdateText(Shift.SelectedDiningArea.GetMaxCovers().ToString("F0"));
-                salesImageLabel.UpdateText(Shift.SelectedDiningArea.ExpectedSales.ToString("C0"));
-                coversImageLabel.Invalidate();
-                salesImageLabel.Invalidate();
+                UpdateImageLabels();
 
             }
         }
