@@ -20,13 +20,14 @@ namespace FloorPlanMakerUI
             backgroundWorker1.DoWork += BackgroundWorker1_DoWork;
             backgroundWorker1.RunWorkerCompleted += BackgroundWorker1_RunWorkerCompleted;
             timer1.Tick += timer_Tick;
-            timer1.Start();
+
             this.FormClosing += SplashScreen_FormClosing;
         }
         private int dotCount = 1;
         private void SplashScreen_Load(object sender, EventArgs e)
         {
-           
+            timer1.Interval = 200; // Set the interval to 500 milliseconds (adjust as needed)
+            timer1.Start(); // Start the timer
             backgroundWorker1.RunWorkerAsync();
         }
         private void timer_Tick(object sender, EventArgs e)
@@ -58,14 +59,16 @@ namespace FloorPlanMakerUI
         }
         private void BackgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
+            timer1.Start();
             SqliteDataAccess.CheckAndSetDatabaseLocation();
             SqliteDataAccess.BackupDatabase();
             SqliteDataAccess.DeleteOldBackups();
         }
         public frmEditStaff LoadEditStaffForm(EmployeeManager employeeManager, Shift shift, Form1 form)
         {
-            frmEditStaff editStaffForm =  new frmEditStaff(employeeManager, shift, form) { TopLevel = false, AutoScroll = true };
+            frmEditStaff editStaffForm = new frmEditStaff(employeeManager, shift, form) { TopLevel = false, AutoScroll = true };
             editStaffForm.UpdateUI();
+            editStaffForm.OpenNewShiftForm();
             this.Close();
             return editStaffForm;
         }
@@ -77,6 +80,38 @@ namespace FloorPlanMakerUI
         private void SplashScreen_FormClosing(object sender, FormClosingEventArgs e)
         {
             timer1.Stop();
+        }
+
+        private void SplashScreen_Shown(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            switch (dotCount)
+            {
+                case 1:
+                    lblLoading.Text = "Loading.";
+                    dotCount++;
+                    break;
+                case 2:
+                    lblLoading.Text = "Loading..";
+                    dotCount++;
+                    break;
+                case 3:
+                    lblLoading.Text = "Loading...";
+                    dotCount++;  // Reset to start cycle over
+                    break;
+                case 4:
+                    lblLoading.Text = "Loading....";
+                    dotCount++;
+                    break;
+                case 5:
+                    lblLoading.Text = "Loading.....";
+                    dotCount = 1;
+                    break;
+            }
         }
     }
 }

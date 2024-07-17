@@ -477,6 +477,15 @@ namespace FloorPlanMaker
             isNewShift = true;
 
         }
+        public void OpenNewShiftForm()
+        {
+            form1Reference.tutorialType = TutorialImages.TutorialType.CreateShift;
+            frmNewShiftDatePicker form = new frmNewShiftDatePicker(DiningAreaManager, allFloorplans, this, dateSelected, cbIsAM.Checked, ShiftManager);
+            form.TopLevel = false;
+            this.Controls.Add(form);
+            form.Show();
+            form.BringToFront();
+        }
         private void btnCreateANewShift_Click(object sender, EventArgs e)
         {
             form1Reference.tutorialType = TutorialImages.TutorialType.CreateShift;

@@ -71,6 +71,7 @@
             // timer1
             // 
             timer1.Interval = 300;
+            timer1.Tick += timer1_Tick;
             // 
             // SplashScreen
             // 
@@ -86,6 +87,7 @@
             TopMost = true;
             FormClosing += SplashScreen_FormClosing;
             Load += SplashScreen_Load;
+            Shown += SplashScreen_Shown;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ResumeLayout(false);
