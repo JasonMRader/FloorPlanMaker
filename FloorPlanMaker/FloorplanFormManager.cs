@@ -817,6 +817,18 @@ namespace FloorPlanMakerUI
             }
             return true;
         }
+        public int NumberOfUnassignedTables()
+        {
+            int unassignedTables = 0;
+            foreach (TableControl tableControl in TableControls)
+            {
+                if (tableControl.Section == null)
+                {
+                    unassignedTables++;
+                }
+            }
+            return unassignedTables;
+        }
         
 
         public void SelectTables(List<TableControl> selectedTables)

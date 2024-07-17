@@ -164,18 +164,21 @@ namespace FloorPlanMaker
                     if (floorplanManager.Floorplan.SectionSelected != null)
                     {
                         floorplanManager.SectionTeamwaitToggle(floorplanManager.Floorplan.SectionSelected);
+                        return true;
                     }
                 }
             }
             if (keyData == Keys.Enter)
             {
                 btnAutomatic.PerformClick();
+                return true;
             }
             if (keyData == Keys.P)
             {
                 if (floorplanManager.Floorplan != null)
                 {
                     floorplanManager.AddPickupSection();
+                    return true;
                 }
             }
 
@@ -1362,9 +1365,26 @@ namespace FloorPlanMaker
             {
                 rdoShifts.PerformClick();
             }
-            else if (!floorplanManager.AllTablesAreAssigned())
+            else if (floorplanManager.NumberOfUnassignedTables() > 5)
             {
                 btnChooseTemplate.PerformClick();
+            }
+            else if(floorplanManager.NumberOfUnassignedTables() <= 5)
+            {
+                if (floorplanManager.Floorplan == null) { return; }
+                DialogResult result = MessageBox.Show("Most, but not all Tables are assigned, do you want to make them Pickup?",
+                                                    "Make Unassigned Tables Pickup??",
+                                                    MessageBoxButtons.YesNo,
+                                                    MessageBoxIcon.Question);
+
+                if (result == DialogResult.No)
+                {
+                    return;
+                }
+                if (result == DialogResult.Yes)
+                {
+                    MakeUnassignedTablesPickup();
+                }
             }
 
             else if (floorplanManager.AllTablesAreAssigned() &&
@@ -1380,8 +1400,7 @@ namespace FloorPlanMaker
             }
             else if (floorplanManager.AllTablesAreAssigned() &&
                 shift.SelectedFloorplan.CheckIfAllSectionsAssigned() &&
-                shift.SelectedFloorplan.CheckIfCloserIsAssigned() &&
-                !SqliteDataAccess.CheckIfFloorplanExistsForDate(shift.DateOnly, shift.IsAM, shift.SelectedDiningArea.ID))
+                shift.SelectedFloorplan.CheckIfCloserIsAssigned())
             {
                 btnPrint.PerformClick();
             }
