@@ -86,14 +86,58 @@ namespace FloorPlanMakerUI
         }
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
+            if (keyData == Keys.Shift)
+            {
+                btnImportServers.Focus();
+                return true;
+            }
             if (keyData == Keys.Enter)
             {
-                AddFirstServerToShift();
+                if (Control.ModifierKeys == Keys.Shift)
+                {
+                    if (shiftManager.SelectedShift.ServersOnShift.Count == 0)
+                    {
+                        btnImportServers.PerformClick();
+                    }
+                    else
+                    {
+                        btnOK.PerformClick();
+                    }
 
+                }
+                else
+                {
+
+                    AddFirstServerToShift();
+                }
                 return true;
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+        private void TxtServerSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+
+                if (Control.ModifierKeys == Keys.Shift)
+                {
+                    if (shiftManager.SelectedShift.ServersOnShift.Count == 0)
+                    {
+                        btnImportServers.PerformClick();
+                    }
+                    else
+                    {
+                        btnOK.PerformClick();
+                    }
+                }
+                else
+                {
+                    AddFirstServerToShift();
+                }
+            }
         }
         private void PopulateServers()
         {
@@ -306,7 +350,7 @@ namespace FloorPlanMakerUI
 
                 }
             }
-        }       
+        }
         private void CreateCountLabel(FlowLayoutPanel panel, DiningArea diningArea)
         {
             int width = (flowDiningAreas.Width / (DiningAreaManager.DiningAreas.Count)) - 20;
@@ -556,7 +600,7 @@ namespace FloorPlanMakerUI
         private void flowServersOnShift_ControlsChanged(object sender, ControlEventArgs e)
         {
             lblServersOnShift.Text = $"{shiftManager.SelectedShift.ServersOnShift.Count} Servers On Shift";
-            lblBartenderCount.Text = shiftManager.SelectedShift.BartenderCount.ToString() ;
+            lblBartenderCount.Text = shiftManager.SelectedShift.BartenderCount.ToString();
         }
 
         private void btnAddBartender_Click(object sender, EventArgs e)
@@ -650,7 +694,7 @@ namespace FloorPlanMakerUI
                 {
                     shiftManager.SelectedShift.AddNewUnassignedServer(server);
                 }
-                if(serversNotMatched.Count > 0)
+                if (serversNotMatched.Count > 0)
                 {
                     string serversMissed = "\n";
                     int i = 1;

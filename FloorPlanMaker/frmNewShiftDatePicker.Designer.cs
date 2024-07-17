@@ -276,6 +276,7 @@
             txtServerSearch.Size = new Size(100, 26);
             txtServerSearch.TabIndex = 3;
             txtServerSearch.TextChanged += txtServerSearch_TextChanged;
+            txtServerSearch.KeyDown += TxtServerSearch_KeyDown;
             // 
             // pbAddPerson
             // 
