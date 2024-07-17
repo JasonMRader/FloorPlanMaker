@@ -96,8 +96,8 @@ namespace FloorPlanMaker
                 pnlNavHighlight.Location = new Point(rdoShifts.Left, 0);
 
                 _frmEditStaff = splashScreen.LoadEditStaffForm(employeeManager, shift, this);
-               
-               
+
+
             }
             pnlNavigationWindow.Controls.Add(_frmEditStaff);
             _frmEditStaff.Show();
@@ -159,9 +159,23 @@ namespace FloorPlanMaker
             }
             if (keyData == Keys.T)
             {
-                if(floorplanManager.Floorplan.SectionSelected != null)
+                if (floorplanManager.Floorplan != null)
                 {
-                    floorplanManager.SectionTeamwaitToggle(floorplanManager.Floorplan.SectionSelected);
+                    if (floorplanManager.Floorplan.SectionSelected != null)
+                    {
+                        floorplanManager.SectionTeamwaitToggle(floorplanManager.Floorplan.SectionSelected);
+                    }
+                }
+            }
+            if (keyData == Keys.Enter)
+            {
+                btnAutomatic.PerformClick();
+            }
+            if (keyData == Keys.P)
+            {
+                if (floorplanManager.Floorplan != null)
+                {
+                    floorplanManager.AddPickupSection();
                 }
             }
 
@@ -507,7 +521,7 @@ namespace FloorPlanMaker
             }
         }
 
-       
+
         private void UpdateDateSelected(int days)
         {
             _lines.Clear();
@@ -546,11 +560,11 @@ namespace FloorPlanMaker
             btnAutomatic.Enabled = true;
             floorplanManager.SetViewedFloorplan(dateOnlySelected, cbIsAM.Checked);
             _lines.Clear();
-            if(floorplanManager.Floorplan != null)
+            if (floorplanManager.Floorplan != null)
             {
                 _lines = floorplanManager.Floorplan.floorplanLines;
             }
-            
+
 
             //CreateSectionBorders();
         }
@@ -774,7 +788,7 @@ namespace FloorPlanMaker
             bool pickUpAdded = false;
             Section pickUpSection = new Section(floorplanManager.Floorplan);
             pickUpSection.IsPickUp = true;
-           
+
             shift.SelectedFloorplan.Date = dateTimeSelected;
             shift.SelectedFloorplan.IsLunch = cbIsAM.Checked;
             foreach (Control control in pnlFloorPlan.Controls)
@@ -817,7 +831,7 @@ namespace FloorPlanMaker
         private void btnPrint_Click(object sender, EventArgs e)
         {
             MakeUnassignedTablesPickup();
-           
+
             if (shift.SelectedFloorplan.CheckIfAllSectionsAssigned())
             {
                 if (!shift.SelectedFloorplan.CheckIfCloserIsAssigned())
@@ -949,8 +963,8 @@ namespace FloorPlanMaker
 
         private void btnCreateTemplate_Click(object? sender, EventArgs e)
         {
-            floorplanManager.Shift.SelectedFloorplan = floorplanManager.Shift.CreateFloorplanForDiningArea(floorplanManager.Shift.SelectedDiningArea,0,0);
-            
+            floorplanManager.Shift.SelectedFloorplan = floorplanManager.Shift.CreateFloorplanForDiningArea(floorplanManager.Shift.SelectedDiningArea, 0, 0);
+
             floorplanManager.ChangeDiningAreaSelected();
 
         }

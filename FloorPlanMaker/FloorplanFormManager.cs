@@ -630,14 +630,18 @@ namespace FloorPlanMakerUI
 
        
         private void btnAddPickupSection_Click(object sender, EventArgs e)
-        {            
+        {
+            AddPickupSection();
+        }
+        public void AddPickupSection()
+        {
             Section pickUp = new Section(Floorplan);
             pickUp.Name = "Pickup";
-            pickUp.IsPickUp = true;            
+            pickUp.IsPickUp = true;
             Floorplan.AddSection(pickUp);
             SectionPanelControl newSectionPanel = new SectionPanelControl(pickUp, this.Shift.SelectedFloorplan);
             newSectionPanel.CheckBoxChanged += setSelectedSection;
-            newSectionPanel.picEraseSectionClicked += EraseSectionClicked;            
+            newSectionPanel.picEraseSectionClicked += EraseSectionClicked;
             this._sectionPanels.Add(newSectionPanel);
             UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionPanel, UpdateType.Add, pickUp));
             Floorplan.SetSelectedSection(pickUp);

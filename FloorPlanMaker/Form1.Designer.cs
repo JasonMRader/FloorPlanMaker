@@ -434,14 +434,12 @@ namespace FloorPlanMaker
             // 
             // btnDeleteSelectedFloorplan
             // 
-            btnDeleteSelectedFloorplan.Enabled = false;
             btnDeleteSelectedFloorplan.Location = new Point(1220, 342);
             btnDeleteSelectedFloorplan.Name = "btnDeleteSelectedFloorplan";
             btnDeleteSelectedFloorplan.Size = new Size(41, 28);
             btnDeleteSelectedFloorplan.TabIndex = 22;
             btnDeleteSelectedFloorplan.Text = "Delete";
             btnDeleteSelectedFloorplan.UseVisualStyleBackColor = true;
-            btnDeleteSelectedFloorplan.Visible = false;
             btnDeleteSelectedFloorplan.Click += btnDeleteSelectedFloorplan_Click;
             // 
             // pnlMainContainer

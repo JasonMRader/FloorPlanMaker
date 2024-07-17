@@ -50,7 +50,7 @@ namespace FloorplanUserControlLibrary
 
             UpdateLabels();
 
-            toolTip.SetToolTip(picSetTeamWait, "Set To TeamWait");
+            toolTip.SetToolTip(picSetTeamWait, "Set To TeamWait \n PRESS T to TOGGLE team / Solo");
             toolTip.SetToolTip(picClearSection, "Clear Section");
             toolTip.SetToolTip(picPlusOneServer, "Add Server Spot");
             toolTip.SetToolTip(picMinusOneServer, "Remove Server Spot");
@@ -329,7 +329,7 @@ namespace FloorplanUserControlLibrary
 
             picSetTeamWait.BackColor = UITheme.WarningColor;
             picSetTeamWait.Image = Resources.waiters;
-            toolTip.SetToolTip(picSetTeamWait, "Set To Solo");
+            toolTip.SetToolTip(picSetTeamWait, "Set To Solo  \n PRESS T to TOGGLE team / Solo");
         }
 
 
@@ -345,7 +345,7 @@ namespace FloorplanUserControlLibrary
             picMinusOneServer.Click -= picDecreaseServerCount_Click;
             picSetTeamWait.BackColor = UITheme.CTAColor;
             picSetTeamWait.Image = Resources.waiter;
-            toolTip.SetToolTip(picSetTeamWait, "Set To TeamWait");
+            toolTip.SetToolTip(picSetTeamWait, "Set To TeamWait  \n PRESS T to TOGGLE team / Solo");
             this.Invalidate();
         }
         public void SetTeamWaitPictureBoxes()
