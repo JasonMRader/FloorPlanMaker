@@ -71,6 +71,7 @@ namespace FloorplanClassLibrary
             get 
             {
                 if (this.Sections.Count == 0) return null;
+                if (currentFocusedSectionIndex >= this.Sections.Count) return this.Sections[this.Sections.Count-1]; 
                 else return this.Sections[currentFocusedSectionIndex];
             }
 
@@ -558,7 +559,7 @@ namespace FloorplanClassLibrary
                 }
             }    
         }
-        public Section RemoveHighestNumberedEmptySection()
+        public Section HighestNumberedEmptySection()
         {
             var sectionToRemove = Sections
                 .Where(s => s.Server == null
@@ -567,9 +568,37 @@ namespace FloorplanClassLibrary
                          && !s.IsTeamWait)
                 .OrderByDescending(s => s.Number)
                 .FirstOrDefault();
+            return sectionToRemove;
+        }
+        public Section HighestNumberedEmptySection(Section section)
+        {
+            var sectionToRemove = Sections
+                .Where(s => s.Server == null
+                         && (s.Tables == null || !s.Tables.Any())
+                         && !s.IsPickUp
+                         && !s.IsTeamWait
+                         && s != section)
+                .OrderByDescending(s => s.Number)
+                .FirstOrDefault();
+            return sectionToRemove;
+        }
+        public Section RemoveHighestNumberedEmptySection()
+        {
+            var sectionToRemove = HighestNumberedEmptySection();
 
             if (sectionToRemove != null)
             {
+                Sections.Remove(sectionToRemove);
+            }
+            return sectionToRemove;
+        }
+        public Section RemoveHighestNumberedEmptySection(Section section)
+        {
+            var sectionToRemove = HighestNumberedEmptySection(section);
+
+            if (sectionToRemove != null)
+            {
+               
                 Sections.Remove(sectionToRemove);
             }
             return sectionToRemove;

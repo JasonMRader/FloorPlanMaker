@@ -268,8 +268,8 @@ namespace FloorPlanMakerUI
             SectionPanelControl sectionPanel = sender as SectionPanelControl;
             Section selectedSection = sectionPanel.Section;
 
-            Section sectionRemoved = Floorplan.RemoveHighestNumberedEmptySection();
-            if (sectionRemoved == null && Floorplan.NotEnoughUnassignedServersCheck(selectedSection))
+            Section sectionRemoved = Floorplan.RemoveHighestNumberedEmptySection(selectedSection);
+            if (sectionRemoved == null || Floorplan.NotEnoughUnassignedServersCheck(selectedSection))
             {
                 MessageBox.Show("You must clear a section before making another section a teamwait section");
             }
@@ -360,8 +360,8 @@ namespace FloorPlanMakerUI
             }
             if (!selectedSection.IsTeamWait)
             {
-                Section sectionRemoved = Floorplan.RemoveHighestNumberedEmptySection();
-                if (sectionRemoved == null && Floorplan.NotEnoughUnassignedServersCheck(selectedSection))
+                Section sectionRemoved = Floorplan.RemoveHighestNumberedEmptySection(selectedSection);
+                if (sectionRemoved == null || Floorplan.NotEnoughUnassignedServersCheck(selectedSection))
                 {
                     MessageBox.Show("You must clear a section before making another section a teamwait section");
                 }
