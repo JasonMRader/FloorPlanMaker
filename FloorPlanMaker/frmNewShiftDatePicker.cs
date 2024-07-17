@@ -75,6 +75,10 @@ namespace FloorPlanMakerUI
         }
         private void frmNewShiftDatePicker_Load(object sender, EventArgs e)
         {
+            if (DateTime.Now.TimeOfDay > new TimeSpan(11, 0, 0))
+            {
+                cbIsAm.Checked = false;
+            }
             SetColors();
             lblDate.Text = dateSelected.ToString("dddd, MMMM dd");
             GetDateLabel();
@@ -83,6 +87,7 @@ namespace FloorPlanMakerUI
             PopulateServers();
             RefreshForDateSelected();
             txtServerSearch.Focus();
+            
         }
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
