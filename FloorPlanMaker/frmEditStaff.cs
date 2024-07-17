@@ -138,6 +138,7 @@ namespace FloorPlanMaker
             DateOnly date = DateOnly.FromDateTime(dateSelected);
             ShiftManager.SetSelectedShift(date, cbIsAM.Checked);
             RefreshFloorplanFlowPanel(ShiftManager.SelectedShift.Floorplans);
+            RefreshFloorplanCountLabels();
         }
 
         private void RefreshFloorplanFlowPanel(IReadOnlyList<Floorplan> floorplans)
