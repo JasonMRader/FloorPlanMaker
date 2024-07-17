@@ -58,6 +58,11 @@ namespace FloorPlanMaker
                 MoveDateForward();
                 return true;
             }
+            if (keyData == Keys.Enter)
+            {
+                AutomateNextStep();
+                return true;
+            }
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
@@ -687,6 +692,10 @@ namespace FloorPlanMaker
         }
 
         private void btnAutomatic_Click(object sender, EventArgs e)
+        {
+            AutomateNextStep();
+        }
+        private void AutomateNextStep()
         {
             if (ShiftManager.SelectedShift.Floorplans == null)
             {

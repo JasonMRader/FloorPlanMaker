@@ -149,38 +149,7 @@ namespace FloorPlanMaker
 
         }
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-        {
-
-            if (keyData == Keys.Tab)
-            {
-                floorplanManager.IncrementSelectedSection();
-
-                return true;
-            }
-            if (keyData == Keys.T)
-            {
-                if (floorplanManager.Floorplan != null)
-                {
-                    if (floorplanManager.Floorplan.SectionSelected != null)
-                    {
-                        floorplanManager.SectionTeamwaitToggle(floorplanManager.Floorplan.SectionSelected);
-                        return true;
-                    }
-                }
-            }
-            if (keyData == Keys.Enter)
-            {
-                btnAutomatic.PerformClick();
-                return true;
-            }
-            if (keyData == Keys.P)
-            {
-                if (floorplanManager.Floorplan != null)
-                {
-                    floorplanManager.AddPickupSection();
-                    return true;
-                }
-            }
+        {          
 
             if (_frmEditStaff != null && _frmEditStaff.Visible)
             {
@@ -192,6 +161,17 @@ namespace FloorPlanMaker
                 else if (keyData == Keys.Right)
                 {
                     _frmEditStaff.MoveDateForward();
+                    return true;
+                }
+                if (keyData == Keys.Up)
+                {
+                    _frmEditDiningAreas.ChangeDiningArea(keyData);
+                    return true;
+                }
+
+                if (keyData == Keys.Down)
+                {
+                    _frmEditDiningAreas.ChangeDiningArea(keyData);
                     return true;
                 }
             }
@@ -207,23 +187,12 @@ namespace FloorPlanMaker
                     UpdateDateSelected(1);
                     return true;
                 }
-            }
-            if (_frmEditDiningAreas != null && _frmEditDiningAreas.Visible)
-            {
-                if (keyData == Keys.Up)
+                if (keyData == Keys.Tab)
                 {
-                    _frmEditDiningAreas.ChangeDiningArea(keyData);
-                    return true;
-                }
+                    floorplanManager.IncrementSelectedSection();
 
-                if (keyData == Keys.Down)
-                {
-                    _frmEditDiningAreas.ChangeDiningArea(keyData);
                     return true;
                 }
-            }
-            else
-            {
                 if (keyData == Keys.Up)
                 {
                     if (cboDiningAreas.SelectedIndex > 0)
@@ -249,7 +218,32 @@ namespace FloorPlanMaker
                     }
                     return true;
                 }
+                if (keyData == Keys.T)
+                {
+                    if (floorplanManager.Floorplan != null)
+                    {
+                        if (floorplanManager.Floorplan.SectionSelected != null)
+                        {
+                            floorplanManager.SectionTeamwaitToggle(floorplanManager.Floorplan.SectionSelected);
+                            return true;
+                        }
+                    }
+                }
+                if (keyData == Keys.Enter)
+                {
+                    btnAutomatic.PerformClick();
+                    return true;
+                }
+                if (keyData == Keys.P)
+                {
+                    if (floorplanManager.Floorplan != null)
+                    {
+                        floorplanManager.AddPickupSection();
+                        return true;
+                    }
+                }
             }
+           
             return base.ProcessCmdKey(ref msg, keyData);
         }
         protected override void OnMouseWheel(MouseEventArgs e)
@@ -1361,15 +1355,16 @@ namespace FloorPlanMaker
 
         private void btnAutomatic_Click(object sender, EventArgs e)
         {
+            int unassignedTables = floorplanManager.NumberOfUnassignedTables();
             if (floorplanManager.Floorplan == null)
             {
                 rdoShifts.PerformClick();
             }
-            else if (floorplanManager.NumberOfUnassignedTables() > 5)
+            else if (unassignedTables > 5)
             {
                 btnChooseTemplate.PerformClick();
             }
-            else if(floorplanManager.NumberOfUnassignedTables() <= 5)
+            else if(unassignedTables <= 5 && unassignedTables != 0)
             {
                 if (floorplanManager.Floorplan == null) { return; }
                 DialogResult result = MessageBox.Show("Most, but not all Tables are assigned, do you want to make them Pickup?",
@@ -1383,7 +1378,7 @@ namespace FloorPlanMaker
                 }
                 if (result == DialogResult.Yes)
                 {
-                    MakeUnassignedTablesPickup();
+                    floorplanManager.MakeUnassignedTablesPickup();
                 }
             }
 

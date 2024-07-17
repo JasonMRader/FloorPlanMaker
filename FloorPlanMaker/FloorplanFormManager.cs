@@ -646,6 +646,17 @@ namespace FloorPlanMakerUI
             UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionPanel, UpdateType.Add, pickUp));
             Floorplan.SetSelectedSection(pickUp);
         }
+        public void MakeUnassignedTablesPickup()
+        {
+            AddPickupSection();
+            foreach(TableControl tableControl in this._tableControls)
+            {
+                if(tableControl.Section == null)
+                {
+                    AddTableControlToSelectedSection(tableControl);
+                }
+            }
+        }
         public void AddServerControls(FlowLayoutPanel panel)
         {
             panel.Controls.Clear();
@@ -784,27 +795,28 @@ namespace FloorPlanMakerUI
                     }
 
                 }
-                Shift.SectionSelected.AddTable(clickedTable);
-                clickedTableControl.SetSection(Shift.SectionSelected);
-                
-                clickedTableControl.BackColor = Shift.SectionSelected.Color;
-                clickedTableControl.TextColor = Shift.SectionSelected.FontColor;
-                if(Shift.SectionSelected.IsPickUp)
-                {
-                    UpdateAveragesPerServer();
-                }
-
-                
-                clickedTableControl.Invalidate();
-                if (AllTablesAreAssigned())
-                {
-                    UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.TableControl, UpdateType.Refresh, clickedTableControl));
-                }
+                AddTableControlToSelectedSection(clickedTableControl);
                 //UpdateSectionLabels(shiftManager.SectionSelected, shiftManager.SectionSelected.MaxCovers, shiftManager.SectionSelected.AverageCovers);
             }
 
-            
+        }
+        private void AddTableControlToSelectedSection(TableControl clickedTableControl)
+        {
+            Table clickedTable = clickedTableControl.Table;
+            Shift.SectionSelected.AddTable(clickedTable);
+            clickedTableControl.SetSection(Shift.SectionSelected);
 
+            clickedTableControl.BackColor = Shift.SectionSelected.Color;
+            clickedTableControl.TextColor = Shift.SectionSelected.FontColor;
+            if (Shift.SectionSelected.IsPickUp)
+            {
+                UpdateAveragesPerServer();
+            }
+            clickedTableControl.Invalidate();
+            if (AllTablesAreAssigned())
+            {
+                UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.TableControl, UpdateType.Refresh, clickedTableControl));
+            }
         }
         public bool AllTablesAreAssigned()
         {
