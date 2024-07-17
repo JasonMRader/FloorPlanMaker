@@ -352,6 +352,7 @@ namespace FloorPlanMakerUI
         }
         public void SectionTeamwaitToggle(Section selectedSection)
         {
+            if(selectedSection.IsPickUp) { return; }
             SectionPanelControl sectionPanel = _sectionPanels.FirstOrDefault(sp => sp.Section == selectedSection);
             if (sectionPanel == null)
             {

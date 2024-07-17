@@ -149,7 +149,7 @@ namespace FloorPlanMaker
 
         }
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-        {          
+        {
 
             if (_frmEditStaff != null && _frmEditStaff.Visible)
             {
@@ -171,8 +171,8 @@ namespace FloorPlanMaker
 
                 if (keyData == Keys.Down)
                 {
-                   // _frmEditDiningAreas.ChangeDiningArea(keyData);
-                   // return true;
+                    // _frmEditDiningAreas.ChangeDiningArea(keyData);
+                    // return true;
                 }
             }
             else
@@ -243,7 +243,7 @@ namespace FloorPlanMaker
                     }
                 }
             }
-           
+
             return base.ProcessCmdKey(ref msg, keyData);
         }
         protected override void OnMouseWheel(MouseEventArgs e)
@@ -1364,7 +1364,7 @@ namespace FloorPlanMaker
             {
                 btnChooseTemplate.PerformClick();
             }
-            else if(unassignedTables <= 5 && unassignedTables != 0)
+            else if (unassignedTables <= 5 && unassignedTables != 0)
             {
                 if (floorplanManager.Floorplan == null) { return; }
                 DialogResult result = MessageBox.Show("Most, but not all Tables are assigned, do you want to make them Pickup?",
