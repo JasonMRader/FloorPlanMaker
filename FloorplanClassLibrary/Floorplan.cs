@@ -393,7 +393,7 @@ namespace FloorplanClassLibrary
             }
 
             // Add the section to the list
-            _sections.Add(section);
+            _sections.Add(section);           
             section.ServerRemoved += RemoveServerFromSection;
             section.ServerAssigned += UpdateSectionServerMap;
            

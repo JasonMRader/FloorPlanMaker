@@ -37,6 +37,7 @@
             panel7 = new Panel();
             panel8 = new Panel();
             panel9 = new Panel();
+            btnAutomatic = new Button();
             panel11 = new Panel();
             rdoBothPickUp = new RadioButton();
             rdoNoPickUp = new RadioButton();
@@ -54,7 +55,6 @@
             btnClose = new Button();
             btnNextTemplates = new Button();
             btnPreviousTemplates = new Button();
-            btnAutomatic = new Button();
             panel5.SuspendLayout();
             panel6.SuspendLayout();
             panel7.SuspendLayout();
@@ -148,6 +148,20 @@
             panel9.Name = "panel9";
             panel9.Size = new Size(605, 71);
             panel9.TabIndex = 8;
+            // 
+            // btnAutomatic
+            // 
+            btnAutomatic.BackColor = Color.GreenYellow;
+            btnAutomatic.FlatAppearance.BorderSize = 0;
+            btnAutomatic.FlatStyle = FlatStyle.Flat;
+            btnAutomatic.Image = FloorPlanMakerUI.Properties.Resources.LightlingSmall;
+            btnAutomatic.Location = new Point(10, 9);
+            btnAutomatic.Margin = new Padding(3, 7, 3, 7);
+            btnAutomatic.Name = "btnAutomatic";
+            btnAutomatic.Size = new Size(52, 52);
+            btnAutomatic.TabIndex = 18;
+            btnAutomatic.UseVisualStyleBackColor = false;
+            btnAutomatic.Click += btnAutomatic_Click;
             // 
             // panel11
             // 
@@ -377,22 +391,9 @@
             btnPreviousTemplates.UseVisualStyleBackColor = false;
             btnPreviousTemplates.Click += btnPreviousTemplates_Click;
             // 
-            // btnAutomatic
-            // 
-            btnAutomatic.BackColor = Color.GreenYellow;
-            btnAutomatic.FlatAppearance.BorderSize = 0;
-            btnAutomatic.FlatStyle = FlatStyle.Flat;
-            btnAutomatic.Image = FloorPlanMakerUI.Properties.Resources.LightlingSmall;
-            btnAutomatic.Location = new Point(10, 9);
-            btnAutomatic.Margin = new Padding(3, 7, 3, 7);
-            btnAutomatic.Name = "btnAutomatic";
-            btnAutomatic.Size = new Size(52, 52);
-            btnAutomatic.TabIndex = 18;
-            btnAutomatic.UseVisualStyleBackColor = false;
-            btnAutomatic.Click += btnAutomatic_Click;
-            // 
             // frmTemplateSelection
             // 
+            AcceptButton = btnAutomatic;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.WhiteSmoke;

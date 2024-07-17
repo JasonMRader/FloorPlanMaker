@@ -69,6 +69,8 @@ namespace FloorPlanMaker
         {
             this.Parent.SendToBack();
             this.Hide();
+            this.Close();
+            this.Dispose();
         }
 
         private void PreviewTemplate_Clicked(object? sender, EventArgs e)
@@ -154,10 +156,12 @@ namespace FloorPlanMaker
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            
+
             form1Reference.UpdateWithTemplate();
             this.Parent.SendToBack();
             this.Hide();
+            this.Close();
+            this.Dispose();
         }
         private void btnIncreaseServers_Click(object sender, EventArgs e)
         {
@@ -275,7 +279,7 @@ namespace FloorPlanMaker
                 SetTemplatePanels(floorplanManager.TemplateManager.GetFilteredList());
             }
         }
-        
+
 
         private void btnNextTemplates_Click(object sender, EventArgs e)
         {
@@ -336,13 +340,15 @@ namespace FloorPlanMaker
                 }
                 this.Parent.SendToBack();
                 this.Hide();
+                this.Close();
+                this.Dispose();
             }
             else
             {
                 MessageBox.Show("There are no templates saved for these critera");
             }
-            
-            
+
+
         }
 
         //public void AddSectionPanels(FlowLayoutPanel panel)

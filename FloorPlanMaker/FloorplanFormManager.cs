@@ -180,6 +180,10 @@ namespace FloorPlanMakerUI
             Floorplan.RemoveAllServersFromSections();
             //Floorplan.ClearSectionsOfTables();
             Floorplan.floorplanLines.Clear();
+            foreach (TableControl tableControl in this._tableControls)
+            {
+                tableControl.RemoveSection();
+            }
            // Floorplan.CreateSectionsForServers();
             UpdateTableControlColors();
             UpdateServerControls();
