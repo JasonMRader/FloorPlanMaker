@@ -157,6 +157,13 @@ namespace FloorPlanMaker
 
                 return true;
             }
+            if (keyData == Keys.T)
+            {
+                if(floorplanManager.Floorplan.SectionSelected != null)
+                {
+                    floorplanManager.SectionTeamwaitToggle(floorplanManager.Floorplan.SectionSelected);
+                }
+            }
 
             if (_frmEditStaff != null && _frmEditStaff.Visible)
             {

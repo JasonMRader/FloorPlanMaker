@@ -347,6 +347,15 @@ namespace FloorPlanMakerUI
            
             Section selectedSection = sectionPanel.Section;
 
+            SectionTeamwaitToggle(selectedSection);
+        }
+        public void SectionTeamwaitToggle(Section selectedSection)
+        {
+            SectionPanelControl sectionPanel = _sectionPanels.FirstOrDefault(sp => sp.Section == selectedSection);
+            if (sectionPanel == null)
+            {
+                return;
+            }
             if (!selectedSection.IsTeamWait)
             {
                 Section sectionRemoved = Floorplan.RemoveHighestNumberedEmptySection();
@@ -355,9 +364,9 @@ namespace FloorPlanMakerUI
                     MessageBox.Show("You must clear a section before making another section a teamwait section");
                 }
                 else
-                {                    
+                {
                     selectedSection.ToggleTeamWait();
-                    sectionPanel.SetTeamWaitPictureBoxes();                   
+                    sectionPanel.SetTeamWaitPictureBoxes();
                     UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionPanel, UpdateType.Remove, sectionRemoved));
                     this._sectionPanels.Remove(sectionPanelControlBySection(sectionRemoved));
                 }
@@ -379,8 +388,8 @@ namespace FloorPlanMakerUI
                 this._sectionPanels.Add(newSectionPanel);
                 UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionPanel, UpdateType.Add, sectionAdded));
             }
-            sectionPanel.UpdateLabels();            
-        }       
+            sectionPanel.UpdateLabels();
+        }
         private void EraseSectionClicked(object? sender, EventArgs e)
         {            
             SectionPanelControl sectionPanel = (SectionPanelControl)sender;
