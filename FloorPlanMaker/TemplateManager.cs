@@ -187,17 +187,41 @@ namespace FloorPlanMakerUI
                     Image = Resources.waiter,
                     SizeMode = PictureBoxSizeMode.Zoom
                 };
-                if(section.TemplateTeamWait || section.IsTeamWait)
+                Label label = new Label();
+                if(section.ServerCount > section.TemplateServerCount)
                 {
-                    picBox.Image = Resources.waiters;
+                    label.Text = section.ServerCount.ToString();
+                }
+                else
+                {
+                    label.Text = section.TemplateServerCount.ToString();
+                }
+               
+                label.BackColor = section.Color;
+                label.ForeColor = section.FontColor;
+                label.Font = new Font("Segoe UI", 18f, FontStyle.Bold);
+                label.Location = new Point(3, 3);
+                label.Size = new Size(28, 28);
+                label.AutoSize = false;
+                if (section.TemplateTeamWait || section.IsTeamWait)
+                {
+                    picBox.Image = null;
+                    displayPanel.Controls.Add(label);
+                    label.BringToFront();
+
                 }
                 if(section.IsPickUp)
                 {
                     picBox.Image = null;
                 }
-               // picSectionLabels.Add(picBox);
-              
-                displayPanel.Controls.Add(picBox);
+                // picSectionLabels.Add(picBox);
+                if (!section.TemplateTeamWait && !section.IsTeamWait)
+                {
+                    displayPanel.Controls.Add(picBox);
+
+                }
+                
+                
                 panel.Controls.Add(displayPanel);
                 displayPanel.BringToFront();
                 
