@@ -74,7 +74,7 @@ namespace FloorplanClassLibrary
 
             if (closer != null)
             {
-                Section closingSection = floorplan.Sections.FirstOrDefault(s => s.Server.ID == closer.ID);
+                Section closingSection = potentialClosingSections.FirstOrDefault(s => s.Server.ID == closer.ID);
                 if (closingSection != null)
                 {
                     
@@ -84,7 +84,7 @@ namespace FloorplanClassLibrary
             }
             if(precloser != null)
             {
-                Section preclosingSection = floorplan.Sections.FirstOrDefault(s => s.Server.ID == precloser.ID);
+                Section preclosingSection = potentialClosingSections.FirstOrDefault(s => s.Server.ID == precloser.ID);
                 if (preclosingSection != null)
                 {
 

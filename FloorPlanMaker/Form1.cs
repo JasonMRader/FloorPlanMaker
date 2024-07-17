@@ -165,14 +165,14 @@ namespace FloorPlanMaker
                 }
                 if (keyData == Keys.Up)
                 {
-                    _frmEditDiningAreas.ChangeDiningArea(keyData);
-                    return true;
+                    //_frmEditDiningAreas.ChangeDiningArea(keyData);
+                    //return true;
                 }
 
                 if (keyData == Keys.Down)
                 {
-                    _frmEditDiningAreas.ChangeDiningArea(keyData);
-                    return true;
+                   // _frmEditDiningAreas.ChangeDiningArea(keyData);
+                   // return true;
                 }
             }
             else

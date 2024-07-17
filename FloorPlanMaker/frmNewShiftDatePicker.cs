@@ -112,6 +112,12 @@ namespace FloorPlanMakerUI
                 }
                 return true;
             }
+            if (keyData >= Keys.D1 && keyData <= Keys.D9)
+            {
+                int numberPressed = keyData - Keys.D0;
+                HandleNumericKeyPress(numberPressed);
+                return true;
+            }
 
             return base.ProcessCmdKey(ref msg, keyData);
         }
@@ -138,7 +144,27 @@ namespace FloorPlanMakerUI
                     AddFirstServerToShift();
                 }
             }
+            else if (e.KeyCode >= Keys.D1 && e.KeyCode <= Keys.D9)
+            {
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+
+                int numberPressed = e.KeyCode - Keys.D0;
+                HandleNumericKeyPress(numberPressed);
+            }
+
         }
+
+        private void HandleNumericKeyPress(int numberPressed)
+        {
+            if(numberPressed <= flowDiningAreas.Controls.Count)
+            {
+                Control c = flowDiningAreas.Controls[numberPressed-1];
+                CheckBox cbArea = (CheckBox)c;
+                cbArea.Checked = !cbArea.Checked;
+            }
+        }
+
         private void PopulateServers()
         {
             PopulateNotOnServers(shiftManager.SelectedShift.ServersNotOnShift);
