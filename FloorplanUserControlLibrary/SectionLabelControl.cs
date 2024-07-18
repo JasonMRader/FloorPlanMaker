@@ -115,7 +115,14 @@ namespace FloorplanClassLibrary
         private void SectionLabel_Click1(object? sender, EventArgs e)
         {
             SectionLabelClick?.Invoke(this, e);
-            //this.Section.SetToSelected();
+            if (e is MouseEventArgs mouseEventArgs)
+            {
+                bool isShiftPressed = (Control.ModifierKeys & Keys.Shift) == Keys.Shift;
+                if (mouseEventArgs.Button == MouseButtons.Right && !isShiftPressed)
+                {
+                    ToggleAssignServerPanel();
+                }
+            }
         }
 
         private void AddServerToAvailable(Server server, Section section)
@@ -299,9 +306,14 @@ namespace FloorplanClassLibrary
                
                 return;
             }
+            ToggleAssignServerPanel();
+
+        }
+        private void ToggleAssignServerPanel()
+        {
             if (serverPanelOpen == false)
             {
-               
+
                 if (!this.Section.IsPickUp && this.Section.ServerTeam.Count() < this.Section.ServerCount)
                 {
                     RefreshUnassignedServerPanel();
@@ -317,8 +329,8 @@ namespace FloorplanClassLibrary
                     unassign.Click += UnassignButton_Click;
                     serversPanel.Controls.Add(unassign);
                     serversPanel.Height += 30;
-                    
-                }      
+
+                }
             }
             if (serverPanelOpen == true)
             {
@@ -327,9 +339,7 @@ namespace FloorplanClassLibrary
 
             }
             serverPanelOpen = !serverPanelOpen;
-
         }
-
         private void teamWaitButton_Click(object? sender, EventArgs e)
         {
             this.Section.MakeTeamWait();

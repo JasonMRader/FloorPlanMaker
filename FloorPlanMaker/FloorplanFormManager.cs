@@ -143,20 +143,39 @@ namespace FloorPlanMakerUI
         {
             SectionLabelControl controlClicked = (SectionLabelControl)sender;
             Section section = controlClicked.Section;
-            if ((Control.ModifierKeys & Keys.Shift) == Keys.Shift)
+            if (e is MouseEventArgs mouseEventArgs)
             {
-                if(!section.IsSelected)
+                bool isShiftPressed = (Control.ModifierKeys & Keys.Shift) == Keys.Shift;
+                if(mouseEventArgs.Button == MouseButtons.Left)
                 {
-                    this.Floorplan.SwapServers(this.Floorplan.SectionSelected, section);
+                    if(isShiftPressed)
+                    {
+                        if (!section.IsSelected)
+                        {
+                            this.Floorplan.SwapServers(this.Floorplan.SectionSelected, section);
+                        }
+                    }
+                    else
+                    {
+                        if (!section.IsSelected)
+                        {
+                            section.SetToSelected();
+                        }
+                    }
+                    
+                }
+                else if(mouseEventArgs.Button == MouseButtons.Right) 
+                {
+                    if(isShiftPressed)
+                    {
+                        if(section.Server != null)
+                        {
+                            section.ClearAllServers();
+                        }
+                    }
                 }
             }
-            else
-            {
-                if (!section.IsSelected)
-                {
-                    section.SetToSelected();
-                }
-            }
+            
         }
 
         private void SectionLabelAssignPickup(object? sender, EventArgs e)
