@@ -502,6 +502,39 @@ namespace FloorplanClassLibrary
            
             return templateVarience;
         }
+        public static void AssignServerSections(Floorplan floorplan)
+        {
+            floorplan.OrderSectionsByAvgSales();
+            List<Server> orderedServers = floorplan.ServersWithoutSection.OrderByDescending(s => s.PreferedSectionWeight).ToList();
+            List<Section> unassignedSections = floorplan.UnassignedSections;
+            int serverIndex = 0;
+            int openSectionSpots = unassignedSections.Sum(s => s.ServerCount);
+
+            //for (int i = 0; i < openSectionSpots && serverIndex < orderedServers.Count; i++)
+            //{
+            //    if (unassignedSections[i].IsPickUp)
+            //    {
+            //        continue;
+            //    }
+
+            //    unassignedSections[i].AddServer(orderedServers[serverIndex]);
+            //    if (unassignedSections[i].IsTeamWait)
+            //    serverIndex++;
+            //}
+            for (int i = 0; i < openSectionSpots && serverIndex < orderedServers.Count; i++)
+            {
+                if (unassignedSections[i].IsPickUp)
+                {
+                    continue;
+                }
+                while (unassignedSections[i].ServerTeam.Count < unassignedSections[i].ServerCount)
+                {
+                    unassignedSections[i].AddServer(orderedServers[serverIndex]);
+                    serverIndex++;
+                }
+               
+            }
+        }
 
     }
 }

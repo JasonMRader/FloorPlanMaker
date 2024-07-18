@@ -564,21 +564,7 @@ namespace FloorPlanMakerUI
                 MessageBox.Show("All tables are not assigned");
                 return;
             }
-            this.Floorplan.OrderSectionsByAvgSales();
-            List<Server> orderedServers = this.Floorplan.ServersWithoutSection.OrderByDescending(s => s.PreferedSectionWeight).ToList();
-            List<Section> unassignedSections = this.Floorplan.UnassignedSections;
-            int serverIndex = 0;
-
-            for (int i = 0; i < unassignedSections.Count && serverIndex < orderedServers.Count; i++)
-            {
-                if (unassignedSections[i].IsPickUp)
-                {
-                    continue;
-                }
-
-                unassignedSections[i].AddServer(orderedServers[serverIndex]);
-                serverIndex++;
-            }
+            FloorplanGenerator.AssignServerSections(this.Floorplan);
         }
 
         private void btnAutoSelectTemplate_Click(object? sender, EventArgs e)
