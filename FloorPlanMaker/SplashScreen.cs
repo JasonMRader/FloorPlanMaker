@@ -20,6 +20,7 @@ namespace FloorPlanMakerUI
             backgroundWorker1.DoWork += BackgroundWorker1_DoWork;
             backgroundWorker1.RunWorkerCompleted += BackgroundWorker1_RunWorkerCompleted;
             timer1.Tick += timer_Tick;
+            pictureBox2.Image = Image.FromFile("C:\\Users\\Jason\\Source\\Repos\\JasonMRader\\FloorPlanMaker\\FloorPlanMaker\\Resources\\loading.gif");
 
             this.FormClosing += SplashScreen_FormClosing;
         }
@@ -35,26 +36,26 @@ namespace FloorPlanMakerUI
             // Update the text based on the dotCount
             switch (dotCount)
             {
-                case 1:
-                    lblLoading.Text = "Loading.";
-                    dotCount++;
-                    break;
-                case 2:
-                    lblLoading.Text = "Loading..";
-                    dotCount++;
-                    break;
-                case 3:
-                    lblLoading.Text = "Loading...";
-                    dotCount++;  // Reset to start cycle over
-                    break;
-                case 4:
-                    lblLoading.Text = "Loading....";
-                    dotCount++;
-                    break;
-                case 5:
-                    lblLoading.Text = "Loading.....";
-                    dotCount = 1;
-                    break;
+                //case 1:
+                //    lblLoading.Text = "Loading.";
+                //    dotCount++;
+                //    break;
+                //case 2:
+                //    lblLoading.Text = "Loading..";
+                //    dotCount++;
+                //    break;
+                //case 3:
+                //    lblLoading.Text = "Loading...";
+                //    dotCount++;  // Reset to start cycle over
+                //    break;
+                //case 4:
+                //    lblLoading.Text = "Loading....";
+                //    dotCount++;
+                //    break;
+                //case 5:
+                //    lblLoading.Text = "Loading.....";
+                //    dotCount = 1;
+                //    break;
             }
         }
         private void BackgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
@@ -84,34 +85,39 @@ namespace FloorPlanMakerUI
 
         private void SplashScreen_Shown(object sender, EventArgs e)
         {
-            
+
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
             switch (dotCount)
             {
-                case 1:
-                    lblLoading.Text = "Loading.";
-                    dotCount++;
-                    break;
-                case 2:
-                    lblLoading.Text = "Loading..";
-                    dotCount++;
-                    break;
-                case 3:
-                    lblLoading.Text = "Loading...";
-                    dotCount++;  // Reset to start cycle over
-                    break;
-                case 4:
-                    lblLoading.Text = "Loading....";
-                    dotCount++;
-                    break;
-                case 5:
-                    lblLoading.Text = "Loading.....";
-                    dotCount = 1;
-                    break;
+                //case 1:
+                //    lblLoading.Text = "Loading.";
+                //    dotCount++;
+                //    break;
+                //case 2:
+                //    lblLoading.Text = "Loading..";
+                //    dotCount++;
+                //    break;
+                //case 3:
+                //    lblLoading.Text = "Loading...";
+                //    dotCount++;  // Reset to start cycle over
+                //    break;
+                //case 4:
+                //    lblLoading.Text = "Loading....";
+                //    dotCount++;
+                //    break;
+                //case 5:
+                //    lblLoading.Text = "Loading.....";
+                //    dotCount = 1;
+                //    break;
             }
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

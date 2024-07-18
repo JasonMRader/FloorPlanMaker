@@ -30,43 +30,46 @@
         {
             components = new System.ComponentModel.Container();
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            label1 = new Label();
             panel1 = new Panel();
-            lblLoading = new Label();
+            pictureBox2 = new PictureBox();
+            pictureBox1 = new PictureBox();
             timer1 = new System.Windows.Forms.Timer(components);
             panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
-            // 
-            // label1
-            // 
-            label1.Font = new Font("Microsoft YaHei UI", 24F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(3, 67);
-            label1.Name = "label1";
-            label1.Size = new Size(598, 76);
-            label1.TabIndex = 0;
-            label1.Text = "FloorplanMaker 1.0";
-            label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // panel1
             // 
-            panel1.BackColor = Color.WhiteSmoke;
-            panel1.Controls.Add(lblLoading);
-            panel1.Controls.Add(label1);
+            panel1.BackColor = Color.FromArgb(225, 225, 225);
+            panel1.Controls.Add(pictureBox2);
+            panel1.Controls.Add(pictureBox1);
             panel1.Location = new Point(34, 34);
             panel1.Margin = new Padding(25);
             panel1.Name = "panel1";
-            panel1.Size = new Size(604, 382);
+            panel1.Size = new Size(726, 572);
             panel1.TabIndex = 1;
             // 
-            // lblLoading
+            // pictureBox2
             // 
-            lblLoading.AutoSize = true;
-            lblLoading.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
-            lblLoading.Location = new Point(260, 195);
-            lblLoading.Name = "lblLoading";
-            lblLoading.Size = new Size(84, 25);
-            lblLoading.TabIndex = 1;
-            lblLoading.Text = "Loading.";
+            pictureBox2.Image = Properties.Resources.Loading;
+            pictureBox2.Location = new Point(299, 449);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(120, 120);
+            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox2.TabIndex = 3;
+            pictureBox2.TabStop = false;
+            pictureBox2.Click += pictureBox2_Click;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = Properties.Resources.FloorplanMaker;
+            pictureBox1.Location = new Point(130, 0);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(450, 450);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.TabIndex = 2;
+            pictureBox1.TabStop = false;
             // 
             // timer1
             // 
@@ -78,7 +81,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(180, 190, 200);
-            ClientSize = new Size(672, 450);
+            ClientSize = new Size(794, 640);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
             Name = "SplashScreen";
@@ -89,16 +92,17 @@
             Load += SplashScreen_Load;
             Shown += SplashScreen_Shown;
             panel1.ResumeLayout(false);
-            panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
-        private Label label1;
         private Panel panel1;
-        private Label lblLoading;
         private System.Windows.Forms.Timer timer1;
+        private PictureBox pictureBox1;
+        private PictureBox pictureBox2;
     }
 }

@@ -44,6 +44,7 @@ namespace FloorPlanMakerUI
            frmEditStaff frmEditStaff, DateTime date, bool isAm, ShiftManager shiftManager)
         {
             InitializeComponent();
+            pictureBox1.Image = Image.FromFile("C:\\Users\\Jason\\Source\\Repos\\JasonMRader\\FloorPlanMaker\\FloorPlanMaker\\Resources\\loading.gif");
             DiningAreaManager = diningAreaManager;
             this.allFloorplans = allFloorplans;
             this.shiftManager = shiftManager;
@@ -87,7 +88,7 @@ namespace FloorPlanMakerUI
             PopulateServers();
             RefreshForDateSelected();
             txtServerSearch.Focus();
-            
+
         }
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
@@ -162,9 +163,9 @@ namespace FloorPlanMakerUI
 
         private void HandleNumericKeyPress(int numberPressed)
         {
-            if(numberPressed <= flowDiningAreas.Controls.Count)
+            if (numberPressed <= flowDiningAreas.Controls.Count)
             {
-                Control c = flowDiningAreas.Controls[numberPressed-1];
+                Control c = flowDiningAreas.Controls[numberPressed - 1];
                 CheckBox cbArea = (CheckBox)c;
                 cbArea.Checked = !cbArea.Checked;
             }
