@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
-    <ApplicationIcon>noun-waiter-48X48.ico</ApplicationIcon>
+    <ApplicationIcon>FloorplanMakerLOGOONLY (2).ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -38,7 +38,7 @@
     <Content Include="FloorplanMakerDB.db">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="noun-waiter-48X48.ico" />
+    <Content Include="FloorplanMakerLOGOONLY (2).ico" />
     <Content Include="Resources\loading.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

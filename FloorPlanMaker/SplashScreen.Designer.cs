@@ -11,14 +11,7 @@
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+
 
         #region Windows Form Designer generated code
 
@@ -31,57 +24,50 @@
             components = new System.ComponentModel.Container();
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             panel1 = new Panel();
-            pictureBox2 = new PictureBox();
+            label1 = new Label();
             pictureBox1 = new PictureBox();
             timer1 = new System.Windows.Forms.Timer(components);
             panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(225, 225, 225);
-            panel1.Controls.Add(pictureBox2);
+            panel1.Controls.Add(label1);
             panel1.Controls.Add(pictureBox1);
             panel1.Location = new Point(34, 34);
             panel1.Margin = new Padding(25);
             panel1.Name = "panel1";
-            panel1.Size = new Size(726, 572);
+            panel1.Size = new Size(500, 523);
             panel1.TabIndex = 1;
             // 
-            // pictureBox2
+            // label1
             // 
-            pictureBox2.Image = Properties.Resources.Loading;
-            pictureBox2.Location = new Point(299, 449);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(120, 120);
-            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox2.TabIndex = 3;
-            pictureBox2.TabStop = false;
-            pictureBox2.Click += pictureBox2_Click;
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI Black", 18F, FontStyle.Bold, GraphicsUnit.Point);
+            label1.Location = new Point(121, 477);
+            label1.Name = "label1";
+            label1.Size = new Size(258, 32);
+            label1.TabIndex = 3;
+            label1.Text = "Loading, Please Wait";
             // 
             // pictureBox1
             // 
             pictureBox1.Image = Properties.Resources.FloorplanMaker;
-            pictureBox1.Location = new Point(130, 0);
+            pictureBox1.Location = new Point(0, 0);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(450, 450);
+            pictureBox1.Size = new Size(500, 500);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 2;
             pictureBox1.TabStop = false;
-            // 
-            // timer1
-            // 
-            timer1.Interval = 300;
-            timer1.Tick += timer1_Tick;
             // 
             // SplashScreen
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(180, 190, 200);
-            ClientSize = new Size(794, 640);
+            ClientSize = new Size(568, 596);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
             Name = "SplashScreen";
@@ -92,7 +78,7 @@
             Load += SplashScreen_Load;
             Shown += SplashScreen_Shown;
             panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+            panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }
@@ -103,6 +89,6 @@
         private Panel panel1;
         private System.Windows.Forms.Timer timer1;
         private PictureBox pictureBox1;
-        private PictureBox pictureBox2;
+        private Label label1;
     }
 }

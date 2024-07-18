@@ -33,7 +33,6 @@
             lblIsToday = new Label();
             lblDate = new Label();
             panel1 = new Panel();
-            pictureBox1 = new PictureBox();
             cbIsAm = new CheckBox();
             btnForwardDay = new Button();
             btnBackDay = new Button();
@@ -62,7 +61,6 @@
             lblServersOnShift = new Label();
             toolTip1 = new ToolTip(components);
             panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pbAddPerson).BeginInit();
@@ -108,7 +106,6 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(180, 190, 200);
-            panel1.Controls.Add(pictureBox1);
             panel1.Controls.Add(cbIsAm);
             panel1.Controls.Add(btnForwardDay);
             panel1.Controls.Add(btnBackDay);
@@ -118,16 +115,6 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(1211, 88);
             panel1.TabIndex = 2;
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.Image = Properties.Resources.Loading;
-            pictureBox1.Location = new Point(182, 25);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(57, 50);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.TabIndex = 3;
-            pictureBox1.TabStop = false;
             // 
             // cbIsAm
             // 
@@ -454,7 +441,6 @@
             Text = "frmNewShiftDatePicker";
             Load += frmNewShiftDatePicker_Load;
             panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             panel3.ResumeLayout(false);
@@ -498,6 +484,5 @@
         private Label lblBartenderCount;
         private Label label2;
         private CheckBox cbStatsType;
-        private PictureBox pictureBox1;
     }
 }

@@ -44,7 +44,7 @@ namespace FloorPlanMakerUI
            frmEditStaff frmEditStaff, DateTime date, bool isAm, ShiftManager shiftManager)
         {
             InitializeComponent();
-            pictureBox1.Image = Image.FromFile("C:\\Users\\Jason\\Source\\Repos\\JasonMRader\\FloorPlanMaker\\FloorPlanMaker\\Resources\\loading.gif");
+            
             DiningAreaManager = diningAreaManager;
             this.allFloorplans = allFloorplans;
             this.shiftManager = shiftManager;
