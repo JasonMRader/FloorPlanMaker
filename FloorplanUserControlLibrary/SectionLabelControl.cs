@@ -157,28 +157,50 @@ namespace FloorplanClassLibrary
         }
         private void SetToCloserButton_Click(object? sender, EventArgs e)
         {
-            if (this.closerPanelOpen == false)
+            bool isShiftPressed = (Control.ModifierKeys & Keys.Shift) == Keys.Shift;
+            if (!isShiftPressed)
             {
-                PictureBox pbCut = new PictureBox { Size = new Size((this.Width / 4), (this.Width / 4)), Image = Resources.Scissors__Copy, SizeMode = PictureBoxSizeMode.StretchImage };
-                pbCut.Click += Cut_Click;
-                PictureBox pbPre = new PictureBox { Size = new Size((this.Width / 4), (this.Width / 4)), Image = Resources.Pre2, SizeMode = PictureBoxSizeMode.StretchImage };
-                pbPre.Click += Pre_Click;
-                PictureBox pbClose = new PictureBox { Size = new Size((this.Width / 4), (this.Width / 4)), Image = Resources.Close, SizeMode = PictureBoxSizeMode.StretchImage };
-                pbClose.Click += Close_click;
-                if (!this.Section.IsPre) { closerPanel.Controls.Add(pbPre); }
-                if (!this.Section.IsCloser) { closerPanel.Controls.Add(pbClose); }
-                if (this.Section.IsPre || this.Section.IsCloser) { closerPanel.Controls.Add(pbCut); }
+                if (this.closerPanelOpen == false)
+                {
+                    PictureBox pbCut = new PictureBox { Size = new Size((this.Width / 4), (this.Width / 4)), Image = Resources.Scissors__Copy, SizeMode = PictureBoxSizeMode.StretchImage };
+                    pbCut.Click += Cut_Click;
+                    PictureBox pbPre = new PictureBox { Size = new Size((this.Width / 4), (this.Width / 4)), Image = Resources.Pre2, SizeMode = PictureBoxSizeMode.StretchImage };
+                    pbPre.Click += Pre_Click;
+                    PictureBox pbClose = new PictureBox { Size = new Size((this.Width / 4), (this.Width / 4)), Image = Resources.Close, SizeMode = PictureBoxSizeMode.StretchImage };
+                    pbClose.Click += Close_click;
+                    if (!this.Section.IsPre) { closerPanel.Controls.Add(pbPre); }
+                    if (!this.Section.IsCloser) { closerPanel.Controls.Add(pbClose); }
+                    if (this.Section.IsPre || this.Section.IsCloser) { closerPanel.Controls.Add(pbCut); }
 
-                closerPanel.Height = pbClose.Height;
+                    closerPanel.Height = pbClose.Height;
 
+                }
+                if (this.closerPanelOpen == true)
+                {
+                    closerPanel.Controls.Clear();
+                    closerPanel.Height = 0;
+
+                }
+                closerPanelOpen = !closerPanelOpen; 
             }
-            if (this.closerPanelOpen == true)
+            else if (isShiftPressed)
             {
-                closerPanel.Controls.Clear();
-                closerPanel.Height = 0;
-
+                if(!this.Section.IsPre && !this.Section.IsCloser)
+                {
+                    SetSectionToPre();
+                    return;
+                }
+                if (this.Section.IsPre)
+                {
+                    SetSectionToClose();
+                    return;
+                }
+                if (this.Section.IsCloser)
+                {
+                    SetSectionToCut();
+                    return;
+                }
             }
-            closerPanelOpen = !closerPanelOpen;
 
         }
         
@@ -233,9 +255,7 @@ namespace FloorplanClassLibrary
         }
         private void Cut_Click(object sender, EventArgs e)
         {
-            this.Section.IsCloser = false;
-            this.Section.IsPre = false;
-            this.setCloserButton.Image = Resources.Scissors__Copy;
+            SetSectionToCut();
             if (this.closerPanelOpen == true)
             {
                 closerPanel.Controls.Clear();
@@ -244,16 +264,14 @@ namespace FloorplanClassLibrary
             }
             closerPanelOpen = !closerPanelOpen;
         }
-        private void Close_click(object sender, EventArgs e)
+        private void SetSectionToCut()
         {
-            if (this.Section.IsTeamWait)
-            {
-                //closerPanelOpen = !closerPanelOpen;
-                //MessageBox.Show("Assigning a teamwait section as close is not supported at this time");
-               
-                //return;
-
-            }
+            this.Section.IsCloser = false;
+            this.Section.IsPre = false;
+            this.setCloserButton.Image = Resources.Scissors__Copy;
+        }
+        private void SetSectionToClose()
+        {
             if (this.Section.Server.isDouble)
             {
                 DialogResult result = MessageBox.Show(Section.Server.Name + " is a Double. Assign as closer anyway?",
@@ -269,6 +287,18 @@ namespace FloorplanClassLibrary
             this.Section.IsCloser = true;
             this.Section.IsPre = false;
             this.setCloserButton.Image = Resources.Close;
+        }
+        private void Close_click(object sender, EventArgs e)
+        {
+            if (this.Section.IsTeamWait)
+            {
+                //closerPanelOpen = !closerPanelOpen;
+                //MessageBox.Show("Assigning a teamwait section as close is not supported at this time");
+               
+                //return;
+
+            }
+            SetSectionToClose();
             if (this.closerPanelOpen == true)
             {
                 closerPanel.Controls.Clear();
@@ -276,6 +306,12 @@ namespace FloorplanClassLibrary
 
             }
             closerPanelOpen = !closerPanelOpen;
+        }
+        private void SetSectionToPre()
+        {
+            this.Section.IsCloser = false;
+            this.Section.IsPre = true;
+            this.setCloserButton.Image = Resources.Pre2;
         }
         private void Pre_Click(object sender, EventArgs e)
         {
@@ -287,9 +323,7 @@ namespace FloorplanClassLibrary
                 //return;
 
             }
-            this.Section.IsCloser = false;
-            this.Section.IsPre = true;
-            this.setCloserButton.Image = Resources.Pre2;
+            SetSectionToPre();
             if (this.closerPanelOpen == true)
             {
                 closerPanel.Controls.Clear();
