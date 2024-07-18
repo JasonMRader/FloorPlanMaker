@@ -324,6 +324,10 @@ namespace FloorPlanMaker
 
         private void btnAutomatic_Click(object sender, EventArgs e)
         {
+           ApplyIdealTemplate();
+        }
+        public void ApplyIdealTemplate()
+        {
             List<FloorplanTemplate> templates = floorplanManager.TemplateManager.GetFilteredList();
             if (templates.Count > 0)
             {
@@ -347,8 +351,6 @@ namespace FloorPlanMaker
             {
                 MessageBox.Show("There are no templates saved for these critera");
             }
-
-
         }
 
         //public void AddSectionPanels(FlowLayoutPanel panel)

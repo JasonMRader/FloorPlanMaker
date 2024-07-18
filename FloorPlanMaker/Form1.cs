@@ -175,6 +175,14 @@ namespace FloorPlanMaker
                     // return true;
                 }
             }
+            else if(_frmTemplateSelection != null && _frmTemplateSelection.Visible)
+            {
+                if (keyData == Keys.Enter)
+                {
+                    _frmTemplateSelection.ApplyIdealTemplate();
+                    return true;
+                }
+            }
             else
             {
                 if (keyData == Keys.Left)
