@@ -127,12 +127,34 @@ namespace FloorPlanMakerUI
                 {
                     SectionLabelControl sectionControl = new SectionLabelControl(section, Shift.SelectedFloorplan.ServersWithoutSection, Shift.ServersOnShift);
                     sectionControl.AssignPickup += SectionLabelAssignPickup;
+                    sectionControl.SectionLabelClick += SectionLabel_Clicked;
+                    
                     this._sectionLabels.Add(sectionControl);                    
                 }
                 if (section.Server != null)
                 {
                     Shift.SelectedFloorplan.ServersWithoutSection.Remove(section.Server);                   
                     
+                }
+            }
+        }
+
+        private void SectionLabel_Clicked(object? sender, EventArgs e)
+        {
+            SectionLabelControl controlClicked = (SectionLabelControl)sender;
+            Section section = controlClicked.Section;
+            if ((Control.ModifierKeys & Keys.Shift) == Keys.Shift)
+            {
+                if(!section.IsSelected)
+                {
+                    this.Floorplan.SwapServers(this.Floorplan.SectionSelected, section);
+                }
+            }
+            else
+            {
+                if (!section.IsSelected)
+                {
+                    section.SetToSelected();
                 }
             }
         }

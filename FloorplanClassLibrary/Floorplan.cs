@@ -399,6 +399,20 @@ namespace FloorplanClassLibrary
            
             //section.SubscribeObserver(this);
         }
+        public void SwapServers(Section section1, Section section2)
+        {
+            if(section1 == null || section2 == null) { return; }
+
+            if( section1.IsTeamWait || section2.IsTeamWait 
+                || section1.Server == null  || section2.Server == null
+                || section1.IsPickUp || section2.IsPickUp) { return; }
+            Server server1 = section1.Server;
+            Server server2 = section2.Server;
+            section1.RemoveServer(server1);
+            section2.RemoveServer(server2);
+            section1.AddServer(server2);
+            section2.AddServer(server1);
+        }
 
         public void CreateSectionsForServers()
         {

@@ -28,9 +28,9 @@ namespace FloorplanClassLibrary
         private Color BorderColor = Color.Black;
         private int borderWidth = 5;
         private ToolTip toolTip;
-        public event EventHandler AssignPickup;   
+        public event EventHandler AssignPickup;
         // TODO: rework what apears on SectionLabels
-      
+        public event EventHandler SectionLabelClick;
 
         public Section Section { get; set; }
 
@@ -41,6 +41,7 @@ namespace FloorplanClassLibrary
             this.Section = section;
             section.ServerAssigned += RemoveServerFromAvailable;
             section.ServerRemoved += AddServerToAvailable;
+           
             this.Section.SubscribeObserver(this);
             this.unassignedServers = unassignedServers;
             this.allServers = allServers;
@@ -106,10 +107,15 @@ namespace FloorplanClassLibrary
             toolTip.SetToolTip(assignServerButton, "Assign Server");
             
         }
+        public void SectionLabel_ShiftClick(Section otherSection)
+        {
+            if (otherSection == null) { return; }
 
+        }
         private void SectionLabel_Click1(object? sender, EventArgs e)
         {
-             this.Section.SetToSelected();
+            SectionLabelClick?.Invoke(this, e);
+            //this.Section.SetToSelected();
         }
 
         private void AddServerToAvailable(Server server, Section section)
