@@ -81,14 +81,28 @@ namespace FloorPlanMakerUI
                 cbIsAm.Checked = false;
             }
             SetColors();
-            lblDate.Text = dateSelected.ToString("dddd, MMMM dd");
-            GetDateLabel();
+            GetDateString();
+            GetTodayLabel();
             LoadDiningAreas();
             RefreshPreviousFloorplanCounts();
             PopulateServers();
             RefreshForDateSelected();
             txtServerSearch.Focus();
 
+        }
+        private void GetDateString()
+        {
+            string shiftType = "";
+            if (shiftManager.SelectedShift.IsAM)
+            {
+                shiftType = "Lunch";
+            }
+            else
+            {
+                shiftType = "Dinner";
+            }
+            string dateLabel = shiftType + ": " + dateSelected.ToString("dddd, MMMM dd");
+            lblDate.Text = dateLabel;
         }
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
@@ -475,8 +489,8 @@ namespace FloorPlanMakerUI
         private void btnBackDay_Click(object sender, EventArgs e)
         {
             dateSelected = dateSelected.AddDays(-1);
-            lblDate.Text = dateSelected.ToString("dddd, MMMM dd");
-            GetDateLabel();
+            GetDateString();
+            GetTodayLabel();
             RefreshPreviousFloorplanCounts();
             RefreshForDateSelected();
             txtServerSearch.Focus();
@@ -485,13 +499,13 @@ namespace FloorPlanMakerUI
         private void btnForwardDay_Click(object sender, EventArgs e)
         {
             dateSelected = dateSelected.AddDays(1);
-            lblDate.Text = dateSelected.ToString("dddd, MMMM dd");
-            GetDateLabel();
+            GetDateString();
+            GetTodayLabel();
             RefreshPreviousFloorplanCounts();
             RefreshForDateSelected();
             txtServerSearch.Focus();
         }
-        private void GetDateLabel()
+        private void GetTodayLabel()
         {
             if (dateSelected.Date == DateTime.Today)
             {
@@ -555,6 +569,7 @@ namespace FloorPlanMakerUI
             RefreshPreviousFloorplanCounts();
             RefreshForDateSelected();
             txtServerSearch.Focus();
+            GetDateString();
         }
 
         private void pbAddPerson_Click(object sender, EventArgs e)
