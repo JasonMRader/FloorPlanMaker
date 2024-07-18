@@ -509,18 +509,7 @@ namespace FloorplanClassLibrary
             List<Section> unassignedSections = floorplan.UnassignedSections;
             int serverIndex = 0;
             int openSectionSpots = unassignedSections.Sum(s => s.ServerCount);
-
-            //for (int i = 0; i < openSectionSpots && serverIndex < orderedServers.Count; i++)
-            //{
-            //    if (unassignedSections[i].IsPickUp)
-            //    {
-            //        continue;
-            //    }
-
-            //    unassignedSections[i].AddServer(orderedServers[serverIndex]);
-            //    if (unassignedSections[i].IsTeamWait)
-            //    serverIndex++;
-            //}
+            orderedServers = ShuffleServersWithSameSectionRanking(orderedServers);
             for (int i = 0; i < openSectionSpots && serverIndex < orderedServers.Count; i++)
             {
                 if (unassignedSections[i].IsPickUp)
@@ -533,6 +522,43 @@ namespace FloorplanClassLibrary
                     serverIndex++;
                 }
                
+            }
+        }
+        private static List<Server> ShuffleServersWithSameSectionRanking(List<Server> servers)
+        {
+            Dictionary<int, List<Server>> sortedServers = new Dictionary<int, List<Server>>();
+            foreach(Server server in servers)
+            {
+                if(!sortedServers.TryGetValue(server.PreferedSectionWeight, out List<Server> serverList))
+                {
+                    serverList = new List<Server>();
+                    sortedServers[server.PreferedSectionWeight] = serverList;
+                }
+               
+                sortedServers[server.PreferedSectionWeight].Add(server);
+                
+            }
+            List<Server> shuffledOrderedServers = new List<Server>();
+            foreach (int key in sortedServers.Keys)
+            {
+                Shuffle(sortedServers[key]);
+                shuffledOrderedServers.AddRange(sortedServers[key]);
+            }
+            return shuffledOrderedServers;
+
+
+        }
+        static void Shuffle<T>(List<T> list)
+        {
+            Random rng = new Random();
+            int n = list.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = rng.Next(n + 1);
+                T value = list[k];
+                list[k] = list[n];
+                list[n] = value;
             }
         }
 
