@@ -43,6 +43,7 @@ namespace FloorPlanMaker
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
+
             if (keyData == Keys.Tab)
             {
                 MoveToNextFloorplan();

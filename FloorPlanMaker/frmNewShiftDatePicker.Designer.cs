@@ -440,6 +440,7 @@
             StartPosition = FormStartPosition.CenterParent;
             Text = "frmNewShiftDatePicker";
             Load += frmNewShiftDatePicker_Load;
+            Shown += frmNewShiftDatePicker_Shown;
             panel1.ResumeLayout(false);
             panel2.ResumeLayout(false);
             panel2.PerformLayout();

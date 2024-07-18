@@ -44,7 +44,7 @@ namespace FloorPlanMakerUI
            frmEditStaff frmEditStaff, DateTime date, bool isAm, ShiftManager shiftManager)
         {
             InitializeComponent();
-            
+
             DiningAreaManager = diningAreaManager;
             this.allFloorplans = allFloorplans;
             this.shiftManager = shiftManager;
@@ -94,12 +94,12 @@ namespace FloorPlanMakerUI
         {
             if (keyData == Keys.Shift)
             {
-                btnImportServers.Focus();
+                txtServerSearch.Focus();
                 return true;
             }
             if (keyData == Keys.Enter)
             {
-                if (Control.ModifierKeys == Keys.Shift)
+                if (Control.ModifierKeys == Keys.Shift && this.Visible)
                 {
                     if (shiftManager.SelectedShift.ServersOnShift.Count == 0)
                     {
@@ -755,6 +755,11 @@ namespace FloorPlanMakerUI
             {
                 cbStatsType.Text = "Last Week";
             }
+        }
+
+        private void frmNewShiftDatePicker_Shown(object sender, EventArgs e)
+        {
+            txtServerSearch.Focus();
         }
     }
 }
