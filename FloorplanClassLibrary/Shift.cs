@@ -53,7 +53,10 @@ namespace FloorplanClassLibrary
         {
             this._unassignedServers = shiftToCopy.ServersOnShift;
             this._serversNotOnShift = shiftToCopy.ServersNotOnShift;
-           
+            foreach(Server server in _serversOnShift)
+            {
+                server.CurrentSection = null;
+            }
             foreach (Floorplan floorplan in shiftToCopy.Floorplans)
             {
                 if(!this.DiningAreasUsed.Contains(floorplan.DiningArea))

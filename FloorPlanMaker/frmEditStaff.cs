@@ -257,6 +257,7 @@ namespace FloorPlanMaker
                             {
 
                                 ShiftManager.SelectedShift.RemoveServerFromFloorplanByDiningArea(server, fp);
+                                break;
                             }
                         }
                     }
