@@ -236,6 +236,24 @@ namespace FloorplanClassLibrary
             }
             return false;
         }
+        public void SetToClose()
+        {
+            this.IsCloser = true;
+            this.IsPre = false;
+            NotifyObservers();
+        }
+        public void SetToPre()
+        {
+            this.IsCloser = false;
+            this.IsPre = true;
+            NotifyObservers();
+        }
+        public void SetToCut()
+        {
+            this.IsCloser = false;
+            this.IsPre = false;
+            NotifyObservers();
+        }
         public void MakeTeamWait()
         {
             _isTeamWait = true;

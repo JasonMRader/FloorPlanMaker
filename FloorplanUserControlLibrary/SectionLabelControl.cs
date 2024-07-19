@@ -157,49 +157,52 @@ namespace FloorplanClassLibrary
         }
         private void SetToCloserButton_Click(object? sender, EventArgs e)
         {
-            bool isShiftPressed = (Control.ModifierKeys & Keys.Shift) == Keys.Shift;
-            if (!isShiftPressed)
+
+            if (e is MouseEventArgs mouseEventArgs)
             {
-                if (this.closerPanelOpen == false)
+                if (mouseEventArgs.Button == MouseButtons.Right)
                 {
-                    PictureBox pbCut = new PictureBox { Size = new Size((this.Width / 4), (this.Width / 4)), Image = Resources.Scissors__Copy, SizeMode = PictureBoxSizeMode.StretchImage };
-                    pbCut.Click += Cut_Click;
-                    PictureBox pbPre = new PictureBox { Size = new Size((this.Width / 4), (this.Width / 4)), Image = Resources.Pre2, SizeMode = PictureBoxSizeMode.StretchImage };
-                    pbPre.Click += Pre_Click;
-                    PictureBox pbClose = new PictureBox { Size = new Size((this.Width / 4), (this.Width / 4)), Image = Resources.Close, SizeMode = PictureBoxSizeMode.StretchImage };
-                    pbClose.Click += Close_click;
-                    if (!this.Section.IsPre) { closerPanel.Controls.Add(pbPre); }
-                    if (!this.Section.IsCloser) { closerPanel.Controls.Add(pbClose); }
-                    if (this.Section.IsPre || this.Section.IsCloser) { closerPanel.Controls.Add(pbCut); }
+                    if (this.closerPanelOpen == false)
+                    {
+                        PictureBox pbCut = new PictureBox { Size = new Size((this.Width / 4), (this.Width / 4)), Image = Resources.Scissors__Copy, SizeMode = PictureBoxSizeMode.StretchImage };
+                        pbCut.Click += Cut_Click;
+                        PictureBox pbPre = new PictureBox { Size = new Size((this.Width / 4), (this.Width / 4)), Image = Resources.Pre2, SizeMode = PictureBoxSizeMode.StretchImage };
+                        pbPre.Click += Pre_Click;
+                        PictureBox pbClose = new PictureBox { Size = new Size((this.Width / 4), (this.Width / 4)), Image = Resources.Close, SizeMode = PictureBoxSizeMode.StretchImage };
+                        pbClose.Click += Close_click;
+                        if (!this.Section.IsPre) { closerPanel.Controls.Add(pbPre); }
+                        if (!this.Section.IsCloser) { closerPanel.Controls.Add(pbClose); }
+                        if (this.Section.IsPre || this.Section.IsCloser) { closerPanel.Controls.Add(pbCut); }
 
-                    closerPanel.Height = pbClose.Height;
+                        closerPanel.Height = pbClose.Height;
 
-                }
-                if (this.closerPanelOpen == true)
-                {
-                    closerPanel.Controls.Clear();
-                    closerPanel.Height = 0;
+                    }
+                    if (this.closerPanelOpen == true)
+                    {
+                        closerPanel.Controls.Clear();
+                        closerPanel.Height = 0;
 
+                    }
+                    closerPanelOpen = !closerPanelOpen;
                 }
-                closerPanelOpen = !closerPanelOpen; 
-            }
-            else if (isShiftPressed)
-            {
-                if(!this.Section.IsPre && !this.Section.IsCloser)
+                else if (mouseEventArgs.Button == MouseButtons.Left)
                 {
-                    SetSectionToPre();
-                    return;
-                }
-                if (this.Section.IsPre)
-                {
-                    SetSectionToClose();
-                    return;
-                }
-                if (this.Section.IsCloser)
-                {
-                    SetSectionToCut();
-                    return;
-                }
+                    if (!this.Section.IsPre && !this.Section.IsCloser)
+                    {
+                        SetSectionToPre();
+                        return;
+                    }
+                    if (this.Section.IsPre)
+                    {
+                        SetSectionToClose();
+                        return;
+                    }
+                    if (this.Section.IsCloser)
+                    {
+                        SetSectionToCut();
+                        return;
+                    }
+                } 
             }
 
         }
@@ -266,8 +269,8 @@ namespace FloorplanClassLibrary
         }
         private void SetSectionToCut()
         {
-            this.Section.IsCloser = false;
-            this.Section.IsPre = false;
+
+            this.Section.SetToCut();
             this.setCloserButton.Image = Resources.Scissors__Copy;
         }
         private void SetSectionToClose()
@@ -284,8 +287,7 @@ namespace FloorplanClassLibrary
                     return;
                 }
             }
-            this.Section.IsCloser = true;
-            this.Section.IsPre = false;
+            this.Section.SetToClose();
             this.setCloserButton.Image = Resources.Close;
         }
         private void Close_click(object sender, EventArgs e)
@@ -309,8 +311,8 @@ namespace FloorplanClassLibrary
         }
         private void SetSectionToPre()
         {
-            this.Section.IsCloser = false;
-            this.Section.IsPre = true;
+            this.Section.SetToPre();
+            
             this.setCloserButton.Image = Resources.Pre2;
         }
         private void Pre_Click(object sender, EventArgs e)
