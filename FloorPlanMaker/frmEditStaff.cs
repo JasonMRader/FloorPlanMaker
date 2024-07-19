@@ -369,7 +369,9 @@ namespace FloorPlanMaker
                 return;
             }
             ShiftManager.SelectedShift.DateOnly = new DateOnly(dateSelected.Year, dateSelected.Month, dateSelected.Day);
+            
             form1Reference.SelectDiningAreaWithFirstFloorplan(this.ShiftManager.SelectedShift.SelectedFloorplan);
+            ShiftManager.SelectedShift.PairBothBarSections();
             form1Reference.UpdateForm1ShiftManager(this.ShiftManager.SelectedShift);
         }
 

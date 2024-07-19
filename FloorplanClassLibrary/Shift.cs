@@ -122,7 +122,15 @@ namespace FloorplanClassLibrary
             }
             
         }
-              
+        public void PairBothBarSections()
+        {
+            List<Section> sections = this.Floorplans.SelectMany(s => s.Sections).ToList();
+            List<Section> barSections = sections.Where(s => s.IsBarSection).ToList();
+            if(barSections.Count == 2)
+            {
+                barSections[0].PairBarSections(barSections[1]);
+            }
+        }      
        
 
         public bool IsAM { get; set; }

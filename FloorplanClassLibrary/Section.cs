@@ -503,6 +503,25 @@ namespace FloorplanClassLibrary
         }
         public Section PairedSection { get { return this._pairedSection; } }
         private Section _pairedSection { get; set; }
+        public void PairBarSections(Section sectionToPair)
+        {
+            if(this.IsBarSection && sectionToPair.IsBarSection)
+            {
+                this._pairedSection = sectionToPair;
+                if(sectionToPair.ServerTeam != null)
+                {
+                    if(sectionToPair.ServerTeam.Count > 0)
+                    {
+                        this.ServerTeam.AddRange(sectionToPair.ServerTeam);
+                    }
+                }
+                if (sectionToPair.PairedSection == null)
+                {
+                    sectionToPair.PairBarSections(this);
+                }
+                NotifyObservers();
+            }
+        }
         public void AssignPickupSection(Section section)
         {
             if (this.IsPickUp)
