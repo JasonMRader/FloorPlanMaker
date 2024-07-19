@@ -508,13 +508,7 @@ namespace FloorplanClassLibrary
             if(this.IsBarSection && sectionToPair.IsBarSection)
             {
                 this._pairedSection = sectionToPair;
-                if(sectionToPair.ServerTeam != null)
-                {
-                    if(sectionToPair.ServerTeam.Count > 0)
-                    {
-                        this.ServerTeam.AddRange(sectionToPair.ServerTeam);
-                    }
-                }
+                
                 if (sectionToPair.PairedSection == null)
                 {
                     sectionToPair.PairBarSections(this);
@@ -569,10 +563,11 @@ namespace FloorplanClassLibrary
                 {
                     return Tables.Sum(table => table.AverageSales) + SalesFromPickps;
                 }
-                else
+                else 
                 {
                     return Tables.Sum(table => table.AverageSales);
                 }
+               
                 
             }
         }
@@ -582,7 +577,20 @@ namespace FloorplanClassLibrary
             {
                 if(ServerCount > 0)
                 {
-                    return ExpectedTotalSales / ServerCount;
+                    if (this.IsBarSection)
+                    {
+                        int totalServers = this.ServerCount;
+                        if(this.PairedSection != null)
+                        {
+                            totalServers += PairedSection.ServerCount;
+                        }
+                        return ExpectedTotalSales / totalServers;
+                    }
+                    else
+                    {
+                        return ExpectedTotalSales / ServerCount;
+                    }
+                   
                 }
                 else { return ExpectedTotalSales; }
             }
