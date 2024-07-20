@@ -288,20 +288,41 @@ namespace FloorplanClassLibrary
         }
         public void AddBartender(Server bartender)
         {
+
             int bartenderCount = this.ServerTeam.Count;
             if(bartenderCount == 0)
             {
                 AddServer(bartender);
+                return;
+                
             }
-            if(bartenderCount == 1)
+            else if(bartenderCount == 1)
             {
                 MakeTeamWait();
                 AddServer(bartender);
+                return;
+                
             }
-            if(bartenderCount > 1)
+            else if(bartenderCount > 1)
             {
+                //if (bartender.CurrentSection != null && bartender.CurrentSection != this && !this.IsPickUp)
+                //{
+                //    bartender.CurrentSection.RemoveServer(bartender);                    
+                //}
+                //if (!ServerTeam.Contains(bartender))
+                //{
+                //    ServerTeam.Add(bartender);
+                //}              
+                //if (!this.IsPickUp)
+                //{
+                //    bartender.CurrentSection = this;
+                //}
+                //this.ServerCount = this.ServerTeam.Count;
+                //NotifyServerAssigned(bartender);
+                //NotifyObservers();
                 IncreaseServerCount();
                 AddServer(bartender);
+                return;
             }
         }
         private void SetSectionPropertiesFromTemplateSection(Section sectionToCopy)

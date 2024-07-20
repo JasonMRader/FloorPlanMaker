@@ -267,6 +267,11 @@ namespace FloorplanClassLibrary
                 .Take(CocktailersNeeded)
                 .ToList();
             Cocktailers.AddRange(unassignedBartenders);
+            Cocktailers = Cocktailers.Distinct().ToList();
+            if(Cocktailers.Count < CocktailersNeeded)
+            {
+                CocktailersNeeded = Cocktailers.Count;
+            }
             //if(CocktailAreas == 1)
             //{
             //    shift.SelectedFloorplan = shift.Floorplans.FirstOrDefault(fp => fp.DiningArea.IsCocktail);
