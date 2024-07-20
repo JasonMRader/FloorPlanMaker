@@ -739,8 +739,15 @@ namespace FloorPlanMaker
 
         private void btnSaveFloorplanTemplate_Click(object sender, EventArgs e)
         {
-
+            if(shift.SelectedFloorplan == null) {
+                MessageBox.Show("There Must Be A Floorplan To Save A Template");
+                return; }
             FloorplanTemplate template = new FloorplanTemplate(shift.SelectedFloorplan);
+            if(!floorplanManager.AllTablesAreAssigned())
+            {
+                MessageBox.Show("All Tables Must Be Assigned To Save A Template");
+                return;
+            }
             if (_lines.Count > 0)
             {
                 template.floorplanLines = _lines;

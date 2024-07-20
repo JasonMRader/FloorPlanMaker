@@ -39,14 +39,15 @@
             panel1.Location = new Point(34, 34);
             panel1.Margin = new Padding(25);
             panel1.Name = "panel1";
-            panel1.Size = new Size(500, 523);
+            panel1.Size = new Size(500, 500);
             panel1.TabIndex = 1;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI Black", 18F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(121, 477);
+            label1.ForeColor = Color.FromArgb(64, 64, 64);
+            label1.Location = new Point(132, 459);
             label1.Name = "label1";
             label1.Size = new Size(258, 32);
             label1.TabIndex = 3;
@@ -67,7 +68,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(180, 190, 200);
-            ClientSize = new Size(568, 596);
+            ClientSize = new Size(568, 568);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
             Name = "SplashScreen";
