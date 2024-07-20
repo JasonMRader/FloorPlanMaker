@@ -329,6 +329,7 @@
             // nudTemplateID
             // 
             nudTemplateID.Location = new Point(12, 45);
+            nudTemplateID.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
             nudTemplateID.Name = "nudTemplateID";
             nudTemplateID.Size = new Size(48, 23);
             nudTemplateID.TabIndex = 1;

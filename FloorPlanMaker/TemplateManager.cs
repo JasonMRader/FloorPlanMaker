@@ -15,6 +15,7 @@ namespace FloorPlanMakerUI
         public event EventHandler PreviewTemplateClicked;
         public event EventHandler ApplyTemplateClicked;
         public event EventHandler CancelPreviewedTemplate;
+        public event EventHandler DeleteTemplateClicked;
         public DiningArea DiningArea { get; set; }
         public int serverCount = 5;
         public List<MiniTableControl> MiniTableControls { get; set; } = new List<MiniTableControl>();
@@ -116,7 +117,10 @@ namespace FloorPlanMakerUI
                 SetFilter();
             }
         }
-
+        public void RemoveTemplate(FloorplanTemplate template)
+        {
+            this._templates.Remove(template);
+        }
         //private void UpdateFilteredList()
         //{
         //    SetFilter();  
@@ -310,6 +314,7 @@ namespace FloorPlanMakerUI
 
             }
         }
+        
         public void FilterTemplates(int serverCount, bool? hasTeamWait = null, bool? hasPickUp = null)
         {
             // Start with all templates
@@ -363,6 +368,7 @@ namespace FloorPlanMakerUI
                     Location = new Point(0, 0)
                 };
                 DisplayPanels[i] = panel;
+                panel.Click += TemplatePanel_Clicked;
                 
                
                 DisplayMiniTableControls(template, panel);
@@ -421,6 +427,34 @@ namespace FloorPlanMakerUI
             }
         }
 
+        private void TemplatePanel_Clicked(object? sender, EventArgs e)
+        {
+            Panel panel = (Panel)sender;
+            FloorplanTemplate template = (FloorplanTemplate)panel.Tag;
+            if (e is MouseEventArgs mouseEventArgs)
+            {
+
+                if (mouseEventArgs.Button == MouseButtons.Right)
+                {
+                    DialogResult result = MessageBox.Show("Do You Want to Permanently DELETE This Template?",
+                        "Delete Template?",
+                        MessageBoxButtons.OKCancel,
+                        MessageBoxIcon.Question);
+                    if (result == DialogResult.Cancel)
+                    {
+                        return;
+                    }
+                    else if (result == DialogResult.OK)
+                    {
+                        int templateID = template.ID;
+                        SqliteDataAccess.DeleteFloorplanTemplate(templateID);
+                        SqliteDataAccess.TestDeleteLines(templateID);
+                        DeleteTemplateClicked?.Invoke(template,e);
+                    }
+                }
+            }
+        }
+
         private void btnCancel_Clicked(object? sender, EventArgs e)
         {
             Button btnSender = (Button)sender;
@@ -452,6 +486,7 @@ namespace FloorPlanMakerUI
         }
 
         private void btnView_Clicked(object? sender, EventArgs e)
+        
         {
             Button btnSender = (Button)sender;
             btnSender.Click -= btnView_Clicked;

@@ -1131,6 +1131,7 @@ namespace FloorplanClassLibrary
                         cnn.Execute("DELETE FROM FloorplanTemplate WHERE ID = @ID", new { ID = templateId }, transaction);
 
                         transaction.Commit();
+                        MessageBox.Show($"Template with ID of {templateId} Deleted");
                     }
                     catch
                     {

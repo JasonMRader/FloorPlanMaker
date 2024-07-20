@@ -52,6 +52,16 @@ namespace FloorPlanMaker
             this.floorplanManager.TemplateManager.PreviewTemplateClicked += PreviewTemplate_Clicked;
             this.floorplanManager.TemplateManager.ApplyTemplateClicked += ApplyTemplate_Clicked;
             this.floorplanManager.TemplateManager.CancelPreviewedTemplate += CancelViewedTemplate;
+            this.floorplanManager.TemplateManager.DeleteTemplateClicked += DeletedTemplate;
+
+        }
+
+        private void DeletedTemplate(object? sender, EventArgs e)
+        {
+            FloorplanTemplate template = (FloorplanTemplate)sender;
+            this.floorplanManager.TemplateManager.RemoveTemplate(template);
+            floorplanManager.TemplateManager.FilterTemplates(serverCount);
+            SetTemplatePanels(floorplanManager.TemplateManager.GetFilteredList());
 
         }
 
@@ -72,21 +82,31 @@ namespace FloorPlanMaker
             this.Close();
             this.Dispose();
         }
-
+        private void PanelRightClicked(object? sender, EventArgs e)
+        {
+           
+        }
         private void PreviewTemplate_Clicked(object? sender, EventArgs e)
         {
-            //Button btnClicked = (Button)sender;
             FloorplanTemplate template = (FloorplanTemplate)sender;
-            if (floorplanManager.Shift.SelectedFloorplan != null)
+            if (e is MouseEventArgs mouseEventArgs)
             {
-                floorplanManager.CopyTemplateSections(template);
-                form1Reference.UpdateWithTemplate();
+                if (mouseEventArgs.Button == MouseButtons.Left)
+                {
+
+                    if (floorplanManager.Shift.SelectedFloorplan != null)
+                    {
+                        floorplanManager.CopyTemplateSections(template);
+                        form1Reference.UpdateWithTemplate();
+                    }
+                    else
+                    {
+                        floorplanManager.SetFloorplanToTemplate(template);
+                        form1Reference.UpdateWithTemplate();
+                    }
+                }               
             }
-            else
-            {
-                floorplanManager.SetFloorplanToTemplate(template);
-                form1Reference.UpdateWithTemplate();
-            }
+
 
         }
 
@@ -324,7 +344,7 @@ namespace FloorPlanMaker
 
         private void btnAutomatic_Click(object sender, EventArgs e)
         {
-           ApplyIdealTemplate();
+            ApplyIdealTemplate();
         }
         public void ApplyIdealTemplate()
         {
@@ -352,6 +372,9 @@ namespace FloorPlanMaker
                 MessageBox.Show("There are no templates saved for these critera");
             }
         }
+
+
+        
 
         //public void AddSectionPanels(FlowLayoutPanel panel)
         //{

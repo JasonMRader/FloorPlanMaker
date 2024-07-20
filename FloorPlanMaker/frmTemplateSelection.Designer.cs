@@ -71,6 +71,7 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(268, 375);
             panel1.TabIndex = 0;
+            panel1.Click += PanelRightClicked;
             // 
             // panel2
             // 
@@ -79,6 +80,7 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(268, 375);
             panel2.TabIndex = 1;
+            panel2.Click += PanelRightClicked;
             // 
             // panel3
             // 
@@ -87,6 +89,7 @@
             panel3.Name = "panel3";
             panel3.Size = new Size(268, 375);
             panel3.TabIndex = 2;
+            panel3.Click += PanelRightClicked;
             // 
             // panel4
             // 
@@ -95,6 +98,7 @@
             panel4.Name = "panel4";
             panel4.Size = new Size(268, 375);
             panel4.TabIndex = 3;
+            panel4.Click += PanelRightClicked;
             // 
             // panel5
             // 
