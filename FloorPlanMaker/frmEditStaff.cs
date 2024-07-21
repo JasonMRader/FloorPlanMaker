@@ -77,7 +77,7 @@ namespace FloorPlanMaker
                 var rbToFocus = DiningAreaRBs[currentFocusedFloorplanIndex];
                 rbToFocus.Focus();
             }
-            
+
         }
 
         public frmEditStaff(EmployeeManager staffManager, Shift shiftManager, Form1 form1)
@@ -369,7 +369,7 @@ namespace FloorPlanMaker
                 return;
             }
             ShiftManager.SelectedShift.DateOnly = new DateOnly(dateSelected.Year, dateSelected.Month, dateSelected.Day);
-            
+
             form1Reference.SelectDiningAreaWithFirstFloorplan(this.ShiftManager.SelectedShift.SelectedFloorplan);
             ShiftManager.SelectedShift.PairBothBarSections();
             form1Reference.UpdateForm1ShiftManager(this.ShiftManager.SelectedShift);
@@ -435,7 +435,7 @@ namespace FloorPlanMaker
                 ShiftManager.SelectedShift.SetFloorplansToPM();
 
             }
-           
+
 
         }
 
@@ -446,14 +446,7 @@ namespace FloorPlanMaker
         public void MoveDateForward()
         {
             dateSelected = dateSelected.AddDays(1);
-            lblShiftDate.Text = dateSelected.ToString("dddd, MMMM dd");
-            SpecialEventDate specialEventDate = SqliteDataAccess.GetEventByDate(dateOnlySelected);
-            if (specialEventDate != null)
-            {
-                lblShiftDate.Text = specialEventDate.Name + " (" + dateSelected.ToString("ddd, M/dd") + ")";
-            }
-
-            SetFloorplansForShiftManager();
+            SetToDateSelected();
         }
         private void btnDateDown_Click(object sender, EventArgs e)
         {
@@ -462,6 +455,11 @@ namespace FloorPlanMaker
         public void MovedDateBack()
         {
             dateSelected = dateSelected.AddDays(-1);
+            SetToDateSelected();
+            
+        }
+        private void SetToDateSelected()
+        {
             lblShiftDate.Text = dateSelected.ToString("dddd, MMMM dd");
             SpecialEventDate specialEventDate = SqliteDataAccess.GetEventByDate(dateOnlySelected);
             if (specialEventDate != null)
@@ -722,6 +720,21 @@ namespace FloorPlanMaker
             else if (ShiftManager.SelectedShift.UnassignedServers.Count == 0)
             {
                 btnAssignTables.PerformClick();
+            }
+        }
+
+        private void lblShiftDate_Click(object sender, EventArgs e)
+        {
+            using (frmDateSelect selectDateForm = new frmDateSelect(dateSelected))
+            {
+                selectDateForm.StartPosition = FormStartPosition.Manual;
+                selectDateForm.Location = Cursor.Position;
+                DialogResult = selectDateForm.ShowDialog();
+                if (DialogResult == DialogResult.OK)
+                {
+                    this.dateSelected = selectDateForm.dateSelected;
+                    SetToDateSelected();
+                }
             }
         }
     }

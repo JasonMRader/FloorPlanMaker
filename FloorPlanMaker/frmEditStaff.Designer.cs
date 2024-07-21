@@ -83,14 +83,17 @@
             // 
             // lblShiftDate
             // 
+            lblShiftDate.BackColor = Color.FromArgb(100, 130, 180);
             lblShiftDate.Font = new Font("Segoe UI", 21.75F, FontStyle.Bold, GraphicsUnit.Point);
-            lblShiftDate.ForeColor = Color.Black;
+            lblShiftDate.ForeColor = Color.White;
             lblShiftDate.Location = new Point(505, 17);
             lblShiftDate.Name = "lblShiftDate";
             lblShiftDate.Size = new Size(504, 39);
             lblShiftDate.TabIndex = 16;
             lblShiftDate.Text = "Date";
             lblShiftDate.TextAlign = ContentAlignment.MiddleCenter;
+            toolTip1.SetToolTip(lblShiftDate, "Choose Date");
+            lblShiftDate.Click += lblShiftDate_Click;
             // 
             // cbIsAM
             // 
@@ -124,6 +127,7 @@
             btnCreateANewShift.Size = new Size(352, 43);
             btnCreateANewShift.TabIndex = 25;
             btnCreateANewShift.Text = "Edit / Create Shifts";
+            toolTip1.SetToolTip(btnCreateANewShift, "Create Floorplans for Shifts, Add Remove Servers");
             btnCreateANewShift.UseVisualStyleBackColor = false;
             btnCreateANewShift.Click += btnCreateANewShift_Click;
             // 
@@ -148,7 +152,7 @@
             btnAutomatic.Name = "btnAutomatic";
             btnAutomatic.Size = new Size(313, 38);
             btnAutomatic.TabIndex = 18;
-            toolTip1.SetToolTip(btnAutomatic, "Automate The Next Step");
+            toolTip1.SetToolTip(btnAutomatic, "Automate The Next Step [ENTER]");
             btnAutomatic.UseVisualStyleBackColor = false;
             btnAutomatic.Click += btnAutomatic_Click;
             // 
@@ -169,6 +173,7 @@
             pbBack.SizeMode = PictureBoxSizeMode.Zoom;
             pbBack.TabIndex = 28;
             pbBack.TabStop = false;
+            toolTip1.SetToolTip(pbBack, "Previous Day");
             pbBack.Click += btnDateDown_Click;
             // 
             // pbForward
@@ -180,7 +185,14 @@
             pbForward.SizeMode = PictureBoxSizeMode.Zoom;
             pbForward.TabIndex = 28;
             pbForward.TabStop = false;
+            toolTip1.SetToolTip(pbForward, "Next Day");
             pbForward.Click += btnDateUp_Click;
+            // 
+            // toolTip1
+            // 
+            toolTip1.AutoPopDelay = 20000;
+            toolTip1.InitialDelay = 200;
+            toolTip1.ReshowDelay = 40;
             // 
             // cboSalesMethod
             // 

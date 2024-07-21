@@ -792,7 +792,6 @@ namespace FloorPlanMakerUI
 
         private void lblDate_Click(object sender, EventArgs e)
         {
-            
             using (frmDateSelect selectDateForm = new frmDateSelect(dateSelected))
             {
                 selectDateForm.StartPosition = FormStartPosition.Manual;                

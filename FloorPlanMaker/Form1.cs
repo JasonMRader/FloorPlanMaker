@@ -1437,6 +1437,10 @@ namespace FloorPlanMaker
         internal void SelectDiningAreaWithFirstFloorplan(Floorplan? floorplan)
         {
             DiningArea selectedDiningArea = floorplan.DiningArea;
+            if (selectedDiningArea == null)
+            {
+                selectedDiningArea = shift.DiningAreasUsed[0];
+            }
             foreach (var item in cboDiningAreas.Items)
             {
                 if (item is DiningArea diningArea && diningArea.ID == selectedDiningArea.ID)

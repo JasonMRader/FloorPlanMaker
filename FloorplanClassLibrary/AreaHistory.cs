@@ -24,29 +24,29 @@ namespace FloorplanClassLibrary
         public int ServerCount { get; set; }
         public string GetAreaHistoryLabelToolTip(bool isDayBefore)
         {
-            string isLunch = "Dinner";
+            string isLunch = "PM";
             string areaName = this.DiningArea.Name;
             string dayOfWeek = this.DateOnly.DayOfWeek.ToString();
 
             if (this.IsAm)
             {
-                isLunch = "Lunch";
+                isLunch = "AM";
             }            
             if (!IsAverage && !isDayBefore)
             {
-                return $"|# of Servers| and Sales for {isLunch} {areaName} Last {dayOfWeek}";
+                return $"|# of Servers| and Sales for {areaName} Last {dayOfWeek} {isLunch}";
             }
             if (!IsAverage && isDayBefore)
             {
-                return $"|# of Servers| and Sales for {isLunch} {areaName} Yesterday";
+                return $"|# of Servers| and Sales for {areaName} Yesterday {isLunch}";
             }
             if (IsAverage && !isDayBefore)
             {
-                return $"Average of |# of Servers| and Sales for {isLunch} {areaName} Last 4 {dayOfWeek}s";
+                return $"Average of |# of Servers| and Sales for {areaName} Last 4 {dayOfWeek} {isLunch}s";
             }
             if (IsAverage && isDayBefore)
             {
-                return $"Average of |# of Servers| and Sales for {isLunch} {areaName} Last 4 {dayOfWeek}s";
+                return $"Average of |# of Servers| and Sales for {areaName} Last 4 {dayOfWeek} {isLunch}s";
             }
 
             return "";
