@@ -14,6 +14,7 @@ namespace FloorPlanMaker
     public class TableControl : Control, ISectionObserver
     {
         // TODO fix tableControl text colors not always adjusting properly
+        public ToolTip toolTip = new ToolTip();
         public Color BorderColor { get; set; } = Color.Black; // default to DarkBlue
         public TableDataEditorControl dataEditor {get;set;}
         public Color TextColor { get; set; } = Color.Black;
@@ -44,6 +45,7 @@ namespace FloorPlanMaker
                     this.TextColor = section.FontColor;
                     this.BackColor = section.MuteColor(.95f);
                 }
+                this.toolTip.SetToolTip(this, this.Table.AverageSales.ToString("C0"));
             }
            
            
@@ -122,6 +124,7 @@ namespace FloorPlanMaker
 
         public static void DrawTableOnGraphics(Graphics g, TableControl control, bool isForPrint = false)
         {
+            control.toolTip.SetToolTip(control, control.Table.AverageSales.ToString("C0"));
             int xOffset = isForPrint ? control.Left : 0;
             int yOffset = isForPrint ? control.Top : 0;
             
@@ -188,7 +191,7 @@ namespace FloorPlanMaker
             this.TextColor = this.Section.FontColor;
         }
 
-        public TableControl() : this(new Table()) { }
+        public TableControl() : this(new Table()) {  }
         public TableControl(Table table)
         {
             this.Table = table;
@@ -200,6 +203,7 @@ namespace FloorPlanMaker
             this.MouseMove += new MouseEventHandler(TableControl_MouseMove);
             this.MouseClick += new MouseEventHandler(TableControl_MouseClick);
             this.MouseUp += new MouseEventHandler(TableControl_MouseUp);
+           
         }
         private void TableControl_MouseDown(object sender, MouseEventArgs e)
         {

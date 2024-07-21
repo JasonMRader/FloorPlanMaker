@@ -106,7 +106,7 @@ namespace FloorplanClassLibrary
             toolTip.SetToolTip(setCloserButton, "Assign Closer");
             toolTip.SetToolTip(assignServerButton, "Assign Server");
             toolTip.SetToolTip(sectionLabel, "[Hold LEFT-MOUSE] Drag\n" +
-                "[LEFT-MOUSE Select]\n" +
+                "[LEFT-MOUSE] Select\n" +
                 "[RIGHT-MOUSE] Assign Server\n" +
                 "[SHIFT + LEFT-MOUSE] Swap Server With SELECTED Section\n" +
                 "[SHIFT + RIGHT-MOUSE] Unassign Server");
