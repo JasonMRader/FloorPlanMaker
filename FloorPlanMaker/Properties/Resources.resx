@@ -124,6 +124,9 @@
   <data name="addSmall" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\addSmall.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="AddThick18" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AddThick18.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="AnotherSMallBluePrint" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\AnotherSMallBluePrint.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -151,8 +154,14 @@
   <data name="Close" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Close.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="cloudDownloadSmall" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cloudDownloadSmall.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="copy" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\copy.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="copySmall" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\copySmall.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="covers" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\covers.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -232,6 +241,9 @@
   <data name="LoadingGIF" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\loading.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="MinusThick18" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MinusThick18.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="MondayText" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MondayText.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -294,6 +306,9 @@
   </data>
   <data name="personOval" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\personOval.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="plusExtraSmall15" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\plusExtraSmall15.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Pre2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Pre2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -384,6 +399,9 @@
   </data>
   <data name="SquareTableFilled" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SquareTableFilled.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SubtractExtraSmall15" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SubtractExtraSmall15.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="SundayText" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SundayText.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

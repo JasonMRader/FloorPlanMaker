@@ -113,6 +113,16 @@ namespace FloorPlanMakerUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap AddThick18 {
+            get {
+                object obj = ResourceManager.GetObject("AddThick18", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap AnotherSMallBluePrint {
             get {
                 object obj = ResourceManager.GetObject("AnotherSMallBluePrint", resourceCulture);
@@ -203,9 +213,29 @@ namespace FloorPlanMakerUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap cloudDownloadSmall {
+            get {
+                object obj = ResourceManager.GetObject("cloudDownloadSmall", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap copy {
             get {
                 object obj = ResourceManager.GetObject("copy", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap copySmall {
+            get {
+                object obj = ResourceManager.GetObject("copySmall", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -473,6 +503,16 @@ namespace FloorPlanMakerUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap MinusThick18 {
+            get {
+                object obj = ResourceManager.GetObject("MinusThick18", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap MondayText {
             get {
                 object obj = ResourceManager.GetObject("MondayText", resourceCulture);
@@ -676,6 +716,16 @@ namespace FloorPlanMakerUI.Properties {
         internal static System.Drawing.Bitmap personOval {
             get {
                 object obj = ResourceManager.GetObject("personOval", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap plusExtraSmall15 {
+            get {
+                object obj = ResourceManager.GetObject("plusExtraSmall15", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -976,6 +1026,16 @@ namespace FloorPlanMakerUI.Properties {
         internal static System.Drawing.Bitmap SquareTableFilled {
             get {
                 object obj = ResourceManager.GetObject("SquareTableFilled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SubtractExtraSmall15 {
+            get {
+                object obj = ResourceManager.GetObject("SubtractExtraSmall15", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

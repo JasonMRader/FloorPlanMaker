@@ -103,6 +103,7 @@
             lblDate.TabIndex = 1;
             lblDate.Text = "November, 3";
             lblDate.TextAlign = ContentAlignment.MiddleCenter;
+            toolTip1.SetToolTip(lblDate, "Click To Select Date");
             lblDate.Click += lblDate_Click;
             // 
             // panel1
@@ -133,12 +134,13 @@
             cbIsAm.Size = new Size(116, 45);
             cbIsAm.TabIndex = 2;
             cbIsAm.TextAlign = ContentAlignment.MiddleCenter;
+            toolTip1.SetToolTip(cbIsAm, "Toggle AM /PM");
             cbIsAm.UseVisualStyleBackColor = false;
             cbIsAm.CheckedChanged += cbIsAm_CheckedChanged;
             // 
             // btnForwardDay
             // 
-            btnForwardDay.BackColor = SystemColors.ButtonShadow;
+            btnForwardDay.BackColor = Color.FromArgb(100, 130, 180);
             btnForwardDay.Dock = DockStyle.Right;
             btnForwardDay.FlatAppearance.BorderSize = 0;
             btnForwardDay.FlatStyle = FlatStyle.Flat;
@@ -148,12 +150,13 @@
             btnForwardDay.Name = "btnForwardDay";
             btnForwardDay.Size = new Size(32, 88);
             btnForwardDay.TabIndex = 0;
+            toolTip1.SetToolTip(btnForwardDay, "Next Day");
             btnForwardDay.UseVisualStyleBackColor = false;
             btnForwardDay.Click += btnForwardDay_Click;
             // 
             // btnBackDay
             // 
-            btnBackDay.BackColor = SystemColors.ButtonShadow;
+            btnBackDay.BackColor = Color.FromArgb(100, 130, 180);
             btnBackDay.Dock = DockStyle.Left;
             btnBackDay.FlatAppearance.BorderSize = 0;
             btnBackDay.FlatStyle = FlatStyle.Flat;
@@ -163,6 +166,7 @@
             btnBackDay.Name = "btnBackDay";
             btnBackDay.Size = new Size(32, 88);
             btnBackDay.TabIndex = 0;
+            toolTip1.SetToolTip(btnBackDay, "Previous Day");
             btnBackDay.UseVisualStyleBackColor = false;
             btnBackDay.Click += btnBackDay_Click;
             // 
@@ -260,6 +264,7 @@
             panel3.BackColor = Color.FromArgb(180, 190, 200);
             panel3.Controls.Add(txtServerSearch);
             panel3.Controls.Add(pbAddPerson);
+            panel3.Controls.Add(btnImportFromCSV);
             panel3.Controls.Add(btnImportServers);
             panel3.Controls.Add(flowAllServers);
             panel3.Controls.Add(label6);
@@ -273,7 +278,7 @@
             // 
             txtServerSearch.BorderStyle = BorderStyle.None;
             txtServerSearch.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
-            txtServerSearch.Location = new Point(338, 11);
+            txtServerSearch.Location = new Point(366, 10);
             txtServerSearch.Name = "txtServerSearch";
             txtServerSearch.Size = new Size(100, 26);
             txtServerSearch.TabIndex = 3;
@@ -298,11 +303,11 @@
             btnImportServers.BackColor = Color.FromArgb(100, 130, 180);
             btnImportServers.FlatAppearance.BorderSize = 0;
             btnImportServers.FlatStyle = FlatStyle.Flat;
-            btnImportServers.Location = new Point(154, 11);
+            btnImportServers.Image = Properties.Resources.copySmall;
+            btnImportServers.Location = new Point(178, 6);
             btnImportServers.Name = "btnImportServers";
-            btnImportServers.Size = new Size(48, 28);
+            btnImportServers.Size = new Size(33, 33);
             btnImportServers.TabIndex = 1;
-            btnImportServers.Text = "Copy";
             toolTip1.SetToolTip(btnImportServers, "Copy Last Week");
             btnImportServers.UseVisualStyleBackColor = false;
             btnImportServers.Click += btnImportServers_Click;
@@ -320,7 +325,7 @@
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            label6.Location = new Point(258, 12);
+            label6.Location = new Point(286, 11);
             label6.Name = "label6";
             label6.Size = new Size(74, 25);
             label6.TabIndex = 0;
@@ -341,7 +346,6 @@
             panel4.BackColor = Color.FromArgb(180, 190, 200);
             panel4.Controls.Add(btnSubtractBartender);
             panel4.Controls.Add(btnAddBartender);
-            panel4.Controls.Add(btnImportFromCSV);
             panel4.Controls.Add(flowServersOnShift);
             panel4.Controls.Add(lblBartenderCount);
             panel4.Controls.Add(label2);
@@ -353,22 +357,32 @@
             // 
             // btnSubtractBartender
             // 
-            btnSubtractBartender.Location = new Point(544, 24);
+            btnSubtractBartender.BackColor = Color.FromArgb(100, 130, 180);
+            btnSubtractBartender.FlatAppearance.BorderSize = 0;
+            btnSubtractBartender.FlatStyle = FlatStyle.Flat;
+            btnSubtractBartender.ForeColor = Color.White;
+            btnSubtractBartender.Image = Properties.Resources.MinusThick18;
+            btnSubtractBartender.Location = new Point(544, 23);
             btnSubtractBartender.Name = "btnSubtractBartender";
-            btnSubtractBartender.Size = new Size(42, 20);
+            btnSubtractBartender.Size = new Size(29, 23);
             btnSubtractBartender.TabIndex = 2;
-            btnSubtractBartender.Text = "-";
-            btnSubtractBartender.UseVisualStyleBackColor = true;
+            toolTip1.SetToolTip(btnSubtractBartender, "Subtract Bartender");
+            btnSubtractBartender.UseVisualStyleBackColor = false;
             btnSubtractBartender.Click += btnSubtractBartender_Click;
             // 
             // btnAddBartender
             // 
+            btnAddBartender.BackColor = Color.FromArgb(100, 130, 180);
+            btnAddBartender.FlatAppearance.BorderSize = 0;
+            btnAddBartender.FlatStyle = FlatStyle.Flat;
+            btnAddBartender.ForeColor = Color.White;
+            btnAddBartender.Image = Properties.Resources.AddThick18;
             btnAddBartender.Location = new Point(544, 0);
             btnAddBartender.Name = "btnAddBartender";
-            btnAddBartender.Size = new Size(42, 20);
+            btnAddBartender.Size = new Size(29, 23);
             btnAddBartender.TabIndex = 2;
-            btnAddBartender.Text = "+";
-            btnAddBartender.UseVisualStyleBackColor = true;
+            toolTip1.SetToolTip(btnAddBartender, "Add Bartender");
+            btnAddBartender.UseVisualStyleBackColor = false;
             btnAddBartender.Click += btnAddBartender_Click;
             // 
             // btnImportFromCSV
@@ -376,11 +390,12 @@
             btnImportFromCSV.BackColor = Color.FromArgb(100, 130, 180);
             btnImportFromCSV.FlatAppearance.BorderSize = 0;
             btnImportFromCSV.FlatStyle = FlatStyle.Flat;
-            btnImportFromCSV.Location = new Point(10, 9);
+            btnImportFromCSV.Image = Properties.Resources.cloudDownloadSmall;
+            btnImportFromCSV.Location = new Point(217, 6);
             btnImportFromCSV.Name = "btnImportFromCSV";
-            btnImportFromCSV.Size = new Size(116, 28);
+            btnImportFromCSV.Size = new Size(33, 33);
             btnImportFromCSV.TabIndex = 1;
-            btnImportFromCSV.Text = "Import Servers";
+            toolTip1.SetToolTip(btnImportFromCSV, "Get From HotSchedules");
             btnImportFromCSV.UseVisualStyleBackColor = false;
             btnImportFromCSV.Click += button1_Click;
             // 

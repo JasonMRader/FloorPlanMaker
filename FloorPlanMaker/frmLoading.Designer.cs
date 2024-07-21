@@ -39,7 +39,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.ForeColor = Color.White;
+            label1.ForeColor = Color.Black;
             label1.Location = new Point(80, 74);
             label1.Name = "label1";
             label1.Size = new Size(164, 45);
@@ -48,7 +48,7 @@
             // 
             // panel2
             // 
-            panel2.BackColor = Color.Indigo;
+            panel2.BackColor = Color.FromArgb(255, 224, 192);
             panel2.Controls.Add(label1);
             panel2.Dock = DockStyle.Fill;
             panel2.Location = new Point(0, 0);
