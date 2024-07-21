@@ -778,11 +778,8 @@ namespace FloorPlanMakerUI
             
             using (frmDateSelect selectDateForm = new frmDateSelect(dateSelected))
             {
-                selectDateForm.StartPosition = FormStartPosition.Manual;
-                Point formLocation = this.PointToScreen(lblDate.Location);
-                formLocation.Y += lblDate.Height + 50;
-                formLocation.X += 465;
-                selectDateForm.Location = formLocation;
+                selectDateForm.StartPosition = FormStartPosition.Manual;                
+                selectDateForm.Location = Cursor.Position;
                 DialogResult = selectDateForm.ShowDialog();
                 if (DialogResult == DialogResult.OK)
                 {
