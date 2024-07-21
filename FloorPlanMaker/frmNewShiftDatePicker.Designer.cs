@@ -94,14 +94,16 @@
             // 
             // lblDate
             // 
+            lblDate.BackColor = Color.FromArgb(100, 130, 180);
             lblDate.Font = new Font("Segoe UI", 21.75F, FontStyle.Bold, GraphicsUnit.Point);
-            lblDate.ForeColor = Color.Black;
-            lblDate.Location = new Point(3, 9);
+            lblDate.ForeColor = Color.White;
+            lblDate.Location = new Point(268, 9);
             lblDate.Name = "lblDate";
-            lblDate.Size = new Size(1205, 39);
+            lblDate.Size = new Size(674, 39);
             lblDate.TabIndex = 1;
             lblDate.Text = "November, 3";
             lblDate.TextAlign = ContentAlignment.MiddleCenter;
+            lblDate.Click += lblDate_Click;
             // 
             // panel1
             // 

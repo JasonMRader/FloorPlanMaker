@@ -81,11 +81,10 @@ namespace FloorPlanMakerUI
                 cbIsAm.Checked = false;
             }
             SetColors();
-            GetDateString();
-            GetTodayLabel();
+           
             LoadDiningAreas();
-            RefreshPreviousFloorplanCounts();
-            PopulateServers();
+           
+            //PopulateServers();
             RefreshForDateSelected();
             txtServerSearch.Focus();
 
@@ -416,6 +415,10 @@ namespace FloorPlanMakerUI
         }
         private void RefreshForDateSelected()
         {
+            GetDateString();
+            GetTodayLabel();
+            RefreshPreviousFloorplanCounts();
+            txtServerSearch.Focus();
             SetToShiftFromDatabase();
 
         }
@@ -488,23 +491,16 @@ namespace FloorPlanMakerUI
         }
         private void btnBackDay_Click(object sender, EventArgs e)
         {
-            dateSelected = dateSelected.AddDays(-1);
-            GetDateString();
-            GetTodayLabel();
-            RefreshPreviousFloorplanCounts();
+            dateSelected = dateSelected.AddDays(-1);           
             RefreshForDateSelected();
-            txtServerSearch.Focus();
         }
 
         private void btnForwardDay_Click(object sender, EventArgs e)
         {
-            dateSelected = dateSelected.AddDays(1);
-            GetDateString();
-            GetTodayLabel();
-            RefreshPreviousFloorplanCounts();
+            dateSelected = dateSelected.AddDays(1);            
             RefreshForDateSelected();
-            txtServerSearch.Focus();
         }
+       
         private void GetTodayLabel()
         {
             if (dateSelected.Date == DateTime.Today)
@@ -775,6 +771,25 @@ namespace FloorPlanMakerUI
         private void frmNewShiftDatePicker_Shown(object sender, EventArgs e)
         {
             txtServerSearch.Focus();
+        }
+
+        private void lblDate_Click(object sender, EventArgs e)
+        {
+            
+            using (frmDateSelect selectDateForm = new frmDateSelect(dateSelected))
+            {
+                selectDateForm.StartPosition = FormStartPosition.Manual;
+                Point formLocation = this.PointToScreen(lblDate.Location);
+                formLocation.Y += lblDate.Height + 50;
+                formLocation.X += 465;
+                selectDateForm.Location = formLocation;
+                DialogResult = selectDateForm.ShowDialog();
+                if (DialogResult == DialogResult.OK)
+                {
+                    this.dateSelected = selectDateForm.dateSelected;
+                    RefreshForDateSelected();
+                }
+            }
         }
     }
 }
