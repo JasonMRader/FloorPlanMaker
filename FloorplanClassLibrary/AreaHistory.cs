@@ -20,7 +20,38 @@ namespace FloorplanClassLibrary
         public DateOnly DateOnly { get; set; }
         public float Sales { get; set; }
         public bool IsAm { get; set; }
-        public int ServerCount { get; set; }       
+        bool IsAverage { get; set; }
+        public int ServerCount { get; set; }
+        public string GetAreaHistoryLabelToolTip(bool isDayBefore)
+        {
+            string isLunch = "Dinner";
+            string areaName = this.DiningArea.Name;
+            string dayOfWeek = this.DateOnly.DayOfWeek.ToString();
+
+            if (this.IsAm)
+            {
+                isLunch = "Lunch";
+            }            
+            if (!IsAverage && !isDayBefore)
+            {
+                return $"|# of Servers| and Sales for {isLunch} {areaName} Last {dayOfWeek}";
+            }
+            if (!IsAverage && isDayBefore)
+            {
+                return $"|# of Servers| and Sales for {isLunch} {areaName} Yesterday";
+            }
+            if (IsAverage && !isDayBefore)
+            {
+                return $"Average of |# of Servers| and Sales for {isLunch} {areaName} Last 4 {dayOfWeek}s";
+            }
+            if (IsAverage && isDayBefore)
+            {
+                return $"Average of |# of Servers| and Sales for {isLunch} {areaName} Last 4 {dayOfWeek}s";
+            }
+
+            return "";
+
+        }
         private int GetServerCount()
         {
             Floorplan matchedFP = SqliteDataAccess.LoadFloorplanByCriteria(DiningArea, DateOnly, IsAm);
@@ -38,9 +69,18 @@ namespace FloorplanClassLibrary
             {
                 previousWeekdays.Add(DateOnly.AddDays(-7 * i));
             }
-
+            int serversUsed = 0;
+            foreach (DateOnly day in previousWeekdays)
+            {
+                Floorplan matchedFP = SqliteDataAccess.LoadFloorplanByCriteria(DiningArea, day, IsAm);
+                if (matchedFP != null)
+                {
+                   serversUsed += matchedFP.Servers.Count();
+                }               
+            }
+            ServerCount = (int)Math.Round((double)serversUsed / 4);
             List<TableStat> stats = SqliteDataAccess.LoadTableStatsByDateListAndLunch(IsAm, previousWeekdays);
-            
+            IsAverage = true;
             DiningArea.SetTableSales(stats);
             this.Sales = DiningArea.ExpectedSales;
         }

@@ -47,6 +47,7 @@
             panel3 = new Panel();
             txtServerSearch = new TextBox();
             pbAddPerson = new PictureBox();
+            btnImportFromCSV = new Button();
             btnImportServers = new Button();
             flowAllServers = new FlowLayoutPanel();
             label6 = new Label();
@@ -54,7 +55,6 @@
             panel4 = new Panel();
             btnSubtractBartender = new Button();
             btnAddBartender = new Button();
-            btnImportFromCSV = new Button();
             flowServersOnShift = new FlowLayoutPanel();
             lblBartenderCount = new Label();
             label2 = new Label();
@@ -298,13 +298,27 @@
             toolTip1.SetToolTip(pbAddPerson, "Add a New Server to Database");
             pbAddPerson.Click += pbAddPerson_Click;
             // 
+            // btnImportFromCSV
+            // 
+            btnImportFromCSV.BackColor = Color.FromArgb(100, 130, 180);
+            btnImportFromCSV.FlatAppearance.BorderSize = 0;
+            btnImportFromCSV.FlatStyle = FlatStyle.Flat;
+            btnImportFromCSV.Image = Properties.Resources.cloudDownloadSmall;
+            btnImportFromCSV.Location = new Point(247, 6);
+            btnImportFromCSV.Name = "btnImportFromCSV";
+            btnImportFromCSV.Size = new Size(33, 33);
+            btnImportFromCSV.TabIndex = 1;
+            toolTip1.SetToolTip(btnImportFromCSV, "Get From HotSchedules");
+            btnImportFromCSV.UseVisualStyleBackColor = false;
+            btnImportFromCSV.Click += button1_Click;
+            // 
             // btnImportServers
             // 
             btnImportServers.BackColor = Color.FromArgb(100, 130, 180);
             btnImportServers.FlatAppearance.BorderSize = 0;
             btnImportServers.FlatStyle = FlatStyle.Flat;
             btnImportServers.Image = Properties.Resources.copySmall;
-            btnImportServers.Location = new Point(178, 6);
+            btnImportServers.Location = new Point(203, 6);
             btnImportServers.Name = "btnImportServers";
             btnImportServers.Size = new Size(33, 33);
             btnImportServers.TabIndex = 1;
@@ -337,9 +351,9 @@
             label5.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             label5.Location = new Point(9, 12);
             label5.Name = "label5";
-            label5.Size = new Size(139, 25);
+            label5.Size = new Size(188, 25);
             label5.TabIndex = 0;
-            label5.Text = "Servers To Add";
+            label5.Text = "Servers Not On Shift";
             // 
             // panel4
             // 
@@ -385,20 +399,6 @@
             btnAddBartender.UseVisualStyleBackColor = false;
             btnAddBartender.Click += btnAddBartender_Click;
             // 
-            // btnImportFromCSV
-            // 
-            btnImportFromCSV.BackColor = Color.FromArgb(100, 130, 180);
-            btnImportFromCSV.FlatAppearance.BorderSize = 0;
-            btnImportFromCSV.FlatStyle = FlatStyle.Flat;
-            btnImportFromCSV.Image = Properties.Resources.cloudDownloadSmall;
-            btnImportFromCSV.Location = new Point(217, 6);
-            btnImportFromCSV.Name = "btnImportFromCSV";
-            btnImportFromCSV.Size = new Size(33, 33);
-            btnImportFromCSV.TabIndex = 1;
-            toolTip1.SetToolTip(btnImportFromCSV, "Get From HotSchedules");
-            btnImportFromCSV.UseVisualStyleBackColor = false;
-            btnImportFromCSV.Click += button1_Click;
-            // 
             // flowServersOnShift
             // 
             flowServersOnShift.BackColor = Color.WhiteSmoke;
@@ -438,6 +438,12 @@
             lblServersOnShift.Size = new Size(150, 25);
             lblServersOnShift.TabIndex = 0;
             lblServersOnShift.Text = "Servers On Shift";
+            // 
+            // toolTip1
+            // 
+            toolTip1.AutoPopDelay = 20000;
+            toolTip1.InitialDelay = 200;
+            toolTip1.ReshowDelay = 40;
             // 
             // frmNewShiftDatePicker
             // 

@@ -62,8 +62,8 @@ namespace FloorPlanMakerUI
             UITheme.FormatSecondColor(panel3);
             UITheme.FormatSecondColor(panel4);
 
-            UITheme.FormatMainButton(btnBackDay);
-            UITheme.FormatMainButton(btnForwardDay);
+            UITheme.FormatCTAButton(btnBackDay);
+            UITheme.FormatCTAButton(btnForwardDay);
 
             UITheme.FormatCTAButton(btnOK);
 
@@ -197,6 +197,7 @@ namespace FloorPlanMakerUI
             {
                 if (server.IsBartender) { continue; }
                 Button ServerButton = CreateNotOnShiftServerButton(server);
+                toolTip1.SetToolTip(ServerButton, "Add to Shift");
 
                 flowAllServers.Controls.Add(ServerButton);
             }
@@ -207,6 +208,7 @@ namespace FloorPlanMakerUI
             foreach (Server server in servers)
             {
                 Button ServerButton = CreateOnShiftServerButton(server);
+                toolTip1.SetToolTip(ServerButton, "Remove from Shift");
                 flowServersOnShift.Controls.Add(ServerButton);
             }
         }
@@ -264,6 +266,7 @@ namespace FloorPlanMakerUI
             serverButton.ForeColor = Color.Black;
             flowServersOnShift.Controls.Add(serverButton);
             flowAllServers.Controls.Remove(serverButton);
+            toolTip1.SetToolTip(serverButton, "Remove from Shift");
             if (txtServerSearch.Text.Length > 0)
             {
                 txtServerSearch.Clear();
@@ -282,11 +285,13 @@ namespace FloorPlanMakerUI
             serverButton.ForeColor = Color.White;
             flowServersOnShift.Controls.Remove(serverButton);
             flowAllServers.Controls.Add(serverButton);
+            toolTip1.SetToolTip(serverButton, "Add to Shift");
             txtServerSearch.Focus();
         }
         private void LoadDiningAreas()
         {
             int width = (flowDiningAreas.Width / (DiningAreaManager.DiningAreas.Count)) - 20;
+            int diningNumber = 1;
             foreach (DiningArea area in DiningAreaManager.DiningAreas)
             {
                 CheckBox btnDining = new CheckBox
@@ -304,6 +309,8 @@ namespace FloorPlanMakerUI
                     TabStop = false
 
                 };
+                toolTip1.SetToolTip(btnDining, $"Create Floorplan for this Area [{diningNumber}]");
+                diningNumber++;
                 btnDining.CheckedChanged += cbDiningArea_CheckChanged;
                 flowDiningAreas.Controls.Add(btnDining);
                 CreateCountLabel(flowYesterdayCounts, area);
@@ -323,8 +330,8 @@ namespace FloorPlanMakerUI
             }
             List<AreaHistory> yesterdayAreaHistories = GetAreaHistories(cbIsAm.Checked, -1);
 
-            CreateAreaHistoryLabels(flowLastWeekdayCounts, lastWeekAreaHistories);
-            CreateAreaHistoryLabels(flowYesterdayCounts, yesterdayAreaHistories);
+            CreateAreaHistoryLabels(flowLastWeekdayCounts, lastWeekAreaHistories, false);
+            CreateAreaHistoryLabels(flowYesterdayCounts, yesterdayAreaHistories, true);
         }
         private List<AreaHistory> GetHistoryForLastFour()
         {
@@ -346,8 +353,10 @@ namespace FloorPlanMakerUI
             }
             return areaHistories;
         }
-        private void CreateAreaHistoryLabels(FlowLayoutPanel panel, List<AreaHistory> areaHistories)
+        
+        private void CreateAreaHistoryLabels(FlowLayoutPanel panel, List<AreaHistory> areaHistories, bool isYesterday)
         {
+
             if (cbStatsType.Checked)
             {
                 foreach (AreaHistory areaHistory in areaHistories)
@@ -360,40 +369,46 @@ namespace FloorPlanMakerUI
                 if (lbl.Tag is DiningArea area)
                 {
                     AreaHistory history = areaHistories.FirstOrDefault(x => x.DiningArea == area);
-                    if (history == null)
-                    {
-                        lbl.BackColor = Color.Gray;
-                        lbl.ForeColor = Color.LightGray;
-                        lbl.Text = "";
-                    }
-                    else if (history.Sales == 0f)
-                    {
-                        lbl.BackColor = Color.Gray;
-                        lbl.ForeColor = Color.LightGray;
-                        if (history.ServerCount > 0)
-                        {
-                            lbl.Text = "|" + history.ServerCount.ToString() + "| " + "  ?";
-                        }
-                        else
-                        {
-                            lbl.Text = "";
-                        }
-
-                    }
-                    else if (history.Sales > 0f && history.Sales < 1000f)
-                    {
-                        lbl.BackColor = Color.Gray;
-                        lbl.ForeColor = Color.LightGray;
-                        lbl.Text = "|" + history.ServerCount.ToString() + "| " + history.Sales.ToString("C0");
-                    }
-                    else
-                    {
-                        lbl.BackColor = UITheme.YesColor;
-                        lbl.ForeColor = Color.Black;
-                        lbl.Text = "|" + history.ServerCount.ToString() + "| " + history.Sales.ToString("C0");
-                    }
+                    CreateAreaLabel(history, lbl);
+                   
+                    toolTip1.SetToolTip(lbl, history.GetAreaHistoryLabelToolTip(isYesterday));
 
                 }
+            }
+        }
+        private void CreateAreaLabel(AreaHistory history, Label lbl)
+        {
+            if (history == null)
+            {
+                lbl.BackColor = Color.Gray;
+                lbl.ForeColor = Color.LightGray;
+                lbl.Text = "";
+            }
+            else if (history.Sales == 0f)
+            {
+                lbl.BackColor = Color.Gray;
+                lbl.ForeColor = Color.LightGray;
+                if (history.ServerCount > 0)
+                {
+                    lbl.Text = "|" + history.ServerCount.ToString() + "| " + "  ?";
+                }
+                else
+                {
+                    lbl.Text = "";
+                }
+
+            }
+            else if (history.Sales > 0f && history.Sales < 1000f)
+            {
+                lbl.BackColor = Color.Gray;
+                lbl.ForeColor = Color.LightGray;
+                lbl.Text = "|" + history.ServerCount.ToString() + "| " + history.Sales.ToString("C0");
+            }
+            else
+            {
+                lbl.BackColor = UITheme.YesColor;
+                lbl.ForeColor = Color.Black;
+                lbl.Text = "|" + history.ServerCount.ToString() + "| " + history.Sales.ToString("C0");
             }
         }
         private void CreateCountLabel(FlowLayoutPanel panel, DiningArea diningArea)
@@ -468,7 +483,7 @@ namespace FloorPlanMakerUI
             CheckBox cbArea = sender as CheckBox;
             DiningArea area = (DiningArea)cbArea.Tag;
 
-
+            int diningNumber = (flowDiningAreas.Controls.IndexOf(cbArea)+1);
             if (cbArea.Checked)
             {
                 cbArea.BackColor = UITheme.YesColor;
@@ -478,6 +493,7 @@ namespace FloorPlanMakerUI
                 {
                     shiftManager.SelectedShift.CreateFloorplanForDiningArea(area, 0, 0);
                 }
+                toolTip1.SetToolTip(cbArea, $"Remove this Floorplan from Shift [{diningNumber}]");
             }
             else
             {
@@ -486,6 +502,7 @@ namespace FloorPlanMakerUI
                 var floorplanToRemove = shiftManager.SelectedShift.Floorplans.FirstOrDefault(fp => fp.DiningArea.ID == area.ID);
                 shiftManager.SelectedShift.DiningAreasUsed.Remove(area);
                 shiftManager.SelectedShift.RemoveFloorplan(floorplanToRemove);
+                toolTip1.SetToolTip(cbArea, $"Create Floorplan for this Area [{diningNumber}]");
             }
             txtServerSearch.Focus();
         }
