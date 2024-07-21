@@ -113,6 +113,16 @@ namespace FloorPlanMakerUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap AddThick12 {
+            get {
+                object obj = ResourceManager.GetObject("AddThick12", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap AddThick18 {
             get {
                 object obj = ResourceManager.GetObject("AddThick18", resourceCulture);
@@ -496,6 +506,16 @@ namespace FloorPlanMakerUI.Properties {
         internal static System.Drawing.Bitmap LoadingGIF {
             get {
                 object obj = ResourceManager.GetObject("LoadingGIF", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap MinusThick12 {
+            get {
+                object obj = ResourceManager.GetObject("MinusThick12", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

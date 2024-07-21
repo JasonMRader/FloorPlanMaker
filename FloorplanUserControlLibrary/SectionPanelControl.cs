@@ -50,14 +50,15 @@ namespace FloorplanUserControlLibrary
 
             UpdateLabels();
 
-            toolTip.SetToolTip(picSetTeamWait, "Set To TeamWait \n PRESS T to TOGGLE team / Solo");
+            toolTip.SetToolTip(picSetTeamWait, "Set To TeamWait [T]");
             toolTip.SetToolTip(picClearSection, "Clear Section");
             toolTip.SetToolTip(picPlusOneServer, "Add Server Spot");
             toolTip.SetToolTip(picMinusOneServer, "Remove Server Spot");
             toolTip.SetToolTip(lblCovers, "Difference from Average Covers");
             toolTip.SetToolTip(lblSales, "Estimated Sales");
             toolTip.SetToolTip(lblSalesDif, "Difference from Average Sales");
-            toolTip.SetToolTip(cbSectionSelect, "Press TAB to cycle through Sections");
+            toolTip.SetToolTip(cbSectionSelect, "SELECT Section \n" +
+                "[TAB] OR [MOUSEWHEEL] to cycle through Sections");
 
         }
         public SectionPanelControl(Section section, FloorplanTemplate floorplan)
@@ -71,7 +72,7 @@ namespace FloorplanUserControlLibrary
 
             UpdateLabels();
 
-            toolTip.SetToolTip(picSetTeamWait, "Set To TeamWait");
+            toolTip.SetToolTip(picSetTeamWait, "Set To TeamWait [T]");
             toolTip.SetToolTip(picClearSection, "Clear Section");
             toolTip.SetToolTip(picPlusOneServer, "Add Server Spot");
             toolTip.SetToolTip(picMinusOneServer, "Remove Server Spot");
@@ -329,7 +330,7 @@ namespace FloorplanUserControlLibrary
 
             picSetTeamWait.BackColor = UITheme.WarningColor;
             picSetTeamWait.Image = Resources.waiters;
-            toolTip.SetToolTip(picSetTeamWait, "Set To Solo  \n PRESS T to TOGGLE team / Solo");
+            toolTip.SetToolTip(picSetTeamWait, "Set To Solo [T]");
         }
 
 
@@ -345,7 +346,7 @@ namespace FloorplanUserControlLibrary
             picMinusOneServer.Click -= picDecreaseServerCount_Click;
             picSetTeamWait.BackColor = UITheme.CTAColor;
             picSetTeamWait.Image = Resources.waiter;
-            toolTip.SetToolTip(picSetTeamWait, "Set To TeamWait  \n PRESS T to TOGGLE team / Solo");
+            toolTip.SetToolTip(picSetTeamWait, "Set To TeamWait [T]");
             this.Invalidate();
         }
         public void SetTeamWaitPictureBoxes()

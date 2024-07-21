@@ -82,19 +82,57 @@ namespace FloorPlanMakerUI
 
         private void rdoGettingStarted_CheckedChanged(object sender, EventArgs e)
         {
-            if (rdoGettingStarted.Checked)
-            {
-                tutorialImages.SetCurrentTutorial(165, 129);
-            }
-            UpdateUIElements();
+           
+           
         }
 
         private void rdoCreatingAShiftWalkthrough_CheckedChanged(object sender, EventArgs e)
         {
+           
+        }
+        private void TutorialRadioCheckChanged(object sender, EventArgs e)
+        {
+            if (rdoGettingStarted.Checked)
+            {
+                tutorialImages.SetCurrentTutorial(165, 129);
+            }
             if (rdoCreatingAShiftWalkthrough.Checked)
             {
                 tutorialImages.SetToShiftCreationWalkthough(165, 129);
             }
+            if (rdoCreateNewShift.Checked)
+            {
+                tutorialImages.SetToTutorialSelected(165, 129, TutorialImages.TutorialType.CreateShift);
+            }
+            if (rdoDistributeServers.Checked)
+            {
+                tutorialImages.SetToTutorialSelected(165, 129, TutorialImages.TutorialType.EditDistribution);
+            }
+            if (rdoCreatingSections.Checked)
+            {
+                MessageBox.Show("This tutorial has not been added yet");
+            }
+            if (rdoAssigningServersToSections.Checked)
+            {
+                MessageBox.Show("This tutorial has not been added yet");
+            }
+            if (rdoUpdatingSalesData.Checked)
+            {
+                tutorialImages.SetToTutorialSelected(165, 129, TutorialImages.TutorialType.UpdatingOrderHistory);
+            }
+            if (rdoViewingSales.Checked)
+            {
+                MessageBox.Show("This tutorial has not been added yet");
+            }
+            if (rdoServerRatings.Checked)
+            {
+                tutorialImages.SetToTutorialSelected(165, 129, TutorialImages.TutorialType.Servers);
+            }
+            if (rdoSavingTemplates.Checked)
+            {
+                MessageBox.Show("This tutorial has not been added yet");
+            }
+           
             UpdateUIElements();
         }
         private void pbTutorial_Click(object sender, EventArgs e)

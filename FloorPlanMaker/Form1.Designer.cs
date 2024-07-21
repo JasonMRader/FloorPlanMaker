@@ -481,7 +481,7 @@ namespace FloorPlanMaker
             btnAutomatic.Name = "btnAutomatic";
             btnAutomatic.Size = new Size(45, 45);
             btnAutomatic.TabIndex = 17;
-            toolTip1.SetToolTip(btnAutomatic, "Automate The Next Step");
+            toolTip1.SetToolTip(btnAutomatic, "Automate The Next Step [ENTER]");
             btnAutomatic.UseVisualStyleBackColor = false;
             btnAutomatic.Click += btnAutomatic_Click;
             // 

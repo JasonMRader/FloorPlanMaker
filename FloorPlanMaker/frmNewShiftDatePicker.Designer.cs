@@ -375,10 +375,10 @@
             btnSubtractBartender.FlatAppearance.BorderSize = 0;
             btnSubtractBartender.FlatStyle = FlatStyle.Flat;
             btnSubtractBartender.ForeColor = Color.White;
-            btnSubtractBartender.Image = Properties.Resources.MinusThick18;
-            btnSubtractBartender.Location = new Point(544, 23);
+            btnSubtractBartender.Image = Properties.Resources.MinusThick12;
+            btnSubtractBartender.Location = new Point(544, 25);
             btnSubtractBartender.Name = "btnSubtractBartender";
-            btnSubtractBartender.Size = new Size(29, 23);
+            btnSubtractBartender.Size = new Size(28, 15);
             btnSubtractBartender.TabIndex = 2;
             toolTip1.SetToolTip(btnSubtractBartender, "Subtract Bartender");
             btnSubtractBartender.UseVisualStyleBackColor = false;
@@ -390,10 +390,10 @@
             btnAddBartender.FlatAppearance.BorderSize = 0;
             btnAddBartender.FlatStyle = FlatStyle.Flat;
             btnAddBartender.ForeColor = Color.White;
-            btnAddBartender.Image = Properties.Resources.AddThick18;
-            btnAddBartender.Location = new Point(544, 0);
+            btnAddBartender.Image = Properties.Resources.AddThick12;
+            btnAddBartender.Location = new Point(544, 8);
             btnAddBartender.Name = "btnAddBartender";
-            btnAddBartender.Size = new Size(29, 23);
+            btnAddBartender.Size = new Size(28, 15);
             btnAddBartender.TabIndex = 2;
             toolTip1.SetToolTip(btnAddBartender, "Add Bartender");
             btnAddBartender.UseVisualStyleBackColor = false;

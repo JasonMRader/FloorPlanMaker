@@ -43,7 +43,8 @@ namespace FloorPlanMakerUI
         public TemplateManager TemplateManager { get; set; }
         public TemplateCreator TemplateCreator { get; set; }
         public Floorplan floorplanTemplateTEMP { get; set; }
-        public FloorplanGenerator floorplanGenerator = new FloorplanGenerator();       
+        public FloorplanGenerator floorplanGenerator = new FloorplanGenerator();   
+        public ToolTip toolTip = new ToolTip();
         public FloorplanFormManager() 
         {
             this.Shift = new Shift();            
@@ -586,6 +587,8 @@ namespace FloorPlanMakerUI
                 BackColor = UITheme.ButtonColor,
                 ForeColor = Color.Black
             };
+            toolTip.SetToolTip(btnAddPickup, "Add a Pickup Section [P]");
+            toolTip.SetToolTip(btnAddSection, "Add a Section");
             btnAddSection.Click += btnAddSection_Click;
             btnAddPickup.Click += btnAddPickupSection_Click;
             panel.Controls.Add(btnAddSection);

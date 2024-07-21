@@ -233,6 +233,37 @@ namespace FloorPlanMakerUI
             ImageSelectedChanged?.Invoke(this, EventArgs.Empty);
 
         }
+        public void SetToTutorialSelected(int width, int height, TutorialType tutorialType)
+        {
+            currentTutorialIndex = 0;
+            if (tutorialType == TutorialType.EditDistribution)
+            {
+                currentTutorialImages = GetEditDistributionImages();
+            }
+            else if (tutorialType == TutorialType.Form1)
+            {
+                currentTutorialImages = GetForm1Images();
+            }
+            else if (tutorialType == TutorialType.CreateShift)
+            {
+                currentTutorialImages = GetNewShiftImages();
+            }
+            else if (tutorialType == TutorialType.Settings)
+            {
+                currentTutorialImages = GetSettingsImages();
+            }
+            else if (tutorialType == TutorialType.UpdatingOrderHistory)
+            {
+                currentTutorialImages = GetUpdatingOrderHistoryImages();
+            }
+            else if (tutorialType == TutorialType.Servers)
+            {
+                currentTutorialImages = GetServerImages();
+            }
+            imageSelected = currentTutorialImages[currentTutorialIndex];
+            this.ThumbnailManager.SetPictureBoxesForImages(width, height);
+            ImageSelectedChanged?.Invoke(this, EventArgs.Empty);
+        }
         public void SetToShiftCreationWalkthough(int width, int height)
         {
             currentTutorialIndex = 0;

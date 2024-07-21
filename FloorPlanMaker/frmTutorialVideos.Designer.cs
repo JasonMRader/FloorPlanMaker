@@ -46,6 +46,14 @@
             panel1 = new Panel();
             pnlHighlight = new Panel();
             flowLayoutPanel1 = new FlowLayoutPanel();
+            rdoCreateNewShift = new RadioButton();
+            rdoDistributeServers = new RadioButton();
+            rdoCreatingSections = new RadioButton();
+            rdoAssigningServersToSections = new RadioButton();
+            rdoUpdatingSalesData = new RadioButton();
+            rdoViewingSales = new RadioButton();
+            rdoServerRatings = new RadioButton();
+            rdoSavingTemplates = new RadioButton();
             ((System.ComponentModel.ISupportInitialize)pbTutorial).BeginInit();
             flowThumbnails.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -56,6 +64,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
             panel1.SuspendLayout();
+            flowLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
             // pbTutorial
@@ -63,7 +72,7 @@
             pbTutorial.Image = Properties.TutorialResources.Form1Overview1;
             pbTutorial.Location = new Point(12, 12);
             pbTutorial.Name = "pbTutorial";
-            pbTutorial.Size = new Size(1048, 827);
+            pbTutorial.Size = new Size(1031, 811);
             pbTutorial.SizeMode = PictureBoxSizeMode.StretchImage;
             pbTutorial.TabIndex = 3;
             pbTutorial.TabStop = false;
@@ -78,15 +87,15 @@
             rdoGettingStarted.FlatStyle = FlatStyle.Flat;
             rdoGettingStarted.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
             rdoGettingStarted.ForeColor = Color.White;
-            rdoGettingStarted.Location = new Point(1068, 46);
+            rdoGettingStarted.Location = new Point(3, 3);
             rdoGettingStarted.Name = "rdoGettingStarted";
-            rdoGettingStarted.Size = new Size(184, 40);
+            rdoGettingStarted.Size = new Size(200, 40);
             rdoGettingStarted.TabIndex = 4;
             rdoGettingStarted.TabStop = true;
             rdoGettingStarted.Text = "This Form";
             rdoGettingStarted.TextAlign = ContentAlignment.MiddleCenter;
             rdoGettingStarted.UseVisualStyleBackColor = false;
-            rdoGettingStarted.CheckedChanged += rdoGettingStarted_CheckedChanged;
+            rdoGettingStarted.CheckedChanged += TutorialRadioCheckChanged;
             // 
             // rdoCreatingAShiftWalkthrough
             // 
@@ -96,14 +105,14 @@
             rdoCreatingAShiftWalkthrough.FlatStyle = FlatStyle.Flat;
             rdoCreatingAShiftWalkthrough.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
             rdoCreatingAShiftWalkthrough.ForeColor = Color.White;
-            rdoCreatingAShiftWalkthrough.Location = new Point(1068, 101);
+            rdoCreatingAShiftWalkthrough.Location = new Point(3, 49);
             rdoCreatingAShiftWalkthrough.Name = "rdoCreatingAShiftWalkthrough";
-            rdoCreatingAShiftWalkthrough.Size = new Size(184, 40);
+            rdoCreatingAShiftWalkthrough.Size = new Size(200, 40);
             rdoCreatingAShiftWalkthrough.TabIndex = 4;
-            rdoCreatingAShiftWalkthrough.Text = "Creating a Shift";
+            rdoCreatingAShiftWalkthrough.Text = "Walkthrough";
             rdoCreatingAShiftWalkthrough.TextAlign = ContentAlignment.MiddleCenter;
             rdoCreatingAShiftWalkthrough.UseVisualStyleBackColor = false;
-            rdoCreatingAShiftWalkthrough.CheckedChanged += rdoCreatingAShiftWalkthrough_CheckedChanged;
+            rdoCreatingAShiftWalkthrough.CheckedChanged += TutorialRadioCheckChanged;
             // 
             // btnClose
             // 
@@ -249,10 +258,157 @@
             // 
             // flowLayoutPanel1
             // 
-            flowLayoutPanel1.Location = new Point(1068, 166);
+            flowLayoutPanel1.BackColor = Color.WhiteSmoke;
+            flowLayoutPanel1.Controls.Add(rdoGettingStarted);
+            flowLayoutPanel1.Controls.Add(rdoCreatingAShiftWalkthrough);
+            flowLayoutPanel1.Controls.Add(rdoCreateNewShift);
+            flowLayoutPanel1.Controls.Add(rdoDistributeServers);
+            flowLayoutPanel1.Controls.Add(rdoCreatingSections);
+            flowLayoutPanel1.Controls.Add(rdoAssigningServersToSections);
+            flowLayoutPanel1.Controls.Add(rdoUpdatingSalesData);
+            flowLayoutPanel1.Controls.Add(rdoViewingSales);
+            flowLayoutPanel1.Controls.Add(rdoServerRatings);
+            flowLayoutPanel1.Controls.Add(rdoSavingTemplates);
+            flowLayoutPanel1.Location = new Point(1049, 46);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(200, 100);
+            flowLayoutPanel1.Size = new Size(209, 777);
             flowLayoutPanel1.TabIndex = 10;
+            // 
+            // rdoCreateNewShift
+            // 
+            rdoCreateNewShift.Appearance = Appearance.Button;
+            rdoCreateNewShift.BackColor = Color.FromArgb(100, 130, 180);
+            rdoCreateNewShift.FlatAppearance.BorderSize = 0;
+            rdoCreateNewShift.FlatStyle = FlatStyle.Flat;
+            rdoCreateNewShift.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            rdoCreateNewShift.ForeColor = Color.White;
+            rdoCreateNewShift.Location = new Point(3, 95);
+            rdoCreateNewShift.Name = "rdoCreateNewShift";
+            rdoCreateNewShift.Size = new Size(200, 40);
+            rdoCreateNewShift.TabIndex = 4;
+            rdoCreateNewShift.Text = "Creating a Shift";
+            rdoCreateNewShift.TextAlign = ContentAlignment.MiddleCenter;
+            rdoCreateNewShift.UseVisualStyleBackColor = false;
+            rdoCreateNewShift.CheckedChanged += TutorialRadioCheckChanged;
+            // 
+            // rdoDistributeServers
+            // 
+            rdoDistributeServers.Appearance = Appearance.Button;
+            rdoDistributeServers.BackColor = Color.FromArgb(100, 130, 180);
+            rdoDistributeServers.FlatAppearance.BorderSize = 0;
+            rdoDistributeServers.FlatStyle = FlatStyle.Flat;
+            rdoDistributeServers.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            rdoDistributeServers.ForeColor = Color.White;
+            rdoDistributeServers.Location = new Point(3, 141);
+            rdoDistributeServers.Name = "rdoDistributeServers";
+            rdoDistributeServers.Size = new Size(200, 40);
+            rdoDistributeServers.TabIndex = 4;
+            rdoDistributeServers.Text = "Distributing Servers";
+            rdoDistributeServers.TextAlign = ContentAlignment.MiddleCenter;
+            rdoDistributeServers.UseVisualStyleBackColor = false;
+            rdoDistributeServers.CheckedChanged += TutorialRadioCheckChanged;
+            // 
+            // rdoCreatingSections
+            // 
+            rdoCreatingSections.Appearance = Appearance.Button;
+            rdoCreatingSections.BackColor = Color.FromArgb(100, 130, 180);
+            rdoCreatingSections.FlatAppearance.BorderSize = 0;
+            rdoCreatingSections.FlatStyle = FlatStyle.Flat;
+            rdoCreatingSections.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            rdoCreatingSections.ForeColor = Color.White;
+            rdoCreatingSections.Location = new Point(3, 187);
+            rdoCreatingSections.Name = "rdoCreatingSections";
+            rdoCreatingSections.Size = new Size(200, 40);
+            rdoCreatingSections.TabIndex = 4;
+            rdoCreatingSections.Text = "Creating Sections";
+            rdoCreatingSections.TextAlign = ContentAlignment.MiddleCenter;
+            rdoCreatingSections.UseVisualStyleBackColor = false;
+            rdoCreatingSections.CheckedChanged += TutorialRadioCheckChanged;
+            // 
+            // rdoAssigningServersToSections
+            // 
+            rdoAssigningServersToSections.Appearance = Appearance.Button;
+            rdoAssigningServersToSections.BackColor = Color.FromArgb(100, 130, 180);
+            rdoAssigningServersToSections.FlatAppearance.BorderSize = 0;
+            rdoAssigningServersToSections.FlatStyle = FlatStyle.Flat;
+            rdoAssigningServersToSections.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            rdoAssigningServersToSections.ForeColor = Color.White;
+            rdoAssigningServersToSections.Location = new Point(3, 233);
+            rdoAssigningServersToSections.Name = "rdoAssigningServersToSections";
+            rdoAssigningServersToSections.Size = new Size(200, 40);
+            rdoAssigningServersToSections.TabIndex = 4;
+            rdoAssigningServersToSections.Text = "Assigning Servers";
+            rdoAssigningServersToSections.TextAlign = ContentAlignment.MiddleCenter;
+            rdoAssigningServersToSections.UseVisualStyleBackColor = false;
+            rdoAssigningServersToSections.CheckedChanged += TutorialRadioCheckChanged;
+            // 
+            // rdoUpdatingSalesData
+            // 
+            rdoUpdatingSalesData.Appearance = Appearance.Button;
+            rdoUpdatingSalesData.BackColor = Color.FromArgb(100, 130, 180);
+            rdoUpdatingSalesData.FlatAppearance.BorderSize = 0;
+            rdoUpdatingSalesData.FlatStyle = FlatStyle.Flat;
+            rdoUpdatingSalesData.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            rdoUpdatingSalesData.ForeColor = Color.White;
+            rdoUpdatingSalesData.Location = new Point(3, 279);
+            rdoUpdatingSalesData.Name = "rdoUpdatingSalesData";
+            rdoUpdatingSalesData.Size = new Size(200, 40);
+            rdoUpdatingSalesData.TabIndex = 4;
+            rdoUpdatingSalesData.Text = "Updating Sales";
+            rdoUpdatingSalesData.TextAlign = ContentAlignment.MiddleCenter;
+            rdoUpdatingSalesData.UseVisualStyleBackColor = false;
+            rdoUpdatingSalesData.CheckedChanged += TutorialRadioCheckChanged;
+            // 
+            // rdoViewingSales
+            // 
+            rdoViewingSales.Appearance = Appearance.Button;
+            rdoViewingSales.BackColor = Color.FromArgb(100, 130, 180);
+            rdoViewingSales.FlatAppearance.BorderSize = 0;
+            rdoViewingSales.FlatStyle = FlatStyle.Flat;
+            rdoViewingSales.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            rdoViewingSales.ForeColor = Color.White;
+            rdoViewingSales.Location = new Point(3, 325);
+            rdoViewingSales.Name = "rdoViewingSales";
+            rdoViewingSales.Size = new Size(200, 40);
+            rdoViewingSales.TabIndex = 4;
+            rdoViewingSales.Text = "Viewing Sales";
+            rdoViewingSales.TextAlign = ContentAlignment.MiddleCenter;
+            rdoViewingSales.UseVisualStyleBackColor = false;
+            rdoViewingSales.CheckedChanged += TutorialRadioCheckChanged;
+            // 
+            // rdoServerRatings
+            // 
+            rdoServerRatings.Appearance = Appearance.Button;
+            rdoServerRatings.BackColor = Color.FromArgb(100, 130, 180);
+            rdoServerRatings.FlatAppearance.BorderSize = 0;
+            rdoServerRatings.FlatStyle = FlatStyle.Flat;
+            rdoServerRatings.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            rdoServerRatings.ForeColor = Color.White;
+            rdoServerRatings.Location = new Point(3, 371);
+            rdoServerRatings.Name = "rdoServerRatings";
+            rdoServerRatings.Size = new Size(200, 40);
+            rdoServerRatings.TabIndex = 4;
+            rdoServerRatings.Text = "Server Ratings";
+            rdoServerRatings.TextAlign = ContentAlignment.MiddleCenter;
+            rdoServerRatings.UseVisualStyleBackColor = false;
+            rdoServerRatings.CheckedChanged += TutorialRadioCheckChanged;
+            // 
+            // rdoSavingTemplates
+            // 
+            rdoSavingTemplates.Appearance = Appearance.Button;
+            rdoSavingTemplates.BackColor = Color.FromArgb(100, 130, 180);
+            rdoSavingTemplates.FlatAppearance.BorderSize = 0;
+            rdoSavingTemplates.FlatStyle = FlatStyle.Flat;
+            rdoSavingTemplates.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            rdoSavingTemplates.ForeColor = Color.White;
+            rdoSavingTemplates.Location = new Point(3, 417);
+            rdoSavingTemplates.Name = "rdoSavingTemplates";
+            rdoSavingTemplates.Size = new Size(200, 40);
+            rdoSavingTemplates.TabIndex = 4;
+            rdoSavingTemplates.Text = "Saving Templates";
+            rdoSavingTemplates.TextAlign = ContentAlignment.MiddleCenter;
+            rdoSavingTemplates.UseVisualStyleBackColor = false;
+            rdoSavingTemplates.CheckedChanged += TutorialRadioCheckChanged;
             // 
             // frmTutorialVideos
             // 
@@ -267,8 +423,6 @@
             Controls.Add(btnPreviousPic);
             Controls.Add(btnNextPic);
             Controls.Add(btnClose);
-            Controls.Add(rdoCreatingAShiftWalkthrough);
-            Controls.Add(rdoGettingStarted);
             Controls.Add(pbTutorial);
             FormBorderStyle = FormBorderStyle.None;
             Name = "frmTutorialVideos";
@@ -285,6 +439,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).EndInit();
             panel1.ResumeLayout(false);
+            flowLayoutPanel1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -312,5 +467,13 @@
         private Panel panel1;
         private Panel pnlHighlight;
         private FlowLayoutPanel flowLayoutPanel1;
+        private RadioButton rdoCreateNewShift;
+        private RadioButton rdoDistributeServers;
+        private RadioButton rdoCreatingSections;
+        private RadioButton rdoAssigningServersToSections;
+        private RadioButton rdoUpdatingSalesData;
+        private RadioButton rdoViewingSales;
+        private RadioButton rdoServerRatings;
+        private RadioButton rdoSavingTemplates;
     }
 }
