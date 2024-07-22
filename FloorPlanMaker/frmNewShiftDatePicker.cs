@@ -723,14 +723,15 @@ namespace FloorPlanMakerUI
 
                         records.OrderBy(r => r.Date).ToList();
                         serversNotMatched = PopulateServersFromCsv(records);
-
+                        //int bartenderCount = CsvScheduleReader.GetBartenderCount(filePath);
                         this.Invoke(new Action(() =>
                         {
 
                             //loadingForm.Close();
                             this.Enabled = true;
+                            //shiftManager.SelectedShift.SetBartendersToShift(bartenderCount);
                             PopulateServers();
-                            string serversMissed = "\n";
+                            string serversMissed = "";
                             int i = 1;
                             foreach (string server in serversNotMatched)
                             {
@@ -752,16 +753,17 @@ namespace FloorPlanMakerUI
 
         private List<string> PopulateServersFromCsv(List<ScheduledShift> records)
         {
-            ScheduledShift scheduledShift = records.FirstOrDefault(s => s.Date == shiftManager.DateOnly && s.IsAm == shiftManager.IsAM);
-            if (scheduledShift == null)
+            ScheduledShift scheduledServerShift = records.FirstOrDefault(s => s.Date == shiftManager.DateOnly && s.IsAm == shiftManager.IsAM);
+            
+            if (scheduledServerShift == null)
             {
                 MessageBox.Show("No shift was found in that file for the date selected");
                 return null;
             }
             try
             {
-                List<Server> scheduledServers = scheduledShift.GetServersFromRecord(shiftManager.SelectedShift.AllServers);
-                List<string> serversNotMatched = scheduledShift.GetMissedServerNames(shiftManager.SelectedShift.AllServers);
+                List<Server> scheduledServers = scheduledServerShift.GetServersFromRecord(shiftManager.SelectedShift.AllServers);
+                List<string> serversNotMatched = scheduledServerShift.GetMissedServerNames(shiftManager.SelectedShift.AllServers);
                 foreach (Server server in scheduledServers)
                 {
                     shiftManager.SelectedShift.AddNewUnassignedServer(server);

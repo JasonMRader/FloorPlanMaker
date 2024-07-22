@@ -65,6 +65,57 @@ namespace FloorplanClassLibrary
 
             return scheduledShifts;
         }
+        public static int GetBartenderCount(string csvFilePath)
+        {
+            var scheduledShifts = new List<ScheduledShift>();
+
+            using (var reader = new StreamReader(csvFilePath, Encoding.UTF8))
+            using (var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture)
+            {
+                HasHeaderRecord = false,
+                MissingFieldFound = null,
+                IgnoreBlankLines = true,
+                TrimOptions = TrimOptions.Trim,
+                BadDataFound = null
+            }))
+            {
+                // Skip lines until you reach the headers of the data
+                for (int i = 0; i < 7; i++)
+                {
+                    csv.Read();
+                }
+
+                // Read the header line with dates
+                csv.Read();
+                var headers = csv.Parser.Record.Select(h => h.Clean()).ToArray();
+
+                Console.WriteLine("Headers:");
+                foreach (var header in headers)
+                {
+                    Console.WriteLine(header);
+                }
+
+                csv.Context.RegisterClassMap<CsvServerRecordMap>();
+                var records = csv.GetRecords<CsvServerRecord>().ToList();
+
+                Console.WriteLine("Records:");
+                foreach (var record in records)
+                {
+                    // Clean special characters in JobCode and EmployeeName
+                    record.JobCode = record.JobCode.Clean();
+                    record.EmployeeName = record.EmployeeName.Clean();
+                    Console.WriteLine($"{record.JobCode}, {record.EmployeeName}");
+                }
+
+                records = records
+                          .Where(r => r.JobCode == "Bartender")
+                          .ToList();
+                return records.Count;
+
+            }
+
+           
+        }
 
         private static void AddScheduledShifts(List<ScheduledShift> scheduledShifts, CsvServerRecord record, string[] headers)
         {
