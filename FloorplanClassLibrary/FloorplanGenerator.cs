@@ -127,18 +127,24 @@ namespace FloorplanClassLibrary
             ServerRemainder = ServerCount - minimumServersAssigned;
             for (int i = 0; i < ServerRemainder; i++)
             {
-                float smallestImpact = float.MaxValue;
+                float bestSales = float.MinValue;
                 DiningArea areaToAddTo = null;
 
                 foreach (DiningArea diningArea in shift.DiningAreasUsed)
                 {
                     float currentDifferenceFromAvg = areaPerServerSales[diningArea] - shiftSalesPerServer;
                     float salesIfServerAdded = diningArea.ExpectedSales / (DiningAreaServerCounts[diningArea] + 1);
-                    float newSalesPerServer = Math.Abs(salesIfServerAdded - shiftSalesPerServer);
-
-                    if (newSalesPerServer < smallestImpact)
+                    //float newSalesPerServer = Math.Abs(salesIfServerAdded - shiftSalesPerServer);
+                    //float newDifferenceFromAvg = salesIfServerAdded - shiftSalesPerServer;
+                    if(areaPerServerSales[diningArea] > (shiftSalesPerServer * 1.6))
                     {
-                        smallestImpact = newSalesPerServer;
+                        bestSales = salesIfServerAdded;
+                        areaToAddTo = diningArea;
+                        
+                    }
+                    else if (salesIfServerAdded > bestSales)
+                    {
+                        bestSales = salesIfServerAdded;
                         areaToAddTo = diningArea;
                     }
                 }
@@ -241,50 +247,51 @@ namespace FloorplanClassLibrary
         }
         private void assignBartenders(List<Server> bartenders, List<Floorplan> floorplans)
         {
-            
-            for(int i = 0; i < bartenders.Count; i++
-                )
-            {
-                foreach(Floorplan floorplan in floorplans)
+            int j = 0;
+            for(int i = 0; i < bartenders.Count; i++)
+            {               
+                shift.SelectedFloorplan = floorplans[j];
+                Server s = bartenders[i];
+                Floorplan f = floorplans[j];    
+                if ((ServerDistribution[floorplans[j].DiningArea] - floorplans[j].Servers.Count) > 0)
                 {
-
+                    shift.AddServerToSelectedFloorplan(bartenders[i]);
+                   
                 }
+                else
+                {
+                    i--;
+                }
+                j++;
+                if (j >= floorplans.Count)
+                {
+                    j = 0;
+                }
+
             }
         }
         public void AssignCocktailers()
-        {
-            
-            int CocktailersNeeded = 0;
-            int CocktailAreas = 0;
-            List<Server> unassignedBartenders = shift.ServersOnShift.Where(s => s.IsBartender).ToList();
+        {            
+            int CocktailersNeeded = 0;            
+            List<Server> unassignedBartenders = shift.UnassignedServers.Where(s => s.IsBartender).ToList();
             List<Floorplan> cocktailAreas = shift.Floorplans.Where(fp => fp.DiningArea.IsCocktail).ToList();
-            foreach(Floorplan fp in shift.Floorplans)
+            assignBartenders(unassignedBartenders, cocktailAreas);
+            foreach(Floorplan fp in cocktailAreas)
             {
-                if (fp.DiningArea.IsCocktail)
-                {
-                    CocktailersNeeded += ServerDistribution[fp.DiningArea]; 
-                    if(unassignedBartenders.Count > 0)
-                    {
-                        shift.SelectedFloorplan = fp;
-                        shift.AddServerToAFloorplan(unassignedBartenders[0]);
-                        shift.SelectedFloorplan.AddServerAndSection(unassignedBartenders[0]);
-                        unassignedBartenders.Remove(unassignedBartenders[0]);
-                    };
+                    CocktailersNeeded += ServerDistribution[fp.DiningArea];                    
                     CocktailersNeeded -= fp.Servers.Count();
-                    CocktailAreas ++;
-                }
             }
-            CocktailersNeeded -= unassignedBartenders.Count();
+           
             List<Server> Cocktailers = shift.UnassignedServers
                 .OrderByDescending(s => s.CocktailPreference)
                 .Take(CocktailersNeeded)
                 .ToList();
-            Cocktailers.AddRange(unassignedBartenders);
-            Cocktailers = Cocktailers.Distinct().ToList();
-            if(Cocktailers.Count < CocktailersNeeded)
-            {
-                CocktailersNeeded = Cocktailers.Count;
-            }
+            //Cocktailers.AddRange(unassignedBartenders);
+            //Cocktailers = Cocktailers.Distinct().ToList();
+            //if(Cocktailers.Count < CocktailersNeeded)
+            //{
+            //    CocktailersNeeded = Cocktailers.Count;
+            //}
            
             int serverIndex = 0;
             foreach (Floorplan floorplan in shift.Floorplans)
