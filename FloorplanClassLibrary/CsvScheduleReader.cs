@@ -54,7 +54,7 @@ namespace FloorplanClassLibrary
                 }
 
                 records = records
-                          .Where(r => r.JobCode == "Server" || r.JobCode == "Bartender")
+                          .Where(r => r.JobCode == "Server")// || r.JobCode == "Bartender")
                           .ToList();
 
                 foreach (var record in records)

@@ -430,6 +430,8 @@ namespace FloorPlanMakerUI
         }
         private void RefreshForDateSelected()
         {
+            lblMissingServers.Visible = false;
+            toolTip1.SetToolTip(lblMissingServers, "");
             GetDateString();
             GetTodayLabel();
             RefreshPreviousFloorplanCounts();
@@ -736,6 +738,8 @@ namespace FloorPlanMakerUI
                                 i++;
                             }
                             MessageBox.Show("Could not find: " + serversMissed);
+                            lblMissingServers.Visible = true;
+                            toolTip1.SetToolTip(lblMissingServers, serversMissed);
 
                         }));
                     });

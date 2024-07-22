@@ -60,6 +60,7 @@
             label2 = new Label();
             lblServersOnShift = new Label();
             toolTip1 = new ToolTip(components);
+            lblMissingServers = new Label();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
@@ -358,6 +359,7 @@
             // panel4
             // 
             panel4.BackColor = Color.FromArgb(180, 190, 200);
+            panel4.Controls.Add(lblMissingServers);
             panel4.Controls.Add(btnSubtractBartender);
             panel4.Controls.Add(btnAddBartender);
             panel4.Controls.Add(flowServersOnShift);
@@ -445,6 +447,18 @@
             toolTip1.InitialDelay = 200;
             toolTip1.ReshowDelay = 40;
             // 
+            // lblMissingServers
+            // 
+            lblMissingServers.AutoSize = true;
+            lblMissingServers.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lblMissingServers.ForeColor = Color.DarkRed;
+            lblMissingServers.Location = new Point(8, 14);
+            lblMissingServers.Name = "lblMissingServers";
+            lblMissingServers.Size = new Size(166, 20);
+            lblMissingServers.TabIndex = 3;
+            lblMissingServers.Text = "!! MISSING SERVERS !!";
+            lblMissingServers.Visible = false;
+            // 
             // frmNewShiftDatePicker
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -508,5 +522,6 @@
         private Label lblBartenderCount;
         private Label label2;
         private CheckBox cbStatsType;
+        private Label lblMissingServers;
     }
 }
