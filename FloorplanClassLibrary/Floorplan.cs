@@ -339,6 +339,15 @@ namespace FloorplanClassLibrary
             {
                 return section.ExpectedTotalSales - this.AvgSalesPerServer;
             }
+            else if (section.PairedSection != null)
+            {
+                if(section.PairedSection.Server != null)
+                {
+                    return section.ExpectedTotalSales 
+                        - (this.AvgSalesPerServer * (section.ServerCount + section.PairedSection.ServerCount));
+                }
+                return section.ExpectedTotalSales - (this.AvgSalesPerServer * section.ServerCount);
+            }
             else
             {
                 return section.ExpectedTotalSales - (this.AvgSalesPerServer * section.ServerCount);
