@@ -110,11 +110,11 @@ namespace FloorPlanMakerUI
             }
             if (rdoCreatingSections.Checked)
             {
-                MessageBox.Show("This tutorial has not been added yet");
+                tutorialImages.SetToTutorialSelected(165, 129, TutorialImages.TutorialType.Sections);
             }
             if (rdoAssigningServersToSections.Checked)
             {
-                MessageBox.Show("This tutorial has not been added yet");
+                tutorialImages.SetToTutorialSelected(165, 129, TutorialImages.TutorialType.AssigningSections);
             }
             if (rdoUpdatingSalesData.Checked)
             {

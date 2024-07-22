@@ -1041,6 +1041,10 @@ namespace FloorPlanMakerUI
                 {
                     floorplan.DiningArea.SetTableSales(tableSalesManager.Stats);
                 }
+                foreach(TableControl tableControl in this._tableControls)
+                {
+                    this.toolTip.SetToolTip(tableControl, tableControl.Table.AverageSales.ToString("C0"));
+                }
                
             }
         }

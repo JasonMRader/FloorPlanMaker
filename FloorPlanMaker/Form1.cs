@@ -1195,18 +1195,14 @@ namespace FloorPlanMaker
             {
 
                 floorplanManager.SetTableSalesStatsPeriod(TableSalesManager.StatsPeriod.Yesterday);
-                //List<TableStat> stats = SqliteDataAccess.LoadTableStatsByDateAndLunch(IsLunch, dateOnlySelected.AddDays(-1));
-                //floorplanManager.SetSalesManagerStats(stats);
-                //floorplanManager.ShiftManager.SelectedDiningArea.TableSalesManager.SetDateToToday(dateOnlySelected);
-                //floorplanManager.ShiftManager.SelectedDiningArea.ExpectedSales();
+               
                 SetTableSalesView();
 
             }
             if (rdoLastWeekdayStats.Checked)
             {
                 floorplanManager.SetTableSalesStatsPeriod(TableSalesManager.StatsPeriod.LastWeekday);
-                //List<TableStat> stats = SqliteDataAccess.LoadTableStatsByDateAndLunch(IsLunch, dateOnlySelected.AddDays(-7));
-                //floorplanManager.SetSalesManagerStats(stats);
+                
                 SetTableSalesView();
             }
             if (rdoLastFourWeekdayStats.Checked)
@@ -1225,22 +1221,16 @@ namespace FloorPlanMaker
                 }
 
 
-                // List<TableStat> stats = SqliteDataAccess.LoadTableStatsByDateListAndLunch(IsLunch, previousWeekdays);
-                //floorplanManager.SetSalesManagerStats(stats);
+               
                 SetTableSalesView();
             }
             if (rdoDayOfStats.Checked)
             {
                 floorplanManager.SetTableSalesStatsPeriod(TableSalesManager.StatsPeriod.Today);
-                // List<TableStat> stats = SqliteDataAccess.LoadTableStatsByDateAndLunch(IsLunch, dateOnlySelected);
-                //floorplanManager.SetSalesManagerStats(stats);
+               
                 SetTableSalesView();
             }
-            //if(floorplanManager.Floorplan != null) {
-            //    floorplanManager.UpdateAveragesPerServer();
-            //}
-            //coversImageLabel = new ImageLabelControl(UITheme.covers, "0", (flowSectionSelect.Width / 2) - 7, 30);
-            //salesImageLabel = new ImageLabelControl(UITheme.sales, "$0", (flowSectionSelect.Width / 2) - 7, 30);
+          
             coversImageLabel.UpdateText(shift.SelectedDiningArea.GetMaxCovers().ToString("F0"));
             salesImageLabel.UpdateText(shift.SelectedDiningArea.GetAverageSales().ToString("C0"));
             if (floorplanManager.Floorplan != null && floorplanManager.Floorplan.Sections.Count > 0)

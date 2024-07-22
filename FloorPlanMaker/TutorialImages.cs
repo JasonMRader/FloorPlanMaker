@@ -50,7 +50,9 @@ namespace FloorPlanMakerUI
             EditDiningAreas,
             Settings,
             UpdatingOrderHistory,
-            Servers
+            Servers,
+            Sections,
+            AssigningSections
         }
         public void GoToNextImage()
         {
@@ -169,6 +171,16 @@ namespace FloorPlanMakerUI
             //images.Add(TutorialResources.TemplateSelectCreateShift19);
             return images;
         }
+        private List<Image> GetSectionCreationImages()
+        {
+            List<Image> images = new List<Image>();
+            images.Add(TutorialResources.ManualSections_1);
+            images.Add(TutorialResources.ManualSections_2);
+            images.Add(TutorialResources.ManualSections_3);
+            images.Add(TutorialResources.ManualSections_4);
+            images.Add(TutorialResources.ManualSections_5);
+            return images;
+        }
         private List<Image> GetSettingsImages()
         {
             List<Image> images = new List<Image>();
@@ -228,6 +240,7 @@ namespace FloorPlanMakerUI
             {
                 currentTutorialImages = GetServerImages();
             }
+           
             imageSelected = currentTutorialImages[currentTutorialIndex];
             this.ThumbnailManager.SetPictureBoxesForImages(width, height);
             ImageSelectedChanged?.Invoke(this, EventArgs.Empty);
@@ -260,10 +273,30 @@ namespace FloorPlanMakerUI
             {
                 currentTutorialImages = GetServerImages();
             }
+            else if (tutorialType == TutorialType.Sections)
+            {
+                currentTutorialImages = GetSectionCreationImages();
+            }
+            else if (tutorialType == TutorialType.AssigningSections)
+            {
+                currentTutorialImages = GetAssignSectionImages();
+            }
             imageSelected = currentTutorialImages[currentTutorialIndex];
             this.ThumbnailManager.SetPictureBoxesForImages(width, height);
             ImageSelectedChanged?.Invoke(this, EventArgs.Empty);
         }
+
+        private List<Image> GetAssignSectionImages()
+        {
+            List<Image> images = new List<Image>();
+            images.Add(TutorialResources.ManualSections_6);
+            images.Add(TutorialResources.ManualSections_7);
+            images.Add(TutorialResources.ManualSections_8);
+            images.Add(TutorialResources.ManualSections_9);
+            images.Add(TutorialResources.ManualSections_10);
+            return images;
+        }
+
         public void SetToShiftCreationWalkthough(int width, int height)
         {
             currentTutorialIndex = 0;

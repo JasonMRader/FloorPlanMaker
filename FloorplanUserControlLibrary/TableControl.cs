@@ -45,7 +45,7 @@ namespace FloorPlanMaker
                     this.TextColor = section.FontColor;
                     this.BackColor = section.MuteColor(.95f);
                 }
-                this.toolTip.SetToolTip(this, this.Table.AverageSales.ToString("C0"));
+                //this.toolTip.SetToolTip(this, this.Table.AverageSales.ToString("C0"));
             }
            
            
@@ -124,7 +124,7 @@ namespace FloorPlanMaker
 
         public static void DrawTableOnGraphics(Graphics g, TableControl control, bool isForPrint = false)
         {
-            control.toolTip.SetToolTip(control, control.Table.AverageSales.ToString("C0"));
+            //control.toolTip.SetToolTip(control, control.Table.AverageSales.ToString("C0"));
             int xOffset = isForPrint ? control.Left : 0;
             int yOffset = isForPrint ? control.Top : 0;
             
