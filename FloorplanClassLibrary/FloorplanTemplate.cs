@@ -56,6 +56,7 @@ namespace FloorplanClassLibrary
         {
             get { return _hasTeamWait; }           
         }
+        public int TimesUsed { get; set; }
         public DiningArea DiningArea { get; set; }
         public int DiningAreaID { get; set; }
         private void GetSectionCopies(List<Section> sectionsToCopy)

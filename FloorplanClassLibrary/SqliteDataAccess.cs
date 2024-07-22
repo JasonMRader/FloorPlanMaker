@@ -1705,7 +1705,24 @@ namespace FloorplanClassLibrary
 
                 cnn.Close();
             }
+            IncrementTemplatesUsed(floorplan);
         }
+
+        private static void IncrementTemplatesUsed(Floorplan floorplan)
+        {
+            FloorplanTemplate template = new FloorplanTemplate(floorplan);
+            FloorplanTemplate duplicateTemplate = template.duplicateTemplate();
+
+            if (duplicateTemplate != null)
+            {
+                using (var connection = new SQLiteConnection(LoadConnectionString()))
+                {
+                    string updateQuery = "UPDATE FloorplanTemplate SET TimesUsed = TimesUsed + 1 WHERE ID = @ID";
+                    connection.Execute(updateQuery, new { ID = duplicateTemplate.ID });
+                }
+            }
+        }
+
         public static void DeleteFloorplan(Floorplan floorplan)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
