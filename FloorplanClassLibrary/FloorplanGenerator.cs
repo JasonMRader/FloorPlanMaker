@@ -239,12 +239,25 @@ namespace FloorplanClassLibrary
             AreaPerServerSales = areaPerServerSales;
             return DiningAreaServerCounts;
         }
+        private void assignBartenders(List<Server> bartenders, List<Floorplan> floorplans)
+        {
+            
+            for(int i = 0; i < bartenders.Count; i++
+                )
+            {
+                foreach(Floorplan floorplan in floorplans)
+                {
+
+                }
+            }
+        }
         public void AssignCocktailers()
         {
             
             int CocktailersNeeded = 0;
             int CocktailAreas = 0;
             List<Server> unassignedBartenders = shift.ServersOnShift.Where(s => s.IsBartender).ToList();
+            List<Floorplan> cocktailAreas = shift.Floorplans.Where(fp => fp.DiningArea.IsCocktail).ToList();
             foreach(Floorplan fp in shift.Floorplans)
             {
                 if (fp.DiningArea.IsCocktail)
@@ -272,15 +285,7 @@ namespace FloorplanClassLibrary
             {
                 CocktailersNeeded = Cocktailers.Count;
             }
-            //if(CocktailAreas == 1)
-            //{
-            //    shift.SelectedFloorplan = shift.Floorplans.FirstOrDefault(fp => fp.DiningArea.IsCocktail);
-            //    foreach(Server server in Cocktailers)
-            //    {
-            //        shift.AddServerToAFloorplan(server);
-            //        shift.SelectedFloorplan.AddServerAndSection(server);
-            //    }
-            //}
+           
             int serverIndex = 0;
             foreach (Floorplan floorplan in shift.Floorplans)
             {
@@ -300,6 +305,67 @@ namespace FloorplanClassLibrary
             }
             
         }
+        //public void AssignCocktailers()
+        //{
+
+        //    int CocktailersNeeded = 0;
+        //    int CocktailAreas = 0;
+        //    List<Server> unassignedBartenders = shift.ServersOnShift.Where(s => s.IsBartender).ToList();
+        //    foreach (Floorplan fp in shift.Floorplans)
+        //    {
+        //        if (fp.DiningArea.IsCocktail)
+        //        {
+        //            CocktailersNeeded += ServerDistribution[fp.DiningArea];
+        //            if (unassignedBartenders.Count > 0)
+        //            {
+        //                shift.SelectedFloorplan = fp;
+        //                shift.AddServerToAFloorplan(unassignedBartenders[0]);
+        //                shift.SelectedFloorplan.AddServerAndSection(unassignedBartenders[0]);
+        //                unassignedBartenders.Remove(unassignedBartenders[0]);
+        //            };
+        //            CocktailersNeeded -= fp.Servers.Count();
+        //            CocktailAreas++;
+        //        }
+        //    }
+        //    CocktailersNeeded -= unassignedBartenders.Count();
+        //    List<Server> Cocktailers = shift.UnassignedServers
+        //        .OrderByDescending(s => s.CocktailPreference)
+        //        .Take(CocktailersNeeded)
+        //        .ToList();
+        //    Cocktailers.AddRange(unassignedBartenders);
+        //    Cocktailers = Cocktailers.Distinct().ToList();
+        //    if (Cocktailers.Count < CocktailersNeeded)
+        //    {
+        //        CocktailersNeeded = Cocktailers.Count;
+        //    }
+        //    //if(CocktailAreas == 1)
+        //    //{
+        //    //    shift.SelectedFloorplan = shift.Floorplans.FirstOrDefault(fp => fp.DiningArea.IsCocktail);
+        //    //    foreach(Server server in Cocktailers)
+        //    //    {
+        //    //        shift.AddServerToAFloorplan(server);
+        //    //        shift.SelectedFloorplan.AddServerAndSection(server);
+        //    //    }
+        //    //}
+        //    int serverIndex = 0;
+        //    foreach (Floorplan floorplan in shift.Floorplans)
+        //    {
+
+        //        if (floorplan.DiningArea.IsCocktail)
+        //        {
+        //            shift.SelectedFloorplan = floorplan;
+        //            int serversNeeded = ServerDistribution[floorplan.DiningArea] - floorplan.Servers.Count;
+        //            while (serversNeeded > 0)
+        //            {
+        //                shift.AddServerToAFloorplan(Cocktailers[serverIndex]);
+        //                shift.SelectedFloorplan.AddServerAndSection(Cocktailers[serverIndex]);
+        //                serverIndex++;
+        //                serversNeeded--;
+        //            }
+        //        }
+        //    }
+
+        //}
         public void AssignOutsideServers()
         {
             int OutsideServersNeeded = 0;

@@ -440,6 +440,7 @@ namespace FloorPlanMaker
             btnDeleteSelectedFloorplan.TabIndex = 22;
             btnDeleteSelectedFloorplan.Text = "Delete";
             btnDeleteSelectedFloorplan.UseVisualStyleBackColor = true;
+            btnDeleteSelectedFloorplan.Visible = false;
             btnDeleteSelectedFloorplan.Click += btnDeleteSelectedFloorplan_Click;
             // 
             // pnlMainContainer

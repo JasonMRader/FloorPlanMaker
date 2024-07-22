@@ -706,13 +706,13 @@ namespace FloorPlanMakerUI
                 openFileDialog.Filter = "CSV files (*.csv)|*.csv|All files (*.*)|*.*";
                 openFileDialog.FilterIndex = 1;
                 openFileDialog.RestoreDirectory = true;
-
+                List<string> serversNotMatched = new List<string>();
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
 
                     string filePath = openFileDialog.FileName;
-                    frmLoading loadingForm = new frmLoading("Loading");
-                    loadingForm.Show();
+                    //frmLoading loadingForm = new frmLoading("Loading");
+                    //loadingForm.Show();
                     this.Enabled = false;
 
                     Task.Run(() =>
@@ -720,14 +720,22 @@ namespace FloorPlanMakerUI
                         List<ScheduledShift> records = CsvScheduleReader.GetScheduledShifts(filePath);
 
                         records.OrderBy(r => r.Date).ToList();
-                        PopulateServersFromCsv(records);
+                        serversNotMatched = PopulateServersFromCsv(records);
 
                         this.Invoke(new Action(() =>
                         {
 
-                            loadingForm.Close();
+                            //loadingForm.Close();
                             this.Enabled = true;
                             PopulateServers();
+                            string serversMissed = "\n";
+                            int i = 1;
+                            foreach (string server in serversNotMatched)
+                            {
+                                serversMissed += i.ToString() + ") " + server + "\n";
+                                i++;
+                            }
+                            MessageBox.Show("Could not find: " + serversMissed);
 
                         }));
                     });
@@ -738,13 +746,13 @@ namespace FloorPlanMakerUI
             txtServerSearch.Focus();
         }
 
-        private void PopulateServersFromCsv(List<ScheduledShift> records)
+        private List<string> PopulateServersFromCsv(List<ScheduledShift> records)
         {
             ScheduledShift scheduledShift = records.FirstOrDefault(s => s.Date == shiftManager.DateOnly && s.IsAm == shiftManager.IsAM);
             if (scheduledShift == null)
             {
                 MessageBox.Show("No shift was found in that file for the date selected");
-                return;
+                return null;
             }
             try
             {
@@ -756,19 +764,22 @@ namespace FloorPlanMakerUI
                 }
                 if (serversNotMatched.Count > 0)
                 {
-                    string serversMissed = "\n";
-                    int i = 1;
-                    foreach (string server in serversNotMatched)
-                    {
-                        serversMissed += i.ToString() + ") " + server + "\n";
-                        i++;
-                    }
-                    MessageBox.Show("Could not find: " + serversMissed);
+                    //string serversMissed = "\n";
+                    //int i = 1;
+                    //foreach (string server in serversNotMatched)
+                    //{
+                    //    serversMissed += i.ToString() + ") " + server + "\n";
+                    //    i++;
+                    //}
+                    //MessageBox.Show("Could not find: " + serversMissed);
+                    return serversNotMatched;
                 }
+                else { return null; }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                return null;
             }
         }
 

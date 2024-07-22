@@ -26,7 +26,7 @@ namespace FloorplanClassLibrary
             }))
             {
                 // Skip lines until you reach the headers of the data
-                for (int i = 0; i < 11; i++)
+                for (int i = 0; i < 7; i++)
                 {
                     csv.Read();
                 }
