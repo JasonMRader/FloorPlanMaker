@@ -1282,7 +1282,7 @@ namespace FloorplanClassLibrary
                             "SELECT TeamWait FROM Section WHERE ID = @SectionID",
                             new { SectionID = section.ID }
                         );
-                        section.SetTeamWait(teamWaitValue);
+                        section.SetTemplateTeamWait(teamWaitValue);
                         if(teamWaitValue)
                         {
                             template.SetTeamWaitValue(true);
@@ -1332,7 +1332,7 @@ namespace FloorplanClassLibrary
 
                     // Include ServerCount in the query for Section
                     template.Sections = cnn.Query<Section>(
-                        "SELECT s.*, s.ServerCount FROM Section s " +
+                        "SELECT s.*, s.ServerCount, s.IsBarSection FROM Section s " +
                         "JOIN TemplateSections ts ON s.ID = ts.SectionID " +
                         "WHERE ts.TemplateID = @TemplateID",
                             new { TemplateID = template.ID }
@@ -1345,7 +1345,12 @@ namespace FloorplanClassLibrary
                             "SELECT TeamWait FROM Section WHERE ID = @SectionID",
                             new { SectionID = section.ID }
                         );
-                        section.SetTeamWait(teamWaitValue);
+                        section.SetTemplateTeamWait(teamWaitValue);
+                        var isBarWaitValue = cnn.ExecuteScalar<bool>(
+                            "SELECT isBarSection FROM Section WHERE ID = @SectionID",
+                            new { SectionID = section.ID }
+                        );
+                        section.SetTemplateBarSection(isBarWaitValue);
                         if (teamWaitValue)
                         {
                             template.SetTeamWaitValue(true);
@@ -1359,9 +1364,10 @@ namespace FloorplanClassLibrary
                         {
                             template.SetPickUpValue(true);
                         }
-                        if(section.IsBarSection)
+                        if(section.TemplateBarSection)
                         {
                             template.SetBarSectionValue(true);
+                            section.SetToBarSection();
                         }
 
                         // Set table list for each section
@@ -1464,7 +1470,7 @@ namespace FloorplanClassLibrary
                             "SELECT TeamWait FROM Section WHERE ID = @SectionID",
                             new { SectionID = section.ID }
                         );
-                        section.SetTeamWait(teamWaitValue);
+                        section.SetTemplateTeamWait(teamWaitValue);
                         if (teamWaitValue)
                         {
                             template.SetTeamWaitValue(true);

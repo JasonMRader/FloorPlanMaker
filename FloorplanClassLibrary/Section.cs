@@ -1,18 +1,4 @@
-﻿using NetTopologySuite.Triangulate;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data.SQLite;
-using System.Drawing;
-using System.Globalization;
-using System.Linq;
-using System.Net.Security;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
-using System.Windows.Forms;
-using static System.Collections.Specialized.BitVector32;
+﻿using System.Globalization;
 
 namespace FloorplanClassLibrary
 {
@@ -131,6 +117,7 @@ namespace FloorplanClassLibrary
         public int ServerCount { get; private set; } = 1;
         public int TemplateServerCount { get; set; }
         public bool TemplateTeamWait { get; set; }
+        public bool TemplateBarSection { get; private set; }
         public bool TemplatePickUp { get; set; }    
         public int ID {  get; set; }
         public bool IsPickUp { get; set; }
@@ -332,6 +319,10 @@ namespace FloorplanClassLibrary
             {              
                 _isTeamWait = true;
                 ServerCount = sectionToCopy.ServerCount;
+            }
+            if(sectionToCopy.IsBarSection)
+            {
+                _isBarSection = true;
             }
 
         }
@@ -836,7 +827,7 @@ namespace FloorplanClassLibrary
             }
         }
 
-
+       
 
         public override bool Equals(object obj)
         {
@@ -855,9 +846,13 @@ namespace FloorplanClassLibrary
             return this.Number.GetHashCode();
         }
 
-        internal void SetTeamWait(bool teamWaitValue)
+        internal void SetTemplateTeamWait(bool teamWaitValue)
         {
             this.TemplateTeamWait = teamWaitValue;
+        }
+        internal void SetTemplateBarSection(bool barSectionValue)
+        {
+            this.TemplateBarSection = barSectionValue;
         }
         public bool HasSameTables(Section sectionCompared)
         {

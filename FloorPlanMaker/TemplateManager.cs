@@ -196,6 +196,10 @@ namespace FloorPlanMakerUI
                 {
                     label.Text = section.ServerCount.ToString();
                 }
+                else if (section.TemplateBarSection)
+                {
+                    label.Text = "B";
+                }
                 else
                 {
                     label.Text = section.TemplateServerCount.ToString();
@@ -207,7 +211,7 @@ namespace FloorPlanMakerUI
                 label.Location = new Point(3, 3);
                 label.Size = new Size(28, 28);
                 label.AutoSize = false;
-                if (section.TemplateTeamWait || section.IsTeamWait)
+                if (section.TemplateTeamWait || section.IsTeamWait || section.TemplateBarSection)
                 {
                     picBox.Image = null;
                     displayPanel.Controls.Add(label);
