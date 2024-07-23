@@ -1359,6 +1359,10 @@ namespace FloorplanClassLibrary
                         {
                             template.SetPickUpValue(true);
                         }
+                        if(section.IsBarSection)
+                        {
+                            template.SetBarSectionValue(true);
+                        }
 
                         // Set table list for each section
                         section.SetTableList(cnn.Query<Table>(

@@ -196,6 +196,9 @@
   <data name="FloorplanMaker" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\FloorplanMaker.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="FloorplanMakerLogo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FloorplanMakerLogo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="forward" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\forward.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

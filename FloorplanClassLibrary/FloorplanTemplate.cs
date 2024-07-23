@@ -39,6 +39,7 @@ namespace FloorplanClassLibrary
        
         private bool _hasTeamWait = false;
         private bool _hasPickUp = false;
+        private bool _hasBarSection = false;
         public void SetTeamWaitValue(bool teamWait)
         {
             _hasTeamWait = teamWait;
@@ -46,6 +47,10 @@ namespace FloorplanClassLibrary
         public void SetPickUpValue(bool picUp)
         {
             _hasPickUp = picUp;
+        }
+        public void SetBarSectionValue(bool v)
+        {
+            _hasBarSection = v;
         }
         public List<TemplateTable> Tables { get; private set; }
         public bool HasPickUp
@@ -55,6 +60,10 @@ namespace FloorplanClassLibrary
         public bool HasTeamWait
         {
             get { return _hasTeamWait; }           
+        }
+        public bool HasBarSection
+        {
+            get { return _hasBarSection; }
         }
         public int TimesUsed { get; set; }
         public DiningArea DiningArea { get; set; }
@@ -209,5 +218,7 @@ namespace FloorplanClassLibrary
         {
             return "Servers: " + this.ServerCount.ToString();
         }
+
+       
     }
 }
