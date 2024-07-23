@@ -1181,7 +1181,8 @@ namespace FloorplanClassLibrary
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 cnn.Open();
-                cnn.Execute("INSERT INTO Section (MaxCovers, AverageCovers, IsCloser, IsPre, TeamWait, IsPickUp, ServerCount) VALUES (@MaxCovers, @AverageCovers, @IsCloser, @IsPre, @TeamWait, @IsPickUp, @ServerCount)",
+                cnn.Execute("INSERT INTO Section (MaxCovers, AverageCovers, IsCloser, IsPre, TeamWait, IsPickUp, ServerCount, IsBarSection) " +
+                    "VALUES (@MaxCovers, @AverageCovers, @IsCloser, @IsPre, @TeamWait, @IsPickUp, @ServerCount, @IsBarSection)",
                 new
                 {
                     MaxCovers = section.MaxCovers,
@@ -1190,11 +1191,10 @@ namespace FloorplanClassLibrary
                     IsPre = section.IsPre,
                     TeamWait = section.IsTeamWait,
                     IsPickUp = section.IsPickUp,
-                    ServerCount = section.ServerCount
+                    ServerCount = section.ServerCount,
+                    IsBarSection = section.IsBarSection
                 });
-
                 section.ID = cnn.Query<int>("select last_insert_rowid()", new DynamicParameters()).Single();
-
                 if (section.Tables == null) { return; }
 
                 foreach (Table table in section.Tables)
@@ -1633,25 +1633,18 @@ namespace FloorplanClassLibrary
 
                     if (result == DialogResult.No)
                     {
-                        // User does not want to replace, so exit without saving.
                         cnn.Close();
                         return;
                     }
 
-                    // 1. Retrieve all related SectionIDs
                     var relatedSectionIds = cnn.Query<int>("SELECT SectionID FROM FloorplanSections WHERE FloorplanID = @FloorplanID", new { FloorplanID = existingFloorplan.ID }).ToList();
 
-                    // 2. Delete entries from ServerSections and Shift using the related SectionIDs
                     foreach (var sectionId in relatedSectionIds)
                     {
                         cnn.Execute("DELETE FROM ServerSections WHERE SectionID = @SectionID", new { SectionID = sectionId });
                         cnn.Execute("DELETE FROM Shift WHERE SectionID = @SectionID", new { SectionID = sectionId });
                     }
-
-                    // 3. Delete entries from FloorplanSections
-                    cnn.Execute("DELETE FROM FloorplanSections WHERE FloorplanID = @FloorplanID", new { FloorplanID = existingFloorplan.ID });
-
-                    // 4. Finally, delete the Floorplan
+                    cnn.Execute("DELETE FROM FloorplanSections WHERE FloorplanID = @FloorplanID", new { FloorplanID = existingFloorplan.ID });                   
                     cnn.Execute("DELETE FROM Floorplan WHERE ID = @ID", new { ID = existingFloorplan.ID });
                 }
                 
@@ -1665,32 +1658,22 @@ namespace FloorplanClassLibrary
 
                 floorplan.ID = cnn.Query<int>("select last_insert_rowid()", new DynamicParameters()).Single();
 
-                // Save each section
+               
                 foreach (Section section in floorplan.Sections)
                 {
-                    SaveSection(section); // Reusing your existing method
-
-                    // Link this section with the floorplan
+                    SaveSection(section); 
                     cnn.Execute("INSERT INTO FloorplanSections (FloorplanID, SectionID) VALUES (@FloorplanID, @SectionID)",
                     new
                     {
                         FloorplanID = floorplan.ID,
                         SectionID = section.ID
-                    });
-
-                    // Assuming section has a List<Server> Servers to represent all servers in that section
+                    });                  
                     if (section.ServerTeam.Count >= 1)
-                    {
-
-                        //cnn.Execute("INSERT OR IGNORE INTO ServerSections (ServerID, SectionID) VALUES (@ServerID, @SectionID)",
-                        //new
-                        //{
-                        //    ServerID = section.Server.ID,
-                        //    SectionID = section.ID
-                        //});
+                    {                       
                         foreach (Server server in section.ServerTeam)
                         {
-                            cnn.Execute("INSERT OR IGNORE INTO Shift (ServerID, SectionID, FloorplanID, DiningAreaID) VALUES (@ServerID, @SectionID, @FloorplanID, @DiningAreaID)",
+                            cnn.Execute("INSERT OR IGNORE INTO Shift (ServerID, SectionID, FloorplanID, DiningAreaID) " +
+                                "VALUES (@ServerID, @SectionID, @FloorplanID, @DiningAreaID)",
                                            new
                                            {
                                                ServerID = server.ID,
@@ -1699,7 +1682,6 @@ namespace FloorplanClassLibrary
                                                DiningAreaID = floorplan.DiningArea.ID
                                            }); 
                         }
-
                     }
                 }
 
