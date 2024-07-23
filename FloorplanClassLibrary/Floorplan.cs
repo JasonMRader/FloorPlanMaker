@@ -13,25 +13,33 @@ namespace FloorplanClassLibrary
 {
     public class Floorplan 
     {
-        
-        // TODO: remove server count, use Servers.Count, clean up logic
         public Floorplan(DiningArea diningArea, DateTime date, bool isLunch, int serverCount, int sectionCount)
         {
             this.DiningArea = diningArea;
             this.Date = date;
-            this.IsLunch = isLunch;
-            
+            this.IsLunch = isLunch;            
             this.SectionCount = sectionCount;
-            this.SectionServerMap = new Dictionary<Section, List<Server>>();
-            
-            CreateSections();
-            //MoveToNextSection();
-            foreach (var section in Sections)
-            {
-                //section.SubscribeObserver(this);
-            }
+            this.SectionServerMap = new Dictionary<Section, List<Server>>();            
+            CreateSections();   
         }
+        public Dictionary<Section, List<Server>> SectionServerMap { get; private set; }
+        public int ID { get; set; }
+        public DateTime Date { get; set; }
+        public DateOnly DateOnly => new DateOnly(Date.Year, Date.Month, Date.Day);
+        public bool IsLunch { get; set; }
+        public DiningArea? DiningArea { get; set; }
+        public int DiningAreaID { get; set; }
+        private Section? _sectionSelected { get; set; }
+        public Section? SectionSelected
+        {
+            get
+            {
+                if (this.Sections.Count == 0) return null;
+                if (currentFocusedSectionIndex >= this.Sections.Count) return this.Sections[this.Sections.Count - 1];
+                else return this.Sections[currentFocusedSectionIndex];
+            }
 
+        }
         public List<FloorplanLine> floorplanLines = new List<FloorplanLine>();
       
         
@@ -42,40 +50,15 @@ namespace FloorplanClassLibrary
             
             this.floorplanLines = template.floorplanLines;
             SectionServerMap = new Dictionary<Section, List<Server>>();
-            CopyTemplateSections(template.Sections);
-            //MoveToNextSection();
-            foreach (var section in Sections)
-            {
-                //section.SubscribeObserver(this);
-            }
+            CopyTemplateSections(template.Sections);    
+            
         }
         public Floorplan() 
         {
             SectionServerMap = new Dictionary<Section, List<Server>>();
-            //MoveToNextSection();
-            foreach (var section in Sections)
-            {
-                //section.SubscribeObserver(this);
-            }
+           
         }
-        public Dictionary<Section, List <Server>> SectionServerMap { get; private set; }
-        public int ID { get; set; }
-        public DateTime Date { get; set; }
-        public DateOnly DateOnly => new DateOnly(Date.Year, Date.Month, Date.Day);
-        public bool IsLunch { get; set; }
-        public DiningArea? DiningArea { get; set; }
-        public int DiningAreaID { get; set; }
-        private Section _sectionSelected { get; set; }
-        public Section? SectionSelected
-        {
-            get 
-            {
-                if (this.Sections.Count == 0) return null;
-                if (currentFocusedSectionIndex >= this.Sections.Count) return this.Sections[this.Sections.Count-1]; 
-                else return this.Sections[currentFocusedSectionIndex];
-            }
-
-        }
+       
         private int currentFocusedSectionIndex = 0;
         public void CreateBarSection()
         {

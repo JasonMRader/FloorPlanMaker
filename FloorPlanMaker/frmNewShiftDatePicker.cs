@@ -732,15 +732,19 @@ namespace FloorPlanMakerUI
                             //shiftManager.SelectedShift.SetBartendersToShift(bartenderCount);
                             PopulateServers();
                             string serversMissed = "";
-                            int i = 1;
-                            foreach (string server in serversNotMatched)
+                            if(serversNotMatched != null)
                             {
-                                serversMissed += i.ToString() + ") " + server + "\n";
-                                i++;
+                                int i = 1;
+                                foreach (string server in serversNotMatched)
+                                {
+                                    serversMissed += i.ToString() + ") " + server + "\n";
+                                    i++;
+                                }
+                                MessageBox.Show("Could not find: " + serversMissed);
+                                lblMissingServers.Visible = true;
+                                toolTip1.SetToolTip(lblMissingServers, serversMissed);
                             }
-                            MessageBox.Show("Could not find: " + serversMissed);
-                            lblMissingServers.Visible = true;
-                            toolTip1.SetToolTip(lblMissingServers, serversMissed);
+                           
 
                         }));
                     });

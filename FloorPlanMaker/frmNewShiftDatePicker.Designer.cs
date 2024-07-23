@@ -53,6 +53,7 @@
             label6 = new Label();
             label5 = new Label();
             panel4 = new Panel();
+            lblMissingServers = new Label();
             btnSubtractBartender = new Button();
             btnAddBartender = new Button();
             flowServersOnShift = new FlowLayoutPanel();
@@ -60,7 +61,6 @@
             label2 = new Label();
             lblServersOnShift = new Label();
             toolTip1 = new ToolTip(components);
-            lblMissingServers = new Label();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
@@ -305,7 +305,7 @@
             btnImportFromCSV.FlatAppearance.BorderSize = 0;
             btnImportFromCSV.FlatStyle = FlatStyle.Flat;
             btnImportFromCSV.Image = Properties.Resources.cloudDownloadSmall;
-            btnImportFromCSV.Location = new Point(247, 6);
+            btnImportFromCSV.Location = new Point(242, 6);
             btnImportFromCSV.Name = "btnImportFromCSV";
             btnImportFromCSV.Size = new Size(33, 33);
             btnImportFromCSV.TabIndex = 1;
@@ -370,6 +370,18 @@
             panel4.Name = "panel4";
             panel4.Size = new Size(595, 512);
             panel4.TabIndex = 5;
+            // 
+            // lblMissingServers
+            // 
+            lblMissingServers.AutoSize = true;
+            lblMissingServers.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lblMissingServers.ForeColor = Color.DarkRed;
+            lblMissingServers.Location = new Point(8, 14);
+            lblMissingServers.Name = "lblMissingServers";
+            lblMissingServers.Size = new Size(166, 20);
+            lblMissingServers.TabIndex = 3;
+            lblMissingServers.Text = "!! MISSING SERVERS !!";
+            lblMissingServers.Visible = false;
             // 
             // btnSubtractBartender
             // 
@@ -446,18 +458,6 @@
             toolTip1.AutoPopDelay = 20000;
             toolTip1.InitialDelay = 200;
             toolTip1.ReshowDelay = 40;
-            // 
-            // lblMissingServers
-            // 
-            lblMissingServers.AutoSize = true;
-            lblMissingServers.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            lblMissingServers.ForeColor = Color.DarkRed;
-            lblMissingServers.Location = new Point(8, 14);
-            lblMissingServers.Name = "lblMissingServers";
-            lblMissingServers.Size = new Size(166, 20);
-            lblMissingServers.TabIndex = 3;
-            lblMissingServers.Text = "!! MISSING SERVERS !!";
-            lblMissingServers.Visible = false;
             // 
             // frmNewShiftDatePicker
             // 
