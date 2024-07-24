@@ -175,7 +175,7 @@ namespace FloorPlanMaker
                     // return true;
                 }
             }
-            else if(_frmTemplateSelection != null && _frmTemplateSelection.Visible)
+            else if (_frmTemplateSelection != null && _frmTemplateSelection.Visible)
             {
                 if (keyData == Keys.Enter)
                 {
@@ -739,11 +739,13 @@ namespace FloorPlanMaker
 
         private void btnSaveFloorplanTemplate_Click(object sender, EventArgs e)
         {
-            if(shift.SelectedFloorplan == null) {
+            if (shift.SelectedFloorplan == null)
+            {
                 MessageBox.Show("There Must Be A Floorplan To Save A Template");
-                return; }
+                return;
+            }
             FloorplanTemplate template = new FloorplanTemplate(shift.SelectedFloorplan);
-            if(!floorplanManager.AllTablesAreAssigned())
+            if (!floorplanManager.AllTablesAreAssigned())
             {
                 MessageBox.Show("All Tables Must Be Assigned To Save A Template");
                 return;
@@ -1195,14 +1197,14 @@ namespace FloorPlanMaker
             {
 
                 floorplanManager.SetTableSalesStatsPeriod(TableSalesManager.StatsPeriod.Yesterday);
-               
+
                 SetTableSalesView();
 
             }
             if (rdoLastWeekdayStats.Checked)
             {
                 floorplanManager.SetTableSalesStatsPeriod(TableSalesManager.StatsPeriod.LastWeekday);
-                
+
                 SetTableSalesView();
             }
             if (rdoLastFourWeekdayStats.Checked)
@@ -1221,16 +1223,16 @@ namespace FloorPlanMaker
                 }
 
 
-               
+
                 SetTableSalesView();
             }
             if (rdoDayOfStats.Checked)
             {
                 floorplanManager.SetTableSalesStatsPeriod(TableSalesManager.StatsPeriod.Today);
-               
+
                 SetTableSalesView();
             }
-          
+
             coversImageLabel.UpdateText(shift.SelectedDiningArea.GetMaxCovers().ToString("F0"));
             salesImageLabel.UpdateText(shift.SelectedDiningArea.GetAverageSales().ToString("C0"));
             if (floorplanManager.Floorplan != null && floorplanManager.Floorplan.Sections.Count > 0)
