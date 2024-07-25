@@ -666,7 +666,7 @@ namespace FloorplanClassLibrary
         }
         public void OrderSectionsByAvgSales()
         {
-            var sortedSections = this._sections.OrderByDescending(s => s.ExpectedTotalSales).ToList();
+            var sortedSections = this._sections.OrderByDescending(s => s.ExpectedSalesPerServer).ToList();
             this._sections= sortedSections;
         }
         public bool NotEnoughUnassignedServersCheck(Section section)
