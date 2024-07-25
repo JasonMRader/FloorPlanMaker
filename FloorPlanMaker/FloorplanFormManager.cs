@@ -211,6 +211,10 @@ namespace FloorPlanMakerUI
             }
            
             Shift.SelectedFloorplan.CopyTemplateSections(template.Sections);
+            if(Shift.SelectedFloorplan.hasBarSection)
+            {
+                Shift.PairBothBarSections();
+            }
             SetSectionPanels();
             foreach(SectionPanelControl sectionPanel in this._sectionPanels)
             {

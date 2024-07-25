@@ -362,9 +362,9 @@ namespace FloorplanClassLibrary
             }
             foreach (Section section in Sections)
             {
-                if (section.IsBarSection)
-                {
-
+                if (section.IsBarSection && this.Bartenders != null)
+                {                    
+                    section.AddBartendersToBarSection(Bartenders);
                 }
             }
         }
