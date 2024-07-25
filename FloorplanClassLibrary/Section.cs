@@ -273,6 +273,27 @@ namespace FloorplanClassLibrary
         {
             this._isBarSection = true;
         }
+        public void AddBartendersToBarSection(List<Server> bartenders)
+        {
+            this.ServerTeam.Clear();
+            this._isBarSection = true;
+            if (bartenders.Count == 1)
+            {
+                this._isTeamWait = false;
+                this.ServerCount = 1;
+                this.AddServer(bartenders[0]);
+            }
+            else if(bartenders.Count > 1)
+            {
+                this._isTeamWait = true;
+                this.ServerCount = bartenders.Count;
+                foreach (Server b in bartenders)
+                {
+                    this.AddServer(b);
+                }
+            }
+
+        }
         public void AddBartender(Server bartender)
         {
 
@@ -292,21 +313,7 @@ namespace FloorplanClassLibrary
             }
             else if(bartenderCount > 1)
             {
-                //if (bartender.CurrentSection != null && bartender.CurrentSection != this && !this.IsPickUp)
-                //{
-                //    bartender.CurrentSection.RemoveServer(bartender);                    
-                //}
-                //if (!ServerTeam.Contains(bartender))
-                //{
-                //    ServerTeam.Add(bartender);
-                //}              
-                //if (!this.IsPickUp)
-                //{
-                //    bartender.CurrentSection = this;
-                //}
-                //this.ServerCount = this.ServerTeam.Count;
-                //NotifyServerAssigned(bartender);
-                //NotifyObservers();
+               
                 IncreaseServerCount();
                 AddServer(bartender);
                 return;

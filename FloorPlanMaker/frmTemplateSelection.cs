@@ -38,7 +38,7 @@ namespace FloorPlanMaker
             this.area = diningArea;
             if (floorplanManager.Floorplan != null)
             {
-                serverCount = floorplanManager.Floorplan.ServerCount;
+                serverCount = floorplanManager.Floorplan.ServerCount - floorplanManager.Floorplan.Bartenders.Count;
             }
             else
             {
@@ -124,7 +124,7 @@ namespace FloorPlanMaker
             else
             {
 
-                serverCount = floorplanManager.Floorplan.Servers.Count;
+                serverCount = floorplanManager.Floorplan.Servers.Count - floorplanManager.Floorplan.Bartenders.Count;
                 lblServerCount.Text = serverCount.ToString();
             }
             floorplanManager.UpdateTemplatesBasedOnFloorplan();

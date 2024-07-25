@@ -360,6 +360,13 @@ namespace FloorplanClassLibrary
                 
                 Sections.Add(SectionCopy);
             }
+            foreach (Section section in Sections)
+            {
+                if (section.IsBarSection)
+                {
+
+                }
+            }
         }
         public void CopySectionsIntoSections(List<Section> sections)
         {
@@ -477,6 +484,7 @@ namespace FloorplanClassLibrary
                 section.IsPre = false;
             }
         }
+
         public void RemoveAllServersFromSections()
         {
             foreach(Section section in Sections)
