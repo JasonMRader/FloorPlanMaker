@@ -193,7 +193,7 @@ namespace FloorPlanMakerUI
         /// </summary>
         public void CopyTemplateSections(FloorplanTemplate template)
         {
-            if(Floorplan.ServersWithoutSection.Count != Floorplan.Servers.Count)
+            if(Floorplan.HasAssignedNonBartenders)
             {
                 DialogResult result = MessageBox.Show("There are already servers assigned to sections," +
                     " to you want to clear these sections?",

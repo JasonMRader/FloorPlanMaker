@@ -220,7 +220,14 @@ namespace FloorplanClassLibrary
             private set { _sections = value; }  
         }
         public List<Section> UnassignedSections { get { return _sections.Where(s => s.Server == null).ToList(); } }
-       
+        public bool HasAssignedNonBartenders
+        {
+            get
+            {
+                var nonBartenderServers = Servers.Where(s => !s.IsBartender);                
+                return nonBartenderServers.Any(server => !ServersWithoutSection.Contains(server));
+            }
+        }
         public float MaxCoversPerServer
         {
             
