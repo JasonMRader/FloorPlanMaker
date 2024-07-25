@@ -252,11 +252,15 @@ namespace FloorPlanMakerUI
         }
         public void GetTemplatesForFloorplan(Floorplan floorplan)
         {
-            //CHanged templates to include all server counts
-            //this.Templates = SqliteDataAccess.LoadTemplatesByDiningAreaAndServerCount(floorplan.DiningArea, floorplan.Servers.Count);
+            
             this.Templates = SqliteDataAccess.LoadTemplatesByDiningArea(this.DiningArea);
             UpdateSectionNumbers();
+            
             this.FilterTemplates(serverCount: serverCount);
+            if (floorplan.hasBarSection)
+            {
+                FilterTemplatesForHasBarSection();
+            }
         }
         public void GetAllFloorplanTemplatesForDiningArea()
         {
@@ -318,7 +322,11 @@ namespace FloorPlanMakerUI
 
             }
         }
-        
+        public void FilterTemplatesForHasBarSection()
+        {
+            _filteredList = _filteredList.Where(t => t.HasBarSection).ToList();
+
+        }
         public void FilterTemplates(int serverCount, bool? hasTeamWait = null, bool? hasPickUp = null)
         {
             // Start with all templates

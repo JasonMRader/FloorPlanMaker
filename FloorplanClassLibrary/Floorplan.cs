@@ -11,16 +11,16 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace FloorplanClassLibrary
 {
-    public class Floorplan 
+    public class Floorplan
     {
         public Floorplan(DiningArea diningArea, DateTime date, bool isLunch, int serverCount, int sectionCount)
         {
             this.DiningArea = diningArea;
             this.Date = date;
-            this.IsLunch = isLunch;            
+            this.IsLunch = isLunch;
             this.SectionCount = sectionCount;
-            this.SectionServerMap = new Dictionary<Section, List<Server>>();            
-            CreateSections();   
+            this.SectionServerMap = new Dictionary<Section, List<Server>>();
+            CreateSections();
         }
         public Dictionary<Section, List<Server>> SectionServerMap { get; private set; }
         public int ID { get; set; }
@@ -41,7 +41,21 @@ namespace FloorplanClassLibrary
 
         }
         public List<FloorplanLine> floorplanLines = new List<FloorplanLine>();
-      
+        public bool hasBarSection
+        {
+            get
+            {
+                return this.Sections.Any(s => s.IsBarSection);
+            }
+        }
+        public List<Server> Bartenders 
+        {
+            get
+            {
+                return this.Servers.Where(s => s.IsBartender).ToList();
+            }
+        }
+        
         
         public Floorplan(FloorplanTemplate template)
         {

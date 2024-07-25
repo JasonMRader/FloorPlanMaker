@@ -16,7 +16,7 @@ namespace FloorplanClassLibrary
             
             this.DiningArea = floorplan.DiningArea;
             
-            this.ServerCount = floorplan.ServerCount;
+            this.ServerCount = floorplan.ServerCount - floorplan.Bartenders.Count;
             GetSectionCopies(floorplan.Sections);
            
             this.DiningAreaID = floorplan.DiningArea.ID;

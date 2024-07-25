@@ -66,8 +66,9 @@ namespace FloorPlanMakerUI
             if (this.Floorplan != null)
             {
                 this.TemplateManager.DiningArea = Floorplan.DiningArea;
+                this.TemplateManager.serverCount = this.Floorplan.Servers.Count - this.Floorplan.Bartenders.Count;
                 this.TemplateManager.GetTemplatesForFloorplan(this.Floorplan);
-                this.TemplateManager.serverCount = this.Floorplan.Servers.Count;
+                
             }
             else
             {               
