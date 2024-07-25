@@ -88,6 +88,28 @@ namespace FloorplanClassLibrary
                     table.AverageSales = outsideBarSales;
                     totalSales += outsideBarSales;
                 }
+                else if (table.TableNumber == "308" || table.TableNumber == "418")
+                {
+                    var matchedStatAM = amStats.FirstOrDefault(t => t.TableStatNumber == "308" || t.TableStatNumber == "418");
+                    var matchedStatPM = pmStats.FirstOrDefault(t => t.TableStatNumber == "308" || t.TableStatNumber == "418");
+
+                    float matchedSalesAM = matchedStatAM?.Sales ?? 0;
+                    float matchedSalesPM = matchedStatPM?.Sales ?? 0;
+
+                    table.AverageSales = matchedSalesAM + matchedSalesPM;
+                    totalSales += matchedSalesAM + matchedSalesPM;
+                }
+                else if (table.TableNumber == "309" || table.TableNumber == "419")
+                {
+                    var matchedStatAM = amStats.FirstOrDefault(t => t.TableStatNumber == "309" || t.TableStatNumber == "419");
+                    var matchedStatPM = pmStats.FirstOrDefault(t => t.TableStatNumber == "309" || t.TableStatNumber == "419");
+
+                    float matchedSalesAM = matchedStatAM?.Sales ?? 0;
+                    float matchedSalesPM = matchedStatPM?.Sales ?? 0;
+
+                    table.AverageSales = matchedSalesAM + matchedSalesPM;
+                    totalSales += matchedSalesAM + matchedSalesPM;
+                }
                 else
                 {
                     var matchedStatAM = amStats.FirstOrDefault(t => t.TableStatNumber == table.TableNumber);
