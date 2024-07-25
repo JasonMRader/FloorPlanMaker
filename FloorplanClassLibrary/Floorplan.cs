@@ -374,6 +374,7 @@ namespace FloorplanClassLibrary
                     section.AddBartendersToBarSection(Bartenders);
                 }
             }
+            this.ServersWithoutSection.RemoveAll(s => s.IsBartender);
         }
         public void CopySectionsIntoSections(List<Section> sections)
         {
