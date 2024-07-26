@@ -52,7 +52,9 @@ namespace FloorPlanMakerUI
             UpdatingOrderHistory,
             Servers,
             Sections,
-            AssigningSections
+            AssigningSections,
+            FloorplanTemplates,
+            SalesStats
         }
         public void GoToNextImage()
         {
@@ -213,6 +215,29 @@ namespace FloorPlanMakerUI
             images.Add(TutorialResources.ServerForm_9);
             return images;
         }
+        private List<Image> GetFloorplanTemplateImages()
+        {
+            List<Image> images = new List<Image>();           
+            images.Add(TutorialResources.Templates1);
+            images.Add(TutorialResources.Templates2);
+            images.Add(TutorialResources.Templates3);
+            return images;
+        }
+        private List<Image> GetSalesStatsImages()
+        {
+            List<Image> images = new List<Image>();
+            images.Add(TutorialResources.SalesStats1);
+            images.Add(TutorialResources.SalesStats2);
+            images.Add(TutorialResources.SalesStats3);
+            images.Add(TutorialResources.SalesStats4);
+            images.Add(TutorialResources.SalesStats5);
+            images.Add(TutorialResources.SalesStats6);
+            images.Add(TutorialResources.SalesStats7);
+            images.Add(TutorialResources.SalesStats8);
+            images.Add(TutorialResources.SalesStats9);
+            images.Add(TutorialResources.SalesStats10);
+            return images;
+        }
         public void SetCurrentTutorial(int width, int height)
         {
             currentTutorialIndex = 0;
@@ -280,6 +305,14 @@ namespace FloorPlanMakerUI
             else if (tutorialType == TutorialType.AssigningSections)
             {
                 currentTutorialImages = GetAssignSectionImages();
+            }
+            else if (tutorialType == TutorialType.FloorplanTemplates)
+            {
+                currentTutorialImages = GetFloorplanTemplateImages();
+            }
+            else if (tutorialType == TutorialType.SalesStats)
+            {
+                currentTutorialImages = GetSalesStatsImages();
             }
             imageSelected = currentTutorialImages[currentTutorialIndex];
             this.ThumbnailManager.SetPictureBoxesForImages(width, height);

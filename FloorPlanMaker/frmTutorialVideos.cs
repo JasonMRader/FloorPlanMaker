@@ -122,7 +122,7 @@ namespace FloorPlanMakerUI
             }
             if (rdoViewingSales.Checked)
             {
-                MessageBox.Show("This tutorial has not been added yet");
+                tutorialImages.SetToTutorialSelected(165, 129, TutorialImages.TutorialType.SalesStats);
             }
             if (rdoServerRatings.Checked)
             {
@@ -130,7 +130,7 @@ namespace FloorPlanMakerUI
             }
             if (rdoSavingTemplates.Checked)
             {
-                MessageBox.Show("This tutorial has not been added yet");
+                tutorialImages.SetToTutorialSelected(165, 129, TutorialImages.TutorialType.FloorplanTemplates);
             }
            
             UpdateUIElements();

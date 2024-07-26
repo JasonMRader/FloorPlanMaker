@@ -286,6 +286,36 @@
   <data name="NewShiftSelectAreasCreateShift8" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\NewShiftSelectAreasCreateShift8.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="SalesStats1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SalesStats1.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SalesStats10" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SalesStats10.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SalesStats2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SalesStats2.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SalesStats3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SalesStats3.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SalesStats4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SalesStats4.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SalesStats5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SalesStats5.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SalesStats6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SalesStats6.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SalesStats7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SalesStats7.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SalesStats8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SalesStats8.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SalesStats9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SalesStats9.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="ServerAssignAutoAssignCreateShift10" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ServerAssignAutoAssignCreateShift10.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -339,6 +369,15 @@
   </data>
   <data name="SettingsForm4" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SettingsForm4.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Templates1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Templates1.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Templates2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Templates2.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Templates3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Templates3.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="TemplateSelectCreateShift17" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\TemplateSelectCreateShift17.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
