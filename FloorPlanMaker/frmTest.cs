@@ -9,6 +9,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Threading.Tasks;
+using System.Net.Http;
+using Newtonsoft.Json;
 
 namespace FloorPlanMakerUI
 {
@@ -115,10 +118,10 @@ namespace FloorPlanMakerUI
 
         private void button2_Click(object sender, EventArgs e)
         {
-           
+
             GetRandomNumbers();
             CalculateDistribution();
-           
+
         }
         private void CalculateDistribution()
         {
@@ -154,6 +157,12 @@ namespace FloorPlanMakerUI
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
             CalculateDistribution();
+        }
+
+        private async void btnWeather_Click(object sender, EventArgs e)
+        {
+            string weatherResult = await WeatherApiDataAccess.WeatherData();
+            MessageBox.Show(weatherResult);
         }
     }
 }

@@ -60,6 +60,8 @@
             label10 = new Label();
             lblServersAssigned = new Label();
             lblServersRemaining = new Label();
+            dtpWeatherDay = new DateTimePicker();
+            btnWeather = new Button();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
             SuspendLayout();
             // 
@@ -343,11 +345,30 @@
             lblServersRemaining.TabIndex = 2;
             lblServersRemaining.Text = "0";
             // 
+            // dtpWeatherDay
+            // 
+            dtpWeatherDay.Location = new Point(514, 306);
+            dtpWeatherDay.Name = "dtpWeatherDay";
+            dtpWeatherDay.Size = new Size(200, 23);
+            dtpWeatherDay.TabIndex = 5;
+            // 
+            // btnWeather
+            // 
+            btnWeather.Location = new Point(514, 381);
+            btnWeather.Name = "btnWeather";
+            btnWeather.Size = new Size(200, 23);
+            btnWeather.TabIndex = 6;
+            btnWeather.Text = "Get Weather";
+            btnWeather.UseVisualStyleBackColor = true;
+            btnWeather.Click += btnWeather_Click;
+            // 
             // frmTest
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 519);
+            ClientSize = new Size(867, 519);
+            Controls.Add(btnWeather);
+            Controls.Add(dtpWeatherDay);
             Controls.Add(button2);
             Controls.Add(label6);
             Controls.Add(numericUpDown1);
@@ -422,5 +443,7 @@
         private Label label10;
         private Label lblServersAssigned;
         private Label lblServersRemaining;
+        private DateTimePicker dtpWeatherDay;
+        private Button btnWeather;
     }
 }
