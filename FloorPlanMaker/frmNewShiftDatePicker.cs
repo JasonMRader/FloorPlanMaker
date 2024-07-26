@@ -101,7 +101,13 @@ namespace FloorPlanMakerUI
                 shiftType = "Dinner";
             }
             string dateLabel = shiftType + ": " + dateSelected.ToString("dddd, MMMM dd");
+            SpecialEventDate specialEventDate = SqliteDataAccess.GetEventByDate(dateOnlySelected);
+           
             lblDate.Text = dateLabel;
+            if (specialEventDate != null)
+            {
+                lblDate.Text = $"{shiftType}: {specialEventDate.Name}, {dateSelected.ToString("M")}";
+            }
         }
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
