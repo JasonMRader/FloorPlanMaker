@@ -196,7 +196,7 @@ namespace FloorplanClassLibrary
                 else if (mouseEventArgs.Button == MouseButtons.Left)
                 {
                     bool isShiftPressed = (Control.ModifierKeys & Keys.Shift) == Keys.Shift;
-                    if (!isShiftPressed)
+                    if (isShiftPressed)
                     {
                         if (!this.Section.IsPre && !this.Section.IsCloser)
                         {
