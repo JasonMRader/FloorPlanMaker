@@ -146,7 +146,12 @@ namespace FloorplanClassLibrary
         public Floorplan? SelectedFloorplan { get; set; }
        
         public List<DiningArea> DiningAreasUsed => Floorplans.Select(fp => fp.DiningArea).Distinct().ToList();
-        public WeatherData? WeatherData { get; set; }
+        public WeatherData? WeatherData { get; private set; }
+        public void SetWeatherData()
+        {
+            //TODO: Complete this Method for getting WeatherData
+            //Try to get WeatherData for Date from Database, If None Exists, Get it from API and Save the Data
+        }
         public List<Server> _serversOnShift
         {
             get
