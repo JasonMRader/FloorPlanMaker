@@ -161,7 +161,7 @@ namespace FloorPlanMakerUI
 
         private async void btnWeather_Click(object sender, EventArgs e)
         {
-            string weatherResult = await WeatherApiDataAccess.WeatherData();
+            string weatherResult = await WeatherApiDataAccess.GetWeatherForSingleDate();
             MessageBox.Show(weatherResult);
         }
     }

@@ -11,14 +11,16 @@ namespace FloorplanClassLibrary
 {
     public static class WeatherApiDataAccess
     {
-        public static async Task<string> WeatherData()
+        //https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Indianapolis%2CIN/today?unitGroup=us&key=PHS9PNFLLHZRKPCK59EKP9BZ2&contentType=json
+        public static async Task<string> GetWeatherForSingleDate()
         {
             string apiKey = GetApiKey();
             string result = "";
             using (var client = new HttpClient())
             {
                 var request = new HttpRequestMessage(HttpMethod.Get,
-                    $"https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Paris?key={apiKey}");
+                    $"https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/" +
+                    $"Indianapolis%2CIN/2024-07-01?unitGroup=us&include=days&key={apiKey}&include=days&elements=tempmax,tempmin,temp");
 
                 var response = await client.SendAsync(request);
                 response.EnsureSuccessStatusCode(); // Throw an exception if error
@@ -34,10 +36,11 @@ namespace FloorplanClassLibrary
                     string weather_tmax = day.tempmax;
                     string weather_tmin = day.tempmin;
 
-                    result += ("Forecast for date: " + weather_date);
-                    result += (" General conditions: " + weather_desc);
-                    result += (" The high temperature will be " + weather_tmax);
-                    result += (" The low temperature will be: " + weather_tmin);
+                    result += weather_date;
+                    //result += (" General conditions: " + weather_desc);
+                    result += ("Hi: " + weather_tmax);
+                    result += ("Low: " + weather_tmin);
+                    result += "\n";
                 }
                 return result;
             }
