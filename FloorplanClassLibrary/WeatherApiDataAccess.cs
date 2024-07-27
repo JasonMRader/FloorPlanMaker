@@ -12,7 +12,7 @@ namespace FloorplanClassLibrary
     public static class WeatherApiDataAccess
     {
         //https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Indianapolis%2CIN/today?unitGroup=us&key=PHS9PNFLLHZRKPCK59EKP9BZ2&contentType=json
-        public static async Task<string> GetWeatherForSingleDate(DateTime date)
+        public static async Task<string> GetWeatherForSingleDateString(DateTime date)
         {
             string apiKey = GetApiKey();
             string dateOnlyFormatted = date.ToString("yyyy-MM-dd");
@@ -33,41 +33,90 @@ namespace FloorplanClassLibrary
                 dynamic weather = JsonConvert.DeserializeObject(body);
                 foreach (var day in weather.days)
                 {
-                    string weather_date = day.datetime;
-                    string weather_desc = day.description;
-                    string weather_tmax = day.tempmax;
-                    string weather_tmin = day.tempmin;
-                    string weather_temp = day.temp;
-                    string weather_feelslike = day.feelslike;
-                    string weather_feelslikemax = day.feelslikemax;
-                    string weather_feelslikemin = day.feelslikemin;
-                    string weather_cloudCover = day.cloudCover;
-                    string weather_precip = day.precip;
-                    string weather_precipcover = day.precipcover;
-                    string weather_preciptype = day.preciptype;
-                    string weather_windspeedmax = day.windspeedmax;
-                    string weather_windspeedmean = day.windspeedmean;
-
-                    result += weather_date;
+                    string weatherDate = day.datetime;
+                    string weatherDescription = day.description;
+                    string weatherMaxTemp = day.tempmax;
+                    string weatherMinTemp = day.tempmin;
+                    string weatherAvgTemp = day.temp;
+                    string weatherFeelsLikeAvg = day.feelslike;
+                    string weatherFeelsLikeMax = day.feelslikemax;
+                    string weatherFeelsLikeMin = day.feelslikemin;
+                    string weatherCloudCover = day.cloudCover;
+                    string weatherPrecip = day.precip;
+                    string weatherPrecipCover = day.precipcover;
+                    string weatherPrecipType = day.preciptype;
+                    string weatherWindSpeedMax = day.windspeedmax;
+                    string weatherWindSpeedAvg = day.windspeedmean;
+                    WeatherData weatherData = new WeatherData(date, weatherMaxTemp, weatherMinTemp, weatherAvgTemp, weatherFeelsLikeMax, weatherFeelsLikeMin,
+                        weatherFeelsLikeAvg, weatherCloudCover, weatherPrecip, weatherPrecipCover, weatherPrecipType, weatherWindSpeedMax, weatherWindSpeedAvg);
+                    result += weatherDate;
                     //result += (" General conditions: " + weather_desc);
-                    result += ("Hi: " + weather_tmax) + "\n";
-                    result += ("Low: " + weather_tmin) + "\n";
-                    result += $"AVG: {weather_temp}" + "\n";
-                    result += $"Feels like: {weather_feelslike}" + "\n";
-                    result += $"Feels Max: {weather_feelslikemax}" + "\n";
-                    result += $"Feels Min: {weather_feelslikemin}" + "\n";
-                    result += $"Clound Cover: {weather_cloudCover}" + "\n";
-                    result += $"Total Precip: {weather_precip}" + "\n";
-                    result += $"Precip Cover: {weather_precipcover}" + "\n";
-                    result += $"Precip Type: {weather_preciptype}" + "\n";
-                    result += $"WindMax: {weather_windspeedmax}" + "\n";
-                    result += $"WindAvg: {weather_windspeedmean}" + "\n";
+                    result += ("Hi: " + weatherMaxTemp) + "\n";
+                    result += ("Low: " + weatherMinTemp) + "\n";
+                    result += $"AVG: {weatherAvgTemp}" + "\n";
+                    result += $"Feels like: {weatherFeelsLikeAvg}" + "\n";
+                    result += $"Feels Max: {weatherFeelsLikeMax}" + "\n";
+                    result += $"Feels Min: {weatherFeelsLikeMin}" + "\n";
+                    result += $"Clound Cover: {weatherCloudCover}" + "\n";
+                    result += $"Total Precip: {weatherPrecip}" + "\n";
+                    result += $"Precip Cover: {weatherPrecipCover}" + "\n";
+                    result += $"Precip Type: {weatherPrecipType}" + "\n";
+                    result += $"WindMax: {weatherWindSpeedMax}" + "\n";
+                    result += $"WindAvg: {weatherWindSpeedAvg}" + "\n";
+                  
 
                     
                 }
                 return result;
             }
            
+        }
+        public static async Task<WeatherData> GetWeatherForSingleDate(DateTime date)
+        {
+            string apiKey = GetApiKey();
+            string dateOnlyFormatted = date.ToString("yyyy-MM-dd");
+            string result = "";
+            using (var client = new HttpClient())
+            {
+                var request = new HttpRequestMessage(HttpMethod.Get,
+                    $"https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/" +
+                    $"Indianapolis%2CIN/{dateOnlyFormatted}?unitGroup=us&include=days&key={apiKey}&include=days&elements=tempmax,tempmin,temp," +
+                    $"feelslike,feelslikemax,feelslikemin,cloudcover,precip,precipcover,preciptype,windspeedmax,windspeedmean");
+
+                var response = await client.SendAsync(request);
+                response.EnsureSuccessStatusCode(); // Throw an exception if error
+
+                var body = await response.Content.ReadAsStringAsync();
+
+                // Deserialize JSON and process data as needed
+                dynamic weather = JsonConvert.DeserializeObject(body);
+                foreach (var day in weather.days)
+                {
+                    string weatherDate = day.datetime;
+                    string weatherDescription = day.description;
+                    string weatherMaxTemp = day.tempmax;
+                    string weatherMinTemp = day.tempmin;
+                    string weatherAvgTemp = day.temp;
+                    string weatherFeelsLikeAvg = day.feelslike;
+                    string weatherFeelsLikeMax = day.feelslikemax;
+                    string weatherFeelsLikeMin = day.feelslikemin;
+                    string weatherCloudCover = day.cloudCover;
+                    string weatherPrecip = day.precip;
+                    string weatherPrecipCover = day.precipcover;
+                    string weatherPrecipType = day.preciptype;
+                    string weatherWindSpeedMax = day.windspeedmax;
+                    string weatherWindSpeedAvg = day.windspeedmean;
+                    return new WeatherData(date, weatherMaxTemp, weatherMinTemp, weatherAvgTemp, weatherFeelsLikeMax, weatherFeelsLikeMin,
+                        weatherFeelsLikeAvg, weatherCloudCover, weatherPrecip, weatherPrecipCover, weatherPrecipType, weatherWindSpeedMax, weatherWindSpeedAvg);
+                   
+
+
+
+                }
+                return null;
+                //return result;
+            }
+
         }
         private static string GetApiKey()
         {
