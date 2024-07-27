@@ -103,13 +103,16 @@ namespace FloorplanClassLibrary
                 section.MidPoint.Y - (this.Height / 2));
             this.BringToFront();
             this.toolTip = new ToolTip();
-            toolTip.SetToolTip(setCloserButton, "Assign Closer");
+            toolTip.SetToolTip(setCloserButton, "Assign Closer\n" +
+                "[LEFT-CLICK] Cycle\n" +
+                "[SHIFT + LEFT-CLICK] Cycle in Revers\n" +
+                "[RIGHT-CLICK] Open Panel");
             toolTip.SetToolTip(assignServerButton, "Assign Server");
-            toolTip.SetToolTip(sectionLabel, "[Hold LEFT-MOUSE] Drag\n" +
-                "[LEFT-MOUSE] Select\n" +
-                "[RIGHT-MOUSE] Assign Server\n" +
-                "[SHIFT + LEFT-MOUSE] Swap Server With SELECTED Section\n" +
-                "[SHIFT + RIGHT-MOUSE] Unassign Server");
+            toolTip.SetToolTip(sectionLabel, "[Hold LEFT-CLICK] Drag\n" +
+                "[LEFT-CLICK] Select\n" +
+                "[RIGHT-CLICK] Assign Server\n" +
+                "[SHIFT + LEFT-CLICK] Swap Server With SELECTED Section\n" +
+                "[SHIFT + RIGHT-CLICK] Unassign Server");
             
         }
         public void SectionLabel_ShiftClick(Section otherSection)
@@ -192,20 +195,43 @@ namespace FloorplanClassLibrary
                 }
                 else if (mouseEventArgs.Button == MouseButtons.Left)
                 {
-                    if (!this.Section.IsPre && !this.Section.IsCloser)
+                    bool isShiftPressed = (Control.ModifierKeys & Keys.Shift) == Keys.Shift;
+                    if (!isShiftPressed)
                     {
-                        SetSectionToPre();
-                        return;
+                        if (!this.Section.IsPre && !this.Section.IsCloser)
+                        {
+                            SetSectionToPre();
+                            return;
+                        }
+                        if (this.Section.IsPre)
+                        {
+                            SetSectionToClose();
+                            return;
+                        }
+                        if (this.Section.IsCloser)
+                        {
+                            SetSectionToCut();
+                            return;
+                        } 
                     }
-                    if (this.Section.IsPre)
+                    else
                     {
-                        SetSectionToClose();
-                        return;
-                    }
-                    if (this.Section.IsCloser)
-                    {
-                        SetSectionToCut();
-                        return;
+                        if (!this.Section.IsPre && !this.Section.IsCloser)
+                        {
+                            SetSectionToClose();
+                            
+                            return;
+                        }
+                        if (this.Section.IsPre)
+                        {
+                            SetSectionToCut();
+                            return;
+                        }
+                        if (this.Section.IsCloser)
+                        {
+                            SetSectionToPre();                           
+                            return;
+                        }
                     }
                 } 
             }
