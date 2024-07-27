@@ -11,7 +11,6 @@ namespace FloorplanClassLibrary
     {
         public int ID { get; set; }
         public string Date { get; set; }
-
         public int TempHi { get; set; }
         public int TempLow { get; set; }
         public int TempAvg { get; set; }
