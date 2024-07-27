@@ -45,8 +45,7 @@ namespace FloorplanClassLibrary
         {
             _allServers = SqliteDataAccess.LoadActiveServers();
            
-            _serversNotOnShift = new List<Server>(_allServers);
-           
+            _serversNotOnShift = new List<Server>(_allServers);          
 
         }
         public void CopyServersAndDiningAreas(Shift shiftToCopy)
@@ -147,7 +146,7 @@ namespace FloorplanClassLibrary
         public Floorplan? SelectedFloorplan { get; set; }
        
         public List<DiningArea> DiningAreasUsed => Floorplans.Select(fp => fp.DiningArea).Distinct().ToList();
-       
+        public WeatherData? WeatherData { get; set; }
         public List<Server> _serversOnShift
         {
             get
