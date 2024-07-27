@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http;
 using Newtonsoft.Json;
+using System.Configuration;
 
 namespace FloorplanClassLibrary
 {
@@ -12,11 +13,12 @@ namespace FloorplanClassLibrary
     {
         public static async Task<string> WeatherData()
         {
+            string apiKey = GetApiKey();
             string result = "";
             using (var client = new HttpClient())
             {
                 var request = new HttpRequestMessage(HttpMethod.Get,
-                    "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Paris?key=PHS9PNFLLHZRKPCK59EKP9BZ2");
+                    $"https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Paris?key={apiKey}");
 
                 var response = await client.SendAsync(request);
                 response.EnsureSuccessStatusCode(); // Throw an exception if error
@@ -40,6 +42,16 @@ namespace FloorplanClassLibrary
                 return result;
             }
            
+        }
+        private static string GetApiKey()
+        {
+            
+            string apiKey = ConfigurationManager.AppSettings["WeatherApiKey"];
+            if (string.IsNullOrEmpty(apiKey))
+            {
+                throw new InvalidOperationException("API key is missing.");
+            }
+            return apiKey;
         }
        
     }
