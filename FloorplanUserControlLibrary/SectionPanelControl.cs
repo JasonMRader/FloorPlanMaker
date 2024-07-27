@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -155,20 +156,25 @@ namespace FloorplanUserControlLibrary
             }
             else if (this.Section.IsTeamWait)
             {
+                if(this.Section.IsBarSection)
+                {
+
+                }
                 foreach (Label label in serverLabels) { label.Tag = null; label.Text = "Unassigned"; };
                 foreach (PictureBox pb in removeServerPBs) { pb.Tag = null; };
                 lblDisplay.Text = this.Section.ServerCount.ToString() + " Team Section";
                 lblDisplay.BackColor = Section.Color;
                 toolTip.SetToolTip(picClearSection, "Clear Section");
-                toolTip.SetToolTip(lblSales, "Estimated Sales Per Server");
-                if (this.serverLabels.Count == 0) { return; }
-                for (int i = 0; i < this.Section.ServerTeam.Count; i++)
-                {
+                toolTip.SetToolTip(lblSales, $"Estimated Sales Per Server: {Section.AverageSalesDisplay()}\n" +
+                    $"Total Section Sales: {Section.ExpectedSalesDisplay()}");
+                if (this.serverLabels.Count < Section.ServerCount) {
+                    SetToTeamWait();
+                }
+                for (int i = 0; i < this.Section.ServerTeam.Count; i++) {
                     SetLabelToAssigned(i);
                     //serverLabels[i].Text = Section.ServerTeam[i].Name;
                     //serverLabels[i].Tag = Section.ServerTeam[i];
                     removeServerPBs[i].Tag = Section.ServerTeam[i];
-
                 }
 
             }
@@ -316,16 +322,12 @@ namespace FloorplanUserControlLibrary
         {
             lblDisplay.Text = this.Section.ServerCount.ToString() + " Team Section";
             lblDisplay.Width = 245;
-            //this.Height += 25;
-
+            
             for(int i = 0; i < this.Section.ServerCount; i++)
             {
                 AddServerRow();
             }
-
-
-
-            //AddServerRow();
+;
             picMinusOneServer.Visible = true;
             picMinusOneServer.Click += picDecreaseServerCount_Click;
             picPlusOneServer.Visible = true;

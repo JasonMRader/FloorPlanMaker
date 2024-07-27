@@ -241,13 +241,7 @@ namespace FloorplanClassLibrary
             this.IsPre = false;
             NotifyObservers();
         }
-        public void MakeTeamWait()
-        {
-            _isTeamWait = true;
-            TemplateTeamWait = true;
-            ServerCount++;
-            NotifyObservers();
-        }
+       
         public void MakeBarSection(List<Server> bartenders)
         { 
             if(bartenders.Count == 1)
@@ -319,6 +313,29 @@ namespace FloorplanClassLibrary
                 return;
             }
         }
+        public void RemoveBartender(Server bartender)
+        {
+            int bartenderCount = this.ServerTeam.Count;
+            if (bartenderCount == 1)
+            {
+                RemoveServer(bartender);
+                return;
+
+            }
+            else if (bartenderCount == 2)
+            {
+                MakeSoloSection();
+                RemoveServer(bartender);
+                return;
+
+            }
+            else if (bartenderCount > 2)
+            {
+                RemoveServer(bartender);
+                DecreaseServerCount();                
+                return;
+            }
+        }
         private void SetSectionPropertiesFromTemplateSection(Section sectionToCopy)
         {
             
@@ -384,6 +401,13 @@ namespace FloorplanClassLibrary
             TemplateTeamWait = false;
             ServerTeam = ServerTeam.Take(1).ToList();
             this.ServerCount = 1;
+            NotifyObservers();
+        }
+        public void MakeTeamWait()
+        {
+            _isTeamWait = true;
+            TemplateTeamWait = true;
+            ServerCount++;
             NotifyObservers();
         }
         public void AddServer(Server server)
@@ -629,7 +653,7 @@ namespace FloorplanClassLibrary
         }
         public string ExpectedSalesDisplay()
         {
-            return this.ExpectedTotalSales.ToString();
+            return this.ExpectedTotalSales.ToString("C0");
         }
         public static string FormatAsCurrencyWithoutParentheses(float value)
         {

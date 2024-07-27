@@ -404,21 +404,21 @@ namespace FloorplanClassLibrary
            
            
 
-            // Assign the missing number to the new section
+           
            section.SetSectionNumber(newSectionNumber);
 
-            // Set the section name if the server is null
+           
             if (section.Server == null)
             {
                 section.Name = $"Section {section.Number}";
             }
 
-            // Add the section to the list
+           
             _sections.Add(section);           
             section.ServerRemoved += RemoveServerFromSection;
             section.ServerAssigned += UpdateSectionServerMap;
            
-            //section.SubscribeObserver(this);
+          
         }
         public void SwapServers(Section section1, Section section2)
         {
@@ -456,7 +456,7 @@ namespace FloorplanClassLibrary
             }
             var sectionToRemove = Sections.Where(s => s.Number == section.Number).FirstOrDefault();
             Sections.Remove(sectionToRemove);
-           // sectionToRemove.Notify();
+           
             
         }
        
@@ -542,14 +542,32 @@ namespace FloorplanClassLibrary
                 this.ServersWithoutSection.Remove(server);
                 RemoveHighestNumberedEmptySection();
             }
-            else
+            else if(server.CurrentSection != null && !server.IsBartender)
             {
                 DeleteSection(server.CurrentSection);
                 this.ServersWithoutSection.Remove(server);
             }
-           
+            else if(server.CurrentSection != null && server.IsBartender)
+            {
+                RemoveBartenderFromSection(server);               
+            }      
         }
 
+        private void RemoveBartenderFromSection(Server server)
+        {
+            
+            if (server.CurrentSection.ServerTeam.Count > 1)
+            {
+                server.CurrentSection.RemoveBartender(server);
+                this.ServersWithoutSection.Remove(server);
+                
+            }
+            else if (server.CurrentSection.ServerTeam.Count == 1)
+            {
+                DeleteSection(server.CurrentSection);
+                this.ServersWithoutSection.Remove(server);
+            }
+        }
 
         public int ServerCount
         {
