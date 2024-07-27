@@ -16,7 +16,7 @@ namespace FloorPlanMaker
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
            
-
+            SqliteDataAccess.CheckAndSetDatabaseLocation();
 
             Application.Run(new Form1 ());
         }
