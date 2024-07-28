@@ -50,7 +50,7 @@ namespace FloorplanClassLibrary
         public string PrecipitationType { get; set; } = "";
         public int WindSpeedMax { get; set; }   
         public int WindSpeedAvg { get; set; }
-        public string FeelsLikeHiFormatted { get { return $"{this.WeatherFeelsLikeMax}°F"; } }
+        public string FeelsLikeHiFormatted { get { return $"{this.FeelsLikeHi}°F"; } }
 
 
         [NotMapped]
