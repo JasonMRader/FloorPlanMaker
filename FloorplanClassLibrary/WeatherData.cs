@@ -16,7 +16,7 @@ namespace FloorplanClassLibrary
 
         public WeatherData(DateTime date, string weatherMaxTemp, string weatherMinTemp, string weatherAvgTemp, 
             string weatherFeelsLikeMax, string weatherFeelsLikeMin, string weatherFeelsLikeAvg, string weatherCloudCover,
-            string weatherPrecip, string weatherPrecipCover, string weatherPrecipType, string weatherWindSpeedMax, string weatherWindSpeedAvg)
+            string weatherPrecip, string weatherPrecipCover, string[] weatherPrecipTypeArray, string weatherWindSpeedMax, string weatherWindSpeedAvg)
         {
             Date1 = date;
             WeatherMaxTemp = weatherMaxTemp;
@@ -28,7 +28,7 @@ namespace FloorplanClassLibrary
             WeatherCloudCover = weatherCloudCover;
             WeatherPrecip = weatherPrecip;
             WeatherPrecipCover = weatherPrecipCover;
-            WeatherPrecipType = weatherPrecipType;
+            WeatherPrecipTypeArray = weatherPrecipTypeArray;
             WeatherWindSpeedMax = weatherWindSpeedMax;
             WeatherWindSpeedAvg = weatherWindSpeedAvg;
             ConvertStringFieldsToProperties();
@@ -49,10 +49,10 @@ namespace FloorplanClassLibrary
         public float PrecipitationCover { get; set; }
         public string PrecipitationType { get; set; } = "";
         public int WindSpeedMax { get; set; }   
-        public int WindSpeedAvg { get; set; }   
-       
-       
-        
+        public int WindSpeedAvg { get; set; }
+        public string FeelsLikeHiFormatted { get { return $"{this.WeatherFeelsLikeMax}°F"; } }
+
+
         [NotMapped]
         public DateOnly DateOnly => DateOnly.Parse(Date);
         private void ConvertStringFieldsToProperties()
@@ -107,9 +107,17 @@ namespace FloorplanClassLibrary
             {
                 this.PrecipitationCover = precipitationCover;
             }
-
-            // Assign the precipitation type as a string
-            this.PrecipitationType = WeatherPrecipType ?? string.Empty; // Use a default empty string if null
+            this.WeatherPrecipType = "";
+            if(WeatherPrecipTypeArray  != null)
+            {
+                foreach (string s in WeatherPrecipTypeArray)
+                {
+                    WeatherPrecipType += s + ",";
+                }
+            }
+           
+            
+            this.PrecipitationType = WeatherPrecipType ?? string.Empty; 
         }
 
 
@@ -123,7 +131,8 @@ namespace FloorplanClassLibrary
         public string WeatherCloudCover { get; }
         public string WeatherPrecip { get; }
         public string WeatherPrecipCover { get; }
-        public string WeatherPrecipType { get; }
+        public string[] WeatherPrecipTypeArray { get; }
+        public string WeatherPrecipType { get; private set; }
         public string WeatherWindSpeedMax { get; }
         public string WeatherWindSpeedAvg { get; }
     }

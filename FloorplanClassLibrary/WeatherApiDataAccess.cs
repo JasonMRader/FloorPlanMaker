@@ -44,11 +44,11 @@ namespace FloorplanClassLibrary
                     string weatherCloudCover = day.cloudCover;
                     string weatherPrecip = day.precip;
                     string weatherPrecipCover = day.precipcover;
-                    string weatherPrecipType = day.preciptype;
+                    string[] weatherPrecipTypeArray = day.preciptype?.ToObject<string[]>();
                     string weatherWindSpeedMax = day.windspeedmax;
                     string weatherWindSpeedAvg = day.windspeedmean;
                     WeatherData weatherData = new WeatherData(date, weatherMaxTemp, weatherMinTemp, weatherAvgTemp, weatherFeelsLikeMax, weatherFeelsLikeMin,
-                        weatherFeelsLikeAvg, weatherCloudCover, weatherPrecip, weatherPrecipCover, weatherPrecipType, weatherWindSpeedMax, weatherWindSpeedAvg);
+                        weatherFeelsLikeAvg, weatherCloudCover, weatherPrecip, weatherPrecipCover, weatherPrecipTypeArray, weatherWindSpeedMax, weatherWindSpeedAvg);
                     result += weatherDate;
                     //result += (" General conditions: " + weather_desc);
                     result += ("Hi: " + weatherMaxTemp) + "\n";
@@ -60,7 +60,7 @@ namespace FloorplanClassLibrary
                     result += $"Clound Cover: {weatherCloudCover}" + "\n";
                     result += $"Total Precip: {weatherPrecip}" + "\n";
                     result += $"Precip Cover: {weatherPrecipCover}" + "\n";
-                    result += $"Precip Type: {weatherPrecipType}" + "\n";
+                    //result += $"Precip Type: {weatherPrecipType}" + "\n";
                     result += $"WindMax: {weatherWindSpeedMax}" + "\n";
                     result += $"WindAvg: {weatherWindSpeedAvg}" + "\n";
                   
@@ -90,6 +90,10 @@ namespace FloorplanClassLibrary
 
                 // Deserialize JSON and process data as needed
                 dynamic weather = JsonConvert.DeserializeObject(body);
+                if (weather == null)
+                {
+                    return null;
+                }
                 foreach (var day in weather.days)
                 {
                     string weatherDate = day.datetime;
@@ -103,11 +107,11 @@ namespace FloorplanClassLibrary
                     string weatherCloudCover = day.cloudCover;
                     string weatherPrecip = day.precip;
                     string weatherPrecipCover = day.precipcover;
-                    string weatherPrecipType = day.preciptype;
+                    string[] weatherPrecipTypeArray = day.preciptype?.ToObject<string[]>();
                     string weatherWindSpeedMax = day.windspeedmax;
                     string weatherWindSpeedAvg = day.windspeedmean;
                     return new WeatherData(date, weatherMaxTemp, weatherMinTemp, weatherAvgTemp, weatherFeelsLikeMax, weatherFeelsLikeMin,
-                        weatherFeelsLikeAvg, weatherCloudCover, weatherPrecip, weatherPrecipCover, weatherPrecipType, weatherWindSpeedMax, weatherWindSpeedAvg);
+                        weatherFeelsLikeAvg, weatherCloudCover, weatherPrecip, weatherPrecipCover, weatherPrecipTypeArray, weatherWindSpeedMax, weatherWindSpeedAvg);
                    
 
 

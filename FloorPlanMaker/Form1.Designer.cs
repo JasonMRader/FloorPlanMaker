@@ -62,6 +62,7 @@ namespace FloorPlanMaker
             btnEditRoster = new Button();
             btnEraseAllSections = new Button();
             cbDrawToggle = new CheckBox();
+            lblFeelsLikeHi = new Label();
             pnlTemplateContainer = new Panel();
             pnlSideContainer = new Panel();
             pnlSectionsAndServers = new Panel();
@@ -464,6 +465,7 @@ namespace FloorPlanMaker
             flowLayoutPanel2.Controls.Add(btnEraseAllSections);
             flowLayoutPanel2.Controls.Add(btnSaveFloorplanTemplate);
             flowLayoutPanel2.Controls.Add(cbDrawToggle);
+            flowLayoutPanel2.Controls.Add(lblFeelsLikeHi);
             flowLayoutPanel2.FlowDirection = FlowDirection.TopDown;
             flowLayoutPanel2.Location = new Point(11, 17);
             flowLayoutPanel2.Name = "flowLayoutPanel2";
@@ -533,6 +535,17 @@ namespace FloorPlanMaker
             toolTip1.SetToolTip(cbDrawToggle, "Toggle Draw Section Lines");
             cbDrawToggle.UseVisualStyleBackColor = false;
             cbDrawToggle.CheckedChanged += cbDrawToggle_CheckedChanged;
+            // 
+            // lblFeelsLikeHi
+            // 
+            lblFeelsLikeHi.BackColor = Color.Gray;
+            lblFeelsLikeHi.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lblFeelsLikeHi.Location = new Point(8, 343);
+            lblFeelsLikeHi.Name = "lblFeelsLikeHi";
+            lblFeelsLikeHi.Size = new Size(45, 45);
+            lblFeelsLikeHi.TabIndex = 18;
+            lblFeelsLikeHi.Text = "N/A";
+            lblFeelsLikeHi.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // pnlTemplateContainer
             // 
@@ -1010,5 +1023,6 @@ namespace FloorPlanMaker
         private Button btnAutomatic;
         private Button btnEraseAllSections;
         private Button btnEditRoster;
+        private Label lblFeelsLikeHi;
     }
 }

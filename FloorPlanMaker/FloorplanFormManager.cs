@@ -1,6 +1,7 @@
 ﻿using FloorplanClassLibrary;
 using FloorPlanMaker;
 using FloorplanUserControlLibrary;
+using NetTopologySuite.Triangulate;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -36,6 +37,7 @@ namespace FloorPlanMakerUI
         private TableSalesManager tableSalesManager = new TableSalesManager();
         private Panel pnlMainContainer {  get; set; }   
         private Panel pnlFloorplan { get; set; }
+        private Label tempLabel { get; set; }
         private FlowLayoutPanel flowSectionsPanel {  get; set; }
         private FlowLayoutPanel flowServersPanel { get; set; }
         public DateOnly dateOnly => this.Shift.DateOnly;
@@ -49,13 +51,14 @@ namespace FloorPlanMakerUI
         {
             this.Shift = new Shift();            
         }
-        public FloorplanFormManager(Panel pnlFloorPlan, FlowLayoutPanel flowServersInFloorplan, FlowLayoutPanel flowSectionSelect, Panel pnlContainer)
+        public FloorplanFormManager(Panel pnlFloorPlan, FlowLayoutPanel flowServersInFloorplan, FlowLayoutPanel flowSectionSelect, Panel pnlContainer, Label tempLabel)
         {
             this.Shift = new Shift();
             this.flowSectionsPanel = flowSectionSelect;
             this.flowServersPanel = flowServersInFloorplan;
             this.pnlFloorplan = pnlFloorPlan;
             this.pnlMainContainer = pnlContainer;
+            this.tempLabel = tempLabel;
         }
         public void UpdateTemplatesBasedOnFloorplan()
         {
@@ -1124,9 +1127,18 @@ namespace FloorPlanMakerUI
         }
 
         public void SetViewedFloorplan(DateOnly dateOnlySelected, bool isAM)
-        {            
-            this.Shift.DateOnly = dateOnlySelected;
-            this.Shift.IsAM = isAM;
+        {
+            if(this.Shift.DateOnly != dateOnlySelected)
+            {
+                this.Shift.DateOnly = dateOnlySelected;
+                this.Shift.SetWeatherData();
+                UpdateWeatherLabels();
+            }
+            if(this.Shift.IsAM != isAM)
+            {
+                this.Shift.IsAM = isAM;
+            }
+            
             this.Shift.RemoveFloorplansFromDifferentShift();
 
             if (Shift.ContainsFloorplan(dateOnlySelected, isAM, Shift.SelectedDiningArea.ID))
@@ -1182,7 +1194,14 @@ namespace FloorPlanMakerUI
 
             }
         }
-
+        private void UpdateWeatherLabels()
+        {
+            if(this.Shift.WeatherData != null)
+            {
+                this.tempLabel.Text = this.Shift.WeatherData.FeelsLikeHiFormatted;
+            }
+            
+        }
         private void AddSectionLines()
         {
             //throw new NotImplementedException();
