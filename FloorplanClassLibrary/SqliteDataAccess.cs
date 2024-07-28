@@ -2242,8 +2242,16 @@ namespace FloorplanClassLibrary
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 string sql = @"
-                    INSERT INTO WeatherData (Date, TempHi, TempLow, TempAvg, FeelsLikeHi, FeelsLikeLow, FeelsLikeAvg) 
-                    VALUES (@Date, @TempHi, @TempLow, @TempAvg, @FeelsLikeHi, @FeelsLikeLow, @FeelsLikeAvg)";
+            INSERT INTO WeatherData (
+                Date, TempHi, TempLow, TempAvg, FeelsLikeHi, FeelsLikeLow, FeelsLikeAvg,
+                CloudCover, Precipitation, PrecipitationCover, PrecipitationType,
+                WindSpeedMax, WindSpeedAvg
+            ) 
+            VALUES (
+                @Date, @TempHi, @TempLow, @TempAvg, @FeelsLikeHi, @FeelsLikeLow, @FeelsLikeAvg,
+                @CloudCover, @Precipitation, @PrecipitationCover, @PrecipitationType,
+                @WindSpeedMax, @WindSpeedAvg
+            )";
 
                 var parameters = new
                 {
@@ -2253,12 +2261,19 @@ namespace FloorplanClassLibrary
                     weatherData.TempAvg,
                     weatherData.FeelsLikeHi,
                     weatherData.FeelsLikeLow,
-                    weatherData.FeelsLikeAvg
+                    weatherData.FeelsLikeAvg,
+                    weatherData.CloudCover,
+                    weatherData.Precipitation,
+                    weatherData.PrecipitationCover,
+                    weatherData.PrecipitationType,
+                    weatherData.WindSpeedMax,
+                    weatherData.WindSpeedAvg
                 };
 
                 cnn.Execute(sql, parameters);
             }
         }
+
 
 
         public static WeatherData LoadWeatherDataByDate(DateOnly date)
@@ -2364,9 +2379,21 @@ namespace FloorplanClassLibrary
                 else
                 {
                     string sql = @"
-                        UPDATE WeatherData 
-                        SET TempHi = @TempHi, TempLow = @TempLow, TempAvg = @TempAvg, FeelsLikeHi = @FeelsLikeHi, FeelsLikeLow = @FeelsLikeLow, FeelsLikeAvg = @FeelsLikeAvg 
-                        WHERE Date = @Date";
+                UPDATE WeatherData 
+                SET 
+                    TempHi = @TempHi, 
+                    TempLow = @TempLow, 
+                    TempAvg = @TempAvg, 
+                    FeelsLikeHi = @FeelsLikeHi, 
+                    FeelsLikeLow = @FeelsLikeLow, 
+                    FeelsLikeAvg = @FeelsLikeAvg,
+                    CloudCover = @CloudCover,
+                    Precipitation = @Precipitation,
+                    PrecipitationCover = @PrecipitationCover,
+                    PrecipitationType = @PrecipitationType,
+                    WindSpeedMax = @WindSpeedMax,
+                    WindSpeedAvg = @WindSpeedAvg
+                WHERE Date = @Date";
 
                     var parameters = new
                     {
@@ -2376,7 +2403,13 @@ namespace FloorplanClassLibrary
                         weatherData.TempAvg,
                         weatherData.FeelsLikeHi,
                         weatherData.FeelsLikeLow,
-                        weatherData.FeelsLikeAvg
+                        weatherData.FeelsLikeAvg,
+                        weatherData.CloudCover,
+                        weatherData.Precipitation,
+                        weatherData.PrecipitationCover,
+                        weatherData.PrecipitationType,
+                        weatherData.WindSpeedMax,
+                        weatherData.WindSpeedAvg
                     };
 
                     cnn.Execute(sql, parameters);
@@ -2384,7 +2417,8 @@ namespace FloorplanClassLibrary
             }
         }
 
-       
+
+
 
 
 
