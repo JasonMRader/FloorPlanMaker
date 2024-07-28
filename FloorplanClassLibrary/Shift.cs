@@ -138,7 +138,6 @@ namespace FloorplanClassLibrary
         {
             get
             {
-                
                 return DateOnly.ToDateTime(TimeOnly.MinValue);
             }
         }
