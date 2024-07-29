@@ -92,6 +92,10 @@ namespace FloorPlanMaker
             toolTip1 = new ToolTip(components);
             btnReportBug = new Button();
             helpProvider1 = new HelpProvider();
+            lblFeelsLikeLow = new Label();
+            lblPrecipAmount = new Label();
+            lblMaxWindSpeed = new Label();
+            lblAvgWindSpeed = new Label();
             flowSectionSelect.SuspendLayout();
             panel1.SuspendLayout();
             pnlFloorplanContainer.SuspendLayout();
@@ -466,6 +470,10 @@ namespace FloorPlanMaker
             flowLayoutPanel2.Controls.Add(btnSaveFloorplanTemplate);
             flowLayoutPanel2.Controls.Add(cbDrawToggle);
             flowLayoutPanel2.Controls.Add(lblFeelsLikeHi);
+            flowLayoutPanel2.Controls.Add(lblFeelsLikeLow);
+            flowLayoutPanel2.Controls.Add(lblPrecipAmount);
+            flowLayoutPanel2.Controls.Add(lblMaxWindSpeed);
+            flowLayoutPanel2.Controls.Add(lblAvgWindSpeed);
             flowLayoutPanel2.FlowDirection = FlowDirection.TopDown;
             flowLayoutPanel2.Location = new Point(11, 17);
             flowLayoutPanel2.Name = "flowLayoutPanel2";
@@ -546,6 +554,7 @@ namespace FloorPlanMaker
             lblFeelsLikeHi.TabIndex = 18;
             lblFeelsLikeHi.Text = "N/A";
             lblFeelsLikeHi.TextAlign = ContentAlignment.MiddleCenter;
+            toolTip1.SetToolTip(lblFeelsLikeHi, "Feels Like Hi");
             // 
             // pnlTemplateContainer
             // 
@@ -929,6 +938,58 @@ namespace FloorPlanMaker
             btnReportBug.UseVisualStyleBackColor = false;
             btnReportBug.Click += btnReportBug_Click;
             // 
+            // lblFeelsLikeLow
+            // 
+            lblFeelsLikeLow.BackColor = Color.Gray;
+            lblFeelsLikeLow.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lblFeelsLikeLow.Location = new Point(8, 391);
+            lblFeelsLikeLow.Margin = new Padding(3, 3, 3, 0);
+            lblFeelsLikeLow.Name = "lblFeelsLikeLow";
+            lblFeelsLikeLow.Size = new Size(45, 45);
+            lblFeelsLikeLow.TabIndex = 18;
+            lblFeelsLikeLow.Text = "N/A";
+            lblFeelsLikeLow.TextAlign = ContentAlignment.MiddleCenter;
+            toolTip1.SetToolTip(lblFeelsLikeLow, "Feels Like Low");
+            // 
+            // lblPrecipAmount
+            // 
+            lblPrecipAmount.BackColor = Color.Gray;
+            lblPrecipAmount.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lblPrecipAmount.Location = new Point(8, 439);
+            lblPrecipAmount.Margin = new Padding(3, 3, 3, 0);
+            lblPrecipAmount.Name = "lblPrecipAmount";
+            lblPrecipAmount.Size = new Size(45, 45);
+            lblPrecipAmount.TabIndex = 18;
+            lblPrecipAmount.Text = "N/A";
+            lblPrecipAmount.TextAlign = ContentAlignment.MiddleCenter;
+            toolTip1.SetToolTip(lblPrecipAmount, "Amount of Precipitation");
+            // 
+            // lblMaxWindSpeed
+            // 
+            lblMaxWindSpeed.BackColor = Color.Gray;
+            lblMaxWindSpeed.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lblMaxWindSpeed.Location = new Point(8, 487);
+            lblMaxWindSpeed.Margin = new Padding(3, 3, 3, 0);
+            lblMaxWindSpeed.Name = "lblMaxWindSpeed";
+            lblMaxWindSpeed.Size = new Size(45, 45);
+            lblMaxWindSpeed.TabIndex = 18;
+            lblMaxWindSpeed.Text = "N/A";
+            lblMaxWindSpeed.TextAlign = ContentAlignment.MiddleCenter;
+            toolTip1.SetToolTip(lblMaxWindSpeed, "Max Wind Speed");
+            // 
+            // lblAvgWindSpeed
+            // 
+            lblAvgWindSpeed.BackColor = Color.Gray;
+            lblAvgWindSpeed.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lblAvgWindSpeed.Location = new Point(8, 535);
+            lblAvgWindSpeed.Margin = new Padding(3, 3, 3, 0);
+            lblAvgWindSpeed.Name = "lblAvgWindSpeed";
+            lblAvgWindSpeed.Size = new Size(45, 45);
+            lblAvgWindSpeed.TabIndex = 18;
+            lblAvgWindSpeed.Text = "N/A";
+            lblAvgWindSpeed.TextAlign = ContentAlignment.MiddleCenter;
+            toolTip1.SetToolTip(lblAvgWindSpeed, "Avg Wind Speed");
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1024,5 +1085,9 @@ namespace FloorPlanMaker
         private Button btnEraseAllSections;
         private Button btnEditRoster;
         private Label lblFeelsLikeHi;
+        private Label lblFeelsLikeLow;
+        private Label lblPrecipAmount;
+        private Label lblMaxWindSpeed;
+        private Label lblAvgWindSpeed;
     }
 }

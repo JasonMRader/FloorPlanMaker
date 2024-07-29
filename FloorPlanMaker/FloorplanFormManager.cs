@@ -37,7 +37,11 @@ namespace FloorPlanMakerUI
         private TableSalesManager tableSalesManager = new TableSalesManager();
         private Panel pnlMainContainer {  get; set; }   
         private Panel pnlFloorplan { get; set; }
-        private Label tempLabel { get; set; }
+        private Label feelsLikeHiLabel { get; set; }
+        private Label feelsLikeLowLabel { get; set; }
+        private Label precipitationLabel { get; set; }
+        private Label maxWindLabel { get; set; }
+        private Label avgWindLabel { get; set; }
         private FlowLayoutPanel flowSectionsPanel {  get; set; }
         private FlowLayoutPanel flowServersPanel { get; set; }
         public DateOnly dateOnly => this.Shift.DateOnly;
@@ -51,14 +55,19 @@ namespace FloorPlanMakerUI
         {
             this.Shift = new Shift();            
         }
-        public FloorplanFormManager(Panel pnlFloorPlan, FlowLayoutPanel flowServersInFloorplan, FlowLayoutPanel flowSectionSelect, Panel pnlContainer, Label tempLabel)
+        public FloorplanFormManager(Panel pnlFloorPlan, FlowLayoutPanel flowServersInFloorplan, FlowLayoutPanel flowSectionSelect, Panel pnlContainer, 
+            Label tempLabel, Label FeelsLikeLowLabel, Label precipitationLabel, Label maxWindLabel, Label avgWindLabel)
         {
             this.Shift = new Shift();
             this.flowSectionsPanel = flowSectionSelect;
             this.flowServersPanel = flowServersInFloorplan;
             this.pnlFloorplan = pnlFloorPlan;
             this.pnlMainContainer = pnlContainer;
-            this.tempLabel = tempLabel;
+            this.feelsLikeHiLabel = tempLabel;
+            this.feelsLikeLowLabel = FeelsLikeLowLabel;
+            this.precipitationLabel = precipitationLabel;
+            this.maxWindLabel = maxWindLabel;
+            this.avgWindLabel = avgWindLabel;            
         }
         public void UpdateTemplatesBasedOnFloorplan()
         {
@@ -1198,7 +1207,11 @@ namespace FloorPlanMakerUI
         {
             if(this.Shift.WeatherData != null)
             {
-                this.tempLabel.Text = this.Shift.WeatherData.FeelsLikeHiFormatted;
+                this.feelsLikeHiLabel.Text = this.Shift.WeatherData.FeelsLikeHiFormatted;
+                this.feelsLikeLowLabel.Text = this.Shift.WeatherData?.FeelsLikeLowFormatted;
+                this.precipitationLabel.Text = this.Shift.WeatherData?.precipitationAmountFormatted;
+                this.maxWindLabel.Text = this.Shift.WeatherData?.windMaxFormatted;
+                this.avgWindLabel.Text = this.Shift.WeatherData?.windAvgFormatted;
             }
             
         }
