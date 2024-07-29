@@ -146,10 +146,9 @@ namespace FloorplanClassLibrary
        
         public List<DiningArea> DiningAreasUsed => Floorplans.Select(fp => fp.DiningArea).Distinct().ToList();
         public WeatherData? WeatherData { get; private set; }
-        public async void SetWeatherData()
+        public async Task SetWeatherData()
         {
-            //TODO: Complete this Method for getting WeatherData
-            //Try to get WeatherData for Date from Database, If None Exists, Get it from API and Save the Data
+            this.WeatherData = null;
             this.WeatherData = SqliteDataAccess.LoadWeatherDataByDate(this.DateOnly);
             if(this.WeatherData == null)
             {

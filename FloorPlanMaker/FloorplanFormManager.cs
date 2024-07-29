@@ -1126,12 +1126,12 @@ namespace FloorPlanMakerUI
             btnSaveTemplate.Text = "Create A Floorplan Template";
         }
 
-        public void SetViewedFloorplan(DateOnly dateOnlySelected, bool isAM)
+        public async void SetViewedFloorplan(DateOnly dateOnlySelected, bool isAM)
         {
             if(this.Shift.DateOnly != dateOnlySelected)
             {
                 this.Shift.DateOnly = dateOnlySelected;
-                this.Shift.SetWeatherData();
+                await this.Shift.SetWeatherData();
                 UpdateWeatherLabels();
             }
             if(this.Shift.IsAM != isAM)
