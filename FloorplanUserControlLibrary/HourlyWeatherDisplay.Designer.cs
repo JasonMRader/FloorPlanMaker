@@ -53,6 +53,7 @@
             // 
             lblFeelsLikeHi.BackColor = Color.FromArgb(224, 224, 224);
             lblFeelsLikeHi.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lblFeelsLikeHi.ForeColor = Color.Black;
             lblFeelsLikeHi.Location = new Point(1, 21);
             lblFeelsLikeHi.Margin = new Padding(1);
             lblFeelsLikeHi.Name = "lblFeelsLikeHi";
@@ -65,6 +66,7 @@
             // 
             lblFeelsLikeLow.BackColor = Color.FromArgb(224, 224, 224);
             lblFeelsLikeLow.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lblFeelsLikeLow.ForeColor = Color.Black;
             lblFeelsLikeLow.Location = new Point(63, 21);
             lblFeelsLikeLow.Margin = new Padding(1);
             lblFeelsLikeLow.Name = "lblFeelsLikeLow";
@@ -77,6 +79,7 @@
             // 
             lblChanceOfRain.BackColor = Color.FromArgb(224, 224, 224);
             lblChanceOfRain.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lblChanceOfRain.ForeColor = Color.Black;
             lblChanceOfRain.Location = new Point(1, 46);
             lblChanceOfRain.Margin = new Padding(1);
             lblChanceOfRain.Name = "lblChanceOfRain";
@@ -89,6 +92,7 @@
             // 
             lblWindAvg.BackColor = Color.FromArgb(224, 224, 224);
             lblWindAvg.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lblWindAvg.ForeColor = Color.Black;
             lblWindAvg.Location = new Point(1, 71);
             lblWindAvg.Margin = new Padding(1);
             lblWindAvg.Name = "lblWindAvg";
@@ -101,6 +105,7 @@
             // 
             lblRainAmount.BackColor = Color.FromArgb(224, 224, 224);
             lblRainAmount.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lblRainAmount.ForeColor = Color.Black;
             lblRainAmount.Location = new Point(63, 46);
             lblRainAmount.Margin = new Padding(1);
             lblRainAmount.Name = "lblRainAmount";
@@ -113,6 +118,7 @@
             // 
             lblWindMax.BackColor = Color.FromArgb(224, 224, 224);
             lblWindMax.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lblWindMax.ForeColor = Color.Black;
             lblWindMax.Location = new Point(63, 71);
             lblWindMax.Margin = new Padding(1);
             lblWindMax.Name = "lblWindMax";

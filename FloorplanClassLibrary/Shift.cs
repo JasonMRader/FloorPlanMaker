@@ -146,6 +146,8 @@ namespace FloorplanClassLibrary
        
         public List<DiningArea> DiningAreasUsed => Floorplans.Select(fp => fp.DiningArea).Distinct().ToList();
         public WeatherData? WeatherData { get; private set; }
+        public List<HourlyWeatherData> HourlyWeatherData { get; private set; }
+        
         public async Task SetWeatherData()
         {
             this.WeatherData = null;
@@ -160,6 +162,18 @@ namespace FloorplanClassLibrary
                     SqliteDataAccess.SaveNewWeatherData(this.WeatherData);
                 }
             }
+        }
+        public void SetHourlyWeatherDataForToday()
+        {
+            if (this.IsAM)
+            {
+                this.HourlyWeatherData = TodayHourlyWeather.LunchHourlyWeatherDataList;
+            }
+            else
+            {
+                this.HourlyWeatherData = TodayHourlyWeather.DinnerHourlyWeatherDataList;
+            }
+           
         }
         public List<Server> _serversOnShift
         {

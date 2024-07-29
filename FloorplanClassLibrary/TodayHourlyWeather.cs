@@ -18,7 +18,7 @@ namespace FloorplanClassLibrary
             get
             {
                 return hourlyWeatherDataList
-                    .Where(w => w.Date.Hour >= 11 && w.Date.Hour < 15)
+                    .Where(w => w.Date.Hour >= 11 && w.Date.Hour < 16)
                     .ToList();
             }
         }

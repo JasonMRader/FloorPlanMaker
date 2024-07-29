@@ -10,6 +10,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 //using static System.Collections.Specialized.BitVector32;
 
 namespace FloorPlanMakerUI
@@ -1137,15 +1138,33 @@ namespace FloorPlanMakerUI
 
         public async void SetViewedFloorplan(DateOnly dateOnlySelected, bool isAM)
         {
-            if(this.Shift.DateOnly != dateOnlySelected)
+            DateOnly today = new DateOnly(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            if (this.Shift.DateOnly != dateOnlySelected)
             {
                 this.Shift.DateOnly = dateOnlySelected;
-                await this.Shift.SetWeatherData();
-                UpdateWeatherLabels();
+               
+                if(Shift.DateOnly == today)
+                {
+                    this.Shift.SetHourlyWeatherDataForToday();
+                    UpdateWeatherLabelsForHourlyToday();
+                }
+                else
+                {
+                    await this.Shift.SetWeatherData();
+                    UpdateWeatherLabels();
+                }
+               
+                
             }
             if(this.Shift.IsAM != isAM)
             {
                 this.Shift.IsAM = isAM;
+                if (Shift.DateOnly == today)
+                {
+                    this.Shift.SetHourlyWeatherDataForToday();
+                    UpdateWeatherLabelsForHourlyToday();
+                }
+                
             }
             
             this.Shift.RemoveFloorplansFromDifferentShift();
@@ -1202,6 +1221,26 @@ namespace FloorPlanMakerUI
                 UpdateImageLabels();
 
             }
+        }
+        private void UpdateWeatherLabelsForHourlyToday()
+        {
+            if(Shift.HourlyWeatherData.Count == 0) { return; }
+            int feelsLikeHi = Shift.HourlyWeatherData.Max(w => w.FeelsLikeHi);
+            int feelsLikeLow = Shift.HourlyWeatherData.Min(w => w.FeelsLikeLow);
+            int maxWindGust = Shift.HourlyWeatherData.Max(w => w.WindSpeedMax);
+            int maxWindAvg = Shift.HourlyWeatherData.Max(w => w.WindSpeedAvg);
+            int minWindAvg = Shift.HourlyWeatherData.Min(w => w.WindSpeedAvg);
+            int middleWindSpeedAvg = (maxWindAvg + minWindAvg) / 2;
+            float totalPrecipitation = 0f;
+            foreach(HourlyWeatherData data in Shift.HourlyWeatherData)
+            {
+                totalPrecipitation += data.PrecipitationAmount;
+            }
+            this.feelsLikeHiLabel.Text = feelsLikeHi.ToString() + "°";
+            this.feelsLikeLowLabel.Text = feelsLikeLow.ToString() + "°";
+            this.precipitationLabel.Text = totalPrecipitation.ToString("f2") + "\"";
+            this.maxWindLabel.Text = maxWindGust.ToString();
+            this.avgWindLabel.Text = middleWindSpeedAvg.ToString();
         }
         private void UpdateWeatherLabels()
         {

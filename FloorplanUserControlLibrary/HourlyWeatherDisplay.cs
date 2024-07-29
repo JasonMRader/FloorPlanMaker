@@ -14,14 +14,14 @@ namespace FloorplanUserControlLibrary
 {
     public partial class HourlyWeatherDisplay : UserControl
     {
-        public HourlyWeatherData HourlyWeatherData { get; set; } 
+        public HourlyWeatherData HourlyWeatherData { get; set; }
         public HourlyWeatherDisplay(HourlyWeatherData hourlyWeatherData)
         {
             InitializeComponent();
             this.HourlyWeatherData = hourlyWeatherData;
             SetLabelsForWeatherData();
             SetLabelColors();
-            
+
         }
         private void SetLabelsForWeatherData()
         {
@@ -35,15 +35,15 @@ namespace FloorplanUserControlLibrary
         }
         private void SetLabelColors()
         {
-            if(this.HourlyWeatherData.FeelsLikeHi > 90)
+            if (this.HourlyWeatherData.FeelsLikeHi > 90)
             {
                 this.lblFeelsLikeHi.BackColor = Color.Red;
             }
-            if(this.HourlyWeatherData.FeelsLikeLow < 75)
+            if (this.HourlyWeatherData.FeelsLikeLow < 75)
             {
                 this.lblFeelsLikeLow.BackColor = Color.Blue;
             }
-            if(this.HourlyWeatherData.PrecipitationChance > 0 && this.HourlyWeatherData.PrecipitationChance < 50)
+            if (this.HourlyWeatherData.PrecipitationChance > 0 && this.HourlyWeatherData.PrecipitationChance < 50)
             {
                 this.lblChanceOfRain.BackColor = Color.Pink;
             }
