@@ -52,8 +52,7 @@ namespace FloorplanClassLibrary
         public int WindSpeedAvg { get; set; }
         public string FeelsLikeHiFormatted { get { return $"{this.FeelsLikeHi}°F"; } }
         public string FeelsLikeLowFormatted { get { return $"{this.FeelsLikeLow}°F"; } }
-        public string precipitationAmountFormatted { get { return $"{this.Precipitation:F2}"; } }
-
+        public string precipitationAmountFormatted { get { return $"{this.Precipitation:F2}\""; } }
         public string windMaxFormatted { get { return $"{this.WindSpeedMax} MPH"; } }
         public string windAvgFormatted { get { return $"{this.WindSpeedAvg} MPH"; } }
         [NotMapped]
