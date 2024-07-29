@@ -162,8 +162,8 @@ namespace FloorPlanMakerUI
         private async void btnWeather_Click(object sender, EventArgs e)
         {
             DateOnly dateOnly = new DateOnly(dtpWeatherDay.Value.Year, dtpWeatherDay.Value.Month, dtpWeatherDay.Value.Day); 
-            WeatherData weatherResult = await WeatherApiDataAccess.GetWeatherForSingleDate(dtpWeatherDay.Value);
-            MessageBox.Show(weatherResult.WeatherFeelsLikeMax);
+            List <HourlyWeatherData> hourlyWeather = await WeatherApiDataAccess.GetWeatherForToday();
+            //MessageBox.Show(weatherResult.WeatherFeelsLikeMax);
         }
     }
 }

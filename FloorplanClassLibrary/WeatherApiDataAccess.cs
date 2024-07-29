@@ -11,69 +11,10 @@ namespace FloorplanClassLibrary
 {
     public static class WeatherApiDataAccess
     {
-        //https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Indianapolis%2CIN/today?unitGroup=us&key=PHS9PNFLLHZRKPCK59EKP9BZ2&contentType=json
-        public static async Task<string> GetWeatherForSingleDateString(DateTime date)
-        {
-            string apiKey = GetApiKey();
-            string dateOnlyFormatted = date.ToString("yyyy-MM-dd");
-            string result = "";
-            using (var client = new HttpClient())
-            {
-                var request = new HttpRequestMessage(HttpMethod.Get,
-                    $"https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/" +
-                    $"Indianapolis%2CIN/{dateOnlyFormatted}?unitGroup=us&include=days&key={apiKey}&include=days&elements=tempmax,tempmin,temp," +
-                    $"feelslike,feelslikemax,feelslikemin,cloudcover,precip,precipcover,preciptype,windspeedmax,windspeedmean");
-
-                var response = await client.SendAsync(request);
-                response.EnsureSuccessStatusCode(); // Throw an exception if error
-
-                var body = await response.Content.ReadAsStringAsync();
-
-                // Deserialize JSON and process data as needed
-                dynamic weather = JsonConvert.DeserializeObject(body);
-                foreach (var day in weather.days)
-                {
-                    string weatherDate = day.datetime;
-                    string weatherDescription = day.description;
-                    string weatherMaxTemp = day.tempmax;
-                    string weatherMinTemp = day.tempmin;
-                    string weatherAvgTemp = day.temp;
-                    string weatherFeelsLikeAvg = day.feelslike;
-                    string weatherFeelsLikeMax = day.feelslikemax;
-                    string weatherFeelsLikeMin = day.feelslikemin;
-                    string weatherCloudCover = day.cloudCover;
-                    string weatherPrecip = day.precip;
-                    string weatherPrecipCover = day.precipcover;
-                    string[] weatherPrecipTypeArray = day.preciptype?.ToObject<string[]>();
-                    string weatherWindSpeedMax = day.windspeedmax;
-                    string weatherWindSpeedAvg = day.windspeedmean;
-                    WeatherData weatherData = new WeatherData(date, weatherMaxTemp, weatherMinTemp, weatherAvgTemp, weatherFeelsLikeMax, weatherFeelsLikeMin,
-                        weatherFeelsLikeAvg, weatherCloudCover, weatherPrecip, weatherPrecipCover, weatherPrecipTypeArray, weatherWindSpeedMax, weatherWindSpeedAvg);
-                    result += weatherDate;
-                    //result += (" General conditions: " + weather_desc);
-                    result += ("Hi: " + weatherMaxTemp) + "\n";
-                    result += ("Low: " + weatherMinTemp) + "\n";
-                    result += $"AVG: {weatherAvgTemp}" + "\n";
-                    result += $"Feels like: {weatherFeelsLikeAvg}" + "\n";
-                    result += $"Feels Max: {weatherFeelsLikeMax}" + "\n";
-                    result += $"Feels Min: {weatherFeelsLikeMin}" + "\n";
-                    result += $"Clound Cover: {weatherCloudCover}" + "\n";
-                    result += $"Total Precip: {weatherPrecip}" + "\n";
-                    result += $"Precip Cover: {weatherPrecipCover}" + "\n";
-                    //result += $"Precip Type: {weatherPrecipType}" + "\n";
-                    result += $"WindMax: {weatherWindSpeedMax}" + "\n";
-                    result += $"WindAvg: {weatherWindSpeedAvg}" + "\n";
-                  
-
-                    
-                }
-                return result;
-            }
-           
-        }
+        
         public static async Task<WeatherData> GetWeatherForSingleDate(DateTime date)
         {
-            string apiKey = GetApiKey();
+            string apiKey = GetDailyApiKey();
             string dateOnlyFormatted = date.ToString("yyyy-MM-dd");
             string result = "";
             using (var client = new HttpClient())
@@ -122,7 +63,60 @@ namespace FloorplanClassLibrary
             }
 
         }
-        private static string GetApiKey()
+        public static async Task<List<HourlyWeatherData>> GetWeatherForToday()
+        {
+            string apiKey = GetHourlyApiKey();
+            using (var client = new HttpClient())
+            {
+                var request = new HttpRequestMessage(HttpMethod.Get,
+                    $"http://api.weatherapi.com/v1/forecast.json?key={apiKey}&q=46254&days=1&aqi=no&alerts=no");
+
+                var response = await client.SendAsync(request);
+                response.EnsureSuccessStatusCode(); // Throw an exception if error
+
+                var body = await response.Content.ReadAsStringAsync();
+
+                // Deserialize JSON and process data
+                dynamic weather = JsonConvert.DeserializeObject(body);
+                if (weather == null)
+                {
+                    return null;
+                }
+
+                List<HourlyWeatherData> hourlyWeatherDataList = new List<HourlyWeatherData>();
+
+                foreach (var hourData in weather.forecast.forecastday[0].hour)
+                {
+                    DateTime time = hourData.time;
+                    int hour = time.Hour;
+                    if (hour >= 11 && hour <= 23) // Filter for 11 AM to 11 PM
+                    {
+                        var hourlyData = new HourlyWeatherData
+                        {
+                            Date = time,
+                            TempHi = (int)Math.Round((double)hourData.temp_f), // Temperature in Fahrenheit
+                            TempLow = (int)Math.Round((double)hourData.windchill_f), // Windchill in Fahrenheit
+                            TempAvg = (int)Math.Round((double)hourData.feelslike_f), // Feels like temperature in Fahrenheit
+                            FeelsLikeHi = (int)Math.Round((double)hourData.heatindex_f), // Heat index in Fahrenheit
+                            FeelsLikeLow = (int)Math.Round((double)hourData.windchill_f), // Windchill in Fahrenheit
+                            FeelsLikeAvg = (int)Math.Round((double)hourData.feelslike_f), // Feels like temperature in Fahrenheit
+                            CloudCover = (float)hourData.cloud, // Cloud cover as a percentage
+                            PrecipitationAmount = (float)hourData.precip_in, // Precipitation amount in inches
+                            PrecipitationChance = (float)hourData.chance_of_rain, // Chance of rain as a percentage
+                            PrecipitationType = hourData.condition.text, // Weather condition description
+                            WindSpeedMax = (int)Math.Round((double)hourData.gust_mph), // Wind gust in MPH
+                            WindSpeedAvg = (int)Math.Round((double)hourData.wind_mph) // Average wind speed in MPH
+                        };
+
+                        hourlyWeatherDataList.Add(hourlyData);
+                    }
+                }
+
+                return hourlyWeatherDataList;
+            }
+        }
+
+        private static string GetDailyApiKey()
         {
             
             string apiKey = ConfigurationManager.AppSettings["WeatherApiKey"];
@@ -132,6 +126,16 @@ namespace FloorplanClassLibrary
             }
             return apiKey;
         }
-       
+        private static string GetHourlyApiKey()
+        {
+
+            string apiKey = ConfigurationManager.AppSettings["HourlyWeatherApiKey"];
+            if (string.IsNullOrEmpty(apiKey))
+            {
+                throw new InvalidOperationException("API key is missing.");
+            }
+            return apiKey;
+        }
+
     }
 }

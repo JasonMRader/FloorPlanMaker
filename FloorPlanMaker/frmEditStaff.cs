@@ -12,10 +12,8 @@ namespace FloorPlanMaker
 {
     public partial class frmEditStaff : Form
     {
-        //public List<Server> AllServers = new List<Server>();
+
         public EmployeeManager employeeManager;
-        //private Shift newShiftManager = new Shift();
-        //private Shift pastShiftsManager;
         private ShiftManager ShiftManager = new ShiftManager();
         private DiningAreaManager DiningAreaManager = new DiningAreaManager();
         private DateTime dateSelected = DateTime.MinValue;
@@ -456,7 +454,7 @@ namespace FloorPlanMaker
         {
             dateSelected = dateSelected.AddDays(-1);
             SetToDateSelected();
-            
+
         }
         private void SetToDateSelected()
         {

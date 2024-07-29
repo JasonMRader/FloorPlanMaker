@@ -36,11 +36,14 @@ namespace FloorPlanMakerUI
         private async void BackgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
             // Perform the background tasks asynchronously
-            await Task.Run(() =>
+           
+            await Task.Run(async() =>
             {
                 SqliteDataAccess.CheckAndSetDatabaseLocation();
                 SqliteDataAccess.BackupDatabase();
                 SqliteDataAccess.DeleteOldBackups();
+                await TodayHourlyWeather.InitializeAsync();
+
             });
         }
         public frmEditStaff LoadEditStaffForm(EmployeeManager employeeManager, Shift shift, Form1 form)
