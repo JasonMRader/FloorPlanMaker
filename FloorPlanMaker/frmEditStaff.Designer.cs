@@ -43,12 +43,10 @@
             toolTip1 = new ToolTip(components);
             cboSalesMethod = new ComboBox();
             label1 = new Label();
-            flowLayoutPanel1 = new FlowLayoutPanel();
-            panel3 = new Panel();
+            flowWeatherData = new FlowLayoutPanel();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pbBack).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbForward).BeginInit();
-            flowLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
             // btnAssignTables
@@ -69,9 +67,9 @@
             // flowDiningAreaAssignment
             // 
             flowDiningAreaAssignment.BackColor = Color.FromArgb(180, 190, 200);
-            flowDiningAreaAssignment.Location = new Point(429, 205);
+            flowDiningAreaAssignment.Location = new Point(429, 228);
             flowDiningAreaAssignment.Name = "flowDiningAreaAssignment";
-            flowDiningAreaAssignment.Size = new Size(794, 676);
+            flowDiningAreaAssignment.Size = new Size(794, 653);
             flowDiningAreaAssignment.TabIndex = 10;
             // 
             // flowUnassignedServers
@@ -162,9 +160,9 @@
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(180, 190, 200);
-            panel2.Location = new Point(409, 179);
+            panel2.Location = new Point(409, 203);
             panel2.Name = "panel2";
-            panel2.Size = new Size(833, 718);
+            panel2.Size = new Size(833, 694);
             panel2.TabIndex = 27;
             // 
             // pbBack
@@ -217,20 +215,13 @@
             label1.Text = "Sales From:";
             label1.Visible = false;
             // 
-            // flowLayoutPanel1
+            // flowWeatherData
             // 
-            flowLayoutPanel1.Controls.Add(panel3);
-            flowLayoutPanel1.Location = new Point(409, 81);
-            flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(836, 92);
-            flowLayoutPanel1.TabIndex = 31;
-            // 
-            // panel3
-            // 
-            panel3.Location = new Point(3, 3);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(128, 77);
-            panel3.TabIndex = 0;
+            flowWeatherData.BackColor = Color.FromArgb(180, 190, 200);
+            flowWeatherData.Location = new Point(409, 81);
+            flowWeatherData.Name = "flowWeatherData";
+            flowWeatherData.Size = new Size(836, 106);
+            flowWeatherData.TabIndex = 31;
             // 
             // frmEditStaff
             // 
@@ -238,7 +229,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.WhiteSmoke;
             ClientSize = new Size(1264, 997);
-            Controls.Add(flowLayoutPanel1);
+            Controls.Add(flowWeatherData);
             Controls.Add(label1);
             Controls.Add(cboSalesMethod);
             Controls.Add(pbForward);
@@ -261,7 +252,6 @@
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pbBack).EndInit();
             ((System.ComponentModel.ISupportInitialize)pbForward).EndInit();
-            flowLayoutPanel1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -281,7 +271,6 @@
         private ComboBox cboSalesMethod;
         private Label label1;
         private Button btnAutomatic;
-        private FlowLayoutPanel flowLayoutPanel1;
-        private Panel panel3;
+        private FlowLayoutPanel flowWeatherData;
     }
 }

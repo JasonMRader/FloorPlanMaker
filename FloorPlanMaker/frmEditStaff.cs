@@ -105,16 +105,28 @@ namespace FloorPlanMaker
 
         private void frmEditStaff_Load(object sender, EventArgs e)
         {
-            //dateSelected = DateTime.Now;
-            //lblShiftDate.Text = dateSelected.ToString("dddd, MMMM dd");
-            //SetColorTheme();
-            //SetFloorplansForShiftManager();
-            //cboSalesMethod.Items.Clear();
-            //cboSalesMethod.Items.Add("Yesterday");
-            //cboSalesMethod.Items.Add("Last Weekday");
-            //cboSalesMethod.Items.Add("Last 4 Weekday");
-            //cboSalesMethod.Items.Add("Day Of");
-            //cboSalesMethod.SelectedIndex = 2;
+           
+        }
+        private void SetHourlyWeatherDisplay(bool isLunch)
+        {
+            flowWeatherData.Controls.Clear();
+            List<HourlyWeatherData> hourlyWeatherData = new List<HourlyWeatherData>();
+            if (isLunch)
+            {
+                hourlyWeatherData = TodayHourlyWeather.LunchHourlyWeatherDataList;
+            }
+            else
+            {
+                hourlyWeatherData = TodayHourlyWeather.DinnerHourlyWeatherDataList;
+            }
+            
+            List<HourlyWeatherDisplay> hourlyWeatherDisplays = new List<HourlyWeatherDisplay>();
+            foreach (HourlyWeatherData hourlyWeather in hourlyWeatherData)
+            {
+                HourlyWeatherDisplay weatherDisplay = new HourlyWeatherDisplay(hourlyWeather);
+                hourlyWeatherDisplays.Add(weatherDisplay);
+                flowWeatherData.Controls.Add(weatherDisplay);
+            }
         }
         public void UpdateUI()
         {
@@ -138,6 +150,7 @@ namespace FloorPlanMaker
             ShiftManager.SetSelectedShift(date, cbIsAM.Checked);
             RefreshFloorplanFlowPanel(ShiftManager.SelectedShift.Floorplans);
             RefreshFloorplanCountLabels();
+            SetHourlyWeatherDisplay(ShiftManager.IsAM);
         }
 
         private void RefreshFloorplanFlowPanel(IReadOnlyList<Floorplan> floorplans)
