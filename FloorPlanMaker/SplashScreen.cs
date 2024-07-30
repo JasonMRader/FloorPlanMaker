@@ -42,7 +42,7 @@ namespace FloorPlanMakerUI
                 SqliteDataAccess.CheckAndSetDatabaseLocation();
                 SqliteDataAccess.BackupDatabase();
                 SqliteDataAccess.DeleteOldBackups();
-                await TodayHourlyWeather.InitializeAsync();
+                await HourlyWeatherForecast.InitializeAsync();
 
             });
         }

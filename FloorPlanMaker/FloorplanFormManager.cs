@@ -40,7 +40,8 @@ namespace FloorPlanMakerUI
         private Panel pnlFloorplan { get; set; }
         private Label feelsLikeHiLabel { get; set; }
         private Label feelsLikeLowLabel { get; set; }
-        private Label precipitationLabel { get; set; }
+        private Label precipitationAmountLabel { get; set; }
+        private Label precipitationChanceLabel { get; set; }
         private Label maxWindLabel { get; set; }
         private Label avgWindLabel { get; set; }
         private FlowLayoutPanel flowSectionsPanel {  get; set; }
@@ -57,7 +58,7 @@ namespace FloorPlanMakerUI
             this.Shift = new Shift();            
         }
         public FloorplanFormManager(Panel pnlFloorPlan, FlowLayoutPanel flowServersInFloorplan, FlowLayoutPanel flowSectionSelect, Panel pnlContainer, 
-            Label tempLabel, Label FeelsLikeLowLabel, Label precipitationLabel, Label maxWindLabel, Label avgWindLabel)
+            Label tempLabel, Label FeelsLikeLowLabel, Label precipitationLabel, Label precipitationChanceLabel, Label maxWindLabel, Label avgWindLabel)
         {
             this.Shift = new Shift();
             this.flowSectionsPanel = flowSectionSelect;
@@ -66,7 +67,8 @@ namespace FloorPlanMakerUI
             this.pnlMainContainer = pnlContainer;
             this.feelsLikeHiLabel = tempLabel;
             this.feelsLikeLowLabel = FeelsLikeLowLabel;
-            this.precipitationLabel = precipitationLabel;
+            this.precipitationAmountLabel = precipitationLabel;
+            this.precipitationChanceLabel = precipitationChanceLabel;
             this.maxWindLabel = maxWindLabel;
             this.avgWindLabel = avgWindLabel;            
         }
@@ -1139,6 +1141,7 @@ namespace FloorPlanMakerUI
         public async void SetViewedFloorplan(DateOnly dateOnlySelected, bool isAM)
         {
             DateOnly today = new DateOnly(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            DateOnly tomorrow = new DateOnly(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day + 1);
             if (this.Shift.DateOnly != dateOnlySelected)
             {
                 this.Shift.DateOnly = dateOnlySelected;
@@ -1146,6 +1149,11 @@ namespace FloorPlanMakerUI
                 if(Shift.DateOnly == today)
                 {
                     this.Shift.SetHourlyWeatherDataForToday();
+                    UpdateWeatherLabelsForHourlyToday();
+                }
+                else if(Shift.DateOnly == tomorrow)
+                {
+                    this.Shift.SetHourlyWeatherDataForTomorrow();
                     UpdateWeatherLabelsForHourlyToday();
                 }
                 else
@@ -1164,7 +1172,12 @@ namespace FloorPlanMakerUI
                     this.Shift.SetHourlyWeatherDataForToday();
                     UpdateWeatherLabelsForHourlyToday();
                 }
-                
+                else if (Shift.DateOnly == tomorrow)
+                {
+                    this.Shift.SetHourlyWeatherDataForTomorrow();
+                    UpdateWeatherLabelsForHourlyToday();
+                }
+
             }
             
             this.Shift.RemoveFloorplansFromDifferentShift();
@@ -1230,6 +1243,7 @@ namespace FloorPlanMakerUI
             int maxWindGust = Shift.HourlyWeatherData.Max(w => w.WindSpeedMax);
             int maxWindAvg = Shift.HourlyWeatherData.Max(w => w.WindSpeedAvg);
             int minWindAvg = Shift.HourlyWeatherData.Min(w => w.WindSpeedAvg);
+            int maxPrecipChance = Shift.HourlyWeatherData.Max(w => w.PrecipitationChanceFormatted);
             int middleWindSpeedAvg = (maxWindAvg + minWindAvg) / 2;
             float totalPrecipitation = 0f;
             foreach(HourlyWeatherData data in Shift.HourlyWeatherData)
@@ -1238,9 +1252,11 @@ namespace FloorPlanMakerUI
             }
             this.feelsLikeHiLabel.Text = feelsLikeHi.ToString() + "°";
             this.feelsLikeLowLabel.Text = feelsLikeLow.ToString() + "°";
-            this.precipitationLabel.Text = totalPrecipitation.ToString("f2") + "\"";
+            this.precipitationAmountLabel.Text = totalPrecipitation.ToString("f2") + "\"";
             this.maxWindLabel.Text = maxWindGust.ToString();
             this.avgWindLabel.Text = middleWindSpeedAvg.ToString();
+            this.precipitationChanceLabel.Text = totalPrecipitation.ToString() + "%";
+            this.precipitationChanceLabel.Visible = true;
         }
         private void UpdateWeatherLabels()
         {
@@ -1248,9 +1264,10 @@ namespace FloorPlanMakerUI
             {
                 this.feelsLikeHiLabel.Text = this.Shift.WeatherData.FeelsLikeHiFormatted;
                 this.feelsLikeLowLabel.Text = this.Shift.WeatherData?.FeelsLikeLowFormatted;
-                this.precipitationLabel.Text = this.Shift.WeatherData?.precipitationAmountFormatted;
+                this.precipitationAmountLabel.Text = this.Shift.WeatherData?.precipitationAmountFormatted;
                 this.maxWindLabel.Text = this.Shift.WeatherData?.windMaxFormatted;
                 this.avgWindLabel.Text = this.Shift.WeatherData?.windAvgFormatted;
+                this.precipitationChanceLabel.Visible = false;
             }
             
         }

@@ -19,6 +19,13 @@ namespace FloorplanClassLibrary
         public float CloudCover { get; set; }
         public float PrecipitationAmount { get; set; }
         public float PrecipitationChance { get; set; }
+        public int PrecipitationChanceFormatted
+        {
+            get
+            {
+                return (int)PrecipitationChance;
+            }
+        }
         public string PrecipitationType { get; set; } = "";
         public int WindSpeedMax { get; set; }
         public int WindSpeedAvg { get; set; }

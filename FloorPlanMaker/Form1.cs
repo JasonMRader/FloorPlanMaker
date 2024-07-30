@@ -356,7 +356,7 @@ namespace FloorPlanMaker
             pnlFloorPlan.Paint += PnlFloorplan_Paint;
             this.sectionLineManager = new SectionLineManager(allTableControls);
             floorplanManager = new FloorplanFormManager(pnlFloorPlan, flowServersInFloorplan, flowSectionSelect, pnlMainContainer, lblFeelsLikeHi,
-                lblFeelsLikeLow, lblPrecipAmount, lblMaxWindSpeed, lblAvgWindSpeed);
+                lblFeelsLikeLow, lblPrecipAmount, lblPrecipitationChance, lblMaxWindSpeed, lblAvgWindSpeed);
 
             // Subscribe to the event
             //floorplanManager.SectionLabelRemoved += FloorplanManager_SectionLabelRemoved;

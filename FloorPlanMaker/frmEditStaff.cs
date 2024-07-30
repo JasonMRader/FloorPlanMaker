@@ -113,11 +113,11 @@ namespace FloorPlanMaker
             List<HourlyWeatherData> hourlyWeatherData = new List<HourlyWeatherData>();
             if (isLunch)
             {
-                hourlyWeatherData = TodayHourlyWeather.LunchHourlyWeatherDataList;
+                hourlyWeatherData = HourlyWeatherForecast.TodayLunchHourlyWeatherDataList;
             }
             else
             {
-                hourlyWeatherData = TodayHourlyWeather.DinnerHourlyWeatherDataList;
+                hourlyWeatherData = HourlyWeatherForecast.TodayDinnerHourlyWeatherDataList;
             }
             
             List<HourlyWeatherDisplay> hourlyWeatherDisplays = new List<HourlyWeatherDisplay>();

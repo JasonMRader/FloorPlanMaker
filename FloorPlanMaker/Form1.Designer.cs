@@ -96,6 +96,7 @@ namespace FloorPlanMaker
             toolTip1 = new ToolTip(components);
             btnReportBug = new Button();
             helpProvider1 = new HelpProvider();
+            lblPrecipitationChance = new Label();
             flowSectionSelect.SuspendLayout();
             panel1.SuspendLayout();
             pnlFloorplanContainer.SuspendLayout();
@@ -471,9 +472,10 @@ namespace FloorPlanMaker
             flowLayoutPanel2.Controls.Add(cbDrawToggle);
             flowLayoutPanel2.Controls.Add(lblFeelsLikeHi);
             flowLayoutPanel2.Controls.Add(lblFeelsLikeLow);
-            flowLayoutPanel2.Controls.Add(lblPrecipAmount);
             flowLayoutPanel2.Controls.Add(lblMaxWindSpeed);
             flowLayoutPanel2.Controls.Add(lblAvgWindSpeed);
+            flowLayoutPanel2.Controls.Add(lblPrecipAmount);
+            flowLayoutPanel2.Controls.Add(lblPrecipitationChance);
             flowLayoutPanel2.FlowDirection = FlowDirection.TopDown;
             flowLayoutPanel2.Location = new Point(11, 17);
             flowLayoutPanel2.Name = "flowLayoutPanel2";
@@ -573,7 +575,7 @@ namespace FloorPlanMaker
             // 
             lblPrecipAmount.BackColor = Color.Gray;
             lblPrecipAmount.Font = new Font("Arial Narrow", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            lblPrecipAmount.Location = new Point(8, 439);
+            lblPrecipAmount.Location = new Point(8, 535);
             lblPrecipAmount.Margin = new Padding(3, 3, 3, 0);
             lblPrecipAmount.Name = "lblPrecipAmount";
             lblPrecipAmount.Size = new Size(45, 45);
@@ -586,7 +588,7 @@ namespace FloorPlanMaker
             // 
             lblMaxWindSpeed.BackColor = Color.Gray;
             lblMaxWindSpeed.Font = new Font("Arial Narrow", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            lblMaxWindSpeed.Location = new Point(8, 487);
+            lblMaxWindSpeed.Location = new Point(8, 439);
             lblMaxWindSpeed.Margin = new Padding(3, 3, 3, 0);
             lblMaxWindSpeed.Name = "lblMaxWindSpeed";
             lblMaxWindSpeed.Size = new Size(45, 45);
@@ -599,7 +601,7 @@ namespace FloorPlanMaker
             // 
             lblAvgWindSpeed.BackColor = Color.Gray;
             lblAvgWindSpeed.Font = new Font("Arial Narrow", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            lblAvgWindSpeed.Location = new Point(8, 535);
+            lblAvgWindSpeed.Location = new Point(8, 487);
             lblAvgWindSpeed.Margin = new Padding(3, 3, 3, 0);
             lblAvgWindSpeed.Name = "lblAvgWindSpeed";
             lblAvgWindSpeed.Size = new Size(45, 45);
@@ -990,6 +992,18 @@ namespace FloorPlanMaker
             btnReportBug.UseVisualStyleBackColor = false;
             btnReportBug.Click += btnReportBug_Click;
             // 
+            // lblPrecipitationChance
+            // 
+            lblPrecipitationChance.BackColor = Color.Gray;
+            lblPrecipitationChance.Font = new Font("Arial Narrow", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lblPrecipitationChance.Location = new Point(8, 583);
+            lblPrecipitationChance.Margin = new Padding(3, 3, 3, 0);
+            lblPrecipitationChance.Name = "lblPrecipitationChance";
+            lblPrecipitationChance.Size = new Size(45, 45);
+            lblPrecipitationChance.TabIndex = 18;
+            lblPrecipitationChance.Text = "N/A";
+            lblPrecipitationChance.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1089,5 +1103,6 @@ namespace FloorPlanMaker
         private Label lblPrecipAmount;
         private Label lblMaxWindSpeed;
         private Label lblAvgWindSpeed;
+        private Label lblPrecipitationChance;
     }
 }

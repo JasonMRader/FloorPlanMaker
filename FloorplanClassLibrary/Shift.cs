@@ -167,13 +167,29 @@ namespace FloorplanClassLibrary
         {
             if (this.IsAM)
             {
-                this.HourlyWeatherData = TodayHourlyWeather.LunchHourlyWeatherDataList;
+                this.HourlyWeatherData = HourlyWeatherForecast.TodayLunchHourlyWeatherDataList;
             }
             else
             {
-                this.HourlyWeatherData = TodayHourlyWeather.DinnerHourlyWeatherDataList;
+                this.HourlyWeatherData = HourlyWeatherForecast.TodayDinnerHourlyWeatherDataList;
             }
            
+        }
+        public void SetHourlyWeatherDataForTomorrow()
+        {
+            if (this.IsAM)
+            {
+                this.HourlyWeatherData = HourlyWeatherForecast.TomorrowLunchHourlyWeatherDataList;
+            }
+            else
+            {
+                this.HourlyWeatherData = HourlyWeatherForecast.TomorrowDinnerHourlyWeatherDataList;
+            }
+
+        }
+        public void SetHourlyWeatherDataForFutureDate()
+        {
+
         }
         public List<Server> _serversOnShift
         {
