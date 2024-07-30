@@ -1137,49 +1137,38 @@ namespace FloorPlanMakerUI
             btnSaveTemplate.Click -= btnSaveFloorplan_Click;
             btnSaveTemplate.Text = "Create A Floorplan Template";
         }
-
-        public async void SetViewedFloorplan(DateOnly dateOnlySelected, bool isAM)
+        public async void UpdateWeatherData()
         {
             DateOnly today = new DateOnly(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
             DateOnly tomorrow = new DateOnly(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day + 1);
+            if (Shift.DateOnly == today)
+            {
+                this.Shift.SetHourlyWeatherDataForToday();
+                UpdateWeatherLabelsForHourlyToday();
+            }
+            else if (Shift.DateOnly == tomorrow)
+            {
+                this.Shift.SetHourlyWeatherDataForTomorrow();
+                UpdateWeatherLabelsForHourlyToday();
+            }
+            else
+            {
+                await this.Shift.SetWeatherData();
+                UpdateWeatherLabels();
+            }
+        }
+        public async void SetViewedFloorplan(DateOnly dateOnlySelected, bool isAM)
+        {
+           
             if (this.Shift.DateOnly != dateOnlySelected)
             {
-                this.Shift.DateOnly = dateOnlySelected;
-               
-                if(Shift.DateOnly == today)
-                {
-                    this.Shift.SetHourlyWeatherDataForToday();
-                    UpdateWeatherLabelsForHourlyToday();
-                }
-                else if(Shift.DateOnly == tomorrow)
-                {
-                    this.Shift.SetHourlyWeatherDataForTomorrow();
-                    UpdateWeatherLabelsForHourlyToday();
-                }
-                else
-                {
-                    await this.Shift.SetWeatherData();
-                    UpdateWeatherLabels();
-                }
-               
-                
+                this.Shift.DateOnly = dateOnlySelected;               
             }
             if(this.Shift.IsAM != isAM)
             {
-                this.Shift.IsAM = isAM;
-                if (Shift.DateOnly == today)
-                {
-                    this.Shift.SetHourlyWeatherDataForToday();
-                    UpdateWeatherLabelsForHourlyToday();
-                }
-                else if (Shift.DateOnly == tomorrow)
-                {
-                    this.Shift.SetHourlyWeatherDataForTomorrow();
-                    UpdateWeatherLabelsForHourlyToday();
-                }
-
+                this.Shift.IsAM = isAM;   
             }
-            
+            UpdateWeatherData();
             this.Shift.RemoveFloorplansFromDifferentShift();
 
             if (Shift.ContainsFloorplan(dateOnlySelected, isAM, Shift.SelectedDiningArea.ID))
@@ -1237,7 +1226,24 @@ namespace FloorPlanMakerUI
         }
         private void UpdateWeatherLabelsForHourlyToday()
         {
-            if(Shift.HourlyWeatherData.Count == 0) { return; }
+            if(Shift.HourlyWeatherData.Count == 0) {
+                this.feelsLikeHiLabel.Visible = false;
+                this.feelsLikeLowLabel.Visible = false;
+                this.precipitationAmountLabel.Visible = false;
+                this.maxWindLabel.Visible = false;
+                this.avgWindLabel.Visible = false;
+                this.precipitationChanceLabel.Visible = false;
+                this.precipitationChanceLabel.Visible = false;
+                return; 
+            }
+            this.feelsLikeHiLabel.Visible = true;
+            this.feelsLikeLowLabel.Visible = true;
+            this.precipitationAmountLabel.Visible = true;
+            this.maxWindLabel.Visible = true;
+            this.avgWindLabel.Visible = true;
+            this.precipitationChanceLabel.Visible = true;
+            this.precipitationChanceLabel.Visible = true;
+
             int feelsLikeHi = Shift.HourlyWeatherData.Max(w => w.FeelsLikeHi);
             int feelsLikeLow = Shift.HourlyWeatherData.Min(w => w.FeelsLikeLow);
             int maxWindGust = Shift.HourlyWeatherData.Max(w => w.WindSpeedMax);
@@ -1246,28 +1252,48 @@ namespace FloorPlanMakerUI
             int maxPrecipChance = Shift.HourlyWeatherData.Max(w => w.PrecipitationChanceFormatted);
             int middleWindSpeedAvg = (maxWindAvg + minWindAvg) / 2;
             float totalPrecipitation = 0f;
+
             foreach(HourlyWeatherData data in Shift.HourlyWeatherData)
             {
                 totalPrecipitation += data.PrecipitationAmount;
             }
-            this.feelsLikeHiLabel.Text = feelsLikeHi.ToString() + "°";
-            this.feelsLikeLowLabel.Text = feelsLikeLow.ToString() + "°";
-            this.precipitationAmountLabel.Text = totalPrecipitation.ToString("f2") + "\"";
-            this.maxWindLabel.Text = maxWindGust.ToString();
-            this.avgWindLabel.Text = middleWindSpeedAvg.ToString();
-            this.precipitationChanceLabel.Text = totalPrecipitation.ToString() + "%";
-            this.precipitationChanceLabel.Visible = true;
+            UITheme.FormatTempLabelColor(feelsLikeHiLabel, feelsLikeHi);
+            UITheme.FormatTempLabelColor(feelsLikeLowLabel, feelsLikeLow);
+            UITheme.FormateWindLabel(avgWindLabel, middleWindSpeedAvg);
+            UITheme.FormateWindLabel(maxWindLabel, maxWindGust);
+            UITheme.FormatePrecipAmountLabel(precipitationAmountLabel, totalPrecipitation);
+            UITheme.FormatePrecipChanceLabel(precipitationChanceLabel, maxPrecipChance);
+            //this.feelsLikeHiLabel.Text = feelsLikeHi.ToString() + "°";
+
+            //this.feelsLikeLowLabel.Text = feelsLikeLow.ToString() + "°";
+            //this.precipitationAmountLabel.Text = totalPrecipitation.ToString("f2") + "\"";
+            //this.maxWindLabel.Text = maxWindGust.ToString();
+            //this.avgWindLabel.Text = middleWindSpeedAvg.ToString();
+            //this.precipitationChanceLabel.Text = maxPrecipChance.ToString() + "%";
+            //this.feelsLikeHiLabel.BackColor = UITheme.GetTempColor(feelsLikeHi);
+            //this.feelsLikeLowLabel.BackColor = UITheme.GetTempColor(feelsLikeLow);
+            //this.precipitationAmountLabel.BackColor = UITheme.GetPrecipAmountColor(totalPrecipitation);
+            //this.maxWindLabel.BackColor = UITheme.GetWindColor(maxWindGust);
+            //this.avgWindLabel.BackColor = UITheme.GetWindColor(middleWindSpeedAvg);
+            //this.precipitationChanceLabel.BackColor = UITheme.GetPrecipChanceColor(maxPrecipChance);
+
         }
         private void UpdateWeatherLabels()
         {
             if(this.Shift.WeatherData != null)
             {
-                this.feelsLikeHiLabel.Text = this.Shift.WeatherData.FeelsLikeHiFormatted;
-                this.feelsLikeLowLabel.Text = this.Shift.WeatherData?.FeelsLikeLowFormatted;
-                this.precipitationAmountLabel.Text = this.Shift.WeatherData?.precipitationAmountFormatted;
-                this.maxWindLabel.Text = this.Shift.WeatherData?.windMaxFormatted;
-                this.avgWindLabel.Text = this.Shift.WeatherData?.windAvgFormatted;
-                this.precipitationChanceLabel.Visible = false;
+                UITheme.FormatTempLabelColor(feelsLikeHiLabel, this.Shift.WeatherData.FeelsLikeHi);
+                UITheme.FormatTempLabelColor(feelsLikeLowLabel, this.Shift.WeatherData.FeelsLikeLow);
+                UITheme.FormateWindLabel(avgWindLabel, this.Shift.WeatherData.WindSpeedAvg);
+                UITheme.FormateWindLabel(maxWindLabel, this.Shift.WeatherData.WindSpeedMax);
+                UITheme.FormatePrecipAmountLabel(precipitationAmountLabel, this.Shift.WeatherData.Precipitation);
+                //UITheme.FormatePrecipChanceLabel(precipitationChanceLabel, maxPrecipChance);
+                //this.feelsLikeHiLabel.Text = this.Shift.WeatherData.FeelsLikeHiFormatted;
+                //this.feelsLikeLowLabel.Text = this.Shift.WeatherData?.FeelsLikeLowFormatted;
+                //this.precipitationAmountLabel.Text = this.Shift.WeatherData?.precipitationAmountFormatted;
+                //this.maxWindLabel.Text = this.Shift.WeatherData?.windMaxFormatted;
+                //this.avgWindLabel.Text = this.Shift.WeatherData?.windAvgFormatted;
+                //this.precipitationChanceLabel.Visible = false;
             }
             
         }

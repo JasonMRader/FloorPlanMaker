@@ -1,4 +1,5 @@
 ﻿using FloorplanClassLibrary;
+using FloorPlanMakerUI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,41 +21,22 @@ namespace FloorplanUserControlLibrary
             InitializeComponent();
             this.HourlyWeatherData = hourlyWeatherData;
             SetLabelsForWeatherData();
-            SetLabelColors();
+            
 
         }
         private void SetLabelsForWeatherData()
         {
-            this.lblTime.Text = this.HourlyWeatherData.Date.ToString("t");
-            this.lblFeelsLikeHi.Text = this.HourlyWeatherData.FeelsLikeHi.ToString() + "°";
-            this.lblFeelsLikeLow.Text = this.HourlyWeatherData.FeelsLikeLow.ToString() + "°";
-            this.lblChanceOfRain.Text = this.HourlyWeatherData.PrecipitationChance.ToString() + "%";
-            this.lblRainAmount.Text = this.HourlyWeatherData.PrecipitationAmount.ToString() + "\"";
-            this.lblWindAvg.Text = this.HourlyWeatherData.WindSpeedAvg.ToString() + "MPH";
-            this.lblWindMax.Text = this.HourlyWeatherData.WindSpeedMax.ToString() + "MPH";
+            
+           
+            UITheme.FormatTempLabelColor(this.lblFeelsLikeHi, this.HourlyWeatherData.FeelsLikeHi);
+            UITheme.FormatTempLabelColor(this.lblFeelsLikeLow, this.HourlyWeatherData.FeelsLikeLow);
+            UITheme.FormateWindLabel(this.lblWindAvg, this.HourlyWeatherData.WindSpeedAvg);
+            UITheme.FormateWindLabel(this.lblWindMax, this.HourlyWeatherData.WindSpeedMax);
+            UITheme.FormatePrecipAmountLabel(this.lblRainAmount, this.HourlyWeatherData.PrecipitationAmount);
+            UITheme.FormatePrecipChanceLabel(this.lblChanceOfRain, this.HourlyWeatherData.PrecipitationChanceFormatted);
+            this.lblWindAvg.Text += "MPH";
+            this.lblWindMax.Text += "MPH";
         }
-        private void SetLabelColors()
-        {
-            if (this.HourlyWeatherData.FeelsLikeHi > 90)
-            {
-                this.lblFeelsLikeHi.BackColor = Color.Red;
-            }
-            if (this.HourlyWeatherData.FeelsLikeLow < 75)
-            {
-                this.lblFeelsLikeLow.BackColor = Color.Blue;
-            }
-            if (this.HourlyWeatherData.PrecipitationChance > 0 && this.HourlyWeatherData.PrecipitationChance < 50)
-            {
-                this.lblChanceOfRain.BackColor = Color.Pink;
-            }
-            if (this.HourlyWeatherData.PrecipitationChance >= 50 && this.HourlyWeatherData.PrecipitationChance < 75)
-            {
-                this.lblChanceOfRain.BackColor = Color.Red;
-            }
-            if (this.HourlyWeatherData.PrecipitationChance >= 75)
-            {
-                this.lblChanceOfRain.BackColor = Color.DarkRed;
-            }
-        }
+       
     }
 }

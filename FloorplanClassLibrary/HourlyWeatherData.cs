@@ -23,11 +23,16 @@ namespace FloorplanClassLibrary
         {
             get
             {
-                return (int)PrecipitationChance;
+                return (int)(PrecipitationChance);
             }
         }
         public string PrecipitationType { get; set; } = "";
         public int WindSpeedMax { get; set; }
         public int WindSpeedAvg { get; set; }
+        public override string ToString()
+        {
+            return $"{Date}: FeelsHI {FeelsLikeHi}, FeelsLow {FeelsLikeLow}, " +
+                $"Precip Chance {PrecipitationChance}, Precip Formatted {PrecipitationChanceFormatted}, Precip Amount {PrecipitationAmount} ";
+        }
     }
 }

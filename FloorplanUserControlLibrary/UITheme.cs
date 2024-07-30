@@ -51,6 +51,130 @@ namespace FloorPlanMakerUI
         public static Color HighlightColor2 = Color.FromArgb(237, 174, 73);
 
         public static Color WarningColor = Color.FromArgb(169, 135, 67);
+        public static void FormatTempLabelColor(Label label, int temp)
+        {
+            if (temp >= 90)
+            {
+                label.BackColor = Color.FromArgb(245, 59, 59);
+                label.ForeColor = Color.Black;
+            }
+            else if (temp >= 80)
+            {
+                label.BackColor = Color.FromArgb(255, 213, 18);
+                label.ForeColor = Color.Black;
+            }
+            else if (temp >= 70)
+            {
+                label.BackColor = Color.FromArgb(239, 242, 177);
+                label.ForeColor = Color.Black;
+            }
+            else if (temp >= 60)
+            {
+                label.BackColor = Color.FromArgb(161, 237, 222);
+                label.ForeColor = Color.Black;
+            }
+            else if (temp >= 50)
+            {
+                label.BackColor = Color.FromArgb(75, 220, 227);
+                label.ForeColor = Color.Black;
+            }
+            else
+            {
+                label.BackColor = Color.FromArgb(77, 147, 221);
+                label.ForeColor = Color.Black;
+            }
+            label.Text = temp.ToString() + "°";
+             
+            
+        }
+       
+        public static void FormateWindLabel(Label label, int wind)
+        {
+            if (wind >= 30)
+            {
+                label.BackColor = Color.FromArgb(229, 31, 31);
+                label.ForeColor = Color.Black;
+            }
+            else if (wind >= 25)
+            {
+                label.BackColor = Color.FromArgb(242, 161, 52);
+                label.ForeColor = Color.Black;
+            }
+            else if (wind >= 15)
+            {
+                label.BackColor = Color.FromArgb(247, 227, 121);
+                label.ForeColor = Color.Black;
+            }
+            else if (wind >= 10)
+            {
+                label.BackColor = Color.FromArgb(187, 219, 68);
+                label.ForeColor = Color.Black;
+            }           
+            else
+            {
+                label.BackColor = Color.FromArgb(68, 206, 27);
+                label.ForeColor = Color.Black;
+            }
+            label.Text = wind.ToString();
+        }
+        public static void FormatePrecipChanceLabel(Label label, int precipChance)
+        {
+            if (precipChance >= 95)
+            {
+                label.BackColor = Color.FromArgb(229, 31, 31);
+                label.ForeColor = Color.Black;
+            }
+            else if (precipChance >= 75)
+            {
+                label.BackColor = Color.FromArgb(242, 161, 52);
+                label.ForeColor = Color.Black;
+            }
+            else if (precipChance >= 55)
+            {
+                label.BackColor = Color.FromArgb(247, 227, 121);
+                label.ForeColor = Color.Black;
+            }
+            else if (precipChance >= 30)
+            {
+                label.BackColor = Color.FromArgb(187, 219, 68);
+                label.ForeColor = Color.Black;
+            }
+            else
+            {
+                label.BackColor = Color.FromArgb(68, 206, 27);
+                label.ForeColor = Color.Black;
+            }
+            label.Text = precipChance.ToString() + "%";
+        }
+        public static void FormatePrecipAmountLabel(Label label, float precipAmount)
+        {
+            if (precipAmount >= 1f)
+            {
+                label.BackColor = Color.FromArgb(229, 31, 31);
+                label.ForeColor = Color.Black;
+            }
+            else if (precipAmount >= .5f)
+            {
+                label.BackColor = Color.FromArgb(242, 161, 52);
+                label.ForeColor = Color.Black;
+            }
+            else if (precipAmount >= .2f)
+            {
+                label.BackColor = Color.FromArgb(247, 227, 121);
+                label.ForeColor = Color.Black;
+            }
+            else if (precipAmount > 0f)
+            {
+                label.BackColor = Color.FromArgb(187, 219, 68);
+                label.ForeColor = Color.Black;
+            }
+            else
+            {
+                label.BackColor = Color.FromArgb(68, 206, 27);
+                label.ForeColor = Color.Black;
+            }
+            label.Text = precipAmount.ToString("f2") + "\"";
+        }
 
         public static Image erase = Resources.erase;
         public static Image save = Resources.ExtraSmallSave;
