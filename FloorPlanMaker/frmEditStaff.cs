@@ -111,14 +111,32 @@ namespace FloorPlanMaker
         {
             flowWeatherData.Controls.Clear();
             List<HourlyWeatherData> hourlyWeatherData = new List<HourlyWeatherData>();
-            if (isLunch)
+            DateOnly today = new DateOnly(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            DateOnly tomorrow = new DateOnly(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day + 1);
+            DateOnly date = DateOnly.FromDateTime(dateSelected);
+            if (date == today)
             {
-                hourlyWeatherData = HourlyWeatherForecast.TodayLunchHourlyWeatherDataList;
+                if (isLunch)
+                {
+                    hourlyWeatherData = HourlyWeatherForecast.TodayLunchHourlyWeatherDataList;
+                }
+                else
+                {
+                    hourlyWeatherData = HourlyWeatherForecast.TodayDinnerHourlyWeatherDataList;
+                }
             }
-            else
+            else if (date == tomorrow)
             {
-                hourlyWeatherData = HourlyWeatherForecast.TodayDinnerHourlyWeatherDataList;
+                if (isLunch)
+                {
+                    hourlyWeatherData = HourlyWeatherForecast.TomorrowLunchHourlyWeatherDataList;
+                }
+                else
+                {
+                    hourlyWeatherData = HourlyWeatherForecast.TomorrowDinnerHourlyWeatherDataList;
+                }
             }
+            
             
             List<HourlyWeatherDisplay> hourlyWeatherDisplays = new List<HourlyWeatherDisplay>();
             foreach (HourlyWeatherData hourlyWeather in hourlyWeatherData)

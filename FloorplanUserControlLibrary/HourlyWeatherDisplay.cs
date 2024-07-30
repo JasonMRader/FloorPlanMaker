@@ -27,7 +27,7 @@ namespace FloorplanUserControlLibrary
         private void SetLabelsForWeatherData()
         {
             
-           
+            this.lblTime.Text = this.HourlyWeatherData.Date.ToString("t");
             UITheme.FormatTempLabelColor(this.lblFeelsLikeHi, this.HourlyWeatherData.FeelsLikeHi);
             UITheme.FormatTempLabelColor(this.lblFeelsLikeLow, this.HourlyWeatherData.FeelsLikeLow);
             UITheme.FormateWindLabel(this.lblWindAvg, this.HourlyWeatherData.WindSpeedAvg);
