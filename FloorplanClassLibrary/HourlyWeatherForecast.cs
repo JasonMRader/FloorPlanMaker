@@ -46,7 +46,7 @@ namespace FloorplanClassLibrary
             {
                 List<HourlyWeatherData> blankList = new List<HourlyWeatherData>();
                 List<HourlyWeatherData> dataList = hourlyWeatherDataList
-                    .Where(w => w.Date.Hour >= 16 && w.Date.Hour <= 23
+                    .Where(w => w.Date.Hour >= 16 && w.Date.Hour <= 22
                     && w.Date.Date == DateTime.Today)
                     .ToList();
                 if (dataList.Count > 0)
@@ -80,7 +80,7 @@ namespace FloorplanClassLibrary
             get
             {
                 return hourlyWeatherDataList
-                    .Where(w => w.Date.Hour >= 16 && w.Date.Hour <= 23
+                    .Where(w => w.Date.Hour >= 16 && w.Date.Hour <= 22
                     && w.Date.Date == DateTime.Today.AddDays(1))
                     .ToList();
             }

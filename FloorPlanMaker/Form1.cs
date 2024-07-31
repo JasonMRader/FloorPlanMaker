@@ -52,6 +52,7 @@ namespace FloorPlanMaker
         private Point? _startPoint = null;
         private List<FloorplanLine> _lines = new List<FloorplanLine>();
         public TutorialImages.TutorialType tutorialType = TutorialImages.TutorialType.Form1;
+        private ShiftDetailOverviewManager shiftDetailManager { get; set; }
         //private bool isViewingTemplates;
 
         private DateOnly dateOnlySelected
@@ -80,6 +81,7 @@ namespace FloorPlanMaker
                 Application.DoEvents();
                 SetColors();
                 dateTimeSelected = DateTime.Now;
+                this.shiftDetailManager = new ShiftDetailOverviewManager(flowSidePanelDisplay, true, dateOnlySelected);
                 cboDiningAreas.DataSource = areaCreationManager.DiningAreas;
                 cboDiningAreas.DisplayMember = "Name";
                 cboDiningAreas.ValueMember = "ID";
@@ -94,8 +96,8 @@ namespace FloorPlanMaker
                 rdoLastFourWeekdayStats.Text = "Last Four " + dateOnlySelected.DayOfWeek.ToString() + "s";
                 this.tutorialType = TutorialImages.TutorialType.EditDistribution;
                 pnlNavHighlight.Location = new Point(rdoShifts.Left, 0);
-
                 _frmEditStaff = splashScreen.LoadEditStaffForm(employeeManager, shift, this);
+                
 
 
             }
@@ -544,7 +546,7 @@ namespace FloorPlanMaker
             {
                 NoServersToDisplay();
                 pnlFloorPlan.BackgroundImage = null;
-                // foreach()
+
 
             }
             else if (AllTablesAreAssigned())
@@ -556,10 +558,12 @@ namespace FloorPlanMaker
                 pnlFloorPlan.BackgroundImage = null;
             }
             rdoLastFourWeekdayStats.Text = "Last Four " + dateOnlySelected.DayOfWeek.ToString() + "s";
-
             updateSalesForTables();
-            //float areaSales = floorplanManager.Floorplan.DiningArea.GetAverageSales();
-
+            UpdateSidePanelDisplay();
+        }
+        public void UpdateSidePanelDisplay()
+        {
+            this.shiftDetailManager.UpdateForNewDate(dateOnlySelected, IsLunch);
         }
         public void UpdateWithTemplate()
         {
@@ -570,9 +574,6 @@ namespace FloorPlanMaker
             {
                 _lines = floorplanManager.Floorplan.floorplanLines;
             }
-
-
-            //CreateSectionBorders();
         }
         private void Form1_MouseDown(object sender, MouseEventArgs e)
         {

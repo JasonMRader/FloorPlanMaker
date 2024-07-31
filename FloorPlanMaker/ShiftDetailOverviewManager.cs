@@ -34,5 +34,11 @@ namespace FloorPlanMakerUI
                 flowLayoutPanel.Controls.Add(weatherDisplay);
             }
         }
+        public void UpdateForNewDate(DateOnly dateOnly, bool isLunch)
+        {
+            this.dateOnly = dateOnly;
+            this.isLunch = isLunch;
+            InitializeControlsForDateAndShift();
+        }
     }
 }

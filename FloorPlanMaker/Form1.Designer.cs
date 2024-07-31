@@ -98,7 +98,7 @@ namespace FloorPlanMaker
             btnReportBug = new Button();
             helpProvider1 = new HelpProvider();
             panel2 = new Panel();
-            flowLayoutPanel1 = new FlowLayoutPanel();
+            flowSidePanelDisplay = new FlowLayoutPanel();
             flowSectionSelect.SuspendLayout();
             panel1.SuspendLayout();
             pnlFloorplanContainer.SuspendLayout();
@@ -1008,19 +1008,19 @@ namespace FloorPlanMaker
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(225, 225, 225);
-            panel2.Controls.Add(flowLayoutPanel1);
+            panel2.Controls.Add(flowSidePanelDisplay);
             panel2.Location = new Point(1270, 43);
             panel2.Name = "panel2";
             panel2.Size = new Size(228, 997);
             panel2.TabIndex = 23;
             // 
-            // flowLayoutPanel1
+            // flowSidePanelDisplay
             // 
-            flowLayoutPanel1.BackColor = Color.FromArgb(180, 190, 200);
-            flowLayoutPanel1.Location = new Point(10, 17);
-            flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(208, 950);
-            flowLayoutPanel1.TabIndex = 0;
+            flowSidePanelDisplay.BackColor = Color.FromArgb(180, 190, 200);
+            flowSidePanelDisplay.Location = new Point(10, 17);
+            flowSidePanelDisplay.Name = "flowSidePanelDisplay";
+            flowSidePanelDisplay.Size = new Size(208, 950);
+            flowSidePanelDisplay.TabIndex = 0;
             // 
             // Form1
             // 
@@ -1126,6 +1126,6 @@ namespace FloorPlanMaker
         private Label lblAvgWindSpeed;
         private Label lblPrecipitationChance;
         private Panel panel2;
-        private FlowLayoutPanel flowLayoutPanel1;
+        private FlowLayoutPanel flowSidePanelDisplay;
     }
 }
