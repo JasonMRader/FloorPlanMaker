@@ -64,7 +64,6 @@
             Name = "SplashScreen";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "SplashScreen";
-            TopMost = true;
             FormClosing += SplashScreen_FormClosing;
             Load += SplashScreen_Load;
             Shown += SplashScreen_Shown;

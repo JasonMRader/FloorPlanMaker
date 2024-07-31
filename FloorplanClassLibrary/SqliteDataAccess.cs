@@ -2441,6 +2441,48 @@ namespace FloorplanClassLibrary
             }
         }
 
+        public static void SaveHourlyWeatherData(List<HourlyWeatherData> hourlyWeatherDatas)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                string sql = @"
+                INSERT INTO HourlyWeatherData (
+                    Date, Time, TempHi, TempLow, TempAvg, FeelsLikeHi, FeelsLikeLow, FeelsLikeAvg,
+                    CloudCover, PrecipitationAmount, SnowAmount, PrecipitationType,
+                    WindSpeedMax, WindSpeedAvg
+                ) 
+                VALUES (
+                    @Date, @Time, @TempHi, @TempLow, @TempAvg, @FeelsLikeHi, @FeelsLikeLow, @FeelsLikeAvg,
+                    @CloudCover, @PrecipitationAmount, @SnowAmount, @PrecipitationType,
+                    @WindSpeedMax, @WindSpeedAvg
+                )";
+
+                foreach (var hourlyData in hourlyWeatherDatas)
+                {
+                    var parameters = new
+                    {
+                        Date = hourlyData.Date.ToString("yyyy-MM-dd"), // Use Date for the date part
+                        Time = hourlyData.Date.ToString("HH:mm"), // Extract time as HH:mm
+                        hourlyData.TempHi,
+                        hourlyData.TempLow,
+                        hourlyData.TempAvg,
+                        hourlyData.FeelsLikeHi,
+                        hourlyData.FeelsLikeLow,
+                        hourlyData.FeelsLikeAvg,
+                        hourlyData.CloudCover,
+                        PrecipitationAmount = hourlyData.PrecipitationAmount, // Assuming this should map to a single column
+                        SnowAmount = hourlyData.SnowAmount_CM, // Assuming SnowAmount_CM corresponds to the SnowAmount field
+                        hourlyData.PrecipitationType,
+                        hourlyData.WindSpeedMax,
+                        hourlyData.WindSpeedAvg
+                    };
+
+                    cnn.Execute(sql, parameters);
+                }
+            }
+        }
+
+
 
 
 

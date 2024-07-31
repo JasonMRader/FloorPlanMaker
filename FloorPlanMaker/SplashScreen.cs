@@ -36,8 +36,8 @@ namespace FloorPlanMakerUI
         private async void BackgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
             // Perform the background tasks asynchronously
-           
-            await Task.Run(async() =>
+
+            await Task.Run(async () =>
             {
                 SqliteDataAccess.CheckAndSetDatabaseLocation();
                 SqliteDataAccess.BackupDatabase();

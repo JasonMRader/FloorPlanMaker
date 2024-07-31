@@ -19,6 +19,7 @@ namespace FloorplanClassLibrary
         public float CloudCover { get; set; }
         public float PrecipitationAmount { get; set; }
         public float PrecipitationChance { get; set; }
+        public float SnowAmount_CM { get; set; }
         public int PrecipitationChanceFormatted
         {
             get

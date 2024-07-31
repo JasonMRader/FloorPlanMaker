@@ -1140,7 +1140,7 @@ namespace FloorPlanMakerUI
         public async void UpdateWeatherData()
         {
             DateOnly today = new DateOnly(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-            DateOnly tomorrow = new DateOnly(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day + 1);
+            DateOnly tomorrow = new DateOnly(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(1).Day);
             if (Shift.DateOnly == today)
             {
                 this.Shift.SetHourlyWeatherDataForToday();

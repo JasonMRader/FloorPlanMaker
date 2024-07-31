@@ -175,18 +175,18 @@ namespace FloorplanClassLibrary
                                 var hourlyData = new HourlyWeatherData
                                 {
                                     Date = time,
-                                    TempHi = (int)Math.Round((double)hourData.temp_f), // Temperature in Fahrenheit
-                                    TempLow = (int)Math.Round((double)hourData.windchill_f), // Windchill in Fahrenheit
-                                    TempAvg = (int)Math.Round((double)hourData.feelslike_f), // Feels like temperature in Fahrenheit
-                                    FeelsLikeHi = (int)Math.Round((double)hourData.heatindex_f), // Heat index in Fahrenheit
-                                    FeelsLikeLow = (int)Math.Round((double)hourData.windchill_f), // Windchill in Fahrenheit
-                                    FeelsLikeAvg = (int)Math.Round((double)hourData.feelslike_f), // Feels like temperature in Fahrenheit
-                                    CloudCover = (float)hourData.cloud, // Cloud cover as a percentage
-                                    PrecipitationAmount = (float)hourData.precip_in, // Precipitation amount in inches
-                                    PrecipitationChance = (float)hourData.chance_of_rain, // Chance of rain as a percentage
-                                    PrecipitationType = hourData.condition.text, // Weather condition description
-                                    WindSpeedMax = (int)Math.Round((double)hourData.gust_mph), // Wind gust in MPH
-                                    WindSpeedAvg = (int)Math.Round((double)hourData.wind_mph) // Average wind speed in MPH
+                                    TempHi = (int)Math.Round((double)hourData.temp_f), 
+                                    TempLow = (int)Math.Round((double)hourData.windchill_f),
+                                    TempAvg = (int)Math.Round((double)hourData.feelslike_f), 
+                                    FeelsLikeHi = (int)Math.Round((double)hourData.heatindex_f), 
+                                    FeelsLikeLow = (int)Math.Round((double)hourData.windchill_f),                                     FeelsLikeAvg = (int)Math.Round((double)hourData.feelslike_f),
+                                    CloudCover = (float)hourData.cloud, 
+                                    PrecipitationAmount = (float)hourData.precip_in, 
+                                    PrecipitationChance = (float)hourData.chance_of_rain,
+                                    PrecipitationType = hourData.condition.text,
+                                    WindSpeedMax = (int)Math.Round((double)hourData.gust_mph), 
+                                    WindSpeedAvg = (int)Math.Round((double)hourData.wind_mph),
+                                    SnowAmount_CM = (float)hourData.snow_cm
                                 };
 
                                 hourlyWeatherDataList.Add(hourlyData);
