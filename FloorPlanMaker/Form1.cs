@@ -97,7 +97,7 @@ namespace FloorPlanMaker
                 this.tutorialType = TutorialImages.TutorialType.EditDistribution;
                 pnlNavHighlight.Location = new Point(rdoShifts.Left, 0);
                 _frmEditStaff = splashScreen.LoadEditStaffForm(employeeManager, shift, this);
-                
+
 
 
             }

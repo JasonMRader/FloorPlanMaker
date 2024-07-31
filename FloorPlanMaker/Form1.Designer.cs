@@ -98,6 +98,7 @@ namespace FloorPlanMaker
             btnReportBug = new Button();
             helpProvider1 = new HelpProvider();
             panel2 = new Panel();
+            panel3 = new Panel();
             flowSidePanelDisplay = new FlowLayoutPanel();
             flowSectionSelect.SuspendLayout();
             panel1.SuspendLayout();
@@ -109,6 +110,7 @@ namespace FloorPlanMaker
             pnlSectionsAndServers.SuspendLayout();
             pnlStatMode.SuspendLayout();
             panel2.SuspendLayout();
+            panel3.SuspendLayout();
             SuspendLayout();
             // 
             // flowServersInFloorplan
@@ -1008,18 +1010,27 @@ namespace FloorPlanMaker
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(225, 225, 225);
-            panel2.Controls.Add(flowSidePanelDisplay);
+            panel2.Controls.Add(panel3);
             panel2.Location = new Point(1270, 43);
             panel2.Name = "panel2";
             panel2.Size = new Size(228, 997);
             panel2.TabIndex = 23;
             // 
+            // panel3
+            // 
+            panel3.BackColor = Color.FromArgb(180, 190, 200);
+            panel3.Controls.Add(flowSidePanelDisplay);
+            panel3.Location = new Point(11, 17);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(208, 950);
+            panel3.TabIndex = 1;
+            // 
             // flowSidePanelDisplay
             // 
-            flowSidePanelDisplay.BackColor = Color.FromArgb(180, 190, 200);
-            flowSidePanelDisplay.Location = new Point(10, 17);
+            flowSidePanelDisplay.BackColor = Color.WhiteSmoke;
+            flowSidePanelDisplay.Location = new Point(5, 190);
             flowSidePanelDisplay.Name = "flowSidePanelDisplay";
-            flowSidePanelDisplay.Size = new Size(208, 950);
+            flowSidePanelDisplay.Size = new Size(200, 748);
             flowSidePanelDisplay.TabIndex = 0;
             // 
             // Form1
@@ -1056,6 +1067,7 @@ namespace FloorPlanMaker
             pnlStatMode.ResumeLayout(false);
             pnlStatMode.PerformLayout();
             panel2.ResumeLayout(false);
+            panel3.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -1127,5 +1139,6 @@ namespace FloorPlanMaker
         private Label lblPrecipitationChance;
         private Panel panel2;
         private FlowLayoutPanel flowSidePanelDisplay;
+        private Panel panel3;
     }
 }
