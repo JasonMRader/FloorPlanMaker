@@ -109,7 +109,7 @@ namespace FloorPlanMakerUI
         private async void button1_Click(object sender, EventArgs e)
         {
             List<HourlyWeatherData> hourlyWeatherDatas = await GetMissingDates();
-            SqliteDataAccess.SaveHourlyWeatherData(hourlyWeatherDatas);
+            SqliteDataAccess.SaveOrUpdateHourlyWeatherData(hourlyWeatherDatas);
         }
     }
 }

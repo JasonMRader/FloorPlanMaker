@@ -2441,12 +2441,13 @@ namespace FloorplanClassLibrary
             }
         }
 
-        public static void SaveHourlyWeatherData(List<HourlyWeatherData> hourlyWeatherDatas)
+       
+        public static void SaveOrUpdateHourlyWeatherData(List<HourlyWeatherData> hourlyWeatherDatas)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 string sql = @"
-                INSERT INTO HourlyWeatherData (
+                INSERT OR REPLACE INTO HourlyWeatherData (
                     Date, Time, TempHi, TempLow, TempAvg, FeelsLikeHi, FeelsLikeLow, FeelsLikeAvg,
                     CloudCover, PrecipitationAmount, SnowAmount, PrecipitationType,
                     WindSpeedMax, WindSpeedAvg
@@ -2470,8 +2471,8 @@ namespace FloorplanClassLibrary
                         hourlyData.FeelsLikeLow,
                         hourlyData.FeelsLikeAvg,
                         hourlyData.CloudCover,
-                        PrecipitationAmount = hourlyData.PrecipitationAmount, // Assuming this should map to a single column
-                        SnowAmount = hourlyData.SnowAmount_CM, // Assuming SnowAmount_CM corresponds to the SnowAmount field
+                        hourlyData.PrecipitationAmount, // Maps to the PrecipitationAmount column
+                        hourlyData.SnowAmount_CM, // Maps to the SnowAmount column
                         hourlyData.PrecipitationType,
                         hourlyData.WindSpeedMax,
                         hourlyData.WindSpeedAvg
@@ -2482,13 +2483,31 @@ namespace FloorplanClassLibrary
             }
         }
 
-
-
-
-
-
-
-
+        public static List<HourlyWeatherData> LoadHourlyWeatherData(DateOnly dateOnly, bool isLunch)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {                
+                string timeStart = isLunch ? "11:00" : "16:00"; 
+                string timeEnd = isLunch ? "15:59" : "23:59"; 
+                
+                string date = dateOnly.ToString("yyyy-MM-dd");
+                
+                string sql = @"
+                    SELECT * FROM HourlyWeatherData
+                    WHERE Date = @Date AND Time BETWEEN @TimeStart AND @TimeEnd
+                    ORDER BY Time";
+               
+                var parameters = new
+                {
+                    Date = date,
+                    TimeStart = timeStart,
+                    TimeEnd = timeEnd
+                };
+               
+                var result = cnn.Query<HourlyWeatherData>(sql, parameters).ToList();
+                return result;
+            }
+        }
 
 
         //public static void SaveTopBottomNeighbor(string key, string value)

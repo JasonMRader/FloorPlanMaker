@@ -13,6 +13,7 @@ namespace FloorplanClassLibrary
         {
             get { return hourlyWeatherDataList; }
         }
+        
         public static List<HourlyWeatherData> TodayLunchHourlyWeatherDataList
         {
             //get

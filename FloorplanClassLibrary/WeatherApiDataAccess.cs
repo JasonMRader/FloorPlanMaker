@@ -215,6 +215,75 @@ namespace FloorplanClassLibrary
 
             return new List<HourlyWeatherData>(); 
         }
+        public static async Task<List<HourlyWeatherData>> GetHourlyWeatherHistory(DateOnly dateOnly)
+        {
+            try
+            {
+                string apiKey = GetHourlyApiKey();
+               
+                string dateString = dateOnly.ToString("yyyy-MM-dd");
+                
+                using (var client = new HttpClient())
+                {
+                    List<HourlyWeatherData> hourlyWeatherDataList = new List<HourlyWeatherData>();
+                   
+                        var request = new HttpRequestMessage(HttpMethod.Get,
+                       $"http://api.weatherapi.com/v1/history.json?key={apiKey}&q=46254&dt={dateString}");
+
+                        var response = await client.SendAsync(request);
+                        response.EnsureSuccessStatusCode();
+
+                        var body = await response.Content.ReadAsStringAsync();
+
+
+                        dynamic weather = JsonConvert.DeserializeObject(body);
+                        if (weather == null)
+                        {
+                            return hourlyWeatherDataList;
+                        }
+
+                        foreach (var hourData in weather.forecast.forecastday[0].hour)
+                        {
+                            DateTime time = hourData.time;
+                            int hour = time.Hour;
+                            if (hour >= 11 && hour <= 23)
+                            {
+                                var hourlyData = new HourlyWeatherData
+                                {
+                                    Date = time,
+                                    TempHi = (int)Math.Round((double)hourData.temp_f),
+                                    TempLow = (int)Math.Round((double)hourData.windchill_f),
+                                    TempAvg = (int)Math.Round((double)hourData.feelslike_f),
+                                    FeelsLikeHi = (int)Math.Round((double)hourData.heatindex_f),
+                                    FeelsLikeLow = (int)Math.Round((double)hourData.windchill_f),
+                                    FeelsLikeAvg = (int)Math.Round((double)hourData.feelslike_f),
+                                    CloudCover = (float)hourData.cloud,
+                                    PrecipitationAmount = (float)hourData.precip_in,
+                                    PrecipitationChance = (float)hourData.chance_of_rain,
+                                    PrecipitationType = hourData.condition.text,
+                                    WindSpeedMax = (int)Math.Round((double)hourData.gust_mph),
+                                    WindSpeedAvg = (int)Math.Round((double)hourData.wind_mph),
+                                    SnowAmount_CM = (float)hourData.snow_cm
+                                };
+
+                                hourlyWeatherDataList.Add(hourlyData);
+                            }
+                        }
+
+                    return hourlyWeatherDataList;
+                }
+            }
+            catch (HttpRequestException ex)
+            {               
+                Console.WriteLine($"Error fetching weather data: {ex.Message}");                
+            }
+            catch (Exception ex)
+            {                
+                Console.WriteLine($"An unexpected error occurred: {ex.Message}");               
+            }
+
+            return new List<HourlyWeatherData>();
+        }
 
         private static string GetDailyApiKey()
         {
