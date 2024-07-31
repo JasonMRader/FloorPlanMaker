@@ -1244,8 +1244,8 @@ namespace FloorPlanMakerUI
             this.precipitationChanceLabel.Visible = true;
             this.precipitationChanceLabel.Visible = true;
 
-            int feelsLikeHi = Shift.HourlyWeatherData.Max(w => w.FeelsLikeHi);
-            int feelsLikeLow = Shift.HourlyWeatherData.Min(w => w.FeelsLikeLow);
+            int feelsLikeHi = Shift.HourlyWeatherData.Max(w => w.FeelsLikeAvg);
+            int feelsLikeLow = Shift.HourlyWeatherData.Min(w => w.FeelsLikeAvg);
             int maxWindGust = Shift.HourlyWeatherData.Max(w => w.WindSpeedMax);
             int maxWindAvg = Shift.HourlyWeatherData.Max(w => w.WindSpeedAvg);
             int minWindAvg = Shift.HourlyWeatherData.Min(w => w.WindSpeedAvg);

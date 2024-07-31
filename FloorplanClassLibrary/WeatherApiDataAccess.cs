@@ -136,7 +136,85 @@ namespace FloorplanClassLibrary
 
             return new List<HourlyWeatherData>(); // Return null or an empty list if an error occurred
         }
+        public static async Task<List<HourlyWeatherData>> GetHourlyWeatherHistory(List<DateOnly> missingDates)
+        {
+            try
+            {
+                string apiKey = GetHourlyApiKey();
+                List<string> missingDateStrings = new List<string>();
+                foreach (DateOnly dateOnly in missingDates)
+                {
+                    missingDateStrings.Add(dateOnly.ToString("yyyy-MM-dd"));
+                }
+                using (var client = new HttpClient())
+                {
+                    List<HourlyWeatherData> hourlyWeatherDataList = new List<HourlyWeatherData>();
+                    for(int i = 0; i < missingDateStrings.Count; i++)
+                    {
+                        var request = new HttpRequestMessage(HttpMethod.Get,
+                       $"http://api.weatherapi.com/v1/history.json?key={apiKey}&q=46254&dt={missingDateStrings[i]}");
 
+                        var response = await client.SendAsync(request);
+                        response.EnsureSuccessStatusCode(); 
+
+                        var body = await response.Content.ReadAsStringAsync();
+
+                       
+                        dynamic weather = JsonConvert.DeserializeObject(body);
+                        if (weather == null)
+                        {                           
+                            continue;
+                        }
+
+                        foreach (var hourData in weather.forecast.forecastday[0].hour)
+                        {
+                            DateTime time = hourData.time;
+                            int hour = time.Hour;
+                            if (hour >= 11 && hour <= 23)
+                            {
+                                var hourlyData = new HourlyWeatherData
+                                {
+                                    Date = time,
+                                    TempHi = (int)Math.Round((double)hourData.temp_f), // Temperature in Fahrenheit
+                                    TempLow = (int)Math.Round((double)hourData.windchill_f), // Windchill in Fahrenheit
+                                    TempAvg = (int)Math.Round((double)hourData.feelslike_f), // Feels like temperature in Fahrenheit
+                                    FeelsLikeHi = (int)Math.Round((double)hourData.heatindex_f), // Heat index in Fahrenheit
+                                    FeelsLikeLow = (int)Math.Round((double)hourData.windchill_f), // Windchill in Fahrenheit
+                                    FeelsLikeAvg = (int)Math.Round((double)hourData.feelslike_f), // Feels like temperature in Fahrenheit
+                                    CloudCover = (float)hourData.cloud, // Cloud cover as a percentage
+                                    PrecipitationAmount = (float)hourData.precip_in, // Precipitation amount in inches
+                                    PrecipitationChance = (float)hourData.chance_of_rain, // Chance of rain as a percentage
+                                    PrecipitationType = hourData.condition.text, // Weather condition description
+                                    WindSpeedMax = (int)Math.Round((double)hourData.gust_mph), // Wind gust in MPH
+                                    WindSpeedAvg = (int)Math.Round((double)hourData.wind_mph) // Average wind speed in MPH
+                                };
+
+                                hourlyWeatherDataList.Add(hourlyData);
+                            }
+                        }
+                        
+                    }
+                   
+
+
+                    return hourlyWeatherDataList;
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                // Handle HTTP request errors (e.g., network issues, invalid response)
+                Console.WriteLine($"Error fetching weather data: {ex.Message}");
+                // Optionally, log the error details or notify the user
+            }
+            catch (Exception ex)
+            {
+                // Handle other potential errors
+                Console.WriteLine($"An unexpected error occurred: {ex.Message}");
+                // Optionally, log the error details or notify the user
+            }
+
+            return new List<HourlyWeatherData>(); 
+        }
 
         private static string GetDailyApiKey()
         {
