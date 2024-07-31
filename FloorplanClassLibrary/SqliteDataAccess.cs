@@ -2503,8 +2503,28 @@ namespace FloorplanClassLibrary
                     TimeStart = timeStart,
                     TimeEnd = timeEnd
                 };
-               
-                var result = cnn.Query<HourlyWeatherData>(sql, parameters).ToList();
+
+                var data = cnn.Query(sql, parameters).ToList();
+
+                var result = data.Select(item => new HourlyWeatherData
+                {
+                    ID = Convert.ToInt32(item.ID), // Explicitly convert from long to int
+                    Date = DateTime.Parse($"{item.Date} {item.Time}"),
+                    TempHi = item.TempHi != null ? Convert.ToInt32(item.TempHi) : 0, // Ensure conversion
+                    TempLow = item.TempLow != null ? Convert.ToInt32(item.TempLow) : 0,
+                    TempAvg = item.TempAvg != null ? Convert.ToInt32(item.TempAvg) : 0,
+                    FeelsLikeHi = item.FeelsLikeHi != null ? Convert.ToInt32(item.FeelsLikeHi) : 0,
+                    FeelsLikeLow = item.FeelsLikeLow != null ? Convert.ToInt32(item.FeelsLikeLow) : 0,
+                    FeelsLikeAvg = item.FeelsLikeAvg != null ? Convert.ToInt32(item.FeelsLikeAvg) : 0,
+                    CloudCover = item.CloudCover != null ? Convert.ToSingle(item.CloudCover) : 0f,
+                    PrecipitationAmount = item.PrecipitationAmount != null ? Convert.ToSingle(item.PrecipitationAmount) : 0f,
+                    PrecipitationChance = item.PrecipitationChance != null ? Convert.ToSingle(item.PrecipitationChance) : 0f,
+                    SnowAmount_CM = item.SnowAmount != null ? Convert.ToSingle(item.SnowAmount) : 0f,
+                    PrecipitationType = item.PrecipitationType != null ? Convert.ToString(item.PrecipitationType) : "",
+                    WindSpeedMax = item.WindSpeedMax != null ? Convert.ToInt32(item.WindSpeedMax) : 0,
+                    WindSpeedAvg = item.WindSpeedAvg != null ? Convert.ToInt32(item.WindSpeedAvg) : 0
+                }).ToList();
+
                 return result;
             }
         }

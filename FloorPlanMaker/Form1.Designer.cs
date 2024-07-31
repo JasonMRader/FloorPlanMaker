@@ -100,6 +100,7 @@ namespace FloorPlanMaker
             panel2 = new Panel();
             panel3 = new Panel();
             flowSidePanelDisplay = new FlowLayoutPanel();
+            pnlShiftDetails = new Panel();
             flowSectionSelect.SuspendLayout();
             panel1.SuspendLayout();
             pnlFloorplanContainer.SuspendLayout();
@@ -1019,6 +1020,7 @@ namespace FloorPlanMaker
             // panel3
             // 
             panel3.BackColor = Color.FromArgb(180, 190, 200);
+            panel3.Controls.Add(pnlShiftDetails);
             panel3.Controls.Add(flowSidePanelDisplay);
             panel3.Location = new Point(11, 17);
             panel3.Name = "panel3";
@@ -1032,6 +1034,13 @@ namespace FloorPlanMaker
             flowSidePanelDisplay.Name = "flowSidePanelDisplay";
             flowSidePanelDisplay.Size = new Size(200, 748);
             flowSidePanelDisplay.TabIndex = 0;
+            // 
+            // pnlShiftDetails
+            // 
+            pnlShiftDetails.Location = new Point(5, 21);
+            pnlShiftDetails.Name = "pnlShiftDetails";
+            pnlShiftDetails.Size = new Size(200, 163);
+            pnlShiftDetails.TabIndex = 1;
             // 
             // Form1
             // 
@@ -1140,5 +1149,6 @@ namespace FloorPlanMaker
         private Panel panel2;
         private FlowLayoutPanel flowSidePanelDisplay;
         private Panel panel3;
+        private Panel pnlShiftDetails;
     }
 }

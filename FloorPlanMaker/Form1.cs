@@ -81,7 +81,7 @@ namespace FloorPlanMaker
                 Application.DoEvents();
                 SetColors();
                 dateTimeSelected = DateTime.Now;
-                this.shiftDetailManager = new ShiftDetailOverviewManager(flowSidePanelDisplay, true, dateOnlySelected);
+                this.shiftDetailManager = new ShiftDetailOverviewManager(flowSidePanelDisplay, pnlShiftDetails, true, dateOnlySelected);
                 cboDiningAreas.DataSource = areaCreationManager.DiningAreas;
                 cboDiningAreas.DisplayMember = "Name";
                 cboDiningAreas.ValueMember = "ID";
@@ -563,7 +563,15 @@ namespace FloorPlanMaker
         }
         public void UpdateSidePanelDisplay()
         {
-            this.shiftDetailManager.UpdateForNewDate(dateOnlySelected, IsLunch);
+            if(floorplanManager.Shift == null)
+            {
+                this.shiftDetailManager.UpdateForNewDate(dateOnlySelected, IsLunch);
+            }
+            else
+            {
+                this.shiftDetailManager.UpdateForShift(floorplanManager.Shift);
+            }
+           
         }
         public void UpdateWithTemplate()
         {

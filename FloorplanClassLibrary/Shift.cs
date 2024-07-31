@@ -579,5 +579,14 @@ namespace FloorplanClassLibrary
         {
             throw new NotImplementedException();
         }
+        public float TotalExpectedShiftSales()
+        {
+            float totalSales = 0;
+            foreach(DiningArea area in DiningAreasUsed)
+            {
+                totalSales += area.ExpectedSales;
+            }
+            return totalSales;
+        }
     }
 }
