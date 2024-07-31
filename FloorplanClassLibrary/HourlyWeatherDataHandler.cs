@@ -42,7 +42,7 @@ namespace FloorplanClassLibrary
             }
             else
             {
-                return null;
+                return new List<HourlyWeatherData> { new HourlyWeatherData() };
             }
         }
         public async static Task <List<HourlyWeatherData>> GetPastWeatherData(DateOnly dateOnly, bool isLunch)
