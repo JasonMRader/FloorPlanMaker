@@ -55,7 +55,6 @@ namespace FloorPlanMaker
             pnlFloorplanContainer = new Panel();
             lblDateSelected = new Label();
             pnlNavigationWindow = new Panel();
-            btnDeleteSelectedFloorplan = new Button();
             pnlMainContainer = new Panel();
             flowLayoutPanel2 = new FlowLayoutPanel();
             btnAutomatic = new Button();
@@ -64,9 +63,10 @@ namespace FloorPlanMaker
             cbDrawToggle = new CheckBox();
             lblFeelsLikeHi = new Label();
             lblFeelsLikeLow = new Label();
-            lblPrecipAmount = new Label();
             lblMaxWindSpeed = new Label();
             lblAvgWindSpeed = new Label();
+            lblPrecipAmount = new Label();
+            lblPrecipitationChance = new Label();
             pnlTemplateContainer = new Panel();
             pnlSideContainer = new Panel();
             pnlSectionsAndServers = new Panel();
@@ -92,11 +92,13 @@ namespace FloorPlanMaker
             rdoSales = new RadioButton();
             rdoViewServerFlow = new RadioButton();
             rdoViewSectionFlow = new RadioButton();
+            btnDeleteSelectedFloorplan = new Button();
             btnHelp = new Button();
             toolTip1 = new ToolTip(components);
             btnReportBug = new Button();
             helpProvider1 = new HelpProvider();
-            lblPrecipitationChance = new Label();
+            panel2 = new Panel();
+            flowLayoutPanel1 = new FlowLayoutPanel();
             flowSectionSelect.SuspendLayout();
             panel1.SuspendLayout();
             pnlFloorplanContainer.SuspendLayout();
@@ -106,6 +108,7 @@ namespace FloorPlanMaker
             pnlSideContainer.SuspendLayout();
             pnlSectionsAndServers.SuspendLayout();
             pnlStatMode.SuspendLayout();
+            panel2.SuspendLayout();
             SuspendLayout();
             // 
             // flowServersInFloorplan
@@ -387,7 +390,7 @@ namespace FloorPlanMaker
             btnCloseApp.FlatAppearance.BorderSize = 0;
             btnCloseApp.FlatStyle = FlatStyle.Flat;
             btnCloseApp.Image = FloorPlanMakerUI.Properties.Resources.X15x;
-            btnCloseApp.Location = new Point(1228, 12);
+            btnCloseApp.Location = new Point(1465, 12);
             btnCloseApp.Name = "btnCloseApp";
             btnCloseApp.Size = new Size(24, 23);
             btnCloseApp.TabIndex = 18;
@@ -407,7 +410,7 @@ namespace FloorPlanMaker
             pnlFloorplanContainer.Controls.Add(pnlFloorPlan);
             pnlFloorplanContainer.Controls.Add(cboDiningAreas);
             pnlFloorplanContainer.Controls.Add(btnDayBefore);
-            pnlFloorplanContainer.Location = new Point(77, 17);
+            pnlFloorplanContainer.Location = new Point(103, 17);
             pnlFloorplanContainer.Name = "pnlFloorplanContainer";
             pnlFloorplanContainer.Size = new Size(684, 921);
             pnlFloorplanContainer.TabIndex = 19;
@@ -429,25 +432,12 @@ namespace FloorPlanMaker
             // pnlNavigationWindow
             // 
             pnlNavigationWindow.BackColor = Color.FromArgb(225, 225, 225);
-            pnlNavigationWindow.Controls.Add(btnDeleteSelectedFloorplan);
             pnlNavigationWindow.Controls.Add(pnlMainContainer);
             pnlNavigationWindow.Controls.Add(pnlSideContainer);
-            pnlNavigationWindow.Dock = DockStyle.Bottom;
             pnlNavigationWindow.Location = new Point(0, 43);
             pnlNavigationWindow.Name = "pnlNavigationWindow";
             pnlNavigationWindow.Size = new Size(1264, 999);
             pnlNavigationWindow.TabIndex = 20;
-            // 
-            // btnDeleteSelectedFloorplan
-            // 
-            btnDeleteSelectedFloorplan.Location = new Point(1220, 342);
-            btnDeleteSelectedFloorplan.Name = "btnDeleteSelectedFloorplan";
-            btnDeleteSelectedFloorplan.Size = new Size(41, 28);
-            btnDeleteSelectedFloorplan.TabIndex = 22;
-            btnDeleteSelectedFloorplan.Text = "Delete";
-            btnDeleteSelectedFloorplan.UseVisualStyleBackColor = true;
-            btnDeleteSelectedFloorplan.Visible = false;
-            btnDeleteSelectedFloorplan.Click += btnDeleteSelectedFloorplan_Click;
             // 
             // pnlMainContainer
             // 
@@ -456,9 +446,9 @@ namespace FloorPlanMaker
             pnlMainContainer.Controls.Add(flowLayoutPanel2);
             pnlMainContainer.Controls.Add(pnlFloorplanContainer);
             pnlMainContainer.Controls.Add(pnlTemplateContainer);
-            pnlMainContainer.Location = new Point(445, 29);
+            pnlMainContainer.Location = new Point(425, 17);
             pnlMainContainer.Name = "pnlMainContainer";
-            pnlMainContainer.Size = new Size(775, 950);
+            pnlMainContainer.Size = new Size(801, 950);
             pnlMainContainer.TabIndex = 20;
             // 
             // flowLayoutPanel2
@@ -477,7 +467,7 @@ namespace FloorPlanMaker
             flowLayoutPanel2.Controls.Add(lblPrecipAmount);
             flowLayoutPanel2.Controls.Add(lblPrecipitationChance);
             flowLayoutPanel2.FlowDirection = FlowDirection.TopDown;
-            flowLayoutPanel2.Location = new Point(11, 17);
+            flowLayoutPanel2.Location = new Point(19, 17);
             flowLayoutPanel2.Name = "flowLayoutPanel2";
             flowLayoutPanel2.Padding = new Padding(5, 0, 0, 0);
             flowLayoutPanel2.Size = new Size(60, 921);
@@ -571,19 +561,6 @@ namespace FloorPlanMaker
             lblFeelsLikeLow.TextAlign = ContentAlignment.MiddleCenter;
             toolTip1.SetToolTip(lblFeelsLikeLow, "Feels Like Low");
             // 
-            // lblPrecipAmount
-            // 
-            lblPrecipAmount.BackColor = Color.Gray;
-            lblPrecipAmount.Font = new Font("Arial Narrow", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            lblPrecipAmount.Location = new Point(8, 535);
-            lblPrecipAmount.Margin = new Padding(3, 3, 3, 0);
-            lblPrecipAmount.Name = "lblPrecipAmount";
-            lblPrecipAmount.Size = new Size(45, 45);
-            lblPrecipAmount.TabIndex = 18;
-            lblPrecipAmount.Text = "N/A";
-            lblPrecipAmount.TextAlign = ContentAlignment.MiddleCenter;
-            toolTip1.SetToolTip(lblPrecipAmount, "Amount of Precipitation");
-            // 
             // lblMaxWindSpeed
             // 
             lblMaxWindSpeed.BackColor = Color.Gray;
@@ -610,10 +587,35 @@ namespace FloorPlanMaker
             lblAvgWindSpeed.TextAlign = ContentAlignment.MiddleCenter;
             toolTip1.SetToolTip(lblAvgWindSpeed, "Avg Wind Speed");
             // 
+            // lblPrecipAmount
+            // 
+            lblPrecipAmount.BackColor = Color.Gray;
+            lblPrecipAmount.Font = new Font("Arial Narrow", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lblPrecipAmount.Location = new Point(8, 535);
+            lblPrecipAmount.Margin = new Padding(3, 3, 3, 0);
+            lblPrecipAmount.Name = "lblPrecipAmount";
+            lblPrecipAmount.Size = new Size(45, 45);
+            lblPrecipAmount.TabIndex = 18;
+            lblPrecipAmount.Text = "N/A";
+            lblPrecipAmount.TextAlign = ContentAlignment.MiddleCenter;
+            toolTip1.SetToolTip(lblPrecipAmount, "Amount of Precipitation");
+            // 
+            // lblPrecipitationChance
+            // 
+            lblPrecipitationChance.BackColor = Color.Gray;
+            lblPrecipitationChance.Font = new Font("Arial Narrow", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lblPrecipitationChance.Location = new Point(8, 583);
+            lblPrecipitationChance.Margin = new Padding(3, 3, 3, 0);
+            lblPrecipitationChance.Name = "lblPrecipitationChance";
+            lblPrecipitationChance.Size = new Size(45, 45);
+            lblPrecipitationChance.TabIndex = 18;
+            lblPrecipitationChance.Text = "N/A";
+            lblPrecipitationChance.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // pnlTemplateContainer
             // 
             pnlTemplateContainer.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            pnlTemplateContainer.Location = new Point(77, 17);
+            pnlTemplateContainer.Location = new Point(103, 17);
             pnlTemplateContainer.Name = "pnlTemplateContainer";
             pnlTemplateContainer.Size = new Size(684, 921);
             pnlTemplateContainer.TabIndex = 22;
@@ -622,7 +624,7 @@ namespace FloorPlanMaker
             // 
             pnlSideContainer.BackColor = Color.FromArgb(180, 190, 200);
             pnlSideContainer.Controls.Add(pnlSectionsAndServers);
-            pnlSideContainer.Location = new Point(40, 29);
+            pnlSideContainer.Location = new Point(29, 17);
             pnlSideContainer.Name = "pnlSideContainer";
             pnlSideContainer.Size = new Size(364, 950);
             pnlSideContainer.TabIndex = 21;
@@ -955,6 +957,17 @@ namespace FloorPlanMaker
             rdoViewSectionFlow.UseVisualStyleBackColor = false;
             rdoViewSectionFlow.CheckedChanged += rdoViewSectionFlow_CheckedChanged;
             // 
+            // btnDeleteSelectedFloorplan
+            // 
+            btnDeleteSelectedFloorplan.Location = new Point(1007, 3);
+            btnDeleteSelectedFloorplan.Name = "btnDeleteSelectedFloorplan";
+            btnDeleteSelectedFloorplan.Size = new Size(41, 28);
+            btnDeleteSelectedFloorplan.TabIndex = 22;
+            btnDeleteSelectedFloorplan.Text = "Delete";
+            btnDeleteSelectedFloorplan.UseVisualStyleBackColor = true;
+            btnDeleteSelectedFloorplan.Visible = false;
+            btnDeleteSelectedFloorplan.Click += btnDeleteSelectedFloorplan_Click;
+            // 
             // btnHelp
             // 
             btnHelp.BackColor = Color.Orange;
@@ -963,7 +976,7 @@ namespace FloorPlanMaker
             btnHelp.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             btnHelp.ForeColor = Color.Black;
             btnHelp.Image = FloorPlanMakerUI.Properties.Resources.HelpOpenSmall;
-            btnHelp.Location = new Point(1130, 8);
+            btnHelp.Location = new Point(1367, 8);
             btnHelp.Name = "btnHelp";
             btnHelp.Size = new Size(31, 29);
             btnHelp.TabIndex = 13;
@@ -984,7 +997,7 @@ namespace FloorPlanMaker
             btnReportBug.FlatStyle = FlatStyle.Flat;
             btnReportBug.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             btnReportBug.Image = FloorPlanMakerUI.Properties.Resources.report35x;
-            btnReportBug.Location = new Point(1174, 8);
+            btnReportBug.Location = new Point(1411, 8);
             btnReportBug.Name = "btnReportBug";
             btnReportBug.Size = new Size(31, 29);
             btnReportBug.TabIndex = 13;
@@ -992,24 +1005,31 @@ namespace FloorPlanMaker
             btnReportBug.UseVisualStyleBackColor = false;
             btnReportBug.Click += btnReportBug_Click;
             // 
-            // lblPrecipitationChance
+            // panel2
             // 
-            lblPrecipitationChance.BackColor = Color.Gray;
-            lblPrecipitationChance.Font = new Font("Arial Narrow", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            lblPrecipitationChance.Location = new Point(8, 583);
-            lblPrecipitationChance.Margin = new Padding(3, 3, 3, 0);
-            lblPrecipitationChance.Name = "lblPrecipitationChance";
-            lblPrecipitationChance.Size = new Size(45, 45);
-            lblPrecipitationChance.TabIndex = 18;
-            lblPrecipitationChance.Text = "N/A";
-            lblPrecipitationChance.TextAlign = ContentAlignment.MiddleCenter;
+            panel2.BackColor = Color.FromArgb(225, 225, 225);
+            panel2.Controls.Add(flowLayoutPanel1);
+            panel2.Location = new Point(1270, 43);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(228, 997);
+            panel2.TabIndex = 23;
+            // 
+            // flowLayoutPanel1
+            // 
+            flowLayoutPanel1.BackColor = Color.FromArgb(180, 190, 200);
+            flowLayoutPanel1.Location = new Point(10, 17);
+            flowLayoutPanel1.Name = "flowLayoutPanel1";
+            flowLayoutPanel1.Size = new Size(208, 950);
+            flowLayoutPanel1.TabIndex = 0;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.WhiteSmoke;
-            ClientSize = new Size(1264, 1042);
+            ClientSize = new Size(1501, 1042);
+            Controls.Add(panel2);
+            Controls.Add(btnDeleteSelectedFloorplan);
             Controls.Add(btnCloseApp);
             Controls.Add(btnReportBug);
             Controls.Add(btnHelp);
@@ -1035,6 +1055,7 @@ namespace FloorPlanMaker
             pnlSectionsAndServers.ResumeLayout(false);
             pnlStatMode.ResumeLayout(false);
             pnlStatMode.PerformLayout();
+            panel2.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -1104,5 +1125,7 @@ namespace FloorPlanMaker
         private Label lblMaxWindSpeed;
         private Label lblAvgWindSpeed;
         private Label lblPrecipitationChance;
+        private Panel panel2;
+        private FlowLayoutPanel flowLayoutPanel1;
     }
 }
