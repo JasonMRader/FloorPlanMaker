@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace FloorPlanMakerUI
 {
@@ -131,26 +132,49 @@ namespace FloorPlanMakerUI
             {
                 ctl.BackColor = Color.FromArgb(229, 31, 31);
                 ctl.ForeColor = Color.Black;
+                if(ctl is PictureBox pictureBox)
+                {
+                    pictureBox.Image = Resources.rain_23px;
+                }
             }
             else if (precipChance >= 75)
             {
                 ctl.BackColor = Color.FromArgb(242, 161, 52);
                 ctl.ForeColor = Color.Black;
+                if (ctl is PictureBox pictureBox)
+                {
+                    pictureBox.Image = Resources.rain_23px;
+                }
+
+                
             }
             else if (precipChance >= 55)
             {
                 ctl.BackColor = Color.FromArgb(247, 227, 121);
                 ctl.ForeColor = Color.Black;
+                
+                if (ctl is PictureBox pictureBox)
+                {
+                    pictureBox.Image = Resources.rain_23px;
+                }
             }
             else if (precipChance >= 30)
             {
                 ctl.BackColor = Color.FromArgb(187, 219, 68);
                 ctl.ForeColor = Color.Black;
+                if (ctl is PictureBox pictureBox)
+                {
+                    pictureBox.Image = Resources.rain_23px;
+                }
             }
             else
             {
                 ctl.BackColor = Color.FromArgb(68, 206, 27);
                 ctl.ForeColor = Color.Black;
+                if (ctl is PictureBox pictureBox)
+                {
+                    pictureBox.Image = null;
+                }
             }
             if (ctl is Label label)
             {
