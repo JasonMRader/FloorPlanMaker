@@ -11,7 +11,8 @@ namespace FloorplanClassLibrary
         public async static Task<List<HourlyWeatherData>> GetWeatherForShift(DateOnly dateOnly, bool isLunch)
         {
             DateOnly today = new DateOnly(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-            DateOnly tomorrow = new DateOnly(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(1).Day);
+            DateTime Tomorrow = DateTime.Today.AddDays(1);
+            DateOnly tomorrow = new DateOnly(Tomorrow.Year, Tomorrow.Month, Tomorrow.Day);
             if(dateOnly == today) 
             {
                 if (isLunch)

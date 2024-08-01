@@ -22,20 +22,7 @@ namespace FloorPlanMakerUI
         {
             refreshMissingDateDisplay();
         }
-        private async Task<List<HourlyWeatherData>> GetMissingDates()
-        {
-            lbMissingDates.Items.Clear();
-            DateOnly maxEndDate = DateOnly.FromDateTime(DateTime.Now.AddDays(-1));
-            DateOnly endDate = DateOnly.FromDateTime(dtpEnd.Value);
-            DateOnly startDate = DateOnly.FromDateTime(dtpStart.Value);
-            if (endDate > maxEndDate)
-            {
-                endDate = maxEndDate;
-            }
-            List<DateOnly> missingDates = SqliteDataAccess.GetMissingWeatherDates(startDate, endDate);
-            List<HourlyWeatherData> hourlyData = await WeatherApiDataAccess.GetHourlyWeatherHistory(missingDates);
-            return hourlyData;
-        }
+        
         private void refreshMissingDateDisplay()
         {
             lbMissingDates.Items.Clear();
@@ -108,8 +95,8 @@ namespace FloorPlanMakerUI
 
         private async void button1_Click(object sender, EventArgs e)
         {
-            List<HourlyWeatherData> hourlyWeatherDatas = await GetMissingDates();
-            SqliteDataAccess.SaveOrUpdateHourlyWeatherData(hourlyWeatherDatas);
+             WeatherDataHistoryUpdater.SaveMissingDatesToDatabase(dtpStart.Value, dtpEnd.Value);
+            
         }
     }
 }

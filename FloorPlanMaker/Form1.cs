@@ -52,7 +52,7 @@ namespace FloorPlanMaker
         private Point? _startPoint = null;
         private List<FloorplanLine> _lines = new List<FloorplanLine>();
         public TutorialImages.TutorialType tutorialType = TutorialImages.TutorialType.Form1;
-        private ShiftDetailOverviewManager shiftDetailManager { get; set; }
+        public ShiftDetailOverviewManager shiftDetailManager { get; set; } 
         //private bool isViewingTemplates;
 
         private DateOnly dateOnlySelected
@@ -81,7 +81,7 @@ namespace FloorPlanMaker
                 Application.DoEvents();
                 SetColors();
                 dateTimeSelected = DateTime.Now;
-                this.shiftDetailManager = new ShiftDetailOverviewManager(flowSidePanelDisplay, pnlShiftDetails, true, dateOnlySelected);
+                
                 cboDiningAreas.DataSource = areaCreationManager.DiningAreas;
                 cboDiningAreas.DisplayMember = "Name";
                 cboDiningAreas.ValueMember = "ID";
@@ -348,6 +348,7 @@ namespace FloorPlanMaker
         public Form1()
         {
             InitializeComponent();
+            this.shiftDetailManager = new ShiftDetailOverviewManager(this.flowSidePanelDisplay, pnlShiftDetails);
             drawingHandler = new DrawingHandler(pnlFloorPlan);
             //shift = new Shift();
             //shiftManager.ServersNotOnShift = SqliteDataAccess.LoadServers();
@@ -529,7 +530,11 @@ namespace FloorPlanMaker
             }
         }
 
-
+        public void SetDateSelected(DateTime date)
+        {
+            this.dateTimeSelected = date;
+            UpdateDateSelected(0);
+        }
         private void UpdateDateSelected(int days)
         {
             _lines.Clear();

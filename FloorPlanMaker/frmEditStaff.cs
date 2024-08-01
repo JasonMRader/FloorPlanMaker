@@ -22,7 +22,7 @@ namespace FloorPlanMaker
         private int currentFocusedFloorplanIndex = 0;
         private int DaysAgoStats = -1;
         frmLoading loadingForm = new frmLoading("Loading");
-
+        public ShiftDetailOverviewManager shiftDetailOverviewManager { get; set; }
         private Form1 form1Reference;
         private bool isNewShift = false;
         private void SetColorTheme()
@@ -84,6 +84,7 @@ namespace FloorPlanMaker
             InitializeComponent();
             this.employeeManager = staffManager;
             this.ShiftManager.SetSelectedShift(shiftManager.DateOnly, shiftManager.IsAM);
+            this.shiftDetailOverviewManager = form1.shiftDetailManager;
             this.form1Reference = form1;
             allFloorplans = SqliteDataAccess.LoadFloorplanList();
             //LoadFloorplansAsync();
@@ -517,6 +518,7 @@ namespace FloorPlanMaker
         public void OpenNewShiftForm()
         {
             form1Reference.tutorialType = TutorialImages.TutorialType.CreateShift;
+           
             frmNewShiftDatePicker form = new frmNewShiftDatePicker(DiningAreaManager, allFloorplans, this, dateSelected, cbIsAM.Checked, ShiftManager);
             form.TopLevel = false;
             this.Controls.Add(form);

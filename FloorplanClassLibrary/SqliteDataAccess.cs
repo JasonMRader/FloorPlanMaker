@@ -2464,18 +2464,18 @@ namespace FloorplanClassLibrary
                     {
                         Date = hourlyData.Date.ToString("yyyy-MM-dd"), // Use Date for the date part
                         Time = hourlyData.Date.ToString("HH:mm"), // Extract time as HH:mm
-                        hourlyData.TempHi,
-                        hourlyData.TempLow,
-                        hourlyData.TempAvg,
-                        hourlyData.FeelsLikeHi,
-                        hourlyData.FeelsLikeLow,
-                        hourlyData.FeelsLikeAvg,
-                        hourlyData.CloudCover,
-                        hourlyData.PrecipitationAmount, // Maps to the PrecipitationAmount column
-                        hourlyData.SnowAmount_CM, // Maps to the SnowAmount column
-                        hourlyData.PrecipitationType,
-                        hourlyData.WindSpeedMax,
-                        hourlyData.WindSpeedAvg
+                        TempHi = (object)hourlyData.TempHi ?? DBNull.Value,
+                        TempLow = (object)hourlyData.TempLow ?? DBNull.Value,
+                        TempAvg = (object)hourlyData.TempAvg ?? DBNull.Value,
+                        FeelsLikeHi = (object)hourlyData.FeelsLikeHi ?? DBNull.Value,
+                        FeelsLikeLow = (object)hourlyData.FeelsLikeLow ?? DBNull.Value,
+                        FeelsLikeAvg = (object)hourlyData.FeelsLikeAvg ?? DBNull.Value,
+                        CloudCover = (object)hourlyData.CloudCover ?? DBNull.Value,
+                        PrecipitationAmount = (object)hourlyData.PrecipitationAmount ?? DBNull.Value,
+                        SnowAmount = (object)hourlyData.SnowAmount_CM ?? DBNull.Value,
+                        PrecipitationType = (object)hourlyData.PrecipitationType ?? DBNull.Value,
+                        WindSpeedMax = (object)hourlyData.WindSpeedMax ?? DBNull.Value,
+                        WindSpeedAvg = (object)hourlyData.WindSpeedAvg ?? DBNull.Value
                     };
 
                     cnn.Execute(sql, parameters);

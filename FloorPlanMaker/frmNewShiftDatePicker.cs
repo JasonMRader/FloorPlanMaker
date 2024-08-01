@@ -27,7 +27,7 @@ namespace FloorPlanMakerUI
         private ShiftManager shiftManager;
         private DiningAreaManager DiningAreaManager = new DiningAreaManager();
         private List<Floorplan> allFloorplans = new List<Floorplan>();
-
+        public ShiftDetailOverviewManager shiftDetailOverviewManager { get; set; }
         private frmEditStaff frmEditStaff { get; set; }
         public frmNewShiftDatePicker(DiningAreaManager diningAreaManager, List<Floorplan> allFloorplans,
             List<Server> allServers, frmEditStaff frmEditStaff, Shift shiftManager)
@@ -36,6 +36,7 @@ namespace FloorPlanMakerUI
             DiningAreaManager = diningAreaManager;
             this.allFloorplans = allFloorplans;
             this.frmEditStaff = frmEditStaff;
+            
             //this.ShiftManagerCreated = shiftManager;
             this.dateSelected = shiftManager.DateOnly.ToDateTime(TimeOnly.MinValue);
             //cbIsAm.Checked = shiftManager.IsAM;
@@ -44,7 +45,7 @@ namespace FloorPlanMakerUI
            frmEditStaff frmEditStaff, DateTime date, bool isAm, ShiftManager shiftManager)
         {
             InitializeComponent();
-
+            this.shiftDetailOverviewManager = frmEditStaff.shiftDetailOverviewManager;
             DiningAreaManager = diningAreaManager;
             this.allFloorplans = allFloorplans;
             this.shiftManager = shiftManager;
@@ -443,6 +444,7 @@ namespace FloorPlanMakerUI
             RefreshPreviousFloorplanCounts();
             txtServerSearch.Focus();
             SetToShiftFromDatabase();
+            
 
         }
         private void SetToShiftFromDatabase()
@@ -455,6 +457,7 @@ namespace FloorPlanMakerUI
             List<Button> serversNotOnShiftButtons = new List<Button>();
             List<DiningArea> diningAreasUsed = new List<DiningArea>();
             List<Server> serverUsed = new List<Server>();
+            shiftDetailOverviewManager.UpdateForShift(shiftManager.SelectedShift);
 
             foreach (Floorplan fp in shiftManager.SelectedShift.Floorplans)
             {

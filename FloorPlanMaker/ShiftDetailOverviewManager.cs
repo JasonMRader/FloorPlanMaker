@@ -19,6 +19,18 @@ namespace FloorPlanMakerUI
             InitializeControlsForDateAndShift();
             shiftDetailsPanel.Controls.Add(this.ShiftDetailsControl);
         }
+        public ShiftDetailOverviewManager(FlowLayoutPanel flowLayoutPanel, Panel panel)
+        {
+            this.flowHourlyWeather = flowLayoutPanel;
+            this.shiftDetailsPanel = panel;            
+            InitializeControlsForDateAndShift();
+            shiftDetailsPanel.Controls.Add(this.ShiftDetailsControl);
+        }
+        
+        public ShiftDetailOverviewManager()
+        {
+            
+        }
         private Panel shiftDetailsPanel { get; set; }
         private ShiftDetailsControl ShiftDetailsControl { get; set; } = new ShiftDetailsControl();
         private FlowLayoutPanel flowHourlyWeather { get; set; }

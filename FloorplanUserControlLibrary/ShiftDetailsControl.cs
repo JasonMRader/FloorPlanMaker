@@ -28,7 +28,7 @@ namespace FloorplanUserControlLibrary
         {
             if (shift == null) return;
             lblIsLunch.Text = "AM";
-            if (shift.IsAM)
+            if (!shift.IsAM)
             {
                 lblIsLunch.Text = "PM";
             }
