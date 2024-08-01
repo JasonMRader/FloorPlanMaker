@@ -106,47 +106,9 @@ namespace FloorPlanMaker
 
         private void frmEditStaff_Load(object sender, EventArgs e)
         {
-           
+
         }
-        private void SetHourlyWeatherDisplay(bool isLunch)
-        {
-            flowWeatherData.Controls.Clear();
-            List<HourlyWeatherData> hourlyWeatherData = new List<HourlyWeatherData>();
-            DateOnly today = new DateOnly(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-            DateOnly tomorrow = new DateOnly(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(1).Day);
-            DateOnly date = DateOnly.FromDateTime(dateSelected);
-            if (date == today)
-            {
-                if (isLunch)
-                {
-                    hourlyWeatherData = HourlyWeatherForecast.TodayLunchHourlyWeatherDataList;
-                }
-                else
-                {
-                    hourlyWeatherData = HourlyWeatherForecast.TodayDinnerHourlyWeatherDataList;
-                }
-            }
-            else if (date == tomorrow)
-            {
-                if (isLunch)
-                {
-                    hourlyWeatherData = HourlyWeatherForecast.TomorrowLunchHourlyWeatherDataList;
-                }
-                else
-                {
-                    hourlyWeatherData = HourlyWeatherForecast.TomorrowDinnerHourlyWeatherDataList;
-                }
-            }
-            
-            
-            List<HourlyWeatherDisplay> hourlyWeatherDisplays = new List<HourlyWeatherDisplay>();
-            foreach (HourlyWeatherData hourlyWeather in hourlyWeatherData)
-            {
-                HourlyWeatherDisplay weatherDisplay = new HourlyWeatherDisplay(hourlyWeather);
-                hourlyWeatherDisplays.Add(weatherDisplay);
-                flowWeatherData.Controls.Add(weatherDisplay);
-            }
-        }
+       
         public void UpdateUI()
         {
             dateSelected = DateTime.Now;
@@ -168,8 +130,7 @@ namespace FloorPlanMaker
             DateOnly date = DateOnly.FromDateTime(dateSelected);
             ShiftManager.SetSelectedShift(date, cbIsAM.Checked);
             RefreshFloorplanFlowPanel(ShiftManager.SelectedShift.Floorplans);
-            RefreshFloorplanCountLabels();
-            SetHourlyWeatherDisplay(ShiftManager.IsAM);
+            RefreshFloorplanCountLabels();            
         }
 
         private void RefreshFloorplanFlowPanel(IReadOnlyList<Floorplan> floorplans)
@@ -518,7 +479,7 @@ namespace FloorPlanMaker
         public void OpenNewShiftForm()
         {
             form1Reference.tutorialType = TutorialImages.TutorialType.CreateShift;
-           
+
             frmNewShiftDatePicker form = new frmNewShiftDatePicker(DiningAreaManager, allFloorplans, this, dateSelected, cbIsAM.Checked, ShiftManager);
             form.TopLevel = false;
             this.Controls.Add(form);

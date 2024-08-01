@@ -43,7 +43,6 @@
             toolTip1 = new ToolTip(components);
             cboSalesMethod = new ComboBox();
             label1 = new Label();
-            flowWeatherData = new FlowLayoutPanel();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pbBack).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbForward).BeginInit();
@@ -67,9 +66,9 @@
             // flowDiningAreaAssignment
             // 
             flowDiningAreaAssignment.BackColor = Color.FromArgb(180, 190, 200);
-            flowDiningAreaAssignment.Location = new Point(429, 228);
+            flowDiningAreaAssignment.Location = new Point(429, 92);
             flowDiningAreaAssignment.Name = "flowDiningAreaAssignment";
-            flowDiningAreaAssignment.Size = new Size(794, 653);
+            flowDiningAreaAssignment.Size = new Size(794, 789);
             flowDiningAreaAssignment.TabIndex = 10;
             // 
             // flowUnassignedServers
@@ -160,9 +159,9 @@
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(180, 190, 200);
-            panel2.Location = new Point(409, 203);
+            panel2.Location = new Point(409, 81);
             panel2.Name = "panel2";
-            panel2.Size = new Size(833, 694);
+            panel2.Size = new Size(833, 816);
             panel2.TabIndex = 27;
             // 
             // pbBack
@@ -215,21 +214,12 @@
             label1.Text = "Sales From:";
             label1.Visible = false;
             // 
-            // flowWeatherData
-            // 
-            flowWeatherData.BackColor = Color.FromArgb(180, 190, 200);
-            flowWeatherData.Location = new Point(409, 81);
-            flowWeatherData.Name = "flowWeatherData";
-            flowWeatherData.Size = new Size(836, 106);
-            flowWeatherData.TabIndex = 31;
-            // 
             // frmEditStaff
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.WhiteSmoke;
             ClientSize = new Size(1264, 997);
-            Controls.Add(flowWeatherData);
             Controls.Add(label1);
             Controls.Add(cboSalesMethod);
             Controls.Add(pbForward);
@@ -271,6 +261,5 @@
         private ComboBox cboSalesMethod;
         private Label label1;
         private Button btnAutomatic;
-        private FlowLayoutPanel flowWeatherData;
     }
 }
