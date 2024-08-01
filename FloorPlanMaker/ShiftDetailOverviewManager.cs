@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FloorPlanMakerUI
 {
-    public class ShiftDetailOverviewManager
+    public class ShiftDetailOverviewManager : IShiftObserver
     {
         public ShiftDetailOverviewManager(FlowLayoutPanel flowLayoutPanel, Panel panel, bool isLunch, DateOnly dateOnly)
         {
@@ -38,6 +38,7 @@ namespace FloorPlanMakerUI
         private List<HourlyWeatherDisplay> hourlyWeatherDisplays { get; set; } = new List<HourlyWeatherDisplay>();
         private bool isLunch { get; set; }
         private DateOnly dateOnly { get; set; }
+        private Shift shift { get; set; }
         private async void InitializeControlsForDateAndShift()
         {
             //shiftDetailsPanel.Controls.Clear();
@@ -51,18 +52,34 @@ namespace FloorPlanMakerUI
                 flowHourlyWeather.Controls.Add(weatherDisplay);
             }
         }
-        public void UpdateForShift(Shift shift)
+
+        public void SetNewShift(Shift shift)
         {
             if(shift == null) { return; }
-          
+            if(this.shift != null)
+            {
+                this.shift.RemoveObserver(this);
+            }
+            this.shift = shift;
+            this.shift.SubscribeObserver(this);
             UpdateForNewDate(shift.DateOnly, shift.IsAM);
             this.ShiftDetailsControl.SetLabelsForShift(shift);
         }
         public void UpdateForNewDate(DateOnly dateOnly, bool isLunch)
         {
-            this.dateOnly = dateOnly;
-            this.isLunch = isLunch;
-            InitializeControlsForDateAndShift();
+            if(this.dateOnly != dateOnly || this.isLunch != isLunch)
+            {
+                this.dateOnly = dateOnly;
+                this.isLunch = isLunch;
+                InitializeControlsForDateAndShift();
+            }
+            
+        }
+
+        public void UpdateShift(Shift shift)
+        {
+            UpdateForNewDate(shift.DateOnly, shift.IsAM);
+            this.ShiftDetailsControl.SetLabelsForShift(shift);
         }
     }
 }

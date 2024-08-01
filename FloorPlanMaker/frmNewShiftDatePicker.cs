@@ -457,7 +457,7 @@ namespace FloorPlanMakerUI
             List<Button> serversNotOnShiftButtons = new List<Button>();
             List<DiningArea> diningAreasUsed = new List<DiningArea>();
             List<Server> serverUsed = new List<Server>();
-            shiftDetailOverviewManager.UpdateForShift(shiftManager.SelectedShift);
+            shiftDetailOverviewManager.SetNewShift(shiftManager.SelectedShift);
 
             foreach (Floorplan fp in shiftManager.SelectedShift.Floorplans)
             {

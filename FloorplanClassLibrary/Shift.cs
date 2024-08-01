@@ -40,7 +40,32 @@ namespace FloorplanClassLibrary
                 AddFloorplanAndServers(floorplan);
             }
         }
+        private List<IShiftObserver> observers = new List<IShiftObserver>();
+        public void Notify()
+        {
+            this.NotifyObservers();
+        }
 
+        public void RemoveObserver(IShiftObserver observer)
+        {
+            observers.Remove(observer);
+        }
+
+        public void SubscribeObserver(IShiftObserver observer)
+        {
+            if (!observers.Contains(observer))
+            {
+                observers.Add(observer);
+            }
+        }
+        protected void NotifyObservers()
+        {
+            var observersSnapshot = observers.ToList();
+            foreach (var observer in observersSnapshot)
+            {
+                observer.UpdateShift(this);
+            }
+        }
         private void InitializeServers()
         {
             _allServers = SqliteDataAccess.LoadActiveServers();
@@ -63,6 +88,7 @@ namespace FloorplanClassLibrary
                     CreateFloorplanForDiningArea(floorplan.DiningArea,0,0);
                 }
             }
+            NotifyObservers();
         }
         public int BartenderCount
         {
@@ -315,6 +341,7 @@ namespace FloorplanClassLibrary
             {
                 this._serversOnShift.Add(server);
             }
+            NotifyObservers();
            
         }
         public void RemoveServerFromShift(Server server)
@@ -336,6 +363,7 @@ namespace FloorplanClassLibrary
                     }
                 }
             }
+            NotifyObservers();
         }
         public void UnassignServer(Server server)
         {
@@ -399,7 +427,7 @@ namespace FloorplanClassLibrary
             {
                 this._floorplans.Add(floorplan);
             }
-            
+            NotifyObservers();
             
         }
         public void RemoveAssignedServers()
@@ -414,6 +442,7 @@ namespace FloorplanClassLibrary
             _unassignedServers.RemoveAll(server => servers.Contains(server)); 
             _serversOnShift.RemoveAll(server => servers.Contains(server));
             _serversNotOnShift = _allServers;
+           
            
         }
         public void AddFloorplanAndServers(Floorplan floorplan)
@@ -445,6 +474,7 @@ namespace FloorplanClassLibrary
             this.DateOnly = floorplan.DateOnly;
             this.IsAM = floorplan.IsLunch;
             //ServersNotOnShift = ServersNotOnShift.OrderBy(s => s.Name).ToList();
+            NotifyObservers();
         }
 
         public void RemoveFloorplan(Floorplan floorplan)
@@ -465,6 +495,7 @@ namespace FloorplanClassLibrary
                     }
                 }
             }
+            NotifyObservers();
             
             
         }
@@ -472,6 +503,7 @@ namespace FloorplanClassLibrary
         {
             RemoveAssignedServers();
             this._floorplans.Clear();
+            NotifyObservers();
         }
         public bool ContainsFloorplan(DateOnly date, bool isLunch, int ID)
         {
@@ -488,6 +520,7 @@ namespace FloorplanClassLibrary
         public void RemoveFloorplansFromDifferentShift()
         {
             _floorplans.RemoveAll(fp => fp.IsLunch != this.IsAM || fp.DateOnly != this.DateOnly);
+            NotifyObservers();
         }
 
 
@@ -502,6 +535,7 @@ namespace FloorplanClassLibrary
 
                
             }
+            NotifyObservers();
         }
 
 
@@ -535,25 +569,7 @@ namespace FloorplanClassLibrary
             DateTime date = new DateTime(this.DateOnly.Year, this.DateOnly.Month, this.DateOnly.Day);
             Floorplan newFloorplan = new Floorplan(diningArea, date, this.IsAM ,0,0);
             _floorplans.Add(newFloorplan);
-            //if(_floorplans.Count == 1)
-            //{
-            //    this.SelectedFloorplan = newFloorplan;
-            //}
-            //if(newFloorplan != null)
-            //{
-            //    this.AddFloorplanAndServers(newFloorplan);
-                
-            //}
-            //if(newFloorplan == null)
-            //{
-            //    newFloorplan = new Floorplan(diningArea, date, isLunch, serverCount, sectionCount);
-            //    if (Floorplans == null)
-            //    {
-            //        _floorplans = new List<Floorplan>();
-            //    }
-
-            //    _floorplans.Add(newFloorplan);
-            //}         
+            NotifyObservers();
                       
 
             return newFloorplan;
@@ -565,6 +581,7 @@ namespace FloorplanClassLibrary
                 floorplan.IsLunch = true;
             }
             this.IsAM = true;
+            NotifyObservers();
         }
         public void SetFloorplansToPM()
         {
@@ -573,6 +590,7 @@ namespace FloorplanClassLibrary
                 floorplan.IsLunch = false;
             }
             this.IsAM = false;
+            NotifyObservers();
         }
 
         public void AutoAssignCloser()

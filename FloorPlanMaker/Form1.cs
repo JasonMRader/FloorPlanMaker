@@ -574,7 +574,7 @@ namespace FloorPlanMaker
             }
             else
             {
-                this.shiftDetailManager.UpdateForShift(floorplanManager.Shift);
+                this.shiftDetailManager.SetNewShift(floorplanManager.Shift);
             }
            
         }
