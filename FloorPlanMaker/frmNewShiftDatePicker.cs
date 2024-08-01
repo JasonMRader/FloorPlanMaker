@@ -450,7 +450,6 @@ namespace FloorPlanMakerUI
         private void SetToShiftFromDatabase()
         {
 
-
             shiftManager.SetSelectedShift(dateOnlySelected, cbIsAm.Checked);
             flowServersOnShift.Controls.Clear();
             PopulateServers();
@@ -488,6 +487,7 @@ namespace FloorPlanMakerUI
                     AddToShift_Click(btn, e);
                 }
             }
+            shiftManager.SelectedShift.UpdateShiftSalesForLast4();
         }
         private void cbDiningArea_CheckChanged(object sender, EventArgs e)
         {
@@ -516,6 +516,7 @@ namespace FloorPlanMakerUI
                 toolTip1.SetToolTip(cbArea, $"Create Floorplan for this Area [{diningNumber}]");
             }
             txtServerSearch.Focus();
+            shiftManager.SelectedShift.UpdateShiftSalesForLast4();
         }
         private void btnBackDay_Click(object sender, EventArgs e)
         {

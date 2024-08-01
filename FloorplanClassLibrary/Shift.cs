@@ -606,5 +606,25 @@ namespace FloorplanClassLibrary
             }
             return totalSales;
         }
+        public void UpdateShiftSalesForLast4()
+        {
+            var previousWeekdays = new List<DateOnly>();
+            for (int i = 1; i <= 4; i++)
+            {
+                previousWeekdays.Add(this.DateOnly.AddDays(-7 * i));
+            }
+
+            List<TableStat> stats = SqliteDataAccess.LoadTableStatsByDateListAndLunch(this.IsAM, previousWeekdays);            
+           
+            if (this.DiningAreasUsed.Count != 0)
+            {
+                foreach (DiningArea area in this.DiningAreasUsed)
+                {
+                    area.SetTableSales(stats);
+                }
+            }
+            NotifyObservers();
+           
+        }
     }
 }
