@@ -51,100 +51,112 @@ namespace FloorPlanMakerUI
         public static Color HighlightColor2 = Color.FromArgb(237, 174, 73);
 
         public static Color WarningColor = Color.FromArgb(169, 135, 67);
-        public static void FormatTempLabelColor(Label label, int temp)
+        public static void FormatTempLabelColor(Control ctl, int temp)
         {
             if (temp >= 90)
             {
-                label.BackColor = Color.FromArgb(245, 59, 59);
-                label.ForeColor = Color.Black;
+                ctl.BackColor = Color.FromArgb(245, 59, 59);
+                ctl.ForeColor = Color.Black;
             }
             else if (temp >= 80)
             {
-                label.BackColor = Color.FromArgb(255, 213, 18);
-                label.ForeColor = Color.Black;
+                ctl.BackColor = Color.FromArgb(255, 213, 18);
+                ctl.ForeColor = Color.Black;
             }
             else if (temp >= 70)
             {
-                label.BackColor = Color.FromArgb(239, 242, 177);
-                label.ForeColor = Color.Black;
+                ctl.BackColor = Color.FromArgb(239, 242, 177);
+                ctl.ForeColor = Color.Black;
             }
             else if (temp >= 60)
             {
-                label.BackColor = Color.FromArgb(161, 237, 222);
-                label.ForeColor = Color.Black;
+                ctl.BackColor = Color.FromArgb(161, 237, 222);
+                ctl.ForeColor = Color.Black;
             }
             else if (temp >= 50)
             {
-                label.BackColor = Color.FromArgb(75, 220, 227);
-                label.ForeColor = Color.Black;
+                ctl.BackColor = Color.FromArgb(75, 220, 227);
+                ctl.ForeColor = Color.Black;
             }
             else
             {
-                label.BackColor = Color.FromArgb(77, 147, 221);
-                label.ForeColor = Color.Black;
+                ctl.BackColor = Color.FromArgb(77, 147, 221);
+                ctl.ForeColor = Color.Black;
             }
-            label.Text = temp.ToString() + "°";
+            if(ctl is  Label label)
+            {
+                label.Text = temp.ToString() + "°";
+            }
+            //ctl.Text = 
              
             
         }
        
-        public static void FormateWindLabel(Label label, int wind)
+        public static void FormateWindLabel(Control ctl, int wind)
         {
             if (wind >= 30)
             {
-                label.BackColor = Color.FromArgb(229, 31, 31);
-                label.ForeColor = Color.Black;
+                ctl.BackColor = Color.FromArgb(229, 31, 31);
+                ctl.ForeColor = Color.Black;
             }
             else if (wind >= 25)
             {
-                label.BackColor = Color.FromArgb(242, 161, 52);
-                label.ForeColor = Color.Black;
+                ctl.BackColor = Color.FromArgb(242, 161, 52);
+                ctl.ForeColor = Color.Black;
             }
             else if (wind >= 15)
             {
-                label.BackColor = Color.FromArgb(247, 227, 121);
-                label.ForeColor = Color.Black;
+                ctl.BackColor = Color.FromArgb(247, 227, 121);
+                ctl.ForeColor = Color.Black;
             }
             else if (wind >= 10)
             {
-                label.BackColor = Color.FromArgb(187, 219, 68);
-                label.ForeColor = Color.Black;
+                ctl.BackColor = Color.FromArgb(187, 219, 68);
+                ctl.ForeColor = Color.Black;
             }           
             else
             {
-                label.BackColor = Color.FromArgb(68, 206, 27);
-                label.ForeColor = Color.Black;
+                ctl.BackColor = Color.FromArgb(68, 206, 27);
+                ctl.ForeColor = Color.Black;
             }
-            label.Text = wind.ToString();
+            if(ctl is Label label)
+            {
+                label.Text = wind.ToString();
+            }
+            
         }
-        public static void FormatePrecipChanceLabel(Label label, int precipChance)
+        public static void FormatePrecipChanceLabel(Control ctl, int precipChance)
         {
             if (precipChance >= 95)
             {
-                label.BackColor = Color.FromArgb(229, 31, 31);
-                label.ForeColor = Color.Black;
+                ctl.BackColor = Color.FromArgb(229, 31, 31);
+                ctl.ForeColor = Color.Black;
             }
             else if (precipChance >= 75)
             {
-                label.BackColor = Color.FromArgb(242, 161, 52);
-                label.ForeColor = Color.Black;
+                ctl.BackColor = Color.FromArgb(242, 161, 52);
+                ctl.ForeColor = Color.Black;
             }
             else if (precipChance >= 55)
             {
-                label.BackColor = Color.FromArgb(247, 227, 121);
-                label.ForeColor = Color.Black;
+                ctl.BackColor = Color.FromArgb(247, 227, 121);
+                ctl.ForeColor = Color.Black;
             }
             else if (precipChance >= 30)
             {
-                label.BackColor = Color.FromArgb(187, 219, 68);
-                label.ForeColor = Color.Black;
+                ctl.BackColor = Color.FromArgb(187, 219, 68);
+                ctl.ForeColor = Color.Black;
             }
             else
             {
-                label.BackColor = Color.FromArgb(68, 206, 27);
-                label.ForeColor = Color.Black;
+                ctl.BackColor = Color.FromArgb(68, 206, 27);
+                ctl.ForeColor = Color.Black;
             }
-            label.Text = precipChance.ToString() + "%";
+            if (ctl is Label label)
+            {
+                label.Text = precipChance.ToString() + "%";
+            }
+            
         }
         public static void FormatePrecipAmountLabel(Label label, float precipAmount)
         {

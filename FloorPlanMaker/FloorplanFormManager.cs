@@ -38,12 +38,7 @@ namespace FloorPlanMakerUI
         private TableSalesManager tableSalesManager = new TableSalesManager();
         private Panel pnlMainContainer {  get; set; }   
         private Panel pnlFloorplan { get; set; }
-        private Label feelsLikeHiLabel { get; set; }
-        private Label feelsLikeLowLabel { get; set; }
-        private Label precipitationAmountLabel { get; set; }
-        private Label precipitationChanceLabel { get; set; }
-        private Label maxWindLabel { get; set; }
-        private Label avgWindLabel { get; set; }
+        
         private FlowLayoutPanel flowSectionsPanel {  get; set; }
         private FlowLayoutPanel flowServersPanel { get; set; }
         public DateOnly dateOnly => this.Shift.DateOnly;
@@ -57,20 +52,14 @@ namespace FloorPlanMakerUI
         {
             this.Shift = new Shift();            
         }
-        public FloorplanFormManager(Panel pnlFloorPlan, FlowLayoutPanel flowServersInFloorplan, FlowLayoutPanel flowSectionSelect, Panel pnlContainer, 
-            Label tempLabel, Label FeelsLikeLowLabel, Label precipitationLabel, Label precipitationChanceLabel, Label maxWindLabel, Label avgWindLabel)
+        public FloorplanFormManager(Panel pnlFloorPlan, FlowLayoutPanel flowServersInFloorplan, FlowLayoutPanel flowSectionSelect, Panel pnlContainer)
         {
             this.Shift = new Shift();
             this.flowSectionsPanel = flowSectionSelect;
             this.flowServersPanel = flowServersInFloorplan;
             this.pnlFloorplan = pnlFloorPlan;
-            this.pnlMainContainer = pnlContainer;
-            this.feelsLikeHiLabel = tempLabel;
-            this.feelsLikeLowLabel = FeelsLikeLowLabel;
-            this.precipitationAmountLabel = precipitationLabel;
-            this.precipitationChanceLabel = precipitationChanceLabel;
-            this.maxWindLabel = maxWindLabel;
-            this.avgWindLabel = avgWindLabel;            
+            this.pnlMainContainer = pnlContainer;           
+                    
         }
         public void UpdateTemplatesBasedOnFloorplan()
         {
@@ -1137,26 +1126,26 @@ namespace FloorPlanMakerUI
             btnSaveTemplate.Click -= btnSaveFloorplan_Click;
             btnSaveTemplate.Text = "Create A Floorplan Template";
         }
-        public async void UpdateWeatherData()
-        {
-            DateOnly today = new DateOnly(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-            DateOnly tomorrow = new DateOnly(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(1).Day);
-            if (Shift.DateOnly == today)
-            {
-                this.Shift.SetHourlyWeatherDataForToday();
-                UpdateWeatherLabelsForHourlyToday();
-            }
-            else if (Shift.DateOnly == tomorrow)
-            {
-                this.Shift.SetHourlyWeatherDataForTomorrow();
-                UpdateWeatherLabelsForHourlyToday();
-            }
-            else
-            {
-                await this.Shift.SetWeatherData();
-                UpdateWeatherLabels();
-            }
-        }
+        //public async void UpdateWeatherData()
+        //{
+        //    DateOnly today = new DateOnly(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+        //    DateOnly tomorrow = new DateOnly(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(1).Day);
+        //    if (Shift.DateOnly == today)
+        //    {
+        //        this.Shift.SetHourlyWeatherDataForToday();
+        //        UpdateWeatherLabelsForHourlyToday();
+        //    }
+        //    else if (Shift.DateOnly == tomorrow)
+        //    {
+        //        this.Shift.SetHourlyWeatherDataForTomorrow();
+        //        UpdateWeatherLabelsForHourlyToday();
+        //    }
+        //    else
+        //    {
+        //        await this.Shift.SetWeatherData();
+        //        UpdateWeatherLabels();
+        //    }
+        //}
         public async void SetViewedFloorplan(DateOnly dateOnlySelected, bool isAM)
         {
            
@@ -1168,7 +1157,7 @@ namespace FloorPlanMakerUI
             {
                 this.Shift.IsAM = isAM;   
             }
-            UpdateWeatherData();
+            //UpdateWeatherData();
             this.Shift.RemoveFloorplansFromDifferentShift();
 
             if (Shift.ContainsFloorplan(dateOnlySelected, isAM, Shift.SelectedDiningArea.ID))
@@ -1224,79 +1213,79 @@ namespace FloorPlanMakerUI
 
             }
         }
-        private void UpdateWeatherLabelsForHourlyToday()
-        {
-            if(Shift.HourlyWeatherData.Count == 0) {
-                this.feelsLikeHiLabel.Visible = false;
-                this.feelsLikeLowLabel.Visible = false;
-                this.precipitationAmountLabel.Visible = false;
-                this.maxWindLabel.Visible = false;
-                this.avgWindLabel.Visible = false;
-                this.precipitationChanceLabel.Visible = false;
-                this.precipitationChanceLabel.Visible = false;
-                return; 
-            }
-            this.feelsLikeHiLabel.Visible = true;
-            this.feelsLikeLowLabel.Visible = true;
-            this.precipitationAmountLabel.Visible = true;
-            this.maxWindLabel.Visible = true;
-            this.avgWindLabel.Visible = true;
-            this.precipitationChanceLabel.Visible = true;
-            this.precipitationChanceLabel.Visible = true;
+        //private void UpdateWeatherLabelsForHourlyToday()
+        //{
+        //    if(Shift.HourlyWeatherData.Count == 0) {
+        //        this.feelsLikeHiLabel.Visible = false;
+        //        this.feelsLikeLowLabel.Visible = false;
+        //        this.precipitationAmountLabel.Visible = false;
+        //        this.maxWindLabel.Visible = false;
+        //        this.avgWindLabel.Visible = false;
+        //        this.precipitationChanceLabel.Visible = false;
+        //        this.precipitationChanceLabel.Visible = false;
+        //        return; 
+        //    }
+        //    this.feelsLikeHiLabel.Visible = true;
+        //    this.feelsLikeLowLabel.Visible = true;
+        //    this.precipitationAmountLabel.Visible = true;
+        //    this.maxWindLabel.Visible = true;
+        //    this.avgWindLabel.Visible = true;
+        //    this.precipitationChanceLabel.Visible = true;
+        //    this.precipitationChanceLabel.Visible = true;
 
-            int feelsLikeHi = Shift.HourlyWeatherData.Max(w => w.FeelsLikeAvg);
-            int feelsLikeLow = Shift.HourlyWeatherData.Min(w => w.FeelsLikeAvg);
-            int maxWindGust = Shift.HourlyWeatherData.Max(w => w.WindSpeedMax);
-            int maxWindAvg = Shift.HourlyWeatherData.Max(w => w.WindSpeedAvg);
-            int minWindAvg = Shift.HourlyWeatherData.Min(w => w.WindSpeedAvg);
-            int maxPrecipChance = Shift.HourlyWeatherData.Max(w => w.PrecipitationChanceFormatted);
-            int middleWindSpeedAvg = (maxWindAvg + minWindAvg) / 2;
-            float totalPrecipitation = 0f;
+        //    int feelsLikeHi = Shift.HourlyWeatherData.Max(w => w.FeelsLikeAvg);
+        //    int feelsLikeLow = Shift.HourlyWeatherData.Min(w => w.FeelsLikeAvg);
+        //    int maxWindGust = Shift.HourlyWeatherData.Max(w => w.WindSpeedMax);
+        //    int maxWindAvg = Shift.HourlyWeatherData.Max(w => w.WindSpeedAvg);
+        //    int minWindAvg = Shift.HourlyWeatherData.Min(w => w.WindSpeedAvg);
+        //    int maxPrecipChance = Shift.HourlyWeatherData.Max(w => w.PrecipitationChanceFormatted);
+        //    int middleWindSpeedAvg = (maxWindAvg + minWindAvg) / 2;
+        //    float totalPrecipitation = 0f;
 
-            foreach(HourlyWeatherData data in Shift.HourlyWeatherData)
-            {
-                totalPrecipitation += data.PrecipitationAmount;
-            }
-            UITheme.FormatTempLabelColor(feelsLikeHiLabel, feelsLikeHi);
-            UITheme.FormatTempLabelColor(feelsLikeLowLabel, feelsLikeLow);
-            UITheme.FormateWindLabel(avgWindLabel, middleWindSpeedAvg);
-            UITheme.FormateWindLabel(maxWindLabel, maxWindGust);
-            UITheme.FormatePrecipAmountLabel(precipitationAmountLabel, totalPrecipitation);
-            UITheme.FormatePrecipChanceLabel(precipitationChanceLabel, maxPrecipChance);
-            //this.feelsLikeHiLabel.Text = feelsLikeHi.ToString() + "°";
+        //    foreach(HourlyWeatherData data in Shift.HourlyWeatherData)
+        //    {
+        //        totalPrecipitation += data.PrecipitationAmount;
+        //    }
+        //    UITheme.FormatTempLabelColor(feelsLikeHiLabel, feelsLikeHi);
+        //    UITheme.FormatTempLabelColor(feelsLikeLowLabel, feelsLikeLow);
+        //    UITheme.FormateWindLabel(avgWindLabel, middleWindSpeedAvg);
+        //    UITheme.FormateWindLabel(maxWindLabel, maxWindGust);
+        //    UITheme.FormatePrecipAmountLabel(precipitationAmountLabel, totalPrecipitation);
+        //    UITheme.FormatePrecipChanceLabel(precipitationChanceLabel, maxPrecipChance);
+        //    //this.feelsLikeHiLabel.Text = feelsLikeHi.ToString() + "°";
 
-            //this.feelsLikeLowLabel.Text = feelsLikeLow.ToString() + "°";
-            //this.precipitationAmountLabel.Text = totalPrecipitation.ToString("f2") + "\"";
-            //this.maxWindLabel.Text = maxWindGust.ToString();
-            //this.avgWindLabel.Text = middleWindSpeedAvg.ToString();
-            //this.precipitationChanceLabel.Text = maxPrecipChance.ToString() + "%";
-            //this.feelsLikeHiLabel.BackColor = UITheme.GetTempColor(feelsLikeHi);
-            //this.feelsLikeLowLabel.BackColor = UITheme.GetTempColor(feelsLikeLow);
-            //this.precipitationAmountLabel.BackColor = UITheme.GetPrecipAmountColor(totalPrecipitation);
-            //this.maxWindLabel.BackColor = UITheme.GetWindColor(maxWindGust);
-            //this.avgWindLabel.BackColor = UITheme.GetWindColor(middleWindSpeedAvg);
-            //this.precipitationChanceLabel.BackColor = UITheme.GetPrecipChanceColor(maxPrecipChance);
+        //    //this.feelsLikeLowLabel.Text = feelsLikeLow.ToString() + "°";
+        //    //this.precipitationAmountLabel.Text = totalPrecipitation.ToString("f2") + "\"";
+        //    //this.maxWindLabel.Text = maxWindGust.ToString();
+        //    //this.avgWindLabel.Text = middleWindSpeedAvg.ToString();
+        //    //this.precipitationChanceLabel.Text = maxPrecipChance.ToString() + "%";
+        //    //this.feelsLikeHiLabel.BackColor = UITheme.GetTempColor(feelsLikeHi);
+        //    //this.feelsLikeLowLabel.BackColor = UITheme.GetTempColor(feelsLikeLow);
+        //    //this.precipitationAmountLabel.BackColor = UITheme.GetPrecipAmountColor(totalPrecipitation);
+        //    //this.maxWindLabel.BackColor = UITheme.GetWindColor(maxWindGust);
+        //    //this.avgWindLabel.BackColor = UITheme.GetWindColor(middleWindSpeedAvg);
+        //    //this.precipitationChanceLabel.BackColor = UITheme.GetPrecipChanceColor(maxPrecipChance);
 
-        }
-        private void UpdateWeatherLabels()
-        {
-            if(this.Shift.WeatherData != null)
-            {
-                UITheme.FormatTempLabelColor(feelsLikeHiLabel, this.Shift.WeatherData.FeelsLikeHi);
-                UITheme.FormatTempLabelColor(feelsLikeLowLabel, this.Shift.WeatherData.FeelsLikeLow);
-                UITheme.FormateWindLabel(avgWindLabel, this.Shift.WeatherData.WindSpeedAvg);
-                UITheme.FormateWindLabel(maxWindLabel, this.Shift.WeatherData.WindSpeedMax);
-                UITheme.FormatePrecipAmountLabel(precipitationAmountLabel, this.Shift.WeatherData.Precipitation);
-                //UITheme.FormatePrecipChanceLabel(precipitationChanceLabel, maxPrecipChance);
-                //this.feelsLikeHiLabel.Text = this.Shift.WeatherData.FeelsLikeHiFormatted;
-                //this.feelsLikeLowLabel.Text = this.Shift.WeatherData?.FeelsLikeLowFormatted;
-                //this.precipitationAmountLabel.Text = this.Shift.WeatherData?.precipitationAmountFormatted;
-                //this.maxWindLabel.Text = this.Shift.WeatherData?.windMaxFormatted;
-                //this.avgWindLabel.Text = this.Shift.WeatherData?.windAvgFormatted;
-                //this.precipitationChanceLabel.Visible = false;
-            }
+        //}
+        //private void UpdateWeatherLabels()
+        //{
+        //    if(this.Shift.WeatherData != null)
+        //    {
+        //        UITheme.FormatTempLabelColor(feelsLikeHiLabel, this.Shift.WeatherData.FeelsLikeHi);
+        //        UITheme.FormatTempLabelColor(feelsLikeLowLabel, this.Shift.WeatherData.FeelsLikeLow);
+        //        UITheme.FormateWindLabel(avgWindLabel, this.Shift.WeatherData.WindSpeedAvg);
+        //        UITheme.FormateWindLabel(maxWindLabel, this.Shift.WeatherData.WindSpeedMax);
+        //        UITheme.FormatePrecipAmountLabel(precipitationAmountLabel, this.Shift.WeatherData.Precipitation);
+        //        //UITheme.FormatePrecipChanceLabel(precipitationChanceLabel, maxPrecipChance);
+        //        //this.feelsLikeHiLabel.Text = this.Shift.WeatherData.FeelsLikeHiFormatted;
+        //        //this.feelsLikeLowLabel.Text = this.Shift.WeatherData?.FeelsLikeLowFormatted;
+        //        //this.precipitationAmountLabel.Text = this.Shift.WeatherData?.precipitationAmountFormatted;
+        //        //this.maxWindLabel.Text = this.Shift.WeatherData?.windMaxFormatted;
+        //        //this.avgWindLabel.Text = this.Shift.WeatherData?.windAvgFormatted;
+        //        //this.precipitationChanceLabel.Visible = false;
+        //    }
             
-        }
+        //}
         private void AddSectionLines()
         {
             //throw new NotImplementedException();

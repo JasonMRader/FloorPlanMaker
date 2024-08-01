@@ -52,7 +52,7 @@ namespace FloorPlanMaker
         private Point? _startPoint = null;
         private List<FloorplanLine> _lines = new List<FloorplanLine>();
         public TutorialImages.TutorialType tutorialType = TutorialImages.TutorialType.Form1;
-        public ShiftDetailOverviewManager shiftDetailManager { get; set; } 
+        public ShiftDetailOverviewManager shiftDetailManager { get; set; }
         //private bool isViewingTemplates;
 
         private DateOnly dateOnlySelected
@@ -81,7 +81,7 @@ namespace FloorPlanMaker
                 Application.DoEvents();
                 SetColors();
                 dateTimeSelected = DateTime.Now;
-                
+
                 cboDiningAreas.DataSource = areaCreationManager.DiningAreas;
                 cboDiningAreas.DisplayMember = "Name";
                 cboDiningAreas.ValueMember = "ID";
@@ -358,8 +358,7 @@ namespace FloorPlanMaker
             pnlFloorPlan.MouseMove += pnlFloorplan_MouseMove;
             pnlFloorPlan.Paint += PnlFloorplan_Paint;
             this.sectionLineManager = new SectionLineManager(allTableControls);
-            floorplanManager = new FloorplanFormManager(pnlFloorPlan, flowServersInFloorplan, flowSectionSelect, pnlMainContainer, lblFeelsLikeHi,
-                lblFeelsLikeLow, lblPrecipAmount, lblPrecipitationChance, lblMaxWindSpeed, lblAvgWindSpeed);
+            floorplanManager = new FloorplanFormManager(pnlFloorPlan, flowServersInFloorplan, flowSectionSelect, pnlMainContainer);
 
             // Subscribe to the event
             //floorplanManager.SectionLabelRemoved += FloorplanManager_SectionLabelRemoved;
@@ -568,7 +567,7 @@ namespace FloorPlanMaker
         }
         public void UpdateSidePanelDisplay()
         {
-            if(floorplanManager.Shift == null)
+            if (floorplanManager.Shift == null)
             {
                 this.shiftDetailManager.UpdateForNewDate(dateOnlySelected, IsLunch);
             }
@@ -576,7 +575,7 @@ namespace FloorPlanMaker
             {
                 this.shiftDetailManager.SetNewShift(floorplanManager.Shift);
             }
-           
+
         }
         public void UpdateWithTemplate()
         {

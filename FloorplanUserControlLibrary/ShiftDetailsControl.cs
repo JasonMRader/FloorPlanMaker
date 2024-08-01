@@ -32,7 +32,7 @@ namespace FloorplanUserControlLibrary
             {
                 lblIsLunch.Text = "PM";
             }
-            if(shift.ServersOnShift.Count == 0)
+            if (shift.ServersOnShift.Count == 0)
             {
                 lblSalesPerServer.Text = shift.TotalExpectedShiftSales().ToString("C0");
             }
@@ -40,7 +40,7 @@ namespace FloorplanUserControlLibrary
             {
                 float SalesPerServer = (float)(shift.TotalExpectedShiftSales() / shift.ServersOnShift.Count());
                 lblSalesPerServer.Text = SalesPerServer.ToString("C0");
-            }            
+            }
             lblShiftDate.Text = shift.DateTime.ToString("M");
             lblTotalSales.Text = shift.TotalExpectedShiftSales().ToString("C0");
             lblTotalServers.Text = shift.ServersOnShift.Count().ToString();
@@ -51,6 +51,11 @@ namespace FloorplanUserControlLibrary
         }
 
         private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
         {
 
         }

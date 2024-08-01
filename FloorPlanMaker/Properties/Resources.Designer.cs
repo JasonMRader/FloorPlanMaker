@@ -773,6 +773,16 @@ namespace FloorPlanMakerUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap rain_23px {
+            get {
+                object obj = ResourceManager.GetObject("rain_23px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap report_small {
             get {
                 object obj = ResourceManager.GetObject("report_small", resourceCulture);
@@ -1103,6 +1113,16 @@ namespace FloorPlanMakerUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap temp_23px {
+            get {
+                object obj = ResourceManager.GetObject("temp_23px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ThursdayText {
             get {
                 object obj = ResourceManager.GetObject("ThursdayText", resourceCulture);
@@ -1246,6 +1266,16 @@ namespace FloorPlanMakerUI.Properties {
         internal static System.Drawing.Bitmap wideSemiBold {
             get {
                 object obj = ResourceManager.GetObject("wideSemiBold", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap wind_23px {
+            get {
+                object obj = ResourceManager.GetObject("wind_23px", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -853,6 +853,16 @@ namespace FloorplanUserControlLibrary.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap rain_23px {
+            get {
+                object obj = ResourceManager.GetObject("rain_23px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap RemovePerson {
             get {
                 object obj = ResourceManager.GetObject("RemovePerson", resourceCulture);
@@ -1233,6 +1243,16 @@ namespace FloorplanUserControlLibrary.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap temp_23px {
+            get {
+                object obj = ResourceManager.GetObject("temp_23px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ThursdayText {
             get {
                 object obj = ResourceManager.GetObject("ThursdayText", resourceCulture);
@@ -1386,6 +1406,16 @@ namespace FloorplanUserControlLibrary.Properties {
         internal static System.Drawing.Bitmap wideSemiBold {
             get {
                 object obj = ResourceManager.GetObject("wideSemiBold", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap wind_23px {
+            get {
+                object obj = ResourceManager.GetObject("wind_23px", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
