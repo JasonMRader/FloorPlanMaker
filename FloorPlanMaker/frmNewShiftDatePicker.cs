@@ -383,6 +383,28 @@ namespace FloorPlanMakerUI
                 }
             }
         }
+        private void CreateAreaHistoryLabelsFORFLOORPLANRECORD(FlowLayoutPanel panel, List<FloorplanRecord> floorplanRecord, bool isYesterday)
+        {
+
+            //if (cbStatsType.Checked)
+            //{
+            //    foreach (FloorplanRecord areaHistory in floorplanRecord)
+            //    {
+            //        areaHistory.SetDatesToLastFourWeekdays();
+            //    }
+            //}
+            //foreach (Label lbl in panel.Controls.OfType<Label>())
+            //{
+            //    if (lbl.Tag is DiningArea area)
+            //    {
+            //        AreaHistory history = floorplanRecord.FirstOrDefault(x => x.DiningArea == area);
+            //        CreateAreaLabel(history, lbl);
+
+            //        toolTip1.SetToolTip(lbl, history.GetAreaHistoryLabelToolTip(isYesterday));
+
+            //    }
+            //}
+        }
         private void CreateAreaLabel(AreaHistory history, Label lbl)
         {
             if (history == null)

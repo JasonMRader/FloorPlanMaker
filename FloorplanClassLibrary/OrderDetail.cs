@@ -19,7 +19,7 @@ namespace FloorplanClassLibrary
 
         public string Server { get; set; }
 
-        public string Table { get; set; } // Nullable, in case there are missing values
+        public string Table { get; set; } 
 
         [Name("Discount Amount")]
         public double DiscountAmount { get; set; }
