@@ -36,7 +36,7 @@ namespace FloorPlanMakerUI
             DiningAreaManager = diningAreaManager;
             this.allFloorplans = allFloorplans;
             this.frmEditStaff = frmEditStaff;
-            
+
             //this.ShiftManagerCreated = shiftManager;
             this.dateSelected = shiftManager.DateOnly.ToDateTime(TimeOnly.MinValue);
             //cbIsAm.Checked = shiftManager.IsAM;
@@ -82,9 +82,9 @@ namespace FloorPlanMakerUI
                 cbIsAm.Checked = false;
             }
             SetColors();
-           
+
             LoadDiningAreas();
-           
+
             //PopulateServers();
             RefreshForDateSelected();
             txtServerSearch.Focus();
@@ -103,7 +103,7 @@ namespace FloorPlanMakerUI
             }
             string dateLabel = shiftType + ": " + dateSelected.ToString("dddd, MMMM dd");
             SpecialEventDate specialEventDate = SqliteDataAccess.GetEventByDate(dateOnlySelected);
-           
+
             lblDate.Text = dateLabel;
             if (specialEventDate != null)
             {
@@ -360,7 +360,7 @@ namespace FloorPlanMakerUI
             }
             return areaHistories;
         }
-        
+
         private void CreateAreaHistoryLabels(FlowLayoutPanel panel, List<AreaHistory> areaHistories, bool isYesterday)
         {
 
@@ -377,7 +377,7 @@ namespace FloorPlanMakerUI
                 {
                     AreaHistory history = areaHistories.FirstOrDefault(x => x.DiningArea == area);
                     CreateAreaLabel(history, lbl);
-                   
+
                     toolTip1.SetToolTip(lbl, history.GetAreaHistoryLabelToolTip(isYesterday));
 
                 }
@@ -466,7 +466,7 @@ namespace FloorPlanMakerUI
             RefreshPreviousFloorplanCounts();
             txtServerSearch.Focus();
             SetToShiftFromDatabase();
-            
+
 
         }
         private void SetToShiftFromDatabase()
@@ -516,7 +516,7 @@ namespace FloorPlanMakerUI
             CheckBox cbArea = sender as CheckBox;
             DiningArea area = (DiningArea)cbArea.Tag;
 
-            int diningNumber = (flowDiningAreas.Controls.IndexOf(cbArea)+1);
+            int diningNumber = (flowDiningAreas.Controls.IndexOf(cbArea) + 1);
             if (cbArea.Checked)
             {
                 cbArea.BackColor = UITheme.YesColor;
@@ -542,16 +542,16 @@ namespace FloorPlanMakerUI
         }
         private void btnBackDay_Click(object sender, EventArgs e)
         {
-            dateSelected = dateSelected.AddDays(-1);           
+            dateSelected = dateSelected.AddDays(-1);
             RefreshForDateSelected();
         }
 
         private void btnForwardDay_Click(object sender, EventArgs e)
         {
-            dateSelected = dateSelected.AddDays(1);            
+            dateSelected = dateSelected.AddDays(1);
             RefreshForDateSelected();
         }
-       
+
         private void GetTodayLabel()
         {
             if (dateSelected.Date == DateTime.Today)
@@ -722,75 +722,18 @@ namespace FloorPlanMakerUI
             txtServerSearch.Focus();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private async void btnGetHotSchedulesServers(object sender, EventArgs e)
         {
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
-            {
-                string defaultDirectory = @"C:\Users\Jason\OneDrive\Working On Now\misc";
-                string fallbackDirectory = @"C:\";
-
-                if (Directory.Exists(defaultDirectory))
-                {
-                    openFileDialog.InitialDirectory = defaultDirectory;
-                }
-                else
-                {
-                    openFileDialog.InitialDirectory = fallbackDirectory;
-                }
-                openFileDialog.Filter = "CSV files (*.csv)|*.csv|All files (*.*)|*.*";
-                openFileDialog.FilterIndex = 1;
-                openFileDialog.RestoreDirectory = true;
-                List<string> serversNotMatched = new List<string>();
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
-                {
-
-                    string filePath = openFileDialog.FileName;
-                    //frmLoading loadingForm = new frmLoading("Loading");
-                    //loadingForm.Show();
-                    this.Enabled = false;
-
-                    Task.Run(() =>
-                    {
-                        List<ScheduledShift> records = CsvScheduleReader.GetScheduledShifts(filePath);
-
-                        records.OrderBy(r => r.Date).ToList();
-                        serversNotMatched = PopulateServersFromCsv(records);
-                        //int bartenderCount = CsvScheduleReader.GetBartenderCount(filePath);
-                        this.Invoke(new Action(() =>
-                        {
-
-                            //loadingForm.Close();
-                            this.Enabled = true;
-                            //shiftManager.SelectedShift.SetBartendersToShift(bartenderCount);
-                            PopulateServers();
-                            string serversMissed = "";
-                            if(serversNotMatched != null)
-                            {
-                                int i = 1;
-                                foreach (string server in serversNotMatched)
-                                {
-                                    serversMissed += i.ToString() + ") " + server + "\n";
-                                    i++;
-                                }
-                                MessageBox.Show("Could not find: " + serversMissed);
-                                lblMissingServers.Visible = true;
-                                toolTip1.SetToolTip(lblMissingServers, serversMissed);
-                            }
-                           
-
-                        }));
-                    });
-
-                }
-
-            }
-            txtServerSearch.Focus();
+            //string servers = await HotSchedulesApiAccess.GetScheduledServers();
+            //string servers = await HotSchedulesApiAccess.Test();
+            await HotSchedulesApiAccess.GetSchedule();
+            //MessageBox.Show(servers);
         }
 
         private List<string> PopulateServersFromCsv(List<ScheduledShift> records)
         {
             ScheduledShift scheduledServerShift = records.FirstOrDefault(s => s.Date == shiftManager.DateOnly && s.IsAm == shiftManager.IsAM);
-            
+
             if (scheduledServerShift == null)
             {
                 MessageBox.Show("No shift was found in that file for the date selected");
@@ -847,7 +790,7 @@ namespace FloorPlanMakerUI
         {
             using (frmDateSelect selectDateForm = new frmDateSelect(dateSelected))
             {
-                selectDateForm.StartPosition = FormStartPosition.Manual;                
+                selectDateForm.StartPosition = FormStartPosition.Manual;
                 selectDateForm.Location = Cursor.Position;
                 DialogResult = selectDateForm.ShowDialog();
                 if (DialogResult == DialogResult.OK)

@@ -47,7 +47,7 @@
             panel3 = new Panel();
             txtServerSearch = new TextBox();
             pbAddPerson = new PictureBox();
-            btnImportFromCSV = new Button();
+            btnImportFromHotSchedules = new Button();
             btnImportServers = new Button();
             flowAllServers = new FlowLayoutPanel();
             label6 = new Label();
@@ -265,7 +265,7 @@
             panel3.BackColor = Color.FromArgb(180, 190, 200);
             panel3.Controls.Add(txtServerSearch);
             panel3.Controls.Add(pbAddPerson);
-            panel3.Controls.Add(btnImportFromCSV);
+            panel3.Controls.Add(btnImportFromHotSchedules);
             panel3.Controls.Add(btnImportServers);
             panel3.Controls.Add(flowAllServers);
             panel3.Controls.Add(label6);
@@ -299,19 +299,19 @@
             toolTip1.SetToolTip(pbAddPerson, "Add a New Server to Database");
             pbAddPerson.Click += pbAddPerson_Click;
             // 
-            // btnImportFromCSV
+            // btnImportFromHotSchedules
             // 
-            btnImportFromCSV.BackColor = Color.FromArgb(100, 130, 180);
-            btnImportFromCSV.FlatAppearance.BorderSize = 0;
-            btnImportFromCSV.FlatStyle = FlatStyle.Flat;
-            btnImportFromCSV.Image = Properties.Resources.cloudDownloadSmall;
-            btnImportFromCSV.Location = new Point(242, 6);
-            btnImportFromCSV.Name = "btnImportFromCSV";
-            btnImportFromCSV.Size = new Size(33, 33);
-            btnImportFromCSV.TabIndex = 1;
-            toolTip1.SetToolTip(btnImportFromCSV, "Get From HotSchedules");
-            btnImportFromCSV.UseVisualStyleBackColor = false;
-            btnImportFromCSV.Click += button1_Click;
+            btnImportFromHotSchedules.BackColor = Color.FromArgb(100, 130, 180);
+            btnImportFromHotSchedules.FlatAppearance.BorderSize = 0;
+            btnImportFromHotSchedules.FlatStyle = FlatStyle.Flat;
+            btnImportFromHotSchedules.Image = Properties.Resources.cloudDownloadSmall;
+            btnImportFromHotSchedules.Location = new Point(242, 6);
+            btnImportFromHotSchedules.Name = "btnImportFromHotSchedules";
+            btnImportFromHotSchedules.Size = new Size(33, 33);
+            btnImportFromHotSchedules.TabIndex = 1;
+            toolTip1.SetToolTip(btnImportFromHotSchedules, "Get From HotSchedules");
+            btnImportFromHotSchedules.UseVisualStyleBackColor = false;
+            btnImportFromHotSchedules.Click += btnGetHotSchedulesServers;
             // 
             // btnImportServers
             // 
@@ -516,7 +516,7 @@
         private TextBox txtServerSearch;
         private Label label6;
         private Button btnImportServers;
-        private Button btnImportFromCSV;
+        private Button btnImportFromHotSchedules;
         private Button btnSubtractBartender;
         private Button btnAddBartender;
         private Label lblBartenderCount;
