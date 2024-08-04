@@ -129,8 +129,8 @@ namespace FloorPlanMaker
                 lblMissingSalesData.ForeColor = Color.Black;
                 btnUploadSalesData.Visible = true;
                 lblMissingSalesData.Text = $"Sales Missing {salesDataUpdater.DatesMissingLastWeek.Count} Days {salesDataUpdater.DatesMissingDisplay}";
-            }           
-            else if(this.salesDataUpdater.DatesMissingLastWeek.Count == 0)
+            }
+            else if (this.salesDataUpdater.DatesMissingLastWeek.Count == 0)
             {
                 lblMissingSalesData.ForeColor = Color.White;
                 btnUploadSalesData.Visible = false;
@@ -1494,6 +1494,54 @@ namespace FloorPlanMaker
         {
             if (floorplanManager.Floorplan == null) { return; }
             floorplanManager.EditRosterClicked();
+        }
+
+        private void btnUploadSalesData_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                string defaultDirectory = @"C:\Users\Jason\OneDrive\Source\Databases\LiveDB\Order History";
+                string fallbackDirectory = @"C:\";
+
+                // Check if the default directory exists
+                if (Directory.Exists(defaultDirectory))
+                {
+                    openFileDialog.InitialDirectory = defaultDirectory;
+                }
+                else
+                {
+                    openFileDialog.InitialDirectory = fallbackDirectory;
+                }
+                openFileDialog.Filter = "CSV files (*.csv)|*.csv|All files (*.*)|*.*";
+                openFileDialog.FilterIndex = 1;
+                openFileDialog.RestoreDirectory = true;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+
+                    string filePath = openFileDialog.FileName;
+                    frmLoading loadingForm = new frmLoading("Parsing");
+                    loadingForm.Show();
+                    this.Enabled = false;
+
+                    Task.Run(() =>
+                    {
+                        TableSalesManager tableSalesManager = new TableSalesManager();
+                        var allTableStats = tableSalesManager.ProcessCsvFile(filePath);
+                        SqliteDataAccess.SaveTableStat(allTableStats);
+
+                        this.Invoke(new Action(() =>
+                        {
+                            // Close the loading form and re-enable the main form
+                            loadingForm.Close();
+                            this.Enabled = true;
+                            UpdateMissingSalesData();
+                            
+                        }));
+                    });
+
+                }
+            }
         }
     }
 }

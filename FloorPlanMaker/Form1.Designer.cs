@@ -1028,13 +1028,14 @@ namespace FloorPlanMaker
             btnUploadSalesData.FlatAppearance.BorderSize = 0;
             btnUploadSalesData.FlatStyle = FlatStyle.Flat;
             btnUploadSalesData.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            btnUploadSalesData.Image = FloorPlanMakerUI.Properties.Resources.Upload_28px;
-            btnUploadSalesData.Location = new Point(521, 4);
+            btnUploadSalesData.Image = FloorPlanMakerUI.Properties.Resources.download_28px;
+            btnUploadSalesData.Location = new Point(524, -1);
             btnUploadSalesData.Name = "btnUploadSalesData";
-            btnUploadSalesData.Size = new Size(26, 27);
+            btnUploadSalesData.Size = new Size(32, 35);
             btnUploadSalesData.TabIndex = 13;
             btnUploadSalesData.UseVisualStyleBackColor = false;
             btnUploadSalesData.Visible = false;
+            btnUploadSalesData.Click += btnUploadSalesData_Click;
             // 
             // Form1
             // 
