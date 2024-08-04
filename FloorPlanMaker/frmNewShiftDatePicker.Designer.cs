@@ -347,7 +347,7 @@
             btnImportFromHotSchedules.FlatAppearance.BorderSize = 0;
             btnImportFromHotSchedules.FlatStyle = FlatStyle.Flat;
             btnImportFromHotSchedules.Image = Properties.Resources.cloudDownloadSmall;
-            btnImportFromHotSchedules.Location = new Point(352, 6);
+            btnImportFromHotSchedules.Location = new Point(8, 7);
             btnImportFromHotSchedules.Name = "btnImportFromHotSchedules";
             btnImportFromHotSchedules.Size = new Size(33, 33);
             btnImportFromHotSchedules.TabIndex = 1;
@@ -374,11 +374,11 @@
             // lblMissingServers
             // 
             lblMissingServers.AutoSize = true;
-            lblMissingServers.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lblMissingServers.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             lblMissingServers.ForeColor = Color.DarkRed;
-            lblMissingServers.Location = new Point(8, 14);
+            lblMissingServers.Location = new Point(196, 0);
             lblMissingServers.Name = "lblMissingServers";
-            lblMissingServers.Size = new Size(166, 20);
+            lblMissingServers.Size = new Size(133, 15);
             lblMissingServers.TabIndex = 3;
             lblMissingServers.Text = "!! MISSING SERVERS !!";
             lblMissingServers.Visible = false;
