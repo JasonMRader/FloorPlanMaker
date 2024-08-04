@@ -31,7 +31,8 @@ namespace FloorplanClassLibrary
             }
             return password;
         }
-        private static string GetHotSchedulesCO()
+        //This is CompanyID confirmed
+        private static string GetHotSchedulesCompanyID()
         {
             string CO = ConfigurationManager.AppSettings["HotSchedulesCO"];
             if (string.IsNullOrEmpty(CO))
@@ -85,7 +86,7 @@ namespace FloorplanClassLibrary
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                string conceptId = GetHotSchedulesCO();
+                string conceptId = GetHotSchedulesCompanyID();
                 string storeId = GetHotSchedulesClient();
                 string url = $"https://agent-pos-na1.fourth.com/{conceptId}/{storeId}/shifts?daysInPast=0&daysInFuture=6";
                 //string url = $"https://agent-pos-na1.fourth.com/{GetHotSchedulesCO()}" +
@@ -126,9 +127,9 @@ namespace FloorplanClassLibrary
         public static async Task GetSchedule()
         {
             string bearerToken = await GenerateBearerToken();
-            string co = GetHotSchedulesCO();
+            string co = GetHotSchedulesCompanyID();
             string client = GetHotSchedulesClient();
-
+            //{"name":"Rick's Cafe Boatyard","extId":3548}
             string start_date = "2024-08-05";
             string end_date = "2024-08-11";
             string concept_id = ""; // replace with your actual concept ID
@@ -150,12 +151,13 @@ namespace FloorplanClassLibrary
         {
             string username = GetHotSchedulesUserName();
             string password = GetHotSchedulesPassword();
-            string companyId = GetHotSchedulesCO();
+            string companyId = GetHotSchedulesCompanyID();
             string storeId = GetHotSchedulesClient();
             //3548
             //string url = $"https://agent-pos-na1.fourth.com/{companyId}/controllers/vertx/hotschedules/shifts?daysInPast=0&daysInFuture=6";
-            string url = $"https://agent-pos-na1.fourth.com/{companyId}/controllers/vertx/hotschedules/{storeId}/??/getScheduleV3?start_day=5&start_month=8&start_year=2024&end_day=11&end_month =8&end_year=2024";
-            //string url = $"https://agent-pos-na1.fourth.com/{companyId}/controllers/vertx/hotschedules/getConcepts";
+            //string url = $"https://agent-pos-na1.fourth.com/{companyId}/controllers/vertx/hotschedules/{storeId}/??/getScheduleV3?start_day=5&start_month=8&start_year=2024&end_day=11&end_month =8&end_year=2024";
+            string url = $"https://agent-pos-na1.fourth.com/{companyId}/controllers/vertx/hotschedules/getConcepts";
+            //string url = $"https://agent-pos-na1.fourth.com/{companyId}/controllers/vertx/{companyId}/{storeId}/getEmpInfo?active_only=true";
 
             using (HttpClient client = new HttpClient())
             {

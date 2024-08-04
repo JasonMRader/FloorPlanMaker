@@ -725,9 +725,9 @@ namespace FloorPlanMakerUI
         private async void btnGetHotSchedulesServers(object sender, EventArgs e)
         {
             //string servers = await HotSchedulesApiAccess.GetScheduledServers();
-            //string servers = await HotSchedulesApiAccess.Test();
-            await HotSchedulesApiAccess.GetSchedule();
-            //MessageBox.Show(servers);
+            string servers = await HotSchedulesApiAccess.Test();
+            //await HotSchedulesApiAccess.GetSchedule();
+            MessageBox.Show(servers);
         }
 
         private List<string> PopulateServersFromCsv(List<ScheduledShift> records)

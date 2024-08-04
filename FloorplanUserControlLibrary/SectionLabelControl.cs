@@ -306,6 +306,10 @@ namespace FloorplanClassLibrary
         }
         private void SetSectionToClose()
         {
+            if(this.Section.Server == null)
+            {
+                return;
+            }
             if (this.Section.Server.isDouble)
             {
                 DialogResult result = MessageBox.Show(Section.Server.Name + " is a Double. Assign as closer anyway?",
