@@ -16,9 +16,11 @@ namespace FloorPlanMakerUI
 {
     public partial class SplashScreen : Form
     {
-        public SplashScreen()
+        private Form1 form1;
+        public SplashScreen(Form1 form1)
         {
             InitializeComponent();
+            this.form1 = form1;
             backgroundWorker1.DoWork += BackgroundWorker1_DoWork;
             backgroundWorker1.RunWorkerCompleted += BackgroundWorker1_RunWorkerCompleted;
 
@@ -43,6 +45,7 @@ namespace FloorPlanMakerUI
                 SqliteDataAccess.BackupDatabase();
                 SqliteDataAccess.DeleteOldBackups();
                 WeatherDataHistoryUpdater.SaveMissingDatesToDatabase();
+                
                 await HourlyWeatherForecast.InitializeAsync();
 
             });

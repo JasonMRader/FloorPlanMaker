@@ -98,8 +98,8 @@ namespace FloorPlanMaker
             pnlShiftDetails = new Panel();
             flowSidePanelDisplay = new FlowLayoutPanel();
             pnlSalesDataUpdated = new Panel();
-            label4 = new Label();
-            button1 = new Button();
+            lblMissingSalesData = new Label();
+            btnUploadSalesData = new Button();
             flowSectionSelect.SuspendLayout();
             panel1.SuspendLayout();
             pnlFloorplanContainer.SuspendLayout();
@@ -1003,38 +1003,38 @@ namespace FloorPlanMaker
             // pnlSalesDataUpdated
             // 
             pnlSalesDataUpdated.BackColor = Color.FromArgb(180, 190, 200);
-            pnlSalesDataUpdated.Controls.Add(label4);
-            pnlSalesDataUpdated.Controls.Add(button1);
+            pnlSalesDataUpdated.Controls.Add(lblMissingSalesData);
+            pnlSalesDataUpdated.Controls.Add(btnUploadSalesData);
             pnlSalesDataUpdated.Location = new Point(630, 6);
             pnlSalesDataUpdated.Name = "pnlSalesDataUpdated";
-            pnlSalesDataUpdated.Size = new Size(243, 35);
+            pnlSalesDataUpdated.Size = new Size(556, 35);
             pnlSalesDataUpdated.TabIndex = 24;
             // 
-            // label4
+            // lblMissingSalesData
             // 
-            label4.BackColor = Color.Green;
-            label4.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label4.ForeColor = SystemColors.ControlLightLight;
-            label4.Location = new Point(11, 5);
-            label4.Name = "label4";
-            label4.Size = new Size(174, 26);
-            label4.TabIndex = 6;
-            label4.Text = "Sales Data Up To Date";
-            label4.TextAlign = ContentAlignment.MiddleCenter;
+            lblMissingSalesData.BackColor = Color.Gold;
+            lblMissingSalesData.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lblMissingSalesData.ForeColor = SystemColors.ControlLightLight;
+            lblMissingSalesData.Location = new Point(11, 5);
+            lblMissingSalesData.Name = "lblMissingSalesData";
+            lblMissingSalesData.Size = new Size(504, 26);
+            lblMissingSalesData.TabIndex = 6;
+            lblMissingSalesData.Text = "Missing Important Sales Data, Please Update!";
+            lblMissingSalesData.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // button1
+            // btnUploadSalesData
             // 
-            button1.BackColor = Color.FromArgb(100, 130, 180);
-            button1.FlatAppearance.BorderSize = 0;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            button1.Image = FloorPlanMakerUI.Properties.Resources.Upload_28px;
-            button1.Location = new Point(206, 0);
-            button1.Name = "button1";
-            button1.Size = new Size(34, 35);
-            button1.TabIndex = 13;
-            button1.UseVisualStyleBackColor = false;
-            button1.Visible = false;
+            btnUploadSalesData.BackColor = Color.FromArgb(100, 130, 180);
+            btnUploadSalesData.FlatAppearance.BorderSize = 0;
+            btnUploadSalesData.FlatStyle = FlatStyle.Flat;
+            btnUploadSalesData.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            btnUploadSalesData.Image = FloorPlanMakerUI.Properties.Resources.Upload_28px;
+            btnUploadSalesData.Location = new Point(521, 4);
+            btnUploadSalesData.Name = "btnUploadSalesData";
+            btnUploadSalesData.Size = new Size(26, 27);
+            btnUploadSalesData.TabIndex = 13;
+            btnUploadSalesData.UseVisualStyleBackColor = false;
+            btnUploadSalesData.Visible = false;
             // 
             // Form1
             // 
@@ -1142,7 +1142,7 @@ namespace FloorPlanMaker
         private RadioButton rdoReservations;
         private RadioButton rdoWeather;
         private Panel pnlSalesDataUpdated;
-        private Label label4;
-        private Button button1;
+        private Label lblMissingSalesData;
+        private Button btnUploadSalesData;
     }
 }

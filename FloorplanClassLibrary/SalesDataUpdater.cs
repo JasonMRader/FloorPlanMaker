@@ -8,19 +8,58 @@ namespace FloorplanClassLibrary
 {
     public class SalesDataUpdater
     {
+        public SalesDataUpdater() 
+        {
+            //refreshMissingDates();
+        }
         public List<DateOnly> DatesMissing = new List<DateOnly>();
         public List<DateOnly> DatesMissingLastWeek
         {
             get
             {
-                return DatesMissing.Where(d => d < DateOnly.FromDateTime(DateTime.Today.AddDays(-8))).ToList();
+                var startDate = _dateReferenced.AddDays(-7);
+                var endDate = _dateReferenced.AddDays(-1);
+                return DatesMissing.Where(d => d >= startDate && d <= endDate).ToList();
             }
         }
-        private void refreshMissingDateDisplay()
+        public List<DateOnly> DatesMissingBeforeLastWeek
         {
-            List<DateOnly> MissingDays = new List<DateOnly>();
+            get
+            {
+                var startDate = _dateReferenced.AddDays(-7);
+                return DatesMissing.Where(d => d <= startDate).ToList();
+            }
+        }
+        public string DatesMissingDisplay
+        {
+            get
+            {
+                if(AllMissingRanges.Count == 0)
+                {
+                    return "";
+                }
+                if(AllMissingRanges.Count == 1)
+                {
+                    return $"({AllMissingRanges[0]})";
+                }
+                else
+                {
+                    return $"{AllMissingRanges.Count} Ranges Missing";
+                }
+            }
+        }
+        private DateOnly _dateReferenced = DateOnly.FromDateTime(DateTime.Today);
+        public List<string> AllMissingRanges { get; private set; } = new List<string>();
+        public void SetNewDate(DateOnly newDateOnly)
+        {
+            _dateReferenced = newDateOnly;
+            refreshMissingDates();
+        }
+        public void refreshMissingDates()
+        {
            
-            DateOnly endDate = DateOnly.FromDateTime(DateTime.Today.AddDays(-1));
+           
+            DateOnly endDate = _dateReferenced.AddDays(-1);
 
             DateOnly startDate = DateOnly.FromDateTime(DateTime.Today.AddDays(-150));
 
@@ -75,10 +114,10 @@ namespace FloorplanClassLibrary
 
 
             }
-            string MissingRanges = "";
+            AllMissingRanges.Clear();
             foreach (string dateRange in missingDateRanges)
             {
-                MissingRanges += dateRange;
+                AllMissingRanges.Add(dateRange);
             }
         }
     }

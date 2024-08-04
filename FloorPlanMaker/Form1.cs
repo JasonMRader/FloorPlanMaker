@@ -50,6 +50,7 @@ namespace FloorPlanMaker
         private TableSalesManager tableSalesManager = new TableSalesManager();
         private bool _isDrawingModeEnabled = false;
         private Point? _startPoint = null;
+        private SalesDataUpdater salesDataUpdater = new SalesDataUpdater();
         private List<FloorplanLine> _lines = new List<FloorplanLine>();
         public TutorialImages.TutorialType tutorialType = TutorialImages.TutorialType.Form1;
         public ShiftDetailOverviewManager shiftDetailManager { get; set; }
@@ -71,7 +72,7 @@ namespace FloorPlanMaker
         private SectionControlsManager sectionControlsManager { get; set; }
         private void Form1_Load(object sender, EventArgs e)
         {
-            SplashScreen splashScreen = new SplashScreen();
+            SplashScreen splashScreen = new SplashScreen(this);
             splashScreen.Show();
             Application.DoEvents();
 
@@ -107,7 +108,35 @@ namespace FloorPlanMaker
             pnlMainContainer.Visible = false;
             //pnlSideBar.Visible = false;
             pnlSideContainer.Visible = false;
+            UpdateMissingSalesData();
 
+        }
+        public void UpdateMissingSalesData()
+        {
+
+            salesDataUpdater.SetNewDate(dateOnlySelected);
+            if (this.salesDataUpdater.DatesMissingBeforeLastWeek.Count > 0)
+            {
+                lblMissingSalesData.ForeColor = Color.White;
+                lblMissingSalesData.BackColor = Color.DarkRed;
+                lblMissingSalesData.Text = $"Missing Important Sales Data, Please Update! {salesDataUpdater.DatesMissingDisplay}";
+                btnUploadSalesData.Visible = true;
+                return;
+            }
+            if (this.salesDataUpdater.DatesMissingLastWeek.Count > 0 && this.salesDataUpdater.DatesMissingLastWeek.Count < 7)
+            {
+                lblMissingSalesData.BackColor = Color.Gold;
+                lblMissingSalesData.ForeColor = Color.Black;
+                btnUploadSalesData.Visible = true;
+                lblMissingSalesData.Text = $"Sales Missing {salesDataUpdater.DatesMissingLastWeek.Count} Days {salesDataUpdater.DatesMissingDisplay}";
+            }           
+            else if(this.salesDataUpdater.DatesMissingLastWeek.Count == 0)
+            {
+                lblMissingSalesData.ForeColor = Color.White;
+                btnUploadSalesData.Visible = false;
+                lblMissingSalesData.BackColor = Color.Green;
+                lblMissingSalesData.Text = $"Sales Data Up To Date";
+            }
         }
         private void SetColors()
         {
@@ -564,6 +593,7 @@ namespace FloorPlanMaker
             rdoLastFourWeekdayStats.Text = "Last Four " + dateOnlySelected.DayOfWeek.ToString() + "s";
             updateSalesForTables();
             UpdateSidePanelDisplay();
+            UpdateMissingSalesData();
         }
         public void UpdateSidePanelDisplay()
         {
