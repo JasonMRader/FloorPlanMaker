@@ -1203,6 +1203,16 @@ namespace FloorPlanMakerUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Trash_28px {
+            get {
+                object obj = ResourceManager.GetObject("Trash_28px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap trayReeversedLeessSmall {
             get {
                 object obj = ResourceManager.GetObject("trayReeversedLeessSmall", resourceCulture);
@@ -1246,6 +1256,26 @@ namespace FloorPlanMakerUI.Properties {
         internal static System.Drawing.Bitmap TuesdayText {
             get {
                 object obj = ResourceManager.GetObject("TuesdayText", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Upload_28px {
+            get {
+                object obj = ResourceManager.GetObject("Upload_28px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Upload_30px {
+            get {
+                object obj = ResourceManager.GetObject("Upload_30px", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -47,11 +47,11 @@
             panel3 = new Panel();
             txtServerSearch = new TextBox();
             pbAddPerson = new PictureBox();
-            btnImportFromHotSchedules = new Button();
             btnImportServers = new Button();
             flowAllServers = new FlowLayoutPanel();
             label6 = new Label();
             label5 = new Label();
+            btnImportFromHotSchedules = new Button();
             panel4 = new Panel();
             lblMissingServers = new Label();
             btnSubtractBartender = new Button();
@@ -220,7 +220,7 @@
             panel2.Controls.Add(flowYesterdayCounts);
             panel2.Location = new Point(25, 130);
             panel2.Name = "panel2";
-            panel2.Size = new Size(1208, 196);
+            panel2.Size = new Size(1208, 218);
             panel2.TabIndex = 4;
             // 
             // cbStatsType
@@ -269,9 +269,9 @@
             panel3.Controls.Add(flowAllServers);
             panel3.Controls.Add(label6);
             panel3.Controls.Add(label5);
-            panel3.Location = new Point(25, 351);
+            panel3.Location = new Point(25, 400);
             panel3.Name = "panel3";
-            panel3.Size = new Size(595, 512);
+            panel3.Size = new Size(595, 439);
             panel3.TabIndex = 5;
             // 
             // txtServerSearch
@@ -298,20 +298,6 @@
             toolTip1.SetToolTip(pbAddPerson, "Add a New Server to Database");
             pbAddPerson.Click += pbAddPerson_Click;
             // 
-            // btnImportFromHotSchedules
-            // 
-            btnImportFromHotSchedules.BackColor = Color.FromArgb(100, 130, 180);
-            btnImportFromHotSchedules.FlatAppearance.BorderSize = 0;
-            btnImportFromHotSchedules.FlatStyle = FlatStyle.Flat;
-            btnImportFromHotSchedules.Image = Properties.Resources.cloudDownloadSmall;
-            btnImportFromHotSchedules.Location = new Point(352, 6);
-            btnImportFromHotSchedules.Name = "btnImportFromHotSchedules";
-            btnImportFromHotSchedules.Size = new Size(33, 33);
-            btnImportFromHotSchedules.TabIndex = 1;
-            toolTip1.SetToolTip(btnImportFromHotSchedules, "Get From HotSchedules");
-            btnImportFromHotSchedules.UseVisualStyleBackColor = false;
-            btnImportFromHotSchedules.Click += btnGetHotSchedulesServers;
-            // 
             // btnImportServers
             // 
             btnImportServers.BackColor = Color.FromArgb(100, 130, 180);
@@ -332,7 +318,7 @@
             flowAllServers.BackColor = Color.WhiteSmoke;
             flowAllServers.Location = new Point(9, 45);
             flowAllServers.Name = "flowAllServers";
-            flowAllServers.Size = new Size(578, 456);
+            flowAllServers.Size = new Size(578, 384);
             flowAllServers.TabIndex = 1;
             // 
             // label6
@@ -355,6 +341,20 @@
             label5.TabIndex = 0;
             label5.Text = "Servers Not On Shift";
             // 
+            // btnImportFromHotSchedules
+            // 
+            btnImportFromHotSchedules.BackColor = Color.FromArgb(100, 130, 180);
+            btnImportFromHotSchedules.FlatAppearance.BorderSize = 0;
+            btnImportFromHotSchedules.FlatStyle = FlatStyle.Flat;
+            btnImportFromHotSchedules.Image = Properties.Resources.cloudDownloadSmall;
+            btnImportFromHotSchedules.Location = new Point(352, 6);
+            btnImportFromHotSchedules.Name = "btnImportFromHotSchedules";
+            btnImportFromHotSchedules.Size = new Size(33, 33);
+            btnImportFromHotSchedules.TabIndex = 1;
+            toolTip1.SetToolTip(btnImportFromHotSchedules, "Get From HotSchedules");
+            btnImportFromHotSchedules.UseVisualStyleBackColor = false;
+            btnImportFromHotSchedules.Click += btnGetHotSchedulesServers;
+            // 
             // panel4
             // 
             panel4.BackColor = Color.FromArgb(180, 190, 200);
@@ -366,9 +366,9 @@
             panel4.Controls.Add(lblBartenderCount);
             panel4.Controls.Add(label2);
             panel4.Controls.Add(lblServersOnShift);
-            panel4.Location = new Point(638, 351);
+            panel4.Location = new Point(638, 400);
             panel4.Name = "panel4";
-            panel4.Size = new Size(595, 512);
+            panel4.Size = new Size(595, 439);
             panel4.TabIndex = 5;
             // 
             // lblMissingServers
@@ -418,7 +418,7 @@
             flowServersOnShift.BackColor = Color.WhiteSmoke;
             flowServersOnShift.Location = new Point(8, 45);
             flowServersOnShift.Name = "flowServersOnShift";
-            flowServersOnShift.Size = new Size(578, 456);
+            flowServersOnShift.Size = new Size(578, 384);
             flowServersOnShift.TabIndex = 0;
             flowServersOnShift.ControlAdded += flowServersOnShift_ControlsChanged;
             flowServersOnShift.ControlRemoved += flowServersOnShift_ControlsChanged;

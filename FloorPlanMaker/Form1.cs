@@ -1324,8 +1324,10 @@ namespace FloorPlanMaker
 
         private void btnDeleteSelectedFloorplan_Click(object sender, EventArgs e)
         {
-            frmConfirmation confirmationForm = new frmConfirmation();
-            DialogResult result = confirmationForm.ShowDialog();
+            DialogResult result = MessageBox.Show("Do You Want To Complete Delete This Floorplan?",
+                                                "Delete Floorplan?",
+                                                MessageBoxButtons.YesNo,
+                                                MessageBoxIcon.Question);
 
             if (result == DialogResult.OK)
             {

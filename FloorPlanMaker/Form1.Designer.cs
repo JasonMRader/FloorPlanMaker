@@ -62,6 +62,7 @@ namespace FloorPlanMaker
             btnEraseAllSections = new Button();
             cbDrawToggle = new CheckBox();
             pnlTemplateContainer = new Panel();
+            btnDeleteSelectedFloorplan = new Button();
             pnlSideContainer = new Panel();
             pnlSectionsAndServers = new Panel();
             pnlStatMode = new Panel();
@@ -86,17 +87,19 @@ namespace FloorPlanMaker
             rdoSales = new RadioButton();
             rdoViewServerFlow = new RadioButton();
             rdoViewSectionFlow = new RadioButton();
-            btnDeleteSelectedFloorplan = new Button();
             btnHelp = new Button();
             toolTip1 = new ToolTip(components);
             btnReportBug = new Button();
+            rdoReservations = new RadioButton();
+            rdoWeather = new RadioButton();
             helpProvider1 = new HelpProvider();
             panel2 = new Panel();
             panel3 = new Panel();
             pnlShiftDetails = new Panel();
-            rdoReservations = new RadioButton();
-            rdoWeather = new RadioButton();
             flowSidePanelDisplay = new FlowLayoutPanel();
+            pnlSalesDataUpdated = new Panel();
+            label4 = new Label();
+            button1 = new Button();
             flowSectionSelect.SuspendLayout();
             panel1.SuspendLayout();
             pnlFloorplanContainer.SuspendLayout();
@@ -108,6 +111,7 @@ namespace FloorPlanMaker
             pnlStatMode.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
+            pnlSalesDataUpdated.SuspendLayout();
             SuspendLayout();
             // 
             // flowServersInFloorplan
@@ -432,6 +436,7 @@ namespace FloorPlanMaker
             // 
             pnlNavigationWindow.BackColor = Color.FromArgb(225, 225, 225);
             pnlNavigationWindow.Controls.Add(pnlMainContainer);
+            pnlNavigationWindow.Controls.Add(btnDeleteSelectedFloorplan);
             pnlNavigationWindow.Controls.Add(pnlSideContainer);
             pnlNavigationWindow.Location = new Point(0, 43);
             pnlNavigationWindow.Name = "pnlNavigationWindow";
@@ -536,6 +541,18 @@ namespace FloorPlanMaker
             pnlTemplateContainer.Name = "pnlTemplateContainer";
             pnlTemplateContainer.Size = new Size(684, 921);
             pnlTemplateContainer.TabIndex = 22;
+            // 
+            // btnDeleteSelectedFloorplan
+            // 
+            btnDeleteSelectedFloorplan.BackColor = Color.IndianRed;
+            btnDeleteSelectedFloorplan.Image = FloorPlanMakerUI.Properties.Resources.Trash_28px;
+            btnDeleteSelectedFloorplan.Location = new Point(1239, 3);
+            btnDeleteSelectedFloorplan.Name = "btnDeleteSelectedFloorplan";
+            btnDeleteSelectedFloorplan.Size = new Size(25, 32);
+            btnDeleteSelectedFloorplan.TabIndex = 22;
+            btnDeleteSelectedFloorplan.UseVisualStyleBackColor = false;
+            btnDeleteSelectedFloorplan.Visible = false;
+            btnDeleteSelectedFloorplan.Click += btnDeleteSelectedFloorplan_Click;
             // 
             // pnlSideContainer
             // 
@@ -874,17 +891,6 @@ namespace FloorPlanMaker
             rdoViewSectionFlow.UseVisualStyleBackColor = false;
             rdoViewSectionFlow.CheckedChanged += rdoViewSectionFlow_CheckedChanged;
             // 
-            // btnDeleteSelectedFloorplan
-            // 
-            btnDeleteSelectedFloorplan.Location = new Point(1007, 3);
-            btnDeleteSelectedFloorplan.Name = "btnDeleteSelectedFloorplan";
-            btnDeleteSelectedFloorplan.Size = new Size(41, 28);
-            btnDeleteSelectedFloorplan.TabIndex = 22;
-            btnDeleteSelectedFloorplan.Text = "Delete";
-            btnDeleteSelectedFloorplan.UseVisualStyleBackColor = true;
-            btnDeleteSelectedFloorplan.Visible = false;
-            btnDeleteSelectedFloorplan.Click += btnDeleteSelectedFloorplan_Click;
-            // 
             // btnHelp
             // 
             btnHelp.BackColor = Color.Orange;
@@ -922,34 +928,6 @@ namespace FloorPlanMaker
             btnReportBug.UseVisualStyleBackColor = false;
             btnReportBug.Click += btnReportBug_Click;
             // 
-            // panel2
-            // 
-            panel2.BackColor = Color.FromArgb(225, 225, 225);
-            panel2.Controls.Add(panel3);
-            panel2.Location = new Point(1270, 43);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(228, 997);
-            panel2.TabIndex = 23;
-            // 
-            // panel3
-            // 
-            panel3.BackColor = Color.FromArgb(180, 190, 200);
-            panel3.Controls.Add(pnlShiftDetails);
-            panel3.Controls.Add(rdoReservations);
-            panel3.Controls.Add(rdoWeather);
-            panel3.Controls.Add(flowSidePanelDisplay);
-            panel3.Location = new Point(11, 17);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(208, 950);
-            panel3.TabIndex = 1;
-            // 
-            // pnlShiftDetails
-            // 
-            pnlShiftDetails.Location = new Point(5, 5);
-            pnlShiftDetails.Name = "pnlShiftDetails";
-            pnlShiftDetails.Size = new Size(200, 163);
-            pnlShiftDetails.TabIndex = 1;
-            // 
             // rdoReservations
             // 
             rdoReservations.Appearance = Appearance.Button;
@@ -986,6 +964,34 @@ namespace FloorPlanMaker
             toolTip1.SetToolTip(rdoWeather, "View Weather");
             rdoWeather.UseVisualStyleBackColor = false;
             // 
+            // panel2
+            // 
+            panel2.BackColor = Color.FromArgb(225, 225, 225);
+            panel2.Controls.Add(panel3);
+            panel2.Location = new Point(1270, 43);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(228, 997);
+            panel2.TabIndex = 23;
+            // 
+            // panel3
+            // 
+            panel3.BackColor = Color.FromArgb(180, 190, 200);
+            panel3.Controls.Add(pnlShiftDetails);
+            panel3.Controls.Add(rdoReservations);
+            panel3.Controls.Add(rdoWeather);
+            panel3.Controls.Add(flowSidePanelDisplay);
+            panel3.Location = new Point(11, 17);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(208, 950);
+            panel3.TabIndex = 1;
+            // 
+            // pnlShiftDetails
+            // 
+            pnlShiftDetails.Location = new Point(5, 5);
+            pnlShiftDetails.Name = "pnlShiftDetails";
+            pnlShiftDetails.Size = new Size(200, 163);
+            pnlShiftDetails.TabIndex = 1;
+            // 
             // flowSidePanelDisplay
             // 
             flowSidePanelDisplay.BackColor = Color.WhiteSmoke;
@@ -994,14 +1000,50 @@ namespace FloorPlanMaker
             flowSidePanelDisplay.Size = new Size(200, 737);
             flowSidePanelDisplay.TabIndex = 0;
             // 
+            // pnlSalesDataUpdated
+            // 
+            pnlSalesDataUpdated.BackColor = Color.FromArgb(180, 190, 200);
+            pnlSalesDataUpdated.Controls.Add(label4);
+            pnlSalesDataUpdated.Controls.Add(button1);
+            pnlSalesDataUpdated.Location = new Point(630, 6);
+            pnlSalesDataUpdated.Name = "pnlSalesDataUpdated";
+            pnlSalesDataUpdated.Size = new Size(243, 35);
+            pnlSalesDataUpdated.TabIndex = 24;
+            // 
+            // label4
+            // 
+            label4.BackColor = Color.Green;
+            label4.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label4.ForeColor = SystemColors.ControlLightLight;
+            label4.Location = new Point(11, 5);
+            label4.Name = "label4";
+            label4.Size = new Size(174, 26);
+            label4.TabIndex = 6;
+            label4.Text = "Sales Data Up To Date";
+            label4.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // button1
+            // 
+            button1.BackColor = Color.FromArgb(100, 130, 180);
+            button1.FlatAppearance.BorderSize = 0;
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            button1.Image = FloorPlanMakerUI.Properties.Resources.Upload_28px;
+            button1.Location = new Point(206, 0);
+            button1.Name = "button1";
+            button1.Size = new Size(34, 35);
+            button1.TabIndex = 13;
+            button1.UseVisualStyleBackColor = false;
+            button1.Visible = false;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.WhiteSmoke;
             ClientSize = new Size(1501, 1042);
+            Controls.Add(pnlSalesDataUpdated);
             Controls.Add(panel2);
-            Controls.Add(btnDeleteSelectedFloorplan);
             Controls.Add(btnCloseApp);
             Controls.Add(btnReportBug);
             Controls.Add(btnHelp);
@@ -1029,6 +1071,7 @@ namespace FloorPlanMaker
             pnlStatMode.PerformLayout();
             panel2.ResumeLayout(false);
             panel3.ResumeLayout(false);
+            pnlSalesDataUpdated.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -1098,5 +1141,8 @@ namespace FloorPlanMaker
         private Panel pnlShiftDetails;
         private RadioButton rdoReservations;
         private RadioButton rdoWeather;
+        private Panel pnlSalesDataUpdated;
+        private Label label4;
+        private Button button1;
     }
 }
