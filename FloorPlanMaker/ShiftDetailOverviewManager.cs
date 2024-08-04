@@ -10,27 +10,56 @@ namespace FloorPlanMakerUI
 {
     public class ShiftDetailOverviewManager : IShiftObserver
     {
-        public ShiftDetailOverviewManager(FlowLayoutPanel flowLayoutPanel, Panel panel, bool isLunch, DateOnly dateOnly)
+        public ShiftDetailOverviewManager(FlowLayoutPanel flowLayoutPanel, Panel panel, bool isLunch, DateOnly dateOnly, RadioButton rdoWeather, RadioButton rdoReservations)
         {
             this.flowHourlyWeather = flowLayoutPanel;
             this.shiftDetailsPanel = panel;
             this.isLunch = isLunch;
             this.dateOnly = dateOnly;
-            InitializeControlsForDateAndShift();
+            this.rdoWeather = rdoWeather;
+            this.rdoReservations = rdoReservations;
+            rdoWeather.CheckedChanged += rdoViewType_CheckChanged;
+            rdoReservations.CheckedChanged += rdoViewType_CheckChanged;
+            PopulateFlowPanelForShiftData();
             shiftDetailsPanel.Controls.Add(this.ShiftDetailsControl);
         }
-        public ShiftDetailOverviewManager(FlowLayoutPanel flowLayoutPanel, Panel panel)
+        public ShiftDetailOverviewManager(FlowLayoutPanel flowLayoutPanel, Panel panel, RadioButton rdoWeather, RadioButton rdoReservations)
         {
             this.flowHourlyWeather = flowLayoutPanel;
-            this.shiftDetailsPanel = panel;            
-            InitializeControlsForDateAndShift();
+            this.shiftDetailsPanel = panel;
+           
             shiftDetailsPanel.Controls.Add(this.ShiftDetailsControl);
+            this.rdoWeather = rdoWeather;
+            this.rdoReservations = rdoReservations;
+            rdoWeather.CheckedChanged += rdoViewType_CheckChanged;
+            rdoReservations.CheckedChanged += rdoViewType_CheckChanged;
+            PopulateFlowPanelForShiftData();
+
+
         }
-        
+
+        private void rdoViewType_CheckChanged(object? sender, EventArgs e)
+        {
+            PopulateFlowPanelForShiftData();
+        }
+        private void PopulateFlowPanelForShiftData()
+        {
+            if (rdoWeather.Checked)
+            {
+                PopulateWeatherControlsForDateAndShift();
+            }
+            else if (rdoReservations.Checked)
+            {
+                PopulateReservationControlsForDateAndShift();
+            }
+        }
+
         public ShiftDetailOverviewManager()
         {
             
         }
+        private RadioButton rdoWeather {  get; set; }
+        private RadioButton rdoReservations { get; set; }   
         private Panel shiftDetailsPanel { get; set; }
         private ShiftDetailsControl ShiftDetailsControl { get; set; } = new ShiftDetailsControl();
         private FlowLayoutPanel flowHourlyWeather { get; set; }
@@ -39,7 +68,7 @@ namespace FloorPlanMakerUI
         private bool isLunch { get; set; }
         private DateOnly dateOnly { get; set; }
         private Shift shift { get; set; }
-        private async void InitializeControlsForDateAndShift()
+        private async void PopulateWeatherControlsForDateAndShift()
         {
             //shiftDetailsPanel.Controls.Clear();
             hourlyWeatherDisplays.Clear();
@@ -52,7 +81,20 @@ namespace FloorPlanMakerUI
                 flowHourlyWeather.Controls.Add(weatherDisplay);
             }
         }
-
+        private async void PopulateReservationControlsForDateAndShift()
+        {          
+           
+            flowHourlyWeather.Controls.Clear();
+            Label label = new Label
+            {
+                AutoSize = false,
+                Size = new Size(flowHourlyWeather.Width, flowHourlyWeather.Height),
+                TextAlign = ContentAlignment.MiddleCenter,
+                Text = "Reservation Data Integration Coming Soon!",
+                Font = UITheme.LargeFont,
+            };
+            flowHourlyWeather.Controls.Add(label);
+        }
         public void SetNewShift(Shift shift)
         {
             if(shift == null) { return; }
@@ -71,7 +113,7 @@ namespace FloorPlanMakerUI
             {
                 this.dateOnly = dateOnly;
                 this.isLunch = isLunch;
-                InitializeControlsForDateAndShift();
+                PopulateFlowPanelForShiftData();
             }
             
         }

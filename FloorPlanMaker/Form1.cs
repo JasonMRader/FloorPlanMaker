@@ -348,7 +348,7 @@ namespace FloorPlanMaker
         public Form1()
         {
             InitializeComponent();
-            this.shiftDetailManager = new ShiftDetailOverviewManager(this.flowSidePanelDisplay, pnlShiftDetails);
+            this.shiftDetailManager = new ShiftDetailOverviewManager(this.flowSidePanelDisplay, pnlShiftDetails, rdoWeather, rdoReservations);
             drawingHandler = new DrawingHandler(pnlFloorPlan);
             //shift = new Shift();
             //shiftManager.ServersNotOnShift = SqliteDataAccess.LoadServers();

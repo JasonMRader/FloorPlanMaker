@@ -913,6 +913,16 @@ namespace FloorplanUserControlLibrary.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap SalesPerPerson_28px {
+            get {
+                object obj = ResourceManager.GetObject("SalesPerPerson_28px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap salesSMall {
             get {
                 object obj = ResourceManager.GetObject("salesSMall", resourceCulture);

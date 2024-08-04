@@ -94,6 +94,8 @@ namespace FloorPlanMaker
             panel2 = new Panel();
             panel3 = new Panel();
             pnlShiftDetails = new Panel();
+            rdoReservations = new RadioButton();
+            rdoWeather = new RadioButton();
             flowSidePanelDisplay = new FlowLayoutPanel();
             flowSectionSelect.SuspendLayout();
             panel1.SuspendLayout();
@@ -484,7 +486,7 @@ namespace FloorPlanMaker
             btnEditRoster.BackColor = Color.FromArgb(100, 130, 180);
             btnEditRoster.FlatAppearance.BorderSize = 0;
             btnEditRoster.FlatStyle = FlatStyle.Flat;
-            btnEditRoster.Image = FloorPlanMakerUI.Properties.Resources.waiterSmall;
+            btnEditRoster.Image = FloorPlanMakerUI.Properties.Resources.EditGroup_60px;
             btnEditRoster.Location = new Point(8, 120);
             btnEditRoster.Margin = new Padding(3, 3, 3, 7);
             btnEditRoster.Name = "btnEditRoster";
@@ -933,6 +935,8 @@ namespace FloorPlanMaker
             // 
             panel3.BackColor = Color.FromArgb(180, 190, 200);
             panel3.Controls.Add(pnlShiftDetails);
+            panel3.Controls.Add(rdoReservations);
+            panel3.Controls.Add(rdoWeather);
             panel3.Controls.Add(flowSidePanelDisplay);
             panel3.Location = new Point(11, 17);
             panel3.Name = "panel3";
@@ -941,17 +945,53 @@ namespace FloorPlanMaker
             // 
             // pnlShiftDetails
             // 
-            pnlShiftDetails.Location = new Point(5, 21);
+            pnlShiftDetails.Location = new Point(5, 5);
             pnlShiftDetails.Name = "pnlShiftDetails";
             pnlShiftDetails.Size = new Size(200, 163);
             pnlShiftDetails.TabIndex = 1;
             // 
+            // rdoReservations
+            // 
+            rdoReservations.Appearance = Appearance.Button;
+            rdoReservations.BackColor = Color.FromArgb(100, 130, 180);
+            rdoReservations.FlatAppearance.BorderColor = Color.FromArgb(100, 130, 180);
+            rdoReservations.FlatAppearance.CheckedBackColor = Color.WhiteSmoke;
+            rdoReservations.FlatStyle = FlatStyle.Flat;
+            rdoReservations.ForeColor = Color.Black;
+            rdoReservations.Image = FloorPlanMakerUI.Properties.Resources.PeopleBook_28px;
+            rdoReservations.Location = new Point(70, 174);
+            rdoReservations.Name = "rdoReservations";
+            rdoReservations.Size = new Size(63, 28);
+            rdoReservations.TabIndex = 10;
+            rdoReservations.TextAlign = ContentAlignment.MiddleCenter;
+            toolTip1.SetToolTip(rdoReservations, "View Reservations");
+            rdoReservations.UseVisualStyleBackColor = false;
+            // 
+            // rdoWeather
+            // 
+            rdoWeather.Appearance = Appearance.Button;
+            rdoWeather.BackColor = Color.FromArgb(100, 130, 180);
+            rdoWeather.Checked = true;
+            rdoWeather.FlatAppearance.BorderColor = Color.FromArgb(100, 130, 180);
+            rdoWeather.FlatAppearance.CheckedBackColor = Color.WhiteSmoke;
+            rdoWeather.FlatStyle = FlatStyle.Flat;
+            rdoWeather.ForeColor = Color.Black;
+            rdoWeather.Image = FloorPlanMakerUI.Properties.Resources.WeatherIcon_28px;
+            rdoWeather.Location = new Point(5, 174);
+            rdoWeather.Name = "rdoWeather";
+            rdoWeather.Size = new Size(63, 28);
+            rdoWeather.TabIndex = 10;
+            rdoWeather.TabStop = true;
+            rdoWeather.TextAlign = ContentAlignment.MiddleCenter;
+            toolTip1.SetToolTip(rdoWeather, "View Weather");
+            rdoWeather.UseVisualStyleBackColor = false;
+            // 
             // flowSidePanelDisplay
             // 
             flowSidePanelDisplay.BackColor = Color.WhiteSmoke;
-            flowSidePanelDisplay.Location = new Point(5, 190);
+            flowSidePanelDisplay.Location = new Point(5, 201);
             flowSidePanelDisplay.Name = "flowSidePanelDisplay";
-            flowSidePanelDisplay.Size = new Size(200, 748);
+            flowSidePanelDisplay.Size = new Size(200, 737);
             flowSidePanelDisplay.TabIndex = 0;
             // 
             // Form1
@@ -1056,5 +1096,7 @@ namespace FloorPlanMaker
         private FlowLayoutPanel flowSidePanelDisplay;
         private Panel panel3;
         private Panel pnlShiftDetails;
+        private RadioButton rdoReservations;
+        private RadioButton rdoWeather;
     }
 }

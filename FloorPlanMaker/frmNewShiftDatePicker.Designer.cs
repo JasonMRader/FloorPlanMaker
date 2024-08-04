@@ -265,7 +265,6 @@
             panel3.BackColor = Color.FromArgb(180, 190, 200);
             panel3.Controls.Add(txtServerSearch);
             panel3.Controls.Add(pbAddPerson);
-            panel3.Controls.Add(btnImportFromHotSchedules);
             panel3.Controls.Add(btnImportServers);
             panel3.Controls.Add(flowAllServers);
             panel3.Controls.Add(label6);
@@ -279,9 +278,9 @@
             // 
             txtServerSearch.BorderStyle = BorderStyle.None;
             txtServerSearch.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
-            txtServerSearch.Location = new Point(366, 10);
+            txtServerSearch.Location = new Point(348, 10);
             txtServerSearch.Name = "txtServerSearch";
-            txtServerSearch.Size = new Size(100, 26);
+            txtServerSearch.Size = new Size(118, 26);
             txtServerSearch.TabIndex = 3;
             txtServerSearch.TextChanged += txtServerSearch_TextChanged;
             txtServerSearch.KeyDown += TxtServerSearch_KeyDown;
@@ -305,7 +304,7 @@
             btnImportFromHotSchedules.FlatAppearance.BorderSize = 0;
             btnImportFromHotSchedules.FlatStyle = FlatStyle.Flat;
             btnImportFromHotSchedules.Image = Properties.Resources.cloudDownloadSmall;
-            btnImportFromHotSchedules.Location = new Point(242, 6);
+            btnImportFromHotSchedules.Location = new Point(352, 6);
             btnImportFromHotSchedules.Name = "btnImportFromHotSchedules";
             btnImportFromHotSchedules.Size = new Size(33, 33);
             btnImportFromHotSchedules.TabIndex = 1;
@@ -340,7 +339,7 @@
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            label6.Location = new Point(286, 11);
+            label6.Location = new Point(268, 11);
             label6.Name = "label6";
             label6.Size = new Size(74, 25);
             label6.TabIndex = 0;
@@ -361,6 +360,7 @@
             panel4.BackColor = Color.FromArgb(180, 190, 200);
             panel4.Controls.Add(lblMissingServers);
             panel4.Controls.Add(btnSubtractBartender);
+            panel4.Controls.Add(btnImportFromHotSchedules);
             panel4.Controls.Add(btnAddBartender);
             panel4.Controls.Add(flowServersOnShift);
             panel4.Controls.Add(lblBartenderCount);

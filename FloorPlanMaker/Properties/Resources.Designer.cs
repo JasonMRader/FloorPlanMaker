@@ -303,6 +303,36 @@ namespace FloorPlanMakerUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap EditGroup_30px {
+            get {
+                object obj = ResourceManager.GetObject("EditGroup_30px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap EditGroup_60px {
+            get {
+                object obj = ResourceManager.GetObject("EditGroup_60px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap EditGroup40px {
+            get {
+                object obj = ResourceManager.GetObject("EditGroup40px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap emptyfileeGrey {
             get {
                 object obj = ResourceManager.GetObject("emptyfileeGrey", resourceCulture);
@@ -733,6 +763,16 @@ namespace FloorPlanMakerUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap PeopleBook_28px {
+            get {
+                object obj = ResourceManager.GetObject("PeopleBook_28px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap person {
             get {
                 object obj = ResourceManager.GetObject("person", resourceCulture);
@@ -813,6 +853,16 @@ namespace FloorPlanMakerUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Reservations_28px {
+            get {
+                object obj = ResourceManager.GetObject("Reservations_28px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap resetViewSmallest {
             get {
                 object obj = ResourceManager.GetObject("resetViewSmallest", resourceCulture);
@@ -856,6 +906,16 @@ namespace FloorPlanMakerUI.Properties {
         internal static System.Drawing.Bitmap sales {
             get {
                 object obj = ResourceManager.GetObject("sales", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SalesPerPerson_28px {
+            get {
+                object obj = ResourceManager.GetObject("SalesPerPerson_28px", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1236,6 +1296,16 @@ namespace FloorPlanMakerUI.Properties {
         internal static System.Drawing.Bitmap waiterSmall {
             get {
                 object obj = ResourceManager.GetObject("waiterSmall", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap WeatherIcon_28px {
+            get {
+                object obj = ResourceManager.GetObject("WeatherIcon_28px", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
