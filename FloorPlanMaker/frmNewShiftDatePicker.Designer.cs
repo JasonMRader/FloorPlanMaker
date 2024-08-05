@@ -42,9 +42,9 @@
             flowLastWeekdayCounts = new FlowLayoutPanel();
             panel2 = new Panel();
             flowLast4 = new FlowLayoutPanel();
-            label7 = new Label();
-            label4 = new Label();
-            label3 = new Label();
+            lblLast4 = new Label();
+            lblLastWeek = new Label();
+            lblDayBefore = new Label();
             label1 = new Label();
             panel3 = new Panel();
             txtServerSearch = new TextBox();
@@ -117,9 +117,9 @@
             panel1.Controls.Add(btnBackDay);
             panel1.Controls.Add(lblDate);
             panel1.Controls.Add(lblIsToday);
-            panel1.Location = new Point(25, 21);
+            panel1.Location = new Point(12, 21);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1211, 88);
+            panel1.Size = new Size(1234, 88);
             panel1.TabIndex = 2;
             // 
             // cbIsAm
@@ -149,7 +149,7 @@
             btnForwardDay.FlatStyle = FlatStyle.Flat;
             btnForwardDay.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             btnForwardDay.Image = Properties.Resources.forward;
-            btnForwardDay.Location = new Point(1179, 0);
+            btnForwardDay.Location = new Point(1202, 0);
             btnForwardDay.Name = "btnForwardDay";
             btnForwardDay.Size = new Size(32, 88);
             btnForwardDay.TabIndex = 0;
@@ -190,7 +190,7 @@
             // flowDiningAreas
             // 
             flowDiningAreas.BackColor = Color.WhiteSmoke;
-            flowDiningAreas.Location = new Point(109, 34);
+            flowDiningAreas.Location = new Point(144, 34);
             flowDiningAreas.Name = "flowDiningAreas";
             flowDiningAreas.Size = new Size(1068, 40);
             flowDiningAreas.TabIndex = 3;
@@ -198,7 +198,7 @@
             // flowYesterdayCounts
             // 
             flowYesterdayCounts.BackColor = Color.WhiteSmoke;
-            flowYesterdayCounts.Location = new Point(109, 73);
+            flowYesterdayCounts.Location = new Point(144, 73);
             flowYesterdayCounts.Name = "flowYesterdayCounts";
             flowYesterdayCounts.Size = new Size(1068, 40);
             flowYesterdayCounts.TabIndex = 3;
@@ -206,7 +206,7 @@
             // flowLastWeekdayCounts
             // 
             flowLastWeekdayCounts.BackColor = Color.WhiteSmoke;
-            flowLastWeekdayCounts.Location = new Point(109, 112);
+            flowLastWeekdayCounts.Location = new Point(144, 112);
             flowLastWeekdayCounts.Name = "flowLastWeekdayCounts";
             flowLastWeekdayCounts.Size = new Size(1068, 40);
             flowLastWeekdayCounts.TabIndex = 3;
@@ -216,63 +216,60 @@
             panel2.BackColor = Color.FromArgb(180, 190, 200);
             panel2.Controls.Add(flowLast4);
             panel2.Controls.Add(flowLastWeekdayCounts);
-            panel2.Controls.Add(label7);
-            panel2.Controls.Add(label4);
-            panel2.Controls.Add(label3);
+            panel2.Controls.Add(lblLast4);
+            panel2.Controls.Add(lblLastWeek);
+            panel2.Controls.Add(lblDayBefore);
             panel2.Controls.Add(label1);
             panel2.Controls.Add(flowDiningAreas);
             panel2.Controls.Add(flowYesterdayCounts);
-            panel2.Location = new Point(25, 130);
+            panel2.Location = new Point(12, 130);
             panel2.Name = "panel2";
-            panel2.Size = new Size(1208, 231);
+            panel2.Size = new Size(1231, 231);
             panel2.TabIndex = 4;
             // 
             // flowLast4
             // 
             flowLast4.BackColor = Color.WhiteSmoke;
-            flowLast4.Location = new Point(109, 152);
+            flowLast4.Location = new Point(144, 152);
             flowLast4.Name = "flowLast4";
             flowLast4.Size = new Size(1068, 50);
             flowLast4.TabIndex = 6;
             // 
-            // label7
+            // lblLast4
             // 
-            label7.AutoSize = true;
-            label7.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            label7.Location = new Point(41, 156);
-            label7.Name = "label7";
-            label7.Size = new Size(62, 25);
-            label7.TabIndex = 4;
-            label7.Text = "Last 4";
-            label7.TextAlign = ContentAlignment.MiddleRight;
+            lblLast4.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lblLast4.Location = new Point(3, 165);
+            lblLast4.Name = "lblLast4";
+            lblLast4.Size = new Size(135, 21);
+            lblLast4.TabIndex = 4;
+            lblLast4.Text = "Last 4 Mon PMs";
+            lblLast4.TextAlign = ContentAlignment.MiddleRight;
             // 
-            // label4
+            // lblLastWeek
             // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            label4.Location = new Point(4, 118);
-            label4.Name = "label4";
-            label4.Size = new Size(99, 25);
-            label4.TabIndex = 4;
-            label4.Text = "Last Week";
-            label4.TextAlign = ContentAlignment.MiddleRight;
+            lblLastWeek.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lblLastWeek.Location = new Point(3, 125);
+            lblLastWeek.Name = "lblLastWeek";
+            lblLastWeek.Size = new Size(135, 21);
+            lblLastWeek.TabIndex = 4;
+            lblLastWeek.Text = "Last Mon PM";
+            lblLastWeek.TextAlign = ContentAlignment.MiddleRight;
             // 
-            // label3
+            // lblDayBefore
             // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            label3.Location = new Point(9, 80);
-            label3.Name = "label3";
-            label3.Size = new Size(94, 25);
-            label3.TabIndex = 4;
-            label3.Text = "Yesterday";
-            label3.TextAlign = ContentAlignment.MiddleRight;
+            lblDayBefore.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lblDayBefore.Location = new Point(3, 85);
+            lblDayBefore.Name = "lblDayBefore";
+            lblDayBefore.Size = new Size(135, 21);
+            lblDayBefore.TabIndex = 4;
+            lblDayBefore.Text = "Yesterday PM";
+            lblDayBefore.TextAlign = ContentAlignment.MiddleRight;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(479, 6);
+            label1.Location = new Point(530, 6);
             label1.Name = "label1";
             label1.Size = new Size(190, 25);
             label1.TabIndex = 4;
@@ -287,9 +284,9 @@
             panel3.Controls.Add(flowAllServers);
             panel3.Controls.Add(label6);
             panel3.Controls.Add(label5);
-            panel3.Location = new Point(25, 400);
+            panel3.Location = new Point(12, 400);
             panel3.Name = "panel3";
-            panel3.Size = new Size(595, 439);
+            panel3.Size = new Size(608, 439);
             panel3.TabIndex = 5;
             // 
             // txtServerSearch
@@ -386,7 +383,7 @@
             panel4.Controls.Add(lblServersOnShift);
             panel4.Location = new Point(638, 400);
             panel4.Name = "panel4";
-            panel4.Size = new Size(595, 439);
+            panel4.Size = new Size(605, 439);
             panel4.TabIndex = 5;
             // 
             // lblMissingServers
@@ -521,7 +518,7 @@
         private FlowLayoutPanel flowYesterdayCounts;
         private FlowLayoutPanel flowLastWeekdayCounts;
         private Panel panel2;
-        private Label label3;
+        private Label lblDayBefore;
         private Label label1;
         private Panel panel3;
         private Label label5;
@@ -541,7 +538,7 @@
         private Label label2;
         private Label lblMissingServers;
         private FlowLayoutPanel flowLast4;
-        private Label label7;
-        private Label label4;
+        private Label lblLast4;
+        private Label lblLastWeek;
     }
 }

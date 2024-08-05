@@ -478,7 +478,29 @@ namespace FloorPlanMakerUI
 
         private void SetRelativeHistoryLabels()
         {
-            throw new NotImplementedException();
+            string shiftType = "";
+            if (shiftManager.SelectedShift.IsAM)
+            {
+                shiftType = "AM";
+            }
+            else
+            {
+                shiftType = "PM";
+            }
+            if (dateSelected.Date == DateTime.Today.Date)
+            {               
+                lblDayBefore.Text = $"Yesterday {shiftType}";
+                lblLastWeek.Text = "Last " + dateSelected.ToString("ddd") + " " + shiftType;
+                lblLast4.Text = "Last 4 " + dateSelected.ToString("ddd") + " " + shiftType + "s";
+            }
+            else
+            {
+                lblDayBefore.Text = $"Day Before {shiftType}";
+                lblLastWeek.Text = "Previous " + dateSelected.ToString("ddd") + " " + shiftType;
+                lblLast4.Text = "Previous 4 " + dateSelected.ToString("ddd") + " " + shiftType + "s";
+            }
+            
+           
         }
 
         private void SetToShiftFromDatabase()
