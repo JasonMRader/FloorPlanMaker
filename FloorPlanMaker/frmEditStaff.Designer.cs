@@ -126,7 +126,7 @@
             btnCreateANewShift.Name = "btnCreateANewShift";
             btnCreateANewShift.Size = new Size(352, 43);
             btnCreateANewShift.TabIndex = 25;
-            btnCreateANewShift.Text = "Edit / Create Shifts";
+            btnCreateANewShift.Text = "Add / Remove Areas and Servers";
             toolTip1.SetToolTip(btnCreateANewShift, "Create Floorplans for Shifts, Add Remove Servers");
             btnCreateANewShift.UseVisualStyleBackColor = false;
             btnCreateANewShift.Click += btnCreateANewShift_Click;
