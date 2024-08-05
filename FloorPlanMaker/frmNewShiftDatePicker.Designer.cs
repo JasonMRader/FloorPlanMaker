@@ -41,7 +41,9 @@
             flowYesterdayCounts = new FlowLayoutPanel();
             flowLastWeekdayCounts = new FlowLayoutPanel();
             panel2 = new Panel();
-            cbStatsType = new CheckBox();
+            flowLast4 = new FlowLayoutPanel();
+            label7 = new Label();
+            label4 = new Label();
             label3 = new Label();
             label1 = new Label();
             panel3 = new Panel();
@@ -206,39 +208,54 @@
             flowLastWeekdayCounts.BackColor = Color.WhiteSmoke;
             flowLastWeekdayCounts.Location = new Point(109, 112);
             flowLastWeekdayCounts.Name = "flowLastWeekdayCounts";
-            flowLastWeekdayCounts.Size = new Size(1068, 53);
+            flowLastWeekdayCounts.Size = new Size(1068, 40);
             flowLastWeekdayCounts.TabIndex = 3;
             // 
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(180, 190, 200);
-            panel2.Controls.Add(cbStatsType);
+            panel2.Controls.Add(flowLast4);
             panel2.Controls.Add(flowLastWeekdayCounts);
+            panel2.Controls.Add(label7);
+            panel2.Controls.Add(label4);
             panel2.Controls.Add(label3);
             panel2.Controls.Add(label1);
             panel2.Controls.Add(flowDiningAreas);
             panel2.Controls.Add(flowYesterdayCounts);
             panel2.Location = new Point(25, 130);
             panel2.Name = "panel2";
-            panel2.Size = new Size(1208, 218);
+            panel2.Size = new Size(1208, 231);
             panel2.TabIndex = 4;
             // 
-            // cbStatsType
+            // flowLast4
             // 
-            cbStatsType.Appearance = Appearance.Button;
-            cbStatsType.BackColor = Color.FromArgb(100, 130, 180);
-            cbStatsType.FlatAppearance.BorderSize = 0;
-            cbStatsType.FlatStyle = FlatStyle.Flat;
-            cbStatsType.Font = new Font("Segoe UI Semibold", 12.25F, FontStyle.Bold, GraphicsUnit.Point);
-            cbStatsType.ForeColor = Color.White;
-            cbStatsType.Location = new Point(3, 112);
-            cbStatsType.Name = "cbStatsType";
-            cbStatsType.Size = new Size(103, 45);
-            cbStatsType.TabIndex = 5;
-            cbStatsType.Text = "Last Week";
-            cbStatsType.TextAlign = ContentAlignment.MiddleCenter;
-            cbStatsType.UseVisualStyleBackColor = false;
-            cbStatsType.CheckedChanged += cbStatsType_CheckedChanged;
+            flowLast4.BackColor = Color.WhiteSmoke;
+            flowLast4.Location = new Point(109, 152);
+            flowLast4.Name = "flowLast4";
+            flowLast4.Size = new Size(1068, 50);
+            flowLast4.TabIndex = 6;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            label7.Location = new Point(41, 156);
+            label7.Name = "label7";
+            label7.Size = new Size(62, 25);
+            label7.TabIndex = 4;
+            label7.Text = "Last 4";
+            label7.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            label4.Location = new Point(4, 118);
+            label4.Name = "label4";
+            label4.Size = new Size(99, 25);
+            label4.TabIndex = 4;
+            label4.Text = "Last Week";
+            label4.TextAlign = ContentAlignment.MiddleRight;
             // 
             // label3
             // 
@@ -249,6 +266,7 @@
             label3.Size = new Size(94, 25);
             label3.TabIndex = 4;
             label3.Text = "Yesterday";
+            label3.TextAlign = ContentAlignment.MiddleRight;
             // 
             // label1
             // 
@@ -521,7 +539,9 @@
         private Button btnAddBartender;
         private Label lblBartenderCount;
         private Label label2;
-        private CheckBox cbStatsType;
         private Label lblMissingServers;
+        private FlowLayoutPanel flowLast4;
+        private Label label7;
+        private Label label4;
     }
 }

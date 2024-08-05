@@ -322,21 +322,15 @@ namespace FloorPlanMakerUI
                 flowDiningAreas.Controls.Add(btnDining);
                 CreateCountLabel(flowYesterdayCounts, area);
                 CreateCountLabel(flowLastWeekdayCounts, area);
+                CreateCountLabel(flowLast4, area);
             }
         }
         private void RefreshPreviousFloorplanCounts()
         {
-            List<AreaHistory> lastWeekAreaHistories = new List<AreaHistory>();
-            if (cbStatsType.Checked)
-            {
-                lastWeekAreaHistories = GetHistoryForLastFour();
-            }
-            else
-            {
-                lastWeekAreaHistories = GetAreaHistories(cbIsAm.Checked, -7);
-            }
+            List<AreaHistory> lastWeekAreaHistories = GetAreaHistories(cbIsAm.Checked, -7);
+            List<AreaHistory> last4 = GetHistoryForLastFour();            
             List<AreaHistory> yesterdayAreaHistories = GetAreaHistories(cbIsAm.Checked, -1);
-
+            CreateAreaHistoryLabelsForLast4(flowLast4, last4);
             CreateAreaHistoryLabels(flowLastWeekdayCounts, lastWeekAreaHistories, false);
             CreateAreaHistoryLabels(flowYesterdayCounts, yesterdayAreaHistories, true);
         }
@@ -360,17 +354,28 @@ namespace FloorPlanMakerUI
             }
             return areaHistories;
         }
+        private void CreateAreaHistoryLabelsForLast4(FlowLayoutPanel panel, List<AreaHistory> areaHistories)
+        {
+            foreach (AreaHistory areaHistory in areaHistories)
+            {
+                areaHistory.SetDatesToLastFourWeekdays();
+            }
+            foreach (Label lbl in panel.Controls.OfType<Label>())
+            {
+                if (lbl.Tag is DiningArea area)
+                {
+                    AreaHistory history = areaHistories.FirstOrDefault(x => x.DiningArea == area);
+                    CreateAreaLabel(history, lbl);
 
+                    toolTip1.SetToolTip(lbl, history.GetAreaHistoryLabelToolTip(false));
+
+                }
+            }
+        }
         private void CreateAreaHistoryLabels(FlowLayoutPanel panel, List<AreaHistory> areaHistories, bool isYesterday)
         {
 
-            if (cbStatsType.Checked)
-            {
-                foreach (AreaHistory areaHistory in areaHistories)
-                {
-                    areaHistory.SetDatesToLastFourWeekdays();
-                }
-            }
+           
             foreach (Label lbl in panel.Controls.OfType<Label>())
             {
                 if (lbl.Tag is DiningArea area)
@@ -449,7 +454,7 @@ namespace FloorPlanMakerUI
                 Text = diningArea.Name,
                 AutoSize = false,
                 Tag = diningArea,
-                Size = new Size(width, 35),
+                Size = new Size(width, 32),
                 Margin = new Padding(10, 10, 10, 10),
                 BackColor = UITheme.ButtonColor,
                 TextAlign = ContentAlignment.MiddleCenter
@@ -466,9 +471,16 @@ namespace FloorPlanMakerUI
             RefreshPreviousFloorplanCounts();
             txtServerSearch.Focus();
             SetToShiftFromDatabase();
+            SetRelativeHistoryLabels();
 
 
         }
+
+        private void SetRelativeHistoryLabels()
+        {
+            throw new NotImplementedException();
+        }
+
         private void SetToShiftFromDatabase()
         {
 
@@ -768,18 +780,7 @@ namespace FloorPlanMakerUI
             }
         }
 
-        private void cbStatsType_CheckedChanged(object sender, EventArgs e)
-        {
-            RefreshPreviousFloorplanCounts();
-            if (cbStatsType.Checked)
-            {
-                cbStatsType.Text = "Last 4";
-            }
-            else
-            {
-                cbStatsType.Text = "Last Week";
-            }
-        }
+        
 
         private void frmNewShiftDatePicker_Shown(object sender, EventArgs e)
         {
