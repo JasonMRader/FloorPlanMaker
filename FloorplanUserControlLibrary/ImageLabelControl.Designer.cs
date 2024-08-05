@@ -59,6 +59,7 @@
             Controls.Add(pbImage);
             Name = "ImageLabelControl";
             Size = new Size(103, 41);
+            Load += ImageLabelControl_Load;
             ((System.ComponentModel.ISupportInitialize)pbImage).EndInit();
             ResumeLayout(false);
             PerformLayout();

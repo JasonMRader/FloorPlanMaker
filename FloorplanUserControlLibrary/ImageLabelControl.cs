@@ -16,7 +16,7 @@ namespace FloorPlanMakerUI
         private ToolTip toolTip = new ToolTip();
         public ImageLabelControl(Image image, string text, int width, int height)
         {
-            
+
             InitializeComponent();
             this.Height = height;
             this.Width = width;
@@ -34,18 +34,18 @@ namespace FloorPlanMakerUI
             toolTip.SetToolTip(this.pbImage, tooltipText);
             toolTip.SetToolTip(this, tooltipText);
         }
-        public ImageLabelControl() 
+        public ImageLabelControl()
         {
             InitializeComponent();
         }
         private void GetLocations2()
         {
-            lblText.Location = new Point(this.Width/2, (this.Height - lblText.Height)/2);
+            lblText.Location = new Point(this.Width / 2, (this.Height - lblText.Height) / 2);
 
             pbImage.Height = lblText.Height;
             pbImage.Width = pbImage.Height;
 
-            pbImage.Location = new Point((this.Width/2) - pbImage.Width, lblText.Location.Y);
+            pbImage.Location = new Point((this.Width / 2) - pbImage.Width, lblText.Location.Y);
         }
         public void UpdateText(string text)
         {
@@ -57,18 +57,22 @@ namespace FloorPlanMakerUI
             pbImage.Height = lblText.Height;
             pbImage.Width = pbImage.Height;
             int controlsWidth = lblText.Width + pbImage.Width;
-            int controlFirstX = this.Width/2 - controlsWidth/2;
-            pbImage.Location = new Point(controlFirstX, (this.Height -pbImage.Height) / 2);
+            int controlFirstX = this.Width / 2 - controlsWidth / 2;
+            pbImage.Location = new Point(controlFirstX, (this.Height - pbImage.Height) / 2);
             lblText.Location = new Point(pbImage.Right, (this.Height - lblText.Height) / 2);
 
-           
 
-           
+
+
         }
         public override string ToString()
         {
             return lblText.Text;
         }
 
+        private void ImageLabelControl_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
