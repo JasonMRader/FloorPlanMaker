@@ -48,7 +48,7 @@
             lblCrtlServersYesterday.BackColor = Color.FromArgb(180, 190, 200);
             lblCrtlServersYesterday.Location = new Point(3, 43);
             lblCrtlServersYesterday.Name = "lblCrtlServersYesterday";
-            lblCrtlServersYesterday.Size = new Size(125, 34);
+            lblCrtlServersYesterday.Size = new Size(125, 27);
             lblCrtlServersYesterday.TabIndex = 0;
             // 
             // lblCrtlServersLastWeek
@@ -56,23 +56,23 @@
             lblCrtlServersLastWeek.BackColor = Color.FromArgb(180, 190, 200);
             lblCrtlServersLastWeek.Location = new Point(134, 43);
             lblCrtlServersLastWeek.Name = "lblCrtlServersLastWeek";
-            lblCrtlServersLastWeek.Size = new Size(127, 34);
+            lblCrtlServersLastWeek.Size = new Size(127, 27);
             lblCrtlServersLastWeek.TabIndex = 0;
             // 
             // lblCrtlSalesPerServer
             // 
             lblCrtlSalesPerServer.BackColor = Color.FromArgb(180, 190, 200);
-            lblCrtlSalesPerServer.Location = new Point(134, 83);
+            lblCrtlSalesPerServer.Location = new Point(134, 76);
             lblCrtlSalesPerServer.Name = "lblCrtlSalesPerServer";
-            lblCrtlSalesPerServer.Size = new Size(127, 34);
+            lblCrtlSalesPerServer.Size = new Size(127, 27);
             lblCrtlSalesPerServer.TabIndex = 0;
             // 
             // lblCrtlCoversPerServer
             // 
             lblCrtlCoversPerServer.BackColor = Color.FromArgb(180, 190, 200);
-            lblCrtlCoversPerServer.Location = new Point(3, 83);
+            lblCrtlCoversPerServer.Location = new Point(3, 76);
             lblCrtlCoversPerServer.Name = "lblCrtlCoversPerServer";
-            lblCrtlCoversPerServer.Size = new Size(125, 34);
+            lblCrtlCoversPerServer.Size = new Size(125, 27);
             lblCrtlCoversPerServer.TabIndex = 0;
             // 
             // FloorplanInfoDisplay
@@ -85,7 +85,7 @@
             Controls.Add(lblCrtlServersYesterday);
             Controls.Add(lblCrtlServersOn);
             Name = "FloorplanInfoDisplay";
-            Size = new Size(267, 125);
+            Size = new Size(267, 111);
             ResumeLayout(false);
         }
 

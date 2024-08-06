@@ -30,7 +30,7 @@ namespace FloorplanUserControlLibrary
             this.Floorplan = fp;
             this.UpdateCurrentLabels(0);
             this.BackColor = UITheme.CanvasColor;
-           
+
             this.Invalidate();
             //lblCrtlCoversPerServer.Font = this.infoFont;
             //lblCrtlServersOn.Font = this.infoFont;
@@ -48,7 +48,7 @@ namespace FloorplanUserControlLibrary
             lblCrtlServersLastWeek.SetProperties(Resources._3Arrows, "Servers Assigned Last Week", this.Width / 2);
             lblCrtlCoversPerServer.SetProperties(Resources.covers, "Covers per Server", Width / 2);
             lblCrtlSalesPerServer.SetProperties(Resources.SalesPerPerson_28px, "Sales Per Server", this.Width / 2);
-            
+
         }
         public void UpdateCurrentLabels(int daysAgo)
         {
@@ -81,7 +81,7 @@ namespace FloorplanUserControlLibrary
         public void UpdatePastCountLabels(int yesterdayCount, int LastWeekCount)
         {
             lblCrtlServersLastWeek.UpdateText(LastWeekCount.ToString());
-            lblCrtlServersYesterday.UpdateText(yesterdayCount.ToString());           
+            lblCrtlServersYesterday.UpdateText(yesterdayCount.ToString());
 
         }
         private void setLabelSizes()
@@ -93,15 +93,15 @@ namespace FloorplanUserControlLibrary
             lblCrtlServersYesterday.Location = new Point(4, 43);
 
             lblCrtlServersLastWeek.Width = (this.Width / 2) - 6;
-            lblCrtlServersLastWeek.Location = new Point(lblCrtlServersYesterday.Right + 4, 43);            
+            lblCrtlServersLastWeek.Location = new Point(lblCrtlServersYesterday.Right + 4, 43);
 
             lblCrtlCoversPerServer.Width = (this.Width / 2) - 6;
-            lblCrtlCoversPerServer.Location = new Point(4, 83);
+            lblCrtlCoversPerServer.Location = new Point(4, 76);
 
             lblCrtlSalesPerServer.Width = (this.Width / 2) - 6;
-            lblCrtlSalesPerServer.Location = new Point(lblCrtlCoversPerServer.Right + 4, 83);   
-            
-            if(Width > 400)
+            lblCrtlSalesPerServer.Location = new Point(lblCrtlCoversPerServer.Right + 4, 76);
+
+            if (Width > 400)
             {
                 lblCrtlServersOn.UseLargeFont();
                 lblCrtlServersYesterday.UseLargeFont();
