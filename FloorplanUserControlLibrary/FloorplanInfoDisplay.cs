@@ -48,11 +48,7 @@ namespace FloorplanUserControlLibrary
             lblCrtlServersLastWeek.SetProperties(Resources._3Arrows, "Servers Assigned Last Week", this.Width / 2);
             lblCrtlCoversPerServer.SetProperties(Resources.covers, "Covers per Server", Width / 2);
             lblCrtlSalesPerServer.SetProperties(Resources.SalesPerPerson_28px, "Sales Per Server", this.Width / 2);
-            lblCrtlServersOn.UseLargeFont();
-            lblCrtlServersYesterday.UseLargeFont();
-            lblCrtlServersLastWeek.UseLargeFont();
-            lblCrtlCoversPerServer.UseLargeFont();
-            lblCrtlSalesPerServer.UseLargeFont();
+            
         }
         public void UpdateCurrentLabels(int daysAgo)
         {
@@ -103,7 +99,43 @@ namespace FloorplanUserControlLibrary
             lblCrtlCoversPerServer.Location = new Point(4, 83);
 
             lblCrtlSalesPerServer.Width = (this.Width / 2) - 6;
-            lblCrtlSalesPerServer.Location = new Point(lblCrtlCoversPerServer.Right + 4, 83);           
+            lblCrtlSalesPerServer.Location = new Point(lblCrtlCoversPerServer.Right + 4, 83);   
+            
+            if(Width > 400)
+            {
+                lblCrtlServersOn.UseLargeFont();
+                lblCrtlServersYesterday.UseLargeFont();
+                lblCrtlServersLastWeek.UseLargeFont();
+                lblCrtlCoversPerServer.UseLargeFont();
+                lblCrtlSalesPerServer.UseLargeFont();
+            }
+            if (Width < 400 && Width >= 300)
+            {
+                lblCrtlServersOn.SetFontSize(16f);
+                lblCrtlServersOn.SetFontSize(16f);
+                lblCrtlServersYesterday.SetFontSize(16f);
+                lblCrtlServersLastWeek.SetFontSize(16f);
+                lblCrtlCoversPerServer.SetFontSize(16f);
+                lblCrtlSalesPerServer.SetFontSize(16f);
+            }
+            if (Width < 300 && Width >= 200)
+            {
+                lblCrtlServersOn.SetFontSize(16f);
+                lblCrtlServersOn.SetFontSize(14f);
+                lblCrtlServersYesterday.SetFontSize(14f);
+                lblCrtlServersLastWeek.SetFontSize(14f);
+                lblCrtlCoversPerServer.SetFontSize(14f);
+                lblCrtlSalesPerServer.SetFontSize(14f);
+            }
+            if (Width < 200 && Width >= 100)
+            {
+                lblCrtlServersOn.SetFontSize(14f);
+                lblCrtlServersOn.SetFontSize(12f);
+                lblCrtlServersYesterday.SetFontSize(12f);
+                lblCrtlServersLastWeek.SetFontSize(12f);
+                lblCrtlCoversPerServer.SetFontSize(12f);
+                lblCrtlSalesPerServer.SetFontSize(12f);
+            }
 
         }
 

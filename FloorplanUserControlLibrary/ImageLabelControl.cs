@@ -65,6 +65,10 @@ namespace FloorPlanMakerUI
         {
             lblText.Font = UITheme.LargeFont;
         }
+        public void SetFontSize(float fontSize)
+        {
+            lblText.Font = new Font("Segoe UI", fontSize, FontStyle.Bold);
+        }
         private void GetLocations()
         {
             pbImage.Height = lblText.Height;
