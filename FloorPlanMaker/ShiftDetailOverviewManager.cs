@@ -115,64 +115,7 @@ namespace FloorPlanMakerUI
             }
         }
 
-        //private async void PopulateWeatherControlsForDateAndShift()
-        //{
-        //    //shiftDetailsPanel.Controls.Clear();
-        //    //hourlyWeatherDisplays.Clear();
-        //    //flowHourlyWeather.Controls.Clear();
-        //    hourlyWeatherDataList = await HourlyWeatherDataHandler.GetWeatherForShift(dateOnly, isLunch);
-        //    CreateHourlyWeatherControls();
-        //    for(int i = 0; i < hourlyWeatherDataList.Count; i++)
-        //    {
-        //        if(i < hourlyWeatherDataList.Count - 1)
-        //        {
-        //            hourlyWeatherDisplays[i].AssignNewWeatherData(hourlyWeatherDataList[i]);
-        //            hourlyWeatherDisplays[i].Visible = true;
-        //        }
-        //        else
-        //        {
-        //            hourlyWeatherDisplays[i].Visible = false;
-        //        }
-        //    }
-        //    //foreach(HourlyWeatherData weatherData in hourlyWeatherDataList)
-        //    //{
-        //    //    HourlyWeatherDisplay weatherDisplay = new HourlyWeatherDisplay(weatherData);
-        //    //    hourlyWeatherDisplays.Add(weatherDisplay);
-        //    //    flowHourlyWeather.Controls.Add(weatherDisplay);
-        //    //}
-        //}
-        //private void CreateHourlyWeatherControls()
-        //{
-        //    if(this.hourlyWeatherDisplays.Count < hourlyWeatherDataList.Count)
-        //    {
-        //        if(hourlyWeatherDisplays.Count == 0)
-        //        {
-        //            foreach(var hourlyWeather in hourlyWeatherDataList)
-        //            {
-        //                HourlyWeatherDisplay weatherDisplay = new HourlyWeatherDisplay(hourlyWeather);
-        //                this.hourlyWeatherDisplays.Add(weatherDisplay);
-        //                this.flowHourlyWeather.Controls.Add(weatherDisplay);
-        //            }
-        //        }
-        //        else
-        //        {
-        //            for (int i = hourlyWeatherDisplays.Count - 1; i < hourlyWeatherDataList.Count - 1; i++)
-        //            {
-        //                HourlyWeatherDisplay weatherDisplay = new HourlyWeatherDisplay(hourlyWeatherDataList[i]);
-        //                this.hourlyWeatherDisplays.Add(weatherDisplay);
-        //                this.flowHourlyWeather.Controls.Add(weatherDisplay);
-        //            }
-        //        }
-
-        //    }
-        //    else if (this.hourlyWeatherDisplays.Count > hourlyWeatherDataList.Count)
-        //    {
-        //        for (int i = hourlyWeatherDisplays.Count - 1; i < hourlyWeatherDataList.Count - 1; i--)
-        //        {
-        //            hourlyWeatherDisplays[i].Visible = false;
-        //        }
-        //    }
-        //}
+        
         private async void PopulateReservationControlsForDateAndShift()
         {          
            
