@@ -28,6 +28,15 @@ namespace FloorPlanMakerUI
             toolTip = new ToolTip();
 
         }
+        public void SetProperties(Image image,  string toolTip, int width)
+        {
+            pbImage.Image = image;
+            //lblText.Text = text;
+            //this.Height = height;
+            this.Width = width;
+            GetLocations();
+            this.toolTip.SetToolTip(this, toolTip);
+        }
         public void SetTooltip(string tooltipText)
         {
             toolTip.SetToolTip(this.lblText, tooltipText);
@@ -52,6 +61,10 @@ namespace FloorPlanMakerUI
             lblText.Text = text;
             GetLocations();
         }
+        public void UseLargeFont()
+        {
+            lblText.Font = UITheme.LargeFont;
+        }
         private void GetLocations()
         {
             pbImage.Height = lblText.Height;
@@ -60,10 +73,6 @@ namespace FloorPlanMakerUI
             int controlFirstX = this.Width / 2 - controlsWidth / 2;
             pbImage.Location = new Point(controlFirstX, (this.Height - pbImage.Height) / 2);
             lblText.Location = new Point(pbImage.Right, (this.Height - lblText.Height) / 2);
-
-
-
-
         }
         public override string ToString()
         {

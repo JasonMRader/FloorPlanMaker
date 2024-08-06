@@ -20,7 +20,7 @@ namespace FloorplanUserControlLibrary
         private Font infoFont = UITheme.MainFont;
         private Image lastWeek = Resources.small_LastWeek;
         private Image yesterday = Resources.smallyesterday;
-        private ToolTip toolTip1 { get; set; }
+        private ToolTip toolTip1 { get; set; } = new ToolTip();
         public AreaHistory AreaHistory { get; set; }
         public FloorplanInfoDisplay(Floorplan fp, int width)
         {
@@ -30,21 +30,36 @@ namespace FloorplanUserControlLibrary
             this.Floorplan = fp;
             this.UpdateCurrentLabels(0);
             this.BackColor = UITheme.CanvasColor;
-            setLabelSizes();
+           
             this.Invalidate();
-            lblCrtlCoversPerServer.Font = this.infoFont;
-            lblCrtlServersOn.Font = this.infoFont;
-            lblCrtlServersLastWeek.Font = this.infoFont;
-            lblCrtlServersYesterday.Font = this.infoFont;
-            lblCrtlSalesPerServer.Font = this.infoFont;
+            //lblCrtlCoversPerServer.Font = this.infoFont;
+            //lblCrtlServersOn.Font = this.infoFont;
+            //lblCrtlServersLastWeek.Font = this.infoFont;
+            //lblCrtlServersYesterday.Font = this.infoFont;
+            //lblCrtlSalesPerServer.Font = this.infoFont;
+            SetImageLabels();
+            setLabelSizes();
             AreaHistory = new AreaHistory(fp.DiningArea, fp.DateOnly, fp.IsLunch);
+        }
+        private void SetImageLabels()
+        {
+            lblCrtlServersOn.SetProperties(Resources.trey, "Servers Assigned to this Floorplan", this.Width);
+            lblCrtlServersYesterday.SetProperties(Resources._1Arrrow, "Servers Assigned Yesterday", this.Width / 2);
+            lblCrtlServersLastWeek.SetProperties(Resources._3Arrows, "Servers Assigned Last Week", this.Width / 2);
+            lblCrtlCoversPerServer.SetProperties(Resources.covers, "Covers per Server", Width / 2);
+            lblCrtlSalesPerServer.SetProperties(Resources.SalesPerPerson_28px, "Sales Per Server", this.Width / 2);
+            lblCrtlServersOn.UseLargeFont();
+            lblCrtlServersYesterday.UseLargeFont();
+            lblCrtlServersLastWeek.UseLargeFont();
+            lblCrtlCoversPerServer.UseLargeFont();
+            lblCrtlSalesPerServer.UseLargeFont();
         }
         public void UpdateCurrentLabels(int daysAgo)
         {
 
-            lblCrtlCoversPerServer.Text = this.Floorplan.MaxCoversPerServer.ToString("F0");
-            lblCrtlSalesPerServer.Text = Section.FormatAsCurrencyWithoutParentheses(this.Floorplan.GetAvgSalesPerServerByDay(daysAgo));
-            lblCrtlServersOn.Text = this.Floorplan.Servers.Count.ToString();
+            lblCrtlCoversPerServer.UpdateText(this.Floorplan.MaxCoversPerServer.ToString("F0"));
+            lblCrtlSalesPerServer.UpdateText(Section.FormatAsCurrencyWithoutParentheses(this.Floorplan.GetAvgSalesPerServerByDay(daysAgo)));
+            lblCrtlServersOn.UpdateText(this.Floorplan.Servers.Count.ToString());
             toolTip1.SetToolTip(lblCrtlSalesPerServer, "Sales Per Server" + "\n" + "Total Sales:" + Floorplan.DiningArea.ExpectedSales.ToString("C0"));
 
         }
@@ -56,9 +71,9 @@ namespace FloorplanUserControlLibrary
                 salesPerServer = this.Floorplan.DiningArea.ExpectedSales / (float)this.Floorplan.Servers.Count();
             }
 
-            lblCrtlCoversPerServer.Text = this.Floorplan.MaxCoversPerServer.ToString("F0");
-            lblCrtlSalesPerServer.Text = Section.FormatAsCurrencyWithoutParentheses(salesPerServer);
-            lblCrtlServersOn.Text = this.Floorplan.Servers.Count.ToString();
+            lblCrtlCoversPerServer.UpdateText(this.Floorplan.MaxCoversPerServer.ToString("F0"));
+            lblCrtlSalesPerServer.UpdateText(Section.FormatAsCurrencyWithoutParentheses(salesPerServer));
+            lblCrtlServersOn.UpdateText(this.Floorplan.Servers.Count.ToString());
             toolTip1.SetToolTip(lblCrtlSalesPerServer, "Sales Per Server" + "\n" + "Total Sales:" + Floorplan.DiningArea.ExpectedSales.ToString("C0"));
 
 
@@ -69,28 +84,27 @@ namespace FloorplanUserControlLibrary
         }
         public void UpdatePastCountLabels(int yesterdayCount, int LastWeekCount)
         {
-            lblCrtlServersLastWeek.Text = LastWeekCount.ToString();
-            lblCrtlServersYesterday.Text = yesterdayCount.ToString();           
+            lblCrtlServersLastWeek.UpdateText(LastWeekCount.ToString());
+            lblCrtlServersYesterday.UpdateText(yesterdayCount.ToString());           
 
         }
         private void setLabelSizes()
         {
             lblCrtlServersOn.Width = (this.Width) - 8;
-
-            lblCrtlServersYesterday.Width = (this.Width / 3) - 6;
-
-            lblCrtlServersLastWeek.Width = (this.Width / 3) - 6;
-            lblCrtlServersLastWeek.Location = new Point(lblCrtlServersYesterday.Right + 4, 4);
             lblCrtlServersOn.Location = new Point(4, 4);
 
+            lblCrtlServersYesterday.Width = (this.Width / 2) - 6;
+            lblCrtlServersYesterday.Location = new Point(4, 43);
+
+            lblCrtlServersLastWeek.Width = (this.Width / 2) - 6;
+            lblCrtlServersLastWeek.Location = new Point(lblCrtlServersYesterday.Right + 4, 43);            
+
             lblCrtlCoversPerServer.Width = (this.Width / 2) - 6;
-            lblCrtlCoversPerServer.Location = new Point(4, 28);
+            lblCrtlCoversPerServer.Location = new Point(4, 83);
+
             lblCrtlSalesPerServer.Width = (this.Width / 2) - 6;
-            lblCrtlSalesPerServer.Location = new Point(lblCrtlCoversPerServer.Right + 4, 28);
+            lblCrtlSalesPerServer.Location = new Point(lblCrtlCoversPerServer.Right + 4, 83);           
 
-            
-
-           
         }
 
     }

@@ -152,7 +152,14 @@ namespace FloorPlanMaker
 
             foreach (Floorplan fp in floorplans)
             {
-                FloorplanInfoControl infoPanel = new FloorplanInfoControl(fp, width)
+                //FloorplanInfoControl infoPanel = new FloorplanInfoControl(fp, width)
+                //{
+
+                //    Padding = new Padding(4, 0, 0, 0),
+                //    BackColor = UITheme.CanvasColor,
+                //    Tag = fp
+                //};
+                FloorplanInfoDisplay infoPanel = new FloorplanInfoDisplay(fp, width)
                 {
 
                     Padding = new Padding(4, 0, 0, 0),
@@ -226,8 +233,8 @@ namespace FloorPlanMaker
         }
 
         private List<Control> DiningAreaRBs = new List<Control>();
-        List<FloorplanInfoControl> infoPanelList = new List<FloorplanInfoControl>();
-
+        //List<FloorplanInfoControl> infoPanelList = new List<FloorplanInfoControl>();
+        List<FloorplanInfoDisplay> infoPanelList = new List<FloorplanInfoDisplay>();
         private void MoveFromFloorplanServerButton_Click(object sender, EventArgs e)
         {
             ServerHistoryControl serverButton = sender as ServerHistoryControl;
@@ -391,7 +398,7 @@ namespace FloorPlanMaker
                     area.SetTableSales(stats);
                 }
             }
-            foreach (FloorplanInfoControl info in infoPanelList)
+            foreach (FloorplanInfoDisplay info in infoPanelList)
             {
                 info.UpdateCurrentLabelsForLastFour();
             }
@@ -663,7 +670,7 @@ namespace FloorPlanMaker
             Dictionary<DiningArea, int> yesterdayCounts = new Dictionary<DiningArea, int>();
             LastWeekFloorplans = PreviousServerCountsForNewShift(-7);
             yesterdayCounts = PreviousServerCountsForNewShift(-1);
-            foreach (FloorplanInfoControl infoPanel in infoPanelList)
+            foreach (FloorplanInfoDisplay infoPanel in infoPanelList)
             {
                 if (infoPanel.Floorplan.DiningArea is DiningArea area)
                 {
