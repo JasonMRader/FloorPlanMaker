@@ -96,10 +96,11 @@ namespace FloorPlanMaker
             panel2 = new Panel();
             panel3 = new Panel();
             pnlShiftDetails = new Panel();
-            flowSidePanelDisplay = new FlowLayoutPanel();
+            flowWeatherDisplay = new FlowLayoutPanel();
             pnlSalesDataUpdated = new Panel();
             lblMissingSalesData = new Label();
             btnUploadSalesData = new Button();
+            flowResoDisplay = new FlowLayoutPanel();
             flowSectionSelect.SuspendLayout();
             panel1.SuspendLayout();
             pnlFloorplanContainer.SuspendLayout();
@@ -976,10 +977,11 @@ namespace FloorPlanMaker
             // panel3
             // 
             panel3.BackColor = Color.FromArgb(180, 190, 200);
+            panel3.Controls.Add(flowResoDisplay);
             panel3.Controls.Add(pnlShiftDetails);
             panel3.Controls.Add(rdoReservations);
             panel3.Controls.Add(rdoWeather);
-            panel3.Controls.Add(flowSidePanelDisplay);
+            panel3.Controls.Add(flowWeatherDisplay);
             panel3.Location = new Point(11, 17);
             panel3.Name = "panel3";
             panel3.Size = new Size(208, 950);
@@ -992,13 +994,13 @@ namespace FloorPlanMaker
             pnlShiftDetails.Size = new Size(200, 163);
             pnlShiftDetails.TabIndex = 1;
             // 
-            // flowSidePanelDisplay
+            // flowWeatherDisplay
             // 
-            flowSidePanelDisplay.BackColor = Color.WhiteSmoke;
-            flowSidePanelDisplay.Location = new Point(5, 201);
-            flowSidePanelDisplay.Name = "flowSidePanelDisplay";
-            flowSidePanelDisplay.Size = new Size(200, 737);
-            flowSidePanelDisplay.TabIndex = 0;
+            flowWeatherDisplay.BackColor = Color.WhiteSmoke;
+            flowWeatherDisplay.Location = new Point(5, 201);
+            flowWeatherDisplay.Name = "flowWeatherDisplay";
+            flowWeatherDisplay.Size = new Size(200, 737);
+            flowWeatherDisplay.TabIndex = 0;
             // 
             // pnlSalesDataUpdated
             // 
@@ -1036,6 +1038,15 @@ namespace FloorPlanMaker
             btnUploadSalesData.UseVisualStyleBackColor = false;
             btnUploadSalesData.Visible = false;
             btnUploadSalesData.Click += btnUploadSalesData_Click;
+            // 
+            // flowResoDisplay
+            // 
+            flowResoDisplay.BackColor = Color.WhiteSmoke;
+            flowResoDisplay.Location = new Point(5, 201);
+            flowResoDisplay.Name = "flowResoDisplay";
+            flowResoDisplay.Size = new Size(200, 737);
+            flowResoDisplay.TabIndex = 11;
+            flowResoDisplay.Visible = false;
             // 
             // Form1
             // 
@@ -1137,7 +1148,7 @@ namespace FloorPlanMaker
         private Button btnEraseAllSections;
         private Button btnEditRoster;
         private Panel panel2;
-        private FlowLayoutPanel flowSidePanelDisplay;
+        private FlowLayoutPanel flowWeatherDisplay;
         private Panel panel3;
         private Panel pnlShiftDetails;
         private RadioButton rdoReservations;
@@ -1145,5 +1156,6 @@ namespace FloorPlanMaker
         private Panel pnlSalesDataUpdated;
         private Label lblMissingSalesData;
         private Button btnUploadSalesData;
+        private FlowLayoutPanel flowResoDisplay;
     }
 }

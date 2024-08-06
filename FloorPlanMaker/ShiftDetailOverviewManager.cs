@@ -3,6 +3,7 @@ using FloorplanUserControlLibrary;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,9 +24,10 @@ namespace FloorPlanMakerUI
             PopulateFlowPanelForShiftData();
             shiftDetailsPanel.Controls.Add(this.ShiftDetailsControl);
         }
-        public ShiftDetailOverviewManager(FlowLayoutPanel flowLayoutPanel, Panel panel, RadioButton rdoWeather, RadioButton rdoReservations)
+        public ShiftDetailOverviewManager(FlowLayoutPanel flowWeatherPanel, FlowLayoutPanel flowResoPanel, Panel panel, RadioButton rdoWeather, RadioButton rdoReservations)
         {
-            this.flowHourlyWeather = flowLayoutPanel;
+            this.flowHourlyWeather = flowWeatherPanel;
+            this.flowResos = flowResoPanel;
             this.shiftDetailsPanel = panel;
            
             shiftDetailsPanel.Controls.Add(this.ShiftDetailsControl);
@@ -40,29 +42,39 @@ namespace FloorPlanMakerUI
 
         private void rdoViewType_CheckChanged(object? sender, EventArgs e)
         {
-            PopulateFlowPanelForShiftData();
+            //PopulateFlowPanelForShiftData();
+            if(rdoWeather.Checked)
+            {
+                flowHourlyWeather.Visible = true; 
+                flowResos.Visible = false;
+            }
+            if (rdoReservations.Checked)
+            {
+                flowHourlyWeather.Visible = false;
+                flowResos.Visible = true;
+            }
         }
         private void PopulateFlowPanelForShiftData()
         {
-            if (rdoWeather.Checked)
-            {
-                PopulateWeatherControlsForDateAndShift();
-            }
-            else if (rdoReservations.Checked)
-            {
-                PopulateReservationControlsForDateAndShift();
-            }
+            PopulateWeatherControlsForDateAndShift();
+            PopulateReservationControlsForDateAndShift();
+            //if (rdoWeather.Checked)
+            //{
+
+            //}
+            //else if (rdoReservations.Checked)
+            //{
+                
+            //}
         }
 
-        public ShiftDetailOverviewManager()
-        {
-            
-        }
+       
         private RadioButton rdoWeather {  get; set; }
         private RadioButton rdoReservations { get; set; }   
         private Panel shiftDetailsPanel { get; set; }
         private ShiftDetailsControl ShiftDetailsControl { get; set; } = new ShiftDetailsControl();
         private FlowLayoutPanel flowHourlyWeather { get; set; }
+        private FlowLayoutPanel flowResos { get; set; }
         private List<HourlyWeatherData> hourlyWeatherDataList { get; set; } = new List<HourlyWeatherData>();
         private List<HourlyWeatherDisplay> hourlyWeatherDisplays { get; set; } = new List<HourlyWeatherDisplay>();
         private bool isLunch { get; set; }
@@ -70,21 +82,101 @@ namespace FloorPlanMakerUI
         private Shift shift { get; set; }
         private async void PopulateWeatherControlsForDateAndShift()
         {
-            //shiftDetailsPanel.Controls.Clear();
-            hourlyWeatherDisplays.Clear();
-            flowHourlyWeather.Controls.Clear();
+            // Clear any previous data and fetch new weather data
             hourlyWeatherDataList = await HourlyWeatherDataHandler.GetWeatherForShift(dateOnly, isLunch);
-            foreach(HourlyWeatherData weatherData in hourlyWeatherDataList)
+            CreateHourlyWeatherControls();
+            UpdateWeatherControls();
+        }
+
+        private void CreateHourlyWeatherControls()
+        {
+            // Ensure there are enough controls for the hourly weather data
+            while (this.hourlyWeatherDisplays.Count < hourlyWeatherDataList.Count)
             {
-                HourlyWeatherDisplay weatherDisplay = new HourlyWeatherDisplay(weatherData);
-                hourlyWeatherDisplays.Add(weatherDisplay);
-                flowHourlyWeather.Controls.Add(weatherDisplay);
+                HourlyWeatherDisplay weatherDisplay = new HourlyWeatherDisplay();
+                this.hourlyWeatherDisplays.Add(weatherDisplay);
+                this.flowHourlyWeather.Controls.Add(weatherDisplay);
             }
         }
+
+        private void UpdateWeatherControls()
+        {
+            for (int i = 0; i < hourlyWeatherDisplays.Count; i++)
+            {
+                if (i < hourlyWeatherDataList.Count)
+                {
+                    hourlyWeatherDisplays[i].AssignNewWeatherData(hourlyWeatherDataList[i]);
+                    hourlyWeatherDisplays[i].Visible = true;
+                }
+                else
+                {
+                    hourlyWeatherDisplays[i].Visible = false;
+                }
+            }
+        }
+
+        //private async void PopulateWeatherControlsForDateAndShift()
+        //{
+        //    //shiftDetailsPanel.Controls.Clear();
+        //    //hourlyWeatherDisplays.Clear();
+        //    //flowHourlyWeather.Controls.Clear();
+        //    hourlyWeatherDataList = await HourlyWeatherDataHandler.GetWeatherForShift(dateOnly, isLunch);
+        //    CreateHourlyWeatherControls();
+        //    for(int i = 0; i < hourlyWeatherDataList.Count; i++)
+        //    {
+        //        if(i < hourlyWeatherDataList.Count - 1)
+        //        {
+        //            hourlyWeatherDisplays[i].AssignNewWeatherData(hourlyWeatherDataList[i]);
+        //            hourlyWeatherDisplays[i].Visible = true;
+        //        }
+        //        else
+        //        {
+        //            hourlyWeatherDisplays[i].Visible = false;
+        //        }
+        //    }
+        //    //foreach(HourlyWeatherData weatherData in hourlyWeatherDataList)
+        //    //{
+        //    //    HourlyWeatherDisplay weatherDisplay = new HourlyWeatherDisplay(weatherData);
+        //    //    hourlyWeatherDisplays.Add(weatherDisplay);
+        //    //    flowHourlyWeather.Controls.Add(weatherDisplay);
+        //    //}
+        //}
+        //private void CreateHourlyWeatherControls()
+        //{
+        //    if(this.hourlyWeatherDisplays.Count < hourlyWeatherDataList.Count)
+        //    {
+        //        if(hourlyWeatherDisplays.Count == 0)
+        //        {
+        //            foreach(var hourlyWeather in hourlyWeatherDataList)
+        //            {
+        //                HourlyWeatherDisplay weatherDisplay = new HourlyWeatherDisplay(hourlyWeather);
+        //                this.hourlyWeatherDisplays.Add(weatherDisplay);
+        //                this.flowHourlyWeather.Controls.Add(weatherDisplay);
+        //            }
+        //        }
+        //        else
+        //        {
+        //            for (int i = hourlyWeatherDisplays.Count - 1; i < hourlyWeatherDataList.Count - 1; i++)
+        //            {
+        //                HourlyWeatherDisplay weatherDisplay = new HourlyWeatherDisplay(hourlyWeatherDataList[i]);
+        //                this.hourlyWeatherDisplays.Add(weatherDisplay);
+        //                this.flowHourlyWeather.Controls.Add(weatherDisplay);
+        //            }
+        //        }
+
+        //    }
+        //    else if (this.hourlyWeatherDisplays.Count > hourlyWeatherDataList.Count)
+        //    {
+        //        for (int i = hourlyWeatherDisplays.Count - 1; i < hourlyWeatherDataList.Count - 1; i--)
+        //        {
+        //            hourlyWeatherDisplays[i].Visible = false;
+        //        }
+        //    }
+        //}
         private async void PopulateReservationControlsForDateAndShift()
         {          
            
-            flowHourlyWeather.Controls.Clear();
+            flowResos.Controls.Clear();
             Label label = new Label
             {
                 AutoSize = false,
@@ -93,7 +185,7 @@ namespace FloorPlanMakerUI
                 Text = "Reservation Data Integration Coming Soon!",
                 Font = UITheme.LargeFont,
             };
-            flowHourlyWeather.Controls.Add(label);
+            flowResos.Controls.Add(label);
         }
         public void SetNewShift(Shift shift)
         {

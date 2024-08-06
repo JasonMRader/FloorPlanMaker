@@ -108,7 +108,7 @@ namespace FloorPlanMaker
         {
 
         }
-       
+
         public void UpdateUI()
         {
             dateSelected = DateTime.Now;
@@ -130,7 +130,7 @@ namespace FloorPlanMaker
             DateOnly date = DateOnly.FromDateTime(dateSelected);
             ShiftManager.SetSelectedShift(date, cbIsAM.Checked);
             RefreshFloorplanFlowPanel(ShiftManager.SelectedShift.Floorplans);
-            RefreshFloorplanCountLabels();            
+            RefreshFloorplanCountLabels();
         }
 
         private void RefreshFloorplanFlowPanel(IReadOnlyList<Floorplan> floorplans)

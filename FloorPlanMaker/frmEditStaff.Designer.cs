@@ -121,7 +121,7 @@
             btnCreateANewShift.FlatAppearance.BorderSize = 0;
             btnCreateANewShift.FlatStyle = FlatStyle.Flat;
             btnCreateANewShift.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            btnCreateANewShift.ForeColor = Color.Black;
+            btnCreateANewShift.ForeColor = Color.FromArgb(255, 255, 192);
             btnCreateANewShift.Location = new Point(25, 15);
             btnCreateANewShift.Name = "btnCreateANewShift";
             btnCreateANewShift.Size = new Size(352, 43);

@@ -21,9 +21,13 @@ namespace FloorplanUserControlLibrary
             InitializeComponent();
             this.HourlyWeatherData = hourlyWeatherData;
             SetLabelsForWeatherData();
-
-
         }
+        public void AssignNewWeatherData(HourlyWeatherData hourlyWeatherData)
+        {
+            this.HourlyWeatherData = hourlyWeatherData;
+            SetLabelsForWeatherData();
+        }
+        public HourlyWeatherDisplay() { InitializeComponent(); }
         private void SetLabelsForWeatherData()
         {
 

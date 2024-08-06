@@ -377,7 +377,7 @@ namespace FloorPlanMaker
         public Form1()
         {
             InitializeComponent();
-            this.shiftDetailManager = new ShiftDetailOverviewManager(this.flowSidePanelDisplay, pnlShiftDetails, rdoWeather, rdoReservations);
+            this.shiftDetailManager = new ShiftDetailOverviewManager(this.flowWeatherDisplay, this.flowResoDisplay, pnlShiftDetails, rdoWeather, rdoReservations);
             drawingHandler = new DrawingHandler(pnlFloorPlan);
             //shift = new Shift();
             //shiftManager.ServersNotOnShift = SqliteDataAccess.LoadServers();
@@ -1536,7 +1536,7 @@ namespace FloorPlanMaker
                             loadingForm.Close();
                             this.Enabled = true;
                             UpdateMissingSalesData();
-                            
+
                         }));
                     });
 
