@@ -515,7 +515,7 @@ namespace FloorPlanMaker
                         pnlFloorPlan.Invalidate();
                     }           
                 }
-                if (mouseEventArgs.Button == MouseButtons.Left)
+                if (mouseEventArgs.Button == MouseButtons.Left && _autoDrawEnabled)
                 {
                     _lines.Add(new FloorplanLine(_startPoint.Value, e.Location));
                     _startPoint = null;

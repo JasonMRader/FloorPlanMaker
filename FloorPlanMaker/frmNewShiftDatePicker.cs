@@ -329,7 +329,7 @@ namespace FloorPlanMakerUI
         private void RefreshPreviousFloorplanCounts()
         {
             List<AreaHistory> lastWeekAreaHistories = GetAreaHistories(cbIsAm.Checked, -7);
-            List<AreaHistory> last4 = GetHistoryForLastFour();            
+            List<AreaHistory> last4 = GetHistoryForLastFour();
             List<AreaHistory> yesterdayAreaHistories = GetAreaHistories(cbIsAm.Checked, -1);
             CreateAreaHistoryLabelsForLast4(flowLast4, last4);
             CreateAreaHistoryLabels(flowLastWeekdayCounts, lastWeekAreaHistories, false);
@@ -376,7 +376,7 @@ namespace FloorPlanMakerUI
         private void CreateAreaHistoryLabels(FlowLayoutPanel panel, List<AreaHistory> areaHistories, bool isYesterday)
         {
 
-           
+
             foreach (Label lbl in panel.Controls.OfType<Label>())
             {
                 if (lbl.Tag is DiningArea area)
@@ -489,7 +489,7 @@ namespace FloorPlanMakerUI
                 shiftType = "PM";
             }
             if (dateSelected.Date == DateTime.Today.Date)
-            {               
+            {
                 lblDayBefore.Text = $"Yesterday {shiftType}";
                 lblLastWeek.Text = "Last " + dateSelected.ToString("ddd") + " " + shiftType;
                 lblLast4.Text = "Last 4 " + dateSelected.ToString("ddd") + " " + shiftType + "s";
@@ -500,8 +500,8 @@ namespace FloorPlanMakerUI
                 lblLastWeek.Text = "Previous " + dateSelected.ToString("ddd") + " " + shiftType;
                 lblLast4.Text = "Previous 4 " + dateSelected.ToString("ddd") + " " + shiftType + "s";
             }
-            
-           
+
+
         }
 
         private void SetToShiftFromDatabase()
@@ -756,15 +756,60 @@ namespace FloorPlanMakerUI
             shiftManager.SelectedShift.SetBartendersToShift(bartenderCount);
             txtServerSearch.Focus();
         }
-
+        private List<HotSchedulesSchedule> SelectedDaysSchedule = new List<HotSchedulesSchedule>();
+        private List<int> UnmatchedEmployeeIDs = new List<int>();
         private async void btnGetHotSchedulesServers(object sender, EventArgs e)
         {
-            //string message = await HotSchedulesApiAccess.GetSchedule();
-            List<HotSchedulesEmployee> employees = await HotSchedulesApiAccess.GetAllEmployees();
+            //Server = 9
+            //Foodrunner = 18
+            //Host = 12
+            //Manager = 21
+            //Bartender = 10
+
+
+            SelectedDaysSchedule = await HotSchedulesApiAccess.GetSchedule(dateOnlySelected);
+            List<HotSchedulesSchedule> currentSchedule = SelectedDaysSchedule.Where(s => s.IsAM == shiftManager.IsAM).ToList();
+
+            //string Shifts = await HotSchedulesApiAccess.GetShifts();
+            int bartendersScheduled = 0;
+            List<int> unmatchedEmployeeIDs = new List<int>();
+            foreach (HotSchedulesSchedule schedule in currentSchedule)
+            {
+                if (schedule.JobPosId == 9)
+                {
+                    Server server = shiftManager.SelectedShift.AllServers.FirstOrDefault(s => s.HSID == schedule.EmpHSId);
+                    if (server != null)
+                    {
+                        shiftManager.SelectedShift.AddNewUnassignedServer(server);
+                    }
+                    else
+                    {
+                        unmatchedEmployeeIDs.Add(schedule.EmpHSId);
+                    }
+                }
+                if (schedule.JobPosId == 10)
+                {
+                    bartendersScheduled++;
+                }
+            }
+            shiftManager.SelectedShift.SetBartendersToShift(bartendersScheduled);
+            PopulateServers();
+            if(unmatchedEmployeeIDs.Count > 0)
+            {
+                lblMissingServers.Visible = true;
+                lblMissingServers.Text = $"!!! {unmatchedEmployeeIDs.Count} MISSING SERVERS!!!";
+                this.UnmatchedEmployeeIDs = unmatchedEmployeeIDs;
+            }
+            else
+            {
+                lblMissingServers.Visible = false;
+            }
+
             //string servers = await HotSchedulesApiAccess.Test();
             //await HotSchedulesApiAccess.GetSchedule();
             //List<HotSchedulesEmployee> employees = JsonConvert.DeserializeObject<List<HotSchedulesEmployee>>(message);
-            //MessageBox.Show(message);
+            //MessageBox.Show(Schedule);
+            //MessageBox.Show(Shifts);
         }
 
         private List<string> PopulateServersFromCsv(List<ScheduledShift> records)
@@ -805,7 +850,7 @@ namespace FloorPlanMakerUI
             }
         }
 
-        
+
 
         private void frmNewShiftDatePicker_Shown(object sender, EventArgs e)
         {

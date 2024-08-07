@@ -373,7 +373,6 @@
             // panel4
             // 
             panel4.BackColor = Color.FromArgb(180, 190, 200);
-            panel4.Controls.Add(lblMissingServers);
             panel4.Controls.Add(btnSubtractBartender);
             panel4.Controls.Add(btnImportFromHotSchedules);
             panel4.Controls.Add(btnAddBartender);
@@ -391,7 +390,7 @@
             lblMissingServers.AutoSize = true;
             lblMissingServers.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             lblMissingServers.ForeColor = Color.DarkRed;
-            lblMissingServers.Location = new Point(196, 0);
+            lblMissingServers.Location = new Point(821, 382);
             lblMissingServers.Name = "lblMissingServers";
             lblMissingServers.Size = new Size(133, 15);
             lblMissingServers.TabIndex = 3;
@@ -481,6 +480,7 @@
             BackColor = Color.FromArgb(225, 225, 225);
             CancelButton = btnCancel;
             ClientSize = new Size(1255, 994);
+            Controls.Add(lblMissingServers);
             Controls.Add(panel2);
             Controls.Add(panel4);
             Controls.Add(panel3);
@@ -502,6 +502,7 @@
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

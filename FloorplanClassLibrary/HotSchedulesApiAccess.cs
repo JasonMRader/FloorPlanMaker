@@ -142,13 +142,14 @@ namespace FloorplanClassLibrary
         //    return result.Bearer;
         //}
 
-        public static async Task<string> GetSchedule()
+        public static async Task<List<HotSchedulesSchedule>> GetSchedule(DateOnly dateOnly)
         {
             string bearerToken = await GenerateBearerToken();
             string co = GetHotSchedulesCompanyID();
-           
-            string start_date = "2024-08-05";
-            string end_date = "2024-08-11";
+            string dateYear = dateOnly.Year.ToString();
+            string dateMonth = dateOnly.Month.ToString();
+            string dateDay = dateOnly.Day.ToString();
+            
             string concept_id = GetHotSchedulesConceptID(); 
             string store_id = GetHotSchedulesStoreID();
 
@@ -156,34 +157,42 @@ namespace FloorplanClassLibrary
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            string url = $"https://agent-pos-na1.fourth.com/{co}/controllers/vertx/hotschedules/{concept_id}/{store_id}/getScheduleV3?start_day=5&start_month=8&start_year=2024&end_day=11&end_month=8&end_year=2024";
+            string url = $"https://agent-pos-na1.fourth.com/{co}/controllers/vertx/hotschedules/{concept_id}/{store_id}/getScheduleV3?start_day={dateDay}&start_month={dateMonth}&start_year={dateYear}&end_day={dateDay}&end_month={dateMonth}&end_year={dateYear}";
            
 
             var response = await httpClient.GetAsync(url);
             response.EnsureSuccessStatusCode();
 
             var responseContent = await response.Content.ReadAsStringAsync();
-            return responseContent; 
+            List<HotSchedulesSchedule> schedules = JsonConvert.DeserializeObject<List<HotSchedulesSchedule>>(responseContent);
+
+            return schedules;
+            
         }
-        //public static async Task<string> GetAllEmployees()
-        //{
-        //    string bearerToken = await GenerateBearerToken();
-        //    string co = GetHotSchedulesCompanyID();  
-        //    string concept_id = GetHotSchedulesConceptID(); 
-        //    string store_id = GetHotSchedulesStoreID(); 
+        public static async Task<string> GetShifts()
+        {
+            string bearerToken = await GenerateBearerToken();
+            string co = GetHotSchedulesCompanyID();
 
-        //    var httpClient = new HttpClient();
-        //    httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
-        //    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            string start_date = "2024-08-05";
+            string end_date = "2024-08-11";
+            string concept_id = GetHotSchedulesConceptID();
+            string store_id = GetHotSchedulesStoreID();
 
-        //    string url = $"https://agent-pos-na1.fourth.com/{co}/controllers/vertx/hotschedules/{concept_id}/{store_id}/getStoreEmployees?active_only=true";
+            var httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-        //    var response = await httpClient.GetAsync(url);
-        //    response.EnsureSuccessStatusCode();
+            string url = $"https://agent-pos-na1.fourth.com/{co}/controllers/vertx/hotschedules/{concept_id}/{store_id}/getScheduleV3?start_day=5&start_month=8&start_year=2024&end_day=11&end_month=8&end_year=2024";
 
-        //    var responseContent = await response.Content.ReadAsStringAsync();
-        //    return responseContent;
-        //}
+
+            var response = await httpClient.GetAsync(url);
+            response.EnsureSuccessStatusCode();
+
+            var responseContent = await response.Content.ReadAsStringAsync();
+            return responseContent;
+        }
+
         public static async Task<List<HotSchedulesEmployee>> GetAllEmployees()
         {
             string bearerToken = await GenerateBearerToken();
