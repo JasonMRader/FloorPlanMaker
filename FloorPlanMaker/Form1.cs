@@ -49,6 +49,7 @@ namespace FloorPlanMaker
         private bool quicklyChoosingAServer = false;
         private TableSalesManager tableSalesManager = new TableSalesManager();
         private bool _isDrawingModeEnabled = false;
+        private bool _autoDrawEnabled = false;
         private Point? _startPoint = null;
         private SalesDataUpdater salesDataUpdater = new SalesDataUpdater();
         private List<FloorplanLine> _lines = new List<FloorplanLine>();
@@ -281,6 +282,16 @@ namespace FloorPlanMaker
                         return true;
                     }
                 }
+                if (keyData == Keys.Escape)
+                {
+                    if(_autoDrawEnabled)
+                    {
+                        _startPoint = null;
+                        _autoDrawEnabled = false;
+                        pnlFloorPlan.Invalidate();
+                    }
+                    return true;
+                }
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
@@ -351,9 +362,6 @@ namespace FloorPlanMaker
             }
         }
 
-
-
-
         public void UpdateForm1ShiftManager(Shift shiftManagerToAdd)
         {
             dateTimeSelected = new DateTime(shiftManagerToAdd.DateOnly.Year, shiftManagerToAdd.DateOnly.Month, shiftManagerToAdd.DateOnly.Day);
@@ -372,7 +380,6 @@ namespace FloorPlanMaker
             flowServersInFloorplan.Visible = false;
             rdoViewSectionFlow.Image = Resources.lilCanvasBook;
         }
-
 
         public Form1()
         {
@@ -441,7 +448,7 @@ namespace FloorPlanMaker
 
             }
         }
-
+        
         private void PnlFloorplan_Paint(object sender, PaintEventArgs e)
         {
             if (isDragging)
@@ -466,6 +473,13 @@ namespace FloorPlanMaker
                     e.Graphics.DrawLine(pen, _startPoint.Value, pnlFloorPlan.PointToClient(Cursor.Position));
                 }
             }
+            if (_autoDrawEnabled && _startPoint.HasValue)
+            {
+                using (Pen pen = new Pen(Color.Gray, 2.0f))
+                {
+                    e.Graphics.DrawLine(pen, _startPoint.Value, pnlFloorPlan.PointToClient(Cursor.Position));
+                }
+            }
             if (floorplanManager.Floorplan != null)
             {
                 if (floorplanManager.Floorplan.floorplanLines.Count > 0)
@@ -480,7 +494,57 @@ namespace FloorPlanMaker
                 }
             }
         }
+        private void pnlFloorPlan_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e is MouseEventArgs mouseEventArgs)
+            {
+                bool isShiftPressed = (Control.ModifierKeys & Keys.Shift) == Keys.Shift;
+                if (mouseEventArgs.Button == MouseButtons.Right)
+                {
+                    if (!_autoDrawEnabled)
+                    {
+                        _startPoint = e.Location;
+                        _autoDrawEnabled = true;
+                        return;
+                    }
+                                  
+                    if (_autoDrawEnabled && _startPoint.HasValue)
+                    {
+                        _lines.Add(new FloorplanLine(_startPoint.Value, e.Location));
+                        _startPoint = e.Location;
+                        pnlFloorPlan.Invalidate();
+                    }           
+                }
+                if (mouseEventArgs.Button == MouseButtons.Left)
+                {
+                    _lines.Add(new FloorplanLine(_startPoint.Value, e.Location));
+                    _startPoint = null;
+                    _autoDrawEnabled = false;
+                    pnlFloorPlan.Invalidate();
+                }
+            }
+        }
+        private void ToggleAutoDrawMode()
+        {
+            Point cursorPosition = pnlFloorPlan.PointToClient(Cursor.Position);
 
+            if (pnlFloorPlan.ClientRectangle.Contains(cursorPosition))
+            {
+                _autoDrawEnabled = !_autoDrawEnabled;
+                if (_autoDrawEnabled)
+                {
+                    _startPoint = cursorPosition;
+                }
+                else
+                {
+
+                    _startPoint = null;
+                    pnlFloorPlan.Invalidate();
+                }
+
+            }
+
+        }
         private void pnlFloorplan_MouseDown(object sender, MouseEventArgs e)
         {
             if (!rdoDiningAreas.Checked)
@@ -495,6 +559,7 @@ namespace FloorPlanMaker
             {
                 _startPoint = e.Location;
             }
+            
         }
 
         private void pnlFloorplan_MouseUp(object sender, MouseEventArgs e)
@@ -545,6 +610,10 @@ namespace FloorPlanMaker
             if (_isDrawingModeEnabled && _startPoint.HasValue)
             {
                 // Redraw the panel to show the line while drawing
+                pnlFloorPlan.Invalidate();
+            }
+            if (_autoDrawEnabled && _startPoint.HasValue)
+            {
                 pnlFloorPlan.Invalidate();
             }
         }
@@ -1543,5 +1612,7 @@ namespace FloorPlanMaker
                 }
             }
         }
+
+        
     }
 }

@@ -95,12 +95,12 @@ namespace FloorPlanMaker
             helpProvider1 = new HelpProvider();
             panel2 = new Panel();
             panel3 = new Panel();
+            flowResoDisplay = new FlowLayoutPanel();
             pnlShiftDetails = new Panel();
             flowWeatherDisplay = new FlowLayoutPanel();
             pnlSalesDataUpdated = new Panel();
             lblMissingSalesData = new Label();
             btnUploadSalesData = new Button();
-            flowResoDisplay = new FlowLayoutPanel();
             flowSectionSelect.SuspendLayout();
             panel1.SuspendLayout();
             pnlFloorplanContainer.SuspendLayout();
@@ -237,6 +237,7 @@ namespace FloorPlanMaker
             pnlFloorPlan.Name = "pnlFloorPlan";
             pnlFloorPlan.Size = new Size(672, 877);
             pnlFloorPlan.TabIndex = 2;
+            pnlFloorPlan.MouseClick += pnlFloorPlan_MouseClick;
             // 
             // cboDiningAreas
             // 
@@ -987,6 +988,15 @@ namespace FloorPlanMaker
             panel3.Size = new Size(208, 950);
             panel3.TabIndex = 1;
             // 
+            // flowResoDisplay
+            // 
+            flowResoDisplay.BackColor = Color.WhiteSmoke;
+            flowResoDisplay.Location = new Point(5, 201);
+            flowResoDisplay.Name = "flowResoDisplay";
+            flowResoDisplay.Size = new Size(200, 737);
+            flowResoDisplay.TabIndex = 11;
+            flowResoDisplay.Visible = false;
+            // 
             // pnlShiftDetails
             // 
             pnlShiftDetails.Location = new Point(5, 5);
@@ -1038,15 +1048,6 @@ namespace FloorPlanMaker
             btnUploadSalesData.UseVisualStyleBackColor = false;
             btnUploadSalesData.Visible = false;
             btnUploadSalesData.Click += btnUploadSalesData_Click;
-            // 
-            // flowResoDisplay
-            // 
-            flowResoDisplay.BackColor = Color.WhiteSmoke;
-            flowResoDisplay.Location = new Point(5, 201);
-            flowResoDisplay.Name = "flowResoDisplay";
-            flowResoDisplay.Size = new Size(200, 737);
-            flowResoDisplay.TabIndex = 11;
-            flowResoDisplay.Visible = false;
             // 
             // Form1
             // 
