@@ -273,14 +273,17 @@ namespace FloorplanClassLibrary
                 {
                     shift.SelectedFloorplan = floorplan;
                     int serversNeeded = ServerDistribution[floorplan.DiningArea] - floorplan.Servers.Count;
-                    if(serversNeeded > 0) { continue; }
-                    while(serversNeeded > 0)
+                    if(serversNeeded > 0)
                     {
-                        shift.AddServerToAFloorplan(Cocktailers[serverIndex]);
-                        shift.SelectedFloorplan.AddServerAndSection(Cocktailers[serverIndex]);
-                        serverIndex++;
-                        serversNeeded--;
+                        while (serversNeeded > 0)
+                        {
+                            shift.AddServerToAFloorplan(Cocktailers[serverIndex]);
+                            shift.SelectedFloorplan.AddServerAndSection(Cocktailers[serverIndex]);
+                            serverIndex++;
+                            serversNeeded--;
+                        }
                     }
+                    
                 }
             }
             
