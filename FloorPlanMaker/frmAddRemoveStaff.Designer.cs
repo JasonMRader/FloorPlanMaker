@@ -58,6 +58,8 @@
             lblServerName = new Label();
             dgvServers = new DataGridView();
             btnHelp = new Button();
+            lblMissingIDWarning = new Label();
+            btnGetIDs = new Button();
             ((System.ComponentModel.ISupportInitialize)tbarCocktail).BeginInit();
             ((System.ComponentModel.ISupportInitialize)tbarClosing).BeginInit();
             ((System.ComponentModel.ISupportInitialize)tbarOutside).BeginInit();
@@ -70,7 +72,7 @@
             // 
             lbServers.FormattingEnabled = true;
             lbServers.ItemHeight = 15;
-            lbServers.Location = new Point(12, 95);
+            lbServers.Location = new Point(12, 143);
             lbServers.Name = "lbServers";
             lbServers.Size = new Size(247, 349);
             lbServers.TabIndex = 0;
@@ -78,7 +80,7 @@
             // 
             // btnAddNewServer
             // 
-            btnAddNewServer.Location = new Point(12, 66);
+            btnAddNewServer.Location = new Point(12, 114);
             btnAddNewServer.Name = "btnAddNewServer";
             btnAddNewServer.Size = new Size(247, 23);
             btnAddNewServer.TabIndex = 1;
@@ -88,7 +90,7 @@
             // 
             // txtNewServerName
             // 
-            txtNewServerName.Location = new Point(12, 37);
+            txtNewServerName.Location = new Point(12, 85);
             txtNewServerName.Name = "txtNewServerName";
             txtNewServerName.PlaceholderText = "Enter New Server's Full Name";
             txtNewServerName.Size = new Size(247, 23);
@@ -98,7 +100,7 @@
             // 
             rdoShowActive.AutoSize = true;
             rdoShowActive.Checked = true;
-            rdoShowActive.Location = new Point(12, 12);
+            rdoShowActive.Location = new Point(12, 60);
             rdoShowActive.Name = "rdoShowActive";
             rdoShowActive.Size = new Size(90, 19);
             rdoShowActive.TabIndex = 3;
@@ -110,7 +112,7 @@
             // rdoShowArchived
             // 
             rdoShowArchived.AutoSize = true;
-            rdoShowArchived.Location = new Point(127, 12);
+            rdoShowArchived.Location = new Point(127, 60);
             rdoShowArchived.Name = "rdoShowArchived";
             rdoShowArchived.Size = new Size(104, 19);
             rdoShowArchived.TabIndex = 3;
@@ -120,14 +122,14 @@
             // 
             // txtServerName
             // 
-            txtServerName.Location = new Point(12, 470);
+            txtServerName.Location = new Point(12, 518);
             txtServerName.Name = "txtServerName";
             txtServerName.Size = new Size(247, 23);
             txtServerName.TabIndex = 2;
             // 
             // txtServerDisplayName
             // 
-            txtServerDisplayName.Location = new Point(12, 530);
+            txtServerDisplayName.Location = new Point(12, 562);
             txtServerDisplayName.Name = "txtServerDisplayName";
             txtServerDisplayName.Size = new Size(247, 23);
             txtServerDisplayName.TabIndex = 2;
@@ -135,7 +137,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(12, 452);
+            label1.Location = new Point(12, 500);
             label1.Name = "label1";
             label1.Size = new Size(42, 15);
             label1.TabIndex = 4;
@@ -144,7 +146,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(12, 509);
+            label2.Location = new Point(12, 544);
             label2.Name = "label2";
             label2.Size = new Size(83, 15);
             label2.TabIndex = 4;
@@ -152,7 +154,7 @@
             // 
             // btnSaveServer
             // 
-            btnSaveServer.Location = new Point(12, 590);
+            btnSaveServer.Location = new Point(12, 648);
             btnSaveServer.Name = "btnSaveServer";
             btnSaveServer.Size = new Size(247, 23);
             btnSaveServer.TabIndex = 5;
@@ -162,7 +164,7 @@
             // 
             // btnArchiveServer
             // 
-            btnArchiveServer.Location = new Point(12, 619);
+            btnArchiveServer.Location = new Point(12, 677);
             btnArchiveServer.Name = "btnArchiveServer";
             btnArchiveServer.Size = new Size(247, 23);
             btnArchiveServer.TabIndex = 5;
@@ -172,7 +174,7 @@
             // 
             // btnSetDisplayToFirstName
             // 
-            btnSetDisplayToFirstName.Location = new Point(12, 561);
+            btnSetDisplayToFirstName.Location = new Point(12, 619);
             btnSetDisplayToFirstName.Name = "btnSetDisplayToFirstName";
             btnSetDisplayToFirstName.Size = new Size(247, 23);
             btnSetDisplayToFirstName.TabIndex = 5;
@@ -347,11 +349,33 @@
             btnHelp.UseVisualStyleBackColor = false;
             btnHelp.Click += btnHelp_Click;
             // 
+            // lblMissingIDWarning
+            // 
+            lblMissingIDWarning.AutoSize = true;
+            lblMissingIDWarning.ForeColor = Color.Red;
+            lblMissingIDWarning.Location = new Point(13, 14);
+            lblMissingIDWarning.Name = "lblMissingIDWarning";
+            lblMissingIDWarning.Size = new Size(236, 15);
+            lblMissingIDWarning.TabIndex = 12;
+            lblMissingIDWarning.Text = "!!!70 Servers are missing a HotSchedulesID!!!";
+            // 
+            // btnGetIDs
+            // 
+            btnGetIDs.Location = new Point(12, 32);
+            btnGetIDs.Name = "btnGetIDs";
+            btnGetIDs.Size = new Size(247, 23);
+            btnGetIDs.TabIndex = 13;
+            btnGetIDs.Text = "Get IDs";
+            btnGetIDs.UseVisualStyleBackColor = true;
+            btnGetIDs.Click += btnGetIDs_Click;
+            // 
             // frmAddRemoveStaff
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1205, 663);
+            ClientSize = new Size(1205, 722);
+            Controls.Add(btnGetIDs);
+            Controls.Add(lblMissingIDWarning);
             Controls.Add(btnHelp);
             Controls.Add(dgvServers);
             Controls.Add(lblServerName);
@@ -428,5 +452,7 @@
         private Label lblServerName;
         private DataGridView dgvServers;
         private Button btnHelp;
+        private Label lblMissingIDWarning;
+        private Button btnGetIDs;
     }
 }

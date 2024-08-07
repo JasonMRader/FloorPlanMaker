@@ -1,6 +1,7 @@
 ﻿using FloorplanClassLibrary;
 using FloorPlanMaker;
 using FloorPlanMakerUI.Properties;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -758,10 +759,12 @@ namespace FloorPlanMakerUI
 
         private async void btnGetHotSchedulesServers(object sender, EventArgs e)
         {
-            //string servers = await HotSchedulesApiAccess.GetScheduledServers();
-            string servers = await HotSchedulesApiAccess.Test();
+            //string message = await HotSchedulesApiAccess.GetSchedule();
+            List<HotSchedulesEmployee> employees = await HotSchedulesApiAccess.GetAllEmployees();
+            //string servers = await HotSchedulesApiAccess.Test();
             //await HotSchedulesApiAccess.GetSchedule();
-            MessageBox.Show(servers);
+            //List<HotSchedulesEmployee> employees = JsonConvert.DeserializeObject<List<HotSchedulesEmployee>>(message);
+            //MessageBox.Show(message);
         }
 
         private List<string> PopulateServersFromCsv(List<ScheduledShift> records)

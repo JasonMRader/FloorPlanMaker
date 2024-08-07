@@ -7,6 +7,7 @@ namespace FloorplanClassLibrary
         private List<EmployeeShift> shifts;
 
         public int ID { get; set; }
+        public int? HSID { get; set; }
         public string Name { get; set; }
         public bool isDouble { get; set; }
         public bool Archived { get; set; }

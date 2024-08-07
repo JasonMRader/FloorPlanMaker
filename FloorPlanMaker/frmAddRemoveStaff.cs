@@ -26,6 +26,18 @@ namespace FloorPlanMakerUI
         {
             RefreshServerListBox();
             lbServers.SelectedIndex = 0;
+            List<Server> serversWithoutIDs = employeeManager.ActiveServers.Where(s => s.HSID == null).ToList();
+            if (serversWithoutIDs.Count > 0)
+            {
+                lblMissingIDWarning.Text = $"!!! {serversWithoutIDs.Count} Servers are missing a HotSchedulesID!!!";
+                lblMissingIDWarning.Visible = true;
+                btnGetIDs.Visible = true;
+            }
+            else
+            {
+                lblMissingIDWarning.Visible = false;
+                btnGetIDs.Visible = false;
+            }
         }
 
         private void lbServers_SelectedIndexChanged(object sender, EventArgs e)
@@ -228,6 +240,12 @@ namespace FloorPlanMakerUI
         {
             frmTutorialVideos tutorialForm = new frmTutorialVideos(TutorialImages.TutorialType.Servers);
             tutorialForm.Show();
+        }
+
+        private void btnGetIDs_Click(object sender, EventArgs e)
+        {
+            frmGetHotSchedulesIDs form = new frmGetHotSchedulesIDs(employeeManager);
+            form.Show();
         }
     }
 

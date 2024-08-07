@@ -50,6 +50,24 @@ namespace FloorplanClassLibrary
             }
             return client;
         }
+        private static string GetHotSchedulesConceptID()
+        {
+            string conceptID = ConfigurationManager.AppSettings["HotSchedulesConceptID"];
+            if (string.IsNullOrEmpty(conceptID))
+            {
+                throw new InvalidOperationException("API key is missing.");
+            }
+            return conceptID;
+        }
+        private static string GetHotSchedulesStoreID()
+        {
+            string storeID = ConfigurationManager.AppSettings["HotSchedulesStoreID"];
+            if (string.IsNullOrEmpty(storeID))
+            {
+                throw new InvalidOperationException("API key is missing.");
+            }
+            return storeID;
+        }
         private static async Task<string> GenerateBearerToken()
         {
             using (var client = new HttpClient())
@@ -124,40 +142,110 @@ namespace FloorplanClassLibrary
         //    return result.Bearer;
         //}
 
-        public static async Task GetSchedule()
+        public static async Task<string> GetSchedule()
         {
             string bearerToken = await GenerateBearerToken();
             string co = GetHotSchedulesCompanyID();
-            string client = GetHotSchedulesClient();
-            //{"name":"Rick's Cafe Boatyard","extId":3548}
+           
             string start_date = "2024-08-05";
             string end_date = "2024-08-11";
-            string concept_id = ""; // replace with your actual concept ID
-            string store_id = ""; // replace with your actual store ID
+            string concept_id = GetHotSchedulesConceptID(); 
+            string store_id = GetHotSchedulesStoreID();
 
             var httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
             string url = $"https://agent-pos-na1.fourth.com/{co}/controllers/vertx/hotschedules/{concept_id}/{store_id}/getScheduleV3?start_day=5&start_month=8&start_year=2024&end_day=11&end_month=8&end_year=2024";
+           
 
             var response = await httpClient.GetAsync(url);
             response.EnsureSuccessStatusCode();
 
             var responseContent = await response.Content.ReadAsStringAsync();
-            Console.WriteLine(responseContent); // Or parse the response content as needed
+            return responseContent; 
+        }
+        //public static async Task<string> GetAllEmployees()
+        //{
+        //    string bearerToken = await GenerateBearerToken();
+        //    string co = GetHotSchedulesCompanyID();  
+        //    string concept_id = GetHotSchedulesConceptID(); 
+        //    string store_id = GetHotSchedulesStoreID(); 
+
+        //    var httpClient = new HttpClient();
+        //    httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
+        //    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+        //    string url = $"https://agent-pos-na1.fourth.com/{co}/controllers/vertx/hotschedules/{concept_id}/{store_id}/getStoreEmployees?active_only=true";
+
+        //    var response = await httpClient.GetAsync(url);
+        //    response.EnsureSuccessStatusCode();
+
+        //    var responseContent = await response.Content.ReadAsStringAsync();
+        //    return responseContent;
+        //}
+        public static async Task<List<HotSchedulesEmployee>> GetAllEmployees()
+        {
+            string bearerToken = await GenerateBearerToken();
+            string co = GetHotSchedulesCompanyID();
+            string concept_id = GetHotSchedulesConceptID();
+            string store_id = GetHotSchedulesStoreID();
+
+            var httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            string url = $"https://agent-pos-na1.fourth.com/{co}/controllers/vertx/hotschedules/{concept_id}/{store_id}/getStoreEmployees?active_only=true";
+
+            var response = await httpClient.GetAsync(url);
+            response.EnsureSuccessStatusCode();
+
+            var responseContent = await response.Content.ReadAsStringAsync();
+            List<HotSchedulesEmployee> employees = JsonConvert.DeserializeObject<List<HotSchedulesEmployee>>(responseContent);
+
+            return employees;
+        }
+        public static async Task<List<HotSchedulesEmployee>> GetAllEmployeeJobs()
+        {
+            string bearerToken = await GenerateBearerToken();
+            string co = GetHotSchedulesCompanyID();
+            string concept_id = GetHotSchedulesConceptID();
+            string store_id = GetHotSchedulesStoreID();
+
+            var httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            string url = $"https://agent-pos-na1.fourth.com/{co}/controllers/vertx/hotschedules/{concept_id}/{store_id}/getStoreEmployees?active_only=true";
+
+            var response = await httpClient.GetAsync(url);
+            response.EnsureSuccessStatusCode();
+
+            var responseContent = await response.Content.ReadAsStringAsync();
+            List<HotSchedulesEmployee> employees = JsonConvert.DeserializeObject<List<HotSchedulesEmployee>>(responseContent);
+
+            return employees;
         }
         public static async Task<string> Test()
         {
             string username = GetHotSchedulesUserName();
             string password = GetHotSchedulesPassword();
+            string clientId = GetHotSchedulesClient();
             string companyId = GetHotSchedulesCompanyID();
-            string storeId = GetHotSchedulesClient();
-            //3548
+            string storeId = GetHotSchedulesStoreID();
+            string conceptID = GetHotSchedulesConceptID();
+            
             //string url = $"https://agent-pos-na1.fourth.com/{companyId}/controllers/vertx/hotschedules/shifts?daysInPast=0&daysInFuture=6";
-            //string url = $"https://agent-pos-na1.fourth.com/{companyId}/controllers/vertx/hotschedules/{storeId}/??/getScheduleV3?start_day=5&start_month=8&start_year=2024&end_day=11&end_month =8&end_year=2024";
-            string url = $"https://agent-pos-na1.fourth.com/{companyId}/controllers/vertx/hotschedules/getConcepts";
+            string url = $"https://agent-pos-na1.fourth.com/{companyId}/controllers/vertx/hotschedules/{conceptID}/{storeId}/shifts?fromDate=20240805&toDate=20240811";
+            //string url = $"https://agent-pos-na1.fourth.com/{companyId}/controllers/vertx/hotschedules/getConcepts";
             //string url = $"https://agent-pos-na1.fourth.com/{companyId}/controllers/vertx/{companyId}/{storeId}/getEmpInfo?active_only=true";
+
+            //string url = $"https://agent-pos-na1.fourth.com/{companyId}/controllers/vertx/hotschedules/{storeId}/{clientId}/getEmpInfo?active_only=true";
+            //string url = $"https://agent-pos-na1.fourth.com/{companyId}/controllers/vertx/hotschedules/{clientId}/{storeId}/getEmpInfo?active_only=true";
+            //string url = $"https://agent-pos-na1.fourth.com/{companyId}/controllers/vertx/hotschedules/{storeId}/{conceptID}/getEmpInfo?active_only=true";
+            //string url = $"https://agent-pos-na1.fourth.com/{companyId}/controllers/vertx/hotschedules/{conceptID}/{clientId}/getEmpInfo?active_only=true";
+            //string url = $"https://agent-pos-na1.fourth.com/{companyId}/controllers/vertx/hotschedules/{conceptID}/{storeId}/getEmpInfo?active_only=true";
+            //string url = $"https://agent-pos-na1.fourth.com/{companyId}/controllers/vertx/hotschedules/{clientId}/{conceptID}/getEmpInfo?active_only=true";
 
             using (HttpClient client = new HttpClient())
             {

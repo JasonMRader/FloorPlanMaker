@@ -662,7 +662,8 @@ namespace FloorplanClassLibrary
                 var query = "UPDATE Server SET Name = @Name, Archived = @Archived, DisplayName = @DisplayName, " +
                             "CocktailPreference = @CocktailPreference, CloseFrequency = @CloseFrequency, " +
                             "TeamWaitFrequency = @TeamWaitFrequency, OutsideFrequency = @OutsideFrequency, " +
-                            "PreferedSectionWeight = @PreferedSectionWeight WHERE ID = @ID";
+                            "PreferedSectionWeight = @PreferedSectionWeight, " +
+                            "HSID = @HSID WHERE ID = @ID";
 
                 cnn.Execute(query, new
                 {
@@ -674,6 +675,7 @@ namespace FloorplanClassLibrary
                     TeamWaitFrequency = server.TeamWaitFrequency,
                     OutsideFrequency = server.OutsideFrequency,
                     PreferedSectionWeight = server.PreferedSectionWeight,
+                    HSID = server.HSID,
                     ID = server.ID
                 });
             }
