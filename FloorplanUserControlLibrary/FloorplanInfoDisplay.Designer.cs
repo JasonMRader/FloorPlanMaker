@@ -40,13 +40,13 @@
             lblCrtlServersOn.BackColor = Color.FromArgb(180, 190, 200);
             lblCrtlServersOn.Location = new Point(3, 3);
             lblCrtlServersOn.Name = "lblCrtlServersOn";
-            lblCrtlServersOn.Size = new Size(258, 34);
+            lblCrtlServersOn.Size = new Size(258, 27);
             lblCrtlServersOn.TabIndex = 0;
             // 
             // lblCrtlServersYesterday
             // 
             lblCrtlServersYesterday.BackColor = Color.FromArgb(180, 190, 200);
-            lblCrtlServersYesterday.Location = new Point(3, 43);
+            lblCrtlServersYesterday.Location = new Point(3, 36);
             lblCrtlServersYesterday.Name = "lblCrtlServersYesterday";
             lblCrtlServersYesterday.Size = new Size(125, 27);
             lblCrtlServersYesterday.TabIndex = 0;
@@ -54,7 +54,7 @@
             // lblCrtlServersLastWeek
             // 
             lblCrtlServersLastWeek.BackColor = Color.FromArgb(180, 190, 200);
-            lblCrtlServersLastWeek.Location = new Point(134, 43);
+            lblCrtlServersLastWeek.Location = new Point(134, 36);
             lblCrtlServersLastWeek.Name = "lblCrtlServersLastWeek";
             lblCrtlServersLastWeek.Size = new Size(127, 27);
             lblCrtlServersLastWeek.TabIndex = 0;
@@ -62,7 +62,7 @@
             // lblCrtlSalesPerServer
             // 
             lblCrtlSalesPerServer.BackColor = Color.FromArgb(180, 190, 200);
-            lblCrtlSalesPerServer.Location = new Point(134, 76);
+            lblCrtlSalesPerServer.Location = new Point(134, 69);
             lblCrtlSalesPerServer.Name = "lblCrtlSalesPerServer";
             lblCrtlSalesPerServer.Size = new Size(127, 27);
             lblCrtlSalesPerServer.TabIndex = 0;
@@ -70,7 +70,7 @@
             // lblCrtlCoversPerServer
             // 
             lblCrtlCoversPerServer.BackColor = Color.FromArgb(180, 190, 200);
-            lblCrtlCoversPerServer.Location = new Point(3, 76);
+            lblCrtlCoversPerServer.Location = new Point(3, 69);
             lblCrtlCoversPerServer.Name = "lblCrtlCoversPerServer";
             lblCrtlCoversPerServer.Size = new Size(125, 27);
             lblCrtlCoversPerServer.TabIndex = 0;
@@ -85,7 +85,7 @@
             Controls.Add(lblCrtlServersYesterday);
             Controls.Add(lblCrtlServersOn);
             Name = "FloorplanInfoDisplay";
-            Size = new Size(267, 111);
+            Size = new Size(265, 102);
             ResumeLayout(false);
         }
 

@@ -273,6 +273,7 @@ namespace FloorplanClassLibrary
                 {
                     shift.SelectedFloorplan = floorplan;
                     int serversNeeded = ServerDistribution[floorplan.DiningArea] - floorplan.Servers.Count;
+                    if(serversNeeded > 0) { continue; }
                     while(serversNeeded > 0)
                     {
                         shift.AddServerToAFloorplan(Cocktailers[serverIndex]);

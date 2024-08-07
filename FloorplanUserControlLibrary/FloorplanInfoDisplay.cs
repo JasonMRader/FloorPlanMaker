@@ -90,16 +90,16 @@ namespace FloorplanUserControlLibrary
             lblCrtlServersOn.Location = new Point(4, 4);
 
             lblCrtlServersYesterday.Width = (this.Width / 2) - 6;
-            lblCrtlServersYesterday.Location = new Point(4, 43);
+            lblCrtlServersYesterday.Location = new Point(4, 36);
 
             lblCrtlServersLastWeek.Width = (this.Width / 2) - 6;
-            lblCrtlServersLastWeek.Location = new Point(lblCrtlServersYesterday.Right + 4, 43);
+            lblCrtlServersLastWeek.Location = new Point(lblCrtlServersYesterday.Right + 4, 36);
 
             lblCrtlCoversPerServer.Width = (this.Width / 2) - 6;
-            lblCrtlCoversPerServer.Location = new Point(4, 76);
+            lblCrtlCoversPerServer.Location = new Point(4, 69);
 
             lblCrtlSalesPerServer.Width = (this.Width / 2) - 6;
-            lblCrtlSalesPerServer.Location = new Point(lblCrtlCoversPerServer.Right + 4, 76);
+            lblCrtlSalesPerServer.Location = new Point(lblCrtlCoversPerServer.Right + 4, 69);
 
             if (Width > 400)
             {

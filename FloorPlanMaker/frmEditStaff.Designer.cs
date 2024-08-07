@@ -201,6 +201,7 @@
             cboSalesMethod.Name = "cboSalesMethod";
             cboSalesMethod.Size = new Size(78, 23);
             cboSalesMethod.TabIndex = 29;
+            cboSalesMethod.Visible = false;
             cboSalesMethod.SelectedIndexChanged += cboSalesMethod_SelectedIndexChanged;
             // 
             // label1

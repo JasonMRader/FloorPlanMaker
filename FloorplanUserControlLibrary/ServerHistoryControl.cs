@@ -32,7 +32,7 @@ namespace FloorplanUserControlLibrary
             toolTip.SetToolTip(lblOutsidePercentage, $"Percentage of {GetIsLunchDisplay()} Shifts Outside for the Last 30 Days, \n" +
                 $"{shiftHistory.filteredShifts.Count} Shifts for this Server");
             toolTip.SetToolTip(lblServerRatings, "Server Outside Rating  |  Server Cocktail Rating");
-            toolTip.SetToolTip(btnServer, "Click to Move to the SELECTED Floorplan");
+            //toolTip.SetToolTip(btnServer, "Click to Move to the SELECTED Floorplan");
         }
         public void SetWidth(int width)
         {
@@ -98,7 +98,7 @@ namespace FloorplanUserControlLibrary
         public ServerShiftHistory shiftHistory { get; private set; }
         private void InitializeControls()
         {
-            btnServer.Text = this.Server.ToString();
+            btnServer.Text = $"{this.Server} {FormattedPercentage(shiftHistory.OutsidePercentage)}"; 
 
             // lblDescription.Text = $"Last {shiftHistory.filteredShifts.Count} {GetIsLunchDisplay()} Shifts";
             lblOutsidePercentage.Text = $"{FormattedPercentage(shiftHistory.OutsidePercentage)}";
