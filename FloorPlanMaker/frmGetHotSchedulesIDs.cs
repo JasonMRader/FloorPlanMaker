@@ -31,6 +31,7 @@ namespace FloorPlanMakerUI
         private async void GetHotSchedulesEmployees()
         {
             this.hotSchedulesEmployees = await HotSchedulesApiAccess.GetAllEmployees();
+            hotSchedulesEmployees.OrderByFirstLetter().ToList();
             filteredHotScheduleEmployees = this.hotSchedulesEmployees;
             dgvHotSchedulesEmployees.DataSource = new BindingSource { DataSource = hotSchedulesEmployees };
         }
@@ -90,6 +91,7 @@ namespace FloorPlanMakerUI
             {
                 serverSelected.HSID = HSID;
                 SqliteDataAccess.UpdateServer(serverSelected);
+                RefreshServerListBox();
             }
             else
             {
@@ -151,7 +153,32 @@ namespace FloorPlanMakerUI
 
             }
             RefreshServerListBox();
-            
+
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            if(txtSearch.Text.Length > 0)
+            {
+                FilterServers(txtSearch.Text);
+            }
+        }
+        private void FilterServers(string searchText)
+        {
+            if (!string.IsNullOrWhiteSpace(searchText))
+            {
+                var filteredServers = hotSchedulesEmployees
+                    .Where(server => server.FName.StartsWith(searchText, StringComparison.OrdinalIgnoreCase) ||
+                                        server.LName.StartsWith(searchText, StringComparison.OrdinalIgnoreCase))
+                    .OrderByFirstLetter()
+                    .ToList();
+
+                dgvHotSchedulesEmployees.DataSource = new BindingSource { DataSource = filteredServers };
+            }
+            else
+            {
+                dgvHotSchedulesEmployees.DataSource = new BindingSource { DataSource = hotSchedulesEmployees };
+            }
         }
     }
 }

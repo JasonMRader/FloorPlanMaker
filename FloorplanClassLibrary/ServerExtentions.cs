@@ -12,5 +12,9 @@ namespace FloorplanClassLibrary
         {
             return servers.OrderBy(server => server.ToString());
         }
+        public static IEnumerable<HotSchedulesEmployee> OrderByFirstLetter(this IEnumerable<HotSchedulesEmployee> employees)
+        {
+            return employees.OrderBy(e => e.FName);
+        }
     }
 }

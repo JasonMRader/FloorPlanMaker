@@ -128,6 +128,7 @@
             txtSearch.PlaceholderText = "Search";
             txtSearch.Size = new Size(343, 23);
             txtSearch.TabIndex = 7;
+            txtSearch.TextChanged += txtSearch_TextChanged;
             // 
             // btnAutoAssignIDs
             // 
