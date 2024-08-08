@@ -151,8 +151,9 @@ namespace FloorPlanMakerUI
             dgvDiningAreas.Rows.Clear();
 
             // Add columns for each dining area and total sales
+           
             dgvDiningAreas.Columns.Add("Date", "Date");
-
+            dgvDiningAreas.Columns.Add("Event", "Event");
             foreach (var diningArea in diningAreas)
             {
                 var column = new DataGridViewTextBoxColumn
@@ -206,6 +207,7 @@ namespace FloorPlanMakerUI
 
             // Add the average row
             var averageRow = new List<object> { "Average" };
+            averageRow.Add("");
             foreach (var diningArea in diningAreas)
             {
                 averageRow.Add(averageSalesByDiningArea[diningArea.Name]);
@@ -218,7 +220,15 @@ namespace FloorPlanMakerUI
             foreach (var salesData in salesDataList)
             {
                 var row = new List<object> { salesData.DateDisplay() };
-
+                if(salesData.SpecialEventDate != null)
+                {
+                    row.Add(salesData.SpecialEventDate.Name);
+                }
+                else
+                {
+                    row.Add("");
+                }
+               
                 foreach (var diningArea in diningAreas)
                 {
                     row.Add(salesData.SalesByDiningArea[diningArea.Name]);

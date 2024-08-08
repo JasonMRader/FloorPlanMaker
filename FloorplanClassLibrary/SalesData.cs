@@ -10,6 +10,7 @@ namespace FloorplanClassLibrary
     public class SalesData
     {
         public SalesData() { }
+        public SpecialEventDate SpecialEventDate {get;set;}
         public SalesData(DateTime dateTime)
         {
             this.Date = dateTime;
@@ -17,6 +18,11 @@ namespace FloorplanClassLibrary
             if (weatherData != null)
             {
                 this.WeatherData = weatherData;
+            }
+            SpecialEventDate specialEventDate = SqliteDataAccess.GetEventByDate(DateOnly);
+            if (specialEventDate != null)
+            {
+                this.SpecialEventDate = specialEventDate;
             }
         }
 
@@ -28,12 +34,12 @@ namespace FloorplanClassLibrary
         public int ServersScheduled { get; set; }
         public string DateDisplay()
         {
-            SpecialEventDate specialEventDate = SqliteDataAccess.GetEventByDate(DateOnly);
-            if (specialEventDate != null)
-            {
-               return specialEventDate.Name;
-            }
-            return Date.ToString("ddd, M/d");
+            //SpecialEventDate specialEventDate = SqliteDataAccess.GetEventByDate(DateOnly);
+            //if (specialEventDate != null)
+            //{
+            //   return specialEventDate.Name;
+            //}
+            return Date.ToString("ddd, M/d/yy");
         }
         public WeatherData WeatherData { get; set; } = new WeatherData();
 
