@@ -10,6 +10,7 @@ using System.Drawing.Drawing2D;
 
 using System.Globalization;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 
 
@@ -910,183 +911,7 @@ namespace FloorPlanMaker
             pnlTemplateContainer.BringToFront();
 
         }
-        private void MakeUnassignedTablesPickup()
-        {
-            bool pickUpAdded = false;
-            Section pickUpSection = new Section(floorplanManager.Floorplan);
-            pickUpSection.IsPickUp = true;
-
-            shift.SelectedFloorplan.Date = dateTimeSelected;
-            shift.SelectedFloorplan.IsLunch = cbIsAM.Checked;
-            foreach (Control control in pnlFloorPlan.Controls)
-            {
-                if (control is TableControl tableControl)
-                {
-                    if (tableControl.Section == null)
-                    {
-                        pickUpSection.DiningAreaID = shift.SelectedFloorplan.DiningArea.ID;
-                        pickUpSection.Name = "Pick Up";
-                        shift.SelectedFloorplan.Sections.Add(pickUpSection);
-                        pickUpAdded = true;
-                    }
-                    break;
-                }
-            }
-            foreach (Control control in pnlFloorPlan.Controls)
-            {
-                if (control is TableControl tableControl)
-                {
-                    if (tableControl.Section == null)
-                    {
-                        tableControl.SetSection(pickUpSection);
-                        pickUpSection.AddTable(tableControl.Table);
-                        tableControl.BackColor = pickUpSection.Color;
-                        // Optionally, you can invalidate the control to request a redraw if needed.
-                        tableControl.Invalidate();
-                    }
-                }
-            }
-            if (pickUpAdded)
-            {
-                //UpdateSectionLabels(shiftManager.SectionSelected, shiftManager.SectionSelected.MaxCovers, shiftManager.SectionSelected.AverageCovers);
-                //CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
-                SectionLabelControl sectionControl = new SectionLabelControl(pickUpSection, shift.SelectedFloorplan.ServersWithoutSection, shift.ServersOnShift);
-                pnlFloorPlan.Controls.Add(sectionControl);
-                sectionControl.BringToFront();
-            }
-        }
-        private void SaveFloorplan()
-        {
-            MakeUnassignedTablesPickup();
-
-            if (shift.SelectedFloorplan.CheckIfAllSectionsAssigned())
-            {
-                List<Section> nonPickupSections = shift.SelectedFloorplan.Sections.Where(s => !s.IsPickUp
-                && !s.IsBarSection).ToList();
-
-                if (!shift.SelectedFloorplan.CheckIfCloserIsAssigned() && nonPickupSections.Count > 1)
-                {
-                    DialogResult result = MessageBox.Show("There is not a closer assigned. \n Continue anyway?",
-                                                "Continue?",
-                                                MessageBoxButtons.YesNo,
-                                                MessageBoxIcon.Question);
-
-                    if (result == DialogResult.No)
-                    {
-                        return;
-                    }
-                }
-                if (cbTableDisplayMode.Checked)
-                {
-                    foreach (Control c in pnlFloorPlan.Controls)
-                    {
-                        if (c is TableControl tableControl)
-                        {
-                            tableControl.CurrentDisplayMode = DisplayMode.TableNumber;
-                            tableControl.Invalidate();
-                        }
-                    }
-                }
-                SqliteDataAccess.SaveFloorplanAndSections(shift.SelectedFloorplan);
-            }
-            else
-            {
-                MessageBox.Show("Not all sections are assigned");
-            }
-        }
-        private void btnPrint_Click(object sender, EventArgs e)
-        {
-            SaveFloorplan();
-            try
-            {
-                //MessageBox.Show("Floorplan saved, but An error occurred while trying to print: " + ex.Message, "Print Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                FloorplanPrinter printerNoLines = new FloorplanPrinter(pnlFloorPlan, _lines);
-                printerNoLines.ShowPrintPreview();
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Floorplan saved, but An error occurred while trying to print: " + ex.Message, "Print Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            //MakeUnassignedTablesPickup();
-
-            //if (shift.SelectedFloorplan.CheckIfAllSectionsAssigned())
-            //{
-            //    List<Section> nonPickupSections = shift.SelectedFloorplan.Sections.Where(s => !s.IsPickUp
-            //    && !s.IsBarSection).ToList();
-
-            //    if (!shift.SelectedFloorplan.CheckIfCloserIsAssigned() && nonPickupSections.Count > 1)
-            //    {
-            //        DialogResult result = MessageBox.Show("There is not a closer assigned. \n Continue anyway?",
-            //                                    "Continue?",
-            //                                    MessageBoxButtons.YesNo,
-            //                                    MessageBoxIcon.Question);
-
-            //        if (result == DialogResult.No)
-            //        {
-            //            return;
-            //        }
-            //    }
-            //    if (cbTableDisplayMode.Checked)
-            //    {
-            //        foreach (Control c in pnlFloorPlan.Controls)
-            //        {
-            //            if (c is TableControl tableControl)
-            //            {
-            //                tableControl.CurrentDisplayMode = DisplayMode.TableNumber;
-            //                tableControl.Invalidate();
-            //            }
-            //        }
-            //    }
-            //    SqliteDataAccess.SaveFloorplanAndSections(shift.SelectedFloorplan);
-
-
-            //    //TODO SECTIONLINES DISABLED
-
-            //    //DialogResult printWihtLines = MessageBox.Show("Do you want to use these section lines?",
-            //    //                            "Continue?",
-            //    //                            MessageBoxButtons.YesNo,
-            //    //                            MessageBoxIcon.Question);
-
-            //    //if (printWihtLines == DialogResult.No)
-            //    //{
-            //    //    FloorplanPrinter printerNoLines = new FloorplanPrinter(pnlFloorPlan);
-            //    //    printerNoLines.ShowPrintPreview();
-            //    //    return;
-            //    //}
-
-            //    //TableGrid grid = new TableGrid(shiftManager.SelectedDiningArea.Tables);
-            //    //grid.FindTableTopBottomNeighbors();
-            //    //grid.FindTableNeighbors();
-            //    //grid.SetTableBoarderMidPoints();
-            //    //grid.CreateNeighbors();
-            //    //grid.SetSections(this.shiftManager.SelectedFloorplan.Sections);
-            //    //SectionLineDrawer edgeDrawer = new SectionLineDrawer(5f);
-            //    //Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, grid.GetSectionTableBoarders());
-
-
-            //    ////List<Edge> edges = grid.GetNeighborEdges();
-            //    ////Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, edges);
-
-            //    // pnlFloorPlan.BackgroundImage = edgesBitmap;
-            //    //FloorplanPrinter printer = new FloorplanPrinter(pnlFloorPlan, edgeDrawer, grid.GetSectionTableBoarders());
-            //    //printer.ShowPrintPreview();
-
-            //    try
-            //    {
-            //        //MessageBox.Show("Floorplan saved, but An error occurred while trying to print: " + ex.Message, "Print Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //        FloorplanPrinter printerNoLines = new FloorplanPrinter(pnlFloorPlan, _lines);
-            //        printerNoLines.ShowPrintPreview();
-
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        MessageBox.Show("Floorplan saved, but An error occurred while trying to print: " + ex.Message, "Print Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    }
-            //    //printer.Print();
-            //}
-            
-        }
+        
 
         private void dtpFloorplan_ValueChanged(object sender, EventArgs e)
         {
@@ -1664,9 +1489,303 @@ namespace FloorPlanMaker
             }
         }
 
+        private void MakeUnassignedTablesPickup()
+        {
+            bool pickUpAdded = false;
+            Section pickUpSection = new Section(floorplanManager.Floorplan);
+            pickUpSection.IsPickUp = true;
 
+            shift.SelectedFloorplan.Date = dateTimeSelected;
+            shift.SelectedFloorplan.IsLunch = cbIsAM.Checked;
+            foreach (Control control in pnlFloorPlan.Controls)
+            {
+                if (control is TableControl tableControl)
+                {
+                    if (tableControl.Section == null)
+                    {
+                        pickUpSection.DiningAreaID = shift.SelectedFloorplan.DiningArea.ID;
+                        pickUpSection.Name = "Pick Up";
+                        shift.SelectedFloorplan.Sections.Add(pickUpSection);
+                        pickUpAdded = true;
+                    }
+                    break;
+                }
+            }
+            foreach (Control control in pnlFloorPlan.Controls)
+            {
+                if (control is TableControl tableControl)
+                {
+                    if (tableControl.Section == null)
+                    {
+                        tableControl.SetSection(pickUpSection);
+                        pickUpSection.AddTable(tableControl.Table);
+                        tableControl.BackColor = pickUpSection.Color;
+                        // Optionally, you can invalidate the control to request a redraw if needed.
+                        tableControl.Invalidate();
+                    }
+                }
+            }
+            if (pickUpAdded)
+            {
+                //UpdateSectionLabels(shiftManager.SectionSelected, shiftManager.SectionSelected.MaxCovers, shiftManager.SectionSelected.AverageCovers);
+                //CreateSectionRadioButtons(shiftManager.SelectedFloorplan.Sections);
+                SectionLabelControl sectionControl = new SectionLabelControl(pickUpSection, shift.SelectedFloorplan.ServersWithoutSection, shift.ServersOnShift);
+                pnlFloorPlan.Controls.Add(sectionControl);
+                sectionControl.BringToFront();
+            }
+        }
+        private bool CheckForCloserAssigned()
+        {
+            List<Section> nonPickupSections = shift.SelectedFloorplan.Sections.Where(s => !s.IsPickUp
+               && !s.IsBarSection).ToList();
+            bool hasCloserAssigned = shift.SelectedFloorplan.CheckIfCloserIsAssigned();
+            bool hasMultipleServerSections = nonPickupSections.Count > 1;
+            if (hasCloserAssigned)
+            {
+                return true;
+            }
+            if (!hasCloserAssigned && hasMultipleServerSections)
+            {
+                return false;
+            }
+            return true;
+        }
+        private bool CheckIfAllSectionsAssigned()
+        {
+            return shift.SelectedFloorplan.CheckIfAllSectionsAssigned();
+        }
+        private void SaveAndPrintNEW()
+        {
+            MakeUnassignedTablesPickup();
+            if (!CheckIfAllSectionsAssigned())
+            {
+                MessageBox.Show("Not all sections are assigned");
+                return;
+            }
+            if (!CheckForCloserAssigned())
+            {
+                DialogResult result = MessageBox.Show("There is not a closer assigned. \n Continue anyway?",
+                                               "Continue?",
+                                               MessageBoxButtons.YesNo,
+                                               MessageBoxIcon.Question);
+
+                if (result == DialogResult.No)
+                {
+                    return;
+                }
+            }
+            if (cbTableDisplayMode.Checked)
+            {
+                foreach (Control c in pnlFloorPlan.Controls)
+                {
+                    if (c is TableControl tableControl)
+                    {
+                        tableControl.CurrentDisplayMode = DisplayMode.TableNumber;
+                        tableControl.Invalidate();
+                    }
+                }
+            }
+
+            PrintFloorplan();
+        }
+        private void SaveAndPDFNEW()
+        {
+            MakeUnassignedTablesPickup();
+            if (!CheckIfAllSectionsAssigned())
+            {
+                MessageBox.Show("Not all sections are assigned");
+                return;
+            }
+            if (!CheckForCloserAssigned())
+            {
+                DialogResult result = MessageBox.Show("There is not a closer assigned. \n Continue anyway?",
+                                               "Continue?",
+                                               MessageBoxButtons.YesNo,
+                                               MessageBoxIcon.Question);
+
+                if (result == DialogResult.No)
+                {
+                    return;
+                }
+            }
+            if (cbTableDisplayMode.Checked)
+            {
+                foreach (Control c in pnlFloorPlan.Controls)
+                {
+                    if (c is TableControl tableControl)
+                    {
+                        tableControl.CurrentDisplayMode = DisplayMode.TableNumber;
+                        tableControl.Invalidate();
+                    }
+                }
+            }
+            SavePDF();
+
+        }
+        private void SaveFloorplanAndPrint()
+        {
+            MakeUnassignedTablesPickup();
+            if (!CheckIfAllSectionsAssigned())
+            {
+                MessageBox.Show("Not all sections are assigned");
+                return;
+            }
+            if (!CheckForCloserAssigned())
+            {
+
+            }
+            if (shift.SelectedFloorplan.CheckIfAllSectionsAssigned())
+            {
+                List<Section> nonPickupSections = shift.SelectedFloorplan.Sections.Where(s => !s.IsPickUp
+                && !s.IsBarSection).ToList();
+
+                if (!shift.SelectedFloorplan.CheckIfCloserIsAssigned() && nonPickupSections.Count > 1)
+                {
+                    DialogResult result = MessageBox.Show("There is not a closer assigned. \n Continue anyway?",
+                                                "Continue?",
+                                                MessageBoxButtons.YesNo,
+                                                MessageBoxIcon.Question);
+
+                    if (result == DialogResult.No)
+                    {
+                        return;
+                    }
+                }
+                if (cbTableDisplayMode.Checked)
+                {
+                    foreach (Control c in pnlFloorPlan.Controls)
+                    {
+                        if (c is TableControl tableControl)
+                        {
+                            tableControl.CurrentDisplayMode = DisplayMode.TableNumber;
+                            tableControl.Invalidate();
+                        }
+                    }
+                }
+                MessageBox.Show("SAVED");
+                //SqliteDataAccess.SaveFloorplanAndSections(shift.SelectedFloorplan);
+            }
+            else
+            {
+                MessageBox.Show("Not all sections are assigned");
+            }
+        }
+        private void PrintFloorplan()
+        {
+
+            SaveTheFloorplan();
+            try
+            {
+                //MessageBox.Show("PRINTED");
+                FloorplanPrinter printerNoLines = new FloorplanPrinter(pnlFloorPlan, _lines);
+                printerNoLines.ShowPrintPreview();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Floorplan saved, but An error occurred while trying to print: " + ex.Message, "Print Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
+            //SaveFloorplanAndPrint();
+            SaveAndPrintNEW();
+
+
+
+            //MakeUnassignedTablesPickup();
+
+            //if (shift.SelectedFloorplan.CheckIfAllSectionsAssigned())
+            //{
+            //    List<Section> nonPickupSections = shift.SelectedFloorplan.Sections.Where(s => !s.IsPickUp
+            //    && !s.IsBarSection).ToList();
+
+            //    if (!shift.SelectedFloorplan.CheckIfCloserIsAssigned() && nonPickupSections.Count > 1)
+            //    {
+            //        DialogResult result = MessageBox.Show("There is not a closer assigned. \n Continue anyway?",
+            //                                    "Continue?",
+            //                                    MessageBoxButtons.YesNo,
+            //                                    MessageBoxIcon.Question);
+
+            //        if (result == DialogResult.No)
+            //        {
+            //            return;
+            //        }
+            //    }
+            //    if (cbTableDisplayMode.Checked)
+            //    {
+            //        foreach (Control c in pnlFloorPlan.Controls)
+            //        {
+            //            if (c is TableControl tableControl)
+            //            {
+            //                tableControl.CurrentDisplayMode = DisplayMode.TableNumber;
+            //                tableControl.Invalidate();
+            //            }
+            //        }
+            //    }
+            //    SqliteDataAccess.SaveFloorplanAndSections(shift.SelectedFloorplan);
+
+
+            //    //TODO SECTIONLINES DISABLED
+
+            //    //DialogResult printWihtLines = MessageBox.Show("Do you want to use these section lines?",
+            //    //                            "Continue?",
+            //    //                            MessageBoxButtons.YesNo,
+            //    //                            MessageBoxIcon.Question);
+
+            //    //if (printWihtLines == DialogResult.No)
+            //    //{
+            //    //    FloorplanPrinter printerNoLines = new FloorplanPrinter(pnlFloorPlan);
+            //    //    printerNoLines.ShowPrintPreview();
+            //    //    return;
+            //    //}
+
+            //    //TableGrid grid = new TableGrid(shiftManager.SelectedDiningArea.Tables);
+            //    //grid.FindTableTopBottomNeighbors();
+            //    //grid.FindTableNeighbors();
+            //    //grid.SetTableBoarderMidPoints();
+            //    //grid.CreateNeighbors();
+            //    //grid.SetSections(this.shiftManager.SelectedFloorplan.Sections);
+            //    //SectionLineDrawer edgeDrawer = new SectionLineDrawer(5f);
+            //    //Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, grid.GetSectionTableBoarders());
+
+
+            //    ////List<Edge> edges = grid.GetNeighborEdges();
+            //    ////Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, edges);
+
+            //    // pnlFloorPlan.BackgroundImage = edgesBitmap;
+            //    //FloorplanPrinter printer = new FloorplanPrinter(pnlFloorPlan, edgeDrawer, grid.GetSectionTableBoarders());
+            //    //printer.ShowPrintPreview();
+
+            //    try
+            //    {
+            //        //MessageBox.Show("Floorplan saved, but An error occurred while trying to print: " + ex.Message, "Print Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //        FloorplanPrinter printerNoLines = new FloorplanPrinter(pnlFloorPlan, _lines);
+            //        printerNoLines.ShowPrintPreview();
+
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        MessageBox.Show("Floorplan saved, but An error occurred while trying to print: " + ex.Message, "Print Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    }
+            //    //printer.Print();
+            //}
+
+        }
 
         private void btnSaveColorPDF_Click(object sender, EventArgs e)
+        {
+            //SavePDF();
+            //SaveFloorplanAndPrint();
+            SaveAndPDFNEW();
+        }
+        private void SaveTheFloorplan()
+        {
+            //MessageBox.Show("Saved");
+            SqliteDataAccess.SaveFloorplanAndSections(shift.SelectedFloorplan);
+
+        }
+        private void SavePDF()
         {
             //List<FloorplanLine> lines = new List<FloorplanLine>(); // Initialize with actual lines if needed
             FloorplanPrinter printerNoLines = new FloorplanPrinter(pnlFloorPlan, _lines);
@@ -1692,7 +1811,9 @@ namespace FloorPlanMaker
 
                 }
             }
-            SaveFloorplan();
+            //MessageBox.Show("Printed");
+            SaveTheFloorplan();
+            
         }
     }
 }
