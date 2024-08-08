@@ -955,7 +955,7 @@ namespace FloorPlanMaker
                 sectionControl.BringToFront();
             }
         }
-        private void btnPrint_Click(object sender, EventArgs e)
+        private void SaveFloorplan()
         {
             MakeUnassignedTablesPickup();
 
@@ -988,56 +988,104 @@ namespace FloorPlanMaker
                     }
                 }
                 SqliteDataAccess.SaveFloorplanAndSections(shift.SelectedFloorplan);
-
-
-                //TODO SECTIONLINES DISABLED
-
-                //DialogResult printWihtLines = MessageBox.Show("Do you want to use these section lines?",
-                //                            "Continue?",
-                //                            MessageBoxButtons.YesNo,
-                //                            MessageBoxIcon.Question);
-
-                //if (printWihtLines == DialogResult.No)
-                //{
-                //    FloorplanPrinter printerNoLines = new FloorplanPrinter(pnlFloorPlan);
-                //    printerNoLines.ShowPrintPreview();
-                //    return;
-                //}
-
-                //TableGrid grid = new TableGrid(shiftManager.SelectedDiningArea.Tables);
-                //grid.FindTableTopBottomNeighbors();
-                //grid.FindTableNeighbors();
-                //grid.SetTableBoarderMidPoints();
-                //grid.CreateNeighbors();
-                //grid.SetSections(this.shiftManager.SelectedFloorplan.Sections);
-                //SectionLineDrawer edgeDrawer = new SectionLineDrawer(5f);
-                //Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, grid.GetSectionTableBoarders());
-
-
-                ////List<Edge> edges = grid.GetNeighborEdges();
-                ////Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, edges);
-
-                // pnlFloorPlan.BackgroundImage = edgesBitmap;
-                //FloorplanPrinter printer = new FloorplanPrinter(pnlFloorPlan, edgeDrawer, grid.GetSectionTableBoarders());
-                //printer.ShowPrintPreview();
-
-                try
-                {
-                    //MessageBox.Show("Floorplan saved, but An error occurred while trying to print: " + ex.Message, "Print Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    FloorplanPrinter printerNoLines = new FloorplanPrinter(pnlFloorPlan, _lines);
-                    printerNoLines.ShowPrintPreview();
-
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Floorplan saved, but An error occurred while trying to print: " + ex.Message, "Print Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                //printer.Print();
             }
             else
             {
                 MessageBox.Show("Not all sections are assigned");
             }
+        }
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
+            SaveFloorplan();
+            try
+            {
+                //MessageBox.Show("Floorplan saved, but An error occurred while trying to print: " + ex.Message, "Print Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                FloorplanPrinter printerNoLines = new FloorplanPrinter(pnlFloorPlan, _lines);
+                printerNoLines.ShowPrintPreview();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Floorplan saved, but An error occurred while trying to print: " + ex.Message, "Print Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            //MakeUnassignedTablesPickup();
+
+            //if (shift.SelectedFloorplan.CheckIfAllSectionsAssigned())
+            //{
+            //    List<Section> nonPickupSections = shift.SelectedFloorplan.Sections.Where(s => !s.IsPickUp
+            //    && !s.IsBarSection).ToList();
+
+            //    if (!shift.SelectedFloorplan.CheckIfCloserIsAssigned() && nonPickupSections.Count > 1)
+            //    {
+            //        DialogResult result = MessageBox.Show("There is not a closer assigned. \n Continue anyway?",
+            //                                    "Continue?",
+            //                                    MessageBoxButtons.YesNo,
+            //                                    MessageBoxIcon.Question);
+
+            //        if (result == DialogResult.No)
+            //        {
+            //            return;
+            //        }
+            //    }
+            //    if (cbTableDisplayMode.Checked)
+            //    {
+            //        foreach (Control c in pnlFloorPlan.Controls)
+            //        {
+            //            if (c is TableControl tableControl)
+            //            {
+            //                tableControl.CurrentDisplayMode = DisplayMode.TableNumber;
+            //                tableControl.Invalidate();
+            //            }
+            //        }
+            //    }
+            //    SqliteDataAccess.SaveFloorplanAndSections(shift.SelectedFloorplan);
+
+
+            //    //TODO SECTIONLINES DISABLED
+
+            //    //DialogResult printWihtLines = MessageBox.Show("Do you want to use these section lines?",
+            //    //                            "Continue?",
+            //    //                            MessageBoxButtons.YesNo,
+            //    //                            MessageBoxIcon.Question);
+
+            //    //if (printWihtLines == DialogResult.No)
+            //    //{
+            //    //    FloorplanPrinter printerNoLines = new FloorplanPrinter(pnlFloorPlan);
+            //    //    printerNoLines.ShowPrintPreview();
+            //    //    return;
+            //    //}
+
+            //    //TableGrid grid = new TableGrid(shiftManager.SelectedDiningArea.Tables);
+            //    //grid.FindTableTopBottomNeighbors();
+            //    //grid.FindTableNeighbors();
+            //    //grid.SetTableBoarderMidPoints();
+            //    //grid.CreateNeighbors();
+            //    //grid.SetSections(this.shiftManager.SelectedFloorplan.Sections);
+            //    //SectionLineDrawer edgeDrawer = new SectionLineDrawer(5f);
+            //    //Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, grid.GetSectionTableBoarders());
+
+
+            //    ////List<Edge> edges = grid.GetNeighborEdges();
+            //    ////Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, edges);
+
+            //    // pnlFloorPlan.BackgroundImage = edgesBitmap;
+            //    //FloorplanPrinter printer = new FloorplanPrinter(pnlFloorPlan, edgeDrawer, grid.GetSectionTableBoarders());
+            //    //printer.ShowPrintPreview();
+
+            //    try
+            //    {
+            //        //MessageBox.Show("Floorplan saved, but An error occurred while trying to print: " + ex.Message, "Print Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //        FloorplanPrinter printerNoLines = new FloorplanPrinter(pnlFloorPlan, _lines);
+            //        printerNoLines.ShowPrintPreview();
+
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        MessageBox.Show("Floorplan saved, but An error occurred while trying to print: " + ex.Message, "Print Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    }
+            //    //printer.Print();
+            //}
+            
         }
 
         private void dtpFloorplan_ValueChanged(object sender, EventArgs e)
@@ -1644,6 +1692,7 @@ namespace FloorPlanMaker
 
                 }
             }
+            SaveFloorplan();
         }
     }
 }
