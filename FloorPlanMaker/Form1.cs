@@ -961,7 +961,10 @@ namespace FloorPlanMaker
 
             if (shift.SelectedFloorplan.CheckIfAllSectionsAssigned())
             {
-                if (!shift.SelectedFloorplan.CheckIfCloserIsAssigned())
+                List<Section> nonPickupSections = shift.SelectedFloorplan.Sections.Where(s => !s.IsPickUp 
+                && !s.IsBarSection).ToList();
+               
+                if (!shift.SelectedFloorplan.CheckIfCloserIsAssigned() && nonPickupSections.Count > 1)
                 {
                     DialogResult result = MessageBox.Show("There is not a closer assigned. \n Continue anyway?",
                                                 "Continue?",
