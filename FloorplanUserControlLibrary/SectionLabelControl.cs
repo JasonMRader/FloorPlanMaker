@@ -616,7 +616,7 @@ namespace FloorplanClassLibrary
         public static void DrawSectionLabelForPrinting(XGraphics gfx, SectionLabelControl control, bool isBlackAndWhite)
         {
             // XFont boldLargeFont = new XFont(control.Font.FontFamily.Name, 16);
-            var boldLargeFont = new XFont("Arial", 16, XFontStyleEx.Bold);
+            var boldLargeFont = new XFont("Arial", 26, XFontStyleEx.Bold);
 
             // Measure the size of the text
             string displayString = control.Section.GetDisplayString();
@@ -635,22 +635,31 @@ namespace FloorplanClassLibrary
                 totalHeight += lineSize.Height;
             }
 
-            // Define the rectangle based on the text size with a margin of 5 pixels
+            
             XRect rect = new XRect(
                 control.Bounds.X - 2,
                 control.Bounds.Y - 2,
-                maxWidth + 4,  // 5 pixels on left + 5 pixels on right
-                totalHeight + 4  // 5 pixels on top + 5 pixels on bottom
+                maxWidth + 4,  
+                totalHeight + 4  
+            );
+            XRect textRect = new XRect(
+                control.Bounds.X,
+                control.Bounds.Y,
+                maxWidth,
+                totalHeight
             );
 
-            XPen pen = new XPen(XColors.Black, 3);
+            XPen pen = new XPen(XColors.Black, 6);
             if (!isBlackAndWhite)
             {
                 pen.Color = control.Section.Color.ToXColor();
             }
             XBrush brush = new XSolidBrush(XColors.White);
-            gfx.DrawRectangle(brush, rect);
-            gfx.DrawRectangle(pen, rect);
+            gfx.DrawRectangle(brush, textRect);
+            XPoint lineStart = new XPoint(control.Left, control.Bottom - 3);
+            XPoint lineEnd = new XPoint(rect.Right, control.Bottom - 3);
+            //gfx.DrawRectangle(pen, textRect);
+            gfx.DrawLine(pen, lineStart, lineEnd);
 
             // Draw the section label (abbreviated server name)
             XStringFormat sf = new XStringFormat

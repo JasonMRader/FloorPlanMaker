@@ -227,7 +227,8 @@ namespace FloorPlanMaker
 
                 XRect tableBounds = new XRect(xOffset, yOffset, control.Width, control.Height);
                 //XBrush textBrush = isBlackAndWhite ? XBrushes.Black : new XSolidBrush(control.TextColor.ToXColor());
-                XBrush textBrush = new XSolidBrush(XBrushes.Black);
+                //Color color = Color.FromArgb(64, 64, 64);
+                XBrush textBrush = new XSolidBrush(XColors.Black);
 
                 gfx.DrawString(textToDisplay, font, textBrush, tableBounds, XStringFormats.Center);
             }
