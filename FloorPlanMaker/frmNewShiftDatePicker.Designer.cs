@@ -48,20 +48,19 @@
             label1 = new Label();
             panel3 = new Panel();
             txtServerSearch = new TextBox();
-            pbAddPerson = new PictureBox();
-            btnImportServers = new Button();
             flowAllServers = new FlowLayoutPanel();
             label6 = new Label();
             label5 = new Label();
+            pbAddPerson = new PictureBox();
             btnImportFromHotSchedules = new Button();
             panel4 = new Panel();
-            lblMissingServers = new Label();
             btnSubtractBartender = new Button();
             btnAddBartender = new Button();
             flowServersOnShift = new FlowLayoutPanel();
             lblBartenderCount = new Label();
             label2 = new Label();
             lblServersOnShift = new Label();
+            lblMissingServers = new Label();
             toolTip1 = new ToolTip(components);
             panel1.SuspendLayout();
             panel2.SuspendLayout();
@@ -279,8 +278,6 @@
             // 
             panel3.BackColor = Color.FromArgb(180, 190, 200);
             panel3.Controls.Add(txtServerSearch);
-            panel3.Controls.Add(pbAddPerson);
-            panel3.Controls.Add(btnImportServers);
             panel3.Controls.Add(flowAllServers);
             panel3.Controls.Add(label6);
             panel3.Controls.Add(label5);
@@ -299,33 +296,6 @@
             txtServerSearch.TabIndex = 3;
             txtServerSearch.TextChanged += txtServerSearch_TextChanged;
             txtServerSearch.KeyDown += TxtServerSearch_KeyDown;
-            // 
-            // pbAddPerson
-            // 
-            pbAddPerson.BackColor = SystemColors.ButtonShadow;
-            pbAddPerson.Image = Properties.Resources.addPerson;
-            pbAddPerson.Location = new Point(530, 9);
-            pbAddPerson.Name = "pbAddPerson";
-            pbAddPerson.Size = new Size(40, 30);
-            pbAddPerson.SizeMode = PictureBoxSizeMode.Zoom;
-            pbAddPerson.TabIndex = 2;
-            pbAddPerson.TabStop = false;
-            toolTip1.SetToolTip(pbAddPerson, "Add a New Server to Database");
-            pbAddPerson.Click += pbAddPerson_Click;
-            // 
-            // btnImportServers
-            // 
-            btnImportServers.BackColor = Color.FromArgb(100, 130, 180);
-            btnImportServers.FlatAppearance.BorderSize = 0;
-            btnImportServers.FlatStyle = FlatStyle.Flat;
-            btnImportServers.Image = Properties.Resources.copySmall;
-            btnImportServers.Location = new Point(203, 6);
-            btnImportServers.Name = "btnImportServers";
-            btnImportServers.Size = new Size(33, 33);
-            btnImportServers.TabIndex = 1;
-            toolTip1.SetToolTip(btnImportServers, "Copy Last Week");
-            btnImportServers.UseVisualStyleBackColor = false;
-            btnImportServers.Click += btnImportServers_Click;
             // 
             // flowAllServers
             // 
@@ -356,6 +326,20 @@
             label5.TabIndex = 0;
             label5.Text = "Servers Not On Shift";
             // 
+            // pbAddPerson
+            // 
+            pbAddPerson.BackColor = SystemColors.ButtonShadow;
+            pbAddPerson.Image = Properties.Resources.addPerson;
+            pbAddPerson.Location = new Point(960, 364);
+            pbAddPerson.Name = "pbAddPerson";
+            pbAddPerson.Size = new Size(40, 30);
+            pbAddPerson.SizeMode = PictureBoxSizeMode.Zoom;
+            pbAddPerson.TabIndex = 2;
+            pbAddPerson.TabStop = false;
+            toolTip1.SetToolTip(pbAddPerson, "Add a New Server to Database");
+            pbAddPerson.Visible = false;
+            pbAddPerson.Click += pbAddPerson_Click;
+            // 
             // btnImportFromHotSchedules
             // 
             btnImportFromHotSchedules.BackColor = Color.FromArgb(100, 130, 180);
@@ -384,18 +368,6 @@
             panel4.Name = "panel4";
             panel4.Size = new Size(605, 439);
             panel4.TabIndex = 5;
-            // 
-            // lblMissingServers
-            // 
-            lblMissingServers.AutoSize = true;
-            lblMissingServers.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            lblMissingServers.ForeColor = Color.DarkRed;
-            lblMissingServers.Location = new Point(821, 382);
-            lblMissingServers.Name = "lblMissingServers";
-            lblMissingServers.Size = new Size(133, 15);
-            lblMissingServers.TabIndex = 3;
-            lblMissingServers.Text = "!! MISSING SERVERS !!";
-            lblMissingServers.Visible = false;
             // 
             // btnSubtractBartender
             // 
@@ -467,6 +439,18 @@
             lblServersOnShift.TabIndex = 0;
             lblServersOnShift.Text = "Servers On Shift";
             // 
+            // lblMissingServers
+            // 
+            lblMissingServers.AutoSize = true;
+            lblMissingServers.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lblMissingServers.ForeColor = Color.DarkRed;
+            lblMissingServers.Location = new Point(778, 372);
+            lblMissingServers.Name = "lblMissingServers";
+            lblMissingServers.Size = new Size(176, 21);
+            lblMissingServers.TabIndex = 3;
+            lblMissingServers.Text = "!! MISSING SERVERS !!";
+            lblMissingServers.Visible = false;
+            // 
             // toolTip1
             // 
             toolTip1.AutoPopDelay = 20000;
@@ -481,6 +465,7 @@
             CancelButton = btnCancel;
             ClientSize = new Size(1255, 994);
             Controls.Add(lblMissingServers);
+            Controls.Add(pbAddPerson);
             Controls.Add(panel2);
             Controls.Add(panel4);
             Controls.Add(panel3);
@@ -531,7 +516,6 @@
         private ToolTip toolTip1;
         private TextBox txtServerSearch;
         private Label label6;
-        private Button btnImportServers;
         private Button btnImportFromHotSchedules;
         private Button btnSubtractBartender;
         private Button btnAddBartender;

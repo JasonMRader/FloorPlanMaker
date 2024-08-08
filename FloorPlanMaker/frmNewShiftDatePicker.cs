@@ -124,7 +124,7 @@ namespace FloorPlanMakerUI
                 {
                     if (shiftManager.SelectedShift.ServersOnShift.Count == 0)
                     {
-                        btnImportServers.PerformClick();
+                        //btnImportServers.PerformClick();
                     }
                     else
                     {
@@ -159,7 +159,7 @@ namespace FloorPlanMakerUI
                 {
                     if (shiftManager.SelectedShift.ServersOnShift.Count == 0)
                     {
-                        btnImportServers.PerformClick();
+                        //btnImportServers.PerformClick();
                     }
                     else
                     {
@@ -466,6 +466,7 @@ namespace FloorPlanMakerUI
         private void RefreshForDateSelected()
         {
             lblMissingServers.Visible = false;
+            pbAddPerson.Visible = false;
             toolTip1.SetToolTip(lblMissingServers, "");
             GetDateString();
             GetTodayLabel();
@@ -656,7 +657,11 @@ namespace FloorPlanMakerUI
 
         private void pbAddPerson_Click(object sender, EventArgs e)
         {
-            frmAddServer addServerForm = new frmAddServer();
+            if (UnmatchedEmployeeIDs.Count == 0)
+            {
+                return;
+            }
+            frmAddServer addServerForm = new frmAddServer(this.UnmatchedEmployeeIDs);
             addServerForm.StartPosition = FormStartPosition.CenterParent;
             DialogResult = addServerForm.ShowDialog();
             if (DialogResult == DialogResult.OK)
@@ -664,6 +669,7 @@ namespace FloorPlanMakerUI
                 foreach (Server server in addServerForm.newServers)
                 {
                     SqliteDataAccess.SaveNewServer(server);
+                    shiftManager.SelectedShift.AddNewUnassignedServer(server);
                 }
                 shiftManager.SelectedShift.ReloadAllServerList();
                 PopulateServers();
@@ -794,15 +800,17 @@ namespace FloorPlanMakerUI
             }
             shiftManager.SelectedShift.SetBartendersToShift(bartendersScheduled);
             PopulateServers();
-            if(unmatchedEmployeeIDs.Count > 0)
+            if (unmatchedEmployeeIDs.Count > 0)
             {
                 lblMissingServers.Visible = true;
+                pbAddPerson.Visible = true;
                 lblMissingServers.Text = $"!!! {unmatchedEmployeeIDs.Count} MISSING SERVERS!!!";
                 this.UnmatchedEmployeeIDs = unmatchedEmployeeIDs;
             }
             else
             {
                 lblMissingServers.Visible = false;
+                pbAddPerson.Visible = false;
             }
 
             //string servers = await HotSchedulesApiAccess.Test();
