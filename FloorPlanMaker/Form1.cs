@@ -284,7 +284,7 @@ namespace FloorPlanMaker
                 }
                 if (keyData == Keys.Escape)
                 {
-                    if(_autoDrawEnabled)
+                    if (_autoDrawEnabled)
                     {
                         _startPoint = null;
                         _autoDrawEnabled = false;
@@ -448,7 +448,7 @@ namespace FloorPlanMaker
 
             }
         }
-        
+
         private void PnlFloorplan_Paint(object sender, PaintEventArgs e)
         {
             if (isDragging)
@@ -507,13 +507,13 @@ namespace FloorPlanMaker
                         _autoDrawEnabled = true;
                         return;
                     }
-                                  
+
                     if (_autoDrawEnabled && _startPoint.HasValue)
                     {
                         _lines.Add(new FloorplanLine(_startPoint.Value, e.Location));
                         _startPoint = e.Location;
                         pnlFloorPlan.Invalidate();
-                    }           
+                    }
                 }
                 if (mouseEventArgs.Button == MouseButtons.Left && _autoDrawEnabled)
                 {
@@ -559,7 +559,7 @@ namespace FloorPlanMaker
             {
                 _startPoint = e.Location;
             }
-            
+
         }
 
         private void pnlFloorplan_MouseUp(object sender, MouseEventArgs e)
@@ -1613,6 +1613,6 @@ namespace FloorPlanMaker
             }
         }
 
-        
+
     }
 }

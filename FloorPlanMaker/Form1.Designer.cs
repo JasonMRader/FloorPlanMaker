@@ -267,6 +267,7 @@ namespace FloorPlanMaker
             rdoSections.TabIndex = 10;
             rdoSections.Text = "Floorplans";
             rdoSections.TextAlign = ContentAlignment.MiddleCenter;
+            toolTip1.SetToolTip(rdoSections, "Make and Assign Sections");
             rdoSections.UseVisualStyleBackColor = false;
             rdoSections.CheckedChanged += rdoSections_CheckedChanged;
             // 
@@ -335,6 +336,7 @@ namespace FloorPlanMaker
             rdoShifts.TabStop = true;
             rdoShifts.Text = "Shifts";
             rdoShifts.TextAlign = ContentAlignment.MiddleCenter;
+            toolTip1.SetToolTip(rdoShifts, "Assign the Servers to Floorplans");
             rdoShifts.UseVisualStyleBackColor = false;
             rdoShifts.CheckedChanged += rdoShifts_CheckedChanged;
             // 
@@ -905,6 +907,7 @@ namespace FloorPlanMaker
             btnHelp.Name = "btnHelp";
             btnHelp.Size = new Size(31, 29);
             btnHelp.TabIndex = 13;
+            toolTip1.SetToolTip(btnHelp, "Tutorials and Help");
             btnHelp.UseVisualStyleBackColor = false;
             btnHelp.Click += btnHelp_Click;
             // 
@@ -1045,6 +1048,7 @@ namespace FloorPlanMaker
             btnUploadSalesData.Name = "btnUploadSalesData";
             btnUploadSalesData.Size = new Size(32, 35);
             btnUploadSalesData.TabIndex = 13;
+            toolTip1.SetToolTip(btnUploadSalesData, "Choose Toast File to Download");
             btnUploadSalesData.UseVisualStyleBackColor = false;
             btnUploadSalesData.Visible = false;
             btnUploadSalesData.Click += btnUploadSalesData_Click;
