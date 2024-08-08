@@ -641,13 +641,33 @@ namespace FloorplanClassLibrary
                 cnn.Execute("INSERT INTO DiningArea (Name, IsInside) VALUES (@Name, @IsInside)", diningArea);
             }
         }
-        public static void SaveNewServer(Server server)
+        public static int SaveNewServer(Server server)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                cnn.Execute("INSERT INTO Server (Name, Archived, DisplayName) VALUES (@Name, @Archived, @DisplayName)", server);
+                cnn.Open();
+
+                using (var transaction = cnn.BeginTransaction())
+                {
+                    try
+                    {
+                        string insertQuery = "INSERT INTO Server (Name, Archived, DisplayName) VALUES (@Name, @Archived, @DisplayName)";
+                        cnn.Execute(insertQuery, server, transaction);
+
+                        int insertedId = cnn.Query<int>("SELECT last_insert_rowid()", transaction: transaction).Single();
+                        transaction.Commit();
+
+                        return insertedId;
+                    }
+                    catch (Exception)
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
             }
         }
+
         public static List<Server> LoadServers()
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))

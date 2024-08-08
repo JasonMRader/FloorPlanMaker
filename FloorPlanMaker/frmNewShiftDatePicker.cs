@@ -772,11 +772,11 @@ namespace FloorPlanMakerUI
             //Manager = 21
             //Bartender = 10
 
-            if(dateSelected.Date == DateTime.Today.Date)
+            if (dateSelected.Date == DateTime.Today.Date)
             {
                 SelectedDaysSchedule = HotSchedulesDataAccess.TodaySchedule;
             }
-            else if(dateSelected.Date == DateTime.Today.AddDays(1).Date)
+            else if (dateSelected.Date == DateTime.Today.AddDays(1).Date)
             {
                 SelectedDaysSchedule = HotSchedulesDataAccess.TommorrowSchedule;
             }
@@ -784,7 +784,7 @@ namespace FloorPlanMakerUI
             {
                 SelectedDaysSchedule = await HotSchedulesApiAccess.GetSchedule(dateOnlySelected);
             }
-            
+
             List<HotSchedulesSchedule> currentSchedule = SelectedDaysSchedule.Where(s => s.IsAM == shiftManager.IsAM).ToList();
 
             //string Shifts = await HotSchedulesApiAccess.GetShifts();
@@ -889,6 +889,26 @@ namespace FloorPlanMakerUI
                     RefreshForDateSelected();
                 }
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            frmAddServer addServerForm = new frmAddServer(this.UnmatchedEmployeeIDs);
+            addServerForm.StartPosition = FormStartPosition.CenterParent;
+            DialogResult = addServerForm.ShowDialog();
+            if (DialogResult == DialogResult.OK)
+            {
+                foreach (Server server in addServerForm.newServers)
+                {
+                    server.ID = SqliteDataAccess.SaveNewServer(server);
+                    
+                    shiftManager.SelectedShift.AddNewUnassignedServer(server);
+                }
+                shiftManager.SelectedShift.ReloadAllServerList();
+                PopulateServers();
+            }
+
+            txtServerSearch.Focus();
         }
     }
 }
