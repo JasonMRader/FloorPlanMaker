@@ -226,7 +226,8 @@ namespace FloorPlanMaker
                 var font = new XFont("Arial", 16, XFontStyleEx.Bold);
 
                 XRect tableBounds = new XRect(xOffset, yOffset, control.Width, control.Height);
-                XBrush textBrush = isBlackAndWhite ? XBrushes.Black : new XSolidBrush(control.TextColor.ToXColor());
+                //XBrush textBrush = isBlackAndWhite ? XBrushes.Black : new XSolidBrush(control.TextColor.ToXColor());
+                XBrush textBrush = new XSolidBrush(XBrushes.Black);
 
                 gfx.DrawString(textToDisplay, font, textBrush, tableBounds, XStringFormats.Center);
             }

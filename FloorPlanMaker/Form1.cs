@@ -1627,18 +1627,32 @@ namespace FloorPlanMaker
 
             // Generate the filename
             string fileName = $"{this.shift.SelectedDiningArea.Name} {formattedDate} {this.shift.IsAmDisplay} {formattedTime}".Replace(":", "-");
-            string filePath = $"C:\\Users\\Jason\\OneDrive\\Working On Now\\Floorplan files\\{fileName}.pdf";
-
-            // Ensure the directory exists
-            string directoryPath = Path.GetDirectoryName(filePath);
-            if (!Directory.Exists(directoryPath))
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
             {
-                Directory.CreateDirectory(directoryPath);
+                //saveFileDialog.InitialDirectory = "C:\\Users\\Jason\\OneDrive\\Working On Now\\Floorplan files"; // Optional: set the initial directory
+                saveFileDialog.Filter = "PDF files (*.pdf)|*.pdf|All files (*.*)|*.*";
+                saveFileDialog.FileName = fileName; // Set the default filename
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string filePath = saveFileDialog.FileName;
+
+                    // Create the PDF
+                    printerNoLines.CreatePdf(filePath, false);
+
+                    MessageBox.Show("PDF Saved!");
+                }
             }
+            // Ensure the directory exists
+            //string directoryPath = Path.GetDirectoryName(filePath);
+            //if (!Directory.Exists(directoryPath))
+            //{
+            //    Directory.CreateDirectory(directoryPath);
+            //}
 
             // Create the PDF
-            printerNoLines.CreatePdf(filePath, false);
-            MessageBox.Show("PDF Saved!");
+            //printerNoLines.CreatePdf(filePath, false);
+           
         }
 
     }
