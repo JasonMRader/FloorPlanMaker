@@ -49,9 +49,19 @@ namespace FloorplanUserControlLibrary
             if (isCollapsible)
             {
                 this.Height = btnServer.Height;
+                if(!this.Server.IsBartender)
+                {
+                    btnServer.Text = $"{this.Server} ({FormattedPercentage(shiftHistory.OutsidePercentage)})";
+                    toolTip.SetToolTip(btnServer, $"{Server.lastTenOutsideRatio} of Last 10 {GetIsLunchDisplay()} Shifts Outside,\n" +
+                        $"Outside Rating: {Server.OutsideFrequency}\n" +
+                        $"Adjusted Outside Priority: {Server.AdjustedOutsideDisplay}");
+                }
+                
             }
             else
             {
+                btnServer.Text = $"{this.Server}";
+                toolTip.SetToolTip(btnServer, "");
                 this.Height = 80;
             }
             SetCollapsibleDisplay();
@@ -98,8 +108,8 @@ namespace FloorplanUserControlLibrary
         public ServerShiftHistory shiftHistory { get; private set; }
         private void InitializeControls()
         {
-            btnServer.Text = $"{this.Server} {FormattedPercentage(shiftHistory.OutsidePercentage)}"; 
-
+            //btnServer.Text = $"{this.Server} {FormattedPercentage(shiftHistory.OutsidePercentage)}";
+            btnServer.Text = $"{this.Server}";
             // lblDescription.Text = $"Last {shiftHistory.filteredShifts.Count} {GetIsLunchDisplay()} Shifts";
             lblOutsidePercentage.Text = $"{FormattedPercentage(shiftHistory.OutsidePercentage)}";
             lblServerRatings.Text = $"{this.Server.OutsideFrequency}   |   {this.Server.CocktailPreference}";
@@ -132,10 +142,10 @@ namespace FloorplanUserControlLibrary
 
         private void btnServer_MouseHover(object sender, EventArgs e)
         {
-            if (this.isCollapsible)
-            {
-                this.Height = 80;
-            }
+            //if (this.isCollapsible)
+            //{
+            //    this.Height = 80;
+            //}
         }
 
         private void btnServer_MouseLeave(object sender, EventArgs e)

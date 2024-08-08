@@ -60,6 +60,14 @@ namespace FloorplanClassLibrary
                 return (float)OutsideFrequency - lastTenOutsideRatio;
             }
         }
+        public string AdjustedOutsideDisplay
+        {
+            get
+            {
+                return (AdjustedOutsidePriority*10).ToString() +"%";
+            }
+        }
+
        
 
         private Section? _currentSection;
