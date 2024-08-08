@@ -61,6 +61,7 @@ namespace FloorPlanMaker
             btnEditRoster = new Button();
             btnEraseAllSections = new Button();
             cbDrawToggle = new CheckBox();
+            btnSaveColorPDF = new Button();
             pnlTemplateContainer = new Panel();
             btnDeleteSelectedFloorplan = new Button();
             pnlSideContainer = new Panel();
@@ -101,7 +102,6 @@ namespace FloorPlanMaker
             flowWeatherDisplay = new FlowLayoutPanel();
             pnlSalesDataUpdated = new Panel();
             lblMissingSalesData = new Label();
-            button1 = new Button();
             flowSectionSelect.SuspendLayout();
             panel1.SuspendLayout();
             pnlFloorplanContainer.SuspendLayout();
@@ -469,6 +469,7 @@ namespace FloorPlanMaker
             flowLayoutPanel2.Controls.Add(btnEraseAllSections);
             flowLayoutPanel2.Controls.Add(btnSaveFloorplanTemplate);
             flowLayoutPanel2.Controls.Add(cbDrawToggle);
+            flowLayoutPanel2.Controls.Add(btnSaveColorPDF);
             flowLayoutPanel2.FlowDirection = FlowDirection.TopDown;
             flowLayoutPanel2.Location = new Point(19, 17);
             flowLayoutPanel2.Name = "flowLayoutPanel2";
@@ -538,6 +539,22 @@ namespace FloorPlanMaker
             toolTip1.SetToolTip(cbDrawToggle, "Toggle Draw Section Lines");
             cbDrawToggle.UseVisualStyleBackColor = false;
             cbDrawToggle.CheckedChanged += cbDrawToggle_CheckedChanged;
+            // 
+            // btnSaveColorPDF
+            // 
+            btnSaveColorPDF.BackColor = Color.FromArgb(100, 130, 180);
+            btnSaveColorPDF.FlatAppearance.BorderSize = 0;
+            btnSaveColorPDF.FlatStyle = FlatStyle.Flat;
+            btnSaveColorPDF.ForeColor = Color.Black;
+            btnSaveColorPDF.Image = FloorPlanMakerUI.Properties.Resources.download_pdf;
+            btnSaveColorPDF.Location = new Point(8, 346);
+            btnSaveColorPDF.Margin = new Padding(3, 3, 3, 10);
+            btnSaveColorPDF.Name = "btnSaveColorPDF";
+            btnSaveColorPDF.Size = new Size(45, 45);
+            btnSaveColorPDF.TabIndex = 12;
+            toolTip1.SetToolTip(btnSaveColorPDF, "Download a Colorized PDF");
+            btnSaveColorPDF.UseVisualStyleBackColor = false;
+            btnSaveColorPDF.Click += btnSaveColorPDF_Click;
             // 
             // pnlTemplateContainer
             // 
@@ -1054,23 +1071,12 @@ namespace FloorPlanMaker
             lblMissingSalesData.Text = "Missing Important Sales Data, Please Update!";
             lblMissingSalesData.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // button1
-            // 
-            button1.Location = new Point(1224, 15);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 25;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.WhiteSmoke;
             ClientSize = new Size(1501, 1042);
-            Controls.Add(button1);
             Controls.Add(pnlSalesDataUpdated);
             Controls.Add(panel2);
             Controls.Add(btnCloseApp);
@@ -1174,6 +1180,6 @@ namespace FloorPlanMaker
         private Label lblMissingSalesData;
         private Button btnUploadSalesData;
         private FlowLayoutPanel flowResoDisplay;
-        private Button button1;
+        private Button btnSaveColorPDF;
     }
 }

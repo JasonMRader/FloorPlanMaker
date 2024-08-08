@@ -1616,10 +1616,12 @@ namespace FloorPlanMaker
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+       
+
+        private void btnSaveColorPDF_Click(object sender, EventArgs e)
         {
-            List<FloorplanLine> lines = new List<FloorplanLine>(); // Initialize with actual lines if needed
-            FloorplanPrinter printerNoLines = new FloorplanPrinter(pnlFloorPlan, lines);
+            //List<FloorplanLine> lines = new List<FloorplanLine>(); // Initialize with actual lines if needed
+            FloorplanPrinter printerNoLines = new FloorplanPrinter(pnlFloorPlan, _lines);
 
             // Format the date and time for the filename
             string formattedDate = this.shift.DateOnly.ToString("ddd MMM d");
@@ -1640,20 +1642,8 @@ namespace FloorPlanMaker
                     // Create the PDF
                     printerNoLines.CreatePdf(filePath, false);
 
-                    MessageBox.Show("PDF Saved!");
                 }
             }
-            // Ensure the directory exists
-            //string directoryPath = Path.GetDirectoryName(filePath);
-            //if (!Directory.Exists(directoryPath))
-            //{
-            //    Directory.CreateDirectory(directoryPath);
-            //}
-
-            // Create the PDF
-            //printerNoLines.CreatePdf(filePath, false);
-           
         }
-
     }
 }

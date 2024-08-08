@@ -572,7 +572,7 @@ namespace FloorplanClassLibrary
         }
         public static void DrawSectionLabelForPrinting(Graphics g, SectionLabelControl control)
         {
-            Font boldLargeFont = new Font(control.Font.FontFamily, 16f, FontStyle.Bold);
+            Font boldLargeFont = new Font(control.Font.FontFamily, 18f, FontStyle.Bold);
 
             // Measure the size of the text
             SizeF textSize = g.MeasureString(control.Section.GetDisplayString(), boldLargeFont);
@@ -612,23 +612,39 @@ namespace FloorplanClassLibrary
 
             g.DrawString(control.Section.GetDisplayString(), boldLargeFont, Brushes.Black, textX, textY, sf);
         }
+        
         public static void DrawSectionLabelForPrinting(XGraphics gfx, SectionLabelControl control, bool isBlackAndWhite)
         {
-            //XFont boldLargeFont = new XFont(control.Font.FontFamily.Name, 16);
+            // XFont boldLargeFont = new XFont(control.Font.FontFamily.Name, 16);
             var boldLargeFont = new XFont("Arial", 16, XFontStyleEx.Bold);
+
             // Measure the size of the text
-            XSize textSize = gfx.MeasureString(control.Section.GetDisplayString(), boldLargeFont);
+            string displayString = control.Section.GetDisplayString();
+            string[] lines = displayString.Split(new[] { '\n' }, StringSplitOptions.None);
+            double maxWidth = 0;
+            double totalHeight = 0;
+
+            // Measure each line and find the maximum width and total height
+            foreach (string line in lines)
+            {
+                XSize lineSize = gfx.MeasureString(line, boldLargeFont);
+                if (lineSize.Width > maxWidth)
+                {
+                    maxWidth = lineSize.Width;
+                }
+                totalHeight += lineSize.Height;
+            }
 
             // Define the rectangle based on the text size with a margin of 5 pixels
             XRect rect = new XRect(
                 control.Bounds.X - 2,
                 control.Bounds.Y - 2,
-                textSize.Width + 4,  // 5 pixels on left + 5 pixels on right
-                textSize.Height + 4  // 5 pixels on top + 5 pixels on bottom
+                maxWidth + 4,  // 5 pixels on left + 5 pixels on right
+                totalHeight + 4  // 5 pixels on top + 5 pixels on bottom
             );
 
             XPen pen = new XPen(XColors.Black, 3);
-            if(!isBlackAndWhite )
+            if (!isBlackAndWhite)
             {
                 pen.Color = control.Section.Color.ToXColor();
             }
@@ -643,8 +659,19 @@ namespace FloorplanClassLibrary
                 LineAlignment = XLineAlignment.Center
             };
 
-            gfx.DrawString(control.Section.GetDisplayString(), boldLargeFont, XBrushes.Black, rect, sf);
+            // Calculate the starting Y position
+            double startY = rect.Y;
+
+            // Draw each line of text
+            foreach (string line in lines)
+            {
+                XSize lineSize = gfx.MeasureString(line, boldLargeFont);
+                XRect lineRect = new XRect(rect.X, startY, rect.Width, lineSize.Height);
+                gfx.DrawString(line, boldLargeFont, XBrushes.Black, lineRect, sf);
+                startY += lineSize.Height;
+            }
         }
+
 
 
 

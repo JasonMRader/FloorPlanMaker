@@ -303,6 +303,16 @@ namespace FloorPlanMakerUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap download_pdf {
+            get {
+                object obj = ResourceManager.GetObject("download_pdf", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap DownZoomed {
             get {
                 object obj = ResourceManager.GetObject("DownZoomed", resourceCulture);
@@ -756,6 +766,16 @@ namespace FloorPlanMakerUI.Properties {
         internal static System.Drawing.Bitmap OutSideSolid {
             get {
                 object obj = ResourceManager.GetObject("OutSideSolid", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap PDF {
+            get {
+                object obj = ResourceManager.GetObject("PDF", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
