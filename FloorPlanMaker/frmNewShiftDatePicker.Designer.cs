@@ -61,7 +61,6 @@
             lblServersOnShift = new Label();
             lblMissingServers = new Label();
             toolTip1 = new ToolTip(components);
-            button1 = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
@@ -276,7 +275,6 @@
             // panel3
             // 
             panel3.BackColor = Color.FromArgb(180, 190, 200);
-            panel3.Controls.Add(button1);
             panel3.Controls.Add(txtServerSearch);
             panel3.Controls.Add(flowAllServers);
             panel3.Controls.Add(label6);
@@ -445,16 +443,6 @@
             toolTip1.InitialDelay = 200;
             toolTip1.ReshowDelay = 40;
             // 
-            // button1
-            // 
-            button1.Location = new Point(521, 14);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 4;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
-            // 
             // frmNewShiftDatePicker
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -519,6 +507,5 @@
         private FlowLayoutPanel flowLast4;
         private Label lblLast4;
         private Label lblLastWeek;
-        private Button button1;
     }
 }

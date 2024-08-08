@@ -668,7 +668,8 @@ namespace FloorPlanMakerUI
             {
                 foreach (Server server in addServerForm.newServers)
                 {
-                    SqliteDataAccess.SaveNewServer(server);
+                    server.ID = SqliteDataAccess.SaveNewServer(server);
+
                     shiftManager.SelectedShift.AddNewUnassignedServer(server);
                 }
                 shiftManager.SelectedShift.ReloadAllServerList();
@@ -676,6 +677,7 @@ namespace FloorPlanMakerUI
             }
 
             txtServerSearch.Focus();
+
         }
         private void FilterServers(string searchText)
         {
@@ -891,24 +893,6 @@ namespace FloorPlanMakerUI
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            frmAddServer addServerForm = new frmAddServer(this.UnmatchedEmployeeIDs);
-            addServerForm.StartPosition = FormStartPosition.CenterParent;
-            DialogResult = addServerForm.ShowDialog();
-            if (DialogResult == DialogResult.OK)
-            {
-                foreach (Server server in addServerForm.newServers)
-                {
-                    server.ID = SqliteDataAccess.SaveNewServer(server);
-                    
-                    shiftManager.SelectedShift.AddNewUnassignedServer(server);
-                }
-                shiftManager.SelectedShift.ReloadAllServerList();
-                PopulateServers();
-            }
-
-            txtServerSearch.Focus();
-        }
+        
     }
 }
