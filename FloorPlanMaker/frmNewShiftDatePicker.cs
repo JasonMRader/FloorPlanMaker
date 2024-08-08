@@ -772,8 +772,19 @@ namespace FloorPlanMakerUI
             //Manager = 21
             //Bartender = 10
 
-
-            SelectedDaysSchedule = await HotSchedulesApiAccess.GetSchedule(dateOnlySelected);
+            if(dateSelected.Date == DateTime.Today.Date)
+            {
+                SelectedDaysSchedule = HotSchedulesDataAccess.TodaySchedule;
+            }
+            else if(dateSelected.Date == DateTime.Today.AddDays(1).Date)
+            {
+                SelectedDaysSchedule = HotSchedulesDataAccess.TommorrowSchedule;
+            }
+            else
+            {
+                SelectedDaysSchedule = await HotSchedulesApiAccess.GetSchedule(dateOnlySelected);
+            }
+            
             List<HotSchedulesSchedule> currentSchedule = SelectedDaysSchedule.Where(s => s.IsAM == shiftManager.IsAM).ToList();
 
             //string Shifts = await HotSchedulesApiAccess.GetShifts();

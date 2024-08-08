@@ -47,6 +47,7 @@ namespace FloorPlanMakerUI
                 WeatherDataHistoryUpdater.SaveMissingDatesToDatabase();
                 
                 await HourlyWeatherForecast.InitializeAsync();
+                await HotSchedulesDataAccess.InitializeAsync();
 
             });
         }
