@@ -51,7 +51,6 @@
             flowAllServers = new FlowLayoutPanel();
             label6 = new Label();
             label5 = new Label();
-            pbAddPerson = new PictureBox();
             btnImportFromHotSchedules = new Button();
             panel4 = new Panel();
             btnSubtractBartender = new Button();
@@ -65,7 +64,6 @@
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pbAddPerson).BeginInit();
             panel4.SuspendLayout();
             SuspendLayout();
             // 
@@ -326,20 +324,6 @@
             label5.TabIndex = 0;
             label5.Text = "Servers Not On Shift";
             // 
-            // pbAddPerson
-            // 
-            pbAddPerson.BackColor = SystemColors.ButtonShadow;
-            pbAddPerson.Image = Properties.Resources.addPerson;
-            pbAddPerson.Location = new Point(960, 364);
-            pbAddPerson.Name = "pbAddPerson";
-            pbAddPerson.Size = new Size(40, 30);
-            pbAddPerson.SizeMode = PictureBoxSizeMode.Zoom;
-            pbAddPerson.TabIndex = 2;
-            pbAddPerson.TabStop = false;
-            toolTip1.SetToolTip(pbAddPerson, "Add a New Server to Database");
-            pbAddPerson.Visible = false;
-            pbAddPerson.Click += pbAddPerson_Click;
-            // 
             // btnImportFromHotSchedules
             // 
             btnImportFromHotSchedules.BackColor = Color.FromArgb(100, 130, 180);
@@ -348,7 +332,7 @@
             btnImportFromHotSchedules.Image = Properties.Resources.cloudDownloadSmall;
             btnImportFromHotSchedules.Location = new Point(8, 7);
             btnImportFromHotSchedules.Name = "btnImportFromHotSchedules";
-            btnImportFromHotSchedules.Size = new Size(33, 33);
+            btnImportFromHotSchedules.Size = new Size(71, 33);
             btnImportFromHotSchedules.TabIndex = 1;
             toolTip1.SetToolTip(btnImportFromHotSchedules, "Get From HotSchedules");
             btnImportFromHotSchedules.UseVisualStyleBackColor = false;
@@ -441,15 +425,17 @@
             // 
             // lblMissingServers
             // 
-            lblMissingServers.AutoSize = true;
+            lblMissingServers.BackColor = Color.DarkRed;
             lblMissingServers.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            lblMissingServers.ForeColor = Color.DarkRed;
-            lblMissingServers.Location = new Point(778, 372);
+            lblMissingServers.ForeColor = Color.White;
+            lblMissingServers.Location = new Point(638, 372);
             lblMissingServers.Name = "lblMissingServers";
-            lblMissingServers.Size = new Size(176, 21);
+            lblMissingServers.Size = new Size(605, 21);
             lblMissingServers.TabIndex = 3;
-            lblMissingServers.Text = "!! MISSING SERVERS !!";
+            lblMissingServers.Text = "!! MISSING SERVERS !! Click Here To Look Them Up";
+            lblMissingServers.TextAlign = ContentAlignment.MiddleCenter;
             lblMissingServers.Visible = false;
+            lblMissingServers.Click += pbAddPerson_Click;
             // 
             // toolTip1
             // 
@@ -465,7 +451,6 @@
             CancelButton = btnCancel;
             ClientSize = new Size(1255, 994);
             Controls.Add(lblMissingServers);
-            Controls.Add(pbAddPerson);
             Controls.Add(panel2);
             Controls.Add(panel4);
             Controls.Add(panel3);
@@ -483,11 +468,9 @@
             panel2.PerformLayout();
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pbAddPerson).EndInit();
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -512,7 +495,6 @@
         private Label lblServersOnShift;
         private FlowLayoutPanel flowAllServers;
         private FlowLayoutPanel flowServersOnShift;
-        private PictureBox pbAddPerson;
         private ToolTip toolTip1;
         private TextBox txtServerSearch;
         private Label label6;

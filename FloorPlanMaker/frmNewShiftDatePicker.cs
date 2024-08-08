@@ -466,7 +466,7 @@ namespace FloorPlanMakerUI
         private void RefreshForDateSelected()
         {
             lblMissingServers.Visible = false;
-            pbAddPerson.Visible = false;
+
             toolTip1.SetToolTip(lblMissingServers, "");
             GetDateString();
             GetTodayLabel();
@@ -803,14 +803,14 @@ namespace FloorPlanMakerUI
             if (unmatchedEmployeeIDs.Count > 0)
             {
                 lblMissingServers.Visible = true;
-                pbAddPerson.Visible = true;
-                lblMissingServers.Text = $"!!! {unmatchedEmployeeIDs.Count} MISSING SERVERS!!!";
+
+                lblMissingServers.Text = $"!!! {unmatchedEmployeeIDs.Count} MISSING SERVERS!!! CLICK HERE To Look Them Up";
                 this.UnmatchedEmployeeIDs = unmatchedEmployeeIDs;
             }
             else
             {
                 lblMissingServers.Visible = false;
-                pbAddPerson.Visible = false;
+
             }
 
             //string servers = await HotSchedulesApiAccess.Test();
