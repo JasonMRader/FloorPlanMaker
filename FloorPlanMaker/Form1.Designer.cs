@@ -92,6 +92,7 @@ namespace FloorPlanMaker
             btnReportBug = new Button();
             rdoReservations = new RadioButton();
             rdoWeather = new RadioButton();
+            btnUploadSalesData = new Button();
             helpProvider1 = new HelpProvider();
             panel2 = new Panel();
             panel3 = new Panel();
@@ -100,7 +101,7 @@ namespace FloorPlanMaker
             flowWeatherDisplay = new FlowLayoutPanel();
             pnlSalesDataUpdated = new Panel();
             lblMissingSalesData = new Label();
-            btnUploadSalesData = new Button();
+            button1 = new Button();
             flowSectionSelect.SuspendLayout();
             panel1.SuspendLayout();
             pnlFloorplanContainer.SuspendLayout();
@@ -969,6 +970,22 @@ namespace FloorPlanMaker
             toolTip1.SetToolTip(rdoWeather, "View Weather");
             rdoWeather.UseVisualStyleBackColor = false;
             // 
+            // btnUploadSalesData
+            // 
+            btnUploadSalesData.BackColor = Color.FromArgb(100, 130, 180);
+            btnUploadSalesData.FlatAppearance.BorderSize = 0;
+            btnUploadSalesData.FlatStyle = FlatStyle.Flat;
+            btnUploadSalesData.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            btnUploadSalesData.Image = FloorPlanMakerUI.Properties.Resources.download_28px;
+            btnUploadSalesData.Location = new Point(524, -1);
+            btnUploadSalesData.Name = "btnUploadSalesData";
+            btnUploadSalesData.Size = new Size(32, 35);
+            btnUploadSalesData.TabIndex = 13;
+            toolTip1.SetToolTip(btnUploadSalesData, "Choose Toast File to Download");
+            btnUploadSalesData.UseVisualStyleBackColor = false;
+            btnUploadSalesData.Visible = false;
+            btnUploadSalesData.Click += btnUploadSalesData_Click;
+            // 
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(225, 225, 225);
@@ -1037,21 +1054,15 @@ namespace FloorPlanMaker
             lblMissingSalesData.Text = "Missing Important Sales Data, Please Update!";
             lblMissingSalesData.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // btnUploadSalesData
+            // button1
             // 
-            btnUploadSalesData.BackColor = Color.FromArgb(100, 130, 180);
-            btnUploadSalesData.FlatAppearance.BorderSize = 0;
-            btnUploadSalesData.FlatStyle = FlatStyle.Flat;
-            btnUploadSalesData.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            btnUploadSalesData.Image = FloorPlanMakerUI.Properties.Resources.download_28px;
-            btnUploadSalesData.Location = new Point(524, -1);
-            btnUploadSalesData.Name = "btnUploadSalesData";
-            btnUploadSalesData.Size = new Size(32, 35);
-            btnUploadSalesData.TabIndex = 13;
-            toolTip1.SetToolTip(btnUploadSalesData, "Choose Toast File to Download");
-            btnUploadSalesData.UseVisualStyleBackColor = false;
-            btnUploadSalesData.Visible = false;
-            btnUploadSalesData.Click += btnUploadSalesData_Click;
+            button1.Location = new Point(1224, 15);
+            button1.Name = "button1";
+            button1.Size = new Size(75, 23);
+            button1.TabIndex = 25;
+            button1.Text = "button1";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // Form1
             // 
@@ -1059,6 +1070,7 @@ namespace FloorPlanMaker
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.WhiteSmoke;
             ClientSize = new Size(1501, 1042);
+            Controls.Add(button1);
             Controls.Add(pnlSalesDataUpdated);
             Controls.Add(panel2);
             Controls.Add(btnCloseApp);
@@ -1162,5 +1174,6 @@ namespace FloorPlanMaker
         private Label lblMissingSalesData;
         private Button btnUploadSalesData;
         private FlowLayoutPanel flowResoDisplay;
+        private Button button1;
     }
 }

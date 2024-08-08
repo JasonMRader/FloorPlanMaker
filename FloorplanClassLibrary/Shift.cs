@@ -66,6 +66,14 @@ namespace FloorplanClassLibrary
                 observer.UpdateShift(this);
             }
         }
+        public string IsAmDisplay
+        {
+            get
+            {
+                if (IsAM) {  return "AM";  }
+                else { return "PM"; }
+            }
+        }
         private void InitializeServers()
         {
             _allServers = SqliteDataAccess.LoadActiveServers();

@@ -7,6 +7,11 @@ using System.Threading.Tasks;
 using System.Drawing;
 using System.Windows.Forms;
 using FloorPlanMakerUI;
+using System.Xml.Linq;
+using PdfSharp.Drawing;
+using PdfSharp.Pdf;
+using FloorplanUserControlLibrary;
+
 //using static System.Collections.Specialized.BitVector32;
 
 namespace FloorPlanMaker
@@ -183,6 +188,51 @@ namespace FloorPlanMaker
                 }
             }
         }
+        public static void DrawTableOnGraphics(XGraphics gfx, TableControl control, bool isBlackAndWhite)
+        {
+            int xOffset = control.Left;
+            int yOffset = control.Top;
+            
+            XPen pen = new XPen(XColors.Black, control.BorderThickness);
+            if (!isBlackAndWhite)
+            {
+                pen.Color = control.BackColor.ToXColor();
+            }
+            switch (control.Shape)
+            {
+                case Table.TableShape.Circle:
+                    gfx.DrawEllipse(pen, xOffset, yOffset, control.Width - control.BorderThickness, control.Height - control.BorderThickness);
+                    break;
+                case Table.TableShape.Square:
+                    gfx.DrawRectangle(pen, xOffset, yOffset, control.Width - control.BorderThickness, control.Height - control.BorderThickness);
+                    break;
+                case Table.TableShape.Diamond:
+                    XPoint[] diamondPoints = {
+                    new XPoint(xOffset + control.Width / 2, yOffset),
+                    new XPoint(xOffset + control.Width, yOffset + control.Height / 2),
+                    new XPoint(xOffset + control.Width / 2, yOffset + control.Height),
+                    new XPoint(xOffset, yOffset + control.Height / 2)
+                };
+                    gfx.DrawPolygon(pen, diamondPoints);
+                    break;
+            }
+
+            string textToDisplay = control.Table.TableNumber.ToString();
+            
+
+            if (!string.IsNullOrEmpty(textToDisplay))
+            {
+                //XFont font = new XFont(control.Font.FontFamily.Name, control.TableNumberFontSize);
+                var font = new XFont("Arial", 16, XFontStyleEx.Bold);
+
+                XRect tableBounds = new XRect(xOffset, yOffset, control.Width, control.Height);
+                XBrush textBrush = isBlackAndWhite ? XBrushes.Black : new XSolidBrush(control.TextColor.ToXColor());
+
+                gfx.DrawString(textToDisplay, font, textBrush, tableBounds, XStringFormats.Center);
+            }
+        }
+
+        
 
         public void MuteColors()
         {

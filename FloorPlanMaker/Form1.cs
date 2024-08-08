@@ -961,9 +961,9 @@ namespace FloorPlanMaker
 
             if (shift.SelectedFloorplan.CheckIfAllSectionsAssigned())
             {
-                List<Section> nonPickupSections = shift.SelectedFloorplan.Sections.Where(s => !s.IsPickUp 
+                List<Section> nonPickupSections = shift.SelectedFloorplan.Sections.Where(s => !s.IsPickUp
                 && !s.IsBarSection).ToList();
-               
+
                 if (!shift.SelectedFloorplan.CheckIfCloserIsAssigned() && nonPickupSections.Count > 1)
                 {
                     DialogResult result = MessageBox.Show("There is not a closer assigned. \n Continue anyway?",
@@ -1616,6 +1616,30 @@ namespace FloorPlanMaker
             }
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            List<FloorplanLine> lines = new List<FloorplanLine>(); // Initialize with actual lines if needed
+            FloorplanPrinter printerNoLines = new FloorplanPrinter(pnlFloorPlan, lines);
+
+            // Format the date and time for the filename
+            string formattedDate = this.shift.DateOnly.ToString("ddd MMM d");
+            string formattedTime = DateTime.Now.ToString("HH-mm-ss");
+
+            // Generate the filename
+            string fileName = $"{this.shift.SelectedDiningArea.Name} {formattedDate} {this.shift.IsAmDisplay} {formattedTime}".Replace(":", "-");
+            string filePath = $"C:\\Users\\Jason\\OneDrive\\Working On Now\\Floorplan files\\{fileName}.pdf";
+
+            // Ensure the directory exists
+            string directoryPath = Path.GetDirectoryName(filePath);
+            if (!Directory.Exists(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
+
+            // Create the PDF
+            printerNoLines.CreatePdf(filePath, false);
+            MessageBox.Show("PDF Saved!");
+        }
 
     }
 }

@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PdfSharp.Drawing;
+using PdfSharp.Pdf;
 
 namespace FloorplanClassLibrary
 {
     using FloorPlanMaker;
     using FloorPlanMakerUI;
     using FloorplanUserControlLibrary;
+    using System.Diagnostics;
     using System.Drawing;
     using System.Drawing.Printing;
     using System.Windows.Forms;
@@ -38,7 +41,7 @@ namespace FloorplanClassLibrary
         //    //_sectionLines = sectionLines;
         //   //_edges = edges;
         //  // _lineDrawer = lineDrawer;
-            
+
         //}
 
         private void HandlePrintPage(object sender, PrintPageEventArgs e)
@@ -89,7 +92,54 @@ namespace FloorplanClassLibrary
 
         }
 
-      
+        public void CreatePdf(string filePath, bool isBlackAndWhite)
+        {
+            PdfDocument document = new PdfDocument();
+            PdfPage page = document.AddPage();
+            XGraphics gfx = XGraphics.FromPdfPage(page);
+
+            // Calculate the scaling factor based on the entire page
+            float scaleWidth = (float)page.Width / _floorplanPanel.Width;
+            float scaleHeight = (float)page.Height / _floorplanPanel.Height;
+            float scale = Math.Min(scaleWidth, scaleHeight);  // Use the smaller scale factor to ensure fit
+
+            // Adjust the origin to center the content
+            float offsetX = ((float)page.Width - (_floorplanPanel.Width * scale)) / 2;
+            float offsetY = ((float)page.Height - (_floorplanPanel.Height * scale)) / 2;
+
+            gfx.TranslateTransform(offsetX, offsetY);  // Move the origin
+            gfx.ScaleTransform(scale, scale);          // Apply the scaling transformation
+
+            // Draw TableControls first
+            foreach (Control control in _floorplanPanel.Controls)
+            {
+                if (control is TableControl tableControl)
+                {
+                    // Draw the table in black and white
+                    TableControl.DrawTableOnGraphics(gfx, tableControl, isBlackAndWhite);
+                }
+            }
+
+            // Draw SectionControls next
+            foreach (Control control in _floorplanPanel.Controls)
+            {
+                if (control is SectionLabelControl sectionControl)
+                {
+                    SectionLabelControl.DrawSectionLabelForPrinting(gfx, sectionControl, isBlackAndWhite);
+                }
+            }
+
+            // Draw the lines
+            foreach (var line in _lines)
+            {
+                XPen pen = new XPen(line.LineColor.ToXColor(), line.LineThickness);
+                gfx.DrawLine(pen, line.StartPoint.X, line.StartPoint.Y, line.EndPoint.X, line.EndPoint.Y); // Use the transformed graphics context
+            }
+
+            document.Save(filePath);
+            Process.Start(new ProcessStartInfo(filePath) { UseShellExecute = true }); // Open the PDF file with the default PDF viewer
+        }
+
 
         public void ShowPrintPreview()
         {

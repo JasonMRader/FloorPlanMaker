@@ -9,6 +9,8 @@ using System.Windows.Forms;
 using System.Threading.Tasks;
 using static System.Collections.Specialized.BitVector32;
 using System.Runtime.CompilerServices;
+using PdfSharp.Drawing;
+using FloorplanUserControlLibrary;
 
 namespace FloorplanClassLibrary
 {
@@ -570,7 +572,7 @@ namespace FloorplanClassLibrary
         }
         public static void DrawSectionLabelForPrinting(Graphics g, SectionLabelControl control)
         {
-            Font boldLargeFont = new Font(control.Font.FontFamily, 20f, FontStyle.Bold);
+            Font boldLargeFont = new Font(control.Font.FontFamily, 16f, FontStyle.Bold);
 
             // Measure the size of the text
             SizeF textSize = g.MeasureString(control.Section.GetDisplayString(), boldLargeFont);
@@ -580,13 +582,14 @@ namespace FloorplanClassLibrary
             }
             // Define the rectangle based on the text size with a margin of 5 pixels
             Rectangle rect = new Rectangle(
-                control.Bounds.X - 5,
-                control.Bounds.Y - 5,
-                (int)textSize.Width + 10,  // 5 pixels on left + 5 pixels on right
-                (int)textSize.Height + 10  // 5 pixels on top + 5 pixels on bottom
+                control.Bounds.X - 1,
+                control.Bounds.Y - 1,
+                (int)textSize.Width + 2,  // 5 pixels on left + 5 pixels on right
+                (int)textSize.Height + 2  // 5 pixels on top + 5 pixels on bottom
             );
 
             // Draw the border rectangle
+            
             using (Pen pen = new Pen(Color.Black, 3))
             {
                 using (Brush brush = new SolidBrush(Color.White))
@@ -609,9 +612,43 @@ namespace FloorplanClassLibrary
 
             g.DrawString(control.Section.GetDisplayString(), boldLargeFont, Brushes.Black, textX, textY, sf);
         }
+        public static void DrawSectionLabelForPrinting(XGraphics gfx, SectionLabelControl control, bool isBlackAndWhite)
+        {
+            //XFont boldLargeFont = new XFont(control.Font.FontFamily.Name, 16);
+            var boldLargeFont = new XFont("Arial", 16, XFontStyleEx.Bold);
+            // Measure the size of the text
+            XSize textSize = gfx.MeasureString(control.Section.GetDisplayString(), boldLargeFont);
 
-        
-       
+            // Define the rectangle based on the text size with a margin of 5 pixels
+            XRect rect = new XRect(
+                control.Bounds.X - 2,
+                control.Bounds.Y - 2,
+                textSize.Width + 4,  // 5 pixels on left + 5 pixels on right
+                textSize.Height + 4  // 5 pixels on top + 5 pixels on bottom
+            );
+
+            XPen pen = new XPen(XColors.Black, 3);
+            if(!isBlackAndWhite )
+            {
+                pen.Color = control.Section.Color.ToXColor();
+            }
+            XBrush brush = new XSolidBrush(XColors.White);
+            gfx.DrawRectangle(brush, rect);
+            gfx.DrawRectangle(pen, rect);
+
+            // Draw the section label (abbreviated server name)
+            XStringFormat sf = new XStringFormat
+            {
+                Alignment = XStringAlignment.Center,
+                LineAlignment = XLineAlignment.Center
+            };
+
+            gfx.DrawString(control.Section.GetDisplayString(), boldLargeFont, XBrushes.Black, rect, sf);
+        }
+
+
+
+
 
     }
 
