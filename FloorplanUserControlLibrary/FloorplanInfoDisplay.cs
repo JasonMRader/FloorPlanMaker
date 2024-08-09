@@ -20,7 +20,7 @@ namespace FloorplanUserControlLibrary
         private Font infoFont = UITheme.MainFont;
         private Image lastWeek = Resources.small_LastWeek;
         private Image yesterday = Resources.smallyesterday;
-        private ToolTip toolTip1 { get; set; } = new ToolTip();
+        //private ToolTip toolTip1 { get; set; } = new ToolTip();
         public AreaHistory AreaHistory { get; set; }
         public FloorplanInfoDisplay(Floorplan fp, int width)
         {
@@ -56,7 +56,7 @@ namespace FloorplanUserControlLibrary
             lblCrtlCoversPerServer.UpdateText(this.Floorplan.MaxCoversPerServer.ToString("F0"));
             lblCrtlSalesPerServer.UpdateText(Section.FormatAsCurrencyWithoutParentheses(this.Floorplan.GetAvgSalesPerServerByDay(daysAgo)));
             lblCrtlServersOn.UpdateText(this.Floorplan.Servers.Count.ToString());
-            toolTip1.SetToolTip(lblCrtlSalesPerServer, "Sales Per Server" + "\n" + "Total Sales:" + Floorplan.DiningArea.ExpectedSales.ToString("C0"));
+            lblCrtlSalesPerServer.SetTooltip("Sales Per Server" + "\n" + "Total Sales:" + Floorplan.DiningArea.ExpectedSales.ToString("C0"));
 
         }
         public void UpdateCurrentLabelsForLastFour()
@@ -70,7 +70,7 @@ namespace FloorplanUserControlLibrary
             lblCrtlCoversPerServer.UpdateText(this.Floorplan.MaxCoversPerServer.ToString("F0"));
             lblCrtlSalesPerServer.UpdateText(Section.FormatAsCurrencyWithoutParentheses(salesPerServer));
             lblCrtlServersOn.UpdateText(this.Floorplan.Servers.Count.ToString());
-            toolTip1.SetToolTip(lblCrtlSalesPerServer, "Sales Per Server" + "\n" + "Total Sales:" + Floorplan.DiningArea.ExpectedSales.ToString("C0"));
+            lblCrtlSalesPerServer.SetTooltip("Sales Per Server" + "\n" + "Total Sales:" + Floorplan.DiningArea.ExpectedSales.ToString("C0"));
 
 
         }

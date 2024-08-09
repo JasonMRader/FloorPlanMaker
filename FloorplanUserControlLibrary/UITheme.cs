@@ -246,11 +246,21 @@ namespace FloorPlanMakerUI
         {
             c.BackColor = ButtonColor;
             c.ForeColor = ButtonFontColor;
+            if (c is Button button)
+            {
+                button.FlatStyle = FlatStyle.Flat;
+                button.FlatAppearance.BorderSize = 0;
+            }
         }
         public static void FormatCTAButton(Control c)
         {
             c.BackColor = CTAColor;
             c.ForeColor = CTAFontColor;
+            if(c is Button button)
+            {
+                button.FlatStyle = FlatStyle.Flat;
+                button.FlatAppearance.BorderSize = 0;
+            }
         }
         public static void FormatMain(Control c)
         {

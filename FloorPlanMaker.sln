@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FloorplanUserControlLibrary
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Rick's Floorplan Maker", "Rick's Floorplan Maker\Rick's Floorplan Maker.vdproj", "{0D1127D4-CF22-46CE-B25D-7E9FD0624424}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FloorplanWebAPI", "FloorplanWebAPI\FloorplanWebAPI.csproj", "{1D6D6644-AF2C-4A67-B13C-B8FD288C7484}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{5688C3E0-A5EF-4CD7-93A6-600C0F073E5A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0D1127D4-CF22-46CE-B25D-7E9FD0624424}.Debug|Any CPU.ActiveCfg = Debug
 		{0D1127D4-CF22-46CE-B25D-7E9FD0624424}.Release|Any CPU.ActiveCfg = Release
+		{1D6D6644-AF2C-4A67-B13C-B8FD288C7484}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D6D6644-AF2C-4A67-B13C-B8FD288C7484}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D6D6644-AF2C-4A67-B13C-B8FD288C7484}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D6D6644-AF2C-4A67-B13C-B8FD288C7484}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

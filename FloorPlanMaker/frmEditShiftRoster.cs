@@ -26,6 +26,9 @@ namespace FloorPlanMakerUI
             lblSelectedDiningArea.Text = shift.SelectedFloorplan.DiningArea.Name;
             PopulateSelectedFloorplanServerButtons();
             PopulateCboAreas();
+            UITheme.FormatCTAButton(btnDone);
+            btnDone.BackColor = UITheme.YesColor;
+            btnDone.ForeColor = UITheme.YesFontColor;
 
         }
         private void PopulateCboAreas()
@@ -38,11 +41,11 @@ namespace FloorPlanMakerUI
                     cboFloorplans.DisplayMember = floorplan.DiningArea.Name;
                 }
             }
-            if(cboFloorplans.Items.Count > 0)
+            if (cboFloorplans.Items.Count > 0)
             {
                 cboFloorplans.SelectedIndex = 0;
             }
-           
+
 
         }
         private void PopulateSelectedFloorplanServerButtons()
@@ -50,7 +53,7 @@ namespace FloorPlanMakerUI
             flowThisFloorplan.Controls.Clear();
             foreach (Server server in shift.SelectedFloorplan.Servers)
             {
-                Button button = CreateServerButton(server);
+                Button button = CreateServerButton(server);                
                 button.Click += MoveServerToSecondaryFloorplan;
                 flowThisFloorplan.Controls.Add(button);
             }
@@ -60,9 +63,9 @@ namespace FloorPlanMakerUI
         {
             Button btn = (Button)sender;
             Server server = (Server)btn.Tag;
-            if(shift.SelectedFloorplan.Servers.Contains(server))
+            if (shift.SelectedFloorplan.Servers.Contains(server))
             {
-                if(cbServersNotOnShift.Checked)
+                if (cbServersNotOnShift.Checked)
                 {
                     shift.RemoveServerFromShift(server);
                     PopulateServersNotOnShiftServerButtons(shift.ServersNotOnShift);
@@ -73,10 +76,10 @@ namespace FloorPlanMakerUI
                     secondaryFloorplan.AddServerAndSection(server);
                     PopulateOtherFloorplanServers();
                 }
-                
+
             }
             PopulateSelectedFloorplanServerButtons();
-            
+
             //PopulateCboAreas();
         }
 
@@ -86,6 +89,7 @@ namespace FloorPlanMakerUI
             foreach (Server server in secondaryFloorplan.Servers)
             {
                 Button button = CreateServerButton(server);
+               
                 button.Click += TakeServerFromSecondarySection;
                 flowOtherServers.Controls.Add(button);
             }
@@ -110,7 +114,9 @@ namespace FloorPlanMakerUI
             Button button = new Button();
             button.Text = server.ToString();
             button.Tag = server;
-
+            UITheme.FormatCTAButton(button);
+            button.Font = UITheme.MainFont;
+            
             button.AutoSize = false;
             button.Size = new System.Drawing.Size(flowThisFloorplan.Width - 10, 30);
             button.TextAlign = ContentAlignment.MiddleCenter;
@@ -141,6 +147,7 @@ namespace FloorPlanMakerUI
             foreach (Server server in servers)
             {
                 Button button = CreateServerButton(server);
+                
                 button.Click += TakeServerFromServersNotOnShift;
                 flowOtherServers.Controls.Add(button);
             }
@@ -152,7 +159,7 @@ namespace FloorPlanMakerUI
             Server server = (Server)btn.Tag;
             if (shift.ServersNotOnShift.Contains(server))
             {
-                shift.AddServerToSelectedFloorplan(server);   
+                shift.AddServerToSelectedFloorplan(server);
             }
             PopulateServersNotOnShiftServerButtons(shift.ServersNotOnShift);
             PopulateSelectedFloorplanServerButtons();
@@ -199,6 +206,11 @@ namespace FloorPlanMakerUI
                 PopulateServersNotOnShiftServerButtons(shift.ServersNotOnShift);
                 txtSearchServers.Focus();
             }
+        }
+
+        private void btnDone_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

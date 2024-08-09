@@ -34,30 +34,33 @@
             cboFloorplans = new ComboBox();
             cbServersNotOnShift = new CheckBox();
             txtSearchServers = new TextBox();
+            btnDone = new Button();
+            panel1 = new Panel();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // flowThisFloorplan
             // 
             flowThisFloorplan.AutoScroll = true;
             flowThisFloorplan.BackColor = Color.WhiteSmoke;
-            flowThisFloorplan.Location = new Point(12, 86);
+            flowThisFloorplan.Location = new Point(30, 80);
             flowThisFloorplan.Name = "flowThisFloorplan";
-            flowThisFloorplan.Size = new Size(239, 418);
+            flowThisFloorplan.Size = new Size(239, 408);
             flowThisFloorplan.TabIndex = 0;
             // 
             // flowOtherServers
             // 
             flowOtherServers.AutoScroll = true;
             flowOtherServers.BackColor = Color.WhiteSmoke;
-            flowOtherServers.Location = new Point(287, 86);
+            flowOtherServers.Location = new Point(305, 80);
             flowOtherServers.Name = "flowOtherServers";
-            flowOtherServers.Size = new Size(239, 418);
+            flowOtherServers.Size = new Size(239, 408);
             flowOtherServers.TabIndex = 0;
             // 
             // lblSelectedDiningArea
             // 
             lblSelectedDiningArea.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            lblSelectedDiningArea.Location = new Point(12, 41);
+            lblSelectedDiningArea.Location = new Point(30, 36);
             lblSelectedDiningArea.Name = "lblSelectedDiningArea";
             lblSelectedDiningArea.Size = new Size(239, 34);
             lblSelectedDiningArea.TabIndex = 1;
@@ -69,7 +72,7 @@
             cboFloorplans.FlatStyle = FlatStyle.Flat;
             cboFloorplans.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             cboFloorplans.FormattingEnabled = true;
-            cboFloorplans.Location = new Point(287, 41);
+            cboFloorplans.Location = new Point(305, 41);
             cboFloorplans.Name = "cboFloorplans";
             cboFloorplans.Size = new Size(239, 29);
             cboFloorplans.TabIndex = 2;
@@ -78,7 +81,7 @@
             // cbServersNotOnShift
             // 
             cbServersNotOnShift.AutoSize = true;
-            cbServersNotOnShift.Location = new Point(287, 12);
+            cbServersNotOnShift.Location = new Point(305, 12);
             cbServersNotOnShift.Name = "cbServersNotOnShift";
             cbServersNotOnShift.Size = new Size(132, 19);
             cbServersNotOnShift.TabIndex = 3;
@@ -88,7 +91,7 @@
             // 
             // txtSearchServers
             // 
-            txtSearchServers.Location = new Point(426, 10);
+            txtSearchServers.Location = new Point(444, 10);
             txtSearchServers.Name = "txtSearchServers";
             txtSearchServers.PlaceholderText = "Search Servers";
             txtSearchServers.Size = new Size(100, 23);
@@ -96,22 +99,46 @@
             txtSearchServers.Visible = false;
             txtSearchServers.TextChanged += txtSearchServers_TextChanged;
             // 
+            // btnDone
+            // 
+            btnDone.Location = new Point(30, 494);
+            btnDone.Name = "btnDone";
+            btnDone.Size = new Size(514, 36);
+            btnDone.TabIndex = 5;
+            btnDone.Text = "Done";
+            btnDone.UseVisualStyleBackColor = true;
+            btnDone.Click += btnDone_Click;
+            // 
+            // panel1
+            // 
+            panel1.BackColor = Color.FromArgb(225, 225, 225);
+            panel1.Controls.Add(btnDone);
+            panel1.Controls.Add(txtSearchServers);
+            panel1.Controls.Add(lblSelectedDiningArea);
+            panel1.Controls.Add(cbServersNotOnShift);
+            panel1.Controls.Add(cboFloorplans);
+            panel1.Controls.Add(flowThisFloorplan);
+            panel1.Controls.Add(flowOtherServers);
+            panel1.Location = new Point(12, 12);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(579, 542);
+            panel1.TabIndex = 6;
+            // 
             // frmEditShiftRoster
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(565, 516);
-            Controls.Add(txtSearchServers);
-            Controls.Add(cbServersNotOnShift);
-            Controls.Add(cboFloorplans);
-            Controls.Add(lblSelectedDiningArea);
-            Controls.Add(flowOtherServers);
-            Controls.Add(flowThisFloorplan);
+            BackColor = Color.FromArgb(180, 190, 200);
+            ClientSize = new Size(603, 570);
+            Controls.Add(panel1);
+            FormBorderStyle = FormBorderStyle.None;
             Name = "frmEditShiftRoster";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "frmEditShiftRoster";
             Load += frmEditShiftRoster_Load;
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -122,5 +149,7 @@
         private ComboBox cboFloorplans;
         private CheckBox cbServersNotOnShift;
         private TextBox txtSearchServers;
+        private Button btnDone;
+        private Panel panel1;
     }
 }

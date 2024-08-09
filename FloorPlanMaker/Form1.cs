@@ -911,7 +911,7 @@ namespace FloorPlanMaker
             pnlTemplateContainer.BringToFront();
 
         }
-        
+
 
         private void dtpFloorplan_ValueChanged(object sender, EventArgs e)
         {
@@ -1621,7 +1621,7 @@ namespace FloorPlanMaker
             }
             SavePDF();
 
-        }       
+        }
         private void PrintFloorplan()
         {
 
@@ -1741,10 +1741,10 @@ namespace FloorPlanMaker
         {
             //List<FloorplanLine> lines = new List<FloorplanLine>(); // Initialize with actual lines if needed
             FloorplanPrinter printerNoLines = new FloorplanPrinter(pnlFloorPlan, _lines);
-           
+
             string formattedDate = this.shift.DateOnly.ToString("ddd MMM d");
             string formattedTime = DateTime.Now.ToString("HH-mm-ss");
-            
+
             string fileName = $"{this.shift.SelectedDiningArea.Name} {formattedDate} {this.shift.IsAmDisplay} {formattedTime}".Replace(":", "-");
             using (SaveFileDialog saveFileDialog = new SaveFileDialog())
             {
@@ -1755,14 +1755,14 @@ namespace FloorPlanMaker
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     string filePath = saveFileDialog.FileName;
-                   
+
                     printerNoLines.CreatePdf(filePath, false);
 
                 }
             }
             //MessageBox.Show("Printed");
             SaveTheFloorplan();
-            
+
         }
     }
 }

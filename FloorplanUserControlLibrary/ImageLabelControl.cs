@@ -35,7 +35,7 @@ namespace FloorPlanMakerUI
             //this.Height = height;
             this.Width = width;
             GetLocations();
-            this.toolTip.SetToolTip(this, toolTip);
+            SetTooltip(toolTip);
         }
         public void SetTooltip(string tooltipText)
         {
