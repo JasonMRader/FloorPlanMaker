@@ -10,6 +10,13 @@ namespace FloorplanClassLibrary
     {
         public List<FloorplanRecord> FloorplanRecords { get; set; } = new List<FloorplanRecord>();
         public DateOnly dateOnly { get; set; }
+        public DateTime Date
+        {
+            get
+            {
+                return dateOnly.ToDateTime(TimeOnly.MinValue);
+            }
+        }
         public bool IsAm { get; set; }
         public List<HourlyWeatherData> HourlyWeatherData { get; set; } = new List<HourlyWeatherData>();
         public int Reservations { get; set; } 

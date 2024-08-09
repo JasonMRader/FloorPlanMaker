@@ -25,15 +25,23 @@ namespace FloorplanClassLibrary
         //    return Shifts.Where(shift => shift.Weather.Temperature >= minTemperature && shift.Weather.Temperature <= maxTemperature).ToList();
         //}
 
-        //public List<ShiftRecord> FilterByDaysOfWeek(List<DayOfWeek> daysOfWeek)
-        //{
-        //    return Shifts.Where(shift => daysOfWeek.Contains(shift.Date.DayOfWeek)).ToList();
-        //}
+        public List<ShiftRecord> FilterByDaysOfWeek(List<DayOfWeek> daysOfWeek)
+        {
+            return Shifts.Where(shift => daysOfWeek.Contains(shift.Date.DayOfWeek)).ToList();
+        }
 
-        //public List<ShiftRecord> FilterBySpecialEvent(bool isSpecialEvent)
-        //{
-        //    return Shifts.Where(shift => shift.SpecialEvent == isSpecialEvent).ToList();
-        //}
+        public List<ShiftRecord> FilterBySpecialEvent(bool isSpecialEvent)
+        {
+            if(isSpecialEvent)
+            {
+                return Shifts.Where(shift => shift.SpecialEventDate != null).ToList();
+            }
+            else
+            {
+                return Shifts.Where(shift => shift.SpecialEventDate == null).ToList();
+            }
+            
+        }
 
         //public double CalculateTotalSales()
         //{
