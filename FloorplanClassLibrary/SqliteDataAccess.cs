@@ -2551,6 +2551,69 @@ namespace FloorplanClassLibrary
             }
         }
 
+        public static ShiftRecord LoadShiftRecord(DateOnly date, bool isLunch)
+        {
+            ShiftRecord shiftRecord = new ShiftRecord
+            {
+                //ID = GenerateShiftID(date, isLunch), // Assuming you have a method to generate or retrieve the ID
+                dateOnly = date,
+                IsAm = isLunch,
+                //Reservations = LoadReservations(date, isLunch), // Assuming you have a method to load reservations
+                SpecialEventDate = GetEventByDate(date), // Assuming you have a method to load special event date
+                //Sales = LoadTotalSales(date, isLunch), // Assuming you have a method to load total sales
+            };
+
+            shiftRecord.HourlyWeatherData = LoadHourlyWeatherData(date, isLunch);
+            shiftRecord.FloorplanRecords = LoadFloorplanRecordsByDateAndLunch(date, isLunch);
+
+            return shiftRecord;
+        }
+        public static List<FloorplanRecord> LoadFloorplanRecordsByDateAndLunch(DateOnly date, bool isLunch)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                string dateString = date.ToString("yyyy-MM-dd");
+
+                var floorplanRecords = cnn.Query<FloorplanRecord>(
+                    @"SELECT ID, DiningAreaID, Date, Sales, IsLunch, ServerCount 
+                      FROM Floorplan 
+                      WHERE Date = @Date AND IsLunch = @IsLunch",
+                    new { Date = dateString, IsLunch = isLunch }).ToList();
+
+                foreach (var floorplan in floorplanRecords)
+                {
+                    floorplan.tableStats = LoadTableStatsByDiningAreaAndDate(floorplan.DiningAreaID, date, isLunch);
+                }
+
+                return floorplanRecords;
+            }
+        }
+        public static List<TableStat> LoadTableStatsByDiningAreaAndDate(int DiningAreaID, DateOnly date, bool isLunch)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                // Prepare your query with parameters
+                var query = @"SELECT * FROM TableStats WHERE DiningAreaID = @DiningAreaID AND IsLunch = @IsLunch AND Date = @Date";
+
+                // Execute the query with the provided parameters
+                var queryResult = cnn.Query(query, new {DiningAreaID = DiningAreaID, IsLunch = isLunch, Date = date.ToString("yyyy-MM-dd") }).ToList();
+
+                var tableStatsList = queryResult.Select(row => new TableStat
+                {
+                    // Assign other properties as necessary
+                    TableStatNumber = row.TableStatNumber,
+                    DayOfWeek = (DayOfWeek)Enum.Parse(typeof(DayOfWeek), row.DayOfWeek),
+                    Date = DateOnly.Parse(row.Date),
+                    IsLunch = Convert.ToBoolean(row.IsLunch),
+                    Sales = row.Sales != null ? (float?)Convert.ToDouble(row.Sales) : null,
+                    Orders = Convert.ToInt32(row.Orders)
+                }).ToList();
+
+                return tableStatsList;
+            }
+        }
+
+
 
         //public static void SaveTopBottomNeighbor(string key, string value)
         //{

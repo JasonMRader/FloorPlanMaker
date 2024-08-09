@@ -44,6 +44,10 @@ namespace FloorPlanMakerUI
             "5) Improved method of Drawing lines (using the right mouse button)\r\n" +
             "6) UI Improvements\r\n" +
             "7) Added % display to server label in Edit Staff form";
+        string UpdateCurrent =
+            "1) Fixed Bug in which Swaping servers to different floorplans if they were already " +
+            "assigned sections made it impossible to assign them to a new section\r\n" +
+            "2) ";
 
         private void rdoKnownBugs_CheckedChanged(object sender, EventArgs e)
         {

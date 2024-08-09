@@ -62,6 +62,9 @@
             lblServersRemaining = new Label();
             dtpWeatherDay = new DateTimePicker();
             btnWeather = new Button();
+            btnGetFloorplanData = new Button();
+            dateTimePicker1 = new DateTimePicker();
+            dateTimePicker2 = new DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
             SuspendLayout();
             // 
@@ -347,14 +350,14 @@
             // 
             // dtpWeatherDay
             // 
-            dtpWeatherDay.Location = new Point(514, 306);
+            dtpWeatherDay.Location = new Point(847, 68);
             dtpWeatherDay.Name = "dtpWeatherDay";
             dtpWeatherDay.Size = new Size(200, 23);
             dtpWeatherDay.TabIndex = 5;
             // 
             // btnWeather
             // 
-            btnWeather.Location = new Point(514, 381);
+            btnWeather.Location = new Point(1053, 68);
             btnWeather.Name = "btnWeather";
             btnWeather.Size = new Size(200, 23);
             btnWeather.TabIndex = 6;
@@ -362,11 +365,38 @@
             btnWeather.UseVisualStyleBackColor = true;
             btnWeather.Click += btnWeather_Click;
             // 
+            // btnGetFloorplanData
+            // 
+            btnGetFloorplanData.Location = new Point(847, 226);
+            btnGetFloorplanData.Name = "btnGetFloorplanData";
+            btnGetFloorplanData.Size = new Size(159, 23);
+            btnGetFloorplanData.TabIndex = 7;
+            btnGetFloorplanData.Text = "Get Floorplan Data";
+            btnGetFloorplanData.UseVisualStyleBackColor = true;
+            btnGetFloorplanData.Click += btnGetFloorplanData_Click;
+            // 
+            // dateTimePicker1
+            // 
+            dateTimePicker1.Location = new Point(847, 120);
+            dateTimePicker1.Name = "dateTimePicker1";
+            dateTimePicker1.Size = new Size(200, 23);
+            dateTimePicker1.TabIndex = 5;
+            // 
+            // dateTimePicker2
+            // 
+            dateTimePicker2.Location = new Point(1053, 120);
+            dateTimePicker2.Name = "dateTimePicker2";
+            dateTimePicker2.Size = new Size(200, 23);
+            dateTimePicker2.TabIndex = 5;
+            // 
             // frmTest
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(867, 519);
+            ClientSize = new Size(1394, 674);
+            Controls.Add(btnGetFloorplanData);
+            Controls.Add(dateTimePicker2);
+            Controls.Add(dateTimePicker1);
             Controls.Add(btnWeather);
             Controls.Add(dtpWeatherDay);
             Controls.Add(button2);
@@ -445,5 +475,8 @@
         private Label lblServersRemaining;
         private DateTimePicker dtpWeatherDay;
         private Button btnWeather;
+        private Button btnGetFloorplanData;
+        private DateTimePicker dateTimePicker1;
+        private DateTimePicker dateTimePicker2;
     }
 }

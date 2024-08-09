@@ -161,9 +161,23 @@ namespace FloorPlanMakerUI
 
         private async void btnWeather_Click(object sender, EventArgs e)
         {
-            DateOnly dateOnly = new DateOnly(dtpWeatherDay.Value.Year, dtpWeatherDay.Value.Month, dtpWeatherDay.Value.Day); 
-            List <HourlyWeatherData> hourlyWeather = await WeatherApiDataAccess.GetWeatherForecast();
+            DateOnly dateOnly = new DateOnly(dtpWeatherDay.Value.Year, dtpWeatherDay.Value.Month, dtpWeatherDay.Value.Day);
+            List<HourlyWeatherData> hourlyWeather = await WeatherApiDataAccess.GetWeatherForecast();
             //MessageBox.Show(weatherResult.WeatherFeelsLikeMax);
+        }
+
+        private void btnGetFloorplanData_Click(object sender, EventArgs e)
+        {
+            DateTime start = dateTimePicker1.Value.Date;
+            DateTime end = dateTimePicker2.Value.Date;
+            DateOnly startDateOnly = DateOnly.FromDateTime(start);
+            DateOnly endDateOnly = DateOnly.FromDateTime(end);
+            List<ShiftRecord> shiftRecords = new List<ShiftRecord>();
+            for(DateOnly iDay = startDateOnly; iDay <= endDateOnly; iDay = iDay.AddDays(1))
+            {
+                shiftRecords.Add(SqliteDataAccess.LoadShiftRecord(iDay, false));
+            }
+            MessageBox.Show("Complete");
         }
     }
 }
