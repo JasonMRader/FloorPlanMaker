@@ -26,7 +26,7 @@ namespace FloorPlanMakerUI
         private List<WeatherData> allWeatherData = new List<WeatherData>();
         private int MinFeelsLikeHi = -150;
         private int MaxFeelsLikeHi = 150;
-
+        private ShiftAnalysis shiftAnalysis = new ShiftAnalysis();
 
 
         private List<DayOfWeek> FilteredDaysOfWeek = new List<DayOfWeek>
@@ -151,7 +151,7 @@ namespace FloorPlanMakerUI
             dgvDiningAreas.Rows.Clear();
 
             // Add columns for each dining area and total sales
-           
+
             dgvDiningAreas.Columns.Add("Date", "Date");
             dgvDiningAreas.Columns.Add("Event", "Event");
             foreach (var diningArea in diningAreas)
@@ -220,7 +220,7 @@ namespace FloorPlanMakerUI
             foreach (var salesData in salesDataList)
             {
                 var row = new List<object> { salesData.DateDisplay() };
-                if(salesData.SpecialEventDate != null)
+                if (salesData.SpecialEventDate != null)
                 {
                     row.Add(salesData.SpecialEventDate.Name);
                 }
@@ -228,7 +228,7 @@ namespace FloorPlanMakerUI
                 {
                     row.Add("");
                 }
-               
+
                 foreach (var diningArea in diningAreas)
                 {
                     row.Add(salesData.SalesByDiningArea[diningArea.Name]);
@@ -389,12 +389,12 @@ namespace FloorPlanMakerUI
                         PopulateDGVForAreaSales(dgvDiningAreas, areaManager.DiningAreas, salesData);
                         loadingForm.Close();
                         this.Enabled = true;
-                        
+
                         this.BringToFront();
 
                     }));
                 });
-                
+
             }
             if (rdoServerShifts.Checked)
             {
@@ -402,7 +402,7 @@ namespace FloorPlanMakerUI
                 {
                     List<DateTime> dateList = GetFilteredDates(dtpStartDate.Value, dtpEndDate.Value);
                     List<ServerShiftHistory> serverHistory = GetServerHistory(employeeManager.ActiveServers);
-                   
+
                     this.Invoke(new Action(() =>
                     {
                         // Close the loading form and re-enable the main form
@@ -415,10 +415,10 @@ namespace FloorPlanMakerUI
 
                     }));
                 });
-               
+
             }
-            
-            
+
+
 
 
         }
@@ -644,10 +644,12 @@ namespace FloorPlanMakerUI
         private void dtpStartDate_ValueChanged(object sender, EventArgs e)
         {
             dateOnlyStart = new DateOnly(dtpStartDate.Value.Year, dtpStartDate.Value.Month, dtpStartDate.Value.Day);
+            shiftAnalysis.SetDateOnly(dateOnlyStart, dateOnlyEnd);
         }
         private void dtpEndDate_ValueChanged(object sender, EventArgs e)
         {
             dateOnlyEnd = new DateOnly(dtpEndDate.Value.Year, dtpEndDate.Value.Month, dtpEndDate.Value.Day);
+            shiftAnalysis.SetDateOnly(dateOnlyStart, dateOnlyEnd);
         }
         private void btnIndividualStats_Click(object sender, EventArgs e)
         {
@@ -1033,7 +1035,7 @@ namespace FloorPlanMakerUI
 
         private void nudLowTemp_ValueChanged(object sender, EventArgs e)
         {
-            if(cbFilterByTempRange.Checked)
+            if (cbFilterByTempRange.Checked)
             {
                 MinFeelsLikeHi = (int)nudLowTemp.Value;
             }
@@ -1041,7 +1043,7 @@ namespace FloorPlanMakerUI
             {
                 MinFeelsLikeHi = -150;
             }
-            
+
         }
 
         private void nudHiTemp_ValueChanged(object sender, EventArgs e)
@@ -1054,7 +1056,140 @@ namespace FloorPlanMakerUI
             {
                 MaxFeelsLikeHi = 150;
             }
-               
+
         }
+
+        private void btnRefreshFilters_Click(object sender, EventArgs e)
+        {
+            frmLoading loadingForm = new frmLoading("Parsing");
+            loadingForm.Show();
+            this.Enabled = false;
+            if (rdoDiningAreaSales.Checked)
+            {
+                Task.Run(() =>
+                {
+                    shiftAnalysis.SetShiftsForDateRange();                    
+
+                    this.Invoke(new Action(() =>
+                    {
+                        // Close the loading form and re-enable the main form
+                        PopulateDGVForAreaSales(dgvDiningAreas, areaManager.DiningAreas, shiftAnalysis.Shifts);
+                        loadingForm.Close();
+                        this.Enabled = true;
+
+                        this.BringToFront();
+
+                    }));
+                });
+
+            }
+            if (rdoServerShifts.Checked)
+            {
+                Task.Run(() =>
+                {
+                    List<DateTime> dateList = GetFilteredDates(dtpStartDate.Value, dtpEndDate.Value);
+                    List<ServerShiftHistory> serverHistory = GetServerHistory(employeeManager.ActiveServers);
+
+                    this.Invoke(new Action(() =>
+                    {
+                        // Close the loading form and re-enable the main form
+
+                        loadingForm.Close();
+                        this.Enabled = true;
+                        PopulateDGVForServerHistory(serverHistory);
+                        this.BringToFront();
+
+
+                    }));
+                });
+
+            }
+
+        }
+        public void PopulateDGVForAreaSales(DataGridView dgvDiningAreas, List<DiningArea> diningAreas, List<ShiftRecord> shiftRecords)
+        {
+            InitializeDataGridView(dgvDiningAreas, diningAreas);
+            AddShiftRows(dgvDiningAreas, diningAreas, shiftRecords);
+        }
+        private void InitializeDataGridView(DataGridView dgvDiningAreas, List<DiningArea> diningAreas)
+        {
+            dgvDiningAreas.Columns.Clear();
+            dgvDiningAreas.Rows.Clear();
+
+            dgvDiningAreas.Columns.Add("Date", "Date");
+            dgvDiningAreas.Columns.Add("Event", "Event");
+
+            foreach (var diningArea in diningAreas)
+            {
+                var column = new DataGridViewTextBoxColumn
+                {
+                    Name = diningArea.Name,
+                    HeaderText = diningArea.Name,
+                    DefaultCellStyle = new DataGridViewCellStyle
+                    {
+                        Format = "C0" // Format as currency with no decimals
+                    }
+                };
+                dgvDiningAreas.Columns.Add(column);
+            }
+
+            var totalColumn = new DataGridViewTextBoxColumn
+            {
+                Name = "Total",
+                HeaderText = "Total",
+                DefaultCellStyle = new DataGridViewCellStyle
+                {
+                    Format = "C0" // Format as currency with no decimals
+                }
+            };
+            dgvDiningAreas.Columns.Add(totalColumn);
+
+            var tempColumn = new DataGridViewTextBoxColumn
+            {
+                Name = "Temp",
+                HeaderText = "Temp (FeelsLikeHi)",
+                DefaultCellStyle = new DataGridViewCellStyle
+                {
+                    Format = "N0" // Format as integer
+                }
+            };
+            dgvDiningAreas.Columns.Add(tempColumn);
+        }
+
+        private void AddShiftRows(DataGridView dgvDiningAreas, List<DiningArea> diningAreas, List<ShiftRecord> shiftRecords)
+        {
+            foreach (var shiftRecord in shiftRecords)
+            {
+                var row = new List<object> { shiftRecord.Date.ToShortDateString() };
+
+                if (shiftRecord.SpecialEventDate != null)
+                {
+                    row.Add(shiftRecord.SpecialEventDate.Name);
+                }
+                else
+                {
+                    row.Add("");
+                }
+
+                foreach (var diningArea in diningAreas)
+                {
+                    float diningAreaSales = shiftRecord.FloorplanRecords
+                        .Where(fp => fp.DiningAreaID == diningArea.ID)
+                        .Sum(fp => fp.Sales);
+
+                    row.Add(diningAreaSales);
+                }
+
+                row.Add(shiftRecord.Sales);
+
+                int feelsLikeHi = shiftRecord.HourlyWeatherData.Any() ?
+                                  shiftRecord.HourlyWeatherData.Max(hw => hw.FeelsLikeHi) :
+                                  0;
+                row.Add(feelsLikeHi);
+
+                dgvDiningAreas.Rows.Add(row.ToArray());
+            }
+        }
+
     }
 }

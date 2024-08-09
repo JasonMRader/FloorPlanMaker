@@ -177,6 +177,7 @@ namespace FloorPlanMakerUI
             {
                 shiftRecords.Add(SqliteDataAccess.LoadShiftRecord(iDay, false));
             }
+            ShiftAnalysis shiftAnalysis = new ShiftAnalysis(shiftRecords);
             MessageBox.Show("Complete");
         }
     }

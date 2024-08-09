@@ -75,6 +75,8 @@
             cbFilterByTempRange = new CheckBox();
             nudHiTemp = new NumericUpDown();
             lblTo = new Label();
+            btnRefreshFilters = new Button();
+            dataGridView1 = new DataGridView();
             ((System.ComponentModel.ISupportInitialize)dgvDiningAreas).BeginInit();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
@@ -83,16 +85,18 @@
             panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudLowTemp).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudHiTemp).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // dgvDiningAreas
             // 
             dgvDiningAreas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvDiningAreas.Location = new Point(12, 247);
+            dgvDiningAreas.Location = new Point(1169, 315);
             dgvDiningAreas.Name = "dgvDiningAreas";
             dgvDiningAreas.RowTemplate.Height = 25;
-            dgvDiningAreas.Size = new Size(1035, 615);
+            dgvDiningAreas.Size = new Size(231, 477);
             dgvDiningAreas.TabIndex = 0;
+            dgvDiningAreas.Visible = false;
             // 
             // rdoDiningAreaSales
             // 
@@ -119,10 +123,11 @@
             // 
             // btnUpdate
             // 
+            btnUpdate.Enabled = false;
             btnUpdate.FlatStyle = FlatStyle.Flat;
-            btnUpdate.Location = new Point(12, 206);
+            btnUpdate.Location = new Point(1194, 247);
             btnUpdate.Name = "btnUpdate";
-            btnUpdate.Size = new Size(737, 35);
+            btnUpdate.Size = new Size(195, 35);
             btnUpdate.TabIndex = 2;
             btnUpdate.Text = "Update";
             btnUpdate.UseVisualStyleBackColor = true;
@@ -617,11 +622,32 @@
             lblTo.TabIndex = 11;
             lblTo.Text = "to:";
             // 
+            // btnRefreshFilters
+            // 
+            btnRefreshFilters.FlatStyle = FlatStyle.Flat;
+            btnRefreshFilters.Location = new Point(33, 247);
+            btnRefreshFilters.Name = "btnRefreshFilters";
+            btnRefreshFilters.Size = new Size(495, 35);
+            btnRefreshFilters.TabIndex = 2;
+            btnRefreshFilters.Text = "Get Data";
+            btnRefreshFilters.UseVisualStyleBackColor = true;
+            btnRefreshFilters.Click += btnRefreshFilters_Click;
+            // 
+            // dataGridView1
+            // 
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Location = new Point(30, 306);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.RowTemplate.Height = 25;
+            dataGridView1.Size = new Size(1040, 564);
+            dataGridView1.TabIndex = 12;
+            // 
             // frmSalesStats
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1059, 874);
+            ClientSize = new Size(1412, 874);
+            Controls.Add(dataGridView1);
             Controls.Add(lblTo);
             Controls.Add(nudHiTemp);
             Controls.Add(cbFilterByTempRange);
@@ -635,6 +661,7 @@
             Controls.Add(dtpStartDate);
             Controls.Add(panel2);
             Controls.Add(panel1);
+            Controls.Add(btnRefreshFilters);
             Controls.Add(btnUpdate);
             Controls.Add(dgvDiningAreas);
             Name = "frmSalesStats";
@@ -652,6 +679,7 @@
             panel5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)nudLowTemp).EndInit();
             ((System.ComponentModel.ISupportInitialize)nudHiTemp).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -704,5 +732,7 @@
         private CheckBox cbFilterByTempRange;
         private NumericUpDown nudHiTemp;
         private Label lblTo;
+        private Button btnRefreshFilters;
+        private DataGridView dataGridView1;
     }
 }

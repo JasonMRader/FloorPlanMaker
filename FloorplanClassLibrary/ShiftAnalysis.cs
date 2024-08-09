@@ -8,12 +8,47 @@ namespace FloorplanClassLibrary
 {
     public class ShiftAnalysis
     {
-        public List<ShiftRecord> Shifts { get; set; }
-
+        private List<ShiftRecord> _shifts = new List<ShiftRecord>();
+        public List<ShiftRecord> Shifts { get { return _shifts; } }
+        public ShiftAnalysis() { }
+        private DateOnly _startDate = new DateOnly();
+        private DateOnly _endDate = new DateOnly();
+        public DateOnly StartDate
+        {
+            get { return _startDate; }
+        }
+        public DateOnly EndDate { get { return _endDate; } }
+        public void SetDateOnly(DateOnly startDate, DateOnly endDate)
+        {
+            this._endDate = endDate;
+            this._startDate = startDate;
+        }
+        public void SetShiftsForDateRange()
+        {
+            this.Shifts.Clear();
+            for (DateOnly iDay = _startDate; iDay <= _endDate; iDay = iDay.AddDays(1))
+            {
+                Shifts.Add(SqliteDataAccess.LoadShiftRecord(iDay, false));
+            }
+        }
         public ShiftAnalysis(List<ShiftRecord> shifts)
         {
-            Shifts = shifts;
+            _shifts = shifts;
         }
+        private List<DayOfWeek> FilteredDaysOfWeek = new List<DayOfWeek>
+        {
+            DayOfWeek.Monday,
+            DayOfWeek.Tuesday,
+            DayOfWeek.Wednesday,
+            DayOfWeek.Thursday,
+            DayOfWeek.Friday,
+            DayOfWeek.Saturday,
+            DayOfWeek.Sunday
+        };
+        private List<int> FilteredMonths = new List<int>
+        {
+           1,2,3,4,5,6,7,8,9,10,11,12
+        };
 
         public List<ShiftRecord> FilterByReservationRange(int minReservations, int maxReservations)
         {

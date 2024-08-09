@@ -2565,6 +2565,8 @@ namespace FloorplanClassLibrary
 
             shiftRecord.HourlyWeatherData = LoadHourlyWeatherData(date, isLunch);
             shiftRecord.FloorplanRecords = LoadFloorplanRecordsByDateAndLunch(date, isLunch);
+            shiftRecord.tableStats = LoadTableStatsByDateAndLunch(isLunch, date);
+            shiftRecord.Sales = (float)shiftRecord.tableStats.Where(ts => ts.DiningAreaID != 6).ToList().Sum(ts => ts.Sales);
 
             return shiftRecord;
         }
@@ -2583,6 +2585,8 @@ namespace FloorplanClassLibrary
                 foreach (var floorplan in floorplanRecords)
                 {
                     floorplan.tableStats = LoadTableStatsByDiningAreaAndDate(floorplan.DiningAreaID, date, isLunch);
+                    floorplan.Sales = (float)floorplan.tableStats.Sum(ts => ts.Sales);
+                    floorplan.DateOnly = date;
                 }
 
                 return floorplanRecords;
