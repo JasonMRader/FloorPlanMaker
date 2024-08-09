@@ -373,6 +373,27 @@ namespace FloorplanClassLibrary
             }
             NotifyObservers();
         }
+        public void RemoveServerFromShiftKeepSection(Server server)
+        {
+            if (!ServersNotOnShift.Contains((Server)server))
+            {
+                this._serversNotOnShift.Add(server);
+            }
+
+            this._serversOnShift.Remove(server);
+            this._unassignedServers.Remove(server);
+            if (this.Floorplans != null)
+            {
+                foreach (Floorplan fp in this.Floorplans)
+                {
+                    if (fp.Servers.Contains(server))
+                    {
+                        fp.RemoveServerKeepSection(server);
+                    }
+                }
+            }
+            NotifyObservers();
+        }
         public void UnassignServer(Server server)
         {
             if (this.Floorplans != null)
@@ -397,6 +418,12 @@ namespace FloorplanClassLibrary
             AddNewUnassignedServer(server);
             AddServerToAFloorplan(server);
             this.SelectedFloorplan.AddServerAndSection(server);
+        }
+        public void AddServerToSelectedFloorplanNotSection(Server server)
+        {
+            AddNewUnassignedServer(server);
+            AddServerToAFloorplan(server);
+            this.SelectedFloorplan.AddServerNotSection(server);
         }
         //public bool ShiftContainsServer(Server server)
         //{

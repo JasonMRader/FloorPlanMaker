@@ -467,7 +467,7 @@ namespace FloorPlanMakerUI
                     //SectionLabelRemoved?.Invoke(this, e);
                 UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionLabel, UpdateType.Remove, selectedSection));
                 this._sectionLabels.Remove(sectionLabelBySection(selectedSection));                
-                Shift.SelectedFloorplan.UnassignSection(selectedSection);
+                Shift.SelectedFloorplan.ClearSection(selectedSection);
                 UpdateTableControlColors();
                 UpdateServerControls();                   
             }

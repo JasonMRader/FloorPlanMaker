@@ -20,6 +20,7 @@ namespace FloorPlanMakerUI
             InitializeComponent();
             this.shift = shift;
         }
+        private List<Floorplan> floorplansAltered = new List<Floorplan>();
 
         private void frmEditShiftRoster_Load(object sender, EventArgs e)
         {
@@ -67,13 +68,18 @@ namespace FloorPlanMakerUI
             {
                 if (cbServersNotOnShift.Checked)
                 {
-                    shift.RemoveServerFromShift(server);
+                    shift.RemoveServerFromShiftKeepSection(server);
+                    UpdateFloorplanAlteredList(shift.SelectedFloorplan);
                     PopulateServersNotOnShiftServerButtons(shift.ServersNotOnShift);
                 }
                 else
                 {
-                    shift.SelectedFloorplan.RemoveServerAndSection(server);
-                    secondaryFloorplan.AddServerAndSection(server);
+                    //shift.SelectedFloorplan.RemoveServerAndSection(server);
+                    //secondaryFloorplan.AddServerAndSection(server);
+                    shift.SelectedFloorplan.RemoveServerKeepSection(server);                   
+                    secondaryFloorplan.AddServerNotSection(server);
+                    UpdateFloorplanAlteredList(secondaryFloorplan);
+                    UpdateFloorplanAlteredList(shift.SelectedFloorplan);
                     PopulateOtherFloorplanServers();
                 }
 
@@ -101,14 +107,24 @@ namespace FloorPlanMakerUI
             Server server = (Server)btn.Tag;
             if (secondaryFloorplan.Servers.Contains(server))
             {
-                secondaryFloorplan.RemoveServerAndSection(server);
-                shift.SelectedFloorplan.AddServerAndSection(server);
+                //secondaryFloorplan.RemoveServerAndSection(server);
+                //shift.SelectedFloorplan.AddServerAndSection(server);
+                secondaryFloorplan.RemoveServerKeepSection(server);
+                UpdateFloorplanAlteredList(secondaryFloorplan);
+                shift.SelectedFloorplan.AddServerNotSection(server);
+                UpdateFloorplanAlteredList(shift.SelectedFloorplan);
             }
             PopulateSelectedFloorplanServerButtons();
             PopulateSecondaryFloorplanServerButtons();
             //PopulateCboAreas();
         }
-
+        private void UpdateFloorplanAlteredList(Floorplan floorplan)
+        {
+            if(!floorplansAltered.Any(f => f.DiningArea.ID == floorplan.DiningArea.ID))
+            {
+                floorplansAltered.Add(floorplan);
+            }
+        }
         private Button CreateServerButton(Server server)
         {
             Button button = new Button();
@@ -159,7 +175,7 @@ namespace FloorPlanMakerUI
             Server server = (Server)btn.Tag;
             if (shift.ServersNotOnShift.Contains(server))
             {
-                shift.AddServerToSelectedFloorplan(server);
+                shift.AddServerToSelectedFloorplanNotSection(server);
             }
             PopulateServersNotOnShiftServerButtons(shift.ServersNotOnShift);
             PopulateSelectedFloorplanServerButtons();
@@ -210,6 +226,13 @@ namespace FloorPlanMakerUI
 
         private void btnDone_Click(object sender, EventArgs e)
         {
+            if(floorplansAltered.Count > 0)
+            {
+                foreach(Floorplan floorplan in floorplansAltered)
+                {
+                    floorplan.SetTheAppropriateAmountOfSections();
+                }
+            }
             this.Close();
         }
     }

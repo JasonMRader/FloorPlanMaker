@@ -55,6 +55,20 @@ namespace FloorplanClassLibrary
                 return this.Servers.Where(s => s.IsBartender).ToList();
             }
         }
+        public int NonBartenderServerCount
+        {
+            get
+            {
+                return this.Servers.Count - this.Bartenders.Count;
+            }
+        }
+        public int NonBartenderServerCapacity
+        {
+            get
+            {
+                return Sections.Where(s => !s.IsPickUp && !s.IsBarSection).Sum(s => s.ServerCount);
+            }
+        }
         
         
         public Floorplan(FloorplanTemplate template)
@@ -435,32 +449,30 @@ namespace FloorplanClassLibrary
             section2.AddServer(server1);
         }
 
-        public void CreateSectionsForServers()
-        {
-            if (this.Servers != null)
-            {
-                foreach (Server server in Servers)
-                {
-                    Section newSection = new Section(this);
-                   
-                    AddSection(newSection);
-                }
-            }
-            
-        }
+       
         public void DeleteSection(Section section)
         {
             if (section.Tables != null || section.Server != null)
             {
-                UnassignSection(section);
+                ClearSection(section);
             }
             var sectionToRemove = Sections.Where(s => s.Number == section.Number).FirstOrDefault();
             Sections.Remove(sectionToRemove);
            
             
         }
-       
-        public void UnassignSection(Section section)
+        public void UnassignServerFromSection(Section section, Server serverToRemove)
+        {
+            if (section != null)
+            {
+                if (section.Server != null)
+                {
+                    this.ServersWithoutSection.Add(serverToRemove);
+                    section.RemoveServer(serverToRemove);
+                }  
+            }
+        }
+        public void ClearSection(Section section)
         {
             if (section != null)
             {
@@ -497,7 +509,7 @@ namespace FloorplanClassLibrary
         {
             foreach(Section section in Sections)
             {
-                UnassignSection (section);
+                ClearSection (section);
             }
         }
         public void AddServerAndSection(Server server)
@@ -510,9 +522,7 @@ namespace FloorplanClassLibrary
             else
             {
                 this.ServersWithoutSection.Add(server);
-                Section newSection = new Section(this);
-                newSection.ServerAssigned += UpdateSectionServerMap;
-                newSection.ServerRemoved += RemoveServerFromSection;
+                Section newSection = new Section(this);                
                 AddSection(newSection);
             }
             
@@ -533,6 +543,43 @@ namespace FloorplanClassLibrary
                 {
                     barSection.AddBartender(server);
                 }
+            }
+        }
+        public void AddServerNotSection(Server server)
+        {
+            this.ServersWithoutSection.Add(server);
+        }
+        public void RemoveServerKeepSection(Server server)
+        {
+            if (server.CurrentSection == null)
+            {
+                this.ServersWithoutSection.Remove(server);
+                
+            }
+            else if (server.CurrentSection != null && !server.IsBartender)
+            {
+                UnassignServerFromSection(server.CurrentSection, server);
+                this.ServersWithoutSection.Remove(server);
+            }
+            else if (server.CurrentSection != null && server.IsBartender)
+            {
+                RemoveBartenderFromSection(server);
+            }
+        }
+        public void SetTheAppropriateAmountOfSections()
+        {
+            while(NonBartenderServerCount > NonBartenderServerCapacity)
+            {
+                bool sectionRemoved = RemoveHighestNumberedEmptySection();
+                if (!sectionRemoved)
+                {
+                    break;
+                }
+            }
+            while(NonBartenderServerCount < NonBartenderServerCapacity)
+            {
+                Section newSection = new Section(this);                
+                AddSection(newSection);
             }
         }
         public void RemoveServerAndSection(Server server)
@@ -636,15 +683,20 @@ namespace FloorplanClassLibrary
                 .FirstOrDefault();
             return sectionToRemove;
         }
-        public Section RemoveHighestNumberedEmptySection()
+        public bool RemoveHighestNumberedEmptySection()
         {
             var sectionToRemove = HighestNumberedEmptySection();
 
             if (sectionToRemove != null)
             {
                 Sections.Remove(sectionToRemove);
+                return true;
             }
-            return sectionToRemove;
+            else
+            {
+                return false;
+            }
+            
         }
         public Section RemoveHighestNumberedEmptySection(Section section)
         {
