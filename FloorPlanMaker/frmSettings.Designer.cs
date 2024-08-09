@@ -288,6 +288,7 @@
             panel2.BackColor = Color.FromArgb(180, 190, 200);
             panel2.Controls.Add(btnEditServers);
             panel2.Controls.Add(btnSaleStats);
+            panel2.Controls.Add(btnUpdateNotes);
             panel2.Location = new Point(459, 92);
             panel2.Name = "panel2";
             panel2.Size = new Size(350, 800);
@@ -337,11 +338,10 @@
             // btnUpdateNotes
             // 
             btnUpdateNotes.BackColor = Color.FromArgb(100, 130, 180);
-            btnUpdateNotes.Enabled = false;
             btnUpdateNotes.FlatAppearance.BorderSize = 0;
             btnUpdateNotes.FlatStyle = FlatStyle.Flat;
             btnUpdateNotes.ForeColor = Color.White;
-            btnUpdateNotes.Location = new Point(14, 221);
+            btnUpdateNotes.Location = new Point(14, 180);
             btnUpdateNotes.Name = "btnUpdateNotes";
             btnUpdateNotes.Size = new Size(322, 43);
             btnUpdateNotes.TabIndex = 0;
@@ -359,7 +359,6 @@
             panel3.Controls.Add(panel5);
             panel3.Controls.Add(panel4);
             panel3.Controls.Add(btnTest);
-            panel3.Controls.Add(btnUpdateNotes);
             panel3.Controls.Add(btnDeleteFloorplans);
             panel3.Controls.Add(btnPastSection);
             panel3.Controls.Add(btnCheckForUpdate);

@@ -234,7 +234,8 @@ namespace FloorPlanMakerUI
 
         private void btnUpdateNotes_Click(object sender, EventArgs e)
         {
-
+            frmVersionHistory form = new frmVersionHistory();
+            form.ShowDialog();
         }
 
         private void btnSaleStats_Click(object sender, EventArgs e)

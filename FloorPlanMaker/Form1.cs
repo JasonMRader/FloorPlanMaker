@@ -1621,55 +1621,7 @@ namespace FloorPlanMaker
             }
             SavePDF();
 
-        }
-        private void SaveFloorplanAndPrint()
-        {
-            MakeUnassignedTablesPickup();
-            if (!CheckIfAllSectionsAssigned())
-            {
-                MessageBox.Show("Not all sections are assigned");
-                return;
-            }
-            if (!CheckForCloserAssigned())
-            {
-
-            }
-            if (shift.SelectedFloorplan.CheckIfAllSectionsAssigned())
-            {
-                List<Section> nonPickupSections = shift.SelectedFloorplan.Sections.Where(s => !s.IsPickUp
-                && !s.IsBarSection).ToList();
-
-                if (!shift.SelectedFloorplan.CheckIfCloserIsAssigned() && nonPickupSections.Count > 1)
-                {
-                    DialogResult result = MessageBox.Show("There is not a closer assigned. \n Continue anyway?",
-                                                "Continue?",
-                                                MessageBoxButtons.YesNo,
-                                                MessageBoxIcon.Question);
-
-                    if (result == DialogResult.No)
-                    {
-                        return;
-                    }
-                }
-                if (cbTableDisplayMode.Checked)
-                {
-                    foreach (Control c in pnlFloorPlan.Controls)
-                    {
-                        if (c is TableControl tableControl)
-                        {
-                            tableControl.CurrentDisplayMode = DisplayMode.TableNumber;
-                            tableControl.Invalidate();
-                        }
-                    }
-                }
-                MessageBox.Show("SAVED");
-                //SqliteDataAccess.SaveFloorplanAndSections(shift.SelectedFloorplan);
-            }
-            else
-            {
-                MessageBox.Show("Not all sections are assigned");
-            }
-        }
+        }       
         private void PrintFloorplan()
         {
 
@@ -1789,12 +1741,10 @@ namespace FloorPlanMaker
         {
             //List<FloorplanLine> lines = new List<FloorplanLine>(); // Initialize with actual lines if needed
             FloorplanPrinter printerNoLines = new FloorplanPrinter(pnlFloorPlan, _lines);
-
-            // Format the date and time for the filename
+           
             string formattedDate = this.shift.DateOnly.ToString("ddd MMM d");
             string formattedTime = DateTime.Now.ToString("HH-mm-ss");
-
-            // Generate the filename
+            
             string fileName = $"{this.shift.SelectedDiningArea.Name} {formattedDate} {this.shift.IsAmDisplay} {formattedTime}".Replace(":", "-");
             using (SaveFileDialog saveFileDialog = new SaveFileDialog())
             {
@@ -1805,8 +1755,7 @@ namespace FloorPlanMaker
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     string filePath = saveFileDialog.FileName;
-
-                    // Create the PDF
+                   
                     printerNoLines.CreatePdf(filePath, false);
 
                 }
