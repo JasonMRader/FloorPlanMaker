@@ -32,10 +32,14 @@ namespace FloorPlanMakerUI
             tablesExcluded = SqliteDataAccess.GetExcludedTablesForDiningArea(diningArea);
 
             BindListBox(lbTablesInArea, tablesInArea);
+            SetIncludedListBindings();
+
+        }
+        private void SetIncludedListBindings()
+        {
             BindListBox(lbTablesCountedInStats, tablesCounted);
             BindListBox(lbCountedNotInCurrent, tablesCountedNotInCurrent);
             BindListBox(lbTablesExcludedFromStats, tablesExcluded);
-
         }
         private void BindListBox(ListBox listBox1, List<Table> tables)
         {
@@ -73,7 +77,7 @@ namespace FloorPlanMakerUI
 
                     }
                 }
-                BindListBox(lbTablesCountedInStats, tablesCounted);
+                SetIncludedListBindings();
             }
         }
 
@@ -81,16 +85,52 @@ namespace FloorPlanMakerUI
         {
             var newTablesToAdd = tablesInArea.Where(t => !tablesCounted.Any(tc => tc.TableNumber == t.TableNumber)).ToList();
             tablesCounted.AddRange(newTablesToAdd);
-            foreach(var table in tablesCounted)
+            foreach (var table in tablesCounted)
             {
                 table.IsIncluded = true;
             }
-            BindListBox(lbTablesCountedInStats, tablesCounted);
+            SetIncludedListBindings();
         }
 
         private void btnSaveChanges_Click(object sender, EventArgs e)
         {
             SqliteDataAccess.SaveTablesCounted(tablesCounted);
+        }
+
+        private void cbRangeOrSingle_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbRangeOrSingle.Checked)
+            {
+                nudLastTable.Visible = false;
+                cbRangeOrSingle.Text = "Enter Single";
+            }
+            else
+            {
+                nudLastTable.Visible = true;
+                cbRangeOrSingle.Text = "Set Range";
+            }
+        }
+
+        private void btnAddTablesToCountedManual_Click(object sender, EventArgs e)
+        {
+            if (cbRangeOrSingle.Checked)
+            {
+                string tableName = nudFirstTable.Text;
+                Table table = new Table()
+                {
+                    TableNumber = nudLastTable.Text,
+                    DiningAreaId = diningArea.ID,
+                    IsIncluded = true
+                };
+                tablesCounted.Add(table);
+
+                
+            }
+            else
+            {
+
+            }
+            SetIncludedListBindings();
         }
     }
 }

@@ -40,6 +40,12 @@
             label1 = new Label();
             btnAddSelected = new Button();
             btnSaveChanges = new Button();
+            btnAddTablesToCountedManual = new Button();
+            nudLastTable = new NumericUpDown();
+            nudFirstTable = new NumericUpDown();
+            cbRangeOrSingle = new CheckBox();
+            ((System.ComponentModel.ISupportInitialize)nudLastTable).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudFirstTable).BeginInit();
             SuspendLayout();
             // 
             // lblDiningAreaName
@@ -68,9 +74,9 @@
             // 
             lbTablesCountedInStats.FormattingEnabled = true;
             lbTablesCountedInStats.ItemHeight = 15;
-            lbTablesCountedInStats.Location = new Point(219, 113);
+            lbTablesCountedInStats.Location = new Point(219, 143);
             lbTablesCountedInStats.Name = "lbTablesCountedInStats";
-            lbTablesCountedInStats.Size = new Size(152, 589);
+            lbTablesCountedInStats.Size = new Size(152, 559);
             lbTablesCountedInStats.TabIndex = 1;
             // 
             // lbTablesExcludedFromStats
@@ -94,7 +100,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(219, 79);
+            label3.Location = new Point(219, 50);
             label3.Name = "label3";
             label3.Size = new Size(129, 15);
             label3.TabIndex = 2;
@@ -123,15 +129,15 @@
             // 
             lbCountedNotInCurrent.FormattingEnabled = true;
             lbCountedNotInCurrent.ItemHeight = 15;
-            lbCountedNotInCurrent.Location = new Point(401, 113);
+            lbCountedNotInCurrent.Location = new Point(401, 143);
             lbCountedNotInCurrent.Name = "lbCountedNotInCurrent";
-            lbCountedNotInCurrent.Size = new Size(152, 589);
+            lbCountedNotInCurrent.Size = new Size(152, 559);
             lbCountedNotInCurrent.TabIndex = 1;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(401, 79);
+            label1.Location = new Point(401, 36);
             label1.Name = "label1";
             label1.Size = new Size(167, 15);
             label1.TabIndex = 2;
@@ -157,11 +163,52 @@
             btnSaveChanges.UseVisualStyleBackColor = true;
             btnSaveChanges.Click += btnSaveChanges_Click;
             // 
+            // btnAddTablesToCountedManual
+            // 
+            btnAddTablesToCountedManual.Location = new Point(401, 114);
+            btnAddTablesToCountedManual.Name = "btnAddTablesToCountedManual";
+            btnAddTablesToCountedManual.Size = new Size(152, 23);
+            btnAddTablesToCountedManual.TabIndex = 5;
+            btnAddTablesToCountedManual.Text = "Add";
+            btnAddTablesToCountedManual.UseVisualStyleBackColor = true;
+            btnAddTablesToCountedManual.Click += btnAddTablesToCountedManual_Click;
+            // 
+            // nudLastTable
+            // 
+            nudLastTable.Location = new Point(401, 85);
+            nudLastTable.Name = "nudLastTable";
+            nudLastTable.Size = new Size(120, 23);
+            nudLastTable.TabIndex = 6;
+            nudLastTable.Visible = false;
+            // 
+            // nudFirstTable
+            // 
+            nudFirstTable.Location = new Point(401, 56);
+            nudFirstTable.Name = "nudFirstTable";
+            nudFirstTable.Size = new Size(120, 23);
+            nudFirstTable.TabIndex = 6;
+            // 
+            // cbRangeOrSingle
+            // 
+            cbRangeOrSingle.Appearance = Appearance.Button;
+            cbRangeOrSingle.AutoSize = true;
+            cbRangeOrSingle.Location = new Point(527, 56);
+            cbRangeOrSingle.Name = "cbRangeOrSingle";
+            cbRangeOrSingle.Size = new Size(69, 25);
+            cbRangeOrSingle.TabIndex = 7;
+            cbRangeOrSingle.Text = "Set Range";
+            cbRangeOrSingle.UseVisualStyleBackColor = true;
+            cbRangeOrSingle.CheckedChanged += cbRangeOrSingle_CheckedChanged;
+            // 
             // frmManageDiningAreaTables
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(905, 720);
+            Controls.Add(cbRangeOrSingle);
+            Controls.Add(nudFirstTable);
+            Controls.Add(nudLastTable);
+            Controls.Add(btnAddTablesToCountedManual);
             Controls.Add(btnSaveChanges);
             Controls.Add(btnAddSelected);
             Controls.Add(btnAddAllToCounted);
@@ -178,6 +225,8 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "frmManageDiningAreaTables";
             Load += frmManageDiningAreaTables_Load;
+            ((System.ComponentModel.ISupportInitialize)nudLastTable).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudFirstTable).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -196,5 +245,9 @@
         private Label label1;
         private Button btnAddSelected;
         private Button btnSaveChanges;
+        private Button btnAddTablesToCountedManual;
+        private NumericUpDown nudLastTable;
+        private NumericUpDown nudFirstTable;
+        private CheckBox cbRangeOrSingle;
     }
 }
