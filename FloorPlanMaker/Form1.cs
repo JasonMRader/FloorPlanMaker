@@ -218,6 +218,11 @@ namespace FloorPlanMaker
             }
             else
             {
+                if (keyData == (Keys.S | Keys.Control))
+                {
+                    SaveTheFloorplan();
+                    return true;
+                }
                 if (keyData == Keys.Left)
                 {
                     UpdateDateSelected(-1);
@@ -1733,8 +1738,21 @@ namespace FloorPlanMaker
         }
         private void SaveTheFloorplan()
         {
-            //MessageBox.Show("Saved");
-            SqliteDataAccess.SaveFloorplanAndSections(shift.SelectedFloorplan);
+            if (shift.SelectedFloorplan != null)
+            {
+                bool wasSaved = SqliteDataAccess.SaveFloorplanAndSections(shift.SelectedFloorplan);
+                if (wasSaved)
+                {
+                    NotificationHandler.ShowNotificationLabel(pnlFloorPlan, "Floorplan Saved!", UITheme.YesColor, UITheme.YesFontColor,
+                        new Point(0, 0), pnlFloorPlan.Width, 30, TimeSpan.FromSeconds(2));
+                }
+            }
+            else
+            {
+                NotificationHandler.ShowNotificationLabel(pnlFloorPlan, "No Floorplan to Save!!", UITheme.NoColor, UITheme.NoFontColor,
+                       new Point(0, 0), pnlFloorPlan.Width, 30, TimeSpan.FromSeconds(2));
+            }
+            
 
         }
         private void SavePDF()

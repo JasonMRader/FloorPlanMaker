@@ -34,7 +34,8 @@ namespace FloorPlanMakerUI
             "9) Ability for user customization on how the auto assign algorithms work\r\n" +
             "10) Ability to make a Floorplan with 0 servers to assign pickup sections\r\n" +
             "11) Use a more accurate service for weather API data\r\n" +
-            "12) Implement auto floorplan Line Generation";
+            "12) Implement auto floorplan Line Generation\r\n" +
+            "13) Ability to print blank floorplans";
         string Update8_8_24 =
             "Update: 8/8/24\r\n" +
             "1) Added Hotschedules integration\r\n" +
@@ -47,7 +48,8 @@ namespace FloorPlanMakerUI
         string UpdateCurrent =
             "1) Fixed Bug in which Swaping servers to different floorplans if they were already " +
             "assigned sections made it impossible to assign them to a new section\r\n" +
-            "2) ";
+            "2) Control + S now Saves the selected Floorplan without Printing it\r\n" +
+            "3) Added Notification Banner for confirmation of Saving a floorplan";
 
         private void rdoKnownBugs_CheckedChanged(object sender, EventArgs e)
         {

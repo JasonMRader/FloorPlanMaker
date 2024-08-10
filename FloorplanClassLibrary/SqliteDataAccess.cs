@@ -1674,8 +1674,9 @@ namespace FloorplanClassLibrary
 
             }
         }
-        public static void SaveFloorplanAndSections(Floorplan floorplan)
+        public static bool SaveFloorplanAndSections(Floorplan floorplan)
         {
+           
             string fpDateOnlyString = DateOnly.FromDateTime(floorplan.Date).ToString("yyyy-MM-dd");
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
@@ -1699,7 +1700,7 @@ namespace FloorplanClassLibrary
                     if (result == DialogResult.No)
                     {
                         cnn.Close();
-                        return;
+                        return false;
                     }
 
                     var relatedSectionIds = cnn.Query<int>("SELECT SectionID FROM FloorplanSections WHERE FloorplanID = @FloorplanID", new { FloorplanID = existingFloorplan.ID }).ToList();
@@ -1753,6 +1754,7 @@ namespace FloorplanClassLibrary
                 cnn.Close();
             }
             IncrementTemplatesUsed(floorplan);
+            return true;
         }
 
         private static void IncrementTemplatesUsed(Floorplan floorplan)
