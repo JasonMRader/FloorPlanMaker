@@ -57,6 +57,7 @@ namespace FloorplanClassLibrary
             if (this.FilteredDaysOfWeek.Contains(dayOfWeek))
             {
                 this.FilteredDaysOfWeek.Remove(dayOfWeek);
+                _filteredShifts.RemoveAll(s => s.Date.DayOfWeek == dayOfWeek);
             }            
         }
         public void AddDayOfWeek(DayOfWeek dayOfWeek)
@@ -64,6 +65,7 @@ namespace FloorplanClassLibrary
             if (!this.FilteredDaysOfWeek.Contains(dayOfWeek))
             {
                 this.FilteredDaysOfWeek.Add(dayOfWeek);
+                _filteredShifts.AddRange(_shifts.Where(s => s.Date.DayOfWeek == dayOfWeek).ToList());
             }
         }
         private List<int> FilteredMonths = new List<int>
@@ -76,20 +78,20 @@ namespace FloorplanClassLibrary
             return Shifts.Where(shift => shift.Reservations >= minReservations && shift.Reservations <= maxReservations).ToList();
         }
 
-        public List<ShiftRecord> FilterByDaysOfWeek(List<DayOfWeek> daysOfWeek)
+        public void FilterByDaysOfWeek(List<DayOfWeek> daysOfWeek)
         {
-            return Shifts.Where(shift => daysOfWeek.Contains(shift.Date.DayOfWeek)).ToList();
+            _filteredShifts = _filteredShifts.Where(shift => FilteredDaysOfWeek.Contains(shift.Date.DayOfWeek)).ToList();
         }
 
-        public List<ShiftRecord> FilterBySpecialEvent(bool isSpecialEvent)
+        public void FilterBySpecialEvent(bool isSpecialEvent)
         {
             if(isSpecialEvent)
             {
-                return Shifts.Where(shift => shift.SpecialEventDate != null).ToList();
+                _filteredShifts = _filteredShifts.Where(shift => shift.SpecialEventDate != null).ToList();
             }
             else
             {
-                return Shifts.Where(shift => shift.SpecialEventDate == null).ToList();
+                _filteredShifts = _filteredShifts.Where(shift => shift.SpecialEventDate == null).ToList();
             }
             
         }
