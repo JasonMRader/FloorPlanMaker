@@ -63,7 +63,7 @@ namespace FloorplanClassLibrary
 
             DateOnly startDate = DateOnly.FromDateTime(DateTime.Today.AddDays(-150));
 
-            List<DateOnly> missingDates = SqliteDataAccess.GetMissingDates(startDate, endDate);
+            List<DateOnly> missingDates = SqliteDataAccess.GetMissingSalesDates(startDate, endDate);
             DatesMissing = missingDates;
             List<string> missingDateRanges = new List<string>();
 

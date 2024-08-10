@@ -198,7 +198,7 @@ namespace FloorplanClassLibrary
 
 
 
-        public static List<DateOnly> GetMissingDates(DateOnly startDate, DateOnly endDate)
+        public static List<DateOnly> GetMissingSalesDates(DateOnly startDate, DateOnly endDate)
         {
             List<DateOnly> missingDates = new List<DateOnly>();
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))

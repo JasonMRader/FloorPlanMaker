@@ -105,7 +105,7 @@ namespace FloorPlanMakerUI
 
             DateOnly startDate = DateOnly.FromDateTime(dtpMissingDateStart.Value);
 
-            List<DateOnly> missingDates = SqliteDataAccess.GetMissingDates(startDate, endDate);
+            List<DateOnly> missingDates = SqliteDataAccess.GetMissingSalesDates(startDate, endDate);
             List<string> missingDateRanges = new List<string>();
 
             DateOnly? rangeStart = null;

@@ -55,10 +55,16 @@ namespace FloorplanClassLibrary
                     Orders = group.Count()
                 })
                 .ToList();
-
+            foreach(TableStat stat in groupedOrders)
+            {
+                var diningAreaID = SqliteDataAccess.GetDiningAreaIDByTableNumber(stat.TableStatNumber);
+                stat.DiningAreaID = diningAreaID ?? 0;
+            }
+           
 
             return groupedOrders;
         }
+
         public List<OrderDetail> ReadOrderDetails(string filePath)
         {
             using (var reader = new StreamReader(filePath))

@@ -19,7 +19,7 @@ namespace FloorPlanMakerUI
             InitializeComponent();
         }
         private DiningAreaManager areaManager = new DiningAreaManager();
-        private TableSalesManager tableSalesManager = new TableSalesManager();
+       
         private EmployeeManager employeeManager = new EmployeeManager();
         private DateOnly dateOnlyStart = new DateOnly();
         private DateOnly dateOnlyEnd = new DateOnly();

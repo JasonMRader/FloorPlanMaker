@@ -34,6 +34,8 @@ namespace FloorplanClassLibrary
             {
                 _shifts.Add(SqliteDataAccess.LoadShiftRecord(iDay, this.isAM));
             }
+            List<DateOnly> missingDates = SqliteDataAccess.GetMissingSalesDates(_startDate, _endDate);
+            _shifts.RemoveAll(s => missingDates.Contains(s.dateOnly));
             _filteredShifts.Clear();
             _filteredShifts.AddRange(this._shifts);
 
