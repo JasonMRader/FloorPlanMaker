@@ -811,6 +811,8 @@ namespace FloorPlanMaker
 
                 _frmEditDiningAreas.Show();
                 pnlNavigationWindow.BringToFront();
+                pnlSideDetails.Controls.Add(_frmEditDiningAreas.diningAreaInfoControl);
+                _frmEditDiningAreas.diningAreaInfoControl.BringToFront();
 
             }
             else
@@ -818,6 +820,7 @@ namespace FloorPlanMaker
                 if (_frmEditDiningAreas != null)
                 {
                     _frmEditDiningAreas.Hide();
+                    pnlSideDetails.Controls.Remove(_frmEditDiningAreas.diningAreaInfoControl);
                 }
             }
         }
@@ -1561,6 +1564,13 @@ namespace FloorPlanMaker
         }
         private void SaveAndPrintNEW()
         {
+            if (shift.SelectedFloorplan != null)
+            {
+                NotificationHandler.ShowNotificationLabel(pnlFloorPlan, "No Floorplan to Print!!", UITheme.NoColor, UITheme.NoFontColor,
+                      new Point(0, 0), pnlFloorPlan.Width, 30, TimeSpan.FromSeconds(2));
+                return;
+            }
+
             MakeUnassignedTablesPickup();
             if (!CheckIfAllSectionsAssigned())
             {
@@ -1595,6 +1605,12 @@ namespace FloorPlanMaker
         }
         private void SaveAndPDFNEW()
         {
+            if (shift.SelectedFloorplan != null)
+            {
+                NotificationHandler.ShowNotificationLabel(pnlFloorPlan, "No Floorplan to Print!!", UITheme.NoColor, UITheme.NoFontColor,
+                      new Point(0, 0), pnlFloorPlan.Width, 30, TimeSpan.FromSeconds(2));
+                return;
+            }
             MakeUnassignedTablesPickup();
             if (!CheckIfAllSectionsAssigned())
             {
@@ -1752,7 +1768,7 @@ namespace FloorPlanMaker
                 NotificationHandler.ShowNotificationLabel(pnlFloorPlan, "No Floorplan to Save!!", UITheme.NoColor, UITheme.NoFontColor,
                        new Point(0, 0), pnlFloorPlan.Width, 30, TimeSpan.FromSeconds(2));
             }
-            
+
 
         }
         private void SavePDF()

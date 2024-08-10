@@ -8,6 +8,7 @@
         public float AverageSales { get; set; } = 1;
         public DiningArea DiningArea { get; set; }
         public int DiningAreaId { get; set; }
+        public bool IsIncluded { get; set; }
         
         public int XCoordinate { get; set; } 
         public int YCoordinate { get; set; }

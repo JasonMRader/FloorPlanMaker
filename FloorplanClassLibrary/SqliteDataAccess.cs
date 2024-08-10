@@ -86,6 +86,80 @@ namespace FloorplanClassLibrary
                 return cnn.Query<int?>(query, new { TableNumber = tableNumber }).FirstOrDefault();
             }
         }
+        public static List<Table> GetCountedTablesForDiningArea(DiningArea diningArea)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var tables = cnn.Query<Table>("SELECT * FROM DiningTableRecord WHERE DiningAreaID = @ID AND IsIncluded = 1",
+                    new { ID = diningArea.ID, }).ToList();
+
+                foreach (var table in tables)
+                {
+                    if (diningArea != null)
+                    {
+                        table.DiningArea = diningArea;
+                    }
+                }
+
+                return tables;
+            }
+        }
+        public static void SaveTablesCounted(List<Table> tableRecords)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                cnn.Open();
+                foreach (var table in tableRecords)
+                {
+                    // Check if a record with the same TableNumber already exists
+                    string checkSql = @"SELECT COUNT(*) FROM DiningTableRecord WHERE TableNumber = @TableNumber";
+                    int count = cnn.Query<int>(checkSql, new { TableNumber = table.TableNumber }).Single();
+
+                    if (count == 0)
+                    {
+                        // Insert a new record if no existing record is found
+                        string insertSql = @"INSERT INTO DiningTableRecord (TableNumber, DiningAreaID, IsIncluded) 
+                                     VALUES (@TableNumber, @DiningAreaID, @IsIncluded)";
+                        cnn.Execute(insertSql, new
+                        {
+                            TableNumber = table.TableNumber,
+                            DiningAreaID = table.DiningAreaId,
+                            IsIncluded = table.IsIncluded
+                        });
+                    }
+                    else
+                    {
+                        // Update the IsIncluded field if the record already exists
+                        string updateSql = @"UPDATE DiningTableRecord SET IsIncluded = @IsIncluded WHERE TableNumber = @TableNumber";
+                        cnn.Execute(updateSql, new
+                        {
+                            TableNumber = table.TableNumber,
+                            IsIncluded = table.IsIncluded
+                        });
+                    }
+                }
+            }
+        }
+
+        public static List<Table> GetExcludedTablesForDiningArea(DiningArea diningArea)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var tables = cnn.Query<Table>("SELECT * FROM DiningTableRecord WHERE DiningAreaID = @ID AND IsIncluded = 0",
+                    new { ID = diningArea.ID }).ToList();
+
+                foreach (var table in tables)
+                {
+                    if (diningArea != null)
+                    {
+                        table.DiningArea = diningArea;
+                    }
+                }
+
+                return tables;
+            }
+        }
+
 
         public static List<TableStat> LoadTableStats()
         {

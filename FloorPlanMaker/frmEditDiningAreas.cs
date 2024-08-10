@@ -26,6 +26,7 @@ namespace FloorPlanMakerUI
         private List<TableControl> allTableControls = new List<TableControl>();
         List<TableDataEditorControl> tableDataEditors = new List<TableDataEditorControl>();
         private TableEditorControl positionEditor;
+        public DiningAreaInfoControl diningAreaInfoControl { get; set; } = new DiningAreaInfoControl();
         // TODO: tableChanges not consistant, sometimes changing dining areas will not allow changes to the next one (specifically moving tables? deleting?)
         // TODO: Moving tables not always saving
         // TODO: dont allow tables to stack on one another?
@@ -33,7 +34,16 @@ namespace FloorPlanMakerUI
         public frmEditDiningAreas()
         {
             InitializeComponent();
+            diningAreaInfoControl.OpenTableManagerClicked += OpenTableManager;
+            
         }
+
+        private void OpenTableManager(object? sender, EventArgs e)
+        {
+            frmManageDiningAreaTables frm = new frmManageDiningAreaTables(areaCreationManager.DiningAreaSelected);
+            frm.Show();
+        }
+
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             // Check if the Tab key is pressed
@@ -151,6 +161,7 @@ namespace FloorPlanMakerUI
             areaCreationManager.SelectedTable = null;
             areaCreationManager.SelectedTables.Clear();
             areaCreationManager.DiningAreaSelected = (DiningArea?)cboDiningAreas.SelectedItem;
+            diningAreaInfoControl.SetDiningArea(areaCreationManager.DiningAreaSelected);
             txtDiningAreaName.Text = areaCreationManager.DiningAreaSelected.Name;
             pnlFloorPlan.Controls.Clear();
             foreach (Table table in areaCreationManager.DiningAreaSelected.Tables)

@@ -14,16 +14,28 @@ namespace FloorplanUserControlLibrary
     public partial class DiningAreaInfoControl : UserControl
     {
         private DiningArea diningArea { get; set; }
-        public DiningAreaInfoControl(DiningArea diningArea)
+        public event EventHandler OpenTableManagerClicked;
+        public DiningAreaInfoControl()
         {
             InitializeComponent();
+           
+        }
+        public void SetDiningArea(DiningArea diningArea)
+        {
             this.diningArea = diningArea;
+            setControlsForDiningArea();
+        }
+
+        private void setControlsForDiningArea()
+        {
             lblDiningAreaName.Text = diningArea.Name;
         }
 
+        
+
         private void btnOpenManageTablesForm_Click(object sender, EventArgs e)
         {
-
+            OpenTableManagerClicked?.Invoke(this, EventArgs.Empty);
         }
     }
 }

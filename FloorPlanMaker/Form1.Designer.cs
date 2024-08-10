@@ -96,7 +96,7 @@ namespace FloorPlanMaker
             btnUploadSalesData = new Button();
             helpProvider1 = new HelpProvider();
             panel2 = new Panel();
-            panel3 = new Panel();
+            pnlSideDetails = new Panel();
             flowResoDisplay = new FlowLayoutPanel();
             pnlShiftDetails = new Panel();
             flowWeatherDisplay = new FlowLayoutPanel();
@@ -112,7 +112,7 @@ namespace FloorPlanMaker
             pnlSectionsAndServers.SuspendLayout();
             pnlStatMode.SuspendLayout();
             panel2.SuspendLayout();
-            panel3.SuspendLayout();
+            pnlSideDetails.SuspendLayout();
             pnlSalesDataUpdated.SuspendLayout();
             SuspendLayout();
             // 
@@ -1006,24 +1006,24 @@ namespace FloorPlanMaker
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(225, 225, 225);
-            panel2.Controls.Add(panel3);
+            panel2.Controls.Add(pnlSideDetails);
             panel2.Location = new Point(1270, 43);
             panel2.Name = "panel2";
             panel2.Size = new Size(228, 997);
             panel2.TabIndex = 23;
             // 
-            // panel3
+            // pnlSideDetails
             // 
-            panel3.BackColor = Color.FromArgb(180, 190, 200);
-            panel3.Controls.Add(flowResoDisplay);
-            panel3.Controls.Add(pnlShiftDetails);
-            panel3.Controls.Add(rdoReservations);
-            panel3.Controls.Add(rdoWeather);
-            panel3.Controls.Add(flowWeatherDisplay);
-            panel3.Location = new Point(11, 17);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(208, 950);
-            panel3.TabIndex = 1;
+            pnlSideDetails.BackColor = Color.FromArgb(180, 190, 200);
+            pnlSideDetails.Controls.Add(flowResoDisplay);
+            pnlSideDetails.Controls.Add(pnlShiftDetails);
+            pnlSideDetails.Controls.Add(rdoReservations);
+            pnlSideDetails.Controls.Add(rdoWeather);
+            pnlSideDetails.Controls.Add(flowWeatherDisplay);
+            pnlSideDetails.Location = new Point(11, 17);
+            pnlSideDetails.Name = "pnlSideDetails";
+            pnlSideDetails.Size = new Size(208, 950);
+            pnlSideDetails.TabIndex = 1;
             // 
             // flowResoDisplay
             // 
@@ -1105,7 +1105,7 @@ namespace FloorPlanMaker
             pnlStatMode.ResumeLayout(false);
             pnlStatMode.PerformLayout();
             panel2.ResumeLayout(false);
-            panel3.ResumeLayout(false);
+            pnlSideDetails.ResumeLayout(false);
             pnlSalesDataUpdated.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -1172,7 +1172,7 @@ namespace FloorPlanMaker
         private Button btnEditRoster;
         private Panel panel2;
         private FlowLayoutPanel flowWeatherDisplay;
-        private Panel panel3;
+        private Panel pnlSideDetails;
         private Panel pnlShiftDetails;
         private RadioButton rdoReservations;
         private RadioButton rdoWeather;
