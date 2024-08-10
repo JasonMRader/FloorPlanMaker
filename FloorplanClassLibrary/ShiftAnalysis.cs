@@ -10,6 +10,10 @@ namespace FloorplanClassLibrary
     {
         private List<ShiftRecord> _shifts = new List<ShiftRecord>();
         public List<ShiftRecord> Shifts { get { return _shifts; } }
+        private List<ShiftRecord> _filteredShifts { get; set; } = new List<ShiftRecord>();
+        public List<ShiftRecord> FilteredShifts { get { return _filteredShifts; } }
+        public bool isAM { get; set; }
+        public bool isAllDay { get; set; }
         public ShiftAnalysis() { }
         private DateOnly _startDate = new DateOnly();
         private DateOnly _endDate = new DateOnly();
@@ -23,13 +27,16 @@ namespace FloorplanClassLibrary
             this._endDate = endDate;
             this._startDate = startDate;
         }
-        public void SetShiftsForDateRange()
+        public void InitializetShiftsForDateRange()
         {
-            this.Shifts.Clear();
+            this._shifts.Clear();
             for (DateOnly iDay = _startDate; iDay <= _endDate; iDay = iDay.AddDays(1))
             {
-                Shifts.Add(SqliteDataAccess.LoadShiftRecord(iDay, false));
+                _shifts.Add(SqliteDataAccess.LoadShiftRecord(iDay, this.isAM));
             }
+            _filteredShifts.Clear();
+            _filteredShifts.AddRange(this._shifts);
+
         }
         public ShiftAnalysis(List<ShiftRecord> shifts)
         {
@@ -45,6 +52,20 @@ namespace FloorplanClassLibrary
             DayOfWeek.Saturday,
             DayOfWeek.Sunday
         };
+        public void RemoveDayOfWeek(DayOfWeek dayOfWeek)
+        {
+            if (this.FilteredDaysOfWeek.Contains(dayOfWeek))
+            {
+                this.FilteredDaysOfWeek.Remove(dayOfWeek);
+            }            
+        }
+        public void AddDayOfWeek(DayOfWeek dayOfWeek)
+        {
+            if (!this.FilteredDaysOfWeek.Contains(dayOfWeek))
+            {
+                this.FilteredDaysOfWeek.Add(dayOfWeek);
+            }
+        }
         private List<int> FilteredMonths = new List<int>
         {
            1,2,3,4,5,6,7,8,9,10,11,12
@@ -54,11 +75,6 @@ namespace FloorplanClassLibrary
         {
             return Shifts.Where(shift => shift.Reservations >= minReservations && shift.Reservations <= maxReservations).ToList();
         }
-
-        //public List<ShiftRecord> FilterByTemperatureRange(double minTemperature, double maxTemperature)
-        //{
-        //    return Shifts.Where(shift => shift.Weather.Temperature >= minTemperature && shift.Weather.Temperature <= maxTemperature).ToList();
-        //}
 
         public List<ShiftRecord> FilterByDaysOfWeek(List<DayOfWeek> daysOfWeek)
         {
@@ -77,6 +93,11 @@ namespace FloorplanClassLibrary
             }
             
         }
+
+        //public List<ShiftRecord> FilterByTemperatureRange(double minTemperature, double maxTemperature)
+        //{
+        //    return Shifts.Where(shift => shift.Weather.Temperature >= minTemperature && shift.Weather.Temperature <= maxTemperature).ToList();
+        //}
 
         //public double CalculateTotalSales()
         //{

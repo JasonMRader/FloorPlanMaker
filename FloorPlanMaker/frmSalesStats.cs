@@ -529,6 +529,7 @@ namespace FloorPlanMakerUI
                 if (FilteredDaysOfWeek.Contains(DayOfWeek.Monday))
                 {
                     FilteredDaysOfWeek.Remove(DayOfWeek.Monday);
+                    shiftAnalysis.RemoveDayOfWeek(DayOfWeek.Monday);
                 }
             }
             if (cbMon.Checked)
@@ -536,6 +537,7 @@ namespace FloorPlanMakerUI
                 if (!FilteredDaysOfWeek.Contains(DayOfWeek.Monday))
                 {
                     FilteredDaysOfWeek.Add(DayOfWeek.Monday);
+                    shiftAnalysis.AddDayOfWeek(DayOfWeek.Monday);
                 }
             }
         }
@@ -546,6 +548,7 @@ namespace FloorPlanMakerUI
                 if (FilteredDaysOfWeek.Contains(DayOfWeek.Tuesday))
                 {
                     FilteredDaysOfWeek.Remove(DayOfWeek.Tuesday);
+                    shiftAnalysis.RemoveDayOfWeek(DayOfWeek.Tuesday);
                 }
             }
             if (cbTues.Checked)
@@ -553,6 +556,7 @@ namespace FloorPlanMakerUI
                 if (!FilteredDaysOfWeek.Contains(DayOfWeek.Tuesday))
                 {
                     FilteredDaysOfWeek.Add(DayOfWeek.Tuesday);
+                    shiftAnalysis.AddDayOfWeek((DayOfWeek)DayOfWeek.Tuesday);
                 }
             }
         }
@@ -563,6 +567,7 @@ namespace FloorPlanMakerUI
                 if (FilteredDaysOfWeek.Contains(DayOfWeek.Wednesday))
                 {
                     FilteredDaysOfWeek.Remove(DayOfWeek.Wednesday);
+                    shiftAnalysis.RemoveDayOfWeek((DayOfWeek)DayOfWeek.Wednesday);
                 }
             }
             if (cbWed.Checked)
@@ -570,6 +575,7 @@ namespace FloorPlanMakerUI
                 if (!FilteredDaysOfWeek.Contains(DayOfWeek.Wednesday))
                 {
                     FilteredDaysOfWeek.Add(DayOfWeek.Wednesday);
+                    shiftAnalysis.AddDayOfWeek(DayOfWeek.Wednesday);
                 }
             }
         }
@@ -580,6 +586,7 @@ namespace FloorPlanMakerUI
                 if (FilteredDaysOfWeek.Contains(DayOfWeek.Thursday))
                 {
                     FilteredDaysOfWeek.Remove(DayOfWeek.Thursday);
+                    shiftAnalysis.RemoveDayOfWeek(DayOfWeek.Thursday);
                 }
             }
             if (cbThurs.Checked)
@@ -587,6 +594,7 @@ namespace FloorPlanMakerUI
                 if (!FilteredDaysOfWeek.Contains(DayOfWeek.Thursday))
                 {
                     FilteredDaysOfWeek.Add(DayOfWeek.Thursday);
+                    shiftAnalysis.AddDayOfWeek((DayOfWeek)DayOfWeek.Thursday);
                 }
             }
         }
@@ -597,6 +605,7 @@ namespace FloorPlanMakerUI
                 if (FilteredDaysOfWeek.Contains(DayOfWeek.Friday))
                 {
                     FilteredDaysOfWeek.Remove(DayOfWeek.Friday);
+                    shiftAnalysis.RemoveDayOfWeek((DayOfWeek)DayOfWeek.Friday);
                 }
             }
             if (cbFri.Checked)
@@ -604,6 +613,7 @@ namespace FloorPlanMakerUI
                 if (!FilteredDaysOfWeek.Contains(DayOfWeek.Friday))
                 {
                     FilteredDaysOfWeek.Add(DayOfWeek.Friday);
+                    shiftAnalysis.AddDayOfWeek(DayOfWeek.Friday);
                 }
             }
         }
@@ -614,6 +624,7 @@ namespace FloorPlanMakerUI
                 if (FilteredDaysOfWeek.Contains(DayOfWeek.Saturday))
                 {
                     FilteredDaysOfWeek.Remove(DayOfWeek.Saturday);
+                    shiftAnalysis.RemoveDayOfWeek(DayOfWeek.Saturday);
                 }
             }
             if (cbSat.Checked)
@@ -621,6 +632,7 @@ namespace FloorPlanMakerUI
                 if (!FilteredDaysOfWeek.Contains(DayOfWeek.Saturday))
                 {
                     FilteredDaysOfWeek.Add(DayOfWeek.Saturday);
+                    shiftAnalysis.AddDayOfWeek((DayOfWeek)DayOfWeek.Saturday);
                 }
             }
         }
@@ -631,6 +643,7 @@ namespace FloorPlanMakerUI
                 if (FilteredDaysOfWeek.Contains(DayOfWeek.Sunday))
                 {
                     FilteredDaysOfWeek.Remove(DayOfWeek.Sunday);
+                    shiftAnalysis.RemoveDayOfWeek((DayOfWeek)DayOfWeek.Sunday);
                 }
             }
             if (cbSun.Checked)
@@ -638,6 +651,7 @@ namespace FloorPlanMakerUI
                 if (!FilteredDaysOfWeek.Contains(DayOfWeek.Sunday))
                 {
                     FilteredDaysOfWeek.Add(DayOfWeek.Sunday);
+                    shiftAnalysis.AddDayOfWeek(DayOfWeek.Sunday);
                 }
             }
         }
@@ -1068,12 +1082,12 @@ namespace FloorPlanMakerUI
             {
                 Task.Run(() =>
                 {
-                    shiftAnalysis.SetShiftsForDateRange();                    
+                    shiftAnalysis.InitializetShiftsForDateRange();                    
 
                     this.Invoke(new Action(() =>
                     {
                         // Close the loading form and re-enable the main form
-                        PopulateDGVForAreaSales(dgvDiningAreas, areaManager.DiningAreas, shiftAnalysis.Shifts);
+                        PopulateDGVForAreaSales(dataGridView1, areaManager.DiningAreas, shiftAnalysis.Shifts);
                         loadingForm.Close();
                         this.Enabled = true;
 
