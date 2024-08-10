@@ -58,11 +58,10 @@ namespace FloorplanClassLibrary
 
                     if (count == 0)
                     {
-                        // No existing record, proceed with insertion
                         var sql = @"INSERT INTO TableStats 
-                        (TableStatNumber, DayOfWeek, Date, IsLunch, Sales, Orders) 
-                        VALUES 
-                        (@TableStatNumber, @DayOfWeek, @Date, @IsLunch, @Sales, @Orders)";
+                             (TableStatNumber, DayOfWeek, Date, IsLunch, Sales, Orders, DiningAreaID) 
+                             VALUES 
+                             (@TableStatNumber, @DayOfWeek, @Date, @IsLunch, @Sales, @Orders, @DiningAreaID)";
 
                         cnn.Execute(sql, new
                         {
@@ -71,13 +70,23 @@ namespace FloorplanClassLibrary
                             Date = tableStat.Date.ToString("yyyy-MM-dd"),
                             IsLunch = tableStat.IsLunch,
                             Sales = tableStat.Sales,
-                            Orders = tableStat.Orders
+                            Orders = tableStat.Orders,
+                            DiningAreaID = tableStat.DiningAreaID
                         });
                     }
                 }
                
             }
         }
+        public static int? GetDiningAreaIDByTableNumber(string tableNumber)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                string query = @"SELECT DiningAreaID FROM DiningTableRecord WHERE TableNumber = @TableNumber";
+                return cnn.Query<int?>(query, new { TableNumber = tableNumber }).FirstOrDefault();
+            }
+        }
+
         public static List<TableStat> LoadTableStats()
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))

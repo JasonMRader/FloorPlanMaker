@@ -38,7 +38,6 @@ namespace FloorplanClassLibrary
             _shifts.RemoveAll(s => missingDates.Contains(s.dateOnly));
             _filteredShifts.Clear();
             _filteredShifts.AddRange(this._shifts);
-
         }
         public ShiftAnalysis(List<ShiftRecord> shifts)
         {
