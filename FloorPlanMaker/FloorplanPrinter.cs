@@ -65,7 +65,13 @@ namespace FloorplanClassLibrary
 
             g.TranslateTransform(offsetX, offsetY);  // Move the origin
             g.ScaleTransform(scale, scale);           // Apply the scaling transformation
-
+            foreach (var line in _lines)
+            {
+                using (Pen pen = new Pen(line.LineColor, line.LineThickness))
+                {
+                    e.Graphics.DrawLine(pen, line.StartPoint, line.EndPoint);
+                }
+            }
             // Draw TableControls first
             foreach (Control control in _floorplanPanel.Controls)
             {
@@ -86,13 +92,7 @@ namespace FloorplanClassLibrary
             }
 
             // Draw the lines
-            foreach (var line in _lines)
-            {
-                using (Pen pen = new Pen(line.LineColor, line.LineThickness))
-                {
-                    e.Graphics.DrawLine(pen, line.StartPoint, line.EndPoint);
-                }
-            }
+            
         }
 
 
@@ -123,7 +123,11 @@ namespace FloorplanClassLibrary
 
             gfx.TranslateTransform(offsetX, offsetY);  // Move the origin
             gfx.ScaleTransform(scale, scale);          // Apply the scaling transformation
-
+            foreach (var line in _lines)
+            {
+                XPen pen = new XPen(line.LineColor.ToXColor(), line.LineThickness);
+                gfx.DrawLine(pen, line.StartPoint.X, line.StartPoint.Y, line.EndPoint.X, line.EndPoint.Y); // Use the transformed graphics context
+            }
             // Draw TableControls first
             foreach (Control control in _floorplanPanel.Controls)
             {
@@ -144,11 +148,7 @@ namespace FloorplanClassLibrary
             }
 
             // Draw the lines
-            foreach (var line in _lines)
-            {
-                XPen pen = new XPen(line.LineColor.ToXColor(), line.LineThickness);
-                gfx.DrawLine(pen, line.StartPoint.X, line.StartPoint.Y, line.EndPoint.X, line.EndPoint.Y); // Use the transformed graphics context
-            }
+           
 
             document.Save(filePath);
             Process.Start(new ProcessStartInfo(filePath) { UseShellExecute = true }); // Open the PDF file with the default PDF viewer
