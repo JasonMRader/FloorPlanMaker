@@ -36,6 +36,7 @@ namespace FloorPlanMakerUI
         private ImageLabelControl coversImageLabel = new ImageLabelControl();
         private ImageLabelControl salesImageLabel = new ImageLabelControl();        
         private TableSalesManager tableSalesManager = new TableSalesManager();
+        private SectionHeaderDisplay sectionHeader = new SectionHeaderDisplay();
         private Panel pnlMainContainer {  get; set; }   
         private Panel pnlFloorplan { get; set; }
         
@@ -52,13 +53,15 @@ namespace FloorPlanMakerUI
         {
             this.Shift = new Shift();            
         }
-        public FloorplanFormManager(Panel pnlFloorPlan, FlowLayoutPanel flowServersInFloorplan, FlowLayoutPanel flowSectionSelect, Panel pnlContainer)
+        public FloorplanFormManager(Panel pnlFloorPlan, FlowLayoutPanel flowServersInFloorplan, 
+            FlowLayoutPanel flowSectionSelect, Panel pnlContainer, SectionHeaderDisplay headerDisplay)
         {
             this.Shift = new Shift();
             this.flowSectionsPanel = flowSectionSelect;
             this.flowServersPanel = flowServersInFloorplan;
             this.pnlFloorplan = pnlFloorPlan;
-            this.pnlMainContainer = pnlContainer;           
+            this.pnlMainContainer = pnlContainer;     
+            this.sectionHeader = headerDisplay;
                     
         }
         public void UpdateTemplatesBasedOnFloorplan()
@@ -378,6 +381,11 @@ namespace FloorPlanMakerUI
             {
                 this.Shift.SetSelectedSection(sectionPanelSender.Section);
                 this.pnlMainContainer.BackColor = sectionPanelSender.Section.Color;
+                if(Floorplan != null)
+                {
+                    this.sectionHeader.SetSection(sectionPanelSender.Section, Floorplan);
+                }
+                
                 foreach (SectionPanelControl sectionPanelControl in this._sectionPanels)
                 {
                     if (sectionPanelControl != sectionPanelSender)

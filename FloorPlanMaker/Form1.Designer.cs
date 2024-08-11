@@ -53,6 +53,8 @@ namespace FloorPlanMaker
             btnNextDay = new Button();
             btnCloseApp = new Button();
             pnlFloorplanContainer = new Panel();
+            panel3 = new Panel();
+            sectionHeaderDisplay = new FloorplanUserControlLibrary.SectionHeaderDisplay();
             lblDateSelected = new Label();
             pnlNavigationWindow = new Panel();
             pnlMainContainer = new Panel();
@@ -105,6 +107,7 @@ namespace FloorPlanMaker
             flowSectionSelect.SuspendLayout();
             panel1.SuspendLayout();
             pnlFloorplanContainer.SuspendLayout();
+            panel3.SuspendLayout();
             pnlNavigationWindow.SuspendLayout();
             pnlMainContainer.SuspendLayout();
             flowLayoutPanel2.SuspendLayout();
@@ -234,9 +237,9 @@ namespace FloorPlanMaker
             // pnlFloorPlan
             // 
             pnlFloorPlan.BackColor = Color.WhiteSmoke;
-            pnlFloorPlan.Location = new Point(5, 36);
+            pnlFloorPlan.Location = new Point(5, 99);
             pnlFloorPlan.Name = "pnlFloorPlan";
-            pnlFloorPlan.Size = new Size(672, 877);
+            pnlFloorPlan.Size = new Size(672, 819);
             pnlFloorPlan.TabIndex = 2;
             pnlFloorPlan.MouseClick += pnlFloorPlan_MouseClick;
             // 
@@ -410,6 +413,7 @@ namespace FloorPlanMaker
             // 
             pnlFloorplanContainer.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             pnlFloorplanContainer.BackColor = Color.WhiteSmoke;
+            pnlFloorplanContainer.Controls.Add(panel3);
             pnlFloorplanContainer.Controls.Add(lblDateSelected);
             pnlFloorplanContainer.Controls.Add(btnPrint);
             pnlFloorplanContainer.Controls.Add(cbTableDisplayMode);
@@ -422,6 +426,23 @@ namespace FloorPlanMaker
             pnlFloorplanContainer.Name = "pnlFloorplanContainer";
             pnlFloorplanContainer.Size = new Size(684, 921);
             pnlFloorplanContainer.TabIndex = 19;
+            // 
+            // panel3
+            // 
+            panel3.BackColor = Color.WhiteSmoke;
+            panel3.Controls.Add(sectionHeaderDisplay);
+            panel3.Location = new Point(0, 43);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(684, 50);
+            panel3.TabIndex = 23;
+            // 
+            // sectionHeaderDisplay
+            // 
+            sectionHeaderDisplay.BorderStyle = BorderStyle.FixedSingle;
+            sectionHeaderDisplay.Location = new Point(8, 7);
+            sectionHeaderDisplay.Name = "sectionHeaderDisplay";
+            sectionHeaderDisplay.Size = new Size(666, 35);
+            sectionHeaderDisplay.TabIndex = 0;
             // 
             // lblDateSelected
             // 
@@ -1097,6 +1118,7 @@ namespace FloorPlanMaker
             flowSectionSelect.PerformLayout();
             panel1.ResumeLayout(false);
             pnlFloorplanContainer.ResumeLayout(false);
+            panel3.ResumeLayout(false);
             pnlNavigationWindow.ResumeLayout(false);
             pnlMainContainer.ResumeLayout(false);
             flowLayoutPanel2.ResumeLayout(false);
@@ -1181,5 +1203,7 @@ namespace FloorPlanMaker
         private Button btnUploadSalesData;
         private FlowLayoutPanel flowResoDisplay;
         private Button btnSaveColorPDF;
+        private Panel panel3;
+        private FloorplanUserControlLibrary.SectionHeaderDisplay sectionHeaderDisplay;
     }
 }

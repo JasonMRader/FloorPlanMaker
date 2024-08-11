@@ -400,7 +400,8 @@ namespace FloorPlanMaker
             pnlFloorPlan.MouseMove += pnlFloorplan_MouseMove;
             pnlFloorPlan.Paint += PnlFloorplan_Paint;
             this.sectionLineManager = new SectionLineManager(allTableControls);
-            floorplanManager = new FloorplanFormManager(pnlFloorPlan, flowServersInFloorplan, flowSectionSelect, pnlMainContainer);
+            floorplanManager = new FloorplanFormManager(pnlFloorPlan, flowServersInFloorplan, flowSectionSelect,
+                pnlMainContainer, sectionHeaderDisplay);
 
             // Subscribe to the event
             //floorplanManager.SectionLabelRemoved += FloorplanManager_SectionLabelRemoved;
@@ -1564,7 +1565,7 @@ namespace FloorPlanMaker
         }
         private void SaveAndPrintNEW()
         {
-            if (shift.SelectedFloorplan != null)
+            if (shift.SelectedFloorplan == null)
             {
                 NotificationHandler.ShowNotificationLabel(pnlFloorPlan, "No Floorplan to Print!!", UITheme.NoColor, UITheme.NoFontColor,
                       new Point(0, 0), pnlFloorPlan.Width, 30, TimeSpan.FromSeconds(2));
@@ -1605,7 +1606,7 @@ namespace FloorPlanMaker
         }
         private void SaveAndPDFNEW()
         {
-            if (shift.SelectedFloorplan != null)
+            if (shift.SelectedFloorplan == null)
             {
                 NotificationHandler.ShowNotificationLabel(pnlFloorPlan, "No Floorplan to Print!!", UITheme.NoColor, UITheme.NoFontColor,
                       new Point(0, 0), pnlFloorPlan.Width, 30, TimeSpan.FromSeconds(2));
