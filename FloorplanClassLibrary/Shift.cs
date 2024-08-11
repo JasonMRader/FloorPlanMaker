@@ -66,6 +66,18 @@ namespace FloorplanClassLibrary
                 observer.UpdateShift(this);
             }
         }
+        public override string ToString()
+        {
+            return  IsLunchDisplay + "  |  " + this.DateTime.ToString("dddd, MMMM d");
+        }
+        public string IsLunchDisplay
+        {
+            get
+            {
+                if (IsAM) { return "Lunch"; }
+                else { return "Dinner"; }
+            }
+        }
         public string IsAmDisplay
         {
             get

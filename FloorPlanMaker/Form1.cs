@@ -1791,7 +1791,7 @@ namespace FloorPlanMaker
                 {
                     string filePath = saveFileDialog.FileName;
 
-                    printerNoLines.CreatePdf(filePath, false);
+                    printerNoLines.CreatePdf(filePath, false, shift.ToString());
 
                 }
             }

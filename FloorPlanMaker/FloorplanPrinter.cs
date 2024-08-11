@@ -15,6 +15,7 @@ namespace FloorplanClassLibrary
     using System.Drawing;
     using System.Drawing.Printing;
     using System.Windows.Forms;
+    using static System.Windows.Forms.DataFormats;
 
     public class FloorplanPrinter
     {
@@ -92,7 +93,7 @@ namespace FloorplanClassLibrary
 
         }
 
-        public void CreatePdf(string filePath, bool isBlackAndWhite)
+        public void CreatePdf(string filePath, bool isBlackAndWhite, string floorplanLabel)
         {
             PdfDocument document = new PdfDocument();
             PdfPage page = document.AddPage();
@@ -105,7 +106,17 @@ namespace FloorplanClassLibrary
 
             // Adjust the origin to center the content
             float offsetX = ((float)page.Width - (_floorplanPanel.Width * scale)) / 2;
-            float offsetY = ((float)page.Height - (_floorplanPanel.Height * scale)) / 2;
+            float offsetY = (((float)page.Height - (_floorplanPanel.Height * scale)) / 2) + 15;
+
+            var boldLargeFont = new XFont("Arial", 22, XFontStyleEx.Underline);
+
+            XStringFormat format = new XStringFormat
+            {
+                Alignment = XStringAlignment.Near,
+                LineAlignment = XLineAlignment.Near
+            };
+
+            gfx.DrawString(floorplanLabel, boldLargeFont, XBrushes.Black, new XRect(20, 8, page.Width - 20, 40), format);
 
             gfx.TranslateTransform(offsetX, offsetY);  // Move the origin
             gfx.ScaleTransform(scale, scale);          // Apply the scaling transformation
