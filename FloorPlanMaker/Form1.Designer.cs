@@ -439,9 +439,9 @@ namespace FloorPlanMaker
             // sectionHeaderDisplay
             // 
             sectionHeaderDisplay.BorderStyle = BorderStyle.FixedSingle;
-            sectionHeaderDisplay.Location = new Point(8, 7);
+            sectionHeaderDisplay.Location = new Point(8, 5);
             sectionHeaderDisplay.Name = "sectionHeaderDisplay";
-            sectionHeaderDisplay.Size = new Size(666, 35);
+            sectionHeaderDisplay.Size = new Size(666, 40);
             sectionHeaderDisplay.TabIndex = 0;
             // 
             // lblDateSelected

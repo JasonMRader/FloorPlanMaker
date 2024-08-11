@@ -193,8 +193,23 @@
   <data name="covers" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\covers.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="CoversDownBlack" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CoversDownBlack.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CoversDownWhite" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CoversDownWhite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="coversSalesresizedSmallest" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\coversSalesresizedSmallest.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CoversUpBlack" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CoversUpBlack.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CoversUpWhite" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CoversUpWhite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CoversWhite" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CoversWhite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="DiamondFilled" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\DiamondFilled.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -213,6 +228,12 @@
   </data>
   <data name="emptyfileeGrey" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\emptyfileeGrey.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="equality" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\equality.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="equality_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\equality_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="erase" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\erase.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -364,11 +385,26 @@
   <data name="sales" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\sales.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="SalesDown" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SalesDown.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SalesDownWhite" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SalesDownWhite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SalesPerPersonWhite" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SalesPerPersonWhite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="SalesPerPerson_28px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SalesPerPerson_28px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="salesSMall" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\salesSMall.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SalesUp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SalesUp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SalesUpWhite" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SalesUpWhite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="SaturdayText" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SaturdayText.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -421,6 +457,9 @@
   <data name="small_LastWeek" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\small LastWeek.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="SoloWaiterWhite_28" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SoloWaiterWhite_28.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Solo___Copy" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Solo - Copy.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -456,6 +495,9 @@
   </data>
   <data name="teamOval" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\teamOval.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TeamWaiterWhite_28" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TeamWaiterWhite_28.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Team___Copy" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Team - Copy.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -504,6 +546,12 @@
   </data>
   <data name="waiters" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\waiters.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="waiters_28" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\waiters_28.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="waiter_28" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\waiter_28.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="WednesdayText" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\WednesdayText.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

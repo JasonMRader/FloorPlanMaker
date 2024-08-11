@@ -384,6 +384,7 @@ namespace FloorPlanMakerUI
                 if(Floorplan != null)
                 {
                     this.sectionHeader.SetSection(sectionPanelSender.Section, Floorplan);
+                    this.sectionHeader.AssignServerClicked += SectionHeaderAssignServerClicked;
                 }
                 
                 foreach (SectionPanelControl sectionPanelControl in this._sectionPanels)
@@ -395,6 +396,17 @@ namespace FloorPlanMakerUI
                 }
             }            
         }
+
+        private void SectionHeaderAssignServerClicked(object? sender, EventArgs e)
+        {
+            frmSectionServerAssign form = new frmSectionServerAssign(Floorplan.SectionSelected, Shift);
+            form.StartPosition = FormStartPosition.Manual;
+            Point controlLocation = sectionHeader.PointToScreen(Point.Empty);
+
+            form.Location = new Point(controlLocation.X + 33, controlLocation.Y + 50);
+            form.ShowDialog();
+        }
+
         public void IncrementSelectedSection()
         {
             if(this.Floorplan == null) { return; }
