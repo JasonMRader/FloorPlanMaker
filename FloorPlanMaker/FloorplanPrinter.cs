@@ -45,7 +45,7 @@ namespace FloorplanClassLibrary
 
         //}
 
-        private void HandlePrintPage(object sender, PrintPageEventArgs e)
+        private void HandlePrintPage(object sender, PrintPageEventArgs e, string floorplanLabel)
         {
             Graphics g = e.Graphics;
 
@@ -54,9 +54,14 @@ namespace FloorplanClassLibrary
             float scaleHeight = e.PageBounds.Height / (float)_floorplanPanel.Height;
             float scale = Math.Min(scaleWidth, scaleHeight);  // Use the smaller scale factor to ensure fit
             scale = scale - (float).07;
+
             // Adjust the origin if necessary. For example, if you want to center the scaled content:
             float offsetX = (e.PageBounds.Width - (_floorplanPanel.Width * scale)) / 2;
-            float offsetY = (e.PageBounds.Height - (_floorplanPanel.Height * scale)) / 2;
+            float offsetY = (e.PageBounds.Height - (_floorplanPanel.Height * scale)) / 2 + 15; // Offset for the label
+
+            // Draw the label at the top of the page
+            Font labelFont = new Font("Arial", 22, FontStyle.Underline);
+            g.DrawString(floorplanLabel, labelFont, Brushes.Black, new PointF(20, 8));
 
             g.TranslateTransform(offsetX, offsetY);  // Move the origin
             g.ScaleTransform(scale, scale);           // Apply the scaling transformation
@@ -79,6 +84,8 @@ namespace FloorplanClassLibrary
                     SectionLabelControl.DrawSectionLabelForPrinting(g, sectionControl);
                 }
             }
+
+            // Draw the lines
             foreach (var line in _lines)
             {
                 using (Pen pen = new Pen(line.LineColor, line.LineThickness))
@@ -86,12 +93,8 @@ namespace FloorplanClassLibrary
                     e.Graphics.DrawLine(pen, line.StartPoint, line.EndPoint);
                 }
             }
-            //if (_lineDrawer != null && _edges != null)
-            //{
-            //    _lineDrawer.DrawEdges(g, _edges);
-            //}
-
         }
+
 
         public void CreatePdf(string filePath, bool isBlackAndWhite, string floorplanLabel)
         {
@@ -152,10 +155,10 @@ namespace FloorplanClassLibrary
         }
 
 
-        public void ShowPrintPreview()
+        public void ShowPrintPreview(string floorplanLabel)
         {
             PrintDocument printDocument = new PrintDocument();
-            printDocument.PrintPage += HandlePrintPage;
+            printDocument.PrintPage += (sender, e) => HandlePrintPage(sender, e, floorplanLabel);
 
             PrintPreviewDialog printPreviewDialog = new PrintPreviewDialog
             {
@@ -164,10 +167,11 @@ namespace FloorplanClassLibrary
             printPreviewDialog.ShowDialog();
         }
 
-        public void Print()
+
+        public void Print(string floorplanLabel)
         {
             PrintDocument printDocument = new PrintDocument();
-            printDocument.PrintPage += HandlePrintPage;
+            printDocument.PrintPage += (sender, e) => HandlePrintPage(sender, e, floorplanLabel);
 
             PrintDialog printDialog = new PrintDialog
             {

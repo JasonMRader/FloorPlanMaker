@@ -1652,7 +1652,7 @@ namespace FloorPlanMaker
             {
                 //MessageBox.Show("PRINTED");
                 FloorplanPrinter printerNoLines = new FloorplanPrinter(pnlFloorPlan, _lines);
-                printerNoLines.ShowPrintPreview();
+                printerNoLines.ShowPrintPreview(shift.ToString());
 
             }
             catch (Exception ex)
