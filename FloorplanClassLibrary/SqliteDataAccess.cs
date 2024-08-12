@@ -1072,6 +1072,7 @@ namespace FloorplanClassLibrary
                     if (server != null && matchedSection != null)
                     {
                         matchedSection.ServerTeam.Add(server);
+                        server.CurrentSection = matchedSection;
                     }
                 }
 

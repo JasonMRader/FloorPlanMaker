@@ -64,7 +64,7 @@ namespace FloorPlanMakerUI
             this.pnlMainContainer = pnlContainer;     
             this.sectionHeader = headerDisplay;
            
-            frmSectionServerAssign.CloseClicked += CloseAssignForm;
+            //frmSectionServerAssign.CloseClicked += CloseAssignForm;
             frmSectionServerAssign.StartPosition = FormStartPosition.Manual;
             
 
@@ -412,19 +412,19 @@ namespace FloorPlanMakerUI
             
             Point controlLocation = sectionHeader.PointToScreen(Point.Empty);
 
-            frmSectionServerAssign.Location = new Point(controlLocation.X + 33, controlLocation.Y + 50);
-            this.frmSectionServerAssign.Visible = true;
+            frmSectionServerAssign.Location = new Point(controlLocation.X + 28, controlLocation.Y + 38);
+            this.frmSectionServerAssign.Visible = !frmSectionServerAssign.Visible;
             
             
         }
 
-        private void CloseAssignForm(object? sender, EventArgs e)
-        {
-            this.frmSectionServerAssign.Visible = false;
+        //private void CloseAssignForm(object? sender, EventArgs e)
+        //{
+        //    this.frmSectionServerAssign.Visible = false;
            
             
 
-        }
+        //}
 
         public void IncrementSelectedSection()
         {

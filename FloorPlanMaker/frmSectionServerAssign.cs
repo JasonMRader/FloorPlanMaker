@@ -56,12 +56,12 @@ namespace FloorPlanMakerUI
                 flowServerSelect.Controls.Clear();
                 foreach (Server server in floorplanSelected.Servers)
                 {
-                    if(server.CurrentSection != this.section)
+                    if (server.CurrentSection != this.section)
                     {
                         Button button = CreateServerButton(server);
                         flowServerSelect.Controls.Add(button);
                     }
-                   
+
                 }
             }
         }
@@ -97,12 +97,24 @@ namespace FloorPlanMakerUI
             var clickedButton = (Button)sender;
             var assignedServer = (Server)clickedButton.Tag;
 
-            if(assignedServer.CurrentSection == null)
+            if (assignedServer.CurrentSection == null)
             {
+                if(section.Server != null)
+                {
+                    section.RemoveServer(section.Server);
+                }
                 section.AddServer(assignedServer);
-                
+
             }
-            
+            if(assignedServer.CurrentSection != null && section.Server != null)
+            {
+                floorplan.SwapServers(section, assignedServer.CurrentSection);
+            }
+            if(assignedServer.CurrentSection != null && section.Server == null)
+            {
+                assignedServer.CurrentSection.RemoveServer(assignedServer);
+            } 
+
             //assignedServer.SalesFromPickupSection = this.Section.AdditionalPickupSales;
             //if (section.ServerTeam != null)
             //{
@@ -144,7 +156,7 @@ namespace FloorPlanMakerUI
 
         private void GetFormSize()
         {
-            this.Size = new System.Drawing.Size(this.Width, 76 + flowServerSelect.Height);
+            this.Size = new System.Drawing.Size(this.Width, 57 + flowServerSelect.Height);
         }
 
         private void cboDiningArea_SelectedIndexChanged(object sender, EventArgs e)
@@ -153,11 +165,11 @@ namespace FloorPlanMakerUI
             GetFormSize();
         }
 
-        private void pbClose_Click(object sender, EventArgs e)
-        {
-            
-            
-           CloseClicked?.Invoke(this, EventArgs.Empty);
-        }
+        //private void pbClose_Click(object sender, EventArgs e)
+        //{
+
+
+        //    CloseClicked?.Invoke(this, EventArgs.Empty);
+        //}
     }
 }

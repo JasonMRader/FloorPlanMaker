@@ -30,17 +30,18 @@
         {
             flowServerSelect = new FlowLayoutPanel();
             cboDiningArea = new ComboBox();
-            pbClose = new PictureBox();
-            ((System.ComponentModel.ISupportInitialize)pbClose).BeginInit();
+            panel1 = new Panel();
+            panel2 = new Panel();
+            panel3 = new Panel();
             SuspendLayout();
             // 
             // flowServerSelect
             // 
             flowServerSelect.AutoSize = true;
             flowServerSelect.FlowDirection = FlowDirection.TopDown;
-            flowServerSelect.Location = new Point(12, 64);
+            flowServerSelect.Location = new Point(12, 47);
             flowServerSelect.Name = "flowServerSelect";
-            flowServerSelect.Size = new Size(192, 200);
+            flowServerSelect.Size = new Size(192, 55);
             flowServerSelect.TabIndex = 0;
             // 
             // cboDiningArea
@@ -48,37 +49,53 @@
             cboDiningArea.Enabled = false;
             cboDiningArea.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             cboDiningArea.FormattingEnabled = true;
-            cboDiningArea.Location = new Point(12, 29);
+            cboDiningArea.Location = new Point(12, 12);
             cboDiningArea.Name = "cboDiningArea";
             cboDiningArea.Size = new Size(192, 29);
             cboDiningArea.TabIndex = 1;
             cboDiningArea.SelectedIndexChanged += cboDiningArea_SelectedIndexChanged;
             // 
-            // pbClose
+            // panel1
             // 
-            pbClose.BackColor = Color.Red;
-            pbClose.Image = Properties.Resources.X;
-            pbClose.Location = new Point(193, 3);
-            pbClose.Name = "pbClose";
-            pbClose.Size = new Size(20, 20);
-            pbClose.SizeMode = PictureBoxSizeMode.Zoom;
-            pbClose.TabIndex = 2;
-            pbClose.TabStop = false;
-            pbClose.Click += pbClose_Click;
+            panel1.BackColor = Color.FromArgb(64, 64, 64);
+            panel1.Dock = DockStyle.Right;
+            panel1.Location = new Point(214, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(2, 116);
+            panel1.TabIndex = 2;
+            // 
+            // panel2
+            // 
+            panel2.BackColor = Color.FromArgb(64, 64, 64);
+            panel2.Dock = DockStyle.Left;
+            panel2.Location = new Point(0, 0);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(2, 116);
+            panel2.TabIndex = 2;
+            // 
+            // panel3
+            // 
+            panel3.BackColor = Color.FromArgb(64, 64, 64);
+            panel3.Dock = DockStyle.Bottom;
+            panel3.Location = new Point(2, 114);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(212, 2);
+            panel3.TabIndex = 2;
             // 
             // frmSectionServerAssign
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(216, 276);
-            Controls.Add(pbClose);
+            ClientSize = new Size(216, 116);
+            Controls.Add(panel3);
+            Controls.Add(panel2);
+            Controls.Add(panel1);
             Controls.Add(cboDiningArea);
             Controls.Add(flowServerSelect);
             FormBorderStyle = FormBorderStyle.None;
             Name = "frmSectionServerAssign";
             Text = "frmSectionServerAssign";
             Load += frmSectionServerAssign_Load;
-            ((System.ComponentModel.ISupportInitialize)pbClose).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -87,6 +104,8 @@
 
         private FlowLayoutPanel flowServerSelect;
         private ComboBox cboDiningArea;
-        private PictureBox pbClose;
+        private Panel panel1;
+        private Panel panel2;
+        private Panel panel3;
     }
 }
