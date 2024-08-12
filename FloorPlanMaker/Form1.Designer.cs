@@ -53,6 +53,7 @@ namespace FloorPlanMaker
             btnNextDay = new Button();
             btnCloseApp = new Button();
             pnlFloorplanContainer = new Panel();
+            flowDiningAreaButtons = new FlowLayoutPanel();
             pnlNotifications = new Panel();
             sectionHeaderDisplay = new FloorplanUserControlLibrary.SectionHeaderDisplay();
             lblDateSelected = new Label();
@@ -194,9 +195,9 @@ namespace FloorPlanMaker
             cbTableDisplayMode.FlatStyle = FlatStyle.Flat;
             cbTableDisplayMode.ForeColor = Color.Black;
             cbTableDisplayMode.Image = FloorPlanMakerUI.Properties.Resources.noun_view_Smalll;
-            cbTableDisplayMode.Location = new Point(113, 3);
+            cbTableDisplayMode.Location = new Point(8, 455);
             cbTableDisplayMode.Name = "cbTableDisplayMode";
-            cbTableDisplayMode.Size = new Size(61, 33);
+            cbTableDisplayMode.Size = new Size(45, 45);
             cbTableDisplayMode.TabIndex = 16;
             cbTableDisplayMode.TextAlign = ContentAlignment.MiddleCenter;
             toolTip1.SetToolTip(cbTableDisplayMode, "Toggle Table View Mode");
@@ -226,9 +227,9 @@ namespace FloorPlanMaker
             btnPrint.FlatStyle = FlatStyle.Flat;
             btnPrint.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             btnPrint.Image = FloorPlanMakerUI.Properties.Resources.lilPrinter;
-            btnPrint.Location = new Point(24, 4);
+            btnPrint.Location = new Point(8, 404);
             btnPrint.Name = "btnPrint";
-            btnPrint.Size = new Size(61, 33);
+            btnPrint.Size = new Size(45, 45);
             btnPrint.TabIndex = 13;
             toolTip1.SetToolTip(btnPrint, "Print and Save Floorplan");
             btnPrint.UseVisualStyleBackColor = false;
@@ -247,11 +248,11 @@ namespace FloorPlanMaker
             // 
             cboDiningAreas.DropDownStyle = ComboBoxStyle.DropDownList;
             cboDiningAreas.FlatStyle = FlatStyle.Flat;
-            cboDiningAreas.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            cboDiningAreas.Font = new Font("Segoe UI Semilight", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
             cboDiningAreas.FormattingEnabled = true;
-            cboDiningAreas.Location = new Point(199, 3);
+            cboDiningAreas.Location = new Point(203, 5);
             cboDiningAreas.Name = "cboDiningAreas";
-            cboDiningAreas.Size = new Size(234, 33);
+            cboDiningAreas.Size = new Size(105, 21);
             cboDiningAreas.TabIndex = 7;
             toolTip1.SetToolTip(cboDiningAreas, "Up / Down Arrows to Cycle");
             cboDiningAreas.SelectedIndexChanged += cboDiningAreas_SelectedIndexChanged;
@@ -361,9 +362,9 @@ namespace FloorPlanMaker
             cbIsAM.FlatStyle = FlatStyle.Flat;
             cbIsAM.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point);
             cbIsAM.Image = FloorPlanMakerUI.Properties.Resources.smallSunrise;
-            cbIsAM.Location = new Point(623, 3);
+            cbIsAM.Location = new Point(1187, 7);
             cbIsAM.Name = "cbIsAM";
-            cbIsAM.Size = new Size(56, 33);
+            cbIsAM.Size = new Size(56, 30);
             cbIsAM.TabIndex = 15;
             cbIsAM.TextAlign = ContentAlignment.MiddleCenter;
             toolTip1.SetToolTip(cbIsAM, "AM or PM Shift");
@@ -375,9 +376,9 @@ namespace FloorPlanMaker
             btnDayBefore.FlatAppearance.BorderSize = 0;
             btnDayBefore.FlatStyle = FlatStyle.Flat;
             btnDayBefore.Image = FloorPlanMakerUI.Properties.Resources.smallBackArrow;
-            btnDayBefore.Location = new Point(439, 3);
+            btnDayBefore.Location = new Point(663, 8);
             btnDayBefore.Name = "btnDayBefore";
-            btnDayBefore.Size = new Size(21, 33);
+            btnDayBefore.Size = new Size(21, 30);
             btnDayBefore.TabIndex = 16;
             toolTip1.SetToolTip(btnDayBefore, "Left / Right Arrow Keys to Cycle");
             btnDayBefore.UseVisualStyleBackColor = true;
@@ -388,9 +389,9 @@ namespace FloorPlanMaker
             btnNextDay.FlatAppearance.BorderSize = 0;
             btnNextDay.FlatStyle = FlatStyle.Flat;
             btnNextDay.Image = FloorPlanMakerUI.Properties.Resources.smallForwardArrow;
-            btnNextDay.Location = new Point(596, 3);
+            btnNextDay.Location = new Point(1151, 7);
             btnNextDay.Name = "btnNextDay";
-            btnNextDay.Size = new Size(21, 33);
+            btnNextDay.Size = new Size(21, 30);
             btnNextDay.TabIndex = 17;
             toolTip1.SetToolTip(btnNextDay, "Left / Right Arrow Keys to Cycle");
             btnNextDay.UseVisualStyleBackColor = true;
@@ -413,27 +414,28 @@ namespace FloorPlanMaker
             // 
             pnlFloorplanContainer.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             pnlFloorplanContainer.BackColor = Color.WhiteSmoke;
+            pnlFloorplanContainer.Controls.Add(flowDiningAreaButtons);
             pnlFloorplanContainer.Controls.Add(pnlNotifications);
-            pnlFloorplanContainer.Controls.Add(lblDateSelected);
-            pnlFloorplanContainer.Controls.Add(btnPrint);
-            pnlFloorplanContainer.Controls.Add(cbTableDisplayMode);
-            pnlFloorplanContainer.Controls.Add(cbIsAM);
-            pnlFloorplanContainer.Controls.Add(btnNextDay);
             pnlFloorplanContainer.Controls.Add(pnlFloorPlan);
-            pnlFloorplanContainer.Controls.Add(cboDiningAreas);
-            pnlFloorplanContainer.Controls.Add(btnDayBefore);
             pnlFloorplanContainer.Location = new Point(103, 10);
             pnlFloorplanContainer.Name = "pnlFloorplanContainer";
             pnlFloorplanContainer.Size = new Size(684, 944);
             pnlFloorplanContainer.TabIndex = 19;
             // 
+            // flowDiningAreaButtons
+            // 
+            flowDiningAreaButtons.Location = new Point(8, 7);
+            flowDiningAreaButtons.Name = "flowDiningAreaButtons";
+            flowDiningAreaButtons.Size = new Size(666, 32);
+            flowDiningAreaButtons.TabIndex = 24;
+            // 
             // pnlNotifications
             // 
             pnlNotifications.BackColor = Color.WhiteSmoke;
             pnlNotifications.Controls.Add(sectionHeaderDisplay);
-            pnlNotifications.Location = new Point(0, 43);
+            pnlNotifications.Location = new Point(0, 40);
             pnlNotifications.Name = "pnlNotifications";
-            pnlNotifications.Size = new Size(684, 75);
+            pnlNotifications.Size = new Size(684, 78);
             pnlNotifications.TabIndex = 23;
             // 
             // sectionHeaderDisplay
@@ -441,7 +443,7 @@ namespace FloorPlanMaker
             sectionHeaderDisplay.BorderStyle = BorderStyle.FixedSingle;
             sectionHeaderDisplay.Location = new Point(8, 5);
             sectionHeaderDisplay.Name = "sectionHeaderDisplay";
-            sectionHeaderDisplay.Size = new Size(666, 65);
+            sectionHeaderDisplay.Size = new Size(666, 68);
             sectionHeaderDisplay.TabIndex = 0;
             // 
             // lblDateSelected
@@ -449,9 +451,9 @@ namespace FloorPlanMaker
             lblDateSelected.BackColor = Color.FromArgb(100, 130, 180);
             lblDateSelected.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             lblDateSelected.ForeColor = Color.White;
-            lblDateSelected.Location = new Point(466, 3);
+            lblDateSelected.Location = new Point(690, 8);
             lblDateSelected.Name = "lblDateSelected";
-            lblDateSelected.Size = new Size(124, 33);
+            lblDateSelected.Size = new Size(455, 30);
             lblDateSelected.TabIndex = 22;
             lblDateSelected.Text = "Fri, 11/11";
             lblDateSelected.TextAlign = ContentAlignment.MiddleCenter;
@@ -491,6 +493,8 @@ namespace FloorPlanMaker
             flowLayoutPanel2.Controls.Add(btnSaveFloorplanTemplate);
             flowLayoutPanel2.Controls.Add(cbDrawToggle);
             flowLayoutPanel2.Controls.Add(btnSaveColorPDF);
+            flowLayoutPanel2.Controls.Add(btnPrint);
+            flowLayoutPanel2.Controls.Add(cbTableDisplayMode);
             flowLayoutPanel2.FlowDirection = FlowDirection.TopDown;
             flowLayoutPanel2.Location = new Point(19, 10);
             flowLayoutPanel2.Name = "flowLayoutPanel2";
@@ -612,6 +616,7 @@ namespace FloorPlanMaker
             pnlSectionsAndServers.Controls.Add(pnlStatMode);
             pnlSectionsAndServers.Controls.Add(rdoSales);
             pnlSectionsAndServers.Controls.Add(rdoViewServerFlow);
+            pnlSectionsAndServers.Controls.Add(cboDiningAreas);
             pnlSectionsAndServers.Controls.Add(rdoViewSectionFlow);
             pnlSectionsAndServers.Controls.Add(flowServersInFloorplan);
             pnlSectionsAndServers.Controls.Add(flowSectionSelect);
@@ -1015,7 +1020,7 @@ namespace FloorPlanMaker
             btnUploadSalesData.FlatStyle = FlatStyle.Flat;
             btnUploadSalesData.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             btnUploadSalesData.Image = FloorPlanMakerUI.Properties.Resources.download_28px;
-            btnUploadSalesData.Location = new Point(524, -1);
+            btnUploadSalesData.Location = new Point(42, -1);
             btnUploadSalesData.Name = "btnUploadSalesData";
             btnUploadSalesData.Size = new Size(32, 35);
             btnUploadSalesData.TabIndex = 13;
@@ -1075,9 +1080,9 @@ namespace FloorPlanMaker
             pnlSalesDataUpdated.BackColor = Color.FromArgb(180, 190, 200);
             pnlSalesDataUpdated.Controls.Add(lblMissingSalesData);
             pnlSalesDataUpdated.Controls.Add(btnUploadSalesData);
-            pnlSalesDataUpdated.Location = new Point(630, 6);
+            pnlSalesDataUpdated.Location = new Point(1270, 8);
             pnlSalesDataUpdated.Name = "pnlSalesDataUpdated";
-            pnlSalesDataUpdated.Size = new Size(556, 35);
+            pnlSalesDataUpdated.Size = new Size(91, 35);
             pnlSalesDataUpdated.TabIndex = 24;
             // 
             // lblMissingSalesData
@@ -1085,9 +1090,9 @@ namespace FloorPlanMaker
             lblMissingSalesData.BackColor = Color.Gold;
             lblMissingSalesData.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             lblMissingSalesData.ForeColor = SystemColors.ControlLightLight;
-            lblMissingSalesData.Location = new Point(11, 5);
+            lblMissingSalesData.Location = new Point(3, 4);
             lblMissingSalesData.Name = "lblMissingSalesData";
-            lblMissingSalesData.Size = new Size(504, 26);
+            lblMissingSalesData.Size = new Size(33, 26);
             lblMissingSalesData.TabIndex = 6;
             lblMissingSalesData.Text = "Missing Important Sales Data, Please Update!";
             lblMissingSalesData.TextAlign = ContentAlignment.MiddleCenter;
@@ -1099,12 +1104,16 @@ namespace FloorPlanMaker
             BackColor = Color.WhiteSmoke;
             ClientSize = new Size(1501, 1042);
             Controls.Add(pnlSalesDataUpdated);
+            Controls.Add(lblDateSelected);
             Controls.Add(panel2);
             Controls.Add(btnCloseApp);
             Controls.Add(btnReportBug);
+            Controls.Add(cbIsAM);
             Controls.Add(btnHelp);
+            Controls.Add(btnNextDay);
             Controls.Add(panel1);
             Controls.Add(pnlNavigationWindow);
+            Controls.Add(btnDayBefore);
             FormBorderStyle = FormBorderStyle.None;
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Form1";
@@ -1205,5 +1214,6 @@ namespace FloorPlanMaker
         private Button btnSaveColorPDF;
         private Panel pnlNotifications;
         private FloorplanUserControlLibrary.SectionHeaderDisplay sectionHeaderDisplay;
+        private FlowLayoutPanel flowDiningAreaButtons;
     }
 }

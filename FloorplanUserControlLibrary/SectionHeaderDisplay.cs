@@ -19,7 +19,7 @@ namespace FloorplanUserControlLibrary
     public partial class SectionHeaderDisplay : UserControl, ISectionObserver
     {
         private Section section { get; set; }
-        Panel pnlNoSection { get;set; } = new Panel();
+        Panel pnlNoSection { get; set; } = new Panel();
         private Floorplan floorplan { get; set; }
         private ToolTip toolTip { get; set; }
         public event EventHandler AssignServerClicked;
@@ -48,7 +48,7 @@ namespace FloorplanUserControlLibrary
         public void SetSectionToNull()
         {
             this.section = null;
-           
+
             pnlNoSection.Dock = DockStyle.Fill;
             this.Controls.Add(pnlNoSection);
             pnlNoSection.Visible = true;
@@ -212,7 +212,7 @@ namespace FloorplanUserControlLibrary
                 string displayString = "";
                 for (int i = 0; i < section.ServerCount; i++)
                 {
-                    if(i <= section.ServerTeam.Count - 1)
+                    if (i <= section.ServerTeam.Count - 1)
                     {
                         if (section.ServerTeam[i].isDouble)
                         {
@@ -223,7 +223,7 @@ namespace FloorplanUserControlLibrary
                             displayString += section.ServerTeam[i].ToString();
                         }
 
-                        if (i < section.ServerCount -1)
+                        if (i < section.ServerCount - 1)
                         {
                             displayString += " | ";
                         }
@@ -235,16 +235,16 @@ namespace FloorplanUserControlLibrary
                         {
                             displayString += " | ";
                         }
-                        
+
                     }
-                   
+
                 }
                 if (section.IsPickUp || this.section.PairedSection != null)
                 {
                     displayString += " ++";
                 }
                 btnAssignedServer.Text = displayString;
-                if(section.ServerTeam.Count < section.ServerCount)
+                if (section.ServerTeam.Count < section.ServerCount)
                 {
                     btnAssignedServer.BackColor = Color.Gray;
                     btnAssignedServer.ForeColor = Color.Black;
@@ -256,13 +256,13 @@ namespace FloorplanUserControlLibrary
                 }
 
             }
-            if(!section.IsPickUp && !section.IsTeamWait && section.Server == null)
+            if (!section.IsPickUp && !section.IsTeamWait && section.Server == null)
             {
                 btnAssignedServer.BackColor = Color.Gray;
                 btnAssignedServer.ForeColor = Color.Black;
             }
-            
-            
+
+
         }
         private void SetControlsForSection()
         {

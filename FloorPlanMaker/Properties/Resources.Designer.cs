@@ -153,6 +153,16 @@ namespace FloorPlanMakerUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Banquet {
+            get {
+                object obj = ResourceManager.GetObject("Banquet", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Bigger {
             get {
                 object obj = ResourceManager.GetObject("Bigger", resourceCulture);
@@ -483,6 +493,26 @@ namespace FloorPlanMakerUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Inside_Bar {
+            get {
+                object obj = ResourceManager.GetObject("Inside_Bar", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap InsideDining {
+            get {
+                object obj = ResourceManager.GetObject("InsideDining", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap InsideSolid {
             get {
                 object obj = ResourceManager.GetObject("InsideSolid", resourceCulture);
@@ -746,6 +776,26 @@ namespace FloorPlanMakerUI.Properties {
         internal static System.Drawing.Bitmap NumRepossmallest {
             get {
                 object obj = ResourceManager.GetObject("NumRepossmallest", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap OutsideCocktail {
+            get {
+                object obj = ResourceManager.GetObject("OutsideCocktail", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap OutsideDining {
+            get {
+                object obj = ResourceManager.GetObject("OutsideDining", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1213,6 +1263,16 @@ namespace FloorPlanMakerUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Temporary {
+            get {
+                object obj = ResourceManager.GetObject("Temporary", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ThursdayText {
             get {
                 object obj = ResourceManager.GetObject("ThursdayText", resourceCulture);
@@ -1306,6 +1366,16 @@ namespace FloorPlanMakerUI.Properties {
         internal static System.Drawing.Bitmap Upload_30px {
             get {
                 object obj = ResourceManager.GetObject("Upload_30px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap UpperLevel {
+            get {
+                object obj = ResourceManager.GetObject("UpperLevel", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

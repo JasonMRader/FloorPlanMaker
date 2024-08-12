@@ -1,4 +1,5 @@
 ﻿
+using FloorplanClassLibrary;
 using FloorplanUserControlLibrary.Properties;
 using System;
 using System.Collections.Generic;
@@ -261,6 +262,12 @@ namespace FloorPlanMakerUI
                 button.FlatStyle = FlatStyle.Flat;
                 button.FlatAppearance.BorderSize = 0;
             }
+            if (c is RadioButton rdobutton)
+            {
+                rdobutton.Appearance = Appearance.Button;
+                rdobutton.FlatStyle = FlatStyle.Flat;
+                rdobutton.FlatAppearance.BorderSize = 0;
+            }
         }
         public static void FormatMain(Control c)
         {
@@ -294,6 +301,37 @@ namespace FloorPlanMakerUI
 
 
             return pictureBox;
+        }
+        public static Image GetDiningAreaImage(DiningArea area)
+        {
+            if (area.ID == 1)
+            {
+                return Resources.InsideDining;
+            }
+            if (area.ID == 2)
+            {
+                return Resources.OutsideDining;
+            }
+            if (area.ID == 3)
+            {
+                return Resources.OutsideCocktail;
+            }
+            if (area.ID == 4)
+            {
+                return Resources.Inside_Bar;
+            }
+            if (area.ID == 5)
+            {
+                return Resources.UpperLevel;
+            }
+            if (area.ID == 6)
+            {
+                return Resources.Banquet;
+            }
+            else
+            {
+                return Resources.Temporary;
+            }
         }
 
     }

@@ -55,6 +55,7 @@ namespace FloorPlanMaker
         private SalesDataUpdater salesDataUpdater = new SalesDataUpdater();
         private List<FloorplanLine> _lines = new List<FloorplanLine>();
         public TutorialImages.TutorialType tutorialType = TutorialImages.TutorialType.Form1;
+        private DiningAreaButtonHandeler diningAreaButtonHandeler { get; set; }
         public ShiftDetailOverviewManager shiftDetailManager { get; set; }
         //private bool isViewingTemplates;
 
@@ -88,6 +89,8 @@ namespace FloorPlanMaker
                 cboDiningAreas.DataSource = areaCreationManager.DiningAreas;
                 cboDiningAreas.DisplayMember = "Name";
                 cboDiningAreas.ValueMember = "ID";
+                diningAreaButtonHandeler = new DiningAreaButtonHandeler(areaCreationManager.DiningAreas, flowDiningAreaButtons);
+                diningAreaButtonHandeler.DiningAreaChanged += DiningAreaSelectedChanged;
                 //rdoSections.Checked = true;
                 rdoViewSectionFlow.Checked = true;
                 pnlFloorPlan.BackgroundImage = null;
@@ -113,6 +116,37 @@ namespace FloorPlanMaker
             UpdateMissingSalesData();
 
         }
+
+        private void DiningAreaSelectedChanged(object? sender, EventArgs e)
+        {
+            RadioButton radioButton = (RadioButton)sender;
+            DiningArea diningArea = (DiningArea)radioButton.Tag;
+            shift.SelectedDiningArea = diningArea;
+            floorplanManager.AddTableControls(pnlFloorPlan);
+
+            floorplanManager.SetViewedFloorplan(dateOnlySelected, cbIsAM.Checked);
+            //this.sectionLineManager = new SectionLineManager(allTableControls);
+            if (floorplanManager.Floorplan != null)
+            {
+                _lines = floorplanManager.Floorplan.floorplanLines;
+            }
+            else
+            {
+                _lines.Clear();
+            }
+
+            if (AllTablesAreAssigned())
+            {
+                //TODO SECTION BOARDERS DISABLED
+                // CreateSectionBorders();
+            }
+            else
+            {
+                pnlFloorPlan.BackgroundImage = null;
+            }
+            updateSalesForTables();
+        }
+
         public void UpdateMissingSalesData()
         {
 
@@ -670,6 +704,7 @@ namespace FloorPlanMaker
             updateSalesForTables();
             UpdateSidePanelDisplay();
             UpdateMissingSalesData();
+            diningAreaButtonHandeler.UpdateForShift(shift);
         }
         public void UpdateSidePanelDisplay()
         {
