@@ -1,6 +1,7 @@
 ﻿using FloorplanClassLibrary;
 using FloorPlanMakerUI;
 using FloorplanUserControlLibrary.Properties;
+using PdfSharp.Charting;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,6 +19,7 @@ namespace FloorplanUserControlLibrary
     public partial class SectionHeaderDisplay : UserControl, ISectionObserver
     {
         private Section section { get; set; }
+        Panel pnlNoSection { get;set; } = new Panel();
         private Floorplan floorplan { get; set; }
         private ToolTip toolTip { get; set; }
         public event EventHandler AssignServerClicked;
@@ -29,14 +31,29 @@ namespace FloorplanUserControlLibrary
         }
         public void SetSection(Section section, Floorplan floorplan)
         {
+            if (this.section != section && this.section != null)
+            {
+                this.section.RemoveObserver(this);
+            }
             this.section = section;
             this.floorplan = floorplan;
             this.lblTotalCovers.ForeColor = section.FontColor;
             this.lblAverageSales.ForeColor = section.FontColor;
             this.lblSectionNumber.ForeColor = section.FontColor;
-
+            this.section.SubscribeObserver(this);
             SetControlsForSection();
+            pnlNoSection.Visible = false;
 
+        }
+        public void SetSectionToNull()
+        {
+            this.section = null;
+           
+            pnlNoSection.Dock = DockStyle.Fill;
+            this.Controls.Add(pnlNoSection);
+            pnlNoSection.Visible = true;
+            pnlNoSection.BackColor = UITheme.SecondColor;
+            pnlNoSection.BringToFront();
         }
         public void SetStaticImages()
         {
@@ -162,39 +179,90 @@ namespace FloorplanUserControlLibrary
         }
         private void SetServerButtonProperties()
         {
+            btnAssignedServer.Text = section.GetDisplayString();
             if (section.IsBarSection)
             {
-                btnAssignedServer.Text = "Bar Section";
+                //btnAssignedServer.Text = "Bar Section";
                 btnAssignedServer.BackColor = section.MuteColor(.5f);
                 btnAssignedServer.ForeColor = section.FontColor;
                 return;
             }
             if (section.IsPickUp && section.Server == null)
             {
-                btnAssignedServer.Text = "Pick-Up";
+                //btnAssignedServer.Text = "Pick-Up";
                 btnAssignedServer.BackColor = section.MuteColor(.5f);
                 btnAssignedServer.ForeColor = section.FontColor;
                 return;
             }
             if (section.IsPickUp && section.Server != null)
             {
-                btnAssignedServer.Text = "Pick-Up ++";
+                // btnAssignedServer.Text = "Pick-Up ++";
                 btnAssignedServer.BackColor = section.MuteColor(.5f);
                 btnAssignedServer.ForeColor = section.FontColor;
                 return;
             }
             if (section.Server != null)
             {
-                btnAssignedServer.Text = section.Server.ToString();
+                //btnAssignedServer.Text = section.Server.ToString();
                 btnAssignedServer.BackColor = section.MuteColor(.5f);
                 btnAssignedServer.ForeColor = section.FontColor;
             }
-            else
+            if (section.IsTeamWait)
             {
-                btnAssignedServer.Text = "Unassigned";
+                string displayString = "";
+                for (int i = 0; i < section.ServerCount; i++)
+                {
+                    if(i <= section.ServerTeam.Count - 1)
+                    {
+                        if (section.ServerTeam[i].isDouble)
+                        {
+                            displayString += section.ServerTeam[i].ToString() + "*";
+                        }
+                        else
+                        {
+                            displayString += section.ServerTeam[i].ToString();
+                        }
+
+                        if (i < section.ServerCount -1)
+                        {
+                            displayString += " | ";
+                        }
+                    }
+                    else
+                    {
+                        displayString += "Unassigned";
+                        if (i < section.ServerCount - 1)
+                        {
+                            displayString += " | ";
+                        }
+                        
+                    }
+                   
+                }
+                if (section.IsPickUp || this.section.PairedSection != null)
+                {
+                    displayString += " ++";
+                }
+                btnAssignedServer.Text = displayString;
+                if(section.ServerTeam.Count < section.ServerCount)
+                {
+                    btnAssignedServer.BackColor = Color.Gray;
+                    btnAssignedServer.ForeColor = Color.Black;
+                }
+                else
+                {
+                    btnAssignedServer.BackColor = section.MuteColor(.5f);
+                    btnAssignedServer.ForeColor = section.FontColor;
+                }
+
+            }
+            if(!section.IsPickUp && !section.IsTeamWait && section.Server == null)
+            {
                 btnAssignedServer.BackColor = Color.Gray;
                 btnAssignedServer.ForeColor = Color.Black;
             }
+            
+            
         }
         private void SetControlsForSection()
         {

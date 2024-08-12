@@ -693,7 +693,11 @@ namespace FloorplanClassLibrary
                 if (this._pairedSection != null) { 
                     displayString += " ++";
                 }
-            }            
+            }      
+            if(this.Server == null && !this.IsTeamWait && !this.IsBarSection)
+            {
+                return "Unassigned";
+            }
             if (this.IsTeamWait)
             {
                 displayString = "";

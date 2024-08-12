@@ -37,6 +37,7 @@ namespace FloorPlanMakerUI
         private ImageLabelControl salesImageLabel = new ImageLabelControl();        
         private TableSalesManager tableSalesManager = new TableSalesManager();
         private SectionHeaderDisplay sectionHeader = new SectionHeaderDisplay();
+        private frmSectionServerAssign frmSectionServerAssign = new frmSectionServerAssign();
         private Panel pnlMainContainer {  get; set; }   
         private Panel pnlFloorplan { get; set; }
         
@@ -62,7 +63,11 @@ namespace FloorPlanMakerUI
             this.pnlFloorplan = pnlFloorPlan;
             this.pnlMainContainer = pnlContainer;     
             this.sectionHeader = headerDisplay;
-                    
+           
+            frmSectionServerAssign.CloseClicked += CloseAssignForm;
+            frmSectionServerAssign.StartPosition = FormStartPosition.Manual;
+            
+
         }
         public void UpdateTemplatesBasedOnFloorplan()
         {
@@ -384,7 +389,12 @@ namespace FloorPlanMakerUI
                 if(Floorplan != null)
                 {
                     this.sectionHeader.SetSection(sectionPanelSender.Section, Floorplan);
+                    this.sectionHeader.AssignServerClicked -= SectionHeaderAssignServerClicked;
                     this.sectionHeader.AssignServerClicked += SectionHeaderAssignServerClicked;
+                    if(frmSectionServerAssign != null)
+                    {
+                        frmSectionServerAssign.SetNewSectionAndShift(sectionPanelSender.Section, Shift);
+                    }
                 }
                 
                 foreach (SectionPanelControl sectionPanelControl in this._sectionPanels)
@@ -399,12 +409,21 @@ namespace FloorPlanMakerUI
 
         private void SectionHeaderAssignServerClicked(object? sender, EventArgs e)
         {
-            frmSectionServerAssign form = new frmSectionServerAssign(Floorplan.SectionSelected, Shift);
-            form.StartPosition = FormStartPosition.Manual;
+            
             Point controlLocation = sectionHeader.PointToScreen(Point.Empty);
 
-            form.Location = new Point(controlLocation.X + 33, controlLocation.Y + 50);
-            form.ShowDialog();
+            frmSectionServerAssign.Location = new Point(controlLocation.X + 33, controlLocation.Y + 50);
+            this.frmSectionServerAssign.Visible = true;
+            
+            
+        }
+
+        private void CloseAssignForm(object? sender, EventArgs e)
+        {
+            this.frmSectionServerAssign.Visible = false;
+           
+            
+
         }
 
         public void IncrementSelectedSection()
@@ -1230,6 +1249,8 @@ namespace FloorPlanMakerUI
                 AddServerControls(flowServersPanel);
                 AddSectionPanels(flowSectionsPanel);
                 UpdateImageLabels();
+                sectionHeader.SetSectionToNull();
+                pnlMainContainer.BackColor = UITheme.SecondColor;
 
             }
         }

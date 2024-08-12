@@ -1567,8 +1567,10 @@ namespace FloorPlanMaker
         {
             if (shift.SelectedFloorplan == null)
             {
-                NotificationHandler.ShowNotificationLabel(pnlFloorPlan, "No Floorplan to Print!!", UITheme.NoColor, UITheme.NoFontColor,
-                      new Point(0, 0), pnlFloorPlan.Width, 30, TimeSpan.FromSeconds(2));
+                //NotificationHandler.ShowNotificationLabel(pnlFloorPlan, "No Floorplan to Print!!", UITheme.NoColor, UITheme.NoFontColor,
+                //      new Point(0, 0), pnlFloorPlan.Width, 30, TimeSpan.FromSeconds(2));
+                NotificationHandler.ShowNotificationOverControl(sectionHeaderDisplay, "No Floorplan to Print!!", UITheme.NoColor, UITheme.NoFontColor,
+                      TimeSpan.FromSeconds(2));
                 return;
             }
 

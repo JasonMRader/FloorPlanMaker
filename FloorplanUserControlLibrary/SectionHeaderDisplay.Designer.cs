@@ -48,7 +48,6 @@
             // 
             // lblSectionNumber
             // 
-            lblSectionNumber.Dock = DockStyle.Left;
             lblSectionNumber.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             lblSectionNumber.Location = new Point(0, 0);
             lblSectionNumber.Name = "lblSectionNumber";
@@ -73,7 +72,6 @@
             // 
             // btnClearSection
             // 
-            btnClearSection.Dock = DockStyle.Right;
             btnClearSection.FlatAppearance.BorderSize = 0;
             btnClearSection.FlatStyle = FlatStyle.Flat;
             btnClearSection.Image = Properties.Resources.erase_Small;
@@ -85,7 +83,6 @@
             // 
             // btnTeamWaitToggle
             // 
-            btnTeamWaitToggle.Dock = DockStyle.Right;
             btnTeamWaitToggle.FlatAppearance.BorderSize = 0;
             btnTeamWaitToggle.FlatStyle = FlatStyle.Flat;
             btnTeamWaitToggle.Image = Properties.Resources.waiters_28;
