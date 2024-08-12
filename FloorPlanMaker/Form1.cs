@@ -1838,5 +1838,10 @@ namespace FloorPlanMaker
             SaveTheFloorplan();
 
         }
+
+        private void sectionHeaderDisplay_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

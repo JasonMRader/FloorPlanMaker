@@ -400,6 +400,7 @@ namespace FloorplanClassLibrary
                 {
                     Button unassign = new Button { Text = "Unassign", Dock = DockStyle.Top, Width = this.Width - 20 };
                     UITheme.FormatCTAButton(unassign);
+                    unassign.BackColor = UITheme.WarningColor;
                     unassign.Click += UnassignButton_Click;
                     serversPanel.Controls.Add(unassign);
                     serversPanel.Height += 30;
@@ -428,6 +429,7 @@ namespace FloorplanClassLibrary
                 Button unassign = new Button { Text = "Unassign", Dock = DockStyle.Top, Width = this.Width - 20 };
                 unassign.Click += UnassignButton_Click;
                 UITheme.FormatCTAButton(unassign);
+                unassign.BackColor = UITheme.WarningColor;
                 serversPanel.Controls.Add(unassign);
                 //serversPanel.Height += 30;
             }
@@ -452,24 +454,7 @@ namespace FloorplanClassLibrary
             this.BringToFront();
 
         }
-        private void RefreshAllServerPanelForPickUpSection()
-        {
-            serversPanel.Controls.Clear();
-            if (this.Section.Server != null)
-            {
-                Button unassign = new Button { Text = "Unassign", Dock = DockStyle.Top, Width = this.Width - 20 };
-                unassign.Click += UnassignButton_Click;
-                serversPanel.Controls.Add(unassign);
-                serversPanel.Height += 30;
-            }
-            foreach (var server in allServers)
-            {
-                var serverButton = new Button { Text = server.ToString(), Tag = server, Dock = DockStyle.Top, Width = this.Width - 20 };
-                serverButton.Click += ServerButton_Click;
-                serversPanel.Controls.Add(serverButton);
-            }
-            serversPanel.Height = (allServers.Count * 30);
-        }
+        
         private void UnassignButton_Click(Object sender, EventArgs e)
         {
             this.Section.ClearAllServers();

@@ -19,6 +19,7 @@ namespace FloorplanUserControlLibrary
     public partial class SectionHeaderDisplay : UserControl, ISectionObserver
     {
         private Section section { get; set; }
+        public Section Section { get { return section; } }
         Panel pnlNoSection { get; set; } = new Panel();
         private Floorplan floorplan { get; set; }
         private ToolTip toolTip { get; set; }

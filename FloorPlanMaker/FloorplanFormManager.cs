@@ -66,9 +66,13 @@ namespace FloorPlanMakerUI
            
             //frmSectionServerAssign.CloseClicked += CloseAssignForm;
             frmSectionServerAssign.StartPosition = FormStartPosition.Manual;
-            
+
+            frmSectionServerAssign.SignalForInvisible += SectionAssignFormInvisible;            
 
         }
+
+        
+
         public void UpdateTemplatesBasedOnFloorplan()
         {
             if (this.TemplateManager == null)
@@ -411,7 +415,14 @@ namespace FloorPlanMakerUI
         {
             if(Floorplan.SectionSelected.IsPickUp)
             {
-                
+                SectionHeaderDisplay controlClicked = (SectionHeaderDisplay)sender;
+                Section section = controlClicked.Section;
+                frmPickupSectionAssignment pickUpForm = new frmPickupSectionAssignment(section, Shift);
+                pickUpForm.StartPosition = FormStartPosition.Manual;
+                Point controlLocation = sectionHeader.PointToScreen(Point.Empty);
+                frmSectionServerAssign.Location = new Point(controlLocation.X + 28, controlLocation.Y + 38);
+                pickUpForm.ShowDialog();
+                return;
             }
             if (Floorplan.SectionSelected.IsBarSection)
             {
@@ -426,12 +437,16 @@ namespace FloorPlanMakerUI
                 
             
         }
+        private void SectionAssignFormInvisible(object? sender, EventArgs e)
+        {
+            this.frmSectionServerAssign.Visible = false;
+        }
 
         //private void CloseAssignForm(object? sender, EventArgs e)
         //{
         //    this.frmSectionServerAssign.Visible = false;
-           
-            
+
+
 
         //}
 

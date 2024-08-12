@@ -255,6 +255,7 @@ namespace FloorPlanMaker
             cboDiningAreas.Size = new Size(105, 21);
             cboDiningAreas.TabIndex = 7;
             toolTip1.SetToolTip(cboDiningAreas, "Up / Down Arrows to Cycle");
+            cboDiningAreas.Visible = false;
             cboDiningAreas.SelectedIndexChanged += cboDiningAreas_SelectedIndexChanged;
             // 
             // rdoSections
@@ -445,6 +446,7 @@ namespace FloorPlanMaker
             sectionHeaderDisplay.Name = "sectionHeaderDisplay";
             sectionHeaderDisplay.Size = new Size(666, 68);
             sectionHeaderDisplay.TabIndex = 0;
+            sectionHeaderDisplay.Load += sectionHeaderDisplay_Load;
             // 
             // lblDateSelected
             // 

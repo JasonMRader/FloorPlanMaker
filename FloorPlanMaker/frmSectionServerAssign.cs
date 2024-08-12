@@ -19,6 +19,7 @@ namespace FloorPlanMakerUI
         private Floorplan floorplan { get; set; }
         public event EventHandler CloseClicked;
         public event EventHandler ServerAssignedClicked;
+        public event EventHandler SignalForInvisible;
         public frmSectionServerAssign()
         {
             InitializeComponent();
@@ -55,12 +56,9 @@ namespace FloorPlanMakerUI
             {
                 flowServerSelect.Controls.Clear();
                 foreach (Server server in floorplanSelected.Servers)
-                {
-                    if (server.CurrentSection != this.section)
-                    {
-                        Button button = CreateServerButton(server);
-                        flowServerSelect.Controls.Add(button);
-                    }
+                {                   
+                    Button button = CreateServerButton(server);
+                    flowServerSelect.Controls.Add(button);                   
 
                 }
             }
@@ -77,6 +75,10 @@ namespace FloorPlanMakerUI
             {
                 button.BackColor = server.CurrentSection.Color;
                 button.ForeColor = server.CurrentSection.FontColor;
+                if(server.CurrentSection == this.section)
+                {
+                    button.Text = "Remove " + server.ToString();
+                }
             }
             else
             {
@@ -91,52 +93,75 @@ namespace FloorPlanMakerUI
 
             return button;
         }
+        private void RefreshServerButtonProperties()
+        {
+            foreach(Button button in flowServerSelect.Controls)
+            {
+                Server server = button.Tag as Server;
+                if(server.CurrentSection == null)
+                {
+                    button.BackColor = Color.Gray;
+                    button.ForeColor = Color.Black;
+                    button.Text = server.ToString();
+                }
+                else
+                {
+                    button.BackColor = server.CurrentSection.Color;
+                    button.ForeColor= server.CurrentSection.FontColor;
+                    if(server.CurrentSection == this.section)
+                    {
+                        button.Text= "Remove " + server.ToString();
+                    }
+                    else
+                    {
+                        button.Text = server.ToString();
+                    }
+                }
+            }
+        }
 
         private void ServerButtonClicked(object? sender, EventArgs e)
         {
             var clickedButton = (Button)sender;
             var assignedServer = (Server)clickedButton.Tag;
-
+            //Server Clicked Does Not have a section
             if (assignedServer.CurrentSection == null)
             {
+                //This Section Already Has a server
                 if(section.Server != null)
                 {
                     section.RemoveServer(section.Server);
                 }
                 section.AddServer(assignedServer);
+                SignalForInvisible?.Invoke(this, EventArgs.Empty);
 
             }
-            if(assignedServer.CurrentSection != null && section.Server != null)
+            //Server clicked DOES have a Section AND this Section has a Server AND ServerTeam does not contain the Server Clicked
+            else if(assignedServer.CurrentSection != null 
+                && section.Server != null
+                && !section.ServerTeam.Contains(assignedServer))
             {
                 floorplan.SwapServers(section, assignedServer.CurrentSection);
+                SignalForInvisible?.Invoke(this, EventArgs.Empty);
             }
-            if(assignedServer.CurrentSection != null && section.Server == null)
+            //CLicked server Does have a Section AND this section does not have a server
+            else if(assignedServer.CurrentSection != null && section.Server == null)
             {
                 assignedServer.CurrentSection.RemoveServer(assignedServer);
+                section.AddServer(assignedServer);
+                SignalForInvisible?.Invoke(this, EventArgs.Empty);
             } 
+            else if(assignedServer.CurrentSection != null)
+            {
+                //THis server is in this section
+                if (assignedServer.CurrentSection == this.section)
+                {
+                    assignedServer.CurrentSection.RemoveServer(assignedServer);
+                }
+            }
+            RefreshServerButtonProperties();          
 
-            //assignedServer.SalesFromPickupSection = this.Section.AdditionalPickupSales;
-            //if (section.ServerTeam != null)
-            //{
-            //    for (int i = 0; i < Section.ServerTeam.Count; i++)
-            //    {
-            //        this.sectionLabel.Height += 30;
-            //        this.headerPanel.Height += 30;
-            //    }
-            //}
-            //if (this.Section.ServerCount == this.Section.ServerTeam.Count())
-            //{
-            //    serversPanel.Height = 0;
-            //    serverPanelOpen = false;
-            //    RefreshUnassignedServerPanel();
-            //}
-            //else
-            //{
-            //    RefreshUnassignedServerPanel();
-            //}
-
-
-            //UpdateLabel();
+           
         }
 
         private void PopulateCboAreas()
