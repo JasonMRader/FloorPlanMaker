@@ -1799,6 +1799,7 @@ namespace FloorPlanMaker
                 {
                     NotificationHandler.ShowNotificationLabel(pnlFloorPlan, "Floorplan Saved!", UITheme.YesColor, UITheme.YesFontColor,
                         new Point(0, 0), pnlFloorPlan.Width, 30, TimeSpan.FromSeconds(2));
+                    diningAreaButtonHandeler.UpdateForShift(shift);
                 }
             }
             else
