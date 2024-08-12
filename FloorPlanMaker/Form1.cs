@@ -155,7 +155,7 @@ namespace FloorPlanMaker
             {
                 lblMissingSalesData.ForeColor = Color.White;
                 lblMissingSalesData.BackColor = Color.DarkRed;
-                lblMissingSalesData.Text = $"Missing Important Sales Data, Please Update! {salesDataUpdater.DatesMissingDisplay}";
+                lblMissingSalesData.Text = $"{salesDataUpdater.DatesMissingDisplay}";
                 btnUploadSalesData.Visible = true;
                 return;
             }
@@ -164,14 +164,14 @@ namespace FloorPlanMaker
                 lblMissingSalesData.BackColor = Color.Gold;
                 lblMissingSalesData.ForeColor = Color.Black;
                 btnUploadSalesData.Visible = true;
-                lblMissingSalesData.Text = $"Sales Missing {salesDataUpdater.DatesMissingLastWeek.Count} Days {salesDataUpdater.DatesMissingDisplay}";
+                lblMissingSalesData.Text = $"{salesDataUpdater.DatesMissingDisplay}";
             }
             else if (this.salesDataUpdater.DatesMissingLastWeek.Count == 0)
             {
                 lblMissingSalesData.ForeColor = Color.White;
                 btnUploadSalesData.Visible = false;
                 lblMissingSalesData.BackColor = Color.Green;
-                lblMissingSalesData.Text = $"Sales Data Up To Date";
+                lblMissingSalesData.Text = $"Up To Date";
             }
         }
         private void SetColors()
@@ -419,6 +419,7 @@ namespace FloorPlanMaker
             flowSectionSelect.Visible = true;
             flowServersInFloorplan.Visible = false;
             rdoViewSectionFlow.Image = Resources.lilCanvasBook;
+            diningAreaButtonHandeler.UpdateForShift(shift);
         }
 
         public Form1()

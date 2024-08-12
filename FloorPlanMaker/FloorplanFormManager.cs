@@ -409,12 +409,21 @@ namespace FloorPlanMakerUI
 
         private void SectionHeaderAssignServerClicked(object? sender, EventArgs e)
         {
-            
-            Point controlLocation = sectionHeader.PointToScreen(Point.Empty);
-
-            frmSectionServerAssign.Location = new Point(controlLocation.X + 28, controlLocation.Y + 38);
-            this.frmSectionServerAssign.Visible = !frmSectionServerAssign.Visible;
-            
+            if(Floorplan.SectionSelected.IsPickUp)
+            {
+                
+            }
+            if (Floorplan.SectionSelected.IsBarSection)
+            {
+                return;
+            }
+            else
+            {
+                Point controlLocation = sectionHeader.PointToScreen(Point.Empty);
+                frmSectionServerAssign.Location = new Point(controlLocation.X + 28, controlLocation.Y + 38);
+                this.frmSectionServerAssign.Visible = !frmSectionServerAssign.Visible;
+            }
+                
             
         }
 

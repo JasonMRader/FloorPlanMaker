@@ -362,7 +362,7 @@ namespace FloorPlanMaker
             cbIsAM.FlatStyle = FlatStyle.Flat;
             cbIsAM.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point);
             cbIsAM.Image = FloorPlanMakerUI.Properties.Resources.smallSunrise;
-            cbIsAM.Location = new Point(1187, 7);
+            cbIsAM.Location = new Point(1105, 8);
             cbIsAM.Name = "cbIsAM";
             cbIsAM.Size = new Size(56, 30);
             cbIsAM.TabIndex = 15;
@@ -389,7 +389,7 @@ namespace FloorPlanMaker
             btnNextDay.FlatAppearance.BorderSize = 0;
             btnNextDay.FlatStyle = FlatStyle.Flat;
             btnNextDay.Image = FloorPlanMakerUI.Properties.Resources.smallForwardArrow;
-            btnNextDay.Location = new Point(1151, 7);
+            btnNextDay.Location = new Point(1078, 8);
             btnNextDay.Name = "btnNextDay";
             btnNextDay.Size = new Size(21, 30);
             btnNextDay.TabIndex = 17;
@@ -453,7 +453,7 @@ namespace FloorPlanMaker
             lblDateSelected.ForeColor = Color.White;
             lblDateSelected.Location = new Point(690, 8);
             lblDateSelected.Name = "lblDateSelected";
-            lblDateSelected.Size = new Size(455, 30);
+            lblDateSelected.Size = new Size(382, 30);
             lblDateSelected.TabIndex = 22;
             lblDateSelected.Text = "Fri, 11/11";
             lblDateSelected.TextAlign = ContentAlignment.MiddleCenter;
@@ -1019,10 +1019,10 @@ namespace FloorPlanMaker
             btnUploadSalesData.FlatAppearance.BorderSize = 0;
             btnUploadSalesData.FlatStyle = FlatStyle.Flat;
             btnUploadSalesData.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            btnUploadSalesData.Image = FloorPlanMakerUI.Properties.Resources.download_28px;
-            btnUploadSalesData.Location = new Point(42, -1);
+            btnUploadSalesData.Image = FloorPlanMakerUI.Properties.Resources.download_20px;
+            btnUploadSalesData.Location = new Point(157, 4);
             btnUploadSalesData.Name = "btnUploadSalesData";
-            btnUploadSalesData.Size = new Size(32, 35);
+            btnUploadSalesData.Size = new Size(23, 24);
             btnUploadSalesData.TabIndex = 13;
             toolTip1.SetToolTip(btnUploadSalesData, "Choose Toast File to Download");
             btnUploadSalesData.UseVisualStyleBackColor = false;
@@ -1080,9 +1080,9 @@ namespace FloorPlanMaker
             pnlSalesDataUpdated.BackColor = Color.FromArgb(180, 190, 200);
             pnlSalesDataUpdated.Controls.Add(lblMissingSalesData);
             pnlSalesDataUpdated.Controls.Add(btnUploadSalesData);
-            pnlSalesDataUpdated.Location = new Point(1270, 8);
+            pnlSalesDataUpdated.Location = new Point(1174, 6);
             pnlSalesDataUpdated.Name = "pnlSalesDataUpdated";
-            pnlSalesDataUpdated.Size = new Size(91, 35);
+            pnlSalesDataUpdated.Size = new Size(183, 35);
             pnlSalesDataUpdated.TabIndex = 24;
             // 
             // lblMissingSalesData
@@ -1092,9 +1092,9 @@ namespace FloorPlanMaker
             lblMissingSalesData.ForeColor = SystemColors.ControlLightLight;
             lblMissingSalesData.Location = new Point(3, 4);
             lblMissingSalesData.Name = "lblMissingSalesData";
-            lblMissingSalesData.Size = new Size(33, 26);
+            lblMissingSalesData.Size = new Size(148, 24);
             lblMissingSalesData.TabIndex = 6;
-            lblMissingSalesData.Text = "Missing Important Sales Data, Please Update!";
+            lblMissingSalesData.Text = " Please Update!";
             lblMissingSalesData.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // Form1

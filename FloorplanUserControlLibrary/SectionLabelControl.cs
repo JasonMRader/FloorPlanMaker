@@ -399,6 +399,7 @@ namespace FloorplanClassLibrary
                 if (this.Section.Server != null)
                 {
                     Button unassign = new Button { Text = "Unassign", Dock = DockStyle.Top, Width = this.Width - 20 };
+                    UITheme.FormatCTAButton(unassign);
                     unassign.Click += UnassignButton_Click;
                     serversPanel.Controls.Add(unassign);
                     serversPanel.Height += 30;
@@ -426,12 +427,14 @@ namespace FloorplanClassLibrary
             {
                 Button unassign = new Button { Text = "Unassign", Dock = DockStyle.Top, Width = this.Width - 20 };
                 unassign.Click += UnassignButton_Click;
+                UITheme.FormatCTAButton(unassign);
                 serversPanel.Controls.Add(unassign);
                 //serversPanel.Height += 30;
             }
             foreach (var server in unassignedServers)
             {
             var serverButton = new Button { Text = server.ToString(), Tag = server, Dock = DockStyle.Top, Width = this.Width - 20 };
+            UITheme.FormatCTAButton(serverButton);
             serverButton.Click += ServerButton_Click;
             serversPanel.Controls.Add(serverButton);
             }

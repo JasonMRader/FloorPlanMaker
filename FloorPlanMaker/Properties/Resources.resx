@@ -181,6 +181,9 @@
   <data name="DiamondTable" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\DiamondTable.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="download_20px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\download_20px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="download_28px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\download_28px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
