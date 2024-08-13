@@ -23,32 +23,46 @@ namespace FloorPlanMakerUI
         {
             pnlFloorplan = panel;
         }
+        public void SetFloorplan(Floorplan floorplan)
+        {
+            this.floorplan = floorplan;
+            if(_diningArea != floorplan.DiningArea)
+            {
+                this._diningArea = floorplan.DiningArea;
+                AddTableControls();
+            }
+            UpdateTableControlColors();
+            
+        }
         public void SetDiningArea (DiningArea diningArea)
         {
             this._diningArea = diningArea;
+            AddTableControls();
         }
-        public void AddTableControls(Panel panel)
+        private void AddTableControls()
         {
             _tableControls.Clear();
-            foreach (Control control in panel.Controls)
+            
+            foreach (Control control in pnlFloorplan.Controls)
             {
                 control.Dispose();
             }
-            panel.Controls.Clear();
-            panel.Invalidate();
+            pnlFloorplan.Controls.Clear();
+            pnlFloorplan.Invalidate();
             if (_diningArea != null)
             {
+                if (_diningArea.Tables == null) { return; }
                 foreach (Table table in _diningArea.Tables)
                 {
                     table.DiningArea = _diningArea;
                     TableControl tableControl = TableControlFactory.CreateTableControl(table);
                     tableControl.TableClicked += TableControl_TableClicked;
                     _tableControls.Add(tableControl);
-                    panel.Controls.Add(tableControl);
+                    pnlFloorplan.Controls.Add(tableControl);
                 }
             }
         }
-        public void UpdateTableControlColors()
+        private void UpdateTableControlColors()
         {
             foreach (TableControl tableControl in this._tableControls)
             {
@@ -101,9 +115,9 @@ namespace FloorPlanMakerUI
                 tableControl.CurrentDisplayMode = DisplayMode.AverageCovers;
             }
         }
-        public void UpdateTableControlSections(Panel panel)
+        public void UpdateTableControlSections()
         {
-            foreach (Control ctrl in panel.Controls)
+            foreach (Control ctrl in pnlFloorplan.Controls)
             {
                 if (ctrl is TableControl tableControl)
                 {
@@ -149,7 +163,7 @@ namespace FloorPlanMakerUI
             }
 
         }
-        private void AddTableControlToSelectedSection(TableControl clickedTableControl)
+        public void AddTableControlToSelectedSection(TableControl clickedTableControl)
         {
             Table clickedTable = clickedTableControl.Table;
             floorplan.SectionSelected.AddTable(clickedTable);
@@ -198,6 +212,11 @@ namespace FloorPlanMakerUI
                 TableClickedEventArgs args = new TableClickedEventArgs(tableControl.Table, false);
                 TableControl_TableClicked(tableControl, args);
             }
+        }
+
+        public void RefreshTableControlColors()
+        {
+            UpdateTableControlColors();
         }
     }
 }

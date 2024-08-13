@@ -149,7 +149,7 @@ namespace FloorPlanMaker
             RadioButton radioButton = (RadioButton)sender;
             DiningArea diningArea = (DiningArea)radioButton.Tag;
             shift.SetSelectedDiningArea(diningArea);
-            floorplanManager.AddTableControls(pnlFloorPlan);
+            //floorplanManager.UpdateTableControls();
 
             floorplanManager.SetViewedFloorplan(dateOnlySelected, cbIsAM.Checked);
             //this.sectionLineManager = new SectionLineManager(allTableControls);
@@ -780,35 +780,35 @@ namespace FloorPlanMaker
         {
             isDraggingForm = false;
         }
-        private void cboDiningAreas_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //_lines.Clear();
-            shift.SetSelectedDiningArea((DiningArea?)cboDiningAreas.SelectedItem);
-            floorplanManager.AddTableControls(pnlFloorPlan);
+        //private void cboDiningAreas_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    //_lines.Clear();
+        //    shift.SetSelectedDiningArea((DiningArea?)cboDiningAreas.SelectedItem);
+        //    floorplanManager.AddTableControls(pnlFloorPlan);
 
-            floorplanManager.SetViewedFloorplan(dateOnlySelected, cbIsAM.Checked);
-            //this.sectionLineManager = new SectionLineManager(allTableControls);
-            if (floorplanManager.Floorplan != null)
-            {
-                _lines = floorplanManager.Floorplan.floorplanLines;
-            }
-            else
-            {
-                _lines.Clear();
-            }
+        //    floorplanManager.SetViewedFloorplan(dateOnlySelected, cbIsAM.Checked);
+        //    //this.sectionLineManager = new SectionLineManager(allTableControls);
+        //    if (floorplanManager.Floorplan != null)
+        //    {
+        //        _lines = floorplanManager.Floorplan.floorplanLines;
+        //    }
+        //    else
+        //    {
+        //        _lines.Clear();
+        //    }
 
-            if (AllTablesAreAssigned())
-            {
-                //TODO SECTION BOARDERS DISABLED
-                // CreateSectionBorders();
-            }
-            else
-            {
-                pnlFloorPlan.BackgroundImage = null;
-            }
-            updateSalesForTables();
+        //    if (AllTablesAreAssigned())
+        //    {
+        //        //TODO SECTION BOARDERS DISABLED
+        //        // CreateSectionBorders();
+        //    }
+        //    else
+        //    {
+        //        pnlFloorPlan.BackgroundImage = null;
+        //    }
+        //    updateSalesForTables();
 
-        }
+        //}
 
         private void rdoSections_CheckedChanged(object sender, EventArgs e)
         {

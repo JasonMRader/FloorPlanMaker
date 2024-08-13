@@ -26,7 +26,7 @@ namespace FloorPlanMakerUI
             }
         }
         public Shift Shift;
-        private List<TableControl> _tableControls = new List<TableControl>();
+       // private List<TableControl> _tableControls = new List<TableControl>();
         private List<SectionLabelControl> _sectionLabels = new List<SectionLabelControl>();
         private List<SectionPanelControl> _sectionPanels = new List<SectionPanelControl>();
         private List<ServerControl> _serverControls = new List<ServerControl>();
@@ -52,6 +52,7 @@ namespace FloorPlanMakerUI
         public Floorplan floorplanTemplateTEMP { get; set; }
         public FloorplanGenerator floorplanGenerator = new FloorplanGenerator();   
         public ToolTip toolTip = new ToolTip();
+        private TableControlManager tableControlManager { get; set; }
         public FloorplanFormManager() 
         {
             this.Shift = new Shift();            
@@ -68,6 +69,10 @@ namespace FloorPlanMakerUI
             this.sectionHeader = headerDisplay;
             this.sectionHeader.btnTeamWaitClicked += HeaderTeamWaitClicked;
 
+            tableControlManager = new TableControlManager(pnlFloorPlan);
+            tableControlManager.UpdateAveragesPerServer += newUpdateAveragesPerServer;
+            tableControlManager.AllTablesAssigned += newAllTablesAssigned;
+
             this.sectionHeader.btnClearSectionClicked += ClearSection;
             
             frmSectionServerAssign.StartPosition = FormStartPosition.Manual;
@@ -75,7 +80,15 @@ namespace FloorPlanMakerUI
 
         }
 
-       
+        private void newAllTablesAssigned(object? sender, EventArgs e)
+        {
+            UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.TableControl, UpdateType.Refresh, sender));
+        }
+
+        private void newUpdateAveragesPerServer(object? sender, EventArgs e)
+        {
+            UpdateAveragesPerServer();
+        }
 
         public void UpdateTemplatesBasedOnFloorplan()
         {
@@ -98,9 +111,9 @@ namespace FloorPlanMakerUI
         }
         public List<TableControl> TableControls
         {
-            get {  return _tableControls; }
-            set { _tableControls = value; }                
-            
+            get { return tableControlManager.TableControls; }
+            //set { _tableControls = value; }
+
         }
         public List<SectionLabelControl> SectionLabels
         {
@@ -117,72 +130,56 @@ namespace FloorPlanMakerUI
             get { return _serverControls; }
             set { _serverControls = value; }
         }
-        public void AddTableControls(Panel panel)
+        public void UpdateTableControls()
         {
-            _tableControls.Clear();
-            foreach(Control control in panel.Controls)
-            {
-                control.Dispose();
-            }
-            panel.Controls.Clear();
-            panel.Invalidate();
-            if (this.Shift != null && this.Shift.SelectedDiningArea != null)
-            {
-                foreach (Table table in this.Shift.SelectedDiningArea.Tables)
-                {
-                    table.DiningArea = this.Shift.SelectedDiningArea;
-                    TableControl tableControl = TableControlFactory.CreateTableControl(table);
-                    tableControl.TableClicked += TableControl_TableClicked;
-                    _tableControls.Add(tableControl);
-                    panel.Controls.Add(tableControl);
-                }
-            }
+            //tableControlManager.AddTableControls();
         }
-        public void UpdateTableControlColors()
-        {
-            foreach (TableControl tableControl in this._tableControls)
-            {
-                tableControl.BackColor = tableControl.Parent.BackColor;
-                tableControl.TextColor = tableControl.Parent.ForeColor;
-                tableControl.Invalidate();
+        //public void UpdateTableControlColors()
+        //{
+        //    foreach (TableControl tableControl in this._tableControls)
+        //    {
+        //        tableControl.BackColor = tableControl.Parent.BackColor;
+        //        tableControl.TextColor = tableControl.Parent.ForeColor;
+        //        tableControl.Invalidate();
 
-            }
-            if (Shift.SelectedFloorplan == null) { return; }
-            foreach (TableControl tableControl in this._tableControls)
-            {
+        //    }
+        //    if (Shift.SelectedFloorplan == null) { return; }
+        //    foreach (TableControl tableControl in this._tableControls)
+        //    {
 
-                foreach (Section section in Shift.SelectedFloorplan.Sections)
-                {
-                    foreach (Table table in section.Tables)
-                    {
-                        if (tableControl.Table.TableNumber == table.TableNumber)
-                        {
-                            tableControl.SetSection(section);
-                            tableControl.MuteColors();
-                            tableControl.TextColor = section.FontColor;
-                            if (section == this.Shift.SectionSelected)
-                            {
-                                tableControl.BackColor = section.MuteColor(1.15f);
+        //        foreach (Section section in Shift.SelectedFloorplan.Sections)
+        //        {
+        //            foreach (Table table in section.Tables)
+        //            {
+        //                if (tableControl.Table.TableNumber == table.TableNumber)
+        //                {
+        //                    tableControl.SetSection(section);
+        //                    tableControl.MuteColors();
+        //                    tableControl.TextColor = section.FontColor;
+        //                    if (section == this.Shift.SectionSelected)
+        //                    {
+        //                        tableControl.BackColor = section.MuteColor(1.15f);
 
-                            }
-                            tableControl.Invalidate();
-                            break;
-                        }
-                    }
-                }
-            }
+        //                    }
+        //                    tableControl.Invalidate();
+        //                    break;
+        //                }
+        //            }
+        //        }
+        //    }
 
-        }
+        //}
         public void ResetSections()
         {
             Floorplan.RemoveAllServersFromSections();
 
             Floorplan.floorplanLines.Clear();
-            foreach (TableControl tableControl in this._tableControls)
-            {
-                tableControl.RemoveSection();
-            }
-            UpdateTableControlColors();
+            //foreach (TableControl tableControl in this._tableControls)
+            //{
+            //    tableControl.RemoveSection();
+            //}
+            //UpdateTableControlColors();
+            tableControlManager.ResetSections();
             UpdateServerControls();
             RemoveAllSectionLabels();
             _sectionLabels.Clear();
@@ -192,78 +189,78 @@ namespace FloorPlanMakerUI
             }
 
         }
-        public void TableControlDisplayModeToSales()
-        {
-            foreach (TableControl tableControl in this._tableControls)
-            {
-                tableControl.CurrentDisplayMode = DisplayMode.AverageCovers;
-            }
-        }
-        public void UpdateTableControlSections(Panel panel)
-        {
-            foreach (Control ctrl in panel.Controls)
-            {
-                if (ctrl is TableControl tableControl)
-                {
-                    tableControl.BackColor = Color.Black;
-                    tableControl.ForeColor = Color.Black;
-                }
-            }
+        //public void TableControlDisplayModeToSales()
+        //{
+        //    foreach (TableControl tableControl in this._tableControls)
+        //    {
+        //        tableControl.CurrentDisplayMode = DisplayMode.AverageCovers;
+        //    }
+        //}
+        //public void UpdateTableControlSections(Panel panel)
+        //{
+        //    foreach (Control ctrl in panel.Controls)
+        //    {
+        //        if (ctrl is TableControl tableControl)
+        //        {
+        //            tableControl.BackColor = Color.Black;
+        //            tableControl.ForeColor = Color.Black;
+        //        }
+        //    }
 
-        }
-        private void TableControl_TableClicked(object sender, TableClickedEventArgs e)
-        {
-            TableControl clickedTableControl = sender as TableControl;
-            Table clickedTable = clickedTableControl.Table;
-            Section sectionEdited = (Section)clickedTableControl.Section;
-            if (e.MouseButton == MouseButtons.Right && clickedTableControl.Section != null)
-            {
-                sectionEdited.RemoveTable(clickedTable);
+        //}
+        //private void TableControl_TableClicked(object sender, TableClickedEventArgs e)
+        //{
+        //    TableControl clickedTableControl = sender as TableControl;
+        //    Table clickedTable = clickedTableControl.Table;
+        //    Section sectionEdited = (Section)clickedTableControl.Section;
+        //    if (e.MouseButton == MouseButtons.Right && clickedTableControl.Section != null)
+        //    {
+        //        sectionEdited.RemoveTable(clickedTable);
 
-                clickedTableControl.RemoveSection();
-                clickedTableControl.BackColor = clickedTableControl.Parent.BackColor;
-                clickedTableControl.ForeColor = clickedTableControl.Parent.ForeColor;
-                clickedTableControl.Invalidate();
-                if (sectionEdited.IsPickUp)
-                {
-                    UpdateAveragesPerServer();
-                }
+        //        clickedTableControl.RemoveSection();
+        //        clickedTableControl.BackColor = clickedTableControl.Parent.BackColor;
+        //        clickedTableControl.ForeColor = clickedTableControl.Parent.ForeColor;
+        //        clickedTableControl.Invalidate();
+        //        if (sectionEdited.IsPickUp)
+        //        {
+        //            UpdateAveragesPerServer();
+        //        }
 
-                return;
-            }
+        //        return;
+        //    }
 
-            if (Shift.SectionSelected != null)
-            {
-                if (sectionEdited != null)
-                {
-                    sectionEdited.RemoveTable(clickedTable);
-                    clickedTableControl.RemoveSection();
-                    if (sectionEdited.IsPickUp)
-                    {
-                        UpdateAveragesPerServer();
-                    }
-                }
-                AddTableControlToSelectedSection(clickedTableControl);
-            }
+        //    if (Shift.SectionSelected != null)
+        //    {
+        //        if (sectionEdited != null)
+        //        {
+        //            sectionEdited.RemoveTable(clickedTable);
+        //            clickedTableControl.RemoveSection();
+        //            if (sectionEdited.IsPickUp)
+        //            {
+        //                UpdateAveragesPerServer();
+        //            }
+        //        }
+        //        AddTableControlToSelectedSection(clickedTableControl);
+        //    }
 
-        }
-        private void AddTableControlToSelectedSection(TableControl clickedTableControl)
-        {
-            Table clickedTable = clickedTableControl.Table;
-            Shift.SectionSelected.AddTable(clickedTable);
-            clickedTableControl.SetSection(Shift.SectionSelected);
-            clickedTableControl.BackColor = Shift.SectionSelected.Color;
-            clickedTableControl.TextColor = Shift.SectionSelected.FontColor;
-            if (Shift.SectionSelected.IsPickUp)
-            {
-                UpdateAveragesPerServer();
-            }
-            clickedTableControl.Invalidate();
-            if (AllTablesAreAssigned())
-            {
-                UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.TableControl, UpdateType.Refresh, clickedTableControl));
-            }
-        }
+        //}
+        //private void AddTableControlToSelectedSection(TableControl clickedTableControl)
+        //{
+        //    Table clickedTable = clickedTableControl.Table;
+        //    Shift.SectionSelected.AddTable(clickedTable);
+        //    clickedTableControl.SetSection(Shift.SectionSelected);
+        //    clickedTableControl.BackColor = Shift.SectionSelected.Color;
+        //    clickedTableControl.TextColor = Shift.SectionSelected.FontColor;
+        //    if (Shift.SectionSelected.IsPickUp)
+        //    {
+        //        UpdateAveragesPerServer();
+        //    }
+        //    clickedTableControl.Invalidate();
+        //    if (AllTablesAreAssigned())
+        //    {
+        //        UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.TableControl, UpdateType.Refresh, clickedTableControl));
+        //    }
+        //}
         public bool AllTablesAreAssigned()
         {
             foreach (TableControl tableControl in TableControls)
@@ -290,11 +287,7 @@ namespace FloorPlanMakerUI
 
         public void SelectTables(List<TableControl> selectedTables)
         {
-            foreach (var tableControl in selectedTables)
-            {
-                TableClickedEventArgs args = new TableClickedEventArgs(tableControl.Table, false);
-                TableControl_TableClicked(tableControl, args);
-            }
+            tableControlManager.SelectTables(selectedTables);
         }
         public void SetSectionLabels()
         {
@@ -542,7 +535,9 @@ namespace FloorPlanMakerUI
                 UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionLabel, UpdateType.Remove, selectedSection));
                 this._sectionLabels.Remove(sectionLabelBySection(selectedSection));
                 Shift.SelectedFloorplan.ClearSection(selectedSection);
-                UpdateTableControlColors();
+
+                tableControlManager.RefreshTableControlColors();
+                //UpdateTableControlColors();
                 UpdateServerControls();
             }
             sectionPanel.UpdateLabels();
@@ -613,7 +608,7 @@ namespace FloorPlanMakerUI
         }
         public void AutoAssignSections()
         {
-            if (!AllTablesAreAssigned())
+            if (!tableControlManager.AllTablesAreAssigned())
             {
                 MessageBox.Show("All tables are not assigned");
                 return;
@@ -628,11 +623,12 @@ namespace FloorPlanMakerUI
             floorplanGenerator = new FloorplanGenerator(this.Shift);
             FloorplanTemplate template = floorplanGenerator.SelectIdealTemplate(TemplateManager.Templates);
             CopyTemplateSections(template);
-            AddTableControls(pnlFloorplan);
+            tableControlManager.SetFloorplan(Floorplan);
+            //tableControlManager.AddTableControls();
             SetSectionLabels();
             SetSectionPanels();           
             SetServerControls();
-            UpdateTableControlColors();
+            //tableControlManager.UpdateTableControlColors();
             flowSectionsPanel.Controls.Clear();
             flowServersPanel.Controls.Clear();
             AddServerControls(flowServersPanel);
@@ -680,11 +676,11 @@ namespace FloorPlanMakerUI
         public void MakeUnassignedTablesPickup()
         {
             AddPickupSection();
-            foreach(TableControl tableControl in this._tableControls)
+            foreach(TableControl tableControl in this.tableControlManager.TableControls)
             {
                 if(tableControl.Section == null)
                 {
-                    AddTableControlToSelectedSection(tableControl);
+                    tableControlManager.AddTableControlToSelectedSection(tableControl);
                 }
             }
         }
@@ -805,7 +801,7 @@ namespace FloorPlanMakerUI
                 {
                     floorplan.DiningArea.SetTableSales(tableSalesManager.Stats);
                 }
-                foreach(TableControl tableControl in this._tableControls)
+                foreach(TableControl tableControl in this.tableControlManager.TableControls)
                 {
                     this.toolTip.SetToolTip(tableControl, tableControl.Table.AverageSales.ToString("C0"));
                 }
@@ -870,14 +866,16 @@ namespace FloorPlanMakerUI
         }
         public void ChangeDiningAreaSelected()
         {
+            tableControlManager.SetDiningArea(Shift.SelectedDiningArea);
             if (Shift.SelectedFloorplan != null)
             {
                 Shift.SetDoubles();
-                AddTableControls(pnlFloorplan);
+                //tableControlManager.AddTableControls();
+                tableControlManager.SetFloorplan(Floorplan);
                 SetSectionLabels();
                 SetSectionPanels();
                 SetServerControls();
-                UpdateTableControlColors();
+                //tableControlManager.UpdateTableControlColors();
                 flowSectionsPanel.Controls.Clear();
                 flowServersPanel.Controls.Clear();
                 AddServerControls(flowServersPanel);
@@ -894,7 +892,8 @@ namespace FloorPlanMakerUI
                 {
                     pnlFloorplan.Controls.Remove(sectionLabel);
                 }
-                UpdateTableControlColors();
+                tableControlManager.SetDiningArea(Shift.SelectedDiningArea);
+                //tableControlManager.UpdateTableControlColors();
                 UpdateTableStats();
                 SetSectionPanels();
                 SetServerControls();
@@ -1224,7 +1223,7 @@ namespace FloorPlanMakerUI
                 UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionLabel, UpdateType.Remove, selectedSection));
                 this._sectionLabels.Remove(sectionLabelBySection(selectedSection));
                 Shift.SelectedFloorplan.ClearSection(selectedSection);
-                UpdateTableControlColors();
+                tableControlManager.RefreshTableControlColors();
                 UpdateServerControls();
             }
             sectionPanel.UpdateLabels();
