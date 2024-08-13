@@ -415,7 +415,7 @@ namespace FloorplanUserControlLibrary
 
         public void SetTeamWaitPictureBoxes()
         {
-            
+
         }
     }
 }

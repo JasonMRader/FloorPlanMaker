@@ -63,11 +63,11 @@
             btnAssignedServer.BackColor = SystemColors.ButtonShadow;
             btnAssignedServer.FlatAppearance.BorderSize = 0;
             btnAssignedServer.FlatStyle = FlatStyle.Flat;
-            btnAssignedServer.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnAssignedServer.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             btnAssignedServer.Location = new Point(0, 0);
             btnAssignedServer.Margin = new Padding(0, 0, 2, 0);
             btnAssignedServer.Name = "btnAssignedServer";
-            btnAssignedServer.Size = new Size(529, 27);
+            btnAssignedServer.Size = new Size(529, 29);
             btnAssignedServer.TabIndex = 1;
             btnAssignedServer.Text = "Unassigned";
             btnAssignedServer.UseVisualStyleBackColor = false;
@@ -79,7 +79,7 @@
             btnClearSection.FlatAppearance.BorderSize = 0;
             btnClearSection.FlatStyle = FlatStyle.Flat;
             btnClearSection.Image = Properties.Resources.erase_Small;
-            btnClearSection.Location = new Point(624, 3);
+            btnClearSection.Location = new Point(625, -1);
             btnClearSection.Name = "btnClearSection";
             btnClearSection.Size = new Size(42, 30);
             btnClearSection.TabIndex = 3;
@@ -91,7 +91,7 @@
             btnTeamWaitToggle.FlatAppearance.BorderSize = 0;
             btnTeamWaitToggle.FlatStyle = FlatStyle.Flat;
             btnTeamWaitToggle.Image = Properties.Resources.waiters_28;
-            btnTeamWaitToggle.Location = new Point(572, 3);
+            btnTeamWaitToggle.Location = new Point(568, -1);
             btnTeamWaitToggle.Name = "btnTeamWaitToggle";
             btnTeamWaitToggle.Size = new Size(52, 30);
             btnTeamWaitToggle.TabIndex = 4;
@@ -101,7 +101,7 @@
             // pbTotalCovers
             // 
             pbTotalCovers.Image = Properties.Resources.covers;
-            pbTotalCovers.Location = new Point(25, 32);
+            pbTotalCovers.Location = new Point(33, 32);
             pbTotalCovers.Margin = new Padding(3, 3, 0, 3);
             pbTotalCovers.Name = "pbTotalCovers";
             pbTotalCovers.Size = new Size(35, 31);
@@ -113,7 +113,7 @@
             // 
             lblTotalCovers.BackColor = Color.FromArgb(224, 224, 224);
             lblTotalCovers.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
-            lblTotalCovers.Location = new Point(60, 32);
+            lblTotalCovers.Location = new Point(68, 32);
             lblTotalCovers.Margin = new Padding(0, 0, 3, 0);
             lblTotalCovers.Name = "lblTotalCovers";
             lblTotalCovers.Size = new Size(53, 31);
@@ -162,7 +162,7 @@
             lblSalesDifference.Location = new Point(458, 32);
             lblSalesDifference.Margin = new Padding(0, 0, 3, 0);
             lblSalesDifference.Name = "lblSalesDifference";
-            lblSalesDifference.Size = new Size(108, 31);
+            lblSalesDifference.Size = new Size(104, 31);
             lblSalesDifference.TabIndex = 7;
             lblSalesDifference.Text = "$2,777";
             lblSalesDifference.TextAlign = ContentAlignment.MiddleCenter;
@@ -170,7 +170,7 @@
             // pbCoversDifference
             // 
             pbCoversDifference.Image = Properties.Resources.CoversUpBlack;
-            pbCoversDifference.Location = new Point(134, 32);
+            pbCoversDifference.Location = new Point(142, 32);
             pbCoversDifference.Margin = new Padding(3, 3, 0, 3);
             pbCoversDifference.Name = "pbCoversDifference";
             pbCoversDifference.Size = new Size(35, 31);
@@ -182,7 +182,7 @@
             // 
             lblCoverDifference.BackColor = Color.FromArgb(224, 224, 224);
             lblCoverDifference.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
-            lblCoverDifference.Location = new Point(174, 32);
+            lblCoverDifference.Location = new Point(182, 32);
             lblCoverDifference.Margin = new Padding(0, 0, 3, 0);
             lblCoverDifference.Name = "lblCoverDifference";
             lblCoverDifference.Size = new Size(53, 31);
@@ -195,7 +195,7 @@
             flowServerButtons.Controls.Add(btnAssignedServer);
             flowServerButtons.Location = new Point(33, 0);
             flowServerButtons.Name = "flowServerButtons";
-            flowServerButtons.Size = new Size(529, 27);
+            flowServerButtons.Size = new Size(529, 29);
             flowServerButtons.TabIndex = 8;
             // 
             // SectionHeaderDisplay

@@ -568,7 +568,8 @@ namespace FloorplanClassLibrary
         }
         public void SetTheAppropriateAmountOfSections()
         {
-            while(NonBartenderServerCount > NonBartenderServerCapacity)
+
+            while(NonBartenderServerCount < NonBartenderServerCapacity)
             {
                 bool sectionRemoved = RemoveHighestNumberedEmptySection();
                 if (!sectionRemoved)
@@ -576,7 +577,7 @@ namespace FloorplanClassLibrary
                     break;
                 }
             }
-            while(NonBartenderServerCount < NonBartenderServerCapacity)
+            while(NonBartenderServerCount > NonBartenderServerCapacity)
             {
                 Section newSection = new Section(this);                
                 AddSection(newSection);

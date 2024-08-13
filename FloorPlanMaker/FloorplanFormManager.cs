@@ -458,7 +458,7 @@ namespace FloorPlanMakerUI
         }
         public void SectionHeaderTeamwaitToggle(Section selectedSection)
         {
-            if (selectedSection.IsPickUp) { return; }
+            if (selectedSection.IsPickUp || selectedSection.IsBarSection) { return; }
             SectionPanelControl sectionPanel = _sectionPanels.FirstOrDefault(sp => sp.Section == selectedSection);
             if (!selectedSection.IsTeamWait)
             {
@@ -471,18 +471,19 @@ namespace FloorPlanMakerUI
 
                 selectedSection.MakeSoloSection();
                 sectionHeader.SetTeamWaitPictureBoxes();
-                Section sectionAdded = new Section(Floorplan);
-                Floorplan.AddSection(sectionAdded);
-                SectionPanelControl newSectionPanel = new SectionPanelControl(sectionAdded, this.Shift.SelectedFloorplan);
-                newSectionPanel.CheckBoxChanged += setSelectedSection;
-                newSectionPanel.picEraseSectionClicked += EraseSectionClicked;
-                newSectionPanel.picTeamWaitClicked += TeamWaitClicked;
-                newSectionPanel.picAddServerClicked += SectionAddServerClicked;
-                newSectionPanel.picSubtractServerClicked += SectionSubtractServerClicked;
-                newSectionPanel.unassignedSpotClicked += AssignServerToSection;
-                newSectionPanel.ServerRemoved += ServerRemovedFromSection;
-                this._sectionPanels.Add(newSectionPanel);
-                UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionPanel, UpdateType.Add, sectionAdded));
+                Floorplan.SetTheAppropriateAmountOfSections();
+                //Section sectionAdded = new Section(Floorplan);
+                //Floorplan.AddSection(sectionAdded);
+                //SectionPanelControl newSectionPanel = new SectionPanelControl(sectionAdded, this.Shift.SelectedFloorplan);
+                //newSectionPanel.CheckBoxChanged += setSelectedSection;
+                //newSectionPanel.picEraseSectionClicked += EraseSectionClicked;
+                //newSectionPanel.picTeamWaitClicked += TeamWaitClicked;
+                //newSectionPanel.picAddServerClicked += SectionAddServerClicked;
+                //newSectionPanel.picSubtractServerClicked += SectionSubtractServerClicked;
+                //newSectionPanel.unassignedSpotClicked += AssignServerToSection;
+                //newSectionPanel.ServerRemoved += ServerRemovedFromSection;
+                //this._sectionPanels.Add(newSectionPanel);
+                //UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionPanel, UpdateType.Add, sectionAdded));
             }
             sectionPanel.UpdateLabels();
 
