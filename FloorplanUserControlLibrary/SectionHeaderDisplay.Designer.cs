@@ -75,25 +75,28 @@
             // 
             // btnClearSection
             // 
+            btnClearSection.BackColor = Color.FromArgb(190, 80, 70);
             btnClearSection.FlatAppearance.BorderSize = 0;
             btnClearSection.FlatStyle = FlatStyle.Flat;
             btnClearSection.Image = Properties.Resources.erase_Small;
-            btnClearSection.Location = new Point(624, 0);
+            btnClearSection.Location = new Point(624, 3);
             btnClearSection.Name = "btnClearSection";
-            btnClearSection.Size = new Size(42, 62);
+            btnClearSection.Size = new Size(42, 30);
             btnClearSection.TabIndex = 3;
-            btnClearSection.UseVisualStyleBackColor = true;
+            btnClearSection.UseVisualStyleBackColor = false;
             // 
             // btnTeamWaitToggle
             // 
+            btnTeamWaitToggle.BackColor = Color.FromArgb(100, 130, 180);
             btnTeamWaitToggle.FlatAppearance.BorderSize = 0;
             btnTeamWaitToggle.FlatStyle = FlatStyle.Flat;
             btnTeamWaitToggle.Image = Properties.Resources.waiters_28;
-            btnTeamWaitToggle.Location = new Point(568, 0);
+            btnTeamWaitToggle.Location = new Point(572, 3);
             btnTeamWaitToggle.Name = "btnTeamWaitToggle";
-            btnTeamWaitToggle.Size = new Size(56, 62);
+            btnTeamWaitToggle.Size = new Size(52, 30);
             btnTeamWaitToggle.TabIndex = 4;
-            btnTeamWaitToggle.UseVisualStyleBackColor = true;
+            btnTeamWaitToggle.UseVisualStyleBackColor = false;
+            btnTeamWaitToggle.Click += btnTeamWaitToggle_Click;
             // 
             // pbTotalCovers
             // 
@@ -156,7 +159,7 @@
             // 
             lblSalesDifference.BackColor = Color.FromArgb(224, 224, 224);
             lblSalesDifference.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
-            lblSalesDifference.Location = new Point(453, 32);
+            lblSalesDifference.Location = new Point(458, 32);
             lblSalesDifference.Margin = new Padding(0, 0, 3, 0);
             lblSalesDifference.Name = "lblSalesDifference";
             lblSalesDifference.Size = new Size(108, 31);
@@ -179,7 +182,7 @@
             // 
             lblCoverDifference.BackColor = Color.FromArgb(224, 224, 224);
             lblCoverDifference.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
-            lblCoverDifference.Location = new Point(169, 32);
+            lblCoverDifference.Location = new Point(174, 32);
             lblCoverDifference.Margin = new Padding(0, 0, 3, 0);
             lblCoverDifference.Name = "lblCoverDifference";
             lblCoverDifference.Size = new Size(53, 31);

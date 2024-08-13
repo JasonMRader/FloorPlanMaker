@@ -24,6 +24,7 @@ namespace FloorplanUserControlLibrary
         private Floorplan floorplan { get; set; }
         private ToolTip toolTip { get; set; }
         public event EventHandler AssignServerClicked;
+        public event EventHandler btnTeamWaitClicked;
 
         public SectionHeaderDisplay()
         {
@@ -48,12 +49,12 @@ namespace FloorplanUserControlLibrary
         }
         public void SetSectionToNull()
         {
-            if(this.section != null)
+            if (this.section != null)
             {
                 this.section.RemoveObserver(this);
                 this.section = null;
             }
-           
+
 
             pnlNoSection.Dock = DockStyle.Fill;
             this.Controls.Add(pnlNoSection);
@@ -87,25 +88,32 @@ namespace FloorplanUserControlLibrary
             }
             if (section.IsTeamWait)
             {
-                if (section.FontColor == Color.White)
-                {
-                    btnTeamWaitToggle.Image = Resources.TeamWaiterWhite_28;
-                }
-                else
-                {
-                    btnTeamWaitToggle.Image = Resources.waiters_28;
-                }
+                btnTeamWaitToggle.Image = Resources.waiters_28;
+                btnTeamWaitToggle.BackColor = UITheme.WarningColor;
+                //if (section.FontColor == Color.White)
+                //{
+                //    btnTeamWaitToggle.Image = Resources.TeamWaiterWhite_28;
+                //    btnTeamWaitToggle.BackColor = UITheme.WarningColor;
+                //}
+                //else
+                //{
+                //    btnTeamWaitToggle.Image = Resources.waiters_28;
+                //    btnTeamWaitToggle.BackColor = UITheme.WarningColor;
+                //}
             }
             if (!section.IsTeamWait)
             {
-                if (section.FontColor == Color.White)
-                {
-                    btnTeamWaitToggle.Image = Resources.SoloWaiterWhite_28;
-                }
-                else
-                {
-                    btnTeamWaitToggle.Image = Resources.waiter_28;
-                }
+                btnTeamWaitToggle.Image = Resources.waiter_28;
+                btnTeamWaitToggle.BackColor = UITheme.CTAColor;
+                //if (section.FontColor == Color.White)
+                //{
+                //    btnTeamWaitToggle.Image = Resources.SoloWaiterWhite_28;
+                //}
+                //else
+                //{
+                //    btnTeamWaitToggle.Image = Resources.waiter_28;
+                //    btnTeamWaitToggle.BackColor = UITheme.CTAColor;
+                //}
             }
 
         }
@@ -384,19 +392,30 @@ namespace FloorplanUserControlLibrary
 
         public void UpdateSection(Section section)
         {
-            if(section == null)
+            if (section == null)
             {
                 SetSectionToNull();
             }
-            else {
+            else
+            {
                 SetControlsForSection();
             }
-            
+
         }
 
         private void btnAssignedServer_Click(object sender, EventArgs e)
         {
             AssignServerClicked?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void btnTeamWaitToggle_Click(object sender, EventArgs e)
+        {
+            btnTeamWaitClicked?.Invoke(this, EventArgs.Empty);
+        }
+
+        public void SetTeamWaitPictureBoxes()
+        {
+            
         }
     }
 }

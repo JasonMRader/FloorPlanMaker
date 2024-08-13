@@ -66,6 +66,7 @@ namespace FloorPlanMakerUI
             this.pnlMainContainer = pnlContainer;
             this.diningAreaButtonHandeler = diningAreaButtonHandeler;
             this.sectionHeader = headerDisplay;
+            this.sectionHeader.btnTeamWaitClicked += HeaderTeamWaitClicked;
            
             //frmSectionServerAssign.CloseClicked += CloseAssignForm;
             frmSectionServerAssign.StartPosition = FormStartPosition.Manual;
@@ -471,6 +472,53 @@ namespace FloorPlanMakerUI
             Section selectedSection = sectionPanel.Section;
 
             SectionTeamwaitToggle(selectedSection);
+        }
+        private void HeaderTeamWaitClicked(object? sender, EventArgs e)
+        {
+            SectionHeaderDisplay sectionPanel = sender as SectionHeaderDisplay;
+
+            Section selectedSection = sectionPanel.Section;
+
+            SectionHeaderTeamwaitToggle(selectedSection);
+        }
+        public void SectionHeaderTeamwaitToggle(Section selectedSection)
+        {
+            if (selectedSection.IsPickUp) { return; }
+            SectionPanelControl sectionPanel = _sectionPanels.FirstOrDefault(sp => sp.Section == selectedSection);
+            if (!selectedSection.IsTeamWait)
+            {
+                Section sectionRemoved = Floorplan.RemoveHighestNumberedEmptySection(selectedSection);
+                if (sectionRemoved == null || Floorplan.NotEnoughUnassignedServersCheck(selectedSection))
+                {
+                    MessageBox.Show("You must clear a section before making another section a teamwait section");
+                }
+                else
+                {
+                    selectedSection.ToggleTeamWait();
+                    sectionHeader.SetTeamWaitPictureBoxes();
+                    UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionPanel, UpdateType.Remove, sectionRemoved));
+                    this._sectionPanels.Remove(sectionPanelControlBySection(sectionRemoved));
+                }
+            }
+            else
+            {
+                selectedSection.MakeSoloSection();
+                sectionHeader.SetTeamWaitPictureBoxes();
+                Section sectionAdded = new Section(Floorplan);
+                Floorplan.AddSection(sectionAdded);
+                SectionPanelControl newSectionPanel = new SectionPanelControl(sectionAdded, this.Shift.SelectedFloorplan);
+                newSectionPanel.CheckBoxChanged += setSelectedSection;
+                newSectionPanel.picEraseSectionClicked += EraseSectionClicked;
+                newSectionPanel.picTeamWaitClicked += TeamWaitClicked;
+                newSectionPanel.picAddServerClicked += SectionAddServerClicked;
+                newSectionPanel.picSubtractServerClicked += SectionSubtractServerClicked;
+                newSectionPanel.unassignedSpotClicked += AssignServerToSection;
+                newSectionPanel.ServerRemoved += ServerRemovedFromSection;
+                this._sectionPanels.Add(newSectionPanel);
+                UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionPanel, UpdateType.Add, sectionAdded));
+            }
+            sectionPanel.UpdateLabels();
+
         }
         public void SectionTeamwaitToggle(Section selectedSection)
         {
