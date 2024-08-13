@@ -128,6 +128,7 @@ namespace FloorplanUserControlLibrary
 
             if (this.Section.Server != null && Section.IsTeamWait == false)
             {
+                SetToSolo();
                 if (this.Section.Server.isDouble)
                 {
                     lblDisplay.Text = Section.Server.Name + " (Dbl)";
@@ -144,6 +145,7 @@ namespace FloorplanUserControlLibrary
             }
             else if (this.Section.Server == null && Section.IsTeamWait == false)
             {
+                SetToSolo();
                 lblDisplay.Text = "Unassigned";
                 lblDisplay.BackColor = UITheme.ButtonColor;
                 lblDisplay.Click += unassignedLabel_Click;

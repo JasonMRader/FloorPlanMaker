@@ -117,7 +117,7 @@ namespace FloorPlanMaker
                 cboDiningAreas.DataSource = areaCreationManager.DiningAreas;
                 cboDiningAreas.DisplayMember = "Name";
                 cboDiningAreas.ValueMember = "ID";
-                
+
                 //rdoSections.Checked = true;
                 rdoViewSectionFlow.Checked = true;
                 pnlFloorPlan.BackgroundImage = null;
@@ -380,7 +380,7 @@ namespace FloorPlanMaker
                 //    {
                 //        int indexOfSelected = areaCreationManager.DiningAreas.IndexOf(shift.SelectedDiningArea);
                 //        shift.SetSelectedDiningArea(areaCreationManager.DiningAreas[indexOfSelected - 1]);
-                       
+
                 //    }
                 //    else
                 //    {
@@ -473,7 +473,7 @@ namespace FloorPlanMaker
             //diningAreaButtonHandeler.UpdateForShift(shift);
         }
 
-        
+
         private void FloorplanManager_UpdateRequired(object sender, UpdateEventArgs e)
         {
             switch (e.ControlType)
@@ -495,22 +495,22 @@ namespace FloorPlanMaker
                         //floorplanManager.UpdateServerControlsInFlowPanel()
                     }
                     break;
-                case ControlType.SectionPanel:
-                    if (e.UpdateType == UpdateType.Remove)
-                    {
-                        floorplanManager.RemoveSectionPanel(e.UpdateData as Section, flowSectionSelect);
-                    }
-                    else if (e.UpdateType == UpdateType.Add)
-                    {
-                        floorplanManager.AddSectionPanel(e.UpdateData as Section, flowSectionSelect);
-                    }
-                    else if (e.UpdateType == UpdateType.Assign)
-                    {
-                        quicklyChoosingAServer = true;
-                        rdoViewServerFlow.Checked = true;
-                        SubscribeToChildrenClick(flowServersInFloorplan);
-                    }
-                    break;
+                //case ControlType.SectionPanel:
+                //    if (e.UpdateType == UpdateType.Remove)
+                //    {
+                //        floorplanManager.RemoveSectionPanel(e.UpdateData as Section, flowSectionSelect);
+                //    }
+                //    else if (e.UpdateType == UpdateType.Add)
+                //    {
+                //        floorplanManager.AddSectionPanel(e.UpdateData as Section, flowSectionSelect);
+                //    }
+                //    else if (e.UpdateType == UpdateType.Assign)
+                //    {
+                //        quicklyChoosingAServer = true;
+                //        rdoViewServerFlow.Checked = true;
+                //        SubscribeToChildrenClick(flowServersInFloorplan);
+                //    }
+                //    break;
                 case ControlType.TableControl:
 
                     floorplanManager.SetSectionLabels();

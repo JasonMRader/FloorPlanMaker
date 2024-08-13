@@ -90,32 +90,13 @@ namespace FloorplanUserControlLibrary
             {
                 btnTeamWaitToggle.Image = Resources.waiters_28;
                 btnTeamWaitToggle.BackColor = UITheme.WarningColor;
-                //if (section.FontColor == Color.White)
-                //{
-                //    btnTeamWaitToggle.Image = Resources.TeamWaiterWhite_28;
-                //    btnTeamWaitToggle.BackColor = UITheme.WarningColor;
-                //}
-                //else
-                //{
-                //    btnTeamWaitToggle.Image = Resources.waiters_28;
-                //    btnTeamWaitToggle.BackColor = UITheme.WarningColor;
-                //}
+               
             }
             if (!section.IsTeamWait)
             {
                 btnTeamWaitToggle.Image = Resources.waiter_28;
-                btnTeamWaitToggle.BackColor = UITheme.CTAColor;
-                //if (section.FontColor == Color.White)
-                //{
-                //    btnTeamWaitToggle.Image = Resources.SoloWaiterWhite_28;
-                //}
-                //else
-                //{
-                //    btnTeamWaitToggle.Image = Resources.waiter_28;
-                //    btnTeamWaitToggle.BackColor = UITheme.CTAColor;
-                //}
+                btnTeamWaitToggle.BackColor = UITheme.CTAColor;                
             }
-
         }
         private void SetSalesDifferenceControls()
         {
@@ -288,103 +269,8 @@ namespace FloorplanUserControlLibrary
             SetSalesDifferenceControls();
             SetCoverDifferenceProperties();
             SetSectionTotalControls();
-
         }
-        //public void UpdateSalesAndCovers()
-        //{
-        //    if (this.Section.IsPickUp) { return; }
-        //    lblCovers.Text = floorplan.GetCoverDifferenceForSection(Section).ToString("F0");
-        //    lblSales.Text = Section.AverageSalesDisplay();
-        //    if (floorplan.GetSalesDifferenceForSection(Section) >= 0)
-        //    {
-        //        lblSalesDif.Text =
-        //             Section.FormatAsCurrencyWithoutParentheses(floorplan.GetSalesDifferenceForSection(Section));
-        //        lblSalesDif.BackColor = Color.LightGreen;
-        //        lblSalesDif.ForeColor = Color.Black;
-        //    }
-        //    else
-        //    {
-        //        lblSalesDif.Text =
-        //             Section.FormatAsCurrencyWithoutParentheses(floorplan.GetSalesDifferenceForSection(Section));
-        //        lblSalesDif.BackColor = Color.Pink;
-        //        lblSalesDif.ForeColor = Color.Black;
-        //    }
-        //}
-        //public void UpdateLabels()
-        //{
-
-        //    if (section.IsPickUp)
-        //    {
-
-        //        btnAssignedServer.Text = "Pick-up";
-        //        btnTeamWaitToggle.Visible = false;
-        //        btnClearSection.Image = Resources.Trash;
-        //        toolTip.SetToolTip(btnClearSection, "Delete Section");
-        //        ilcCovers.UpdateText(section.MaxCovers.ToString("F0"));
-        //        ilcSales.UpdateText(Section.FormatAsCurrencyWithoutParentheses(section.ExpectedTotalSales));
-        //        ilcSalesDif.Visible = false;
-        //        return;
-        //    }
-
-        //    lblSectionNumber.Text = "# " + this.section.Number.ToString();
-        //    UpdateSalesAndCovers();
-
-        //    if (this.Section.Server != null && Section.IsTeamWait == false)
-        //    {
-        //        if (this.Section.Server.isDouble)
-        //        {
-        //            lblDisplay.Text = Section.Server.Name + " (Dbl)";
-        //        }
-        //        else
-        //        {
-        //            lblDisplay.Text = Section.Server.Name;
-        //        }
-        //        lblDisplay.BackColor = Section.Color;
-        //        lblDisplay.Click -= unassignedLabel_Click;
-        //        picClearSection.Image = Resources.erase;
-        //        toolTip.SetToolTip(picClearSection, "Clear Section");
-        //        toolTip.SetToolTip(lblSales, "Estimated Sales");
-        //    }
-        //    else if (this.Section.Server == null && Section.IsTeamWait == false)
-        //    {
-        //        lblDisplay.Text = "Unassigned";
-        //        lblDisplay.BackColor = UITheme.ButtonColor;
-        //        lblDisplay.Click += unassignedLabel_Click;
-        //        if (this.Section.IsEmpty())
-        //        {
-        //            picClearSection.Image = Resources.Trash;
-        //            toolTip.SetToolTip(picClearSection, "Delete Section");
-        //        }
-        //        toolTip.SetToolTip(lblSales, "Estimated Sales");
-        //    }
-        //    else if (this.Section.IsTeamWait)
-        //    {
-        //        if (this.Section.IsBarSection)
-        //        {
-
-        //        }
-        //        foreach (Label label in serverLabels) { label.Tag = null; label.Text = "Unassigned"; };
-        //        foreach (PictureBox pb in removeServerPBs) { pb.Tag = null; };
-        //        lblDisplay.Text = this.Section.ServerCount.ToString() + " Team Section";
-        //        lblDisplay.BackColor = Section.Color;
-        //        toolTip.SetToolTip(picClearSection, "Clear Section");
-        //        toolTip.SetToolTip(lblSales, $"Estimated Sales Per Server: {Section.AverageSalesDisplay()}\n" +
-        //            $"Total Section Sales: {Section.ExpectedSalesDisplay()}");
-        //        if (this.serverLabels.Count < Section.ServerCount)
-        //        {
-        //            SetToTeamWait();
-        //        }
-        //        for (int i = 0; i < this.Section.ServerTeam.Count; i++)
-        //        {
-        //            SetLabelToAssigned(i);
-        //            //serverLabels[i].Text = Section.ServerTeam[i].Name;
-        //            //serverLabels[i].Tag = Section.ServerTeam[i];
-        //            removeServerPBs[i].Tag = Section.ServerTeam[i];
-        //        }
-
-        //    }
-
-        //}
+       
         private void SectionHeaderDisplay_Load(object sender, EventArgs e)
         {
 

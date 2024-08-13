@@ -511,9 +511,9 @@ namespace FloorPlanMaker
             // pnlIndicator2
             // 
             pnlIndicator2.BackColor = Color.Red;
-            pnlIndicator2.Location = new Point(0, 13);
+            pnlIndicator2.Location = new Point(0, 0);
             pnlIndicator2.Name = "pnlIndicator2";
-            pnlIndicator2.Size = new Size(3, 100);
+            pnlIndicator2.Size = new Size(3, 163);
             pnlIndicator2.TabIndex = 26;
             // 
             // pnlAreaIndicatorContainer
@@ -530,7 +530,7 @@ namespace FloorPlanMaker
             pnlAreaIndicator.BackColor = Color.WhiteSmoke;
             pnlAreaIndicator.Location = new Point(0, 0);
             pnlAreaIndicator.Name = "pnlAreaIndicator";
-            pnlAreaIndicator.Size = new Size(8, 100);
+            pnlAreaIndicator.Size = new Size(8, 163);
             pnlAreaIndicator.TabIndex = 26;
             // 
             // flowSideDiningAreas

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing.Printing;
 using System.Linq;
+using System.Runtime.Intrinsics.Arm;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -42,10 +43,12 @@ namespace FloorPlanMakerUI
             foreach (DiningArea area in diningAreas)
             {
                 RadioButton button = CreateDiningAreaButton(area);
+
                 radioButtons.Add(button);
                 flowLayoutPanel.Controls.Add(button);
 
             }
+            
         }
         private RadioButton CreateDiningAreaButton(DiningArea area)
         {
@@ -82,7 +85,12 @@ namespace FloorPlanMakerUI
                 {
                     radio.BackColor = UITheme.ButtonColor;
                     radio.FlatAppearance.CheckedBackColor = UITheme.DarkenColor(.3f, UITheme.ButtonColor);
-                    pnlIndicator.BackColor = radio.BackColor;                   
+                    pnlIndicator.BackColor = radio.FlatAppearance.CheckedBackColor;    
+                    if(shift.SelectedDiningArea == radio.Tag)
+                    {
+                        radio.Checked = true;
+                        SetIndicatorsNextToCheckedButton(radio);
+                    }
                 }
             }
             else
@@ -108,10 +116,14 @@ namespace FloorPlanMakerUI
                         radio.BackColor = UITheme.ButtonColor;
                         radio.FlatAppearance.CheckedBackColor = UITheme.DarkenColor(.3f, UITheme.ButtonColor);
                     }
+                    if (this.shift.SelectedDiningArea == radio.Tag)
+                    {
+                        radio.Checked = true;
+                        SetIndicatorsNextToCheckedButton(radio);
+                    }
                     if (radio.Checked)
                     {
-                        pnlIndicator.BackColor = radio.FlatAppearance.CheckedBackColor;  
-                        
+                        pnlIndicator.BackColor = radio.FlatAppearance.CheckedBackColor;                        
                         
                     }
                 }
@@ -139,23 +151,23 @@ namespace FloorPlanMakerUI
 
                 if (area.ID == shift.SelectedDiningArea.ID)
                 {
-                    rdo.Checked = true;
-                    pnlIndicator.Height = rdo.Height;
-                    pnlIndicator.Location = new Point(0, rdo.Location.Y);
-                    pnlIndicator.BackColor = rdo.FlatAppearance.CheckedBackColor;
-                    pnlIndicator2.Height = rdo.Height;
-                    pnlIndicator2.Location = new Point(0, rdo.Location.Y);
-                    pnlIndicator2.BackColor = rdo.BackColor;
-                    pnlIndicator2.BackColor = Color.FromArgb(255, 103, 0);
-                   
 
-                }
-                else
-                {
-                    rdo.Width = flowLayoutPanel.Width;
-                }
+                    SetIndicatorsNextToCheckedButton(rdo);
+
+                }              
 
             }
+        }
+        private void SetIndicatorsNextToCheckedButton(RadioButton rdo)
+        {
+            rdo.Checked = true;
+            pnlIndicator.Height = rdo.Height;
+            pnlIndicator.Location = new Point(0, rdo.Location.Y);
+            pnlIndicator.BackColor = rdo.FlatAppearance.CheckedBackColor;
+            pnlIndicator2.Height = rdo.Height;
+            pnlIndicator2.Location = new Point(0, rdo.Location.Y);
+            pnlIndicator2.BackColor = rdo.BackColor;
+            pnlIndicator2.BackColor = Color.FromArgb(255, 103, 0);
         }
         public void UpdateShift(Shift shift)
         {

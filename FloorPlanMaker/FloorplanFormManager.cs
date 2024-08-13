@@ -261,15 +261,8 @@ namespace FloorPlanMakerUI
             Shift.SelectedFloorplan.MovePickupSectionsToEndOfList();
             foreach (Section section in Shift.SelectedFloorplan.Sections)
             {
-                SectionPanelControl sectionPanel = new SectionPanelControl(section, this.Shift.SelectedFloorplan);
-                sectionPanel.CheckBoxChanged += setSelectedSection;
-                sectionPanel.picEraseSectionClicked += EraseSectionClicked;
-                sectionPanel.picTeamWaitClicked += TeamWaitClicked;
-                sectionPanel.picAddServerClicked += SectionAddServerClicked;
-                sectionPanel.picSubtractServerClicked += SectionSubtractServerClicked;
-                sectionPanel.unassignedSpotClicked += AssignServerToSection;
-                sectionPanel.ServerRemoved += ServerRemovedFromSection;                         
-                this._sectionPanels.Add(sectionPanel);
+                AddNewPanelControl(section);
+               
             }
             if(this.Floorplan.Sections.Count > 0)
             {
@@ -308,16 +301,7 @@ namespace FloorPlanMakerUI
                 
                 Section sectionAdded = new Section(Floorplan);
                 Floorplan.AddSection(sectionAdded);
-                SectionPanelControl newSectionPanel = new SectionPanelControl(sectionAdded, this.Shift.SelectedFloorplan);
-                newSectionPanel.CheckBoxChanged += setSelectedSection;
-                newSectionPanel.picEraseSectionClicked += EraseSectionClicked;
-                newSectionPanel.picTeamWaitClicked += TeamWaitClicked;
-                newSectionPanel.picAddServerClicked += SectionAddServerClicked;
-                newSectionPanel.picSubtractServerClicked += SectionSubtractServerClicked;
-                newSectionPanel.unassignedSpotClicked += AssignServerToSection;
-                newSectionPanel.ServerRemoved += ServerRemovedFromSection;
-                this._sectionPanels.Add(newSectionPanel);
-                UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionPanel, UpdateType.Add, sectionAdded));                
+                AddNewPanelControl(sectionAdded);            
 
             }
         }
@@ -463,14 +447,14 @@ namespace FloorPlanMakerUI
             if (!selectedSection.IsTeamWait)
             {
                 selectedSection.ToggleTeamWait();
-                sectionHeader.SetTeamWaitPictureBoxes();
+                //sectionHeader.SetTeamWaitPictureBoxes();
                 Floorplan.SetTheAppropriateAmountOfSections();                
             }
             else
             {
 
                 selectedSection.MakeSoloSection();
-                sectionHeader.SetTeamWaitPictureBoxes();
+                //sectionHeader.SetTeamWaitPictureBoxes();
                 Floorplan.SetTheAppropriateAmountOfSections();
                 //Section sectionAdded = new Section(Floorplan);
                 //Floorplan.AddSection(sectionAdded);
@@ -517,19 +501,12 @@ namespace FloorPlanMakerUI
                 sectionPanel.SetTeamWaitPictureBoxes();
                 Section sectionAdded = new Section(Floorplan);
                 Floorplan.AddSection(sectionAdded);
-                SectionPanelControl newSectionPanel = new SectionPanelControl(sectionAdded, this.Shift.SelectedFloorplan);
-                newSectionPanel.CheckBoxChanged += setSelectedSection;
-                newSectionPanel.picEraseSectionClicked += EraseSectionClicked;
-                newSectionPanel.picTeamWaitClicked += TeamWaitClicked;
-                newSectionPanel.picAddServerClicked += SectionAddServerClicked;
-                newSectionPanel.picSubtractServerClicked += SectionSubtractServerClicked;
-                newSectionPanel.unassignedSpotClicked += AssignServerToSection;
-                newSectionPanel.ServerRemoved += ServerRemovedFromSection;
-                this._sectionPanels.Add(newSectionPanel);
-                UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionPanel, UpdateType.Add, sectionAdded));
+                AddNewPanelControl(sectionAdded);
+               
             }
             sectionPanel.UpdateLabels();
         }
+       
         private void EraseSectionClicked(object? sender, EventArgs e)
         {            
             SectionPanelControl sectionPanel = (SectionPanelControl)sender;
@@ -732,14 +709,15 @@ namespace FloorPlanMakerUI
 
             section.IsPickUp = false;
             Floorplan.AddSection(section);           
-            SectionPanelControl newSectionPanel = new SectionPanelControl(section, this.Shift.SelectedFloorplan);
-            newSectionPanel.Width = flowSectionsPanel.Width - 10;
-            newSectionPanel.Margin = new Padding(5);            
-            newSectionPanel.CheckBoxChanged += setSelectedSection;
-            newSectionPanel.picEraseSectionClicked += EraseSectionClicked;
+            //SectionPanelControl newSectionPanel = new SectionPanelControl(section, this.Shift.SelectedFloorplan);
+            //newSectionPanel.Width = flowSectionsPanel.Width - 10;
+            //newSectionPanel.Margin = new Padding(5);            
+            //newSectionPanel.CheckBoxChanged += setSelectedSection;
+            //newSectionPanel.picEraseSectionClicked += EraseSectionClicked;
             
-            this._sectionPanels.Add(newSectionPanel);
-            UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionPanel, UpdateType.Add, section));
+            //this._sectionPanels.Add(newSectionPanel);
+            //UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionPanel, UpdateType.Add, section));
+            AddNewPanelControl(section);
             Floorplan.SetSelectedSection(section);
         }       
         private void btnAddPickupSection_Click(object sender, EventArgs e)
@@ -1125,8 +1103,9 @@ namespace FloorPlanMakerUI
             {
                 Shift = SqliteDataAccess.LoadShift(Shift.SelectedDiningArea, dateOnlySelected, isAM);
             }
-            diningAreaButtonHandeler.UpdateForShift(Shift);
+            
             ChangeDiningAreaSelected();
+            diningAreaButtonHandeler.UpdateForShift(Shift);
         }
         public void ChangeDiningAreaSelected()
         {
@@ -1198,7 +1177,19 @@ namespace FloorPlanMakerUI
                 sectionLabelControl.Invalidate();
             }
         }
-
+        private void AddNewPanelControl(Section sectionAdded)
+        {
+            SectionPanelControl newSectionPanel = new SectionPanelControl(sectionAdded, this.Shift.SelectedFloorplan);
+            newSectionPanel.CheckBoxChanged += setSelectedSection;
+            newSectionPanel.picEraseSectionClicked += EraseSectionClicked;
+            newSectionPanel.picTeamWaitClicked += TeamWaitClicked;
+            newSectionPanel.picAddServerClicked += SectionAddServerClicked;
+            newSectionPanel.picSubtractServerClicked += SectionSubtractServerClicked;
+            newSectionPanel.unassignedSpotClicked += AssignServerToSection;
+            newSectionPanel.ServerRemoved += ServerRemovedFromSection;
+            this._sectionPanels.Add(newSectionPanel);
+            UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionPanel, UpdateType.Add, sectionAdded));
+        }
         public void UpdateShift(Shift shift)
         {
             //ChangeDiningAreaSelected();
