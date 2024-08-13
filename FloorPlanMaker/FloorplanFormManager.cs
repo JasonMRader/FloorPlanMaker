@@ -15,7 +15,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 
 namespace FloorPlanMakerUI
 {
-    public class FloorplanFormManager : ISectionObserver
+    public class FloorplanFormManager : ISectionObserver, IShiftObserver
     {
         //TODO: CLicking on Unassigned Label sometiems causes long delay and flickering (When doing it multiple times? espesially when there are lots of servers / sections?
         public Floorplan? Floorplan
@@ -38,11 +38,13 @@ namespace FloorPlanMakerUI
         private TableSalesManager tableSalesManager = new TableSalesManager();
         private SectionHeaderDisplay sectionHeader = new SectionHeaderDisplay();
         private frmSectionServerAssign frmSectionServerAssign = new frmSectionServerAssign();
+        private DiningAreaButtonHandeler diningAreaButtonHandeler { get; set; }
         private Panel pnlMainContainer {  get; set; }   
         private Panel pnlFloorplan { get; set; }
         
         private FlowLayoutPanel flowSectionsPanel {  get; set; }
         private FlowLayoutPanel flowServersPanel { get; set; }
+        
         public DateOnly dateOnly => this.Shift.DateOnly;
         public bool isAm => this.Shift.IsAM;
         public TemplateManager TemplateManager { get; set; }
@@ -55,13 +57,14 @@ namespace FloorPlanMakerUI
             this.Shift = new Shift();            
         }
         public FloorplanFormManager(Panel pnlFloorPlan, FlowLayoutPanel flowServersInFloorplan, 
-            FlowLayoutPanel flowSectionSelect, Panel pnlContainer, SectionHeaderDisplay headerDisplay)
+            FlowLayoutPanel flowSectionSelect, Panel pnlContainer, SectionHeaderDisplay headerDisplay, DiningAreaButtonHandeler diningAreaButtonHandeler)
         {
             this.Shift = new Shift();
             this.flowSectionsPanel = flowSectionSelect;
             this.flowServersPanel = flowServersInFloorplan;
             this.pnlFloorplan = pnlFloorPlan;
-            this.pnlMainContainer = pnlContainer;     
+            this.pnlMainContainer = pnlContainer;
+            this.diningAreaButtonHandeler = diningAreaButtonHandeler;
             this.sectionHeader = headerDisplay;
            
             //frmSectionServerAssign.CloseClicked += CloseAssignForm;
@@ -390,6 +393,7 @@ namespace FloorPlanMakerUI
             {
                 this.Shift.SetSelectedSection(sectionPanelSender.Section);
                 this.pnlMainContainer.BackColor = sectionPanelSender.Section.Color;
+                
                 if(Floorplan != null)
                 {
                     this.sectionHeader.SetSection(sectionPanelSender.Section, Floorplan);
@@ -1235,7 +1239,7 @@ namespace FloorPlanMakerUI
             {
                 Shift = SqliteDataAccess.LoadShift(Shift.SelectedDiningArea, dateOnlySelected, isAM);
             }
-
+            diningAreaButtonHandeler.UpdateForShift(Shift);
             ChangeDiningAreaSelected();
         }
         public void ChangeDiningAreaSelected()
@@ -1275,6 +1279,7 @@ namespace FloorPlanMakerUI
                 UpdateImageLabels();
                 sectionHeader.SetSectionToNull();
                 pnlMainContainer.BackColor = UITheme.SecondColor;
+                //indicatorPanel.BackColor = UITheme.SecondColor;
 
             }
         }
@@ -1379,6 +1384,11 @@ namespace FloorPlanMakerUI
                 sectionLabelControl.UpdateLabel();
                 sectionLabelControl.Invalidate();
             }
+        }
+
+        public void UpdateShift(Shift shift)
+        {
+            //ChangeDiningAreaSelected();
         }
     }
 }

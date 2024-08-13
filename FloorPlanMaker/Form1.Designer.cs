@@ -53,20 +53,26 @@ namespace FloorPlanMaker
             btnNextDay = new Button();
             btnCloseApp = new Button();
             pnlFloorplanContainer = new Panel();
-            flowDiningAreaButtons = new FlowLayoutPanel();
             pnlNotifications = new Panel();
             sectionHeaderDisplay = new FloorplanUserControlLibrary.SectionHeaderDisplay();
             lblDateSelected = new Label();
             pnlNavigationWindow = new Panel();
             pnlMainContainer = new Panel();
+            pnlLocationIndicator2 = new Panel();
+            pnlIndicator2 = new Panel();
+            pnlAreaIndicatorContainer = new Panel();
+            pnlAreaIndicator = new Panel();
+            flowSideDiningAreas = new FlowLayoutPanel();
+            flowLayoutPanel3 = new FlowLayoutPanel();
+            btnEditRoster = new Button();
+            cbDrawToggle = new CheckBox();
+            btnEraseAllSections = new Button();
+            flowLayoutPanel4 = new FlowLayoutPanel();
+            btnSaveColorPDF = new Button();
+            flowLayoutPanel1 = new FlowLayoutPanel();
             flowLayoutPanel2 = new FlowLayoutPanel();
             btnAutomatic = new Button();
-            btnEditRoster = new Button();
-            btnEraseAllSections = new Button();
-            cbDrawToggle = new CheckBox();
-            btnSaveColorPDF = new Button();
             pnlTemplateContainer = new Panel();
-            btnDeleteSelectedFloorplan = new Button();
             pnlSideContainer = new Panel();
             pnlSectionsAndServers = new Panel();
             pnlStatMode = new Panel();
@@ -91,6 +97,7 @@ namespace FloorPlanMaker
             rdoSales = new RadioButton();
             rdoViewServerFlow = new RadioButton();
             rdoViewSectionFlow = new RadioButton();
+            btnDeleteSelectedFloorplan = new Button();
             btnHelp = new Button();
             toolTip1 = new ToolTip(components);
             btnReportBug = new Button();
@@ -111,6 +118,11 @@ namespace FloorPlanMaker
             pnlNotifications.SuspendLayout();
             pnlNavigationWindow.SuspendLayout();
             pnlMainContainer.SuspendLayout();
+            pnlLocationIndicator2.SuspendLayout();
+            pnlAreaIndicatorContainer.SuspendLayout();
+            flowLayoutPanel3.SuspendLayout();
+            flowLayoutPanel4.SuspendLayout();
+            flowLayoutPanel1.SuspendLayout();
             flowLayoutPanel2.SuspendLayout();
             pnlSideContainer.SuspendLayout();
             pnlSectionsAndServers.SuspendLayout();
@@ -165,7 +177,7 @@ namespace FloorPlanMaker
             btnSaveFloorplanTemplate.FlatStyle = FlatStyle.Flat;
             btnSaveFloorplanTemplate.ForeColor = Color.Black;
             btnSaveFloorplanTemplate.Image = FloorPlanMakerUI.Properties.Resources.ExtraSmallSave;
-            btnSaveFloorplanTemplate.Location = new Point(8, 230);
+            btnSaveFloorplanTemplate.Location = new Point(8, 66);
             btnSaveFloorplanTemplate.Margin = new Padding(3, 3, 3, 10);
             btnSaveFloorplanTemplate.Name = "btnSaveFloorplanTemplate";
             btnSaveFloorplanTemplate.Size = new Size(45, 45);
@@ -195,7 +207,8 @@ namespace FloorPlanMaker
             cbTableDisplayMode.FlatStyle = FlatStyle.Flat;
             cbTableDisplayMode.ForeColor = Color.Black;
             cbTableDisplayMode.Image = FloorPlanMakerUI.Properties.Resources.noun_view_Smalll;
-            cbTableDisplayMode.Location = new Point(8, 455);
+            cbTableDisplayMode.Location = new Point(8, 121);
+            cbTableDisplayMode.Margin = new Padding(3, 3, 3, 10);
             cbTableDisplayMode.Name = "cbTableDisplayMode";
             cbTableDisplayMode.Size = new Size(45, 45);
             cbTableDisplayMode.TabIndex = 16;
@@ -211,7 +224,7 @@ namespace FloorPlanMaker
             btnChooseTemplate.FlatStyle = FlatStyle.Flat;
             btnChooseTemplate.ForeColor = Color.Black;
             btnChooseTemplate.Image = FloorPlanMakerUI.Properties.Resources.blueSMall;
-            btnChooseTemplate.Location = new Point(8, 62);
+            btnChooseTemplate.Location = new Point(8, 8);
             btnChooseTemplate.Margin = new Padding(3, 3, 3, 10);
             btnChooseTemplate.Name = "btnChooseTemplate";
             btnChooseTemplate.Size = new Size(45, 45);
@@ -227,7 +240,7 @@ namespace FloorPlanMaker
             btnPrint.FlatStyle = FlatStyle.Flat;
             btnPrint.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             btnPrint.Image = FloorPlanMakerUI.Properties.Resources.lilPrinter;
-            btnPrint.Location = new Point(8, 404);
+            btnPrint.Location = new Point(8, 66);
             btnPrint.Name = "btnPrint";
             btnPrint.Size = new Size(45, 45);
             btnPrint.TabIndex = 13;
@@ -256,7 +269,6 @@ namespace FloorPlanMaker
             cboDiningAreas.TabIndex = 7;
             toolTip1.SetToolTip(cboDiningAreas, "Up / Down Arrows to Cycle");
             cboDiningAreas.Visible = false;
-            cboDiningAreas.SelectedIndexChanged += cboDiningAreas_SelectedIndexChanged;
             // 
             // rdoSections
             // 
@@ -363,7 +375,7 @@ namespace FloorPlanMaker
             cbIsAM.FlatStyle = FlatStyle.Flat;
             cbIsAM.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point);
             cbIsAM.Image = FloorPlanMakerUI.Properties.Resources.smallSunrise;
-            cbIsAM.Location = new Point(1105, 8);
+            cbIsAM.Location = new Point(618, 5);
             cbIsAM.Name = "cbIsAM";
             cbIsAM.Size = new Size(56, 30);
             cbIsAM.TabIndex = 15;
@@ -374,28 +386,30 @@ namespace FloorPlanMaker
             // 
             // btnDayBefore
             // 
+            btnDayBefore.BackColor = Color.FromArgb(100, 130, 180);
             btnDayBefore.FlatAppearance.BorderSize = 0;
             btnDayBefore.FlatStyle = FlatStyle.Flat;
             btnDayBefore.Image = FloorPlanMakerUI.Properties.Resources.smallBackArrow;
-            btnDayBefore.Location = new Point(663, 8);
+            btnDayBefore.Location = new Point(8, 5);
             btnDayBefore.Name = "btnDayBefore";
             btnDayBefore.Size = new Size(21, 30);
             btnDayBefore.TabIndex = 16;
             toolTip1.SetToolTip(btnDayBefore, "Left / Right Arrow Keys to Cycle");
-            btnDayBefore.UseVisualStyleBackColor = true;
+            btnDayBefore.UseVisualStyleBackColor = false;
             btnDayBefore.Click += btnDayBefore_Click;
             // 
             // btnNextDay
             // 
+            btnNextDay.BackColor = Color.FromArgb(100, 130, 180);
             btnNextDay.FlatAppearance.BorderSize = 0;
             btnNextDay.FlatStyle = FlatStyle.Flat;
             btnNextDay.Image = FloorPlanMakerUI.Properties.Resources.smallForwardArrow;
-            btnNextDay.Location = new Point(1078, 8);
+            btnNextDay.Location = new Point(591, 5);
             btnNextDay.Name = "btnNextDay";
             btnNextDay.Size = new Size(21, 30);
             btnNextDay.TabIndex = 17;
             toolTip1.SetToolTip(btnNextDay, "Left / Right Arrow Keys to Cycle");
-            btnNextDay.UseVisualStyleBackColor = true;
+            btnNextDay.UseVisualStyleBackColor = false;
             btnNextDay.Click += btnNextDay_Click;
             // 
             // btnCloseApp
@@ -415,20 +429,16 @@ namespace FloorPlanMaker
             // 
             pnlFloorplanContainer.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             pnlFloorplanContainer.BackColor = Color.WhiteSmoke;
-            pnlFloorplanContainer.Controls.Add(flowDiningAreaButtons);
             pnlFloorplanContainer.Controls.Add(pnlNotifications);
             pnlFloorplanContainer.Controls.Add(pnlFloorPlan);
-            pnlFloorplanContainer.Location = new Point(103, 10);
+            pnlFloorplanContainer.Controls.Add(lblDateSelected);
+            pnlFloorplanContainer.Controls.Add(cbIsAM);
+            pnlFloorplanContainer.Controls.Add(btnDayBefore);
+            pnlFloorplanContainer.Controls.Add(btnNextDay);
+            pnlFloorplanContainer.Location = new Point(80, 10);
             pnlFloorplanContainer.Name = "pnlFloorplanContainer";
             pnlFloorplanContainer.Size = new Size(684, 944);
             pnlFloorplanContainer.TabIndex = 19;
-            // 
-            // flowDiningAreaButtons
-            // 
-            flowDiningAreaButtons.Location = new Point(8, 7);
-            flowDiningAreaButtons.Name = "flowDiningAreaButtons";
-            flowDiningAreaButtons.Size = new Size(666, 32);
-            flowDiningAreaButtons.TabIndex = 24;
             // 
             // pnlNotifications
             // 
@@ -451,11 +461,11 @@ namespace FloorPlanMaker
             // lblDateSelected
             // 
             lblDateSelected.BackColor = Color.FromArgb(100, 130, 180);
-            lblDateSelected.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lblDateSelected.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             lblDateSelected.ForeColor = Color.White;
-            lblDateSelected.Location = new Point(690, 8);
+            lblDateSelected.Location = new Point(35, 5);
             lblDateSelected.Name = "lblDateSelected";
-            lblDateSelected.Size = new Size(382, 30);
+            lblDateSelected.Size = new Size(550, 30);
             lblDateSelected.TabIndex = 22;
             lblDateSelected.Text = "Fri, 11/11";
             lblDateSelected.TextAlign = ContentAlignment.MiddleCenter;
@@ -466,7 +476,6 @@ namespace FloorPlanMaker
             // 
             pnlNavigationWindow.BackColor = Color.FromArgb(225, 225, 225);
             pnlNavigationWindow.Controls.Add(pnlMainContainer);
-            pnlNavigationWindow.Controls.Add(btnDeleteSelectedFloorplan);
             pnlNavigationWindow.Controls.Add(pnlSideContainer);
             pnlNavigationWindow.Location = new Point(0, 43);
             pnlNavigationWindow.Name = "pnlNavigationWindow";
@@ -477,31 +486,170 @@ namespace FloorPlanMaker
             // 
             pnlMainContainer.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             pnlMainContainer.BackColor = Color.FromArgb(180, 190, 200);
+            pnlMainContainer.Controls.Add(pnlLocationIndicator2);
+            pnlMainContainer.Controls.Add(pnlAreaIndicatorContainer);
+            pnlMainContainer.Controls.Add(flowSideDiningAreas);
+            pnlMainContainer.Controls.Add(flowLayoutPanel3);
+            pnlMainContainer.Controls.Add(flowLayoutPanel4);
+            pnlMainContainer.Controls.Add(flowLayoutPanel1);
             pnlMainContainer.Controls.Add(flowLayoutPanel2);
             pnlMainContainer.Controls.Add(pnlFloorplanContainer);
             pnlMainContainer.Controls.Add(pnlTemplateContainer);
-            pnlMainContainer.Location = new Point(425, 10);
+            pnlMainContainer.Location = new Point(410, 10);
             pnlMainContainer.Name = "pnlMainContainer";
-            pnlMainContainer.Size = new Size(801, 977);
+            pnlMainContainer.Size = new Size(837, 977);
             pnlMainContainer.TabIndex = 20;
+            // 
+            // pnlLocationIndicator2
+            // 
+            pnlLocationIndicator2.Controls.Add(pnlIndicator2);
+            pnlLocationIndicator2.Location = new Point(827, 10);
+            pnlLocationIndicator2.Name = "pnlLocationIndicator2";
+            pnlLocationIndicator2.Size = new Size(3, 944);
+            pnlLocationIndicator2.TabIndex = 27;
+            // 
+            // pnlIndicator2
+            // 
+            pnlIndicator2.BackColor = Color.Red;
+            pnlIndicator2.Location = new Point(0, 13);
+            pnlIndicator2.Name = "pnlIndicator2";
+            pnlIndicator2.Size = new Size(3, 100);
+            pnlIndicator2.TabIndex = 26;
+            // 
+            // pnlAreaIndicatorContainer
+            // 
+            pnlAreaIndicatorContainer.BackColor = Color.WhiteSmoke;
+            pnlAreaIndicatorContainer.Controls.Add(pnlAreaIndicator);
+            pnlAreaIndicatorContainer.Location = new Point(764, 10);
+            pnlAreaIndicatorContainer.Name = "pnlAreaIndicatorContainer";
+            pnlAreaIndicatorContainer.Size = new Size(8, 944);
+            pnlAreaIndicatorContainer.TabIndex = 26;
+            // 
+            // pnlAreaIndicator
+            // 
+            pnlAreaIndicator.BackColor = Color.WhiteSmoke;
+            pnlAreaIndicator.Location = new Point(0, 0);
+            pnlAreaIndicator.Name = "pnlAreaIndicator";
+            pnlAreaIndicator.Size = new Size(8, 100);
+            pnlAreaIndicator.TabIndex = 26;
+            // 
+            // flowSideDiningAreas
+            // 
+            flowSideDiningAreas.BackColor = Color.WhiteSmoke;
+            flowSideDiningAreas.FlowDirection = FlowDirection.TopDown;
+            flowSideDiningAreas.Location = new Point(772, 10);
+            flowSideDiningAreas.Name = "flowSideDiningAreas";
+            flowSideDiningAreas.Size = new Size(55, 944);
+            flowSideDiningAreas.TabIndex = 25;
+            // 
+            // flowLayoutPanel3
+            // 
+            flowLayoutPanel3.BackColor = Color.WhiteSmoke;
+            flowLayoutPanel3.Controls.Add(btnEditRoster);
+            flowLayoutPanel3.Controls.Add(cbDrawToggle);
+            flowLayoutPanel3.Controls.Add(cbTableDisplayMode);
+            flowLayoutPanel3.Controls.Add(btnEraseAllSections);
+            flowLayoutPanel3.Location = new Point(10, 228);
+            flowLayoutPanel3.Name = "flowLayoutPanel3";
+            flowLayoutPanel3.Padding = new Padding(5, 5, 0, 0);
+            flowLayoutPanel3.Size = new Size(60, 233);
+            flowLayoutPanel3.TabIndex = 25;
+            // 
+            // btnEditRoster
+            // 
+            btnEditRoster.BackColor = Color.FromArgb(100, 130, 180);
+            btnEditRoster.FlatAppearance.BorderSize = 0;
+            btnEditRoster.FlatStyle = FlatStyle.Flat;
+            btnEditRoster.Image = FloorPlanMakerUI.Properties.Resources.EditGroup_60px;
+            btnEditRoster.Location = new Point(8, 8);
+            btnEditRoster.Margin = new Padding(3, 3, 3, 7);
+            btnEditRoster.Name = "btnEditRoster";
+            btnEditRoster.Size = new Size(45, 45);
+            btnEditRoster.TabIndex = 17;
+            toolTip1.SetToolTip(btnEditRoster, "Add / Remove Servers From Floorplan");
+            btnEditRoster.UseVisualStyleBackColor = false;
+            btnEditRoster.Click += btnEditRoster_Click;
+            // 
+            // cbDrawToggle
+            // 
+            cbDrawToggle.Appearance = Appearance.Button;
+            cbDrawToggle.BackColor = Color.FromArgb(100, 130, 180);
+            cbDrawToggle.FlatAppearance.BorderSize = 0;
+            cbDrawToggle.FlatStyle = FlatStyle.Flat;
+            cbDrawToggle.ForeColor = Color.Black;
+            cbDrawToggle.Image = FloorPlanMakerUI.Properties.Resources.bluePrintSmall;
+            cbDrawToggle.Location = new Point(8, 63);
+            cbDrawToggle.Margin = new Padding(3, 3, 3, 10);
+            cbDrawToggle.Name = "cbDrawToggle";
+            cbDrawToggle.Size = new Size(45, 45);
+            cbDrawToggle.TabIndex = 16;
+            cbDrawToggle.TextAlign = ContentAlignment.MiddleCenter;
+            toolTip1.SetToolTip(cbDrawToggle, "Toggle Draw Section Lines");
+            cbDrawToggle.UseVisualStyleBackColor = false;
+            cbDrawToggle.CheckedChanged += cbDrawToggle_CheckedChanged;
+            // 
+            // btnEraseAllSections
+            // 
+            btnEraseAllSections.BackColor = Color.FromArgb(190, 80, 70);
+            btnEraseAllSections.FlatAppearance.BorderSize = 0;
+            btnEraseAllSections.FlatStyle = FlatStyle.Flat;
+            btnEraseAllSections.Image = FloorPlanMakerUI.Properties.Resources.erase_Small;
+            btnEraseAllSections.Location = new Point(8, 179);
+            btnEraseAllSections.Margin = new Padding(3, 3, 3, 7);
+            btnEraseAllSections.Name = "btnEraseAllSections";
+            btnEraseAllSections.Size = new Size(45, 45);
+            btnEraseAllSections.TabIndex = 17;
+            toolTip1.SetToolTip(btnEraseAllSections, "Clear All Sections");
+            btnEraseAllSections.UseVisualStyleBackColor = false;
+            btnEraseAllSections.Click += btnEraseAllSections_Click;
+            // 
+            // flowLayoutPanel4
+            // 
+            flowLayoutPanel4.BackColor = Color.WhiteSmoke;
+            flowLayoutPanel4.Controls.Add(btnSaveColorPDF);
+            flowLayoutPanel4.Controls.Add(btnPrint);
+            flowLayoutPanel4.Location = new Point(10, 479);
+            flowLayoutPanel4.Name = "flowLayoutPanel4";
+            flowLayoutPanel4.Padding = new Padding(5, 5, 0, 0);
+            flowLayoutPanel4.Size = new Size(60, 120);
+            flowLayoutPanel4.TabIndex = 25;
+            // 
+            // btnSaveColorPDF
+            // 
+            btnSaveColorPDF.BackColor = Color.FromArgb(100, 130, 180);
+            btnSaveColorPDF.FlatAppearance.BorderSize = 0;
+            btnSaveColorPDF.FlatStyle = FlatStyle.Flat;
+            btnSaveColorPDF.ForeColor = Color.Black;
+            btnSaveColorPDF.Image = FloorPlanMakerUI.Properties.Resources.download_pdf;
+            btnSaveColorPDF.Location = new Point(8, 8);
+            btnSaveColorPDF.Margin = new Padding(3, 3, 3, 10);
+            btnSaveColorPDF.Name = "btnSaveColorPDF";
+            btnSaveColorPDF.Size = new Size(45, 45);
+            btnSaveColorPDF.TabIndex = 12;
+            toolTip1.SetToolTip(btnSaveColorPDF, "Download a Colorized PDF");
+            btnSaveColorPDF.UseVisualStyleBackColor = false;
+            btnSaveColorPDF.Click += btnSaveColorPDF_Click;
+            // 
+            // flowLayoutPanel1
+            // 
+            flowLayoutPanel1.BackColor = Color.WhiteSmoke;
+            flowLayoutPanel1.Controls.Add(btnChooseTemplate);
+            flowLayoutPanel1.Controls.Add(btnSaveFloorplanTemplate);
+            flowLayoutPanel1.Location = new Point(10, 88);
+            flowLayoutPanel1.Name = "flowLayoutPanel1";
+            flowLayoutPanel1.Padding = new Padding(5, 5, 0, 0);
+            flowLayoutPanel1.Size = new Size(60, 122);
+            flowLayoutPanel1.TabIndex = 25;
             // 
             // flowLayoutPanel2
             // 
             flowLayoutPanel2.BackColor = Color.WhiteSmoke;
             flowLayoutPanel2.Controls.Add(btnAutomatic);
-            flowLayoutPanel2.Controls.Add(btnChooseTemplate);
-            flowLayoutPanel2.Controls.Add(btnEditRoster);
-            flowLayoutPanel2.Controls.Add(btnEraseAllSections);
-            flowLayoutPanel2.Controls.Add(btnSaveFloorplanTemplate);
-            flowLayoutPanel2.Controls.Add(cbDrawToggle);
-            flowLayoutPanel2.Controls.Add(btnSaveColorPDF);
-            flowLayoutPanel2.Controls.Add(btnPrint);
-            flowLayoutPanel2.Controls.Add(cbTableDisplayMode);
             flowLayoutPanel2.FlowDirection = FlowDirection.TopDown;
-            flowLayoutPanel2.Location = new Point(19, 10);
+            flowLayoutPanel2.Location = new Point(10, 10);
             flowLayoutPanel2.Name = "flowLayoutPanel2";
             flowLayoutPanel2.Padding = new Padding(5, 0, 0, 0);
-            flowLayoutPanel2.Size = new Size(60, 921);
+            flowLayoutPanel2.Size = new Size(60, 60);
             flowLayoutPanel2.TabIndex = 24;
             // 
             // btnAutomatic
@@ -519,95 +667,19 @@ namespace FloorPlanMaker
             btnAutomatic.UseVisualStyleBackColor = false;
             btnAutomatic.Click += btnAutomatic_Click;
             // 
-            // btnEditRoster
-            // 
-            btnEditRoster.BackColor = Color.FromArgb(100, 130, 180);
-            btnEditRoster.FlatAppearance.BorderSize = 0;
-            btnEditRoster.FlatStyle = FlatStyle.Flat;
-            btnEditRoster.Image = FloorPlanMakerUI.Properties.Resources.EditGroup_60px;
-            btnEditRoster.Location = new Point(8, 120);
-            btnEditRoster.Margin = new Padding(3, 3, 3, 7);
-            btnEditRoster.Name = "btnEditRoster";
-            btnEditRoster.Size = new Size(45, 45);
-            btnEditRoster.TabIndex = 17;
-            toolTip1.SetToolTip(btnEditRoster, "Add / Remove Servers From Floorplan");
-            btnEditRoster.UseVisualStyleBackColor = false;
-            btnEditRoster.Click += btnEditRoster_Click;
-            // 
-            // btnEraseAllSections
-            // 
-            btnEraseAllSections.BackColor = Color.FromArgb(190, 80, 70);
-            btnEraseAllSections.FlatAppearance.BorderSize = 0;
-            btnEraseAllSections.FlatStyle = FlatStyle.Flat;
-            btnEraseAllSections.Image = FloorPlanMakerUI.Properties.Resources.erase_Small;
-            btnEraseAllSections.Location = new Point(8, 175);
-            btnEraseAllSections.Margin = new Padding(3, 3, 3, 7);
-            btnEraseAllSections.Name = "btnEraseAllSections";
-            btnEraseAllSections.Size = new Size(45, 45);
-            btnEraseAllSections.TabIndex = 17;
-            toolTip1.SetToolTip(btnEraseAllSections, "Clear All Sections");
-            btnEraseAllSections.UseVisualStyleBackColor = false;
-            btnEraseAllSections.Click += btnEraseAllSections_Click;
-            // 
-            // cbDrawToggle
-            // 
-            cbDrawToggle.Appearance = Appearance.Button;
-            cbDrawToggle.BackColor = Color.FromArgb(100, 130, 180);
-            cbDrawToggle.FlatAppearance.BorderSize = 0;
-            cbDrawToggle.FlatStyle = FlatStyle.Flat;
-            cbDrawToggle.ForeColor = Color.Black;
-            cbDrawToggle.Image = FloorPlanMakerUI.Properties.Resources.bluePrintSmall;
-            cbDrawToggle.Location = new Point(8, 288);
-            cbDrawToggle.Margin = new Padding(3, 3, 3, 10);
-            cbDrawToggle.Name = "cbDrawToggle";
-            cbDrawToggle.Size = new Size(45, 45);
-            cbDrawToggle.TabIndex = 16;
-            cbDrawToggle.TextAlign = ContentAlignment.MiddleCenter;
-            toolTip1.SetToolTip(cbDrawToggle, "Toggle Draw Section Lines");
-            cbDrawToggle.UseVisualStyleBackColor = false;
-            cbDrawToggle.CheckedChanged += cbDrawToggle_CheckedChanged;
-            // 
-            // btnSaveColorPDF
-            // 
-            btnSaveColorPDF.BackColor = Color.FromArgb(100, 130, 180);
-            btnSaveColorPDF.FlatAppearance.BorderSize = 0;
-            btnSaveColorPDF.FlatStyle = FlatStyle.Flat;
-            btnSaveColorPDF.ForeColor = Color.Black;
-            btnSaveColorPDF.Image = FloorPlanMakerUI.Properties.Resources.download_pdf;
-            btnSaveColorPDF.Location = new Point(8, 346);
-            btnSaveColorPDF.Margin = new Padding(3, 3, 3, 10);
-            btnSaveColorPDF.Name = "btnSaveColorPDF";
-            btnSaveColorPDF.Size = new Size(45, 45);
-            btnSaveColorPDF.TabIndex = 12;
-            toolTip1.SetToolTip(btnSaveColorPDF, "Download a Colorized PDF");
-            btnSaveColorPDF.UseVisualStyleBackColor = false;
-            btnSaveColorPDF.Click += btnSaveColorPDF_Click;
-            // 
             // pnlTemplateContainer
             // 
             pnlTemplateContainer.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            pnlTemplateContainer.Location = new Point(103, 17);
+            pnlTemplateContainer.Location = new Point(80, 17);
             pnlTemplateContainer.Name = "pnlTemplateContainer";
             pnlTemplateContainer.Size = new Size(684, 940);
             pnlTemplateContainer.TabIndex = 22;
-            // 
-            // btnDeleteSelectedFloorplan
-            // 
-            btnDeleteSelectedFloorplan.BackColor = Color.IndianRed;
-            btnDeleteSelectedFloorplan.Image = FloorPlanMakerUI.Properties.Resources.Trash_28px;
-            btnDeleteSelectedFloorplan.Location = new Point(1239, 3);
-            btnDeleteSelectedFloorplan.Name = "btnDeleteSelectedFloorplan";
-            btnDeleteSelectedFloorplan.Size = new Size(25, 32);
-            btnDeleteSelectedFloorplan.TabIndex = 22;
-            btnDeleteSelectedFloorplan.UseVisualStyleBackColor = false;
-            btnDeleteSelectedFloorplan.Visible = false;
-            btnDeleteSelectedFloorplan.Click += btnDeleteSelectedFloorplan_Click;
             // 
             // pnlSideContainer
             // 
             pnlSideContainer.BackColor = Color.FromArgb(180, 190, 200);
             pnlSideContainer.Controls.Add(pnlSectionsAndServers);
-            pnlSideContainer.Location = new Point(29, 10);
+            pnlSideContainer.Location = new Point(20, 10);
             pnlSideContainer.Name = "pnlSideContainer";
             pnlSideContainer.Size = new Size(364, 977);
             pnlSideContainer.TabIndex = 21;
@@ -941,6 +1013,18 @@ namespace FloorPlanMaker
             rdoViewSectionFlow.UseVisualStyleBackColor = false;
             rdoViewSectionFlow.CheckedChanged += rdoViewSectionFlow_CheckedChanged;
             // 
+            // btnDeleteSelectedFloorplan
+            // 
+            btnDeleteSelectedFloorplan.BackColor = Color.IndianRed;
+            btnDeleteSelectedFloorplan.Image = FloorPlanMakerUI.Properties.Resources.Trash_28px;
+            btnDeleteSelectedFloorplan.Location = new Point(632, 6);
+            btnDeleteSelectedFloorplan.Name = "btnDeleteSelectedFloorplan";
+            btnDeleteSelectedFloorplan.Size = new Size(25, 32);
+            btnDeleteSelectedFloorplan.TabIndex = 22;
+            btnDeleteSelectedFloorplan.UseVisualStyleBackColor = false;
+            btnDeleteSelectedFloorplan.Visible = false;
+            btnDeleteSelectedFloorplan.Click += btnDeleteSelectedFloorplan_Click;
+            // 
             // btnHelp
             // 
             btnHelp.BackColor = Color.Orange;
@@ -1106,16 +1190,13 @@ namespace FloorPlanMaker
             BackColor = Color.WhiteSmoke;
             ClientSize = new Size(1501, 1042);
             Controls.Add(pnlSalesDataUpdated);
-            Controls.Add(lblDateSelected);
+            Controls.Add(btnDeleteSelectedFloorplan);
             Controls.Add(panel2);
             Controls.Add(btnCloseApp);
             Controls.Add(btnReportBug);
-            Controls.Add(cbIsAM);
             Controls.Add(btnHelp);
-            Controls.Add(btnNextDay);
             Controls.Add(panel1);
             Controls.Add(pnlNavigationWindow);
-            Controls.Add(btnDayBefore);
             FormBorderStyle = FormBorderStyle.None;
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Form1";
@@ -1132,6 +1213,11 @@ namespace FloorPlanMaker
             pnlNotifications.ResumeLayout(false);
             pnlNavigationWindow.ResumeLayout(false);
             pnlMainContainer.ResumeLayout(false);
+            pnlLocationIndicator2.ResumeLayout(false);
+            pnlAreaIndicatorContainer.ResumeLayout(false);
+            flowLayoutPanel3.ResumeLayout(false);
+            flowLayoutPanel4.ResumeLayout(false);
+            flowLayoutPanel1.ResumeLayout(false);
             flowLayoutPanel2.ResumeLayout(false);
             pnlSideContainer.ResumeLayout(false);
             pnlSectionsAndServers.ResumeLayout(false);
@@ -1216,6 +1302,13 @@ namespace FloorPlanMaker
         private Button btnSaveColorPDF;
         private Panel pnlNotifications;
         private FloorplanUserControlLibrary.SectionHeaderDisplay sectionHeaderDisplay;
-        private FlowLayoutPanel flowDiningAreaButtons;
+        private FlowLayoutPanel flowLayoutPanel1;
+        private FlowLayoutPanel flowSideDiningAreas;
+        private FlowLayoutPanel flowLayoutPanel3;
+        private FlowLayoutPanel flowLayoutPanel4;
+        private Panel pnlAreaIndicatorContainer;
+        private Panel pnlAreaIndicator;
+        private Panel pnlLocationIndicator2;
+        private Panel pnlIndicator2;
     }
 }

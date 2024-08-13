@@ -73,6 +73,34 @@ namespace FloorPlanMaker
 
 
         private SectionControlsManager sectionControlsManager { get; set; }
+        public Form1()
+        {
+            InitializeComponent();
+            this.shiftDetailManager = new ShiftDetailOverviewManager(this.flowWeatherDisplay, this.flowResoDisplay, pnlShiftDetails, rdoWeather, rdoReservations);
+            drawingHandler = new DrawingHandler(pnlFloorPlan);
+            //shift = new Shift();
+            //shiftManager.ServersNotOnShift = SqliteDataAccess.LoadServers();
+            this.KeyDown += pnlFloorPlan_KeyDown;
+            pnlFloorPlan.MouseDown += pnlFloorplan_MouseDown;
+            pnlFloorPlan.MouseUp += pnlFloorplan_MouseUp;
+            pnlFloorPlan.MouseMove += pnlFloorplan_MouseMove;
+            pnlFloorPlan.Paint += PnlFloorplan_Paint;
+            this.sectionLineManager = new SectionLineManager(allTableControls);
+
+            diningAreaButtonHandeler = new DiningAreaButtonHandeler(areaCreationManager.DiningAreas, flowSideDiningAreas,
+                    pnlAreaIndicatorContainer, pnlAreaIndicator, pnlIndicator2);
+            diningAreaButtonHandeler.DiningAreaChanged += DiningAreaSelectedChanged;
+
+            floorplanManager = new FloorplanFormManager(pnlFloorPlan, flowServersInFloorplan, flowSectionSelect,
+                pnlMainContainer, sectionHeaderDisplay, diningAreaButtonHandeler);
+
+            // Subscribe to the event
+            //floorplanManager.SectionLabelRemoved += FloorplanManager_SectionLabelRemoved;
+            floorplanManager.UpdateRequired += FloorplanManager_UpdateRequired;
+            shift.SetSelectedDiningArea(areaCreationManager.DiningAreas[0]);
+
+            //pnlFloorPlan.KeyPreview = true;
+        }
         private void Form1_Load(object sender, EventArgs e)
         {
             SplashScreen splashScreen = new SplashScreen(this);
@@ -89,8 +117,7 @@ namespace FloorPlanMaker
                 cboDiningAreas.DataSource = areaCreationManager.DiningAreas;
                 cboDiningAreas.DisplayMember = "Name";
                 cboDiningAreas.ValueMember = "ID";
-                diningAreaButtonHandeler = new DiningAreaButtonHandeler(areaCreationManager.DiningAreas, flowDiningAreaButtons);
-                diningAreaButtonHandeler.DiningAreaChanged += DiningAreaSelectedChanged;
+                
                 //rdoSections.Checked = true;
                 rdoViewSectionFlow.Checked = true;
                 pnlFloorPlan.BackgroundImage = null;
@@ -121,7 +148,7 @@ namespace FloorPlanMaker
         {
             RadioButton radioButton = (RadioButton)sender;
             DiningArea diningArea = (DiningArea)radioButton.Tag;
-            shift.SelectedDiningArea = diningArea;
+            shift.SetSelectedDiningArea(diningArea);
             floorplanManager.AddTableControls(pnlFloorPlan);
 
             floorplanManager.SetViewedFloorplan(dateOnlySelected, cbIsAM.Checked);
@@ -345,14 +372,38 @@ namespace FloorPlanMaker
             if (isShiftPressed)
             {
                 // Handle scrolling with Shift key pressed
-                if (e.Delta > 0)
-                {
-                    ChangeDiningAreaUp();
-                }
-                else if (e.Delta < 0)
-                {
-                    ChangeDiningAreaDown();
-                }
+                //if (e.Delta > 0)
+                //{
+                //    //ChangeDiningAreaUp();
+                //    //diningAreaButtonHandeler.ChangeDiningAreaUp();
+                //    if (shift.SelectedDiningArea != areaCreationManager.DiningAreas.First())
+                //    {
+                //        int indexOfSelected = areaCreationManager.DiningAreas.IndexOf(shift.SelectedDiningArea);
+                //        shift.SetSelectedDiningArea(areaCreationManager.DiningAreas[indexOfSelected - 1]);
+                       
+                //    }
+                //    else
+                //    {
+                //        shift.SetSelectedDiningArea(areaCreationManager.DiningAreas.Last());
+                //    }
+
+
+                //}
+                //else if (e.Delta < 0)
+                //{
+                //    //ChangeDiningAreaDown();
+                //    //diningAreaButtonHandeler.ChangeDiningAreaDown();
+                //    if (shift.SelectedDiningArea != areaCreationManager.DiningAreas.Last())
+                //    {
+                //        int indexOfSelected = areaCreationManager.DiningAreas.IndexOf(shift.SelectedDiningArea);
+                //        shift.SetSelectedDiningArea(areaCreationManager.DiningAreas[indexOfSelected + 1]);
+                //    }
+                //    else
+                //    {
+                //        shift.SetSelectedDiningArea(areaCreationManager.DiningAreas[0]);
+                //    }
+                //}
+                //floorplanManager.ChangeDiningAreaSelected();
             }
             else
             {
@@ -419,31 +470,10 @@ namespace FloorPlanMaker
             flowSectionSelect.Visible = true;
             flowServersInFloorplan.Visible = false;
             rdoViewSectionFlow.Image = Resources.lilCanvasBook;
-            diningAreaButtonHandeler.UpdateForShift(shift);
+            //diningAreaButtonHandeler.UpdateForShift(shift);
         }
 
-        public Form1()
-        {
-            InitializeComponent();
-            this.shiftDetailManager = new ShiftDetailOverviewManager(this.flowWeatherDisplay, this.flowResoDisplay, pnlShiftDetails, rdoWeather, rdoReservations);
-            drawingHandler = new DrawingHandler(pnlFloorPlan);
-            //shift = new Shift();
-            //shiftManager.ServersNotOnShift = SqliteDataAccess.LoadServers();
-            this.KeyDown += pnlFloorPlan_KeyDown;
-            pnlFloorPlan.MouseDown += pnlFloorplan_MouseDown;
-            pnlFloorPlan.MouseUp += pnlFloorplan_MouseUp;
-            pnlFloorPlan.MouseMove += pnlFloorplan_MouseMove;
-            pnlFloorPlan.Paint += PnlFloorplan_Paint;
-            this.sectionLineManager = new SectionLineManager(allTableControls);
-            floorplanManager = new FloorplanFormManager(pnlFloorPlan, flowServersInFloorplan, flowSectionSelect,
-                pnlMainContainer, sectionHeaderDisplay);
-
-            // Subscribe to the event
-            //floorplanManager.SectionLabelRemoved += FloorplanManager_SectionLabelRemoved;
-            floorplanManager.UpdateRequired += FloorplanManager_UpdateRequired;
-
-            //pnlFloorPlan.KeyPreview = true;
-        }
+        
         private void FloorplanManager_UpdateRequired(object sender, UpdateEventArgs e)
         {
             switch (e.ControlType)
@@ -705,7 +735,7 @@ namespace FloorPlanMaker
             updateSalesForTables();
             UpdateSidePanelDisplay();
             UpdateMissingSalesData();
-            diningAreaButtonHandeler.UpdateForShift(shift);
+            //diningAreaButtonHandeler.UpdateForShift(shift);
         }
         public void UpdateSidePanelDisplay()
         {
@@ -753,7 +783,7 @@ namespace FloorPlanMaker
         private void cboDiningAreas_SelectedIndexChanged(object sender, EventArgs e)
         {
             //_lines.Clear();
-            shift.SelectedDiningArea = (DiningArea?)cboDiningAreas.SelectedItem;
+            shift.SetSelectedDiningArea((DiningArea?)cboDiningAreas.SelectedItem);
             floorplanManager.AddTableControls(pnlFloorPlan);
 
             floorplanManager.SetViewedFloorplan(dateOnlySelected, cbIsAM.Checked);

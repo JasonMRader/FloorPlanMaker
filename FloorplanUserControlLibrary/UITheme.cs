@@ -267,6 +267,7 @@ namespace FloorPlanMakerUI
                 rdobutton.Appearance = Appearance.Button;
                 rdobutton.FlatStyle = FlatStyle.Flat;
                 rdobutton.FlatAppearance.BorderSize = 0;
+               
             }
         }
         public static void FormatMain(Control c)

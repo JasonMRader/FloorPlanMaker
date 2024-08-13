@@ -17,7 +17,7 @@ namespace FloorplanClassLibrary
         {
             this.DateOnly = date;
             this.IsAM = isAm;
-            SelectedDiningArea = diningArea;
+            _selectedDiningArea = diningArea;
             InitializeServers();
         }
         public Shift()
@@ -187,13 +187,19 @@ namespace FloorplanClassLibrary
                 return DateOnly.ToDateTime(TimeOnly.MinValue);
             }
         }
-        public DiningArea? SelectedDiningArea { get; set; }
+        private DiningArea _selectedDiningArea {  get; set; }
+        public DiningArea? SelectedDiningArea { get { return _selectedDiningArea; } }
         public Floorplan? SelectedFloorplan { get; set; }
        
         public List<DiningArea> DiningAreasUsed => Floorplans.Select(fp => fp.DiningArea).Distinct().ToList();
         public WeatherData? WeatherData { get; private set; }
         public List<HourlyWeatherData> HourlyWeatherData { get; private set; }
-        
+        public void SetSelectedDiningArea(DiningArea? selectedDiningArea)
+        {
+            if (selectedDiningArea == null) { return; }
+            this._selectedDiningArea = selectedDiningArea;
+            NotifyObservers();
+        }
         public async Task SetWeatherData()
         {
             this.WeatherData = null;

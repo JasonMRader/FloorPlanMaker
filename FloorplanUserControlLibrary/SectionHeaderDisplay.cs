@@ -48,7 +48,12 @@ namespace FloorplanUserControlLibrary
         }
         public void SetSectionToNull()
         {
-            this.section = null;
+            if(this.section != null)
+            {
+                this.section.RemoveObserver(this);
+                this.section = null;
+            }
+           
 
             pnlNoSection.Dock = DockStyle.Fill;
             this.Controls.Add(pnlNoSection);
@@ -379,7 +384,14 @@ namespace FloorplanUserControlLibrary
 
         public void UpdateSection(Section section)
         {
-            SetControlsForSection();
+            if(section == null)
+            {
+                SetSectionToNull();
+            }
+            else {
+                SetControlsForSection();
+            }
+            
         }
 
         private void btnAssignedServer_Click(object sender, EventArgs e)
