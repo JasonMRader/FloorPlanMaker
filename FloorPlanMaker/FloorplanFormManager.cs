@@ -331,7 +331,7 @@ namespace FloorPlanMakerUI
                 frmPickupSectionAssignment pickUpForm = new frmPickupSectionAssignment(section, Shift);
                 pickUpForm.StartPosition = FormStartPosition.Manual;
                 Point controlLocation = sectionHeader.PointToScreen(Point.Empty);
-                frmSectionServerAssign.Location = new Point(controlLocation.X + 28, controlLocation.Y + 38);
+                pickUpForm.Location = new Point(controlLocation.X + 28, controlLocation.Y + 38);
                 pickUpForm.ShowDialog();
                 return;
             }

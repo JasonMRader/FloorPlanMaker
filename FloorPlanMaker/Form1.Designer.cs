@@ -58,6 +58,7 @@ namespace FloorPlanMaker
             lblDateSelected = new Label();
             pnlNavigationWindow = new Panel();
             pnlMainContainer = new Panel();
+            label4 = new Label();
             pnlLocationIndicator2 = new Panel();
             pnlIndicator2 = new Panel();
             pnlAreaIndicatorContainer = new Panel();
@@ -486,6 +487,7 @@ namespace FloorPlanMaker
             // 
             pnlMainContainer.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             pnlMainContainer.BackColor = Color.FromArgb(180, 190, 200);
+            pnlMainContainer.Controls.Add(label4);
             pnlMainContainer.Controls.Add(pnlLocationIndicator2);
             pnlMainContainer.Controls.Add(pnlAreaIndicatorContainer);
             pnlMainContainer.Controls.Add(flowSideDiningAreas);
@@ -500,12 +502,24 @@ namespace FloorPlanMaker
             pnlMainContainer.Size = new Size(837, 977);
             pnlMainContainer.TabIndex = 20;
             // 
+            // label4
+            // 
+            label4.BackColor = Color.WhiteSmoke;
+            label4.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label4.ForeColor = Color.Black;
+            label4.Location = new Point(767, 10);
+            label4.Name = "label4";
+            label4.Size = new Size(60, 42);
+            label4.TabIndex = 25;
+            label4.Text = "Dining Areas";
+            label4.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // pnlLocationIndicator2
             // 
             pnlLocationIndicator2.Controls.Add(pnlIndicator2);
-            pnlLocationIndicator2.Location = new Point(827, 10);
+            pnlLocationIndicator2.Location = new Point(827, 50);
             pnlLocationIndicator2.Name = "pnlLocationIndicator2";
-            pnlLocationIndicator2.Size = new Size(3, 944);
+            pnlLocationIndicator2.Size = new Size(3, 904);
             pnlLocationIndicator2.TabIndex = 27;
             // 
             // pnlIndicator2
@@ -520,9 +534,9 @@ namespace FloorPlanMaker
             // 
             pnlAreaIndicatorContainer.BackColor = Color.WhiteSmoke;
             pnlAreaIndicatorContainer.Controls.Add(pnlAreaIndicator);
-            pnlAreaIndicatorContainer.Location = new Point(764, 10);
+            pnlAreaIndicatorContainer.Location = new Point(764, 50);
             pnlAreaIndicatorContainer.Name = "pnlAreaIndicatorContainer";
-            pnlAreaIndicatorContainer.Size = new Size(8, 944);
+            pnlAreaIndicatorContainer.Size = new Size(8, 904);
             pnlAreaIndicatorContainer.TabIndex = 26;
             // 
             // pnlAreaIndicator
@@ -537,9 +551,9 @@ namespace FloorPlanMaker
             // 
             flowSideDiningAreas.BackColor = Color.WhiteSmoke;
             flowSideDiningAreas.FlowDirection = FlowDirection.TopDown;
-            flowSideDiningAreas.Location = new Point(772, 10);
+            flowSideDiningAreas.Location = new Point(772, 50);
             flowSideDiningAreas.Name = "flowSideDiningAreas";
-            flowSideDiningAreas.Size = new Size(55, 944);
+            flowSideDiningAreas.Size = new Size(55, 904);
             flowSideDiningAreas.TabIndex = 25;
             // 
             // flowLayoutPanel3
@@ -1310,5 +1324,6 @@ namespace FloorPlanMaker
         private Panel pnlAreaIndicator;
         private Panel pnlLocationIndicator2;
         private Panel pnlIndicator2;
+        private Label label4;
     }
 }
