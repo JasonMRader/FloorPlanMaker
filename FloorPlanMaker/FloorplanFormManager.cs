@@ -66,11 +66,9 @@ namespace FloorPlanMakerUI
             this.pnlMainContainer = pnlContainer;
             this.diningAreaButtonHandeler = diningAreaButtonHandeler;
             this.sectionHeader = headerDisplay;
-            this.sectionHeader.btnTeamWaitClicked += HeaderTeamWaitClicked;
-           
-            //frmSectionServerAssign.CloseClicked += CloseAssignForm;
+            this.sectionHeader.btnTeamWaitClicked += HeaderTeamWaitClicked;          
+            
             frmSectionServerAssign.StartPosition = FormStartPosition.Manual;
-
             frmSectionServerAssign.SignalForInvisible += SectionAssignFormInvisible;            
 
         }
@@ -183,8 +181,7 @@ namespace FloorPlanMakerUI
                         {
                             section.SetToSelected();
                         }
-                    }
-                    
+                    }                    
                 }
                 else if(mouseEventArgs.Button == MouseButtons.Right) 
                 {
@@ -196,10 +193,8 @@ namespace FloorPlanMakerUI
                         }
                     }
                 }
-            }
-            
+            }            
         }
-
         private void SectionLabelAssignPickup(object? sender, EventArgs e)
         {
             SectionLabelControl controlClicked= (SectionLabelControl)sender;
@@ -208,9 +203,7 @@ namespace FloorPlanMakerUI
             pickUpForm.ShowDialog();
         }
 
-        /// <summary>
-        /// ///SET SELECTED TEMPLATE TO ACTIVE TEMPLATE PREVIEW WILL SET SECTION PANELS AND KEEP TEMPLATE FORM OPEN!!!!!!!!!!!!!!!
-        /// </summary>
+       
         public void CopyTemplateSections(FloorplanTemplate template)
         {
             if(Floorplan.HasAssignedNonBartenders)
@@ -245,13 +238,12 @@ namespace FloorPlanMakerUI
         public void ResetSections()
         {
             Floorplan.RemoveAllServersFromSections();
-            //Floorplan.ClearSectionsOfTables();
+           
             Floorplan.floorplanLines.Clear();
             foreach (TableControl tableControl in this._tableControls)
             {
                 tableControl.RemoveSection();
-            }
-           // Floorplan.CreateSectionsForServers();
+            }          
             UpdateTableControlColors();
             UpdateServerControls();
             RemoveAllSectionLabels();
@@ -276,11 +268,7 @@ namespace FloorPlanMakerUI
                 sectionPanel.picAddServerClicked += SectionAddServerClicked;
                 sectionPanel.picSubtractServerClicked += SectionSubtractServerClicked;
                 sectionPanel.unassignedSpotClicked += AssignServerToSection;
-                sectionPanel.ServerRemoved += ServerRemovedFromSection;
-                //if (section.IsTeamWait)
-                //{
-                //    sectionPanel.SetToTeamWait();
-                //}              
+                sectionPanel.ServerRemoved += ServerRemovedFromSection;                         
                 this._sectionPanels.Add(sectionPanel);
             }
             if(this.Floorplan.Sections.Count > 0)
@@ -380,15 +368,12 @@ namespace FloorPlanMakerUI
         {
             ServerControl serverControl = (ServerControl)sender;
             Server server = serverControl.Server;
-            if (Shift.SelectedFloorplan.SectionSelected == null) { return; }   
-            
+            if (Shift.SelectedFloorplan.SectionSelected == null) { return; }              
             Shift.SelectedFloorplan.SectionSelected.AddServer(server);
             UpdateServerControls();
-
         }
         private void setSelectedSection(object? sender, EventArgs e)
-        {
-            
+        {            
             SectionPanelControl sectionPanelSender = (SectionPanelControl)sender;
             if (sectionPanelSender.isChecked())
             {
@@ -404,8 +389,7 @@ namespace FloorPlanMakerUI
                     {
                         frmSectionServerAssign.SetNewSectionAndShift(sectionPanelSender.Section, Shift);
                     }
-                }
-                
+                }                
                 foreach (SectionPanelControl sectionPanelControl in this._sectionPanels)
                 {
                     if (sectionPanelControl != sectionPanelSender)
@@ -438,22 +422,13 @@ namespace FloorPlanMakerUI
                 Point controlLocation = sectionHeader.PointToScreen(Point.Empty);
                 frmSectionServerAssign.Location = new Point(controlLocation.X + 28, controlLocation.Y + 38);
                 this.frmSectionServerAssign.Visible = !frmSectionServerAssign.Visible;
-            }
-                
+            }              
             
         }
         private void SectionAssignFormInvisible(object? sender, EventArgs e)
         {
             this.frmSectionServerAssign.Visible = false;
-        }
-
-        //private void CloseAssignForm(object? sender, EventArgs e)
-        //{
-        //    this.frmSectionServerAssign.Visible = false;
-
-
-
-        //}
+        }       
 
         public void IncrementSelectedSection()
         {
@@ -489,21 +464,7 @@ namespace FloorPlanMakerUI
             {
                 selectedSection.ToggleTeamWait();
                 sectionHeader.SetTeamWaitPictureBoxes();
-                Floorplan.SetTheAppropriateAmountOfSections();
-                //UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionPanel, UpdateType.Remove, sectionRemoved));
-                //this._sectionPanels.Remove(sectionPanelControlBySection(sectionRemoved));
-                //Section sectionRemoved = Floorplan.RemoveHighestNumberedEmptySection(selectedSection);
-                //if (sectionRemoved == null || Floorplan.NotEnoughUnassignedServersCheck(selectedSection))
-                //{
-                //    MessageBox.Show("You must clear a section before making another section a teamwait section");
-                //}
-                //else
-                //{
-                //    selectedSection.ToggleTeamWait();
-                //    sectionHeader.SetTeamWaitPictureBoxes();
-                //    UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionPanel, UpdateType.Remove, sectionRemoved));
-                //    this._sectionPanels.Remove(sectionPanelControlBySection(sectionRemoved));
-                //}
+                Floorplan.SetTheAppropriateAmountOfSections();                
             }
             else
             {
@@ -580,12 +541,7 @@ namespace FloorPlanMakerUI
                 return;
             }
             if (selectedSection != null)
-            {
-                //DialogResult dialogResult = MessageBox.Show("Are You Sure You Want to Remove the Tables and Server from this Section?",
-                //    "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                //if (dialogResult == DialogResult.Yes)
-                //{
-                    //SectionLabelRemoved?.Invoke(this, e);
+            {                
                 UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionLabel, UpdateType.Remove, selectedSection));
                 this._sectionLabels.Remove(sectionLabelBySection(selectedSection));                
                 Shift.SelectedFloorplan.ClearSection(selectedSection);
@@ -664,33 +620,8 @@ namespace FloorPlanMakerUI
         public void AddSectionPanels(FlowLayoutPanel panel)
         {
             panel.Controls.Clear();
-            SetSectionImageLabels(panel);
-            
-            if (this.Floorplan == null) { return; }
-            //Button btnAutoSelectTemplate = new Button
-            //{
-            //    Text = "Auto Generate Template",
-            //    AutoSize = false,
-            //    Size = new Size(panel.Width - 10, 25),
-            //    Font = new Font("Segoe UI", 10F),
-            //    FlatStyle = FlatStyle.Flat,                
-            //    BackColor = UITheme.CTAColor,
-            //    ForeColor = UITheme.CTAFontColor
-            //};
-            //btnAutoSelectTemplate.Click += btnAutoSelectTemplate_Click;
-            //panel.Controls.Add(btnAutoSelectTemplate);  
-            //Button btnAutoAssignServers = new Button
-            //{
-            //    Text = "Auto Assign Sections",
-            //    AutoSize = false,
-            //    Size = new Size(panel.Width - 10, 25),
-            //    Font = new Font("Segoe UI", 10F),
-            //    FlatStyle = FlatStyle.Flat,
-            //    BackColor = UITheme.CTAColor,
-            //    ForeColor = UITheme.CTAFontColor
-            //};
-            //btnAutoAssignServers.Click += btnAutoAssignServers_Click;
-            //panel.Controls.Add(btnAutoAssignServers);
+            SetSectionImageLabels(panel);            
+            if (this.Floorplan == null) { return; }            
             foreach (SectionPanelControl sectionPanel in _sectionPanels)
             {
                 sectionPanel.Width = panel.Width - 10;
@@ -722,8 +653,7 @@ namespace FloorPlanMakerUI
             btnAddSection.Click += btnAddSection_Click;
             btnAddPickup.Click += btnAddPickupSection_Click;
             panel.Controls.Add(btnAddSection);
-            panel.Controls.Add(btnAddPickup);
-            
+            panel.Controls.Add(btnAddPickup);            
         }
 
         private void btnAutoAssignServers_Click(object? sender, EventArgs e)
@@ -750,19 +680,15 @@ namespace FloorPlanMakerUI
             CopyTemplateSections(template);
             AddTableControls(pnlFloorplan);
             SetSectionLabels();
-            SetSectionPanels();
-           // AddSectionLabels(pnlFloorPlan);
+            SetSectionPanels();           
             SetServerControls();
             UpdateTableControlColors();
             flowSectionsPanel.Controls.Clear();
             flowServersPanel.Controls.Clear();
             AddServerControls(flowServersPanel);
             AddSectionPanels(flowSectionsPanel);
-            AddSectionLabels(pnlFloorplan);
-            //UpdateServerControlsForFloorplan();
-            UpdateTableStats();
-            //LoadTableSalesForPastDate();
-            // SetTableSales();
+            AddSectionLabels(pnlFloorplan);            
+            UpdateTableStats();            
 
             UpdateAveragesPerServer();
             UpdateImageLabels();
@@ -775,8 +701,7 @@ namespace FloorPlanMakerUI
             {
                 serverCountImageLabel.UpdateText("0");
                 coversImageLabel.UpdateText(Shift.SelectedDiningArea.GetMaxCovers().ToString("F0"));
-                salesImageLabel.UpdateText(Shift.SelectedDiningArea.ExpectedSales.ToString("C0"));
-               
+                salesImageLabel.UpdateText(Shift.SelectedDiningArea.ExpectedSales.ToString("C0"));               
             }
             else
             {
@@ -790,10 +715,8 @@ namespace FloorPlanMakerUI
             salesImageLabel.Invalidate();
         }
 
-
         private FloorplanTemplate SelectTheIdealFloorplanTemplate()
-        {
-            
+        {            
             FloorplanTemplate template = TemplateManager.Templates.FirstOrDefault();
             if(template == null)
             {
@@ -802,27 +725,22 @@ namespace FloorPlanMakerUI
             }
             return template;
         }
-
         private void btnAddSection_Click(object? sender, EventArgs e)
         {
             Section section = new Section();
 
             section.IsPickUp = false;
-            Floorplan.AddSection(section);
-           // TemplateCreator.Sections.Add(section);
+            Floorplan.AddSection(section);           
             SectionPanelControl newSectionPanel = new SectionPanelControl(section, this.Shift.SelectedFloorplan);
             newSectionPanel.Width = flowSectionsPanel.Width - 10;
-            newSectionPanel.Margin = new Padding(5);
-            
+            newSectionPanel.Margin = new Padding(5);            
             newSectionPanel.CheckBoxChanged += setSelectedSection;
             newSectionPanel.picEraseSectionClicked += EraseSectionClicked;
             
             this._sectionPanels.Add(newSectionPanel);
             UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionPanel, UpdateType.Add, section));
             Floorplan.SetSelectedSection(section);
-        }
-
-       
+        }       
         private void btnAddPickupSection_Click(object sender, EventArgs e)
         {
             AddPickupSection();
@@ -874,11 +792,9 @@ namespace FloorPlanMakerUI
                 panel.Controls.Add(serverControl);
             }
         }
-
         private void btnEditRoster_Click(object? sender, EventArgs e)
         {
-            EditRosterClicked();
-            
+            EditRosterClicked();            
         }
         public void EditRosterClicked()
         {
@@ -889,9 +805,7 @@ namespace FloorPlanMakerUI
             SetSectionPanels();
             AddSectionPanels(this.flowSectionsPanel);
             UpdateAveragesPerServer();
-        }
-
-        
+        }        
         public void UpdateTableControlColors()
         {
             foreach (TableControl tableControl in this._tableControls)
@@ -911,8 +825,7 @@ namespace FloorPlanMakerUI
                     {
                         if (tableControl.Table.TableNumber == table.TableNumber)
                         {
-                            tableControl.SetSection(section);
-                            //tableControl.BackColor = section.MuteColor(0.35f);
+                            tableControl.SetSection(section);                            
                             tableControl.MuteColors();
                             tableControl.TextColor = section.FontColor;
                             if (section == this.Shift.SectionSelected)
@@ -920,15 +833,12 @@ namespace FloorPlanMakerUI
                                 tableControl.BackColor = section.MuteColor(1.15f);
                                 
                             }
-
-                            //tableControl.ForeColor = section.FontColor;
                             tableControl.Invalidate();
                             break;
                         }
                     }
                 } 
-            }
-              
+            }             
 
         }
         public void TableControlDisplayModeToSales()
@@ -952,26 +862,21 @@ namespace FloorPlanMakerUI
         }
         private void TableControl_TableClicked(object sender, TableClickedEventArgs e)
         {
-
             TableControl clickedTableControl = sender as TableControl;
             Table clickedTable = clickedTableControl.Table;
             Section sectionEdited = (Section)clickedTableControl.Section;
             if (e.MouseButton == MouseButtons.Right && clickedTableControl.Section != null)
             {
-
-
-
                 sectionEdited.RemoveTable(clickedTable);
 
                 clickedTableControl.RemoveSection();
-                clickedTableControl.BackColor = clickedTableControl.Parent.BackColor;  // Restore the original color
+                clickedTableControl.BackColor = clickedTableControl.Parent.BackColor;  
                 clickedTableControl.ForeColor = clickedTableControl.Parent.ForeColor;
                 clickedTableControl.Invalidate();
                 if(sectionEdited.IsPickUp)
                 {
                     UpdateAveragesPerServer();
-                }
-                //UpdateSectionLabels(sectionEdited, sectionEdited.MaxCovers, sectionEdited.AverageCovers);
+                }            
 
                 return;
             }
@@ -979,18 +884,15 @@ namespace FloorPlanMakerUI
             if (Shift.SectionSelected != null)
             {
                 if (sectionEdited != null)
-                {
-                   
+                {                   
                     sectionEdited.RemoveTable(clickedTable);
                     clickedTableControl.RemoveSection();
                     if (sectionEdited.IsPickUp)
                     {
                         UpdateAveragesPerServer();
                     }
-
                 }
-                AddTableControlToSelectedSection(clickedTableControl);
-                //UpdateSectionLabels(shiftManager.SectionSelected, shiftManager.SectionSelected.MaxCovers, shiftManager.SectionSelected.AverageCovers);
+                AddTableControlToSelectedSection(clickedTableControl);               
             }
 
         }
@@ -999,7 +901,6 @@ namespace FloorPlanMakerUI
             Table clickedTable = clickedTableControl.Table;
             Shift.SectionSelected.AddTable(clickedTable);
             clickedTableControl.SetSection(Shift.SectionSelected);
-
             clickedTableControl.BackColor = Shift.SectionSelected.Color;
             clickedTableControl.TextColor = Shift.SectionSelected.FontColor;
             if (Shift.SectionSelected.IsPickUp)
@@ -1034,8 +935,7 @@ namespace FloorPlanMakerUI
                 }
             }
             return unassignedTables;
-        }
-        
+        }        
 
         public void SelectTables(List<TableControl> selectedTables)
         {
@@ -1061,12 +961,10 @@ namespace FloorPlanMakerUI
         }
         public void UpdateServerControls()
         {
-            RefreshServerSections();
-           
+            RefreshServerSections();           
             if (Shift.SelectedFloorplan == null) return;
             foreach (ServerControl serverControl in _serverControls)
             {
-
                 Server server = serverControl.Server;
                 if (server.CurrentSection != null)
                 {
@@ -1079,51 +977,20 @@ namespace FloorPlanMakerUI
                     serverControl.Label.ForeColor= Color.Black;
                 }
                 serverControl.Invalidate();
-            }
-                        
+            }                        
         }
-
-
         public void UpdateSection(Section section)
         {
            
-        }
+        }       
         
-        //private void LoadTableSalesForPastDate()
-        //{
-        //    if(this.Floorplan != null)
-        //    {
-        //        List<TableStat> statList = SqliteDataAccess.LoadTableStatsByDateAndLunch(this.Floorplan.IsLunch, this.Floorplan.DateOnly);
-        //        if(statList.Count > 0)
-        //        {
-        //            foreach (Table table in this.Floorplan.DiningArea.Tables)
-        //            {
-        //                var matchedStat = statList.FirstOrDefault(t => t.TableStatNumber == table.TableNumber);
-        //                if (matchedStat != null)
-        //                {
-        //                    table.AverageSales = (float)matchedStat.Sales;
-        //                }
-        //                else { table.AverageSales = 0; }
-        //            }
-        //        }
-
-                
-        //    }
-           
-        //}
         public string floorplanSalesDisplay { get; set; }
        
         internal void AddSectionPanel(Section? section, FlowLayoutPanel flowSectionSelect)
         {
-            SectionPanelControl newPanel = sectionPanelControlBySection(section);
-
-            // Add the new panel to the end of the FlowLayoutPanel initially
-            flowSectionSelect.Controls.Add(newPanel);
-
-            // Find the correct index for insertion
-            int insertIndex = FindInsertionIndex(section, flowSectionSelect);
-
-            // Move the new panel to the found index
+            SectionPanelControl newPanel = sectionPanelControlBySection(section);           
+            flowSectionSelect.Controls.Add(newPanel);            
+            int insertIndex = FindInsertionIndex(section, flowSectionSelect);            
             flowSectionSelect.Controls.SetChildIndex(newPanel, insertIndex);
         }
         private int FindInsertionIndex(Section? section, FlowLayoutPanel flowPanel)
@@ -1140,11 +1007,8 @@ namespace FloorPlanMakerUI
                     return i;
                 }
             }
-
-            // If no suitable position is found, the control stays at the end
             return flowPanel.Controls.Count - 3;
-        }
-       
+        }       
         public void SetTableSalesStatsPeriod(TableSalesManager.StatsPeriod statsPeriod)
         {
             this.tableSalesManager.CurrentStatsPeriod = statsPeriod;
@@ -1157,8 +1021,6 @@ namespace FloorPlanMakerUI
             {
                 UpdateAveragesPerServer();
             }
-            
-
         }
         private void UpdateTableStats()
         {
@@ -1188,7 +1050,6 @@ namespace FloorPlanMakerUI
         }
         public void SetViewedFloorplanToNone(FlowLayoutPanel panel)
         {
-           
             panel.Controls.Clear();
             SetSectionImageLabels(panel);
             Button btnCreateTemplate = new Button
@@ -1203,7 +1064,6 @@ namespace FloorPlanMakerUI
             };
             btnCreateTemplate.Click += btnCreateTemplate_Click;
             panel.Controls.Add(btnCreateTemplate);
-
         }
 
         private void btnCreateTemplate_Click(object? sender, EventArgs e)
@@ -1226,18 +1086,11 @@ namespace FloorPlanMakerUI
             btnCreateTemplate.Click += btnSaveFloorplan_Click;
             btnCreateTemplate.Text = "Save Template";
             floorplanTemplateTEMP = new Floorplan(Shift.SelectedDiningArea, Shift.DateTime, Shift.IsAM, 1, 1);
-            AddSectionPanels(flowSectionsPanel);
-             
-            //UpdateServerControlsForFloorplan();
 
-            //LoadTableSalesForPastDate();
-            // SetTableSales();
+            AddSectionPanels(flowSectionsPanel);             
             UpdateTableStats();
             UpdateAveragesPerServer();
             UpdateImageLabels();
-            //this.TemplateCreator = new TemplateCreator(Shift.SelectedDiningArea);
-
-
         }
 
         private void btnSaveFloorplan_Click(object? sender, EventArgs e)
@@ -1246,27 +1099,7 @@ namespace FloorPlanMakerUI
             btnSaveTemplate.Click += btnCreateTemplate_Click;
             btnSaveTemplate.Click -= btnSaveFloorplan_Click;
             btnSaveTemplate.Text = "Create A Floorplan Template";
-        }
-        //public async void UpdateWeatherData()
-        //{
-        //    DateOnly today = new DateOnly(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-        //    DateOnly tomorrow = new DateOnly(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(1).Day);
-        //    if (Shift.DateOnly == today)
-        //    {
-        //        this.Shift.SetHourlyWeatherDataForToday();
-        //        UpdateWeatherLabelsForHourlyToday();
-        //    }
-        //    else if (Shift.DateOnly == tomorrow)
-        //    {
-        //        this.Shift.SetHourlyWeatherDataForTomorrow();
-        //        UpdateWeatherLabelsForHourlyToday();
-        //    }
-        //    else
-        //    {
-        //        await this.Shift.SetWeatherData();
-        //        UpdateWeatherLabels();
-        //    }
-        //}
+        }        
         public async void SetViewedFloorplan(DateOnly dateOnlySelected, bool isAM)
         {
            
@@ -1277,10 +1110,8 @@ namespace FloorPlanMakerUI
             if(this.Shift.IsAM != isAM)
             {
                 this.Shift.IsAM = isAM;   
-            }
-            //UpdateWeatherData();
+            }            
             this.Shift.RemoveFloorplansFromDifferentShift();
-
             if (Shift.ContainsFloorplan(dateOnlySelected, isAM, Shift.SelectedDiningArea.ID))
             {
                 Shift.SetSelectedFloorplan(dateOnlySelected, isAM, Shift.SelectedDiningArea.ID);
@@ -1332,84 +1163,11 @@ namespace FloorPlanMakerUI
                 AddSectionPanels(flowSectionsPanel);
                 UpdateImageLabels();
                 sectionHeader.SetSectionToNull();
-                pnlMainContainer.BackColor = UITheme.SecondColor;
-                //indicatorPanel.BackColor = UITheme.SecondColor;
+                pnlMainContainer.BackColor = UITheme.SecondColor;              
 
             }
         }
-        //private void UpdateWeatherLabelsForHourlyToday()
-        //{
-        //    if(Shift.HourlyWeatherData.Count == 0) {
-        //        this.feelsLikeHiLabel.Visible = false;
-        //        this.feelsLikeLowLabel.Visible = false;
-        //        this.precipitationAmountLabel.Visible = false;
-        //        this.maxWindLabel.Visible = false;
-        //        this.avgWindLabel.Visible = false;
-        //        this.precipitationChanceLabel.Visible = false;
-        //        this.precipitationChanceLabel.Visible = false;
-        //        return; 
-        //    }
-        //    this.feelsLikeHiLabel.Visible = true;
-        //    this.feelsLikeLowLabel.Visible = true;
-        //    this.precipitationAmountLabel.Visible = true;
-        //    this.maxWindLabel.Visible = true;
-        //    this.avgWindLabel.Visible = true;
-        //    this.precipitationChanceLabel.Visible = true;
-        //    this.precipitationChanceLabel.Visible = true;
-
-        //    int feelsLikeHi = Shift.HourlyWeatherData.Max(w => w.FeelsLikeAvg);
-        //    int feelsLikeLow = Shift.HourlyWeatherData.Min(w => w.FeelsLikeAvg);
-        //    int maxWindGust = Shift.HourlyWeatherData.Max(w => w.WindSpeedMax);
-        //    int maxWindAvg = Shift.HourlyWeatherData.Max(w => w.WindSpeedAvg);
-        //    int minWindAvg = Shift.HourlyWeatherData.Min(w => w.WindSpeedAvg);
-        //    int maxPrecipChance = Shift.HourlyWeatherData.Max(w => w.PrecipitationChanceFormatted);
-        //    int middleWindSpeedAvg = (maxWindAvg + minWindAvg) / 2;
-        //    float totalPrecipitation = 0f;
-
-        //    foreach(HourlyWeatherData data in Shift.HourlyWeatherData)
-        //    {
-        //        totalPrecipitation += data.PrecipitationAmount;
-        //    }
-        //    UITheme.FormatTempLabelColor(feelsLikeHiLabel, feelsLikeHi);
-        //    UITheme.FormatTempLabelColor(feelsLikeLowLabel, feelsLikeLow);
-        //    UITheme.FormateWindLabel(avgWindLabel, middleWindSpeedAvg);
-        //    UITheme.FormateWindLabel(maxWindLabel, maxWindGust);
-        //    UITheme.FormatePrecipAmountLabel(precipitationAmountLabel, totalPrecipitation);
-        //    UITheme.FormatePrecipChanceLabel(precipitationChanceLabel, maxPrecipChance);
-        //    //this.feelsLikeHiLabel.Text = feelsLikeHi.ToString() + "°";
-
-        //    //this.feelsLikeLowLabel.Text = feelsLikeLow.ToString() + "°";
-        //    //this.precipitationAmountLabel.Text = totalPrecipitation.ToString("f2") + "\"";
-        //    //this.maxWindLabel.Text = maxWindGust.ToString();
-        //    //this.avgWindLabel.Text = middleWindSpeedAvg.ToString();
-        //    //this.precipitationChanceLabel.Text = maxPrecipChance.ToString() + "%";
-        //    //this.feelsLikeHiLabel.BackColor = UITheme.GetTempColor(feelsLikeHi);
-        //    //this.feelsLikeLowLabel.BackColor = UITheme.GetTempColor(feelsLikeLow);
-        //    //this.precipitationAmountLabel.BackColor = UITheme.GetPrecipAmountColor(totalPrecipitation);
-        //    //this.maxWindLabel.BackColor = UITheme.GetWindColor(maxWindGust);
-        //    //this.avgWindLabel.BackColor = UITheme.GetWindColor(middleWindSpeedAvg);
-        //    //this.precipitationChanceLabel.BackColor = UITheme.GetPrecipChanceColor(maxPrecipChance);
-
-        //}
-        //private void UpdateWeatherLabels()
-        //{
-        //    if(this.Shift.WeatherData != null)
-        //    {
-        //        UITheme.FormatTempLabelColor(feelsLikeHiLabel, this.Shift.WeatherData.FeelsLikeHi);
-        //        UITheme.FormatTempLabelColor(feelsLikeLowLabel, this.Shift.WeatherData.FeelsLikeLow);
-        //        UITheme.FormateWindLabel(avgWindLabel, this.Shift.WeatherData.WindSpeedAvg);
-        //        UITheme.FormateWindLabel(maxWindLabel, this.Shift.WeatherData.WindSpeedMax);
-        //        UITheme.FormatePrecipAmountLabel(precipitationAmountLabel, this.Shift.WeatherData.Precipitation);
-        //        //UITheme.FormatePrecipChanceLabel(precipitationChanceLabel, maxPrecipChance);
-        //        //this.feelsLikeHiLabel.Text = this.Shift.WeatherData.FeelsLikeHiFormatted;
-        //        //this.feelsLikeLowLabel.Text = this.Shift.WeatherData?.FeelsLikeLowFormatted;
-        //        //this.precipitationAmountLabel.Text = this.Shift.WeatherData?.precipitationAmountFormatted;
-        //        //this.maxWindLabel.Text = this.Shift.WeatherData?.windMaxFormatted;
-        //        //this.avgWindLabel.Text = this.Shift.WeatherData?.windAvgFormatted;
-        //        //this.precipitationChanceLabel.Visible = false;
-        //    }
-            
-        //}
+        
         private void AddSectionLines()
         {
             //throw new NotImplementedException();

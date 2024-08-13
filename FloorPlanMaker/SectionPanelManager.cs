@@ -8,11 +8,16 @@ using System.Threading.Tasks;
 
 namespace FloorPlanMakerUI
 {
-    public class SectionPanelManager
+    public class SectionPanelManager : IFloorplanObserver
     {
         private List<SectionPanelControl> _sectionPanels = new List<SectionPanelControl>();
         public List<SectionPanelControl> SectionPanels { get {  return _sectionPanels; } }
         private Floorplan _floorplan { get; set; }
         public Floorplan Floorplan { get {  return _floorplan; } }
+
+        public void UpdateFloorplan(Section section)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
