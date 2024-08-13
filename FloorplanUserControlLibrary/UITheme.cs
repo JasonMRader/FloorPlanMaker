@@ -243,6 +243,17 @@ namespace FloorPlanMakerUI
 
             return Color.FromArgb(Color.A, muteR, muteG, muteB);
         }
+        public static Color DarkenColor(float percentage, Color color)
+        {
+            // Ensure the percentage is between 0 and 1
+            percentage = Math.Clamp(percentage, 0, 1);
+
+            int r = (int)(color.R * (1 - percentage));
+            int g = (int)(color.G * (1 - percentage));
+            int b = (int)(color.B * (1 - percentage));
+
+            return Color.FromArgb(color.A, r, g, b);
+        }
         public static void FormatMainButton(Control c)
         {
             c.BackColor = ButtonColor;

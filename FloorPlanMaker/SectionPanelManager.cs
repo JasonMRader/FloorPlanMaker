@@ -14,10 +14,18 @@ namespace FloorPlanMakerUI
         public List<SectionPanelControl> SectionPanels { get {  return _sectionPanels; } }
         private Floorplan _floorplan { get; set; }
         public Floorplan Floorplan { get {  return _floorplan; } }
+        private FlowLayoutPanel _flowLayoutPanel = new FlowLayoutPanel();
 
         public void UpdateFloorplan(Section section)
         {
             throw new NotImplementedException();
+        }
+        public void AddSectionPanels()
+        {
+            foreach (SectionPanelControl sectionPanel in this._sectionPanels)
+            {
+                sectionPanel.UpdateLabels();
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using FloorplanClassLibrary;
+using Microsoft.VisualBasic.Devices;
 using System;
 using System.Collections.Generic;
 using System.Drawing.Printing;
@@ -46,35 +47,13 @@ namespace FloorPlanMakerUI
 
             }
         }
-
-        private RadioButton CreateDiningAreaButtonHORIZONTAL(DiningArea area)
-        {
-            int margin = 5;
-            int totalMarginSpace = margin * (diningAreas.Count);
-            int adjustedWidth = flowLayoutPanel.Width - totalMarginSpace;
-            int width = adjustedWidth / diningAreas.Count;
-            //int width = (int)((float)(flowLayoutPanel.Width - (margin * (diningAreas.Count - 1)) / (float)(diningAreas.Count)));
-            //((flowLayoutPanel.Width + (diningAreas.Count * 10)) / (diningAreas.Count + 1))
-            RadioButton btn = new RadioButton() 
-            {
-               
-                Image = UITheme.GetDiningAreaImage(area),
-                Size = new Size(width, flowLayoutPanel.Height),
-                Margin = new Padding(0, 0, margin, 0),
-                Tag = area
-            };
-            btn.Click += areaButtonClicked;
-            UITheme.FormatCTAButton(btn);
-            return btn;
-        }
         private RadioButton CreateDiningAreaButton(DiningArea area)
         {
             int margin = 10;
             int totalMarginSpace = margin * (diningAreas.Count + 1);
             int adjustedHeight = flowLayoutPanel.Height - totalMarginSpace;
             int height = adjustedHeight / diningAreas.Count;
-            //int width = (int)((float)(flowLayoutPanel.Width - (margin * (diningAreas.Count - 1)) / (float)(diningAreas.Count)));
-            //((flowLayoutPanel.Width + (diningAreas.Count * 10)) / (diningAreas.Count + 1))
+            
             RadioButton btn = new RadioButton()
             {
 
@@ -88,7 +67,7 @@ namespace FloorPlanMakerUI
             btn.Click += areaButtonClicked;
             UITheme.FormatCTAButton(btn);
             btn.BackColor = UITheme.ButtonColor;
-            btn.FlatAppearance.CheckedBackColor = btn.BackColor;
+            btn.FlatAppearance.CheckedBackColor = UITheme.DarkenColor(.3f, UITheme.ButtonColor);
             return btn;
         }
         public void UpdateForShift(Shift shift)
@@ -96,21 +75,14 @@ namespace FloorPlanMakerUI
             this.shift.RemoveObserver(this);
             this.shift = shift;
             this.shift.SubscribeObserver(this);
-
-            //if (shift != this.shift)
-            //{
-            //    this.shift.RemoveObserver(this);
-            //    this.shift = shift;               
-                
-            //}
+           
             if (shift.Floorplans.Count == 0) 
             {
                 foreach(RadioButton radio in radioButtons)
                 {
                     radio.BackColor = UITheme.ButtonColor;
-                    radio.FlatAppearance.CheckedBackColor = UITheme.ButtonColor;
-                    pnlIndicator.BackColor = radio.BackColor;
-                    //pnlIndicator.Invalidate();
+                    radio.FlatAppearance.CheckedBackColor = UITheme.DarkenColor(.3f, UITheme.ButtonColor);
+                    pnlIndicator.BackColor = radio.BackColor;                   
                 }
             }
             else
@@ -123,28 +95,28 @@ namespace FloorPlanMakerUI
                         if(SqliteDataAccess.CheckIfFloorplanExistsForDate(shift.DateOnly, shift.IsAM, area.ID))
                         {
                             radio.BackColor = UITheme.YesColor;
-                            radio.FlatAppearance.CheckedBackColor = UITheme.YesColor;
+                            radio.FlatAppearance.CheckedBackColor = UITheme.DarkenColor(.3f, UITheme.YesColor);
                         }
                         else
                         {
                             radio.BackColor = UITheme.WarningColor;
-                            radio.FlatAppearance.CheckedBackColor = UITheme.WarningColor;
+                            radio.FlatAppearance.CheckedBackColor = UITheme.DarkenColor(.3f, UITheme.WarningColor);
                         }
                     }
                     else
                     {
                         radio.BackColor = UITheme.ButtonColor;
-                        radio.FlatAppearance.CheckedBackColor = UITheme.ButtonColor;
+                        radio.FlatAppearance.CheckedBackColor = UITheme.DarkenColor(.3f, UITheme.ButtonColor);
                     }
                     if (radio.Checked)
                     {
-                        pnlIndicator.BackColor = radio.BackColor;
-                        //pnlIndicator.Invalidate();
+                        pnlIndicator.BackColor = radio.FlatAppearance.CheckedBackColor;  
+                        
+                        
                     }
                 }
             }
            
-            //UpdateRadioButtons();
         }
        
 
@@ -156,7 +128,6 @@ namespace FloorPlanMakerUI
             {
                 DiningAreaChanged?.Invoke(rdo, EventArgs.Empty);
             }
-            //UpdateRadioButtons();
            
         }
         private void UpdateRadioButtons()
@@ -171,12 +142,12 @@ namespace FloorPlanMakerUI
                     rdo.Checked = true;
                     pnlIndicator.Height = rdo.Height;
                     pnlIndicator.Location = new Point(0, rdo.Location.Y);
-                    pnlIndicator.BackColor = rdo.BackColor;
+                    pnlIndicator.BackColor = rdo.FlatAppearance.CheckedBackColor;
                     pnlIndicator2.Height = rdo.Height;
                     pnlIndicator2.Location = new Point(0, rdo.Location.Y);
                     pnlIndicator2.BackColor = rdo.BackColor;
                     pnlIndicator2.BackColor = Color.FromArgb(255, 103, 0);
-                    //rdo.Width = rdo.Width + 5;
+                   
 
                 }
                 else
