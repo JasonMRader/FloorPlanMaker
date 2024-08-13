@@ -25,6 +25,7 @@ namespace FloorplanUserControlLibrary
         private ToolTip toolTip { get; set; }
         public event EventHandler AssignServerClicked;
         public event EventHandler btnTeamWaitClicked;
+        public event EventHandler btnClearSectionClicked;
 
         public SectionHeaderDisplay()
         {
@@ -90,12 +91,12 @@ namespace FloorplanUserControlLibrary
             {
                 btnTeamWaitToggle.Image = Resources.waiters_28;
                 btnTeamWaitToggle.BackColor = UITheme.WarningColor;
-               
+
             }
             if (!section.IsTeamWait)
             {
                 btnTeamWaitToggle.Image = Resources.waiter_28;
-                btnTeamWaitToggle.BackColor = UITheme.CTAColor;                
+                btnTeamWaitToggle.BackColor = UITheme.CTAColor;
             }
         }
         private void SetSalesDifferenceControls()
@@ -270,7 +271,7 @@ namespace FloorplanUserControlLibrary
             SetCoverDifferenceProperties();
             SetSectionTotalControls();
         }
-       
+
         private void SectionHeaderDisplay_Load(object sender, EventArgs e)
         {
 
@@ -302,6 +303,11 @@ namespace FloorplanUserControlLibrary
         public void SetTeamWaitPictureBoxes()
         {
 
+        }
+
+        private void btnClearSection_Click(object sender, EventArgs e)
+        {
+            btnClearSectionClicked?.Invoke(this, EventArgs.Empty);
         }
     }
 }

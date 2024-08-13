@@ -84,6 +84,7 @@
             btnClearSection.Size = new Size(42, 30);
             btnClearSection.TabIndex = 3;
             btnClearSection.UseVisualStyleBackColor = false;
+            btnClearSection.Click += btnClearSection_Click;
             // 
             // btnTeamWaitToggle
             // 
