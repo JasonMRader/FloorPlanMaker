@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace FloorPlanMakerUI
 {
-    public partial class frmSectionServerAssign : Form
+    public partial class frmSectionServerAssign : Form , IShiftObserver
     {
         private Section section { get; set; }
         private Shift shift { get; set; }
@@ -123,12 +123,67 @@ namespace FloorPlanMakerUI
         private void ServerButtonClicked(object? sender, EventArgs e)
         {
             var clickedButton = (Button)sender;
+            if(!section.IsTeamWait)
+            {
+                SoloSectionServerButtonClicked(clickedButton);
+            }
+            else if(section.IsTeamWait)
+            {
+                TeamSectionServerButtonClicked(clickedButton);
+            }
+           
+            
+            RefreshServerButtonProperties();          
+
+           
+        }
+
+        private void TeamSectionServerButtonClicked(Button? clickedButton)
+        {
             var assignedServer = (Server)clickedButton.Tag;
-            //Server Clicked Does Not have a section
+            if (assignedServer.CurrentSection == null)
+            {   
+                section.AddServer(assignedServer);
+                if(section.ServerCount == section.ServerTeam.Count)
+                {
+                    SignalForInvisible?.Invoke(this, EventArgs.Empty);
+                }    
+            }
+            //Server clicked DOES have a Section AND this Section has a Server AND ServerTeam does not contain the Server Clicked
+            //else if (assignedServer.CurrentSection != null
+            //    && section.Server != null
+            //    && !section.ServerTeam.Contains(assignedServer))
+            //{
+            //    floorplan.SwapServers(section, assignedServer.CurrentSection);
+            //    SignalForInvisible?.Invoke(this, EventArgs.Empty);
+            //}
+            //CLicked server Does have a Section AND this section does not have a server
+            else if (assignedServer.CurrentSection != null && section.Server == null)
+            {
+                assignedServer.CurrentSection.RemoveServer(assignedServer);
+                section.AddServer(assignedServer);
+                if (section.ServerCount == section.ServerTeam.Count)
+                {
+                    SignalForInvisible?.Invoke(this, EventArgs.Empty);
+                }
+            }
+            else if (assignedServer.CurrentSection != null)
+            {
+                //THis server is in this section
+                if (assignedServer.CurrentSection == this.section)
+                {
+                    assignedServer.CurrentSection.RemoveServer(assignedServer);
+                }
+            }
+        }
+
+        private void SoloSectionServerButtonClicked(Button clickedButton)
+        {
+            var assignedServer = (Server)clickedButton.Tag;
             if (assignedServer.CurrentSection == null)
             {
                 //This Section Already Has a server
-                if(section.Server != null)
+                if (section.Server != null)
                 {
                     section.RemoveServer(section.Server);
                 }
@@ -137,7 +192,7 @@ namespace FloorPlanMakerUI
 
             }
             //Server clicked DOES have a Section AND this Section has a Server AND ServerTeam does not contain the Server Clicked
-            else if(assignedServer.CurrentSection != null 
+            else if (assignedServer.CurrentSection != null
                 && section.Server != null
                 && !section.ServerTeam.Contains(assignedServer))
             {
@@ -145,13 +200,13 @@ namespace FloorPlanMakerUI
                 SignalForInvisible?.Invoke(this, EventArgs.Empty);
             }
             //CLicked server Does have a Section AND this section does not have a server
-            else if(assignedServer.CurrentSection != null && section.Server == null)
+            else if (assignedServer.CurrentSection != null && section.Server == null)
             {
                 assignedServer.CurrentSection.RemoveServer(assignedServer);
                 section.AddServer(assignedServer);
                 SignalForInvisible?.Invoke(this, EventArgs.Empty);
-            } 
-            else if(assignedServer.CurrentSection != null)
+            }
+            else if (assignedServer.CurrentSection != null)
             {
                 //THis server is in this section
                 if (assignedServer.CurrentSection == this.section)
@@ -159,9 +214,6 @@ namespace FloorPlanMakerUI
                     assignedServer.CurrentSection.RemoveServer(assignedServer);
                 }
             }
-            RefreshServerButtonProperties();          
-
-           
         }
 
         private void PopulateCboAreas()
@@ -188,6 +240,16 @@ namespace FloorPlanMakerUI
         {
             PopulateFloorplanServers();
             GetFormSize();
+        }
+
+        public void UpdateSection(Section section)
+        {
+            RefreshServerButtonProperties();
+        }
+
+        public void UpdateShift(Shift shift)
+        {
+            throw new NotImplementedException();
         }
 
         //private void pbClose_Click(object sender, EventArgs e)
