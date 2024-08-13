@@ -487,21 +487,27 @@ namespace FloorPlanMakerUI
             SectionPanelControl sectionPanel = _sectionPanels.FirstOrDefault(sp => sp.Section == selectedSection);
             if (!selectedSection.IsTeamWait)
             {
-                Section sectionRemoved = Floorplan.RemoveHighestNumberedEmptySection(selectedSection);
-                if (sectionRemoved == null || Floorplan.NotEnoughUnassignedServersCheck(selectedSection))
-                {
-                    MessageBox.Show("You must clear a section before making another section a teamwait section");
-                }
-                else
-                {
-                    selectedSection.ToggleTeamWait();
-                    sectionHeader.SetTeamWaitPictureBoxes();
-                    UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionPanel, UpdateType.Remove, sectionRemoved));
-                    this._sectionPanels.Remove(sectionPanelControlBySection(sectionRemoved));
-                }
+                selectedSection.ToggleTeamWait();
+                sectionHeader.SetTeamWaitPictureBoxes();
+                Floorplan.SetTheAppropriateAmountOfSections();
+                //UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionPanel, UpdateType.Remove, sectionRemoved));
+                //this._sectionPanels.Remove(sectionPanelControlBySection(sectionRemoved));
+                //Section sectionRemoved = Floorplan.RemoveHighestNumberedEmptySection(selectedSection);
+                //if (sectionRemoved == null || Floorplan.NotEnoughUnassignedServersCheck(selectedSection))
+                //{
+                //    MessageBox.Show("You must clear a section before making another section a teamwait section");
+                //}
+                //else
+                //{
+                //    selectedSection.ToggleTeamWait();
+                //    sectionHeader.SetTeamWaitPictureBoxes();
+                //    UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionPanel, UpdateType.Remove, sectionRemoved));
+                //    this._sectionPanels.Remove(sectionPanelControlBySection(sectionRemoved));
+                //}
             }
             else
             {
+
                 selectedSection.MakeSoloSection();
                 sectionHeader.SetTeamWaitPictureBoxes();
                 Section sectionAdded = new Section(Floorplan);
