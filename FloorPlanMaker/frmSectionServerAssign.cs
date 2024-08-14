@@ -93,6 +93,8 @@ namespace FloorPlanMakerUI
            
 
         }
+        private List<string> serverSectionLogs = new List<string>();
+        private int sectionChangeLogs = 0;
         private void AddServerLogWithSection(Server server, string description, Section originalSection = null)
         {
            
@@ -101,7 +103,7 @@ namespace FloorPlanMakerUI
             string originalSectionString = originalSection != null ? originalSection.Number.ToString() : "NO SECTION";
             string currentSectionString = server.CurrentSection != null ? server.CurrentSection.Number.ToString() : "NO SECTION";
 
-            serverLogs.Add($"\n{logCount}) {server}: {originalSectionString} -> {currentSectionString} | {description}");
+            serverSectionLogs.Add($"\n{logCount}) {server}: {originalSectionString} -> {currentSectionString} | {description}");
         }
 
 
@@ -536,7 +538,7 @@ namespace FloorPlanMakerUI
                 {
                     logRecords += s;
                 }
-                MessageBox.Show(logRecords);
+               // MessageBox.Show(logRecords);
                 serverLogs.Clear();
             }
 

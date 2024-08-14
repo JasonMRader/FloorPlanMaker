@@ -1149,10 +1149,8 @@ namespace FloorPlanMaker
             using (frmDateSelect selectDateForm = new frmDateSelect(dateTimeSelected))
             {
                 selectDateForm.StartPosition = FormStartPosition.Manual;
-                Point formLocation = this.PointToScreen(lblDateSelected.Location);
-                formLocation.Y += lblDateSelected.Height + 50;
-                formLocation.X += 465;
-                selectDateForm.Location = formLocation;
+                Point startLocation = new Point(Cursor.Position.X - 50, Cursor.Position.Y);
+                selectDateForm.Location = startLocation;
                 DialogResult = selectDateForm.ShowDialog();
                 if (DialogResult == DialogResult.OK)
                 {

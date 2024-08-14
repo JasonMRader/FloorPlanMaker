@@ -779,12 +779,15 @@ namespace FloorplanClassLibrary
 
         public void SwapTwoServers(Server serverToSwap, Server serverChoosen)
         {
-            if(serverToSwap == null) { MessageBox.Show("SERVER TO SWAP IS NULL!");
+            if(serverToSwap == null) {
+                MessageBox.Show("An Error Has Occured, Please try Swapping Again" , "Server Swapped Null",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             if (serverChoosen == null)
             {
-                MessageBox.Show("SERVER Choosen IS NULL!");
+                MessageBox.Show("An Error Has Occured, Please try Swapping Again", "Server Choosen Null",
+                   MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             Section swapSection = serverToSwap.CurrentSection;
