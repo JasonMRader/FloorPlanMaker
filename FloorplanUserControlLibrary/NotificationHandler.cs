@@ -9,10 +9,9 @@ namespace FloorplanUserControlLibrary
 {
     public static class NotificationHandler
     {
-        public static void ShowNotificationLabel(Control parent, string text, Color backColor, Color foreColor, 
+        public static void ShowNotificationLabel(Control parent, string text, Color backColor, Color foreColor,
             Point location, int width, int height, TimeSpan timeShown)
         {
-            
             Label label = new Label
             {
                 Text = text,
@@ -31,18 +30,20 @@ namespace FloorplanUserControlLibrary
             label.BringToFront();
 
             // Initialize the timer
-            System.Timers.Timer timer = new System.Timers.Timer(timeShown.TotalMilliseconds);
-            timer.Elapsed += (sender, e) =>
+            System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer
+            {
+                Interval = (int)timeShown.TotalMilliseconds
+            };
+
+            timer.Tick += (sender, e) =>
             {
                 // Remove the label and dispose of the timer
-                label.Invoke((MethodInvoker)(() =>
-                {
-                    parent.Controls.Remove(label);
-                    label.Dispose();
-                }));
+                parent.Controls.Remove(label);
+                label.Dispose();
+                timer.Stop();
                 timer.Dispose();
             };
-            timer.AutoReset = false; // Ensure the timer only fires once
+
             timer.Start();
         }
         public static void ShowNotificationOverControl(Control parent, string text, Color backColor, Color foreColor,

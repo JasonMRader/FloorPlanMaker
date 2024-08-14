@@ -170,6 +170,20 @@ namespace FloorplanClassLibrary
             Server other = (Server)obj;
             return this.ID == other.ID;
         }
+        public string serversCurrentSectionDisplay
+        {
+            get
+            {
+                if (CurrentSection == null)
+                {
+                    return "No Section";
+                }
+                else
+                {
+                    return CurrentSection.Number.ToString();
+                }
+            }
+        }
        
         public override int GetHashCode()
         {

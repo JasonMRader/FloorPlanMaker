@@ -779,14 +779,32 @@ namespace FloorplanClassLibrary
 
         public void SwapTwoServers(Server serverToSwap, Server serverChoosen)
         {
+            if(serverToSwap == null) { MessageBox.Show("SERVER TO SWAP IS NULL!");
+                return;
+            }
+            if (serverChoosen == null)
+            {
+                MessageBox.Show("SERVER Choosen IS NULL!");
+                return;
+            }
             Section swapSection = serverToSwap.CurrentSection;
             Section ChoosenSection = serverChoosen.CurrentSection;
-            swapSection.RemoveServer(serverToSwap);
-            ChoosenSection.RemoveServer(serverChoosen);
-            swapSection.AddServer(serverChoosen);
-            ChoosenSection.AddServer(serverToSwap);
-
-
+            if(swapSection != null)
+            {
+                swapSection.RemoveServer(serverToSwap);
+            }
+            if(ChoosenSection != null)
+            {
+                ChoosenSection.RemoveServer(serverChoosen);
+            }
+            if(swapSection != null)
+            {
+                swapSection.AddServer(serverChoosen);
+            }       
+            if(ChoosenSection != null)
+            {
+                ChoosenSection.AddServer(serverToSwap);
+            }
         }
     }
 }

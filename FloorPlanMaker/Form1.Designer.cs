@@ -505,11 +505,11 @@ namespace FloorPlanMaker
             // label4
             // 
             label4.BackColor = Color.WhiteSmoke;
-            label4.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label4.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             label4.ForeColor = Color.Black;
-            label4.Location = new Point(767, 10);
+            label4.Location = new Point(772, 10);
             label4.Name = "label4";
-            label4.Size = new Size(60, 42);
+            label4.Size = new Size(55, 42);
             label4.TabIndex = 25;
             label4.Text = "Dining Areas";
             label4.TextAlign = ContentAlignment.MiddleCenter;
@@ -532,16 +532,16 @@ namespace FloorPlanMaker
             // 
             // pnlAreaIndicatorContainer
             // 
-            pnlAreaIndicatorContainer.BackColor = Color.WhiteSmoke;
+            pnlAreaIndicatorContainer.BackColor = Color.FromArgb(225, 225, 225);
             pnlAreaIndicatorContainer.Controls.Add(pnlAreaIndicator);
-            pnlAreaIndicatorContainer.Location = new Point(764, 50);
+            pnlAreaIndicatorContainer.Location = new Point(764, 10);
             pnlAreaIndicatorContainer.Name = "pnlAreaIndicatorContainer";
-            pnlAreaIndicatorContainer.Size = new Size(8, 904);
+            pnlAreaIndicatorContainer.Size = new Size(8, 944);
             pnlAreaIndicatorContainer.TabIndex = 26;
             // 
             // pnlAreaIndicator
             // 
-            pnlAreaIndicator.BackColor = Color.WhiteSmoke;
+            pnlAreaIndicator.BackColor = Color.White;
             pnlAreaIndicator.Location = new Point(0, 0);
             pnlAreaIndicator.Name = "pnlAreaIndicator";
             pnlAreaIndicator.Size = new Size(8, 163);

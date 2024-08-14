@@ -162,7 +162,7 @@ namespace FloorPlanMakerUI
         {
             rdo.Checked = true;
             pnlIndicator.Height = rdo.Height;
-            pnlIndicator.Location = new Point(0, rdo.Location.Y);
+            pnlIndicator.Location = new Point(0, rdo.Location.Y + 40);
             pnlIndicator.BackColor = rdo.FlatAppearance.CheckedBackColor;
             pnlIndicator2.Height = rdo.Height;
             pnlIndicator2.Location = new Point(0, rdo.Location.Y);
