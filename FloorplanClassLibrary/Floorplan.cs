@@ -775,12 +775,18 @@ namespace FloorplanClassLibrary
             section1.AddServer(server2);
             section2.AddServer(server1);
         }
-        public void SwapTeamSectionServerWithSolo(Section teamSection, Server teamServer, Section soloSection, Server soloServer)
+       
+
+        public void SwapTwoServers(Server serverToSwap, Server serverChoosen)
         {
-            teamSection.RemoveServer(teamServer);
-            soloSection.RemoveServer(soloServer);
-            teamSection.AddServer(soloServer);
-            soloSection.AddServer(teamServer);
+            Section swapSection = serverToSwap.CurrentSection;
+            Section ChoosenSection = serverChoosen.CurrentSection;
+            swapSection.RemoveServer(serverToSwap);
+            ChoosenSection.RemoveServer(serverChoosen);
+            swapSection.AddServer(serverChoosen);
+            ChoosenSection.AddServer(serverToSwap);
+
+
         }
     }
 }

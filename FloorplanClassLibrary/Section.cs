@@ -83,6 +83,13 @@ namespace FloorplanClassLibrary
 
 
         }
+        public bool IsFull
+        {
+            get
+            {
+                return ServerTeam.Count == ServerCount;
+            }
+        }
         private SectionBoarders _SectionBoarders;
         public SectionBoarders SectionBoarders
         {

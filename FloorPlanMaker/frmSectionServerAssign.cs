@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace FloorPlanMakerUI
 {
-    public partial class frmSectionServerAssign : Form , IShiftObserver
+    public partial class frmSectionServerAssign : Form, IShiftObserver
     {
         private Section section { get; set; }
         private Shift shift { get; set; }
@@ -56,9 +56,10 @@ namespace FloorPlanMakerUI
             {
                 flowServerSelect.Controls.Clear();
                 foreach (Server server in floorplanSelected.Servers)
-                {                   
+                {
+                    if(server.IsBartender) { continue; }
                     Button button = CreateServerButton(server);
-                    flowServerSelect.Controls.Add(button);                   
+                    flowServerSelect.Controls.Add(button);
 
                 }
             }
@@ -75,7 +76,7 @@ namespace FloorPlanMakerUI
             {
                 button.BackColor = server.CurrentSection.Color;
                 button.ForeColor = server.CurrentSection.FontColor;
-                if(server.CurrentSection == this.section)
+                if (server.CurrentSection == this.section)
                 {
                     button.Text = "Remove " + server.ToString();
                 }
@@ -93,12 +94,18 @@ namespace FloorPlanMakerUI
 
             return button;
         }
+        
         private void RefreshServerButtonProperties()
         {
-            foreach(Button button in flowServerSelect.Controls)
+            foreach (Button button in flowServerSelect.Controls)
             {
                 Server server = button.Tag as Server;
-                if(server.CurrentSection == null)
+                //button.Click -= SwapServerButtonClicked;
+                //button.Click -= CancelSwap;
+                //button.Click -= ServerButtonClicked;
+                button.Visible = true;
+                button.Enabled = true;
+                if (server.CurrentSection == null)
                 {
                     button.BackColor = Color.Gray;
                     button.ForeColor = Color.Black;
@@ -107,121 +114,177 @@ namespace FloorPlanMakerUI
                 else
                 {
                     button.BackColor = server.CurrentSection.Color;
-                    button.ForeColor= server.CurrentSection.FontColor;
-                    if(server.CurrentSection == this.section)
+                    button.ForeColor = server.CurrentSection.FontColor;
+                    if (server.CurrentSection == this.section)
                     {
-                        button.Text= "Remove " + server.ToString();
+                        button.Text = "Remove " + server.ToString();
                     }
                     else
                     {
                         button.Text = server.ToString();
                     }
                 }
+                //button.Click += ServerButtonClicked;
             }
         }
 
         private void ServerButtonClicked(object? sender, EventArgs e)
         {
             var clickedButton = (Button)sender;
-            if(!section.IsTeamWait)
+            if (!section.IsTeamWait)
             {
                 SoloSectionServerButtonClicked(clickedButton);
             }
-            else if(section.IsTeamWait)
+            else if (section.IsTeamWait)
             {
                 TeamSectionServerButtonClicked(clickedButton);
             }
-           
-            
-            RefreshServerButtonProperties();          
 
-           
+
+           // RefreshServerButtonProperties();
+
+
         }
 
         private void TeamSectionServerButtonClicked(Button? clickedButton)
         {
-            var assignedServer = (Server)clickedButton.Tag;
-            if (assignedServer.CurrentSection == null)
-            {   
-                section.AddServer(assignedServer);
-                if(section.ServerCount == section.ServerTeam.Count)
-                {
-                    SignalForInvisible?.Invoke(this, EventArgs.Empty);
-                }    
-            }
-            //Server clicked DOES have a Section AND this Section has a Server AND ServerTeam does not contain the Server Clicked
-            else if (assignedServer.CurrentSection != null
-                && section.ServerCount == section.ServerTeam.Count
-                && !section.ServerTeam.Contains(assignedServer))
+            var clickedServer = (Server)clickedButton.Tag;
+            //CLicked Server doesnt have a section and there are open spots
+            if (clickedServer.CurrentSection == null && !section.IsFull)
             {
-                floorplan.SwapServers(section, assignedServer.CurrentSection);
-                SignalForInvisible?.Invoke(this, EventArgs.Empty);
-            }
-            //CLicked server Does have a Section AND this section does not have a server
-            else if (assignedServer.CurrentSection != null && section.Server == null)
-            {
-                assignedServer.CurrentSection.RemoveServer(assignedServer);
-                section.AddServer(assignedServer);
+                section.AddServer(clickedServer);
                 if (section.ServerCount == section.ServerTeam.Count)
                 {
                     SignalForInvisible?.Invoke(this, EventArgs.Empty);
                 }
             }
-            else if (assignedServer.CurrentSection != null)
+            //Server clicked DOES have a Section
+            //AND this Section IS FULL
+            //AND ServerTeam does not contain the Server Clicked
+           
+            else if (clickedServer.CurrentSection != null
+                && section.IsFull
+                && !section.ServerTeam.Contains(clickedServer))
+            {
+                ChooseThisSectionsTeamServerToSwap(clickedServer, clickedServer.CurrentSection);
+                //floorplan.SwapServers(section, clickedServer.CurrentSection);
+                //SignalForInvisible?.Invoke(this, EventArgs.Empty);
+            }
+            //CLicked server Does have a Section AND this section does not have a server
+            else if (clickedServer.CurrentSection != null && !section.IsFull)
+            {
+                clickedServer.CurrentSection.RemoveServer(clickedServer);
+                section.AddServer(clickedServer);
+                if (section.IsFull)
+                {
+                    SignalForInvisible?.Invoke(this, EventArgs.Empty);
+                }
+            }
+            //Remove Server if this is the Servers Section
+            else if (clickedServer.CurrentSection != null)
             {
                 //THis server is in this section
-                if (assignedServer.CurrentSection == this.section)
+                if (clickedServer.CurrentSection == this.section)
                 {
-                    assignedServer.CurrentSection.RemoveServer(assignedServer);
+                    clickedServer.CurrentSection.RemoveServer(clickedServer);
                 }
             }
         }
+        private Server serverToSwap { get; set; }   
+        private void ChooseThisSectionsTeamServerToSwap(Server serverClicked, Section serverClickedsSection)
+        {
+            serverToSwap = serverClicked;
+            foreach (Button button in flowServerSelect.Controls)
+            {
+                Server server = button.Tag as Server;
+                
+                if (server != serverClicked && !section.ServerTeam.Contains(server))
+                {
+                    button.Enabled = false;
+                }
+                if (section.ServerTeam.Contains(server))
+                {
+                    button.Text = "Swap for " + server.DisplayName;
+                    button.Click -= ServerButtonClicked;
+                    button.Click += SwapServerButtonClicked;
+                }
+                if (server == serverClicked)
+                {
 
+                    button.Text = server.DisplayName + " (Cancel Swap)";
+                    button.Click -= ServerButtonClicked;
+                    button.Click += CancelSwap;
+                }
+
+            }
+        }
+       
+
+        private void CancelSwap(object? sender, EventArgs e)
+        {
+            Button button = sender as Button;
+            serverToSwap = null;
+            RefreshServerButtonProperties();
+            button.Click += ServerButtonClicked;
+            button.Click -= CancelSwap;
+        }
+
+        private void SwapServerButtonClicked(object? sender, EventArgs e)
+        {
+            var button = (Button)sender;
+            Server serverChoosen = (Server)button.Tag;
+            floorplan.SwapTwoServers(serverToSwap, serverChoosen);
+            RefreshServerButtonProperties();
+            button.Click += ServerButtonClicked;
+            button.Click -= SwapServerButtonClicked;
+
+
+        }
         private void SoloSectionServerButtonClicked(Button clickedButton)
         {
-            var assignedServer = (Server)clickedButton.Tag;
-            if (assignedServer.CurrentSection == null)
+            var clickedServer = (Server)clickedButton.Tag;
+            if (clickedServer.CurrentSection == null)
             {
                 //This Section Already Has a server
                 if (section.Server != null)
                 {
                     section.RemoveServer(section.Server);
                 }
-                section.AddServer(assignedServer);
+                section.AddServer(clickedServer);
                 SignalForInvisible?.Invoke(this, EventArgs.Empty);
 
             }
             //Server clicked DOES have a Section AND this Section has a Server AND ServerTeam does not contain the Server Clicked
-            else if (assignedServer.CurrentSection != null
+            else if (clickedServer.CurrentSection != null
                 && section.Server != null
-                && !section.ServerTeam.Contains(assignedServer))
+                && !section.ServerTeam.Contains(clickedServer))
             {
-               
-                if (assignedServer.CurrentSection.IsTeamWait)
+
+                if (clickedServer.CurrentSection.IsTeamWait)
                 {
                     //ADD SWAPPING IF OTHER SECTION IS A TEAM
-                    floorplan.SwapTeamSectionServerWithSolo(assignedServer.CurrentSection, assignedServer, section, section.Server);
+                    floorplan.SwapTwoServers(clickedServer, section.Server);
                 }
                 else
                 {
-                    floorplan.SwapServers(section, assignedServer.CurrentSection);
+                    floorplan.SwapServers(section, clickedServer.CurrentSection);
                     SignalForInvisible?.Invoke(this, EventArgs.Empty);
                 }
-               
+
             }
             //CLicked server Does have a Section AND this section does not have a server
-            else if (assignedServer.CurrentSection != null && section.Server == null)
+            else if (clickedServer.CurrentSection != null && section.Server == null)
             {
-                assignedServer.CurrentSection.RemoveServer(assignedServer);
-                section.AddServer(assignedServer);
+                clickedServer.CurrentSection.RemoveServer(clickedServer);
+                section.AddServer(clickedServer);
                 SignalForInvisible?.Invoke(this, EventArgs.Empty);
             }
-            else if (assignedServer.CurrentSection != null)
+            else if (clickedServer.CurrentSection != null)
             {
                 //THis server is in this section
-                if (assignedServer.CurrentSection == this.section)
+                if (clickedServer.CurrentSection == this.section)
                 {
-                    assignedServer.CurrentSection.RemoveServer(assignedServer);
+                    clickedServer.CurrentSection.RemoveServer(clickedServer);
                 }
             }
         }

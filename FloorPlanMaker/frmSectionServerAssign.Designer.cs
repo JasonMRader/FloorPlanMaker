@@ -41,7 +41,7 @@
             flowServerSelect.FlowDirection = FlowDirection.TopDown;
             flowServerSelect.Location = new Point(12, 47);
             flowServerSelect.Name = "flowServerSelect";
-            flowServerSelect.Size = new Size(192, 55);
+            flowServerSelect.Size = new Size(291, 55);
             flowServerSelect.TabIndex = 0;
             // 
             // cboDiningArea
@@ -51,7 +51,7 @@
             cboDiningArea.FormattingEnabled = true;
             cboDiningArea.Location = new Point(12, 12);
             cboDiningArea.Name = "cboDiningArea";
-            cboDiningArea.Size = new Size(192, 29);
+            cboDiningArea.Size = new Size(291, 29);
             cboDiningArea.TabIndex = 1;
             cboDiningArea.SelectedIndexChanged += cboDiningArea_SelectedIndexChanged;
             // 
@@ -59,7 +59,7 @@
             // 
             panel1.BackColor = Color.FromArgb(64, 64, 64);
             panel1.Dock = DockStyle.Right;
-            panel1.Location = new Point(214, 0);
+            panel1.Location = new Point(313, 0);
             panel1.Name = "panel1";
             panel1.Size = new Size(2, 116);
             panel1.TabIndex = 2;
@@ -79,14 +79,14 @@
             panel3.Dock = DockStyle.Bottom;
             panel3.Location = new Point(2, 114);
             panel3.Name = "panel3";
-            panel3.Size = new Size(212, 2);
+            panel3.Size = new Size(311, 2);
             panel3.TabIndex = 2;
             // 
             // frmSectionServerAssign
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(216, 116);
+            ClientSize = new Size(315, 116);
             Controls.Add(panel3);
             Controls.Add(panel2);
             Controls.Add(panel1);

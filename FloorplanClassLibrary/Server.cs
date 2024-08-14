@@ -129,6 +129,21 @@ namespace FloorplanClassLibrary
                 return Name;
             }
         }
+        public bool IsInTeamSection
+        {
+            get
+            {
+                if(this.CurrentSection == null)
+                {
+                    return false;
+                }
+                if(this.CurrentSection.IsTeamWait)
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
         public string LastName
         {
             get
