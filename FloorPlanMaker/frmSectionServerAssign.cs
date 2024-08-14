@@ -66,6 +66,7 @@ namespace FloorPlanMakerUI
             {
                 serverLogs.Add($"\n{logCount}) btn: NULL TAG | {description}");
             }
+
            
             
         }
@@ -91,6 +92,16 @@ namespace FloorPlanMakerUI
             }
            
 
+        }
+        private void AddServerLogWithSection(Server server, string description, Section originalSection = null)
+        {
+           
+            originalSection ??= server.CurrentSection;
+
+            string originalSectionString = originalSection != null ? originalSection.Number.ToString() : "NO SECTION";
+            string currentSectionString = server.CurrentSection != null ? server.CurrentSection.Number.ToString() : "NO SECTION";
+
+            serverLogs.Add($"\n{logCount}) {server}: {originalSectionString} -> {currentSectionString} | {description}");
         }
 
 
