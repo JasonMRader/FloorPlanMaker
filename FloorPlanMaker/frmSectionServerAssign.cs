@@ -196,8 +196,18 @@ namespace FloorPlanMakerUI
                 && section.Server != null
                 && !section.ServerTeam.Contains(assignedServer))
             {
-                floorplan.SwapServers(section, assignedServer.CurrentSection);
-                SignalForInvisible?.Invoke(this, EventArgs.Empty);
+               
+                if (assignedServer.CurrentSection.IsTeamWait)
+                {
+                    //ADD SWAPPING IF OTHER SECTION IS A TEAM
+                   // floorplan.SwapTeamServerWithSoloServer(Section teamSection, Server teamServer, Section soloSection, Server soloServer);
+                }
+                else
+                {
+                    floorplan.SwapServers(section, assignedServer.CurrentSection);
+                    SignalForInvisible?.Invoke(this, EventArgs.Empty);
+                }
+               
             }
             //CLicked server Does have a Section AND this section does not have a server
             else if (assignedServer.CurrentSection != null && section.Server == null)
