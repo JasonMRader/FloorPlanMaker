@@ -150,13 +150,13 @@ namespace FloorPlanMakerUI
                 }    
             }
             //Server clicked DOES have a Section AND this Section has a Server AND ServerTeam does not contain the Server Clicked
-            //else if (assignedServer.CurrentSection != null
-            //    && section.Server != null
-            //    && !section.ServerTeam.Contains(assignedServer))
-            //{
-            //    floorplan.SwapServers(section, assignedServer.CurrentSection);
-            //    SignalForInvisible?.Invoke(this, EventArgs.Empty);
-            //}
+            else if (assignedServer.CurrentSection != null
+                && section.ServerCount == section.ServerTeam.Count
+                && !section.ServerTeam.Contains(assignedServer))
+            {
+                floorplan.SwapServers(section, assignedServer.CurrentSection);
+                SignalForInvisible?.Invoke(this, EventArgs.Empty);
+            }
             //CLicked server Does have a Section AND this section does not have a server
             else if (assignedServer.CurrentSection != null && section.Server == null)
             {

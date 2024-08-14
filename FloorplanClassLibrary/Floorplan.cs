@@ -774,5 +774,10 @@ namespace FloorplanClassLibrary
         {
            FloorplanGenerator.SetClosersForFloorplan(this);
         }
+
+        public void SwapTeamServerWithSoloServer(Section section1, object teamSection, Server server1, object teamServer, Section section2, object soloSection, Server server2, object soloServer)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
