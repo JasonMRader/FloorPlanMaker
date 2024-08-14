@@ -200,7 +200,7 @@ namespace FloorPlanMakerUI
                 if (assignedServer.CurrentSection.IsTeamWait)
                 {
                     //ADD SWAPPING IF OTHER SECTION IS A TEAM
-                    //floorplan.SwapTeamSectionServerWithSolo(assignedServer.CurrentSection, assignedServer, );
+                    floorplan.SwapTeamSectionServerWithSolo(assignedServer.CurrentSection, assignedServer, section, section.Server);
                 }
                 else
                 {
