@@ -24,7 +24,8 @@ namespace FloorplanUserControlLibrary
         public event EventHandler ServerRemoved;
         public event EventHandler ServerAdded;
         private Floorplan floorplan { get; set; }
-        public SectionInfoPanel(Section section, Floorplan floorplan)
+        private int parentWidth = 0;
+        public SectionInfoPanel(Section section, Floorplan floorplan, int containerWidth)
         {
             InitializeComponent();
             this._section = section;
@@ -33,6 +34,7 @@ namespace FloorplanUserControlLibrary
             this.BackColor = Section.Color;
             this.ForeColor = Section.FontColor;
             pnlMainContainer.BackColor = this.BackColor;
+            parentWidth = containerWidth;
 
             UpdateSection(section);
             AttachClickEventToControls(this);
@@ -77,16 +79,22 @@ namespace FloorplanUserControlLibrary
         }
         public void SetToSelected()
         {
-            this.Margin = new Padding(25, 0,0,0);
+            int leftMargin = 25;
+            int thisWidth = parentWidth - leftMargin;
+            this.Margin = new Padding(leftMargin, 0,0,0);
             this.BackColor = Color.FromArgb(255, 103, 0);
-            this.Size = new System.Drawing.Size(291, 65);
+            this.Size = new System.Drawing.Size(thisWidth, 65);
+            pnlHighlightBuffer.Width = thisWidth - pnlHighlightBuffer.Location.X;
+            pnlMainContainer.Width = thisWidth - pnlMainContainer.Location.Y;
             //this.pnlHighlightBuffer.Location = new System.Drawing.Point(10,10);
         }
         public void SetToNotSelected()
         {
-            this.Margin = new Padding(30,0,0,0);
+            int leftMargin = 30;
+            this.Margin = new Padding(leftMargin,0,0,0);
             this.BackColor = Color.WhiteSmoke;
             this.Size = new System.Drawing.Size(281, 65);
+            pnlMainContainer.Width = 271;
             //this.pnlHighlightBuffer.Location = new System.Drawing.Point(5, 5);
         }
         private void SetForPickup()

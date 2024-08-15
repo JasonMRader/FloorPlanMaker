@@ -49,7 +49,7 @@ namespace FloorPlanMakerUI
         }
         private void AddSection(Section sectionAdded, Floorplan floorplan)
         {
-            SectionInfoPanel infoPanel = new SectionInfoPanel(sectionAdded, _floorplan);
+            SectionInfoPanel infoPanel = new SectionInfoPanel(sectionAdded, _floorplan, _flowLayoutPanel.Width);
             infoPanel.SectionSelected += SelectSection;
             _flowLayoutPanel.Controls.Add(infoPanel);
         }
@@ -114,7 +114,7 @@ namespace FloorPlanMakerUI
             _flowLayoutPanel.Controls.Add(btnAddPickup);
             foreach (Section section in _floorplan.Sections)
             {
-                SectionInfoPanel infoPanel = new SectionInfoPanel(section, _floorplan);
+                SectionInfoPanel infoPanel = new SectionInfoPanel(section, _floorplan, _flowLayoutPanel.Width);
 
                 infoPanel.SectionSelected += SelectSection;
                 _flowLayoutPanel.Controls.Add(infoPanel);
