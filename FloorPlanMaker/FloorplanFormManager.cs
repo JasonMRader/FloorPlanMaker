@@ -41,6 +41,7 @@ namespace FloorPlanMakerUI
         private DiningAreaButtonHandeler diningAreaButtonHandeler { get; set; }
         private Panel pnlMainContainer {  get; set; }   
         private Panel pnlFloorplan { get; set; }
+        private Panel pnlSideContainer { get; set; }
         
         private FlowLayoutPanel flowSectionsPanel {  get; set; }
         private FlowLayoutPanel flowServersPanel { get; set; }
@@ -58,13 +59,15 @@ namespace FloorPlanMakerUI
             this.Shift = new Shift();            
         }
         public FloorplanFormManager(Panel pnlFloorPlan, FlowLayoutPanel flowServersInFloorplan, 
-            FlowLayoutPanel flowSectionSelect, Panel pnlContainer, SectionHeaderDisplay headerDisplay, DiningAreaButtonHandeler diningAreaButtonHandeler)
+            FlowLayoutPanel flowSectionSelect, Panel pnlContainer, Panel pnlSideContainer,
+            SectionHeaderDisplay headerDisplay, DiningAreaButtonHandeler diningAreaButtonHandeler)
         {
             this.Shift = new Shift();
             this.flowSectionsPanel = flowSectionSelect;
             this.flowServersPanel = flowServersInFloorplan;
             this.pnlFloorplan = pnlFloorPlan;
             this.pnlMainContainer = pnlContainer;
+            this.pnlSideContainer = pnlSideContainer;
             this.diningAreaButtonHandeler = diningAreaButtonHandeler;
             this.sectionHeader = headerDisplay;
             this.sectionHeader.btnTeamWaitClicked += HeaderTeamWaitClicked;
@@ -777,7 +780,8 @@ namespace FloorPlanMakerUI
                 AddSectionPanels(flowSectionsPanel);
                 UpdateImageLabels();
                 sectionHeader.SetSectionToNull();
-                pnlMainContainer.BackColor = UITheme.SecondColor;              
+                pnlMainContainer.BackColor = UITheme.SecondColor; 
+                pnlSideContainer.BackColor = UITheme.SecondColor;
 
             }
         }
@@ -1021,6 +1025,7 @@ namespace FloorPlanMakerUI
             {
                 this.Shift.SetSelectedSection(sectionPanelSender.Section);
                 this.pnlMainContainer.BackColor = sectionPanelSender.Section.Color;
+                this.pnlSideContainer.BackColor = sectionPanelSender.Section.Color;
 
                 if (Floorplan != null)
                 {

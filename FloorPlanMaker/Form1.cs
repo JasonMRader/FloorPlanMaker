@@ -92,7 +92,7 @@ namespace FloorPlanMaker
             diningAreaButtonHandeler.DiningAreaChanged += DiningAreaSelectedChanged;
 
             floorplanManager = new FloorplanFormManager(pnlFloorPlan, flowServersInFloorplan, flowSectionSelect,
-                pnlMainContainer, sectionHeaderDisplay, diningAreaButtonHandeler);
+                pnlMainContainer, pnlSideContainer, sectionHeaderDisplay, diningAreaButtonHandeler);
 
             // Subscribe to the event
             //floorplanManager.SectionLabelRemoved += FloorplanManager_SectionLabelRemoved;

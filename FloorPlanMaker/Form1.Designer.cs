@@ -694,7 +694,7 @@ namespace FloorPlanMaker
             // 
             pnlSideContainer.BackColor = Color.FromArgb(180, 190, 200);
             pnlSideContainer.Controls.Add(pnlSectionsAndServers);
-            pnlSideContainer.Location = new Point(20, 10);
+            pnlSideContainer.Location = new Point(46, 10);
             pnlSideContainer.Name = "pnlSideContainer";
             pnlSideContainer.Size = new Size(364, 977);
             pnlSideContainer.TabIndex = 21;
