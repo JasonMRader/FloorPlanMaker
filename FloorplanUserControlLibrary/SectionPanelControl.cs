@@ -158,7 +158,7 @@ namespace FloorplanUserControlLibrary
             }
             else if (this.Section.IsTeamWait)
             {
-                if(this.Section.IsBarSection)
+                if (this.Section.IsBarSection)
                 {
 
                 }
@@ -169,10 +169,12 @@ namespace FloorplanUserControlLibrary
                 toolTip.SetToolTip(picClearSection, "Clear Section");
                 toolTip.SetToolTip(lblSales, $"Estimated Sales Per Server: {Section.AverageSalesDisplay()}\n" +
                     $"Total Section Sales: {Section.ExpectedSalesDisplay()}");
-                if (this.serverLabels.Count < Section.ServerCount) {
+                if (this.serverLabels.Count < Section.ServerCount)
+                {
                     SetToTeamWait();
                 }
-                for (int i = 0; i < this.Section.ServerTeam.Count; i++) {
+                for (int i = 0; i < this.Section.ServerTeam.Count; i++)
+                {
                     SetLabelToAssigned(i);
                     //serverLabels[i].Text = Section.ServerTeam[i].Name;
                     //serverLabels[i].Tag = Section.ServerTeam[i];
@@ -215,7 +217,7 @@ namespace FloorplanUserControlLibrary
             }
         }
         public void AddServerRow()
-        { 
+        {
             this.Height += 25;
             Label lblNewServerName = CreateUnassignedLabel();
             this.Controls.Add(lblNewServerName);
@@ -234,7 +236,7 @@ namespace FloorplanUserControlLibrary
             this.Controls.Add(RemoveServer);
             //this.Invalidate();
         }
-        
+
         private Label CreateUnassignedLabel()
         {
             Label lblNewServerName = new Label()
@@ -320,8 +322,8 @@ namespace FloorplanUserControlLibrary
         {
             lblDisplay.Text = this.Section.ServerCount.ToString() + " Team Section";
             lblDisplay.Width = 245;
-            
-            for(int i = 0; i < this.Section.ServerCount; i++)
+
+            for (int i = 0; i < this.Section.ServerCount; i++)
             {
                 AddServerRow();
             }
@@ -344,19 +346,19 @@ namespace FloorplanUserControlLibrary
             lblDisplay.Width = 325;
             this.Height = 50;
             int i = serverLabels.Count - 1;
-            while(serverLabels.Count > this.Section.ServerCount)
+            while (serverLabels.Count > this.Section.ServerCount)
             {
-                if(this.serverLabels.Count > i)
+                if (this.serverLabels.Count > i)
                 {
                     this.serverLabels.RemoveAt(i);
                 }
-                if(this.removeServerPBs.Count > i)
+                if (this.removeServerPBs.Count > i)
                 {
                     this.removeServerPBs.RemoveAt(i);
                 }
                 i--;
             }
-           
+
             picMinusOneServer.Visible = false;
             picPlusOneServer.Visible = false;
             picPlusOneServer.Click -= picIncreaseServerCount_Click;
@@ -374,7 +376,7 @@ namespace FloorplanUserControlLibrary
                 {
                     SetToTeamWait();
                 }
-               
+
             }
             else
             {

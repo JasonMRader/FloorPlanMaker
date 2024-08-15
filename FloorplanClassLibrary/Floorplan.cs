@@ -428,7 +428,8 @@ namespace FloorplanClassLibrary
             }
 
            
-            _sections.Add(section);           
+            _sections.Add(section);
+            NotifySectionAdded(section);
             section.ServerRemoved += RemoveServerFromSection;
             section.ServerAssigned += UpdateSectionServerMap;
            
@@ -444,6 +445,7 @@ namespace FloorplanClassLibrary
                 ClearSection(section);
             }
             var sectionToRemove = Sections.Where(s => s.Number == section.Number).FirstOrDefault();
+            NotifySectionRemoved(sectionToRemove);
             Sections.Remove(sectionToRemove);
            
             
@@ -645,6 +647,7 @@ namespace FloorplanClassLibrary
                     s.SetSectionNumber(i +1);
                     s.Name = $"Section {i +1}";
                     Sections.Add(s);
+                    NotifySectionAdded(s);
                 }
             }    
         }
@@ -678,6 +681,7 @@ namespace FloorplanClassLibrary
             if (sectionToRemove != null)
             {
                 Sections.Remove(sectionToRemove);
+                NotifySectionRemoved(sectionToRemove);
                 return true;
             }
             else
@@ -694,6 +698,7 @@ namespace FloorplanClassLibrary
             {
                
                 Sections.Remove(sectionToRemove);
+                NotifySectionRemoved(sectionToRemove);
             }
             return sectionToRemove;
         }
@@ -807,6 +812,42 @@ namespace FloorplanClassLibrary
             if(ChoosenSection != null)
             {
                 ChoosenSection.AddServer(serverToSwap);
+            }
+        }
+        public event Action<Section, Floorplan> SectionAdded;
+        public event Action<Section, Floorplan> SectionRemoved;
+        private List<IFloorplanObserver> observers = new List<IFloorplanObserver>();
+        public void NotifySectionAdded(Section section)
+        {
+            SectionAdded?.Invoke(section, this);
+        }
+        public void NotifySectionRemoved(Section section)
+        {
+            SectionRemoved?.Invoke(section, this);  
+        }
+        public void Notify()
+        {
+            this.NotifyObservers();
+        }
+
+        public void RemoveObserver(IFloorplanObserver observer)
+        {
+            observers.Remove(observer);
+        }
+
+        public void SubscribeObserver(IFloorplanObserver observer)
+        {
+            if (!observers.Contains(observer))
+            {
+                observers.Add(observer);
+            }
+        }
+        protected void NotifyObservers()
+        {
+            var observersSnapshot = observers.ToList();
+            foreach (var observer in observersSnapshot)
+            {
+                observer.UpdateFloorplan(this);
             }
         }
     }

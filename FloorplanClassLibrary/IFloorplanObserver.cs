@@ -8,6 +8,6 @@ namespace FloorplanClassLibrary
 {
     public interface IFloorplanObserver
     {
-        void UpdateFloorplan(Section section);
+        void UpdateFloorplan(Floorplan floorplan);
     }
 }
