@@ -113,6 +113,7 @@ namespace FloorPlanMaker
             flowWeatherDisplay = new FlowLayoutPanel();
             pnlSalesDataUpdated = new Panel();
             lblMissingSalesData = new Label();
+            btnTest = new Button();
             flowSectionSelect.SuspendLayout();
             panel1.SuspendLayout();
             pnlFloorplanContainer.SuspendLayout();
@@ -1197,12 +1198,23 @@ namespace FloorPlanMaker
             lblMissingSalesData.Text = " Please Update!";
             lblMissingSalesData.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // btnTest
+            // 
+            btnTest.Location = new Point(8, 13);
+            btnTest.Name = "btnTest";
+            btnTest.Size = new Size(44, 23);
+            btnTest.TabIndex = 25;
+            btnTest.Text = "Test";
+            btnTest.UseVisualStyleBackColor = true;
+            btnTest.Click += btnTest_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.WhiteSmoke;
             ClientSize = new Size(1501, 1042);
+            Controls.Add(btnTest);
             Controls.Add(pnlSalesDataUpdated);
             Controls.Add(btnDeleteSelectedFloorplan);
             Controls.Add(panel2);
@@ -1325,5 +1337,6 @@ namespace FloorPlanMaker
         private Panel pnlLocationIndicator2;
         private Panel pnlIndicator2;
         private Label label4;
+        private Button btnTest;
     }
 }

@@ -473,19 +473,7 @@ namespace FloorPlanMakerUI
             }
         }
 
-        private void SetSectionImageLabels(FlowLayoutPanel panel)
-        {
-            serverCountImageLabel = new ImageLabelControl(UITheme.waiter, "0", (panel.Width / 4) - 7, 30);
-            serverCountImageLabel.Margin = new Padding(6,3,3,3);
-            coversImageLabel = new ImageLabelControl(UITheme.covers, "0", (panel.Width / 4) - 7, 30);
-            salesImageLabel = new ImageLabelControl(UITheme.sales, "$0", (panel.Width / 2) - 7, 30);
-            serverCountImageLabel.SetTooltip("Servers Assigned to this Floorplan");
-            coversImageLabel.SetTooltip("Covers per Server");
-            salesImageLabel.SetTooltip("Sales Per Server");
-            panel.Controls.Add(serverCountImageLabel);
-            panel.Controls.Add(coversImageLabel);
-            panel.Controls.Add(salesImageLabel);
-        }
+        
        
         private void btnAutoAssignServers_Click(object? sender, EventArgs e)
         {
@@ -826,6 +814,19 @@ namespace FloorPlanMakerUI
                 sectionLabelControl.Invalidate();
             }
         }
+        private void SetSectionImageLabels(FlowLayoutPanel panel)
+        {
+            serverCountImageLabel = new ImageLabelControl(UITheme.waiter, "0", (panel.Width / 4) - 7, 30);
+            serverCountImageLabel.Margin = new Padding(6, 3, 3, 3);
+            coversImageLabel = new ImageLabelControl(UITheme.covers, "0", (panel.Width / 4) - 7, 30);
+            salesImageLabel = new ImageLabelControl(UITheme.sales, "$0", (panel.Width / 2) - 7, 30);
+            serverCountImageLabel.SetTooltip("Servers Assigned to this Floorplan");
+            coversImageLabel.SetTooltip("Covers per Server");
+            salesImageLabel.SetTooltip("Sales Per Server");
+            panel.Controls.Add(serverCountImageLabel);
+            panel.Controls.Add(coversImageLabel);
+            panel.Controls.Add(salesImageLabel);
+        }
         public void SetSectionPanels()
         {
             _sectionPanels.Clear();
@@ -860,6 +861,7 @@ namespace FloorPlanMakerUI
             panel.Controls.Remove(sectionPanelControlBySection((Section)section));
             panel.Invalidate();
         }
+
         public void AddSectionPanels(FlowLayoutPanel panel)
         {
             panel.Controls.Clear();
@@ -905,14 +907,7 @@ namespace FloorPlanMakerUI
 
             section.IsPickUp = false;
             Floorplan.AddSection(section);
-            //SectionPanelControl newSectionPanel = new SectionPanelControl(section, this.Shift.SelectedFloorplan);
-            //newSectionPanel.Width = flowSectionsPanel.Width - 10;
-            //newSectionPanel.Margin = new Padding(5);            
-            //newSectionPanel.CheckBoxChanged += setSelectedSection;
-            //newSectionPanel.picEraseSectionClicked += EraseSectionClicked;
-
-            //this._sectionPanels.Add(newSectionPanel);
-            //UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionPanel, UpdateType.Add, section));
+            
             AddNewPanelControl(section);
             Floorplan.SetSelectedSection(section);
         }

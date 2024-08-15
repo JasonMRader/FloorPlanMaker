@@ -1871,5 +1871,10 @@ namespace FloorPlanMaker
         {
 
         }
+
+        private void btnTest_Click(object sender, EventArgs e)
+        {
+            SectionPanelManager sectionPanelManager = new SectionPanelManager(floorplanManager.Floorplan, flowSectionSelect);
+        }
     }
 }

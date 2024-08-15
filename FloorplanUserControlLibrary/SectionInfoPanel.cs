@@ -20,7 +20,7 @@ namespace FloorplanUserControlLibrary
         private ToolTip toolTip = new ToolTip();
         private Section _section { get; set; }
         public Section Section { get { return _section; } }
-        public event EventHandler SectionSelected;
+        public event Action<Section> SectionSelected;
         public event EventHandler ServerRemoved;
         public event EventHandler ServerAdded;
         private Floorplan floorplan { get; set; }
@@ -34,7 +34,7 @@ namespace FloorplanUserControlLibrary
             this.ForeColor = Section.FontColor;
             pnlMainContainer.BackColor = this.BackColor;
 
-            UpdateLabels();
+            UpdateSection(section);
             AttachClickEventToControls(this);
 
             toolTip.SetToolTip(picSetTeamWait, "Set To TeamWait [T]");
@@ -60,7 +60,7 @@ namespace FloorplanUserControlLibrary
 
         private void Control_Click(object? sender, EventArgs e)
         {
-            SectionSelected?.Invoke(this, EventArgs.Empty);
+            SectionSelected?.Invoke(_section);
         }
 
         public void UpdateSection(Section section)
@@ -77,15 +77,17 @@ namespace FloorplanUserControlLibrary
         }
         public void SetToSelected()
         {
+            this.Margin = new Padding(25, 0,0,0);
             this.BackColor = Color.FromArgb(255, 103, 0);
-            this.Size = new System.Drawing.Size(281, 51);
-            this.pnlHighlightBuffer.Location = new System.Drawing.Point(5, 10);
+            this.Size = new System.Drawing.Size(291, 65);
+            //this.pnlHighlightBuffer.Location = new System.Drawing.Point(10,10);
         }
         public void SetToNotSelected()
         {
+            this.Margin = new Padding(30,0,0,0);
             this.BackColor = Color.WhiteSmoke;
-            this.Size = new System.Drawing.Size(271, 51);
-            this.pnlHighlightBuffer.Location = new System.Drawing.Point(5, 5);
+            this.Size = new System.Drawing.Size(281, 65);
+            //this.pnlHighlightBuffer.Location = new System.Drawing.Point(5, 5);
         }
         private void SetForPickup()
         {
@@ -107,9 +109,18 @@ namespace FloorplanUserControlLibrary
             {
                 SetForBarSection();
             }
+            else
+            {
+                SetForNormalSection();
+            }
             SetTeamWaitPictureBoxes();
             UpdateSalesAndCovers();
             SetServerButtons();
+        }
+
+        private void SetForNormalSection()
+        {
+            lblSectionNumber.Text = $"#{Section.Number}";
         }
 
         private void SetForBarSection()
@@ -121,7 +132,7 @@ namespace FloorplanUserControlLibrary
                 Size = flowServers.Size,
                 TextAlign = ContentAlignment.MiddleCenter,
             };
-            if(Section.ServerCount == 1)
+            if (Section.ServerCount == 1)
             {
                 label.Text = "1 Bartender";
             }
@@ -134,8 +145,11 @@ namespace FloorplanUserControlLibrary
             int buttonWidth = flowServers.Width / this.Section.ServerCount;
             for (int i = 0; i < this.Section.ServerCount; i++)
             {
-                Server server = this._section.ServerTeam[i];
-
+                Server server = null;
+                if(Section.ServerTeam.Count > i)
+                {
+                    server = this._section.ServerTeam[i];
+                }
                 Button button = CreateServerButton(server, buttonHeight, buttonWidth);
                 flowServers.Controls.Add(button);
             }
@@ -145,6 +159,8 @@ namespace FloorplanUserControlLibrary
         {
             Button button = new Button();
             button.Size = new Size(buttonWidth, buttonHeight);
+            button.Font = UITheme.SmallerFont;
+            button.Margin = new Padding(0);
             if (server == null)
             {
                 SetButtonToUnassigned(button);

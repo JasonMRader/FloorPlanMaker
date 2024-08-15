@@ -97,7 +97,7 @@
             // 
             flowServers.Location = new Point(0, 21);
             flowServers.Name = "flowServers";
-            flowServers.Size = new Size(265, 24);
+            flowServers.Size = new Size(265, 28);
             flowServers.TabIndex = 2;
             // 
             // pnlMainContainer
@@ -111,7 +111,7 @@
             pnlMainContainer.Controls.Add(lblSalesDif);
             pnlMainContainer.Location = new Point(3, 3);
             pnlMainContainer.Name = "pnlMainContainer";
-            pnlMainContainer.Size = new Size(265, 45);
+            pnlMainContainer.Size = new Size(265, 49);
             pnlMainContainer.TabIndex = 3;
             // 
             // pnlHighlightBuffer
@@ -120,7 +120,7 @@
             pnlHighlightBuffer.Controls.Add(pnlMainContainer);
             pnlHighlightBuffer.Location = new Point(5, 5);
             pnlHighlightBuffer.Name = "pnlHighlightBuffer";
-            pnlHighlightBuffer.Size = new Size(271, 51);
+            pnlHighlightBuffer.Size = new Size(271, 55);
             pnlHighlightBuffer.TabIndex = 4;
             // 
             // SectionInfoPanel
@@ -130,7 +130,7 @@
             BackColor = Color.WhiteSmoke;
             Controls.Add(pnlHighlightBuffer);
             Name = "SectionInfoPanel";
-            Size = new Size(281, 61);
+            Size = new Size(281, 65);
             ((System.ComponentModel.ISupportInitialize)picSetTeamWait).EndInit();
             pnlMainContainer.ResumeLayout(false);
             pnlHighlightBuffer.ResumeLayout(false);
