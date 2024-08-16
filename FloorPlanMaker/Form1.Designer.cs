@@ -114,6 +114,7 @@ namespace FloorPlanMaker
             pnlSalesDataUpdated = new Panel();
             lblMissingSalesData = new Label();
             btnTest = new Button();
+            btnTestLabels = new Button();
             flowSectionSelect.SuspendLayout();
             panel1.SuspendLayout();
             pnlFloorplanContainer.SuspendLayout();
@@ -1200,7 +1201,7 @@ namespace FloorPlanMaker
             // 
             // btnTest
             // 
-            btnTest.Location = new Point(8, 13);
+            btnTest.Location = new Point(689, 8);
             btnTest.Name = "btnTest";
             btnTest.Size = new Size(44, 23);
             btnTest.TabIndex = 25;
@@ -1208,12 +1209,23 @@ namespace FloorPlanMaker
             btnTest.UseVisualStyleBackColor = true;
             btnTest.Click += btnTest_Click;
             // 
+            // btnTestLabels
+            // 
+            btnTestLabels.Location = new Point(749, 8);
+            btnTestLabels.Name = "btnTestLabels";
+            btnTestLabels.Size = new Size(75, 23);
+            btnTestLabels.TabIndex = 26;
+            btnTestLabels.Text = "Test Labels";
+            btnTestLabels.UseVisualStyleBackColor = true;
+            btnTestLabels.Click += btnTestLabels_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.WhiteSmoke;
             ClientSize = new Size(1501, 1042);
+            Controls.Add(btnTestLabels);
             Controls.Add(btnTest);
             Controls.Add(pnlSalesDataUpdated);
             Controls.Add(btnDeleteSelectedFloorplan);
@@ -1338,5 +1350,6 @@ namespace FloorPlanMaker
         private Panel pnlIndicator2;
         private Label label4;
         private Button btnTest;
+        private Button btnTestLabels;
     }
 }

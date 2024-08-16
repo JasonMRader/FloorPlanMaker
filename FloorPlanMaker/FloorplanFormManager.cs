@@ -1114,5 +1114,23 @@ namespace FloorPlanMakerUI
             }
             sectionPanel.UpdateLabels();
         }
+
+        internal void ReplaceLabels()
+        {
+            
+            List<Point> points = new List<Point>();
+            foreach(SectionLabelControl labelControl in _sectionLabels)
+            {
+               
+                //points.Add(labelControl.Location);
+                SectionLabel label = new SectionLabel(labelControl.Section, Floorplan);
+                label.Location = labelControl.Location;
+                pnlFloorplan.Controls.Remove(labelControl);
+                pnlFloorplan.Controls.Add(label);
+                label.BringToFront();
+                
+            }
+            _sectionLabels.Clear();
+        }
     }
 }

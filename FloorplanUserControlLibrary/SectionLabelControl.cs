@@ -33,7 +33,7 @@ namespace FloorplanClassLibrary
         public event EventHandler AssignPickup;
         // TODO: rework what apears on SectionLabels
         public event EventHandler SectionLabelClick;
-
+       
         public Section Section { get; set; }
 
         private List<Server> unassignedServers = new List<Server>();

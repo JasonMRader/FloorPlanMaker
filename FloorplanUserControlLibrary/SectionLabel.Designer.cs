@@ -11,14 +11,14 @@
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing && (components != null))
+        //    {
+        //        components.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
 
         #region Component Designer generated code
 
@@ -28,100 +28,113 @@
         /// </summary>
         private void InitializeComponent()
         {
-            button1 = new Button();
-            label1 = new Label();
+            btnServerButton = new Button();
+            lblSectionNumber = new Label();
             pnlMainContainer = new Panel();
-            pnlAccent = new Panel();
+            picCutOrder = new PictureBox();
             flowServers = new FlowLayoutPanel();
-            pictureBox1 = new PictureBox();
+            pnlAccent = new Panel();
             pnlMainContainer.SuspendLayout();
-            pnlAccent.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)picCutOrder).BeginInit();
             flowServers.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            pnlAccent.SuspendLayout();
             SuspendLayout();
             // 
-            // button1
+            // btnServerButton
             // 
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Location = new Point(3, 3);
-            button1.Name = "button1";
-            button1.Size = new Size(150, 23);
-            button1.TabIndex = 0;
-            button1.Text = "Unassigned";
-            button1.UseVisualStyleBackColor = true;
+            btnServerButton.AutoSize = true;
+            btnServerButton.FlatStyle = FlatStyle.Flat;
+            btnServerButton.Location = new Point(3, 3);
+            btnServerButton.MinimumSize = new Size(150, 25);
+            btnServerButton.Name = "btnServerButton";
+            btnServerButton.Size = new Size(150, 27);
+            btnServerButton.TabIndex = 0;
+            btnServerButton.Text = "Unassigned";
+            btnServerButton.UseVisualStyleBackColor = true;
+            btnServerButton.Click += btnServerButton_Click;
             // 
-            // label1
+            // lblSectionNumber
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(12, 9);
-            label1.Name = "label1";
-            label1.Size = new Size(25, 21);
-            label1.TabIndex = 1;
-            label1.Text = "#1";
+            lblSectionNumber.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lblSectionNumber.Location = new Point(4, 5);
+            lblSectionNumber.Name = "lblSectionNumber";
+            lblSectionNumber.Size = new Size(25, 33);
+            lblSectionNumber.TabIndex = 1;
+            lblSectionNumber.Text = "#1";
+            lblSectionNumber.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // pnlMainContainer
             // 
             pnlMainContainer.AutoSize = true;
-            pnlMainContainer.Controls.Add(pictureBox1);
+            pnlMainContainer.BackColor = Color.FromArgb(103, 178, 216);
+            pnlMainContainer.Controls.Add(picCutOrder);
             pnlMainContainer.Controls.Add(flowServers);
-            pnlMainContainer.Controls.Add(label1);
-            pnlMainContainer.Location = new Point(16, 18);
+            pnlMainContainer.Controls.Add(lblSectionNumber);
+            pnlMainContainer.Location = new Point(5, 5);
             pnlMainContainer.Name = "pnlMainContainer";
-            pnlMainContainer.Size = new Size(247, 59);
+            pnlMainContainer.Size = new Size(240, 42);
             pnlMainContainer.TabIndex = 2;
             // 
-            // pnlAccent
+            // picCutOrder
             // 
-            pnlAccent.Controls.Add(pnlMainContainer);
-            pnlAccent.Location = new Point(18, 3);
-            pnlAccent.Name = "pnlAccent";
-            pnlAccent.Size = new Size(283, 94);
-            pnlAccent.TabIndex = 3;
+            picCutOrder.Image = Properties.Resources.Close;
+            picCutOrder.Location = new Point(197, 5);
+            picCutOrder.Name = "picCutOrder";
+            picCutOrder.Size = new Size(36, 33);
+            picCutOrder.SizeMode = PictureBoxSizeMode.Zoom;
+            picCutOrder.TabIndex = 3;
+            picCutOrder.TabStop = false;
+            picCutOrder.Click += CycleCutOrder;
             // 
             // flowServers
             // 
+            flowServers.AutoSize = true;
             flowServers.BackColor = Color.Silver;
-            flowServers.Controls.Add(button1);
+            flowServers.Controls.Add(btnServerButton);
             flowServers.FlowDirection = FlowDirection.TopDown;
-            flowServers.Location = new Point(43, 9);
+            flowServers.Location = new Point(35, 5);
             flowServers.Name = "flowServers";
-            flowServers.Size = new Size(158, 38);
+            flowServers.Size = new Size(156, 33);
             flowServers.TabIndex = 2;
             // 
-            // pictureBox1
+            // pnlAccent
             // 
-            pictureBox1.Image = Properties.Resources.Close;
-            pictureBox1.Location = new Point(207, 9);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(32, 26);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.TabIndex = 3;
-            pictureBox1.TabStop = false;
+            pnlAccent.AutoSize = true;
+            pnlAccent.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            pnlAccent.BackColor = Color.Gray;
+            pnlAccent.Controls.Add(pnlMainContainer);
+            pnlAccent.Location = new Point(5, 5);
+            pnlAccent.Name = "pnlAccent";
+            pnlAccent.Size = new Size(248, 50);
+            pnlAccent.TabIndex = 3;
             // 
             // SectionLabel
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoSize = true;
+            AutoSizeMode = AutoSizeMode.GrowAndShrink;
             BackColor = Color.FromArgb(103, 178, 216);
             Controls.Add(pnlAccent);
             Name = "SectionLabel";
-            Size = new Size(656, 243);
+            Size = new Size(256, 58);
             pnlMainContainer.ResumeLayout(false);
             pnlMainContainer.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)picCutOrder).EndInit();
+            flowServers.ResumeLayout(false);
+            flowServers.PerformLayout();
             pnlAccent.ResumeLayout(false);
             pnlAccent.PerformLayout();
-            flowServers.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
-        private Button button1;
-        private Label label1;
+        private Button btnServerButton;
+        private Label lblSectionNumber;
         private Panel pnlMainContainer;
-        private PictureBox pictureBox1;
+        private PictureBox picCutOrder;
         private FlowLayoutPanel flowServers;
         private Panel pnlAccent;
     }

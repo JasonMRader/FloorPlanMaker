@@ -1876,5 +1876,10 @@ namespace FloorPlanMaker
         {
             SectionPanelManager sectionPanelManager = new SectionPanelManager(floorplanManager.Floorplan, flowSectionSelect);
         }
+
+        private void btnTestLabels_Click(object sender, EventArgs e)
+        {
+            floorplanManager.ReplaceLabels();
+        }
     }
 }
