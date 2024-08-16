@@ -24,6 +24,8 @@ namespace FloorPlanMakerUI
         public static Color MainColor = Color.FromArgb(245,245,245);
         public static Color MainFontColor = Color.Black;
 
+        public static Color SelectedColor = Color.FromArgb(255, 103, 0);
+
         public static Color SecondColor = Color.FromArgb(180,190,200);
         public static Color SecondFontColor = Color.Black;
 

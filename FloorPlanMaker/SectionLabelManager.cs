@@ -1,0 +1,86 @@
+﻿using FloorplanClassLibrary;
+using FloorplanUserControlLibrary;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+
+
+namespace FloorPlanMakerUI
+{
+    public class SectionLabelManager : IFloorplanObserver
+    {
+        private Floorplan _floorplan { get; set; }
+        public Floorplan Floorplan { get { return _floorplan; } }
+        private Panel _pnlFLoorplan;
+        private List<SectionLabel> _sectionLabels {  get; set; } = new List<SectionLabel>();
+        public List<SectionLabel> SectionLabels { get { return _sectionLabels; } }
+        public SectionLabelManager(Floorplan floorplan, Panel panel) 
+        {
+            this._floorplan = floorplan;
+            this._pnlFLoorplan = panel;
+            //floorplan.SubscribeObserver(this);
+            //floorplan.SectionRemoved += RemoveSection;
+            //floorplan.SectionAdded += AddSection;
+            if (floorplan != null)
+            {
+                CreateSectionLabels();
+                AddSectionLabels();
+            }
+        }
+
+        private void AddSectionLabels()
+        {
+            List<Control> controlsToRemove = new List<Control>();
+            foreach (Control c in _pnlFLoorplan.Controls)
+            {
+                if (c is SectionLabel sectionLabel)
+                {
+                    controlsToRemove.Add(c);
+                }
+            }
+            foreach (Control c in controlsToRemove)
+            {
+                _pnlFLoorplan.Controls.Remove(c);
+            }
+            foreach (SectionLabel sectionLabel in _sectionLabels)
+            {
+                sectionLabel.Location =  new Point(sectionLabel.Section.MidPoint.X - (sectionLabel.Width / 2),
+                sectionLabel.Section.MidPoint.Y - (sectionLabel.Height / 2));
+                _pnlFLoorplan.Controls.Add(sectionLabel);
+                sectionLabel.UpdateControlsForSection();
+
+                sectionLabel.BringToFront();
+            }
+        }
+
+        private void CreateSectionLabels()
+        {
+            foreach (Section section in _floorplan.Sections)
+            {
+                if (section.Tables.Count > 0)
+                {
+                    SectionLabel sectionLabel = new SectionLabel(section, _floorplan);
+                    sectionLabel.SectionSelected += SelectSection;
+                    //sectionLabel.SectionLabelClick += SectionLabel_Clicked;
+
+                    this._sectionLabels.Add(sectionLabel);
+                }
+               
+            }
+        }
+
+        private void SelectSection(Section section)
+        {
+            _floorplan.SetSelectedSection(section);
+        }
+
+        public void UpdateFloorplan(Floorplan floorplan)
+        {
+            
+        }
+    }
+}

@@ -45,9 +45,9 @@
             btnServerButton.AutoSize = true;
             btnServerButton.FlatStyle = FlatStyle.Flat;
             btnServerButton.Location = new Point(3, 3);
-            btnServerButton.MinimumSize = new Size(150, 25);
+            btnServerButton.MinimumSize = new Size(100, 23);
             btnServerButton.Name = "btnServerButton";
-            btnServerButton.Size = new Size(150, 27);
+            btnServerButton.Size = new Size(100, 27);
             btnServerButton.TabIndex = 0;
             btnServerButton.Text = "Unassigned";
             btnServerButton.UseVisualStyleBackColor = true;
@@ -56,31 +56,32 @@
             // lblSectionNumber
             // 
             lblSectionNumber.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            lblSectionNumber.Location = new Point(4, 5);
+            lblSectionNumber.Location = new Point(0, 0);
+            lblSectionNumber.Margin = new Padding(0);
             lblSectionNumber.Name = "lblSectionNumber";
-            lblSectionNumber.Size = new Size(25, 33);
+            lblSectionNumber.Size = new Size(30, 30);
             lblSectionNumber.TabIndex = 1;
             lblSectionNumber.Text = "#1";
             lblSectionNumber.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // pnlMainContainer
             // 
-            pnlMainContainer.AutoSize = true;
             pnlMainContainer.BackColor = Color.FromArgb(103, 178, 216);
             pnlMainContainer.Controls.Add(picCutOrder);
             pnlMainContainer.Controls.Add(flowServers);
             pnlMainContainer.Controls.Add(lblSectionNumber);
-            pnlMainContainer.Location = new Point(5, 5);
+            pnlMainContainer.Location = new Point(2, 2);
+            pnlMainContainer.Margin = new Padding(1);
             pnlMainContainer.Name = "pnlMainContainer";
-            pnlMainContainer.Size = new Size(240, 42);
+            pnlMainContainer.Size = new Size(175, 36);
             pnlMainContainer.TabIndex = 2;
             // 
             // picCutOrder
             // 
             picCutOrder.Image = Properties.Resources.Close;
-            picCutOrder.Location = new Point(197, 5);
+            picCutOrder.Location = new Point(136, 0);
             picCutOrder.Name = "picCutOrder";
-            picCutOrder.Size = new Size(36, 33);
+            picCutOrder.Size = new Size(36, 30);
             picCutOrder.SizeMode = PictureBoxSizeMode.Zoom;
             picCutOrder.TabIndex = 3;
             picCutOrder.TabStop = false;
@@ -92,41 +93,38 @@
             flowServers.BackColor = Color.Silver;
             flowServers.Controls.Add(btnServerButton);
             flowServers.FlowDirection = FlowDirection.TopDown;
-            flowServers.Location = new Point(35, 5);
+            flowServers.Location = new Point(30, 0);
             flowServers.Name = "flowServers";
-            flowServers.Size = new Size(156, 33);
+            flowServers.Size = new Size(106, 33);
             flowServers.TabIndex = 2;
             // 
             // pnlAccent
             // 
-            pnlAccent.AutoSize = true;
             pnlAccent.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             pnlAccent.BackColor = Color.Gray;
             pnlAccent.Controls.Add(pnlMainContainer);
-            pnlAccent.Location = new Point(5, 5);
+            pnlAccent.Location = new Point(1, 1);
             pnlAccent.Name = "pnlAccent";
-            pnlAccent.Size = new Size(248, 50);
+            pnlAccent.Size = new Size(178, 39);
             pnlAccent.TabIndex = 3;
+            pnlAccent.Paint += pnlAccent_Paint;
             // 
             // SectionLabel
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            AutoSize = true;
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
             BackColor = Color.FromArgb(103, 178, 216);
             Controls.Add(pnlAccent);
             Name = "SectionLabel";
-            Size = new Size(256, 58);
+            Size = new Size(182, 43);
             pnlMainContainer.ResumeLayout(false);
             pnlMainContainer.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)picCutOrder).EndInit();
             flowServers.ResumeLayout(false);
             flowServers.PerformLayout();
             pnlAccent.ResumeLayout(false);
-            pnlAccent.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
