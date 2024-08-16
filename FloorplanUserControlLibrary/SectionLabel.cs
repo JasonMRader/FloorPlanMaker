@@ -27,6 +27,8 @@ namespace FloorplanUserControlLibrary
         public event EventHandler ServerAdded;
         private int defaultWidth = 0;
         private int defaultHeight = 0;
+        private int defaultAccentWidth = 0;
+        private int defaultAccentHeight = 0;
         private int selectedSizeIncrease = 10;
         private Point nonSelectedLocation = new Point(0, 0);
         private bool isSetToSelected = false;
@@ -46,6 +48,8 @@ namespace FloorplanUserControlLibrary
             UpdateControlsForSection();
             this.defaultHeight = this.Height;
             this.defaultWidth = this.Width;
+            this.defaultAccentHeight = pnlAccent.Height;
+            this.defaultAccentWidth = pnlAccent.Width;
             this.Location = new Point(section.MidPoint.X - (this.Width / 2),
                section.MidPoint.Y - (this.Height / 2));
             nonSelectedLocation = this.Location;
@@ -71,6 +75,16 @@ namespace FloorplanUserControlLibrary
 
             SetSectionLabel();
             SetCutOrderImage();
+
+            SetServerButtons();
+
+
+            pnlAccent.BackColor = Color.White;
+            pnlMainContainer.BackColor = Section.Color;
+            this.BackColor = Section.Color;
+        }
+        private bool ServersHaveChanged()
+        {
             List<Server> servers = new List<Server>();
             foreach (Button button in serverButtons)
             {
@@ -81,12 +95,9 @@ namespace FloorplanUserControlLibrary
             }
             if (servers != _section.ServerTeam)
             {
-                SetServerButtons();
+                return true;
             }
-
-            pnlAccent.BackColor = Color.White;
-            pnlMainContainer.BackColor = Section.Color;
-            this.BackColor = Section.Color;
+            return false;
         }
 
         private void SetServerButtons()
@@ -283,7 +294,11 @@ namespace FloorplanUserControlLibrary
 
         public void UpdateSection(Section section)
         {
-            UpdateControlsForSection();
+            if (ServersHaveChanged())
+            {
+                UpdateControlsForSection();
+            }
+
 
             if (section.IsSelected && !isSetToSelected)
             {
@@ -298,9 +313,11 @@ namespace FloorplanUserControlLibrary
         private void SetToNotSelected()
         {
             isSetToSelected = false;
-            pnlAccent.AutoSize = true;
-            this.AutoSize = true;
+            this.Width = defaultWidth;
+            this.Height = defaultHeight;
             this.Location = nonSelectedLocation;
+            pnlAccent.Width = defaultAccentWidth;
+            pnlAccent.Height = defaultAccentHeight;
             pnlMainContainer.Location = new Point(2, 2);
             pnlAccent.BackColor = Color.Gray;
         }
@@ -317,13 +334,16 @@ namespace FloorplanUserControlLibrary
             this.Height = defaultHeight + selectedSizeIncrease;
             this.Location = selectedLocation;
 
-            pnlAccent.Width += selectedSizeIncrease;
-            pnlAccent.Height += selectedSizeIncrease;
-
+            pnlAccent.Width = defaultAccentWidth + selectedSizeIncrease;
+            pnlAccent.Height = defaultAccentHeight + selectedSizeIncrease;
+            int accentWidth = pnlAccent.Width;
+            int accentHeight = pnlAccent.Height;
+            int mainWidth = pnlMainContainer.Width;
+            int mainHeight = pnlMainContainer.Height;
             pnlAccent.BackColor = UITheme.SelectedColor;
             int mainContainerX = (pnlAccent.Width - pnlMainContainer.Width) / 2;
             int mainContainerY = (pnlAccent.Height - pnlMainContainer.Height) / 2;
-            pnlMainContainer.Location = new Point(mainContainerX, mainContainerY);
+            pnlMainContainer.Location = new Point(7, 7);
         }
 
         public void UpdateFloorplan(Floorplan floorplan)

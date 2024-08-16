@@ -171,13 +171,21 @@ namespace FloorplanClassLibrary
         }
         public void SetToSelected()
         {
-            this.IsSelected = true;
-            NotifyObservers();
+            if (!IsSelected)
+            {
+                this.IsSelected = true;
+                NotifyObservers();
+            }
+           
         } 
         public void NotSelected()
         {
-            this.IsSelected = false;
-            NotifyObservers();
+            if(this.IsSelected)
+            {
+                this.IsSelected = false;
+                NotifyObservers();
+            }
+           
         }
 
         public string? Name { get; set; }
