@@ -173,7 +173,7 @@ namespace FloorPlanMakerUI
             DateOnly startDateOnly = DateOnly.FromDateTime(start);
             DateOnly endDateOnly = DateOnly.FromDateTime(end);
             List<ShiftRecord> shiftRecords = new List<ShiftRecord>();
-            for(DateOnly iDay = startDateOnly; iDay <= endDateOnly; iDay = iDay.AddDays(1))
+            for (DateOnly iDay = startDateOnly; iDay <= endDateOnly; iDay = iDay.AddDays(1))
             {
                 shiftRecords.Add(SqliteDataAccess.LoadShiftRecord(iDay, false));
             }

@@ -30,24 +30,25 @@
         {
             btnServerButton = new Button();
             lblSectionNumber = new Label();
-            pnlMainContainer = new Panel();
             picCutOrder = new PictureBox();
             flowServers = new FlowLayoutPanel();
             pnlAccent = new Panel();
-            pnlMainContainer.SuspendLayout();
+            flowMainContainer = new FlowLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)picCutOrder).BeginInit();
             flowServers.SuspendLayout();
             pnlAccent.SuspendLayout();
+            flowMainContainer.SuspendLayout();
             SuspendLayout();
             // 
             // btnServerButton
             // 
             btnServerButton.AutoSize = true;
             btnServerButton.FlatStyle = FlatStyle.Flat;
-            btnServerButton.Location = new Point(3, 3);
-            btnServerButton.MinimumSize = new Size(100, 23);
+            btnServerButton.Location = new Point(0, 0);
+            btnServerButton.Margin = new Padding(0);
+            btnServerButton.MinimumSize = new Size(60, 23);
             btnServerButton.Name = "btnServerButton";
-            btnServerButton.Size = new Size(100, 27);
+            btnServerButton.Size = new Size(80, 27);
             btnServerButton.TabIndex = 0;
             btnServerButton.Text = "Unassigned";
             btnServerButton.UseVisualStyleBackColor = true;
@@ -59,29 +60,18 @@
             lblSectionNumber.Location = new Point(0, 0);
             lblSectionNumber.Margin = new Padding(0);
             lblSectionNumber.Name = "lblSectionNumber";
-            lblSectionNumber.Size = new Size(30, 30);
+            lblSectionNumber.Size = new Size(30, 27);
             lblSectionNumber.TabIndex = 1;
             lblSectionNumber.Text = "#1";
             lblSectionNumber.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // pnlMainContainer
-            // 
-            pnlMainContainer.BackColor = Color.FromArgb(103, 178, 216);
-            pnlMainContainer.Controls.Add(picCutOrder);
-            pnlMainContainer.Controls.Add(flowServers);
-            pnlMainContainer.Controls.Add(lblSectionNumber);
-            pnlMainContainer.Location = new Point(2, 2);
-            pnlMainContainer.Margin = new Padding(1);
-            pnlMainContainer.Name = "pnlMainContainer";
-            pnlMainContainer.Size = new Size(175, 36);
-            pnlMainContainer.TabIndex = 2;
-            // 
             // picCutOrder
             // 
             picCutOrder.Image = Properties.Resources.Close;
-            picCutOrder.Location = new Point(136, 0);
+            picCutOrder.Location = new Point(110, 0);
+            picCutOrder.Margin = new Padding(0);
             picCutOrder.Name = "picCutOrder";
-            picCutOrder.Size = new Size(36, 30);
+            picCutOrder.Size = new Size(30, 27);
             picCutOrder.SizeMode = PictureBoxSizeMode.Zoom;
             picCutOrder.TabIndex = 3;
             picCutOrder.TabStop = false;
@@ -90,40 +80,54 @@
             // flowServers
             // 
             flowServers.AutoSize = true;
-            flowServers.BackColor = Color.Silver;
+            flowServers.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            flowServers.BackColor = Color.FromArgb(103, 178, 216);
             flowServers.Controls.Add(btnServerButton);
             flowServers.FlowDirection = FlowDirection.TopDown;
             flowServers.Location = new Point(30, 0);
+            flowServers.Margin = new Padding(0);
             flowServers.Name = "flowServers";
-            flowServers.Size = new Size(106, 33);
+            flowServers.Size = new Size(80, 27);
             flowServers.TabIndex = 2;
             // 
             // pnlAccent
             // 
             pnlAccent.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             pnlAccent.BackColor = Color.Gray;
-            pnlAccent.Controls.Add(pnlMainContainer);
-            pnlAccent.Location = new Point(1, 1);
+            pnlAccent.Controls.Add(flowMainContainer);
+            pnlAccent.Location = new Point(4, 4);
             pnlAccent.Name = "pnlAccent";
-            pnlAccent.Size = new Size(178, 39);
+            pnlAccent.Size = new Size(145, 32);
             pnlAccent.TabIndex = 3;
             pnlAccent.Paint += pnlAccent_Paint;
+            // 
+            // flowMainContainer
+            // 
+            flowMainContainer.BackColor = Color.FromArgb(103, 178, 216);
+            flowMainContainer.Controls.Add(lblSectionNumber);
+            flowMainContainer.Controls.Add(flowServers);
+            flowMainContainer.Controls.Add(picCutOrder);
+            flowMainContainer.Location = new Point(2, 2);
+            flowMainContainer.Name = "flowMainContainer";
+            flowMainContainer.Size = new Size(140, 27);
+            flowMainContainer.TabIndex = 4;
             // 
             // SectionLabel
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoScroll = true;
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
             BackColor = Color.FromArgb(103, 178, 216);
             Controls.Add(pnlAccent);
             Name = "SectionLabel";
-            Size = new Size(182, 43);
-            pnlMainContainer.ResumeLayout(false);
-            pnlMainContainer.PerformLayout();
+            Size = new Size(152, 39);
             ((System.ComponentModel.ISupportInitialize)picCutOrder).EndInit();
             flowServers.ResumeLayout(false);
             flowServers.PerformLayout();
             pnlAccent.ResumeLayout(false);
+            flowMainContainer.ResumeLayout(false);
+            flowMainContainer.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -131,9 +135,9 @@
 
         private Button btnServerButton;
         private Label lblSectionNumber;
-        private Panel pnlMainContainer;
         private PictureBox picCutOrder;
         private FlowLayoutPanel flowServers;
         private Panel pnlAccent;
+        private FlowLayoutPanel flowMainContainer;
     }
 }

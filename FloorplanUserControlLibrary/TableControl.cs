@@ -134,8 +134,49 @@ namespace FloorPlanMaker
             int yOffset = isForPrint ? control.Top : 0;
             
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            if(control.Section != null)
+            {
+                if (control.Section.IsSelected && !isForPrint)
+                {
+                    int innerOffset = 3; // 3 pixels inside the black line
+                    int orangeLineThickness = control.BorderThickness + 2; // Make the orange line thicker
+
+                    using (Pen highlightPen = new Pen(control.Section.FontColor, orangeLineThickness))
+                    {
+                        switch (control.Shape)
+                        {
+                            case Table.TableShape.Circle:
+                                g.DrawEllipse(highlightPen,
+                                    xOffset + innerOffset,
+                                    yOffset + innerOffset,
+                                    control.Width - control.BorderThickness - innerOffset * 2,
+                                    control.Height - control.BorderThickness - innerOffset * 2);
+                                break;
+                            case Table.TableShape.Square:
+                                g.DrawRectangle(highlightPen,
+                                    xOffset + innerOffset,
+                                    yOffset + innerOffset,
+                                    control.Width - control.BorderThickness - innerOffset * 2,
+                                    control.Height - control.BorderThickness - innerOffset * 2);
+                                break;
+                            case Table.TableShape.Diamond:
+                                Point[] highlightDiamondPoints = {
+                        new Point(xOffset + control.Width / 2, yOffset + innerOffset),
+                        new Point(xOffset + control.Width - innerOffset, yOffset + control.Height / 2),
+                        new Point(xOffset + control.Width / 2, yOffset + control.Height - innerOffset),
+                        new Point(xOffset + innerOffset, yOffset + control.Height / 2)
+                    };
+                                g.DrawPolygon(highlightPen, highlightDiamondPoints);
+                                break;
+                        }
+                    }
+                }
+            }
+            
+
             using (Pen pen = new Pen(control.BorderColor, control.BorderThickness))
             {
+
                 switch (control.Shape)
                 {
                     case Table.TableShape.Circle:
@@ -173,12 +214,23 @@ namespace FloorPlanMaker
 
             if (!string.IsNullOrEmpty(textToDisplay))
             {
-                using (Font font = new Font(control.Font.FontFamily, control.TableNumberFontSize))
+                // Determine the font style
+                FontStyle fontStyle = FontStyle.Regular;
+
+                if (control.Section != null )
+                {
+                    if (control.Section.IsSelected)
+                    {
+                        fontStyle = FontStyle.Bold;
+                    }
+                    
+                }
+
+                using (Font font = new Font(control.Font.FontFamily, control.TableNumberFontSize, fontStyle))
                 using (StringFormat sf = new StringFormat())
                 {
                     sf.Alignment = StringAlignment.Center;
                     sf.LineAlignment = StringAlignment.Center;
-
 
                     Rectangle tableBounds = new Rectangle(xOffset, yOffset, control.Width, control.Height);
                     using (Brush textBrush = new SolidBrush(isForPrint ? Color.Black : control.TextColor)) // Use the TextColor property
