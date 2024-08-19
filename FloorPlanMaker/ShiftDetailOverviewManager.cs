@@ -11,7 +11,8 @@ namespace FloorPlanMakerUI
 {
     public class ShiftDetailOverviewManager : IShiftObserver
     {
-        public ShiftDetailOverviewManager(FlowLayoutPanel flowLayoutPanel, Panel panel, bool isLunch, DateOnly dateOnly, RadioButton rdoWeather, RadioButton rdoReservations)
+        public ShiftDetailOverviewManager(FlowLayoutPanel flowLayoutPanel, Panel panel, bool isLunch, DateOnly dateOnly, 
+            RadioButton rdoWeather, RadioButton rdoReservations, RadioButton rdoSalesStats)
         {
             this.flowHourlyWeather = flowLayoutPanel;
             this.shiftDetailsPanel = panel;
@@ -24,17 +25,22 @@ namespace FloorPlanMakerUI
             PopulateFlowPanelForShiftData();
             shiftDetailsPanel.Controls.Add(this.ShiftDetailsControl);
         }
-        public ShiftDetailOverviewManager(FlowLayoutPanel flowWeatherPanel, FlowLayoutPanel flowResoPanel, Panel panel, RadioButton rdoWeather, RadioButton rdoReservations)
+        public ShiftDetailOverviewManager(FlowLayoutPanel flowWeatherPanel, FlowLayoutPanel flowResoPanel, Panel panel,
+            RadioButton rdoWeather, RadioButton rdoReservations, RadioButton rdoSalesStats, Panel pnlSaleStats)
         {
             this.flowHourlyWeather = flowWeatherPanel;
             this.flowResos = flowResoPanel;
             this.shiftDetailsPanel = panel;
+            this.pnlStats = pnlSaleStats;
            
             shiftDetailsPanel.Controls.Add(this.ShiftDetailsControl);
             this.rdoWeather = rdoWeather;
             this.rdoReservations = rdoReservations;
+            this.rdoStats = rdoSalesStats;
+            this.pnlStats.Visible = false;
             rdoWeather.CheckedChanged += rdoViewType_CheckChanged;
             rdoReservations.CheckedChanged += rdoViewType_CheckChanged;
+            rdoSalesStats.CheckedChanged += rdoViewType_CheckChanged;
             PopulateFlowPanelForShiftData();
 
 
@@ -47,11 +53,19 @@ namespace FloorPlanMakerUI
             {
                 flowHourlyWeather.Visible = true; 
                 flowResos.Visible = false;
+                pnlStats.Visible = false;
             }
             if (rdoReservations.Checked)
             {
                 flowHourlyWeather.Visible = false;
                 flowResos.Visible = true;
+                pnlStats.Visible = false;
+            }
+            if (rdoStats.Checked)
+            {
+                pnlStats.Visible = true;
+                flowResos.Visible = false;
+                flowHourlyWeather.Visible = false;
             }
         }
         private void PopulateFlowPanelForShiftData()
@@ -70,7 +84,9 @@ namespace FloorPlanMakerUI
 
        
         private RadioButton rdoWeather {  get; set; }
-        private RadioButton rdoReservations { get; set; }   
+        private RadioButton rdoReservations { get; set; }  
+        private RadioButton rdoStats { get; set; }
+        private Panel pnlStats { get; set; }    
         private Panel shiftDetailsPanel { get; set; }
         private ShiftDetailsControl ShiftDetailsControl { get; set; } = new ShiftDetailsControl();
         private FlowLayoutPanel flowHourlyWeather { get; set; }

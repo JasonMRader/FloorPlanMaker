@@ -703,8 +703,6 @@ namespace FloorPlanMaker
             // pnlSectionsAndServers
             // 
             pnlSectionsAndServers.BackColor = Color.WhiteSmoke;
-            pnlSectionsAndServers.Controls.Add(pnlStatMode);
-            pnlSectionsAndServers.Controls.Add(rdoSales);
             pnlSectionsAndServers.Controls.Add(rdoViewServerFlow);
             pnlSectionsAndServers.Controls.Add(cboDiningAreas);
             pnlSectionsAndServers.Controls.Add(rdoViewSectionFlow);
@@ -718,6 +716,7 @@ namespace FloorPlanMaker
             // 
             // pnlStatMode
             // 
+            pnlStatMode.BackColor = Color.WhiteSmoke;
             pnlStatMode.Controls.Add(lblTotalSales);
             pnlStatMode.Controls.Add(label3);
             pnlStatMode.Controls.Add(btnClearDates);
@@ -736,9 +735,9 @@ namespace FloorPlanMaker
             pnlStatMode.Controls.Add(rdoYearlyAverageStats);
             pnlStatMode.Controls.Add(rdoDayOfStats);
             pnlStatMode.Controls.Add(rdoYesterdayStats);
-            pnlStatMode.Location = new Point(0, 28);
+            pnlStatMode.Location = new Point(5, 201);
             pnlStatMode.Name = "pnlStatMode";
-            pnlStatMode.Size = new Size(335, 865);
+            pnlStatMode.Size = new Size(200, 737);
             pnlStatMode.TabIndex = 13;
             // 
             // lblTotalSales
@@ -746,7 +745,7 @@ namespace FloorPlanMaker
             lblTotalSales.AutoSize = true;
             lblTotalSales.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             lblTotalSales.ForeColor = Color.Black;
-            lblTotalSales.Location = new Point(176, 17);
+            lblTotalSales.Location = new Point(126, 17);
             lblTotalSales.Name = "lblTotalSales";
             lblTotalSales.Size = new Size(34, 25);
             lblTotalSales.TabIndex = 6;
@@ -758,7 +757,7 @@ namespace FloorPlanMaker
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             label3.ForeColor = Color.Black;
-            label3.Location = new Point(113, 17);
+            label3.Location = new Point(63, 17);
             label3.Name = "label3";
             label3.Size = new Size(60, 25);
             label3.TabIndex = 6;
@@ -769,9 +768,9 @@ namespace FloorPlanMaker
             btnClearDates.BackColor = Color.FromArgb(190, 80, 70);
             btnClearDates.FlatAppearance.BorderSize = 0;
             btnClearDates.FlatStyle = FlatStyle.Flat;
-            btnClearDates.Location = new Point(63, 569);
+            btnClearDates.Location = new Point(22, 429);
             btnClearDates.Name = "btnClearDates";
-            btnClearDates.Size = new Size(200, 23);
+            btnClearDates.Size = new Size(161, 23);
             btnClearDates.TabIndex = 5;
             btnClearDates.Text = "Clear Dates";
             btnClearDates.UseVisualStyleBackColor = false;
@@ -782,9 +781,9 @@ namespace FloorPlanMaker
             btnApplyDates.BackColor = Color.FromArgb(120, 180, 120);
             btnApplyDates.FlatAppearance.BorderSize = 0;
             btnApplyDates.FlatStyle = FlatStyle.Flat;
-            btnApplyDates.Location = new Point(63, 540);
+            btnApplyDates.Location = new Point(22, 400);
             btnApplyDates.Name = "btnApplyDates";
-            btnApplyDates.Size = new Size(200, 23);
+            btnApplyDates.Size = new Size(161, 23);
             btnApplyDates.TabIndex = 5;
             btnApplyDates.Text = "Apply";
             btnApplyDates.UseVisualStyleBackColor = false;
@@ -795,9 +794,9 @@ namespace FloorPlanMaker
             btnAddCustomDate.BackColor = Color.FromArgb(100, 130, 180);
             btnAddCustomDate.FlatAppearance.BorderSize = 0;
             btnAddCustomDate.FlatStyle = FlatStyle.Flat;
-            btnAddCustomDate.Location = new Point(63, 366);
+            btnAddCustomDate.Location = new Point(15, 287);
             btnAddCustomDate.Name = "btnAddCustomDate";
-            btnAddCustomDate.Size = new Size(200, 23);
+            btnAddCustomDate.Size = new Size(170, 23);
             btnAddCustomDate.TabIndex = 5;
             btnAddCustomDate.Text = "Add Date";
             btnAddCustomDate.UseVisualStyleBackColor = false;
@@ -805,18 +804,18 @@ namespace FloorPlanMaker
             // 
             // dtpCustomStatDateSelect
             // 
-            dtpCustomStatDateSelect.Location = new Point(63, 332);
+            dtpCustomStatDateSelect.Location = new Point(22, 253);
             dtpCustomStatDateSelect.Name = "dtpCustomStatDateSelect";
-            dtpCustomStatDateSelect.Size = new Size(200, 23);
+            dtpCustomStatDateSelect.Size = new Size(170, 23);
             dtpCustomStatDateSelect.TabIndex = 4;
             // 
             // lbFilteredStatDates
             // 
             lbFilteredStatDates.FormattingEnabled = true;
             lbFilteredStatDates.ItemHeight = 15;
-            lbFilteredStatDates.Location = new Point(63, 395);
+            lbFilteredStatDates.Location = new Point(22, 316);
             lbFilteredStatDates.Name = "lbFilteredStatDates";
-            lbFilteredStatDates.Size = new Size(200, 139);
+            lbFilteredStatDates.Size = new Size(161, 64);
             lbFilteredStatDates.TabIndex = 3;
             // 
             // label2
@@ -825,7 +824,7 @@ namespace FloorPlanMaker
             label2.Enabled = false;
             label2.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             label2.ForeColor = Color.Black;
-            label2.Location = new Point(52, 824);
+            label2.Location = new Point(23, 526);
             label2.Name = "label2";
             label2.Size = new Size(31, 21);
             label2.TabIndex = 2;
@@ -838,7 +837,7 @@ namespace FloorPlanMaker
             label1.Enabled = false;
             label1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             label1.ForeColor = Color.Black;
-            label1.Location = new Point(31, 784);
+            label1.Location = new Point(22, 497);
             label1.Name = "label1";
             label1.Size = new Size(52, 21);
             label1.TabIndex = 2;
@@ -849,9 +848,9 @@ namespace FloorPlanMaker
             // 
             dtpStatRangeEnd.CalendarFont = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             dtpStatRangeEnd.Enabled = false;
-            dtpStatRangeEnd.Location = new Point(89, 824);
+            dtpStatRangeEnd.Location = new Point(23, 653);
             dtpStatRangeEnd.Name = "dtpStatRangeEnd";
-            dtpStatRangeEnd.Size = new Size(199, 23);
+            dtpStatRangeEnd.Size = new Size(148, 23);
             dtpStatRangeEnd.TabIndex = 1;
             dtpStatRangeEnd.Visible = false;
             // 
@@ -859,9 +858,9 @@ namespace FloorPlanMaker
             // 
             dtpStatRangeStart.CalendarFont = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             dtpStatRangeStart.Enabled = false;
-            dtpStatRangeStart.Location = new Point(89, 784);
+            dtpStatRangeStart.Location = new Point(23, 521);
             dtpStatRangeStart.Name = "dtpStatRangeStart";
-            dtpStatRangeStart.Size = new Size(199, 23);
+            dtpStatRangeStart.Size = new Size(148, 23);
             dtpStatRangeStart.TabIndex = 1;
             dtpStatRangeStart.Visible = false;
             // 
@@ -871,9 +870,9 @@ namespace FloorPlanMaker
             rdoLastWeekdayStats.BackColor = Color.FromArgb(100, 130, 180);
             rdoLastWeekdayStats.FlatAppearance.BorderSize = 0;
             rdoLastWeekdayStats.FlatStyle = FlatStyle.Flat;
-            rdoLastWeekdayStats.Location = new Point(22, 127);
+            rdoLastWeekdayStats.Location = new Point(15, 127);
             rdoLastWeekdayStats.Name = "rdoLastWeekdayStats";
-            rdoLastWeekdayStats.Size = new Size(286, 35);
+            rdoLastWeekdayStats.Size = new Size(170, 25);
             rdoLastWeekdayStats.TabIndex = 0;
             rdoLastWeekdayStats.Text = "Last Week";
             rdoLastWeekdayStats.TextAlign = ContentAlignment.MiddleCenter;
@@ -886,9 +885,9 @@ namespace FloorPlanMaker
             rdoSelectedDatesStats.BackColor = Color.FromArgb(100, 130, 180);
             rdoSelectedDatesStats.FlatAppearance.BorderSize = 0;
             rdoSelectedDatesStats.FlatStyle = FlatStyle.Flat;
-            rdoSelectedDatesStats.Location = new Point(22, 280);
+            rdoSelectedDatesStats.Location = new Point(15, 209);
             rdoSelectedDatesStats.Name = "rdoSelectedDatesStats";
-            rdoSelectedDatesStats.Size = new Size(286, 35);
+            rdoSelectedDatesStats.Size = new Size(170, 23);
             rdoSelectedDatesStats.TabIndex = 0;
             rdoSelectedDatesStats.Text = "Selected Dates";
             rdoSelectedDatesStats.TextAlign = ContentAlignment.MiddleCenter;
@@ -902,9 +901,9 @@ namespace FloorPlanMaker
             rdoRangeStats.Enabled = false;
             rdoRangeStats.FlatAppearance.BorderSize = 0;
             rdoRangeStats.FlatStyle = FlatStyle.Flat;
-            rdoRangeStats.Location = new Point(17, 743);
+            rdoRangeStats.Location = new Point(22, 597);
             rdoRangeStats.Name = "rdoRangeStats";
-            rdoRangeStats.Size = new Size(286, 35);
+            rdoRangeStats.Size = new Size(149, 35);
             rdoRangeStats.TabIndex = 0;
             rdoRangeStats.Text = "Range";
             rdoRangeStats.TextAlign = ContentAlignment.MiddleCenter;
@@ -919,9 +918,9 @@ namespace FloorPlanMaker
             rdoLastFourWeekdayStats.Checked = true;
             rdoLastFourWeekdayStats.FlatAppearance.BorderSize = 0;
             rdoLastFourWeekdayStats.FlatStyle = FlatStyle.Flat;
-            rdoLastFourWeekdayStats.Location = new Point(22, 168);
+            rdoLastFourWeekdayStats.Location = new Point(15, 168);
             rdoLastFourWeekdayStats.Name = "rdoLastFourWeekdayStats";
-            rdoLastFourWeekdayStats.Size = new Size(286, 35);
+            rdoLastFourWeekdayStats.Size = new Size(170, 25);
             rdoLastFourWeekdayStats.TabIndex = 0;
             rdoLastFourWeekdayStats.TabStop = true;
             rdoLastFourWeekdayStats.Text = "Last Four Weekday";
@@ -936,9 +935,9 @@ namespace FloorPlanMaker
             rdoYearlyAverageStats.Enabled = false;
             rdoYearlyAverageStats.FlatAppearance.BorderSize = 0;
             rdoYearlyAverageStats.FlatStyle = FlatStyle.Flat;
-            rdoYearlyAverageStats.Location = new Point(17, 702);
+            rdoYearlyAverageStats.Location = new Point(22, 556);
             rdoYearlyAverageStats.Name = "rdoYearlyAverageStats";
-            rdoYearlyAverageStats.Size = new Size(286, 35);
+            rdoYearlyAverageStats.Size = new Size(149, 35);
             rdoYearlyAverageStats.TabIndex = 0;
             rdoYearlyAverageStats.Text = "Yearly Average";
             rdoYearlyAverageStats.TextAlign = ContentAlignment.MiddleCenter;
@@ -952,9 +951,9 @@ namespace FloorPlanMaker
             rdoDayOfStats.BackColor = Color.FromArgb(100, 130, 180);
             rdoDayOfStats.FlatAppearance.BorderSize = 0;
             rdoDayOfStats.FlatStyle = FlatStyle.Flat;
-            rdoDayOfStats.Location = new Point(22, 45);
+            rdoDayOfStats.Location = new Point(15, 45);
             rdoDayOfStats.Name = "rdoDayOfStats";
-            rdoDayOfStats.Size = new Size(286, 35);
+            rdoDayOfStats.Size = new Size(170, 25);
             rdoDayOfStats.TabIndex = 0;
             rdoDayOfStats.Text = "Day Of";
             rdoDayOfStats.TextAlign = ContentAlignment.MiddleCenter;
@@ -967,9 +966,9 @@ namespace FloorPlanMaker
             rdoYesterdayStats.BackColor = Color.FromArgb(100, 130, 180);
             rdoYesterdayStats.FlatAppearance.BorderSize = 0;
             rdoYesterdayStats.FlatStyle = FlatStyle.Flat;
-            rdoYesterdayStats.Location = new Point(22, 86);
+            rdoYesterdayStats.Location = new Point(15, 86);
             rdoYesterdayStats.Name = "rdoYesterdayStats";
-            rdoYesterdayStats.Size = new Size(286, 35);
+            rdoYesterdayStats.Size = new Size(170, 25);
             rdoYesterdayStats.TabIndex = 0;
             rdoYesterdayStats.Text = "Yesterday";
             rdoYesterdayStats.TextAlign = ContentAlignment.MiddleCenter;
@@ -985,7 +984,7 @@ namespace FloorPlanMaker
             rdoSales.FlatStyle = FlatStyle.Flat;
             rdoSales.ForeColor = Color.Black;
             rdoSales.Image = FloorPlanMakerUI.Properties.Resources.salesSMall;
-            rdoSales.Location = new Point(126, 0);
+            rdoSales.Location = new Point(141, 174);
             rdoSales.Name = "rdoSales";
             rdoSales.Size = new Size(63, 28);
             rdoSales.TabIndex = 10;
@@ -1088,13 +1087,14 @@ namespace FloorPlanMaker
             rdoReservations.FlatStyle = FlatStyle.Flat;
             rdoReservations.ForeColor = Color.Black;
             rdoReservations.Image = FloorPlanMakerUI.Properties.Resources.PeopleBook_28px;
-            rdoReservations.Location = new Point(70, 174);
+            rdoReservations.Location = new Point(73, 174);
             rdoReservations.Name = "rdoReservations";
             rdoReservations.Size = new Size(63, 28);
             rdoReservations.TabIndex = 10;
             rdoReservations.TextAlign = ContentAlignment.MiddleCenter;
             toolTip1.SetToolTip(rdoReservations, "View Reservations");
             rdoReservations.UseVisualStyleBackColor = false;
+            rdoReservations.CheckedChanged += rdoReservations_CheckedChanged;
             // 
             // rdoWeather
             // 
@@ -1143,7 +1143,9 @@ namespace FloorPlanMaker
             // pnlSideDetails
             // 
             pnlSideDetails.BackColor = Color.FromArgb(180, 190, 200);
+            pnlSideDetails.Controls.Add(pnlStatMode);
             pnlSideDetails.Controls.Add(flowResoDisplay);
+            pnlSideDetails.Controls.Add(rdoSales);
             pnlSideDetails.Controls.Add(pnlShiftDetails);
             pnlSideDetails.Controls.Add(rdoReservations);
             pnlSideDetails.Controls.Add(rdoWeather);

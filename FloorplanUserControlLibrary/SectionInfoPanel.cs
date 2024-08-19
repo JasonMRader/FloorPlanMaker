@@ -222,7 +222,7 @@ namespace FloorplanUserControlLibrary
             }
             else
             {
-                picSetTeamWait.BackColor = UITheme.MainColor;
+                picSetTeamWait.BackColor = UITheme.YesColor;
                 picSetTeamWait.Image = Resources.waiter;
                 toolTip.SetToolTip(lblSales, "Estimated Sales");
             }

@@ -76,7 +76,8 @@ namespace FloorPlanMaker
         public Form1()
         {
             InitializeComponent();
-            this.shiftDetailManager = new ShiftDetailOverviewManager(this.flowWeatherDisplay, this.flowResoDisplay, pnlShiftDetails, rdoWeather, rdoReservations);
+            this.shiftDetailManager = new ShiftDetailOverviewManager(this.flowWeatherDisplay, this.flowResoDisplay, pnlShiftDetails, 
+                rdoWeather, rdoReservations, rdoSales, pnlStatMode);
             drawingHandler = new DrawingHandler(pnlFloorPlan);
             //shift = new Shift();
             //shiftManager.ServersNotOnShift = SqliteDataAccess.LoadServers();
@@ -831,7 +832,7 @@ namespace FloorPlanMaker
                 {
                     flowSectionSelect.Visible = true;
                     flowServersInFloorplan.Visible = false;
-                    pnlStatMode.Visible = false;
+                    //pnlStatMode.Visible = false;
                     rdoViewSectionFlow.Image = Resources.lilCanvasBook;
 
                 }
@@ -1094,7 +1095,7 @@ namespace FloorPlanMaker
             {
                 flowSectionSelect.Visible = true;
                 flowServersInFloorplan.Visible = false;
-                pnlStatMode.Visible = false;
+                //pnlStatMode.Visible = false;
                 rdoViewSectionFlow.Image = Resources.lilCanvasBook;
 
             }
@@ -1112,7 +1113,7 @@ namespace FloorPlanMaker
             {
                 flowSectionSelect.Visible = false;
                 flowServersInFloorplan.Visible = true;
-                pnlStatMode.Visible = false;
+                //pnlStatMode.Visible = false;
                 rdoViewSectionFlow.Image = Resources.lilBook;
             }
             else
@@ -1124,7 +1125,7 @@ namespace FloorPlanMaker
         }
         private void rdoSales_CheckedChanged(object sender, EventArgs e)
         {
-            pnlStatMode.Visible = true;
+            //pnlStatMode.Visible = true;
         }
 
         private void cbIsAM_CheckedChanged(object sender, EventArgs e)
@@ -1881,6 +1882,11 @@ namespace FloorPlanMaker
         {
             floorplanManager.RemoveLabels();
             SectionLabelManager sectionLabelManager = new SectionLabelManager(floorplanManager.Floorplan, floorplanManager.Shift, pnlFloorPlan);
+        }
+
+        private void rdoReservations_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
