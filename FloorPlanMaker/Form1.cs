@@ -1880,7 +1880,7 @@ namespace FloorPlanMaker
         private void btnTestLabels_Click(object sender, EventArgs e)
         {
             floorplanManager.RemoveLabels();
-            SectionLabelManager sectionLabelManager = new SectionLabelManager(floorplanManager.Floorplan, pnlFloorPlan);
+            SectionLabelManager sectionLabelManager = new SectionLabelManager(floorplanManager.Floorplan, floorplanManager.Shift, pnlFloorPlan);
         }
     }
 }

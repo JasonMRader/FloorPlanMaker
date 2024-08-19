@@ -59,10 +59,10 @@ namespace FloorPlanMaker
             this.Server = server;
 
             this.Height = height * 2;
-            this.Width = 300;
+            this.Width = 281;
             this.BackColor = UITheme.AccentColor;
             this.AutoSize = true;
-            this.MaximumSize = new Size(300, height * 10);
+            this.MaximumSize = new Size(281, height * 10);
             this.Padding = new Padding(0, 0, 0, 0);
             this.Margin = new Padding(0, 4, 0, 0);
             NamePanel = new Panel()
@@ -76,7 +76,7 @@ namespace FloorPlanMaker
                 Text = Server.ToString(),
                 AutoSize = false,
                 Height = height,
-                Width = 300,
+                Width = 281,
                 Font = new Font("Segoe UI", 12, FontStyle.Bold),
                 BackColor = UITheme.ButtonColor,
                 ForeColor = Color.Black,

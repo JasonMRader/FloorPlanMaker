@@ -757,6 +757,28 @@ namespace FloorplanClassLibrary
             
         }
 
+        public string GetDisplayForServer(Server server)
+        {
+            string displayString = "";
+            if (this.Server != null)
+            {
+                if (Server.isDouble)
+                {
+                    displayString = Server.ToString() + "*";
+                }
+                else
+                {
+                    displayString = Server.ToString();
+                }
+                if (this._pairedSection != null)
+                {
+                    displayString += " ++";
+                }
+
+                
+            }
+            return displayString.ToString();
+        }
         
 
        

@@ -3,6 +3,7 @@ using FloorplanUserControlLibrary;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -15,11 +16,14 @@ namespace FloorPlanMakerUI
     {
         private Floorplan _floorplan { get; set; }
         public Floorplan Floorplan { get { return _floorplan; } }
+        private Shift _shift { get; set; }
+
         private Panel _pnlFLoorplan;
         private List<SectionLabel> _sectionLabels {  get; set; } = new List<SectionLabel>();
         public List<SectionLabel> SectionLabels { get { return _sectionLabels; } }
-        public SectionLabelManager(Floorplan floorplan, Panel panel) 
+        public SectionLabelManager(Floorplan floorplan, Shift shift, Panel panel) 
         {
+            this._shift = shift;
             this._floorplan = floorplan;
             this._pnlFLoorplan = panel;
             //floorplan.SubscribeObserver(this);
@@ -31,6 +35,7 @@ namespace FloorPlanMakerUI
                 AddSectionLabels();
             }
         }
+       
 
         private void AddSectionLabels()
         {
@@ -65,6 +70,8 @@ namespace FloorPlanMakerUI
                 {
                     SectionLabel sectionLabel = new SectionLabel(section, _floorplan);
                     sectionLabel.SectionSelected += SelectSection;
+                    sectionLabel.AssignPickUp += AssignPickUp_Click;
+                    
                     //sectionLabel.ShowServerList += OpenServerSelection;
                     //sectionLabel.SectionLabelClick += SectionLabel_Clicked;
 
@@ -72,6 +79,15 @@ namespace FloorPlanMakerUI
                 }
                
             }
+        }
+
+        private void AssignPickUp_Click(Section section)
+        {
+           
+            frmPickupSectionAssignment pickUpForm = new frmPickupSectionAssignment(section, _shift);
+            pickUpForm.StartPosition = FormStartPosition.CenterScreen;
+           
+            pickUpForm.ShowDialog();
         }
 
         //private void OpenServerSelection(Section section, Floorplan floorplan)

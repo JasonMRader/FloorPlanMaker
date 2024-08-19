@@ -45,14 +45,15 @@
             // btnServerButton
             // 
             btnServerButton.AutoSize = true;
+            btnServerButton.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             btnServerButton.FlatStyle = FlatStyle.Flat;
             btnServerButton.Location = new Point(0, 0);
             btnServerButton.Margin = new Padding(0);
             btnServerButton.MinimumSize = new Size(60, 23);
             btnServerButton.Name = "btnServerButton";
-            btnServerButton.Size = new Size(80, 27);
+            btnServerButton.Size = new Size(60, 27);
             btnServerButton.TabIndex = 0;
-            btnServerButton.Text = "Unassigned";
+            btnServerButton.Text = "Un";
             btnServerButton.UseVisualStyleBackColor = true;
             btnServerButton.Click += btnServerButton_Click;
             // 
@@ -72,7 +73,7 @@
             // 
             picCutOrder.Dock = DockStyle.Right;
             picCutOrder.Image = Properties.Resources.Close;
-            picCutOrder.Location = new Point(110, 0);
+            picCutOrder.Location = new Point(90, 0);
             picCutOrder.Margin = new Padding(0);
             picCutOrder.Name = "picCutOrder";
             picCutOrder.Size = new Size(30, 27);
@@ -91,7 +92,7 @@
             flowServers.Location = new Point(30, 0);
             flowServers.Margin = new Padding(0);
             flowServers.Name = "flowServers";
-            flowServers.Size = new Size(80, 27);
+            flowServers.Size = new Size(60, 27);
             flowServers.TabIndex = 2;
             // 
             // flowMainContainer
@@ -104,7 +105,7 @@
             flowMainContainer.Location = new Point(3, 3);
             flowMainContainer.Margin = new Padding(0);
             flowMainContainer.Name = "flowMainContainer";
-            flowMainContainer.Size = new Size(140, 27);
+            flowMainContainer.Size = new Size(120, 27);
             flowMainContainer.TabIndex = 4;
             // 
             // flowParent
@@ -117,7 +118,7 @@
             flowParent.Margin = new Padding(0);
             flowParent.Name = "flowParent";
             flowParent.Padding = new Padding(4);
-            flowParent.Size = new Size(154, 41);
+            flowParent.Size = new Size(134, 41);
             flowParent.TabIndex = 4;
             // 
             // flowAccent
@@ -129,7 +130,7 @@
             flowAccent.Margin = new Padding(0);
             flowAccent.Name = "flowAccent";
             flowAccent.Padding = new Padding(3);
-            flowAccent.Size = new Size(146, 33);
+            flowAccent.Size = new Size(126, 33);
             flowAccent.TabIndex = 4;
             // 
             // SectionLabel
@@ -141,7 +142,7 @@
             BackColor = Color.FromArgb(103, 178, 216);
             Controls.Add(flowParent);
             Name = "SectionLabel";
-            Size = new Size(154, 41);
+            Size = new Size(134, 41);
             ((System.ComponentModel.ISupportInitialize)picCutOrder).EndInit();
             flowServers.ResumeLayout(false);
             flowServers.PerformLayout();

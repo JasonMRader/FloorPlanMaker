@@ -22,6 +22,7 @@ namespace FloorplanClassLibrary
             this.SectionServerMap = new Dictionary<Section, List<Server>>();
             CreateSections();
         }
+        
         public Dictionary<Section, List<Server>> SectionServerMap { get; private set; }
         public int ID { get; set; }
         public DateTime Date { get; set; }
@@ -30,6 +31,7 @@ namespace FloorplanClassLibrary
         public DiningArea? DiningArea { get; set; }
         public int DiningAreaID { get; set; }
         private Section? _sectionSelected { get; set; }
+        public event EventHandler ServerListChanged;
         public Section? SectionSelected
         {
             get

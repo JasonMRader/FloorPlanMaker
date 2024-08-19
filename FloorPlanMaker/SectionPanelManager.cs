@@ -14,9 +14,10 @@ namespace FloorPlanMakerUI
     {
         private List<SectionInfoPanel> _sectionPanels = new List<SectionInfoPanel>();
         public List<SectionInfoPanel> SectionPanels { get {  return _sectionPanels; } }
-        private Floorplan _floorplan { get; set; }
+        private Floorplan? _floorplan { get; set; }
         private ToolTip toolTip = new ToolTip();
-        public Floorplan Floorplan { get {  return _floorplan; } }
+        public Floorplan? Floorplan { get {  return _floorplan; } }
+        private DiningArea _diningArea = new DiningArea();
         private FlowLayoutPanel _flowLayoutPanel = new FlowLayoutPanel();
         private ImageLabelControl serverCountImageLabel = new ImageLabelControl();
         private ImageLabelControl coversImageLabel = new ImageLabelControl();
@@ -34,6 +35,15 @@ namespace FloorPlanMakerUI
                 AddSectionPanels();
             }
         }
+        public SectionPanelManager(DiningArea area, FlowLayoutPanel flowLayoutPanel)
+        {
+            _floorplan = null;
+            
+            _flowLayoutPanel = flowLayoutPanel;
+            _flowLayoutPanel.Controls.Clear();
+            
+            
+        }
         private void SetSectionImageLabels()
         {
             serverCountImageLabel = new ImageLabelControl(UITheme.waiter, "0", (_flowLayoutPanel.Width / 4) - 7, 30);
@@ -46,6 +56,26 @@ namespace FloorPlanMakerUI
             _flowLayoutPanel.Controls.Add(serverCountImageLabel);
             _flowLayoutPanel.Controls.Add(coversImageLabel);
             _flowLayoutPanel.Controls.Add(salesImageLabel);
+            UpdateImageLabels();
+        }
+        private void UpdateImageLabels()
+        {
+            if (this.Floorplan == null)
+            {
+                serverCountImageLabel.UpdateText("0");
+                coversImageLabel.UpdateText(_diningArea.GetMaxCovers().ToString("F0"));
+                salesImageLabel.UpdateText(_diningArea.ExpectedSales.ToString("C0"));
+            }
+            else
+            {
+                serverCountImageLabel.UpdateText(Floorplan.Servers.Count.ToString());
+                coversImageLabel.UpdateText(_floorplan.MaxCoversPerServer.ToString("F0"));
+                salesImageLabel.UpdateText(_floorplan.AvgSalesPerServer.ToString("C0"));
+            }
+
+            serverCountImageLabel.Invalidate();
+            coversImageLabel.Invalidate();
+            salesImageLabel.Invalidate();
         }
         private void AddSection(Section sectionAdded, Floorplan floorplan)
         {

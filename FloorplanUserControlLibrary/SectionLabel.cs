@@ -24,11 +24,12 @@ namespace FloorplanUserControlLibrary
         public Floorplan Floorplan { get { return _floorplan; } }
         private Point MouseDownLocation;
         private bool isDragging = false;
-        private event EventHandler AssignPickUp;
+        public event Action<Section> AssignPickUp;
         public event Action<Section> SectionSelected;
         public event EventHandler ServerRemoved;
         public Action<Section, Floorplan> ShowServerList;
         public event EventHandler ServerAdded;
+
         private int defaultWidth = 0;
         private int defaultHeight = 0;
         private int defaultAccentWidth = 0;
@@ -79,15 +80,29 @@ namespace FloorplanUserControlLibrary
 
 
         }
-        public void ShowServerSelectionPanel()
+        public void ShowServerSelectionPanel(Button button)
         {
             if (serverSelectionPanel == null)
             {
                 serverSelectionPanel = new ServerSelectionPanel(_section, _floorplan);
+                serverSelectionPanel.Visible = false;
             }
             serverSelectionPanel.Dock = DockStyle.Top;
+            serverSelectionPanel.SetButton(button);
             flowParent.Controls.Add(serverSelectionPanel);
+            this.BringToFront();
+            serverSelectionPanel.BringToFront();
 
+        }
+        public void CloseServerSelectionPanel()
+        {
+            if (serverSelectionPanel != null)
+            {
+                if (serverSelectionPanel.Visible)
+                {
+                    serverSelectionPanel.Visible = false;
+                }
+            }
         }
 
         private void SetSelectedStatus()
@@ -134,7 +149,7 @@ namespace FloorplanUserControlLibrary
                 {
                     servers.Add(server);
                 }
-                if(button.Tag == null)
+                if (button.Tag == null)
                 {
 
                 }
@@ -148,7 +163,7 @@ namespace FloorplanUserControlLibrary
         }
 
         private void SetServerButtons()
-        
+
         {
             serverButtons.Clear();
             flowServers.Controls.Clear();
@@ -162,6 +177,8 @@ namespace FloorplanUserControlLibrary
                         server = this._section.ServerTeam[i];
                     }
                     Button button = CreateServerButton(server);
+                    button.Click += SelectSection_Click;
+                    button.Click += ServerButton_Click;
                     serverButtons.Add(button);
                     flowServers.Controls.Add(button);
                 }
@@ -169,18 +186,23 @@ namespace FloorplanUserControlLibrary
             if (Section.IsPickUp)
             {
                 Button button = CreatePickUpButton();
+
                 serverButtons.Add(button);
                 flowServers.Controls.Add(button);
+                picCutOrder.Visible = false;
             }
             if (Section.IsBarSection)
             {
                 Button button = CreateBarButton();
                 serverButtons.Add(button);
                 flowServers.Controls.Add(button);
+                picCutOrder.Visible = false;
             }
 
 
         }
+
+
 
         private Button CreateBarButton()
         {
@@ -217,7 +239,7 @@ namespace FloorplanUserControlLibrary
 
         private void AssignPickup_Click(object? sender, EventArgs e)
         {
-            AssignPickUp?.Invoke(sender, e);
+            AssignPickUp?.Invoke(_section);
         }
 
         private Button CreateServerButton(Server? server)
@@ -239,48 +261,45 @@ namespace FloorplanUserControlLibrary
 
         private void SetButtonToUnassigned(Button button)
         {
+
             UITheme.FormatMainButton(button);
             button.Text = "Empty";
             button.Tag = null;
-            button.Click += AssignServer_Click;
-            button.Click += SelectSection_Click;
+
+
             button.ForeColor = Color.Black;
             button.Font = UITheme.CustomFont(11f, FontStyle.Bold);
         }
         private void SetButtonToServer(Button button, Server server)
         {
+
             UITheme.FormatCTAButton(button);
-            if (!server.isDouble)
-            {
-                button.Text = server.ToString();
-            }
-            else
-            {
-                button.Text = server.ToString() + "*";
-            }
+            button.Text = _section.GetDisplayForServer(server);
             button.BackColor = Section.Color;
             button.ForeColor = Section.FontColor;
             button.Font = button.Font = UITheme.CustomFont(11f, FontStyle.Bold);
             button.Tag = server;
-            button.Click += SelectSection_Click;
-            button.Click += RemoveServer_Click;
+
+
         }
-        private void RemoveServer_Click(object? sender, EventArgs e)
+        private void ServerButton_Click(object sender, EventArgs e)
         {
             Button button = sender as Button;
-            Server server = (Server)button.Tag;
-            //ServerRemoved?.Invoke(sender, e);
-            this.Section.RemoveServer(server);
-            button.Click -= RemoveServer_Click;
-            button.Click += AssignServer_Click;
+            if (button.Tag != null)
+            {
+                Server server = (Server)button.Tag;
+
+                this.Section.RemoveServer(server);
+
+            }
+            ShowServerSelectionPanel(button);
+            serverSelectionPanel.Visible = !serverSelectionPanel.Visible;
+
+
         }
 
-        private void AssignServer_Click(object? sender, EventArgs e)
-        {
-            //ShowServerList?.Invoke(_section, _floorplan);
-            //ServerAdded?.Invoke(sender, e);
-            ShowServerSelectionPanel();
-        }
+
+
         private void SetSectionLabel()
         {
             if (_section.IsPickUp)
@@ -380,7 +399,14 @@ namespace FloorplanUserControlLibrary
                 // Determine the new position of the control
                 this.Left += e.X - MouseDownLocation.X;
                 this.Top += e.Y - MouseDownLocation.Y;
-
+                if (_section.IsSelected)
+                {
+                    this.nonSelectedLocation = new Point(this.Left + (selectedSizeIncrease / 2), this.Top + (selectedSizeIncrease / 2));
+                }
+                else
+                {
+                    this.nonSelectedLocation = this.Location;
+                }
                 // Optional: Update the parent form or control to reflect the new position
                 this.Update();
             }
@@ -407,7 +433,8 @@ namespace FloorplanUserControlLibrary
         {
             if (disposing)
             {
-                Section.RemoveObserver(this);
+                _section.RemoveObserver(this);
+                _floorplan.RemoveObserver(this);
             }
             base.Dispose(disposing);
         }
@@ -431,6 +458,7 @@ namespace FloorplanUserControlLibrary
             flowAccent.Padding = new Padding(accentDefaultPadding);
             flowParent.Padding = new Padding(parentDefaultPadding);
             flowParent.BackColor = Section.Color;
+            CloseServerSelectionPanel();
 
         }
         private void SetToSelected()

@@ -1,5 +1,6 @@
 ﻿using FloorplanClassLibrary;
 using FloorPlanMakerUI;
+using PdfSharp.Charting;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,12 +14,14 @@ using System.Windows.Forms;
 
 namespace FloorplanUserControlLibrary
 {
-    public partial class ServerSelectionPanel : UserControl
+    public partial class ServerSelectionPanel : UserControl, IFloorplanObserver
     {
+        private Button serverButtonSender { get; set; }
         private Section _section { get; set; }
         public Section Section { get { return _section; } }
         private Floorplan _floorplan { get; set; }
         public Floorplan Floorplan { get { return _floorplan; } }
+        public event Action<Button, Server> NotifyOfButtonToAssign;
         public ServerSelectionPanel(Section section, Floorplan floorplan)
         {
             InitializeComponent();
@@ -26,6 +29,40 @@ namespace FloorplanUserControlLibrary
             _floorplan = floorplan;
             this.BackColor = section.Color;
             CreateServerButtons();
+            SubscribeToAllSectionChanges();
+        }
+        private void SubscribeToAllSectionChanges()
+        {
+            foreach(Section section in _floorplan.Sections)
+            {
+                section.ServerAssigned += RemoveServerAdded;
+                section.ServerRemoved += AddNewServerAvailable;
+            }
+        }
+
+        private void AddNewServerAvailable(Server server, Section arg2)
+        {
+            Button button = CreateServerButton(server);
+            //AddButtonLog("Button Created", button);
+
+            if (server.CurrentSection == null)
+            {
+                pnlMain.Controls.Add(button);
+            }
+        }
+
+        private void RemoveServerAdded(Server arg1, Section arg2)
+        {
+            foreach(Control control in pnlMain.Controls)
+            {
+                if(control.Tag is  Server serverTag)
+                {
+                    if(serverTag.CurrentSection != null)
+                    {
+                        pnlMain.Controls.Remove(control);
+                    }
+                }
+            }
         }
 
         private void CreateServerButtons()
@@ -98,12 +135,23 @@ namespace FloorplanUserControlLibrary
             {
                 this.Controls.Remove(button);
             }
+            NotifyOfButtonToAssign?.Invoke(serverButtonSender, server);
 
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        internal void SetButton(Button button)
+        {
+            this.serverButtonSender = button;
+        }
+
+        public void UpdateFloorplan(Floorplan floorplan)
+        {
+            throw new NotImplementedException();
         }
     }
 }
