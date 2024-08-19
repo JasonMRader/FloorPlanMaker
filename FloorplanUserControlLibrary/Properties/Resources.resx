@@ -178,6 +178,9 @@
   <data name="Close" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Close.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="CloseBlack" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CloseBlack.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Closer" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Closer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -379,6 +382,9 @@
   <data name="Pre2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Pre2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="PrecloseBlack" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PrecloseBlack.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Pre___Copy" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Pre - Copy.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -423,6 +429,9 @@
   </data>
   <data name="SaturdayText" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SaturdayText.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ScissorsCircle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ScissorsCircle.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ScissorsOval" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ScissorsOval.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

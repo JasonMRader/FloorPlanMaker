@@ -774,12 +774,13 @@ namespace FloorplanClassLibrary
                 {                   
                     return Color.FromArgb(23, 26, 33);
                 }
-                if (Colors.TryGetValue(Number, out Color value))
+                if (Colors.ContainsKey(Number))
                 {
-                    return value;
+                    return Colors[Number].BackgroundColor;
                 }
-                
+
                 return Color.White;
+               
             }
            
         }
@@ -807,45 +808,65 @@ namespace FloorplanClassLibrary
         {
             get
             {
-                if(this.IsBarSection)
+                if (this.IsBarSection)
                 {
                     return Color.White;
                 }
-                int[] whiteFontNumbers = { 4, 5, 6,9,10,12,13,17,19 };
-                if (whiteFontNumbers.Contains(Number))
+                if (this.IsBarSection)
                 {
-                    return Color.White;
+                    return Color.FromArgb(23, 26, 33);
                 }
-                else
+                if (Colors.ContainsKey(Number))
                 {
-                    return Color.Black;
+                    return Colors[Number].FontColor;
                 }
+
+                return Color.White;
             }
-        }
-        public Dictionary<int, Color> Colors { get; } = new Dictionary<int, Color>
+        }        
+        public Dictionary<int, ColorPair> Colors { get; } = new Dictionary<int, ColorPair>
         {
-            { 1, Color.FromArgb(103,178,216) },
-            { 2, Color.FromArgb(105,209,0) },
-            { 6, Color.FromArgb(130,9,29) },
-            { 3, Color.FromArgb(242,124,5) },
-            { 4, Color.FromArgb(17,100,184) },
-            { 5, Color.FromArgb(70,17,122) },
-            { 7, Color.FromArgb(240,246,0) },
-            { 8, Color.FromArgb(250,127,127) },
-            { 9, Color.FromArgb(87,61,28) },
-            { 10, Color.FromArgb(26,83,92) },
-            { 11, Color.FromArgb(65, 234, 212) },
-            { 12, Color.FromArgb(194, 178, 180) },
-            { 13, Color.FromArgb(84,92,82) },
-            { 14, Color.FromArgb(243,227,124) },
-            { 15, Color.FromArgb(244,192,149) },
-            { 16, Color.FromArgb(180,134,159) },
-            { 17, Color.FromArgb(7,79,87) },           
-            { 18, Color.FromArgb(88,44,77) },
-            { 19, Color.FromArgb(176,46,12) },
-            {100, Color.LightGray },
-            {101, Color.Gray },
-            {102, Color.DarkGray }
+             { 1, new ColorPair(Color.FromArgb(17,100,184), Color.White) },
+            { 2, new ColorPair(Color.FromArgb(105,209,0), Color.Black) },
+            { 3, new ColorPair(Color.FromArgb(176,46,12), Color.White) },
+            { 4, new ColorPair(Color.FromArgb(103,178,216), Color.Black) },
+            { 5, new ColorPair(Color.ForestGreen, Color.White) },
+            { 6, new ColorPair(Color.FromArgb(240,246,0), Color.Black) },
+
+
+            { 7, new ColorPair(Color.FromArgb(70,17,122), Color.White) },
+            { 8, new ColorPair(Color.FromArgb(65, 234, 212), Color.Black) },
+            { 9, new ColorPair(Color.FromArgb(244,192,149), Color.Black) },
+            { 10, new ColorPair(Color.FromArgb(130,9,29), Color.White) },
+            { 11, new ColorPair(Color.FromArgb(194, 178, 180), Color.White) },
+            { 12, new ColorPair(Color.FromArgb(7,79,87), Color.White) },
+            { 13, new ColorPair(Color.FromArgb(250,127,127), Color.Black) },
+            { 14, new ColorPair(Color.FromArgb(84,92,82), Color.White) },
+            { 15, new ColorPair(Color.FromArgb(180,134,159), Color.Black) },
+            { 100, new ColorPair(Color.LightGray, Color.Black) },
+            { 101, new ColorPair(Color.Gray, Color.White) },
+            { 102, new ColorPair(Color.DarkGray, Color.White) }
+            //{ 1, Color.FromArgb(240,246,0) },    // Bright Yellow
+            //{ 2, Color.FromArgb(180,134,159) },  // Soft Purple
+            //{ 3, Color.FromArgb(242,124,5) },    // Orange
+            //{ 4, Color.FromArgb(194,178,180) },  // Light Gray
+            //{ 5, Color.FromArgb(176,46,12) },    // Red-Orange
+            //{ 6, Color.FromArgb(65, 234, 212) }, // Aqua
+            //{ 7, Color.FromArgb(70,17,122) },    // Dark Purple
+            //{ 8, Color.FromArgb(243,227,124) },  // Pale Yellow
+            //{ 9, Color.FromArgb(7,79,87) },      // Dark Teal
+            //{ 10, Color.FromArgb(244,192,149) }, // Light Peach
+            //{ 11, Color.FromArgb(17,100,184) },  // Blue
+            //{ 12, Color.FromArgb(250,127,127) }, // Light Red
+            //{ 13, Color.FromArgb(26,83,92) },    // Teal
+            //{ 14, Color.FromArgb(103,178,216) }, // Light Blue
+            //{ 15, Color.FromArgb(88,44,77) },    // Burgundy
+            //{ 16, Color.FromArgb(105,209,0) },   // Green
+            //{ 17, Color.FromArgb(84,92,82) },    // Olive Green
+            //{ 18, Color.FromArgb(87,61,28) },    // Brown
+            //{ 19, Color.FromArgb(130,9,29) },    // Dark Red
+
+
         };
 
         public Point MidPoint

@@ -19,6 +19,11 @@ namespace FloorPlanMakerUI
         public static Font MainFont = new Font("Segoe UI", 12f, FontStyle.Bold);
         public static Font LargeFont = new Font("Segoe UI", 18f, FontStyle.Bold);
         public static Font SmallerFont = new Font("Segoe UI", 10f, FontStyle.Bold);
+        public static Font CustomFont(float size, FontStyle fontStyle)
+        {
+            Font result = new Font("Segoe UI", size, fontStyle);
+            return result;
+        }
         
 
         public static Color MainColor = Color.FromArgb(245,245,245);

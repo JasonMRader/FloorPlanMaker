@@ -32,12 +32,14 @@
             lblSectionNumber = new Label();
             picCutOrder = new PictureBox();
             flowServers = new FlowLayoutPanel();
-            pnlAccent = new Panel();
             flowMainContainer = new FlowLayoutPanel();
+            flowParent = new FlowLayoutPanel();
+            flowAccent = new FlowLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)picCutOrder).BeginInit();
             flowServers.SuspendLayout();
-            pnlAccent.SuspendLayout();
             flowMainContainer.SuspendLayout();
+            flowParent.SuspendLayout();
+            flowAccent.SuspendLayout();
             SuspendLayout();
             // 
             // btnServerButton
@@ -56,6 +58,7 @@
             // 
             // lblSectionNumber
             // 
+            lblSectionNumber.Dock = DockStyle.Left;
             lblSectionNumber.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             lblSectionNumber.Location = new Point(0, 0);
             lblSectionNumber.Margin = new Padding(0);
@@ -67,6 +70,7 @@
             // 
             // picCutOrder
             // 
+            picCutOrder.Dock = DockStyle.Right;
             picCutOrder.Image = Properties.Resources.Close;
             picCutOrder.Location = new Point(110, 0);
             picCutOrder.Margin = new Padding(0);
@@ -75,7 +79,7 @@
             picCutOrder.SizeMode = PictureBoxSizeMode.Zoom;
             picCutOrder.TabIndex = 3;
             picCutOrder.TabStop = false;
-            picCutOrder.Click += CycleCutOrder;
+            picCutOrder.Click += CycleCutOrder_Click;
             // 
             // flowServers
             // 
@@ -90,45 +94,65 @@
             flowServers.Size = new Size(80, 27);
             flowServers.TabIndex = 2;
             // 
-            // pnlAccent
-            // 
-            pnlAccent.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            pnlAccent.BackColor = Color.Gray;
-            pnlAccent.Controls.Add(flowMainContainer);
-            pnlAccent.Location = new Point(4, 4);
-            pnlAccent.Name = "pnlAccent";
-            pnlAccent.Size = new Size(145, 32);
-            pnlAccent.TabIndex = 3;
-            pnlAccent.Paint += pnlAccent_Paint;
-            // 
             // flowMainContainer
             // 
+            flowMainContainer.AutoSize = true;
             flowMainContainer.BackColor = Color.FromArgb(103, 178, 216);
             flowMainContainer.Controls.Add(lblSectionNumber);
             flowMainContainer.Controls.Add(flowServers);
             flowMainContainer.Controls.Add(picCutOrder);
-            flowMainContainer.Location = new Point(2, 2);
+            flowMainContainer.Location = new Point(3, 3);
+            flowMainContainer.Margin = new Padding(0);
             flowMainContainer.Name = "flowMainContainer";
             flowMainContainer.Size = new Size(140, 27);
             flowMainContainer.TabIndex = 4;
+            // 
+            // flowParent
+            // 
+            flowParent.AutoSize = true;
+            flowParent.Controls.Add(flowAccent);
+            flowParent.Dock = DockStyle.Fill;
+            flowParent.FlowDirection = FlowDirection.TopDown;
+            flowParent.Location = new Point(0, 0);
+            flowParent.Margin = new Padding(0);
+            flowParent.Name = "flowParent";
+            flowParent.Padding = new Padding(4);
+            flowParent.Size = new Size(154, 41);
+            flowParent.TabIndex = 4;
+            // 
+            // flowAccent
+            // 
+            flowAccent.AutoSize = true;
+            flowAccent.BackColor = Color.White;
+            flowAccent.Controls.Add(flowMainContainer);
+            flowAccent.Location = new Point(4, 4);
+            flowAccent.Margin = new Padding(0);
+            flowAccent.Name = "flowAccent";
+            flowAccent.Padding = new Padding(3);
+            flowAccent.Size = new Size(146, 33);
+            flowAccent.TabIndex = 4;
             // 
             // SectionLabel
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            AutoScroll = true;
+            AutoSize = true;
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
             BackColor = Color.FromArgb(103, 178, 216);
-            Controls.Add(pnlAccent);
+            Controls.Add(flowParent);
             Name = "SectionLabel";
-            Size = new Size(152, 39);
+            Size = new Size(154, 41);
             ((System.ComponentModel.ISupportInitialize)picCutOrder).EndInit();
             flowServers.ResumeLayout(false);
             flowServers.PerformLayout();
-            pnlAccent.ResumeLayout(false);
             flowMainContainer.ResumeLayout(false);
             flowMainContainer.PerformLayout();
+            flowParent.ResumeLayout(false);
+            flowParent.PerformLayout();
+            flowAccent.ResumeLayout(false);
+            flowAccent.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -137,7 +161,8 @@
         private Label lblSectionNumber;
         private PictureBox picCutOrder;
         private FlowLayoutPanel flowServers;
-        private Panel pnlAccent;
         private FlowLayoutPanel flowMainContainer;
+        private FlowLayoutPanel flowParent;
+        private FlowLayoutPanel flowAccent;
     }
 }

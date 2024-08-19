@@ -293,6 +293,16 @@ namespace FloorplanUserControlLibrary.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap CloseBlack {
+            get {
+                object obj = ResourceManager.GetObject("CloseBlack", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Closer {
             get {
                 object obj = ResourceManager.GetObject("Closer", resourceCulture);
@@ -973,6 +983,16 @@ namespace FloorplanUserControlLibrary.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap PrecloseBlack {
+            get {
+                object obj = ResourceManager.GetObject("PrecloseBlack", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap rain_23px {
             get {
                 object obj = ResourceManager.GetObject("rain_23px", resourceCulture);
@@ -1116,6 +1136,16 @@ namespace FloorplanUserControlLibrary.Properties {
         internal static System.Drawing.Bitmap Scissors__Copy {
             get {
                 object obj = ResourceManager.GetObject("Scissors__Copy", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ScissorsCircle {
+            get {
+                object obj = ResourceManager.GetObject("ScissorsCircle", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

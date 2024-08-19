@@ -65,6 +65,13 @@
             btnGetFloorplanData = new Button();
             dateTimePicker1 = new DateTimePicker();
             dateTimePicker2 = new DateTimePicker();
+            btnSelect = new Button();
+            btnUnselect = new Button();
+            flowLayoutPanel1 = new FlowLayoutPanel();
+            panel1 = new Panel();
+            panel2 = new Panel();
+            panel3 = new Panel();
+            flowNumber = new FlowLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
             SuspendLayout();
             // 
@@ -350,14 +357,14 @@
             // 
             // dtpWeatherDay
             // 
-            dtpWeatherDay.Location = new Point(847, 68);
+            dtpWeatherDay.Location = new Point(730, 42);
             dtpWeatherDay.Name = "dtpWeatherDay";
             dtpWeatherDay.Size = new Size(200, 23);
             dtpWeatherDay.TabIndex = 5;
             // 
             // btnWeather
             // 
-            btnWeather.Location = new Point(1053, 68);
+            btnWeather.Location = new Point(936, 42);
             btnWeather.Name = "btnWeather";
             btnWeather.Size = new Size(200, 23);
             btnWeather.TabIndex = 6;
@@ -367,7 +374,7 @@
             // 
             // btnGetFloorplanData
             // 
-            btnGetFloorplanData.Location = new Point(847, 226);
+            btnGetFloorplanData.Location = new Point(742, 149);
             btnGetFloorplanData.Name = "btnGetFloorplanData";
             btnGetFloorplanData.Size = new Size(159, 23);
             btnGetFloorplanData.TabIndex = 7;
@@ -377,23 +384,87 @@
             // 
             // dateTimePicker1
             // 
-            dateTimePicker1.Location = new Point(847, 120);
+            dateTimePicker1.Location = new Point(730, 94);
             dateTimePicker1.Name = "dateTimePicker1";
             dateTimePicker1.Size = new Size(200, 23);
             dateTimePicker1.TabIndex = 5;
             // 
             // dateTimePicker2
             // 
-            dateTimePicker2.Location = new Point(1053, 120);
+            dateTimePicker2.Location = new Point(936, 94);
             dateTimePicker2.Name = "dateTimePicker2";
             dateTimePicker2.Size = new Size(200, 23);
             dateTimePicker2.TabIndex = 5;
+            // 
+            // btnSelect
+            // 
+            btnSelect.Location = new Point(1023, 180);
+            btnSelect.Name = "btnSelect";
+            btnSelect.Size = new Size(83, 23);
+            btnSelect.TabIndex = 9;
+            btnSelect.Text = "Select";
+            btnSelect.UseVisualStyleBackColor = true;
+            btnSelect.Click += btnSelect_Click;
+            // 
+            // btnUnselect
+            // 
+            btnUnselect.Location = new Point(742, 223);
+            btnUnselect.Name = "btnUnselect";
+            btnUnselect.Size = new Size(83, 23);
+            btnUnselect.TabIndex = 9;
+            btnUnselect.Text = "UnSelect";
+            btnUnselect.UseVisualStyleBackColor = true;
+            // 
+            // flowLayoutPanel1
+            // 
+            flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
+            flowLayoutPanel1.Location = new Point(1189, 12);
+            flowLayoutPanel1.Name = "flowLayoutPanel1";
+            flowLayoutPanel1.Size = new Size(193, 650);
+            flowLayoutPanel1.TabIndex = 10;
+            // 
+            // panel1
+            // 
+            panel1.Location = new Point(661, 407);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(78, 100);
+            panel1.TabIndex = 11;
+            // 
+            // panel2
+            // 
+            panel2.BackColor = Color.ForestGreen;
+            panel2.Location = new Point(771, 407);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(78, 100);
+            panel2.TabIndex = 11;
+            // 
+            // panel3
+            // 
+            panel3.Location = new Point(893, 407);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(78, 100);
+            panel3.TabIndex = 11;
+            // 
+            // flowNumber
+            // 
+            flowNumber.FlowDirection = FlowDirection.TopDown;
+            flowNumber.Location = new Point(1142, 12);
+            flowNumber.Name = "flowNumber";
+            flowNumber.Size = new Size(41, 650);
+            flowNumber.TabIndex = 10;
             // 
             // frmTest
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1394, 674);
+            Controls.Add(panel3);
+            Controls.Add(panel2);
+            Controls.Add(panel1);
+            Controls.Add(flowNumber);
+            Controls.Add(flowLayoutPanel1);
+            Controls.Add(btnUnselect);
+            Controls.Add(btnSelect);
             Controls.Add(btnGetFloorplanData);
             Controls.Add(dateTimePicker2);
             Controls.Add(dateTimePicker1);
@@ -478,5 +549,12 @@
         private Button btnGetFloorplanData;
         private DateTimePicker dateTimePicker1;
         private DateTimePicker dateTimePicker2;
+        private Button btnSelect;
+        private Button btnUnselect;
+        private FlowLayoutPanel flowLayoutPanel1;
+        private Panel panel1;
+        private Panel panel2;
+        private Panel panel3;
+        private FlowLayoutPanel flowNumber;
     }
 }

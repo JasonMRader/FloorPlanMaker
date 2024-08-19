@@ -65,6 +65,7 @@ namespace FloorPlanMakerUI
                 {
                     SectionLabel sectionLabel = new SectionLabel(section, _floorplan);
                     sectionLabel.SectionSelected += SelectSection;
+                    //sectionLabel.ShowServerList += OpenServerSelection;
                     //sectionLabel.SectionLabelClick += SectionLabel_Clicked;
 
                     this._sectionLabels.Add(sectionLabel);
@@ -72,6 +73,12 @@ namespace FloorPlanMakerUI
                
             }
         }
+
+        //private void OpenServerSelection(Section section, Floorplan floorplan)
+        //{
+        //    SectionLabel sectionLabel = (SectionLabel)sender;
+        //    sectionLabel.ShowServerSelectionPanel();
+        //}
 
         private void SelectSection(Section section)
         {
