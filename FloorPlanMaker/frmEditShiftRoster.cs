@@ -54,7 +54,7 @@ namespace FloorPlanMakerUI
             flowThisFloorplan.Controls.Clear();
             foreach (Server server in shift.SelectedFloorplan.Servers)
             {
-                Button button = CreateServerButton(server);                
+                Button button = CreateServerButton(server);
                 button.Click += MoveServerToSecondaryFloorplan;
                 flowThisFloorplan.Controls.Add(button);
             }
@@ -76,7 +76,7 @@ namespace FloorPlanMakerUI
                 {
                     //shift.SelectedFloorplan.RemoveServerAndSection(server);
                     //secondaryFloorplan.AddServerAndSection(server);
-                    shift.SelectedFloorplan.RemoveServerKeepSection(server);                   
+                    shift.SelectedFloorplan.RemoveServerKeepSection(server);
                     secondaryFloorplan.AddServerNotSection(server);
                     UpdateFloorplanAlteredList(secondaryFloorplan);
                     UpdateFloorplanAlteredList(shift.SelectedFloorplan);
@@ -95,7 +95,7 @@ namespace FloorPlanMakerUI
             foreach (Server server in secondaryFloorplan.Servers)
             {
                 Button button = CreateServerButton(server);
-               
+
                 button.Click += TakeServerFromSecondarySection;
                 flowOtherServers.Controls.Add(button);
             }
@@ -120,7 +120,7 @@ namespace FloorPlanMakerUI
         }
         private void UpdateFloorplanAlteredList(Floorplan floorplan)
         {
-            if(!floorplansAltered.Any(f => f.DiningArea.ID == floorplan.DiningArea.ID))
+            if (!floorplansAltered.Any(f => f.DiningArea.ID == floorplan.DiningArea.ID))
             {
                 floorplansAltered.Add(floorplan);
             }
@@ -132,7 +132,7 @@ namespace FloorPlanMakerUI
             button.Tag = server;
             UITheme.FormatCTAButton(button);
             button.Font = UITheme.MainFont;
-            
+
             button.AutoSize = false;
             button.Size = new System.Drawing.Size(flowThisFloorplan.Width - 10, 30);
             button.TextAlign = ContentAlignment.MiddleCenter;
@@ -163,7 +163,7 @@ namespace FloorPlanMakerUI
             foreach (Server server in servers)
             {
                 Button button = CreateServerButton(server);
-                
+
                 button.Click += TakeServerFromServersNotOnShift;
                 flowOtherServers.Controls.Add(button);
             }
@@ -226,9 +226,9 @@ namespace FloorPlanMakerUI
 
         private void btnDone_Click(object sender, EventArgs e)
         {
-            if(floorplansAltered.Count > 0)
+            if (floorplansAltered.Count > 0)
             {
-                foreach(Floorplan floorplan in floorplansAltered)
+                foreach (Floorplan floorplan in floorplansAltered)
                 {
                     floorplan.SetTheAppropriateAmountOfSections();
                 }

@@ -36,6 +36,7 @@
             txtSearchServers = new TextBox();
             btnDone = new Button();
             panel1 = new Panel();
+            label1 = new Label();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -43,7 +44,7 @@
             // 
             flowThisFloorplan.AutoScroll = true;
             flowThisFloorplan.BackColor = Color.WhiteSmoke;
-            flowThisFloorplan.Location = new Point(30, 80);
+            flowThisFloorplan.Location = new Point(31, 131);
             flowThisFloorplan.Name = "flowThisFloorplan";
             flowThisFloorplan.Size = new Size(239, 408);
             flowThisFloorplan.TabIndex = 0;
@@ -52,7 +53,7 @@
             // 
             flowOtherServers.AutoScroll = true;
             flowOtherServers.BackColor = Color.WhiteSmoke;
-            flowOtherServers.Location = new Point(305, 80);
+            flowOtherServers.Location = new Point(306, 131);
             flowOtherServers.Name = "flowOtherServers";
             flowOtherServers.Size = new Size(239, 408);
             flowOtherServers.TabIndex = 0;
@@ -60,7 +61,7 @@
             // lblSelectedDiningArea
             // 
             lblSelectedDiningArea.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            lblSelectedDiningArea.Location = new Point(30, 36);
+            lblSelectedDiningArea.Location = new Point(31, 87);
             lblSelectedDiningArea.Name = "lblSelectedDiningArea";
             lblSelectedDiningArea.Size = new Size(239, 34);
             lblSelectedDiningArea.TabIndex = 1;
@@ -72,7 +73,7 @@
             cboFloorplans.FlatStyle = FlatStyle.Flat;
             cboFloorplans.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             cboFloorplans.FormattingEnabled = true;
-            cboFloorplans.Location = new Point(305, 41);
+            cboFloorplans.Location = new Point(306, 92);
             cboFloorplans.Name = "cboFloorplans";
             cboFloorplans.Size = new Size(239, 29);
             cboFloorplans.TabIndex = 2;
@@ -81,7 +82,7 @@
             // cbServersNotOnShift
             // 
             cbServersNotOnShift.AutoSize = true;
-            cbServersNotOnShift.Location = new Point(305, 12);
+            cbServersNotOnShift.Location = new Point(306, 63);
             cbServersNotOnShift.Name = "cbServersNotOnShift";
             cbServersNotOnShift.Size = new Size(132, 19);
             cbServersNotOnShift.TabIndex = 3;
@@ -91,7 +92,7 @@
             // 
             // txtSearchServers
             // 
-            txtSearchServers.Location = new Point(444, 10);
+            txtSearchServers.Location = new Point(445, 61);
             txtSearchServers.Name = "txtSearchServers";
             txtSearchServers.PlaceholderText = "Search Servers";
             txtSearchServers.Size = new Size(100, 23);
@@ -101,7 +102,7 @@
             // 
             // btnDone
             // 
-            btnDone.Location = new Point(30, 494);
+            btnDone.Location = new Point(31, 545);
             btnDone.Name = "btnDone";
             btnDone.Size = new Size(514, 36);
             btnDone.TabIndex = 5;
@@ -114,6 +115,7 @@
             panel1.BackColor = Color.FromArgb(225, 225, 225);
             panel1.Controls.Add(btnDone);
             panel1.Controls.Add(txtSearchServers);
+            panel1.Controls.Add(label1);
             panel1.Controls.Add(lblSelectedDiningArea);
             panel1.Controls.Add(cbServersNotOnShift);
             panel1.Controls.Add(cboFloorplans);
@@ -121,15 +123,27 @@
             panel1.Controls.Add(flowOtherServers);
             panel1.Location = new Point(12, 12);
             panel1.Name = "panel1";
-            panel1.Size = new Size(579, 542);
+            panel1.Size = new Size(579, 605);
             panel1.TabIndex = 6;
+            // 
+            // label1
+            // 
+            label1.BackColor = Color.FromArgb(180, 190, 200);
+            label1.Dock = DockStyle.Top;
+            label1.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
+            label1.Location = new Point(0, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(579, 42);
+            label1.TabIndex = 1;
+            label1.Text = "Move Servers";
+            label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // frmEditShiftRoster
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(180, 190, 200);
-            ClientSize = new Size(603, 570);
+            ClientSize = new Size(603, 633);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
             Name = "frmEditShiftRoster";
@@ -151,5 +165,6 @@
         private TextBox txtSearchServers;
         private Button btnDone;
         private Panel panel1;
+        private Label label1;
     }
 }
