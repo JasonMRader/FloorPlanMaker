@@ -482,7 +482,7 @@ namespace FloorPlanMaker
                 case ControlType.SectionLabel:
                     if (e.UpdateType == UpdateType.Remove)
                     {
-                        floorplanManager.RemoveSectionLabel(e.UpdateData as Section, pnlFloorPlan);
+                        //floorplanManager.RemoveSectionLabel(e.UpdateData as Section, pnlFloorPlan);
                     }
                     else
                     {
@@ -514,8 +514,8 @@ namespace FloorPlanMaker
                 //    break;
                 case ControlType.TableControl:
 
-                    floorplanManager.SetSectionLabels();
-                    floorplanManager.AddSectionLabels(pnlFloorPlan);
+                   // floorplanManager.SetSectionLabels();
+                    //floorplanManager.AddSectionLabels(pnlFloorPlan);
 
                     break;
 
@@ -921,8 +921,8 @@ namespace FloorPlanMaker
 
         private void btnAddSectionLabels_Click(object sender, EventArgs e)
         {
-            floorplanManager.SetSectionLabels();
-            floorplanManager.AddSectionLabels(pnlFloorPlan);
+            //floorplanManager.SetSectionLabels();
+            //floorplanManager.AddSectionLabels(pnlFloorPlan);
             //CreateSectionBorders();
 
         }

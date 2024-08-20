@@ -27,10 +27,10 @@ namespace FloorPlanMakerUI
         }
         public Shift Shift;
        // private List<TableControl> _tableControls = new List<TableControl>();
-        private List<SectionLabelControl> _sectionLabels = new List<SectionLabelControl>();
+        //private List<SectionLabelControl> _sectionLabels = new List<SectionLabelControl>();
         private List<SectionPanelControl> _sectionPanels = new List<SectionPanelControl>();
         private List<ServerControl> _serverControls = new List<ServerControl>();
-        public event EventHandler SectionLabelRemoved;
+        //public event EventHandler SectionLabelRemoved;
         public event EventHandler<UpdateEventArgs> UpdateRequired;
         private ImageLabelControl serverCountImageLabel = new ImageLabelControl();
         private ImageLabelControl coversImageLabel = new ImageLabelControl();
@@ -54,6 +54,7 @@ namespace FloorPlanMakerUI
         public FloorplanGenerator floorplanGenerator = new FloorplanGenerator();   
         public ToolTip toolTip = new ToolTip();
         private TableControlManager tableControlManager { get; set; }
+        private SectionLabelManager sectionLabelManager { get; set; }
         public FloorplanFormManager() 
         {
             this.Shift = new Shift();            
@@ -75,17 +76,25 @@ namespace FloorPlanMakerUI
             tableControlManager = new TableControlManager(pnlFloorPlan);
             tableControlManager.UpdateAveragesPerServer += newUpdateAveragesPerServer;
             tableControlManager.AllTablesAssigned += newAllTablesAssigned;
+            tableControlManager.NotAllTablesAssigned += notAllTablesAssigned;
 
             this.sectionHeader.btnClearSectionClicked += ClearSection;
             
             frmSectionServerAssign.StartPosition = FormStartPosition.Manual;
-            frmSectionServerAssign.SignalForInvisible += SectionAssignFormInvisible;            
+            frmSectionServerAssign.SignalForInvisible += SectionAssignFormInvisible;
+            this.sectionLabelManager = new SectionLabelManager(Floorplan, Shift, pnlFloorPlan);
 
         }
 
-        private void newAllTablesAssigned(object? sender, EventArgs e)
+        private void notAllTablesAssigned()
         {
-            UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.TableControl, UpdateType.Refresh, sender));
+           sectionLabelManager.ClearAllLabels();
+        }
+
+        private void newAllTablesAssigned()
+        {
+            sectionLabelManager.SetNewFloorplan(Floorplan);
+            //UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.TableControl, UpdateType.Refresh, sender));
         }
 
         private void newUpdateAveragesPerServer(object? sender, EventArgs e)
@@ -118,11 +127,11 @@ namespace FloorPlanMakerUI
             //set { _tableControls = value; }
 
         }
-        public List<SectionLabelControl> SectionLabels
-        {
-            get { return _sectionLabels; }
-            set { _sectionLabels = value; }
-        }
+        //public List<SectionLabelControl> SectionLabels
+        //{
+        //    get { return sectionLabelManager.SectionLabels; }
+           
+        //}
         public List<SectionPanelControl> SectionPanels
         {
             get { return _sectionPanels; }
@@ -141,8 +150,9 @@ namespace FloorPlanMakerUI
             Floorplan.floorplanLines.Clear();            
             tableControlManager.ResetSections();
             UpdateServerControls();
-            RemoveAllSectionLabels();
-            _sectionLabels.Clear();
+            sectionLabelManager.ClearAllLabels();
+            //RemoveAllSectionLabels();
+            //_sectionLabels.Clear();
             foreach (SectionPanelControl sectionPanelControl in this._sectionPanels)
             {
                 sectionPanelControl.UpdateLabels();
@@ -178,73 +188,7 @@ namespace FloorPlanMakerUI
         {
             tableControlManager.SelectTables(selectedTables);
         }
-        public void SetSectionLabels()
-        {
-            _sectionLabels.Clear();
-            if(Shift.SelectedFloorplan == null) { return; }
-           
-            foreach (Section section in Shift.SelectedFloorplan.Sections)
-            {                
-                if (section.Tables.Count > 0)
-                {
-                    SectionLabelControl sectionControl = new SectionLabelControl(section, Shift.SelectedFloorplan.ServersWithoutSection, Shift.ServersOnShift);
-                    sectionControl.AssignPickup += SectionLabelAssignPickup;
-                    sectionControl.SectionLabelClick += SectionLabel_Clicked;
-                    
-                    this._sectionLabels.Add(sectionControl);                    
-                }
-                if (section.Server != null)
-                {
-                    Shift.SelectedFloorplan.ServersWithoutSection.Remove(section.Server);                   
-                    
-                }
-            }
-        }
-
-        private void SectionLabel_Clicked(object? sender, EventArgs e)
-        {
-            SectionLabelControl controlClicked = (SectionLabelControl)sender;
-            Section section = controlClicked.Section;
-            if (e is MouseEventArgs mouseEventArgs)
-            {
-                bool isShiftPressed = (Control.ModifierKeys & Keys.Shift) == Keys.Shift;
-                if(mouseEventArgs.Button == MouseButtons.Left)
-                {
-                    if(isShiftPressed)
-                    {
-                        if (!section.IsSelected)
-                        {
-                            this.Floorplan.SwapServers(this.Floorplan.SectionSelected, section);
-                        }
-                    }
-                    else
-                    {
-                        if (!section.IsSelected)
-                        {
-                            section.SetToSelected();
-                        }
-                    }                    
-                }
-                else if(mouseEventArgs.Button == MouseButtons.Right) 
-                {
-                    if(isShiftPressed)
-                    {
-                        if(section.Server != null)
-                        {
-                            section.ClearAllServers();
-                        }
-                    }
-                }
-            }            
-        }
-        private void SectionLabelAssignPickup(object? sender, EventArgs e)
-        {
-            SectionLabelControl controlClicked = (SectionLabelControl)sender;
-            Section section = controlClicked.Section;
-            frmPickupSectionAssignment pickUpForm = new frmPickupSectionAssignment(section, Shift);
-            pickUpForm.ShowDialog();
-        }
-
+       
 
         public void CopyTemplateSections(FloorplanTemplate template)
         {
@@ -422,7 +366,7 @@ namespace FloorPlanMakerUI
             if (selectedSection != null)
             {
                 UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionLabel, UpdateType.Remove, selectedSection));
-                this._sectionLabels.Remove(sectionLabelBySection(selectedSection));
+                this.sectionLabelManager.RemoveSectionLabelBySection(selectedSection);
                 Shift.SelectedFloorplan.ClearSection(selectedSection);
 
                 tableControlManager.RefreshTableControlColors();
@@ -431,50 +375,7 @@ namespace FloorPlanMakerUI
             }
             sectionPanel.UpdateLabels();
         }
-        private SectionLabelControl sectionLabelBySection(Section section)
-        {
-            SectionLabelControl sectionLabel = this._sectionLabels.FirstOrDefault(s => s.Section == section);
-            return sectionLabel;
-        }
         
-        public void RemoveSectionLabel(Section section, Panel panel)
-        {
-            panel.Controls.Remove(sectionLabelBySection((Section)section));            
-            panel.Invalidate();
-        }
-        private void RemoveAllSectionLabels()
-        {
-            foreach(SectionLabelControl sectionLabel in this._sectionLabels)
-            {
-                pnlFloorplan.Controls.Remove(sectionLabel);
-                sectionLabel.Dispose();
-
-            }
-            pnlFloorplan.Invalidate();  
-        }
-        
-        public void AddSectionLabels(Panel panel)
-        {
-            List<Control> controlsToRemove  = new List<Control>();
-            foreach(Control c in panel.Controls)
-            {
-                if (c is SectionLabelControl sectionLabel)
-                {
-                    controlsToRemove.Add(c);
-                }
-            }
-            foreach(Control c in controlsToRemove)
-            {
-                panel.Controls.Remove(c);
-            }
-            foreach(SectionLabelControl sectionLabelControl in _sectionLabels)
-            {
-                panel.Controls.Add(sectionLabelControl);
-                sectionLabelControl.UpdateLabel();
-               
-                sectionLabelControl.BringToFront();
-            }
-        }
 
         
        
@@ -502,7 +403,7 @@ namespace FloorPlanMakerUI
             CopyTemplateSections(template);
             tableControlManager.SetFloorplan(Floorplan);
             //tableControlManager.AddTableControls();
-            SetSectionLabels();
+            //SetSectionLabels();
             SetSectionPanels();           
             SetServerControls();
             //tableControlManager.UpdateTableControlColors();
@@ -510,7 +411,8 @@ namespace FloorPlanMakerUI
             flowServersPanel.Controls.Clear();
             AddServerControls(flowServersPanel);
             AddSectionPanels(flowSectionsPanel);
-            AddSectionLabels(pnlFloorplan);            
+            //AddSectionLabels(pnlFloorplan);
+            sectionLabelManager.SetNewFloorplan(Floorplan);
             UpdateTableStats();            
 
             UpdateAveragesPerServer();
@@ -749,7 +651,7 @@ namespace FloorPlanMakerUI
                 Shift.SetDoubles();
                 //tableControlManager.AddTableControls();
                 tableControlManager.SetFloorplan(Floorplan);
-                SetSectionLabels();
+                //SetSectionLabels();
                 SetSectionPanels();
                 SetServerControls();
                 //tableControlManager.UpdateTableControlColors();
@@ -757,7 +659,8 @@ namespace FloorPlanMakerUI
                 flowServersPanel.Controls.Clear();
                 AddServerControls(flowServersPanel);
                 AddSectionPanels(flowSectionsPanel);
-                AddSectionLabels(pnlFloorplan);
+                //AddSectionLabels(pnlFloorplan);
+                sectionLabelManager.SetNewFloorplan(Floorplan);
                 UpdateTableStats();
                 AddSectionLines();
                 UpdateAveragesPerServer();
@@ -765,10 +668,11 @@ namespace FloorPlanMakerUI
             }
             else
             {
-                foreach (SectionLabelControl sectionLabel in _sectionLabels)
-                {
-                    pnlFloorplan.Controls.Remove(sectionLabel);
-                }
+                //foreach (SectionLabelControl sectionLabel in _sectionLabels)
+                //{
+                //    pnlFloorplan.Controls.Remove(sectionLabel);
+                //}
+                sectionLabelManager.ClearAllLabels();
                 tableControlManager.SetDiningArea(Shift.SelectedDiningArea);
                 //tableControlManager.UpdateTableControlColors();
                 UpdateTableStats();
@@ -812,11 +716,12 @@ namespace FloorPlanMakerUI
         internal void AutoAssignCloser()
         {
             this.Floorplan.AutoAssignCloser();
-            foreach(SectionLabelControl sectionLabelControl in this._sectionLabels)
-            {
-                sectionLabelControl.UpdateLabel();
-                sectionLabelControl.Invalidate();
-            }
+            //sectionLabelManager.UpdateCloserStatus();
+            //foreach(SectionLabelControl sectionLabelControl in this._sectionLabels)
+            //{
+            //    sectionLabelControl.UpdateLabel();
+            //    sectionLabelControl.Invalidate();
+            //}
         }
         private void SetSectionImageLabels(FlowLayoutPanel panel)
         {
@@ -1106,8 +1011,9 @@ namespace FloorPlanMakerUI
             }
             if (selectedSection != null)
             {
-                UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionLabel, UpdateType.Remove, selectedSection));
-                this._sectionLabels.Remove(sectionLabelBySection(selectedSection));
+                //UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionLabel, UpdateType.Remove, selectedSection));
+                //this._sectionLabels.Remove(sectionLabelBySection(selectedSection));
+                sectionLabelManager.RemoveSectionLabelBySection(selectedSection);
                 Shift.SelectedFloorplan.ClearSection(selectedSection);
                 tableControlManager.RefreshTableControlColors();
                 UpdateServerControls();
@@ -1119,18 +1025,129 @@ namespace FloorPlanMakerUI
         {
             
             List<Point> points = new List<Point>();
-            foreach(SectionLabelControl labelControl in _sectionLabels)
-            {
+            //foreach(SectionLabelControl labelControl in _sectionLabels)
+            //{
                
-                //points.Add(labelControl.Location);
-                //SectionLabel label = new SectionLabel(labelControl.Section, Floorplan);
-                //label.Location = labelControl.Location;
-                pnlFloorplan.Controls.Remove(labelControl);
-                //pnlFloorplan.Controls.Add(label);
-                //label.BringToFront();
+            //    //points.Add(labelControl.Location);
+            //    //SectionLabel label = new SectionLabel(labelControl.Section, Floorplan);
+            //    //label.Location = labelControl.Location;
+            //    pnlFloorplan.Controls.Remove(labelControl);
+            //    //pnlFloorplan.Controls.Add(label);
+            //    //label.BringToFront();
                 
-            }
-            _sectionLabels.Clear();
+            //}
+            //_sectionLabels.Clear();
         }
+        //private SectionLabelControl sectionLabelBySection(Section section)
+        //{
+        //    SectionLabelControl sectionLabel = this._sectionLabels.FirstOrDefault(s => s.Section == section);
+        //    return sectionLabel;
+        //}
+
+        //public void RemoveSectionLabel(Section section, Panel panel)
+        //{
+        //    panel.Controls.Remove(sectionLabelBySection((Section)section));            
+        //    panel.Invalidate();
+        //}
+        //private void RemoveAllSectionLabels()
+        //{
+        //    foreach(SectionLabelControl sectionLabel in this._sectionLabels)
+        //    {
+        //        pnlFloorplan.Controls.Remove(sectionLabel);
+        //        sectionLabel.Dispose();
+
+        //    }
+        //    pnlFloorplan.Invalidate();  
+        //}
+
+        //public void AddSectionLabels(Panel panel)
+        //{
+        //    List<Control> controlsToRemove  = new List<Control>();
+        //    foreach(Control c in panel.Controls)
+        //    {
+        //        if (c is SectionLabelControl sectionLabel)
+        //        {
+        //            controlsToRemove.Add(c);
+        //        }
+        //    }
+        //    foreach(Control c in controlsToRemove)
+        //    {
+        //        panel.Controls.Remove(c);
+        //    }
+        //    foreach(SectionLabelControl sectionLabelControl in _sectionLabels)
+        //    {
+        //        panel.Controls.Add(sectionLabelControl);
+        //        sectionLabelControl.UpdateLabel();
+
+        //        sectionLabelControl.BringToFront();
+        //    }
+        //}
+        //public void SetSectionLabels()
+        //{
+        //    _sectionLabels.Clear();
+        //    if(Shift.SelectedFloorplan == null) { return; }
+
+        //    foreach (Section section in Shift.SelectedFloorplan.Sections)
+        //    {                
+        //        if (section.Tables.Count > 0)
+        //        {
+        //            SectionLabelControl sectionControl = new SectionLabelControl(section, Shift.SelectedFloorplan.ServersWithoutSection, Shift.ServersOnShift);
+        //            sectionControl.AssignPickup += SectionLabelAssignPickup;
+        //            sectionControl.SectionLabelClick += SectionLabel_Clicked;
+
+        //            this._sectionLabels.Add(sectionControl);                    
+        //        }
+        //        if (section.Server != null)
+        //        {
+        //            Shift.SelectedFloorplan.ServersWithoutSection.Remove(section.Server);                   
+
+        //        }
+        //    }
+        //}
+
+        //private void SectionLabel_Clicked(object? sender, EventArgs e)
+        //{
+        //    SectionLabelControl controlClicked = (SectionLabelControl)sender;
+        //    Section section = controlClicked.Section;
+        //    if (e is MouseEventArgs mouseEventArgs)
+        //    {
+        //        bool isShiftPressed = (Control.ModifierKeys & Keys.Shift) == Keys.Shift;
+        //        if(mouseEventArgs.Button == MouseButtons.Left)
+        //        {
+        //            if(isShiftPressed)
+        //            {
+        //                if (!section.IsSelected)
+        //                {
+        //                    this.Floorplan.SwapServers(this.Floorplan.SectionSelected, section);
+        //                }
+        //            }
+        //            else
+        //            {
+        //                if (!section.IsSelected)
+        //                {
+        //                    section.SetToSelected();
+        //                }
+        //            }                    
+        //        }
+        //        else if(mouseEventArgs.Button == MouseButtons.Right) 
+        //        {
+        //            if(isShiftPressed)
+        //            {
+        //                if(section.Server != null)
+        //                {
+        //                    section.ClearAllServers();
+        //                }
+        //            }
+        //        }
+        //    }            
+        //}
+        //private void SectionLabelAssignPickup(object? sender, EventArgs e)
+        //{
+        //    SectionLabelControl controlClicked = (SectionLabelControl)sender;
+        //    Section section = controlClicked.Section;
+        //    frmPickupSectionAssignment pickUpForm = new frmPickupSectionAssignment(section, Shift);
+        //    pickUpForm.ShowDialog();
+        //}
+
     }
 }

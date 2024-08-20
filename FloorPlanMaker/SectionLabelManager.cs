@@ -14,8 +14,8 @@ namespace FloorPlanMakerUI
 {
     public class SectionLabelManager : IFloorplanObserver
     {
-        private Floorplan _floorplan { get; set; }
-        public Floorplan Floorplan { get { return _floorplan; } }
+        private Floorplan? _floorplan { get; set; }
+        public Floorplan? Floorplan { get { return _floorplan; } }
         private Shift _shift { get; set; }
 
         private Panel _pnlFLoorplan;
@@ -34,8 +34,40 @@ namespace FloorPlanMakerUI
                 CreateSectionLabels();
                 AddSectionLabels();
             }
+            if (floorplan == null)
+            {
+                ClearAllLabels();
+            }
         }
-       
+        public void SetNewFloorplan(Floorplan floorplan)
+        {
+            _floorplan = floorplan;
+            ClearAllLabels();
+            CreateSectionLabels();
+            AddSectionLabels();
+        }
+        private SectionLabel sectionLabelBySection(Section section)
+        {
+            SectionLabel sectionLabel = this._sectionLabels.FirstOrDefault(s => s.Section == section);
+            return sectionLabel;
+        }
+        public void RemoveSectionLabelBySection(Section section)
+        {
+            SectionLabel sectionLabel = sectionLabelBySection(section);
+            _pnlFLoorplan.Controls.Remove(sectionLabel);
+            sectionLabel.Dispose();
+            this._sectionLabels.Remove(sectionLabelBySection(section));
+        }
+        public void ClearAllLabels()
+        {
+            foreach(SectionLabel sectionLabel in _sectionLabels)
+            {
+                _pnlFLoorplan.Controls.Remove(sectionLabel);
+                sectionLabel.Dispose();
+
+            }
+            _sectionLabels.Clear();
+        }
 
         private void AddSectionLabels()
         {
@@ -64,6 +96,7 @@ namespace FloorPlanMakerUI
 
         private void CreateSectionLabels()
         {
+            if(this._floorplan == null) { return; }
             foreach (Section section in _floorplan.Sections)
             {
                 if (section.Tables.Count > 0)
@@ -104,6 +137,11 @@ namespace FloorPlanMakerUI
         public void UpdateFloorplan(Floorplan floorplan)
         {
             
+        }
+
+        internal void UpdateCloserStatus()
+        {
+            throw new NotImplementedException();
         }
     }
 }

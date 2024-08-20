@@ -364,7 +364,7 @@ namespace FloorplanUserControlLibrary
             SetCutOrderImage();
         }
 
-        private void SetCutOrderImage()
+        public void SetCutOrderImage()
         {
             if (this._section.IsCloser)
             {
@@ -446,6 +446,7 @@ namespace FloorplanUserControlLibrary
                 UpdateControlsForSection();
             }
             SetSelectedStatus();
+            SetCutOrderImage();
 
 
         }

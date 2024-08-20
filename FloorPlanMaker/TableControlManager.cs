@@ -18,7 +18,8 @@ namespace FloorPlanMakerUI
         public DiningArea DiningArea { get {  return _diningArea; } }
         private Panel pnlFloorplan { get; set; }
         public event EventHandler UpdateAveragesPerServer;
-        public event EventHandler AllTablesAssigned;
+        public event Action AllTablesAssigned;
+        public event Action NotAllTablesAssigned;
         public TableControlManager(Panel panel)
         {
             pnlFloorplan = panel;
@@ -177,8 +178,12 @@ namespace FloorPlanMakerUI
             clickedTableControl.Invalidate();
             if (AllTablesAreAssigned())
             {
-                AllTablesAssigned?.Invoke(clickedTableControl, new EventArgs());
+                AllTablesAssigned?.Invoke();
                 //UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.TableControl, UpdateType.Refresh, clickedTableControl));
+            }
+            else
+            {
+                NotAllTablesAssigned?.Invoke();
             }
         }
         public bool AllTablesAreAssigned()
