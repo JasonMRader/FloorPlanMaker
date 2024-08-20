@@ -760,15 +760,15 @@ namespace FloorplanClassLibrary
         public string GetDisplayForServer(Server server)
         {
             string displayString = "";
-            if (this.Server != null)
+            if (server != null)
             {
                 if (Server.isDouble)
                 {
-                    displayString = Server.ToString() + "*";
+                    displayString = server.ToString() + "*";
                 }
                 else
                 {
-                    displayString = Server.ToString();
+                    displayString = server.ToString();
                 }
                 if (this._pairedSection != null)
                 {
