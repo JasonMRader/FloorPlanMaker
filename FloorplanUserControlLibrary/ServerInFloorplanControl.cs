@@ -137,5 +137,10 @@ namespace FloorplanUserControlLibrary
                 btnServer.ForeColor = Color.Black;
             }
         }
+
+        private void btnServer_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

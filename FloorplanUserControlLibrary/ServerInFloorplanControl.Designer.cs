@@ -53,6 +53,7 @@
             btnServer.TabIndex = 0;
             btnServer.Text = "Adrianna";
             btnServer.UseVisualStyleBackColor = false;
+            btnServer.Click += btnServer_Click;
             // 
             // flowShiftDisplay
             // 
