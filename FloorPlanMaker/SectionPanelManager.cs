@@ -25,13 +25,14 @@ namespace FloorPlanMakerUI
         public SectionPanelManager(Floorplan floorplan, FlowLayoutPanel flowLayoutPanel)
         {
             _floorplan = floorplan;
-            floorplan.SubscribeObserver(this);
-            floorplan.SectionRemoved += RemoveSection;
-            floorplan.SectionAdded += AddSection;
+          
             _flowLayoutPanel = flowLayoutPanel;
             _flowLayoutPanel.Controls.Clear();
             if(floorplan != null)
             {
+                floorplan.SubscribeObserver(this);
+                floorplan.SectionRemoved += RemoveSection;
+                floorplan.SectionAdded += AddSection;
                 AddSectionPanels();
             }
         }
@@ -43,6 +44,41 @@ namespace FloorPlanMakerUI
             _flowLayoutPanel.Controls.Clear();
             
             
+        }
+        public void SetToNoFloorplan(DiningArea area)
+        {
+            _floorplan = null;            
+            _flowLayoutPanel.Controls.Clear();
+            UpdateImageLabels();
+        }
+        public void SetNewFloorplan(Floorplan floorplan)
+        {
+            if(_floorplan != floorplan)
+            {
+                if(_floorplan != null)
+                {
+                    _floorplan.RemoveObserver(this);
+                    _floorplan.SectionRemoved -= RemoveSection;
+                    _floorplan.SectionAdded -= AddSection;
+                }
+
+                if (floorplan != null)
+                {
+                    _floorplan = floorplan;
+                    floorplan.SubscribeObserver(this);
+                    floorplan.SectionRemoved += RemoveSection;
+                    floorplan.SectionAdded += AddSection;
+                }
+                
+
+                _flowLayoutPanel.Controls.Clear();
+                _sectionPanels.Clear();
+                if (floorplan != null)
+                {
+                    AddSectionPanels();
+                }
+            }
+           
         }
         private void SetSectionImageLabels()
         {

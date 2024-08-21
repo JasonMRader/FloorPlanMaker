@@ -16,7 +16,7 @@ using System.Windows.Forms;
 
 namespace FloorplanUserControlLibrary
 {
-    public partial class SectionHeaderDisplay : UserControl, ISectionObserver
+    public partial class SectionHeaderDisplay : UserControl, ISectionObserver, IFloorplanObserver
     {
         private Section section { get; set; }
         public Section Section { get { return section; } }
@@ -308,6 +308,11 @@ namespace FloorplanUserControlLibrary
         private void btnClearSection_Click(object sender, EventArgs e)
         {
             btnClearSectionClicked?.Invoke(this, EventArgs.Empty);
+        }
+
+        public void UpdateFloorplan(Floorplan floorplan)
+        {
+            throw new NotImplementedException();
         }
     }
 }

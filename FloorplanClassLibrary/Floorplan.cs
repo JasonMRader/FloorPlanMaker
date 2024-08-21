@@ -32,6 +32,7 @@ namespace FloorplanClassLibrary
         public int DiningAreaID { get; set; }
         private Section? _sectionSelected { get; set; }
         public event EventHandler ServerListChanged;
+        public event Action<Section> SectionIsSelected;
         public Section? SectionSelected
         {
             get
@@ -185,6 +186,7 @@ namespace FloorplanClassLibrary
                 if (section == _sectionSelected)
                 {
                     section.SetToSelected();
+                    SectionIsSelected(section);
                 }
                 else
                 {

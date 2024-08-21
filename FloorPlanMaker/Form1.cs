@@ -332,7 +332,7 @@ namespace FloorPlanMaker
                     {
                         if (floorplanManager.Floorplan.SectionSelected != null)
                         {
-                            floorplanManager.SectionTeamwaitToggle(floorplanManager.Floorplan.SectionSelected);
+                            //floorplanManager.SectionTeamwaitToggle(floorplanManager.Floorplan.SectionSelected);
                             return true;
                         }
                     }
@@ -346,7 +346,7 @@ namespace FloorPlanMaker
                 {
                     if (floorplanManager.Floorplan != null)
                     {
-                        floorplanManager.AddPickupSection();
+                        //floorplanManager.AddPickupSection();
                         return true;
                     }
                 }
@@ -1880,7 +1880,7 @@ namespace FloorPlanMaker
 
         private void btnTestLabels_Click(object sender, EventArgs e)
         {
-            floorplanManager.RemoveLabels();
+            //floorplanManager.RemoveLabels();
             SectionLabelManager sectionLabelManager = new SectionLabelManager(floorplanManager.Floorplan, floorplanManager.Shift, pnlFloorPlan);
         }
 
