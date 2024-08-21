@@ -79,7 +79,7 @@ namespace FloorplanUserControlLibrary
         }
         public void SetToSelected()
         {
-            int leftMargin = 25;
+            int leftMargin = 10;
             int thisWidth = parentWidth - leftMargin;
             this.Margin = new Padding(leftMargin, 0,0,0);
             this.BackColor = Color.FromArgb(255, 103, 0);
@@ -90,7 +90,7 @@ namespace FloorplanUserControlLibrary
         }
         public void SetToNotSelected()
         {
-            int leftMargin = 30;
+            int leftMargin = 7;
             this.Margin = new Padding(leftMargin,0,0,0);
             this.BackColor = Color.WhiteSmoke;
             this.Size = new System.Drawing.Size(281, 65);

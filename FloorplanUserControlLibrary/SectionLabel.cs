@@ -87,7 +87,7 @@ namespace FloorplanUserControlLibrary
                 serverSelectionPanel = new ServerSelectionPanel(_section, _floorplan);
                 serverSelectionPanel.Visible = false;
             }
-            serverSelectionPanel.Dock = DockStyle.Top;
+            serverSelectionPanel.Dock = DockStyle.Bottom;
             serverSelectionPanel.SetButton(button);
             flowParent.Controls.Add(serverSelectionPanel);
             this.BringToFront();

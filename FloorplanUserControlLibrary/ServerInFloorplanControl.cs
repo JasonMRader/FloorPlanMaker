@@ -51,7 +51,7 @@ namespace FloorplanUserControlLibrary
             ilcSectionRating.SetProperties(Resources.star, $"Section Rating", _server.PreferedSectionWeight.ToString());
             ilcCloseRating.SetProperties(Resources.CloseBlack, "Close Rating", _server.CloseFrequency.ToString());
             ilcTeamWaitRating.SetProperties(Resources.waiters_28, "TeamWait Rating", _server.TeamWaitFrequency.ToString());
-            this.Margin = new Padding(30, 8, 0, 0);
+            this.Margin = new Padding(10, 3, 0, 0);
         }
 
 
@@ -140,7 +140,19 @@ namespace FloorplanUserControlLibrary
 
         private void btnServer_Click(object sender, EventArgs e)
         {
-
+            if(_floorplan.SectionSelected != null)
+            {
+                if(_floorplan.SectionSelected.Server == null || _floorplan.SectionSelected.IsTeamWait)
+                {
+                    _floorplan.SectionSelected.AddServer(_server);
+                }
+                else if(_floorplan.SectionSelected.Server != _server)
+                {
+                    _floorplan.SwapTwoServers(_floorplan.SectionSelected.Server, _server);
+                }
+               
+            }
+           
         }
     }
 }

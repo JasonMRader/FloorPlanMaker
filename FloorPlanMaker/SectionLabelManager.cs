@@ -55,7 +55,11 @@ namespace FloorPlanMakerUI
         {
             SectionLabel sectionLabel = sectionLabelBySection(section);
             _pnlFLoorplan.Controls.Remove(sectionLabel);
-            sectionLabel.Dispose();
+            if(sectionLabel != null)
+            {
+                sectionLabel.Dispose();
+            }
+           
             this._sectionLabels.Remove(sectionLabelBySection(section));
         }
         public void ClearAllLabels()

@@ -151,6 +151,7 @@ namespace FloorplanClassLibrary
 
         public void RemoveServerFromSection(Server server, Section section)
         {
+            _serversWithoutSection.Add(server);
             // Find the section that contains the server and remove the server from that section
             foreach (var entry in SectionServerMap)
             {

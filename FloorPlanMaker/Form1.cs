@@ -76,7 +76,7 @@ namespace FloorPlanMaker
         public Form1()
         {
             InitializeComponent();
-            this.shiftDetailManager = new ShiftDetailOverviewManager(this.flowWeatherDisplay, this.flowResoDisplay, pnlShiftDetails, 
+            this.shiftDetailManager = new ShiftDetailOverviewManager(this.flowWeatherDisplay, this.flowResoDisplay, pnlShiftDetails,
                 rdoWeather, rdoReservations, rdoSales, pnlStatMode);
             drawingHandler = new DrawingHandler(pnlFloorPlan);
             //shift = new Shift();
@@ -514,7 +514,7 @@ namespace FloorPlanMaker
                 //    break;
                 case ControlType.TableControl:
 
-                   // floorplanManager.SetSectionLabels();
+                    // floorplanManager.SetSectionLabels();
                     //floorplanManager.AddSectionLabels(pnlFloorPlan);
 
                     break;

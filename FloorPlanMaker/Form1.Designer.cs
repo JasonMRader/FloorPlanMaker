@@ -76,6 +76,8 @@ namespace FloorPlanMaker
             pnlTemplateContainer = new Panel();
             pnlSideContainer = new Panel();
             pnlSectionsAndServers = new Panel();
+            rdoViewServerFlow = new RadioButton();
+            rdoViewSectionFlow = new RadioButton();
             pnlStatMode = new Panel();
             lblTotalSales = new Label();
             label3 = new Label();
@@ -96,8 +98,6 @@ namespace FloorPlanMaker
             rdoDayOfStats = new RadioButton();
             rdoYesterdayStats = new RadioButton();
             rdoSales = new RadioButton();
-            rdoViewServerFlow = new RadioButton();
-            rdoViewSectionFlow = new RadioButton();
             btnDeleteSelectedFloorplan = new Button();
             btnHelp = new Button();
             toolTip1 = new ToolTip(components);
@@ -142,7 +142,7 @@ namespace FloorPlanMaker
             flowServersInFloorplan.Location = new Point(0, 28);
             flowServersInFloorplan.Name = "flowServersInFloorplan";
             flowServersInFloorplan.Padding = new Padding(10, 20, 0, 0);
-            flowServersInFloorplan.Size = new Size(335, 865);
+            flowServersInFloorplan.Size = new Size(300, 919);
             flowServersInFloorplan.TabIndex = 2;
             flowServersInFloorplan.Visible = false;
             flowServersInFloorplan.MouseClick += flowServersInFloorplan_MouseClick;
@@ -199,7 +199,7 @@ namespace FloorPlanMaker
             flowSectionSelect.Location = new Point(0, 28);
             flowSectionSelect.Name = "flowSectionSelect";
             flowSectionSelect.Padding = new Padding(0, 20, 0, 0);
-            flowSectionSelect.Size = new Size(335, 865);
+            flowSectionSelect.Size = new Size(300, 919);
             flowSectionSelect.TabIndex = 9;
             // 
             // cbTableDisplayMode
@@ -499,7 +499,7 @@ namespace FloorPlanMaker
             pnlMainContainer.Controls.Add(flowLayoutPanel2);
             pnlMainContainer.Controls.Add(pnlFloorplanContainer);
             pnlMainContainer.Controls.Add(pnlTemplateContainer);
-            pnlMainContainer.Location = new Point(410, 10);
+            pnlMainContainer.Location = new Point(379, 10);
             pnlMainContainer.Name = "pnlMainContainer";
             pnlMainContainer.Size = new Size(837, 977);
             pnlMainContainer.TabIndex = 20;
@@ -695,9 +695,9 @@ namespace FloorPlanMaker
             // 
             pnlSideContainer.BackColor = Color.FromArgb(180, 190, 200);
             pnlSideContainer.Controls.Add(pnlSectionsAndServers);
-            pnlSideContainer.Location = new Point(46, 10);
+            pnlSideContainer.Location = new Point(57, 10);
             pnlSideContainer.Name = "pnlSideContainer";
-            pnlSideContainer.Size = new Size(364, 977);
+            pnlSideContainer.Size = new Size(322, 977);
             pnlSideContainer.TabIndex = 21;
             // 
             // pnlSectionsAndServers
@@ -711,8 +711,44 @@ namespace FloorPlanMaker
             pnlSectionsAndServers.ForeColor = Color.White;
             pnlSectionsAndServers.Location = new Point(13, 10);
             pnlSectionsAndServers.Name = "pnlSectionsAndServers";
-            pnlSectionsAndServers.Size = new Size(335, 947);
+            pnlSectionsAndServers.Size = new Size(300, 947);
             pnlSectionsAndServers.TabIndex = 1;
+            // 
+            // rdoViewServerFlow
+            // 
+            rdoViewServerFlow.Appearance = Appearance.Button;
+            rdoViewServerFlow.BackColor = Color.FromArgb(100, 130, 180);
+            rdoViewServerFlow.FlatAppearance.BorderColor = Color.FromArgb(100, 130, 180);
+            rdoViewServerFlow.FlatAppearance.CheckedBackColor = Color.WhiteSmoke;
+            rdoViewServerFlow.FlatStyle = FlatStyle.Flat;
+            rdoViewServerFlow.ForeColor = Color.Black;
+            rdoViewServerFlow.Image = FloorPlanMakerUI.Properties.Resources.trayReeversedLeessSmall;
+            rdoViewServerFlow.Location = new Point(63, 0);
+            rdoViewServerFlow.Name = "rdoViewServerFlow";
+            rdoViewServerFlow.Size = new Size(63, 28);
+            rdoViewServerFlow.TabIndex = 10;
+            rdoViewServerFlow.TextAlign = ContentAlignment.MiddleCenter;
+            toolTip1.SetToolTip(rdoViewServerFlow, "Servers");
+            rdoViewServerFlow.UseVisualStyleBackColor = false;
+            rdoViewServerFlow.CheckedChanged += rdoViewServerFlow_CheckedChanged;
+            // 
+            // rdoViewSectionFlow
+            // 
+            rdoViewSectionFlow.Appearance = Appearance.Button;
+            rdoViewSectionFlow.BackColor = Color.FromArgb(100, 130, 180);
+            rdoViewSectionFlow.FlatAppearance.BorderColor = Color.FromArgb(100, 130, 180);
+            rdoViewSectionFlow.FlatAppearance.CheckedBackColor = Color.WhiteSmoke;
+            rdoViewSectionFlow.FlatStyle = FlatStyle.Flat;
+            rdoViewSectionFlow.ForeColor = Color.Black;
+            rdoViewSectionFlow.Image = FloorPlanMakerUI.Properties.Resources.lilCanvasBook;
+            rdoViewSectionFlow.Location = new Point(0, 0);
+            rdoViewSectionFlow.Name = "rdoViewSectionFlow";
+            rdoViewSectionFlow.Size = new Size(63, 28);
+            rdoViewSectionFlow.TabIndex = 10;
+            rdoViewSectionFlow.TextAlign = ContentAlignment.MiddleCenter;
+            toolTip1.SetToolTip(rdoViewSectionFlow, "Sections");
+            rdoViewSectionFlow.UseVisualStyleBackColor = false;
+            rdoViewSectionFlow.CheckedChanged += rdoViewSectionFlow_CheckedChanged;
             // 
             // pnlStatMode
             // 
@@ -991,42 +1027,6 @@ namespace FloorPlanMaker
             rdoSales.TextAlign = ContentAlignment.MiddleCenter;
             rdoSales.UseVisualStyleBackColor = false;
             rdoSales.CheckedChanged += rdoSales_CheckedChanged;
-            // 
-            // rdoViewServerFlow
-            // 
-            rdoViewServerFlow.Appearance = Appearance.Button;
-            rdoViewServerFlow.BackColor = Color.FromArgb(100, 130, 180);
-            rdoViewServerFlow.FlatAppearance.BorderColor = Color.FromArgb(100, 130, 180);
-            rdoViewServerFlow.FlatAppearance.CheckedBackColor = Color.WhiteSmoke;
-            rdoViewServerFlow.FlatStyle = FlatStyle.Flat;
-            rdoViewServerFlow.ForeColor = Color.Black;
-            rdoViewServerFlow.Image = FloorPlanMakerUI.Properties.Resources.trayReeversedLeessSmall;
-            rdoViewServerFlow.Location = new Point(63, 0);
-            rdoViewServerFlow.Name = "rdoViewServerFlow";
-            rdoViewServerFlow.Size = new Size(63, 28);
-            rdoViewServerFlow.TabIndex = 10;
-            rdoViewServerFlow.TextAlign = ContentAlignment.MiddleCenter;
-            toolTip1.SetToolTip(rdoViewServerFlow, "Servers");
-            rdoViewServerFlow.UseVisualStyleBackColor = false;
-            rdoViewServerFlow.CheckedChanged += rdoViewServerFlow_CheckedChanged;
-            // 
-            // rdoViewSectionFlow
-            // 
-            rdoViewSectionFlow.Appearance = Appearance.Button;
-            rdoViewSectionFlow.BackColor = Color.FromArgb(100, 130, 180);
-            rdoViewSectionFlow.FlatAppearance.BorderColor = Color.FromArgb(100, 130, 180);
-            rdoViewSectionFlow.FlatAppearance.CheckedBackColor = Color.WhiteSmoke;
-            rdoViewSectionFlow.FlatStyle = FlatStyle.Flat;
-            rdoViewSectionFlow.ForeColor = Color.Black;
-            rdoViewSectionFlow.Image = FloorPlanMakerUI.Properties.Resources.lilCanvasBook;
-            rdoViewSectionFlow.Location = new Point(0, 0);
-            rdoViewSectionFlow.Name = "rdoViewSectionFlow";
-            rdoViewSectionFlow.Size = new Size(63, 28);
-            rdoViewSectionFlow.TabIndex = 10;
-            rdoViewSectionFlow.TextAlign = ContentAlignment.MiddleCenter;
-            toolTip1.SetToolTip(rdoViewSectionFlow, "Sections");
-            rdoViewSectionFlow.UseVisualStyleBackColor = false;
-            rdoViewSectionFlow.CheckedChanged += rdoViewSectionFlow_CheckedChanged;
             // 
             // btnDeleteSelectedFloorplan
             // 

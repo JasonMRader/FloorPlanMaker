@@ -441,7 +441,10 @@ namespace FloorplanClassLibrary
 
             if (!IsTeamWait)
             {
-                ServerTeam.Clear();
+                if(Server != null)
+                {
+                    RemoveServer(Server);
+                }
             }
 
             if (!ServerTeam.Contains(server))
