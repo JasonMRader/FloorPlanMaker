@@ -414,6 +414,13 @@ namespace FloorplanClassLibrary
         {
             _isTeamWait = false;
             TemplateTeamWait = false;
+            if(ServerTeam.Count > 1)
+            {
+                for(int i = ServerTeam.Count - 1; i >= 1; i--)
+                {
+                    RemoveServer(ServerTeam[i]);
+                }
+            }
             ServerTeam = ServerTeam.Take(1).ToList();
             this.ServerCount = 1;
             NotifyObservers();

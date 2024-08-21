@@ -139,7 +139,7 @@ namespace FloorPlanMakerUI
 
                 clickedTableControl.RemoveSection();
                 clickedTableControl.BackColor = clickedTableControl.Parent.BackColor;
-                clickedTableControl.ForeColor = clickedTableControl.Parent.ForeColor;
+                clickedTableControl.TextColor = Color.Black;
                 clickedTableControl.Invalidate();
                 if (sectionEdited.IsPickUp)
                 {
