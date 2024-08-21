@@ -1,6 +1,7 @@
 ﻿using FloorplanClassLibrary;
 using FloorPlanMaker;
 using FloorPlanMakerUI;
+using FloorplanUserControlLibrary.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,16 +19,33 @@ namespace FloorplanUserControlLibrary
         public ServerInFloorplanControl(Server server, Floorplan floorplan, FlowLayoutPanel flowPanel)
         {
             InitializeComponent();
+            _server = server;
+            _floorplan = floorplan;
+            _flowLayoutPanel = flowPanel;
+            SetControlProperties();
+            subscribeToSectionEvents();
+            DisplayShifts();
         }
-        private void subscribeToSectionEvents(List<Section> sections)
+
+        private void SetControlProperties()
         {
-            foreach (Section section in sections)
+            btnServer.Text = _server.ToString();
+            btnServer.Tag = _server;
+            btnServer.BackColor = UITheme.ButtonColor;
+            ilcSectionRating.SetProperties(Resources.star, $"Section Rating", _server.PreferedSectionWeight.ToString());
+            ilcCloseRating.SetProperties(Resources.CloseBlack, "Close Rating", _server.CloseFrequency.ToString());
+            ilcTeamWaitRating.SetProperties(Resources.waiters_28, "TeamWait Rating", _server.TeamWaitFrequency.ToString());
+        }
+
+        private void subscribeToSectionEvents()
+        {
+            foreach (Section section in _floorplan.Sections)
             {
                 section.ServerAssigned += OnServerAssignedToSection;
                 section.ServerRemoved += OnServerRemovedFromSection;
             }
         }
-        private Floorplan _floorplan {  get; set; }
+        private Floorplan _floorplan { get; set; }
         private FlowLayoutPanel _flowLayoutPanel;
         public Floorplan Floorplan { get { return _floorplan; } }
         public FlowLayoutPanel FlowLayoutPanel { get { return _flowLayoutPanel; } }
@@ -94,10 +112,10 @@ namespace FloorplanUserControlLibrary
             }
         }
 
-        public FlowLayoutPanel ShiftsDisplay { get; set; }
+        
 
         public Section? Section { get; set; }
-        public Button RemoveButton { get; set; }
+        
         public void UpdateSection(Section section)
         {
             this.btnServer.BackColor = section.Color;
@@ -110,14 +128,7 @@ namespace FloorplanUserControlLibrary
 
         public void DisplayShifts(int maxShiftsToShow = 5)
         {
-            ShiftsDisplay = new FlowLayoutPanel
-            {
-                Height = this.Height,
-                Width = this.Width,
-                AutoSize = true,
-                Margin = new Padding(0)
-            };
-            this.Controls.Add(ShiftsDisplay);
+            
 
             float OutsidePercentage = 0f;
 
@@ -130,7 +141,7 @@ namespace FloorplanUserControlLibrary
                 {
                     ShiftControl shiftControl = new ShiftControl(shift, this.Width / 8, 80);
                     this.ShiftControls.Add(shiftControl);
-                    this.ShiftsDisplay.Controls.Add(shiftControl);
+                    this.flowShiftDisplay.Controls.Add(shiftControl);
                 }
                 var lastShiftsForPercentage = this.Server.Shifts.Take(10);
                 int OutsideShifts = 0;

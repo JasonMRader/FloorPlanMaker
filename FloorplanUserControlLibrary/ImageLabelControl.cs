@@ -37,6 +37,15 @@ namespace FloorPlanMakerUI
             GetLocations();
             SetTooltip(toolTip);
         }
+        public void SetProperties(Image image, string toolTip, string text)
+        {
+            pbImage.Image = image;
+            lblText.Text = text;
+            //this.Height = height;
+            
+            GetLocations();
+            SetTooltip(toolTip);
+        }
         public void SetTooltip(string tooltipText)
         {
             toolTip.SetToolTip(this.lblText, tooltipText);

@@ -30,9 +30,9 @@
         {
             btnServer = new Button();
             flowShiftDisplay = new FlowLayoutPanel();
-            label1 = new Label();
-            label2 = new Label();
-            label3 = new Label();
+            ilcSectionRating = new FloorPlanMakerUI.ImageLabelControl();
+            ilcCloseRating = new FloorPlanMakerUI.ImageLabelControl();
+            ilcTeamWaitRating = new FloorPlanMakerUI.ImageLabelControl();
             SuspendLayout();
             // 
             // btnServer
@@ -60,54 +60,47 @@
             flowShiftDisplay.Size = new Size(196, 62);
             flowShiftDisplay.TabIndex = 2;
             // 
-            // label1
+            // ilcSectionRating
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(209, 36);
-            label1.Name = "label1";
-            label1.Size = new Size(35, 15);
-            label1.TabIndex = 3;
-            label1.Text = "Sct: 8";
+            ilcSectionRating.Location = new Point(196, 27);
+            ilcSectionRating.Name = "ilcSectionRating";
+            ilcSectionRating.Size = new Size(85, 20);
+            ilcSectionRating.TabIndex = 3;
             // 
-            // label2
+            // ilcCloseRating
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(209, 51);
-            label2.Name = "label2";
-            label2.Size = new Size(35, 15);
-            label2.TabIndex = 3;
-            label2.Text = "Cls: 7";
+            ilcCloseRating.Location = new Point(196, 47);
+            ilcCloseRating.Name = "ilcCloseRating";
+            ilcCloseRating.Size = new Size(85, 20);
+            ilcCloseRating.TabIndex = 3;
             // 
-            // label3
+            // ilcTeamWaitRating
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(209, 66);
-            label3.Name = "label3";
-            label3.Size = new Size(33, 15);
-            label3.TabIndex = 3;
-            label3.Text = "Tw: 9";
+            ilcTeamWaitRating.Location = new Point(196, 67);
+            ilcTeamWaitRating.Name = "ilcTeamWaitRating";
+            ilcTeamWaitRating.Size = new Size(85, 20);
+            ilcTeamWaitRating.TabIndex = 3;
             // 
             // ServerInFloorplanControl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(label3);
-            Controls.Add(label2);
-            Controls.Add(label1);
+            Controls.Add(ilcTeamWaitRating);
+            Controls.Add(ilcCloseRating);
+            Controls.Add(ilcSectionRating);
             Controls.Add(flowShiftDisplay);
             Controls.Add(btnServer);
             Name = "ServerInFloorplanControl";
             Size = new Size(281, 89);
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
 
         private Button btnServer;
         private FlowLayoutPanel flowShiftDisplay;
-        private Label label1;
-        private Label label2;
-        private Label label3;
+        private FloorPlanMakerUI.ImageLabelControl ilcSectionRating;
+        private FloorPlanMakerUI.ImageLabelControl ilcCloseRating;
+        private FloorPlanMakerUI.ImageLabelControl ilcTeamWaitRating;
     }
 }
