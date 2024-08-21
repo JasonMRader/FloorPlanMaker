@@ -24,7 +24,7 @@ namespace FloorPlanMakerUI
         {
             pnlFloorplan = panel;
         }
-        public void SetFloorplan(Floorplan floorplan)
+        public void SetNewFloorplan(Floorplan floorplan)
         {
             this.floorplan = floorplan;
             if(_diningArea != floorplan.DiningArea)

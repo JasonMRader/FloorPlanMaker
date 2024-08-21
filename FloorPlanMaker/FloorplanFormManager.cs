@@ -29,7 +29,7 @@ namespace FloorPlanMakerUI
        // private List<TableControl> _tableControls = new List<TableControl>();
         //private List<SectionLabelControl> _sectionLabels = new List<SectionLabelControl>();
         //private List<SectionPanelControl> _sectionPanels = new List<SectionPanelControl>();
-        private List<ServerControl> _serverControls = new List<ServerControl>();
+        //private List<ServerControl> _serverControls = new List<ServerControl>();
         //public event EventHandler SectionLabelRemoved;
         public event EventHandler<UpdateEventArgs> UpdateRequired;
         private ImageLabelControl serverCountImageLabel = new ImageLabelControl();
@@ -56,6 +56,7 @@ namespace FloorPlanMakerUI
         private TableControlManager tableControlManager { get; set; }
         private SectionLabelManager sectionLabelManager { get; set; }
         private SectionPanelManager sectionPanelManager { get; set; }
+        private ServerControlManager serverControlManager { get; set; }
         public FloorplanFormManager() 
         {
             this.Shift = new Shift();            
@@ -85,6 +86,7 @@ namespace FloorPlanMakerUI
             frmSectionServerAssign.SignalForInvisible += SectionAssignFormInvisible;
             this.sectionLabelManager = new SectionLabelManager(Floorplan, Shift, pnlFloorPlan);
             this.sectionPanelManager = new SectionPanelManager(Floorplan, flowSectionSelect);
+            this.serverControlManager = new ServerControlManager(Floorplan, flowServersInFloorplan);
 
         }
 
@@ -139,11 +141,11 @@ namespace FloorPlanMakerUI
         //    get { return _sectionPanels; }
         //    set { _sectionPanels = value; }
         //}
-        public List<ServerControl> ServerControls
-        {
-            get { return _serverControls; }
-            set { _serverControls = value; }
-        }
+        //public List<ServerControl> ServerControls
+        //{
+        //    get { return _serverControls; }
+        //    set { _serverControls = value; }
+        //}
         
         public void ResetSections()
         {
@@ -151,7 +153,7 @@ namespace FloorPlanMakerUI
 
             Floorplan.floorplanLines.Clear();            
             tableControlManager.ResetSections();
-            UpdateServerControls();
+            //UpdateServerControls();
             sectionLabelManager.ClearAllLabels();
             //RemoveAllSectionLabels();
             //_sectionLabels.Clear();
@@ -218,7 +220,7 @@ namespace FloorPlanMakerUI
                 Shift.PairBothBarSections();
             }
             //SetSectionPanels();
-            sectionPanelManager.SetNewFloorplan(Floorplan);
+            //sectionPanelManager.SetNewFloorplan(Floorplan);
             //foreach(SectionPanelControl sectionPanel in this._sectionPanels)
             //{
             //    sectionPanel.UpdateLabels();
@@ -229,49 +231,49 @@ namespace FloorPlanMakerUI
        
        
 
-        private void ServerRemovedFromSection(object? sender, EventArgs e)
-        {
-            UpdateServerControls();
-        }
+        //private void ServerRemovedFromSection(object? sender, EventArgs e)
+        //{
+        //    UpdateServerControls();
+        //}
 
-        private void AssignServerToSection(object? sender, EventArgs e)
-        {            
-            Section sectionToAssign = sender as Section;
-            Floorplan.SetSelectedSection(sectionToAssign);
-            UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionPanel, UpdateType.Assign, sectionToAssign));
-        }
+        //private void AssignServerToSection(object? sender, EventArgs e)
+        //{            
+        //    Section sectionToAssign = sender as Section;
+        //    Floorplan.SetSelectedSection(sectionToAssign);
+        //    UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionPanel, UpdateType.Assign, sectionToAssign));
+        //}
         
 
-        public void SetServerControls()
-        {
-            _serverControls.Clear();
-            if (Shift.SelectedFloorplan == null) { return; }
-            if (Shift.SelectedFloorplan.Servers.Count <= 0) { return; }
-            foreach (Server server in Shift.SelectedFloorplan.Servers)
-            {
-                server.Shifts = SqliteDataAccess.GetShiftsForServer(server);
-                ServerControl serverControl = new ServerControl(server, 20, Floorplan.Sections);
-                serverControl.Click += ServerControl_Click;
-                foreach (ShiftControl shiftControl in serverControl.ShiftControls)
-                {
+        //public void SetServerControls()
+        //{
+        //    _serverControls.Clear();
+        //    if (Shift.SelectedFloorplan == null) { return; }
+        //    if (Shift.SelectedFloorplan.Servers.Count <= 0) { return; }
+        //    foreach (Server server in Shift.SelectedFloorplan.Servers)
+        //    {
+        //        server.Shifts = SqliteDataAccess.GetShiftsForServer(server);
+        //        ServerControl serverControl = new ServerControl(server, 20, Floorplan.Sections);
+        //        serverControl.Click += ServerControl_Click;
+        //        foreach (ShiftControl shiftControl in serverControl.ShiftControls)
+        //        {
 
-                    shiftControl.ShowClose();
-                    shiftControl.ShowTeam();
-                    shiftControl.HideOutside();
-                }
+        //            shiftControl.ShowClose();
+        //            shiftControl.ShowTeam();
+        //            shiftControl.HideOutside();
+        //        }
 
-                this._serverControls.Add(serverControl);
-            }
-            UpdateServerControls();
-        }
-        private void ServerControl_Click(object? sender, EventArgs e)
-        {
-            ServerControl serverControl = (ServerControl)sender;
-            Server server = serverControl.Server;
-            if (Shift.SelectedFloorplan.SectionSelected == null) { return; }              
-            Shift.SelectedFloorplan.SectionSelected.AddServer(server);
-            UpdateServerControls();
-        }
+        //        this._serverControls.Add(serverControl);
+        //    }
+        //    UpdateServerControls();
+        //}
+        //private void ServerControl_Click(object? sender, EventArgs e)
+        //{
+        //    ServerControl serverControl = (ServerControl)sender;
+        //    Server server = serverControl.Server;
+        //    if (Shift.SelectedFloorplan.SectionSelected == null) { return; }              
+        //    Shift.SelectedFloorplan.SectionSelected.AddServer(server);
+        //    UpdateServerControls();
+        //}
        
 
         private void SectionHeaderAssignServerClicked(object? sender, EventArgs e)
@@ -380,20 +382,12 @@ namespace FloorPlanMakerUI
 
                 tableControlManager.RefreshTableControlColors();
                 //UpdateTableControlColors();
-                UpdateServerControls();
+                //UpdateServerControls();
             }
             // sectionPanel.UpdateLabels();
             //**************************************************************************************************************************
         }
 
-
-
-
-        private void btnAutoAssignServers_Click(object? sender, EventArgs e)
-        {
-            AutoAssignSections();
-
-        }
         public void AutoAssignSections()
         {
             if (!tableControlManager.AllTablesAreAssigned())
@@ -411,17 +405,19 @@ namespace FloorPlanMakerUI
             floorplanGenerator = new FloorplanGenerator(this.Shift);
             FloorplanTemplate template = floorplanGenerator.SelectIdealTemplate(TemplateManager.Templates);
             CopyTemplateSections(template);
-            tableControlManager.SetFloorplan(Floorplan);
+
             //tableControlManager.AddTableControls();
             //SetSectionLabels();
             //SetSectionPanels();           
-            SetServerControls();
+            //SetServerControls();
             //tableControlManager.UpdateTableControlColors();
             //flowSectionsPanel.Controls.Clear();
-            flowServersPanel.Controls.Clear();
-            AddServerControls(flowServersPanel);
+            //flowServersPanel.Controls.Clear();
+            //AddServerControls(flowServersPanel);
             //AddSectionPanels(flowSectionsPanel);
             //AddSectionLabels(pnlFloorplan);
+            tableControlManager.SetNewFloorplan(Floorplan);
+            serverControlManager.SetNewFloorplan(Floorplan);
             sectionLabelManager.SetNewFloorplan(Floorplan);
             sectionPanelManager.SetNewFloorplan(Floorplan);
             UpdateTableStats();            
@@ -474,29 +470,29 @@ namespace FloorPlanMakerUI
                 }
             }
         }
-        public void AddServerControls(FlowLayoutPanel panel)
-        {
-            panel.Controls.Clear();
-            if(this.Floorplan == null) { return; }
-            Button btnEditRoster = new Button
-            {
-                Text = "Edit Server Roster",
-                AutoSize = false,
-                Size = new Size(panel.Width - 30, 25),
-                Font = new Font("Segoe UI", 10F),
-                FlatStyle = FlatStyle.Flat,
-                BackColor = UITheme.CTAColor,
-                ForeColor = UITheme.CTAFontColor
-            };
-            btnEditRoster.Click += btnEditRoster_Click;
-            panel.Controls.Add(btnEditRoster);
-            foreach (ServerControl serverControl in _serverControls)
-            {
-                serverControl.Width = panel.Width -10;
-                serverControl.Margin = new Padding(5);
-                panel.Controls.Add(serverControl);
-            }
-        }
+        //public void AddServerControls(FlowLayoutPanel panel)
+        //{
+        //    panel.Controls.Clear();
+        //    if(this.Floorplan == null) { return; }
+        //    Button btnEditRoster = new Button
+        //    {
+        //        Text = "Edit Server Roster",
+        //        AutoSize = false,
+        //        Size = new Size(panel.Width - 30, 25),
+        //        Font = new Font("Segoe UI", 10F),
+        //        FlatStyle = FlatStyle.Flat,
+        //        BackColor = UITheme.CTAColor,
+        //        ForeColor = UITheme.CTAFontColor
+        //    };
+        //    btnEditRoster.Click += btnEditRoster_Click;
+        //    panel.Controls.Add(btnEditRoster);
+        //    foreach (ServerControl serverControl in _serverControls)
+        //    {
+        //        serverControl.Width = panel.Width -10;
+        //        serverControl.Margin = new Padding(5);
+        //        panel.Controls.Add(serverControl);
+        //    }
+        //}
         private void btnEditRoster_Click(object? sender, EventArgs e)
         {
             EditRosterClicked();            
@@ -505,8 +501,9 @@ namespace FloorPlanMakerUI
         {
             frmEditShiftRoster editRosterForm = new frmEditShiftRoster(Shift);
             editRosterForm.ShowDialog();
-            SetServerControls();
-            AddServerControls(this.flowServersPanel);
+            //SetServerControls();
+            //AddServerControls(this.flowServersPanel);
+            serverControlManager.UpdateServerRoster();
             //******************************************************************************************************
             //sectionPanelManager.SetNewFloorplan(Floorplan);
            // SetSectionPanels();
@@ -514,40 +511,40 @@ namespace FloorPlanMakerUI
             //UpdateAveragesPerServer();
         }        
        
-        private void RefreshServerSections()
-        {
-            foreach (ServerControl serverControl in this._serverControls)
-            {
-                serverControl.Server.CurrentSection = null;
-            }
-            foreach (Section section in Floorplan.Sections)
-            {
-                foreach (Server server in section.ServerTeam)
-                {
-                    server.CurrentSection = section;
-                }
-            }
-        }
-        public void UpdateServerControls()
-        {
-            RefreshServerSections();           
-            if (Shift.SelectedFloorplan == null) return;
-            foreach (ServerControl serverControl in _serverControls)
-            {
-                Server server = serverControl.Server;
-                if (server.CurrentSection != null)
-                {
-                    serverControl.Label.BackColor = server.CurrentSection.Color;
-                    serverControl.Label.ForeColor = server.CurrentSection.FontColor;
-                }
-                else
-                {
-                    serverControl.Label.BackColor = UITheme.ButtonColor; 
-                    serverControl.Label.ForeColor= Color.Black;
-                }
-                serverControl.Invalidate();
-            }                        
-        }
+        //private void RefreshServerSections()
+        //{
+        //    foreach (ServerControl serverControl in this._serverControls)
+        //    {
+        //        serverControl.Server.CurrentSection = null;
+        //    }
+        //    foreach (Section section in Floorplan.Sections)
+        //    {
+        //        foreach (Server server in section.ServerTeam)
+        //        {
+        //            server.CurrentSection = section;
+        //        }
+        //    }
+        //}
+        //public void UpdateServerControls()
+        //{
+        //    RefreshServerSections();           
+        //    if (Shift.SelectedFloorplan == null) return;
+        //    foreach (ServerControl serverControl in _serverControls)
+        //    {
+        //        Server server = serverControl.Server;
+        //        if (server.CurrentSection != null)
+        //        {
+        //            serverControl.Label.BackColor = server.CurrentSection.Color;
+        //            serverControl.Label.ForeColor = server.CurrentSection.FontColor;
+        //        }
+        //        else
+        //        {
+        //            serverControl.Label.BackColor = UITheme.ButtonColor; 
+        //            serverControl.Label.ForeColor= Color.Black;
+        //        }
+        //        serverControl.Invalidate();
+        //    }                        
+        //}
         public void UpdateSection(Section section)
         {
            
@@ -664,16 +661,17 @@ namespace FloorPlanMakerUI
                 Shift.SelectedFloorplan.SectionIsSelected += UpdateForSelectedSection;
                 Shift.SetDoubles();
                 //tableControlManager.AddTableControls();
-                tableControlManager.SetFloorplan(Floorplan);
+                tableControlManager.SetNewFloorplan(Floorplan);
                 //SetSectionLabels();
                 //SetSectionPanels();
-                SetServerControls();
+                //SetServerControls();
                 //tableControlManager.UpdateTableControlColors();
                 //flowSectionsPanel.Controls.Clear();
-                flowServersPanel.Controls.Clear();
-                AddServerControls(flowServersPanel);
+                //flowServersPanel.Controls.Clear();
+                //AddServerControls(flowServersPanel);
                 //AddSectionPanels(flowSectionsPanel);
                 //AddSectionLabels(pnlFloorplan);
+                serverControlManager.SetNewFloorplan(Floorplan);
                 sectionLabelManager.SetNewFloorplan(Floorplan);
                 sectionPanelManager.SetNewFloorplan(Floorplan);
                 UpdateTableStats();
@@ -693,12 +691,13 @@ namespace FloorPlanMakerUI
                 //tableControlManager.UpdateTableControlColors();
                 UpdateTableStats();
                 //SetSectionPanels();
-                SetServerControls();
+                //SetServerControls();
                 //flowSectionsPanel.Controls.Clear();
-                flowServersPanel.Controls.Clear();
-                AddServerControls(flowServersPanel);
+                //flowServersPanel.Controls.Clear();
+                //AddServerControls(flowServersPanel);
                 //AddSectionPanels(flowSectionsPanel);
                 //UpdateImageLabels();
+                serverControlManager.SetToNoFloorplan();
                 sectionPanelManager.SetToNoFloorplan(Shift.SelectedDiningArea);
                 sectionHeader.SetSectionToNull();
                 pnlMainContainer.BackColor = UITheme.SecondColor; 

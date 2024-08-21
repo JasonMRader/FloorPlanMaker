@@ -2,6 +2,7 @@
 using FloorPlanMaker;
 using FloorPlanMakerUI;
 using FloorplanUserControlLibrary.Properties;
+using PdfSharp.Charting;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,9 +13,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace FloorplanUserControlLibrary
 {
-    public partial class ServerInFloorplanControl : UserControl
+    public partial class ServerInFloorplanControl : UserControl, IServerObserver
     {
         public ServerInFloorplanControl(Server server, Floorplan floorplan, FlowLayoutPanel flowPanel)
         {
@@ -22,8 +24,9 @@ namespace FloorplanUserControlLibrary
             _server = server;
             _floorplan = floorplan;
             _flowLayoutPanel = flowPanel;
+            server.Subscribe(this);
             SetControlProperties();
-            subscribeToSectionEvents();
+            //subscribeToSectionEvents();
             DisplayShifts();
         }
 
@@ -31,20 +34,20 @@ namespace FloorplanUserControlLibrary
         {
             btnServer.Text = _server.ToString();
             btnServer.Tag = _server;
-            btnServer.BackColor = UITheme.ButtonColor;
+            SetButtonBackColor();
             ilcSectionRating.SetProperties(Resources.star, $"Section Rating", _server.PreferedSectionWeight.ToString());
             ilcCloseRating.SetProperties(Resources.CloseBlack, "Close Rating", _server.CloseFrequency.ToString());
             ilcTeamWaitRating.SetProperties(Resources.waiters_28, "TeamWait Rating", _server.TeamWaitFrequency.ToString());
         }
-
-        private void subscribeToSectionEvents()
-        {
-            foreach (Section section in _floorplan.Sections)
-            {
-                section.ServerAssigned += OnServerAssignedToSection;
-                section.ServerRemoved += OnServerRemovedFromSection;
-            }
-        }
+        
+        //private void subscribeToSectionEvents()
+        //{
+        //    //foreach (Section section in _floorplan.Sections)
+        //    //{
+        //    //    section.ServerAssigned += OnServerAssignedToSection;
+        //    //    section.ServerRemoved += OnServerRemovedFromSection;
+        //    //}
+        //}
         private Floorplan _floorplan { get; set; }
         private FlowLayoutPanel _flowLayoutPanel;
         public Floorplan Floorplan { get { return _floorplan; } }
@@ -57,60 +60,60 @@ namespace FloorplanUserControlLibrary
             {
                 if (_server != value)
                 {
-                    if (_server != null && _server.CurrentSection != null)
-                    {
+                    //if (_server != null && _server.CurrentSection != null)
+                    //{
 
-                        _server.CurrentSection.ServerAssigned -= OnServerAssignedToSection;
-                        _server.CurrentSection.ServerRemoved -= OnServerRemovedFromSection;
-                    }
+                    //    _server.CurrentSection.ServerAssigned -= OnServerAssignedToSection;
+                    //    _server.CurrentSection.ServerRemoved -= OnServerRemovedFromSection;
+                    //}
 
                     _server = value;
 
-                    if (_server != null && _server.CurrentSection != null)
-                    {
+                    //if (_server != null && _server.CurrentSection != null)
+                    //{
 
-                        _server.CurrentSection.ServerAssigned += OnServerAssignedToSection;
-                        _server.CurrentSection.ServerRemoved += OnServerRemovedFromSection;
-                    }
+                    //    _server.CurrentSection.ServerAssigned += OnServerAssignedToSection;
+                    //    _server.CurrentSection.ServerRemoved += OnServerRemovedFromSection;
+                    //}
 
 
                 }
             }
         }
 
-        private void OnServerCurrentSectionChanged(Section section)
-        {
-            if (this.Server.CurrentSection == null)
-            {
-                //this.Section = null;
-                //this.Label.BackColor = UITheme.ButtonColor;
-            }
-            else
-            {
-                // this.Section = section;
-                //this.Label.BackColor = section.Color;
-            }
-        }
-        private void OnServerAssignedToSection(Server server, Section section)
-        {
+        //private void OnServerCurrentSectionChanged(Section section)
+        //{
+        //    if (this.Server.CurrentSection == null)
+        //    {
+        //        //this.Section = null;
+        //        //this.Label.BackColor = UITheme.ButtonColor;
+        //    }
+        //    else
+        //    {
+        //        // this.Section = section;
+        //        //this.Label.BackColor = section.Color;
+        //    }
+        //}
+        //private void OnServerAssignedToSection(Server server, Section section)
+        //{
 
-            if (server == this.Server)
-            {
-                this.Section = section;
-                this.UpdateSection(section);
-            }
-        }
+        //    if (server == this.Server)
+        //    {
+        //        this.Section = section;
+        //        this.UpdateSection(section);
+        //    }
+        //}
 
-        private void OnServerRemovedFromSection(Server server, Section section)
-        {
+        //private void OnServerRemovedFromSection(Server server, Section section)
+        //{
 
-            if (server == this.Server)
-            {
-                this.Section = null;
-                //this.Label.BackColor = UITheme.ButtonColor;
-                //this.Label.ForeColor = Color.Black;
-            }
-        }
+        //    if (server == this.Server)
+        //    {
+        //        this.Section = null;
+        //        //this.Label.BackColor = UITheme.ButtonColor;
+        //        //this.Label.ForeColor = Color.Black;
+        //    }
+        //}
 
         
 
@@ -152,30 +155,24 @@ namespace FloorplanUserControlLibrary
                         OutsideShifts += 1;
                     }
                 }
-                //OutsidePercentage = (float)OutsideShifts / (float)lastShiftsForPercentage.Count();
-                //string formattedPercentage = $"{(int)(OutsidePercentage * 100)}%";
-                //this.lblOutsidePercentage.Text = $"Last {lastShiftsForPercentage.Count()}: {formattedPercentage}";
-                string serverRatingDisplay =
-                    $"Section:       {this.Server.PreferedSectionWeight}\n" +
-                    $"TeamWait:  {this.Server.TeamWaitFrequency}\n" +
-                    $"Close:           {this.Server.CloseFrequency}";
-                //this.lblOutsidePercentage.Text = serverRatingDisplay;
-                //this.lblOutsidePercentage.Font = UITheme.SmallerFont;
-                //this.lblOutsidePercentage.Font = new Font("Segoe UI", 9f, FontStyle.Bold);
-                //this.lblOutsidePercentage.Margin = new Padding(10, 4, 0, 0);
-                //this.lblOutsidePercentage.AutoSize = false;
-                // this.lblOutsidePercentage.Size = new Size(90, 50);
-                //ShiftsDisplay.Controls.Add(this.lblOutsidePercentage);
+               
             }
         }
-        public void HideShifts()
+        
+        public void OnServerSectionChange(Server server, Section section)
         {
-            this.ShiftsDisplay.AutoSize = false;
-            this.ShiftsDisplay.MaximumSize = new Size(this.Width, 0);
+            SetButtonBackColor();
         }
-        public void ShowShifts()
+        private void SetButtonBackColor()
         {
-            this.ShiftsDisplay.AutoSize = true;
+            if (Server.CurrentSection!= null)
+            {
+                btnServer.BackColor = Server.CurrentSection.Color;
+            }
+            else
+            {
+                btnServer.BackColor = UITheme.ButtonColor;
+            }
         }
     }
 }

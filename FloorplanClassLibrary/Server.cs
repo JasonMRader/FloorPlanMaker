@@ -68,6 +68,10 @@ namespace FloorplanClassLibrary
             }
         }
 
+
+
+        private List<IServerObserver> observers = new List<IServerObserver>();
+
        
 
         private Section? _currentSection;
@@ -79,8 +83,32 @@ namespace FloorplanClassLibrary
                 if (_currentSection != value)
                 {
                     _currentSection = value;
-                    
+                    NotifyObservers();
                 }
+            }
+        }
+
+        public void Subscribe(IServerObserver observer)
+        {
+            if (!observers.Contains(observer))
+            {
+                observers.Add(observer);
+            }
+        }
+
+        public void Unsubscribe(IServerObserver observer)
+        {
+            if (observers.Contains(observer))
+            {
+                observers.Remove(observer);
+            }
+        }
+
+        private void NotifyObservers()
+        {
+            foreach (var observer in observers)
+            {
+                observer.OnServerSectionChange(this, _currentSection);
             }
         }
 

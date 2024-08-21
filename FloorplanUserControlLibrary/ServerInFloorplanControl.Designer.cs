@@ -15,6 +15,10 @@
         {
             if (disposing && (components != null))
             {
+                if (_server != null)
+                {
+                    _server.Unsubscribe(this);
+                }
                 components.Dispose();
             }
             base.Dispose(disposing);
