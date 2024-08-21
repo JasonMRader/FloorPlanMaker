@@ -49,7 +49,7 @@
             btnServer.ForeColor = Color.White;
             btnServer.Location = new Point(0, 0);
             btnServer.Name = "btnServer";
-            btnServer.Size = new Size(281, 27);
+            btnServer.Size = new Size(265, 27);
             btnServer.TabIndex = 0;
             btnServer.Text = "Adrianna";
             btnServer.UseVisualStyleBackColor = false;
@@ -61,26 +61,26 @@
             flowShiftDisplay.Location = new Point(0, 27);
             flowShiftDisplay.Name = "flowShiftDisplay";
             flowShiftDisplay.Padding = new Padding(3, 3, 0, 0);
-            flowShiftDisplay.Size = new Size(228, 62);
+            flowShiftDisplay.Size = new Size(209, 62);
             flowShiftDisplay.TabIndex = 2;
             // 
             // ilcSectionRating
             // 
-            ilcSectionRating.Location = new Point(234, 27);
+            ilcSectionRating.Location = new Point(215, 27);
             ilcSectionRating.Name = "ilcSectionRating";
             ilcSectionRating.Size = new Size(47, 20);
             ilcSectionRating.TabIndex = 3;
             // 
             // ilcCloseRating
             // 
-            ilcCloseRating.Location = new Point(234, 47);
+            ilcCloseRating.Location = new Point(215, 47);
             ilcCloseRating.Name = "ilcCloseRating";
             ilcCloseRating.Size = new Size(47, 20);
             ilcCloseRating.TabIndex = 3;
             // 
             // ilcTeamWaitRating
             // 
-            ilcTeamWaitRating.Location = new Point(234, 67);
+            ilcTeamWaitRating.Location = new Point(215, 67);
             ilcTeamWaitRating.Name = "ilcTeamWaitRating";
             ilcTeamWaitRating.Size = new Size(47, 20);
             ilcTeamWaitRating.TabIndex = 3;
@@ -95,7 +95,7 @@
             Controls.Add(flowShiftDisplay);
             Controls.Add(btnServer);
             Name = "ServerInFloorplanControl";
-            Size = new Size(281, 89);
+            Size = new Size(265, 89);
             ResumeLayout(false);
         }
 

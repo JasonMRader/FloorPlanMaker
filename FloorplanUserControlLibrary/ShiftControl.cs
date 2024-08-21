@@ -11,6 +11,7 @@ namespace FloorPlanMaker
         private PictureBox _picClose;
         private PictureBox _picTeam;
         private PictureBox _picWeekDay;
+        private ToolTip _toolTip = new ToolTip();
         public EmployeeShift Shift { get; set; }
         public ShiftControl(EmployeeShift shift, int width, int height)
         {
@@ -33,7 +34,12 @@ namespace FloorPlanMaker
                 Margin = new Padding(1, 0, 0, 0),
                 SizeMode = PictureBoxSizeMode.Zoom
             };
-          
+            string isLunch = "AM";
+            if (!shift.isLunch)
+            {
+                isLunch = "PM";
+            }
+            _toolTip.SetToolTip(_picWeekDay, Shift.Date.ToString("d") + " " + isLunch);
             
             //_picClose = new PictureBox
             //{

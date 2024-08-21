@@ -26,8 +26,21 @@ namespace FloorplanUserControlLibrary
             _flowLayoutPanel = flowPanel;
             server.Subscribe(this);
             SetControlProperties();
+            SetShiftsForServer();
+
             //subscribeToSectionEvents();
             DisplayShifts();
+        }
+        private void SetShiftsForServer()
+        {
+            if (_server.Shifts.Count == 0)
+            {
+                _server.Shifts = SqliteDataAccess.GetShiftsForServer(_server);
+                DateOnly start = DateOnly.FromDateTime(DateTime.Now.AddDays(-90));
+                DateOnly end = _floorplan.DateOnly;
+                GetShiftsForDateRangeAndIsLunch(start, end, _floorplan.IsLunch);
+            }
+
         }
 
         private void SetControlProperties()
@@ -38,22 +51,16 @@ namespace FloorplanUserControlLibrary
             ilcSectionRating.SetProperties(Resources.star, $"Section Rating", _server.PreferedSectionWeight.ToString());
             ilcCloseRating.SetProperties(Resources.CloseBlack, "Close Rating", _server.CloseFrequency.ToString());
             ilcTeamWaitRating.SetProperties(Resources.waiters_28, "TeamWait Rating", _server.TeamWaitFrequency.ToString());
-            this.Margin = new Padding(30,8,0,0);
+            this.Margin = new Padding(30, 8, 0, 0);
         }
 
-        //private void subscribeToSectionEvents()
-        //{
-        //    //foreach (Section section in _floorplan.Sections)
-        //    //{
-        //    //    section.ServerAssigned += OnServerAssignedToSection;
-        //    //    section.ServerRemoved += OnServerRemovedFromSection;
-        //    //}
-        //}
+
         private Floorplan _floorplan { get; set; }
         private FlowLayoutPanel _flowLayoutPanel;
         public Floorplan Floorplan { get { return _floorplan; } }
         public FlowLayoutPanel FlowLayoutPanel { get { return _flowLayoutPanel; } }
         private Server _server;
+        private List<EmployeeShift> filteredShifts = new List<EmployeeShift>();
         public Server Server
         {
             get => _server;
@@ -61,62 +68,12 @@ namespace FloorplanUserControlLibrary
             {
                 if (_server != value)
                 {
-                    //if (_server != null && _server.CurrentSection != null)
-                    //{
 
-                    //    _server.CurrentSection.ServerAssigned -= OnServerAssignedToSection;
-                    //    _server.CurrentSection.ServerRemoved -= OnServerRemovedFromSection;
-                    //}
 
                     _server = value;
-
-                    //if (_server != null && _server.CurrentSection != null)
-                    //{
-
-                    //    _server.CurrentSection.ServerAssigned += OnServerAssignedToSection;
-                    //    _server.CurrentSection.ServerRemoved += OnServerRemovedFromSection;
-                    //}
-
-
                 }
             }
         }
-
-        //private void OnServerCurrentSectionChanged(Section section)
-        //{
-        //    if (this.Server.CurrentSection == null)
-        //    {
-        //        //this.Section = null;
-        //        //this.Label.BackColor = UITheme.ButtonColor;
-        //    }
-        //    else
-        //    {
-        //        // this.Section = section;
-        //        //this.Label.BackColor = section.Color;
-        //    }
-        //}
-        //private void OnServerAssignedToSection(Server server, Section section)
-        //{
-
-        //    if (server == this.Server)
-        //    {
-        //        this.Section = section;
-        //        this.UpdateSection(section);
-        //    }
-        //}
-
-        //private void OnServerRemovedFromSection(Server server, Section section)
-        //{
-
-        //    if (server == this.Server)
-        //    {
-        //        this.Section = null;
-        //        //this.Label.BackColor = UITheme.ButtonColor;
-        //        //this.Label.ForeColor = Color.Black;
-        //    }
-        //}
-
-
 
         public Section? Section { get; set; }
 
@@ -129,17 +86,27 @@ namespace FloorplanUserControlLibrary
 
 
         public List<ShiftControl> ShiftControls = new List<ShiftControl>();
+        public void GetShiftsForDateRangeAndIsLunch(DateOnly start, DateOnly end, bool isLunch)
+        {
+            List<EmployeeShift> employeeShifts = new List<EmployeeShift>();
 
+            foreach (EmployeeShift shift in this.Server.Shifts)
+            {
+                DateOnly shiftDate = DateOnly.FromDateTime(shift.Date);
+                if (shiftDate >= start && shiftDate <= end && shift.isLunch == isLunch)
+                {
+                    employeeShifts.Add(shift);
+                }
+            }
+
+            filteredShifts = employeeShifts;
+        }
         public void DisplayShifts(int maxShiftsToShow = 5)
         {
 
-
-            float OutsidePercentage = 0f;
-            _server.Shifts = SqliteDataAccess.GetShiftsForServer(_server);
-
-            if (this.Server.Shifts != null)
+            if (filteredShifts != null)
             {
-                var lastShifts = this.Server.Shifts.Take(maxShiftsToShow);
+                var lastShifts = filteredShifts.Take(maxShiftsToShow);
                 lastShifts = lastShifts.OrderBy(s => s.Date).ToList();
 
                 foreach (var shift in lastShifts)
@@ -148,15 +115,7 @@ namespace FloorplanUserControlLibrary
                     this.ShiftControls.Add(shiftControl);
                     this.flowShiftDisplay.Controls.Add(shiftControl);
                 }
-                var lastShiftsForPercentage = this.Server.Shifts.Take(10);
-                int OutsideShifts = 0;
-                foreach (var shift in lastShiftsForPercentage)
-                {
-                    if (!shift.IsInside)
-                    {
-                        OutsideShifts += 1;
-                    }
-                }
+
 
             }
         }
@@ -170,10 +129,12 @@ namespace FloorplanUserControlLibrary
             if (Server.CurrentSection != null)
             {
                 btnServer.BackColor = Server.CurrentSection.Color;
+                btnServer.ForeColor = Server.CurrentSection.FontColor;
             }
             else
             {
                 btnServer.BackColor = UITheme.ButtonColor;
+                btnServer.ForeColor = Color.Black;
             }
         }
     }
