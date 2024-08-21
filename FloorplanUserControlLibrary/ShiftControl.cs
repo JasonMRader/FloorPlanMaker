@@ -7,12 +7,11 @@ namespace FloorPlanMaker
 {
     public class ShiftControl : FlowLayoutPanel
     {
-        private PictureBox _picOutside;
+       
         private PictureBox _picClose;
         private PictureBox _picTeam;
         private PictureBox _picWeekDay;
         public EmployeeShift Shift { get; set; }
-
         public ShiftControl(EmployeeShift shift, int width, int height)
         {
             this.Height = height;
@@ -20,67 +19,47 @@ namespace FloorPlanMaker
             this.BackColor = Color.LightGray;
             this.Tag = shift;
             this.Shift = shift;
-            this.AutoSize = true;
-            int picBoxWidth = (int)(width / 1.25);
+            this.AutoSize = false;
             this.MaximumSize = new Size(width, height*2);
             this.Margin = new Padding(0,0,0,0);
-            this.Padding = new Padding(2, 0, 0, 0);
-            ShiftDayOfWeek = new Label
-            {
-                Text = shift.Date.ToString("ddd"),
-                Width = width,
-                AutoSize = false,
-                Height = 17,
-                Font = UITheme.SmallerFont,
-                TextAlign = ContentAlignment.MiddleCenter,
-                Margin = new Padding(1,0,0,0)
-            };
+            this.Padding = new Padding(0, 0, 0, 0);
+            
             _picWeekDay = new PictureBox
             {
                 Image = GetDayOfWeekImage(),
                 Width = (int)(width - 2),
-                Height = (height / 4) - (ShiftDayOfWeek.Height / 3),
+                Height = (height / 3) -2,
                 Padding = new Padding(0, 0, 0, 0),
                 Margin = new Padding(1, 0, 0, 0),
                 SizeMode = PictureBoxSizeMode.Zoom
             };
-            // Set images based on shift properties
-            _picOutside = new PictureBox
-            {
-                Width = (int)(width-2),
-                Height = (height / 4) - (ShiftDayOfWeek.Height / 3),
-                Padding = new Padding(0, 0, 0, 0),
-                Margin = new Padding(1,0,0,0),
-                SizeMode = PictureBoxSizeMode.Zoom
-            };
-            _picClose = new PictureBox
-            {
-                Width = (int)(width-2),
-                Height = (height / 4) - (ShiftDayOfWeek.Height / 3),
-                Padding = new Padding(0, 0, 0, 0),
-                Margin = new Padding(3, 0, 0, 0),
-                SizeMode = PictureBoxSizeMode.Zoom
-            };
-            _picTeam = new PictureBox
-            {
-                Width = (int)(width),
-                Height = (height / 4) - (ShiftDayOfWeek.Height / 3),
-                Padding = new Padding(0, 0, 0, 0),
-                Margin = new Padding(1, 0, 0, 0),
-                SizeMode = PictureBoxSizeMode.Zoom
-            };
+          
+            
+            //_picClose = new PictureBox
+            //{
+            //    Width = (int)(width-2),
+            //    Height = (height / 3) - 2,
+            //    Padding = new Padding(0, 0, 0, 0),
+            //    Margin = new Padding(3, 0, 0, 0),
+            //    SizeMode = PictureBoxSizeMode.Zoom
+            //};
+            //_picTeam = new PictureBox
+            //{
+            //    Width = (int)(width),
+            //    Height = (height / 3) - 2,
+            //    Padding = new Padding(0, 0, 0, 0),
+            //    Margin = new Padding(1, 0, 0, 0),
+            //    SizeMode = PictureBoxSizeMode.Zoom
+            //};
 
-            // Add to Controls
-            //this.Controls.Add(ShiftDayOfWeek);
+            
             this.Controls.Add(_picWeekDay);
-            this.Controls.Add(_picOutside);
-            //this.Controls.Add(_picClose);
-            //this.Controls.Add(_picTeam);
+            
+            ShowClose();
+            ShowTeam();
         }
-        public void HideOutside()
-        {
-            this._picOutside.Dispose();
-        }
+       
+       
         private Image GetDayOfWeekImage()
         {
             Image image = null;
@@ -119,22 +98,25 @@ namespace FloorPlanMaker
             _picClose = new PictureBox
             {
                 Width = (int)(this.Width),
-                Height = (int)(this.Width / 2), 
+                Height = (int)(this.Height / 3), 
                 Margin = new Padding(0, 0, 0, 0),
-                SizeMode = PictureBoxSizeMode.StretchImage,
+                SizeMode = PictureBoxSizeMode.Zoom,
 
             };
             if (this.Shift.IsCloser)
             {
-                _picClose.Image = Resources.Close;
+                _picClose.Image = Resources.CloseBlack;
+                _picClose.BackColor = UITheme.NoColor;
             }
             else if (this.Shift.IsPre)
             {
-                _picClose.Image = Resources.Pre2;
+                _picClose.Image = Resources.PrecloseBlack;
+                _picClose.BackColor = UITheme.WarningColor;
             }
             else
             {
-                _picClose.Image = Resources.ScissorsOval;
+                _picClose.Image = Resources.ScissorsCircle;
+                _picClose.BackColor= UITheme.YesColor;
             }
             this.Controls.Add(_picClose);
             //this.Invalidate();
@@ -145,23 +127,24 @@ namespace FloorPlanMaker
             _picTeam = new PictureBox
             {
                 Width = (int)(this.Width),
-                Height = (int)(this.Width / 2),
+                Height = (int)(this.Height / 3),
                 Margin = new Padding(0, 0, 0, 0),
-                SizeMode = PictureBoxSizeMode.StretchImage
+                SizeMode = PictureBoxSizeMode.Zoom
             };
             if (this.Shift.IsTeamWait)
             {
-                _picTeam.Image = Resources.teamOval;
+                _picTeam.Image = Resources.waiters_28;
+                _picTeam.BackColor = UITheme.NoColor;
             }
             else
             {
-                _picTeam.Image= Resources.personOval;
+                _picTeam.Image= Resources.waiter;
+                _picTeam.BackColor= UITheme.YesColor;
             }
             this.Controls.Add(_picTeam);
             //this.Invalidate();
         }
-        public Label ShiftDayOfWeek { get ; set; }
-        public PictureBox PicOutside => _picOutside;
+      
         public PictureBox PicClose => _picClose;
         public PictureBox PicTeam => _picTeam;
     }

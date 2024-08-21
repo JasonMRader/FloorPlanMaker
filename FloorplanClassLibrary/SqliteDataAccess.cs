@@ -1969,39 +1969,56 @@ namespace FloorplanClassLibrary
 
 
         }
-        
-        public static List<EmployeeShift> GetShiftsForServer(Server server)
-        {
-            using IDbConnection dbConnection = new SQLiteConnection(LoadConnectionString());
+
+       public static List<EmployeeShift> GetShiftsForServer(Server server)
+{
+    using IDbConnection dbConnection = new SQLiteConnection(LoadConnectionString());
+    {
+        dbConnection.Open();
+
+        string query = @"
+        SELECT 
+            s.ID,
+            f.Date,
+            f.IsLunch,
+            s.FloorplanID,
+            s.SectionID,
+            s.ServerID,
+            s.DiningAreaID,
+            sec.IsCloser,
+            sec.IsPre,
+            d.IsInside,
+            d.IsCockTail,
+            sec.TeamWait AS IsTeamWait,
+            sec.IsPickUp
+        FROM Shift s
+        INNER JOIN Floorplan f ON s.FloorplanID = f.ID
+        INNER JOIN Section sec ON s.SectionID = sec.ID
+        INNER JOIN DiningArea d ON s.DiningAreaID = d.ID
+        WHERE s.ServerID = @ServerID";
+
+        var shifts = dbConnection.Query<EmployeeShift>(query, new { ServerID = server.ID }).ToList();
+
+        // Group shifts by Date and IsLunch
+        var groupedShifts = shifts
+            .GroupBy(shift => new { shift.Date, shift.isLunch })
+            .Select(g =>
             {
-                dbConnection.Open();
+                var mainShift = g.FirstOrDefault(s => !s.HasPickUp);
+                if (mainShift != null)
+                {
+                    mainShift.HasPickUp = g.Any(s => s.HasPickUp && s != mainShift);
+                    return mainShift;
+                }
+                return g.First(); // In case all shifts are PickUp (fallback)
+            })
+            .ToList();
 
-                string query = @"
-            SELECT 
-                s.ID,
-                f.Date,
-                f.IsLunch,
-                s.FloorplanID,
-                s.SectionID,
-                s.ServerID,
-                s.DiningAreaID,
-                sec.IsCloser,
-                sec.IsPre,
-                d.IsInside,
-                d.IsCockTail,
-                sec.TeamWait AS IsTeamWait
-            FROM Shift s
-            INNER JOIN Floorplan f ON s.FloorplanID = f.ID
-            INNER JOIN Section sec ON s.SectionID = sec.ID
-            INNER JOIN DiningArea d ON s.DiningAreaID = d.ID
-            WHERE s.ServerID = @ServerID";
+        return groupedShifts;
+    }
+}
 
-                return dbConnection.Query<EmployeeShift>(query, new { ServerID = server.ID }).ToList();
-                
-            }
-           
-            
-        }
+
         public static void SaveIgnoredPair(string pair)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))

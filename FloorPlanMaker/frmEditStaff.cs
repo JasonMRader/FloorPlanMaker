@@ -578,7 +578,7 @@ namespace FloorPlanMaker
                 ServerControl newServerControl = new ServerControl(server, 20);
                 newServerControl.Margin = new Padding(5);
                 newServerControl.Click += ServerControl_Click;
-                ImageSetter.SetShiftControlImages(newServerControl);
+                //ImageSetter.SetShiftControlImages(newServerControl);
                 flowUnassignedServers.Controls.Add(newServerControl);
             }
         }

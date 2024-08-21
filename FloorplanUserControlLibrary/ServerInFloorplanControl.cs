@@ -38,8 +38,9 @@ namespace FloorplanUserControlLibrary
             ilcSectionRating.SetProperties(Resources.star, $"Section Rating", _server.PreferedSectionWeight.ToString());
             ilcCloseRating.SetProperties(Resources.CloseBlack, "Close Rating", _server.CloseFrequency.ToString());
             ilcTeamWaitRating.SetProperties(Resources.waiters_28, "TeamWait Rating", _server.TeamWaitFrequency.ToString());
+            this.Margin = new Padding(30,8,0,0);
         }
-        
+
         //private void subscribeToSectionEvents()
         //{
         //    //foreach (Section section in _floorplan.Sections)
@@ -115,10 +116,10 @@ namespace FloorplanUserControlLibrary
         //    }
         //}
 
-        
+
 
         public Section? Section { get; set; }
-        
+
         public void UpdateSection(Section section)
         {
             this.btnServer.BackColor = section.Color;
@@ -131,9 +132,10 @@ namespace FloorplanUserControlLibrary
 
         public void DisplayShifts(int maxShiftsToShow = 5)
         {
-            
+
 
             float OutsidePercentage = 0f;
+            _server.Shifts = SqliteDataAccess.GetShiftsForServer(_server);
 
             if (this.Server.Shifts != null)
             {
@@ -142,7 +144,7 @@ namespace FloorplanUserControlLibrary
 
                 foreach (var shift in lastShifts)
                 {
-                    ShiftControl shiftControl = new ShiftControl(shift, this.Width / 8, 80);
+                    ShiftControl shiftControl = new ShiftControl(shift, this.flowShiftDisplay.Width / 5, flowShiftDisplay.Height);
                     this.ShiftControls.Add(shiftControl);
                     this.flowShiftDisplay.Controls.Add(shiftControl);
                 }
@@ -155,17 +157,17 @@ namespace FloorplanUserControlLibrary
                         OutsideShifts += 1;
                     }
                 }
-               
+
             }
         }
-        
+
         public void OnServerSectionChange(Server server, Section section)
         {
             SetButtonBackColor();
         }
         private void SetButtonBackColor()
         {
-            if (Server.CurrentSection!= null)
+            if (Server.CurrentSection != null)
             {
                 btnServer.BackColor = Server.CurrentSection.Color;
             }

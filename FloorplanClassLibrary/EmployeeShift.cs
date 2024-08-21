@@ -20,6 +20,7 @@ namespace FloorplanClassLibrary
         public bool IsInside { get; set; }
         public bool IsTeamWait { get; set; }
         public bool IsCocktail { get; set; }
+        public bool HasPickUp { get; set; }
         
         //... Other relevant properties
     }

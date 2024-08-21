@@ -61,28 +61,28 @@
             flowShiftDisplay.Location = new Point(0, 27);
             flowShiftDisplay.Name = "flowShiftDisplay";
             flowShiftDisplay.Padding = new Padding(3, 3, 0, 0);
-            flowShiftDisplay.Size = new Size(196, 62);
+            flowShiftDisplay.Size = new Size(228, 62);
             flowShiftDisplay.TabIndex = 2;
             // 
             // ilcSectionRating
             // 
-            ilcSectionRating.Location = new Point(196, 27);
+            ilcSectionRating.Location = new Point(234, 27);
             ilcSectionRating.Name = "ilcSectionRating";
-            ilcSectionRating.Size = new Size(85, 20);
+            ilcSectionRating.Size = new Size(47, 20);
             ilcSectionRating.TabIndex = 3;
             // 
             // ilcCloseRating
             // 
-            ilcCloseRating.Location = new Point(196, 47);
+            ilcCloseRating.Location = new Point(234, 47);
             ilcCloseRating.Name = "ilcCloseRating";
-            ilcCloseRating.Size = new Size(85, 20);
+            ilcCloseRating.Size = new Size(47, 20);
             ilcCloseRating.TabIndex = 3;
             // 
             // ilcTeamWaitRating
             // 
-            ilcTeamWaitRating.Location = new Point(196, 67);
+            ilcTeamWaitRating.Location = new Point(234, 67);
             ilcTeamWaitRating.Name = "ilcTeamWaitRating";
-            ilcTeamWaitRating.Size = new Size(85, 20);
+            ilcTeamWaitRating.Size = new Size(47, 20);
             ilcTeamWaitRating.TabIndex = 3;
             // 
             // ServerInFloorplanControl
