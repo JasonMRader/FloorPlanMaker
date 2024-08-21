@@ -140,7 +140,7 @@
             lblAverageSales.Location = new Point(311, 32);
             lblAverageSales.Margin = new Padding(0, 0, 3, 0);
             lblAverageSales.Name = "lblAverageSales";
-            lblAverageSales.Size = new Size(101, 31);
+            lblAverageSales.Size = new Size(88, 31);
             lblAverageSales.TabIndex = 7;
             lblAverageSales.Text = "$2,777";
             lblAverageSales.TextAlign = ContentAlignment.MiddleCenter;
@@ -148,7 +148,7 @@
             // pbSalesDifference
             // 
             pbSalesDifference.Image = Properties.Resources.equality;
-            pbSalesDifference.Location = new Point(418, 32);
+            pbSalesDifference.Location = new Point(434, 32);
             pbSalesDifference.Margin = new Padding(3, 3, 0, 3);
             pbSalesDifference.Name = "pbSalesDifference";
             pbSalesDifference.Size = new Size(35, 31);
@@ -160,10 +160,10 @@
             // 
             lblSalesDifference.BackColor = Color.FromArgb(224, 224, 224);
             lblSalesDifference.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
-            lblSalesDifference.Location = new Point(458, 32);
+            lblSalesDifference.Location = new Point(474, 32);
             lblSalesDifference.Margin = new Padding(0, 0, 3, 0);
             lblSalesDifference.Name = "lblSalesDifference";
-            lblSalesDifference.Size = new Size(104, 31);
+            lblSalesDifference.Size = new Size(88, 31);
             lblSalesDifference.TabIndex = 7;
             lblSalesDifference.Text = "$2,777";
             lblSalesDifference.TextAlign = ContentAlignment.MiddleCenter;

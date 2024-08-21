@@ -39,7 +39,9 @@ namespace FloorplanUserControlLibrary
                 this.section.RemoveObserver(this);
             }
             this.section = section;
+           
             this.floorplan = floorplan;
+            floorplan.SectionRemoved += CheckToRemoveSection;
             this.lblTotalCovers.ForeColor = section.FontColor;
             this.lblAverageSales.ForeColor = section.FontColor;
             this.lblSectionNumber.ForeColor = section.FontColor;
@@ -48,6 +50,15 @@ namespace FloorplanUserControlLibrary
             pnlNoSection.Visible = false;
 
         }
+
+        private void CheckToRemoveSection(Section section, Floorplan floorplan)
+        {
+            if(this.section == section)
+            {
+                SetSectionToNull();
+            }
+        }
+
         public void SetSectionToNull()
         {
             if (this.section != null)

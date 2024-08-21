@@ -151,6 +151,7 @@ namespace FloorplanUserControlLibrary
         {
             int buttonHeight = flowServers.Height;
             int buttonWidth = flowServers.Width / this.Section.ServerCount;
+            flowServers.Controls.Clear();
             for (int i = 0; i < this.Section.ServerCount; i++)
             {
                 Server server = null;
