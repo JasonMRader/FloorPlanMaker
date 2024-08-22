@@ -154,8 +154,8 @@ namespace FloorPlanMaker
             {
                 if (control.Section.IsSelected && !isForPrint)
                 {
-                    int innerOffset = 1; // 3 pixels inside the black line
-                    int orangeLineThickness = control.BorderThickness; // Make the orange line thicker
+                    int innerOffset = 2; // 3 pixels inside the black line
+                    int orangeLineThickness = control.BorderThickness + 1; // Make the orange line thicker
 
                     using (Pen highlightPen = new Pen(Color.White, orangeLineThickness))
                     {
