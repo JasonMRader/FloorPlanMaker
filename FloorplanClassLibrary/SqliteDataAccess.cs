@@ -1750,7 +1750,32 @@ namespace FloorplanClassLibrary
 
             }
         }
-       
+        public static int GetFloorplanCountsForShift(DateOnly dateOnly, bool isAM)
+        {
+            string dateOnlyString = dateOnly.ToString("yyyy-MM-dd"); // Convert DateOnly to string format for querying
+
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                cnn.Open();
+
+                // SQL query to count the floorplans that match the given date and IsLunch/IsAM value
+                string query = @"
+                    SELECT COUNT(*)
+                    FROM Floorplan
+                    WHERE Date = @Date AND IsLunch = @IsLunch";
+
+                // Execute the query and return the count
+                int count = cnn.QuerySingle<int>(query, new
+                {
+                    Date = dateOnlyString,
+                    IsLunch = isAM
+                });
+
+                return count;
+            }
+        }
+
+
         public static bool SaveFloorplanAndSections(Floorplan floorplan)
         {
            

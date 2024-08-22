@@ -109,12 +109,19 @@ namespace FloorplanUserControlLibrary
         {
             if (_section.IsSelected)
             {
+                
                 SetToSelected();
+               
+                
+                this.Invalidate();
             }
             else if (!_section.IsSelected)
             {
+                
                 SetToNotSelected();
+                this.Invalidate();
             }
+            
 
         }
 
@@ -282,6 +289,7 @@ namespace FloorplanUserControlLibrary
 
 
         }
+        
         private void ServerButton_Click(object sender, EventArgs e)
         {
             Button button = sender as Button;
@@ -458,17 +466,52 @@ namespace FloorplanUserControlLibrary
             this.Location = nonSelectedLocation;
             flowAccent.Padding = new Padding(accentDefaultPadding);
             flowParent.Padding = new Padding(parentDefaultPadding);
-            flowParent.BackColor = Section.Color;
+            flowAccent.BackColor = Color.DarkGray;
+            lblSectionNumber.BackColor = MuteColor(Section.Color);
+            flowServers.BackColor = MuteColor(Section.Color);
+            foreach(Button serverButton in this.serverButtons)
+            {
+                if (serverButton != null)
+                {
+                    if(serverButton.Tag != null)
+                    {
+                        serverButton.BackColor = MuteColor(_section.Color);
+                    }
+                }
+            }
             CloseServerSelectionPanel();
 
         }
+        private Color MuteColor(Color originalColor, float blendFactor = 0.3f)
+        {
+            // Blend the original color with gray
+            int r = (int)(originalColor.R * (1 - blendFactor) + 128 * blendFactor);
+            int g = (int)(originalColor.G * (1 - blendFactor) + 128 * blendFactor);
+            int b = (int)(originalColor.B * (1 - blendFactor) + 128 * blendFactor);
+
+            return Color.FromArgb(r, g, b);
+        }
+
+       
         private void SetToSelected()
         {
             this.Location = selectedLocation;
             isSetToSelected = true;
             flowParent.Padding = new Padding(parentSelectedPadding);
             flowAccent.Padding = new Padding(accentSelectedPadding);
+            lblSectionNumber.BackColor = Section.Color;
+            flowAccent.BackColor = Color.Black;
             flowParent.BackColor = UITheme.SelectedColor;
+            foreach (Button serverButton in this.serverButtons)
+            {
+                if (serverButton != null)
+                {
+                    if (serverButton.Tag != null)
+                    {
+                        serverButton.BackColor = _section.Color;
+                    }
+                }
+            }
         }
 
         public void UpdateFloorplan(Floorplan floorplan)
@@ -476,14 +519,25 @@ namespace FloorplanUserControlLibrary
 
         }
 
-        private void pnlAccent_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
+       
 
         private void btnServerButton_Click(object sender, EventArgs e)
         {
 
         }
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            int alpha = _section.IsSelected ? 255 : 28; // Fully opaque when selected, semi-transparent otherwise
+
+            // Draw the background with transparency based on selection
+            using (Brush brush = new SolidBrush(Color.FromArgb(alpha, Section.Color)))
+            {
+                e.Graphics.FillRectangle(brush, this.ClientRectangle);
+            }
+
+            // Call the base method to draw other elements like text and borders
+            base.OnPaint(e);
+        }
+
     }
 }

@@ -185,11 +185,15 @@ namespace FloorplanUserControlLibrary
             UITheme.FormatMainButton(button);
             button.Text = "Empty";
             button.Tag = null;
+            button.FlatAppearance.BorderSize = 2;
             button.Click += AssignServer;
         }
         private void SetButtonToServer(Button button, Server server)
         {
             UITheme.FormatCTAButton(button);
+            button.BackColor = Section.Color;
+            button.ForeColor = Section.FontColor;
+            button.FlatAppearance.BorderSize = 2;
             if (!server.isDouble)
             {
                 button.Text = server.ToString();

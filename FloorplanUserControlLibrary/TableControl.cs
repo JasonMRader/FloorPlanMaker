@@ -35,26 +35,23 @@ namespace FloorPlanMaker
         }
         public void UpdateSection(Section section)
         {
-           
             if (section.Tables.Contains(Table))
             {
-               
                 if (section.IsSelected)
                 {
-                    this.BackColor = section.MuteColor(1.2f);
                     this.TextColor = section.FontColor;
-
                 }
                 else
                 {
-                    this.TextColor = section.FontColor;
-                    this.BackColor = section.MuteColor(.95f);
+                    this.TextColor = Color.FromArgb(150, section.FontColor); // Semi-transparent text color
                 }
-                //this.toolTip.SetToolTip(this, this.Table.AverageSales.ToString("C0"));
+
+                _section = section;
+                this.Invalidate(); // Trigger a repaint
             }
-           
-           
         }
+
+
         public void SetSection(Section section)
         {
             section.SubscribeObserver(this);
@@ -124,8 +121,27 @@ namespace FloorPlanMaker
 
         protected override void OnPaint(PaintEventArgs pe)
         {
+            // Draw semi-transparent background
+            if (_section != null && !_section.IsSelected)
+            {
+                using (Brush semiTransparentBrush = new SolidBrush(Color.FromArgb(25, this.BackColor))) // 100 is the alpha value
+                {
+                    pe.Graphics.FillRectangle(semiTransparentBrush, this.ClientRectangle);
+                }
+            }
+            else
+            {
+                // Draw solid background
+                using (Brush solidBrush = new SolidBrush(this.BackColor))
+                {
+                    pe.Graphics.FillRectangle(solidBrush, this.ClientRectangle);
+                }
+            }
+
+            // Use existing logic to draw the table control content
             DrawTableOnGraphics(pe.Graphics, this);
         }
+
 
         public static void DrawTableOnGraphics(Graphics g, TableControl control, bool isForPrint = false)
         {
@@ -138,10 +154,10 @@ namespace FloorPlanMaker
             {
                 if (control.Section.IsSelected && !isForPrint)
                 {
-                    int innerOffset = 3; // 3 pixels inside the black line
-                    int orangeLineThickness = control.BorderThickness + 2; // Make the orange line thicker
+                    int innerOffset = 1; // 3 pixels inside the black line
+                    int orangeLineThickness = control.BorderThickness; // Make the orange line thicker
 
-                    using (Pen highlightPen = new Pen(control.Section.FontColor, orangeLineThickness))
+                    using (Pen highlightPen = new Pen(Color.White, orangeLineThickness))
                     {
                         switch (control.Shape)
                         {
@@ -291,10 +307,18 @@ namespace FloorPlanMaker
         public void MuteColors()
         {
             if(this.Section == null) { return; }
-            this.BackColor = UITheme.MuteColor(.9f, this.Section.Color);
-            this.TextColor = this.Section.FontColor;
+            this.BackColor = MuteColor(this.Section.Color);
+            this.TextColor = MuteColor(this.Section.FontColor);
         }
+        private Color MuteColor(Color originalColor, float blendFactor = 0.3f)
+        {
+            // Blend the original color with gray
+            int r = (int)(originalColor.R * (1 - blendFactor) + 128 * blendFactor);
+            int g = (int)(originalColor.G * (1 - blendFactor) + 128 * blendFactor);
+            int b = (int)(originalColor.B * (1 - blendFactor) + 128 * blendFactor);
 
+            return Color.FromArgb(r, g, b);
+        }
         public TableControl() : this(new Table()) {  }
         public TableControl(Table table)
         {
