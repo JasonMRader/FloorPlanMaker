@@ -11,6 +11,12 @@ namespace FloorPlanMakerUI
     {
         public int month = 0;
         public int year = 2024;
+        public enum CalendarDisplayType
+        {
+            FloorplanCounts,
+            FloorplanSales
+        }
+        private CalendarDisplayType displayType {  get; set; } = CalendarDisplayType.FloorplanCounts;
         
         public DayOfWeek startDay = DayOfWeek.Monday;
         public CalendarManager(int month, WeekViewControl[] weekControls)         
@@ -18,7 +24,7 @@ namespace FloorPlanMakerUI
             this.month = month;
             this.weekControls = weekControls;
             SetDateList();
-            PopulateWeekControls();
+            SetCalendarForFloorplanCounts();
         }
         public CalendarManager()
         {
@@ -29,7 +35,22 @@ namespace FloorPlanMakerUI
             this.month = month;
             
             SetDateList();
-            PopulateWeekControls();
+            SetCalendarForFloorplanCounts();
+        }
+        public void SetNewDisplayType(CalendarDisplayType displayType)
+        {
+            this.displayType = displayType;
+        }
+        private void RefreshCalendarForDisplayType()
+        {
+            if(displayType == CalendarDisplayType.FloorplanCounts)
+            {
+                SetCalendarForFloorplanCounts();
+            }    
+            else if(displayType == CalendarDisplayType.FloorplanSales)
+            {
+
+            }
         }
         private WeekViewControl[] weekControls = new WeekViewControl[5];
         
@@ -46,7 +67,7 @@ namespace FloorPlanMakerUI
             }
 
         }
-        private void PopulateWeekControls()
+        private void SetCalendarForFloorplanCounts()
         {
             int dateIndex = 0;
             for(int i = 0; i < weekControls.Length; i++)

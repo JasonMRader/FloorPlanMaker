@@ -47,12 +47,22 @@
             label5 = new Label();
             label6 = new Label();
             label7 = new Label();
+            rdoAllDay = new RadioButton();
+            rdoAm = new RadioButton();
+            rdoPm = new RadioButton();
+            panel1 = new Panel();
+            panel2 = new Panel();
+            rdoFloorplanCounts = new RadioButton();
+            rdoSalesByArea = new RadioButton();
+            btnUpdate = new Button();
             flowLayoutPanel5.SuspendLayout();
             flowLayoutPanel1.SuspendLayout();
             flowLayoutPanel2.SuspendLayout();
             flowLayoutPanel3.SuspendLayout();
             flowLayoutPanel4.SuspendLayout();
             flowLayoutPanel6.SuspendLayout();
+            panel1.SuspendLayout();
+            panel2.SuspendLayout();
             SuspendLayout();
             // 
             // flowLayoutPanel5
@@ -66,9 +76,11 @@
             // 
             // weekViewControl1
             // 
+            weekViewControl1.child = null;
             weekViewControl1.Location = new Point(0, 0);
             weekViewControl1.Margin = new Padding(0);
             weekViewControl1.Name = "weekViewControl1";
+            weekViewControl1.parent = null;
             weekViewControl1.Size = new Size(1080, 160);
             weekViewControl1.TabIndex = 0;
             // 
@@ -96,9 +108,11 @@
             // 
             // weekViewControl2
             // 
+            weekViewControl2.child = null;
             weekViewControl2.Location = new Point(0, 0);
             weekViewControl2.Margin = new Padding(0);
             weekViewControl2.Name = "weekViewControl2";
+            weekViewControl2.parent = null;
             weekViewControl2.Size = new Size(1080, 160);
             weekViewControl2.TabIndex = 1;
             // 
@@ -113,9 +127,11 @@
             // 
             // weekViewControl3
             // 
+            weekViewControl3.child = null;
             weekViewControl3.Location = new Point(0, 0);
             weekViewControl3.Margin = new Padding(0);
             weekViewControl3.Name = "weekViewControl3";
+            weekViewControl3.parent = null;
             weekViewControl3.Size = new Size(1080, 160);
             weekViewControl3.TabIndex = 1;
             // 
@@ -130,9 +146,11 @@
             // 
             // weekViewControl4
             // 
+            weekViewControl4.child = null;
             weekViewControl4.Location = new Point(0, 0);
             weekViewControl4.Margin = new Padding(0);
             weekViewControl4.Name = "weekViewControl4";
+            weekViewControl4.parent = null;
             weekViewControl4.Size = new Size(1080, 160);
             weekViewControl4.TabIndex = 1;
             // 
@@ -147,9 +165,11 @@
             // 
             // weekViewControl5
             // 
+            weekViewControl5.child = null;
             weekViewControl5.Location = new Point(0, 0);
             weekViewControl5.Margin = new Padding(0);
             weekViewControl5.Name = "weekViewControl5";
+            weekViewControl5.parent = null;
             weekViewControl5.Size = new Size(1080, 160);
             weekViewControl5.TabIndex = 1;
             // 
@@ -157,9 +177,9 @@
             // 
             cboMonthSelect.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             cboMonthSelect.FormattingEnabled = true;
-            cboMonthSelect.Location = new Point(399, 22);
+            cboMonthSelect.Location = new Point(22, 12);
             cboMonthSelect.Name = "cboMonthSelect";
-            cboMonthSelect.Size = new Size(315, 29);
+            cboMonthSelect.Size = new Size(286, 29);
             cboMonthSelect.TabIndex = 2;
             cboMonthSelect.SelectedIndexChanged += cboMonthSelect_SelectedIndexChanged;
             // 
@@ -247,11 +267,101 @@
             label7.Text = "Sunday";
             label7.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // rdoAllDay
+            // 
+            rdoAllDay.AutoSize = true;
+            rdoAllDay.Checked = true;
+            rdoAllDay.Location = new Point(3, 4);
+            rdoAllDay.Name = "rdoAllDay";
+            rdoAllDay.Size = new Size(50, 19);
+            rdoAllDay.TabIndex = 4;
+            rdoAllDay.TabStop = true;
+            rdoAllDay.Text = "Both";
+            rdoAllDay.UseVisualStyleBackColor = true;
+            // 
+            // rdoAm
+            // 
+            rdoAm.AutoSize = true;
+            rdoAm.Location = new Point(59, 4);
+            rdoAm.Name = "rdoAm";
+            rdoAm.Size = new Size(44, 19);
+            rdoAm.TabIndex = 4;
+            rdoAm.Text = "AM";
+            rdoAm.UseVisualStyleBackColor = true;
+            rdoAm.Visible = false;
+            // 
+            // rdoPm
+            // 
+            rdoPm.AutoSize = true;
+            rdoPm.Location = new Point(102, 4);
+            rdoPm.Name = "rdoPm";
+            rdoPm.Size = new Size(43, 19);
+            rdoPm.TabIndex = 4;
+            rdoPm.Text = "PM";
+            rdoPm.UseVisualStyleBackColor = true;
+            rdoPm.Visible = false;
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(rdoAllDay);
+            panel1.Controls.Add(rdoPm);
+            panel1.Controls.Add(rdoAm);
+            panel1.Location = new Point(332, 54);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(149, 33);
+            panel1.TabIndex = 5;
+            // 
+            // panel2
+            // 
+            panel2.Controls.Add(rdoFloorplanCounts);
+            panel2.Controls.Add(rdoSalesByArea);
+            panel2.Location = new Point(332, 12);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(238, 33);
+            panel2.TabIndex = 5;
+            // 
+            // rdoFloorplanCounts
+            // 
+            rdoFloorplanCounts.AutoSize = true;
+            rdoFloorplanCounts.Checked = true;
+            rdoFloorplanCounts.Location = new Point(3, 6);
+            rdoFloorplanCounts.Name = "rdoFloorplanCounts";
+            rdoFloorplanCounts.Size = new Size(116, 19);
+            rdoFloorplanCounts.TabIndex = 4;
+            rdoFloorplanCounts.TabStop = true;
+            rdoFloorplanCounts.Text = "Floorplan Counts";
+            rdoFloorplanCounts.UseVisualStyleBackColor = true;
+            rdoFloorplanCounts.CheckedChanged += rdoCalendarTypeChanged;
+            // 
+            // rdoSalesByArea
+            // 
+            rdoSalesByArea.AutoSize = true;
+            rdoSalesByArea.Location = new Point(125, 6);
+            rdoSalesByArea.Name = "rdoSalesByArea";
+            rdoSalesByArea.Size = new Size(94, 19);
+            rdoSalesByArea.TabIndex = 4;
+            rdoSalesByArea.Text = "Sales by Area";
+            rdoSalesByArea.UseVisualStyleBackColor = true;
+            rdoSalesByArea.CheckedChanged += rdoCalendarTypeChanged;
+            // 
+            // btnUpdate
+            // 
+            btnUpdate.Location = new Point(562, 56);
+            btnUpdate.Name = "btnUpdate";
+            btnUpdate.Size = new Size(127, 23);
+            btnUpdate.TabIndex = 6;
+            btnUpdate.Text = "Update";
+            btnUpdate.UseVisualStyleBackColor = true;
+            btnUpdate.Click += btnUpdate_Click;
+            // 
             // frmCalendar
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1114, 960);
+            Controls.Add(btnUpdate);
+            Controls.Add(panel2);
+            Controls.Add(panel1);
             Controls.Add(label7);
             Controls.Add(label6);
             Controls.Add(label5);
@@ -270,6 +380,10 @@
             flowLayoutPanel3.ResumeLayout(false);
             flowLayoutPanel4.ResumeLayout(false);
             flowLayoutPanel6.ResumeLayout(false);
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -294,5 +408,13 @@
         private Label label5;
         private Label label6;
         private Label label7;
+        private RadioButton rdoAllDay;
+        private RadioButton rdoAm;
+        private RadioButton rdoPm;
+        private Panel panel1;
+        private Panel panel2;
+        private RadioButton rdoFloorplanCounts;
+        private RadioButton rdoSalesByArea;
+        private Button btnUpdate;
     }
 }

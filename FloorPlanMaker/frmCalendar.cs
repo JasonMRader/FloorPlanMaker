@@ -31,18 +31,36 @@ namespace FloorPlanMakerUI
             }
             cboMonthSelect.DisplayMember = "Value";
             cboMonthSelect.ValueMember = "Key";
-            
+
         }
 
         int monthSelected = 0;
+        private void rdoCalendarTypeChanged(object sender, EventArgs e)
+        {
+            if (rdoFloorplanCounts.Checked)
+            {
+                rdoAm.Visible = false;
+                rdoPm.Visible = false;
+                rdoAllDay.Visible = true;
+                rdoAllDay.Checked = true;
+            }
+            else if (rdoSalesByArea.Checked)
+            {
+                rdoAm.Visible = true;
+                rdoPm.Visible = true;
+                rdoAllDay.Visible = false;
+                rdoAllDay.Checked = false;
+            }
+        }
         private void frmCalendar_Load(object sender, EventArgs e)
         {
-            SetWeekControls();
+
             calendarManager = new CalendarManager(monthSelected, weekControls);
             SetInitialMonthSelection();
 
 
         }
+
         private WeekViewControl[] weekControls = new WeekViewControl[5];
         private void InitializeWeekControls()
         {
@@ -64,16 +82,8 @@ namespace FloorPlanMakerUI
                 }
             }
         }
-        
-        private void SetWeekControls()
-        {
-            
-            DateOnly date = new DateOnly(2024, monthSelected, 1);
-            for(int i = 0;i < weekControls.Length; i++)
-            {
-                 
-            }
-        }
+
+
 
         private void cboMonthSelect_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -83,7 +93,23 @@ namespace FloorPlanMakerUI
                 monthSelected = selectedMonth.Key;
             }
             calendarManager.SetNewMonth(monthSelected);
-            
+
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            if (rdoFloorplanCounts.Checked)
+            {
+                calendarManager = new CalendarManager(monthSelected, weekControls);
+               
+            }
+            else if (rdoSalesByArea.Checked)
+            {
+                rdoAm.Visible = true;
+                rdoPm.Visible = true;
+                rdoAllDay.Visible = false;
+                rdoAllDay.Checked = false;
+            }
         }
     }
 }
