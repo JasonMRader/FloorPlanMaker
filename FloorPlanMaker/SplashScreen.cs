@@ -41,13 +41,22 @@ namespace FloorPlanMakerUI
 
             await Task.Run(async () =>
             {
-                SqliteDataAccess.CheckAndSetDatabaseLocation();
-                SqliteDataAccess.BackupDatabase();
-                SqliteDataAccess.DeleteOldBackups();
-                WeatherDataHistoryUpdater.SaveMissingDatesToDatabase();
-                
-                await HourlyWeatherForecast.InitializeAsync();
-                await HotSchedulesDataAccess.InitializeAsync();
+                try
+                {
+                    SqliteDataAccess.CheckAndSetDatabaseLocation();
+                    SqliteDataAccess.BackupDatabase();
+                    SqliteDataAccess.DeleteOldBackups();
+                    WeatherDataHistoryUpdater.SaveMissingDatesToDatabase();
+
+                    await HourlyWeatherForecast.InitializeAsync();
+                    await HotSchedulesDataAccess.InitializeAsync();
+                }
+                catch (Exception ex)
+                {
+                    
+                    Console.WriteLine($"Error during background processing: {ex.Message}");
+                }
+               
 
             });
         }
