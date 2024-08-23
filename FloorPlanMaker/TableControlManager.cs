@@ -83,12 +83,17 @@ namespace FloorPlanMakerUI
                         if (tableControl.Table.TableNumber == table.TableNumber)
                         {
                             tableControl.SetSection(section);
-                            tableControl.MuteColors();
-                            tableControl.TextColor = section.FontColor;
-                            if (section == floorplan.SectionSelected)
+                            
+                           
+                            if (section.IsSelected)// == floorplan.SectionSelected)
                             {
-                                tableControl.BackColor = section.MuteColor(1.15f);
+                                tableControl.TextColor = section.FontColor;
+                                tableControl.BackColor = section.Color;
 
+                            }
+                            else
+                            {
+                                tableControl.MuteColors();
                             }
                             tableControl.Invalidate();
                             break;

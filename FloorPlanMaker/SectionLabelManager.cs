@@ -21,6 +21,7 @@ namespace FloorPlanMakerUI
         private Panel _pnlFLoorplan;
         private List<SectionLabel> _sectionLabels {  get; set; } = new List<SectionLabel>();
         public List<SectionLabel> SectionLabels { get { return _sectionLabels; } }
+        public event Action<Section> AssignPickup;
         public SectionLabelManager(Floorplan floorplan, Shift shift, Panel panel) 
         {
             this._shift = shift;
@@ -120,11 +121,11 @@ namespace FloorPlanMakerUI
 
         private void AssignPickUp_Click(Section section)
         {
+            AssignPickup?.Invoke(section);
+            //frmPickupSectionAssignment pickUpForm = new frmPickupSectionAssignment(section, _shift);
+            //pickUpForm.StartPosition = FormStartPosition.CenterScreen;
            
-            frmPickupSectionAssignment pickUpForm = new frmPickupSectionAssignment(section, _shift);
-            pickUpForm.StartPosition = FormStartPosition.CenterScreen;
-           
-            pickUpForm.ShowDialog();
+            //pickUpForm.ShowDialog();
         }
 
         //private void OpenServerSelection(Section section, Floorplan floorplan)

@@ -36,7 +36,7 @@ namespace FloorplanUserControlLibrary
         private int defaultAccentHeight = 0;
         private int parentDefaultPadding = 0;
         private int accentDefaultPadding = 3;
-        private int parentSelectedPadding = 6;
+        private int parentSelectedPadding = 4;
         private int accentSelectedPadding = 5;
         private int selectedSizeIncrease
         {
@@ -500,7 +500,7 @@ namespace FloorplanUserControlLibrary
             flowParent.Padding = new Padding(parentSelectedPadding);
             flowAccent.Padding = new Padding(accentSelectedPadding);
             lblSectionNumber.BackColor = Section.Color;
-            flowAccent.BackColor = Color.Black;
+            flowAccent.BackColor = Color.White;
             flowParent.BackColor = UITheme.SelectedColor;
             foreach (Button serverButton in this.serverButtons)
             {

@@ -40,9 +40,11 @@ namespace FloorPlanMaker
                 if (section.IsSelected)
                 {
                     this.TextColor = section.FontColor;
+                    this.BackColor = section.Color;
                 }
                 else
                 {
+                    this.BackColor = MuteColor(section.Color);
                     this.TextColor = Color.FromArgb(150, section.FontColor); // Semi-transparent text color
                 }
 
@@ -122,21 +124,21 @@ namespace FloorPlanMaker
         protected override void OnPaint(PaintEventArgs pe)
         {
             // Draw semi-transparent background
-            if (_section != null && !_section.IsSelected)
-            {
-                using (Brush semiTransparentBrush = new SolidBrush(Color.FromArgb(25, this.BackColor))) // 100 is the alpha value
-                {
-                    pe.Graphics.FillRectangle(semiTransparentBrush, this.ClientRectangle);
-                }
-            }
-            else
-            {
-                // Draw solid background
-                using (Brush solidBrush = new SolidBrush(this.BackColor))
-                {
-                    pe.Graphics.FillRectangle(solidBrush, this.ClientRectangle);
-                }
-            }
+            //if (_section != null && !_section.IsSelected)
+            //{
+            //    using (Brush semiTransparentBrush = new SolidBrush(Color.FromArgb(25, this.BackColor))) // 100 is the alpha value
+            //    {
+            //        pe.Graphics.FillRectangle(semiTransparentBrush, this.ClientRectangle);
+            //    }
+            //}
+            //else
+            //{
+            //    // Draw solid background
+            //    using (Brush solidBrush = new SolidBrush(this.BackColor))
+            //    {
+            //        pe.Graphics.FillRectangle(solidBrush, this.ClientRectangle);
+            //    }
+            //}
 
             // Use existing logic to draw the table control content
             DrawTableOnGraphics(pe.Graphics, this);

@@ -87,6 +87,7 @@ namespace FloorPlanMakerUI
             this.sectionLabelManager = new SectionLabelManager(Floorplan, Shift, pnlFloorPlan);
             this.sectionPanelManager = new SectionPanelManager(Floorplan, flowSectionSelect);
             this.serverControlManager = new ServerControlManager(Floorplan, flowServersInFloorplan);
+            sectionLabelManager.AssignPickup += OpenPickUpForm;
 
         }
 
@@ -275,18 +276,27 @@ namespace FloorPlanMakerUI
         //    UpdateServerControls();
         //}
        
-
+        private void OpenPickUpForm(Section section)
+        {
+            
+            frmPickupSectionAssignment pickUpForm = new frmPickupSectionAssignment(section, Shift);
+            pickUpForm.StartPosition = FormStartPosition.Manual;
+            Point controlLocation = sectionHeader.PointToScreen(Point.Empty);
+            pickUpForm.Location = new Point(controlLocation.X + 28, controlLocation.Y + 38);
+            pickUpForm.ShowDialog();
+        }
         private void SectionHeaderAssignServerClicked(object? sender, EventArgs e)
         {
             if(Floorplan.SectionSelected.IsPickUp)
             {
-                SectionHeaderDisplay controlClicked = (SectionHeaderDisplay)sender;
-                Section section = controlClicked.Section;
-                frmPickupSectionAssignment pickUpForm = new frmPickupSectionAssignment(section, Shift);
-                pickUpForm.StartPosition = FormStartPosition.Manual;
-                Point controlLocation = sectionHeader.PointToScreen(Point.Empty);
-                pickUpForm.Location = new Point(controlLocation.X + 28, controlLocation.Y + 38);
-                pickUpForm.ShowDialog();
+                //SectionHeaderDisplay controlClicked = (SectionHeaderDisplay)sender;
+                //Section section = controlClicked.Section;
+                //frmPickupSectionAssignment pickUpForm = new frmPickupSectionAssignment(section, Shift);
+                //pickUpForm.StartPosition = FormStartPosition.Manual;
+                //Point controlLocation = sectionHeader.PointToScreen(Point.Empty);
+                //pickUpForm.Location = new Point(controlLocation.X + 28, controlLocation.Y + 38);
+                //pickUpForm.ShowDialog();
+                OpenPickUpForm(Floorplan.SectionSelected);
                 return;
             }
             if (Floorplan.SectionSelected.IsBarSection)

@@ -62,7 +62,11 @@ namespace FloorplanUserControlLibrary
                 Font = UITheme.MainFont
 
             };
-            if (amCount > 0)
+            if(this.dateOnly > DateOnly.FromDateTime(DateTime.Now))
+            {
+                lblAM.BackColor = Color.LightGray;
+            }
+            else if (amCount > 0)
             {
                 lblAM.BackColor = UITheme.YesColor;
             }
@@ -82,7 +86,11 @@ namespace FloorplanUserControlLibrary
                 Font = UITheme.MainFont
 
             };
-            if (pmCount > 0)
+            if (this.dateOnly > DateOnly.FromDateTime(DateTime.Now))
+            {
+                lblPM.BackColor = Color.LightGray;
+            }
+            else if (pmCount > 0)
             {
                 lblPM.BackColor = UITheme.YesColor;
             }
