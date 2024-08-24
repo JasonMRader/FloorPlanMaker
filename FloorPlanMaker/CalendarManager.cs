@@ -11,6 +11,10 @@ namespace FloorPlanMakerUI
     {
         public int month = 0;
         public int year = 2024;
+        private bool _isAm = false;
+        private bool _isPm = false;
+        public bool IsAm { get { return _isAm; } }
+        public bool IsPm { get { return _isPm; } }
         public enum CalendarDisplayType
         {
             FloorplanCounts,
@@ -24,7 +28,7 @@ namespace FloorPlanMakerUI
             this.month = month;
             this.weekControls = weekControls;
             SetDateList();
-            SetCalendarForFloorplanCounts();
+            SetForFloorplanCounts();
         }
         public CalendarManager()
         {
@@ -35,7 +39,7 @@ namespace FloorPlanMakerUI
             this.month = month;
             
             SetDateList();
-            SetCalendarForFloorplanCounts();
+            RefreshCalendarForDisplayType();
         }
         public void SetNewDisplayType(CalendarDisplayType displayType)
         {
@@ -45,13 +49,29 @@ namespace FloorPlanMakerUI
         {
             if(displayType == CalendarDisplayType.FloorplanCounts)
             {
-                SetCalendarForFloorplanCounts();
+                SetForFloorplanCounts();
             }    
             else if(displayType == CalendarDisplayType.FloorplanSales)
             {
-
+                SetForFloorplanSales();
             }
         }
+
+        private void SetForFloorplanSales()
+        {
+            int dateIndex = 0;
+            for (int i = 0; i < weekControls.Length; i++)
+            {
+
+                for (int j = 0; j < weekControls[i].DateControls.Length; j++)
+                {
+                    weekControls[i].DateControls[j].SetDateOnly(DateOnlyList[dateIndex]);
+                    weekControls[i].DateControls[j].ShowFloorplansForAmAndPM();
+                    dateIndex++;
+                }
+            }
+        }
+
         private WeekViewControl[] weekControls = new WeekViewControl[5];
         
         public List<DateOnly> DateOnlyList = new List<DateOnly>();
@@ -67,7 +87,7 @@ namespace FloorPlanMakerUI
             }
 
         }
-        private void SetCalendarForFloorplanCounts()
+        private void SetForFloorplanCounts()
         {
             int dateIndex = 0;
             for(int i = 0; i < weekControls.Length; i++)
