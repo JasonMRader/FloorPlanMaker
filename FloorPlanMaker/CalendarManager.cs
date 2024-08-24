@@ -14,10 +14,16 @@ namespace FloorPlanMakerUI
         public int year = 2024;
         private bool _isAm = false;
         private bool _isPm = false;
+        public bool IgnoreBanquet = false;
         public bool IsAm { get { return _isAm; } }
         public bool IsPm { get { return _isPm; } }
         private List<DiningArea> diningAreas = new List<DiningArea>();
+        private List<DiningArea> ignoredAreas = new List<DiningArea>();
         private WeekViewControl[] weekControls = new WeekViewControl[5];
+        public void UpdateIgnoredAreas(List<DiningArea> ignoredAreas)
+        {
+            this.ignoredAreas = ignoredAreas;
+        }
 
         public List<DateOnly> DateOnlyList = new List<DateOnly>();
         public enum CalendarDisplayType
@@ -96,7 +102,7 @@ namespace FloorPlanMakerUI
                 for (int j = 0; j < weekControls[i].DateControls.Length; j++)
                 {
                     weekControls[i].DateControls[j].SetDateOnly(DateOnlyList[dateIndex]);
-                    weekControls[i].DateControls[j].SetAreaHistories(_isAm);
+                    weekControls[i].DateControls[j].SetAreaHistories(_isAm, ignoredAreas);
                     dateIndex++;
                 }
             }

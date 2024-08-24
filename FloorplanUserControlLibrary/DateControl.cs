@@ -1,5 +1,6 @@
 ﻿using FloorplanClassLibrary;
 using FloorPlanMakerUI;
+using FloorplanUserControlLibrary.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -111,7 +112,7 @@ namespace FloorplanUserControlLibrary
 
         }
 
-        public void SetAreaHistories(bool isAm)
+        public void SetAreaHistories(bool isAm, List<DiningArea> ignoredAreas)
         {
             _areaHistory.Clear();
             foreach (var area in _diningAreas)
@@ -119,51 +120,57 @@ namespace FloorplanUserControlLibrary
                 AreaHistory areaHistory = new AreaHistory(area, this.dateOnly, isAm);
                 _areaHistory.Add(areaHistory);
             }
-            PopulateFlowWithAreaHistories();
+            PopulateFlowWithAreaHistories(ignoredAreas);
         }
 
-        private void PopulateFlowWithAreaHistories()
+        private void PopulateFlowWithAreaHistories(List<DiningArea> ignoredAreas)
         {
             flowInfo.Controls.Clear();
-            List<Label> labels = new List<Label>();
+            
             List<ImageLabelControl> images = new List<ImageLabelControl>();
+            float TotalSales = 0f;
+            List<int> diningAreaIDs = ignoredAreas.Select(a => a.ID).ToList();
             foreach(var areaHistory in _areaHistory)
             {
-                if(areaHistory.Sales > 0)
+                if(diningAreaIDs.Contains(areaHistory.DiningArea.ID))
                 {
-                    //Label label = new Label()
-                    //{
-                    //    AutoSize = false,
-                    //    Text = $"{areaHistory.DiningArea.AbbreviatedName}: {areaHistory.Sales.ToString("C0")}",                       
-                    //    Width = this.flowInfo.Width,
-                    //    Margin = new Padding(0),
-                    //    TextAlign = ContentAlignment.MiddleCenter,
-                    //    Font = UITheme.MainFont,
-                    //    Tag = areaHistory
-
-                    //};
-                    //labels.Add(label);
+                    continue;
+                }
+                if(areaHistory.Sales > 200)
+                {
+                    
                     ImageLabelControl imageLabelControl = new ImageLabelControl() { };
                     imageLabelControl.Margin = new Padding(0);
-                    imageLabelControl.SetFontSize(12);
+                    imageLabelControl.SetFontSize(11);
                     imageLabelControl.SetProperties(UITheme.GetDiningAreaImage(areaHistory.DiningArea),
                         $"{areaHistory.DiningArea.Name} Sales For Shift", areaHistory.Sales.ToString("C0"));
                     images.Add(imageLabelControl);
+                    TotalSales += areaHistory.Sales;
                 }
             }
-            foreach( ImageLabelControl imageLabelControl in images)
-            {
-                imageLabelControl.SetSizeAndLeftMostImage(this.flowInfo.Width, (int)(flowInfo.Height / (images.Count + 2)));
-                flowInfo.Controls.Add(imageLabelControl);
+            if(images.Count > 1) {
+                ImageLabelControl imageLabelTotal = new ImageLabelControl() { };
+                imageLabelTotal.Margin = new Padding(0, 5, 0, 0);
+                imageLabelTotal.SetFontSize(11);
+                imageLabelTotal.SetProperties(Resources.sales,
+                    $"Total Sales For Shift", TotalSales.ToString("C0"));
+                images.Add(imageLabelTotal);
             }
-            //foreach (Label label in labels)
-            //{
-            //    label.Height = flowInfo.Height / labels.Count;
-            //    flowInfo.Controls.Add(label);
-            //}
             
-            
+            foreach ( ImageLabelControl labelControl in images)
+            {
+                labelControl.SetSizeAndLeftMostImage(this.flowInfo.Width, (int)(flowInfo.Height / (images.Count + 1)));
+                flowInfo.Controls.Add(labelControl);
+               
+            }
+            if (images.Count > 1)
+            {
+                var lastControl = images.Last();
+                var totalHeight = images.Sum(c => c.Height);  
+                int remainingHeight = flowInfo.Height - totalHeight; 
 
+                lastControl.Margin = new Padding(0, remainingHeight, 0, 0);  
+            }
         }
     }
     

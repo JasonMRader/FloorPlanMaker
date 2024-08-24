@@ -1,7 +1,5 @@
-﻿namespace FloorPlanMakerUI
-{
-    partial class frmCalendar
-    {
+﻿namespace FloorPlanMakerUI {
+    partial class frmCalendar {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -11,10 +9,8 @@
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
+        protected override void Dispose(bool disposing) {
+            if (disposing && (components != null)) {
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -26,8 +22,7 @@
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
-        {
+        private void InitializeComponent() {
             flowLayoutPanel5 = new FlowLayoutPanel();
             weekViewControl1 = new FloorplanUserControlLibrary.WeekViewControl();
             flowLayoutPanel1 = new FlowLayoutPanel();
@@ -55,6 +50,13 @@
             rdoFloorplanCounts = new RadioButton();
             rdoSalesByArea = new RadioButton();
             btnUpdate = new Button();
+            btnClose = new Button();
+            cbInsideDining = new CheckBox();
+            cbOutsideDining = new CheckBox();
+            cbOutsideCocktail = new CheckBox();
+            cbInsideCocktail = new CheckBox();
+            cbUpperLevel = new CheckBox();
+            cbBanquet = new CheckBox();
             flowLayoutPanel5.SuspendLayout();
             flowLayoutPanel1.SuspendLayout();
             flowLayoutPanel2.SuspendLayout();
@@ -92,7 +94,7 @@
             flowLayoutPanel1.Controls.Add(flowLayoutPanel4);
             flowLayoutPanel1.Controls.Add(flowLayoutPanel6);
             flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
-            flowLayoutPanel1.Location = new Point(22, 116);
+            flowLayoutPanel1.Location = new Point(386, 123);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
             flowLayoutPanel1.Size = new Size(1080, 820);
             flowLayoutPanel1.TabIndex = 1;
@@ -175,11 +177,12 @@
             // 
             // cboMonthSelect
             // 
-            cboMonthSelect.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            cboMonthSelect.FlatStyle = FlatStyle.Flat;
+            cboMonthSelect.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point);
             cboMonthSelect.FormattingEnabled = true;
-            cboMonthSelect.Location = new Point(22, 12);
+            cboMonthSelect.Location = new Point(386, 21);
             cboMonthSelect.Name = "cboMonthSelect";
-            cboMonthSelect.Size = new Size(286, 29);
+            cboMonthSelect.Size = new Size(1032, 40);
             cboMonthSelect.TabIndex = 2;
             cboMonthSelect.SelectedIndexChanged += cboMonthSelect_SelectedIndexChanged;
             // 
@@ -187,7 +190,7 @@
             // 
             label1.BackColor = SystemColors.ControlLight;
             label1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location = new Point(22, 90);
+            label1.Location = new Point(386, 97);
             label1.Margin = new Padding(0, 0, 5, 0);
             label1.Name = "label1";
             label1.Size = new Size(150, 23);
@@ -199,7 +202,7 @@
             // 
             label2.BackColor = SystemColors.ControlLight;
             label2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label2.Location = new Point(177, 90);
+            label2.Location = new Point(541, 97);
             label2.Margin = new Padding(0, 0, 5, 0);
             label2.Name = "label2";
             label2.Size = new Size(150, 23);
@@ -211,7 +214,7 @@
             // 
             label3.BackColor = SystemColors.ControlLight;
             label3.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label3.Location = new Point(332, 90);
+            label3.Location = new Point(696, 97);
             label3.Margin = new Padding(0, 0, 5, 0);
             label3.Name = "label3";
             label3.Size = new Size(150, 23);
@@ -223,7 +226,7 @@
             // 
             label4.BackColor = SystemColors.ControlLight;
             label4.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label4.Location = new Point(487, 90);
+            label4.Location = new Point(851, 97);
             label4.Margin = new Padding(0, 0, 5, 0);
             label4.Name = "label4";
             label4.Size = new Size(150, 23);
@@ -235,7 +238,7 @@
             // 
             label5.BackColor = SystemColors.ControlLight;
             label5.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label5.Location = new Point(642, 90);
+            label5.Location = new Point(1006, 97);
             label5.Margin = new Padding(0, 0, 5, 0);
             label5.Name = "label5";
             label5.Size = new Size(150, 23);
@@ -247,7 +250,7 @@
             // 
             label6.BackColor = SystemColors.ControlLight;
             label6.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label6.Location = new Point(797, 90);
+            label6.Location = new Point(1161, 97);
             label6.Margin = new Padding(0, 0, 5, 0);
             label6.Name = "label6";
             label6.Size = new Size(150, 23);
@@ -259,7 +262,7 @@
             // 
             label7.BackColor = SystemColors.ControlLight;
             label7.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label7.Location = new Point(952, 90);
+            label7.Location = new Point(1316, 97);
             label7.Margin = new Padding(0, 0, 5, 0);
             label7.Name = "label7";
             label7.Size = new Size(150, 23);
@@ -307,7 +310,7 @@
             panel1.Controls.Add(rdoAllDay);
             panel1.Controls.Add(rdoPm);
             panel1.Controls.Add(rdoAm);
-            panel1.Location = new Point(332, 54);
+            panel1.Location = new Point(31, 113);
             panel1.Name = "panel1";
             panel1.Size = new Size(149, 33);
             panel1.TabIndex = 5;
@@ -316,7 +319,7 @@
             // 
             panel2.Controls.Add(rdoFloorplanCounts);
             panel2.Controls.Add(rdoSalesByArea);
-            panel2.Location = new Point(332, 12);
+            panel2.Location = new Point(31, 71);
             panel2.Name = "panel2";
             panel2.Size = new Size(238, 33);
             panel2.TabIndex = 5;
@@ -347,19 +350,116 @@
             // 
             // btnUpdate
             // 
-            btnUpdate.Location = new Point(562, 56);
+            btnUpdate.Location = new Point(386, 71);
             btnUpdate.Name = "btnUpdate";
-            btnUpdate.Size = new Size(127, 23);
+            btnUpdate.Size = new Size(1080, 23);
             btnUpdate.TabIndex = 6;
             btnUpdate.Text = "Update";
             btnUpdate.UseVisualStyleBackColor = true;
             btnUpdate.Click += btnUpdate_Click;
             // 
+            // btnClose
+            // 
+            btnClose.BackColor = Color.FromArgb(190, 80, 70);
+            btnClose.FlatStyle = FlatStyle.Flat;
+            btnClose.Image = Properties.Resources.X15x;
+            btnClose.Location = new Point(1430, 21);
+            btnClose.Name = "btnClose";
+            btnClose.Size = new Size(36, 36);
+            btnClose.TabIndex = 7;
+            btnClose.UseVisualStyleBackColor = false;
+            btnClose.Click += btnClose_Click;
+            // 
+            // cbInsideDining
+            // 
+            cbInsideDining.AutoSize = true;
+            cbInsideDining.Checked = true;
+            cbInsideDining.CheckState = CheckState.Checked;
+            cbInsideDining.Location = new Point(31, 192);
+            cbInsideDining.Name = "cbInsideDining";
+            cbInsideDining.Size = new Size(95, 19);
+            cbInsideDining.TabIndex = 8;
+            cbInsideDining.Text = "Inside Dining";
+            cbInsideDining.UseVisualStyleBackColor = true;
+            cbInsideDining.CheckedChanged += cbIgnoredDiningAreas_CheckedChanged;
+            // 
+            // cbOutsideDining
+            // 
+            cbOutsideDining.AutoSize = true;
+            cbOutsideDining.Checked = true;
+            cbOutsideDining.CheckState = CheckState.Checked;
+            cbOutsideDining.Location = new Point(31, 217);
+            cbOutsideDining.Name = "cbOutsideDining";
+            cbOutsideDining.Size = new Size(105, 19);
+            cbOutsideDining.TabIndex = 8;
+            cbOutsideDining.Text = "Outside Dining";
+            cbOutsideDining.UseVisualStyleBackColor = true;
+            cbOutsideDining.CheckedChanged += cbIgnoredDiningAreas_CheckedChanged;
+            // 
+            // cbOutsideCocktail
+            // 
+            cbOutsideCocktail.AutoSize = true;
+            cbOutsideCocktail.Checked = true;
+            cbOutsideCocktail.CheckState = CheckState.Checked;
+            cbOutsideCocktail.Location = new Point(31, 242);
+            cbOutsideCocktail.Name = "cbOutsideCocktail";
+            cbOutsideCocktail.Size = new Size(113, 19);
+            cbOutsideCocktail.TabIndex = 8;
+            cbOutsideCocktail.Text = "Outside Cocktail";
+            cbOutsideCocktail.UseVisualStyleBackColor = true;
+            cbOutsideCocktail.CheckedChanged += cbIgnoredDiningAreas_CheckedChanged;
+            // 
+            // cbInsideCocktail
+            // 
+            cbInsideCocktail.AutoSize = true;
+            cbInsideCocktail.Checked = true;
+            cbInsideCocktail.CheckState = CheckState.Checked;
+            cbInsideCocktail.Location = new Point(31, 264);
+            cbInsideCocktail.Name = "cbInsideCocktail";
+            cbInsideCocktail.Size = new Size(103, 19);
+            cbInsideCocktail.TabIndex = 8;
+            cbInsideCocktail.Text = "Inside Cocktail";
+            cbInsideCocktail.UseVisualStyleBackColor = true;
+            cbInsideCocktail.CheckedChanged += cbIgnoredDiningAreas_CheckedChanged;
+            // 
+            // cbUpperLevel
+            // 
+            cbUpperLevel.AutoSize = true;
+            cbUpperLevel.Checked = true;
+            cbUpperLevel.CheckState = CheckState.Checked;
+            cbUpperLevel.Location = new Point(31, 288);
+            cbUpperLevel.Name = "cbUpperLevel";
+            cbUpperLevel.Size = new Size(88, 19);
+            cbUpperLevel.TabIndex = 8;
+            cbUpperLevel.Text = "Upper Level";
+            cbUpperLevel.UseVisualStyleBackColor = true;
+            cbUpperLevel.CheckedChanged += cbIgnoredDiningAreas_CheckedChanged;
+            // 
+            // cbBanquet
+            // 
+            cbBanquet.AutoSize = true;
+            cbBanquet.Checked = true;
+            cbBanquet.CheckState = CheckState.Checked;
+            cbBanquet.Location = new Point(31, 313);
+            cbBanquet.Name = "cbBanquet";
+            cbBanquet.Size = new Size(70, 19);
+            cbBanquet.TabIndex = 8;
+            cbBanquet.Text = "Banquet";
+            cbBanquet.UseVisualStyleBackColor = true;
+            cbBanquet.CheckedChanged += cbIgnoredDiningAreas_CheckedChanged;
+            // 
             // frmCalendar
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1114, 960);
+            ClientSize = new Size(1501, 1042);
+            Controls.Add(cbBanquet);
+            Controls.Add(cbUpperLevel);
+            Controls.Add(cbInsideCocktail);
+            Controls.Add(cbOutsideCocktail);
+            Controls.Add(cbOutsideDining);
+            Controls.Add(cbInsideDining);
+            Controls.Add(btnClose);
             Controls.Add(btnUpdate);
             Controls.Add(panel2);
             Controls.Add(panel1);
@@ -372,7 +472,9 @@
             Controls.Add(label1);
             Controls.Add(cboMonthSelect);
             Controls.Add(flowLayoutPanel1);
+            FormBorderStyle = FormBorderStyle.None;
             Name = "frmCalendar";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "frmCalendar";
             Load += frmCalendar_Load;
             flowLayoutPanel5.ResumeLayout(false);
@@ -386,6 +488,7 @@
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -417,5 +520,12 @@
         private RadioButton rdoFloorplanCounts;
         private RadioButton rdoSalesByArea;
         private Button btnUpdate;
+        private Button btnClose;
+        private CheckBox cbInsideDining;
+        private CheckBox cbOutsideDining;
+        private CheckBox cbOutsideCocktail;
+        private CheckBox cbInsideCocktail;
+        private CheckBox cbUpperLevel;
+        private CheckBox cbBanquet;
     }
 }
