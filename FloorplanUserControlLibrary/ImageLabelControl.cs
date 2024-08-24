@@ -91,6 +91,20 @@ namespace FloorPlanMakerUI
         {
             return lblText.Text;
         }
+        public void SetSizeAndLeftMostImage(int width, int height)
+        {
+            this.Size = new Size(width, height);
+            pbImage.Height = this.Size.Height;
+            pbImage.Width = this.Size.Height;
+            pbImage.Location = new Point(0, 0);
+
+            pbImage.BackColor = Color.White;
+            lblText.AutoSize = false;
+            lblText.Location = new Point(pbImage.Right + 3, 0);
+            lblText.Size = new Size(this.Width - pbImage.Width, this.Size.Height);
+            lblText.TextAlign = ContentAlignment.MiddleLeft;
+            
+        }
 
         private void ImageLabelControl_Load(object sender, EventArgs e)
         {

@@ -126,29 +126,41 @@ namespace FloorplanUserControlLibrary
         {
             flowInfo.Controls.Clear();
             List<Label> labels = new List<Label>();
+            List<ImageLabelControl> images = new List<ImageLabelControl>();
             foreach(var areaHistory in _areaHistory)
             {
                 if(areaHistory.Sales > 0)
                 {
-                    Label label = new Label()
-                    {
-                        AutoSize = false,
-                        Text = $"{areaHistory.DiningArea.AbbreviatedName}: {areaHistory.Sales.ToString("C0")}",                       
-                        Width = this.flowInfo.Width,
-                        Margin = new Padding(0),
-                        TextAlign = ContentAlignment.MiddleCenter,
-                        Font = UITheme.MainFont,
-                        Tag = areaHistory
+                    //Label label = new Label()
+                    //{
+                    //    AutoSize = false,
+                    //    Text = $"{areaHistory.DiningArea.AbbreviatedName}: {areaHistory.Sales.ToString("C0")}",                       
+                    //    Width = this.flowInfo.Width,
+                    //    Margin = new Padding(0),
+                    //    TextAlign = ContentAlignment.MiddleCenter,
+                    //    Font = UITheme.MainFont,
+                    //    Tag = areaHistory
 
-                    };
-                    labels.Add(label);
+                    //};
+                    //labels.Add(label);
+                    ImageLabelControl imageLabelControl = new ImageLabelControl() { };
+                    imageLabelControl.Margin = new Padding(0);
+                    imageLabelControl.SetFontSize(12);
+                    imageLabelControl.SetProperties(UITheme.GetDiningAreaImage(areaHistory.DiningArea),
+                        $"{areaHistory.DiningArea.Name} Sales For Shift", areaHistory.Sales.ToString("C0"));
+                    images.Add(imageLabelControl);
                 }
             }
-            foreach (Label label in labels)
+            foreach( ImageLabelControl imageLabelControl in images)
             {
-                label.Height = flowInfo.Height / labels.Count;
-                flowInfo.Controls.Add(label);
+                imageLabelControl.SetSizeAndLeftMostImage(this.flowInfo.Width, (int)(flowInfo.Height / (images.Count + 2)));
+                flowInfo.Controls.Add(imageLabelControl);
             }
+            //foreach (Label label in labels)
+            //{
+            //    label.Height = flowInfo.Height / labels.Count;
+            //    flowInfo.Controls.Add(label);
+            //}
             
             
 
