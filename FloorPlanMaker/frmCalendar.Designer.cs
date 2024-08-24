@@ -57,6 +57,13 @@
             cbInsideCocktail = new CheckBox();
             cbUpperLevel = new CheckBox();
             cbBanquet = new CheckBox();
+            flowDay1 = new FlowLayoutPanel();
+            flowDay2 = new FlowLayoutPanel();
+            flowDay3 = new FlowLayoutPanel();
+            flowDay4 = new FlowLayoutPanel();
+            flowDay5 = new FlowLayoutPanel();
+            flowDay6 = new FlowLayoutPanel();
+            flowDay7 = new FlowLayoutPanel();
             flowLayoutPanel5.SuspendLayout();
             flowLayoutPanel1.SuspendLayout();
             flowLayoutPanel2.SuspendLayout();
@@ -94,7 +101,7 @@
             flowLayoutPanel1.Controls.Add(flowLayoutPanel4);
             flowLayoutPanel1.Controls.Add(flowLayoutPanel6);
             flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
-            flowLayoutPanel1.Location = new Point(386, 123);
+            flowLayoutPanel1.Location = new Point(385, 197);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
             flowLayoutPanel1.Size = new Size(1080, 820);
             flowLayoutPanel1.TabIndex = 1;
@@ -180,9 +187,9 @@
             cboMonthSelect.FlatStyle = FlatStyle.Flat;
             cboMonthSelect.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point);
             cboMonthSelect.FormattingEnabled = true;
-            cboMonthSelect.Location = new Point(386, 21);
+            cboMonthSelect.Location = new Point(12, 15);
             cboMonthSelect.Name = "cboMonthSelect";
-            cboMonthSelect.Size = new Size(1032, 40);
+            cboMonthSelect.Size = new Size(356, 40);
             cboMonthSelect.TabIndex = 2;
             cboMonthSelect.SelectedIndexChanged += cboMonthSelect_SelectedIndexChanged;
             // 
@@ -190,7 +197,7 @@
             // 
             label1.BackColor = SystemColors.ControlLight;
             label1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location = new Point(386, 97);
+            label1.Location = new Point(385, 171);
             label1.Margin = new Padding(0, 0, 5, 0);
             label1.Name = "label1";
             label1.Size = new Size(150, 23);
@@ -202,7 +209,7 @@
             // 
             label2.BackColor = SystemColors.ControlLight;
             label2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label2.Location = new Point(541, 97);
+            label2.Location = new Point(540, 171);
             label2.Margin = new Padding(0, 0, 5, 0);
             label2.Name = "label2";
             label2.Size = new Size(150, 23);
@@ -214,7 +221,7 @@
             // 
             label3.BackColor = SystemColors.ControlLight;
             label3.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label3.Location = new Point(696, 97);
+            label3.Location = new Point(695, 171);
             label3.Margin = new Padding(0, 0, 5, 0);
             label3.Name = "label3";
             label3.Size = new Size(150, 23);
@@ -226,7 +233,7 @@
             // 
             label4.BackColor = SystemColors.ControlLight;
             label4.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label4.Location = new Point(851, 97);
+            label4.Location = new Point(850, 171);
             label4.Margin = new Padding(0, 0, 5, 0);
             label4.Name = "label4";
             label4.Size = new Size(150, 23);
@@ -238,7 +245,7 @@
             // 
             label5.BackColor = SystemColors.ControlLight;
             label5.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label5.Location = new Point(1006, 97);
+            label5.Location = new Point(1005, 171);
             label5.Margin = new Padding(0, 0, 5, 0);
             label5.Name = "label5";
             label5.Size = new Size(150, 23);
@@ -250,7 +257,7 @@
             // 
             label6.BackColor = SystemColors.ControlLight;
             label6.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label6.Location = new Point(1161, 97);
+            label6.Location = new Point(1160, 171);
             label6.Margin = new Padding(0, 0, 5, 0);
             label6.Name = "label6";
             label6.Size = new Size(150, 23);
@@ -262,7 +269,7 @@
             // 
             label7.BackColor = SystemColors.ControlLight;
             label7.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label7.Location = new Point(1316, 97);
+            label7.Location = new Point(1315, 171);
             label7.Margin = new Padding(0, 0, 5, 0);
             label7.Name = "label7";
             label7.Size = new Size(150, 23);
@@ -310,7 +317,7 @@
             panel1.Controls.Add(rdoAllDay);
             panel1.Controls.Add(rdoPm);
             panel1.Controls.Add(rdoAm);
-            panel1.Location = new Point(31, 113);
+            panel1.Location = new Point(32, 197);
             panel1.Name = "panel1";
             panel1.Size = new Size(149, 33);
             panel1.TabIndex = 5;
@@ -319,7 +326,7 @@
             // 
             panel2.Controls.Add(rdoFloorplanCounts);
             panel2.Controls.Add(rdoSalesByArea);
-            panel2.Location = new Point(31, 71);
+            panel2.Location = new Point(32, 155);
             panel2.Name = "panel2";
             panel2.Size = new Size(238, 33);
             panel2.TabIndex = 5;
@@ -350,9 +357,9 @@
             // 
             // btnUpdate
             // 
-            btnUpdate.Location = new Point(386, 71);
+            btnUpdate.Location = new Point(12, 71);
             btnUpdate.Name = "btnUpdate";
-            btnUpdate.Size = new Size(1080, 23);
+            btnUpdate.Size = new Size(356, 23);
             btnUpdate.TabIndex = 6;
             btnUpdate.Text = "Update";
             btnUpdate.UseVisualStyleBackColor = true;
@@ -363,9 +370,9 @@
             btnClose.BackColor = Color.FromArgb(190, 80, 70);
             btnClose.FlatStyle = FlatStyle.Flat;
             btnClose.Image = Properties.Resources.X15x;
-            btnClose.Location = new Point(1430, 21);
+            btnClose.Location = new Point(1472, 3);
             btnClose.Name = "btnClose";
-            btnClose.Size = new Size(36, 36);
+            btnClose.Size = new Size(26, 29);
             btnClose.TabIndex = 7;
             btnClose.UseVisualStyleBackColor = false;
             btnClose.Click += btnClose_Click;
@@ -375,7 +382,7 @@
             cbInsideDining.AutoSize = true;
             cbInsideDining.Checked = true;
             cbInsideDining.CheckState = CheckState.Checked;
-            cbInsideDining.Location = new Point(31, 192);
+            cbInsideDining.Location = new Point(32, 276);
             cbInsideDining.Name = "cbInsideDining";
             cbInsideDining.Size = new Size(95, 19);
             cbInsideDining.TabIndex = 8;
@@ -388,7 +395,7 @@
             cbOutsideDining.AutoSize = true;
             cbOutsideDining.Checked = true;
             cbOutsideDining.CheckState = CheckState.Checked;
-            cbOutsideDining.Location = new Point(31, 217);
+            cbOutsideDining.Location = new Point(32, 301);
             cbOutsideDining.Name = "cbOutsideDining";
             cbOutsideDining.Size = new Size(105, 19);
             cbOutsideDining.TabIndex = 8;
@@ -401,7 +408,7 @@
             cbOutsideCocktail.AutoSize = true;
             cbOutsideCocktail.Checked = true;
             cbOutsideCocktail.CheckState = CheckState.Checked;
-            cbOutsideCocktail.Location = new Point(31, 242);
+            cbOutsideCocktail.Location = new Point(32, 326);
             cbOutsideCocktail.Name = "cbOutsideCocktail";
             cbOutsideCocktail.Size = new Size(113, 19);
             cbOutsideCocktail.TabIndex = 8;
@@ -414,7 +421,7 @@
             cbInsideCocktail.AutoSize = true;
             cbInsideCocktail.Checked = true;
             cbInsideCocktail.CheckState = CheckState.Checked;
-            cbInsideCocktail.Location = new Point(31, 264);
+            cbInsideCocktail.Location = new Point(32, 348);
             cbInsideCocktail.Name = "cbInsideCocktail";
             cbInsideCocktail.Size = new Size(103, 19);
             cbInsideCocktail.TabIndex = 8;
@@ -427,7 +434,7 @@
             cbUpperLevel.AutoSize = true;
             cbUpperLevel.Checked = true;
             cbUpperLevel.CheckState = CheckState.Checked;
-            cbUpperLevel.Location = new Point(31, 288);
+            cbUpperLevel.Location = new Point(32, 372);
             cbUpperLevel.Name = "cbUpperLevel";
             cbUpperLevel.Size = new Size(88, 19);
             cbUpperLevel.TabIndex = 8;
@@ -440,7 +447,7 @@
             cbBanquet.AutoSize = true;
             cbBanquet.Checked = true;
             cbBanquet.CheckState = CheckState.Checked;
-            cbBanquet.Location = new Point(31, 313);
+            cbBanquet.Location = new Point(32, 397);
             cbBanquet.Name = "cbBanquet";
             cbBanquet.Size = new Size(70, 19);
             cbBanquet.TabIndex = 8;
@@ -448,11 +455,74 @@
             cbBanquet.UseVisualStyleBackColor = true;
             cbBanquet.CheckedChanged += cbIgnoredDiningAreas_CheckedChanged;
             // 
+            // flowDay1
+            // 
+            flowDay1.FlowDirection = FlowDirection.TopDown;
+            flowDay1.Location = new Point(385, 15);
+            flowDay1.Name = "flowDay1";
+            flowDay1.Size = new Size(150, 153);
+            flowDay1.TabIndex = 9;
+            // 
+            // flowDay2
+            // 
+            flowDay2.FlowDirection = FlowDirection.TopDown;
+            flowDay2.Location = new Point(540, 15);
+            flowDay2.Name = "flowDay2";
+            flowDay2.Size = new Size(150, 153);
+            flowDay2.TabIndex = 9;
+            // 
+            // flowDay3
+            // 
+            flowDay3.FlowDirection = FlowDirection.TopDown;
+            flowDay3.Location = new Point(695, 15);
+            flowDay3.Name = "flowDay3";
+            flowDay3.Size = new Size(150, 153);
+            flowDay3.TabIndex = 9;
+            // 
+            // flowDay4
+            // 
+            flowDay4.FlowDirection = FlowDirection.TopDown;
+            flowDay4.Location = new Point(850, 15);
+            flowDay4.Name = "flowDay4";
+            flowDay4.Size = new Size(150, 153);
+            flowDay4.TabIndex = 9;
+            // 
+            // flowDay5
+            // 
+            flowDay5.FlowDirection = FlowDirection.TopDown;
+            flowDay5.Location = new Point(1005, 15);
+            flowDay5.Name = "flowDay5";
+            flowDay5.Size = new Size(150, 153);
+            flowDay5.TabIndex = 9;
+            // 
+            // flowDay6
+            // 
+            flowDay6.FlowDirection = FlowDirection.TopDown;
+            flowDay6.Location = new Point(1160, 15);
+            flowDay6.Name = "flowDay6";
+            flowDay6.Size = new Size(150, 153);
+            flowDay6.TabIndex = 9;
+            // 
+            // flowDay7
+            // 
+            flowDay7.FlowDirection = FlowDirection.TopDown;
+            flowDay7.Location = new Point(1315, 15);
+            flowDay7.Name = "flowDay7";
+            flowDay7.Size = new Size(150, 153);
+            flowDay7.TabIndex = 9;
+            // 
             // frmCalendar
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1501, 1042);
+            Controls.Add(flowDay7);
+            Controls.Add(flowDay6);
+            Controls.Add(flowDay5);
+            Controls.Add(flowDay4);
+            Controls.Add(flowDay3);
+            Controls.Add(flowDay2);
+            Controls.Add(flowDay1);
             Controls.Add(cbBanquet);
             Controls.Add(cbUpperLevel);
             Controls.Add(cbInsideCocktail);
@@ -527,5 +597,12 @@
         private CheckBox cbInsideCocktail;
         private CheckBox cbUpperLevel;
         private CheckBox cbBanquet;
+        private FlowLayoutPanel flowDay1;
+        private FlowLayoutPanel flowDay2;
+        private FlowLayoutPanel flowDay3;
+        private FlowLayoutPanel flowDay4;
+        private FlowLayoutPanel flowDay5;
+        private FlowLayoutPanel flowDay6;
+        private FlowLayoutPanel flowDay7;
     }
 }
