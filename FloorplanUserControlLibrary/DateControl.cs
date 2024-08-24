@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Text;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,10 +19,17 @@ namespace FloorplanUserControlLibrary
         public DateControl()
         {
             InitializeComponent();
+           
 
         }
+        private List<DiningArea> _diningAreas { get; set; } = new List<DiningArea>();
         private DateOnly dateOnly { get; set; }
         private DayOfWeek dayOfWeek { get; set; }
+        private List<AreaHistory> _areaHistory { get; set; }= new List<AreaHistory>();
+        public void SetDiningAreas(List<DiningArea> diningAreas)
+        {
+            _diningAreas = diningAreas;
+        }
         public void SetDayOfWeek(DayOfWeek dayOfWeek)
         {
             this.dayOfWeek = dayOfWeek;
@@ -102,5 +110,49 @@ namespace FloorplanUserControlLibrary
             flowInfo.Controls.Add(lblPM);
 
         }
+
+        public void SetAreaHistories(bool isAm)
+        {
+            _areaHistory.Clear();
+            foreach (var area in _diningAreas)
+            {
+                AreaHistory areaHistory = new AreaHistory(area, this.dateOnly, isAm);
+                _areaHistory.Add(areaHistory);
+            }
+            PopulateFlowWithAreaHistories();
+        }
+
+        private void PopulateFlowWithAreaHistories()
+        {
+            flowInfo.Controls.Clear();
+            List<Label> labels = new List<Label>();
+            foreach(var areaHistory in _areaHistory)
+            {
+                if(areaHistory.Sales > 0)
+                {
+                    Label label = new Label()
+                    {
+                        AutoSize = false,
+                        Text = $"{areaHistory.DiningArea.AbbreviatedName}: {areaHistory.Sales.ToString("C0")}",                       
+                        Width = this.flowInfo.Width,
+                        Margin = new Padding(0),
+                        TextAlign = ContentAlignment.MiddleCenter,
+                        Font = UITheme.MainFont,
+                        Tag = areaHistory
+
+                    };
+                    labels.Add(label);
+                }
+            }
+            foreach (Label label in labels)
+            {
+                label.Height = flowInfo.Height / labels.Count;
+                flowInfo.Controls.Add(label);
+            }
+            
+            
+
+        }
     }
+    
 }

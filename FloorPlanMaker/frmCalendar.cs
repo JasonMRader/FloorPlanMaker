@@ -1,4 +1,5 @@
-﻿using FloorplanUserControlLibrary;
+﻿using FloorplanClassLibrary;
+using FloorplanUserControlLibrary;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -52,10 +53,11 @@ namespace FloorPlanMakerUI
                 rdoAllDay.Checked = false;
             }
         }
+        private List<DiningArea> diningAreas { get; set; } = new List<DiningArea>();
         private void frmCalendar_Load(object sender, EventArgs e)
         {
-
-            calendarManager = new CalendarManager(monthSelected, weekControls);
+            diningAreas = SqliteDataAccess.LoadDiningAreas();
+            calendarManager = new CalendarManager(monthSelected, weekControls, diningAreas);
             SetInitialMonthSelection();
 
 
@@ -100,15 +102,28 @@ namespace FloorPlanMakerUI
         {
             if (rdoFloorplanCounts.Checked)
             {
-                calendarManager = new CalendarManager(monthSelected, weekControls);
-               
+                calendarManager.SetNewDisplayType(CalendarManager.CalendarDisplayType.FloorplanCounts);
+
             }
             else if (rdoSalesByArea.Checked)
             {
-                rdoAm.Visible = true;
-                rdoPm.Visible = true;
-                rdoAllDay.Visible = false;
-                rdoAllDay.Checked = false;
+                calendarManager.SetNewDisplayType(CalendarManager.CalendarDisplayType.FloorplanSales);
+            }
+        }
+
+        private void rdoShiftType_CheckedChanged(object sender, EventArgs e)
+        {
+            if(rdoAm.Checked)
+            {
+                calendarManager.SetIsAM(true, false);
+            }
+            else if (rdoPm.Checked)
+            {
+                calendarManager.SetIsAM(false, true);
+            }
+            else if (rdoAllDay.Checked)
+            {
+                calendarManager.SetIsAM(true, true);
             }
         }
     }

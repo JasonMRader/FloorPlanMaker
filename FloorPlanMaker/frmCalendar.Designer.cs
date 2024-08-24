@@ -289,6 +289,7 @@
             rdoAm.Text = "AM";
             rdoAm.UseVisualStyleBackColor = true;
             rdoAm.Visible = false;
+            rdoAm.CheckedChanged += rdoShiftType_CheckedChanged;
             // 
             // rdoPm
             // 

@@ -39,6 +39,21 @@ namespace FloorplanClassLibrary
         public bool IsInside { get; set; }
         public bool IsCocktail { get; set; }
         public List<Table>? Tables { get; set; }
+        public string AbbreviatedName
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(Name))
+                    return "";
+
+                var nameParts = Name.Split(' ');
+                if (nameParts.Length > 1)
+                {
+                    return $"{nameParts[0]} {nameParts[1][0]}";
+                }
+                return $"{nameParts[0][0]}";
+            }
+        }
 
         public void SetTableSales(List<TableStat> tableStats)
         {
