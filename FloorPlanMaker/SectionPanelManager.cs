@@ -180,6 +180,7 @@ namespace FloorPlanMakerUI
             _flowLayoutPanel.Controls.Add(btnAddPickup);
             foreach (Section section in _floorplan.Sections)
             {
+                //TODO error divid by zero
                 SectionInfoPanel infoPanel = new SectionInfoPanel(section, _floorplan, _flowLayoutPanel.Width);
 
                 infoPanel.SectionSelected += SelectSection;
