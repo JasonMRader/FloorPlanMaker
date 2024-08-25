@@ -1,9 +1,7 @@
 ﻿using FloorPlanMakerUI;
 
-namespace FloorPlanMaker
-{
-    partial class Form1
-    {
+namespace FloorPlanMaker {
+    partial class Form1 {
         /// <summary>
         ///  Required designer variable.
         /// </summary>
@@ -13,10 +11,8 @@ namespace FloorPlanMaker
         ///  Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
+        protected override void Dispose(bool disposing) {
+            if (disposing && (components != null)) {
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -28,8 +24,7 @@ namespace FloorPlanMaker
         ///  Required method for Designer support - do not modify
         ///  the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
-        {
+        private void InitializeComponent() {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             flowServersInFloorplan = new FlowLayoutPanel();
@@ -114,7 +109,6 @@ namespace FloorPlanMaker
             pnlSalesDataUpdated = new Panel();
             lblMissingSalesData = new Label();
             btnTest = new Button();
-            btnTestLabels = new Button();
             flowSectionSelect.SuspendLayout();
             panel1.SuspendLayout();
             pnlFloorplanContainer.SuspendLayout();
@@ -1203,23 +1197,16 @@ namespace FloorPlanMaker
             // 
             // btnTest
             // 
-            btnTest.Location = new Point(689, 8);
+            btnTest.BackColor = Color.FromArgb(100, 130, 180);
+            btnTest.FlatAppearance.BorderSize = 0;
+            btnTest.FlatStyle = FlatStyle.Flat;
+            btnTest.Image = FloorPlanMakerUI.Properties.Resources.calendar;
+            btnTest.Location = new Point(670, 6);
             btnTest.Name = "btnTest";
-            btnTest.Size = new Size(44, 23);
+            btnTest.Size = new Size(47, 37);
             btnTest.TabIndex = 25;
-            btnTest.Text = "Test";
-            btnTest.UseVisualStyleBackColor = true;
+            btnTest.UseVisualStyleBackColor = false;
             btnTest.Click += btnTest_Click;
-            // 
-            // btnTestLabels
-            // 
-            btnTestLabels.Location = new Point(749, 8);
-            btnTestLabels.Name = "btnTestLabels";
-            btnTestLabels.Size = new Size(75, 23);
-            btnTestLabels.TabIndex = 26;
-            btnTestLabels.Text = "Test Labels";
-            btnTestLabels.UseVisualStyleBackColor = true;
-            btnTestLabels.Click += btnTestLabels_Click;
             // 
             // Form1
             // 
@@ -1227,7 +1214,6 @@ namespace FloorPlanMaker
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.WhiteSmoke;
             ClientSize = new Size(1501, 1042);
-            Controls.Add(btnTestLabels);
             Controls.Add(btnTest);
             Controls.Add(pnlSalesDataUpdated);
             Controls.Add(btnDeleteSelectedFloorplan);
@@ -1352,6 +1338,5 @@ namespace FloorPlanMaker
         private Panel pnlIndicator2;
         private Label label4;
         private Button btnTest;
-        private Button btnTestLabels;
     }
 }

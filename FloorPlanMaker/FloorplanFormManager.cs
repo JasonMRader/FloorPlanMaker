@@ -333,9 +333,9 @@ namespace FloorPlanMakerUI
 
             Section selectedSection = sectionPanel.Section;
 
-            SectionHeaderTeamwaitToggle(selectedSection);
+            SectionTeamwaitToggle(selectedSection);
         }
-        public void SectionHeaderTeamwaitToggle(Section selectedSection)
+        public void SectionTeamwaitToggle(Section selectedSection)
         {
             if (selectedSection.IsPickUp || selectedSection.IsBarSection) { return; }
             //SectionPanelControl sectionPanel = _sectionPanels.FirstOrDefault(sp => sp.Section == selectedSection);
@@ -910,19 +910,18 @@ namespace FloorPlanMakerUI
         //        sectionPanel.UpdateLabels();
         //    }
         //}
-        //public void AddPickupSection()
-        //{
-        //    Section pickUp = new Section(Floorplan);
-        //    pickUp.Name = "Pickup";
-        //    pickUp.IsPickUp = true;
-        //    Floorplan.AddSection(pickUp);
-        //    SectionPanelControl newSectionPanel = new SectionPanelControl(pickUp, this.Shift.SelectedFloorplan);
-        //    newSectionPanel.CheckBoxChanged += setSelectedSection;
-        //    newSectionPanel.picEraseSectionClicked += EraseSectionClicked;
-        //    this._sectionPanels.Add(newSectionPanel);
-        //    UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionPanel, UpdateType.Add, pickUp));
-        //    Floorplan.SetSelectedSection(pickUp);
-        //}
+        public void AddPickupSection() {
+            Section pickUp = new Section(Floorplan);
+            pickUp.Name = "Pickup";
+            pickUp.IsPickUp = true;
+            Floorplan.AddSection(pickUp);
+            //SectionPanelControl newSectionPanel = new SectionPanelControl(pickUp, this.Shift.SelectedFloorplan);
+            //newSectionPanel.CheckBoxChanged += setSelectedSection;
+            //newSectionPanel.picEraseSectionClicked += EraseSectionClicked;
+            //this._sectionPanels.Add(newSectionPanel);
+            //UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionPanel, UpdateType.Add, pickUp));
+            Floorplan.SetSelectedSection(pickUp);
+        }
 
         //private void btnCreateTemplate_Click(object? sender, EventArgs e)
         //{
@@ -1030,31 +1029,25 @@ namespace FloorPlanMakerUI
 
         //    SectionTeamwaitToggle(selectedSection);
         //}
-        //public void SectionTeamwaitToggle(Section selectedSection)
-        //{
+        //public void SectionTeamwaitToggle(Section selectedSection) {
         //    if (selectedSection.IsPickUp) { return; }
         //    SectionPanelControl sectionPanel = _sectionPanels.FirstOrDefault(sp => sp.Section == selectedSection);
-        //    if (sectionPanel == null)
-        //    {
+        //    if (sectionPanel == null) {
         //        return;
         //    }
-        //    if (!selectedSection.IsTeamWait)
-        //    {
+        //    if (!selectedSection.IsTeamWait) {
         //        Section sectionRemoved = Floorplan.RemoveHighestNumberedEmptySection(selectedSection);
-        //        if (sectionRemoved == null || Floorplan.NotEnoughUnassignedServersCheck(selectedSection))
-        //        {
+        //        if (sectionRemoved == null || Floorplan.NotEnoughUnassignedServersCheck(selectedSection)) {
         //            MessageBox.Show("You must clear a section before making another section a teamwait section");
         //        }
-        //        else
-        //        {
+        //        else {
         //            selectedSection.ToggleTeamWait();
         //            sectionPanel.SetTeamWaitPictureBoxes();
         //            UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionPanel, UpdateType.Remove, sectionRemoved));
         //            this._sectionPanels.Remove(sectionPanelControlBySection(sectionRemoved));
         //        }
         //    }
-        //    else
-        //    {
+        //    else {
         //        selectedSection.MakeSoloSection();
         //        sectionPanel.SetTeamWaitPictureBoxes();
         //        Section sectionAdded = new Section(Floorplan);

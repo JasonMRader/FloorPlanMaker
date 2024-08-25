@@ -15,8 +15,16 @@ namespace FloorplanUserControlLibrary {
             InitializeComponent();
             this.Width = Width;
             this.Height = Height;
-            int x = (control.Location.X - (this.Width / 2) + control.Width / 2);
-            int y = (control.Location.Y - (this.Height / 2) + control.Height / 2);
+            Point controlScreenPosition = control.PointToScreen(Point.Empty);
+
+            // Get the location of the form relative to the screen
+            Point formScreenPosition = control.FindForm().PointToScreen(Point.Empty);
+
+            // Calculate the location relative to the form
+            int x = (controlScreenPosition.X - formScreenPosition.X - (this.Width / 2) + control.Width / 2);
+            int y = (controlScreenPosition.Y - formScreenPosition.Y - this.Height);
+            //int x = (control.Location.X - (this.Width / 2) + control.Width / 2);
+            //int y = (control.Location.Y - (this.Height / 2) + control.Height / 2);
             this.Location = new Point(x, y);
             this.text = text;
             this.hotKey = hotKey;
@@ -26,8 +34,13 @@ namespace FloorplanUserControlLibrary {
             else {
                 lblDescription.Text = text;
             }
+            if(control.Parent != null) {
+                controlParent = control.Parent;
+            }
+            
             
         }
+        public Control controlParent { get; set; }
         private string text { get; set; }
         private string hotKey { get; set; } = string.Empty;
     }
