@@ -1,7 +1,5 @@
-﻿namespace FloorplanUserControlLibrary
-{
-    partial class SectionHeaderDisplay
-    {
+﻿namespace FloorplanUserControlLibrary {
+    partial class SectionHeaderDisplay {
         /// <summary> 
         /// Required designer variable.
         /// </summary>
@@ -11,10 +9,8 @@
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
+        protected override void Dispose(bool disposing) {
+            if (disposing && (components != null)) {
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -26,8 +22,8 @@
         /// Required method for Designer support - do not modify 
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
-        {
+        private void InitializeComponent() {
+            components = new System.ComponentModel.Container();
             lblSectionNumber = new Label();
             btnAssignedServer = new Button();
             btnClearSection = new Button();
@@ -41,6 +37,7 @@
             pbCoversDifference = new PictureBox();
             lblCoverDifference = new Label();
             flowServerButtons = new FlowLayoutPanel();
+            toolTip1 = new ToolTip(components);
             ((System.ComponentModel.ISupportInitialize)pbTotalCovers).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbAverageSales).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbSalesDifference).BeginInit();
@@ -70,6 +67,7 @@
             btnAssignedServer.Size = new Size(529, 29);
             btnAssignedServer.TabIndex = 1;
             btnAssignedServer.Text = "Unassigned";
+            toolTip1.SetToolTip(btnAssignedServer, "Edit Section Server(s)");
             btnAssignedServer.UseVisualStyleBackColor = false;
             btnAssignedServer.Click += btnAssignedServer_Click;
             // 
@@ -83,6 +81,7 @@
             btnClearSection.Name = "btnClearSection";
             btnClearSection.Size = new Size(42, 30);
             btnClearSection.TabIndex = 3;
+            toolTip1.SetToolTip(btnClearSection, "Remove Server / Tables");
             btnClearSection.UseVisualStyleBackColor = false;
             btnClearSection.Click += btnClearSection_Click;
             // 
@@ -96,6 +95,7 @@
             btnTeamWaitToggle.Name = "btnTeamWaitToggle";
             btnTeamWaitToggle.Size = new Size(52, 30);
             btnTeamWaitToggle.TabIndex = 4;
+            toolTip1.SetToolTip(btnTeamWaitToggle, "Toggle Teamwait / Solo");
             btnTeamWaitToggle.UseVisualStyleBackColor = false;
             btnTeamWaitToggle.Click += btnTeamWaitToggle_Click;
             // 
@@ -109,6 +109,7 @@
             pbTotalCovers.SizeMode = PictureBoxSizeMode.StretchImage;
             pbTotalCovers.TabIndex = 6;
             pbTotalCovers.TabStop = false;
+            toolTip1.SetToolTip(pbTotalCovers, "Total Seats in Section");
             // 
             // lblTotalCovers
             // 
@@ -121,6 +122,7 @@
             lblTotalCovers.TabIndex = 7;
             lblTotalCovers.Text = "77";
             lblTotalCovers.TextAlign = ContentAlignment.MiddleCenter;
+            toolTip1.SetToolTip(lblTotalCovers, "Total Seats in Section");
             // 
             // pbAverageSales
             // 
@@ -132,6 +134,7 @@
             pbAverageSales.SizeMode = PictureBoxSizeMode.StretchImage;
             pbAverageSales.TabIndex = 6;
             pbAverageSales.TabStop = false;
+            toolTip1.SetToolTip(pbAverageSales, "Total Sales / Server in Section + Pickup Sales");
             // 
             // lblAverageSales
             // 
@@ -144,6 +147,7 @@
             lblAverageSales.TabIndex = 7;
             lblAverageSales.Text = "$2,777";
             lblAverageSales.TextAlign = ContentAlignment.MiddleCenter;
+            toolTip1.SetToolTip(lblAverageSales, "Total Sales / Server in Section + Pickup Sales");
             // 
             // pbSalesDifference
             // 
@@ -155,6 +159,7 @@
             pbSalesDifference.SizeMode = PictureBoxSizeMode.StretchImage;
             pbSalesDifference.TabIndex = 6;
             pbSalesDifference.TabStop = false;
+            toolTip1.SetToolTip(pbSalesDifference, "Difference From Average Sales Per Server");
             // 
             // lblSalesDifference
             // 
@@ -167,6 +172,7 @@
             lblSalesDifference.TabIndex = 7;
             lblSalesDifference.Text = "$2,777";
             lblSalesDifference.TextAlign = ContentAlignment.MiddleCenter;
+            toolTip1.SetToolTip(lblSalesDifference, "Difference From Average Sales Per Server");
             // 
             // pbCoversDifference
             // 
@@ -178,6 +184,7 @@
             pbCoversDifference.SizeMode = PictureBoxSizeMode.StretchImage;
             pbCoversDifference.TabIndex = 6;
             pbCoversDifference.TabStop = false;
+            toolTip1.SetToolTip(pbCoversDifference, "Difference From Average Seats");
             // 
             // lblCoverDifference
             // 
@@ -190,6 +197,7 @@
             lblCoverDifference.TabIndex = 7;
             lblCoverDifference.Text = "77";
             lblCoverDifference.TextAlign = ContentAlignment.MiddleCenter;
+            toolTip1.SetToolTip(lblCoverDifference, "Difference From Average Seats");
             // 
             // flowServerButtons
             // 
@@ -242,5 +250,6 @@
         private PictureBox pbCoversDifference;
         private Label lblCoverDifference;
         private FlowLayoutPanel flowServerButtons;
+        private ToolTip toolTip1;
     }
 }

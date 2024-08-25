@@ -14,10 +14,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 //using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
-namespace FloorplanUserControlLibrary
-{
-    public partial class SectionHeaderDisplay : UserControl, ISectionObserver, IFloorplanObserver
-    {
+namespace FloorplanUserControlLibrary {
+    public partial class SectionHeaderDisplay : UserControl, ISectionObserver, IFloorplanObserver {
         private Section section { get; set; }
         public Section Section { get { return section; } }
         Panel pnlNoSection { get; set; } = new Panel();
@@ -27,19 +25,16 @@ namespace FloorplanUserControlLibrary
         public event EventHandler btnTeamWaitClicked;
         public event EventHandler btnClearSectionClicked;
 
-        public SectionHeaderDisplay()
-        {
+        public SectionHeaderDisplay() {
             InitializeComponent();
 
         }
-        public void SetSection(Section section, Floorplan floorplan)
-        {
-            if (this.section != section && this.section != null)
-            {
+        public void SetSection(Section section, Floorplan floorplan) {
+            if (this.section != section && this.section != null) {
                 this.section.RemoveObserver(this);
             }
             this.section = section;
-           
+
             this.floorplan = floorplan;
             floorplan.SectionRemoved += CheckToRemoveSection;
             this.lblTotalCovers.ForeColor = section.FontColor;
@@ -51,18 +46,14 @@ namespace FloorplanUserControlLibrary
 
         }
 
-        private void CheckToRemoveSection(Section section, Floorplan floorplan)
-        {
-            if(this.section == section)
-            {
+        private void CheckToRemoveSection(Section section, Floorplan floorplan) {
+            if (this.section == section) {
                 SetSectionToNull();
             }
         }
 
-        public void SetSectionToNull()
-        {
-            if (this.section != null)
-            {
+        public void SetSectionToNull() {
+            if (this.section != null) {
                 this.section.RemoveObserver(this);
                 this.section = null;
             }
@@ -74,109 +65,86 @@ namespace FloorplanUserControlLibrary
             pnlNoSection.BackColor = UITheme.SecondColor;
             pnlNoSection.BringToFront();
         }
-        public void SetStaticImages()
-        {
-            if (this.section.FontColor == Color.White)
-            {
+        public void SetStaticImages() {
+            if (this.section.FontColor == Color.White) {
                 pbAverageSales.Image = Resources.SalesPerPersonWhite;
                 pbTotalCovers.Image = Resources.CoversWhite;
             }
-            else
-            {
+            else {
                 pbAverageSales.Image = Resources.SalesPerPerson_28px;
                 pbTotalCovers.Image = Resources.covers;
             }
         }
-        public void SetTeamWaitImages()
-        {
-            if (section.IsPickUp || section.IsBarSection)
-            {
+        public void SetTeamWaitImages() {
+            if (section.IsPickUp || section.IsBarSection) {
                 btnTeamWaitToggle.Visible = false;
                 return;
             }
-            else
-            {
+            else {
                 btnTeamWaitToggle.Visible = true;
             }
-            if (section.IsTeamWait)
-            {
+            if (section.IsTeamWait) {
                 btnTeamWaitToggle.Image = Resources.waiters_28;
                 btnTeamWaitToggle.BackColor = UITheme.WarningColor;
 
             }
-            if (!section.IsTeamWait)
-            {
+            if (!section.IsTeamWait) {
                 btnTeamWaitToggle.Image = Resources.waiter_28;
                 btnTeamWaitToggle.BackColor = UITheme.CTAColor;
             }
         }
-        private void SetSalesDifferenceControls()
-        {
+        private void SetSalesDifferenceControls() {
 
 
             lblSalesDifference.Text = Section.FormatAsCurrencyWithoutParentheses(floorplan.GetSalesDifferenceForSection(section));
-            if (floorplan.GetSalesDifferenceForSection(section) >= 0)
-            {
+            if (floorplan.GetSalesDifferenceForSection(section) >= 0) {
                 lblSalesDifference.BackColor = Color.LightGreen;
                 lblSalesDifference.ForeColor = Color.Black;
-                if (section.FontColor == Color.White)
-                {
+                if (section.FontColor == Color.White) {
                     pbSalesDifference.Image = Resources.SalesUpWhite;
                 }
-                else
-                {
+                else {
                     pbSalesDifference.Image = Resources.SalesUp;
                 }
             }
-            else
-            {
+            else {
                 lblSalesDifference.BackColor = Color.Pink;
                 lblSalesDifference.ForeColor = Color.Black;
-                if (section.FontColor == Color.White)
-                {
+                if (section.FontColor == Color.White) {
                     pbSalesDifference.Image = Resources.SalesDownWhite;
                 }
-                else
-                {
+                else {
                     pbSalesDifference.Image = Resources.SalesDown;
                 }
             }
         }
-        private void SetCoverDifferenceProperties()
-        {
+        private void SetCoverDifferenceProperties() {
 
             this.lblCoverDifference.Text = ($"{floorplan.GetCoverDifferenceForSection(section).ToString("F0")}");
-            if (floorplan.GetCoverDifferenceForSection(section) >= 0)
-            {
+            if (floorplan.GetCoverDifferenceForSection(section) >= 0) {
                 lblCoverDifference.BackColor = Color.LightGreen;
                 lblCoverDifference.ForeColor = Color.Black;
-                if (section.FontColor == Color.White)
-                {
+                if (section.FontColor == Color.White) {
                     pbCoversDifference.Image = Resources.CoversUpWhite;
                 }
-                else
-                {
+                else {
                     pbCoversDifference.Image = Resources.CoversUpBlack;
                 }
             }
-            else
-            {
+            else {
                 lblCoverDifference.BackColor = Color.Pink;
                 lblCoverDifference.ForeColor = Color.Black;
-                if (section.FontColor == Color.White)
-                {
+                if (section.FontColor == Color.White) {
                     pbCoversDifference.Image = Resources.CoversDownWhite;
                 }
-                else
-                {
+                else {
                     pbCoversDifference.Image = Resources.CoversDownBlack;
                 }
 
             }
 
         }
-        private void SetSectionTotalControls()
-        {
+        private void SetSectionTotalControls() {
             lblTotalCovers.Text = section.MaxCovers.ToString("F0");
             lblAverageSales.Text = section.AverageSalesDisplay();
             lblTotalCovers.BackColor = section.Color;
@@ -184,95 +152,77 @@ namespace FloorplanUserControlLibrary
             lblAverageSales.BackColor = section.Color;
             lblAverageSales.ForeColor = section.FontColor;
         }
-        private void SetServerButtonProperties()
-        {
+        private void SetServerButtonProperties() {
             btnAssignedServer.Text = section.GetDisplayString();
-            if (section.IsBarSection)
-            {
+            if (section.IsBarSection) {
                 //btnAssignedServer.Text = "Bar Section";
                 btnAssignedServer.BackColor = section.MuteColor(.5f);
                 btnAssignedServer.ForeColor = section.FontColor;
                 return;
             }
-            if (section.IsPickUp && section.Server == null)
-            {
+            if (section.IsPickUp && section.Server == null) {
                 //btnAssignedServer.Text = "Pick-Up";
                 btnAssignedServer.BackColor = section.MuteColor(.5f);
                 btnAssignedServer.ForeColor = section.FontColor;
                 return;
             }
-            if (section.IsPickUp && section.Server != null)
-            {
+            if (section.IsPickUp && section.Server != null) {
                 // btnAssignedServer.Text = "Pick-Up ++";
                 btnAssignedServer.BackColor = section.MuteColor(.5f);
                 btnAssignedServer.ForeColor = section.FontColor;
                 return;
             }
-            if (section.Server != null)
-            {
+            if (section.Server != null) {
                 //btnAssignedServer.Text = section.Server.ToString();
                 btnAssignedServer.BackColor = section.MuteColor(.5f);
                 btnAssignedServer.ForeColor = section.FontColor;
             }
-            if (section.IsTeamWait)
-            {
+            if (section.IsTeamWait) {
                 string displayString = "";
-                for (int i = 0; i < section.ServerCount; i++)
-                {
-                    if (i <= section.ServerTeam.Count - 1)
-                    {
-                        if (section.ServerTeam[i].isDouble)
-                        {
+                for (int i = 0; i < section.ServerCount; i++) {
+                    if (i <= section.ServerTeam.Count - 1) {
+                        if (section.ServerTeam[i].isDouble) {
                             displayString += section.ServerTeam[i].ToString() + "*";
                         }
-                        else
-                        {
+                        else {
                             displayString += section.ServerTeam[i].ToString();
                         }
 
-                        if (i < section.ServerCount - 1)
-                        {
+                        if (i < section.ServerCount - 1) {
                             displayString += " | ";
                         }
                     }
-                    else
-                    {
+                    else {
                         displayString += "Unassigned";
-                        if (i < section.ServerCount - 1)
-                        {
+                        if (i < section.ServerCount - 1) {
                             displayString += " | ";
                         }
 
                     }
 
                 }
-                if (section.IsPickUp || this.section.PairedSection != null)
-                {
+                if (section.IsPickUp || this.section.PairedSection != null) {
                     displayString += " ++";
                 }
                 btnAssignedServer.Text = displayString;
-                if (section.ServerTeam.Count < section.ServerCount)
-                {
+                if (section.ServerTeam.Count < section.ServerCount) {
                     btnAssignedServer.BackColor = Color.Gray;
                     btnAssignedServer.ForeColor = Color.Black;
                 }
-                else
-                {
+                else {
                     btnAssignedServer.BackColor = section.MuteColor(.5f);
                     btnAssignedServer.ForeColor = section.FontColor;
                 }
 
             }
-            if (!section.IsPickUp && !section.IsTeamWait && section.Server == null)
-            {
+            if (!section.IsPickUp && !section.IsTeamWait && section.Server == null) {
                 btnAssignedServer.BackColor = Color.Gray;
                 btnAssignedServer.ForeColor = Color.Black;
             }
 
 
         }
-        private void SetControlsForSection()
-        {
+        private void SetControlsForSection() {
             this.BackColor = section.Color;
             this.lblSectionNumber.Text = $"#{section.Number}";
             SetStaticImages();
@@ -283,46 +233,37 @@ namespace FloorplanUserControlLibrary
             SetSectionTotalControls();
         }
 
-        private void SectionHeaderDisplay_Load(object sender, EventArgs e)
-        {
+        private void SectionHeaderDisplay_Load(object sender, EventArgs e) {
 
         }
 
-        public void UpdateSection(Section section)
-        {
-            if (section == null)
-            {
+        public void UpdateSection(Section section) {
+            if (section == null) {
                 SetSectionToNull();
             }
-            else
-            {
+            else {
                 SetControlsForSection();
             }
 
         }
 
-        private void btnAssignedServer_Click(object sender, EventArgs e)
-        {
+        private void btnAssignedServer_Click(object sender, EventArgs e) {
             AssignServerClicked?.Invoke(this, EventArgs.Empty);
         }
 
-        private void btnTeamWaitToggle_Click(object sender, EventArgs e)
-        {
+        private void btnTeamWaitToggle_Click(object sender, EventArgs e) {
             btnTeamWaitClicked?.Invoke(this, EventArgs.Empty);
         }
 
-        public void SetTeamWaitPictureBoxes()
-        {
+        public void SetTeamWaitPictureBoxes() {
 
         }
 
-        private void btnClearSection_Click(object sender, EventArgs e)
-        {
+        private void btnClearSection_Click(object sender, EventArgs e) {
             btnClearSectionClicked?.Invoke(this, EventArgs.Empty);
         }
 
-        public void UpdateFloorplan(Floorplan floorplan)
-        {
+        public void UpdateFloorplan(Floorplan floorplan) {
             throw new NotImplementedException();
         }
     }
