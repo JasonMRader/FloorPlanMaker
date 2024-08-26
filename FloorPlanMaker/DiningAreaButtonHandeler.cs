@@ -20,6 +20,7 @@ namespace FloorPlanMakerUI
         private Panel pnlIndicator = new Panel();
         private Panel pnlIndicator2 = new Panel();
         private Shift shift = new Shift();
+        private ToolTip toolTip = new ToolTip();
         private int diningAreaSelectedIndex
         {
             get
@@ -43,10 +44,8 @@ namespace FloorPlanMakerUI
             foreach (DiningArea area in diningAreas)
             {
                 RadioButton button = CreateDiningAreaButton(area);
-
                 radioButtons.Add(button);
                 flowLayoutPanel.Controls.Add(button);
-
             }
             
         }
@@ -71,6 +70,7 @@ namespace FloorPlanMakerUI
             UITheme.FormatCTAButton(btn);
             btn.BackColor = UITheme.ButtonColor;
             btn.FlatAppearance.CheckedBackColor = UITheme.DarkenColor(.3f, UITheme.ButtonColor);
+            toolTip.SetToolTip(btn, area.Name);
             return btn;
         }
         public void UpdateForShift(Shift shift)

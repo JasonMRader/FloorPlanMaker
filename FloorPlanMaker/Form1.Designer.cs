@@ -1019,6 +1019,7 @@ namespace FloorPlanMaker {
             rdoSales.Size = new Size(63, 28);
             rdoSales.TabIndex = 10;
             rdoSales.TextAlign = ContentAlignment.MiddleCenter;
+            toolTip1.SetToolTip(rdoSales, "Change Sales Average Range");
             rdoSales.UseVisualStyleBackColor = false;
             rdoSales.CheckedChanged += rdoSales_CheckedChanged;
             // 
@@ -1205,6 +1206,7 @@ namespace FloorPlanMaker {
             btnTest.Name = "btnTest";
             btnTest.Size = new Size(47, 37);
             btnTest.TabIndex = 25;
+            toolTip1.SetToolTip(btnTest, "View Stats Calendar");
             btnTest.UseVisualStyleBackColor = false;
             btnTest.Click += btnTest_Click;
             // 
