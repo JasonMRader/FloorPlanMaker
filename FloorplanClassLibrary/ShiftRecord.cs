@@ -9,7 +9,7 @@ namespace FloorplanClassLibrary
     public record ShiftRecord
     {
         public int ID { get; set; }
-        public List<FloorplanRecord> FloorplanRecords { get; set; } = new List<FloorplanRecord>();
+        public List<DiningAreaRecord> DiningAreaRecords { get; set; } = new List<DiningAreaRecord>();
         public DateOnly dateOnly { get; set; }
         public DateTime Date
         {
@@ -17,6 +17,9 @@ namespace FloorplanClassLibrary
             {
                 return dateOnly.ToDateTime(TimeOnly.MinValue);
             }
+        }
+        public DayOfWeek DayOfWeek {
+            get { return dateOnly.DayOfWeek; } 
         }
         public bool IsAm { get; set; }
         public List<HourlyWeatherData> HourlyWeatherData { get; set; } = new List<HourlyWeatherData>();

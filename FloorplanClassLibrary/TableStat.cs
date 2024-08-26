@@ -13,7 +13,7 @@ namespace FloorplanClassLibrary
     {
         private string table;
         private float amount;
-        public int DiningAreaID { get; set; }
+        public int? DiningAreaID { get; set; }
         public string TableStatNumber { get; set; }
         public DayOfWeek DayOfWeek { get; set; }
         public DateOnly Date { get; set; }

@@ -389,7 +389,7 @@ namespace FloorPlanMakerUI
                 }
             }
         }
-        private void CreateAreaHistoryLabelsFORFLOORPLANRECORD(FlowLayoutPanel panel, List<FloorplanRecord> floorplanRecord, bool isYesterday)
+        private void CreateAreaHistoryLabelsFORFLOORPLANRECORD(FlowLayoutPanel panel, List<DiningAreaRecord> floorplanRecord, bool isYesterday)
         {
 
             //if (cbStatsType.Checked)

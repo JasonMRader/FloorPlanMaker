@@ -1087,7 +1087,7 @@ namespace FloorPlanMakerUI
                     this.Invoke(new Action(() =>
                     {
                         // Close the loading form and re-enable the main form
-                        PopulateDGVForAreaSales(dataGridView1, areaManager.DiningAreas, shiftAnalysis.Shifts);
+                        PopulateDGVForAreaSales(dataGridView1, areaManager.DiningAreas, shiftAnalysis.FilteredShifts);
                         loadingForm.Close();
                         this.Enabled = true;
 
@@ -1187,7 +1187,7 @@ namespace FloorPlanMakerUI
 
                 foreach (var diningArea in diningAreas)
                 {
-                    float diningAreaSales = shiftRecord.FloorplanRecords
+                    float diningAreaSales = shiftRecord.DiningAreaRecords
                         .Where(fp => fp.DiningAreaID == diningArea.ID)
                         .Sum(fp => fp.Sales);
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FloorplanClassLibrary
 {
-    public record FloorplanRecord
+    public record DiningAreaRecord
     {
         public int ID {  get; set; }
         public int DiningAreaID { get; set; }
@@ -14,7 +14,7 @@ namespace FloorplanClassLibrary
         public float Sales { get; set; }
         public bool IsAm { get; set; }       
         public int ServerCount { get; set; }    
-        public List<TableStat> tableStats { get; set; }
+        public List<TableStat> TableStats { get; set; }
         
         
     }

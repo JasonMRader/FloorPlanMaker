@@ -201,7 +201,8 @@ namespace FloorplanClassLibrary
                     Date = DateOnly.Parse(row.Date),
                     IsLunch = Convert.ToBoolean(row.IsLunch),
                     Sales = row.Sales != null ? (float?)Convert.ToDouble(row.Sales) : null,
-                    Orders = Convert.ToInt32(row.Orders)
+                    Orders = Convert.ToInt32(row.Orders), 
+                    DiningAreaID = row.DiningAreaID != null? (int?)row.DiningAreaID : 0
                 }).ToList();
 
                 return tableStatsList;
@@ -2694,19 +2695,54 @@ namespace FloorplanClassLibrary
             };
 
             shiftRecord.HourlyWeatherData = LoadHourlyWeatherData(date, isLunch);
-            shiftRecord.FloorplanRecords = LoadFloorplanRecordsByDateAndLunch(date, isLunch);
+            shiftRecord.DiningAreaRecords = LoadDiningAreaRecordsByDateAndLunch(date, isLunch);
             shiftRecord.tableStats = LoadTableStatsByDateAndLunch(isLunch, date);
             shiftRecord.Sales = (float)shiftRecord.tableStats.Where(ts => ts.DiningAreaID != 6).ToList().Sum(ts => ts.Sales);
 
             return shiftRecord;
         }
-        public static List<FloorplanRecord> LoadFloorplanRecordsByDateAndLunch(DateOnly date, bool isLunch)
+        public static List<DiningAreaRecord> LoadDiningAreaRecordsByDateAndLunch(DateOnly date, bool isLunch) {
+            var tableStats = LoadTableStatsByDateAndLunch(isLunch, date);
+
+            // Dictionary to store ServerCount for each DiningAreaID
+            var serverCounts = LoadServerCountsByDateAndLunch(date, isLunch);
+
+            var diningAreaRecords = tableStats
+           .Where(ts => ts.DiningAreaID.HasValue) 
+           .GroupBy(ts => ts.DiningAreaID.Value)  
+           .Select(g => new DiningAreaRecord {
+               DiningAreaID = g.Key,
+               DateOnly = date,
+               IsAm = isLunch,
+               Sales = g.Sum(ts => ts.Sales ?? 0), 
+               TableStats = g.ToList(), 
+               ServerCount = serverCounts.ContainsKey(g.Key) ? serverCounts[g.Key] : 0 
+           })
+           .ToList();
+
+            return diningAreaRecords;
+        }
+        public static Dictionary<int, int> LoadServerCountsByDateAndLunch(DateOnly date, bool isLunch) {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString())) {
+                string dateString = date.ToString("yyyy-MM-dd");
+
+                var floorplanData = cnn.Query<(int DiningAreaID, int ServerCount)>(
+                    @"SELECT DiningAreaID, ServerCount 
+              FROM Floorplan 
+              WHERE Date = @Date AND IsLunch = @IsLunch",
+                    new { Date = dateString, IsLunch = isLunch }).ToList();
+
+                return floorplanData.ToDictionary(x => x.DiningAreaID, x => x.ServerCount);
+            }
+        }
+
+        public static List<DiningAreaRecord> LoadFloorplanRecordsByDateAndLunch(DateOnly date, bool isLunch)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 string dateString = date.ToString("yyyy-MM-dd");
 
-                var floorplanRecords = cnn.Query<FloorplanRecord>(
+                var floorplanRecords = cnn.Query<DiningAreaRecord>(
                     @"SELECT ID, DiningAreaID, Date, Sales, IsLunch, ServerCount 
                       FROM Floorplan 
                       WHERE Date = @Date AND IsLunch = @IsLunch",
@@ -2714,8 +2750,8 @@ namespace FloorplanClassLibrary
 
                 foreach (var floorplan in floorplanRecords)
                 {
-                    floorplan.tableStats = LoadTableStatsByDiningAreaAndDate(floorplan.DiningAreaID, date, isLunch);
-                    floorplan.Sales = (float)floorplan.tableStats.Sum(ts => ts.Sales);
+                    floorplan.TableStats = LoadTableStatsByDiningAreaAndDate(floorplan.DiningAreaID, date, isLunch);
+                    floorplan.Sales = (float)floorplan.TableStats.Sum(ts => ts.Sales);
                     floorplan.DateOnly = date;
                 }
 
