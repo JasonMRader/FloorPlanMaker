@@ -1,7 +1,5 @@
-﻿namespace FloorPlanMakerUI
-{
-    partial class frmSalesStats
-    {
+﻿namespace FloorPlanMakerUI {
+    partial class frmSalesStats {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -11,10 +9,8 @@
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
+        protected override void Dispose(bool disposing) {
+            if (disposing && (components != null)) {
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -26,8 +22,7 @@
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
-        {
+        private void InitializeComponent() {
             components = new System.ComponentModel.Container();
             dgvDiningAreas = new DataGridView();
             rdoDiningAreaSales = new RadioButton();
@@ -77,6 +72,7 @@
             lblTo = new Label();
             btnRefreshFilters = new Button();
             dataGridView1 = new DataGridView();
+            flowDiningAreas = new FlowLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)dgvDiningAreas).BeginInit();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
@@ -391,6 +387,7 @@
             cboServerSelect.Name = "cboServerSelect";
             cboServerSelect.Size = new Size(259, 23);
             cboServerSelect.TabIndex = 0;
+            cboServerSelect.SelectedIndexChanged += cboServerSelect_SelectedIndexChanged;
             // 
             // panel5
             // 
@@ -642,11 +639,19 @@
             dataGridView1.Size = new Size(1040, 564);
             dataGridView1.TabIndex = 12;
             // 
+            // flowDiningAreas
+            // 
+            flowDiningAreas.Location = new Point(30, 179);
+            flowDiningAreas.Name = "flowDiningAreas";
+            flowDiningAreas.Size = new Size(724, 53);
+            flowDiningAreas.TabIndex = 13;
+            // 
             // frmSalesStats
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1412, 874);
+            Controls.Add(flowDiningAreas);
             Controls.Add(dataGridView1);
             Controls.Add(lblTo);
             Controls.Add(nudHiTemp);
@@ -734,5 +739,6 @@
         private Label lblTo;
         private Button btnRefreshFilters;
         private DataGridView dataGridView1;
+        private FlowLayoutPanel flowDiningAreas;
     }
 }

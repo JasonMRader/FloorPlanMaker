@@ -51,10 +51,10 @@ namespace FloorPlanMakerUI
         }
         private RadioButton CreateDiningAreaButton(DiningArea area)
         {
-            int margin = 10;
-            int totalMarginSpace = margin * (diningAreas.Count + 1);
-            int adjustedHeight = flowLayoutPanel.Height - totalMarginSpace;
-            int height = adjustedHeight / diningAreas.Count;
+            //int margin = 10;
+            //int totalMarginSpace = margin * (diningAreas.Count + 1);
+            //int adjustedHeight = flowLayoutPanel.Height - totalMarginSpace;
+            //int height = adjustedHeight / diningAreas.Count;
             
             RadioButton btn = new RadioButton()
             {
