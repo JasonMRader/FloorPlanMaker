@@ -33,13 +33,10 @@ namespace FloorplanUserControlLibrary
         }
         private void SetShiftsForServer()
         {
-            
             _server.Shifts = SqliteDataAccess.GetShiftsForServer(_server);
             DateOnly start = DateOnly.FromDateTime(DateTime.Now.AddDays(-90));
             DateOnly end = _floorplan.DateOnly;
             GetShiftsForDateRangeAndIsLunch(start, end, _floorplan.IsLunch);
-            
-
         }
 
         private void SetControlProperties()
