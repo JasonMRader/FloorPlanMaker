@@ -75,6 +75,11 @@ namespace FloorPlanMakerUI
             SetDateList();
             RefreshCalendarForDisplayType();
         }
+        public void SetNewYear(int year) {
+            this.year = year;
+            SetDateList();
+            RefreshCalendarForDisplayType();
+        }
         
         public void SetNewDisplayType(CalendarDisplayType displayType)
         {

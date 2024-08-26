@@ -152,5 +152,17 @@ namespace FloorPlanMakerUI {
             this.Close();
             this.Dispose();
         }
+
+        private void rdoYear_CheckedChanged(object sender, EventArgs e) {
+            if(rdo2024.Checked) {
+                calendarManager.SetNewYear(2024);
+            }
+            else if (rdo2023.Checked) {
+                calendarManager.SetNewYear(2023);
+            }
+            else if (rdo2022.Checked) {
+                calendarManager.SetNewYear(2022);
+            }
+        }
     }
 }

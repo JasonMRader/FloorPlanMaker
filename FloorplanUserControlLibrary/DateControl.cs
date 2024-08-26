@@ -136,7 +136,7 @@ namespace FloorplanUserControlLibrary
                 {
                     continue;
                 }
-                if(areaHistory.Sales > 200)
+                if(areaHistory.Sales > 100)
                 {
                     
                     ImageLabelControl imageLabelControl = new ImageLabelControl() { };

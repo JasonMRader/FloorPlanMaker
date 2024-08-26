@@ -64,6 +64,9 @@
             flowDay5 = new FlowLayoutPanel();
             flowDay6 = new FlowLayoutPanel();
             flowDay7 = new FlowLayoutPanel();
+            rdo2024 = new RadioButton();
+            rdo2023 = new RadioButton();
+            rdo2022 = new RadioButton();
             flowLayoutPanel5.SuspendLayout();
             flowLayoutPanel1.SuspendLayout();
             flowLayoutPanel2.SuspendLayout();
@@ -187,7 +190,7 @@
             cboMonthSelect.FlatStyle = FlatStyle.Flat;
             cboMonthSelect.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point);
             cboMonthSelect.FormattingEnabled = true;
-            cboMonthSelect.Location = new Point(12, 15);
+            cboMonthSelect.Location = new Point(12, 63);
             cboMonthSelect.Name = "cboMonthSelect";
             cboMonthSelect.Size = new Size(356, 40);
             cboMonthSelect.TabIndex = 2;
@@ -357,7 +360,7 @@
             // 
             // btnUpdate
             // 
-            btnUpdate.Location = new Point(12, 71);
+            btnUpdate.Location = new Point(12, 119);
             btnUpdate.Name = "btnUpdate";
             btnUpdate.Size = new Size(356, 23);
             btnUpdate.TabIndex = 6;
@@ -511,11 +514,52 @@
             flowDay7.Size = new Size(150, 153);
             flowDay7.TabIndex = 9;
             // 
+            // rdo2024
+            // 
+            rdo2024.AutoSize = true;
+            rdo2024.Checked = true;
+            rdo2024.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            rdo2024.Location = new Point(12, 13);
+            rdo2024.Name = "rdo2024";
+            rdo2024.Size = new Size(74, 29);
+            rdo2024.TabIndex = 10;
+            rdo2024.TabStop = true;
+            rdo2024.Text = "2024";
+            rdo2024.UseVisualStyleBackColor = true;
+            rdo2024.CheckedChanged += rdoYear_CheckedChanged;
+            // 
+            // rdo2023
+            // 
+            rdo2023.AutoSize = true;
+            rdo2023.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            rdo2023.Location = new Point(150, 13);
+            rdo2023.Name = "rdo2023";
+            rdo2023.Size = new Size(74, 29);
+            rdo2023.TabIndex = 10;
+            rdo2023.Text = "2023";
+            rdo2023.UseVisualStyleBackColor = true;
+            rdo2023.CheckedChanged += rdoYear_CheckedChanged;
+            // 
+            // rdo2022
+            // 
+            rdo2022.AutoSize = true;
+            rdo2022.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            rdo2022.Location = new Point(288, 13);
+            rdo2022.Name = "rdo2022";
+            rdo2022.Size = new Size(74, 29);
+            rdo2022.TabIndex = 10;
+            rdo2022.Text = "2022";
+            rdo2022.UseVisualStyleBackColor = true;
+            rdo2022.CheckedChanged += rdoYear_CheckedChanged;
+            // 
             // frmCalendar
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1501, 1042);
+            Controls.Add(rdo2022);
+            Controls.Add(rdo2023);
+            Controls.Add(rdo2024);
             Controls.Add(flowDay7);
             Controls.Add(flowDay6);
             Controls.Add(flowDay5);
@@ -604,5 +648,8 @@
         private FlowLayoutPanel flowDay5;
         private FlowLayoutPanel flowDay6;
         private FlowLayoutPanel flowDay7;
+        private RadioButton rdo2024;
+        private RadioButton rdo2023;
+        private RadioButton rdo2022;
     }
 }
