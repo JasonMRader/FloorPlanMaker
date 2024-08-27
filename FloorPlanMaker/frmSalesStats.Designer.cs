@@ -24,10 +24,8 @@
         /// </summary>
         private void InitializeComponent() {
             components = new System.ComponentModel.Container();
-            dgvDiningAreas = new DataGridView();
             rdoDiningAreaSales = new RadioButton();
             rdoServerShifts = new RadioButton();
-            btnUpdate = new Button();
             rdoAm = new RadioButton();
             rdoPm = new RadioButton();
             rdoBoth = new RadioButton();
@@ -73,7 +71,11 @@
             btnRefreshFilters = new Button();
             dataGridView1 = new DataGridView();
             flowDiningAreas = new FlowLayoutPanel();
-            ((System.ComponentModel.ISupportInitialize)dgvDiningAreas).BeginInit();
+            dgvAverages = new DataGridView();
+            panel6 = new Panel();
+            rdoSpecialAndNormal = new RadioButton();
+            rdoEventsOnly = new RadioButton();
+            rdoExcludeEvents = new RadioButton();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
@@ -82,17 +84,9 @@
             ((System.ComponentModel.ISupportInitialize)nudLowTemp).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudHiTemp).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvAverages).BeginInit();
+            panel6.SuspendLayout();
             SuspendLayout();
-            // 
-            // dgvDiningAreas
-            // 
-            dgvDiningAreas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvDiningAreas.Location = new Point(1169, 315);
-            dgvDiningAreas.Name = "dgvDiningAreas";
-            dgvDiningAreas.RowTemplate.Height = 25;
-            dgvDiningAreas.Size = new Size(231, 477);
-            dgvDiningAreas.TabIndex = 0;
-            dgvDiningAreas.Visible = false;
             // 
             // rdoDiningAreaSales
             // 
@@ -116,18 +110,6 @@
             rdoServerShifts.Text = "Server Shift History";
             rdoServerShifts.UseVisualStyleBackColor = true;
             rdoServerShifts.CheckedChanged += rdoServerShifts_CheckedChanged;
-            // 
-            // btnUpdate
-            // 
-            btnUpdate.Enabled = false;
-            btnUpdate.FlatStyle = FlatStyle.Flat;
-            btnUpdate.Location = new Point(1194, 247);
-            btnUpdate.Name = "btnUpdate";
-            btnUpdate.Size = new Size(195, 35);
-            btnUpdate.TabIndex = 2;
-            btnUpdate.Text = "Update";
-            btnUpdate.UseVisualStyleBackColor = true;
-            btnUpdate.Click += btnUpdate_Click;
             // 
             // rdoAm
             // 
@@ -161,7 +143,7 @@
             rdoBoth.TabStop = true;
             rdoBoth.Text = "All Day";
             rdoBoth.UseVisualStyleBackColor = true;
-            rdoBoth.CheckedChanged += rdoBoth_CheckedChanged;
+            rdoBoth.CheckedChanged += rdoEvents_CheckedChanged;
             // 
             // panel1
             // 
@@ -345,7 +327,7 @@
             panel4.Controls.Add(lblComboLabel);
             panel4.Controls.Add(btnIndividualStats);
             panel4.Controls.Add(cboServerSelect);
-            panel4.Location = new Point(760, 9);
+            panel4.Location = new Point(1113, 9);
             panel4.Name = "panel4";
             panel4.Size = new Size(287, 164);
             panel4.TabIndex = 8;
@@ -621,22 +603,26 @@
             // 
             // btnRefreshFilters
             // 
+            btnRefreshFilters.BackColor = Color.FromArgb(100, 130, 180);
+            btnRefreshFilters.FlatAppearance.BorderSize = 0;
             btnRefreshFilters.FlatStyle = FlatStyle.Flat;
-            btnRefreshFilters.Location = new Point(33, 247);
+            btnRefreshFilters.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            btnRefreshFilters.ForeColor = Color.White;
+            btnRefreshFilters.Location = new Point(30, 312);
             btnRefreshFilters.Name = "btnRefreshFilters";
-            btnRefreshFilters.Size = new Size(495, 35);
+            btnRefreshFilters.Size = new Size(1370, 35);
             btnRefreshFilters.TabIndex = 2;
             btnRefreshFilters.Text = "Get Data";
-            btnRefreshFilters.UseVisualStyleBackColor = true;
+            btnRefreshFilters.UseVisualStyleBackColor = false;
             btnRefreshFilters.Click += btnRefreshFilters_Click;
             // 
             // dataGridView1
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(30, 306);
+            dataGridView1.Location = new Point(30, 423);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowTemplate.Height = 25;
-            dataGridView1.Size = new Size(1040, 564);
+            dataGridView1.Size = new Size(1370, 447);
             dataGridView1.TabIndex = 12;
             // 
             // flowDiningAreas
@@ -646,11 +632,66 @@
             flowDiningAreas.Size = new Size(724, 53);
             flowDiningAreas.TabIndex = 13;
             // 
+            // dgvAverages
+            // 
+            dgvAverages.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvAverages.Location = new Point(30, 353);
+            dgvAverages.Name = "dgvAverages";
+            dgvAverages.RowTemplate.Height = 25;
+            dgvAverages.Size = new Size(1370, 64);
+            dgvAverages.TabIndex = 14;
+            // 
+            // panel6
+            // 
+            panel6.Controls.Add(rdoSpecialAndNormal);
+            panel6.Controls.Add(rdoEventsOnly);
+            panel6.Controls.Add(rdoExcludeEvents);
+            panel6.Location = new Point(30, 238);
+            panel6.Name = "panel6";
+            panel6.Size = new Size(301, 25);
+            panel6.TabIndex = 4;
+            // 
+            // rdoSpecialAndNormal
+            // 
+            rdoSpecialAndNormal.AutoSize = true;
+            rdoSpecialAndNormal.Checked = true;
+            rdoSpecialAndNormal.Location = new Point(3, 3);
+            rdoSpecialAndNormal.Name = "rdoSpecialAndNormal";
+            rdoSpecialAndNormal.Size = new Size(50, 19);
+            rdoSpecialAndNormal.TabIndex = 3;
+            rdoSpecialAndNormal.TabStop = true;
+            rdoSpecialAndNormal.Text = "Both";
+            rdoSpecialAndNormal.UseVisualStyleBackColor = true;
+            rdoSpecialAndNormal.CheckedChanged += rdoEvents_CheckedChanged;
+            // 
+            // rdoEventsOnly
+            // 
+            rdoEventsOnly.AutoSize = true;
+            rdoEventsOnly.Location = new Point(207, 3);
+            rdoEventsOnly.Name = "rdoEventsOnly";
+            rdoEventsOnly.Size = new Size(87, 19);
+            rdoEventsOnly.TabIndex = 3;
+            rdoEventsOnly.Text = "Events Only";
+            rdoEventsOnly.UseVisualStyleBackColor = true;
+            rdoEventsOnly.CheckedChanged += rdoEvents_CheckedChanged;
+            // 
+            // rdoExcludeEvents
+            // 
+            rdoExcludeEvents.AutoSize = true;
+            rdoExcludeEvents.Location = new Point(59, 3);
+            rdoExcludeEvents.Name = "rdoExcludeEvents";
+            rdoExcludeEvents.Size = new Size(143, 19);
+            rdoExcludeEvents.TabIndex = 3;
+            rdoExcludeEvents.Text = "Exclude Special Events";
+            rdoExcludeEvents.UseVisualStyleBackColor = true;
+            rdoExcludeEvents.CheckedChanged += rdoEvents_CheckedChanged;
+            // 
             // frmSalesStats
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1412, 874);
+            Controls.Add(dgvAverages);
             Controls.Add(flowDiningAreas);
             Controls.Add(dataGridView1);
             Controls.Add(lblTo);
@@ -664,16 +705,14 @@
             Controls.Add(label1);
             Controls.Add(dtpEndDate);
             Controls.Add(dtpStartDate);
+            Controls.Add(panel6);
             Controls.Add(panel2);
             Controls.Add(panel1);
             Controls.Add(btnRefreshFilters);
-            Controls.Add(btnUpdate);
-            Controls.Add(dgvDiningAreas);
             Name = "frmSalesStats";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "frmSalesStats";
             Load += frmSalesStats_Load;
-            ((System.ComponentModel.ISupportInitialize)dgvDiningAreas).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             panel2.ResumeLayout(false);
@@ -685,16 +724,16 @@
             ((System.ComponentModel.ISupportInitialize)nudLowTemp).EndInit();
             ((System.ComponentModel.ISupportInitialize)nudHiTemp).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvAverages).EndInit();
+            panel6.ResumeLayout(false);
+            panel6.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private DataGridView dgvDiningAreas;
         private RadioButton rdoDiningAreaSales;
         private RadioButton rdoServerShifts;
-        private Button btnUpdate;
         private RadioButton rdoAm;
         private RadioButton rdoPm;
         private RadioButton rdoBoth;
@@ -740,5 +779,10 @@
         private Button btnRefreshFilters;
         private DataGridView dataGridView1;
         private FlowLayoutPanel flowDiningAreas;
+        private DataGridView dgvAverages;
+        private Panel panel6;
+        private RadioButton rdoSpecialAndNormal;
+        private RadioButton rdoEventsOnly;
+        private RadioButton rdoExcludeEvents;
     }
 }

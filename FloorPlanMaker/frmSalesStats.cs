@@ -43,13 +43,13 @@ namespace FloorPlanMakerUI {
         };
 
         private void frmSalesStats_Load(object sender, EventArgs e) {
-            UITheme.FormatCTAButton(btnUpdate);
+
             allWeatherData = SqliteDataAccess.LoadAllWeatherData();
             dtpEndDate.Value = DateTime.Now.AddDays(-1);
             dtpStartDate.Value = DateTime.Now.AddDays(-8);
             employeeManager.LoadShiftsForActiveServers();
             flowDiningAreas.Controls.Add(CreateSelectAllAreaRadio());
-            foreach(DiningArea area in areaManager.DiningAreas) {
+            foreach (DiningArea area in areaManager.DiningAreas) {
                 flowDiningAreas.Controls.Add(CreateAreaRadio(area));
             }
             //List<ServerShiftHistory> history = new List<ServerShiftHistory>();
@@ -63,22 +63,22 @@ namespace FloorPlanMakerUI {
             RadioButton btn = new RadioButton() {
 
                 Text = "ALL",
-                Size = new Size(flowDiningAreas.Width / (areaManager.DiningAreas.Count -1), flowDiningAreas.Height),
+                Size = new Size(flowDiningAreas.Width / (areaManager.DiningAreas.Count + 1), flowDiningAreas.Height),
                 Margin = new Padding(0, 0, 0, 0),
-                
-
-
+                TextAlign = ContentAlignment.MiddleCenter
             };
             btn.Click += SelectedAllAreasButtonClicked;
             UITheme.FormatCTAButton(btn);
+            btn.Font = UITheme.CustomFont(14, FontStyle.Bold);
             btn.BackColor = UITheme.ButtonColor;
             btn.FlatAppearance.CheckedBackColor = UITheme.DarkenColor(.3f, UITheme.ButtonColor);
+            btn.Checked = true;
             //toolTip.SetToolTip(btn, area.Name);
             return btn;
         }
 
         private void SelectedAllAreasButtonClicked(object? sender, EventArgs e) {
-            throw new NotImplementedException();
+
         }
 
         private RadioButton CreateAreaRadio(DiningArea area) {
@@ -100,7 +100,7 @@ namespace FloorPlanMakerUI {
         }
 
         private void areaButtonClicked(object? sender, EventArgs e) {
-            
+
         }
 
         public List<DateTime> GetFilteredDates(DateTime startDate, DateTime endDate) {
@@ -260,11 +260,11 @@ namespace FloorPlanMakerUI {
         }
 
         private void PopulateDGVForServerHistory(List<ServerShiftHistory> serverHistory) {
-            dgvDiningAreas.Columns.Clear();
-            dgvDiningAreas.Rows.Clear();
+            //dgvDiningAreas.Columns.Clear();
+            //dgvDiningAreas.Rows.Clear();
 
-            // Add columns for each dining area and total sales
-            dgvDiningAreas.Columns.Add("Server", "Server");
+            //// Add columns for each dining area and total sales
+            //dgvDiningAreas.Columns.Add("Server", "Server");
 
             var shiftColumn = new DataGridViewTextBoxColumn {
                 Name = "ShiftCount",
@@ -330,15 +330,15 @@ namespace FloorPlanMakerUI {
                 }
             };
 
-            dgvDiningAreas.Columns.Add(shiftColumn);
-            dgvDiningAreas.Columns.Add(outsideCountColumn);
-            dgvDiningAreas.Columns.Add(outsidePercentageColumn);
-            dgvDiningAreas.Columns.Add(cocktailCountColumn);
-            dgvDiningAreas.Columns.Add(cocktailPercentageColumn);
-            dgvDiningAreas.Columns.Add(closeCountColumn);
-            dgvDiningAreas.Columns.Add(closePercentageColumn);
-            dgvDiningAreas.Columns.Add(TeamCountColumn);
-            dgvDiningAreas.Columns.Add(TeamPercentageColumn);
+            //dgvDiningAreas.Columns.Add(shiftColumn);
+            //dgvDiningAreas.Columns.Add(outsideCountColumn);
+            //dgvDiningAreas.Columns.Add(outsidePercentageColumn);
+            //dgvDiningAreas.Columns.Add(cocktailCountColumn);
+            //dgvDiningAreas.Columns.Add(cocktailPercentageColumn);
+            //dgvDiningAreas.Columns.Add(closeCountColumn);
+            //dgvDiningAreas.Columns.Add(closePercentageColumn);
+            //dgvDiningAreas.Columns.Add(TeamCountColumn);
+            //dgvDiningAreas.Columns.Add(TeamPercentageColumn);
 
 
 
@@ -358,7 +358,7 @@ namespace FloorPlanMakerUI {
                 row.Add(history.TeamWaitPercentage);
 
 
-                dgvDiningAreas.Rows.Add(row.ToArray());
+                // dgvDiningAreas.Rows.Add(row.ToArray());
             }
 
         }
@@ -379,7 +379,7 @@ namespace FloorPlanMakerUI {
 
                     this.Invoke(new Action(() => {
                         // Close the loading form and re-enable the main form
-                        PopulateDGVForAreaSales(dgvDiningAreas, areaManager.DiningAreas, salesData);
+                        // PopulateDGVForAreaSales(dgvDiningAreas, areaManager.DiningAreas, salesData);
                         loadingForm.Close();
                         this.Enabled = true;
 
@@ -469,7 +469,7 @@ namespace FloorPlanMakerUI {
             //dtpEndDate.Focus();
         }
 
-        private void rdoBoth_CheckedChanged(object sender, EventArgs e) {
+        private void rdoEvents_CheckedChanged(object sender, EventArgs e) {
 
         }
 
@@ -1004,7 +1004,7 @@ namespace FloorPlanMakerUI {
 
         private void AddShiftRows(DataGridView dgvDiningAreas, List<DiningArea> diningAreas, List<ShiftRecord> shiftRecords) {
             foreach (var shiftRecord in shiftRecords) {
-                var row = new List<object> { shiftRecord.Date.ToShortDateString() };
+                var row = new List<object> { shiftRecord.Date.ToString("ddd, M/d/yy") };
 
                 if (shiftRecord.SpecialEventDate != null) {
                     row.Add(shiftRecord.SpecialEventDate.Name);
