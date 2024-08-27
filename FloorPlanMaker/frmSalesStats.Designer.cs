@@ -409,7 +409,7 @@
             cbJul.TabIndex = 0;
             cbJul.Text = "Jul";
             cbJul.UseVisualStyleBackColor = true;
-            cbJul.CheckedChanged += cbJul_CheckedChanged;
+            cbJul.CheckedChanged += cbMonth_CheckChanged;
             // 
             // cbDec
             // 
@@ -422,7 +422,7 @@
             cbDec.TabIndex = 0;
             cbDec.Text = "Dec";
             cbDec.UseVisualStyleBackColor = true;
-            cbDec.CheckedChanged += cbDec_CheckedChanged;
+            cbDec.CheckedChanged += cbMonth_CheckChanged;
             // 
             // cbJun
             // 
@@ -435,7 +435,7 @@
             cbJun.TabIndex = 0;
             cbJun.Text = "Jun";
             cbJun.UseVisualStyleBackColor = true;
-            cbJun.CheckedChanged += cbJun_CheckedChanged;
+            cbJun.CheckedChanged += cbMonth_CheckChanged;
             // 
             // cbNov
             // 
@@ -448,7 +448,7 @@
             cbNov.TabIndex = 0;
             cbNov.Text = "Nov";
             cbNov.UseVisualStyleBackColor = true;
-            cbNov.CheckedChanged += cbNov_CheckedChanged;
+            cbNov.CheckedChanged += cbMonth_CheckChanged;
             // 
             // cbMay
             // 
@@ -461,7 +461,7 @@
             cbMay.TabIndex = 0;
             cbMay.Text = "May";
             cbMay.UseVisualStyleBackColor = true;
-            cbMay.CheckedChanged += cbMay_CheckedChanged;
+            cbMay.CheckedChanged += cbMonth_CheckChanged;
             // 
             // cbOct
             // 
@@ -474,7 +474,7 @@
             cbOct.TabIndex = 0;
             cbOct.Text = "Oct";
             cbOct.UseVisualStyleBackColor = true;
-            cbOct.CheckedChanged += cbOct_CheckedChanged;
+            cbOct.CheckedChanged += cbMonth_CheckChanged;
             // 
             // cbSep
             // 
@@ -487,7 +487,7 @@
             cbSep.TabIndex = 0;
             cbSep.Text = "Sep";
             cbSep.UseVisualStyleBackColor = true;
-            cbSep.CheckedChanged += cbSep_CheckedChanged;
+            cbSep.CheckedChanged += cbMonth_CheckChanged;
             // 
             // cbApr
             // 
@@ -500,7 +500,7 @@
             cbApr.TabIndex = 0;
             cbApr.Text = "Apr";
             cbApr.UseVisualStyleBackColor = true;
-            cbApr.CheckedChanged += cbApr_CheckedChanged;
+            cbApr.CheckedChanged += cbMonth_CheckChanged;
             // 
             // cbAug
             // 
@@ -513,7 +513,7 @@
             cbAug.TabIndex = 0;
             cbAug.Text = "Aug";
             cbAug.UseVisualStyleBackColor = true;
-            cbAug.CheckedChanged += cbAug_CheckedChanged;
+            cbAug.CheckedChanged += cbMonth_CheckChanged;
             // 
             // cbMar
             // 
@@ -526,7 +526,7 @@
             cbMar.TabIndex = 0;
             cbMar.Text = "Mar";
             cbMar.UseVisualStyleBackColor = true;
-            cbMar.CheckedChanged += cbMar_CheckedChanged;
+            cbMar.CheckedChanged += cbMonth_CheckChanged;
             // 
             // cbFeb
             // 
@@ -539,7 +539,7 @@
             cbFeb.TabIndex = 0;
             cbFeb.Text = "Feb";
             cbFeb.UseVisualStyleBackColor = true;
-            cbFeb.CheckedChanged += cbFeb_CheckedChanged;
+            cbFeb.CheckedChanged += cbMonth_CheckChanged;
             // 
             // cbJan
             // 
@@ -552,7 +552,7 @@
             cbJan.TabIndex = 0;
             cbJan.Text = "Jan";
             cbJan.UseVisualStyleBackColor = true;
-            cbJan.CheckedChanged += cbJan_CheckedChanged;
+            cbJan.CheckedChanged += cbMonth_CheckChanged;
             // 
             // nudTempAnchor
             // 
