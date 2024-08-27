@@ -48,7 +48,8 @@ namespace FloorplanClassLibrary
         }
         public async static Task <List<HourlyWeatherData>> GetPastWeatherData(DateOnly dateOnly, bool isLunch)
         {
-            List<HourlyWeatherData> hourlyData = SqliteDataAccess.LoadHourlyWeatherData(dateOnly, isLunch);
+            ShiftWeather shiftWeather = SqliteDataAccess.LoadHourlyWeatherData(dateOnly, isLunch);
+            List<HourlyWeatherData> hourlyData = shiftWeather.HourlyWeather;
             if(hourlyData == null)
             {
                 hourlyData = await WeatherApiDataAccess.GetHourlyWeatherHistory(dateOnly);

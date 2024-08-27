@@ -260,11 +260,11 @@ namespace FloorPlanMakerUI {
         }
 
         private void PopulateDGVForServerHistory(List<ServerShiftHistory> serverHistory) {
-            //dgvDiningAreas.Columns.Clear();
-            //dgvDiningAreas.Rows.Clear();
+            dataGridView1.Columns.Clear();
+            dataGridView1.Rows.Clear();
 
             //// Add columns for each dining area and total sales
-            //dgvDiningAreas.Columns.Add("Server", "Server");
+            dataGridView1.Columns.Add("Server", "Server");
 
             var shiftColumn = new DataGridViewTextBoxColumn {
                 Name = "ShiftCount",
@@ -330,19 +330,19 @@ namespace FloorPlanMakerUI {
                 }
             };
 
-            //dgvDiningAreas.Columns.Add(shiftColumn);
-            //dgvDiningAreas.Columns.Add(outsideCountColumn);
-            //dgvDiningAreas.Columns.Add(outsidePercentageColumn);
-            //dgvDiningAreas.Columns.Add(cocktailCountColumn);
-            //dgvDiningAreas.Columns.Add(cocktailPercentageColumn);
-            //dgvDiningAreas.Columns.Add(closeCountColumn);
-            //dgvDiningAreas.Columns.Add(closePercentageColumn);
-            //dgvDiningAreas.Columns.Add(TeamCountColumn);
-            //dgvDiningAreas.Columns.Add(TeamPercentageColumn);
+            dataGridView1.Columns.Add(shiftColumn);
+            dataGridView1.Columns.Add(outsideCountColumn);
+            dataGridView1.Columns.Add(outsidePercentageColumn);
+            dataGridView1.Columns.Add(cocktailCountColumn);
+            dataGridView1.Columns.Add(cocktailPercentageColumn);
+            dataGridView1.Columns.Add(closeCountColumn);
+            dataGridView1.Columns.Add(closePercentageColumn);
+            dataGridView1.Columns.Add(TeamCountColumn);
+            dataGridView1.Columns.Add(TeamPercentageColumn);
 
 
 
-            //dgvDiningAreas.Columns.Add(totalColumn);
+            //dataGridView1.Columns.Add(totalColumn);
 
             // Add rows for each date's sales data
             foreach (var history in serverHistory) {
@@ -358,7 +358,7 @@ namespace FloorPlanMakerUI {
                 row.Add(history.TeamWaitPercentage);
 
 
-                // dgvDiningAreas.Rows.Add(row.ToArray());
+                 dataGridView1.Rows.Add(row.ToArray());
             }
 
         }
@@ -379,7 +379,7 @@ namespace FloorPlanMakerUI {
 
                     this.Invoke(new Action(() => {
                         // Close the loading form and re-enable the main form
-                        // PopulateDGVForAreaSales(dgvDiningAreas, areaManager.DiningAreas, salesData);
+                         PopulateDGVForAreaSales(dataGridView1, areaManager.DiningAreas, salesData);
                         loadingForm.Close();
                         this.Enabled = true;
 
@@ -456,17 +456,7 @@ namespace FloorPlanMakerUI {
                 lblComboLabel.Text = "Dining Areas";
                 btnIndividualStats.Text = "Area Table History";
                 btnIndividualServerShifts.Visible = false;
-
-
             }
-
-        }
-
-
-
-        private void timer1_Tick(object sender, EventArgs e) {
-            //timer1.Stop();
-            //dtpEndDate.Focus();
         }
 
         private void rdoEvents_CheckedChanged(object sender, EventArgs e) {
@@ -609,8 +599,8 @@ namespace FloorPlanMakerUI {
             }
         }
         private void PopulateDGVForIndividualServer(Server serverSelected) {
-            dgvDiningAreas.Columns.Clear();
-            dgvDiningAreas.Rows.Clear();
+            dataGridView1.Columns.Clear();
+            dataGridView1.Rows.Clear();
             var serverShiftHistory = new ServerShiftHistory();
             if (rdoBoth.Checked) {
                 serverShiftHistory = new ServerShiftHistory(serverSelected, dateOnlyStart, dateOnlyEnd, FilteredDaysOfWeek);
@@ -621,7 +611,7 @@ namespace FloorPlanMakerUI {
 
 
 
-            dgvDiningAreas.Columns.Add("Server", "Server");
+            dataGridView1.Columns.Add("Server", "Server");
             var numericTableCounts = serverShiftHistory.TableCounts
                 .Where(kvp => int.TryParse(kvp.Key, out _))
                 .OrderBy(kvp => int.Parse(kvp.Key))
@@ -643,7 +633,7 @@ namespace FloorPlanMakerUI {
                         Format = "N0"
                     }
                 };
-                dgvDiningAreas.Columns.Add(column);
+                dataGridView1.Columns.Add(column);
             }
 
             var row = new List<object> { serverShiftHistory.Server.ToString() };
@@ -651,7 +641,7 @@ namespace FloorPlanMakerUI {
                 row.Add(table.Value);
             }
 
-            dgvDiningAreas.Rows.Add(row.ToArray());
+            dataGridView1.Rows.Add(row.ToArray());
         }
 
         private void btnIndividualServerShifts_Click(object sender, EventArgs e) {
@@ -661,11 +651,11 @@ namespace FloorPlanMakerUI {
             }
         }
         public void PopulateDGVForServerShiftHistory(Server serverSelected) {
-            dgvDiningAreas.Columns.Clear();
-            dgvDiningAreas.Rows.Clear();
+            dataGridView1.Columns.Clear();
+            dataGridView1.Rows.Clear();
 
             // Add columns for each dining area and total sales
-            dgvDiningAreas.Columns.Add("Date", "Date");
+            dataGridView1.Columns.Add("Date", "Date");
             var serverShiftHistory = new ServerShiftHistory();
             if (rdoBoth.Checked) {
                 serverShiftHistory = new ServerShiftHistory(serverSelected, dateOnlyStart, dateOnlyEnd, FilteredDaysOfWeek);
@@ -684,7 +674,7 @@ namespace FloorPlanMakerUI {
                     Format = "C0" // Format as currency with no decimals
                 }
             };
-            dgvDiningAreas.Columns.Add(tablesColumn);
+            dataGridView1.Columns.Add(tablesColumn);
 
             // Add rows for each date's sales data
             foreach (var empShift in serverShiftHistory.filteredShifts) {
@@ -695,7 +685,7 @@ namespace FloorPlanMakerUI {
 
 
 
-                dgvDiningAreas.Rows.Add(row.ToArray());
+                dataGridView1.Rows.Add(row.ToArray());
             }
         }
 
@@ -1023,9 +1013,14 @@ namespace FloorPlanMakerUI {
 
                 row.Add(shiftRecord.Sales);
 
-                int feelsLikeHi = shiftRecord.HourlyWeatherData.Any() ?
-                                  shiftRecord.HourlyWeatherData.Max(hw => hw.FeelsLikeHi) :
-                                  0;
+                //int feelsLikeHi = shiftRecord.HourlyWeatherData.Any() ?
+                //                  shiftRecord.HourlyWeatherData.Max(hw => hw.FeelsLikeHi) :
+                //                  0;
+                int feelsLikeHi = 0;
+                if(shiftRecord.ShiftWeather != null) {
+                    feelsLikeHi = shiftRecord.ShiftWeather.FeelsLikeHi;
+                }
+                                
                 row.Add(feelsLikeHi);
 
                 dgvDiningAreas.Rows.Add(row.ToArray());

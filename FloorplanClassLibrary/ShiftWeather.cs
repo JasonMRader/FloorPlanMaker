@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 namespace FloorplanClassLibrary {
     public class ShiftWeather {
         private List<HourlyWeatherData> weatherData { get; set; } 
+        public List<HourlyWeatherData> HourlyWeather { get {
+                return weatherData;
+            } }
         public ShiftWeather(List<HourlyWeatherData> weatherData) {
             this.weatherData = weatherData;
         }

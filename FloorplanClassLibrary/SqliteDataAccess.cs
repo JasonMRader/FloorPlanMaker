@@ -2636,7 +2636,7 @@ namespace FloorplanClassLibrary
             }
         }
 
-        public static List<HourlyWeatherData> LoadHourlyWeatherData(DateOnly dateOnly, bool isLunch)
+        public static ShiftWeather LoadHourlyWeatherData(DateOnly dateOnly, bool isLunch)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {                
@@ -2677,8 +2677,8 @@ namespace FloorplanClassLibrary
                     WindSpeedMax = item.WindSpeedMax != null ? Convert.ToInt32(item.WindSpeedMax) : 0,
                     WindSpeedAvg = item.WindSpeedAvg != null ? Convert.ToInt32(item.WindSpeedAvg) : 0
                 }).ToList();
-
-                return result;
+                ShiftWeather shiftWeather = new ShiftWeather(result);
+                return shiftWeather;
             }
         }
 
@@ -2694,7 +2694,7 @@ namespace FloorplanClassLibrary
                 //Sales = LoadTotalSales(date, isLunch), // Assuming you have a method to load total sales
             };
 
-            shiftRecord.HourlyWeatherData = LoadHourlyWeatherData(date, isLunch);
+            shiftRecord.ShiftWeather = LoadHourlyWeatherData(date, isLunch);
             shiftRecord.DiningAreaRecords = LoadDiningAreaRecordsByDateAndLunch(date, isLunch);
             shiftRecord.tableStats = LoadTableStatsByDateAndLunch(isLunch, date);
             shiftRecord.Sales = (float)shiftRecord.tableStats.Where(ts => ts.DiningAreaID != 6).ToList().Sum(ts => ts.Sales);

@@ -22,6 +22,7 @@ namespace FloorplanClassLibrary
             get { return dateOnly.DayOfWeek; } 
         }
         public bool IsAm { get; set; }
+        public ShiftWeather ShiftWeather { get; set; }
         public List<HourlyWeatherData> HourlyWeatherData { get; set; } = new List<HourlyWeatherData>();
         public int Reservations { get; set; } 
         public SpecialEventDate? SpecialEventDate { get; set; }

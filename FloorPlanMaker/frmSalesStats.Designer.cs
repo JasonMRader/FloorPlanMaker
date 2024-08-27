@@ -23,7 +23,6 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            components = new System.ComponentModel.Container();
             rdoDiningAreaSales = new RadioButton();
             rdoServerShifts = new RadioButton();
             rdoAm = new RadioButton();
@@ -35,7 +34,6 @@
             dtpEndDate = new DateTimePicker();
             label1 = new Label();
             label2 = new Label();
-            timer1 = new System.Windows.Forms.Timer(components);
             panel3 = new Panel();
             cbAllWeekdays = new CheckBox();
             cbSun = new CheckBox();
@@ -197,10 +195,6 @@
             label2.Size = new Size(22, 15);
             label2.TabIndex = 6;
             label2.Text = "To:";
-            // 
-            // timer1
-            // 
-            timer1.Tick += timer1_Tick;
             // 
             // panel3
             // 
@@ -743,7 +737,6 @@
         private DateTimePicker dtpEndDate;
         private Label label1;
         private Label label2;
-        private System.Windows.Forms.Timer timer1;
         private Panel panel3;
         private CheckBox cbAllWeekdays;
         private CheckBox cbSun;
