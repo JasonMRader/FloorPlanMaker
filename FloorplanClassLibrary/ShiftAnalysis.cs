@@ -8,6 +8,9 @@ namespace FloorplanClassLibrary
 {
     public class ShiftAnalysis
     {
+        public ShiftAnalysis(List<ShiftRecord> shifts) {
+            _shifts = shifts;
+        }
         private List<ShiftRecord> _shifts = new List<ShiftRecord>();
         public List<ShiftRecord> Shifts { get { return _shifts; } }
         private List<ShiftRecord> _filteredShifts { get; set; } = new List<ShiftRecord>();
@@ -19,17 +22,104 @@ namespace FloorplanClassLibrary
         private DateOnly _endDate = new DateOnly();
         public int tempAnchor { get; set; }
         public int tempRange { get; set; }
-        private bool _filterByTemperature { get; set; } = true;
-        private bool _filterByDayOfWeek { get; set; }=true;
+        public int ReservationAnchor { get; set; }
+        public int ReservationRange { get; set; }
+        public float rainAnchor { get; set; }
+        public float rainRange { get; set; }
+        public float CloudAnchor { get; set; }
+        public float CloudRange { get; set; }
+        public int WindMaxAnchor { get; set; }
+        public int WindMaxRange { get; set; }
+        public int WindAvgAnchor { get; set; }
+        public int WindAvgRange { get; set; }
+        private bool _filterByTemperature { get; set; } = false;
+        private bool _filterByRainAmount { get; set; } = false;
+        private bool _filterByClouds { get; set; } = false;
+        private bool _filterByWindMax { get; set; } = false;
+        private bool _filterByWindAvg { get; set; } = false;
+        private bool _filterByDayOfWeek { get; set; }= false;
+        private bool _filterByDiningArea { get; set; } = false;
+        private bool _filterByMonth { get; set; } = false;
+        private bool _filterByReservations { get; set; } = false;
+        private bool _filterBySpecialEvent { get; set; } = false;
+        private List<DayOfWeek> FilteredDaysOfWeek = new List<DayOfWeek>
+       {
+            DayOfWeek.Monday,
+            DayOfWeek.Tuesday,
+            DayOfWeek.Wednesday,
+            DayOfWeek.Thursday,
+            DayOfWeek.Friday,
+            DayOfWeek.Saturday,
+            DayOfWeek.Sunday
+        };
+        private List<int> FilteredMonths = new List<int>
+        {
+           1,2,3,4,5,6,7,8,9,10,11,12
+        };
+        private List<DiningArea> FilteredDiningAreas { get; set; } = new List<DiningArea>();
+
         public DateOnly StartDate
         {
             get { return _startDate; }
         }
         public DateOnly EndDate { get { return _endDate; } }
+        public void SetIsFilteredByTemp(bool isFilteredByTemp) {
+            this._filterByTemperature = isFilteredByTemp;
+        }
+        public void SetIsFilteredByDayOfWeek(bool  isFilteredByDayOfWeek) {
+            this._filterByDayOfWeek = isFilteredByDayOfWeek;
+        }
+        public void SetIsFilteredbyRainAmount(bool isFilteredByRainAmount) {
+            this._filterByRainAmount = isFilteredByRainAmount;
+        }
+        public void SetIsFilteredByClouds(bool  isFilteredByClouds) {
+            this._filterByClouds = isFilteredByClouds;
+        }
+        public void SetIsFilteredByWindMax(bool  isFilteredByWindMax) {
+            this._filterByWindMax = isFilteredByWindMax;
+        }
+        public void SetIsFilteredByWindAvg(bool isFilteredByWindAvg) {
+            this._filterByWindAvg = isFilteredByWindAvg;
+        }
+        public void SetIsFilteredByReservations(bool isFilteredByReservations) {
+            this._filterByReservations = isFilteredByReservations;
+        }
+        public void SetIsFilteredByDiningArea(bool isFilteredByDiningArea) {
+            this._filterByDiningArea = isFilteredByDiningArea;
+        }
+        public void SetIsFilteredByMonth(bool isFilteredByMonth) {
+            this._filterByMonth = isFilteredByMonth;
+        }
+        public void SetIsFilteredBySpecialEvent(bool isFilteredBySpecialEvent) {
+            this._filterBySpecialEvent = isFilteredBySpecialEvent;
+        }
         public void SetDateOnly(DateOnly startDate, DateOnly endDate)
         {
             this._endDate = endDate;
             this._startDate = startDate;
+        }
+        public void SetTempRange(int tempAnchor, int tempRange) {
+            this.tempAnchor = tempAnchor;
+            this.tempRange = tempRange;
+        }
+        public void SetReservationsRange(int anchor, int range) {
+
+        }
+        public void SetRainFilter(int anchor, int range) {
+
+        }
+
+        public void RemoveDayOfWeek(DayOfWeek dayOfWeek) {
+            if (this.FilteredDaysOfWeek.Contains(dayOfWeek)) {
+                this.FilteredDaysOfWeek.Remove(dayOfWeek);
+                _filteredShifts.RemoveAll(s => s.Date.DayOfWeek == dayOfWeek);
+            }
+        }
+        public void AddDayOfWeek(DayOfWeek dayOfWeek) {
+            if (!this.FilteredDaysOfWeek.Contains(dayOfWeek)) {
+                this.FilteredDaysOfWeek.Add(dayOfWeek);
+                _filteredShifts.AddRange(_shifts.Where(s => s.Date.DayOfWeek == dayOfWeek).ToList());
+            }
         }
         public void InitializetShiftsForDateRange()
         {
@@ -42,16 +132,10 @@ namespace FloorplanClassLibrary
             _shifts.RemoveAll(s => missingDates.Contains(s.dateOnly));
             
             SetFilters();
-            //_filteredShifts.AddRange(this._shifts);
+            
             
         }
-        public void SetTempFilter(int tempAnchor, int tempRange) {
-            this.tempAnchor = tempAnchor;
-            this.tempRange = tempRange;
-        }
-        public void SetIsFilteredByTemp(bool isFilteredByTemp) {
-            this._filterByTemperature = isFilteredByTemp;
-        }
+       
         private void SetFilters() {
             _filteredShifts = _shifts.ToList();
             if (_filterByDayOfWeek) {
@@ -59,45 +143,20 @@ namespace FloorplanClassLibrary
             }
             if (_filterByTemperature) {
                 FilterByTempRange();
-            }          
+            }
+            if (_filterByRainAmount) {
+                FilterByRainAmount();
+            }
             
         }
 
+        private void FilterByRainAmount() {
+            throw new NotImplementedException();
+        }
 
-        public ShiftAnalysis(List<ShiftRecord> shifts)
-        {
-            _shifts = shifts;
-        }
-        private List<DayOfWeek> FilteredDaysOfWeek = new List<DayOfWeek>
-        {
-            DayOfWeek.Monday,
-            DayOfWeek.Tuesday,
-            DayOfWeek.Wednesday,
-            DayOfWeek.Thursday,
-            DayOfWeek.Friday,
-            DayOfWeek.Saturday,
-            DayOfWeek.Sunday
-        };
-        public void RemoveDayOfWeek(DayOfWeek dayOfWeek)
-        {
-            if (this.FilteredDaysOfWeek.Contains(dayOfWeek))
-            {
-                this.FilteredDaysOfWeek.Remove(dayOfWeek);
-                _filteredShifts.RemoveAll(s => s.Date.DayOfWeek == dayOfWeek);
-            }            
-        }
-        public void AddDayOfWeek(DayOfWeek dayOfWeek)
-        {
-            if (!this.FilteredDaysOfWeek.Contains(dayOfWeek))
-            {
-                this.FilteredDaysOfWeek.Add(dayOfWeek);
-                _filteredShifts.AddRange(_shifts.Where(s => s.Date.DayOfWeek == dayOfWeek).ToList());
-            }
-        }
-        private List<int> FilteredMonths = new List<int>
-        {
-           1,2,3,4,5,6,7,8,9,10,11,12
-        };
+        
+       
+       
         public void FilterByTempRange() {
             _filteredShifts = _filteredShifts.Where(shift => shift.ShiftWeather.FeelsLikeAvg >= (tempAnchor - tempRange) 
             && shift.ShiftWeather.FeelsLikeAvg <= (tempAnchor + tempRange)).ToList();
@@ -125,11 +184,8 @@ namespace FloorplanClassLibrary
             }
             
         }
+       
 
-        //public List<ShiftRecord> FilterByTemperatureRange(double minTemperature, double maxTemperature)
-        //{
-        //    return Shifts.Where(shift => shift.Weather.Temperature >= minTemperature && shift.Weather.Temperature <= maxTemperature).ToList();
-        //}
 
         //public double CalculateTotalSales()
         //{

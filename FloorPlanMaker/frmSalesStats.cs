@@ -46,7 +46,7 @@ namespace FloorPlanMakerUI {
 
             allWeatherData = SqliteDataAccess.LoadAllWeatherData();
             dtpEndDate.Value = DateTime.Now.AddDays(-1);
-            dtpStartDate.Value = DateTime.Now.AddDays(-8);
+            dtpStartDate.Value = DateTime.Now.AddDays(-30);
             employeeManager.LoadShiftsForActiveServers();
             flowDiningAreas.Controls.Add(CreateSelectAllAreaRadio());
             foreach (DiningArea area in areaManager.DiningAreas) {
@@ -695,6 +695,7 @@ namespace FloorPlanMakerUI {
                 nudTempAnchor.Enabled = true;
                 lblTo.Enabled = true;
                 shiftAnalysis.SetIsFilteredByTemp(true);
+                shiftAnalysis.SetTempRange((int)nudTempAnchor.Value, (int)nudTempRange.Value);
             }
             else {
                 nudTempRange.Enabled = false;
@@ -894,22 +895,24 @@ namespace FloorPlanMakerUI {
         }
 
         private void nudLowTemp_ValueChanged(object sender, EventArgs e) {
-            if (cbFilterByTempRange.Checked) {
-                MinFeelsLikeHi = (int)nudTempAnchor.Value;
-            }
-            else {
-                MinFeelsLikeHi = -150;
-            }
+            //if (cbFilterByTempRange.Checked) {
+            //    MinFeelsLikeHi = (int)nudTempAnchor.Value;
+            //}
+            //else {
+            //    MinFeelsLikeHi = -150;
+            //}
+            shiftAnalysis.SetTempRange((int)nudTempAnchor.Value, (int)nudTempRange.Value);
 
         }
 
         private void nudHiTemp_ValueChanged(object sender, EventArgs e) {
-            if (cbFilterByTempRange.Checked) {
-                MaxFeelsLikeHi = ((int)nudTempRange.Value);
-            }
-            else {
-                MaxFeelsLikeHi = 150;
-            }
+            //if (cbFilterByTempRange.Checked) {
+            //    MaxFeelsLikeHi = ((int)nudTempRange.Value);
+            //}
+            //else {
+            //    MaxFeelsLikeHi = 150;
+            //}
+            shiftAnalysis.SetTempRange((int)nudTempAnchor.Value, (int)nudTempRange.Value);
 
         }
 
