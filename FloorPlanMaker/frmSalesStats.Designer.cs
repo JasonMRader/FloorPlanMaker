@@ -74,6 +74,22 @@
             rdoSpecialAndNormal = new RadioButton();
             rdoEventsOnly = new RadioButton();
             rdoExcludeEvents = new RadioButton();
+            nudRainAnchor = new NumericUpDown();
+            cbFilterByRain = new CheckBox();
+            nudRainRange = new NumericUpDown();
+            label3 = new Label();
+            nudCloudAnchor = new NumericUpDown();
+            cbFilterByClouds = new CheckBox();
+            nudCloudRange = new NumericUpDown();
+            label4 = new Label();
+            nudWindMaxAnchor = new NumericUpDown();
+            cbFilterByWindMax = new CheckBox();
+            nudWindMaxRange = new NumericUpDown();
+            label5 = new Label();
+            nudWindAvgAnchor = new NumericUpDown();
+            cbFilterByWindAvg = new CheckBox();
+            nudWindAvgRange = new NumericUpDown();
+            label6 = new Label();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
@@ -84,6 +100,14 @@
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvAverages).BeginInit();
             panel6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)nudRainAnchor).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudRainRange).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudCloudAnchor).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudCloudRange).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudWindMaxAnchor).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudWindMaxRange).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudWindAvgAnchor).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudWindAvgRange).BeginInit();
             SuspendLayout();
             // 
             // rdoDiningAreaSales
@@ -321,16 +345,16 @@
             panel4.Controls.Add(lblComboLabel);
             panel4.Controls.Add(btnIndividualStats);
             panel4.Controls.Add(cboServerSelect);
-            panel4.Location = new Point(1113, 9);
+            panel4.Location = new Point(1296, 12);
             panel4.Name = "panel4";
-            panel4.Size = new Size(287, 164);
+            panel4.Size = new Size(104, 125);
             panel4.TabIndex = 8;
             // 
             // btnIndividualServerShifts
             // 
-            btnIndividualServerShifts.Location = new Point(13, 85);
+            btnIndividualServerShifts.Location = new Point(6, 84);
             btnIndividualServerShifts.Name = "btnIndividualServerShifts";
-            btnIndividualServerShifts.Size = new Size(259, 23);
+            btnIndividualServerShifts.Size = new Size(86, 23);
             btnIndividualServerShifts.TabIndex = 3;
             btnIndividualServerShifts.Text = "See Server Shifts";
             btnIndividualServerShifts.UseVisualStyleBackColor = true;
@@ -340,7 +364,7 @@
             // lblComboLabel
             // 
             lblComboLabel.AutoSize = true;
-            lblComboLabel.Location = new Point(13, 3);
+            lblComboLabel.Location = new Point(6, 0);
             lblComboLabel.Name = "lblComboLabel";
             lblComboLabel.Size = new Size(74, 15);
             lblComboLabel.TabIndex = 2;
@@ -348,9 +372,9 @@
             // 
             // btnIndividualStats
             // 
-            btnIndividualStats.Location = new Point(13, 56);
+            btnIndividualStats.Location = new Point(6, 56);
             btnIndividualStats.Name = "btnIndividualStats";
-            btnIndividualStats.Size = new Size(259, 23);
+            btnIndividualStats.Size = new Size(86, 23);
             btnIndividualStats.TabIndex = 1;
             btnIndividualStats.Text = "Server Table History";
             btnIndividualStats.UseVisualStyleBackColor = true;
@@ -359,9 +383,9 @@
             // cboServerSelect
             // 
             cboServerSelect.FormattingEnabled = true;
-            cboServerSelect.Location = new Point(13, 21);
+            cboServerSelect.Location = new Point(6, 21);
             cboServerSelect.Name = "cboServerSelect";
-            cboServerSelect.Size = new Size(259, 23);
+            cboServerSelect.Size = new Size(86, 23);
             cboServerSelect.TabIndex = 0;
             cboServerSelect.SelectedIndexChanged += cboServerSelect_SelectedIndexChanged;
             // 
@@ -557,17 +581,17 @@
             // nudTempAnchor
             // 
             nudTempAnchor.Enabled = false;
-            nudTempAnchor.Location = new Point(676, 100);
+            nudTempAnchor.Location = new Point(1110, 18);
             nudTempAnchor.Name = "nudTempAnchor";
             nudTempAnchor.Size = new Size(60, 23);
             nudTempAnchor.TabIndex = 9;
             nudTempAnchor.Value = new decimal(new int[] { 80, 0, 0, 0 });
-            nudTempAnchor.ValueChanged += nudLowTemp_ValueChanged;
+            nudTempAnchor.ValueChanged += nudTemp_ValueChanged;
             // 
             // cbFilterByTempRange
             // 
             cbFilterByTempRange.AutoSize = true;
-            cbFilterByTempRange.Location = new Point(521, 65);
+            cbFilterByTempRange.Location = new Point(812, 20);
             cbFilterByTempRange.Name = "cbFilterByTempRange";
             cbFilterByTempRange.Size = new Size(137, 19);
             cbFilterByTempRange.TabIndex = 10;
@@ -578,18 +602,18 @@
             // nudTempRange
             // 
             nudTempRange.Enabled = false;
-            nudTempRange.Location = new Point(521, 100);
+            nudTempRange.Location = new Point(955, 18);
             nudTempRange.Name = "nudTempRange";
             nudTempRange.Size = new Size(60, 23);
             nudTempRange.TabIndex = 9;
             nudTempRange.Value = new decimal(new int[] { 10, 0, 0, 0 });
-            nudTempRange.ValueChanged += nudHiTemp_ValueChanged;
+            nudTempRange.ValueChanged += nudTemp_ValueChanged;
             // 
             // lblTo
             // 
             lblTo.AutoSize = true;
             lblTo.Enabled = false;
-            lblTo.Location = new Point(587, 106);
+            lblTo.Location = new Point(1021, 22);
             lblTo.Name = "lblTo";
             lblTo.Size = new Size(83, 15);
             lblTo.TabIndex = 11;
@@ -680,6 +704,174 @@
             rdoExcludeEvents.UseVisualStyleBackColor = true;
             rdoExcludeEvents.CheckedChanged += rdoEvents_CheckedChanged;
             // 
+            // nudRainAnchor
+            // 
+            nudRainAnchor.DecimalPlaces = 1;
+            nudRainAnchor.Enabled = false;
+            nudRainAnchor.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
+            nudRainAnchor.Location = new Point(1110, 47);
+            nudRainAnchor.Name = "nudRainAnchor";
+            nudRainAnchor.Size = new Size(60, 23);
+            nudRainAnchor.TabIndex = 9;
+            nudRainAnchor.Value = new decimal(new int[] { 5, 0, 0, 65536 });
+            nudRainAnchor.ValueChanged += nudRain_ValueChanged;
+            // 
+            // cbFilterByRain
+            // 
+            cbFilterByRain.AutoSize = true;
+            cbFilterByRain.Location = new Point(812, 49);
+            cbFilterByRain.Name = "cbFilterByRain";
+            cbFilterByRain.Size = new Size(94, 19);
+            cbFilterByRain.TabIndex = 10;
+            cbFilterByRain.Text = "Filter By Rain";
+            cbFilterByRain.UseVisualStyleBackColor = true;
+            cbFilterByRain.CheckedChanged += cbFilterByRain_CheckedChanged;
+            // 
+            // nudRainRange
+            // 
+            nudRainRange.DecimalPlaces = 1;
+            nudRainRange.Enabled = false;
+            nudRainRange.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
+            nudRainRange.Location = new Point(955, 47);
+            nudRainRange.Name = "nudRainRange";
+            nudRainRange.Size = new Size(60, 23);
+            nudRainRange.TabIndex = 9;
+            nudRainRange.Value = new decimal(new int[] { 5, 0, 0, 65536 });
+            nudRainRange.ValueChanged += nudRain_ValueChanged;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Enabled = false;
+            label3.Location = new Point(1021, 51);
+            label3.Name = "label3";
+            label3.Size = new Size(75, 15);
+            label3.TabIndex = 11;
+            label3.Text = "Inches From:";
+            // 
+            // nudCloudAnchor
+            // 
+            nudCloudAnchor.Enabled = false;
+            nudCloudAnchor.Location = new Point(1110, 75);
+            nudCloudAnchor.Name = "nudCloudAnchor";
+            nudCloudAnchor.Size = new Size(60, 23);
+            nudCloudAnchor.TabIndex = 9;
+            nudCloudAnchor.Value = new decimal(new int[] { 50, 0, 0, 0 });
+            nudCloudAnchor.ValueChanged += nudCloud_ValueChanged;
+            // 
+            // cbFilterByClouds
+            // 
+            cbFilterByClouds.AutoSize = true;
+            cbFilterByClouds.Location = new Point(812, 77);
+            cbFilterByClouds.Name = "cbFilterByClouds";
+            cbFilterByClouds.Size = new Size(108, 19);
+            cbFilterByClouds.TabIndex = 10;
+            cbFilterByClouds.Text = "Filter By Clouds";
+            cbFilterByClouds.UseVisualStyleBackColor = true;
+            cbFilterByClouds.CheckedChanged += cbFilterByClouds_CheckedChanged;
+            // 
+            // nudCloudRange
+            // 
+            nudCloudRange.Enabled = false;
+            nudCloudRange.Location = new Point(955, 75);
+            nudCloudRange.Name = "nudCloudRange";
+            nudCloudRange.Size = new Size(60, 23);
+            nudCloudRange.TabIndex = 9;
+            nudCloudRange.Value = new decimal(new int[] { 30, 0, 0, 0 });
+            nudCloudRange.ValueChanged += nudCloud_ValueChanged;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Enabled = false;
+            label4.Location = new Point(1021, 79);
+            label4.Name = "label4";
+            label4.Size = new Size(81, 15);
+            label4.TabIndex = 11;
+            label4.Text = "Percent From:";
+            // 
+            // nudWindMaxAnchor
+            // 
+            nudWindMaxAnchor.Enabled = false;
+            nudWindMaxAnchor.Location = new Point(1110, 100);
+            nudWindMaxAnchor.Name = "nudWindMaxAnchor";
+            nudWindMaxAnchor.Size = new Size(60, 23);
+            nudWindMaxAnchor.TabIndex = 9;
+            nudWindMaxAnchor.Value = new decimal(new int[] { 10, 0, 0, 0 });
+            nudWindMaxAnchor.ValueChanged += nudWindMax_ValueChanged;
+            // 
+            // cbFilterByWindMax
+            // 
+            cbFilterByWindMax.AutoSize = true;
+            cbFilterByWindMax.Location = new Point(812, 102);
+            cbFilterByWindMax.Name = "cbFilterByWindMax";
+            cbFilterByWindMax.Size = new Size(125, 19);
+            cbFilterByWindMax.TabIndex = 10;
+            cbFilterByWindMax.Text = "Filter By Wind Max";
+            cbFilterByWindMax.UseVisualStyleBackColor = true;
+            cbFilterByWindMax.CheckedChanged += cbFilterByWindMax_CheckedChanged;
+            // 
+            // nudWindMaxRange
+            // 
+            nudWindMaxRange.Enabled = false;
+            nudWindMaxRange.Location = new Point(955, 100);
+            nudWindMaxRange.Name = "nudWindMaxRange";
+            nudWindMaxRange.Size = new Size(60, 23);
+            nudWindMaxRange.TabIndex = 9;
+            nudWindMaxRange.Value = new decimal(new int[] { 5, 0, 0, 0 });
+            nudWindMaxRange.ValueChanged += nudWindMax_ValueChanged;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Enabled = false;
+            label5.Location = new Point(1021, 104);
+            label5.Name = "label5";
+            label5.Size = new Size(68, 15);
+            label5.TabIndex = 11;
+            label5.Text = "MPH From:";
+            // 
+            // nudWindAvgAnchor
+            // 
+            nudWindAvgAnchor.Enabled = false;
+            nudWindAvgAnchor.Location = new Point(1110, 127);
+            nudWindAvgAnchor.Name = "nudWindAvgAnchor";
+            nudWindAvgAnchor.Size = new Size(60, 23);
+            nudWindAvgAnchor.TabIndex = 9;
+            nudWindAvgAnchor.Value = new decimal(new int[] { 10, 0, 0, 0 });
+            nudWindAvgAnchor.ValueChanged += nudWindAvg_ValueChanged;
+            // 
+            // cbFilterByWindAvg
+            // 
+            cbFilterByWindAvg.AutoSize = true;
+            cbFilterByWindAvg.Location = new Point(812, 129);
+            cbFilterByWindAvg.Name = "cbFilterByWindAvg";
+            cbFilterByWindAvg.Size = new Size(123, 19);
+            cbFilterByWindAvg.TabIndex = 10;
+            cbFilterByWindAvg.Text = "Filter By Wind Avg";
+            cbFilterByWindAvg.UseVisualStyleBackColor = true;
+            cbFilterByWindAvg.CheckedChanged += cbFilterByWindAvg_CheckedChanged;
+            // 
+            // nudWindAvgRange
+            // 
+            nudWindAvgRange.Enabled = false;
+            nudWindAvgRange.Location = new Point(955, 127);
+            nudWindAvgRange.Name = "nudWindAvgRange";
+            nudWindAvgRange.Size = new Size(60, 23);
+            nudWindAvgRange.TabIndex = 9;
+            nudWindAvgRange.Value = new decimal(new int[] { 5, 0, 0, 0 });
+            nudWindAvgRange.ValueChanged += nudWindAvg_ValueChanged;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Enabled = false;
+            label6.Location = new Point(1021, 131);
+            label6.Name = "label6";
+            label6.Size = new Size(68, 15);
+            label6.TabIndex = 11;
+            label6.Text = "MPH From:";
+            // 
             // frmSalesStats
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -688,8 +880,24 @@
             Controls.Add(dgvAverages);
             Controls.Add(flowDiningAreas);
             Controls.Add(dataGridView1);
+            Controls.Add(label6);
+            Controls.Add(label5);
+            Controls.Add(label4);
+            Controls.Add(label3);
             Controls.Add(lblTo);
+            Controls.Add(nudWindAvgRange);
+            Controls.Add(nudWindMaxRange);
+            Controls.Add(nudCloudRange);
+            Controls.Add(nudRainRange);
             Controls.Add(nudTempRange);
+            Controls.Add(cbFilterByWindAvg);
+            Controls.Add(nudWindAvgAnchor);
+            Controls.Add(cbFilterByWindMax);
+            Controls.Add(nudWindMaxAnchor);
+            Controls.Add(cbFilterByClouds);
+            Controls.Add(nudCloudAnchor);
+            Controls.Add(cbFilterByRain);
+            Controls.Add(nudRainAnchor);
             Controls.Add(cbFilterByTempRange);
             Controls.Add(nudTempAnchor);
             Controls.Add(panel4);
@@ -721,6 +929,14 @@
             ((System.ComponentModel.ISupportInitialize)dgvAverages).EndInit();
             panel6.ResumeLayout(false);
             panel6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)nudRainAnchor).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudRainRange).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudCloudAnchor).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudCloudRange).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudWindMaxAnchor).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudWindMaxRange).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudWindAvgAnchor).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudWindAvgRange).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -777,5 +993,21 @@
         private RadioButton rdoSpecialAndNormal;
         private RadioButton rdoEventsOnly;
         private RadioButton rdoExcludeEvents;
+        private NumericUpDown nudRainAnchor;
+        private CheckBox cbFilterByRain;
+        private NumericUpDown nudRainRange;
+        private Label label3;
+        private NumericUpDown nudCloudAnchor;
+        private CheckBox cbFilterByClouds;
+        private NumericUpDown nudCloudRange;
+        private Label label4;
+        private NumericUpDown nudWindMaxAnchor;
+        private CheckBox cbFilterByWindMax;
+        private NumericUpDown nudWindMaxRange;
+        private Label label5;
+        private NumericUpDown nudWindAvgAnchor;
+        private CheckBox cbFilterByWindAvg;
+        private NumericUpDown nudWindAvgRange;
+        private Label label6;
     }
 }

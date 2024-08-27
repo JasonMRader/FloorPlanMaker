@@ -515,21 +515,7 @@ namespace FloorPlanMakerUI {
             }
         }
 
-        private void cbFilterByTempRange_CheckedChanged(object sender, EventArgs e) {
-            if (cbFilterByTempRange.Checked) {
-                nudTempRange.Enabled = true;
-                nudTempAnchor.Enabled = true;
-                lblTo.Enabled = true;
-                shiftAnalysis.SetIsFilteredByTemp(true);
-                shiftAnalysis.SetTempRange((int)nudTempAnchor.Value, (int)nudTempRange.Value);
-            }
-            else {
-                nudTempRange.Enabled = false;
-                nudTempAnchor.Enabled = false;
-                lblTo.Enabled = false;
-                shiftAnalysis.SetIsFilteredByTemp(false);
-            }
-        }
+
 
         private void cbAllMonths_CheckedChanged(object sender, EventArgs e) {
             if (cbAllMonths.Checked) {
@@ -638,19 +624,9 @@ namespace FloorPlanMakerUI {
                 shiftAnalysis.AddMonth(12);
             }
         }
-        
 
-        private void nudLowTemp_ValueChanged(object sender, EventArgs e) {
 
-            shiftAnalysis.SetTempRange((int)nudTempAnchor.Value, (int)nudTempRange.Value);
 
-        }
-
-        private void nudHiTemp_ValueChanged(object sender, EventArgs e) {
-
-            shiftAnalysis.SetTempRange((int)nudTempAnchor.Value, (int)nudTempRange.Value);
-
-        }
 
         private void btnRefreshFilters_Click(object sender, EventArgs e) {
             frmLoading loadingForm = new frmLoading("Parsing");
@@ -842,6 +818,96 @@ namespace FloorPlanMakerUI {
 
         private void cboServerSelect_SelectedIndexChanged(object sender, EventArgs e) {
 
+        }
+        private void cbFilterByTempRange_CheckedChanged(object sender, EventArgs e) {
+            if (cbFilterByTempRange.Checked) {
+                nudTempRange.Enabled = true;
+                nudTempAnchor.Enabled = true;
+                lblTo.Enabled = true;
+                shiftAnalysis.SetIsFilteredByTemp(true);
+                shiftAnalysis.SetTempRange((int)nudTempAnchor.Value, (int)nudTempRange.Value);
+            }
+            else {
+                nudTempRange.Enabled = false;
+                nudTempAnchor.Enabled = false;
+                lblTo.Enabled = false;
+                shiftAnalysis.SetIsFilteredByTemp(false);
+            }
+        }
+        private void nudTemp_ValueChanged(object sender, EventArgs e) {
+
+            shiftAnalysis.SetTempRange((int)nudTempAnchor.Value, (int)nudTempRange.Value);
+
+        }
+
+
+        private void cbFilterByRain_CheckedChanged(object sender, EventArgs e) 
+        {
+            shiftAnalysis.SetIsFilteredbyRainAmount(cbFilterByRain.Checked);
+            if (cbFilterByRain.Checked) {
+                nudRainAnchor.Enabled = true;
+                nudRainRange.Enabled = true;
+                shiftAnalysis.SetRainRange((float)nudRainAnchor.Value, (float)nudRainRange.Value);
+            }
+            else {
+                nudRainRange.Enabled=false;
+                nudRainAnchor.Enabled = false;
+            }
+        }
+
+        private void nudRain_ValueChanged(object sender, EventArgs e) {
+            shiftAnalysis.SetRainRange((float)nudRainAnchor.Value, (float)nudRainRange.Value);
+        }
+
+        private void cbFilterByClouds_CheckedChanged(object sender, EventArgs e) {
+            shiftAnalysis.SetIsFilteredByClouds(cbFilterByClouds.Checked);
+            if(cbFilterByClouds.Checked) {
+                nudCloudAnchor.Enabled = true;
+                nudCloudRange.Enabled = true;
+                shiftAnalysis.SetCloudRange((float)nudCloudAnchor.Value, (float)(nudCloudRange.Value));
+            }
+            else {
+                nudCloudAnchor.Enabled=false;
+                nudCloudRange.Enabled=false;
+            }
+        }
+
+        private void nudCloud_ValueChanged(object sender, EventArgs e) {
+            shiftAnalysis.SetCloudRange((float)nudCloudAnchor.Value, (float)(nudCloudRange.Value));
+        }
+
+        private void cbFilterByWindMax_CheckedChanged(object sender, EventArgs e) {
+            shiftAnalysis.SetIsFilteredByWindMax(cbFilterByWindMax.Checked);
+            if( cbFilterByWindMax.Checked) {
+                nudWindMaxRange.Enabled = true;
+                nudWindMaxAnchor.Enabled = true;
+                shiftAnalysis.SetWindMaxRange((int)nudWindMaxAnchor.Value, (int)nudWindMaxRange.Value);
+            }
+            else {
+                nudWindMaxRange.Enabled = false;
+                nudWindMaxAnchor.Enabled=false;
+            }
+        }
+
+        private void nudWindMax_ValueChanged(object sender, EventArgs e) {
+            shiftAnalysis.SetWindMaxRange((int)nudWindMaxAnchor.Value, (int)nudWindMaxRange.Value);
+        }
+
+        private void cbFilterByWindAvg_CheckedChanged(object sender, EventArgs e) {
+            shiftAnalysis.SetIsFilteredByWindAvg(cbFilterByWindAvg.Checked);
+            if(cbFilterByWindAvg.Checked) {
+                nudWindAvgAnchor.Enabled = true;
+                nudWindAvgRange.Enabled = true;
+                shiftAnalysis.SetWindAvgRange((int)nudWindAvgAnchor.Value, (int)nudWindAvgRange.Value);
+            }
+            else {
+                nudWindAvgRange.Enabled=false;
+                nudWindAvgAnchor.Enabled=false;
+            }
+        }
+
+        private void nudWindAvg_ValueChanged(object sender, EventArgs e) {
+            shiftAnalysis.SetWindAvgRange((int)nudWindAvgAnchor.Value, (int)nudWindAvgRange.Value);
         }
     }
 }
