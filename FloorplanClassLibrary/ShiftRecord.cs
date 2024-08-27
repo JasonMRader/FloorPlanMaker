@@ -23,7 +23,7 @@ namespace FloorplanClassLibrary
         }
         public bool IsAm { get; set; }
         public ShiftWeather ShiftWeather { get; set; }
-        public List<HourlyWeatherData> HourlyWeatherData { get; set; } = new List<HourlyWeatherData>();
+        //public List<HourlyWeatherData> HourlyWeatherData { get; set; } = new List<HourlyWeatherData>();
         public int Reservations { get; set; } 
         public SpecialEventDate? SpecialEventDate { get; set; }
         public List<TableStat> tableStats { get; set; }
