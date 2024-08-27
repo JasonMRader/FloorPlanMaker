@@ -20,18 +20,18 @@ namespace FloorplanClassLibrary
         public ShiftAnalysis() { }
         private DateOnly _startDate = new DateOnly();
         private DateOnly _endDate = new DateOnly();
-        public int tempAnchor { get; set; }
-        public int tempRange { get; set; }
-        public int ReservationAnchor { get; set; }
-        public int ReservationRange { get; set; }
-        public float rainAnchor { get; set; }
-        public float rainRange { get; set; }
-        public float CloudAnchor { get; set; }
-        public float CloudRange { get; set; }
-        public int WindMaxAnchor { get; set; }
-        public int WindMaxRange { get; set; }
-        public int WindAvgAnchor { get; set; }
-        public int WindAvgRange { get; set; }
+        private int tempAnchor { get; set; }
+        private int tempRange { get; set; }
+        private int reservationAnchor { get; set; }
+        private int reservationRange { get; set; }
+        private float rainAnchor { get; set; }
+        private float rainRange { get; set; }
+        private float CloudAnchor { get; set; }
+        private float CloudRange { get; set; }
+        private int WindMaxAnchor { get; set; }
+        private int WindMaxRange { get; set; }
+        private int WindAvgAnchor { get; set; }
+        private int WindAvgRange { get; set; }
         private bool _filterByTemperature { get; set; } = false;
         private bool _filterByRainAmount { get; set; } = false;
         private bool _filterByClouds { get; set; } = false;
@@ -42,6 +42,7 @@ namespace FloorplanClassLibrary
         private bool _filterByMonth { get; set; } = false;
         private bool _filterByReservations { get; set; } = false;
         private bool _filterBySpecialEvent { get; set; } = false;
+        private bool specialEventsAllowed { get; set; } = false;
         private List<DayOfWeek> FilteredDaysOfWeek = new List<DayOfWeek>
        {
             DayOfWeek.Monday,
@@ -103,12 +104,38 @@ namespace FloorplanClassLibrary
             this.tempRange = tempRange;
         }
         public void SetReservationsRange(int anchor, int range) {
-
+            this.reservationAnchor = anchor;
+            this.reservationRange = range;
         }
-        public void SetRainFilter(int anchor, int range) {
-
+        public void SetRainRange(float anchor, float range) {
+            this.rainAnchor = anchor;
+            this.rainRange = range;
         }
-
+        public void SetCloudRange(float anchor, float range) {
+            this.CloudAnchor = anchor;
+            this.CloudRange = range;
+        }
+        public void SetWindMaxRange(int anchor, int range) {
+            this.WindMaxAnchor = anchor;
+            this.WindMaxRange = range;
+        }
+        public void SetWindAvgRange(int anchor, int range) {
+            this.WindAvgAnchor = anchor;
+            this.WindAvgRange = range;
+        }
+        public void SetSpecialEvents(bool specialEventsAllowed) {
+            this.specialEventsAllowed = specialEventsAllowed;
+        }
+        public void RemoveMonth(int month) {
+            if (this.FilteredMonths.Contains(month)) {
+                this.FilteredMonths.Remove(month);
+            }
+        }
+        public  void AddMonth(int month) {
+            if(!this.FilteredMonths.Contains(month)) {
+                this.FilteredMonths.Add(month);
+            }
+        }
         public void RemoveDayOfWeek(DayOfWeek dayOfWeek) {
             if (this.FilteredDaysOfWeek.Contains(dayOfWeek)) {
                 this.FilteredDaysOfWeek.Remove(dayOfWeek);
@@ -147,14 +174,57 @@ namespace FloorplanClassLibrary
             if (_filterByRainAmount) {
                 FilterByRainAmount();
             }
+            if(_filterByClouds) {
+                FilterByClouds();
+            }
+            if(_filterByWindMax) {
+                FilterByWindMax();
+            }
+            if(_filterByWindAvg) {
+                FilterByWindAvg();
+            }
+            if(_filterByDiningArea) {
+                FilterByDiningArea();
+            }
+            if(_filterByMonth) {
+                FilterByMonth();
+            }
+            if(_filterByReservations) {
+                FilterByReservationRange();
+            }
+            if(_filterBySpecialEvent) {
+                FilterBySpecialEvent();
+            }
             
         }
 
-        private void FilterByRainAmount() {
-            throw new NotImplementedException();
+        private void FilterByMonth() {
+            _filteredShifts = _filteredShifts.Where(shift => FilteredMonths.Contains(shift.Date.Month)).ToList();
         }
 
-        
+        private void FilterByDiningArea() {
+            
+        }
+
+        private void FilterByWindAvg() {
+            _filteredShifts = _filteredShifts.Where(shift => shift.ShiftWeather.WindAvg >= (WindAvgAnchor - WindAvgRange)
+            && shift.ShiftWeather.RainAmount <= (WindAvgAnchor + WindAvgRange)).ToList();
+        }
+
+        private void FilterByWindMax() {
+            _filteredShifts = _filteredShifts.Where(shift => shift.ShiftWeather.WindMax >= (WindMaxAnchor - WindMaxRange)
+            && shift.ShiftWeather.RainAmount <= (WindMaxAnchor + WindMaxRange)).ToList();
+        }
+
+        private void FilterByClouds() {
+            _filteredShifts = _filteredShifts.Where(shift => shift.ShiftWeather.CloudCoverAverage >= (CloudAnchor - CloudRange)
+            && shift.ShiftWeather.RainAmount <= (CloudAnchor + CloudRange)).ToList();
+        }
+
+        private void FilterByRainAmount() {
+            _filteredShifts = _filteredShifts.Where(shift => shift.ShiftWeather.RainAmount >= (rainAnchor - rainRange)
+            && shift.ShiftWeather.RainAmount <= (rainAnchor + rainRange)).ToList();
+        }       
        
        
         public void FilterByTempRange() {
@@ -162,9 +232,10 @@ namespace FloorplanClassLibrary
             && shift.ShiftWeather.FeelsLikeAvg <= (tempAnchor + tempRange)).ToList();
         }
 
-        public List<ShiftRecord> FilterByReservationRange(int minReservations, int maxReservations)
+        public void FilterByReservationRange()
         {
-            return Shifts.Where(shift => shift.Reservations >= minReservations && shift.Reservations <= maxReservations).ToList();
+            _filteredShifts = _filteredShifts.Where(shift => shift.Reservations >= (reservationAnchor - reservationRange)
+            && shift.Reservations <= (reservationAnchor + reservationRange)).ToList();
         }
 
         public void FilterByDaysOfWeek()
@@ -172,9 +243,9 @@ namespace FloorplanClassLibrary
             _filteredShifts = _filteredShifts.Where(shift => FilteredDaysOfWeek.Contains(shift.Date.DayOfWeek)).ToList();
         }
 
-        public void FilterBySpecialEvent(bool isSpecialEvent)
+        public void FilterBySpecialEvent()
         {
-            if(isSpecialEvent)
+            if(specialEventsAllowed)
             {
                 _filteredShifts = _filteredShifts.Where(shift => shift.SpecialEventDate != null).ToList();
             }
