@@ -134,130 +134,6 @@ namespace FloorPlanMakerUI {
             return dateList;
         }
 
-        private List<SalesData> GetSalesData(List<DiningArea> diningAreas, List<DateTime> dates) {
-            var salesDataList = new List<SalesData>();
-
-            foreach (var date in dates) {
-                var salesData = new SalesData(date);
-
-                float totalSalesForDate = 0;
-                DateOnly dateOnly = new DateOnly(date.Year, date.Month, date.Day);
-                List<TableStat> tableStats = GetTableStatsForFilters(dateOnly);
-                foreach (var diningArea in diningAreas) {
-
-                    diningArea.SetTableSales(tableStats);
-
-                    salesData.SalesByDiningArea[diningArea.Name] = diningArea.ExpectedSales;
-                    totalSalesForDate += diningArea.ExpectedSales;
-                }
-
-                salesData.TotalSales = totalSalesForDate;
-                salesDataList.Add(salesData);
-            }
-
-            return salesDataList;
-        }
-
-        private List<TableStat> GetTableStatsForFilters(DateOnly dateOnly) {
-            List<TableStat> statList = new List<TableStat>();
-
-
-            if (rdoAm.Checked) {
-
-                statList.AddRange(SqliteDataAccess.LoadTableStatsByDateAndLunch(true, dateOnly));
-            }
-            if (rdoPm.Checked) {
-                statList.AddRange(SqliteDataAccess.LoadTableStatsByDateAndLunch(false, dateOnly));
-            }
-            if (rdoBoth.Checked) {
-                statList.AddRange(SqliteDataAccess.LoadTableStatsByDateAllDay(dateOnly));
-            }
-
-
-            return statList;
-        }
-
-        public void PopulateDGVForAreaSales(DataGridView dgvDiningAreas, List<DiningArea> diningAreas, List<SalesData> salesDataList) {
-            dgvDiningAreas.Columns.Clear();
-            dgvDiningAreas.Rows.Clear();
-
-            // Add columns for each dining area and total sales
-
-            dgvDiningAreas.Columns.Add("Date", "Date");
-            dgvDiningAreas.Columns.Add("Event", "Event");
-            foreach (var diningArea in diningAreas) {
-                var column = new DataGridViewTextBoxColumn {
-                    Name = diningArea.Name,
-                    HeaderText = diningArea.Name,
-                    DefaultCellStyle = new DataGridViewCellStyle {
-                        Format = "C0" // Format as currency with no decimals
-                    }
-                };
-                dgvDiningAreas.Columns.Add(column);
-            }
-
-            var totalColumn = new DataGridViewTextBoxColumn {
-                Name = "Total",
-                HeaderText = "Total",
-                DefaultCellStyle = new DataGridViewCellStyle {
-                    Format = "C0" // Format as currency with no decimals
-                }
-            };
-            dgvDiningAreas.Columns.Add(totalColumn);
-
-            var tempColumn = new DataGridViewTextBoxColumn {
-                Name = "Temp",
-                HeaderText = "Temp (FeelsLikeHi)",
-                DefaultCellStyle = new DataGridViewCellStyle {
-                    Format = "N0" // Format as integer
-                }
-            };
-            dgvDiningAreas.Columns.Add(tempColumn);
-
-
-            // Calculate averages for each dining area and the total sales
-            var averageSalesByDiningArea = new Dictionary<string, float>();
-            float totalSalesSum = 0;
-            int dataCount = salesDataList.Count;
-
-            foreach (var diningArea in diningAreas) {
-                float areaSalesSum = salesDataList.Sum(sd => sd.SalesByDiningArea.ContainsKey(diningArea.Name) ? sd.SalesByDiningArea[diningArea.Name] : 0);
-                averageSalesByDiningArea[diningArea.Name] = areaSalesSum / dataCount;
-            }
-
-            totalSalesSum = salesDataList.Sum(sd => sd.TotalSales);
-            float averageTotalSales = totalSalesSum / dataCount;
-
-            // Add the average row
-            var averageRow = new List<object> { "Average" };
-            averageRow.Add("");
-            foreach (var diningArea in diningAreas) {
-                averageRow.Add(averageSalesByDiningArea[diningArea.Name]);
-            }
-            averageRow.Add(averageTotalSales);
-
-            dgvDiningAreas.Rows.Add(averageRow.ToArray());
-
-            // Add rows for each date's sales data
-            foreach (var salesData in salesDataList) {
-                var row = new List<object> { salesData.DateDisplay() };
-                if (salesData.SpecialEventDate != null) {
-                    row.Add(salesData.SpecialEventDate.Name);
-                }
-                else {
-                    row.Add("");
-                }
-
-                foreach (var diningArea in diningAreas) {
-                    row.Add(salesData.SalesByDiningArea[diningArea.Name]);
-                }
-                row.Add(salesData.TotalSales);
-
-                row.Add(salesData.WeatherData.FeelsLikeHi);
-
-                dgvDiningAreas.Rows.Add(row.ToArray());
-            }
-        }
 
         private void PopulateDGVForServerHistory(List<ServerShiftHistory> serverHistory) {
             dataGridView1.Columns.Clear();
@@ -362,58 +238,7 @@ namespace FloorPlanMakerUI {
             }
 
         }
-        public static Dictionary<DateOnly, int> GetFeelsLikeHiData(List<DateTime> dates) {
-            List<WeatherData> weatherDataList = SqliteDataAccess.LoadWeatherDataByDateTimes(dates);
-            Dictionary<DateOnly, int> feelsLikeHiData = weatherDataList.ToDictionary(wd => wd.DateOnly, wd => wd.FeelsLikeHi);
-            return feelsLikeHiData;
-        }
-
-        private void btnUpdate_Click(object sender, EventArgs e) {
-            frmLoading loadingForm = new frmLoading("Parsing");
-            loadingForm.Show();
-            this.Enabled = false;
-            if (rdoDiningAreaSales.Checked) {
-                Task.Run(() => {
-                    List<DateTime> dateList = GetFilteredDates(dtpStartDate.Value, dtpEndDate.Value);
-                    List<SalesData> salesData = GetSalesData(areaManager.DiningAreas, dateList);
-
-                    this.Invoke(new Action(() => {
-                        // Close the loading form and re-enable the main form
-                        PopulateDGVForAreaSales(dataGridView1, areaManager.DiningAreas, salesData);
-                        loadingForm.Close();
-                        this.Enabled = true;
-
-                        this.BringToFront();
-
-                    }));
-                });
-
-            }
-            if (rdoServerShifts.Checked) {
-                Task.Run(() => {
-                    List<DateTime> dateList = GetFilteredDates(dtpStartDate.Value, dtpEndDate.Value);
-                    List<ServerShiftHistory> serverHistory = GetServerHistory(employeeManager.ActiveServers);
-
-                    this.Invoke(new Action(() => {
-                        // Close the loading form and re-enable the main form
-
-                        loadingForm.Close();
-                        this.Enabled = true;
-                        PopulateDGVForServerHistory(serverHistory);
-                        this.BringToFront();
-
-
-                    }));
-                });
-
-            }
-
-
-
-
-        }
-
-
+       
 
         private List<ServerShiftHistory> GetServerHistory(List<Server> servers) {
             var serverHistorys = new List<ServerShiftHistory>();
@@ -738,6 +563,9 @@ namespace FloorPlanMakerUI {
             }
         }
 
+        private void cbMonth_CheckChanged(object sender, System.EventArgs e) {
+
+        }
         private void cbJan_CheckedChanged(object sender, EventArgs e) {
             if (!cbJan.Checked) {
                 if (FilteredMonths.Contains(1)) {
@@ -895,23 +723,13 @@ namespace FloorPlanMakerUI {
         }
 
         private void nudLowTemp_ValueChanged(object sender, EventArgs e) {
-            //if (cbFilterByTempRange.Checked) {
-            //    MinFeelsLikeHi = (int)nudTempAnchor.Value;
-            //}
-            //else {
-            //    MinFeelsLikeHi = -150;
-            //}
+            
             shiftAnalysis.SetTempRange((int)nudTempAnchor.Value, (int)nudTempRange.Value);
 
         }
 
         private void nudHiTemp_ValueChanged(object sender, EventArgs e) {
-            //if (cbFilterByTempRange.Checked) {
-            //    MaxFeelsLikeHi = ((int)nudTempRange.Value);
-            //}
-            //else {
-            //    MaxFeelsLikeHi = 150;
-            //}
+            
             shiftAnalysis.SetTempRange((int)nudTempAnchor.Value, (int)nudTempRange.Value);
 
         }
