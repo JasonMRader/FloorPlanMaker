@@ -17,6 +17,10 @@ namespace FloorplanClassLibrary
         public ShiftAnalysis() { }
         private DateOnly _startDate = new DateOnly();
         private DateOnly _endDate = new DateOnly();
+        public int tempAnchor { get; set; }
+        public int tempRange { get; set; }
+        private bool _filterByTemperature { get; set; } = true;
+        private bool _filterByDayOfWeek { get; set; }=true;
         public DateOnly StartDate
         {
             get { return _startDate; }
@@ -41,9 +45,22 @@ namespace FloorplanClassLibrary
             //_filteredShifts.AddRange(this._shifts);
             
         }
-
+        public void SetTempFilter(int tempAnchor, int tempRange) {
+            this.tempAnchor = tempAnchor;
+            this.tempRange = tempRange;
+        }
+        public void SetIsFilteredByTemp(bool isFilteredByTemp) {
+            this._filterByTemperature = isFilteredByTemp;
+        }
         private void SetFilters() {
-            _filteredShifts = _shifts.Where(s => FilteredDaysOfWeek.Contains(s.DayOfWeek)).ToList();
+            _filteredShifts = _shifts.ToList();
+            if (_filterByDayOfWeek) {
+                FilterByDaysOfWeek();
+            }
+            if (_filterByTemperature) {
+                FilterByTempRange();
+            }          
+            
         }
 
 
@@ -81,13 +98,17 @@ namespace FloorplanClassLibrary
         {
            1,2,3,4,5,6,7,8,9,10,11,12
         };
+        public void FilterByTempRange() {
+            _filteredShifts = _filteredShifts.Where(shift => shift.ShiftWeather.FeelsLikeAvg >= (tempAnchor - tempRange) 
+            && shift.ShiftWeather.FeelsLikeAvg <= (tempAnchor + tempRange)).ToList();
+        }
 
         public List<ShiftRecord> FilterByReservationRange(int minReservations, int maxReservations)
         {
             return Shifts.Where(shift => shift.Reservations >= minReservations && shift.Reservations <= maxReservations).ToList();
         }
 
-        public void FilterByDaysOfWeek(List<DayOfWeek> daysOfWeek)
+        public void FilterByDaysOfWeek()
         {
             _filteredShifts = _filteredShifts.Where(shift => FilteredDaysOfWeek.Contains(shift.Date.DayOfWeek)).ToList();
         }

@@ -358,7 +358,7 @@ namespace FloorPlanMakerUI {
                 row.Add(history.TeamWaitPercentage);
 
 
-                 dataGridView1.Rows.Add(row.ToArray());
+                dataGridView1.Rows.Add(row.ToArray());
             }
 
         }
@@ -379,7 +379,7 @@ namespace FloorPlanMakerUI {
 
                     this.Invoke(new Action(() => {
                         // Close the loading form and re-enable the main form
-                         PopulateDGVForAreaSales(dataGridView1, areaManager.DiningAreas, salesData);
+                        PopulateDGVForAreaSales(dataGridView1, areaManager.DiningAreas, salesData);
                         loadingForm.Close();
                         this.Enabled = true;
 
@@ -691,14 +691,16 @@ namespace FloorPlanMakerUI {
 
         private void cbFilterByTempRange_CheckedChanged(object sender, EventArgs e) {
             if (cbFilterByTempRange.Checked) {
-                nudHiTemp.Enabled = true;
-                nudLowTemp.Enabled = true;
+                nudTempRange.Enabled = true;
+                nudTempAnchor.Enabled = true;
                 lblTo.Enabled = true;
+                shiftAnalysis.SetIsFilteredByTemp(true);
             }
             else {
-                nudHiTemp.Enabled = false;
-                nudLowTemp.Enabled = false;
+                nudTempRange.Enabled = false;
+                nudTempAnchor.Enabled = false;
                 lblTo.Enabled = false;
+                shiftAnalysis.SetIsFilteredByTemp(false);
             }
         }
 
@@ -893,7 +895,7 @@ namespace FloorPlanMakerUI {
 
         private void nudLowTemp_ValueChanged(object sender, EventArgs e) {
             if (cbFilterByTempRange.Checked) {
-                MinFeelsLikeHi = (int)nudLowTemp.Value;
+                MinFeelsLikeHi = (int)nudTempAnchor.Value;
             }
             else {
                 MinFeelsLikeHi = -150;
@@ -903,7 +905,7 @@ namespace FloorPlanMakerUI {
 
         private void nudHiTemp_ValueChanged(object sender, EventArgs e) {
             if (cbFilterByTempRange.Checked) {
-                MaxFeelsLikeHi = ((int)nudHiTemp.Value);
+                MaxFeelsLikeHi = ((int)nudTempRange.Value);
             }
             else {
                 MaxFeelsLikeHi = 150;
@@ -960,12 +962,20 @@ namespace FloorPlanMakerUI {
             dgvDiningAreas.Rows.Clear();
 
             dgvDiningAreas.Columns.Add("Date", "Date");
-            dgvDiningAreas.Columns.Add("Event", "Event");
+            var eventColumn = new DataGridViewTextBoxColumn {
+                Name = "Event",
+                HeaderText = "Event",
+                Width = 60,
+
+            };
+            dgvDiningAreas.Columns.Add(eventColumn);
+
 
             foreach (var diningArea in diningAreas) {
                 var column = new DataGridViewTextBoxColumn {
                     Name = diningArea.Name,
                     HeaderText = diningArea.Name,
+                    Width = 70,
                     DefaultCellStyle = new DataGridViewCellStyle {
                         Format = "C0" // Format as currency with no decimals
                     }
@@ -982,14 +992,61 @@ namespace FloorPlanMakerUI {
             };
             dgvDiningAreas.Columns.Add(totalColumn);
 
-            var tempColumn = new DataGridViewTextBoxColumn {
-                Name = "Temp",
-                HeaderText = "Temp (FeelsLikeHi)",
+            var tempHiColumn = new DataGridViewTextBoxColumn {
+                Name = "TempHi",
+                HeaderText = "Feels Like Hi",
+                Width = 30,
                 DefaultCellStyle = new DataGridViewCellStyle {
                     Format = "N0" // Format as integer
                 }
             };
-            dgvDiningAreas.Columns.Add(tempColumn);
+            dgvDiningAreas.Columns.Add(tempHiColumn);
+
+            var tempLoColumn = new DataGridViewTextBoxColumn {
+                Name = "TempLo",
+                HeaderText = "Feels Like Low",
+                Width = 50,
+                DefaultCellStyle = new DataGridViewCellStyle {
+                    Format = "N0" // Format as integer
+                }
+            };
+            dgvDiningAreas.Columns.Add(tempLoColumn);
+            var rainColumn = new DataGridViewTextBoxColumn {
+                Name = "rain",
+                HeaderText = "Rain",
+                Width = 50,
+                DefaultCellStyle = new DataGridViewCellStyle {
+                    Format = "N2"
+                }
+            };
+            dgvDiningAreas.Columns.Add(rainColumn);
+            var cloudsColumn = new DataGridViewTextBoxColumn {
+                Name = "clouds",
+                HeaderText = "Clouds",
+                Width = 50,
+                DefaultCellStyle = new DataGridViewCellStyle {
+                    Format = "N2" // Format as integer
+                }
+            };
+            dgvDiningAreas.Columns.Add(cloudsColumn);
+            var windAvgColumn = new DataGridViewTextBoxColumn {
+                Name = "windAvg",
+                HeaderText = "Wind Avg",
+                Width = 50,
+                DefaultCellStyle = new DataGridViewCellStyle {
+                    Format = "N0" // Format as integer
+                }
+            };
+            dgvDiningAreas.Columns.Add(windAvgColumn);
+            var windMaxColumn = new DataGridViewTextBoxColumn {
+                Name = "windMax",
+                HeaderText = "Wind Max",
+                Width = 50,
+                DefaultCellStyle = new DataGridViewCellStyle {
+                    Format = "N0" // Format as integer
+                }
+            };
+            dgvDiningAreas.Columns.Add(windMaxColumn);
         }
 
         private void AddShiftRows(DataGridView dgvDiningAreas, List<DiningArea> diningAreas, List<ShiftRecord> shiftRecords) {
@@ -1017,11 +1074,28 @@ namespace FloorPlanMakerUI {
                 //                  shiftRecord.HourlyWeatherData.Max(hw => hw.FeelsLikeHi) :
                 //                  0;
                 int feelsLikeHi = 0;
-                if(shiftRecord.ShiftWeather != null) {
+                int feelsLikeLo = 0;
+                float rainAmount = 0f;
+                float clouds = 0f;
+                int maxWind = 0;
+                int avgWind = 0;
+
+                if (shiftRecord.ShiftWeather != null) {
                     feelsLikeHi = shiftRecord.ShiftWeather.FeelsLikeHi;
+                    feelsLikeLo = shiftRecord.ShiftWeather.FeelsLikeLow;
+                    rainAmount = shiftRecord.ShiftWeather.RainAmount;
+                    clouds = shiftRecord.ShiftWeather.CloudCoverAverage;
+                    maxWind = shiftRecord.ShiftWeather.WindMax;
+                    avgWind = shiftRecord.ShiftWeather.WindAvg;
                 }
-                                
+
                 row.Add(feelsLikeHi);
+                row.Add(feelsLikeLo);
+                row.Add(rainAmount);
+                row.Add(clouds);
+                row.Add(avgWind);
+                row.Add(maxWind);
+
 
                 dgvDiningAreas.Rows.Add(row.ToArray());
             }

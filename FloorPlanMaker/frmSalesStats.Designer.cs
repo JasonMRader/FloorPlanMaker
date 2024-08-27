@@ -62,9 +62,9 @@
             cbMar = new CheckBox();
             cbFeb = new CheckBox();
             cbJan = new CheckBox();
-            nudLowTemp = new NumericUpDown();
+            nudTempAnchor = new NumericUpDown();
             cbFilterByTempRange = new CheckBox();
-            nudHiTemp = new NumericUpDown();
+            nudTempRange = new NumericUpDown();
             lblTo = new Label();
             btnRefreshFilters = new Button();
             dataGridView1 = new DataGridView();
@@ -79,8 +79,8 @@
             panel3.SuspendLayout();
             panel4.SuspendLayout();
             panel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)nudLowTemp).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)nudHiTemp).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudTempAnchor).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudTempRange).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvAverages).BeginInit();
             panel6.SuspendLayout();
@@ -554,15 +554,15 @@
             cbJan.UseVisualStyleBackColor = true;
             cbJan.CheckedChanged += cbJan_CheckedChanged;
             // 
-            // nudLowTemp
+            // nudTempAnchor
             // 
-            nudLowTemp.Enabled = false;
-            nudLowTemp.Location = new Point(521, 100);
-            nudLowTemp.Name = "nudLowTemp";
-            nudLowTemp.Size = new Size(60, 23);
-            nudLowTemp.TabIndex = 9;
-            nudLowTemp.Value = new decimal(new int[] { 32, 0, 0, 0 });
-            nudLowTemp.ValueChanged += nudLowTemp_ValueChanged;
+            nudTempAnchor.Enabled = false;
+            nudTempAnchor.Location = new Point(676, 100);
+            nudTempAnchor.Name = "nudTempAnchor";
+            nudTempAnchor.Size = new Size(60, 23);
+            nudTempAnchor.TabIndex = 9;
+            nudTempAnchor.Value = new decimal(new int[] { 80, 0, 0, 0 });
+            nudTempAnchor.ValueChanged += nudLowTemp_ValueChanged;
             // 
             // cbFilterByTempRange
             // 
@@ -575,15 +575,15 @@
             cbFilterByTempRange.UseVisualStyleBackColor = true;
             cbFilterByTempRange.CheckedChanged += cbFilterByTempRange_CheckedChanged;
             // 
-            // nudHiTemp
+            // nudTempRange
             // 
-            nudHiTemp.Enabled = false;
-            nudHiTemp.Location = new Point(618, 100);
-            nudHiTemp.Name = "nudHiTemp";
-            nudHiTemp.Size = new Size(60, 23);
-            nudHiTemp.TabIndex = 9;
-            nudHiTemp.Value = new decimal(new int[] { 85, 0, 0, 0 });
-            nudHiTemp.ValueChanged += nudHiTemp_ValueChanged;
+            nudTempRange.Enabled = false;
+            nudTempRange.Location = new Point(521, 100);
+            nudTempRange.Name = "nudTempRange";
+            nudTempRange.Size = new Size(60, 23);
+            nudTempRange.TabIndex = 9;
+            nudTempRange.Value = new decimal(new int[] { 10, 0, 0, 0 });
+            nudTempRange.ValueChanged += nudHiTemp_ValueChanged;
             // 
             // lblTo
             // 
@@ -591,9 +591,9 @@
             lblTo.Enabled = false;
             lblTo.Location = new Point(587, 106);
             lblTo.Name = "lblTo";
-            lblTo.Size = new Size(21, 15);
+            lblTo.Size = new Size(83, 15);
             lblTo.TabIndex = 11;
-            lblTo.Text = "to:";
+            lblTo.Text = "Degrees From:";
             // 
             // btnRefreshFilters
             // 
@@ -689,9 +689,9 @@
             Controls.Add(flowDiningAreas);
             Controls.Add(dataGridView1);
             Controls.Add(lblTo);
-            Controls.Add(nudHiTemp);
+            Controls.Add(nudTempRange);
             Controls.Add(cbFilterByTempRange);
-            Controls.Add(nudLowTemp);
+            Controls.Add(nudTempAnchor);
             Controls.Add(panel4);
             Controls.Add(panel5);
             Controls.Add(panel3);
@@ -715,8 +715,8 @@
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
             panel5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)nudLowTemp).EndInit();
-            ((System.ComponentModel.ISupportInitialize)nudHiTemp).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudTempAnchor).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudTempRange).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvAverages).EndInit();
             panel6.ResumeLayout(false);
@@ -765,9 +765,9 @@
         private CheckBox cbMar;
         private CheckBox cbFeb;
         private CheckBox cbJan;
-        private NumericUpDown nudLowTemp;
+        private NumericUpDown nudTempAnchor;
         private CheckBox cbFilterByTempRange;
-        private NumericUpDown nudHiTemp;
+        private NumericUpDown nudTempRange;
         private Label lblTo;
         private Button btnRefreshFilters;
         private DataGridView dataGridView1;
