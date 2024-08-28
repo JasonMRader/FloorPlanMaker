@@ -554,6 +554,7 @@ namespace FloorPlanMakerUI
                         // Close the loading form and re-enable the main form
                         PopulateDGVForAreaSales(dataGridView1, areaManager.DiningAreas, shiftAnalysis.FilteredShifts);
                         PopulateAveragesDataGridView(areaManager.DiningAreas);
+                        lblSampleSizeDisplay.Text = "Sample Size: " + shiftAnalysis.FilteredShifts.Count.ToString();
                         loadingForm.Close();
                         this.Enabled = true;
 
@@ -561,7 +562,7 @@ namespace FloorPlanMakerUI
 
                     }));
                 });
-
+                
             }
             if (rdoServerShifts.Checked) {
                 Task.Run(() => {
@@ -767,7 +768,7 @@ namespace FloorPlanMakerUI
                 MaxSales = shiftAnalysis.FilteredShiftMaxSales,
                 MinSales = shiftAnalysis.FilteredShiftMinSales,
                 AvgSales = shiftAnalysis.FilteredShiftAvgSales,
-                
+
             };
 
             // Add rows for Average, Min, Max, and Percentage
@@ -806,6 +807,7 @@ namespace FloorPlanMakerUI
             minRow.HeaderCell.Value = "Min";
             maxRow.HeaderCell.Value = "Max";
             percRow.HeaderCell.Value = "Percentage";
+            dgvAreaStats.Columns[0].Width = 100;
 
             dgvAreaStats.Rows.Add(avgRow);
             dgvAreaStats.Rows.Add(minRow);

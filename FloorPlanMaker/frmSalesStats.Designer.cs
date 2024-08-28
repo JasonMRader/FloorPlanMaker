@@ -94,6 +94,7 @@
             cbFilterByWindAvg = new CheckBox();
             nudWindAvgRange = new NumericUpDown();
             label6 = new Label();
+            lblSampleSizeDisplay = new Label();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
@@ -662,7 +663,7 @@
             dgvAreaStats.Location = new Point(30, 353);
             dgvAreaStats.Name = "dgvAreaStats";
             dgvAreaStats.RowTemplate.Height = 25;
-            dgvAreaStats.Size = new Size(1370, 188);
+            dgvAreaStats.Size = new Size(890, 188);
             dgvAreaStats.TabIndex = 14;
             // 
             // panel6
@@ -878,11 +879,22 @@
             label6.TabIndex = 11;
             label6.Text = "MPH From:";
             // 
+            // lblSampleSizeDisplay
+            // 
+            lblSampleSizeDisplay.AutoSize = true;
+            lblSampleSizeDisplay.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lblSampleSizeDisplay.Location = new Point(945, 353);
+            lblSampleSizeDisplay.Name = "lblSampleSizeDisplay";
+            lblSampleSizeDisplay.Size = new Size(119, 25);
+            lblSampleSizeDisplay.TabIndex = 15;
+            lblSampleSizeDisplay.Text = "Sample Size:";
+            // 
             // frmSalesStats
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1412, 874);
+            Controls.Add(lblSampleSizeDisplay);
             Controls.Add(dgvAreaStats);
             Controls.Add(flowDiningAreas);
             Controls.Add(dataGridView1);
@@ -1015,5 +1027,6 @@
         private CheckBox cbFilterByWindAvg;
         private NumericUpDown nudWindAvgRange;
         private Label label6;
+        private Label lblSampleSizeDisplay;
     }
 }

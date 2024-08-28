@@ -2697,7 +2697,7 @@ namespace FloorplanClassLibrary
             shiftRecord.ShiftWeather = LoadHourlyWeatherData(date, isLunch);
             shiftRecord.DiningAreaRecords = LoadDiningAreaRecordsByDateAndLunch(date, isLunch);
             shiftRecord.tableStats = LoadTableStatsByDateAndLunch(isLunch, date);
-            shiftRecord.Sales = (float)shiftRecord.tableStats.Where(ts => ts.DiningAreaID != 6).ToList().Sum(ts => ts.Sales);
+            shiftRecord.Sales = (float)shiftRecord.tableStats.Where(ts => (ts.DiningAreaID != 6 && ts.DiningAreaID != 0)).ToList().Sum(ts => ts.Sales);
 
             return shiftRecord;
         }
@@ -2710,7 +2710,7 @@ namespace FloorplanClassLibrary
 
             // Calculate the total sales excluding Banquet (DiningAreaID = 6)
             float totalSales = tableStats
-                .Where(ts => ts.DiningAreaID.HasValue && ts.DiningAreaID != 6)
+                .Where(ts => ts.DiningAreaID.HasValue && (ts.DiningAreaID != 6 || ts.DiningAreaID != 0))
                 .Sum(ts => ts.Sales ?? 0);
 
             // Group tableStats by DiningAreaID and create DiningAreaRecords
