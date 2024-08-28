@@ -9,6 +9,7 @@ namespace FloorplanClassLibrary
     public class DiningAreaStats
     {
         public int DiningAreaID { get; set; }
+        public string DiningAreaName { get; set; }
         public float MaxSales { get; set; }
         public float MinSales { get; set; }
         public float AvgSales { get; set; }
