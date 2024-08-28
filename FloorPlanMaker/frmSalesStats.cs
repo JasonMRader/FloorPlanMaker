@@ -541,9 +541,6 @@ namespace FloorPlanMakerUI
         }
 
 
-
-
-
         private void btnRefreshFilters_Click(object sender, EventArgs e)
         {
             frmLoading loadingForm = new frmLoading("Parsing");
@@ -770,12 +767,8 @@ namespace FloorPlanMakerUI
         }
         private void nudTemp_ValueChanged(object sender, EventArgs e)
         {
-
             shiftAnalysis.SetTempRange((int)nudTempAnchor.Value, (int)nudTempRange.Value);
-
         }
-
-
         private void cbFilterByRain_CheckedChanged(object sender, EventArgs e)
         {
             shiftAnalysis.SetIsFilteredbyRainAmount(cbFilterByRain.Checked);
@@ -789,12 +782,10 @@ namespace FloorPlanMakerUI
                 nudRainAnchor.Enabled = false;
             }
         }
-
         private void nudRain_ValueChanged(object sender, EventArgs e)
         {
             shiftAnalysis.SetRainRange((float)nudRainAnchor.Value, (float)nudRainRange.Value);
         }
-
         private void cbFilterByClouds_CheckedChanged(object sender, EventArgs e)
         {
             shiftAnalysis.SetIsFilteredByClouds(cbFilterByClouds.Checked);
@@ -808,12 +799,10 @@ namespace FloorPlanMakerUI
                 nudCloudRange.Enabled = false;
             }
         }
-
         private void nudCloud_ValueChanged(object sender, EventArgs e)
         {
             shiftAnalysis.SetCloudRange((float)nudCloudAnchor.Value, (float)(nudCloudRange.Value));
         }
-
         private void cbFilterByWindMax_CheckedChanged(object sender, EventArgs e)
         {
             shiftAnalysis.SetIsFilteredByWindMax(cbFilterByWindMax.Checked);
@@ -827,12 +816,10 @@ namespace FloorPlanMakerUI
                 nudWindMaxAnchor.Enabled = false;
             }
         }
-
         private void nudWindMax_ValueChanged(object sender, EventArgs e)
         {
             shiftAnalysis.SetWindMaxRange((int)nudWindMaxAnchor.Value, (int)nudWindMaxRange.Value);
         }
-
         private void cbFilterByWindAvg_CheckedChanged(object sender, EventArgs e)
         {
             shiftAnalysis.SetIsFilteredByWindAvg(cbFilterByWindAvg.Checked);
@@ -846,12 +833,10 @@ namespace FloorPlanMakerUI
                 nudWindAvgAnchor.Enabled = false;
             }
         }
-
         private void nudWindAvg_ValueChanged(object sender, EventArgs e)
         {
             shiftAnalysis.SetWindAvgRange((int)nudWindAvgAnchor.Value, (int)nudWindAvgRange.Value);
         }
-
         private void rdoBoth_CheckedChanged(object sender, EventArgs e)
         {
 
