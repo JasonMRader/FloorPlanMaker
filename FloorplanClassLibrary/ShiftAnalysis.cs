@@ -17,6 +17,21 @@ namespace FloorplanClassLibrary
         public List<ShiftRecord> FilteredShifts { get { return _filteredShifts; } }
         private List<DiningAreaStats> _diningAreaStats { get; set; } = new List<DiningAreaStats>();
         public List<DiningAreaStats> DiningAreaStats { get { return _diningAreaStats; } }
+        public float FilteredShiftMaxSales {
+            get {
+                return _filteredShifts.Max(s => s.Sales);
+            }
+        }
+        public float FilteredShiftMinSales {
+            get {
+                return _filteredShifts.Min(s => s.Sales);
+            }
+        }
+        public float FilteredShiftAvgSales {
+            get {
+                return _filteredShifts.Average(s => s.Sales);
+            }
+        }
         private bool _isAM { get; set; }
         private bool _isAllDay { get; set; }
         public ShiftAnalysis() { }
@@ -303,68 +318,7 @@ namespace FloorplanClassLibrary
             _diningAreaStats = results.OrderBy(r => r.DiningAreaID).ToList();
         }
 
-        public void PopulateAveragesDataGridView(DataGridView dataGridView)
-        {
-            // Clear any existing columns and rows
-            dataGridView.Columns.Clear();
-            dataGridView.Rows.Clear();
-
-            // Add a column for each area name and a total column
-            foreach (var stat in _diningAreaStats) {
-                dataGridView.Columns.Add($"Area_{stat.DiningAreaID}", stat.DiningAreaName);
-            }
-            dataGridView.Columns.Add("Total", "Total");
-
-            // Calculate the total stats
-            var totalStats = new DiningAreaStats {
-                MaxSales = _diningAreaStats.Sum(a => a.MaxSales),
-                MinSales = _diningAreaStats.Sum(a => a.MinSales),
-                AvgSales = _diningAreaStats.Sum(a => a.AvgSales),
-                TotalSales = _diningAreaStats.Sum(a => a.TotalSales),
-            };
-
-            // Add rows for Average, Min, Max, and Percentage
-            var avgRow = new DataGridViewRow();
-            avgRow.CreateCells(dataGridView);
-            var minRow = new DataGridViewRow();
-            minRow.CreateCells(dataGridView);
-            var maxRow = new DataGridViewRow();
-            maxRow.CreateCells(dataGridView);
-            var percRow = new DataGridViewRow();
-            percRow.CreateCells(dataGridView);
-
-            // Populate the rows with data
-            for (int i = 0; i < _diningAreaStats.Count; i++) {
-                avgRow.Cells[i].Value = _diningAreaStats[i].AvgSales;
-                minRow.Cells[i].Value = _diningAreaStats[i].MinSales;
-                maxRow.Cells[i].Value = _diningAreaStats[i].MaxSales;
-                percRow.Cells[i].Value = _diningAreaStats[i].PercentageOfTotalSales;
-            }
-
-            // Add total values in the last column
-            avgRow.Cells[_diningAreaStats.Count].Value = totalStats.AvgSales;
-            minRow.Cells[_diningAreaStats.Count].Value = totalStats.MinSales;
-            maxRow.Cells[_diningAreaStats.Count].Value = totalStats.MaxSales;
-            percRow.Cells[_diningAreaStats.Count].Value = "N/A"; // Percentage doesn't make sense in the total column
-
-            // Format cells as currency
-            foreach (DataGridViewRow row in new DataGridViewRow[] { avgRow, minRow, maxRow }) {
-                for (int i = 0; i <= _diningAreaStats.Count; i++) {
-                    row.Cells[i].Style.Format = "C"; // Format as currency
-                }
-            }
-
-            // Add the rows to the DataGridView
-            avgRow.HeaderCell.Value = "Average";
-            minRow.HeaderCell.Value = "Min";
-            maxRow.HeaderCell.Value = "Max";
-            percRow.HeaderCell.Value = "Percentage";
-
-            dataGridView.Rows.Add(avgRow);
-            dataGridView.Rows.Add(minRow);
-            dataGridView.Rows.Add(maxRow);
-            dataGridView.Rows.Add(percRow);
-        }
+        
 
 
 

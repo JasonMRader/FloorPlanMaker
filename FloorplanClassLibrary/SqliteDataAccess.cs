@@ -2701,27 +2701,36 @@ namespace FloorplanClassLibrary
 
             return shiftRecord;
         }
-        public static List<DiningAreaRecord> LoadDiningAreaRecordsByDateAndLunch(DateOnly date, bool isLunch) {
+        public static List<DiningAreaRecord> LoadDiningAreaRecordsByDateAndLunch(DateOnly date, bool isLunch)
+        {
             var tableStats = LoadTableStatsByDateAndLunch(isLunch, date);
 
             // Dictionary to store ServerCount for each DiningAreaID
             var serverCounts = LoadServerCountsByDateAndLunch(date, isLunch);
 
+            // Calculate the total sales excluding Banquet (DiningAreaID = 6)
+            float totalSales = tableStats
+                .Where(ts => ts.DiningAreaID.HasValue && ts.DiningAreaID != 6)
+                .Sum(ts => ts.Sales ?? 0);
+
+            // Group tableStats by DiningAreaID and create DiningAreaRecords
             var diningAreaRecords = tableStats
-           .Where(ts => ts.DiningAreaID.HasValue) 
-           .GroupBy(ts => ts.DiningAreaID.Value)  
-           .Select(g => new DiningAreaRecord {
-               DiningAreaID = g.Key,
-               DateOnly = date,
-               IsAm = isLunch,
-               Sales = g.Sum(ts => ts.Sales ?? 0), 
-               TableStats = g.ToList(), 
-               ServerCount = serverCounts.ContainsKey(g.Key) ? serverCounts[g.Key] : 0 
-           })
-           .ToList();
+                .Where(ts => ts.DiningAreaID.HasValue)
+                .GroupBy(ts => ts.DiningAreaID.Value)
+                .Select(g => new DiningAreaRecord {
+                    DiningAreaID = g.Key,
+                    DateOnly = date,
+                    IsAm = isLunch,
+                    Sales = g.Sum(ts => ts.Sales ?? 0), // Sum of sales for this dining area
+                    TableStats = g.ToList(),
+                    ServerCount = serverCounts.ContainsKey(g.Key) ? serverCounts[g.Key] : 0,
+                    PercentageOfSales = totalSales > 0 ? (g.Sum(ts => ts.Sales ?? 0) / totalSales) * 100 : 0 // Calculate percentage of total sales
+                })
+                .ToList();
 
             return diningAreaRecords;
         }
+
         public static Dictionary<int, int> LoadServerCountsByDateAndLunch(DateOnly date, bool isLunch) {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString())) {
                 string dateString = date.ToString("yyyy-MM-dd");

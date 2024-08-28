@@ -15,6 +15,7 @@ namespace FloorplanClassLibrary
         public bool IsAm { get; set; }       
         public int ServerCount { get; set; }    
         public List<TableStat> TableStats { get; set; }
+        public float PercentageOfSales { get; set; }
         
         
     }

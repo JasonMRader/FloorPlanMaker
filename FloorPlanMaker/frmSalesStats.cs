@@ -764,10 +764,10 @@ namespace FloorPlanMakerUI
 
             // Calculate the total stats
             var totalStats = new DiningAreaStats {
-                MaxSales = shiftAnalysis.DiningAreaStats.Sum(a => a.MaxSales),
-                MinSales = shiftAnalysis.DiningAreaStats.Sum(a => a.MinSales),
-                AvgSales = shiftAnalysis.DiningAreaStats.Sum(a => a.AvgSales),
-                TotalSales = shiftAnalysis.DiningAreaStats.Sum(a => a.TotalSales),
+                MaxSales = shiftAnalysis.FilteredShiftMaxSales,
+                MinSales = shiftAnalysis.FilteredShiftMinSales,
+                AvgSales = shiftAnalysis.FilteredShiftAvgSales,
+                
             };
 
             // Add rows for Average, Min, Max, and Percentage
@@ -785,7 +785,7 @@ namespace FloorPlanMakerUI
                 avgRow.Cells[i].Value = shiftAnalysis.DiningAreaStats[i].AvgSales;
                 minRow.Cells[i].Value = shiftAnalysis.DiningAreaStats[i].MinSales;
                 maxRow.Cells[i].Value = shiftAnalysis.DiningAreaStats[i].MaxSales;
-                percRow.Cells[i].Value = shiftAnalysis.DiningAreaStats[i].PercentageOfTotalSales;
+                percRow.Cells[i].Value = $"{shiftAnalysis.DiningAreaStats[i].PercentageOfTotalSales:F1}%";
             }
 
             // Add total values in the last column
