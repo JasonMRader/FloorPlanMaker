@@ -11,9 +11,12 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
-namespace FloorPlanMakerUI {
-    public partial class frmSalesStats : Form {
-        public frmSalesStats() {
+namespace FloorPlanMakerUI
+{
+    public partial class frmSalesStats : Form
+    {
+        public frmSalesStats()
+        {
             InitializeComponent();
         }
         private DiningAreaManager areaManager = new DiningAreaManager();
@@ -42,7 +45,8 @@ namespace FloorPlanMakerUI {
         //   1,2,3,4,5,6,7,8,9,10,11,12
         //};
 
-        private void frmSalesStats_Load(object sender, EventArgs e) {
+        private void frmSalesStats_Load(object sender, EventArgs e)
+        {
 
             allWeatherData = SqliteDataAccess.LoadAllWeatherData();
             dtpEndDate.Value = DateTime.Now.AddDays(-1);
@@ -59,7 +63,8 @@ namespace FloorPlanMakerUI {
             //    history.Add(shiftHistory);
             //}
         }
-        private RadioButton CreateSelectAllAreaRadio() {
+        private RadioButton CreateSelectAllAreaRadio()
+        {
             RadioButton btn = new RadioButton() {
 
                 Text = "ALL",
@@ -77,11 +82,13 @@ namespace FloorPlanMakerUI {
             return btn;
         }
 
-        private void SelectedAllAreasButtonClicked(object? sender, EventArgs e) {
+        private void SelectedAllAreasButtonClicked(object? sender, EventArgs e)
+        {
 
         }
 
-        private RadioButton CreateAreaRadio(DiningArea area) {
+        private RadioButton CreateAreaRadio(DiningArea area)
+        {
             RadioButton btn = new RadioButton() {
 
                 Image = UITheme.GetDiningAreaImage(area),
@@ -99,11 +106,13 @@ namespace FloorPlanMakerUI {
             return btn;
         }
 
-        private void areaButtonClicked(object? sender, EventArgs e) {
+        private void areaButtonClicked(object? sender, EventArgs e)
+        {
 
         }
 
-        public List<DateTime> GetFilteredDates(DateTime startDate, DateTime endDate) {
+        public List<DateTime> GetFilteredDates(DateTime startDate, DateTime endDate)
+        {
             List<DateTime> dateList = new List<DateTime>();
 
             if (startDate <= endDate) {
@@ -136,7 +145,8 @@ namespace FloorPlanMakerUI {
         }
 
 
-        private void PopulateDGVForServerHistory(List<ServerShiftHistory> serverHistory) {
+        private void PopulateDGVForServerHistory(List<ServerShiftHistory> serverHistory)
+        {
             dataGridView1.Columns.Clear();
             dataGridView1.Rows.Clear();
 
@@ -241,7 +251,8 @@ namespace FloorPlanMakerUI {
         }
 
 
-        private List<ServerShiftHistory> GetServerHistory(List<Server> servers) {
+        private List<ServerShiftHistory> GetServerHistory(List<Server> servers)
+        {
             var serverHistorys = new List<ServerShiftHistory>();
             if (rdoAm.Checked) {
                 foreach (var server in servers) {
@@ -266,11 +277,10 @@ namespace FloorPlanMakerUI {
             return serverHistorys;
         }
 
-        private void rdoAm_CheckedChanged(object sender, EventArgs e) {
 
-        }
 
-        private void rdoServerShifts_CheckedChanged(object sender, EventArgs e) {
+        private void rdoServerShifts_CheckedChanged(object sender, EventArgs e)
+        {
             if (rdoServerShifts.Checked) {
                 cboServerSelect.DataSource = employeeManager.ActiveServers;
                 lblComboLabel.Text = "Servers";
@@ -285,11 +295,23 @@ namespace FloorPlanMakerUI {
             }
         }
 
-        private void rdoEvents_CheckedChanged(object sender, EventArgs e) {
-
+        private void rdoEvents_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rdoSpecialAndNormal.Checked) {
+                shiftAnalysis.SetIsFilteredBySpecialEvent(false);
+            }
+            else if (rdoExcludeEvents.Checked) {
+                shiftAnalysis.SetIsFilteredBySpecialEvent(true);
+                shiftAnalysis.SetSpecialEvents(false);
+            }
+            else if (rdoEventsOnly.Checked) {
+                shiftAnalysis.SetIsFilteredBySpecialEvent(true);
+                shiftAnalysis.SetSpecialEvents(true);
+            }
         }
 
-        private void cbAllWeekdays_CheckedChanged(object sender, EventArgs e) {
+        private void cbAllWeekdays_CheckedChanged(object sender, EventArgs e)
+        {
             if (cbAllWeekdays.Checked) {
                 cbMon.Checked = true;
                 cbTues.Checked = true;
@@ -312,7 +334,8 @@ namespace FloorPlanMakerUI {
             }
 
         }
-        private void cbMon_CheckedChanged(object sender, EventArgs e) {
+        private void cbMon_CheckedChanged(object sender, EventArgs e)
+        {
             if (!cbMon.Checked) {
                 if (FilteredDaysOfWeek.Contains(DayOfWeek.Monday)) {
                     FilteredDaysOfWeek.Remove(DayOfWeek.Monday);
@@ -326,7 +349,8 @@ namespace FloorPlanMakerUI {
                 }
             }
         }
-        private void cbTues_CheckedChanged(object sender, EventArgs e) {
+        private void cbTues_CheckedChanged(object sender, EventArgs e)
+        {
             if (!cbTues.Checked) {
                 if (FilteredDaysOfWeek.Contains(DayOfWeek.Tuesday)) {
                     FilteredDaysOfWeek.Remove(DayOfWeek.Tuesday);
@@ -340,7 +364,8 @@ namespace FloorPlanMakerUI {
                 }
             }
         }
-        private void cbWed_CheckedChanged(object sender, EventArgs e) {
+        private void cbWed_CheckedChanged(object sender, EventArgs e)
+        {
             if (!cbWed.Checked) {
                 if (FilteredDaysOfWeek.Contains(DayOfWeek.Wednesday)) {
                     FilteredDaysOfWeek.Remove(DayOfWeek.Wednesday);
@@ -354,7 +379,8 @@ namespace FloorPlanMakerUI {
                 }
             }
         }
-        private void cbThurs_CheckedChanged(object sender, EventArgs e) {
+        private void cbThurs_CheckedChanged(object sender, EventArgs e)
+        {
             if (!cbThurs.Checked) {
                 if (FilteredDaysOfWeek.Contains(DayOfWeek.Thursday)) {
                     FilteredDaysOfWeek.Remove(DayOfWeek.Thursday);
@@ -368,7 +394,8 @@ namespace FloorPlanMakerUI {
                 }
             }
         }
-        private void cbFri_CheckedChanged(object sender, EventArgs e) {
+        private void cbFri_CheckedChanged(object sender, EventArgs e)
+        {
             if (!cbFri.Checked) {
                 if (FilteredDaysOfWeek.Contains(DayOfWeek.Friday)) {
                     FilteredDaysOfWeek.Remove(DayOfWeek.Friday);
@@ -382,7 +409,8 @@ namespace FloorPlanMakerUI {
                 }
             }
         }
-        private void cbSat_CheckedChanged(object sender, EventArgs e) {
+        private void cbSat_CheckedChanged(object sender, EventArgs e)
+        {
             if (!cbSat.Checked) {
                 if (FilteredDaysOfWeek.Contains(DayOfWeek.Saturday)) {
                     FilteredDaysOfWeek.Remove(DayOfWeek.Saturday);
@@ -396,7 +424,8 @@ namespace FloorPlanMakerUI {
                 }
             }
         }
-        private void cbSun_CheckedChanged(object sender, EventArgs e) {
+        private void cbSun_CheckedChanged(object sender, EventArgs e)
+        {
             if (!cbSun.Checked) {
                 if (FilteredDaysOfWeek.Contains(DayOfWeek.Sunday)) {
                     FilteredDaysOfWeek.Remove(DayOfWeek.Sunday);
@@ -410,21 +439,25 @@ namespace FloorPlanMakerUI {
                 }
             }
         }
-        private void dtpStartDate_ValueChanged(object sender, EventArgs e) {
+        private void dtpStartDate_ValueChanged(object sender, EventArgs e)
+        {
             dateOnlyStart = new DateOnly(dtpStartDate.Value.Year, dtpStartDate.Value.Month, dtpStartDate.Value.Day);
             shiftAnalysis.SetDateOnly(dateOnlyStart, dateOnlyEnd);
         }
-        private void dtpEndDate_ValueChanged(object sender, EventArgs e) {
+        private void dtpEndDate_ValueChanged(object sender, EventArgs e)
+        {
             dateOnlyEnd = new DateOnly(dtpEndDate.Value.Year, dtpEndDate.Value.Month, dtpEndDate.Value.Day);
             shiftAnalysis.SetDateOnly(dateOnlyStart, dateOnlyEnd);
         }
-        private void btnIndividualStats_Click(object sender, EventArgs e) {
+        private void btnIndividualStats_Click(object sender, EventArgs e)
+        {
             if (rdoServerShifts.Checked) {
                 Server serverSelected = (Server)cboServerSelect.SelectedItem;
                 PopulateDGVForIndividualServer(serverSelected);
             }
         }
-        private void PopulateDGVForIndividualServer(Server serverSelected) {
+        private void PopulateDGVForIndividualServer(Server serverSelected)
+        {
             dataGridView1.Columns.Clear();
             dataGridView1.Rows.Clear();
             var serverShiftHistory = new ServerShiftHistory();
@@ -470,13 +503,15 @@ namespace FloorPlanMakerUI {
             dataGridView1.Rows.Add(row.ToArray());
         }
 
-        private void btnIndividualServerShifts_Click(object sender, EventArgs e) {
+        private void btnIndividualServerShifts_Click(object sender, EventArgs e)
+        {
             if (rdoServerShifts.Checked) {
                 Server serverSelected = (Server)cboServerSelect.SelectedItem;
                 PopulateDGVForServerShiftHistory(serverSelected);
             }
         }
-        public void PopulateDGVForServerShiftHistory(Server serverSelected) {
+        public void PopulateDGVForServerShiftHistory(Server serverSelected)
+        {
             dataGridView1.Columns.Clear();
             dataGridView1.Rows.Clear();
 
@@ -517,7 +552,8 @@ namespace FloorPlanMakerUI {
 
 
 
-        private void cbAllMonths_CheckedChanged(object sender, EventArgs e) {
+        private void cbAllMonths_CheckedChanged(object sender, EventArgs e)
+        {
             if (cbAllMonths.Checked) {
                 cbJan.Checked = true;
                 cbFeb.Checked = true;
@@ -550,7 +586,8 @@ namespace FloorPlanMakerUI {
             }
         }
 
-        private void cbMonth_CheckChanged(object sender, System.EventArgs e) {
+        private void cbMonth_CheckChanged(object sender, System.EventArgs e)
+        {
             if (!cbJan.Checked) {
                 shiftAnalysis.RemoveMonth(1);
             }
@@ -628,7 +665,8 @@ namespace FloorPlanMakerUI {
 
 
 
-        private void btnRefreshFilters_Click(object sender, EventArgs e) {
+        private void btnRefreshFilters_Click(object sender, EventArgs e)
+        {
             frmLoading loadingForm = new frmLoading("Parsing");
             loadingForm.Show();
             this.Enabled = false;
@@ -668,11 +706,13 @@ namespace FloorPlanMakerUI {
             }
 
         }
-        public void PopulateDGVForAreaSales(DataGridView dgvDiningAreas, List<DiningArea> diningAreas, List<ShiftRecord> shiftRecords) {
+        public void PopulateDGVForAreaSales(DataGridView dgvDiningAreas, List<DiningArea> diningAreas, List<ShiftRecord> shiftRecords)
+        {
             InitializeDataGridView(dgvDiningAreas, diningAreas);
             AddShiftRows(dgvDiningAreas, diningAreas, shiftRecords);
         }
-        private void InitializeDataGridView(DataGridView dgvDiningAreas, List<DiningArea> diningAreas) {
+        private void InitializeDataGridView(DataGridView dgvDiningAreas, List<DiningArea> diningAreas)
+        {
             dgvDiningAreas.Columns.Clear();
             dgvDiningAreas.Rows.Clear();
 
@@ -716,6 +756,15 @@ namespace FloorPlanMakerUI {
                 }
             };
             dgvDiningAreas.Columns.Add(tempHiColumn);
+            var tempAvgColumn = new DataGridViewTextBoxColumn {
+                Name = "TempAvg",
+                HeaderText = "Feels Like Avg",
+                Width = 30,
+                DefaultCellStyle = new DataGridViewCellStyle {
+                    Format = "N0" // Format as integer
+                }
+            };
+            dgvDiningAreas.Columns.Add(tempAvgColumn);
 
             var tempLoColumn = new DataGridViewTextBoxColumn {
                 Name = "TempLo",
@@ -764,7 +813,8 @@ namespace FloorPlanMakerUI {
             dgvDiningAreas.Columns.Add(windMaxColumn);
         }
 
-        private void AddShiftRows(DataGridView dgvDiningAreas, List<DiningArea> diningAreas, List<ShiftRecord> shiftRecords) {
+        private void AddShiftRows(DataGridView dgvDiningAreas, List<DiningArea> diningAreas, List<ShiftRecord> shiftRecords)
+        {
             foreach (var shiftRecord in shiftRecords) {
                 var row = new List<object> { shiftRecord.Date.ToString("ddd, M/d/yy") };
 
@@ -789,6 +839,7 @@ namespace FloorPlanMakerUI {
                 //                  shiftRecord.HourlyWeatherData.Max(hw => hw.FeelsLikeHi) :
                 //                  0;
                 int feelsLikeHi = 0;
+                int feelsLikeAvg = 0;
                 int feelsLikeLo = 0;
                 float rainAmount = 0f;
                 float clouds = 0f;
@@ -797,6 +848,7 @@ namespace FloorPlanMakerUI {
 
                 if (shiftRecord.ShiftWeather != null) {
                     feelsLikeHi = shiftRecord.ShiftWeather.FeelsLikeHi;
+                    feelsLikeAvg = shiftRecord.ShiftWeather.FeelsLikeAvg;
                     feelsLikeLo = shiftRecord.ShiftWeather.FeelsLikeLow;
                     rainAmount = shiftRecord.ShiftWeather.RainAmount;
                     clouds = shiftRecord.ShiftWeather.CloudCoverAverage;
@@ -805,6 +857,7 @@ namespace FloorPlanMakerUI {
                 }
 
                 row.Add(feelsLikeHi);
+                row.Add(feelsLikeAvg);
                 row.Add(feelsLikeLo);
                 row.Add(rainAmount);
                 row.Add(clouds);
@@ -816,10 +869,12 @@ namespace FloorPlanMakerUI {
             }
         }
 
-        private void cboServerSelect_SelectedIndexChanged(object sender, EventArgs e) {
+        private void cboServerSelect_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
         }
-        private void cbFilterByTempRange_CheckedChanged(object sender, EventArgs e) {
+        private void cbFilterByTempRange_CheckedChanged(object sender, EventArgs e)
+        {
             if (cbFilterByTempRange.Checked) {
                 nudTempRange.Enabled = true;
                 nudTempAnchor.Enabled = true;
@@ -834,14 +889,15 @@ namespace FloorPlanMakerUI {
                 shiftAnalysis.SetIsFilteredByTemp(false);
             }
         }
-        private void nudTemp_ValueChanged(object sender, EventArgs e) {
+        private void nudTemp_ValueChanged(object sender, EventArgs e)
+        {
 
             shiftAnalysis.SetTempRange((int)nudTempAnchor.Value, (int)nudTempRange.Value);
 
         }
 
 
-        private void cbFilterByRain_CheckedChanged(object sender, EventArgs e) 
+        private void cbFilterByRain_CheckedChanged(object sender, EventArgs e)
         {
             shiftAnalysis.SetIsFilteredbyRainAmount(cbFilterByRain.Checked);
             if (cbFilterByRain.Checked) {
@@ -850,64 +906,88 @@ namespace FloorPlanMakerUI {
                 shiftAnalysis.SetRainRange((float)nudRainAnchor.Value, (float)nudRainRange.Value);
             }
             else {
-                nudRainRange.Enabled=false;
+                nudRainRange.Enabled = false;
                 nudRainAnchor.Enabled = false;
             }
         }
 
-        private void nudRain_ValueChanged(object sender, EventArgs e) {
+        private void nudRain_ValueChanged(object sender, EventArgs e)
+        {
             shiftAnalysis.SetRainRange((float)nudRainAnchor.Value, (float)nudRainRange.Value);
         }
 
-        private void cbFilterByClouds_CheckedChanged(object sender, EventArgs e) {
+        private void cbFilterByClouds_CheckedChanged(object sender, EventArgs e)
+        {
             shiftAnalysis.SetIsFilteredByClouds(cbFilterByClouds.Checked);
-            if(cbFilterByClouds.Checked) {
+            if (cbFilterByClouds.Checked) {
                 nudCloudAnchor.Enabled = true;
                 nudCloudRange.Enabled = true;
                 shiftAnalysis.SetCloudRange((float)nudCloudAnchor.Value, (float)(nudCloudRange.Value));
             }
             else {
-                nudCloudAnchor.Enabled=false;
-                nudCloudRange.Enabled=false;
+                nudCloudAnchor.Enabled = false;
+                nudCloudRange.Enabled = false;
             }
         }
 
-        private void nudCloud_ValueChanged(object sender, EventArgs e) {
+        private void nudCloud_ValueChanged(object sender, EventArgs e)
+        {
             shiftAnalysis.SetCloudRange((float)nudCloudAnchor.Value, (float)(nudCloudRange.Value));
         }
 
-        private void cbFilterByWindMax_CheckedChanged(object sender, EventArgs e) {
+        private void cbFilterByWindMax_CheckedChanged(object sender, EventArgs e)
+        {
             shiftAnalysis.SetIsFilteredByWindMax(cbFilterByWindMax.Checked);
-            if( cbFilterByWindMax.Checked) {
+            if (cbFilterByWindMax.Checked) {
                 nudWindMaxRange.Enabled = true;
                 nudWindMaxAnchor.Enabled = true;
                 shiftAnalysis.SetWindMaxRange((int)nudWindMaxAnchor.Value, (int)nudWindMaxRange.Value);
             }
             else {
                 nudWindMaxRange.Enabled = false;
-                nudWindMaxAnchor.Enabled=false;
+                nudWindMaxAnchor.Enabled = false;
             }
         }
 
-        private void nudWindMax_ValueChanged(object sender, EventArgs e) {
+        private void nudWindMax_ValueChanged(object sender, EventArgs e)
+        {
             shiftAnalysis.SetWindMaxRange((int)nudWindMaxAnchor.Value, (int)nudWindMaxRange.Value);
         }
 
-        private void cbFilterByWindAvg_CheckedChanged(object sender, EventArgs e) {
+        private void cbFilterByWindAvg_CheckedChanged(object sender, EventArgs e)
+        {
             shiftAnalysis.SetIsFilteredByWindAvg(cbFilterByWindAvg.Checked);
-            if(cbFilterByWindAvg.Checked) {
+            if (cbFilterByWindAvg.Checked) {
                 nudWindAvgAnchor.Enabled = true;
                 nudWindAvgRange.Enabled = true;
                 shiftAnalysis.SetWindAvgRange((int)nudWindAvgAnchor.Value, (int)nudWindAvgRange.Value);
             }
             else {
-                nudWindAvgRange.Enabled=false;
-                nudWindAvgAnchor.Enabled=false;
+                nudWindAvgRange.Enabled = false;
+                nudWindAvgAnchor.Enabled = false;
             }
         }
 
-        private void nudWindAvg_ValueChanged(object sender, EventArgs e) {
+        private void nudWindAvg_ValueChanged(object sender, EventArgs e)
+        {
             shiftAnalysis.SetWindAvgRange((int)nudWindAvgAnchor.Value, (int)nudWindAvgRange.Value);
         }
+
+        private void rdoBoth_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void rdoPm_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rdoAm.Checked) {
+                shiftAnalysis.SetIsAM(true);
+            }
+            else if (rdoPm.Checked) {
+
+            }
+            shiftAnalysis.SetIsAM(false);
+        }
+
     }
 }

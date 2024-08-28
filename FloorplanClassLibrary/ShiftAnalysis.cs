@@ -15,8 +15,8 @@ namespace FloorplanClassLibrary
         public List<ShiftRecord> Shifts { get { return _shifts; } }
         private List<ShiftRecord> _filteredShifts { get; set; } = new List<ShiftRecord>();
         public List<ShiftRecord> FilteredShifts { get { return _filteredShifts; } }
-        public bool isAM { get; set; }
-        public bool isAllDay { get; set; }
+        private bool _isAM { get; set; }
+        private bool _isAllDay { get; set; }
         public ShiftAnalysis() { }
         private DateOnly _startDate = new DateOnly();
         private DateOnly _endDate = new DateOnly();
@@ -94,6 +94,14 @@ namespace FloorplanClassLibrary
         public void SetIsFilteredBySpecialEvent(bool isFilteredBySpecialEvent) {
             this._filterBySpecialEvent = isFilteredBySpecialEvent;
         }
+        public void SetIsAM(bool isAM)
+        {
+            this._isAM = isAM;
+        }
+        public void SetIsAllDay(bool isAllDay)
+        {
+            this._isAllDay = isAllDay;
+        }
         public void SetDateOnly(DateOnly startDate, DateOnly endDate)
         {
             this._endDate = endDate;
@@ -153,7 +161,7 @@ namespace FloorplanClassLibrary
             this._shifts.Clear();
             for (DateOnly iDay = _startDate; iDay <= _endDate; iDay = iDay.AddDays(1))
             {
-                _shifts.Add(SqliteDataAccess.LoadShiftRecord(iDay, this.isAM));
+                _shifts.Add(SqliteDataAccess.LoadShiftRecord(iDay, this._isAM));
             }
             List<DateOnly> missingDates = SqliteDataAccess.GetMissingSalesDates(_startDate, _endDate);
             _shifts.RemoveAll(s => missingDates.Contains(s.dateOnly));

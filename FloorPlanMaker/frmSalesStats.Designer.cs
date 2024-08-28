@@ -1,5 +1,7 @@
-﻿namespace FloorPlanMakerUI {
-    partial class frmSalesStats {
+﻿namespace FloorPlanMakerUI
+{
+    partial class frmSalesStats
+    {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -9,7 +11,8 @@
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing) {
+        protected override void Dispose(bool disposing)
+        {
             if (disposing && (components != null)) {
                 components.Dispose();
             }
@@ -22,7 +25,8 @@
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent() {
+        private void InitializeComponent()
+        {
             rdoDiningAreaSales = new RadioButton();
             rdoServerShifts = new RadioButton();
             rdoAm = new RadioButton();
@@ -142,30 +146,32 @@
             rdoAm.TabIndex = 3;
             rdoAm.Text = "AM";
             rdoAm.UseVisualStyleBackColor = true;
-            rdoAm.CheckedChanged += rdoAm_CheckedChanged;
+            rdoAm.CheckedChanged += rdoPm_CheckedChanged;
             // 
             // rdoPm
             // 
             rdoPm.AutoSize = true;
+            rdoPm.Checked = true;
             rdoPm.Location = new Point(73, 3);
             rdoPm.Name = "rdoPm";
             rdoPm.Size = new Size(43, 19);
             rdoPm.TabIndex = 3;
+            rdoPm.TabStop = true;
             rdoPm.Text = "PM";
             rdoPm.UseVisualStyleBackColor = true;
+            rdoPm.CheckedChanged += rdoPm_CheckedChanged;
             // 
             // rdoBoth
             // 
             rdoBoth.AutoSize = true;
-            rdoBoth.Checked = true;
+            rdoBoth.Enabled = false;
             rdoBoth.Location = new Point(3, 3);
             rdoBoth.Name = "rdoBoth";
             rdoBoth.Size = new Size(62, 19);
             rdoBoth.TabIndex = 3;
-            rdoBoth.TabStop = true;
             rdoBoth.Text = "All Day";
             rdoBoth.UseVisualStyleBackColor = true;
-            rdoBoth.CheckedChanged += rdoEvents_CheckedChanged;
+            rdoBoth.CheckedChanged += rdoBoth_CheckedChanged;
             // 
             // panel1
             // 
