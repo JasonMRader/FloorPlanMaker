@@ -265,7 +265,7 @@
             cbSun.TabIndex = 0;
             cbSun.Text = "Sun";
             cbSun.UseVisualStyleBackColor = true;
-            cbSun.CheckedChanged += cbSun_CheckedChanged;
+            cbSun.CheckedChanged += cbDayOfWeek_CheckedChanged;
             // 
             // cbSat
             // 
@@ -278,7 +278,7 @@
             cbSat.TabIndex = 0;
             cbSat.Text = "Sat";
             cbSat.UseVisualStyleBackColor = true;
-            cbSat.CheckedChanged += cbSat_CheckedChanged;
+            cbSat.CheckedChanged += cbDayOfWeek_CheckedChanged;
             // 
             // cbFri
             // 
@@ -291,7 +291,7 @@
             cbFri.TabIndex = 0;
             cbFri.Text = "Fri";
             cbFri.UseVisualStyleBackColor = true;
-            cbFri.CheckedChanged += cbFri_CheckedChanged;
+            cbFri.CheckedChanged += cbDayOfWeek_CheckedChanged;
             // 
             // cbThurs
             // 
@@ -304,7 +304,7 @@
             cbThurs.TabIndex = 0;
             cbThurs.Text = "Thurs";
             cbThurs.UseVisualStyleBackColor = true;
-            cbThurs.CheckedChanged += cbThurs_CheckedChanged;
+            cbThurs.CheckedChanged += cbDayOfWeek_CheckedChanged;
             // 
             // cbWed
             // 
@@ -317,7 +317,7 @@
             cbWed.TabIndex = 0;
             cbWed.Text = "Wed";
             cbWed.UseVisualStyleBackColor = true;
-            cbWed.CheckedChanged += cbWed_CheckedChanged;
+            cbWed.CheckedChanged += cbDayOfWeek_CheckedChanged;
             // 
             // cbTues
             // 
@@ -330,7 +330,7 @@
             cbTues.TabIndex = 0;
             cbTues.Text = "Tues";
             cbTues.UseVisualStyleBackColor = true;
-            cbTues.CheckedChanged += cbTues_CheckedChanged;
+            cbTues.CheckedChanged += cbDayOfWeek_CheckedChanged;
             // 
             // cbMon
             // 
@@ -343,7 +343,7 @@
             cbMon.TabIndex = 0;
             cbMon.Text = "Mon";
             cbMon.UseVisualStyleBackColor = true;
-            cbMon.CheckedChanged += cbMon_CheckedChanged;
+            cbMon.CheckedChanged += cbDayOfWeek_CheckedChanged;
             // 
             // panel4
             // 

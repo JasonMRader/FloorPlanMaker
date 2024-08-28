@@ -16,20 +16,22 @@ namespace FloorplanClassLibrary
             List<HourlyWeatherData> hourlyData = await WeatherApiDataAccess.GetHourlyWeatherHistory(missingDates);
             SqliteDataAccess.SaveOrUpdateHourlyWeatherData(hourlyData);
         }
-        public static async void SaveMissingDatesToDatabase(DateTime start, DateTime end)
+        public static async Task SaveMissingDatesToDatabase(DateTime start, DateTime end)
         {
             DateOnly maxEndDate = DateOnly.FromDateTime(DateTime.Now.AddDays(-1));
             DateOnly endDate = DateOnly.FromDateTime(end);
             DateOnly startDate = DateOnly.FromDateTime(start);
-            if (endDate > maxEndDate)
-            {
+
+            if (endDate > maxEndDate) {
                 endDate = maxEndDate;
             }
+
             List<DateOnly> missingDates = SqliteDataAccess.GetMissingWeatherDates(startDate, endDate);
             List<HourlyWeatherData> hourlyData = await WeatherApiDataAccess.GetHourlyWeatherHistory(missingDates);
-            
-           
+
+            // Ensure that the data is saved after the API call is complete
             SqliteDataAccess.SaveOrUpdateHourlyWeatherData(hourlyData);
         }
+
     }
 }

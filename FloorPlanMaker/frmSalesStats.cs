@@ -334,111 +334,33 @@ namespace FloorPlanMakerUI
             }
 
         }
-        private void cbMon_CheckedChanged(object sender, EventArgs e)
+        
+        private void cbDayOfWeek_CheckedChanged(object sender, EventArgs e)
         {
-            if (!cbMon.Checked) {
-                if (FilteredDaysOfWeek.Contains(DayOfWeek.Monday)) {
-                    FilteredDaysOfWeek.Remove(DayOfWeek.Monday);
-                    shiftAnalysis.RemoveDayOfWeek(DayOfWeek.Monday);
-                }
+            CheckBox cb = sender as CheckBox;
+            DayOfWeek day = DayOfWeek.Monday; // Default value, will be overwritten
+
+            if (cb == cbMon) day = DayOfWeek.Monday;
+            else if (cb == cbTues) day = DayOfWeek.Tuesday;
+            else if (cb == cbWed) day = DayOfWeek.Wednesday;
+            else if (cb == cbThurs) day = DayOfWeek.Thursday;
+            else if (cb == cbFri) day = DayOfWeek.Friday;
+            else if (cb == cbSat) day = DayOfWeek.Saturday;
+            else if (cb == cbSun) day = DayOfWeek.Sunday;
+
+            if (cb.Checked) {
+                shiftAnalysis.AddDayOfWeek(day);
             }
-            if (cbMon.Checked) {
-                if (!FilteredDaysOfWeek.Contains(DayOfWeek.Monday)) {
-                    FilteredDaysOfWeek.Add(DayOfWeek.Monday);
-                    shiftAnalysis.AddDayOfWeek(DayOfWeek.Monday);
-                }
+            else {
+                shiftAnalysis.RemoveDayOfWeek(day);
             }
+            bool allChecked = cbMon.Checked && cbTues.Checked && cbWed.Checked && cbThurs.Checked &&
+                              cbFri.Checked && cbSat.Checked && cbSun.Checked;
+                             
+
+            shiftAnalysis.SetIsFilteredByDayOfWeek(!allChecked);
         }
-        private void cbTues_CheckedChanged(object sender, EventArgs e)
-        {
-            if (!cbTues.Checked) {
-                if (FilteredDaysOfWeek.Contains(DayOfWeek.Tuesday)) {
-                    FilteredDaysOfWeek.Remove(DayOfWeek.Tuesday);
-                    shiftAnalysis.RemoveDayOfWeek(DayOfWeek.Tuesday);
-                }
-            }
-            if (cbTues.Checked) {
-                if (!FilteredDaysOfWeek.Contains(DayOfWeek.Tuesday)) {
-                    FilteredDaysOfWeek.Add(DayOfWeek.Tuesday);
-                    shiftAnalysis.AddDayOfWeek((DayOfWeek)DayOfWeek.Tuesday);
-                }
-            }
-        }
-        private void cbWed_CheckedChanged(object sender, EventArgs e)
-        {
-            if (!cbWed.Checked) {
-                if (FilteredDaysOfWeek.Contains(DayOfWeek.Wednesday)) {
-                    FilteredDaysOfWeek.Remove(DayOfWeek.Wednesday);
-                    shiftAnalysis.RemoveDayOfWeek((DayOfWeek)DayOfWeek.Wednesday);
-                }
-            }
-            if (cbWed.Checked) {
-                if (!FilteredDaysOfWeek.Contains(DayOfWeek.Wednesday)) {
-                    FilteredDaysOfWeek.Add(DayOfWeek.Wednesday);
-                    shiftAnalysis.AddDayOfWeek(DayOfWeek.Wednesday);
-                }
-            }
-        }
-        private void cbThurs_CheckedChanged(object sender, EventArgs e)
-        {
-            if (!cbThurs.Checked) {
-                if (FilteredDaysOfWeek.Contains(DayOfWeek.Thursday)) {
-                    FilteredDaysOfWeek.Remove(DayOfWeek.Thursday);
-                    shiftAnalysis.RemoveDayOfWeek(DayOfWeek.Thursday);
-                }
-            }
-            if (cbThurs.Checked) {
-                if (!FilteredDaysOfWeek.Contains(DayOfWeek.Thursday)) {
-                    FilteredDaysOfWeek.Add(DayOfWeek.Thursday);
-                    shiftAnalysis.AddDayOfWeek((DayOfWeek)DayOfWeek.Thursday);
-                }
-            }
-        }
-        private void cbFri_CheckedChanged(object sender, EventArgs e)
-        {
-            if (!cbFri.Checked) {
-                if (FilteredDaysOfWeek.Contains(DayOfWeek.Friday)) {
-                    FilteredDaysOfWeek.Remove(DayOfWeek.Friday);
-                    shiftAnalysis.RemoveDayOfWeek((DayOfWeek)DayOfWeek.Friday);
-                }
-            }
-            if (cbFri.Checked) {
-                if (!FilteredDaysOfWeek.Contains(DayOfWeek.Friday)) {
-                    FilteredDaysOfWeek.Add(DayOfWeek.Friday);
-                    shiftAnalysis.AddDayOfWeek(DayOfWeek.Friday);
-                }
-            }
-        }
-        private void cbSat_CheckedChanged(object sender, EventArgs e)
-        {
-            if (!cbSat.Checked) {
-                if (FilteredDaysOfWeek.Contains(DayOfWeek.Saturday)) {
-                    FilteredDaysOfWeek.Remove(DayOfWeek.Saturday);
-                    shiftAnalysis.RemoveDayOfWeek(DayOfWeek.Saturday);
-                }
-            }
-            if (cbSat.Checked) {
-                if (!FilteredDaysOfWeek.Contains(DayOfWeek.Saturday)) {
-                    FilteredDaysOfWeek.Add(DayOfWeek.Saturday);
-                    shiftAnalysis.AddDayOfWeek((DayOfWeek)DayOfWeek.Saturday);
-                }
-            }
-        }
-        private void cbSun_CheckedChanged(object sender, EventArgs e)
-        {
-            if (!cbSun.Checked) {
-                if (FilteredDaysOfWeek.Contains(DayOfWeek.Sunday)) {
-                    FilteredDaysOfWeek.Remove(DayOfWeek.Sunday);
-                    shiftAnalysis.RemoveDayOfWeek((DayOfWeek)DayOfWeek.Sunday);
-                }
-            }
-            if (cbSun.Checked) {
-                if (!FilteredDaysOfWeek.Contains(DayOfWeek.Sunday)) {
-                    FilteredDaysOfWeek.Add(DayOfWeek.Sunday);
-                    shiftAnalysis.AddDayOfWeek(DayOfWeek.Sunday);
-                }
-            }
-        }
+
         private void dtpStartDate_ValueChanged(object sender, EventArgs e)
         {
             dateOnlyStart = new DateOnly(dtpStartDate.Value.Year, dtpStartDate.Value.Month, dtpStartDate.Value.Day);
@@ -588,79 +510,36 @@ namespace FloorPlanMakerUI
 
         private void cbMonth_CheckChanged(object sender, System.EventArgs e)
         {
-            if (!cbJan.Checked) {
-                shiftAnalysis.RemoveMonth(1);
+
+            UpdateMonthFilter(cbJan.Checked, 1);
+            UpdateMonthFilter(cbFeb.Checked, 2);
+            UpdateMonthFilter(cbMar.Checked, 3);
+            UpdateMonthFilter(cbApr.Checked, 4);
+            UpdateMonthFilter(cbMay.Checked, 5);
+            UpdateMonthFilter(cbJun.Checked, 6);
+            UpdateMonthFilter(cbJul.Checked, 7);
+            UpdateMonthFilter(cbAug.Checked, 8);
+            UpdateMonthFilter(cbSep.Checked, 9);
+            UpdateMonthFilter(cbOct.Checked, 10);
+            UpdateMonthFilter(cbNov.Checked, 11);
+            UpdateMonthFilter(cbDec.Checked, 12);
+
+            bool allChecked = cbJan.Checked && cbFeb.Checked && cbMar.Checked && cbApr.Checked &&
+                              cbMay.Checked && cbJun.Checked && cbJul.Checked && cbAug.Checked &&
+                              cbSep.Checked && cbOct.Checked && cbNov.Checked && cbDec.Checked;
+
+            shiftAnalysis.SetIsFilteredByMonth(!allChecked);
+        }
+        private void UpdateMonthFilter(bool isChecked, int month)
+        {
+            if (isChecked) {
+                shiftAnalysis.AddMonth(month);
             }
-            if (cbJan.Checked) {
-                shiftAnalysis.AddMonth(1);
-            }
-            if (!cbFeb.Checked) {
-                shiftAnalysis.RemoveMonth(2);
-            }
-            if (cbFeb.Checked) {
-                shiftAnalysis.AddMonth(2);
-            }
-            if (!cbMar.Checked) {
-                shiftAnalysis.RemoveMonth(3);
-            }
-            if (cbMar.Checked) {
-                shiftAnalysis.AddMonth(3);
-            }
-            if (!cbApr.Checked) {
-                shiftAnalysis.RemoveMonth(4);
-            }
-            if (cbApr.Checked) {
-                shiftAnalysis.AddMonth(4);
-            }
-            if (!cbMay.Checked) {
-                shiftAnalysis.RemoveMonth(5);
-            }
-            if (cbMay.Checked) {
-                shiftAnalysis.AddMonth(5);
-            }
-            if (!cbJun.Checked) {
-                shiftAnalysis.RemoveMonth(6);
-            }
-            if (cbJun.Checked) {
-                shiftAnalysis.AddMonth(6);
-            }
-            if (!cbJul.Checked) {
-                shiftAnalysis.RemoveMonth(7);
-            }
-            if (cbJul.Checked) {
-                shiftAnalysis.AddMonth(7);
-            }
-            if (!cbAug.Checked) {
-                shiftAnalysis.RemoveMonth(8);
-            }
-            if (cbAug.Checked) {
-                shiftAnalysis.AddMonth(8);
-            }
-            if (!cbSep.Checked) {
-                shiftAnalysis.RemoveMonth(9);
-            }
-            if (cbSep.Checked) {
-                shiftAnalysis.AddMonth(9);
-            }
-            if (!cbOct.Checked) {
-                shiftAnalysis.RemoveMonth(10);
-            }
-            if (cbOct.Checked) {
-                shiftAnalysis.AddMonth(10);
-            }
-            if (!cbNov.Checked) {
-                shiftAnalysis.RemoveMonth(11);
-            }
-            if (cbNov.Checked) {
-                shiftAnalysis.AddMonth(11);
-            }
-            if (!cbDec.Checked) {
-                shiftAnalysis.RemoveMonth(12);
-            }
-            if (cbDec.Checked) {
-                shiftAnalysis.AddMonth(12);
+            else {
+                shiftAnalysis.RemoveMonth(month);
             }
         }
+
 
 
 
