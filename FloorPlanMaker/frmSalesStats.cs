@@ -334,7 +334,7 @@ namespace FloorPlanMakerUI
             }
 
         }
-        
+
         private void cbDayOfWeek_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox cb = sender as CheckBox;
@@ -356,7 +356,7 @@ namespace FloorPlanMakerUI
             }
             bool allChecked = cbMon.Checked && cbTues.Checked && cbWed.Checked && cbThurs.Checked &&
                               cbFri.Checked && cbSat.Checked && cbSun.Checked;
-                             
+
 
             shiftAnalysis.SetIsFilteredByDayOfWeek(!allChecked);
         }

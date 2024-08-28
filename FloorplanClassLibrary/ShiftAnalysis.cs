@@ -15,6 +15,8 @@ namespace FloorplanClassLibrary
         public List<ShiftRecord> Shifts { get { return _shifts; } }
         private List<ShiftRecord> _filteredShifts { get; set; } = new List<ShiftRecord>();
         public List<ShiftRecord> FilteredShifts { get { return _filteredShifts; } }
+        private List<DiningAreaStats> _diningAreaStats { get; set; } = new List<DiningAreaStats>();
+        public List<DiningAreaStats> DiningAreaStats { get { return _diningAreaStats; } }
         private bool _isAM { get; set; }
         private bool _isAllDay { get; set; }
         public ShiftAnalysis() { }
@@ -166,9 +168,7 @@ namespace FloorplanClassLibrary
             List<DateOnly> missingDates = SqliteDataAccess.GetMissingSalesDates(_startDate, _endDate);
             _shifts.RemoveAll(s => missingDates.Contains(s.dateOnly));
             
-            SetFilters();
-            
-            
+            SetFilters();   
         }
        
         private void SetFilters() {
@@ -263,7 +263,44 @@ namespace FloorplanClassLibrary
             }
             
         }
-       
+        public List<DiningAreaStats> CalculateDiningAreaStats()
+        {
+            var areaStats = new Dictionary<int, List<float>>();
+
+            // Gather sales data for each area
+            foreach (var shift in _filteredShifts) {
+                foreach (var area in shift.DiningAreaRecords) {
+                    if (!areaStats.ContainsKey(area.DiningAreaID)) {
+                        areaStats[area.DiningAreaID] = new List<float>();
+                    }
+                    areaStats[area.DiningAreaID].Add(area.Sales);
+                }
+            }
+
+            // Calculate stats for each area
+            var results = new List<DiningAreaStats>();
+            foreach (var entry in areaStats) {
+                var stats = new DiningAreaStats {
+                    DiningAreaID = entry.Key,
+                    MaxSales = entry.Value.Max(),
+                    MinSales = entry.Value.Min(),
+                    AvgSales = entry.Value.Average(),
+                    TotalSales = entry.Value.Sum()
+                };
+
+                results.Add(stats);
+            }
+
+            // Calculate percentage of total sales for each area
+            float totalSalesAcrossAllAreas = results.Sum(r => r.TotalSales);
+            foreach (var result in results) {
+                result.PercentageOfTotalSales = (result.TotalSales / totalSalesAcrossAllAreas) * 100;
+            }
+
+            return results;
+        }
+
+
 
 
         //public double CalculateTotalSales()

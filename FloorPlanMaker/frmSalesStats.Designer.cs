@@ -73,7 +73,7 @@
             btnRefreshFilters = new Button();
             dataGridView1 = new DataGridView();
             flowDiningAreas = new FlowLayoutPanel();
-            dgvAverages = new DataGridView();
+            dgvAreaStats = new DataGridView();
             panel6 = new Panel();
             rdoSpecialAndNormal = new RadioButton();
             rdoEventsOnly = new RadioButton();
@@ -102,7 +102,7 @@
             ((System.ComponentModel.ISupportInitialize)nudTempAnchor).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudTempRange).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)dgvAverages).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvAreaStats).BeginInit();
             panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudRainAnchor).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudRainRange).BeginInit();
@@ -643,10 +643,10 @@
             // dataGridView1
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(30, 423);
+            dataGridView1.Location = new Point(30, 474);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowTemplate.Height = 25;
-            dataGridView1.Size = new Size(1370, 447);
+            dataGridView1.Size = new Size(1370, 396);
             dataGridView1.TabIndex = 12;
             // 
             // flowDiningAreas
@@ -656,14 +656,14 @@
             flowDiningAreas.Size = new Size(724, 53);
             flowDiningAreas.TabIndex = 13;
             // 
-            // dgvAverages
+            // dgvAreaStats
             // 
-            dgvAverages.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvAverages.Location = new Point(30, 353);
-            dgvAverages.Name = "dgvAverages";
-            dgvAverages.RowTemplate.Height = 25;
-            dgvAverages.Size = new Size(1370, 64);
-            dgvAverages.TabIndex = 14;
+            dgvAreaStats.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvAreaStats.Location = new Point(30, 353);
+            dgvAreaStats.Name = "dgvAreaStats";
+            dgvAreaStats.RowTemplate.Height = 25;
+            dgvAreaStats.Size = new Size(1370, 115);
+            dgvAreaStats.TabIndex = 14;
             // 
             // panel6
             // 
@@ -883,7 +883,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1412, 874);
-            Controls.Add(dgvAverages);
+            Controls.Add(dgvAreaStats);
             Controls.Add(flowDiningAreas);
             Controls.Add(dataGridView1);
             Controls.Add(label6);
@@ -932,7 +932,7 @@
             ((System.ComponentModel.ISupportInitialize)nudTempAnchor).EndInit();
             ((System.ComponentModel.ISupportInitialize)nudTempRange).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)dgvAverages).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvAreaStats).EndInit();
             panel6.ResumeLayout(false);
             panel6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)nudRainAnchor).EndInit();
@@ -994,7 +994,7 @@
         private Button btnRefreshFilters;
         private DataGridView dataGridView1;
         private FlowLayoutPanel flowDiningAreas;
-        private DataGridView dgvAverages;
+        private DataGridView dgvAreaStats;
         private Panel panel6;
         private RadioButton rdoSpecialAndNormal;
         private RadioButton rdoEventsOnly;
