@@ -691,61 +691,109 @@ namespace FloorPlanMakerUI
             dgvDiningAreas.Columns.Add(windMaxColumn);
         }
 
+        //private void AddShiftRows(DataGridView dgvDiningAreas, List<DiningArea> diningAreas, List<ShiftRecord> shiftRecords)
+        //{
+        //    foreach (var shiftRecord in shiftRecords) {
+        //        var row = new List<object> { shiftRecord.Date.ToString("ddd, M/d/yy") };
+
+        //        if (shiftRecord.SpecialEventDate != null) {
+        //            row.Add(shiftRecord.SpecialEventDate.Name);
+        //        }
+        //        else {
+        //            row.Add("");
+        //        }
+
+        //        foreach (var diningArea in diningAreas) {
+        //            float diningAreaSales = shiftRecord.DiningAreaRecords
+        //                .Where(fp => fp.DiningAreaID == diningArea.ID)
+        //                .Sum(fp => fp.Sales);
+
+        //            row.Add(diningAreaSales);
+        //        }
+
+        //        row.Add(shiftRecord.Sales);
+
+        //        //int feelsLikeHi = shiftRecord.HourlyWeatherData.Any() ?
+        //        //                  shiftRecord.HourlyWeatherData.Max(hw => hw.FeelsLikeHi) :
+        //        //                  0;
+        //        int feelsLikeHi = 0;
+        //        int feelsLikeAvg = 0;
+        //        int feelsLikeLo = 0;
+        //        float rainAmount = 0f;
+        //        float clouds = 0f;
+        //        int maxWind = 0;
+        //        int avgWind = 0;
+
+        //        if (shiftRecord.ShiftWeather != null) {
+        //            feelsLikeHi = shiftRecord.ShiftWeather.FeelsLikeHi;
+        //            feelsLikeAvg = shiftRecord.ShiftWeather.FeelsLikeAvg;
+        //            feelsLikeLo = shiftRecord.ShiftWeather.FeelsLikeLow;
+        //            rainAmount = shiftRecord.ShiftWeather.RainAmount;
+        //            clouds = shiftRecord.ShiftWeather.CloudCoverAverage;
+        //            maxWind = shiftRecord.ShiftWeather.WindMax;
+        //            avgWind = shiftRecord.ShiftWeather.WindAvg;
+        //        }
+
+        //        row.Add(feelsLikeHi);
+        //        row.Add(feelsLikeAvg);
+        //        row.Add(feelsLikeLo);
+        //        row.Add(rainAmount);
+        //        row.Add(clouds);
+        //        row.Add(avgWind);
+        //        row.Add(maxWind);
+
+
+        //        dgvDiningAreas.Rows.Add(row.ToArray());
+        //    }
+        //}
         private void AddShiftRows(DataGridView dgvDiningAreas, List<DiningArea> diningAreas, List<ShiftRecord> shiftRecords)
         {
             foreach (var shiftRecord in shiftRecords) {
-                var row = new List<object> { shiftRecord.Date.ToString("ddd, M/d/yy") };
+                var row = new DataGridViewRow();
+                row.CreateCells(dgvDiningAreas);
 
-                if (shiftRecord.SpecialEventDate != null) {
-                    row.Add(shiftRecord.SpecialEventDate.Name);
-                }
-                else {
-                    row.Add("");
-                }
+                // Set the first cell for the date
+                row.Cells[0].Value = shiftRecord.Date.ToString("ddd, M/d/yy");
 
+                // Set the second cell for the special event (if any)
+                row.Cells[1].Value = shiftRecord.SpecialEventDate?.Name ?? "";
+
+                int cellIndex = 2; // Start after date and event columns
+
+                // Add sales data for each dining area
                 foreach (var diningArea in diningAreas) {
-                    float diningAreaSales = shiftRecord.DiningAreaRecords
-                        .Where(fp => fp.DiningAreaID == diningArea.ID)
-                        .Sum(fp => fp.Sales);
+                    var diningAreaRecord = shiftRecord.DiningAreaRecords
+                        .FirstOrDefault(fp => fp.DiningAreaID == diningArea.ID);
 
-                    row.Add(diningAreaSales);
+                    float diningAreaSales = diningAreaRecord?.Sales ?? 0f;
+                    float percentageOfSales = diningAreaRecord?.PercentageOfSales ?? 0f;
+
+                    row.Cells[cellIndex].Value = diningAreaSales;
+
+                    // Set tooltip for the cell
+                    row.Cells[cellIndex].ToolTipText = $"{percentageOfSales:F1}% of total sales";
+
+                    cellIndex++;
                 }
 
-                row.Add(shiftRecord.Sales);
+                // Add the total sales for the shift
+                row.Cells[cellIndex].Value = shiftRecord.Sales;
 
-                //int feelsLikeHi = shiftRecord.HourlyWeatherData.Any() ?
-                //                  shiftRecord.HourlyWeatherData.Max(hw => hw.FeelsLikeHi) :
-                //                  0;
-                int feelsLikeHi = 0;
-                int feelsLikeAvg = 0;
-                int feelsLikeLo = 0;
-                float rainAmount = 0f;
-                float clouds = 0f;
-                int maxWind = 0;
-                int avgWind = 0;
+                // Add weather data
+                cellIndex++;
+                row.Cells[cellIndex++].Value = shiftRecord.ShiftWeather?.FeelsLikeHi ?? 0;
+                row.Cells[cellIndex++].Value = shiftRecord.ShiftWeather?.FeelsLikeAvg ?? 0;
+                row.Cells[cellIndex++].Value = shiftRecord.ShiftWeather?.FeelsLikeLow ?? 0;
+                row.Cells[cellIndex++].Value = shiftRecord.ShiftWeather?.RainAmount ?? 0f;
+                row.Cells[cellIndex++].Value = shiftRecord.ShiftWeather?.CloudCoverAverage ?? 0f;
+                row.Cells[cellIndex++].Value = shiftRecord.ShiftWeather?.WindAvg ?? 0;
+                row.Cells[cellIndex++].Value = shiftRecord.ShiftWeather?.WindMax ?? 0;
 
-                if (shiftRecord.ShiftWeather != null) {
-                    feelsLikeHi = shiftRecord.ShiftWeather.FeelsLikeHi;
-                    feelsLikeAvg = shiftRecord.ShiftWeather.FeelsLikeAvg;
-                    feelsLikeLo = shiftRecord.ShiftWeather.FeelsLikeLow;
-                    rainAmount = shiftRecord.ShiftWeather.RainAmount;
-                    clouds = shiftRecord.ShiftWeather.CloudCoverAverage;
-                    maxWind = shiftRecord.ShiftWeather.WindMax;
-                    avgWind = shiftRecord.ShiftWeather.WindAvg;
-                }
-
-                row.Add(feelsLikeHi);
-                row.Add(feelsLikeAvg);
-                row.Add(feelsLikeLo);
-                row.Add(rainAmount);
-                row.Add(clouds);
-                row.Add(avgWind);
-                row.Add(maxWind);
-
-
-                dgvDiningAreas.Rows.Add(row.ToArray());
+                // Add the row to the DataGridView
+                dgvDiningAreas.Rows.Add(row);
             }
         }
+
         public void PopulateAveragesDataGridView(List<DiningArea> diningAreas)
         {
             // Clear any existing columns and rows
@@ -780,20 +828,29 @@ namespace FloorPlanMakerUI
             maxRow.CreateCells(dgvAreaStats);
             var percRow = new DataGridViewRow();
             percRow.CreateCells(dgvAreaStats);
+            var minPercentRow = new DataGridViewRow();
+            minPercentRow.CreateCells(dgvAreaStats);
+            var maxPercentRow = new DataGridViewRow();
+            maxPercentRow.CreateCells(dgvAreaStats );
 
             // Populate the rows with data
             for (int i = 0; i < shiftAnalysis.DiningAreaStats.Count; i++) {
-                avgRow.Cells[i].Value = shiftAnalysis.DiningAreaStats[i].AvgSales;
-                minRow.Cells[i].Value = shiftAnalysis.DiningAreaStats[i].MinSales;
-                maxRow.Cells[i].Value = shiftAnalysis.DiningAreaStats[i].MaxSales;
+                avgRow.Cells[i].Value = $"{shiftAnalysis.DiningAreaStats[i].AvgSales:C0}";
+                
+                minRow.Cells[i].Value = $"{shiftAnalysis.DiningAreaStats[i].MinSales:C0}";
+                maxRow.Cells[i].Value = $"{shiftAnalysis.DiningAreaStats[i].MaxSales:C0}";
                 percRow.Cells[i].Value = $"{shiftAnalysis.DiningAreaStats[i].PercentageOfTotalSales:F1}%";
+                minPercentRow.Cells[i].Value = $"{shiftAnalysis.DiningAreaStats[i].MinPercentage:F1}%";
+                maxPercentRow.Cells[i].Value = $"{shiftAnalysis.DiningAreaStats[i].MaxPercentage:F1}%";
             }
 
             // Add total values in the last column
             avgRow.Cells[shiftAnalysis.DiningAreaStats.Count].Value = totalStats.AvgSales;
             minRow.Cells[shiftAnalysis.DiningAreaStats.Count].Value = totalStats.MinSales;
             maxRow.Cells[shiftAnalysis.DiningAreaStats.Count].Value = totalStats.MaxSales;
-            percRow.Cells[shiftAnalysis.DiningAreaStats.Count].Value = "N/A"; // Percentage doesn't make sense in the total column
+            percRow.Cells[shiftAnalysis.DiningAreaStats.Count].Value = "";
+            minPercentRow.Cells[shiftAnalysis.DiningAreaStats.Count].Value = "";
+            maxPercentRow.Cells[shiftAnalysis.DiningAreaStats.Count].Value = "";
 
             // Format cells as currency
             foreach (DataGridViewRow row in new DataGridViewRow[] { avgRow, minRow, maxRow }) {
@@ -806,13 +863,17 @@ namespace FloorPlanMakerUI
             avgRow.HeaderCell.Value = "Average";
             minRow.HeaderCell.Value = "Min";
             maxRow.HeaderCell.Value = "Max";
-            percRow.HeaderCell.Value = "Percentage";
-            dgvAreaStats.Columns[0].Width = 100;
+            percRow.HeaderCell.Value = "%";
+            minPercentRow.HeaderCell.Value = "Min %";
+            maxPercentRow.HeaderCell.Value = "Max %";
+            dgvAreaStats.RowHeadersWidth = 100;
 
             dgvAreaStats.Rows.Add(avgRow);
             dgvAreaStats.Rows.Add(minRow);
             dgvAreaStats.Rows.Add(maxRow);
             dgvAreaStats.Rows.Add(percRow);
+            dgvAreaStats.Rows.Add(minPercentRow);
+            dgvAreaStats.Rows.Add(maxPercentRow);
         }
         private void cboServerSelect_SelectedIndexChanged(object sender, EventArgs e)
         {

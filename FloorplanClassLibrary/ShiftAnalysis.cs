@@ -282,14 +282,18 @@ namespace FloorplanClassLibrary
         public void CalculateDiningAreaStats()
         {
             var areaStats = new Dictionary<int, List<float>>();
-
+            var areaPercentage = new Dictionary<int, List<float>>();
             // Gather sales data for each area
             foreach (var shift in _filteredShifts) {
                 foreach (var area in shift.DiningAreaRecords) {
                     if (!areaStats.ContainsKey(area.DiningAreaID)) {
                         areaStats[area.DiningAreaID] = new List<float>();
                     }
+                    if (!areaPercentage.ContainsKey(area.DiningAreaID)) {
+                        areaPercentage[area.DiningAreaID] = new List<float>();
+                    }
                     areaStats[area.DiningAreaID].Add(area.Sales);
+                    areaPercentage[area.DiningAreaID].Add(area.PercentageOfSales);
                 }
             }
 
@@ -301,6 +305,8 @@ namespace FloorplanClassLibrary
                     MaxSales = entry.Value.Max(),
                     MinSales = entry.Value.Min(),
                     AvgSales = entry.Value.Average(),
+                    MaxPercentage = areaPercentage[entry.Key].Max(),  
+                    MinPercentage = areaPercentage[entry.Key].Min(),
                     TotalSales = entry.Value.Sum()
                 };
                 if(stats.DiningAreaID > 0) {

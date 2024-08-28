@@ -15,6 +15,8 @@ namespace FloorplanClassLibrary
         public float AvgSales { get; set; }
         public float TotalSales { get; set; }
         public float PercentageOfTotalSales { get; set; }
+        public float MaxPercentage { get; set; }
+        public float MinPercentage { get; set; }
     }
 
 }
