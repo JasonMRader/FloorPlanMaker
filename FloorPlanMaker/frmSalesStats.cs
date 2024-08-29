@@ -1,7 +1,5 @@
 ﻿using FloorplanClassLibrary;
-using LiveCharts.Wpf;
-using LiveCharts.WinForms;
-using LiveCharts;
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,8 +10,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-//using System.Windows.Media;
+
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+
+using LiveChartsCore.SkiaSharpView;
+using LiveChartsCore;
+using LiveChartsCore.Drawing;
+using LiveChartsCore.SkiaSharpView.Drawing.Geometries;
 //using MediaGeometry = System.Windows.Media;
 
 //using System.Windows.Media;
@@ -80,7 +83,7 @@ namespace FloorPlanMakerUI
 
                 Text = "ALL",
                 Size = new Size(flowDiningAreas.Width / (areaManager.DiningAreas.Count + 1), flowDiningAreas.Height),
-                Margin = new Padding(0, 0, 0, 0),
+                Margin = new System.Windows.Forms.Padding(0, 0, 0, 0),
                 TextAlign = ContentAlignment.MiddleCenter
             };
             btn.Click += SelectedAllAreasButtonClicked;
@@ -104,7 +107,7 @@ namespace FloorPlanMakerUI
 
                 Image = UITheme.GetDiningAreaImage(area),
                 Size = new Size(flowDiningAreas.Width / (areaManager.DiningAreas.Count + 1), flowDiningAreas.Height),
-                Margin = new Padding(0, 0, 0, 0),
+                Margin = new System.Windows.Forms.Padding(0, 0, 0, 0),
                 Tag = area
 
 
@@ -567,7 +570,8 @@ namespace FloorPlanMakerUI
                         PopulateAveragesDataGridView(areaManager.DiningAreas);
                         lblSampleSizeDisplay.Text = "Sample Size: " + shiftAnalysis.FilteredShifts.Count.ToString();
                         loadingForm.Close();
-                        UpdateChart();
+                        //UpdateChart();
+                        UpdateNewChart();
                         this.Enabled = true;
 
                         this.BringToFront();
@@ -596,102 +600,14 @@ namespace FloorPlanMakerUI
             }
 
         }
-
-        private void UpdateChart()
+        private void UpdateNewChart()
         {
-            //Chart1.Series = new SeriesCollection
-            //{
+            var chartManager = new ChartManager(shiftAnalysis.FilteredShifts, cartesianChart1);
+            chartManager.SetupChart(areaManager.DiningAreas);
 
-            //    new LineSeries
-            //    {
-            //        Title = "Series 1",
-            //        Values = new ChartValues<double> {4, 6, 5, 2, 7}
-            //    },
-            //    new LineSeries
-            //    {
-            //        Title = "Series 2",
-            //        Values = new ChartValues<double> {6, 7, 3, 4, 6},
-            //        PointGeometry = null
-            //    },
-            //    new LineSeries
-            //    {
-            //        Title = "Series 3",
-            //        Values = new ChartValues<double> {5, 2, 8, 3},
-            //        PointGeometry = DefaultGeometries.Square,
-            //        PointGeometrySize = 15
-            //    }
-            //};
-
-            //Chart1.AxisX.Add(new Axis {
-            //    Title = "Month",
-            //    Labels = new[] { "Jan", "Feb", "Mar", "Apr", "May" }
-            //});
-
-            //Chart1.AxisY.Add(new Axis {
-            //    Title = "Sales",
-            //    LabelFormatter = value => value.ToString("C")
-            //});
-
-            //Chart1.LegendLocation = LegendLocation.Right;
-
-            ////modifying the series collection will animate and update the chart
-            //Chart1.Series.Add(new LineSeries {
-            //    Values = new ChartValues<double> { 5, 3, 2, 4, 5 },
-            //    LineSmoothness = 0, //straight lines, 1 really smooth lines
-            //    PointGeometry = DefaultGeometries.Diamond,
-            //    PointGeometrySize = 50,
-
-            //}); ;
-
-            ////modifying any series values will also animate and update the chart
-            //Chart1.Series[2].Values.Add(5d);
-            Chart1.Series.Clear();
-            Chart1.AxisX.Clear();
-            Chart1.AxisY.Clear();
-
-            // Dictionary to map DiningAreaID to its corresponding LineSeries
-            var seriesMap = new Dictionary<int, LineSeries>();
-
-            // Initialize series for each dining area
-            foreach (DiningArea area in areaManager.DiningAreas) {
-                var series = new LineSeries {
-                    Title = area.Name,
-                    Values = new ChartValues<double>(),
-                    LineSmoothness = 0,
-                    PointGeometry = DefaultGeometries.Circle,
-                    PointGeometrySize = 10
-                };
-                seriesMap[area.ID] = series;
-                Chart1.Series.Add(series);
-            }
-
-            // Initialize X-Axis (assuming dates are involved)
-            Chart1.AxisX.Add(new Axis {
-                Title = "Date",
-                Labels = shiftAnalysis.FilteredShifts.Select(shift => shift.Date.ToString("MM/dd")).ToArray(),
-                Separator = new Separator { Step = 1 }
-            });
-
-            // Initialize Y-Axis
-            Chart1.AxisY.Add(new Axis {
-                Title = "Sales",
-                LabelFormatter = value => value.ToString("C") // Format as currency
-            });
-
-            // Populate series with data
-            foreach (ShiftRecord shiftRecord in shiftAnalysis.FilteredShifts) {
-                foreach (DiningAreaRecord areaRecord in shiftRecord.DiningAreaRecords) {
-                    if (seriesMap.TryGetValue(areaRecord.DiningAreaID, out var series)) {
-                        series.Values.Add((double)areaRecord.Sales);
-                    }
-                }
-            }
-
-            Chart1.LegendLocation = LegendLocation.Right;
-
-            // Optional: Handle Data Click Events
-            // Chart1.DataClick += CartesianChart1OnDataClick;
+           
         }
+        
 
 
         public void PopulateDGVForAreaSales(DataGridView dgvDiningAreas, List<DiningArea> diningAreas, List<ShiftRecord> shiftRecords)
@@ -1093,5 +1009,10 @@ namespace FloorPlanMakerUI
             shiftAnalysis.SetIsAM(false);
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            this.Dispose();
+        }
     }
 }

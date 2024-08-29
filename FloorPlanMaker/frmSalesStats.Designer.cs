@@ -95,8 +95,9 @@
             nudWindAvgRange = new NumericUpDown();
             label6 = new Label();
             lblSampleSizeDisplay = new Label();
-            Chart1 = new LiveCharts.WinForms.CartesianChart();
+            
             button1 = new Button();
+            cartesianChart1 = new LiveChartsCore.SkiaSharpView.WinForms.CartesianChart();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
@@ -893,12 +894,7 @@
             // 
             // Chart1
             // 
-            Chart1.BackColor = Color.WhiteSmoke;
-            Chart1.ForeColor = Color.Black;
-            Chart1.Location = new Point(12, 329);
-            Chart1.Name = "Chart1";
-            Chart1.Size = new Size(890, 264);
-            Chart1.TabIndex = 16;
+            
             // 
             // button1
             // 
@@ -911,14 +907,23 @@
             button1.Size = new Size(37, 37);
             button1.TabIndex = 17;
             button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
+            // 
+            // cartesianChart1
+            // 
+            cartesianChart1.Location = new Point(12, 315);
+            cartesianChart1.Name = "cartesianChart1";
+            cartesianChart1.Size = new Size(893, 307);
+            cartesianChart1.TabIndex = 18;
             // 
             // frmSalesStats
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1501, 1042);
+            Controls.Add(cartesianChart1);
             Controls.Add(button1);
-            Controls.Add(Chart1);
+            
             Controls.Add(lblSampleSizeDisplay);
             Controls.Add(dgvAreaStats);
             Controls.Add(flowDiningAreas);
@@ -1055,8 +1060,9 @@
         private NumericUpDown nudWindAvgRange;
         private Label label6;
         private Label lblSampleSizeDisplay;
-        private LiveCharts.WinForms.CartesianChart Chart1;
+        
         private Button button1;
+        private LiveChartsCore.SkiaSharpView.WinForms.CartesianChart cartesianChart1;
         //private SplitContainer splitContainer1;
     }
 }

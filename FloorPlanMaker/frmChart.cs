@@ -1,10 +1,4 @@
-﻿using LiveCharts;
-
-using LiveCharts.Defaults;
-using LiveCharts.Charts;
-using LiveCharts.Configurations;
-using LiveCharts.Definitions;
-using LiveCharts.SeriesAlgorithms;
+﻿
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
