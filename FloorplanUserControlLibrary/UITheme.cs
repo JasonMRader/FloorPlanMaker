@@ -321,6 +321,30 @@ namespace FloorPlanMakerUI
 
             return pictureBox;
         }
+        public static Color GetDiningAreaColor(DiningArea area)
+        {
+            if (area.ID == 1) {
+                return Color.Red;
+            }
+            if (area.ID == 2) {
+                return Color.Blue;
+            }
+            if (area.ID == 3) {
+                return Color.Green;
+            }
+            if (area.ID == 4) {
+                return Color.Gray;
+            }
+            if (area.ID == 5) {
+                return Color.DarkOrange;
+            }
+            if (area.ID == 6) {
+                return Color.Black;
+            }
+            else {
+                return Color.White;
+            }
+        }
         public static Image GetDiningAreaImage(DiningArea area)
         {
             if (area.ID == 1)

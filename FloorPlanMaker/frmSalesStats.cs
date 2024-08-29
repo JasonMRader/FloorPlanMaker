@@ -1,4 +1,7 @@
 ﻿using FloorplanClassLibrary;
+using LiveCharts.Wpf;
+using LiveCharts.WinForms;
+using LiveCharts;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,8 +12,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+//using System.Windows.Media;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+//using MediaGeometry = System.Windows.Media;
 
+//using System.Windows.Media;
 
 namespace FloorPlanMakerUI
 {
@@ -19,6 +25,10 @@ namespace FloorPlanMakerUI
         public frmSalesStats()
         {
             InitializeComponent();
+            //LiveCharts.WinForms.PieChart chart = new LiveCharts.WinForms.PieChart();
+
+
+
         }
         private DiningAreaManager areaManager = new DiningAreaManager();
 
@@ -557,13 +567,14 @@ namespace FloorPlanMakerUI
                         PopulateAveragesDataGridView(areaManager.DiningAreas);
                         lblSampleSizeDisplay.Text = "Sample Size: " + shiftAnalysis.FilteredShifts.Count.ToString();
                         loadingForm.Close();
+                        UpdateChart();
                         this.Enabled = true;
 
                         this.BringToFront();
 
                     }));
                 });
-                
+
             }
             if (rdoServerShifts.Checked) {
                 Task.Run(() => {
@@ -585,6 +596,104 @@ namespace FloorPlanMakerUI
             }
 
         }
+
+        private void UpdateChart()
+        {
+            //Chart1.Series = new SeriesCollection
+            //{
+
+            //    new LineSeries
+            //    {
+            //        Title = "Series 1",
+            //        Values = new ChartValues<double> {4, 6, 5, 2, 7}
+            //    },
+            //    new LineSeries
+            //    {
+            //        Title = "Series 2",
+            //        Values = new ChartValues<double> {6, 7, 3, 4, 6},
+            //        PointGeometry = null
+            //    },
+            //    new LineSeries
+            //    {
+            //        Title = "Series 3",
+            //        Values = new ChartValues<double> {5, 2, 8, 3},
+            //        PointGeometry = DefaultGeometries.Square,
+            //        PointGeometrySize = 15
+            //    }
+            //};
+
+            //Chart1.AxisX.Add(new Axis {
+            //    Title = "Month",
+            //    Labels = new[] { "Jan", "Feb", "Mar", "Apr", "May" }
+            //});
+
+            //Chart1.AxisY.Add(new Axis {
+            //    Title = "Sales",
+            //    LabelFormatter = value => value.ToString("C")
+            //});
+
+            //Chart1.LegendLocation = LegendLocation.Right;
+
+            ////modifying the series collection will animate and update the chart
+            //Chart1.Series.Add(new LineSeries {
+            //    Values = new ChartValues<double> { 5, 3, 2, 4, 5 },
+            //    LineSmoothness = 0, //straight lines, 1 really smooth lines
+            //    PointGeometry = DefaultGeometries.Diamond,
+            //    PointGeometrySize = 50,
+
+            //}); ;
+
+            ////modifying any series values will also animate and update the chart
+            //Chart1.Series[2].Values.Add(5d);
+            Chart1.Series.Clear();
+            Chart1.AxisX.Clear();
+            Chart1.AxisY.Clear();
+
+            // Dictionary to map DiningAreaID to its corresponding LineSeries
+            var seriesMap = new Dictionary<int, LineSeries>();
+
+            // Initialize series for each dining area
+            foreach (DiningArea area in areaManager.DiningAreas) {
+                var series = new LineSeries {
+                    Title = area.Name,
+                    Values = new ChartValues<double>(),
+                    LineSmoothness = 0,
+                    PointGeometry = DefaultGeometries.Circle,
+                    PointGeometrySize = 10
+                };
+                seriesMap[area.ID] = series;
+                Chart1.Series.Add(series);
+            }
+
+            // Initialize X-Axis (assuming dates are involved)
+            Chart1.AxisX.Add(new Axis {
+                Title = "Date",
+                Labels = shiftAnalysis.FilteredShifts.Select(shift => shift.Date.ToString("MM/dd")).ToArray(),
+                Separator = new Separator { Step = 1 }
+            });
+
+            // Initialize Y-Axis
+            Chart1.AxisY.Add(new Axis {
+                Title = "Sales",
+                LabelFormatter = value => value.ToString("C") // Format as currency
+            });
+
+            // Populate series with data
+            foreach (ShiftRecord shiftRecord in shiftAnalysis.FilteredShifts) {
+                foreach (DiningAreaRecord areaRecord in shiftRecord.DiningAreaRecords) {
+                    if (seriesMap.TryGetValue(areaRecord.DiningAreaID, out var series)) {
+                        series.Values.Add((double)areaRecord.Sales);
+                    }
+                }
+            }
+
+            Chart1.LegendLocation = LegendLocation.Right;
+
+            // Optional: Handle Data Click Events
+            // Chart1.DataClick += CartesianChart1OnDataClick;
+        }
+
+
         public void PopulateDGVForAreaSales(DataGridView dgvDiningAreas, List<DiningArea> diningAreas, List<ShiftRecord> shiftRecords)
         {
             InitializeDataGridView(dgvDiningAreas, diningAreas);
@@ -832,12 +941,12 @@ namespace FloorPlanMakerUI
             var minPercentRow = new DataGridViewRow();
             minPercentRow.CreateCells(dgvAreaStats);
             var maxPercentRow = new DataGridViewRow();
-            maxPercentRow.CreateCells(dgvAreaStats );
+            maxPercentRow.CreateCells(dgvAreaStats);
 
             // Populate the rows with data
             for (int i = 0; i < shiftAnalysis.DiningAreaStats.Count; i++) {
                 avgRow.Cells[i].Value = $"{shiftAnalysis.DiningAreaStats[i].AvgSales:C0}";
-                
+
                 minRow.Cells[i].Value = $"{shiftAnalysis.DiningAreaStats[i].MinSales:C0}";
                 maxRow.Cells[i].Value = $"{shiftAnalysis.DiningAreaStats[i].MaxSales:C0}";
                 percRow.Cells[i].Value = $"{shiftAnalysis.DiningAreaStats[i].PercentageOfTotalSales:F1}%";

@@ -95,6 +95,8 @@
             nudWindAvgRange = new NumericUpDown();
             label6 = new Label();
             lblSampleSizeDisplay = new Label();
+            Chart1 = new LiveCharts.WinForms.CartesianChart();
+            button1 = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
@@ -352,7 +354,7 @@
             panel4.Controls.Add(lblComboLabel);
             panel4.Controls.Add(btnIndividualStats);
             panel4.Controls.Add(cboServerSelect);
-            panel4.Location = new Point(1296, 12);
+            panel4.Location = new Point(1165, 10);
             panel4.Name = "panel4";
             panel4.Size = new Size(104, 125);
             panel4.TabIndex = 8;
@@ -588,7 +590,7 @@
             // nudTempAnchor
             // 
             nudTempAnchor.Enabled = false;
-            nudTempAnchor.Location = new Point(1110, 18);
+            nudTempAnchor.Location = new Point(1078, 10);
             nudTempAnchor.Name = "nudTempAnchor";
             nudTempAnchor.Size = new Size(60, 23);
             nudTempAnchor.TabIndex = 9;
@@ -598,7 +600,7 @@
             // cbFilterByTempRange
             // 
             cbFilterByTempRange.AutoSize = true;
-            cbFilterByTempRange.Location = new Point(812, 20);
+            cbFilterByTempRange.Location = new Point(780, 12);
             cbFilterByTempRange.Name = "cbFilterByTempRange";
             cbFilterByTempRange.Size = new Size(137, 19);
             cbFilterByTempRange.TabIndex = 10;
@@ -609,7 +611,7 @@
             // nudTempRange
             // 
             nudTempRange.Enabled = false;
-            nudTempRange.Location = new Point(955, 18);
+            nudTempRange.Location = new Point(923, 10);
             nudTempRange.Name = "nudTempRange";
             nudTempRange.Size = new Size(60, 23);
             nudTempRange.TabIndex = 9;
@@ -620,7 +622,7 @@
             // 
             lblTo.AutoSize = true;
             lblTo.Enabled = false;
-            lblTo.Location = new Point(1021, 22);
+            lblTo.Location = new Point(989, 14);
             lblTo.Name = "lblTo";
             lblTo.Size = new Size(83, 15);
             lblTo.TabIndex = 11;
@@ -633,9 +635,9 @@
             btnRefreshFilters.FlatStyle = FlatStyle.Flat;
             btnRefreshFilters.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             btnRefreshFilters.ForeColor = Color.White;
-            btnRefreshFilters.Location = new Point(30, 312);
+            btnRefreshFilters.Location = new Point(12, 249);
             btnRefreshFilters.Name = "btnRefreshFilters";
-            btnRefreshFilters.Size = new Size(1370, 35);
+            btnRefreshFilters.Size = new Size(890, 35);
             btnRefreshFilters.TabIndex = 2;
             btnRefreshFilters.Text = "Get Data";
             btnRefreshFilters.UseVisualStyleBackColor = false;
@@ -644,10 +646,10 @@
             // dataGridView1
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(30, 547);
+            dataGridView1.Location = new Point(12, 822);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowTemplate.Height = 25;
-            dataGridView1.Size = new Size(1370, 323);
+            dataGridView1.Size = new Size(890, 200);
             dataGridView1.TabIndex = 12;
             // 
             // flowDiningAreas
@@ -660,7 +662,7 @@
             // dgvAreaStats
             // 
             dgvAreaStats.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvAreaStats.Location = new Point(30, 353);
+            dgvAreaStats.Location = new Point(12, 628);
             dgvAreaStats.Name = "dgvAreaStats";
             dgvAreaStats.RowTemplate.Height = 25;
             dgvAreaStats.Size = new Size(890, 188);
@@ -671,7 +673,7 @@
             panel6.Controls.Add(rdoSpecialAndNormal);
             panel6.Controls.Add(rdoEventsOnly);
             panel6.Controls.Add(rdoExcludeEvents);
-            panel6.Location = new Point(30, 238);
+            panel6.Location = new Point(780, 148);
             panel6.Name = "panel6";
             panel6.Size = new Size(301, 25);
             panel6.TabIndex = 4;
@@ -716,7 +718,7 @@
             nudRainAnchor.DecimalPlaces = 1;
             nudRainAnchor.Enabled = false;
             nudRainAnchor.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
-            nudRainAnchor.Location = new Point(1110, 47);
+            nudRainAnchor.Location = new Point(1078, 39);
             nudRainAnchor.Name = "nudRainAnchor";
             nudRainAnchor.Size = new Size(60, 23);
             nudRainAnchor.TabIndex = 9;
@@ -726,7 +728,7 @@
             // cbFilterByRain
             // 
             cbFilterByRain.AutoSize = true;
-            cbFilterByRain.Location = new Point(812, 49);
+            cbFilterByRain.Location = new Point(780, 41);
             cbFilterByRain.Name = "cbFilterByRain";
             cbFilterByRain.Size = new Size(94, 19);
             cbFilterByRain.TabIndex = 10;
@@ -739,7 +741,7 @@
             nudRainRange.DecimalPlaces = 1;
             nudRainRange.Enabled = false;
             nudRainRange.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
-            nudRainRange.Location = new Point(955, 47);
+            nudRainRange.Location = new Point(923, 39);
             nudRainRange.Name = "nudRainRange";
             nudRainRange.Size = new Size(60, 23);
             nudRainRange.TabIndex = 9;
@@ -750,7 +752,7 @@
             // 
             label3.AutoSize = true;
             label3.Enabled = false;
-            label3.Location = new Point(1021, 51);
+            label3.Location = new Point(989, 43);
             label3.Name = "label3";
             label3.Size = new Size(75, 15);
             label3.TabIndex = 11;
@@ -759,7 +761,7 @@
             // nudCloudAnchor
             // 
             nudCloudAnchor.Enabled = false;
-            nudCloudAnchor.Location = new Point(1110, 75);
+            nudCloudAnchor.Location = new Point(1078, 67);
             nudCloudAnchor.Name = "nudCloudAnchor";
             nudCloudAnchor.Size = new Size(60, 23);
             nudCloudAnchor.TabIndex = 9;
@@ -769,7 +771,7 @@
             // cbFilterByClouds
             // 
             cbFilterByClouds.AutoSize = true;
-            cbFilterByClouds.Location = new Point(812, 77);
+            cbFilterByClouds.Location = new Point(780, 69);
             cbFilterByClouds.Name = "cbFilterByClouds";
             cbFilterByClouds.Size = new Size(108, 19);
             cbFilterByClouds.TabIndex = 10;
@@ -780,7 +782,7 @@
             // nudCloudRange
             // 
             nudCloudRange.Enabled = false;
-            nudCloudRange.Location = new Point(955, 75);
+            nudCloudRange.Location = new Point(923, 67);
             nudCloudRange.Name = "nudCloudRange";
             nudCloudRange.Size = new Size(60, 23);
             nudCloudRange.TabIndex = 9;
@@ -791,7 +793,7 @@
             // 
             label4.AutoSize = true;
             label4.Enabled = false;
-            label4.Location = new Point(1021, 79);
+            label4.Location = new Point(989, 71);
             label4.Name = "label4";
             label4.Size = new Size(81, 15);
             label4.TabIndex = 11;
@@ -800,7 +802,7 @@
             // nudWindMaxAnchor
             // 
             nudWindMaxAnchor.Enabled = false;
-            nudWindMaxAnchor.Location = new Point(1110, 100);
+            nudWindMaxAnchor.Location = new Point(1078, 92);
             nudWindMaxAnchor.Name = "nudWindMaxAnchor";
             nudWindMaxAnchor.Size = new Size(60, 23);
             nudWindMaxAnchor.TabIndex = 9;
@@ -810,7 +812,7 @@
             // cbFilterByWindMax
             // 
             cbFilterByWindMax.AutoSize = true;
-            cbFilterByWindMax.Location = new Point(812, 102);
+            cbFilterByWindMax.Location = new Point(780, 94);
             cbFilterByWindMax.Name = "cbFilterByWindMax";
             cbFilterByWindMax.Size = new Size(125, 19);
             cbFilterByWindMax.TabIndex = 10;
@@ -821,7 +823,7 @@
             // nudWindMaxRange
             // 
             nudWindMaxRange.Enabled = false;
-            nudWindMaxRange.Location = new Point(955, 100);
+            nudWindMaxRange.Location = new Point(923, 92);
             nudWindMaxRange.Name = "nudWindMaxRange";
             nudWindMaxRange.Size = new Size(60, 23);
             nudWindMaxRange.TabIndex = 9;
@@ -832,7 +834,7 @@
             // 
             label5.AutoSize = true;
             label5.Enabled = false;
-            label5.Location = new Point(1021, 104);
+            label5.Location = new Point(989, 96);
             label5.Name = "label5";
             label5.Size = new Size(68, 15);
             label5.TabIndex = 11;
@@ -841,7 +843,7 @@
             // nudWindAvgAnchor
             // 
             nudWindAvgAnchor.Enabled = false;
-            nudWindAvgAnchor.Location = new Point(1110, 127);
+            nudWindAvgAnchor.Location = new Point(1078, 119);
             nudWindAvgAnchor.Name = "nudWindAvgAnchor";
             nudWindAvgAnchor.Size = new Size(60, 23);
             nudWindAvgAnchor.TabIndex = 9;
@@ -851,7 +853,7 @@
             // cbFilterByWindAvg
             // 
             cbFilterByWindAvg.AutoSize = true;
-            cbFilterByWindAvg.Location = new Point(812, 129);
+            cbFilterByWindAvg.Location = new Point(780, 121);
             cbFilterByWindAvg.Name = "cbFilterByWindAvg";
             cbFilterByWindAvg.Size = new Size(123, 19);
             cbFilterByWindAvg.TabIndex = 10;
@@ -862,7 +864,7 @@
             // nudWindAvgRange
             // 
             nudWindAvgRange.Enabled = false;
-            nudWindAvgRange.Location = new Point(955, 127);
+            nudWindAvgRange.Location = new Point(923, 119);
             nudWindAvgRange.Name = "nudWindAvgRange";
             nudWindAvgRange.Size = new Size(60, 23);
             nudWindAvgRange.TabIndex = 9;
@@ -873,7 +875,7 @@
             // 
             label6.AutoSize = true;
             label6.Enabled = false;
-            label6.Location = new Point(1021, 131);
+            label6.Location = new Point(989, 123);
             label6.Name = "label6";
             label6.Size = new Size(68, 15);
             label6.TabIndex = 11;
@@ -883,17 +885,40 @@
             // 
             lblSampleSizeDisplay.AutoSize = true;
             lblSampleSizeDisplay.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            lblSampleSizeDisplay.Location = new Point(945, 353);
+            lblSampleSizeDisplay.Location = new Point(12, 287);
             lblSampleSizeDisplay.Name = "lblSampleSizeDisplay";
             lblSampleSizeDisplay.Size = new Size(119, 25);
             lblSampleSizeDisplay.TabIndex = 15;
             lblSampleSizeDisplay.Text = "Sample Size:";
             // 
+            // Chart1
+            // 
+            Chart1.BackColor = Color.WhiteSmoke;
+            Chart1.ForeColor = Color.Black;
+            Chart1.Location = new Point(12, 329);
+            Chart1.Name = "Chart1";
+            Chart1.Size = new Size(890, 264);
+            Chart1.TabIndex = 16;
+            // 
+            // button1
+            // 
+            button1.BackColor = Color.FromArgb(255, 128, 128);
+            button1.FlatAppearance.BorderSize = 0;
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.Image = Properties.Resources.X15x;
+            button1.Location = new Point(1452, 6);
+            button1.Name = "button1";
+            button1.Size = new Size(37, 37);
+            button1.TabIndex = 17;
+            button1.UseVisualStyleBackColor = false;
+            // 
             // frmSalesStats
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1412, 874);
+            ClientSize = new Size(1501, 1042);
+            Controls.Add(button1);
+            Controls.Add(Chart1);
             Controls.Add(lblSampleSizeDisplay);
             Controls.Add(dgvAreaStats);
             Controls.Add(flowDiningAreas);
@@ -929,6 +954,8 @@
             Controls.Add(panel2);
             Controls.Add(panel1);
             Controls.Add(btnRefreshFilters);
+            ForeColor = Color.Black;
+            FormBorderStyle = FormBorderStyle.None;
             Name = "frmSalesStats";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "frmSalesStats";
@@ -1028,5 +1055,8 @@
         private NumericUpDown nudWindAvgRange;
         private Label label6;
         private Label lblSampleSizeDisplay;
+        private LiveCharts.WinForms.CartesianChart Chart1;
+        private Button button1;
+        //private SplitContainer splitContainer1;
     }
 }
