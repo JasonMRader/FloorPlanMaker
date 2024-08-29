@@ -120,10 +120,7 @@ namespace FloorPlanMakerUI
             return btn;
         }
 
-        private void areaButtonClicked(object? sender, EventArgs e)
-        {
 
-        }
 
         public List<DateTime> GetFilteredDates(DateTime startDate, DateTime endDate)
         {
@@ -603,11 +600,12 @@ namespace FloorPlanMakerUI
         private void UpdateNewChart()
         {
             var chartManager = new ChartManager(shiftAnalysis.FilteredShifts, cartesianChart1);
-            chartManager.SetupChart(areaManager.DiningAreas);
+            //chartManager.SetupLineChart(areaManager.DiningAreas);
+            chartManager.SetUpStackedArea(areaManager.DiningAreas);
 
-           
+
         }
-        
+
 
 
         public void PopulateDGVForAreaSales(DataGridView dgvDiningAreas, List<DiningArea> diningAreas, List<ShiftRecord> shiftRecords)
@@ -807,13 +805,16 @@ namespace FloorPlanMakerUI
 
                 // Add weather data
                 cellIndex++;
-                row.Cells[cellIndex++].Value = shiftRecord.ShiftWeather?.FeelsLikeHi ?? 0;
-                row.Cells[cellIndex++].Value = shiftRecord.ShiftWeather?.FeelsLikeAvg ?? 0;
-                row.Cells[cellIndex++].Value = shiftRecord.ShiftWeather?.FeelsLikeLow ?? 0;
-                row.Cells[cellIndex++].Value = shiftRecord.ShiftWeather?.RainAmount ?? 0f;
-                row.Cells[cellIndex++].Value = shiftRecord.ShiftWeather?.CloudCoverAverage ?? 0f;
-                row.Cells[cellIndex++].Value = shiftRecord.ShiftWeather?.WindAvg ?? 0;
-                row.Cells[cellIndex++].Value = shiftRecord.ShiftWeather?.WindMax ?? 0;
+                if (shiftRecord.ShiftWeather != null) {
+                    row.Cells[cellIndex++].Value = shiftRecord.ShiftWeather?.FeelsLikeHi ?? 0;
+                    row.Cells[cellIndex++].Value = shiftRecord.ShiftWeather?.FeelsLikeAvg ?? 0;
+                    row.Cells[cellIndex++].Value = shiftRecord.ShiftWeather?.FeelsLikeLow ?? 0;
+                    row.Cells[cellIndex++].Value = shiftRecord.ShiftWeather?.RainAmount ?? 0f;
+                    row.Cells[cellIndex++].Value = shiftRecord.ShiftWeather?.CloudCoverAverage ?? 0f;
+                    row.Cells[cellIndex++].Value = shiftRecord.ShiftWeather?.WindAvg ?? 0;
+                    row.Cells[cellIndex++].Value = shiftRecord.ShiftWeather?.WindMax ?? 0;
+                }
+
 
                 // Add the row to the DataGridView
                 dgvDiningAreas.Rows.Add(row);
@@ -1013,6 +1014,40 @@ namespace FloorPlanMakerUI
         {
             this.Close();
             this.Dispose();
+        }
+
+        private void btnLineGraph_Click(object sender, EventArgs e)
+        {
+            var chartManager = new ChartManager(shiftAnalysis.FilteredShifts, cartesianChart1);
+            chartManager.SetupLineChart(areaManager.DiningAreas);
+        }
+
+        private void btnAreaGraph_Click(object sender, EventArgs e)
+        {
+            var chartManager = new ChartManager(shiftAnalysis.FilteredShifts, cartesianChart1);
+            chartManager.SetUpStackedArea(areaManager.DiningAreas);
+        }
+
+        private void btnHistogram_Click(object sender, EventArgs e)
+        {
+            var chartManager = new ChartManager(shiftAnalysis.FilteredShifts, cartesianChart1);
+            chartManager.SetUpBarChart(1);
+        }
+        private void areaButtonClicked(object? sender, EventArgs e)
+        {
+            RadioButton radioButton = sender as RadioButton;
+            DiningArea area = (DiningArea)radioButton.Tag;
+            if (radioButton.Checked) {
+                var chartManager = new ChartManager(shiftAnalysis.FilteredShifts, cartesianChart1);
+                chartManager.SetUpBarChart(area.ID);
+            }
+
+        }
+
+        private void btnBoxChart_Click(object sender, EventArgs e)
+        {
+            var chartManager = new ChartManager(shiftAnalysis.FilteredShifts, cartesianChart1);
+            chartManager.SetUpBoxChart(areaManager.DiningAreas);
         }
     }
 }

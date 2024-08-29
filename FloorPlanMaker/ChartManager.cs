@@ -1,5 +1,6 @@
 ﻿using FloorplanClassLibrary;
 using LiveChartsCore;
+using LiveChartsCore.Defaults;
 //using LiveCharts.Wpf;
 using LiveChartsCore.Drawing;
 using LiveChartsCore.SkiaSharpView;
@@ -26,8 +27,69 @@ namespace FloorPlanMakerUI
             _shiftRecords = shiftRecords;
             _chart = chart;
         }
+        public void SetUpStackedArea(List<DiningArea> diningAreas)
+        {
+            // Clear existing series and axes
+            _chart.Series = Array.Empty<ISeries>();
+            _chart.XAxes = Array.Empty<Axis>();
+            _chart.YAxes = Array.Empty<Axis>();
 
-        public void SetupChart(List<DiningArea> diningAreas)
+            // Dictionary to map DiningAreaID to its corresponding StackedAreaSeries
+            var seriesMap = new Dictionary<int, StackedAreaSeries<float>>();
+
+            // Initialize series for each dining area
+            foreach (DiningArea area in diningAreas) {
+                if (area.ID == 6) continue; // Skip DiningAreaID 6
+
+                var series = new StackedAreaSeries<float> {
+                    Name = area.Name,
+                    Fill = GetAreaColor(area), // Set the fill color
+                    Stroke = GetAreaColor(area), // Set the line color
+                    Values = new List<float>() // Initialize with an empty list
+                };
+
+                seriesMap[area.ID] = series;
+            }
+
+            // Initialize X-Axis (assuming dates are involved)
+            _chart.XAxes = new[]
+            {
+            new Axis
+            {
+                Name = "Date",
+                Labels = _shiftRecords.Select(shift => shift.Date.ToString("MM/dd")).ToArray(),
+                LabelsRotation = 15, // Rotate labels for better readability
+            }
+        };
+
+            // Initialize Y-Axis
+            _chart.YAxes = new[]
+            {
+            new Axis
+            {
+                Name = "Sales",
+                Labeler = value => value.ToString("C"), // Format as currency
+            }
+        };
+
+            // Populate series with data
+            foreach (ShiftRecord shiftRecord in _shiftRecords) {
+                foreach (DiningAreaRecord areaRecord in shiftRecord.DiningAreaRecords) {
+                    if (seriesMap.TryGetValue(areaRecord.DiningAreaID, out var series)) {
+                        (series).Values =
+                            (series).Values.Append((float)areaRecord.Sales).ToList();
+                        //series.Values.Add((float)areaRecord.Sales);
+                    }
+                }
+            }
+
+            // Assign the series collection to the chart
+            _chart.Series = seriesMap.Values.ToArray();
+
+            // Set legend location
+            _chart.LegendPosition = LiveChartsCore.Measure.LegendPosition.Right;
+        }
+        public void SetupLineChart(List<DiningArea> diningAreas)
         {
             // Clear existing series and axes
             _chart.Series = Array.Empty<ISeries>();
@@ -47,7 +109,9 @@ namespace FloorPlanMakerUI
                     Name = area.Name,
                     GeometrySvg = GetAreaShape(area), // Use the SVG path string
                     GeometrySize = 10,
-                    Stroke = GetAreaColor(area), // Line color
+                    Stroke = GetAreaColor(area),
+                    GeometryStroke = GetAreaColor(area),
+                    GeometryFill = GetAreaColor(area),
                     Fill = null, // No fill for the line
                     Values = new List<float>() // Initialize with an empty list
                 };
@@ -91,6 +155,156 @@ namespace FloorPlanMakerUI
             // Set legend location
             _chart.LegendPosition = LiveChartsCore.Measure.LegendPosition.Right;
         }
+        public void SetUpBarChart(int diningAreaID)
+        {
+            // Filter the records by DiningAreaID
+            List<DiningAreaRecord> diningAreaRecords = _shiftRecords.SelectMany(s => s.DiningAreaRecords).ToList();
+            var filteredRecords = diningAreaRecords.Where(record => record.DiningAreaID == diningAreaID).ToList();
+
+            if (filteredRecords.Count == 0) {
+                return; // No records to display
+            }
+
+            // Determine the range of sales
+            var minSales = filteredRecords.Min(record => record.Sales);
+            var maxSales = filteredRecords.Max(record => record.Sales);
+
+            // Define the bin size (e.g., 1000)
+            int binSize = 1000;
+
+            minSales = (int)(minSales / binSize) * binSize;
+
+            // Create bins starting from the nearest lower bin
+            var bins = new List<int>();
+            for (int i = (int)minSales; i <= (int)maxSales + binSize; i += binSize) {
+                bins.Add(i);
+            }
+
+            // Count the number of records in each bin
+            var binCounts = new List<int>();
+            foreach (var binStart in bins) {
+                int count = filteredRecords.Count(record => record.Sales >= binStart && record.Sales < binStart + binSize);
+                binCounts.Add(count);
+            }
+
+            // Clear existing series and axes
+            _chart.Series = Array.Empty<ISeries>();
+            _chart.XAxes = Array.Empty<Axis>();
+            _chart.YAxes = Array.Empty<Axis>();
+
+            // Create the bar series with no space between bars
+            var barSeries = new ColumnSeries<int> {
+                Values = binCounts,
+                Name = $"Sales Distribution for Dining Area {diningAreaID}",
+                Stroke = new SolidColorPaint(SKColors.Blue),
+                Fill = new SolidColorPaint(SKColors.LightBlue),
+                Padding = 0, // No space between bars
+                MaxBarWidth = double.PositiveInfinity // Ensure bars take up full width
+            };
+
+            // Assign the series to the chart
+            _chart.Series = new ISeries[] { barSeries };
+
+            // Set up the X-Axis with the bin labels
+            _chart.XAxes = new[]
+            {
+                new Axis
+                {
+                    Labels = bins.Select(binStart => $"{binStart / 1000}-{(binStart + binSize - 1) / 1000}k").ToArray(),
+                    LabelsRotation = 0,
+                    SeparatorsPaint = new SolidColorPaint(new SKColor(200, 200, 200)),
+                    ForceStepToMin = true,
+                    MinStep = 1
+                }
+            };
+
+            // Set up the Y-Axis
+            _chart.YAxes = new[]
+            {
+                new Axis
+                {
+                    Name = "Number of Shifts",
+                    Labeler = value => value.ToString("N0"), // Format as integer
+                }
+            };
+
+            // Set legend position (optional)
+            _chart.LegendPosition = LiveChartsCore.Measure.LegendPosition.Right;
+        }
+
+        public void SetUpBoxChart(List<DiningArea> diningAreas)
+        {
+            // Clear existing series and axes
+            _chart.Series = Array.Empty<ISeries>();
+            _chart.XAxes = Array.Empty<Axis>();
+            _chart.YAxes = Array.Empty<Axis>();
+
+            // Dictionary to map DiningAreaID to its corresponding BoxSeries
+            var seriesMap = new Dictionary<int, BoxSeries<BoxValue>>();
+
+            // Initialize series for each dining area
+            foreach (DiningArea area in diningAreas) {
+                if (area.ID == 6) continue; // Skip DiningAreaID 6
+
+                // Calculate the min, lower quartile, median, upper quartile, and max for sales
+                var areaRecords = _shiftRecords
+                    .SelectMany(shift => shift.DiningAreaRecords)
+                    .Where(record => record.DiningAreaID == area.ID)
+                    .Select(record => record.Sales)
+                    .OrderBy(sales => sales)
+                    .ToArray();
+
+                if (areaRecords.Length == 0) continue;
+
+                int count = areaRecords.Length;
+                double min = areaRecords.First();
+                double max = areaRecords.Last();
+                double median = areaRecords[count / 2];
+                double lowerQuartile = areaRecords[count / 4];
+                double upperQuartile = areaRecords[3 * count / 4];
+
+                // Create a BoxSeries for this dining area
+                var series = new BoxSeries<BoxValue> {
+                    Name = area.Name,
+                    Values = new BoxValue[]
+                    {
+                new BoxValue(max, upperQuartile, median, lowerQuartile, min)
+                    },
+                    Stroke = GetAreaColor(area),
+                    Fill = new SolidColorPaint(GetAreaColor(area).Color, 0.3f) // Set fill color with transparency
+                };
+
+                seriesMap[area.ID] = series;
+            }
+
+            // Assign the series collection to the chart
+            _chart.Series = seriesMap.Values.ToArray();
+
+            // Initialize X-Axis
+            _chart.XAxes = new[]
+            {
+                new Axis
+                {
+                    Name = "Dining Areas",
+                    Labels = diningAreas.Where(area => area.ID != 6).Select(area => area.Name).ToArray(),
+                    LabelsRotation = 15, // Rotate labels for better readability
+                }
+            };
+
+            // Initialize Y-Axis
+            _chart.YAxes = new[]
+            {
+                new Axis
+                {
+                    Name = "Sales",
+                    Labeler = value => value.ToString("C"), // Format as currency
+                }
+            };
+
+            // Set legend location
+            _chart.LegendPosition = LiveChartsCore.Measure.LegendPosition.Right;
+        }
+
 
         public static string GetAreaShape(DiningArea area)
         {

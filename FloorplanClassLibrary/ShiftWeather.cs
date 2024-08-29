@@ -5,69 +5,85 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace FloorplanClassLibrary {
-    public class ShiftWeather {
-        private List<HourlyWeatherData> weatherData { get; set; } 
-        public List<HourlyWeatherData> HourlyWeather { get {
-                return weatherData;
-            } }
-        public ShiftWeather(List<HourlyWeatherData> weatherData) {
-            this.weatherData = weatherData;
-        }
-        public float RainAmount {
+    public class ShiftWeather
+    {
+        private List<HourlyWeatherData> weatherData { get; set; }
+        public List<HourlyWeatherData> HourlyWeather {
             get {
-                return weatherData.Sum(w => w.PrecipitationAmount);
+                return weatherData;
             }
         }
+
+        public ShiftWeather(List<HourlyWeatherData> weatherData)
+        {
+            this.weatherData = weatherData ?? new List<HourlyWeatherData>();
+        }
+
+        public float RainAmount {
+            get {
+                return weatherData.Count > 0 ? weatherData.Sum(w => w.PrecipitationAmount) : 0f;
+            }
+        }
+
         public float SnowAmount {
             get {
-                return weatherData.Sum(w => w.SnowAmount_CM);
+                return weatherData.Count > 0 ? weatherData.Sum(w => w.SnowAmount_CM) : 0f;
             }
         }
 
         public float CloudCoverAverage {
             get {
-                return weatherData.Sum(w => w.CloudCover) / weatherData.Count;
+                return weatherData.Count > 0 ? weatherData.Sum(w => w.CloudCover) / weatherData.Count : 0f;
             }
         }
+
         public int WindMax {
             get {
-                return weatherData.Max(w => w.WindSpeedMax);
+                return weatherData.Count > 0 ? weatherData.Max(w => w.WindSpeedMax) : 0;
             }
         }
+
         public int WindAvg {
             get {
-                return weatherData.Sum((w) => w.WindSpeedAvg) / weatherData.Count;
+                return weatherData.Count > 0 ? weatherData.Sum(w => w.WindSpeedAvg) / weatherData.Count : 0;
             }
         }
+
         public int TempHi {
             get {
-                return weatherData.Max((w) => w.TempHi);
+                return weatherData.Count > 0 ? weatherData.Max(w => w.TempHi) : 0;
             }
         }
+
         public int FeelsLikeHi {
             get {
-                return weatherData.Max(w => w.FeelsLikeHi);
+                return weatherData.Count > 0 ? weatherData.Max(w => w.FeelsLikeHi) : 0;
             }
         }
+
         public int TempLow {
             get {
-                return weatherData.Min(w => w.TempLow);
+                return weatherData.Count > 0 ? weatherData.Min(w => w.TempLow) : 0;
             }
         }
+
         public int FeelsLikeLow {
             get {
-                return weatherData.Min(x => x.FeelsLikeLow);
+                return weatherData.Count > 0 ? weatherData.Min(w => w.FeelsLikeLow) : 0;
             }
         }
+
         public int FeelsLikeAvg {
             get {
-                return weatherData.Sum(w => w.FeelsLikeAvg) / weatherData.Count;
+                return weatherData.Count > 0 ? weatherData.Sum(w => w.FeelsLikeAvg) / weatherData.Count : 0;
             }
         }
+
         public int TempAvg {
             get {
-                return weatherData.Sum(w => w.TempAvg) / weatherData.Count;
+                return weatherData.Count > 0 ? weatherData.Sum(w => w.TempAvg) / weatherData.Count : 0;
             }
         }
     }
+
 }

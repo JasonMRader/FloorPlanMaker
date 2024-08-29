@@ -95,9 +95,11 @@
             nudWindAvgRange = new NumericUpDown();
             label6 = new Label();
             lblSampleSizeDisplay = new Label();
-            
             button1 = new Button();
             cartesianChart1 = new LiveChartsCore.SkiaSharpView.WinForms.CartesianChart();
+            btnLineGraph = new Button();
+            btnAreaGraph = new Button();
+            btnBoxChart = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
@@ -636,9 +638,9 @@
             btnRefreshFilters.FlatStyle = FlatStyle.Flat;
             btnRefreshFilters.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             btnRefreshFilters.ForeColor = Color.White;
-            btnRefreshFilters.Location = new Point(12, 249);
+            btnRefreshFilters.Location = new Point(12, 190);
             btnRefreshFilters.Name = "btnRefreshFilters";
-            btnRefreshFilters.Size = new Size(890, 35);
+            btnRefreshFilters.Size = new Size(1413, 35);
             btnRefreshFilters.TabIndex = 2;
             btnRefreshFilters.Text = "Get Data";
             btnRefreshFilters.UseVisualStyleBackColor = false;
@@ -655,7 +657,7 @@
             // 
             // flowDiningAreas
             // 
-            flowDiningAreas.Location = new Point(30, 179);
+            flowDiningAreas.Location = new Point(12, 231);
             flowDiningAreas.Name = "flowDiningAreas";
             flowDiningAreas.Size = new Size(724, 53);
             flowDiningAreas.TabIndex = 13;
@@ -892,10 +894,6 @@
             lblSampleSizeDisplay.TabIndex = 15;
             lblSampleSizeDisplay.Text = "Sample Size:";
             // 
-            // Chart1
-            // 
-            
-            // 
             // button1
             // 
             button1.BackColor = Color.FromArgb(255, 128, 128);
@@ -916,14 +914,58 @@
             cartesianChart1.Size = new Size(893, 307);
             cartesianChart1.TabIndex = 18;
             // 
+            // btnLineGraph
+            // 
+            btnLineGraph.BackColor = Color.FromArgb(100, 130, 180);
+            btnLineGraph.FlatAppearance.BorderSize = 0;
+            btnLineGraph.FlatStyle = FlatStyle.Flat;
+            btnLineGraph.ForeColor = Color.White;
+            btnLineGraph.Location = new Point(250, 289);
+            btnLineGraph.Name = "btnLineGraph";
+            btnLineGraph.Size = new Size(98, 23);
+            btnLineGraph.TabIndex = 19;
+            btnLineGraph.Text = "Line";
+            btnLineGraph.UseVisualStyleBackColor = false;
+            btnLineGraph.Click += btnLineGraph_Click;
+            // 
+            // btnAreaGraph
+            // 
+            btnAreaGraph.BackColor = Color.FromArgb(100, 130, 180);
+            btnAreaGraph.FlatAppearance.BorderSize = 0;
+            btnAreaGraph.FlatStyle = FlatStyle.Flat;
+            btnAreaGraph.ForeColor = Color.White;
+            btnAreaGraph.Location = new Point(354, 289);
+            btnAreaGraph.Name = "btnAreaGraph";
+            btnAreaGraph.Size = new Size(98, 23);
+            btnAreaGraph.TabIndex = 19;
+            btnAreaGraph.Text = "Area";
+            btnAreaGraph.UseVisualStyleBackColor = false;
+            btnAreaGraph.Click += btnAreaGraph_Click;
+            // 
+            // btnBoxChart
+            // 
+            btnBoxChart.BackColor = Color.FromArgb(100, 130, 180);
+            btnBoxChart.FlatAppearance.BorderSize = 0;
+            btnBoxChart.FlatStyle = FlatStyle.Flat;
+            btnBoxChart.ForeColor = Color.White;
+            btnBoxChart.Location = new Point(458, 289);
+            btnBoxChart.Name = "btnBoxChart";
+            btnBoxChart.Size = new Size(98, 23);
+            btnBoxChart.TabIndex = 19;
+            btnBoxChart.Text = "Box";
+            btnBoxChart.UseVisualStyleBackColor = false;
+            btnBoxChart.Click += btnBoxChart_Click;
+            // 
             // frmSalesStats
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1501, 1042);
+            Controls.Add(btnBoxChart);
+            Controls.Add(btnAreaGraph);
+            Controls.Add(btnLineGraph);
             Controls.Add(cartesianChart1);
             Controls.Add(button1);
-            
             Controls.Add(lblSampleSizeDisplay);
             Controls.Add(dgvAreaStats);
             Controls.Add(flowDiningAreas);
@@ -1060,9 +1102,12 @@
         private NumericUpDown nudWindAvgRange;
         private Label label6;
         private Label lblSampleSizeDisplay;
-        
+
         private Button button1;
         private LiveChartsCore.SkiaSharpView.WinForms.CartesianChart cartesianChart1;
+        private Button btnLineGraph;
+        private Button btnAreaGraph;
+        private Button btnBoxChart;
         //private SplitContainer splitContainer1;
     }
 }
