@@ -37,10 +37,10 @@ namespace FloorplanClassLibrary
         public ShiftAnalysis() { }
         private DateOnly _startDate = new DateOnly();
         private DateOnly _endDate = new DateOnly();
-        private int tempAnchor { get; set; }
-        private int tempRange { get; set; }
-        private int reservationAnchor { get; set; }
-        private int reservationRange { get; set; }
+        private int tempMin { get; set; }
+        private int tempMax { get; set; }
+        private int reservationMin { get; set; }
+        private int reservationMax { get; set; }
         private float rainAnchor { get; set; }
         private float rainRange { get; set; }
         private float CloudAnchor { get; set; }
@@ -125,12 +125,12 @@ namespace FloorplanClassLibrary
             this._startDate = startDate;
         }
         public void SetTempRange(int tempAnchor, int tempRange) {
-            this.tempAnchor = tempAnchor;
-            this.tempRange = tempRange;
+            this.tempMin = tempAnchor;
+            this.tempMax = tempRange;
         }
         public void SetReservationsRange(int anchor, int range) {
-            this.reservationAnchor = anchor;
-            this.reservationRange = range;
+            this.reservationMin = anchor;
+            this.reservationMax = range;
         }
         public void SetRainRange(float anchor, float range) {
             this.rainAnchor = anchor;
@@ -252,14 +252,14 @@ namespace FloorplanClassLibrary
        
        
         public void FilterByTempRange() {
-            _filteredShifts = _filteredShifts.Where(shift => shift.ShiftWeather.FeelsLikeAvg >= (tempAnchor - tempRange) 
-            && shift.ShiftWeather.FeelsLikeAvg <= (tempAnchor + tempRange)).ToList();
+            _filteredShifts = _filteredShifts.Where(shift => shift.ShiftWeather.FeelsLikeAvg >= (tempMin - tempMax) 
+            && shift.ShiftWeather.FeelsLikeAvg <= (tempMin + tempMax)).ToList();
         }
 
         public void FilterByReservationRange()
         {
-            _filteredShifts = _filteredShifts.Where(shift => shift.Reservations >= (reservationAnchor - reservationRange)
-            && shift.Reservations <= (reservationAnchor + reservationRange)).ToList();
+            _filteredShifts = _filteredShifts.Where(shift => shift.Reservations >= (reservationMin - reservationMax)
+            && shift.Reservations <= (reservationMin + reservationMax)).ToList();
         }
 
         public void FilterByDaysOfWeek()

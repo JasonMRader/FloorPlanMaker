@@ -17,6 +17,7 @@ using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore;
 using LiveChartsCore.Drawing;
 using LiveChartsCore.SkiaSharpView.Drawing.Geometries;
+using FloorplanUserControlLibrary;
 //using MediaGeometry = System.Windows.Media;
 
 //using System.Windows.Media;
@@ -29,7 +30,9 @@ namespace FloorPlanMakerUI
         {
             InitializeComponent();
             //LiveCharts.WinForms.PieChart chart = new LiveCharts.WinForms.PieChart();
-
+            ShiftFilterControl shiftFilterControl = new ShiftFilterControl();
+            pnlFilters.Controls.Add(shiftFilterControl);
+            shiftFilterControl.SetShiftAnalysis(shiftAnalysis);
 
 
         }
@@ -1007,7 +1010,7 @@ namespace FloorPlanMakerUI
             else if (rdoPm.Checked) {
                 shiftAnalysis.SetIsAM(false);
             }
-            
+
         }
 
         private void button1_Click(object sender, EventArgs e)

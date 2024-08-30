@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FloorplanClassLibrary;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -21,6 +22,7 @@ namespace FloorplanUserControlLibrary
         private bool isInt { get; set; } = false;
         private string filterName { get; set; }
         private FilterType filterType { get; set; }
+        private ShiftAnalysis shiftAnalysis { get; set; }
         public enum FilterType
         {
             Temperature,
@@ -28,9 +30,11 @@ namespace FloorplanUserControlLibrary
         }
         
 
-        public FilterControl(string filterName, decimal defaultMin,decimal defaultMax, FilterType filter)
+        public FilterControl(string filterName, decimal defaultMin,decimal defaultMax, 
+            FilterType filter, ShiftAnalysis shiftAnalysis)
         {
             InitializeComponent();
+            this.shiftAnalysis = shiftAnalysis;
             numericUpDown1.Value = defaultMin;
             numericUpDown2.Value = defaultMax;
             numericUpDown1.Visible = false;
@@ -38,6 +42,7 @@ namespace FloorplanUserControlLibrary
             flowModifiers.Visible = false;
             this.filterName = filterName;
             button1.Text = $"Filter by {filterName}";
+            this.filterType = filter;
             if(filterType == FilterType.Temperature) {
                 isInt = true;
             }
@@ -66,6 +71,7 @@ namespace FloorplanUserControlLibrary
             else if(_filtered &&  !_choosing) {
                 button1.Text = $"Filter by {filterName}";
                 _filtered = false;
+                shiftAnalysis.SetIsFilteredByTemp(false);
             }
         }
         private void SetTemperatureFilter()
@@ -73,6 +79,8 @@ namespace FloorplanUserControlLibrary
             this.minInt = (int)numericUpDown1.Value;
             this.maxInt = (int)numericUpDown2.Value;
             button1.Text = $"{minInt}° to {maxInt}°";
+            shiftAnalysis.SetIsFilteredByTemp(true);
+            shiftAnalysis.SetTempRange(minInt, maxInt);
         }
     }
 }

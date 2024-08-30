@@ -100,6 +100,7 @@
             btnLineGraph = new Button();
             btnAreaGraph = new Button();
             btnBoxChart = new Button();
+            pnlFilters = new Panel();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
@@ -956,11 +957,19 @@
             btnBoxChart.UseVisualStyleBackColor = false;
             btnBoxChart.Click += btnBoxChart_Click;
             // 
+            // pnlFilters
+            // 
+            pnlFilters.Location = new Point(1000, 375);
+            pnlFilters.Name = "pnlFilters";
+            pnlFilters.Size = new Size(200, 737);
+            pnlFilters.TabIndex = 20;
+            // 
             // frmSalesStats
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1501, 1042);
+            Controls.Add(pnlFilters);
             Controls.Add(btnBoxChart);
             Controls.Add(btnAreaGraph);
             Controls.Add(btnLineGraph);
@@ -1108,6 +1117,7 @@
         private Button btnLineGraph;
         private Button btnAreaGraph;
         private Button btnBoxChart;
+        private Panel pnlFilters;
         //private SplitContainer splitContainer1;
     }
 }

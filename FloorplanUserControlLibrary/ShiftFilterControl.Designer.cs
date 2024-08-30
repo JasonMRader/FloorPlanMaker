@@ -28,7 +28,7 @@
         private void InitializeComponent()
         {
             dateTimePicker1 = new DateTimePicker();
-            flowLayoutPanel1 = new FlowLayoutPanel();
+            flowFilters = new FlowLayoutPanel();
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
@@ -44,13 +44,13 @@
             dateTimePicker1.Size = new Size(194, 23);
             dateTimePicker1.TabIndex = 0;
             // 
-            // flowLayoutPanel1
+            // flowFilters
             // 
-            flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
-            flowLayoutPanel1.Location = new Point(3, 226);
-            flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(194, 508);
-            flowLayoutPanel1.TabIndex = 2;
+            flowFilters.FlowDirection = FlowDirection.TopDown;
+            flowFilters.Location = new Point(3, 226);
+            flowFilters.Name = "flowFilters";
+            flowFilters.Size = new Size(194, 508);
+            flowFilters.TabIndex = 2;
             // 
             // label1
             // 
@@ -116,10 +116,11 @@
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
-            Controls.Add(flowLayoutPanel1);
+            Controls.Add(flowFilters);
             Controls.Add(dateTimePicker1);
             Name = "ShiftFilterControl";
             Size = new Size(200, 737);
+            Load += ShiftFilterControl_Load;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -127,7 +128,7 @@
         #endregion
 
         private DateTimePicker dateTimePicker1;
-        private FlowLayoutPanel flowLayoutPanel1;
+        private FlowLayoutPanel flowFilters;
         private Label label1;
         private Label label2;
         private Label label3;
