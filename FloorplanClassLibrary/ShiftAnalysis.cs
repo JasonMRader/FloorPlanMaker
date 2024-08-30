@@ -41,14 +41,14 @@ namespace FloorplanClassLibrary
         private int tempMax { get; set; }
         private int reservationMin { get; set; }
         private int reservationMax { get; set; }
-        private float rainAnchor { get; set; }
-        private float rainRange { get; set; }
-        private float CloudAnchor { get; set; }
-        private float CloudRange { get; set; }
-        private int WindMaxAnchor { get; set; }
-        private int WindMaxRange { get; set; }
-        private int WindAvgAnchor { get; set; }
-        private int WindAvgRange { get; set; }
+        private float rainMin { get; set; }
+        private float rainMax { get; set; }
+        private float CloudMin { get; set; }
+        private float CloudMax { get; set; }
+        private int WindMaxMin { get; set; }
+        private int WindMaxMax { get; set; }
+        private int WindAvgMin { get; set; }
+        private int WindAvgMax { get; set; }
         private bool _filterByTemperature { get; set; } = false;
         private bool _filterByRainAmount { get; set; } = false;
         private bool _filterByClouds { get; set; } = false;
@@ -133,20 +133,20 @@ namespace FloorplanClassLibrary
             this.reservationMax = range;
         }
         public void SetRainRange(float anchor, float range) {
-            this.rainAnchor = anchor;
-            this.rainRange = range;
+            this.rainMin = anchor;
+            this.rainMax = range;
         }
         public void SetCloudRange(float anchor, float range) {
-            this.CloudAnchor = anchor;
-            this.CloudRange = range;
+            this.CloudMin = anchor;
+            this.CloudMax = range;
         }
         public void SetWindMaxRange(int anchor, int range) {
-            this.WindMaxAnchor = anchor;
-            this.WindMaxRange = range;
+            this.WindMaxMin = anchor;
+            this.WindMaxMax = range;
         }
         public void SetWindAvgRange(int anchor, int range) {
-            this.WindAvgAnchor = anchor;
-            this.WindAvgRange = range;
+            this.WindAvgMin = anchor;
+            this.WindAvgMax = range;
         }
         public void SetSpecialEvents(bool specialEventsAllowed) {
             this.specialEventsAllowed = specialEventsAllowed;
@@ -231,35 +231,35 @@ namespace FloorplanClassLibrary
         }
 
         private void FilterByWindAvg() {
-            _filteredShifts = _filteredShifts.Where(shift => shift.ShiftWeather.WindAvg >= (WindAvgAnchor - WindAvgRange)
-            && shift.ShiftWeather.RainAmount <= (WindAvgAnchor + WindAvgRange)).ToList();
+            _filteredShifts = _filteredShifts.Where(shift => shift.ShiftWeather.WindAvg >= (WindAvgMin)
+            && shift.ShiftWeather.RainAmount <= (WindAvgMax)).ToList();
         }
 
         private void FilterByWindMax() {
-            _filteredShifts = _filteredShifts.Where(shift => shift.ShiftWeather.WindMax >= (WindMaxAnchor - WindMaxRange)
-            && shift.ShiftWeather.RainAmount <= (WindMaxAnchor + WindMaxRange)).ToList();
+            _filteredShifts = _filteredShifts.Where(shift => shift.ShiftWeather.WindMax >= (WindMaxMin)
+            && shift.ShiftWeather.RainAmount <= (WindMaxMax)).ToList();
         }
 
         private void FilterByClouds() {
-            _filteredShifts = _filteredShifts.Where(shift => shift.ShiftWeather.CloudCoverAverage >= (CloudAnchor - CloudRange)
-            && shift.ShiftWeather.RainAmount <= (CloudAnchor + CloudRange)).ToList();
+            _filteredShifts = _filteredShifts.Where(shift => shift.ShiftWeather.CloudCoverAverage >= (CloudMin) 
+            && shift.ShiftWeather.RainAmount <= (CloudMax)).ToList();
         }
 
         private void FilterByRainAmount() {
-            _filteredShifts = _filteredShifts.Where(shift => shift.ShiftWeather.RainAmount >= (rainAnchor - rainRange)
-            && shift.ShiftWeather.RainAmount <= (rainAnchor + rainRange)).ToList();
+            _filteredShifts = _filteredShifts.Where(shift => shift.ShiftWeather.RainAmount >= (rainMin) 
+            && shift.ShiftWeather.RainAmount <= (rainMax)).ToList();
         }       
        
        
         public void FilterByTempRange() {
-            _filteredShifts = _filteredShifts.Where(shift => shift.ShiftWeather.FeelsLikeAvg >= (tempMin - tempMax) 
-            && shift.ShiftWeather.FeelsLikeAvg <= (tempMin + tempMax)).ToList();
+            _filteredShifts = _filteredShifts.Where(shift => shift.ShiftWeather.FeelsLikeAvg >= (tempMin) 
+            && shift.ShiftWeather.FeelsLikeAvg <= (tempMax)).ToList();
         }
 
         public void FilterByReservationRange()
         {
-            _filteredShifts = _filteredShifts.Where(shift => shift.Reservations >= (reservationMin - reservationMax)
-            && shift.Reservations <= (reservationMin + reservationMax)).ToList();
+            _filteredShifts = _filteredShifts.Where(shift => shift.Reservations >= (reservationMin)
+            && shift.Reservations <= (reservationMax)).ToList();
         }
 
         public void FilterByDaysOfWeek()

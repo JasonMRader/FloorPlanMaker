@@ -1,4 +1,5 @@
 ﻿using FloorplanClassLibrary;
+using FloorPlanMakerUI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -46,6 +47,7 @@ namespace FloorplanUserControlLibrary
             if(filterType == FilterType.Temperature) {
                 isInt = true;
             }
+            button1.BackColor = UITheme.ButtonColor;
 
         }
 
@@ -56,6 +58,7 @@ namespace FloorplanUserControlLibrary
                 numericUpDown2.Visible = true;
                 flowModifiers.Visible = true;
                 button1.Text = $"OK";
+                button1.BackColor = UITheme.YesColor;
                 _filtered = true;
                 _choosing = true;
                 return;
@@ -66,12 +69,14 @@ namespace FloorplanUserControlLibrary
                 numericUpDown2.Visible = false;
                 flowModifiers.Visible = false;
                 _choosing = false;
+                button1.BackColor = UITheme.CTAColor;
                 return;
             }
             else if(_filtered &&  !_choosing) {
                 button1.Text = $"Filter by {filterName}";
                 _filtered = false;
                 shiftAnalysis.SetIsFilteredByTemp(false);
+                button1.BackColor = UITheme.ButtonColor;
             }
         }
         private void SetTemperatureFilter()
