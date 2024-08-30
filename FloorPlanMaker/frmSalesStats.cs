@@ -1005,9 +1005,9 @@ namespace FloorPlanMakerUI
                 shiftAnalysis.SetIsAM(true);
             }
             else if (rdoPm.Checked) {
-
+                shiftAnalysis.SetIsAM(false);
             }
-            shiftAnalysis.SetIsAM(false);
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
