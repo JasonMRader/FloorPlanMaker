@@ -66,8 +66,11 @@ namespace FloorPlanMakerUI
         {
 
             allWeatherData = SqliteDataAccess.LoadAllWeatherData();
-            dtpEndDate.Value = DateTime.Now.AddDays(-1);
-            dtpStartDate.Value = DateTime.Now.AddDays(-30);
+            //DateTime end = new DateTime(shiftAnalysis.)
+            dtpEndDate.Value = shiftAnalysis.EndDate.ToDateTime(TimeOnly.MinValue);
+            dtpStartDate.Value = shiftAnalysis.StartDate.ToDateTime(TimeOnly.MinValue);
+            dtpEndDate.ValueChanged += dtpEndDate_ValueChanged;
+            dtpStartDate.ValueChanged += dtpStartDate_ValueChanged;
             employeeManager.LoadShiftsForActiveServers();
             flowDiningAreas.Controls.Add(CreateSelectAllAreaRadio());
             foreach (DiningArea area in areaManager.DiningAreas) {

@@ -205,7 +205,6 @@
             dtpStartDate.Name = "dtpStartDate";
             dtpStartDate.Size = new Size(200, 23);
             dtpStartDate.TabIndex = 5;
-            dtpStartDate.ValueChanged += dtpStartDate_ValueChanged;
             // 
             // dtpEndDate
             // 
@@ -213,7 +212,6 @@
             dtpEndDate.Name = "dtpEndDate";
             dtpEndDate.Size = new Size(200, 23);
             dtpEndDate.TabIndex = 5;
-            dtpEndDate.ValueChanged += dtpEndDate_ValueChanged;
             // 
             // label1
             // 

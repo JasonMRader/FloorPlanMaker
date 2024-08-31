@@ -34,9 +34,12 @@ namespace FloorplanClassLibrary
         }
         private bool _isAM { get; set; }
         private bool _isAllDay { get; set; }
-        public ShiftAnalysis() { }
-        private DateOnly _startDate = new DateOnly();
-        private DateOnly _endDate = new DateOnly();
+        public ShiftAnalysis() 
+        { 
+
+        }
+        private DateOnly _startDate = new DateOnly(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).AddDays(-91);
+        private DateOnly _endDate = new DateOnly(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).AddDays(-1);
         private int tempMin { get; set; }
         private int tempMax { get; set; }
         private int reservationMin { get; set; }

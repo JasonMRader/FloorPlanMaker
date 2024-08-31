@@ -17,28 +17,17 @@ namespace FloorplanUserControlLibrary
     {
         private bool _choosing = false;
        
-        private string filterName { get; set; }
-        private FilterType filterType { get; set; }
         private ShiftAnalysis shiftAnalysis { get; set; }
-        public enum FilterType
-        {
-            Temperature,
-            Rain,
-            Clouds,
-            WindMax,
-            WindAvg,
-            Reservations
-        }
-        public DateFilterControl(string filterName, decimal defaultMin, decimal defaultMax,
-            FilterType filter, ShiftAnalysis shiftAnalysis)
+        
+        public DateFilterControl(ShiftAnalysis shiftAnalysis)
         {
             InitializeComponent();
             this.shiftAnalysis = shiftAnalysis;
             
             flowRangeSelection.Visible = false;
-            this.filterName = filterName;
-            button1.Text = $"Filter by {filterName}";
-            this.filterType = filter;
+           
+            button1.Text = $"";
+            
             //if (filterType == FilterType.Temperature) {
             //    isInt = true;
             //}
