@@ -94,7 +94,7 @@ namespace FloorPlanMakerUI
             _flowLayoutPanel.Controls.Add(salesImageLabel);
             UpdateImageLabels();
         }
-        private void UpdateImageLabels()
+        public void UpdateImageLabels()
         {
             if (this.Floorplan == null)
             {

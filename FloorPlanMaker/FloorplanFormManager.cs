@@ -442,14 +442,8 @@ namespace FloorPlanMakerUI
         {
             this.tableSalesManager.CurrentStatsPeriod = statsPeriod;
             UpdateTableStats();
-            if(this.Floorplan == null)
-            {
-                //UpdateImageLabels();
-            }
-            else
-            {
-                //UpdateAveragesPerServer();
-            }
+            sectionPanelManager.UpdateImageLabels();
+           
         }
         private void UpdateTableStats()
         {
