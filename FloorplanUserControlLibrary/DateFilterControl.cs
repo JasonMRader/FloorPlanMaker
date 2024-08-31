@@ -15,58 +15,66 @@ namespace FloorplanUserControlLibrary
 {
     public partial class DateFilterControl : UserControl
     {
-        private bool _choosing = false;
-       
+
+
         private ShiftAnalysis shiftAnalysis { get; set; }
-        
+
         public DateFilterControl(ShiftAnalysis shiftAnalysis)
         {
             InitializeComponent();
             this.shiftAnalysis = shiftAnalysis;
-            
+
             flowRangeSelection.Visible = false;
-           
-            button1.Text = $"";
-            
+
+            button1.Text = $"Last 90 Days";
+
             //if (filterType == FilterType.Temperature) {
             //    isInt = true;
             //}
-            button1.BackColor = UITheme.ButtonColor;
+            //button1.BackColor = UITheme.ButtonColor;
         }
 
         private void DateFilterControl_Load(object sender, EventArgs e)
         {
 
         }
+        private void rdoTimeFrame_CheckChanged(object sender, EventArgs e)
+        {
+            DateOnly endDate = DateOnly.FromDateTime(DateTime.Today).AddDays(-1);
+            rdoLast30.BackColor = UITheme.ButtonColor;
+            rdoLast90.BackColor = UITheme.ButtonColor;
+            rdoLast365.BackColor = UITheme.ButtonColor;
+            rdoAllRecords.BackColor = UITheme.ButtonColor;
 
-       
+            if (rdoLast30.Checked) {
+                shiftAnalysis.SetDateOnly(endDate.AddDays(-30), endDate);
+                button1.Text = $"Last 30 Days";
+                rdoLast30.BackColor = UITheme.CTAColor;
+            }
+            else if (rdoLast90.Checked) {
+                shiftAnalysis.SetDateOnly(endDate.AddDays(-90), endDate);
+                button1.Text = $"Last 90 Days";
+                rdoLast90.BackColor = UITheme.CTAColor;
+            }
+            else if (rdoLast365.Checked) {
+                shiftAnalysis.SetDateOnly(endDate.AddDays(-365), endDate);
+                button1.Text = $"Last 365 Days";
+                rdoLast365.BackColor = UITheme.CTAColor;
+            }
+            else if (rdoAllRecords.Checked) {
+                shiftAnalysis.SetDateOnly(new DateOnly(2023, 1, 1), endDate);
+                button1.Text = $"All Records";
+                rdoAllRecords.BackColor = UITheme.CTAColor;
+            }
+            flowRangeSelection.Visible = false;
+        }
+
+
         private void button1_Click(object sender, EventArgs e)
         {
-            if (!_choosing) {
-                
-                flowRangeSelection.Visible = true;
-                button1.Text = $"OK";
-                button1.BackColor = UITheme.YesColor;
-                
-                _choosing = true;
-                return;
-            }
-            else if (_choosing) {
-                SetTemperatureFilter();
-               
-                flowRangeSelection.Visible = false;
-                _choosing = false;
-                button1.BackColor = UITheme.CTAColor;
-                return;
-            }
-           
+            flowRangeSelection.Visible = !flowRangeSelection.Visible;
+
         }
-        private void SetTemperatureFilter()
-        {
-            
-            //button1.Text = $"{minInt}° to {maxInt}°";
-            shiftAnalysis.SetIsFilteredByTemp(true);
-            //shiftAnalysis.SetTempRange(minInt, maxInt);
-        }
+
     }
 }

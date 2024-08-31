@@ -77,15 +77,16 @@
             rdoLast30.Name = "rdoLast30";
             rdoLast30.Size = new Size(194, 27);
             rdoLast30.TabIndex = 1;
-            rdoLast30.TabStop = true;
             rdoLast30.Text = "Last 30 Days";
             rdoLast30.TextAlign = ContentAlignment.MiddleCenter;
             rdoLast30.UseVisualStyleBackColor = false;
+            rdoLast30.CheckedChanged += rdoTimeFrame_CheckChanged;
             // 
             // rdoLast90
             // 
             rdoLast90.Appearance = Appearance.Button;
-            rdoLast90.BackColor = SystemColors.ButtonShadow;
+            rdoLast90.BackColor = Color.FromArgb(100, 130, 180);
+            rdoLast90.Checked = true;
             rdoLast90.FlatAppearance.BorderSize = 0;
             rdoLast90.FlatStyle = FlatStyle.Flat;
             rdoLast90.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
@@ -98,6 +99,7 @@
             rdoLast90.Text = "Last 90 Days";
             rdoLast90.TextAlign = ContentAlignment.MiddleCenter;
             rdoLast90.UseVisualStyleBackColor = false;
+            rdoLast90.CheckedChanged += rdoTimeFrame_CheckChanged;
             // 
             // rdoLast365
             // 
@@ -111,10 +113,10 @@
             rdoLast365.Name = "rdoLast365";
             rdoLast365.Size = new Size(194, 27);
             rdoLast365.TabIndex = 1;
-            rdoLast365.TabStop = true;
             rdoLast365.Text = "Last 365 Days";
             rdoLast365.TextAlign = ContentAlignment.MiddleCenter;
             rdoLast365.UseVisualStyleBackColor = false;
+            rdoLast365.CheckedChanged += rdoTimeFrame_CheckChanged;
             // 
             // rdoAllRecords
             // 
@@ -128,10 +130,10 @@
             rdoAllRecords.Name = "rdoAllRecords";
             rdoAllRecords.Size = new Size(194, 27);
             rdoAllRecords.TabIndex = 1;
-            rdoAllRecords.TabStop = true;
             rdoAllRecords.Text = "All Records";
             rdoAllRecords.TextAlign = ContentAlignment.MiddleCenter;
             rdoAllRecords.UseVisualStyleBackColor = false;
+            rdoAllRecords.CheckedChanged += rdoTimeFrame_CheckChanged;
             // 
             // DateFilterControl
             // 

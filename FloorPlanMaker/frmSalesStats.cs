@@ -30,6 +30,7 @@ namespace FloorPlanMakerUI
         {
             InitializeComponent();
             //LiveCharts.WinForms.PieChart chart = new LiveCharts.WinForms.PieChart();
+            
             ShiftFilterControl shiftFilterControl = new ShiftFilterControl();
             pnlFilters.Controls.Add(shiftFilterControl);
             shiftFilterControl.SetShiftAnalysis(shiftAnalysis);
