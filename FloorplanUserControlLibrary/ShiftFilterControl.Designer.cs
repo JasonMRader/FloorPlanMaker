@@ -27,48 +27,30 @@
         /// </summary>
         private void InitializeComponent()
         {
-            dateTimePicker1 = new DateTimePicker();
             flowFilters = new FlowLayoutPanel();
-            label1 = new Label();
             label4 = new Label();
             label5 = new Label();
             panel1 = new Panel();
-            checkBox1 = new CheckBox();
-            checkBox2 = new CheckBox();
+            rdoPM = new RadioButton();
+            rdoAM = new RadioButton();
             panel2 = new Panel();
-            checkBox4 = new CheckBox();
+            cbHolidaysExcluded = new CheckBox();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             SuspendLayout();
             // 
-            // dateTimePicker1
-            // 
-            dateTimePicker1.Location = new Point(3, 3);
-            dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(194, 23);
-            dateTimePicker1.TabIndex = 0;
-            // 
             // flowFilters
             // 
             flowFilters.FlowDirection = FlowDirection.TopDown;
-            flowFilters.Location = new Point(3, 226);
+            flowFilters.Location = new Point(3, 197);
             flowFilters.Name = "flowFilters";
-            flowFilters.Size = new Size(194, 508);
+            flowFilters.Size = new Size(194, 537);
             flowFilters.TabIndex = 2;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(3, 29);
-            label1.Name = "label1";
-            label1.Size = new Size(39, 15);
-            label1.TabIndex = 3;
-            label1.Text = "Dates:";
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(3, 101);
+            label4.Location = new Point(15, 14);
             label4.Name = "label4";
             label4.Size = new Size(63, 15);
             label4.TabIndex = 3;
@@ -77,7 +59,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(3, 125);
+            label5.Location = new Point(111, 14);
             label5.Name = "label5";
             label5.Size = new Size(51, 15);
             label5.TabIndex = 3;
@@ -85,65 +67,74 @@
             // 
             // panel1
             // 
-            panel1.Controls.Add(checkBox2);
-            panel1.Controls.Add(checkBox1);
-            panel1.Location = new Point(3, 177);
+            panel1.Controls.Add(rdoPM);
+            panel1.Controls.Add(rdoAM);
+            panel1.Location = new Point(3, 158);
             panel1.Name = "panel1";
             panel1.Size = new Size(194, 28);
             panel1.TabIndex = 4;
             // 
-            // checkBox1
+            // rdoPM
             // 
-            checkBox1.Appearance = Appearance.Button;
-            checkBox1.BackColor = SystemColors.ButtonShadow;
-            checkBox1.FlatAppearance.BorderSize = 0;
-            checkBox1.FlatStyle = FlatStyle.Flat;
-            checkBox1.Location = new Point(0, 0);
-            checkBox1.Margin = new Padding(0);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(97, 27);
-            checkBox1.TabIndex = 0;
-            checkBox1.Text = "AM";
-            checkBox1.TextAlign = ContentAlignment.MiddleCenter;
-            checkBox1.UseVisualStyleBackColor = false;
+            rdoPM.Appearance = Appearance.Button;
+            rdoPM.BackColor = SystemColors.ButtonShadow;
+            rdoPM.FlatAppearance.BorderSize = 0;
+            rdoPM.FlatAppearance.CheckedBackColor = Color.FromArgb(100, 130, 180);
+            rdoPM.FlatStyle = FlatStyle.Flat;
+            rdoPM.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            rdoPM.Location = new Point(97, 1);
+            rdoPM.Margin = new Padding(0);
+            rdoPM.Name = "rdoPM";
+            rdoPM.Size = new Size(97, 27);
+            rdoPM.TabIndex = 1;
+            rdoPM.TabStop = true;
+            rdoPM.Text = "PM";
+            rdoPM.TextAlign = ContentAlignment.MiddleCenter;
+            rdoPM.UseVisualStyleBackColor = false;
             // 
-            // checkBox2
+            // rdoAM
             // 
-            checkBox2.Appearance = Appearance.Button;
-            checkBox2.BackColor = SystemColors.ButtonShadow;
-            checkBox2.FlatAppearance.BorderSize = 0;
-            checkBox2.FlatStyle = FlatStyle.Flat;
-            checkBox2.Location = new Point(97, 0);
-            checkBox2.Margin = new Padding(0);
-            checkBox2.Name = "checkBox2";
-            checkBox2.Size = new Size(97, 27);
-            checkBox2.TabIndex = 0;
-            checkBox2.Text = "PM";
-            checkBox2.TextAlign = ContentAlignment.MiddleCenter;
-            checkBox2.UseVisualStyleBackColor = false;
+            rdoAM.Appearance = Appearance.Button;
+            rdoAM.BackColor = SystemColors.ButtonShadow;
+            rdoAM.FlatAppearance.BorderSize = 0;
+            rdoAM.FlatAppearance.CheckedBackColor = Color.FromArgb(100, 130, 180);
+            rdoAM.FlatStyle = FlatStyle.Flat;
+            rdoAM.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            rdoAM.Location = new Point(0, 0);
+            rdoAM.Margin = new Padding(0);
+            rdoAM.Name = "rdoAM";
+            rdoAM.Size = new Size(97, 27);
+            rdoAM.TabIndex = 1;
+            rdoAM.TabStop = true;
+            rdoAM.Text = "AM";
+            rdoAM.TextAlign = ContentAlignment.MiddleCenter;
+            rdoAM.UseVisualStyleBackColor = false;
+            rdoAM.CheckedChanged += rdoAM_CheckedChanged;
             // 
             // panel2
             // 
-            panel2.Controls.Add(checkBox4);
-            panel2.Location = new Point(6, 47);
+            panel2.Controls.Add(cbHolidaysExcluded);
+            panel2.Location = new Point(3, 124);
             panel2.Name = "panel2";
             panel2.Size = new Size(194, 28);
             panel2.TabIndex = 4;
             // 
-            // checkBox4
+            // cbHolidaysExcluded
             // 
-            checkBox4.Appearance = Appearance.Button;
-            checkBox4.BackColor = SystemColors.ButtonShadow;
-            checkBox4.FlatAppearance.BorderSize = 0;
-            checkBox4.FlatStyle = FlatStyle.Flat;
-            checkBox4.Location = new Point(0, 0);
-            checkBox4.Margin = new Padding(0);
-            checkBox4.Name = "checkBox4";
-            checkBox4.Size = new Size(191, 27);
-            checkBox4.TabIndex = 0;
-            checkBox4.Text = "Holidays Included";
-            checkBox4.TextAlign = ContentAlignment.MiddleCenter;
-            checkBox4.UseVisualStyleBackColor = false;
+            cbHolidaysExcluded.Appearance = Appearance.Button;
+            cbHolidaysExcluded.BackColor = SystemColors.ButtonShadow;
+            cbHolidaysExcluded.FlatAppearance.BorderSize = 0;
+            cbHolidaysExcluded.FlatStyle = FlatStyle.Flat;
+            cbHolidaysExcluded.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            cbHolidaysExcluded.Location = new Point(0, 0);
+            cbHolidaysExcluded.Margin = new Padding(0);
+            cbHolidaysExcluded.Name = "cbHolidaysExcluded";
+            cbHolidaysExcluded.Size = new Size(194, 27);
+            cbHolidaysExcluded.TabIndex = 0;
+            cbHolidaysExcluded.Text = "Holidays Included";
+            cbHolidaysExcluded.TextAlign = ContentAlignment.MiddleCenter;
+            cbHolidaysExcluded.UseVisualStyleBackColor = false;
+            cbHolidaysExcluded.CheckedChanged += cbHolidaysExcluded_CheckedChanged;
             // 
             // ShiftFilterControl
             // 
@@ -153,9 +144,7 @@
             Controls.Add(panel1);
             Controls.Add(label5);
             Controls.Add(label4);
-            Controls.Add(label1);
             Controls.Add(flowFilters);
-            Controls.Add(dateTimePicker1);
             Name = "ShiftFilterControl";
             Size = new Size(200, 737);
             Load += ShiftFilterControl_Load;
@@ -173,9 +162,9 @@
         private Label label4;
         private Label label5;
         private Panel panel1;
-        private CheckBox checkBox1;
-        private CheckBox checkBox2;
         private Panel panel2;
-        private CheckBox checkBox4;
+        private CheckBox cbHolidaysExcluded;
+        private RadioButton rdoPM;
+        private RadioButton rdoAM;
     }
 }

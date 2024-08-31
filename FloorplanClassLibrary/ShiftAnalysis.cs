@@ -33,6 +33,7 @@ namespace FloorplanClassLibrary
             }
         }
         private bool _isAM { get; set; }
+        public bool IsAM { get { return _isAM; } }
         private bool _isAllDay { get; set; }
         public ShiftAnalysis() 
         { 
