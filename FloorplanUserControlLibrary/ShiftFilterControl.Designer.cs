@@ -28,13 +28,13 @@
         private void InitializeComponent()
         {
             flowFilters = new FlowLayoutPanel();
-            label4 = new Label();
-            label5 = new Label();
             panel1 = new Panel();
             rdoPM = new RadioButton();
             rdoAM = new RadioButton();
             panel2 = new Panel();
             cbHolidaysExcluded = new CheckBox();
+            lblFilteredShiftCount = new Label();
+            btnUpdate = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             SuspendLayout();
@@ -44,26 +44,8 @@
             flowFilters.FlowDirection = FlowDirection.TopDown;
             flowFilters.Location = new Point(3, 197);
             flowFilters.Name = "flowFilters";
-            flowFilters.Size = new Size(194, 537);
+            flowFilters.Size = new Size(194, 494);
             flowFilters.TabIndex = 2;
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Location = new Point(15, 14);
-            label4.Name = "label4";
-            label4.Size = new Size(63, 15);
-            label4.TabIndex = 3;
-            label4.Text = "Weekdays:";
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Location = new Point(111, 14);
-            label5.Name = "label5";
-            label5.Size = new Size(51, 15);
-            label5.TabIndex = 3;
-            label5.Text = "Months:";
             // 
             // panel1
             // 
@@ -82,7 +64,7 @@
             rdoPM.FlatAppearance.CheckedBackColor = Color.FromArgb(100, 130, 180);
             rdoPM.FlatStyle = FlatStyle.Flat;
             rdoPM.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            rdoPM.Location = new Point(97, 1);
+            rdoPM.Location = new Point(97, 0);
             rdoPM.Margin = new Padding(0);
             rdoPM.Name = "rdoPM";
             rdoPM.Size = new Size(97, 27);
@@ -136,14 +118,38 @@
             cbHolidaysExcluded.UseVisualStyleBackColor = false;
             cbHolidaysExcluded.CheckedChanged += cbHolidaysExcluded_CheckedChanged;
             // 
+            // lblFilteredShiftCount
+            // 
+            lblFilteredShiftCount.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lblFilteredShiftCount.Location = new Point(3, 10);
+            lblFilteredShiftCount.Name = "lblFilteredShiftCount";
+            lblFilteredShiftCount.Size = new Size(194, 23);
+            lblFilteredShiftCount.TabIndex = 5;
+            lblFilteredShiftCount.Text = "Total Filtered Shifts:";
+            lblFilteredShiftCount.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // btnUpdate
+            // 
+            btnUpdate.BackColor = Color.FromArgb(100, 130, 180);
+            btnUpdate.FlatAppearance.BorderSize = 0;
+            btnUpdate.FlatStyle = FlatStyle.Flat;
+            btnUpdate.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            btnUpdate.ForeColor = Color.White;
+            btnUpdate.Location = new Point(3, 697);
+            btnUpdate.Name = "btnUpdate";
+            btnUpdate.Size = new Size(194, 37);
+            btnUpdate.TabIndex = 6;
+            btnUpdate.Text = "Update";
+            btnUpdate.UseVisualStyleBackColor = false;
+            // 
             // ShiftFilterControl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(btnUpdate);
+            Controls.Add(lblFilteredShiftCount);
             Controls.Add(panel2);
             Controls.Add(panel1);
-            Controls.Add(label5);
-            Controls.Add(label4);
             Controls.Add(flowFilters);
             Name = "ShiftFilterControl";
             Size = new Size(200, 737);
@@ -151,7 +157,6 @@
             panel1.ResumeLayout(false);
             panel2.ResumeLayout(false);
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -159,12 +164,12 @@
         private DateTimePicker dateTimePicker1;
         private FlowLayoutPanel flowFilters;
         private Label label1;
-        private Label label4;
-        private Label label5;
         private Panel panel1;
         private Panel panel2;
         private CheckBox cbHolidaysExcluded;
         private RadioButton rdoPM;
         private RadioButton rdoAM;
+        private Label lblFilteredShiftCount;
+        private Button btnUpdate;
     }
 }
