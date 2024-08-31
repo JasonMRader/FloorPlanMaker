@@ -1,4 +1,6 @@
 ﻿using FloorplanClassLibrary;
+using FloorPlanMakerUI;
+using PdfSharp.Pdf.Filters;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,11 +16,7 @@ namespace FloorplanUserControlLibrary
     public partial class DateFilterControl : UserControl
     {
         private bool _choosing = false;
-        private int minInt = 0;
-        private int maxInt = 0;
-        private double minDouble = 0;
-        private double maxDouble = 0;
-        private bool isInt { get; set; } = false;
+       
         private string filterName { get; set; }
         private FilterType filterType { get; set; }
         private ShiftAnalysis shiftAnalysis { get; set; }
@@ -31,9 +29,20 @@ namespace FloorplanUserControlLibrary
             WindAvg,
             Reservations
         }
-        public DateFilterControl()
+        public DateFilterControl(string filterName, decimal defaultMin, decimal defaultMax,
+            FilterType filter, ShiftAnalysis shiftAnalysis)
         {
             InitializeComponent();
+            this.shiftAnalysis = shiftAnalysis;
+            
+            flowRangeSelection.Visible = false;
+            this.filterName = filterName;
+            button1.Text = $"Filter by {filterName}";
+            this.filterType = filter;
+            //if (filterType == FilterType.Temperature) {
+            //    isInt = true;
+            //}
+            button1.BackColor = UITheme.ButtonColor;
         }
 
         private void DateFilterControl_Load(object sender, EventArgs e)
@@ -41,9 +50,34 @@ namespace FloorplanUserControlLibrary
 
         }
 
+       
         private void button1_Click(object sender, EventArgs e)
         {
-
+            if (!_choosing) {
+                
+                flowRangeSelection.Visible = true;
+                button1.Text = $"OK";
+                button1.BackColor = UITheme.YesColor;
+                
+                _choosing = true;
+                return;
+            }
+            else if (_choosing) {
+                SetTemperatureFilter();
+               
+                flowRangeSelection.Visible = false;
+                _choosing = false;
+                button1.BackColor = UITheme.CTAColor;
+                return;
+            }
+           
+        }
+        private void SetTemperatureFilter()
+        {
+            
+            //button1.Text = $"{minInt}° to {maxInt}°";
+            shiftAnalysis.SetIsFilteredByTemp(true);
+            //shiftAnalysis.SetTempRange(minInt, maxInt);
         }
     }
 }
