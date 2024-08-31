@@ -957,8 +957,8 @@
             // 
             // pnlFilters
             // 
-            pnlFilters.BackColor = Color.WhiteSmoke;
-            pnlFilters.Location = new Point(1000, 375);
+            pnlFilters.BackColor = Color.FromArgb(225, 225, 225);
+            pnlFilters.Location = new Point(1012, 248);
             pnlFilters.Name = "pnlFilters";
             pnlFilters.Size = new Size(200, 737);
             pnlFilters.TabIndex = 20;
