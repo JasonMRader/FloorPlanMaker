@@ -127,6 +127,7 @@
             lblFilteredShiftCount.TabIndex = 5;
             lblFilteredShiftCount.Text = "Total Filtered Shifts:";
             lblFilteredShiftCount.TextAlign = ContentAlignment.MiddleCenter;
+            lblFilteredShiftCount.Visible = false;
             // 
             // btnUpdate
             // 
@@ -141,6 +142,7 @@
             btnUpdate.TabIndex = 6;
             btnUpdate.Text = "Update";
             btnUpdate.UseVisualStyleBackColor = false;
+            btnUpdate.Click += btnUpdate_Click;
             // 
             // ShiftFilterControl
             // 

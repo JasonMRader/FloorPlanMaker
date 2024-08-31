@@ -31,12 +31,16 @@ namespace FloorPlanMakerUI
             InitializeComponent();
             //LiveCharts.WinForms.PieChart chart = new LiveCharts.WinForms.PieChart();
 
-            ShiftFilterControl shiftFilterControl = new ShiftFilterControl();
+            shiftFilterControl = new ShiftFilterControl();
             pnlFilters.Controls.Add(shiftFilterControl);
             shiftFilterControl.SetShiftAnalysis(shiftAnalysis);
+            shiftFilterControl.UpdateShift += PopulateUI;
 
 
         }
+
+        private ShiftFilterControl shiftFilterControl;
+
         private DiningAreaManager areaManager = new DiningAreaManager();
 
         private EmployeeManager employeeManager = new EmployeeManager();
@@ -574,6 +578,7 @@ namespace FloorPlanMakerUI
                         PopulateAveragesDataGridView(areaManager.DiningAreas);
                         lblSampleSizeDisplay.Text = "Sample Size: " + shiftAnalysis.FilteredShifts.Count.ToString();
                         loadingForm.Close();
+                        shiftFilterControl.UpdateCountLabel();
                         //UpdateChart();
                         UpdateNewChart();
                         this.Enabled = true;
@@ -603,6 +608,51 @@ namespace FloorPlanMakerUI
 
             }
 
+        }
+        private void PopulateUI()
+        {
+            frmLoading loadingForm = new frmLoading("Parsing");
+            loadingForm.Show();
+            this.Enabled = false;
+            if (rdoDiningAreaSales.Checked) {
+                Task.Run(() => {
+                    shiftAnalysis.InitializetShiftsForDateRange();
+
+                    this.Invoke(new Action(() => {
+                        // Close the loading form and re-enable the main form
+                        PopulateDGVForAreaSales(dataGridView1, areaManager.DiningAreas, shiftAnalysis.FilteredShifts);
+                        PopulateAveragesDataGridView(areaManager.DiningAreas);
+                        lblSampleSizeDisplay.Text = "Sample Size: " + shiftAnalysis.FilteredShifts.Count.ToString();
+                        
+                        loadingForm.Close();
+                        //UpdateChart();
+                        UpdateNewChart();
+                        this.Enabled = true;
+
+                        this.BringToFront();
+
+                    }));
+                });
+
+            }
+            if (rdoServerShifts.Checked) {
+                Task.Run(() => {
+                    List<DateTime> dateList = GetFilteredDates(dtpStartDate.Value, dtpEndDate.Value);
+                    List<ServerShiftHistory> serverHistory = GetServerHistory(employeeManager.ActiveServers);
+
+                    this.Invoke(new Action(() => {
+                        // Close the loading form and re-enable the main form
+
+                        loadingForm.Close();
+                        this.Enabled = true;
+                        PopulateDGVForServerHistory(serverHistory);
+                        this.BringToFront();
+
+
+                    }));
+                });
+
+            }
         }
         private void UpdateNewChart()
         {

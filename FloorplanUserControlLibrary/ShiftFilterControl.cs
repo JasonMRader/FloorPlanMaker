@@ -16,6 +16,7 @@ namespace FloorplanUserControlLibrary
     {
         private ShiftAnalysis _shiftAnalysis { get; set; }
         public ShiftAnalysis ShiftAnalysis { get { return _shiftAnalysis; } }
+        public event Action UpdateShift;
         public ShiftFilterControl()
         {
             InitializeComponent();
@@ -57,6 +58,17 @@ namespace FloorplanUserControlLibrary
         {
             _shiftAnalysis.SetIsAM(rdoAM.Checked);
 
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            UpdateShift?.Invoke();
+           
+        }
+
+        public void UpdateCountLabel()
+        {
+            lblFilteredShiftCount.Text = $"Total Filtered Shifts: {ShiftAnalysis.FilteredShifts.Count}";
         }
     }
 }
