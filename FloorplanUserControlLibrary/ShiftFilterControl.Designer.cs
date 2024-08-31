@@ -30,11 +30,15 @@
             dateTimePicker1 = new DateTimePicker();
             flowFilters = new FlowLayoutPanel();
             label1 = new Label();
-            label2 = new Label();
-            label3 = new Label();
             label4 = new Label();
             label5 = new Label();
-            label6 = new Label();
+            panel1 = new Panel();
+            checkBox1 = new CheckBox();
+            checkBox2 = new CheckBox();
+            panel2 = new Panel();
+            checkBox4 = new CheckBox();
+            panel1.SuspendLayout();
+            panel2.SuspendLayout();
             SuspendLayout();
             // 
             // dateTimePicker1
@@ -61,24 +65,6 @@
             label1.TabIndex = 3;
             label1.Text = "Dates:";
             // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(3, 53);
-            label2.Name = "label2";
-            label2.Size = new Size(76, 15);
-            label2.TabIndex = 3;
-            label2.Text = "Reservations:";
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Location = new Point(3, 77);
-            label3.Name = "label3";
-            label3.Size = new Size(84, 15);
-            label3.TabIndex = 3;
-            label3.Text = "Special Events:";
-            // 
             // label4
             // 
             label4.AutoSize = true;
@@ -97,30 +83,84 @@
             label5.TabIndex = 3;
             label5.Text = "Months:";
             // 
-            // label6
+            // panel1
             // 
-            label6.AutoSize = true;
-            label6.Location = new Point(3, 150);
-            label6.Name = "label6";
-            label6.Size = new Size(39, 15);
-            label6.TabIndex = 3;
-            label6.Text = "Temp:";
+            panel1.Controls.Add(checkBox2);
+            panel1.Controls.Add(checkBox1);
+            panel1.Location = new Point(3, 177);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(194, 28);
+            panel1.TabIndex = 4;
+            // 
+            // checkBox1
+            // 
+            checkBox1.Appearance = Appearance.Button;
+            checkBox1.BackColor = SystemColors.ButtonShadow;
+            checkBox1.FlatAppearance.BorderSize = 0;
+            checkBox1.FlatStyle = FlatStyle.Flat;
+            checkBox1.Location = new Point(0, 0);
+            checkBox1.Margin = new Padding(0);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(97, 27);
+            checkBox1.TabIndex = 0;
+            checkBox1.Text = "AM";
+            checkBox1.TextAlign = ContentAlignment.MiddleCenter;
+            checkBox1.UseVisualStyleBackColor = false;
+            // 
+            // checkBox2
+            // 
+            checkBox2.Appearance = Appearance.Button;
+            checkBox2.BackColor = SystemColors.ButtonShadow;
+            checkBox2.FlatAppearance.BorderSize = 0;
+            checkBox2.FlatStyle = FlatStyle.Flat;
+            checkBox2.Location = new Point(97, 0);
+            checkBox2.Margin = new Padding(0);
+            checkBox2.Name = "checkBox2";
+            checkBox2.Size = new Size(97, 27);
+            checkBox2.TabIndex = 0;
+            checkBox2.Text = "PM";
+            checkBox2.TextAlign = ContentAlignment.MiddleCenter;
+            checkBox2.UseVisualStyleBackColor = false;
+            // 
+            // panel2
+            // 
+            panel2.Controls.Add(checkBox4);
+            panel2.Location = new Point(6, 47);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(194, 28);
+            panel2.TabIndex = 4;
+            // 
+            // checkBox4
+            // 
+            checkBox4.Appearance = Appearance.Button;
+            checkBox4.BackColor = SystemColors.ButtonShadow;
+            checkBox4.FlatAppearance.BorderSize = 0;
+            checkBox4.FlatStyle = FlatStyle.Flat;
+            checkBox4.Location = new Point(0, 0);
+            checkBox4.Margin = new Padding(0);
+            checkBox4.Name = "checkBox4";
+            checkBox4.Size = new Size(191, 27);
+            checkBox4.TabIndex = 0;
+            checkBox4.Text = "Holidays Included";
+            checkBox4.TextAlign = ContentAlignment.MiddleCenter;
+            checkBox4.UseVisualStyleBackColor = false;
             // 
             // ShiftFilterControl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(label6);
+            Controls.Add(panel2);
+            Controls.Add(panel1);
             Controls.Add(label5);
             Controls.Add(label4);
-            Controls.Add(label3);
-            Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(flowFilters);
             Controls.Add(dateTimePicker1);
             Name = "ShiftFilterControl";
             Size = new Size(200, 737);
             Load += ShiftFilterControl_Load;
+            panel1.ResumeLayout(false);
+            panel2.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -130,10 +170,12 @@
         private DateTimePicker dateTimePicker1;
         private FlowLayoutPanel flowFilters;
         private Label label1;
-        private Label label2;
-        private Label label3;
         private Label label4;
         private Label label5;
-        private Label label6;
+        private Panel panel1;
+        private CheckBox checkBox1;
+        private CheckBox checkBox2;
+        private Panel panel2;
+        private CheckBox checkBox4;
     }
 }

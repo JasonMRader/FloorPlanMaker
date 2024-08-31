@@ -27,7 +27,11 @@ namespace FloorplanUserControlLibrary
         public enum FilterType
         {
             Temperature,
-            Rain
+            Rain,
+            Clouds,
+            WindMax,
+            WindAvg,
+            Reservations
         }
         
 

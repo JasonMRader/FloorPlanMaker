@@ -959,6 +959,7 @@
             // 
             // pnlFilters
             // 
+            pnlFilters.BackColor = Color.WhiteSmoke;
             pnlFilters.Location = new Point(1000, 375);
             pnlFilters.Name = "pnlFilters";
             pnlFilters.Size = new Size(200, 737);

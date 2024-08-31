@@ -13,12 +13,12 @@ namespace FloorplanUserControlLibrary
 {
     public partial class ShiftFilterControl : UserControl
     {
-        private ShiftAnalysis _shiftAnalysis { get; set; }   
+        private ShiftAnalysis _shiftAnalysis { get; set; }
         public ShiftAnalysis ShiftAnalysis { get { return _shiftAnalysis; } }
         public ShiftFilterControl()
         {
             InitializeComponent();
-            
+
         }
         public void SetShiftAnalysis(ShiftAnalysis shiftAnalysis)
         {
