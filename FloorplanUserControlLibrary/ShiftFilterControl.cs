@@ -31,6 +31,9 @@ namespace FloorplanUserControlLibrary
             shiftAnalysis.FilterUpdated += UpdateForFilters;
             FilterControl tempFilter = new FilterControl("Temp", 80, 90, FilterControl.FilterType.Temperature, shiftAnalysis);
             FilterControl rainFilter = new FilterControl("Rain", 0, 0, FilterControl.FilterType.Rain, shiftAnalysis);
+            FilterControl cloudFilter = new FilterControl("Clouds", 0, 80, FilterControl.FilterType.Clouds, shiftAnalysis);
+            FilterControl windMaxControl = new FilterControl("Max Wind", 0, 15, FilterControl.FilterType.WindMax, shiftAnalysis);
+            FilterControl windAvgControl = new FilterControl("Avg Wind", 0, 10, FilterControl.FilterType.WindAvg, shiftAnalysis);
             DateFilterControl dateFilterControl = new DateFilterControl(shiftAnalysis);
             DayOfWeekFilterControl dayOfWeekFilterControl = new DayOfWeekFilterControl(shiftAnalysis);
             MonthFilterControl monthFilterControl = new MonthFilterControl(shiftAnalysis);
@@ -41,6 +44,9 @@ namespace FloorplanUserControlLibrary
             flowFilters.Controls.Add(monthFilterControl);
             flowFilters.Controls.Add(tempFilter);
             flowFilters.Controls.Add(rainFilter);
+            flowFilters.Controls.Add(cloudFilter);
+            flowFilters.Controls.Add(windMaxControl);
+            flowFilters.Controls.Add(windAvgControl);
         }
 
         private void UpdateForFilters()

@@ -52,11 +52,15 @@ namespace FloorplanUserControlLibrary
                 isInt = true;
             }
             if (filterType == FilterType.Rain) {
-                numericUpDown1.Increment = 0.1m;
-                numericUpDown2.Increment = 0.1m;
-                numericUpDown1.DecimalPlaces = 1;
-                numericUpDown2.DecimalPlaces = 1;
+                numericUpDown1.Increment = 0.05m;
+                numericUpDown2.Increment = 0.05m;
+                numericUpDown1.DecimalPlaces = 2;
+                numericUpDown2.DecimalPlaces = 2;
             }
+            if(filterType == FilterType.Reservations) {
+                this.Enabled = false;
+            }
+           
             button1.BackColor = UITheme.ButtonColor;
             button1.ForeColor = Color.Black;
 
@@ -104,6 +108,18 @@ namespace FloorplanUserControlLibrary
                     shiftAnalysis.SetIsFilteredbyRainAmount(isFiltered);
                     SetRainFilter();
                 }
+                else if (filterType == FilterType.Clouds) {
+                    shiftAnalysis.SetIsFilteredByClouds(isFiltered);
+                    SetCloudFilter();
+                }
+                else if (filterType == FilterType.WindMax) {
+                    shiftAnalysis.SetIsFilteredByWindMax(isFiltered);
+                    SetWindMaxFilter();
+                }
+                else if(filterType == FilterType.WindAvg) {
+                    shiftAnalysis.SetIsFilteredByWindAvg(isFiltered);
+                    SetWindAvgFilter();
+                }
             }
             else {
                 if (filterType == FilterType.Temperature) {
@@ -111,12 +127,39 @@ namespace FloorplanUserControlLibrary
 
                 }
                 else if (filterType == FilterType.Rain) {
-                    shiftAnalysis.SetIsFilteredbyRainAmount(isFiltered);
-
+                    shiftAnalysis.SetIsFilteredbyRainAmount(isFiltered);                    
+                }
+                else if (filterType == FilterType.Clouds) {
+                    shiftAnalysis.SetIsFilteredByClouds(isFiltered);
+                }
+                else if (filterType == FilterType.WindMax) {
+                    shiftAnalysis.SetIsFilteredByWindMax(isFiltered);
+                }
+                else if (filterType == FilterType.WindAvg) {
+                    shiftAnalysis.SetIsFilteredByWindAvg(isFiltered);
                 }
             }
 
         }
+
+        private void SetWindAvgFilter()
+        {
+            button1.Text = $"Avg wind {numericUpDown1.Value:F0} MPH to {numericUpDown2.Value:F0} MPH";
+            shiftAnalysis.SetWindAvgRange((int)numericUpDown1.Value, (int)numericUpDown2.Value);
+        }
+
+        private void SetWindMaxFilter()
+        {
+            button1.Text = $"Max wind {numericUpDown1.Value:F0} MPH to {numericUpDown2.Value:F0} MPH";
+            shiftAnalysis.SetWindMaxRange((int)numericUpDown1.Value, (int)numericUpDown2.Value);
+        }
+
+        private void SetCloudFilter()
+        {
+            button1.Text = $"{numericUpDown1.Value:F0}% to {numericUpDown2.Value:F0}%";
+            shiftAnalysis.SetCloudRange((float)numericUpDown1.Value, (float)numericUpDown2.Value);
+        }
+
         private void SetTemperatureFilter()
         {
             this.minInt = (int)numericUpDown1.Value;
@@ -126,8 +169,7 @@ namespace FloorplanUserControlLibrary
         }
         private void SetRainFilter()
         {
-            //this.minFloat = (int)numericUpDown1.Value;
-            //this.maxInt = (int)numericUpDown2.Value;
+           
             button1.Text = $"{numericUpDown1.Value:F1}\" to {numericUpDown2.Value:F1}\"";
             shiftAnalysis.SetRainRange((float)numericUpDown1.Value, (float)numericUpDown2.Value);
         }
