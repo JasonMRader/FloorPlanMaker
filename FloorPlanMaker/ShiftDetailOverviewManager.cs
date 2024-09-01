@@ -72,6 +72,7 @@ namespace FloorPlanMakerUI
         {
             PopulateWeatherControlsForDateAndShift();
             PopulateReservationControlsForDateAndShift();
+            PopulateSaleStatsFilter();
             //if (rdoWeather.Checked)
             //{
 
@@ -82,7 +83,12 @@ namespace FloorPlanMakerUI
             //}
         }
 
-       
+        private void PopulateSaleStatsFilter()
+        {
+            ShiftFilterControl shiftFilterControl = new ShiftFilterControl();
+            //shift
+        }
+
         private RadioButton rdoWeather {  get; set; }
         private RadioButton rdoReservations { get; set; }  
         private RadioButton rdoStats { get; set; }

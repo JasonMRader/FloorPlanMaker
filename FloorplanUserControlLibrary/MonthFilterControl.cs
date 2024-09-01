@@ -105,7 +105,7 @@ namespace FloorplanUserControlLibrary
                 }
             }
 
-            shiftAnalysis.SetIsFilteredByDayOfWeek(!allChecked);
+            shiftAnalysis.SetIsFilteredByMonth(!allChecked);
         }
         private string GetButtonFilteredString()
         {

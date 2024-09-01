@@ -151,27 +151,7 @@ namespace FloorplanUserControlLibrary
             List<CheckBox> checkedCbs = allCbs.Where(allCbs => allCbs.Checked).ToList();
             foreach (CheckBox checkBox in checkedCbs) {
                 display += checkBox.Text;
-                //if (checkBox == cbMon) {
-                //    display += "Mon";
-                //}
-                //if (checkBox == cbTues) {
-                //    display += "Tue";
-                //}
-                //if (checkBox == cbWed) {
-                //    display += "Wed";
-                //}
-                //if (checkBox == cbThurs) {
-                //    display += "Thu";
-                //}
-                //if (checkBox == cbFri) {
-                //    display += "Fri";
-                //}
-                //if (checkBox == cbSat) {
-                //    display += "Sat";
-                //}
-                //if (checkBox == cbSun) {
-                //    display += "Sun";
-                //}
+                
                 if (checkBox != checkedCbs.Last()) {
                     if(checkedCbs.Count >=6) {
                         display += "|";

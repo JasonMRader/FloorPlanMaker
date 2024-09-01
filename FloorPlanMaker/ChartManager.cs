@@ -3,6 +3,8 @@ using LiveChartsCore;
 using LiveChartsCore.Defaults;
 //using LiveCharts.Wpf;
 using LiveChartsCore.Drawing;
+using LiveChartsCore.Kernel.Sketches;
+using LiveChartsCore.Kernel;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Drawing.Geometries;
 using LiveChartsCore.SkiaSharpView.Painting;
@@ -10,9 +12,11 @@ using LiveChartsCore.SkiaSharpView.WinForms;
 using SkiaSharp;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LiveChartsCore.Measure;
 
 
 namespace FloorPlanMakerUI
@@ -45,9 +49,10 @@ namespace FloorPlanMakerUI
                     Name = area.Name,
                     Fill = GetAreaColor(area), // Set the fill color
                     Stroke = GetAreaColor(area), // Set the line color
-                    Values = new List<float>() // Initialize with an empty list
+                    Values = new List<float>(), // Initialize with an empty list
+                   
                 };
-
+                
                 seriesMap[area.ID] = series;
             }
 
@@ -57,7 +62,7 @@ namespace FloorPlanMakerUI
             new Axis
             {
                 Name = "Date",
-                Labels = _shiftRecords.Select(shift => shift.Date.ToString("MM/dd")).ToArray(),
+                Labels = _shiftRecords.Select(shift => shift.Date.ToString("MM/dd/yy")).ToArray(),
                 LabelsRotation = 15, // Rotate labels for better readability
             }
         };
@@ -78,16 +83,33 @@ namespace FloorPlanMakerUI
                     if (seriesMap.TryGetValue(areaRecord.DiningAreaID, out var series)) {
                         (series).Values =
                             (series).Values.Append((float)areaRecord.Sales).ToList();
+                        //series.YToolTipLabelFormatter = point => $"{(float)areaRecord.Sales} {areaRecord.DiningAreaID}";
+                        //series.DataLabelsPaint = new SolidColorPaint(new SKColor(30, 30, 30));
+                        //series.DataLabelsFormatter = point => $"{(float)areaRecord.Sales} {areaRecord.DiningAreaID}";
+                        //series.DataLabelsPosition = DataLabelsPosition.End;
+                        //// use the SalesPerDay property in this in the Y axis 
+                        //// and the index of the fruit in the array in the X axis 
+                        //series.Mapping = (areaRecord, index) => new(index, areaRecord.Sales);
+                        //series.ChartPointPointerHover += OnPointerHover;
                         //series.Values.Add((float)areaRecord.Sales);
                     }
                 }
             }
-
+            //_chart.Series. += OnPointerDown;
+           
+            //salesPerDaysSeries.ChartPointPointerHoverLost += OnPointerHoverLost;
             // Assign the series collection to the chart
             _chart.Series = seriesMap.Values.ToArray();
 
             // Set legend location
             _chart.LegendPosition = LiveChartsCore.Measure.LegendPosition.Right;
+        }
+        private void OnPointerHover(IChartView chart, ChartPoint<ShiftRecord, RoundedRectangleGeometry, LabelGeometry>? point)
+        {
+            //if (point?.Visual is null) return;
+            //point.Visual.Fill = new SolidColorPaint(SKColors.Yellow);
+            //chart.Invalidate();
+            //Trace.WriteLine($"Pointer entered on {point.Model?.Name}");
         }
         public void SetupLineChart(List<DiningArea> diningAreas)
         {

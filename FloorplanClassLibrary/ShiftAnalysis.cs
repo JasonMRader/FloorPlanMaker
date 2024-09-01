@@ -39,6 +39,10 @@ namespace FloorplanClassLibrary
         { 
 
         }
+        public void SetStandardFiltersForDateAndShiftType(bool isLunch, DateOnly dateOnly)
+        {
+
+        }
         private DateOnly _startDate = new DateOnly(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).AddDays(-91);
         private DateOnly _endDate = new DateOnly(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).AddDays(-1);
         private int tempMin { get; set; }
