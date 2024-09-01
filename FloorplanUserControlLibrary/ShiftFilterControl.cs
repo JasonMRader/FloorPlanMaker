@@ -86,7 +86,7 @@ namespace FloorplanUserControlLibrary
                 lblFilteredShiftCount.Invoke(new Action(UpdateCountLabel));
             }
             else {
-                lblFilteredShiftCount.Text = $"Total Filtered Shifts: {_shiftAnalysis.FilteredShifts.Count}";
+                lblFilteredShiftCount.Text = $"{_shiftAnalysis.FilteredShifts.Count} Filtered Shifts";
                 lblFilteredShiftCount.Visible = true;
             }
         }

@@ -152,7 +152,7 @@
             label2.Name = "label2";
             label2.Size = new Size(194, 74);
             label2.TabIndex = 5;
-            label2.Text = "Resos, Month, Graph, Open Detailed Form, Save Settings";
+            label2.Text = "Resos, Graph, Open Detailed Form, Save Settings";
             label2.TextAlign = ContentAlignment.MiddleCenter;
             label2.Visible = false;
             // 
