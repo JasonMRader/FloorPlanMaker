@@ -81,6 +81,8 @@
             cbAll.FlatAppearance.BorderSize = 0;
             cbAll.FlatAppearance.CheckedBackColor = Color.FromArgb(100, 130, 180);
             cbAll.FlatStyle = FlatStyle.Flat;
+            cbAll.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            cbAll.ForeColor = Color.White;
             cbAll.Location = new Point(145, 31);
             cbAll.Margin = new Padding(0);
             cbAll.Name = "cbAll";
@@ -100,6 +102,8 @@
             cbThurs.FlatAppearance.BorderSize = 0;
             cbThurs.FlatAppearance.CheckedBackColor = Color.FromArgb(100, 130, 180);
             cbThurs.FlatStyle = FlatStyle.Flat;
+            cbThurs.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            cbThurs.ForeColor = Color.White;
             cbThurs.Location = new Point(145, 0);
             cbThurs.Margin = new Padding(0);
             cbThurs.Name = "cbThurs";
@@ -120,6 +124,8 @@
             cbSun.FlatAppearance.BorderSize = 0;
             cbSun.FlatAppearance.CheckedBackColor = Color.FromArgb(100, 130, 180);
             cbSun.FlatStyle = FlatStyle.Flat;
+            cbSun.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            cbSun.ForeColor = Color.White;
             cbSun.Location = new Point(96, 31);
             cbSun.Margin = new Padding(0);
             cbSun.Name = "cbSun";
@@ -140,6 +146,8 @@
             cbWed.FlatAppearance.BorderSize = 0;
             cbWed.FlatAppearance.CheckedBackColor = Color.FromArgb(100, 130, 180);
             cbWed.FlatStyle = FlatStyle.Flat;
+            cbWed.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            cbWed.ForeColor = Color.White;
             cbWed.Location = new Point(96, 0);
             cbWed.Margin = new Padding(0);
             cbWed.Name = "cbWed";
@@ -160,6 +168,8 @@
             cbSat.FlatAppearance.BorderSize = 0;
             cbSat.FlatAppearance.CheckedBackColor = Color.FromArgb(100, 130, 180);
             cbSat.FlatStyle = FlatStyle.Flat;
+            cbSat.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            cbSat.ForeColor = Color.White;
             cbSat.Location = new Point(48, 31);
             cbSat.Margin = new Padding(0);
             cbSat.Name = "cbSat";
@@ -180,6 +190,8 @@
             cbFri.FlatAppearance.BorderSize = 0;
             cbFri.FlatAppearance.CheckedBackColor = Color.FromArgb(100, 130, 180);
             cbFri.FlatStyle = FlatStyle.Flat;
+            cbFri.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            cbFri.ForeColor = Color.White;
             cbFri.Location = new Point(0, 31);
             cbFri.Margin = new Padding(0);
             cbFri.Name = "cbFri";
@@ -188,9 +200,8 @@
             cbFri.Text = "Fri";
             cbFri.TextAlign = ContentAlignment.MiddleCenter;
             cbFri.UseVisualStyleBackColor = false;
-            cbFri.Click += cbDayOfWeek_Clicked;
             cbFri.CheckedChanged += cbDayOfWeek_CheckedChanged;
-            
+            cbFri.Click += cbDayOfWeek_Clicked;
             // 
             // cbTues
             // 
@@ -201,6 +212,8 @@
             cbTues.FlatAppearance.BorderSize = 0;
             cbTues.FlatAppearance.CheckedBackColor = Color.FromArgb(100, 130, 180);
             cbTues.FlatStyle = FlatStyle.Flat;
+            cbTues.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            cbTues.ForeColor = Color.White;
             cbTues.Location = new Point(48, 0);
             cbTues.Margin = new Padding(0);
             cbTues.Name = "cbTues";
@@ -221,6 +234,8 @@
             cbMon.FlatAppearance.BorderSize = 0;
             cbMon.FlatAppearance.CheckedBackColor = Color.FromArgb(100, 130, 180);
             cbMon.FlatStyle = FlatStyle.Flat;
+            cbMon.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            cbMon.ForeColor = Color.White;
             cbMon.Location = new Point(0, 0);
             cbMon.Margin = new Padding(0);
             cbMon.Name = "cbMon";
