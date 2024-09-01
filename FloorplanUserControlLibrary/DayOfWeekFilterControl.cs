@@ -148,27 +148,43 @@ namespace FloorplanUserControlLibrary
         private string GetButtonFilteredString()
         {
             string display = "";
-            if (cbMon.Checked) {
-                display += "|Mon|";
+            List<CheckBox> checkedCbs = allCbs.Where(allCbs => allCbs.Checked).ToList();
+            foreach (CheckBox checkBox in checkedCbs) {
+                if (checkBox == cbMon) {
+                    display += "Mon";
+                }
+                if (checkBox == cbTues) {
+                    display += "Tue";
+                }
+                if (checkBox == cbWed) {
+                    display += "Wed";
+                }
+                if (checkBox == cbThurs) {
+                    display += "Thu";
+                }
+                if (checkBox == cbFri) {
+                    display += "Fri";
+                }
+                if (checkBox == cbSat) {
+                    display += "Sat";
+                }
+                if (checkBox == cbSun) {
+                    display += "Sun";
+                }
+                if(checkBox != checkedCbs.Last()) {
+                    if(checkedCbs.Count >=6) {
+                        display += "|";
+                    }
+                    else if(checkedCbs.Count == 5) {
+                        display += " | ";
+                    }
+                    else  {
+                        display += "  |  ";
+                    }
+
+                }
             }
-            if (cbTues.Checked) {
-                display += "|Tue|";
-            }
-            if (cbWed.Checked) {
-                display += "|Wed|";
-            }
-            if (cbThurs.Checked) {
-                display += "|Thu|";
-            }
-            if (cbFri.Checked) {
-                display += "|Fri|";
-            }
-            if (cbSat.Checked) {
-                display += "|Sat|";
-            }
-            if (cbSun.Checked) {
-                display += "|Sun|";
-            }
+            
             return display;
         }
         private void button1_Click(object sender, EventArgs e)
@@ -180,7 +196,7 @@ namespace FloorplanUserControlLibrary
             }
             else if (allChecked) {
                 button1.BackColor = UITheme.ButtonColor;
-                button1.ForeColor = UITheme.ButtonFontColor;
+                button1.ForeColor = Color.Black;
                 button1.Text = "Filter By Day Of Week";
                 UpdateShiftAnalysisFilter();
             }
