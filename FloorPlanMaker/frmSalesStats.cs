@@ -578,7 +578,7 @@ namespace FloorPlanMakerUI
                         PopulateAveragesDataGridView(areaManager.DiningAreas);
                         lblSampleSizeDisplay.Text = "Sample Size: " + shiftAnalysis.FilteredShifts.Count.ToString();
                         loadingForm.Close();
-                        shiftFilterControl.UpdateCountLabel();
+                        //shiftFilterControl.UpdateCountLabel();
                         //UpdateChart();
                         UpdateNewChart();
                         this.Enabled = true;

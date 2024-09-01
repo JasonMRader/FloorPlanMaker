@@ -24,7 +24,11 @@ namespace FloorplanUserControlLibrary
         }
         public void SetShiftAnalysis(ShiftAnalysis shiftAnalysis)
         {
+            if(_shiftAnalysis != null) {
+                _shiftAnalysis.FilterUpdated -= UpdateForFilters;
+            }
             _shiftAnalysis = shiftAnalysis;
+            shiftAnalysis.FilterUpdated += UpdateForFilters;
             FilterControl tempFilter = new FilterControl("Temp", 80, 90, FilterControl.FilterType.Temperature, shiftAnalysis);
             FilterControl rainFilter = new FilterControl("Rain", 0, 0, FilterControl.FilterType.Rain, shiftAnalysis);
             DateFilterControl dateFilterControl = new DateFilterControl(shiftAnalysis);
@@ -37,6 +41,12 @@ namespace FloorplanUserControlLibrary
             flowFilters.Controls.Add(monthFilterControl);
             flowFilters.Controls.Add(tempFilter);
             flowFilters.Controls.Add(rainFilter);
+        }
+
+        private void UpdateForFilters()
+        {
+            UpdateCountLabel();
+            
         }
 
         private void ShiftFilterControl_Load(object sender, EventArgs e)
@@ -72,7 +82,14 @@ namespace FloorplanUserControlLibrary
 
         public void UpdateCountLabel()
         {
-            lblFilteredShiftCount.Text = $"Total Filtered Shifts: {ShiftAnalysis.FilteredShifts.Count}";
+            if (lblFilteredShiftCount.InvokeRequired) {
+                lblFilteredShiftCount.Invoke(new Action(UpdateCountLabel));
+            }
+            else {
+                lblFilteredShiftCount.Text = $"Total Filtered Shifts: {_shiftAnalysis.FilteredShifts.Count}";
+                lblFilteredShiftCount.Visible = true;
+            }
         }
+
     }
 }

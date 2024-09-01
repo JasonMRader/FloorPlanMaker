@@ -8,6 +8,7 @@ namespace FloorplanClassLibrary
 {
     public class ShiftAnalysis
     {
+        public event Action FilterUpdated;
         public ShiftAnalysis(List<ShiftRecord> shifts) {
             _shifts = shifts;
         }
@@ -227,6 +228,7 @@ namespace FloorplanClassLibrary
             if(_filterBySpecialEvent) {
                 FilterBySpecialEvent();
             }
+            FilterUpdated?.Invoke();
             
         }
 
