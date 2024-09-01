@@ -28,9 +28,11 @@ namespace FloorplanUserControlLibrary
             FilterControl tempFilter = new FilterControl("Temp", 80, 90, FilterControl.FilterType.Temperature, shiftAnalysis);
             FilterControl rainFilter = new FilterControl("Rain", 0, 0, FilterControl.FilterType.Rain, shiftAnalysis);
             DateFilterControl dateFilterControl = new DateFilterControl(shiftAnalysis);
+            DayOfWeekFilterControl dayOfWeekFilterControl = new DayOfWeekFilterControl(shiftAnalysis);
             rdoAM.Checked = _shiftAnalysis.IsAM;
             rdoPM.Checked = !_shiftAnalysis.IsAM;
             flowFilters.Controls.Add(dateFilterControl);
+            flowFilters.Controls.Add(dayOfWeekFilterControl);
             flowFilters.Controls.Add(tempFilter);
             flowFilters.Controls.Add(rainFilter);
         }

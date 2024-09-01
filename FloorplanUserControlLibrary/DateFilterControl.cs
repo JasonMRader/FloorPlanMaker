@@ -38,6 +38,36 @@ namespace FloorplanUserControlLibrary
         {
 
         }
+        private void rdoTimeFrame_Clicked(object sender, EventArgs e)
+        {
+            DateOnly endDate = DateOnly.FromDateTime(DateTime.Today).AddDays(-1);
+            rdoLast30.BackColor = UITheme.ButtonColor;
+            rdoLast90.BackColor = UITheme.ButtonColor;
+            rdoLast365.BackColor = UITheme.ButtonColor;
+            rdoAllRecords.BackColor = UITheme.ButtonColor;
+
+            if (rdoLast30.Checked) {
+                shiftAnalysis.SetDateOnly(endDate.AddDays(-30), endDate);
+                button1.Text = $"Last 30 Days";
+                rdoLast30.BackColor = UITheme.CTAColor;
+            }
+            else if (rdoLast90.Checked) {
+                shiftAnalysis.SetDateOnly(endDate.AddDays(-90), endDate);
+                button1.Text = $"Last 90 Days";
+                rdoLast90.BackColor = UITheme.CTAColor;
+            }
+            else if (rdoLast365.Checked) {
+                shiftAnalysis.SetDateOnly(endDate.AddDays(-365), endDate);
+                button1.Text = $"Last 365 Days";
+                rdoLast365.BackColor = UITheme.CTAColor;
+            }
+            else if (rdoAllRecords.Checked) {
+                shiftAnalysis.SetDateOnly(new DateOnly(2023, 1, 1), endDate);
+                button1.Text = $"All Records";
+                rdoAllRecords.BackColor = UITheme.CTAColor;
+            }
+            flowRangeSelection.Visible = false;
+        }
         private void rdoTimeFrame_CheckChanged(object sender, EventArgs e)
         {
             DateOnly endDate = DateOnly.FromDateTime(DateTime.Today).AddDays(-1);

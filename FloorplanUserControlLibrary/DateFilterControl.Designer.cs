@@ -80,7 +80,7 @@
             rdoLast30.Text = "Last 30 Days";
             rdoLast30.TextAlign = ContentAlignment.MiddleCenter;
             rdoLast30.UseVisualStyleBackColor = false;
-            rdoLast30.CheckedChanged += rdoTimeFrame_CheckChanged;
+            rdoLast30.Click += rdoTimeFrame_Clicked;
             // 
             // rdoLast90
             // 
@@ -99,7 +99,7 @@
             rdoLast90.Text = "Last 90 Days";
             rdoLast90.TextAlign = ContentAlignment.MiddleCenter;
             rdoLast90.UseVisualStyleBackColor = false;
-            rdoLast90.CheckedChanged += rdoTimeFrame_CheckChanged;
+            rdoLast90.Click += rdoTimeFrame_Clicked;
             // 
             // rdoLast365
             // 
@@ -116,7 +116,7 @@
             rdoLast365.Text = "Last 365 Days";
             rdoLast365.TextAlign = ContentAlignment.MiddleCenter;
             rdoLast365.UseVisualStyleBackColor = false;
-            rdoLast365.CheckedChanged += rdoTimeFrame_CheckChanged;
+            rdoLast365.Click += rdoTimeFrame_Clicked;
             // 
             // rdoAllRecords
             // 
@@ -133,7 +133,7 @@
             rdoAllRecords.Text = "All Records";
             rdoAllRecords.TextAlign = ContentAlignment.MiddleCenter;
             rdoAllRecords.UseVisualStyleBackColor = false;
-            rdoAllRecords.CheckedChanged += rdoTimeFrame_CheckChanged;
+            rdoAllRecords.Click += rdoTimeFrame_Clicked;
             // 
             // DateFilterControl
             // 
