@@ -35,6 +35,7 @@
             cbHolidaysExcluded = new CheckBox();
             lblFilteredShiftCount = new Label();
             btnUpdate = new Button();
+            label2 = new Label();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             SuspendLayout();
@@ -63,7 +64,7 @@
             rdoPM.FlatAppearance.BorderSize = 0;
             rdoPM.FlatAppearance.CheckedBackColor = Color.FromArgb(100, 130, 180);
             rdoPM.FlatStyle = FlatStyle.Flat;
-            rdoPM.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            rdoPM.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             rdoPM.Location = new Point(97, 0);
             rdoPM.Margin = new Padding(0);
             rdoPM.Name = "rdoPM";
@@ -81,7 +82,7 @@
             rdoAM.FlatAppearance.BorderSize = 0;
             rdoAM.FlatAppearance.CheckedBackColor = Color.FromArgb(100, 130, 180);
             rdoAM.FlatStyle = FlatStyle.Flat;
-            rdoAM.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            rdoAM.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             rdoAM.Location = new Point(0, 0);
             rdoAM.Margin = new Padding(0);
             rdoAM.Name = "rdoAM";
@@ -107,7 +108,7 @@
             cbHolidaysExcluded.BackColor = SystemColors.ButtonShadow;
             cbHolidaysExcluded.FlatAppearance.BorderSize = 0;
             cbHolidaysExcluded.FlatStyle = FlatStyle.Flat;
-            cbHolidaysExcluded.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            cbHolidaysExcluded.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             cbHolidaysExcluded.Location = new Point(0, 0);
             cbHolidaysExcluded.Margin = new Padding(0);
             cbHolidaysExcluded.Name = "cbHolidaysExcluded";
@@ -144,11 +145,23 @@
             btnUpdate.UseVisualStyleBackColor = false;
             btnUpdate.Click += btnUpdate_Click;
             // 
+            // label2
+            // 
+            label2.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            label2.Location = new Point(3, 47);
+            label2.Name = "label2";
+            label2.Size = new Size(194, 74);
+            label2.TabIndex = 5;
+            label2.Text = "Resos, Month, Graph, Open Detailed Form, Save Settings";
+            label2.TextAlign = ContentAlignment.MiddleCenter;
+            label2.Visible = false;
+            // 
             // ShiftFilterControl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(btnUpdate);
+            Controls.Add(label2);
             Controls.Add(lblFilteredShiftCount);
             Controls.Add(panel2);
             Controls.Add(panel1);
@@ -173,5 +186,6 @@
         private RadioButton rdoAM;
         private Label lblFilteredShiftCount;
         private Button btnUpdate;
+        private Label label2;
     }
 }

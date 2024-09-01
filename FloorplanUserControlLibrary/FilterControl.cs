@@ -33,9 +33,9 @@ namespace FloorplanUserControlLibrary
             WindAvg,
             Reservations
         }
-        
 
-        public FilterControl(string filterName, decimal defaultMin,decimal defaultMax, 
+
+        public FilterControl(string filterName, decimal defaultMin, decimal defaultMax,
             FilterType filter, ShiftAnalysis shiftAnalysis)
         {
             InitializeComponent();
@@ -48,50 +48,54 @@ namespace FloorplanUserControlLibrary
             this.filterName = filterName;
             button1.Text = $"Filter by {filterName}";
             this.filterType = filter;
-            if(filterType == FilterType.Temperature) {
+            if (filterType == FilterType.Temperature) {
                 isInt = true;
             }
-            if(filterType == FilterType.Rain) {
+            if (filterType == FilterType.Rain) {
                 numericUpDown1.Increment = 0.1m;
                 numericUpDown2.Increment = 0.1m;
-                numericUpDown1.DecimalPlaces = 1; 
+                numericUpDown1.DecimalPlaces = 1;
                 numericUpDown2.DecimalPlaces = 1;
             }
             button1.BackColor = UITheme.ButtonColor;
+            button1.ForeColor = Color.Black;
 
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if(!_filtered && !_choosing) {
+            if (!_filtered && !_choosing) {
                 numericUpDown1.Visible = true;
                 numericUpDown2.Visible = true;
                 //flowModifiers.Visible = true;
                 button1.Text = $"OK";
                 button1.BackColor = UITheme.YesColor;
+                button1.ForeColor = Color.White;
                 _filtered = true;
                 _choosing = true;
                 return;
             }
-            else if(_filtered && _choosing) {
+            else if (_filtered && _choosing) {
                 SetIsFilteredBy(true);
                 numericUpDown1.Visible = false;
                 numericUpDown2.Visible = false;
                 flowModifiers.Visible = false;
                 _choosing = false;
                 button1.BackColor = UITheme.CTAColor;
+                button1.ForeColor = Color.White;
                 return;
             }
-            else if(_filtered &&  !_choosing) {
+            else if (_filtered && !_choosing) {
                 button1.Text = $"Filter by {filterName}";
                 _filtered = false;
                 SetIsFilteredBy(false);
                 button1.BackColor = UITheme.ButtonColor;
+                button1.ForeColor = Color.Black;
             }
         }
         private void SetIsFilteredBy(bool isFiltered)
         {
-            if(isFiltered) {
+            if (isFiltered) {
                 if (filterType == FilterType.Temperature) {
                     shiftAnalysis.SetIsFilteredByTemp(isFiltered);
                     SetTemperatureFilter();
@@ -104,20 +108,20 @@ namespace FloorplanUserControlLibrary
             else {
                 if (filterType == FilterType.Temperature) {
                     shiftAnalysis.SetIsFilteredByTemp(isFiltered);
-                    
+
                 }
                 else if (filterType == FilterType.Rain) {
                     shiftAnalysis.SetIsFilteredbyRainAmount(isFiltered);
-                    
+
                 }
             }
-           
+
         }
         private void SetTemperatureFilter()
         {
             this.minInt = (int)numericUpDown1.Value;
             this.maxInt = (int)numericUpDown2.Value;
-            button1.Text = $"{minInt}° to {maxInt}°";            
+            button1.Text = $"{minInt}° to {maxInt}°";
             shiftAnalysis.SetTempRange(minInt, maxInt);
         }
         private void SetRainFilter()

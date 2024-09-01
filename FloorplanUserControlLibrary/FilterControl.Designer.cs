@@ -40,7 +40,7 @@
             button1.BackColor = Color.FromArgb(100, 130, 180);
             button1.FlatAppearance.BorderSize = 0;
             button1.FlatStyle = FlatStyle.Flat;
-            button1.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            button1.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             button1.ForeColor = Color.White;
             button1.Location = new Point(0, 0);
             button1.Margin = new Padding(0);

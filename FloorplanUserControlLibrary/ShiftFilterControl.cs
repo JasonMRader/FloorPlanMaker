@@ -65,7 +65,7 @@ namespace FloorplanUserControlLibrary
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             UpdateShift?.Invoke();
-           
+
         }
 
         public void UpdateCountLabel()
