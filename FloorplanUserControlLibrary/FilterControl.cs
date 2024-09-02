@@ -50,22 +50,72 @@ namespace FloorplanUserControlLibrary
             this.filterType = filter;
             if (filterType == FilterType.Temperature) {
                 isInt = true;
+                numericUpDown1.Minimum = -50;
+                numericUpDown2.Minimum = -50;
+                numericUpDown1.Maximum = 130;
+                numericUpDown2.Maximum = 130;
             }
             if (filterType == FilterType.Rain) {
-                numericUpDown1.Increment = 0.05m;
-                numericUpDown2.Increment = 0.05m;
+                numericUpDown1.Increment = 0.01m;
+                numericUpDown2.Increment = 0.01m;
                 numericUpDown1.DecimalPlaces = 2;
                 numericUpDown2.DecimalPlaces = 2;
             }
             if(filterType == FilterType.Reservations) {
                 this.Enabled = false;
-            }
-           
+            }           
             button1.BackColor = UITheme.ButtonColor;
             button1.ForeColor = Color.Black;
-
         }
+        public void UpdateDefaultsForCurrentWeather(ShiftWeather shiftWeather)
+        {
+            if (filterType == FilterType.Temperature) {
+                numericUpDown1.Value = shiftWeather.FeelsLikeAvg - 5;
+                numericUpDown2.Value = shiftWeather.FeelsLikeAvg + 5;
+            }
+            else if (filterType == FilterType.Rain) {
+                if(shiftWeather.RainAmount == 0) {
+                    numericUpDown1.Value = 0;
+                    numericUpDown2.Value = 0;
+                }
+                else if (shiftWeather.RainAmount > 0 && shiftWeather.RainAmount <= .1) {
+                    numericUpDown1.Value = .01m;
+                    numericUpDown2.Value = (decimal)shiftWeather.RainAmount + .15m;
+                }
+                else if (shiftWeather.RainAmount > .1 && shiftWeather.RainAmount <= .25) {
+                    numericUpDown1.Value = .05m;
+                    numericUpDown2.Value = (decimal)shiftWeather.RainAmount + .3m;
+                }
+                else if (shiftWeather.RainAmount > .25) {
+                    numericUpDown1.Value = .2m;
+                    numericUpDown2.Value = (decimal)shiftWeather.RainAmount + 1m;
+                }
 
+
+            }
+            else if (filterType == FilterType.Clouds) {
+                if (shiftWeather.CloudCoverAverage < 40) {
+                    numericUpDown1.Value = 0;
+                    numericUpDown2.Value = 60;
+                }
+                else {
+                    numericUpDown1.Value = (decimal)shiftWeather.CloudCoverAverage - 30;
+                    if (shiftWeather.CloudCoverAverage < 70) {
+                        numericUpDown2.Value = (decimal)shiftWeather.CloudCoverAverage + 30;
+                    }
+                    else {
+                        numericUpDown2.Value = 100;
+                    }
+                    
+                }
+            }
+            else if (filterType == FilterType.WindMax) {
+                
+            }
+            else if (filterType == FilterType.WindAvg) {
+               
+            }
+        }
         private void button1_Click(object sender, EventArgs e)
         {
             if (!_filtered && !_choosing) {
@@ -170,7 +220,7 @@ namespace FloorplanUserControlLibrary
         private void SetRainFilter()
         {
            
-            button1.Text = $"{numericUpDown1.Value:F1}\" to {numericUpDown2.Value:F1}\"";
+            button1.Text = $"{numericUpDown1.Value:F2}\" to {numericUpDown2.Value:F2}\"";
             shiftAnalysis.SetRainRange((float)numericUpDown1.Value, (float)numericUpDown2.Value);
         }
     }
