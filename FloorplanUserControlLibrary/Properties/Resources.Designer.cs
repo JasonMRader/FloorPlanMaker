@@ -143,6 +143,36 @@ namespace FloorplanUserControlLibrary.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap analytics_16px {
+            get {
+                object obj = ResourceManager.GetObject("analytics_16px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap analytics_24px {
+            get {
+                object obj = ResourceManager.GetObject("analytics_24px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap analytics_32px {
+            get {
+                object obj = ResourceManager.GetObject("analytics_32px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap AnotherSMallBluePrint {
             get {
                 object obj = ResourceManager.GetObject("AnotherSMallBluePrint", resourceCulture);
@@ -556,6 +586,26 @@ namespace FloorplanUserControlLibrary.Properties {
         internal static System.Drawing.Bitmap FridayText {
             get {
                 object obj = ResourceManager.GetObject("FridayText", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap gear_24px {
+            get {
+                object obj = ResourceManager.GetObject("gear_24px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap gear_32px {
+            get {
+                object obj = ResourceManager.GetObject("gear_32px", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

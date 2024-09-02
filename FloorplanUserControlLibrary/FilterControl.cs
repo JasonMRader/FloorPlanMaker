@@ -40,16 +40,9 @@ namespace FloorplanUserControlLibrary
         {
             InitializeComponent();
             this.shiftAnalysis = shiftAnalysis;
-            numericUpDown1.Value = defaultMin;
-            numericUpDown2.Value = defaultMax;
-            numericUpDown1.Visible = false;
-            numericUpDown2.Visible = false;
-            flowModifiers.Visible = false;
-            this.filterName = filterName;
-            button1.Text = $"Filter by {filterName}";
             this.filterType = filter;
             if (filterType == FilterType.Temperature) {
-                isInt = true;
+
                 numericUpDown1.Minimum = -50;
                 numericUpDown2.Minimum = -50;
                 numericUpDown1.Maximum = 130;
@@ -61,9 +54,24 @@ namespace FloorplanUserControlLibrary
                 numericUpDown1.DecimalPlaces = 2;
                 numericUpDown2.DecimalPlaces = 2;
             }
-            if(filterType == FilterType.Reservations) {
+            if (filterType == FilterType.Reservations) {
                 this.Enabled = false;
-            }           
+                numericUpDown1.Minimum = 0;
+                numericUpDown2.Minimum = 0;
+                numericUpDown1.Maximum = 2000;
+                numericUpDown2.Maximum = 2000;
+                numericUpDown1.Increment = 50;
+                numericUpDown2.Increment = 50;
+            }
+            numericUpDown1.Value = defaultMin;
+            numericUpDown2.Value = defaultMax;
+            numericUpDown1.Visible = false;
+            numericUpDown2.Visible = false;
+            flowModifiers.Visible = false;
+            this.filterName = filterName;
+            button1.Text = $"Filter by {filterName}";
+           
+           
             button1.BackColor = UITheme.ButtonColor;
             button1.ForeColor = Color.Black;
         }

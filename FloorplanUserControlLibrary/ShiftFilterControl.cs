@@ -39,12 +39,14 @@ namespace FloorplanUserControlLibrary
             FilterControl cloudFilter = new FilterControl("Clouds", 0, 80, FilterControl.FilterType.Clouds, shiftAnalysis);
             FilterControl windMaxControl = new FilterControl("Max Wind", 0, 15, FilterControl.FilterType.WindMax, shiftAnalysis);
             FilterControl windAvgControl = new FilterControl("Avg Wind", 0, 10, FilterControl.FilterType.WindAvg, shiftAnalysis);
+            FilterControl resoControl = new FilterControl("Reservations", 100, 300, FilterControl.FilterType.Reservations, shiftAnalysis);
             DateFilterControl dateFilterControl = new DateFilterControl(shiftAnalysis);
             DayOfWeekFilterControl dayOfWeekFilterControl = new DayOfWeekFilterControl(shiftAnalysis);
             MonthFilterControl monthFilterControl = new MonthFilterControl(shiftAnalysis);
             rdoAM.Checked = _shiftAnalysis.IsAM;
             rdoPM.Checked = !_shiftAnalysis.IsAM;
             flowFilters.Controls.Add(dateFilterControl);
+            flowFilters.Controls.Add(resoControl);
             flowFilters.Controls.Add(dayOfWeekFilterControl);
             flowFilters.Controls.Add(monthFilterControl);
             flowFilters.Controls.Add(tempFilter);
@@ -97,7 +99,7 @@ namespace FloorplanUserControlLibrary
                 lblFilteredShiftCount.Invoke(new Action(UpdateCountLabel));
             }
             else {
-                lblFilteredShiftCount.Text = $"{_shiftAnalysis.FilteredShifts.Count} Filtered Shifts";
+                lblFilteredShiftCount.Text = $"{_shiftAnalysis.FilteredShifts.Count} Shifts";
                 lblFilteredShiftCount.Visible = true;
             }
         }

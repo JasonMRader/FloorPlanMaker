@@ -38,7 +38,6 @@
             dataGridView1 = new DataGridView();
             flowDiningAreas = new FlowLayoutPanel();
             dgvAreaStats = new DataGridView();
-            lblSampleSizeDisplay = new Label();
             button1 = new Button();
             cartesianChart1 = new LiveChartsCore.SkiaSharpView.WinForms.CartesianChart();
             btnLineGraph = new Button();
@@ -55,43 +54,59 @@
             rdoCompareWeekDays = new RadioButton();
             rdoCompareMonths = new RadioButton();
             label7 = new Label();
+            pnlContainer = new Panel();
             panel1.SuspendLayout();
             pnlServerSelect.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvAreaStats).BeginInit();
             panel7.SuspendLayout();
+            pnlContainer.SuspendLayout();
             SuspendLayout();
             // 
             // rdoDiningAreaSales
             // 
-            rdoDiningAreaSales.AutoSize = true;
+            rdoDiningAreaSales.Appearance = Appearance.Button;
+            rdoDiningAreaSales.BackColor = SystemColors.ButtonShadow;
             rdoDiningAreaSales.Checked = true;
-            rdoDiningAreaSales.Location = new Point(0, 3);
+            rdoDiningAreaSales.FlatAppearance.BorderSize = 0;
+            rdoDiningAreaSales.FlatAppearance.CheckedBackColor = Color.FromArgb(100, 130, 180);
+            rdoDiningAreaSales.FlatStyle = FlatStyle.Flat;
+            rdoDiningAreaSales.ForeColor = Color.White;
+            rdoDiningAreaSales.Location = new Point(0, 0);
+            rdoDiningAreaSales.Margin = new Padding(0);
             rdoDiningAreaSales.Name = "rdoDiningAreaSales";
-            rdoDiningAreaSales.Size = new Size(116, 19);
+            rdoDiningAreaSales.Size = new Size(210, 28);
             rdoDiningAreaSales.TabIndex = 1;
             rdoDiningAreaSales.TabStop = true;
             rdoDiningAreaSales.Text = "Dining Area Sales";
-            rdoDiningAreaSales.UseVisualStyleBackColor = true;
+            rdoDiningAreaSales.TextAlign = ContentAlignment.MiddleCenter;
+            rdoDiningAreaSales.UseVisualStyleBackColor = false;
             // 
             // rdoServerShifts
             // 
-            rdoServerShifts.AutoSize = true;
-            rdoServerShifts.Location = new Point(126, 3);
+            rdoServerShifts.Appearance = Appearance.Button;
+            rdoServerShifts.BackColor = SystemColors.ButtonShadow;
+            rdoServerShifts.FlatAppearance.BorderSize = 0;
+            rdoServerShifts.FlatAppearance.CheckedBackColor = Color.FromArgb(100, 130, 180);
+            rdoServerShifts.FlatStyle = FlatStyle.Flat;
+            rdoServerShifts.ForeColor = Color.White;
+            rdoServerShifts.Location = new Point(0, 28);
+            rdoServerShifts.Margin = new Padding(0);
             rdoServerShifts.Name = "rdoServerShifts";
-            rdoServerShifts.Size = new Size(125, 19);
+            rdoServerShifts.Size = new Size(210, 26);
             rdoServerShifts.TabIndex = 1;
             rdoServerShifts.Text = "Server Shift History";
-            rdoServerShifts.UseVisualStyleBackColor = true;
+            rdoServerShifts.TextAlign = ContentAlignment.MiddleCenter;
+            rdoServerShifts.UseVisualStyleBackColor = false;
             rdoServerShifts.CheckedChanged += rdoServerShifts_CheckedChanged;
             // 
             // panel1
             // 
             panel1.Controls.Add(rdoServerShifts);
             panel1.Controls.Add(rdoDiningAreaSales);
-            panel1.Location = new Point(30, 12);
+            panel1.Location = new Point(1251, 819);
             panel1.Name = "panel1";
-            panel1.Size = new Size(258, 31);
+            panel1.Size = new Size(210, 56);
             panel1.TabIndex = 4;
             // 
             // pnlServerSelect
@@ -100,9 +115,9 @@
             pnlServerSelect.Controls.Add(lblComboLabel);
             pnlServerSelect.Controls.Add(btnIndividualStats);
             pnlServerSelect.Controls.Add(cboServerSelect);
-            pnlServerSelect.Location = new Point(294, 12);
+            pnlServerSelect.Location = new Point(1251, 881);
             pnlServerSelect.Name = "pnlServerSelect";
-            pnlServerSelect.Size = new Size(196, 62);
+            pnlServerSelect.Size = new Size(206, 62);
             pnlServerSelect.TabIndex = 8;
             // 
             // btnIndividualServerShifts
@@ -146,47 +161,37 @@
             // dataGridView1
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(12, 822);
+            dataGridView1.Location = new Point(36, 716);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowTemplate.Height = 25;
-            dataGridView1.Size = new Size(890, 200);
+            dataGridView1.Size = new Size(890, 249);
             dataGridView1.TabIndex = 12;
             // 
             // flowDiningAreas
             // 
-            flowDiningAreas.Location = new Point(12, 231);
+            flowDiningAreas.Location = new Point(36, 444);
             flowDiningAreas.Name = "flowDiningAreas";
-            flowDiningAreas.Size = new Size(724, 53);
+            flowDiningAreas.Size = new Size(890, 53);
             flowDiningAreas.TabIndex = 13;
             // 
             // dgvAreaStats
             // 
             dgvAreaStats.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvAreaStats.Location = new Point(12, 628);
+            dgvAreaStats.Location = new Point(36, 503);
             dgvAreaStats.Name = "dgvAreaStats";
             dgvAreaStats.RowTemplate.Height = 25;
-            dgvAreaStats.Size = new Size(890, 188);
+            dgvAreaStats.Size = new Size(890, 201);
             dgvAreaStats.TabIndex = 14;
-            // 
-            // lblSampleSizeDisplay
-            // 
-            lblSampleSizeDisplay.AutoSize = true;
-            lblSampleSizeDisplay.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            lblSampleSizeDisplay.Location = new Point(12, 287);
-            lblSampleSizeDisplay.Name = "lblSampleSizeDisplay";
-            lblSampleSizeDisplay.Size = new Size(119, 25);
-            lblSampleSizeDisplay.TabIndex = 15;
-            lblSampleSizeDisplay.Text = "Sample Size:";
             // 
             // button1
             // 
-            button1.BackColor = Color.FromArgb(255, 128, 128);
+            button1.BackColor = Color.FromArgb(190, 80, 70);
             button1.FlatAppearance.BorderSize = 0;
             button1.FlatStyle = FlatStyle.Flat;
             button1.Image = Properties.Resources.X15x;
-            button1.Location = new Point(1452, 6);
+            button1.Location = new Point(1433, 3);
             button1.Name = "button1";
-            button1.Size = new Size(37, 37);
+            button1.Size = new Size(28, 28);
             button1.TabIndex = 17;
             button1.UseVisualStyleBackColor = false;
             button1.Click += button1_Click;
@@ -194,9 +199,9 @@
             // cartesianChart1
             // 
             cartesianChart1.BackColor = Color.WhiteSmoke;
-            cartesianChart1.Location = new Point(12, 315);
+            cartesianChart1.Location = new Point(36, 67);
             cartesianChart1.Name = "cartesianChart1";
-            cartesianChart1.Size = new Size(893, 307);
+            cartesianChart1.Size = new Size(1074, 362);
             cartesianChart1.TabIndex = 18;
             // 
             // btnLineGraph
@@ -205,7 +210,7 @@
             btnLineGraph.FlatAppearance.BorderSize = 0;
             btnLineGraph.FlatStyle = FlatStyle.Flat;
             btnLineGraph.ForeColor = Color.White;
-            btnLineGraph.Location = new Point(250, 289);
+            btnLineGraph.Location = new Point(36, 38);
             btnLineGraph.Name = "btnLineGraph";
             btnLineGraph.Size = new Size(98, 23);
             btnLineGraph.TabIndex = 19;
@@ -219,7 +224,7 @@
             btnAreaGraph.FlatAppearance.BorderSize = 0;
             btnAreaGraph.FlatStyle = FlatStyle.Flat;
             btnAreaGraph.ForeColor = Color.White;
-            btnAreaGraph.Location = new Point(354, 289);
+            btnAreaGraph.Location = new Point(140, 38);
             btnAreaGraph.Name = "btnAreaGraph";
             btnAreaGraph.Size = new Size(98, 23);
             btnAreaGraph.TabIndex = 19;
@@ -233,7 +238,7 @@
             btnBoxChart.FlatAppearance.BorderSize = 0;
             btnBoxChart.FlatStyle = FlatStyle.Flat;
             btnBoxChart.ForeColor = Color.White;
-            btnBoxChart.Location = new Point(458, 289);
+            btnBoxChart.Location = new Point(244, 38);
             btnBoxChart.Name = "btnBoxChart";
             btnBoxChart.Size = new Size(98, 23);
             btnBoxChart.TabIndex = 19;
@@ -243,10 +248,11 @@
             // 
             // pnlFilters
             // 
-            pnlFilters.BackColor = Color.FromArgb(225, 225, 225);
-            pnlFilters.Location = new Point(1151, 231);
+            pnlFilters.BackColor = Color.FromArgb(180, 190, 200);
+            pnlFilters.Location = new Point(1251, 66);
             pnlFilters.Name = "pnlFilters";
-            pnlFilters.Size = new Size(200, 737);
+            pnlFilters.Padding = new Padding(5, 5, 0, 0);
+            pnlFilters.Size = new Size(210, 747);
             pnlFilters.TabIndex = 20;
             // 
             // rdoCompareDates
@@ -277,7 +283,7 @@
             panel7.Controls.Add(rdoCompareWeekDays);
             panel7.Controls.Add(rdoCompareMonths);
             panel7.Controls.Add(rdoCompareDates);
-            panel7.Location = new Point(911, 334);
+            panel7.Location = new Point(1125, 95);
             panel7.Name = "panel7";
             panel7.Size = new Size(95, 247);
             panel7.TabIndex = 22;
@@ -398,46 +404,57 @@
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            label7.Location = new Point(911, 306);
+            label7.Location = new Point(1125, 67);
             label7.Name = "label7";
             label7.Size = new Size(90, 25);
             label7.TabIndex = 15;
             label7.Text = "Compare";
             // 
+            // pnlContainer
+            // 
+            pnlContainer.BackColor = Color.FromArgb(225, 225, 225);
+            pnlContainer.Controls.Add(panel1);
+            pnlContainer.Controls.Add(button1);
+            pnlContainer.Controls.Add(cartesianChart1);
+            pnlContainer.Controls.Add(dataGridView1);
+            pnlContainer.Controls.Add(dgvAreaStats);
+            pnlContainer.Controls.Add(panel7);
+            pnlContainer.Controls.Add(pnlServerSelect);
+            pnlContainer.Controls.Add(btnBoxChart);
+            pnlContainer.Controls.Add(pnlFilters);
+            pnlContainer.Controls.Add(label7);
+            pnlContainer.Controls.Add(btnAreaGraph);
+            pnlContainer.Controls.Add(flowDiningAreas);
+            pnlContainer.Controls.Add(btnLineGraph);
+            pnlContainer.Location = new Point(12, 12);
+            pnlContainer.Name = "pnlContainer";
+            pnlContainer.Size = new Size(1477, 1018);
+            pnlContainer.TabIndex = 23;
+            // 
             // frmSalesStats
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.FromArgb(180, 190, 200);
             ClientSize = new Size(1501, 1042);
-            Controls.Add(panel7);
-            Controls.Add(pnlFilters);
-            Controls.Add(btnBoxChart);
-            Controls.Add(btnAreaGraph);
-            Controls.Add(btnLineGraph);
-            Controls.Add(cartesianChart1);
-            Controls.Add(button1);
-            Controls.Add(label7);
-            Controls.Add(lblSampleSizeDisplay);
-            Controls.Add(dgvAreaStats);
-            Controls.Add(flowDiningAreas);
-            Controls.Add(dataGridView1);
-            Controls.Add(pnlServerSelect);
-            Controls.Add(panel1);
+            ControlBox = false;
+            Controls.Add(pnlContainer);
             ForeColor = Color.Black;
             FormBorderStyle = FormBorderStyle.None;
+            MaximizeBox = false;
             Name = "frmSalesStats";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "frmSalesStats";
             Load += frmSalesStats_Load;
             panel1.ResumeLayout(false);
-            panel1.PerformLayout();
             pnlServerSelect.ResumeLayout(false);
             pnlServerSelect.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvAreaStats).EndInit();
             panel7.ResumeLayout(false);
+            pnlContainer.ResumeLayout(false);
+            pnlContainer.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -452,7 +469,6 @@
         private DataGridView dataGridView1;
         private FlowLayoutPanel flowDiningAreas;
         private DataGridView dgvAreaStats;
-        private Label lblSampleSizeDisplay;
 
         private Button button1;
         private LiveChartsCore.SkiaSharpView.WinForms.CartesianChart cartesianChart1;
@@ -470,6 +486,7 @@
         private Label label7;
         private RadioButton rdoCompareClouds;
         private RadioButton rdoCompareWind;
+        private Panel pnlContainer;
         //private SplitContainer splitContainer1;
     }
 }

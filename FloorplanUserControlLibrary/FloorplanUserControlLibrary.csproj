@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="livechartscore.skiasharpview.winforms" Version="2.0.0-rc2" />
     <PackageReference Include="PDFsharp" Version="6.1.1" />
   </ItemGroup>
 

@@ -133,6 +133,15 @@
   <data name="Add_Person1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Add Person1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="analytics_16px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\analytics_16px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="analytics_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\analytics_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="analytics_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\analytics_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="AnotherSMallBluePrint" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\AnotherSMallBluePrint.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -258,6 +267,12 @@
   </data>
   <data name="FridayText" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\FridayText.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="gear_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\gear_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="gear_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\gear_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="HelpSolidExtraSmall" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HelpSolidExtraSmall.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

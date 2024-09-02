@@ -31,28 +31,28 @@
             panel1 = new Panel();
             rdoPM = new RadioButton();
             rdoAM = new RadioButton();
-            panel2 = new Panel();
             cbHolidaysExcluded = new CheckBox();
             lblFilteredShiftCount = new Label();
             btnUpdate = new Button();
-            label2 = new Label();
+            btnSaveFilter = new Button();
+            button2 = new Button();
+            cartesianChart1 = new LiveChartsCore.SkiaSharpView.WinForms.CartesianChart();
             panel1.SuspendLayout();
-            panel2.SuspendLayout();
             SuspendLayout();
             // 
             // flowFilters
             // 
             flowFilters.FlowDirection = FlowDirection.TopDown;
-            flowFilters.Location = new Point(3, 197);
+            flowFilters.Location = new Point(3, 342);
             flowFilters.Name = "flowFilters";
-            flowFilters.Size = new Size(194, 494);
+            flowFilters.Size = new Size(194, 349);
             flowFilters.TabIndex = 2;
             // 
             // panel1
             // 
             panel1.Controls.Add(rdoPM);
             panel1.Controls.Add(rdoAM);
-            panel1.Location = new Point(3, 158);
+            panel1.Location = new Point(3, 282);
             panel1.Name = "panel1";
             panel1.Size = new Size(194, 28);
             panel1.TabIndex = 4;
@@ -94,14 +94,6 @@
             rdoAM.UseVisualStyleBackColor = false;
             rdoAM.CheckedChanged += rdoAM_CheckedChanged;
             // 
-            // panel2
-            // 
-            panel2.Controls.Add(cbHolidaysExcluded);
-            panel2.Location = new Point(3, 124);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(194, 28);
-            panel2.TabIndex = 4;
-            // 
             // cbHolidaysExcluded
             // 
             cbHolidaysExcluded.Appearance = Appearance.Button;
@@ -109,7 +101,7 @@
             cbHolidaysExcluded.FlatAppearance.BorderSize = 0;
             cbHolidaysExcluded.FlatStyle = FlatStyle.Flat;
             cbHolidaysExcluded.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            cbHolidaysExcluded.Location = new Point(0, 0);
+            cbHolidaysExcluded.Location = new Point(3, 313);
             cbHolidaysExcluded.Margin = new Padding(0);
             cbHolidaysExcluded.Name = "cbHolidaysExcluded";
             cbHolidaysExcluded.Size = new Size(194, 27);
@@ -122,7 +114,7 @@
             // lblFilteredShiftCount
             // 
             lblFilteredShiftCount.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            lblFilteredShiftCount.Location = new Point(3, 10);
+            lblFilteredShiftCount.Location = new Point(3, 46);
             lblFilteredShiftCount.Name = "lblFilteredShiftCount";
             lblFilteredShiftCount.Size = new Size(194, 23);
             lblFilteredShiftCount.TabIndex = 5;
@@ -145,32 +137,61 @@
             btnUpdate.UseVisualStyleBackColor = false;
             btnUpdate.Click += btnUpdate_Click;
             // 
-            // label2
+            // btnSaveFilter
             // 
-            label2.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            label2.Location = new Point(3, 47);
-            label2.Name = "label2";
-            label2.Size = new Size(194, 74);
-            label2.TabIndex = 5;
-            label2.Text = "Resos, Graph, Open Detailed Form, Save Settings";
-            label2.TextAlign = ContentAlignment.MiddleCenter;
-            label2.Visible = false;
+            btnSaveFilter.BackColor = SystemColors.ButtonShadow;
+            btnSaveFilter.FlatAppearance.BorderSize = 0;
+            btnSaveFilter.FlatStyle = FlatStyle.Flat;
+            btnSaveFilter.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            btnSaveFilter.ForeColor = Color.White;
+            btnSaveFilter.Image = Properties.Resources.ExtraSmallSave;
+            btnSaveFilter.Location = new Point(123, 3);
+            btnSaveFilter.Name = "btnSaveFilter";
+            btnSaveFilter.Size = new Size(30, 30);
+            btnSaveFilter.TabIndex = 6;
+            btnSaveFilter.UseVisualStyleBackColor = false;
+            btnSaveFilter.Click += btnUpdate_Click;
+            // 
+            // button2
+            // 
+            button2.BackColor = Color.FromArgb(100, 130, 180);
+            button2.FlatAppearance.BorderSize = 0;
+            button2.FlatStyle = FlatStyle.Flat;
+            button2.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            button2.ForeColor = Color.White;
+            button2.Image = Properties.Resources.analytics_24px;
+            button2.Location = new Point(159, 3);
+            button2.Name = "button2";
+            button2.Size = new Size(30, 30);
+            button2.TabIndex = 6;
+            button2.UseVisualStyleBackColor = false;
+            button2.Click += btnUpdate_Click;
+            // 
+            // cartesianChart1
+            // 
+            cartesianChart1.BackColor = Color.LightGray;
+            cartesianChart1.Location = new Point(3, 104);
+            cartesianChart1.Name = "cartesianChart1";
+            cartesianChart1.Size = new Size(194, 161);
+            cartesianChart1.TabIndex = 7;
             // 
             // ShiftFilterControl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.WhiteSmoke;
+            Controls.Add(cartesianChart1);
+            Controls.Add(cbHolidaysExcluded);
+            Controls.Add(button2);
+            Controls.Add(btnSaveFilter);
             Controls.Add(btnUpdate);
-            Controls.Add(label2);
             Controls.Add(lblFilteredShiftCount);
-            Controls.Add(panel2);
             Controls.Add(panel1);
             Controls.Add(flowFilters);
             Name = "ShiftFilterControl";
             Size = new Size(200, 737);
             Load += ShiftFilterControl_Load;
             panel1.ResumeLayout(false);
-            panel2.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -180,12 +201,13 @@
         private FlowLayoutPanel flowFilters;
         private Label label1;
         private Panel panel1;
-        private Panel panel2;
         private CheckBox cbHolidaysExcluded;
         private RadioButton rdoPM;
         private RadioButton rdoAM;
         private Label lblFilteredShiftCount;
         private Button btnUpdate;
-        private Label label2;
+        private Button btnSaveFilter;
+        private Button button2;
+        private LiveChartsCore.SkiaSharpView.WinForms.CartesianChart cartesianChart1;
     }
 }

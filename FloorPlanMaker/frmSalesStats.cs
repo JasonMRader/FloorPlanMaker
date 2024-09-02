@@ -30,6 +30,7 @@ namespace FloorPlanMakerUI
         {
             InitializeComponent();
             shiftFilterControl = new ShiftFilterControl();
+            shiftFilterControl.Location = new Point(5,5);
             shiftAnalysis.SetStandardFiltersForDateAndShiftType(false, DateOnly.FromDateTime(DateTime.Today));
             pnlFilters.Controls.Add(shiftFilterControl);
             shiftFilterControl.SetShiftAnalysis(shiftAnalysis);
@@ -323,7 +324,7 @@ namespace FloorPlanMakerUI
                         
                         PopulateDGVForAreaSales(dataGridView1, areaManager.DiningAreas, shiftAnalysis.FilteredShifts);
                         PopulateAveragesDataGridView(areaManager.DiningAreas);
-                        lblSampleSizeDisplay.Text = "Sample Size: " + shiftAnalysis.FilteredShifts.Count.ToString();
+                       
                         
                         loadingForm.Close();
                        
