@@ -28,7 +28,11 @@ namespace FloorplanUserControlLibrary
                 _shiftAnalysis.FilterUpdated -= UpdateForFilters;
             }
             _shiftAnalysis = shiftAnalysis;
-            if(shiftAnalysis.IsFil
+            if(shiftAnalysis.SpecialEventsAllowed) {
+                cbHolidaysExcluded.Checked = false;
+            }
+            else { cbHolidaysExcluded.Checked = true; }
+
             shiftAnalysis.FilterUpdated += UpdateForFilters;
             FilterControl tempFilter = new FilterControl("Temp", 80, 90, FilterControl.FilterType.Temperature, shiftAnalysis);
             FilterControl rainFilter = new FilterControl("Rain", 0, 0, FilterControl.FilterType.Rain, shiftAnalysis);

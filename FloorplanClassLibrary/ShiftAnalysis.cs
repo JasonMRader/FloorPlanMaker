@@ -69,9 +69,9 @@ namespace FloorplanClassLibrary
         private int WindAvgMin { get; set; }
         private int WindAvgMax { get; set; }
         private bool _filterByTemperature { get; set; } = false;
-        public bool FilterByTemperature { get {  return _filterByTemperature; } }
+        public bool IsFilterByTemperature { get {  return _filterByTemperature; } }
         private bool _filterByRainAmount { get; set; } = false;
-        public bool FilterByRainAmount { get { return _filterByRainAmount; } }
+        public bool IsFilteredByRainAmount { get { return _filterByRainAmount; } }
         private bool _filterByClouds { get; set; } = false;
         private bool _filterByWindMax { get; set; } = false;
         private bool _filterByWindAvg { get; set; } = false;
@@ -80,7 +80,8 @@ namespace FloorplanClassLibrary
         private bool _filterByMonth { get; set; } = false;
         private bool _filterByReservations { get; set; } = false;
         private bool _filterBySpecialEvent { get; set; } = false;
-        private bool specialEventsAllowed { get; set; } = false;
+        private bool _specialEventsAllowed { get; set; } = false;
+        public bool SpecialEventsAllowed { get { return _specialEventsAllowed; } }
         private List<DayOfWeek> FilteredDaysOfWeek = new List<DayOfWeek>
        {
             DayOfWeek.Monday,
@@ -170,7 +171,7 @@ namespace FloorplanClassLibrary
             this.WindAvgMax = range;
         }
         public void SetSpecialEvents(bool specialEventsAllowed) {
-            this.specialEventsAllowed = specialEventsAllowed;
+            this._specialEventsAllowed = specialEventsAllowed;
         }
         public void RemoveMonth(int month) {
             if (this.FilteredMonths.Contains(month)) {
@@ -291,7 +292,7 @@ namespace FloorplanClassLibrary
 
         public void FilterBySpecialEvent()
         {
-            if(specialEventsAllowed)
+            if(_specialEventsAllowed)
             {
                 _filteredShifts = _filteredShifts.Where(shift => shift.SpecialEventDate != null).ToList();
             }
