@@ -39,8 +39,6 @@ namespace FloorPlanMakerUI
        
         private Panel pnlSideContainer { get; set; }
         
-       
-        
         public DateOnly dateOnly => this.Shift.DateOnly;
         public bool isAm => this.Shift.IsAM;
         public TemplateManager TemplateManager { get; set; }
@@ -97,13 +95,12 @@ namespace FloorPlanMakerUI
 
         private void newAllTablesAssigned()
         {
-            sectionLabelManager.SetNewFloorplan(Floorplan);
-            //UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.TableControl, UpdateType.Refresh, sender));
+            sectionLabelManager.SetNewFloorplan(Floorplan);           
         }
 
         private void newUpdateAveragesPerServer(object? sender, EventArgs e)
         {
-            //UpdateAveragesPerServer();
+           
         }
 
         public void UpdateTemplatesBasedOnFloorplan()
@@ -128,8 +125,7 @@ namespace FloorPlanMakerUI
         public List<TableControl> TableControls
         {
             get { return tableControlManager.TableControls; }
-            //set { _tableControls = value; }
-
+            
         }
        
         
@@ -139,15 +135,9 @@ namespace FloorPlanMakerUI
 
             Floorplan.floorplanLines.Clear();            
             tableControlManager.ResetSections();
-            //UpdateServerControls();
+            
             sectionLabelManager.ClearAllLabels();
-            //RemoveAllSectionLabels();
-            //_sectionLabels.Clear();
-            //foreach (SectionPanelControl sectionPanelControl in this._sectionPanels)
-            //{
-            //    sectionPanelControl.UpdateLabels();
-            //}
-            //************************************************************************************************************************
+           
 
         }
         
@@ -199,27 +189,15 @@ namespace FloorPlanMakerUI
             {
                 Shift.SelectedFloorplan.RemoveAllServersFromSections();
             }
-           
             Shift.SelectedFloorplan.CopyTemplateSections(template.Sections);
             if(Shift.SelectedFloorplan.hasBarSection)
             {
                 Shift.PairBothBarSections();
-            }
-            //SetSectionPanels();
-            //sectionPanelManager.SetNewFloorplan(Floorplan);
-            //foreach(SectionPanelControl sectionPanel in this._sectionPanels)
-            //{
-            //    sectionPanel.UpdateLabels();
-            //}
-            //**************************************************************************************************************************
+            }            
             Floorplan.floorplanLines.AddRange(template.floorplanLines);
         }
-
-
-       
         private void OpenPickUpForm(Section section)
         {
-            
             frmPickupSectionAssignment pickUpForm = new frmPickupSectionAssignment(section, Shift);
             pickUpForm.StartPosition = FormStartPosition.Manual;
             Point controlLocation = sectionHeader.PointToScreen(Point.Empty);
@@ -229,8 +207,7 @@ namespace FloorPlanMakerUI
         private void SectionHeaderAssignServerClicked(object? sender, EventArgs e)
         {
             if(Floorplan.SectionSelected.IsPickUp)
-            {
-               
+            {               
                 OpenPickUpForm(Floorplan.SectionSelected);
                 return;
             }
@@ -272,41 +249,27 @@ namespace FloorPlanMakerUI
         }
         public void SectionTeamwaitToggle(Section selectedSection)
         {
-            if (selectedSection.IsPickUp || selectedSection.IsBarSection) { return; }
-            //SectionPanelControl sectionPanel = _sectionPanels.FirstOrDefault(sp => sp.Section == selectedSection);
-            //**************************************************************************************************************************
+            if (selectedSection.IsPickUp || selectedSection.IsBarSection) { return; }            
             if (!selectedSection.IsTeamWait)
             {
-                selectedSection.ToggleTeamWait();
-                //sectionHeader.SetTeamWaitPictureBoxes();
+                selectedSection.ToggleTeamWait();                
                 Floorplan.SetTheAppropriateAmountOfSections();                
             }
             else
             {
 
-                selectedSection.MakeSoloSection();
-                //sectionHeader.SetTeamWaitPictureBoxes();
+                selectedSection.MakeSoloSection();                
                 Floorplan.SetTheAppropriateAmountOfSections();
-                
-                //UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionPanel, UpdateType.Add, sectionAdded));
             }
-            //sectionPanel.UpdateLabels();
-            //**************************************************************************************************************************
-
         }
 
         private void ClearSection(object? sender, EventArgs e)
         {
             SectionHeaderDisplay sectionHeader = (SectionHeaderDisplay)sender;
-            Section selectedSection = sectionHeader.Section;
-            // SectionPanelControl sectionPanel = _sectionPanels.FirstOrDefault(x => x.Section == selectedSection);
-            //**************************************************************************************************************************
+            Section selectedSection = sectionHeader.Section;           
             if (selectedSection.IsPickUp || selectedSection.IsEmpty())
             {
-                Floorplan.DeleteSection(selectedSection);
-                //UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionPanel, UpdateType.Remove, selectedSection));
-                //_sectionPanels.Remove(sectionPanel);
-                //**************************************************************************************************************************
+                Floorplan.DeleteSection(selectedSection);                
                 return;
             }
             if (selectedSection != null)
@@ -314,13 +277,8 @@ namespace FloorPlanMakerUI
                 UpdateRequired?.Invoke(this, new UpdateEventArgs(ControlType.SectionLabel, UpdateType.Remove, selectedSection));
                 this.sectionLabelManager.RemoveSectionLabelBySection(selectedSection);
                 Shift.SelectedFloorplan.ClearSection(selectedSection);
-
-                tableControlManager.RefreshTableControlColors();
-                //UpdateTableControlColors();
-                //UpdateServerControls();
-            }
-            // sectionPanel.UpdateLabels();
-            //**************************************************************************************************************************
+                tableControlManager.RefreshTableControlColors();               
+            }          
         }
 
         public void AutoAssignSections()
@@ -358,30 +316,10 @@ namespace FloorPlanMakerUI
             UpdateTableStats();            
 
             //UpdateAveragesPerServer();
-            UpdateImageLabels();
+            //UpdateImageLabels();
            
 
         }
-        private void UpdateImageLabels()
-        {
-            if (this.Floorplan == null)
-            {
-                serverCountImageLabel.UpdateText("0");
-                coversImageLabel.UpdateText(Shift.SelectedDiningArea.GetMaxCovers().ToString("F0"));
-                salesImageLabel.UpdateText(Shift.SelectedDiningArea.ExpectedSales.ToString("C0"));               
-            }
-            else
-            {
-                serverCountImageLabel.UpdateText(Floorplan.Servers.Count.ToString());
-                coversImageLabel.UpdateText(Shift.SelectedFloorplan.MaxCoversPerServer.ToString("F0"));
-                salesImageLabel.UpdateText(Shift.SelectedFloorplan.AvgSalesPerServer.ToString("C0"));
-            }
-            
-            serverCountImageLabel.Invalidate();
-            coversImageLabel.Invalidate();
-            salesImageLabel.Invalidate();
-        }
-
         private FloorplanTemplate SelectTheIdealFloorplanTemplate()
         {            
             FloorplanTemplate template = TemplateManager.Templates.FirstOrDefault();
@@ -413,15 +351,8 @@ namespace FloorPlanMakerUI
         public void EditRosterClicked()
         {
             frmEditShiftRoster editRosterForm = new frmEditShiftRoster(Shift);
-            editRosterForm.ShowDialog();
-            //SetServerControls();
-            //AddServerControls(this.flowServersPanel);
-            serverControlManager.UpdateServerRoster();
-            //******************************************************************************************************
-            //sectionPanelManager.SetNewFloorplan(Floorplan);
-           // SetSectionPanels();
-           // AddSectionPanels(this.flowSectionsPanel);
-            //UpdateAveragesPerServer();
+            editRosterForm.ShowDialog();            
+            serverControlManager.UpdateServerRoster();          
         }
        
         public void UpdateSection(Section section)
