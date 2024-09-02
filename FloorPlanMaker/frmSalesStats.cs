@@ -409,13 +409,13 @@ namespace FloorPlanMakerUI
         {
             dataGridView1.Columns.Clear();
             dataGridView1.Rows.Clear();
-            var serverShiftHistory = new ServerShiftHistory();
-            if (rdoBoth.Checked) {
-                serverShiftHistory = new ServerShiftHistory(serverSelected, dateOnlyStart, dateOnlyEnd, FilteredDaysOfWeek);
-            }
-            else {
-                serverShiftHistory = new ServerShiftHistory(serverSelected, dateOnlyStart, dateOnlyEnd, rdoAm.Checked, FilteredDaysOfWeek);
-            }
+            var serverShiftHistory = new ServerShiftHistory(serverSelected, shiftAnalysis.StartDate, shiftAnalysis.EndDate, shiftAnalysis.IsAM, shiftAnalysis.FilteredDaysOfWeek);
+            //if (rdoBoth.Checked) {
+            //    serverShiftHistory = new ServerShiftHistory(serverSelected, dateOnlyStart, dateOnlyEnd, FilteredDaysOfWeek);
+            //}
+            //else {
+            //    serverShiftHistory = new ServerShiftHistory(serverSelected, dateOnlyStart, dateOnlyEnd, rdoAm.Checked, FilteredDaysOfWeek);
+            //}
 
 
 
@@ -467,13 +467,14 @@ namespace FloorPlanMakerUI
             // Add columns for each dining area and total sales
             dataGridView1.Columns.Add("Date", "Date");
             var serverShiftHistory = new ServerShiftHistory();
-            if (rdoBoth.Checked) {
-                serverShiftHistory = new ServerShiftHistory(serverSelected, dateOnlyStart, dateOnlyEnd, FilteredDaysOfWeek);
+            //if (rdoBoth.Checked) {
+            //    serverShiftHistory = new ServerShiftHistory(serverSelected, dateOnlyStart, dateOnlyEnd, FilteredDaysOfWeek);
 
-            }
-            else {
-                serverShiftHistory = new ServerShiftHistory(serverSelected, dateOnlyStart, dateOnlyEnd, rdoAm.Checked, FilteredDaysOfWeek);
-            }
+            //}
+            //else {
+            //    serverShiftHistory = new ServerShiftHistory(serverSelected, dateOnlyStart, dateOnlyEnd, rdoAm.Checked, FilteredDaysOfWeek);
+            //}
+            serverShiftHistory = new ServerShiftHistory(serverSelected, shiftAnalysis.StartDate, shiftAnalysis.EndDate, shiftAnalysis.IsAM, shiftAnalysis.FilteredDaysOfWeek);
 
 
 
