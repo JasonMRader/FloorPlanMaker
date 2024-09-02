@@ -97,10 +97,17 @@ namespace FloorplanUserControlLibrary
         {
             if (lblFilteredShiftCount.InvokeRequired) {
                 lblFilteredShiftCount.Invoke(new Action(UpdateCountLabel));
+                
             }
             else {
-                lblFilteredShiftCount.Text = $"{_shiftAnalysis.FilteredShifts.Count} Shifts";
+                lblFilteredShiftCount.Text = $"{_shiftAnalysis.FilteredShifts.Count} Shifts";               
+                lblAvg.Text = $"{ShiftAnalysis.FilteredShiftAvgSales:C0} Avg";
+                lblMin.Text = $"{ShiftAnalysis.FilteredShiftMinSales:C0} Min";
+                lblMax.Text = $"{ShiftAnalysis.FilteredShiftMaxSales:C0} Max";
                 lblFilteredShiftCount.Visible = true;
+                lblMin.Visible = true;
+                lblMax.Visible = true;
+                lblAvg.Visible = true;
             }
         }
 

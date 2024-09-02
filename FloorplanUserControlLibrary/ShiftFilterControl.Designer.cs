@@ -37,6 +37,9 @@
             btnSaveFilter = new Button();
             button2 = new Button();
             cartesianChart1 = new LiveChartsCore.SkiaSharpView.WinForms.CartesianChart();
+            lblAvg = new Label();
+            lblMin = new Label();
+            lblMax = new Label();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -113,12 +116,12 @@
             // 
             // lblFilteredShiftCount
             // 
-            lblFilteredShiftCount.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            lblFilteredShiftCount.Location = new Point(3, 46);
+            lblFilteredShiftCount.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lblFilteredShiftCount.Location = new Point(3, 9);
             lblFilteredShiftCount.Name = "lblFilteredShiftCount";
-            lblFilteredShiftCount.Size = new Size(194, 23);
+            lblFilteredShiftCount.Size = new Size(114, 23);
             lblFilteredShiftCount.TabIndex = 5;
-            lblFilteredShiftCount.Text = "Total Filtered Shifts:";
+            lblFilteredShiftCount.Text = "100 Shifts:";
             lblFilteredShiftCount.TextAlign = ContentAlignment.MiddleCenter;
             lblFilteredShiftCount.Visible = false;
             // 
@@ -170,10 +173,43 @@
             // cartesianChart1
             // 
             cartesianChart1.BackColor = Color.LightGray;
-            cartesianChart1.Location = new Point(3, 104);
+            cartesianChart1.Location = new Point(3, 115);
             cartesianChart1.Name = "cartesianChart1";
             cartesianChart1.Size = new Size(194, 161);
             cartesianChart1.TabIndex = 7;
+            // 
+            // lblAvg
+            // 
+            lblAvg.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            lblAvg.Location = new Point(3, 41);
+            lblAvg.Name = "lblAvg";
+            lblAvg.Size = new Size(194, 23);
+            lblAvg.TabIndex = 5;
+            lblAvg.Text = "Avg";
+            lblAvg.TextAlign = ContentAlignment.MiddleLeft;
+            lblAvg.Visible = false;
+            // 
+            // lblMin
+            // 
+            lblMin.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            lblMin.Location = new Point(3, 64);
+            lblMin.Name = "lblMin";
+            lblMin.Size = new Size(194, 23);
+            lblMin.TabIndex = 5;
+            lblMin.Text = "Min";
+            lblMin.TextAlign = ContentAlignment.MiddleLeft;
+            lblMin.Visible = false;
+            // 
+            // lblMax
+            // 
+            lblMax.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            lblMax.Location = new Point(3, 87);
+            lblMax.Name = "lblMax";
+            lblMax.Size = new Size(194, 23);
+            lblMax.TabIndex = 5;
+            lblMax.Text = "Max";
+            lblMax.TextAlign = ContentAlignment.MiddleLeft;
+            lblMax.Visible = false;
             // 
             // ShiftFilterControl
             // 
@@ -185,6 +221,9 @@
             Controls.Add(button2);
             Controls.Add(btnSaveFilter);
             Controls.Add(btnUpdate);
+            Controls.Add(lblMax);
+            Controls.Add(lblMin);
+            Controls.Add(lblAvg);
             Controls.Add(lblFilteredShiftCount);
             Controls.Add(panel1);
             Controls.Add(flowFilters);
@@ -209,5 +248,8 @@
         private Button btnSaveFilter;
         private Button button2;
         private LiveChartsCore.SkiaSharpView.WinForms.CartesianChart cartesianChart1;
+        private Label lblAvg;
+        private Label lblMin;
+        private Label lblMax;
     }
 }
