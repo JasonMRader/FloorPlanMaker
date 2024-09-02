@@ -54,6 +54,7 @@ namespace FloorplanUserControlLibrary
             flowFilters.Controls.Add(cloudFilter);
             flowFilters.Controls.Add(windMaxControl);
             flowFilters.Controls.Add(windAvgControl);
+            
         }
 
         private void UpdateForFilters()
@@ -90,7 +91,13 @@ namespace FloorplanUserControlLibrary
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             UpdateShift?.Invoke();
+            UpdateChart();
 
+        }
+
+        private void UpdateChart()
+        {
+           
         }
 
         public void UpdateCountLabel()
