@@ -9,15 +9,18 @@ namespace FloorplanClassLibrary
     public class ShiftAnalysis
     {
         public event Action FilterUpdated;
-        public ShiftAnalysis(List<ShiftRecord> shifts) {
-            _shifts = shifts;
-        }
+        
         private List<ShiftRecord> _shifts = new List<ShiftRecord>();
         public List<ShiftRecord> Shifts { get { return _shifts; } }
         private List<ShiftRecord> _filteredShifts { get; set; } = new List<ShiftRecord>();
         public List<ShiftRecord> FilteredShifts { get { return _filteredShifts; } }
         private List<DiningAreaStats> _diningAreaStats { get; set; } = new List<DiningAreaStats>();
         public List<DiningAreaStats> DiningAreaStats { get { return _diningAreaStats; } }
+        public List<TableStat> FilteredTableStats {
+            get {
+                return _filteredShifts.SelectMany(fs => fs.tableStats).ToList();
+            }
+        }
         public float FilteredShiftMaxSales {
             get {
                 return _filteredShifts.Max(s => s.Sales);
@@ -49,6 +52,13 @@ namespace FloorplanClassLibrary
             //int currentMonth = dateOnly.Month;
             //int previousMonth = dateOnly.AddMonths(-1).Month;
             //int nextMonth = dateOnly.AddMonths(1).Month;
+        }
+        public void SetStandardFiltersForShift(Shift shift)
+        {
+            this._isAM = shift.IsAM;
+            this._endDate = shift.DateOnly.AddDays(-1);
+            this._startDate = shift.DateOnly.AddDays(-91);
+            this._filterBySpecialEvent = true;
         }
         public void SetDefaultWeatherFilters(ShiftWeather shiftWeather)
         {

@@ -17,6 +17,7 @@ namespace FloorplanUserControlLibrary
         private ShiftAnalysis _shiftAnalysis { get; set; }
         public ShiftAnalysis ShiftAnalysis { get { return _shiftAnalysis; } }
         public event Action UpdateShift;
+        private DiningAreaManager _areaManager { get; set; }
         public ShiftFilterControl()
         {
             InitializeComponent();
@@ -24,6 +25,7 @@ namespace FloorplanUserControlLibrary
         }
         public void SetShiftAnalysis(ShiftAnalysis shiftAnalysis)
         {
+            flowFilters.Controls.Clear();
             if(_shiftAnalysis != null) {
                 _shiftAnalysis.FilterUpdated -= UpdateForFilters;
             }
@@ -84,20 +86,24 @@ namespace FloorplanUserControlLibrary
 
         private void rdoAM_CheckedChanged(object sender, EventArgs e)
         {
-            _shiftAnalysis.SetIsAM(rdoAM.Checked);
+            if (_shiftAnalysis != null) {
+                _shiftAnalysis.SetIsAM(rdoAM.Checked);
+            }
 
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             UpdateShift?.Invoke();
-            UpdateChart();
+            
 
         }
 
         private void UpdateChart()
         {
-           
+            _areaManager = new DiningAreaManager();
+            ChartManager chartManager = new ChartManager(ShiftAnalysis.FilteredShifts, cartesianChart1);
+            chartManager.SetUpMiniStackedArea(_areaManager.DiningAreas);
         }
 
         public void UpdateCountLabel()
@@ -115,6 +121,7 @@ namespace FloorplanUserControlLibrary
                 lblMin.Visible = true;
                 lblMax.Visible = true;
                 lblAvg.Visible = true;
+                UpdateChart();
             }
         }
 

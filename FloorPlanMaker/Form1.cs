@@ -89,7 +89,8 @@ namespace FloorPlanMaker {
             diningAreaButtonHandeler.DiningAreaChanged += DiningAreaSelectedChanged;
 
             floorplanManager = new FloorplanFormManager(pnlFloorPlan, flowServersInFloorplan, flowSectionSelect,
-                pnlMainContainer, pnlSideContainer, sectionHeaderDisplay, diningAreaButtonHandeler);
+                pnlMainContainer, pnlSideContainer, sectionHeaderDisplay, diningAreaButtonHandeler,
+                shiftFilterControl);
 
             // Subscribe to the event
             //floorplanManager.SectionLabelRemoved += FloorplanManager_SectionLabelRemoved;
@@ -126,7 +127,7 @@ namespace FloorPlanMaker {
                 coversImageLabel.SetTooltip("Covers per Server");
                 salesImageLabel.SetTooltip("Sales Per Server");
                 //rdoViewSectionFlow.Checked = true;
-                rdoLastFourWeekdayStats.Text = "Last Four " + dateOnlySelected.DayOfWeek.ToString() + "s";
+                //rdoLastFourWeekdayStats.Text = "Last Four " + dateOnlySelected.DayOfWeek.ToString() + "s";
                 this.tutorialType = TutorialImages.TutorialType.EditDistribution;
                 pnlNavHighlight.Location = new Point(rdoShifts.Left, 0);
                 _frmEditStaff = splashScreen.LoadEditStaffForm(employeeManager, shift, this);
@@ -637,7 +638,8 @@ namespace FloorPlanMaker {
             else {
                 pnlFloorPlan.BackgroundImage = null;
             }
-            rdoLastFourWeekdayStats.Text = "Last Four " + dateOnlySelected.DayOfWeek.ToString() + "s";
+            //***************************************************************************************************
+            //rdoLastFourWeekdayStats.Text = "Last Four " + dateOnlySelected.DayOfWeek.ToString() + "s";
             updateSalesForTables();
             UpdateSidePanelDisplay();
             UpdateMissingSalesData();
@@ -1058,85 +1060,89 @@ namespace FloorPlanMaker {
                     }
                 }
             }
-
-            lblTotalSales.Text = floorplanManager.Shift.SelectedDiningArea.ExpectedSales.ToString("C0");
+            //***************************************************************************************************
+            //lblTotalSales.Text = floorplanManager.Shift.SelectedDiningArea.ExpectedSales.ToString("C0");
 
         }
         private void rdoYesterdayStats_CheckedChanged(object sender, EventArgs e) {
-            if (rdoYesterdayStats.Checked) {
-                updateSalesForTables();
-            }
+            //***************************************************************************************************
+            //if (rdoYesterdayStats.Checked) {
+            //    updateSalesForTables();
+            //}
 
 
             //tableSalesManager.SetTableStats(floorplanManager.Floorplan.DiningArea.Tables, floorplanManager.Floorplan.IsLunch, dateOnlySelected);
 
         }
         private void updateSalesForTables() {
-            //TODO: exit each if statment if manager.TableStats is already set to correct stats period, otherwise it calls the methods twice
-            if (rdoYesterdayStats.Checked) {
+            //***************************************************************************************************
+            //if (rdoYesterdayStats.Checked) {
 
-                floorplanManager.SetTableSalesStatsPeriod(TableSalesManager.StatsPeriod.Yesterday);
+            //    floorplanManager.SetTableSalesStatsPeriod(TableSalesManager.StatsPeriod.Yesterday);
 
-                SetTableSalesView();
+            //    SetTableSalesView();
 
-            }
-            if (rdoLastWeekdayStats.Checked) {
-                floorplanManager.SetTableSalesStatsPeriod(TableSalesManager.StatsPeriod.LastWeekday);
+            //}
+            //if (rdoLastWeekdayStats.Checked) {
+            //    floorplanManager.SetTableSalesStatsPeriod(TableSalesManager.StatsPeriod.LastWeekday);
 
-                SetTableSalesView();
-            }
-            if (rdoLastFourWeekdayStats.Checked) {
-                floorplanManager.SetTableSalesStatsPeriod(TableSalesManager.StatsPeriod.LastFourWeekDays);
-                var day = dateOnlySelected;
-
-
-                var previousWeekdays = new List<DateOnly>();
+            //    SetTableSalesView();
+            //}
+            //if (rdoLastFourWeekdayStats.Checked) {
+            //    floorplanManager.SetTableSalesStatsPeriod(TableSalesManager.StatsPeriod.LastFourWeekDays);
+            //    var day = dateOnlySelected;
 
 
-                for (int i = 1; i <= 4; i++) {
-
-                    previousWeekdays.Add(day.AddDays(-7 * i));
-                }
+            //    var previousWeekdays = new List<DateOnly>();
 
 
+            //    for (int i = 1; i <= 4; i++) {
 
-                SetTableSalesView();
-            }
-            if (rdoDayOfStats.Checked) {
-                floorplanManager.SetTableSalesStatsPeriod(TableSalesManager.StatsPeriod.Today);
+            //        previousWeekdays.Add(day.AddDays(-7 * i));
+            //    }
 
-                SetTableSalesView();
-            }
 
-            coversImageLabel.UpdateText(shift.SelectedDiningArea.GetMaxCovers().ToString("F0"));
-            salesImageLabel.UpdateText(shift.SelectedDiningArea.GetAverageSales().ToString("C0"));
-            if (floorplanManager.Floorplan != null && floorplanManager.Floorplan.Sections.Count > 0) {
-                foreach (Section section in floorplanManager.Floorplan.Sections) {
-                    section.Notify();
-                }
-            }
+
+            //    SetTableSalesView();
+            //}
+            //if (rdoDayOfStats.Checked) {
+            //    floorplanManager.SetTableSalesStatsPeriod(TableSalesManager.StatsPeriod.Today);
+
+            //    SetTableSalesView();
+            //}
+
+            //coversImageLabel.UpdateText(shift.SelectedDiningArea.GetMaxCovers().ToString("F0"));
+            //salesImageLabel.UpdateText(shift.SelectedDiningArea.GetAverageSales().ToString("C0"));
+            //if (floorplanManager.Floorplan != null && floorplanManager.Floorplan.Sections.Count > 0) {
+            //    foreach (Section section in floorplanManager.Floorplan.Sections) {
+            //        section.Notify();
+            //    }
+            //}
 
 
 
         }
         private void rdoLastWeekdayStats_CheckedChanged(object sender, EventArgs e) {
-            if (rdoLastWeekdayStats.Checked) {
-                updateSalesForTables();
-            }
+            //***************************************************************************************************
+            //if (rdoLastWeekdayStats.Checked) {
+            //    updateSalesForTables();
+            //}
         }
         private void rdoDayOfStats_CheckedChanged(object sender, EventArgs e) {
-            if (rdoDayOfStats.Checked) {
-                updateSalesForTables();
-            }
+            //***************************************************************************************************
+            //if (rdoDayOfStats.Checked) {
+            //    updateSalesForTables();
+            //}
         }
         private void rdoYearlyAverageStats_CheckedChanged(object sender, EventArgs e) {
 
         }
 
         private void rdoLastFourWeekdayStats_CheckedChanged(object sender, EventArgs e) {
-            if (rdoLastFourWeekdayStats.Checked) {
-                updateSalesForTables();
-            }
+            //***************************************************************************************************
+            //if (rdoLastFourWeekdayStats.Checked) {
+            //    updateSalesForTables();
+            //}
         }
 
         private void rdoRangeStats_CheckedChanged(object sender, EventArgs e) {
@@ -1148,24 +1154,27 @@ namespace FloorPlanMaker {
         }
 
         private void btnAddCustomDate_Click(object sender, EventArgs e) {
-            DateOnly dateOnly = DateOnly.FromDateTime(dtpCustomStatDateSelect.Value);
-            ListBoxDateItem item = new ListBoxDateItem(dateOnly);
-            lbFilteredStatDates.Items.Add(item);
+            //***************************************************************************************************
+            //DateOnly dateOnly = DateOnly.FromDateTime(dtpCustomStatDateSelect.Value);
+            //ListBoxDateItem item = new ListBoxDateItem(dateOnly);
+            //lbFilteredStatDates.Items.Add(item);
         }
 
         private void btnApplyDates_Click(object sender, EventArgs e) {
-            List<DateOnly> dates = new List<DateOnly>();
-            foreach (ListBoxDateItem item in lbFilteredStatDates.Items) {
-                dates.Add(item.DateValue);
-            }
-            //List<TableStat> stats = SqliteDataAccess.LoadTableStatsByDateListAndLunch(IsLunch, dates);
-            //floorplanManager.SetSalesManagerStats(stats);
-            SetTableSalesView();
+            //***************************************************************************************************
+            //List<DateOnly> dates = new List<DateOnly>();
+            //foreach (ListBoxDateItem item in lbFilteredStatDates.Items) {
+            //    dates.Add(item.DateValue);
+            //}
+            ////List<TableStat> stats = SqliteDataAccess.LoadTableStatsByDateListAndLunch(IsLunch, dates);
+            ////floorplanManager.SetSalesManagerStats(stats);
+            //SetTableSalesView();
 
         }
 
         private void btnClearDates_Click(object sender, EventArgs e) {
-            lbFilteredStatDates.Items.Clear();
+            //***************************************************************************************************
+            //lbFilteredStatDates.Items.Clear();
         }
 
         private void btnDeleteSelectedFloorplan_Click(object sender, EventArgs e) {

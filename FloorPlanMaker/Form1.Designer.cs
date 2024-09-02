@@ -24,7 +24,8 @@ namespace FloorPlanMaker {
         ///  Required method for Designer support - do not modify
         ///  the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent() {
+        private void InitializeComponent()
+        {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             flowServersInFloorplan = new FlowLayoutPanel();
@@ -74,24 +75,7 @@ namespace FloorPlanMaker {
             rdoViewServerFlow = new RadioButton();
             rdoViewSectionFlow = new RadioButton();
             pnlStatMode = new Panel();
-            lblTotalSales = new Label();
-            label3 = new Label();
-            btnClearDates = new Button();
-            btnApplyDates = new Button();
-            btnAddCustomDate = new Button();
-            dtpCustomStatDateSelect = new DateTimePicker();
-            lbFilteredStatDates = new ListBox();
-            label2 = new Label();
-            label1 = new Label();
-            dtpStatRangeEnd = new DateTimePicker();
-            dtpStatRangeStart = new DateTimePicker();
-            rdoLastWeekdayStats = new RadioButton();
-            rdoSelectedDatesStats = new RadioButton();
-            rdoRangeStats = new RadioButton();
-            rdoLastFourWeekdayStats = new RadioButton();
-            rdoYearlyAverageStats = new RadioButton();
-            rdoDayOfStats = new RadioButton();
-            rdoYesterdayStats = new RadioButton();
+            shiftFilterControl = new FloorplanUserControlLibrary.ShiftFilterControl();
             rdoSales = new RadioButton();
             btnDeleteSelectedFloorplan = new Button();
             btnHelp = new Button();
@@ -100,6 +84,7 @@ namespace FloorPlanMaker {
             rdoReservations = new RadioButton();
             rdoWeather = new RadioButton();
             btnUploadSalesData = new Button();
+            btnTest = new Button();
             helpProvider1 = new HelpProvider();
             panel2 = new Panel();
             pnlSideDetails = new Panel();
@@ -108,7 +93,6 @@ namespace FloorPlanMaker {
             flowWeatherDisplay = new FlowLayoutPanel();
             pnlSalesDataUpdated = new Panel();
             lblMissingSalesData = new Label();
-            btnTest = new Button();
             flowSectionSelect.SuspendLayout();
             panel1.SuspendLayout();
             pnlFloorplanContainer.SuspendLayout();
@@ -747,263 +731,19 @@ namespace FloorPlanMaker {
             // pnlStatMode
             // 
             pnlStatMode.BackColor = Color.WhiteSmoke;
-            pnlStatMode.Controls.Add(lblTotalSales);
-            pnlStatMode.Controls.Add(label3);
-            pnlStatMode.Controls.Add(btnClearDates);
-            pnlStatMode.Controls.Add(btnApplyDates);
-            pnlStatMode.Controls.Add(btnAddCustomDate);
-            pnlStatMode.Controls.Add(dtpCustomStatDateSelect);
-            pnlStatMode.Controls.Add(lbFilteredStatDates);
-            pnlStatMode.Controls.Add(label2);
-            pnlStatMode.Controls.Add(label1);
-            pnlStatMode.Controls.Add(dtpStatRangeEnd);
-            pnlStatMode.Controls.Add(dtpStatRangeStart);
-            pnlStatMode.Controls.Add(rdoLastWeekdayStats);
-            pnlStatMode.Controls.Add(rdoSelectedDatesStats);
-            pnlStatMode.Controls.Add(rdoRangeStats);
-            pnlStatMode.Controls.Add(rdoLastFourWeekdayStats);
-            pnlStatMode.Controls.Add(rdoYearlyAverageStats);
-            pnlStatMode.Controls.Add(rdoDayOfStats);
-            pnlStatMode.Controls.Add(rdoYesterdayStats);
+            pnlStatMode.Controls.Add(shiftFilterControl);
             pnlStatMode.Location = new Point(5, 201);
             pnlStatMode.Name = "pnlStatMode";
             pnlStatMode.Size = new Size(200, 737);
             pnlStatMode.TabIndex = 13;
             // 
-            // lblTotalSales
+            // shiftFilterControl
             // 
-            lblTotalSales.AutoSize = true;
-            lblTotalSales.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            lblTotalSales.ForeColor = Color.Black;
-            lblTotalSales.Location = new Point(126, 17);
-            lblTotalSales.Name = "lblTotalSales";
-            lblTotalSales.Size = new Size(34, 25);
-            lblTotalSales.TabIndex = 6;
-            lblTotalSales.Text = "$0";
-            lblTotalSales.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            label3.ForeColor = Color.Black;
-            label3.Location = new Point(63, 17);
-            label3.Name = "label3";
-            label3.Size = new Size(60, 25);
-            label3.TabIndex = 6;
-            label3.Text = "Sales:";
-            // 
-            // btnClearDates
-            // 
-            btnClearDates.BackColor = Color.FromArgb(190, 80, 70);
-            btnClearDates.FlatAppearance.BorderSize = 0;
-            btnClearDates.FlatStyle = FlatStyle.Flat;
-            btnClearDates.Location = new Point(22, 429);
-            btnClearDates.Name = "btnClearDates";
-            btnClearDates.Size = new Size(161, 23);
-            btnClearDates.TabIndex = 5;
-            btnClearDates.Text = "Clear Dates";
-            btnClearDates.UseVisualStyleBackColor = false;
-            btnClearDates.Click += btnClearDates_Click;
-            // 
-            // btnApplyDates
-            // 
-            btnApplyDates.BackColor = Color.FromArgb(120, 180, 120);
-            btnApplyDates.FlatAppearance.BorderSize = 0;
-            btnApplyDates.FlatStyle = FlatStyle.Flat;
-            btnApplyDates.Location = new Point(22, 400);
-            btnApplyDates.Name = "btnApplyDates";
-            btnApplyDates.Size = new Size(161, 23);
-            btnApplyDates.TabIndex = 5;
-            btnApplyDates.Text = "Apply";
-            btnApplyDates.UseVisualStyleBackColor = false;
-            btnApplyDates.Click += btnApplyDates_Click;
-            // 
-            // btnAddCustomDate
-            // 
-            btnAddCustomDate.BackColor = Color.FromArgb(100, 130, 180);
-            btnAddCustomDate.FlatAppearance.BorderSize = 0;
-            btnAddCustomDate.FlatStyle = FlatStyle.Flat;
-            btnAddCustomDate.Location = new Point(15, 287);
-            btnAddCustomDate.Name = "btnAddCustomDate";
-            btnAddCustomDate.Size = new Size(170, 23);
-            btnAddCustomDate.TabIndex = 5;
-            btnAddCustomDate.Text = "Add Date";
-            btnAddCustomDate.UseVisualStyleBackColor = false;
-            btnAddCustomDate.Click += btnAddCustomDate_Click;
-            // 
-            // dtpCustomStatDateSelect
-            // 
-            dtpCustomStatDateSelect.Location = new Point(22, 253);
-            dtpCustomStatDateSelect.Name = "dtpCustomStatDateSelect";
-            dtpCustomStatDateSelect.Size = new Size(170, 23);
-            dtpCustomStatDateSelect.TabIndex = 4;
-            // 
-            // lbFilteredStatDates
-            // 
-            lbFilteredStatDates.FormattingEnabled = true;
-            lbFilteredStatDates.ItemHeight = 15;
-            lbFilteredStatDates.Location = new Point(22, 316);
-            lbFilteredStatDates.Name = "lbFilteredStatDates";
-            lbFilteredStatDates.Size = new Size(161, 64);
-            lbFilteredStatDates.TabIndex = 3;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Enabled = false;
-            label2.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label2.ForeColor = Color.Black;
-            label2.Location = new Point(23, 526);
-            label2.Name = "label2";
-            label2.Size = new Size(31, 21);
-            label2.TabIndex = 2;
-            label2.Text = "To:";
-            label2.Visible = false;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Enabled = false;
-            label1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.ForeColor = Color.Black;
-            label1.Location = new Point(22, 497);
-            label1.Name = "label1";
-            label1.Size = new Size(52, 21);
-            label1.TabIndex = 2;
-            label1.Text = "From:";
-            label1.Visible = false;
-            // 
-            // dtpStatRangeEnd
-            // 
-            dtpStatRangeEnd.CalendarFont = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            dtpStatRangeEnd.Enabled = false;
-            dtpStatRangeEnd.Location = new Point(23, 653);
-            dtpStatRangeEnd.Name = "dtpStatRangeEnd";
-            dtpStatRangeEnd.Size = new Size(148, 23);
-            dtpStatRangeEnd.TabIndex = 1;
-            dtpStatRangeEnd.Visible = false;
-            // 
-            // dtpStatRangeStart
-            // 
-            dtpStatRangeStart.CalendarFont = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            dtpStatRangeStart.Enabled = false;
-            dtpStatRangeStart.Location = new Point(23, 521);
-            dtpStatRangeStart.Name = "dtpStatRangeStart";
-            dtpStatRangeStart.Size = new Size(148, 23);
-            dtpStatRangeStart.TabIndex = 1;
-            dtpStatRangeStart.Visible = false;
-            // 
-            // rdoLastWeekdayStats
-            // 
-            rdoLastWeekdayStats.Appearance = Appearance.Button;
-            rdoLastWeekdayStats.BackColor = Color.FromArgb(100, 130, 180);
-            rdoLastWeekdayStats.FlatAppearance.BorderSize = 0;
-            rdoLastWeekdayStats.FlatStyle = FlatStyle.Flat;
-            rdoLastWeekdayStats.Location = new Point(15, 127);
-            rdoLastWeekdayStats.Name = "rdoLastWeekdayStats";
-            rdoLastWeekdayStats.Size = new Size(170, 25);
-            rdoLastWeekdayStats.TabIndex = 0;
-            rdoLastWeekdayStats.Text = "Last Week";
-            rdoLastWeekdayStats.TextAlign = ContentAlignment.MiddleCenter;
-            rdoLastWeekdayStats.UseVisualStyleBackColor = false;
-            rdoLastWeekdayStats.CheckedChanged += rdoLastWeekdayStats_CheckedChanged;
-            // 
-            // rdoSelectedDatesStats
-            // 
-            rdoSelectedDatesStats.Appearance = Appearance.Button;
-            rdoSelectedDatesStats.BackColor = Color.FromArgb(100, 130, 180);
-            rdoSelectedDatesStats.FlatAppearance.BorderSize = 0;
-            rdoSelectedDatesStats.FlatStyle = FlatStyle.Flat;
-            rdoSelectedDatesStats.Location = new Point(15, 209);
-            rdoSelectedDatesStats.Name = "rdoSelectedDatesStats";
-            rdoSelectedDatesStats.Size = new Size(170, 23);
-            rdoSelectedDatesStats.TabIndex = 0;
-            rdoSelectedDatesStats.Text = "Selected Dates";
-            rdoSelectedDatesStats.TextAlign = ContentAlignment.MiddleCenter;
-            rdoSelectedDatesStats.UseVisualStyleBackColor = false;
-            rdoSelectedDatesStats.CheckedChanged += rdoSelectedDatesStats_CheckedChanged;
-            // 
-            // rdoRangeStats
-            // 
-            rdoRangeStats.Appearance = Appearance.Button;
-            rdoRangeStats.BackColor = Color.FromArgb(100, 130, 180);
-            rdoRangeStats.Enabled = false;
-            rdoRangeStats.FlatAppearance.BorderSize = 0;
-            rdoRangeStats.FlatStyle = FlatStyle.Flat;
-            rdoRangeStats.Location = new Point(22, 597);
-            rdoRangeStats.Name = "rdoRangeStats";
-            rdoRangeStats.Size = new Size(149, 35);
-            rdoRangeStats.TabIndex = 0;
-            rdoRangeStats.Text = "Range";
-            rdoRangeStats.TextAlign = ContentAlignment.MiddleCenter;
-            rdoRangeStats.UseVisualStyleBackColor = false;
-            rdoRangeStats.Visible = false;
-            rdoRangeStats.CheckedChanged += rdoRangeStats_CheckedChanged;
-            // 
-            // rdoLastFourWeekdayStats
-            // 
-            rdoLastFourWeekdayStats.Appearance = Appearance.Button;
-            rdoLastFourWeekdayStats.BackColor = Color.FromArgb(100, 130, 180);
-            rdoLastFourWeekdayStats.Checked = true;
-            rdoLastFourWeekdayStats.FlatAppearance.BorderSize = 0;
-            rdoLastFourWeekdayStats.FlatStyle = FlatStyle.Flat;
-            rdoLastFourWeekdayStats.Location = new Point(15, 168);
-            rdoLastFourWeekdayStats.Name = "rdoLastFourWeekdayStats";
-            rdoLastFourWeekdayStats.Size = new Size(170, 25);
-            rdoLastFourWeekdayStats.TabIndex = 0;
-            rdoLastFourWeekdayStats.TabStop = true;
-            rdoLastFourWeekdayStats.Text = "Last Four Weekday";
-            rdoLastFourWeekdayStats.TextAlign = ContentAlignment.MiddleCenter;
-            rdoLastFourWeekdayStats.UseVisualStyleBackColor = false;
-            rdoLastFourWeekdayStats.CheckedChanged += rdoLastFourWeekdayStats_CheckedChanged;
-            // 
-            // rdoYearlyAverageStats
-            // 
-            rdoYearlyAverageStats.Appearance = Appearance.Button;
-            rdoYearlyAverageStats.BackColor = Color.FromArgb(100, 130, 180);
-            rdoYearlyAverageStats.Enabled = false;
-            rdoYearlyAverageStats.FlatAppearance.BorderSize = 0;
-            rdoYearlyAverageStats.FlatStyle = FlatStyle.Flat;
-            rdoYearlyAverageStats.Location = new Point(22, 556);
-            rdoYearlyAverageStats.Name = "rdoYearlyAverageStats";
-            rdoYearlyAverageStats.Size = new Size(149, 35);
-            rdoYearlyAverageStats.TabIndex = 0;
-            rdoYearlyAverageStats.Text = "Yearly Average";
-            rdoYearlyAverageStats.TextAlign = ContentAlignment.MiddleCenter;
-            rdoYearlyAverageStats.UseVisualStyleBackColor = false;
-            rdoYearlyAverageStats.Visible = false;
-            rdoYearlyAverageStats.CheckedChanged += rdoYearlyAverageStats_CheckedChanged;
-            // 
-            // rdoDayOfStats
-            // 
-            rdoDayOfStats.Appearance = Appearance.Button;
-            rdoDayOfStats.BackColor = Color.FromArgb(100, 130, 180);
-            rdoDayOfStats.FlatAppearance.BorderSize = 0;
-            rdoDayOfStats.FlatStyle = FlatStyle.Flat;
-            rdoDayOfStats.Location = new Point(15, 45);
-            rdoDayOfStats.Name = "rdoDayOfStats";
-            rdoDayOfStats.Size = new Size(170, 25);
-            rdoDayOfStats.TabIndex = 0;
-            rdoDayOfStats.Text = "Day Of";
-            rdoDayOfStats.TextAlign = ContentAlignment.MiddleCenter;
-            rdoDayOfStats.UseVisualStyleBackColor = false;
-            rdoDayOfStats.CheckedChanged += rdoDayOfStats_CheckedChanged;
-            // 
-            // rdoYesterdayStats
-            // 
-            rdoYesterdayStats.Appearance = Appearance.Button;
-            rdoYesterdayStats.BackColor = Color.FromArgb(100, 130, 180);
-            rdoYesterdayStats.FlatAppearance.BorderSize = 0;
-            rdoYesterdayStats.FlatStyle = FlatStyle.Flat;
-            rdoYesterdayStats.Location = new Point(15, 86);
-            rdoYesterdayStats.Name = "rdoYesterdayStats";
-            rdoYesterdayStats.Size = new Size(170, 25);
-            rdoYesterdayStats.TabIndex = 0;
-            rdoYesterdayStats.Text = "Yesterday";
-            rdoYesterdayStats.TextAlign = ContentAlignment.MiddleCenter;
-            rdoYesterdayStats.UseVisualStyleBackColor = false;
-            rdoYesterdayStats.CheckedChanged += rdoYesterdayStats_CheckedChanged;
+            shiftFilterControl.BackColor = Color.WhiteSmoke;
+            shiftFilterControl.Location = new Point(0, 0);
+            shiftFilterControl.Name = "shiftFilterControl";
+            shiftFilterControl.Size = new Size(200, 737);
+            shiftFilterControl.TabIndex = 0;
             // 
             // rdoSales
             // 
@@ -1126,6 +866,20 @@ namespace FloorPlanMaker {
             btnUploadSalesData.Visible = false;
             btnUploadSalesData.Click += btnUploadSalesData_Click;
             // 
+            // btnTest
+            // 
+            btnTest.BackColor = Color.FromArgb(100, 130, 180);
+            btnTest.FlatAppearance.BorderSize = 0;
+            btnTest.FlatStyle = FlatStyle.Flat;
+            btnTest.Image = FloorPlanMakerUI.Properties.Resources.calendar;
+            btnTest.Location = new Point(670, 6);
+            btnTest.Name = "btnTest";
+            btnTest.Size = new Size(47, 37);
+            btnTest.TabIndex = 25;
+            toolTip1.SetToolTip(btnTest, "View Stats Calendar");
+            btnTest.UseVisualStyleBackColor = false;
+            btnTest.Click += btnTest_Click;
+            // 
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(225, 225, 225);
@@ -1196,20 +950,6 @@ namespace FloorPlanMaker {
             lblMissingSalesData.Text = " Please Update!";
             lblMissingSalesData.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // btnTest
-            // 
-            btnTest.BackColor = Color.FromArgb(100, 130, 180);
-            btnTest.FlatAppearance.BorderSize = 0;
-            btnTest.FlatStyle = FlatStyle.Flat;
-            btnTest.Image = FloorPlanMakerUI.Properties.Resources.calendar;
-            btnTest.Location = new Point(670, 6);
-            btnTest.Name = "btnTest";
-            btnTest.Size = new Size(47, 37);
-            btnTest.TabIndex = 25;
-            toolTip1.SetToolTip(btnTest, "View Stats Calendar");
-            btnTest.UseVisualStyleBackColor = false;
-            btnTest.Click += btnTest_Click;
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1250,7 +990,6 @@ namespace FloorPlanMaker {
             pnlSideContainer.ResumeLayout(false);
             pnlSectionsAndServers.ResumeLayout(false);
             pnlStatMode.ResumeLayout(false);
-            pnlStatMode.PerformLayout();
             panel2.ResumeLayout(false);
             pnlSideDetails.ResumeLayout(false);
             pnlSalesDataUpdated.ResumeLayout(false);
@@ -1291,25 +1030,7 @@ namespace FloorPlanMaker {
         private RadioButton rdoSettings;
         private RadioButton rdoSales;
         private Panel pnlStatMode;
-        private RadioButton rdoYesterdayStats;
-        private RadioButton rdoLastWeekdayStats;
-        private RadioButton rdoYearlyAverageStats;
-        private RadioButton rdoLastFourWeekdayStats;
-        private RadioButton rdoSelectedDatesStats;
-        private RadioButton rdoRangeStats;
-        private Button btnClearDates;
-        private Button btnApplyDates;
-        private Button btnAddCustomDate;
-        private DateTimePicker dtpCustomStatDateSelect;
-        private ListBox lbFilteredStatDates;
-        private Label label2;
-        private Label label1;
-        private DateTimePicker dtpStatRangeEnd;
-        private DateTimePicker dtpStatRangeStart;
         private Button btnDeleteSelectedFloorplan;
-        private Label lblTotalSales;
-        private Label label3;
-        private RadioButton rdoDayOfStats;
         private CheckBox cbDrawToggle;
         private HelpProvider helpProvider1;
         private Button btnHelp;
@@ -1340,5 +1061,6 @@ namespace FloorPlanMaker {
         private Panel pnlIndicator2;
         private Label label4;
         private Button btnTest;
+        private FloorplanUserControlLibrary.ShiftFilterControl shiftFilterControl;
     }
 }

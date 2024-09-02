@@ -52,13 +52,16 @@ namespace FloorPlanMakerUI
         private SectionLabelManager sectionLabelManager { get; set; }
         private SectionPanelManager sectionPanelManager { get; set; }
         private ServerControlManager serverControlManager { get; set; }
+        private ShiftFilterControl shiftFilterControl { get; set; }
+        private ShiftAnalysis shiftAnalysis { get; set; } = new ShiftAnalysis();
         public FloorplanFormManager() 
         {
             this.Shift = new Shift();            
         }
         public FloorplanFormManager(Panel pnlFloorPlan, FlowLayoutPanel flowServersInFloorplan, 
             FlowLayoutPanel flowSectionSelect, Panel pnlContainer, Panel pnlSideContainer,
-            SectionHeaderDisplay headerDisplay, DiningAreaButtonHandeler diningAreaButtonHandeler)
+            SectionHeaderDisplay headerDisplay, DiningAreaButtonHandeler diningAreaButtonHandeler,
+            ShiftFilterControl shiftFilterControl)
         {
             this.Shift = new Shift();           
             this.pnlMainContainer = pnlContainer;
@@ -80,8 +83,12 @@ namespace FloorPlanMakerUI
             this.sectionPanelManager = new SectionPanelManager(Floorplan, flowSectionSelect);
             this.serverControlManager = new ServerControlManager(Floorplan, flowServersInFloorplan);
             sectionLabelManager.AssignPickup += OpenPickUpForm;
+            this.shiftFilterControl = shiftFilterControl;
+            this.shiftFilterControl.UpdateShift += UpdateShiftAnalysis;
 
         }
+
+        
 
         private void notAllTablesAssigned()
         {
@@ -445,22 +452,28 @@ namespace FloorPlanMakerUI
             sectionPanelManager.UpdateImageLabels();
            
         }
+        private void UpdateShiftAnalysis()
+        {
+            shiftAnalysis.SetStandardFiltersForShift(Shift);
+            shiftAnalysis.InitializetShiftsForDateRange();
+            UpdateTableStats();
+
+        }
         private void UpdateTableStats()
         {
-            this.tableSalesManager.SetStatsList(this.isAm, this.dateOnly);
-            Shift.SelectedDiningArea.SetTableSales(tableSalesManager.Stats);
+            //this.tableSalesManager.SetStatsList(this.isAm, this.dateOnly);
+
+           
+            Shift.SelectedDiningArea.SetTableSales(shiftAnalysis.FilteredTableStats);
             //TODO: reformate ineffecient, setting tables twice
-            if(Shift.Floorplans != null)
-            {
-                foreach(Floorplan floorplan in  Shift.Floorplans)
-                {
-                    floorplan.DiningArea.SetTableSales(tableSalesManager.Stats);
+            if (Shift.Floorplans != null) {
+                foreach (Floorplan floorplan in Shift.Floorplans) {
+                    floorplan.DiningArea.SetTableSales(shiftAnalysis.FilteredTableStats);
                 }
-                foreach(TableControl tableControl in this.tableControlManager.TableControls)
-                {
+                foreach (TableControl tableControl in this.tableControlManager.TableControls) {
                     this.toolTip.SetToolTip(tableControl, tableControl.Table.AverageSales.ToString("C0"));
                 }
-               
+
             }
         }
         
@@ -489,7 +502,7 @@ namespace FloorPlanMakerUI
             {
                 Shift = SqliteDataAccess.LoadShift(Shift.SelectedDiningArea, dateOnlySelected, isAM);
             }
-            
+            shiftFilterControl.SetShiftAnalysis(shiftAnalysis);
             ChangeDiningAreaSelected();
             diningAreaButtonHandeler.UpdateForShift(Shift);
         }

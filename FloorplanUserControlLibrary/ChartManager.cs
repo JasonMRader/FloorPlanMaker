@@ -104,6 +104,77 @@ namespace FloorPlanMakerUI
             // Set legend location
             _chart.LegendPosition = LiveChartsCore.Measure.LegendPosition.Right;
         }
+        public void SetUpMiniStackedArea(List<DiningArea> diningAreas)
+        {
+            _chart.Series = Array.Empty<ISeries>();
+            _chart.XAxes = Array.Empty<Axis>();
+            _chart.YAxes = Array.Empty<Axis>();
+
+            var seriesMap = new Dictionary<int, StackedAreaSeries<float>>();
+
+            foreach (DiningArea area in diningAreas) {
+                if (area.ID == 6) continue; // Skip DiningAreaID 6
+
+                var series = new StackedAreaSeries<float> {
+                    Name = area.Name,
+                    Fill = GetAreaColor(area), // Set the fill color
+                    Stroke = GetAreaColor(area), // Set the line color
+                    Values = new List<float>(), // Initialize with an empty list
+                    LineSmoothness = 0, // Set to 0 for straight lines (or adjust as needed)
+                    GeometrySize = 0, // Remove points (set to a small value if needed)
+                    //StrokeThickness = 1 // Thin the line for a smaller appearance
+                };
+
+                seriesMap[area.ID] = series;
+            }
+
+            // Initialize X-Axis (assuming dates are involved)
+            _chart.XAxes = new[]
+            {
+        new Axis
+            {
+                //Name = "Date",
+                //Labels = _shiftRecords.Select(shift => shift.Date.ToString("MM/dd/yy")).ToArray(),
+                //LabelsRotation = 15, // Rotate labels for better readability
+                TextSize = 8, // Smaller font size for labels
+                Padding = new LiveChartsCore.Drawing.Padding(0), // Reduce padding
+                IsVisible = false,
+            }
+        };
+
+            // Initialize Y-Axis
+            _chart.YAxes = new[]
+            {
+        new Axis
+            {
+                //Name = "Sales",
+                //Labeler = value => value.ToString("C"), // Format as currency
+                 Labeler = value => (value/1000).ToString("C0") + "K",
+                 LabelsRotation = 45,
+                TextSize = 8, // Smaller font size for labels
+                //Padding = new LiveChartsCore.Drawing.Padding(0),
+                
+            }
+        };
+
+            // Populate series with data
+            foreach (ShiftRecord shiftRecord in _shiftRecords) {
+                foreach (DiningAreaRecord areaRecord in shiftRecord.DiningAreaRecords) {
+                    if (seriesMap.TryGetValue(areaRecord.DiningAreaID, out var series)) {
+                        series.Values = series.Values.Append((float)areaRecord.Sales).ToList();
+                    }
+                }
+            }
+
+            _chart.Series = seriesMap.Values.ToArray();
+            _chart.LegendPosition = LiveChartsCore.Measure.LegendPosition.Hidden;
+
+            // Reduce chart margins and padding for a more compact display
+            _chart.DrawMargin = new LiveChartsCore.Measure.Margin(5); // Adjusted to correct type
+            _chart.Padding = new System.Windows.Forms.Padding(0);
+            _chart.LegendTextSize = 8; // Smaller font size for legend if shown
+        }
+
         private void OnPointerHover(IChartView chart, ChartPoint<ShiftRecord, RoundedRectangleGeometry, LabelGeometry>? point)
         {
             //if (point?.Visual is null) return;
@@ -198,7 +269,7 @@ namespace FloorPlanMakerUI
 
             // Create bins starting from the nearest lower bin
             var bins = new List<int>();
-            for (int i = (int)minSales; i <= (int)maxSales + binSize; i += binSize) {
+            for (int i = (int)minSales; i <= (int)maxSales; i += binSize) {
                 bins.Add(i);
             }
 
@@ -232,7 +303,7 @@ namespace FloorPlanMakerUI
             {
                 new Axis
                 {
-                    Labels = bins.Select(binStart => $"{binStart / 1000}-{(binStart + binSize - 1) / 1000}k").ToArray(),
+                    Labels = bins.Select(binStart => $"{binStart / 1000}-{(binStart + binSize) / 1000}k").ToArray(),
                     LabelsRotation = 0,
                     SeparatorsPaint = new SolidColorPaint(new SKColor(200, 200, 200)),
                     ForceStepToMin = true,
