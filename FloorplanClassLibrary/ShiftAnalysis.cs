@@ -82,7 +82,7 @@ namespace FloorplanClassLibrary
         private bool _filterBySpecialEvent { get; set; } = false;
         private bool _specialEventsAllowed { get; set; } = false;
         public bool SpecialEventsAllowed { get { return _specialEventsAllowed; } }
-        private List<DayOfWeek> FilteredDaysOfWeek = new List<DayOfWeek>
+        private List<DayOfWeek> _filteredDaysOfWeek = new List<DayOfWeek>
        {
             DayOfWeek.Monday,
             DayOfWeek.Tuesday,
@@ -92,6 +92,7 @@ namespace FloorplanClassLibrary
             DayOfWeek.Saturday,
             DayOfWeek.Sunday
         };
+        public List<DayOfWeek> FilteredDaysOfWeek {  get { return _filteredDaysOfWeek; } }
         private List<int> FilteredMonths = new List<int>
         {
            1,2,3,4,5,6,7,8,9,10,11,12
@@ -184,14 +185,14 @@ namespace FloorplanClassLibrary
             }
         }
         public void RemoveDayOfWeek(DayOfWeek dayOfWeek) {
-            if (this.FilteredDaysOfWeek.Contains(dayOfWeek)) {
-                this.FilteredDaysOfWeek.Remove(dayOfWeek);
+            if (this._filteredDaysOfWeek.Contains(dayOfWeek)) {
+                this._filteredDaysOfWeek.Remove(dayOfWeek);
                 _filteredShifts.RemoveAll(s => s.Date.DayOfWeek == dayOfWeek);
             }
         }
         public void AddDayOfWeek(DayOfWeek dayOfWeek) {
-            if (!this.FilteredDaysOfWeek.Contains(dayOfWeek)) {
-                this.FilteredDaysOfWeek.Add(dayOfWeek);
+            if (!this._filteredDaysOfWeek.Contains(dayOfWeek)) {
+                this._filteredDaysOfWeek.Add(dayOfWeek);
                 _filteredShifts.AddRange(_shifts.Where(s => s.Date.DayOfWeek == dayOfWeek).ToList());
             }
         }
@@ -287,7 +288,7 @@ namespace FloorplanClassLibrary
 
         public void FilterByDaysOfWeek()
         {
-            _filteredShifts = _filteredShifts.Where(shift => FilteredDaysOfWeek.Contains(shift.Date.DayOfWeek)).ToList();
+            _filteredShifts = _filteredShifts.Where(shift => _filteredDaysOfWeek.Contains(shift.Date.DayOfWeek)).ToList();
         }
 
         public void FilterBySpecialEvent()

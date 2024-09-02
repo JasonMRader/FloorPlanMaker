@@ -101,6 +101,16 @@
             btnAreaGraph = new Button();
             btnBoxChart = new Button();
             pnlFilters = new Panel();
+            rdoCompareDates = new RadioButton();
+            panel7 = new Panel();
+            label7 = new Label();
+            rdoCompareMonths = new RadioButton();
+            rdoCompareWeekDays = new RadioButton();
+            rdoCompareRain = new RadioButton();
+            rdoCompareTemp = new RadioButton();
+            rdoCompareReservations = new RadioButton();
+            rdoCompareWind = new RadioButton();
+            rdoCompareClouds = new RadioButton();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
@@ -119,6 +129,7 @@
             ((System.ComponentModel.ISupportInitialize)nudWindMaxRange).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudWindAvgAnchor).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudWindAvgRange).BeginInit();
+            panel7.SuspendLayout();
             SuspendLayout();
             // 
             // rdoDiningAreaSales
@@ -908,6 +919,7 @@
             // 
             // cartesianChart1
             // 
+            cartesianChart1.BackColor = Color.WhiteSmoke;
             cartesianChart1.Location = new Point(12, 315);
             cartesianChart1.Name = "cartesianChart1";
             cartesianChart1.Size = new Size(893, 307);
@@ -958,22 +970,179 @@
             // pnlFilters
             // 
             pnlFilters.BackColor = Color.FromArgb(225, 225, 225);
-            pnlFilters.Location = new Point(1012, 248);
+            pnlFilters.Location = new Point(1151, 231);
             pnlFilters.Name = "pnlFilters";
             pnlFilters.Size = new Size(200, 737);
             pnlFilters.TabIndex = 20;
+            // 
+            // rdoCompareDates
+            // 
+            rdoCompareDates.Appearance = Appearance.Button;
+            rdoCompareDates.BackColor = SystemColors.ButtonShadow;
+            rdoCompareDates.Checked = true;
+            rdoCompareDates.FlatAppearance.BorderSize = 0;
+            rdoCompareDates.FlatAppearance.CheckedBackColor = Color.FromArgb(100, 130, 180);
+            rdoCompareDates.FlatStyle = FlatStyle.Flat;
+            rdoCompareDates.ForeColor = Color.White;
+            rdoCompareDates.Location = new Point(3, 3);
+            rdoCompareDates.Name = "rdoCompareDates";
+            rdoCompareDates.Size = new Size(87, 24);
+            rdoCompareDates.TabIndex = 21;
+            rdoCompareDates.TabStop = true;
+            rdoCompareDates.Text = "Dates";
+            rdoCompareDates.TextAlign = ContentAlignment.MiddleCenter;
+            rdoCompareDates.UseVisualStyleBackColor = false;
+            // 
+            // panel7
+            // 
+            panel7.Controls.Add(rdoCompareClouds);
+            panel7.Controls.Add(rdoCompareWind);
+            panel7.Controls.Add(rdoCompareReservations);
+            panel7.Controls.Add(rdoCompareTemp);
+            panel7.Controls.Add(rdoCompareRain);
+            panel7.Controls.Add(rdoCompareWeekDays);
+            panel7.Controls.Add(rdoCompareMonths);
+            panel7.Controls.Add(rdoCompareDates);
+            panel7.Location = new Point(911, 334);
+            panel7.Name = "panel7";
+            panel7.Size = new Size(95, 247);
+            panel7.TabIndex = 22;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            label7.Location = new Point(911, 306);
+            label7.Name = "label7";
+            label7.Size = new Size(90, 25);
+            label7.TabIndex = 15;
+            label7.Text = "Compare";
+            // 
+            // rdoCompareMonths
+            // 
+            rdoCompareMonths.Appearance = Appearance.Button;
+            rdoCompareMonths.BackColor = SystemColors.ButtonShadow;
+            rdoCompareMonths.FlatAppearance.BorderSize = 0;
+            rdoCompareMonths.FlatAppearance.CheckedBackColor = Color.FromArgb(100, 130, 180);
+            rdoCompareMonths.FlatStyle = FlatStyle.Flat;
+            rdoCompareMonths.ForeColor = Color.White;
+            rdoCompareMonths.Location = new Point(3, 33);
+            rdoCompareMonths.Name = "rdoCompareMonths";
+            rdoCompareMonths.Size = new Size(87, 24);
+            rdoCompareMonths.TabIndex = 21;
+            rdoCompareMonths.Text = "Months";
+            rdoCompareMonths.TextAlign = ContentAlignment.MiddleCenter;
+            rdoCompareMonths.UseVisualStyleBackColor = false;
+            // 
+            // rdoCompareWeekDays
+            // 
+            rdoCompareWeekDays.Appearance = Appearance.Button;
+            rdoCompareWeekDays.BackColor = SystemColors.ButtonShadow;
+            rdoCompareWeekDays.FlatAppearance.BorderSize = 0;
+            rdoCompareWeekDays.FlatAppearance.CheckedBackColor = Color.FromArgb(100, 130, 180);
+            rdoCompareWeekDays.FlatStyle = FlatStyle.Flat;
+            rdoCompareWeekDays.ForeColor = Color.White;
+            rdoCompareWeekDays.Location = new Point(3, 63);
+            rdoCompareWeekDays.Name = "rdoCompareWeekDays";
+            rdoCompareWeekDays.Size = new Size(87, 24);
+            rdoCompareWeekDays.TabIndex = 21;
+            rdoCompareWeekDays.Text = "Week Days";
+            rdoCompareWeekDays.TextAlign = ContentAlignment.MiddleCenter;
+            rdoCompareWeekDays.UseVisualStyleBackColor = false;
+            // 
+            // rdoCompareRain
+            // 
+            rdoCompareRain.Appearance = Appearance.Button;
+            rdoCompareRain.BackColor = SystemColors.ButtonShadow;
+            rdoCompareRain.FlatAppearance.BorderSize = 0;
+            rdoCompareRain.FlatAppearance.CheckedBackColor = Color.FromArgb(100, 130, 180);
+            rdoCompareRain.FlatStyle = FlatStyle.Flat;
+            rdoCompareRain.ForeColor = Color.White;
+            rdoCompareRain.Location = new Point(3, 123);
+            rdoCompareRain.Name = "rdoCompareRain";
+            rdoCompareRain.Size = new Size(87, 24);
+            rdoCompareRain.TabIndex = 21;
+            rdoCompareRain.Text = "Rain";
+            rdoCompareRain.TextAlign = ContentAlignment.MiddleCenter;
+            rdoCompareRain.UseVisualStyleBackColor = false;
+            // 
+            // rdoCompareTemp
+            // 
+            rdoCompareTemp.Appearance = Appearance.Button;
+            rdoCompareTemp.BackColor = SystemColors.ButtonShadow;
+            rdoCompareTemp.FlatAppearance.BorderSize = 0;
+            rdoCompareTemp.FlatAppearance.CheckedBackColor = Color.FromArgb(100, 130, 180);
+            rdoCompareTemp.FlatStyle = FlatStyle.Flat;
+            rdoCompareTemp.ForeColor = Color.White;
+            rdoCompareTemp.Location = new Point(3, 153);
+            rdoCompareTemp.Name = "rdoCompareTemp";
+            rdoCompareTemp.Size = new Size(87, 24);
+            rdoCompareTemp.TabIndex = 21;
+            rdoCompareTemp.Text = "Temperature";
+            rdoCompareTemp.TextAlign = ContentAlignment.MiddleCenter;
+            rdoCompareTemp.UseVisualStyleBackColor = false;
+            // 
+            // rdoCompareReservations
+            // 
+            rdoCompareReservations.Appearance = Appearance.Button;
+            rdoCompareReservations.BackColor = SystemColors.ButtonShadow;
+            rdoCompareReservations.FlatAppearance.BorderSize = 0;
+            rdoCompareReservations.FlatAppearance.CheckedBackColor = Color.FromArgb(100, 130, 180);
+            rdoCompareReservations.FlatStyle = FlatStyle.Flat;
+            rdoCompareReservations.ForeColor = Color.White;
+            rdoCompareReservations.Location = new Point(3, 93);
+            rdoCompareReservations.Name = "rdoCompareReservations";
+            rdoCompareReservations.Size = new Size(87, 24);
+            rdoCompareReservations.TabIndex = 21;
+            rdoCompareReservations.Text = "Reservations";
+            rdoCompareReservations.TextAlign = ContentAlignment.MiddleCenter;
+            rdoCompareReservations.UseVisualStyleBackColor = false;
+            // 
+            // rdoCompareWind
+            // 
+            rdoCompareWind.Appearance = Appearance.Button;
+            rdoCompareWind.BackColor = SystemColors.ButtonShadow;
+            rdoCompareWind.FlatAppearance.BorderSize = 0;
+            rdoCompareWind.FlatAppearance.CheckedBackColor = Color.FromArgb(100, 130, 180);
+            rdoCompareWind.FlatStyle = FlatStyle.Flat;
+            rdoCompareWind.ForeColor = Color.White;
+            rdoCompareWind.Location = new Point(3, 183);
+            rdoCompareWind.Name = "rdoCompareWind";
+            rdoCompareWind.Size = new Size(87, 24);
+            rdoCompareWind.TabIndex = 21;
+            rdoCompareWind.Text = "Wind";
+            rdoCompareWind.TextAlign = ContentAlignment.MiddleCenter;
+            rdoCompareWind.UseVisualStyleBackColor = false;
+            // 
+            // rdoCompareClouds
+            // 
+            rdoCompareClouds.Appearance = Appearance.Button;
+            rdoCompareClouds.BackColor = SystemColors.ButtonShadow;
+            rdoCompareClouds.FlatAppearance.BorderSize = 0;
+            rdoCompareClouds.FlatAppearance.CheckedBackColor = Color.FromArgb(100, 130, 180);
+            rdoCompareClouds.FlatStyle = FlatStyle.Flat;
+            rdoCompareClouds.ForeColor = Color.White;
+            rdoCompareClouds.Location = new Point(3, 213);
+            rdoCompareClouds.Name = "rdoCompareClouds";
+            rdoCompareClouds.Size = new Size(87, 24);
+            rdoCompareClouds.TabIndex = 21;
+            rdoCompareClouds.Text = "Clouds";
+            rdoCompareClouds.TextAlign = ContentAlignment.MiddleCenter;
+            rdoCompareClouds.UseVisualStyleBackColor = false;
             // 
             // frmSalesStats
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1501, 1042);
+            Controls.Add(panel7);
             Controls.Add(pnlFilters);
             Controls.Add(btnBoxChart);
             Controls.Add(btnAreaGraph);
             Controls.Add(btnLineGraph);
             Controls.Add(cartesianChart1);
             Controls.Add(button1);
+            Controls.Add(label7);
             Controls.Add(lblSampleSizeDisplay);
             Controls.Add(dgvAreaStats);
             Controls.Add(flowDiningAreas);
@@ -1037,6 +1206,7 @@
             ((System.ComponentModel.ISupportInitialize)nudWindMaxRange).EndInit();
             ((System.ComponentModel.ISupportInitialize)nudWindAvgAnchor).EndInit();
             ((System.ComponentModel.ISupportInitialize)nudWindAvgRange).EndInit();
+            panel7.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -1117,6 +1287,16 @@
         private Button btnAreaGraph;
         private Button btnBoxChart;
         private Panel pnlFilters;
+        private RadioButton rdoCompareDates;
+        private Panel panel7;
+        private RadioButton rdoCompareReservations;
+        private RadioButton rdoCompareTemp;
+        private RadioButton rdoCompareRain;
+        private RadioButton rdoCompareWeekDays;
+        private RadioButton rdoCompareMonths;
+        private Label label7;
+        private RadioButton rdoCompareClouds;
+        private RadioButton rdoCompareWind;
         //private SplitContainer splitContainer1;
     }
 }

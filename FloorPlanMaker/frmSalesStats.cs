@@ -277,24 +277,28 @@ namespace FloorPlanMakerUI
         private List<ServerShiftHistory> GetServerHistory(List<Server> servers)
         {
             var serverHistorys = new List<ServerShiftHistory>();
-            if (rdoAm.Checked) {
-                foreach (var server in servers) {
-                    var serverShiftHistory = new ServerShiftHistory(server, dateOnlyStart, dateOnlyEnd, true, FilteredDaysOfWeek);
-                    serverHistorys.Add(serverShiftHistory);
-                }
+            foreach (var server in servers) {
+                var serverShiftHistory = new ServerShiftHistory(server, shiftAnalysis.StartDate, shiftAnalysis.EndDate, shiftAnalysis.IsAM, shiftAnalysis.FilteredDaysOfWeek);
+                serverHistorys.Add(serverShiftHistory);
             }
-            if (rdoPm.Checked) {
-                foreach (var server in servers) {
-                    var serverShiftHistory = new ServerShiftHistory(server, dateOnlyStart, dateOnlyEnd, false, FilteredDaysOfWeek);
-                    serverHistorys.Add(serverShiftHistory);
-                }
-            }
-            if (rdoBoth.Checked) {
-                foreach (var server in servers) {
-                    var serverShiftHistory = new ServerShiftHistory(server, dateOnlyStart, dateOnlyEnd, FilteredDaysOfWeek);
-                    serverHistorys.Add(serverShiftHistory);
-                }
-            }
+            //if (rdoAm.Checked) {
+            //    foreach (var server in servers) {
+            //        var serverShiftHistory = new ServerShiftHistory(server, dateOnlyStart, dateOnlyEnd, true, FilteredDaysOfWeek);
+            //        serverHistorys.Add(serverShiftHistory);
+            //    }
+            //}
+            //if (rdoPm.Checked) {
+            //    foreach (var server in servers) {
+            //        var serverShiftHistory = new ServerShiftHistory(server, dateOnlyStart, dateOnlyEnd, false, FilteredDaysOfWeek);
+            //        serverHistorys.Add(serverShiftHistory);
+            //    }
+            //}
+            //if (rdoBoth.Checked) {
+            //    foreach (var server in servers) {
+            //        var serverShiftHistory = new ServerShiftHistory(server, dateOnlyStart, dateOnlyEnd, FilteredDaysOfWeek);
+            //        serverHistorys.Add(serverShiftHistory);
+            //    }
+            //}
 
 
             return serverHistorys;
@@ -638,7 +642,7 @@ namespace FloorPlanMakerUI
             }
             if (rdoServerShifts.Checked) {
                 Task.Run(() => {
-                    List<DateTime> dateList = GetFilteredDates(dtpStartDate.Value, dtpEndDate.Value);
+                    //List<DateTime> dateList = GetFilteredDates(dtpStartDate.Value, dtpEndDate.Value);
                     List<ServerShiftHistory> serverHistory = GetServerHistory(employeeManager.ActiveServers);
 
                     this.Invoke(new Action(() => {
