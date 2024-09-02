@@ -42,6 +42,16 @@ namespace FloorplanClassLibrary
         }
         public void SetStandardFiltersForDateAndShiftType(bool isLunch, DateOnly dateOnly)
         {
+            this._isAM = isLunch;
+            this._endDate = dateOnly.AddDays(-1);
+            this._startDate = dateOnly.AddDays(-91);
+            this._filterBySpecialEvent = true;
+            //int currentMonth = dateOnly.Month;
+            //int previousMonth = dateOnly.AddMonths(-1).Month;
+            //int nextMonth = dateOnly.AddMonths(1).Month;
+        }
+        public void SetDefaultWeatherFilters(ShiftWeather shiftWeather)
+        {
 
         }
         private DateOnly _startDate = new DateOnly(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).AddDays(-91);
@@ -59,7 +69,9 @@ namespace FloorplanClassLibrary
         private int WindAvgMin { get; set; }
         private int WindAvgMax { get; set; }
         private bool _filterByTemperature { get; set; } = false;
+        public bool FilterByTemperature { get {  return _filterByTemperature; } }
         private bool _filterByRainAmount { get; set; } = false;
+        public bool FilterByRainAmount { get { return _filterByRainAmount; } }
         private bool _filterByClouds { get; set; } = false;
         private bool _filterByWindMax { get; set; } = false;
         private bool _filterByWindAvg { get; set; } = false;
@@ -242,17 +254,17 @@ namespace FloorplanClassLibrary
 
         private void FilterByWindAvg() {
             _filteredShifts = _filteredShifts.Where(shift => shift.ShiftWeather.WindAvg >= (WindAvgMin)
-            && shift.ShiftWeather.RainAmount <= (WindAvgMax)).ToList();
+            && shift.ShiftWeather.WindAvg <= (WindAvgMax)).ToList();
         }
 
         private void FilterByWindMax() {
             _filteredShifts = _filteredShifts.Where(shift => shift.ShiftWeather.WindMax >= (WindMaxMin)
-            && shift.ShiftWeather.RainAmount <= (WindMaxMax)).ToList();
+            && shift.ShiftWeather.WindMax <= (WindMaxMax)).ToList();
         }
 
         private void FilterByClouds() {
             _filteredShifts = _filteredShifts.Where(shift => shift.ShiftWeather.CloudCoverAverage >= (CloudMin) 
-            && shift.ShiftWeather.RainAmount <= (CloudMax)).ToList();
+            && shift.ShiftWeather.CloudCoverAverage <= (CloudMax)).ToList();
         }
 
         private void FilterByRainAmount() {

@@ -32,6 +32,7 @@ namespace FloorPlanMakerUI
             //LiveCharts.WinForms.PieChart chart = new LiveCharts.WinForms.PieChart();
 
             shiftFilterControl = new ShiftFilterControl();
+            shiftAnalysis.SetStandardFiltersForDateAndShiftType(false, DateOnly.FromDateTime(DateTime.Today));
             pnlFilters.Controls.Add(shiftFilterControl);
             shiftFilterControl.SetShiftAnalysis(shiftAnalysis);
             shiftFilterControl.UpdateShift += PopulateUI;
