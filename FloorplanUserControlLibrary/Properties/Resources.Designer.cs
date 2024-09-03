@@ -753,6 +753,16 @@ namespace FloorplanUserControlLibrary.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap loading1 {
+            get {
+                object obj = ResourceManager.GetObject("loading1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Monday {
             get {
                 object obj = ResourceManager.GetObject("Monday", resourceCulture);
@@ -1436,6 +1446,16 @@ namespace FloorplanUserControlLibrary.Properties {
         internal static System.Drawing.Bitmap star {
             get {
                 object obj = ResourceManager.GetObject("star", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap statistics {
+            get {
+                object obj = ResourceManager.GetObject("statistics", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

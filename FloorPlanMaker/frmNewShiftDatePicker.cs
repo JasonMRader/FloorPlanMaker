@@ -637,7 +637,41 @@ namespace FloorPlanMakerUI
 
         private void cbIsAm_CheckedChanged(object sender, EventArgs e)
         {
+            frmLoading loadingForm = new frmLoading("Parsing");
+            loadingForm.Show();
+            this.Enabled = false;
+            
+            Task.Run(() => {
+               
 
+                this.Invoke(new Action(() => {
+                    if (isAM) {
+                        cbIsAm.Image = Resources.smallSunrise;
+                        cbIsAm.BackColor = Color.FromArgb(251, 175, 0);
+                    }
+                    else {
+                        cbIsAm.Image = Resources.smallMoon;
+                        cbIsAm.BackColor = Color.FromArgb(117, 70, 104);
+
+                    }
+                    RefreshPreviousFloorplanCounts();
+                    RefreshForDateSelected();
+                    txtServerSearch.Focus();
+                    GetDateString();
+
+
+
+                    loadingForm.Close();
+
+                 
+                    this.Enabled = true;
+
+                    this.BringToFront();
+
+                }));
+            });
+
+            
             if (isAM)
             {
                 cbIsAm.Image = Resources.smallSunrise;

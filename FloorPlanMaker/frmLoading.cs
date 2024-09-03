@@ -23,29 +23,29 @@ namespace FloorPlanMakerUI
         private void timer_Tick(object sender, EventArgs e)
         {
             // Update the text based on the dotCount
-            switch (dotCount)
-            {
-                case 1:
-                    label1.Text = display + ".";
-                    dotCount++;
-                    break;
-                case 2:
-                    label1.Text = display + "..";
-                    dotCount++;
-                    break;
-                case 3:
-                    label1.Text = display + "...";
-                    dotCount++;  // Reset to start cycle over
-                    break;
-                case 4:
-                    label1.Text = display + "....";
-                    dotCount++;
-                    break;
-                case 5:
-                    label1.Text = display + ".....";
-                    dotCount = 1;
-                    break;
-            }
+            //switch (dotCount)
+            //{
+            //    case 1:
+            //        label1.Text = display + ".";
+            //        dotCount++;
+            //        break;
+            //    case 2:
+            //        label1.Text = display + "..";
+            //        dotCount++;
+            //        break;
+            //    case 3:
+            //        label1.Text = display + "...";
+            //        dotCount++;  // Reset to start cycle over
+            //        break;
+            //    case 4:
+            //        label1.Text = display + "....";
+            //        dotCount++;
+            //        break;
+            //    case 5:
+            //        label1.Text = display + ".....";
+            //        dotCount = 1;
+            //        break;
+            //}
         }
 
         private void frmLoading_Load(object sender, EventArgs e)
