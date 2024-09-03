@@ -855,5 +855,12 @@ namespace FloorplanClassLibrary
                 observer.UpdateFloorplan(this);
             }
         }
+
+        public void RefreshSectionSales()
+        {
+            foreach (var section in Sections) {
+                section.Notify();
+            }
+        }
     }
 }

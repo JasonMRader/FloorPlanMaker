@@ -78,6 +78,7 @@ namespace FloorPlanMakerUI
                     AddSectionPanels();
                 }
             }
+            
            
         }
         private void SetSectionImageLabels()

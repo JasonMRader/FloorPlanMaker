@@ -385,7 +385,7 @@ namespace FloorPlanMakerUI
         }
         private void UpdateShiftAnalysis()
         {
-            shiftAnalysis.SetStandardFiltersForShift(Shift);
+            //shiftAnalysis.SetStandardFiltersForShift(Shift);
             shiftAnalysis.InitializetShiftsForDateRange();
             UpdateTableStats();
 
@@ -400,12 +400,14 @@ namespace FloorPlanMakerUI
             if (Shift.Floorplans != null) {
                 foreach (Floorplan floorplan in Shift.Floorplans) {
                     floorplan.DiningArea.SetTableSales(shiftAnalysis.FilteredTableStats);
+                    floorplan.RefreshSectionSales();
                 }
                 foreach (TableControl tableControl in this.tableControlManager.TableControls) {
                     this.toolTip.SetToolTip(tableControl, tableControl.Table.AverageSales.ToString("C0"));
                 }
 
             }
+            sectionPanelManager.UpdateImageLabels();
         }
         
         
@@ -444,15 +446,16 @@ namespace FloorPlanMakerUI
             {
                 Shift.SelectedFloorplan.SectionIsSelected += UpdateForSelectedSection;
                 Shift.SetDoubles();
-                
+                UpdateTableStats();
                 tableControlManager.SetNewFloorplan(Floorplan);
                
                 serverControlManager.SetNewFloorplan(Floorplan);
                 sectionLabelManager.SetNewFloorplan(Floorplan);
                 sectionPanelManager.SetNewFloorplan(Floorplan);
-                UpdateTableStats();
+                
                 AddSectionLines();
                 SetSelectedSectionToDefault();
+               
                 
             }
             else
@@ -468,6 +471,7 @@ namespace FloorPlanMakerUI
                 sectionHeader.SetSectionToNull();
                 pnlMainContainer.BackColor = UITheme.SecondColor; 
                 pnlSideContainer.BackColor = UITheme.SecondColor;
+                
 
             }
         }
