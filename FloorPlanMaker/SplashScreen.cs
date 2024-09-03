@@ -47,8 +47,11 @@ namespace FloorPlanMakerUI
                     SqliteDataAccess.BackupDatabase();
                     SqliteDataAccess.DeleteOldBackups();
                     WeatherDataHistoryUpdater.SaveMissingDatesToDatabase();
-
+                    
                     await HourlyWeatherForecast.InitializeAsync();
+                    form1.Invoke(new Action(() => {
+                        form1.UpdateWeatherDataLoaded();
+                    }));
                     await HotSchedulesDataAccess.InitializeAsync();
                 }
                 catch (Exception ex)

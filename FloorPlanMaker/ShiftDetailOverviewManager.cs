@@ -174,6 +174,12 @@ namespace FloorPlanMakerUI
             }
             
         }
+        public void ForceUpdateForDate(DateOnly dateOnly, bool isLunch)
+        {
+            this.dateOnly = dateOnly;
+            this.isLunch = isLunch;
+            PopulateFlowPanelForShiftData();
+        }
 
         public void UpdateShift(Shift shift)
         {

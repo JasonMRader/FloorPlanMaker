@@ -645,6 +645,19 @@ namespace FloorPlanMaker {
             UpdateMissingSalesData();
             //diningAreaButtonHandeler.UpdateForShift(shift);
         }
+        public void UpdateWeatherDataLoaded()
+        {
+            if (DateTime.Now.TimeOfDay > new TimeSpan(11, 0, 0)) {
+                cbIsAM.Checked = false;
+                IsLunch = false;
+            }
+            else {
+                cbIsAM.Checked = true;
+                IsLunch = true;
+            }
+            UpdateDateSelected(0);
+            this.shiftDetailManager.ForceUpdateForDate(dateOnlySelected, IsLunch);
+        }
         public void UpdateSidePanelDisplay() {
             if (floorplanManager.Shift == null) {
                 this.shiftDetailManager.UpdateForNewDate(dateOnlySelected, IsLunch);
