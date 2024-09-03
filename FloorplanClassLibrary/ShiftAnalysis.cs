@@ -79,16 +79,32 @@ namespace FloorplanClassLibrary
         private int WindAvgMin { get; set; }
         private int WindAvgMax { get; set; }
         private bool _filterByTemperature { get; set; } = false;
-        public bool IsFilterByTemperature { get {  return _filterByTemperature; } }
+        public bool IsFilterByTemperature { get { return _filterByTemperature; } }
+
         private bool _filterByRainAmount { get; set; } = false;
         public bool IsFilteredByRainAmount { get { return _filterByRainAmount; } }
+
         private bool _filterByClouds { get; set; } = false;
+        public bool IsFilteredByClouds { get { return _filterByClouds; } }
+
         private bool _filterByWindMax { get; set; } = false;
+        public bool IsFilteredByWindMax { get { return _filterByWindMax; } }
+
         private bool _filterByWindAvg { get; set; } = false;
-        private bool _filterByDayOfWeek { get; set; }= false;
+        public bool IsFilteredByWindAvg { get { return _filterByWindAvg; } }
+
+        private bool _filterByDayOfWeek { get; set; } = false;
+        public bool IsFilteredByDayOfWeek { get { return _filterByDayOfWeek; } }
+
         private bool _filterByDiningArea { get; set; } = false;
+        public bool IsFilteredByDiningArea { get { return _filterByDiningArea; } }
+
         private bool _filterByMonth { get; set; } = false;
+        public bool IsFilteredByMonth { get { return _filterByMonth; } }
+
         private bool _filterByReservations { get; set; } = false;
+        public bool IsFilteredByReservations { get { return _filterByReservations; } }
+
         private bool _filterBySpecialEvent { get; set; } = false;
         private bool _specialEventsAllowed { get; set; } = false;
         public bool SpecialEventsAllowed { get { return _specialEventsAllowed; } }

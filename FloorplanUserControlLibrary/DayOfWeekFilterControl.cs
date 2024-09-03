@@ -30,8 +30,34 @@ namespace FloorplanUserControlLibrary
             allCbs.Add(cbFri);
             allCbs.Add(cbSat);
             allCbs.Add(cbSun);
+            cbMon.Tag = DayOfWeek.Monday;
+            cbTues.Tag = DayOfWeek.Tuesday;
+            cbWed.Tag = DayOfWeek.Wednesday;
+            cbThurs.Tag = DayOfWeek.Thursday;
+            cbFri.Tag = DayOfWeek.Friday;
+            cbSat.Tag = DayOfWeek.Saturday;
+            cbSun.Tag = DayOfWeek.Sunday;
+            if(shiftAnalysis.IsFilteredByDayOfWeek) {
+                UpdateCheckedStatusForCBs();
+            }
+           
         }
-
+        private void UpdateCheckedStatusForCBs()
+        {
+            foreach(CheckBox checkBox in allCbs) {
+                if(shiftAnalysis.FilteredDaysOfWeek.Contains((DayOfWeek)checkBox.Tag)) {
+                checkBox.Checked = true;
+                }
+                else {
+                    checkBox.Checked = false;
+                    button1.BackColor = UITheme.CTAColor;
+                    button1.ForeColor = UITheme.CTAFontColor;
+                    button1.Text = GetButtonFilteredString();
+                   
+                }
+            }
+            UpdateShiftAnalysisFilter();
+        }
         private void cbDayOfWeek_Clicked(object sender, EventArgs e)
         {
             CheckBox cb = sender as CheckBox;

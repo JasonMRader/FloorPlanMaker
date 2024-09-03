@@ -42,6 +42,7 @@ namespace FloorPlanMakerUI
             this.shiftFilterControl = new ShiftFilterControl();
             this.shiftFilterControl.SetShiftAnalysis(shiftFilterControl.ShiftAnalysis);
             this.shiftFilterControl.Location = new Point(5, 5);
+            this.shiftAnalysis = shiftFilterControl.ShiftAnalysis;
             //shiftAnalysis.SetStandardFiltersForDateAndShiftType(false, DateOnly.FromDateTime(DateTime.Today));
             pnlFilters.Controls.Add(this.shiftFilterControl);
             //shiftFilterControl.SetShiftAnalysis(shiftAnalysis);
