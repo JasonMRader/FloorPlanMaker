@@ -72,6 +72,7 @@ namespace FloorPlanMaker {
         //private PreviewTooltip previewTooltip;
         public Form1() {
             InitializeComponent();
+           
             this.shiftDetailManager = new ShiftDetailOverviewManager(this.flowWeatherDisplay, this.flowResoDisplay, pnlShiftDetails,
                 rdoWeather, rdoReservations, rdoSales, pnlStatMode);
             drawingHandler = new DrawingHandler(pnlFloorPlan);
@@ -123,6 +124,14 @@ namespace FloorPlanMaker {
                 rdoViewSectionFlow.Checked = true;
                 pnlFloorPlan.BackgroundImage = null;
                 pnlFloorPlan.Invalidate();
+                if (DateTime.Now.TimeOfDay > new TimeSpan(12, 0, 0)) {
+                    cbIsAM.Checked = false;
+                    IsLunch = false;
+                }
+                else {
+                    cbIsAM.Checked = true;
+                    IsLunch = true;
+                }
                 UpdateDateSelected(0);
                 coversImageLabel.SetTooltip("Covers per Server");
                 salesImageLabel.SetTooltip("Sales Per Server");
@@ -647,15 +656,8 @@ namespace FloorPlanMaker {
         }
         public void UpdateWeatherDataLoaded()
         {
-            if (DateTime.Now.TimeOfDay > new TimeSpan(11, 0, 0)) {
-                cbIsAM.Checked = false;
-                IsLunch = false;
-            }
-            else {
-                cbIsAM.Checked = true;
-                IsLunch = true;
-            }
-            UpdateDateSelected(0);
+            
+           
             this.shiftDetailManager.ForceUpdateForDate(dateOnlySelected, IsLunch);
         }
         public void UpdateSidePanelDisplay() {
