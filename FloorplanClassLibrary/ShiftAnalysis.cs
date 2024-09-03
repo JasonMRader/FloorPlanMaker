@@ -49,6 +49,9 @@ namespace FloorplanClassLibrary
             this._endDate = dateOnly.AddDays(-1);
             this._startDate = dateOnly.AddDays(-91);
             this._filterBySpecialEvent = true;
+            _filterByDayOfWeek = true;
+            _filteredDaysOfWeek.Clear();
+            _filteredDaysOfWeek.Add(dateOnly.DayOfWeek);
             //int currentMonth = dateOnly.Month;
             //int previousMonth = dateOnly.AddMonths(-1).Month;
             //int nextMonth = dateOnly.AddMonths(1).Month;
@@ -59,6 +62,9 @@ namespace FloorplanClassLibrary
             this._endDate = shift.DateOnly.AddDays(-1);
             this._startDate = shift.DateOnly.AddDays(-91);
             this._filterBySpecialEvent = true;
+            _filterByDayOfWeek = true;
+            _filteredDaysOfWeek.Clear();
+            _filteredDaysOfWeek.Add(shift.DateOnly.DayOfWeek);
         }
         public void SetDefaultWeatherFilters(ShiftWeather shiftWeather)
         {

@@ -115,7 +115,7 @@ namespace FloorPlanMakerUI
             }
             if (newAvgSales > -1 && newAvgSales != this.tableControl.Table.AverageSales)
             {
-                this.tableControl.Table.AverageSales = newAvgSales;
+                this.tableControl.Table.SetTableSales(newAvgSales);
                 SqliteDataAccess.UpdateTable(this.tableControl.Table);
             }
         }

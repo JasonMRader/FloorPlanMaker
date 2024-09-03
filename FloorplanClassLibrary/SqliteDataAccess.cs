@@ -1622,7 +1622,7 @@ namespace FloorplanClassLibrary
                         foreach (Table table in section.Tables)
                         {
                             Table diningTable = diningArea.Tables.FirstOrDefault(t => t.ID == table.ID);
-                            table.AverageSales = diningTable?.AverageSales ?? 0;
+                            table.SetTableSales(diningTable?.AverageSales ?? 0);
                         }
                     }
 

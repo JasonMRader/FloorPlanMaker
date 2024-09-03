@@ -142,13 +142,14 @@ namespace FloorPlanMakerUI
                 Shape = this.tableControl.Table.Shape,
                 TableNumber = newTableNumber.ToString(),
                 MaxCovers = this.tableControl.Table.MaxCovers,
-                AverageSales = this.tableControl.Table.AverageSales,
+                
                 YCoordinate = this.tableControl.Table.YCoordinate,
                 XCoordinate = this.tableControl.Table.XCoordinate + this.tableControl.Table.Width + 5,
                 DiningAreaId = this.tableControl.Table.DiningAreaId,
                 DiningArea = this.tableControl.Table.DiningArea
 
             };
+            table.SetTableSales(this.tableControl.Table.AverageSales);
             table.ID = SqliteDataAccess.SaveTable(table);
             TableControl tableControl = TableControlFactory.CreateTableControl(table);
             tableControl.BackColor = this.tableControl.BackColor;

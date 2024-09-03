@@ -95,13 +95,13 @@ namespace FloorplanClassLibrary
                 if (table.TableNumber == "INSIDE BAR")
                 {
                     float insideBarSales = insideBarSalesAM + insideBarSalesPM;
-                    table.AverageSales = insideBarSales;
+                    table.SetTableSales(insideBarSales);
                     totalSales += insideBarSales;
                 }
                 else if (table.TableNumber == "OUTSIDE BAR")
                 {
                     float outsideBarSales = outsideBarSalesAM + outsideBarSalesPM;
-                    table.AverageSales = outsideBarSales;
+                    table.SetTableSales(outsideBarSales);
                     totalSales += outsideBarSales;
                 }
                 else if (table.TableNumber == "308" || table.TableNumber == "418")
@@ -112,7 +112,7 @@ namespace FloorplanClassLibrary
                     float matchedSalesAM = matchedStatAM?.Sales ?? 0;
                     float matchedSalesPM = matchedStatPM?.Sales ?? 0;
 
-                    table.AverageSales = matchedSalesAM + matchedSalesPM;
+                    table.SetTableSales( matchedSalesAM + matchedSalesPM);
                     totalSales += matchedSalesAM + matchedSalesPM;
                 }
                 else if (table.TableNumber == "309" || table.TableNumber == "419")
@@ -123,7 +123,7 @@ namespace FloorplanClassLibrary
                     float matchedSalesAM = matchedStatAM?.Sales ?? 0;
                     float matchedSalesPM = matchedStatPM?.Sales ?? 0;
 
-                    table.AverageSales = matchedSalesAM + matchedSalesPM;
+                    table.SetTableSales(matchedSalesAM + matchedSalesPM);
                     totalSales += matchedSalesAM + matchedSalesPM;
                 }
                 else
@@ -134,7 +134,7 @@ namespace FloorplanClassLibrary
                     float matchedSalesAM = matchedStatAM?.Sales ?? 0;
                     float matchedSalesPM = matchedStatPM?.Sales ?? 0;
 
-                    table.AverageSales = matchedSalesAM + matchedSalesPM;
+                    table.SetTableSales(matchedSalesAM + matchedSalesPM);
                     totalSales += matchedSalesAM + matchedSalesPM;
                 }
             }
@@ -149,11 +149,11 @@ namespace FloorplanClassLibrary
                 var matchedStat = stats.FirstOrDefault(t => t.TableStatNumber == table.TableNumber);
                 if (matchedStat != null)
                 {
-                    table.AverageSales = (float)matchedStat.Sales;
+                    table.SetTableSales((float)matchedStat.Sales);
                     totalAreaSales += (float)matchedStat.Sales;
 
                 }
-                else { table.AverageSales = 0; }
+                else { table.SetTableSales(0); }
 
             }
             

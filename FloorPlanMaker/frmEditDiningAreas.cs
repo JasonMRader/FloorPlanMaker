@@ -333,13 +333,14 @@ namespace FloorPlanMakerUI
                 Shape = areaCreationManager.SelectedTable.Shape,
                 TableNumber = newTableNumber.ToString(),
                 MaxCovers = areaCreationManager.SelectedTable.MaxCovers,
-                AverageSales = areaCreationManager.SelectedTable.AverageSales,
+                 
                 YCoordinate = areaCreationManager.SelectedTable.YCoordinate,
                 XCoordinate = areaCreationManager.SelectedTable.XCoordinate + areaCreationManager.SelectedTable.Width,
                 DiningAreaId = areaCreationManager.SelectedTable.DiningAreaId,
                 DiningArea = areaCreationManager.SelectedTable.DiningArea
 
             };
+            table.SetTableSales(areaCreationManager.SelectedTable.AverageSales);
             table.ID = SqliteDataAccess.SaveTable(table);
             TableControl tableControl = TableControlFactory.CreateTableControl(table);
             tableControl.Moveable = true;
@@ -426,7 +427,7 @@ namespace FloorPlanMakerUI
 
             if (float.TryParse(txtAverageCovers.Text, out float averageCovers))
             {
-                table.AverageSales = averageCovers;
+                table.SetTableSales(averageCovers);
             }
 
 
@@ -466,7 +467,7 @@ namespace FloorPlanMakerUI
 
             if (float.TryParse(txtAverageCovers.Text, out float averageCovers))
             {
-                table.AverageSales = averageCovers;
+                table.SetTableSales(averageCovers);
             }
 
 

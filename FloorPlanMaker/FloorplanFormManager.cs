@@ -404,6 +404,7 @@ namespace FloorPlanMakerUI
                 }
                 foreach (TableControl tableControl in this.tableControlManager.TableControls) {
                     this.toolTip.SetToolTip(tableControl, tableControl.Table.AverageSales.ToString("C0"));
+                    tableControl.Invalidate();
                 }
 
             }

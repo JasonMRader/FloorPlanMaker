@@ -15,18 +15,6 @@ namespace FloorplanClassLibrary
             this.Floorplan = floorplan;
            
         }
-        public Section(Section section)
-        {
-            this._number = section.Number;
-            this.IsCloser = section.IsCloser;
-            this.IsPickUp = section.IsPickUp;
-            this.IsPre = section.IsPre;
-            this.Name = section.Name;
-            //this.Floorplan = section.Floorplan;
-            this.ServerCount = section.ServerTeam.Count;
-            this.DiningAreaID = section.DiningAreaID; 
-            this.SetTableList( section.Tables.ToList());
-        }
         public Section CopySection(DiningArea diningArea)
         {
             Section copy = new Section();
@@ -70,19 +58,10 @@ namespace FloorplanClassLibrary
             foreach(Table table in this.Tables)
             {
                 Table tableToCopy = tablesToCopy.FirstOrDefault(t => t.TableNumber == table.TableNumber);
-                table.AverageSales = tableToCopy.AverageSales;
+                table.SetTableSales(tableToCopy.AverageSales);
             }
         }
-        public void CopyTemplateSection(Section sectionToCopied)
-        {
-            this.IsCloser = sectionToCopied.IsCloser;
-            this.IsPickUp = sectionToCopied.IsPickUp;
-            this.IsPre = sectionToCopied.IsPre;
-            this.Name = sectionToCopied.Name;
-            this.SetSectionPropertiesFromTemplateSection(sectionToCopied);
-
-
-        }
+       
         public bool IsFull
         {
             get
@@ -515,21 +494,35 @@ namespace FloorplanClassLibrary
         public void AddTable(Table table)
         {
             this._tables.Add(table);
+            table.SalesChanged += NotifySalesChanged;
             NotifyObservers();
         }
-        public void RemoveTable(Table table)
+
+        private void NotifySalesChanged()
         {
+            //NotifyObservers();
+        }
+
+        public void RemoveTable(Table table)
+        { 
             this._tables.RemoveAll(t => t.ID == table.ID);
+            table.SalesChanged -= NotifySalesChanged;
             NotifyObservers();
         }
         public void SetTableList(List<Table> tables)
         {
             this._tables = tables;
+            foreach (Table table in tables) {
+                table.SalesChanged += NotifySalesChanged;
+            }
 
             NotifyObservers();
         }
         public void ClearTables()
         {
+            foreach (Table table in this._tables) {
+                table.SalesChanged -= NotifySalesChanged;
+            }
             this._tables?.Clear();
             NotifyObservers();
         }

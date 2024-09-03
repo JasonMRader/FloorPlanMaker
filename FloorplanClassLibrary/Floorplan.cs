@@ -282,11 +282,11 @@ namespace FloorplanClassLibrary
                 var matchedStat = stats.FirstOrDefault(t => t.TableStatNumber == table.TableNumber);
                 if (matchedStat != null)
                 {
-                    table.AverageSales = (float)matchedStat.Sales;
+                    table.SetTableSales((float)matchedStat.Sales);
                     totalAreaSales += (float)matchedStat.Sales;
                    
                 }
-                else { table.AverageSales = 0; }
+                else { table.SetTableSales(0); }
                 
             }
             if(this.Servers.Count > 1) 
@@ -305,11 +305,11 @@ namespace FloorplanClassLibrary
                 var matchedStat = stats.FirstOrDefault(t => t.TableStatNumber == table.TableNumber);
                 if (matchedStat != null)
                 {
-                    table.AverageSales = (float)matchedStat.Sales;
+                    table.SetTableSales((float)matchedStat.Sales);
                     totalAreaSales += (float)matchedStat.Sales;
 
                 }
-                else { table.AverageSales = 0; }
+                else { table.SetTableSales(0); }
 
             }
             if (this.Servers.Count > 1)

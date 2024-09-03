@@ -2,10 +2,12 @@
 {
     public class Table
     {
+        public event Action SalesChanged;
         public int ID {  get; set; }
         public string? TableNumber { get; set; } = "000";
         public int MaxCovers { get; set; } = 2;
-        public float AverageSales { get; set; } = 1;
+        private float _averageSales { get; set; } = 1;
+        public float AverageSales { get { return _averageSales; } } 
         public DiningArea DiningArea { get; set; }
         public int DiningAreaId { get; set; }
         public bool IsIncluded { get; set; }
@@ -26,6 +28,11 @@
         public TableShape Shape { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
+        public void SetTableSales(float sales)
+        {
+            _averageSales = sales;
+            SalesChanged?.Invoke();
+        }
         public List<Point> GetCornerPoints()
         {
             return new List<Point> { TopLeft, TopRight, BottomRight, BottomLeft };
