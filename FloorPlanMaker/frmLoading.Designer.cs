@@ -51,10 +51,10 @@
             panel2.BackColor = Color.FromArgb(255, 224, 192);
             panel2.Controls.Add(label1);
             panel2.Dock = DockStyle.Fill;
-            panel2.Location = new Point(0, 0);
+            panel2.Location = new Point(5, 5);
             panel2.Name = "panel2";
             panel2.Padding = new Padding(3);
-            panel2.Size = new Size(400, 200);
+            panel2.Size = new Size(390, 190);
             panel2.TabIndex = 1;
             panel2.Paint += panel2_Paint;
             // 
@@ -73,6 +73,7 @@
             Controls.Add(panel2);
             FormBorderStyle = FormBorderStyle.None;
             Name = "frmLoading";
+            Padding = new Padding(5);
             StartPosition = FormStartPosition.CenterScreen;
             Text = "frmLoading";
             TopMost = true;

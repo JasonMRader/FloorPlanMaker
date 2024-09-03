@@ -47,6 +47,7 @@ namespace FloorPlanMakerUI
             pnlFilters.Controls.Add(this.shiftFilterControl);
             //shiftFilterControl.SetShiftAnalysis(shiftAnalysis);
             this.shiftFilterControl.UpdateShift += PopulateUI;
+            
         }
 
         private ShiftFilterControl shiftFilterControl;
@@ -61,7 +62,8 @@ namespace FloorPlanMakerUI
             flowDiningAreas.Controls.Add(CreateSelectAllAreaRadio());
             foreach (DiningArea area in areaManager.DiningAreas) {
                 flowDiningAreas.Controls.Add(CreateAreaRadio(area));
-            }           
+            }
+            PopulateUI();
         }
         private RadioButton CreateSelectAllAreaRadio()
         {
