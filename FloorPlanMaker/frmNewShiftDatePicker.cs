@@ -78,7 +78,7 @@ namespace FloorPlanMakerUI
         }
         private void frmNewShiftDatePicker_Load(object sender, EventArgs e)
         {
-            if (DateTime.Now.TimeOfDay > new TimeSpan(12, 0, 0))
+            if (DateTime.Now.TimeOfDay > new TimeSpan(13, 0, 0))
             {
                 cbIsAm.Checked = false;
             }

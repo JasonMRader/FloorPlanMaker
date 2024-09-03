@@ -36,6 +36,17 @@ namespace FloorPlanMakerUI
             shiftFilterControl.SetShiftAnalysis(shiftAnalysis);
             shiftFilterControl.UpdateShift += PopulateUI;
         }
+        public frmSalesStats(ShiftFilterControl shiftFilterControl)
+        {
+            InitializeComponent();
+            this.shiftFilterControl = new ShiftFilterControl();
+            this.shiftFilterControl.SetShiftAnalysis(shiftFilterControl.ShiftAnalysis);
+            this.shiftFilterControl.Location = new Point(5, 5);
+            //shiftAnalysis.SetStandardFiltersForDateAndShiftType(false, DateOnly.FromDateTime(DateTime.Today));
+            pnlFilters.Controls.Add(this.shiftFilterControl);
+            //shiftFilterControl.SetShiftAnalysis(shiftAnalysis);
+            this.shiftFilterControl.UpdateShift += PopulateUI;
+        }
 
         private ShiftFilterControl shiftFilterControl;
         private DiningAreaManager areaManager = new DiningAreaManager();

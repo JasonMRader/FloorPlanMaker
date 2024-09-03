@@ -26,13 +26,14 @@ namespace FloorPlanMakerUI
             shiftDetailsPanel.Controls.Add(this.ShiftDetailsControl);
         }
         public ShiftDetailOverviewManager(FlowLayoutPanel flowWeatherPanel, FlowLayoutPanel flowResoPanel, Panel panel,
-            RadioButton rdoWeather, RadioButton rdoReservations, RadioButton rdoSalesStats, Panel pnlSaleStats)
+            RadioButton rdoWeather, RadioButton rdoReservations, RadioButton rdoSalesStats, Panel pnlSaleStats, ShiftFilterControl shiftFilterControl)
         {
             this.flowHourlyWeather = flowWeatherPanel;
             this.flowResos = flowResoPanel;
             this.shiftDetailsPanel = panel;
             this.pnlStats = pnlSaleStats;
-           
+            this.shiftFilterControl = shiftFilterControl;
+            this.shiftFilterControl.OpenSalesForm += OpenSalesForm;
             shiftDetailsPanel.Controls.Add(this.ShiftDetailsControl);
             this.rdoWeather = rdoWeather;
             this.rdoReservations = rdoReservations;
@@ -44,6 +45,12 @@ namespace FloorPlanMakerUI
             PopulateFlowPanelForShiftData();
 
 
+        }
+
+        private void OpenSalesForm()
+        {
+            frmSalesStats frmSalesStats = new frmSalesStats(shiftFilterControl);
+            frmSalesStats.ShowDialog();
         }
 
         private void rdoViewType_CheckChanged(object? sender, EventArgs e)
@@ -85,7 +92,7 @@ namespace FloorPlanMakerUI
 
         private void PopulateSaleStatsFilter()
         {
-            ShiftFilterControl shiftFilterControl = new ShiftFilterControl();
+            this.shiftFilterControl.ChangeShiftAnalysisDateIsAM(dateOnly, isLunch);
             //shift
         }
 
@@ -102,6 +109,7 @@ namespace FloorPlanMakerUI
         private bool isLunch { get; set; }
         private DateOnly dateOnly { get; set; }
         private Shift shift { get; set; }
+        private ShiftFilterControl shiftFilterControl { get; set; }
         private async void PopulateWeatherControlsForDateAndShift()
         {
             // Clear any previous data and fetch new weather data

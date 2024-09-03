@@ -435,6 +435,7 @@ namespace FloorPlanMakerUI
             {
                 Shift = SqliteDataAccess.LoadShift(Shift.SelectedDiningArea, dateOnlySelected, isAM);
             }
+            shiftAnalysis.SetStandardFiltersForShift(this.Shift);
             shiftFilterControl.SetShiftAnalysis(shiftAnalysis);
             ChangeDiningAreaSelected();
             diningAreaButtonHandeler.UpdateForShift(Shift);

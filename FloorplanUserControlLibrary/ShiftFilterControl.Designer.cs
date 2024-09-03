@@ -35,7 +35,7 @@
             lblFilteredShiftCount = new Label();
             btnUpdate = new Button();
             btnSaveFilter = new Button();
-            button2 = new Button();
+            btnViewStatsForm = new Button();
             cartesianChart1 = new LiveChartsCore.SkiaSharpView.WinForms.CartesianChart();
             lblAvg = new Label();
             lblMin = new Label();
@@ -153,22 +153,22 @@
             btnSaveFilter.Size = new Size(30, 30);
             btnSaveFilter.TabIndex = 6;
             btnSaveFilter.UseVisualStyleBackColor = false;
-            btnSaveFilter.Click += btnUpdate_Click;
+            btnSaveFilter.Visible = false;
             // 
-            // button2
+            // btnViewStatsForm
             // 
-            button2.BackColor = Color.FromArgb(100, 130, 180);
-            button2.FlatAppearance.BorderSize = 0;
-            button2.FlatStyle = FlatStyle.Flat;
-            button2.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            button2.ForeColor = Color.White;
-            button2.Image = Properties.Resources.analytics_24px;
-            button2.Location = new Point(159, 3);
-            button2.Name = "button2";
-            button2.Size = new Size(30, 30);
-            button2.TabIndex = 6;
-            button2.UseVisualStyleBackColor = false;
-            button2.Click += btnUpdate_Click;
+            btnViewStatsForm.BackColor = Color.FromArgb(100, 130, 180);
+            btnViewStatsForm.FlatAppearance.BorderSize = 0;
+            btnViewStatsForm.FlatStyle = FlatStyle.Flat;
+            btnViewStatsForm.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            btnViewStatsForm.ForeColor = Color.White;
+            btnViewStatsForm.Image = Properties.Resources.analytics_24px;
+            btnViewStatsForm.Location = new Point(159, 3);
+            btnViewStatsForm.Name = "btnViewStatsForm";
+            btnViewStatsForm.Size = new Size(30, 30);
+            btnViewStatsForm.TabIndex = 6;
+            btnViewStatsForm.UseVisualStyleBackColor = false;
+            btnViewStatsForm.Click += btnViewStatsForm_Click;
             // 
             // cartesianChart1
             // 
@@ -218,7 +218,7 @@
             BackColor = Color.WhiteSmoke;
             Controls.Add(cartesianChart1);
             Controls.Add(cbHolidaysExcluded);
-            Controls.Add(button2);
+            Controls.Add(btnViewStatsForm);
             Controls.Add(btnSaveFilter);
             Controls.Add(btnUpdate);
             Controls.Add(lblMax);
@@ -246,7 +246,7 @@
         private Label lblFilteredShiftCount;
         private Button btnUpdate;
         private Button btnSaveFilter;
-        private Button button2;
+        private Button btnViewStatsForm;
         private LiveChartsCore.SkiaSharpView.WinForms.CartesianChart cartesianChart1;
         private Label lblAvg;
         private Label lblMin;

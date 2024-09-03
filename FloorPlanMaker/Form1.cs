@@ -74,7 +74,7 @@ namespace FloorPlanMaker {
             InitializeComponent();
            
             this.shiftDetailManager = new ShiftDetailOverviewManager(this.flowWeatherDisplay, this.flowResoDisplay, pnlShiftDetails,
-                rdoWeather, rdoReservations, rdoSales, pnlStatMode);
+                rdoWeather, rdoReservations, rdoSales, pnlStatMode, shiftFilterControl);
             drawingHandler = new DrawingHandler(pnlFloorPlan);
             //shift = new Shift();
             //shiftManager.ServersNotOnShift = SqliteDataAccess.LoadServers();
@@ -95,7 +95,7 @@ namespace FloorPlanMaker {
 
             // Subscribe to the event
             //floorplanManager.SectionLabelRemoved += FloorplanManager_SectionLabelRemoved;
-            floorplanManager.UpdateRequired += FloorplanManager_UpdateRequired;
+           
             shift.SetSelectedDiningArea(areaCreationManager.DiningAreas[0]);
             //previewTooltip = new PreviewTooltip(this.components);
 
@@ -124,7 +124,7 @@ namespace FloorPlanMaker {
                 rdoViewSectionFlow.Checked = true;
                 pnlFloorPlan.BackgroundImage = null;
                 pnlFloorPlan.Invalidate();
-                if (DateTime.Now.TimeOfDay > new TimeSpan(12, 0, 0)) {
+                if (DateTime.Now.TimeOfDay > new TimeSpan(13, 0, 0)) {
                     cbIsAM.Checked = false;
                     IsLunch = false;
                 }
@@ -437,47 +437,7 @@ namespace FloorPlanMaker {
         }
 
 
-        private void FloorplanManager_UpdateRequired(object sender, UpdateEventArgs e) {
-            switch (e.ControlType) {
-                case ControlType.SectionLabel:
-                    if (e.UpdateType == UpdateType.Remove) {
-                        //floorplanManager.RemoveSectionLabel(e.UpdateData as Section, pnlFloorPlan);
-                    }
-                    else {
-
-                    }
-
-                    break;
-                case ControlType.ServerControl:
-                    if (e.UpdateType == UpdateType.Refresh) {
-                        //floorplanManager.UpdateServerControlsInFlowPanel()
-                    }
-                    break;
-                //case ControlType.SectionPanel:
-                //    if (e.UpdateType == UpdateType.Remove)
-                //    {
-                //        floorplanManager.RemoveSectionPanel(e.UpdateData as Section, flowSectionSelect);
-                //    }
-                //    else if (e.UpdateType == UpdateType.Add)
-                //    {
-                //        floorplanManager.AddSectionPanel(e.UpdateData as Section, flowSectionSelect);
-                //    }
-                //    else if (e.UpdateType == UpdateType.Assign)
-                //    {
-                //        quicklyChoosingAServer = true;
-                //        rdoViewServerFlow.Checked = true;
-                //        SubscribeToChildrenClick(flowServersInFloorplan);
-                //    }
-                //    break;
-                case ControlType.TableControl:
-
-                    // floorplanManager.SetSectionLabels();
-                    //floorplanManager.AddSectionLabels(pnlFloorPlan);
-
-                    break;
-
-            }
-        }
+       
 
         private void PnlFloorplan_Paint(object sender, PaintEventArgs e) {
             if (isDragging) {
