@@ -829,8 +829,7 @@ namespace FloorPlanMakerUI
                 }
             }
         }
-
-        private void cbIsAm_Click(object sender, EventArgs e)
+        private void ChangeAMwithLoadingScreen()
         {
             _isClickedByUser = true;
             frmLoading loadingForm = new frmLoading(frmLoading.GifType.Time);
@@ -865,6 +864,10 @@ namespace FloorPlanMakerUI
 
                 }));
             });
+        }
+        private void cbIsAm_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }
