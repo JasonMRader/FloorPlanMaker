@@ -13,8 +13,7 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
-            {
+            if (disposing && (components != null)) {
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -137,6 +136,7 @@
             toolTip1.SetToolTip(cbIsAm, "Toggle AM /PM");
             cbIsAm.UseVisualStyleBackColor = false;
             cbIsAm.CheckedChanged += cbIsAm_CheckedChanged;
+            cbIsAm.Click += cbIsAm_Click;
             // 
             // btnForwardDay
             // 
