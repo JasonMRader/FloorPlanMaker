@@ -137,6 +137,7 @@
             cbIsAm.UseVisualStyleBackColor = false;
             cbIsAm.CheckedChanged += cbIsAm_CheckedChanged;
             cbIsAm.Click += cbIsAm_Click;
+            cbIsAm.MouseDown += cbIsAm_MouseDown;
             // 
             // btnForwardDay
             // 

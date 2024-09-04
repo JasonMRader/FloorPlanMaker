@@ -600,7 +600,8 @@ namespace FloorPlanMakerUI
         {
 
             if (_isClickedByUser) {
-                
+                ChangeAMwithLoadingScreen();
+
                 _isClickedByUser = false;
                 return;
             }
@@ -620,7 +621,51 @@ namespace FloorPlanMakerUI
             txtServerSearch.Focus();
             GetDateString();
         }
+        private void ChangeAMwithLoadingScreen()
+        {
+            _isClickedByUser = true;
+            frmLoading loadingForm = new frmLoading(frmLoading.GifType.Time);
+            loadingForm.Show();
+            this.Enabled = false;
+            Task.Run(() => {
+                List<AreaHistory> lastWeekAreaHistories = GetAreaHistories(cbIsAm.Checked, -7);
+                List<AreaHistory> last4 = GetHistoryForLastFour();
+                List<AreaHistory> yesterdayAreaHistories = GetAreaHistories(cbIsAm.Checked, -1);
 
+
+                this.Invoke(new Action(() => {
+                    if (isAM) {
+                        cbIsAm.Image = Resources.smallSunrise;
+                        cbIsAm.BackColor = Color.FromArgb(251, 175, 0);
+                    }
+                    else {
+                        cbIsAm.Image = Resources.smallMoon;
+                        cbIsAm.BackColor = Color.FromArgb(117, 70, 104);
+
+                    }
+                    CreateAreaHistoryLabelsForLast4(flowLast4, last4);
+                    CreateAreaHistoryLabels(flowLastWeekdayCounts, lastWeekAreaHistories, false);
+                    CreateAreaHistoryLabels(flowYesterdayCounts, yesterdayAreaHistories, true);
+                    //RefreshPreviousFloorplanCounts();
+                    RefreshForDateSelected();
+                    txtServerSearch.Focus();
+                    //GetDateString();
+                    loadingForm.Close();
+                    this.Enabled = true;
+                    this.BringToFront();
+
+                }));
+            });
+        }
+        private void cbIsAm_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void cbIsAm_MouseDown(object sender, MouseEventArgs e)
+        {
+            _isClickedByUser = true;
+
+        }
         private void pbAddPerson_Click(object sender, EventArgs e)
         {
             if (UnmatchedEmployeeIDs.Count == 0) {
@@ -829,45 +874,7 @@ namespace FloorPlanMakerUI
                 }
             }
         }
-        private void ChangeAMwithLoadingScreen()
-        {
-            _isClickedByUser = true;
-            frmLoading loadingForm = new frmLoading(frmLoading.GifType.Time);
-            loadingForm.Show();
-            this.Enabled = false;
-            Task.Run(() => {
-                List<AreaHistory> lastWeekAreaHistories = GetAreaHistories(cbIsAm.Checked, -7);
-                List<AreaHistory> last4 = GetHistoryForLastFour();
-                List<AreaHistory> yesterdayAreaHistories = GetAreaHistories(cbIsAm.Checked, -1);
 
-
-                this.Invoke(new Action(() => {
-                    if (isAM) {
-                        cbIsAm.Image = Resources.smallSunrise;
-                        cbIsAm.BackColor = Color.FromArgb(251, 175, 0);
-                    }
-                    else {
-                        cbIsAm.Image = Resources.smallMoon;
-                        cbIsAm.BackColor = Color.FromArgb(117, 70, 104);
-
-                    }
-                    CreateAreaHistoryLabelsForLast4(flowLast4, last4);
-                    CreateAreaHistoryLabels(flowLastWeekdayCounts, lastWeekAreaHistories, false);
-                    CreateAreaHistoryLabels(flowYesterdayCounts, yesterdayAreaHistories, true);
-                    //RefreshPreviousFloorplanCounts();
-                    RefreshForDateSelected();
-                    txtServerSearch.Focus();
-                    //GetDateString();
-                    loadingForm.Close();
-                    this.Enabled = true;
-                    this.BringToFront();
-
-                }));
-            });
-        }
-        private void cbIsAm_Click(object sender, EventArgs e)
-        {
-            
-        }
+       
     }
 }
