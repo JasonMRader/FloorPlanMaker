@@ -616,7 +616,7 @@ namespace FloorPlanMakerUI
             this.Close();
         }
 
-        private void btnOK_Click(object sender, EventArgs e)
+        private async void btnOK_Click(object sender, EventArgs e)
         {
             if (shiftManager.SelectedShift.Floorplans.Count == 0)
             {
@@ -629,10 +629,29 @@ namespace FloorPlanMakerUI
                 return;
             }
             int bartenderCount = Int32.Parse(lblBartenderCount.Text);
-            shiftManager.SelectedShift.SetBartendersToShift(bartenderCount);
-            shiftManager.SetNewShiftToSelectedShift();
-            frmEditStaff.UpdateNewShift(shiftManager);
-            this.Close();
+
+            frmLoading loadingForm = new frmLoading(frmLoading.GifType.Process);
+            loadingForm.Show();
+            this.Enabled = false;
+            await Task.Delay(100);
+            await Task.Run(() => {
+
+                shiftManager.SelectedShift.SetBartendersToShift(bartenderCount);
+                shiftManager.SetNewShiftToSelectedShift();
+
+                this.Invoke(new Action(() => {
+
+                    frmEditStaff.UpdateNewShift(shiftManager);
+                    this.Close();
+                    loadingForm.Close();
+                    this.Enabled = true;
+                    this.BringToFront();
+
+                }));
+            });
+
+            
+            
 
         }
 

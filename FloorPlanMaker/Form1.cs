@@ -89,7 +89,7 @@ namespace FloorPlanMaker {
                     pnlAreaIndicatorContainer, pnlAreaIndicator, pnlIndicator2);
             diningAreaButtonHandeler.DiningAreaChanged += DiningAreaSelectedChanged;
 
-            floorplanManager = new FloorplanFormManager(pnlFloorPlan, flowServersInFloorplan, flowSectionSelect,
+            floorplanManager = new FloorplanFormManager(this, pnlFloorPlan, flowServersInFloorplan, flowSectionSelect,
                 pnlMainContainer, pnlSideContainer, sectionHeaderDisplay, diningAreaButtonHandeler,
                 shiftFilterControl);
 

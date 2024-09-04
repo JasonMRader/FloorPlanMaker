@@ -191,8 +191,15 @@ namespace FloorPlanMakerUI
 
         public void UpdateShift(Shift shift)
         {
-            UpdateForNewDate(shift.DateOnly, shift.IsAM);
-            this.ShiftDetailsControl.SetLabelsForShift(shift);
+            if (ShiftDetailsControl.InvokeRequired) {
+                ShiftDetailsControl.Invoke(new Action(() => UpdateShift(shift)));
+            }
+            else {
+                UpdateForNewDate(shift.DateOnly, shift.IsAM);
+                this.ShiftDetailsControl.SetLabelsForShift(shift);
+            }
         }
+
+       
     }
 }

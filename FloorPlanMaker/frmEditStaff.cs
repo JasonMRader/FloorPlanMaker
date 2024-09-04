@@ -697,7 +697,7 @@ namespace FloorPlanMaker
         {
             AutomateNextStep();
         }
-        private void AutomateNextStep()
+        private async void AutomateNextStep()
         {
             if (ShiftManager.SelectedShift.Floorplans == null)
             {
@@ -709,12 +709,33 @@ namespace FloorPlanMaker
             }
             else if (ShiftManager.SelectedShift.UnassignedServers.Count > 0)
             {
-                FloorplanGenerator floorplanGenerator = new FloorplanGenerator(ShiftManager.SelectedShift);
-                floorplanGenerator.GetServerDistribution();
-                floorplanGenerator.AutoAssignDiningAreas();
-                PopulateUnassignedServers();
-                RefreshFloorplanFlowPanel(ShiftManager.SelectedShift.Floorplans);
-                RefreshFloorplanCountLabels();
+                //FloorplanGenerator floorplanGenerator = new FloorplanGenerator(ShiftManager.SelectedShift);
+                //floorplanGenerator.GetServerDistribution();
+                //floorplanGenerator.AutoAssignDiningAreas();
+                //PopulateUnassignedServers();
+                //RefreshFloorplanFlowPanel(ShiftManager.SelectedShift.Floorplans);
+                //RefreshFloorplanCountLabels();
+                frmLoading loadingForm = new frmLoading(frmLoading.GifType.staffAllocation);
+                loadingForm.Show();
+                this.Enabled = false;
+                await Task.Delay(100);
+                await Task.Run(() => {
+                    FloorplanGenerator floorplanGenerator = new FloorplanGenerator(ShiftManager.SelectedShift);
+                    floorplanGenerator.GetServerDistribution();
+                    floorplanGenerator.AutoAssignDiningAreas();
+                    this.Invoke(new Action(() => {
+                        PopulateUnassignedServers();
+                        RefreshFloorplanFlowPanel(ShiftManager.SelectedShift.Floorplans);
+                        RefreshFloorplanCountLabels();
+
+                        loadingForm.Close();
+                        this.Enabled = true;
+                        this.BringToFront();
+
+                    }));
+                });
+
+
             }
             else if (ShiftManager.SelectedShift.UnassignedServers.Count == 0)
             {

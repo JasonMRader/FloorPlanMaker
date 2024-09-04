@@ -133,6 +133,16 @@ namespace FloorPlanMakerUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap analytics {
+            get {
+                object obj = ResourceManager.GetObject("analytics", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap AnotherSMallBluePrint {
             get {
                 object obj = ResourceManager.GetObject("AnotherSMallBluePrint", resourceCulture);
@@ -833,6 +843,16 @@ namespace FloorPlanMakerUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap organization_chart {
+            get {
+                object obj = ResourceManager.GetObject("organization_chart", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap OutsideCocktail {
             get {
                 object obj = ResourceManager.GetObject("OutsideCocktail", resourceCulture);
@@ -936,6 +956,16 @@ namespace FloorPlanMakerUI.Properties {
         internal static System.Drawing.Bitmap Pre2 {
             get {
                 object obj = ResourceManager.GetObject("Pre2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap process {
+            get {
+                object obj = ResourceManager.GetObject("process", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1286,6 +1316,16 @@ namespace FloorPlanMakerUI.Properties {
         internal static System.Drawing.Bitmap statistics {
             get {
                 object obj = ResourceManager.GetObject("statistics", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap strategic_planning {
+            get {
+                object obj = ResourceManager.GetObject("strategic_planning", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

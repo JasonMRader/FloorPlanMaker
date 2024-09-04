@@ -19,7 +19,10 @@ namespace FloorPlanMakerUI
             Rocket,
             Drawing,
             Time,
-            Stats
+            Stats,
+            Analytics,
+            Process,
+            staffAllocation
 
         }
         public frmLoading(string display)
@@ -52,6 +55,15 @@ namespace FloorPlanMakerUI
             }
             else if (gifType == GifType.Time) {
                 pictureBox1.Image = Properties.Resources.sleep;
+            }
+            else if ((gifType == GifType.Analytics)) {
+                pictureBox1.Image= Properties.Resources.analytics;
+            }
+            else if (gifType == GifType.Process) {
+                pictureBox1.Image = Properties.Resources.process;
+            }
+            else if (gifType == GifType.staffAllocation) {
+                pictureBox1.Image = Properties.Resources.organization_chart;
             }
         }
 

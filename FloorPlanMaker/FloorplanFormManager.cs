@@ -1,5 +1,6 @@
 ﻿using FloorplanClassLibrary;
 using FloorPlanMaker;
+using FloorPlanMakerUI.Properties;
 using FloorplanUserControlLibrary;
 using NetTopologySuite.Triangulate;
 using System;
@@ -52,15 +53,17 @@ namespace FloorPlanMakerUI
         private ServerControlManager serverControlManager { get; set; }
         private ShiftFilterControl shiftFilterControl { get; set; }
         private ShiftAnalysis shiftAnalysis { get; set; } = new ShiftAnalysis();
+        private Form mainForm { get; set; }
         public FloorplanFormManager() 
         {
             this.Shift = new Shift();            
         }
-        public FloorplanFormManager(Panel pnlFloorPlan, FlowLayoutPanel flowServersInFloorplan, 
+        public FloorplanFormManager(Form mainForm, Panel pnlFloorPlan, FlowLayoutPanel flowServersInFloorplan, 
             FlowLayoutPanel flowSectionSelect, Panel pnlContainer, Panel pnlSideContainer,
             SectionHeaderDisplay headerDisplay, DiningAreaButtonHandeler diningAreaButtonHandeler,
             ShiftFilterControl shiftFilterControl)
         {
+            this.mainForm = mainForm;
             this.Shift = new Shift();           
             this.pnlMainContainer = pnlContainer;
             this.pnlSideContainer = pnlSideContainer;
@@ -386,9 +389,32 @@ namespace FloorPlanMakerUI
         private void UpdateShiftAnalysis()
         {
             //shiftAnalysis.SetStandardFiltersForShift(Shift);
-            shiftAnalysis.InitializetShiftsForDateRange();
-            UpdateTableStats();
+            frmLoading loadingForm = new frmLoading(frmLoading.GifType.Analytics);
+            loadingForm.Show();
+            
+            Task.Run(() => {
 
+                shiftAnalysis.InitializetShiftsForDateRange();
+                Shift.SelectedDiningArea.SetTableSales(shiftAnalysis.FilteredTableStats);
+                if (Shift.Floorplans != null) {
+                    foreach (Floorplan floorplan in Shift.Floorplans) {
+                        floorplan.DiningArea.SetTableSales(shiftAnalysis.FilteredTableStats);
+                        floorplan.RefreshSectionSales();
+                    }
+                }
+                mainForm.Invoke(new Action(() => {
+                    if (Shift.Floorplans != null) {                        
+                        foreach (TableControl tableControl in this.tableControlManager.TableControls) {
+                            this.toolTip.SetToolTip(tableControl, tableControl.Table.AverageSales.ToString("C0"));
+                            tableControl.Invalidate();
+                        }
+                    }
+                    sectionPanelManager.UpdateImageLabels();
+                    loadingForm.Close();
+                    
+
+                }));
+            });
         }
         private void UpdateTableStats()
         {
