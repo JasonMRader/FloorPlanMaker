@@ -143,6 +143,16 @@ namespace FloorPlanMakerUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap assign {
+            get {
+                object obj = ResourceManager.GetObject("assign", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap back {
             get {
                 object obj = ResourceManager.GetObject("back", resourceCulture);
@@ -166,6 +176,16 @@ namespace FloorPlanMakerUI.Properties {
         internal static System.Drawing.Bitmap Bigger {
             get {
                 object obj = ResourceManager.GetObject("Bigger", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap blueprint {
+            get {
+                object obj = ResourceManager.GetObject("blueprint", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -346,6 +366,16 @@ namespace FloorPlanMakerUI.Properties {
         internal static System.Drawing.Bitmap DownZoomed {
             get {
                 object obj = ResourceManager.GetObject("DownZoomed", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap drawing {
+            get {
+                object obj = ResourceManager.GetObject("drawing", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1003,6 +1033,16 @@ namespace FloorPlanMakerUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap rocket {
+            get {
+                object obj = ResourceManager.GetObject("rocket", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap sales {
             get {
                 object obj = ResourceManager.GetObject("sales", resourceCulture);
@@ -1086,6 +1126,16 @@ namespace FloorPlanMakerUI.Properties {
         internal static System.Drawing.Bitmap Shorter {
             get {
                 object obj = ResourceManager.GetObject("Shorter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap sleep {
+            get {
+                object obj = ResourceManager.GetObject("sleep", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -12,11 +12,49 @@ namespace FloorPlanMakerUI
 {
     public partial class frmLoading : Form
     {
+        public enum GifType
+        {
+            Assign,
+            BluePrint,
+            Rocket,
+            Drawing,
+            Time,
+            Stats
+
+        }
         public frmLoading(string display)
         {
             InitializeComponent();
             this.display = display;
         }
+        public frmLoading(GifType gifType)
+        {
+            InitializeComponent();
+            SetGif(gifType);
+        }
+
+        private void SetGif(GifType gifType)
+        {
+            if (gifType == GifType.Assign) {
+                pictureBox1.Image = Properties.Resources.assign;
+            }
+            else if (gifType == GifType.Stats) {
+                pictureBox1.Image = Properties.Resources.statistics;
+            }
+            else if (gifType == GifType.BluePrint) {
+                pictureBox1.Image = Properties.Resources.blueprint;
+            }
+            else if(gifType == GifType.Rocket) {
+                pictureBox1.Image = Properties.Resources.rocket;
+            }
+            else if(gifType == GifType.Drawing) {
+                pictureBox1.Image = Properties.Resources.drawing;
+            }
+            else if (gifType == GifType.Time) {
+                pictureBox1.Image = Properties.Resources.sleep;
+            }
+        }
+
         string display;
         private int dotCount = 1;
 

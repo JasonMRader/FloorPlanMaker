@@ -335,6 +335,7 @@ namespace FloorPlanMakerUI
             CreateAreaHistoryLabels(flowLastWeekdayCounts, lastWeekAreaHistories, false);
             CreateAreaHistoryLabels(flowYesterdayCounts, yesterdayAreaHistories, true);
         }
+        
         private List<AreaHistory> GetHistoryForLastFour()
         {
             List<AreaHistory> areaHistories = new List<AreaHistory>();
@@ -637,12 +638,14 @@ namespace FloorPlanMakerUI
 
         private void cbIsAm_CheckedChanged(object sender, EventArgs e)
         {
-            frmLoading loadingForm = new frmLoading("Parsing");
+            frmLoading loadingForm = new frmLoading(frmLoading.GifType.Time);
             loadingForm.Show();
             this.Enabled = false;
-            
             Task.Run(() => {
-               
+                List<AreaHistory> lastWeekAreaHistories = GetAreaHistories(cbIsAm.Checked, -7);
+                List<AreaHistory> last4 = GetHistoryForLastFour();
+                List<AreaHistory> yesterdayAreaHistories = GetAreaHistories(cbIsAm.Checked, -1);
+
 
                 this.Invoke(new Action(() => {
                     if (isAM) {
@@ -654,39 +657,36 @@ namespace FloorPlanMakerUI
                         cbIsAm.BackColor = Color.FromArgb(117, 70, 104);
 
                     }
-                    RefreshPreviousFloorplanCounts();
+                    CreateAreaHistoryLabelsForLast4(flowLast4, last4);
+                    CreateAreaHistoryLabels(flowLastWeekdayCounts, lastWeekAreaHistories, false);
+                    CreateAreaHistoryLabels(flowYesterdayCounts, yesterdayAreaHistories, true);
+                    //RefreshPreviousFloorplanCounts();
                     RefreshForDateSelected();
                     txtServerSearch.Focus();
-                    GetDateString();
-
-
-
+                    //GetDateString();
                     loadingForm.Close();
-
-                 
                     this.Enabled = true;
-
                     this.BringToFront();
 
                 }));
             });
 
             
-            if (isAM)
-            {
-                cbIsAm.Image = Resources.smallSunrise;
-                cbIsAm.BackColor = Color.FromArgb(251, 175, 0);
-            }
-            else
-            {
-                cbIsAm.Image = Resources.smallMoon;
-                cbIsAm.BackColor = Color.FromArgb(117, 70, 104);
+            //if (isAM)
+            //{
+            //    cbIsAm.Image = Resources.smallSunrise;
+            //    cbIsAm.BackColor = Color.FromArgb(251, 175, 0);
+            //}
+            //else
+            //{
+            //    cbIsAm.Image = Resources.smallMoon;
+            //    cbIsAm.BackColor = Color.FromArgb(117, 70, 104);
 
-            }
-            RefreshPreviousFloorplanCounts();
-            RefreshForDateSelected();
-            txtServerSearch.Focus();
-            GetDateString();
+            //}
+            //RefreshPreviousFloorplanCounts();
+            //RefreshForDateSelected();
+            //txtServerSearch.Focus();
+            //GetDateString();
         }
 
         private void pbAddPerson_Click(object sender, EventArgs e)
