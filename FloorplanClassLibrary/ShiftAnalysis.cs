@@ -23,16 +23,25 @@ namespace FloorplanClassLibrary
         }
         public float FilteredShiftMaxSales {
             get {
+                if (_filteredShifts.Count == 0) {
+                    return 0;
+                }
                 return _filteredShifts.Max(s => s.Sales);
             }
         }
         public float FilteredShiftMinSales {
             get {
+                if (_filteredShifts.Count == 0) {
+                    return 0;
+                }
                 return _filteredShifts.Min(s => s.Sales);
             }
         }
         public float FilteredShiftAvgSales {
             get {
+                if(_filteredShifts.Count == 0) {
+                    return 0;
+                }
                 return _filteredShifts.Average(s => s.Sales);
             }
         }
