@@ -33,6 +33,7 @@
             rdoLast90 = new RadioButton();
             rdoLast365 = new RadioButton();
             rdoAllRecords = new RadioButton();
+            cbCustom = new CheckBox();
             flowRangeSelection.SuspendLayout();
             SuspendLayout();
             // 
@@ -54,6 +55,7 @@
             // 
             // flowRangeSelection
             // 
+            flowRangeSelection.Controls.Add(cbCustom);
             flowRangeSelection.Controls.Add(rdoLast30);
             flowRangeSelection.Controls.Add(rdoLast90);
             flowRangeSelection.Controls.Add(rdoLast365);
@@ -62,7 +64,7 @@
             flowRangeSelection.Location = new Point(0, 30);
             flowRangeSelection.Margin = new Padding(0);
             flowRangeSelection.Name = "flowRangeSelection";
-            flowRangeSelection.Size = new Size(194, 108);
+            flowRangeSelection.Size = new Size(194, 135);
             flowRangeSelection.TabIndex = 1;
             // 
             // rdoLast30
@@ -72,7 +74,7 @@
             rdoLast30.FlatAppearance.BorderSize = 0;
             rdoLast30.FlatStyle = FlatStyle.Flat;
             rdoLast30.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            rdoLast30.Location = new Point(0, 0);
+            rdoLast30.Location = new Point(0, 27);
             rdoLast30.Margin = new Padding(0);
             rdoLast30.Name = "rdoLast30";
             rdoLast30.Size = new Size(194, 27);
@@ -90,7 +92,7 @@
             rdoLast90.FlatAppearance.BorderSize = 0;
             rdoLast90.FlatStyle = FlatStyle.Flat;
             rdoLast90.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            rdoLast90.Location = new Point(0, 27);
+            rdoLast90.Location = new Point(0, 54);
             rdoLast90.Margin = new Padding(0);
             rdoLast90.Name = "rdoLast90";
             rdoLast90.Size = new Size(194, 27);
@@ -108,7 +110,7 @@
             rdoLast365.FlatAppearance.BorderSize = 0;
             rdoLast365.FlatStyle = FlatStyle.Flat;
             rdoLast365.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            rdoLast365.Location = new Point(0, 54);
+            rdoLast365.Location = new Point(0, 81);
             rdoLast365.Margin = new Padding(0);
             rdoLast365.Name = "rdoLast365";
             rdoLast365.Size = new Size(194, 27);
@@ -125,7 +127,7 @@
             rdoAllRecords.FlatAppearance.BorderSize = 0;
             rdoAllRecords.FlatStyle = FlatStyle.Flat;
             rdoAllRecords.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            rdoAllRecords.Location = new Point(0, 81);
+            rdoAllRecords.Location = new Point(0, 108);
             rdoAllRecords.Margin = new Padding(0);
             rdoAllRecords.Name = "rdoAllRecords";
             rdoAllRecords.Size = new Size(194, 27);
@@ -134,6 +136,24 @@
             rdoAllRecords.TextAlign = ContentAlignment.MiddleCenter;
             rdoAllRecords.UseVisualStyleBackColor = false;
             rdoAllRecords.Click += rdoTimeFrame_Clicked;
+            // 
+            // cbCustom
+            // 
+            cbCustom.Appearance = Appearance.Button;
+            cbCustom.BackColor = SystemColors.ButtonShadow;
+            cbCustom.FlatAppearance.BorderSize = 0;
+            cbCustom.FlatAppearance.CheckedBackColor = Color.FromArgb(100, 130, 180);
+            cbCustom.FlatStyle = FlatStyle.Flat;
+            cbCustom.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            cbCustom.Location = new Point(0, 0);
+            cbCustom.Margin = new Padding(0);
+            cbCustom.Name = "cbCustom";
+            cbCustom.Size = new Size(194, 27);
+            cbCustom.TabIndex = 2;
+            cbCustom.Text = "Custom";
+            cbCustom.TextAlign = ContentAlignment.MiddleCenter;
+            cbCustom.UseVisualStyleBackColor = false;
+            cbCustom.CheckedChanged += cbCustom_CheckedChanged;
             // 
             // DateFilterControl
             // 
@@ -144,7 +164,7 @@
             Controls.Add(flowRangeSelection);
             Controls.Add(button1);
             Name = "DateFilterControl";
-            Size = new Size(194, 138);
+            Size = new Size(194, 165);
             Load += DateFilterControl_Load;
             flowRangeSelection.ResumeLayout(false);
             ResumeLayout(false);
@@ -158,5 +178,6 @@
         private RadioButton rdoLast90;
         private RadioButton rdoLast365;
         private RadioButton rdoAllRecords;
+        private CheckBox cbCustom;
     }
 }

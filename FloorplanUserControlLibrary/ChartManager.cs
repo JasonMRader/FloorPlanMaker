@@ -50,24 +50,26 @@ namespace FloorPlanMakerUI
                     Fill = GetAreaColor(area), // Set the fill color
                     Stroke = GetAreaColor(area), // Set the line color
                     Values = new List<float>(), // Initialize with an empty list
-                   
                 };
-                
+
                 seriesMap[area.ID] = series;
             }
 
-            // Initialize X-Axis (assuming dates are involved)
+            // Generate a distinct list of all dates from ShiftRecords for the X-Axis
+            var allDates = _shiftRecords.Select(shift => shift.Date).Distinct().OrderBy(date => date).ToList();
+
+            // Initialize X-Axis with all the dates (assuming this is the primary key to sort by)
             _chart.XAxes = new[]{
                 new Axis
-                    {
-                        Name = "Date",
-                        Labels = _shiftRecords.Select(shift => shift.Date.ToString("MM/dd/yy")).ToArray(),
-                        LabelsRotation = 15, 
-                    }
+                {
+                    Name = "Date",
+                    Labels = allDates.Select(date => date.ToString("MM/dd/yy")).ToArray(),
+                    LabelsRotation = 15,
+                }
             };
 
-           
-            _chart.YAxes = new[] {
+            // Initialize Y-Axis
+            _chart.YAxes = new[]{
                 new Axis
                 {
                     Name = "Sales",
@@ -75,22 +77,35 @@ namespace FloorPlanMakerUI
                 }
             };
 
-            // Populate series with data
+            // Populate series with data for each shift, aligning the correct date
+            foreach (var series in seriesMap.Values) {
+                // For each series, initialize the sales values with zero for each date in the X-axis
+                series.Values = allDates.Select(_ => 0f).ToList(); // Convert to List<float> to allow indexing
+            }
+
+            // Fill the series values with sales data, ensuring correct date alignment
             foreach (ShiftRecord shiftRecord in _shiftRecords) {
-                foreach (DiningAreaRecord areaRecord in shiftRecord.DiningAreaRecords) {
-                    if (seriesMap.TryGetValue(areaRecord.DiningAreaID, out var series)) {
-                        (series).Values =
-                            (series).Values.Append((float)areaRecord.Sales).ToList();
-                       
+                int dateIndex = allDates.IndexOf(shiftRecord.Date);
+                if (dateIndex >= 0) {
+                    foreach (DiningAreaRecord areaRecord in shiftRecord.DiningAreaRecords) {
+                        if (seriesMap.TryGetValue(areaRecord.DiningAreaID, out var series)) {
+                            // Since Values is now a List<float>, indexing will work
+                            var listValues = series.Values as List<float>; // Cast to List<float>
+                            listValues[dateIndex] += (float)areaRecord.Sales;
+                            series.Values = listValues; // Reassign the updated list back
+                        }
                     }
                 }
             }
-            
+
             _chart.Series = seriesMap.Values.ToArray();
 
             // Set legend location
             _chart.LegendPosition = LiveChartsCore.Measure.LegendPosition.Right;
         }
+
+
+
         public void SetUpMiniStackedArea(List<DiningArea> diningAreas)
         {
             _chart.Series = Array.Empty<ISeries>();
