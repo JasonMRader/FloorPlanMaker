@@ -108,22 +108,26 @@ namespace FloorplanUserControlLibrary
         }
         public void UpdateLabels()
         {
-            if (Section.IsPickUp)
-            {
-                SetForPickup();
-                return;
+            if (lblSectionNumber.InvokeRequired) {
+                lblSectionNumber.Invoke(new Action(UpdateLabels));
+
             }
-            if (Section.IsBarSection)
-            {
-                SetForBarSection();
+            else {
+                if (Section.IsPickUp) {
+                    SetForPickup();
+                    return;
+                }
+                if (Section.IsBarSection) {
+                    SetForBarSection();
+                }
+                else {
+                    SetForNormalSection();
+                }
+                SetTeamWaitPictureBoxes();
+                UpdateSalesAndCovers();
+                SetServerButtons();
             }
-            else
-            {
-                SetForNormalSection();
-            }
-            SetTeamWaitPictureBoxes();
-            UpdateSalesAndCovers();
-            SetServerButtons();
+           
         }
 
         private void SetForNormalSection()

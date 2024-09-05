@@ -386,52 +386,23 @@ namespace FloorPlanMakerUI
             sectionPanelManager.UpdateImageLabels();
            
         }
-        private void UpdateShiftAnalysis()
+        private async void UpdateShiftAnalysis()
         {
             //shiftAnalysis.SetStandardFiltersForShift(Shift);
-            //frmLoading loadingForm = null;
-            //Thread loadingThread = new Thread(() => {
-            //    loadingForm = new frmLoading(frmLoading.GifType.staffAllocation);
-            //    Application.Run(loadingForm);  // Start the loading form on a separate UI thread
-            //});
+            frmLoading loadingForm = null;
+            Thread loadingThread = new Thread(() => {
+                loadingForm = new frmLoading(frmLoading.GifType.strategy);
+                Application.Run(loadingForm);  // Start the loading form on a separate UI thread
+            });
 
-            //loadingThread.SetApartmentState(ApartmentState.STA);  // Set thread to STA mode
-            //loadingThread.Start();  // Start the new UI thread
+            loadingThread.SetApartmentState(ApartmentState.STA);  // Set thread to STA mode
+            loadingThread.Start();  // Start the new UI thread
 
-            //this.Enabled = false;
+           
 
-            //await Task.Delay(100);
+            await Task.Delay(100);
 
-            //await Task.Run(() => {
-            //    FloorplanGenerator floorplanGenerator = new FloorplanGenerator(ShiftManager.SelectedShift);
-            //    floorplanGenerator.GetServerDistribution();
-            //    floorplanGenerator.AutoAssignDiningAreas();
-
-            //});
-
-            //// Close the loading form and re-enable the main form once the work is done
-            //this.Invoke(new Action(() => {
-            //    PopulateUnassignedServers();
-            //    RefreshFloorplanFlowPanel(ShiftManager.SelectedShift.Floorplans);
-            //    RefreshFloorplanCountLabels();
-
-            //    if (loadingForm != null && loadingForm.InvokeRequired) {
-            //        loadingForm.Invoke(new Action(() => loadingForm.Close()));  // Close the form on its own thread
-            //    }
-            //    else {
-            //        loadingForm?.Close();
-            //    }
-
-
-            //    //this.Close();
-            //    this.Enabled = true;
-            //    this.BringToFront();
-            //}));
-            frmLoading loadingForm = new frmLoading(frmLoading.GifType.Analytics);
-            loadingForm.Show();
-            
-            Task.Run(() => {
-
+            await Task.Run(() => {
                 shiftAnalysis.InitializetShiftsForDateRange();
                 Shift.SelectedDiningArea.SetTableSales(shiftAnalysis.FilteredTableStats);
                 if (Shift.Floorplans != null) {
@@ -440,19 +411,59 @@ namespace FloorPlanMakerUI
                         floorplan.RefreshSectionSales();
                     }
                 }
-                mainForm.Invoke(new Action(() => {
-                    if (Shift.Floorplans != null) {                        
-                        foreach (TableControl tableControl in this.tableControlManager.TableControls) {
-                            this.toolTip.SetToolTip(tableControl, tableControl.Table.AverageSales.ToString("C0"));
-                            tableControl.Invalidate();
-                        }
-                    }
-                    sectionPanelManager.UpdateImageLabels();
-                    loadingForm.Close();
-                    
 
-                }));
             });
+
+            // Close the loading form and re-enable the main form once the work is done
+            mainForm.Invoke(new Action(() => {
+                
+               
+
+                if (loadingForm != null && loadingForm.InvokeRequired) {
+                    loadingForm.Invoke(new Action(() => loadingForm.Close()));  // Close the form on its own thread
+                }
+                else {
+                    loadingForm?.Close();
+                }
+
+
+                //this.Close();
+                //this.Enabled = true;
+                //this.BringToFront();
+            }));
+            if (Shift.Floorplans != null) {
+                foreach (TableControl tableControl in this.tableControlManager.TableControls) {
+                    this.toolTip.SetToolTip(tableControl, tableControl.Table.AverageSales.ToString("C0"));
+                    tableControl.Invalidate();
+                }
+            }
+            sectionPanelManager.UpdateImageLabels();
+            //frmLoading loadingForm = new frmLoading(frmLoading.GifType.Analytics);
+            //loadingForm.Show();
+
+            //Task.Run(() => {
+
+            //    shiftAnalysis.InitializetShiftsForDateRange();
+            //    Shift.SelectedDiningArea.SetTableSales(shiftAnalysis.FilteredTableStats);
+            //    if (Shift.Floorplans != null) {
+            //        foreach (Floorplan floorplan in Shift.Floorplans) {
+            //            floorplan.DiningArea.SetTableSales(shiftAnalysis.FilteredTableStats);
+            //            floorplan.RefreshSectionSales();
+            //        }
+            //    }
+            //    mainForm.Invoke(new Action(() => {
+            //        if (Shift.Floorplans != null) {                        
+            //            foreach (TableControl tableControl in this.tableControlManager.TableControls) {
+            //                this.toolTip.SetToolTip(tableControl, tableControl.Table.AverageSales.ToString("C0"));
+            //                tableControl.Invalidate();
+            //            }
+            //        }
+            //        sectionPanelManager.UpdateImageLabels();
+            //        loadingForm.Close();
+
+
+            //    }));
+            //});
         }
         private void UpdateTableStats()
         {

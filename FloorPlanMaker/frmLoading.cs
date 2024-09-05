@@ -22,7 +22,8 @@ namespace FloorPlanMakerUI
             Stats,
             Analytics,
             Process,
-            staffAllocation
+            staffAllocation,
+            strategy
 
         }
         public frmLoading(string display)
@@ -47,23 +48,26 @@ namespace FloorPlanMakerUI
             else if (gifType == GifType.BluePrint) {
                 pictureBox1.Image = Properties.Resources.blueprint;
             }
-            else if(gifType == GifType.Rocket) {
+            else if (gifType == GifType.Rocket) {
                 pictureBox1.Image = Properties.Resources.rocket;
             }
-            else if(gifType == GifType.Drawing) {
+            else if (gifType == GifType.Drawing) {
                 pictureBox1.Image = Properties.Resources.drawing;
             }
             else if (gifType == GifType.Time) {
                 pictureBox1.Image = Properties.Resources.sleep;
             }
             else if ((gifType == GifType.Analytics)) {
-                pictureBox1.Image= Properties.Resources.analytics;
+                pictureBox1.Image = Properties.Resources.analytics;
             }
             else if (gifType == GifType.Process) {
                 pictureBox1.Image = Properties.Resources.process;
             }
             else if (gifType == GifType.staffAllocation) {
                 pictureBox1.Image = Properties.Resources.organization_chart;
+            }
+            else if (gifType == GifType.strategy) {
+                pictureBox1.Image = Properties.Resources.strategic_planning;
             }
         }
 

@@ -238,12 +238,18 @@ namespace FloorplanUserControlLibrary {
         }
 
         public void UpdateSection(Section section) {
-            if (section == null) {
-                SetSectionToNull();
+            if (this.InvokeRequired) {
+                this.Invoke(new Action(() => UpdateSection(section)));
             }
             else {
-                SetControlsForSection();
+                if (section == null) {
+                    SetSectionToNull();
+                }
+                else {
+                    SetControlsForSection();
+                }
             }
+            
 
         }
 

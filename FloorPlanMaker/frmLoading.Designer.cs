@@ -13,8 +13,7 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
-            {
+            if (disposing && (components != null)) {
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -46,7 +45,7 @@
             panel2.Location = new Point(8, 8);
             panel2.Name = "panel2";
             panel2.Padding = new Padding(3);
-            panel2.Size = new Size(197, 188);
+            panel2.Size = new Size(328, 328);
             panel2.TabIndex = 1;
             panel2.Paint += panel2_Paint;
             // 
@@ -55,7 +54,7 @@
             pictureBox1.Image = Properties.Resources.statistics;
             pictureBox1.Location = new Point(0, 0);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(197, 189);
+            pictureBox1.Size = new Size(328, 328);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 1;
             pictureBox1.TabStop = false;
@@ -68,13 +67,13 @@
             // 
             // panel1
             // 
-            panel1.BackColor = Color.IndianRed;
+            panel1.BackColor = Color.Black;
             panel1.Controls.Add(panel2);
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(3, 3);
             panel1.Name = "panel1";
             panel1.Padding = new Padding(8);
-            panel1.Size = new Size(213, 204);
+            panel1.Size = new Size(344, 344);
             panel1.TabIndex = 2;
             // 
             // frmLoading
@@ -82,7 +81,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(180, 190, 200);
-            ClientSize = new Size(219, 210);
+            ClientSize = new Size(350, 350);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
             Name = "frmLoading";

@@ -669,17 +669,9 @@ namespace FloorPlanMakerUI
                 
             });
 
-            // Close the loading form and re-enable the main form once the work is done
+           
             this.Invoke(new Action(() => {
-                //if (isAM) {
-                //    cbIsAm.Image = Resources.smallSunrise;
-                //    cbIsAm.BackColor = Color.FromArgb(251, 175, 0);
-                //}
-                //else {
-                //    cbIsAm.Image = Resources.smallMoon;
-                //    cbIsAm.BackColor = Color.FromArgb(117, 70, 104);
-
-                //}
+               
                 CreateAreaHistoryLabelsForLast4(flowLast4, last4);
                 CreateAreaHistoryLabels(flowLastWeekdayCounts, lastWeekAreaHistories, false);
                 CreateAreaHistoryLabels(flowYesterdayCounts, yesterdayAreaHistories, true);
