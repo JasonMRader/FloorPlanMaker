@@ -642,11 +642,21 @@ namespace FloorPlanMakerUI
         }
         private void rdoChartDisplayType_CheckChanged(object sender, EventArgs e)
         {
+            var chartManager = new ChartManager(shiftAnalysis.FilteredShifts, cartesianChart1);
             if (rdoCompareDates.Checked) {
-
+                
+                chartManager.SetUpStackedArea(areaManager.DiningAreas);
             }
             else if (rdoCompareMonths.Checked) {
-
+                
+                chartManager.SetUpStackedBarChartByMonth(areaManager.DiningAreas);
+            }
+            else if (rdoCompareWeekDays.Checked) {
+               
+                chartManager.SetUpStackedBarChartByDayOfWeek(areaManager.DiningAreas);
+            }
+            else if (rdoCompareTemp.Checked) {
+                chartManager.SetUpScatterPlot();
             }
         }
     }

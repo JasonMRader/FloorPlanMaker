@@ -103,6 +103,219 @@ namespace FloorPlanMakerUI
             // Set legend location
             _chart.LegendPosition = LiveChartsCore.Measure.LegendPosition.Right;
         }
+        public void SetUpScatterPlot()
+        {
+            // Clear existing series and axes
+            _chart.Series = Array.Empty<ISeries>();
+            _chart.XAxes = Array.Empty<Axis>();
+            _chart.YAxes = Array.Empty<Axis>();
+
+            // Prepare the scatter series
+            var scatterSeries = new ScatterSeries<ObservablePoint> {
+                Values = _shiftRecords
+                    .Where(sr => sr.ShiftWeather != null) // Ensure ShiftWeather exists
+                    .Select(sr => new ObservablePoint(sr.ShiftWeather.FeelsLikeAvg, sr.Sales)) // X = FeelsLikeAvg, Y = Sales
+                    .ToList(),
+                Stroke = null,
+                GeometrySize = 5
+            };
+
+            // Assign the series to the chart
+            _chart.Series = new ISeries[] { scatterSeries };
+
+            // Configure the X-Axis for FeelsLikeAvg temperature
+            _chart.XAxes = new[]
+            {
+                new Axis
+                {
+                    Name = "Feels Like Avg Temperature (°F)",
+                    Labeler = value => $"{value:F1}°F", // Format temperature with 1 decimal place
+                    MinLimit = _shiftRecords.Min(sr => sr.ShiftWeather?.FeelsLikeAvg ?? 0) - 5, // Optional: Define a min limit with buffer
+                    MaxLimit = _shiftRecords.Max(sr => sr.ShiftWeather?.FeelsLikeAvg ?? 100) + 5 // Optional: Define a max limit with buffer
+                }
+            };
+
+            // Configure the Y-Axis for sales
+            _chart.YAxes = new[]
+            {
+                new Axis
+                {
+                    Name = "Sales",
+                    Labeler = value => value.ToString("C"), // Format sales as currency
+                    MinLimit = 0, // Sales typically start from 0
+                    MaxLimit = _shiftRecords.Max(sr => sr.Sales) * 1.1 // Add a small buffer above the max sales
+                }
+            };
+
+            // Set legend position (optional for scatter plot)
+            _chart.LegendPosition = LiveChartsCore.Measure.LegendPosition.Right;
+        }
+
+        public void SetUpStackedBarChartByMonth(List<DiningArea> diningAreas)
+        {
+            // Clear existing series and axes
+            _chart.Series = Array.Empty<ISeries>();
+            _chart.XAxes = Array.Empty<Axis>();
+            _chart.YAxes = Array.Empty<Axis>();
+
+            // Dictionary to map DiningAreaID to its corresponding StackedColumnSeries
+            var seriesMap = new Dictionary<int, StackedColumnSeries<float>>();
+
+            // Initialize series for each dining area
+            foreach (DiningArea area in diningAreas) {
+                if (area.ID == 6) continue; // Skip DiningAreaID 6
+
+                var series = new StackedColumnSeries<float> {
+                    Name = area.Name,
+                    Fill = GetAreaColor(area), // Set the fill color
+                    Stroke = GetAreaColor(area), // Set the line color
+                    Values = new List<float>(), // Initialize with a List<float> to allow adding values
+                    StackGroup = 0 // Group all dining areas in the same stack
+                };
+
+                seriesMap[area.ID] = series;
+            }
+
+            // Group ShiftRecords by month
+            var groupedByMonth = _shiftRecords
+                .GroupBy(shift => new { Year = shift.Date.Year, Month = shift.Date.Month })
+                .OrderBy(group => new DateTime(group.Key.Year, group.Key.Month, 1)) // Order by month
+                .ToList();
+
+            // Initialize X-Axis labels with months
+            _chart.XAxes = new[]
+            {
+                new Axis
+                {
+                    Name = "Month",
+                    Labels = groupedByMonth
+                        .Select(group => new DateTime(group.Key.Year, group.Key.Month, 1).ToString("MMM yyyy"))
+                        .ToArray(),
+                    LabelsRotation = -15
+                }
+            };
+
+            // Calculate the average sales for each dining area per month
+            foreach (var monthGroup in groupedByMonth) {
+                foreach (var diningArea in diningAreas) {
+                    if (diningArea.ID == 6) continue; // Skip DiningAreaID 6
+
+                    // Get all area records for this dining area within the current month
+                    var areaSalesForMonth = monthGroup
+                        .SelectMany(shift => shift.DiningAreaRecords)
+                        .Where(record => record.DiningAreaID == diningArea.ID)
+                        .Select(record => record.Sales)
+                        .ToList();
+
+                    // Calculate the average sales for this dining area in this month
+                    float averageSales = areaSalesForMonth.Any() ? areaSalesForMonth.Average() : 0f;
+
+                    // Add the average sales to the corresponding series (cast to List<float> to allow adding values)
+                    if (seriesMap.TryGetValue(diningArea.ID, out var series)) {
+                        (series.Values as List<float>)?.Add(averageSales); // Ensure it's a List<float> and add the value
+                    }
+                }
+            }
+
+            // Assign series to the chart
+            _chart.Series = seriesMap.Values.ToArray();
+
+            // Initialize Y-Axis for sales values
+            _chart.YAxes = new[]
+            {
+                new Axis
+                {
+                    Name = "Average Sales",
+                    Labeler = value => value.ToString("C"), // Format as currency
+                }
+            };
+
+            // Set legend location
+            _chart.LegendPosition = LiveChartsCore.Measure.LegendPosition.Right;
+        }
+
+        public void SetUpStackedBarChartByDayOfWeek(List<DiningArea> diningAreas)
+        {
+            // Clear existing series and axes
+            _chart.Series = Array.Empty<ISeries>();
+            _chart.XAxes = Array.Empty<Axis>();
+            _chart.YAxes = Array.Empty<Axis>();
+
+            // Dictionary to map DiningAreaID to its corresponding StackedColumnSeries
+            var seriesMap = new Dictionary<int, StackedColumnSeries<float>>();
+
+            // Initialize series for each dining area
+            foreach (DiningArea area in diningAreas) {
+                if (area.ID == 6) continue; // Skip DiningAreaID 6
+
+                var series = new StackedColumnSeries<float> {
+                    Name = area.Name,
+                    Fill = GetAreaColor(area), // Set the fill color
+                    Stroke = GetAreaColor(area), // Set the line color
+                    Values = new List<float>(), // Initialize with a List<float> to allow adding values
+                    StackGroup = 0 // Group all dining areas in the same stack
+                };
+
+                seriesMap[area.ID] = series;
+            }
+
+            // Group ShiftRecords by day of the week
+            var groupedByDayOfWeek = _shiftRecords
+                .GroupBy(shift => shift.DayOfWeek)
+                .OrderBy(group => group.Key) // Order by day of the week (Monday-Sunday)
+                .ToList();
+
+            // Initialize X-Axis labels with days of the week
+            _chart.XAxes = new[]
+            {
+                new Axis
+                {
+                    Name = "Day of the Week",
+                    Labels = groupedByDayOfWeek
+                        .Select(group => group.Key.ToString()) // Convert DayOfWeek enum to string (e.g., "Monday")
+                        .ToArray(),
+                    LabelsRotation = -15
+                }
+            };
+
+            // Calculate the average sales for each dining area per day of the week
+            foreach (var dayGroup in groupedByDayOfWeek) {
+                foreach (var diningArea in diningAreas) {
+                    if (diningArea.ID == 6) continue; // Skip DiningAreaID 6
+
+                    // Get all area records for this dining area within the current day
+                    var areaSalesForDay = dayGroup
+                        .SelectMany(shift => shift.DiningAreaRecords)
+                        .Where(record => record.DiningAreaID == diningArea.ID)
+                        .Select(record => record.Sales)
+                        .ToList();
+
+                    // Calculate the average sales for this dining area on this day
+                    float averageSales = areaSalesForDay.Any() ? areaSalesForDay.Average() : 0f;
+
+                    // Add the average sales to the corresponding series (cast to List<float> to allow adding values)
+                    if (seriesMap.TryGetValue(diningArea.ID, out var series)) {
+                        (series.Values as List<float>)?.Add(averageSales); // Ensure it's a List<float> and add the value
+                    }
+                }
+            }
+
+            // Assign series to the chart
+            _chart.Series = seriesMap.Values.ToArray();
+
+            // Initialize Y-Axis for sales values
+            _chart.YAxes = new[]
+            {
+                new Axis
+                {
+                    Name = "Average Sales",
+                    Labeler = value => value.ToString("C"), // Format as currency
+                }
+            };
+
+            // Set legend location
+            _chart.LegendPosition = LiveChartsCore.Measure.LegendPosition.Right;
+        }
 
 
 
