@@ -449,14 +449,16 @@ namespace FloorplanUserControlLibrary
 
         public void UpdateSection(Section section)
         {
-            if (ServersHaveChanged())
-            {
-                UpdateControlsForSection();
+            if (this.InvokeRequired) {
+                this.Invoke(new Action(() => UpdateSection(section)));
             }
-            SetSelectedStatus();
-            SetCutOrderImage();
-
-
+            else {
+                if (ServersHaveChanged()) {
+                    UpdateControlsForSection();
+                }
+                SetSelectedStatus();
+                SetCutOrderImage();
+            }
         }
 
         private void SetToNotSelected()

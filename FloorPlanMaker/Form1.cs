@@ -1304,6 +1304,7 @@ namespace FloorPlanMaker {
                             // Close the loading form and re-enable the main form
                             loadingForm.Close();
                             this.Enabled = true;
+                            this.BringToFront();
                             UpdateMissingSalesData();
 
                         }));
