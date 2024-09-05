@@ -272,6 +272,7 @@
             rdoCompareDates.Text = "Dates";
             rdoCompareDates.TextAlign = ContentAlignment.MiddleCenter;
             rdoCompareDates.UseVisualStyleBackColor = false;
+            rdoCompareDates.CheckedChanged += rdoChartDisplayType_CheckChanged;
             // 
             // panel7
             // 
@@ -303,6 +304,7 @@
             rdoCompareClouds.Text = "Clouds";
             rdoCompareClouds.TextAlign = ContentAlignment.MiddleCenter;
             rdoCompareClouds.UseVisualStyleBackColor = false;
+            rdoCompareClouds.CheckedChanged += rdoChartDisplayType_CheckChanged;
             // 
             // rdoCompareWind
             // 
@@ -319,6 +321,7 @@
             rdoCompareWind.Text = "Wind";
             rdoCompareWind.TextAlign = ContentAlignment.MiddleCenter;
             rdoCompareWind.UseVisualStyleBackColor = false;
+            rdoCompareWind.CheckedChanged += rdoChartDisplayType_CheckChanged;
             // 
             // rdoCompareReservations
             // 
@@ -335,6 +338,7 @@
             rdoCompareReservations.Text = "Reservations";
             rdoCompareReservations.TextAlign = ContentAlignment.MiddleCenter;
             rdoCompareReservations.UseVisualStyleBackColor = false;
+            rdoCompareReservations.CheckedChanged += rdoChartDisplayType_CheckChanged;
             // 
             // rdoCompareTemp
             // 
@@ -351,6 +355,7 @@
             rdoCompareTemp.Text = "Temperature";
             rdoCompareTemp.TextAlign = ContentAlignment.MiddleCenter;
             rdoCompareTemp.UseVisualStyleBackColor = false;
+            rdoCompareTemp.CheckedChanged += rdoChartDisplayType_CheckChanged;
             // 
             // rdoCompareRain
             // 
@@ -367,6 +372,7 @@
             rdoCompareRain.Text = "Rain";
             rdoCompareRain.TextAlign = ContentAlignment.MiddleCenter;
             rdoCompareRain.UseVisualStyleBackColor = false;
+            rdoCompareRain.CheckedChanged += rdoChartDisplayType_CheckChanged;
             // 
             // rdoCompareWeekDays
             // 
@@ -383,6 +389,7 @@
             rdoCompareWeekDays.Text = "Week Days";
             rdoCompareWeekDays.TextAlign = ContentAlignment.MiddleCenter;
             rdoCompareWeekDays.UseVisualStyleBackColor = false;
+            rdoCompareWeekDays.CheckedChanged += rdoChartDisplayType_CheckChanged;
             // 
             // rdoCompareMonths
             // 
@@ -399,6 +406,7 @@
             rdoCompareMonths.Text = "Months";
             rdoCompareMonths.TextAlign = ContentAlignment.MiddleCenter;
             rdoCompareMonths.UseVisualStyleBackColor = false;
+            rdoCompareMonths.CheckedChanged += rdoChartDisplayType_CheckChanged;
             // 
             // label7
             // 

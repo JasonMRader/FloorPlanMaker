@@ -30,7 +30,7 @@ namespace FloorPlanMakerUI
         {
             InitializeComponent();
             shiftFilterControl = new ShiftFilterControl();
-            shiftFilterControl.Location = new Point(5,5);
+            shiftFilterControl.Location = new Point(5, 5);
             shiftAnalysis.SetStandardFiltersForDateAndShiftType(false, DateOnly.FromDateTime(DateTime.Today));
             pnlFilters.Controls.Add(shiftFilterControl);
             shiftFilterControl.SetShiftAnalysis(shiftAnalysis);
@@ -47,13 +47,13 @@ namespace FloorPlanMakerUI
             pnlFilters.Controls.Add(this.shiftFilterControl);
             //shiftFilterControl.SetShiftAnalysis(shiftAnalysis);
             this.shiftFilterControl.UpdateShift += PopulateUI;
-            
+
         }
 
         private ShiftFilterControl shiftFilterControl;
         private DiningAreaManager areaManager = new DiningAreaManager();
-        private EmployeeManager employeeManager = new EmployeeManager();       
-        private List<WeatherData> allWeatherData = new List<WeatherData>();       
+        private EmployeeManager employeeManager = new EmployeeManager();
+        private List<WeatherData> allWeatherData = new List<WeatherData>();
         private ShiftAnalysis shiftAnalysis = new ShiftAnalysis();
         private void frmSalesStats_Load(object sender, EventArgs e)
         {
@@ -80,7 +80,7 @@ namespace FloorPlanMakerUI
             btn.BackColor = UITheme.ButtonColor;
             btn.FlatAppearance.CheckedBackColor = UITheme.DarkenColor(.3f, UITheme.ButtonColor);
             btn.Checked = true;
-           
+
             return btn;
         }
 
@@ -241,7 +241,7 @@ namespace FloorPlanMakerUI
                 pnlServerSelect.Visible = false;
             }
         }
-        
+
         private void btnIndividualStats_Click(object sender, EventArgs e)
         {
             if (rdoServerShifts.Checked) {
@@ -266,7 +266,7 @@ namespace FloorPlanMakerUI
                 .OrderBy(kvp => kvp.Key)
                 .ToList();
 
-           
+
             var sortedTableCounts = numericTableCounts.Concat(nonNumericTableCounts);
 
             foreach (var table in sortedTableCounts) {
@@ -300,7 +300,7 @@ namespace FloorPlanMakerUI
             dataGridView1.Columns.Clear();
             dataGridView1.Rows.Clear();
             dataGridView1.Columns.Add("Date", "Date");
-           
+
             var serverShiftHistory = new ServerShiftHistory(serverSelected, shiftAnalysis.StartDate, shiftAnalysis.EndDate, shiftAnalysis.IsAM, shiftAnalysis.FilteredDaysOfWeek);
 
             var tablesColumn = new DataGridViewTextBoxColumn {
@@ -312,7 +312,7 @@ namespace FloorPlanMakerUI
             };
             dataGridView1.Columns.Add(tablesColumn);
 
-            
+
             foreach (var empShift in serverShiftHistory.filteredShifts) {
                 var row = new List<object> { empShift.Date.ToString("ddd, M/d") };
 
@@ -324,7 +324,7 @@ namespace FloorPlanMakerUI
                 dataGridView1.Rows.Add(row.ToArray());
             }
         }
-        
+
         private void PopulateUI()
         {
             frmLoading loadingForm = new frmLoading("Parsing");
@@ -335,13 +335,13 @@ namespace FloorPlanMakerUI
                     shiftAnalysis.InitializetShiftsForDateRange();
 
                     this.Invoke(new Action(() => {
-                        
+
                         PopulateDGVForAreaSales(dataGridView1, areaManager.DiningAreas, shiftAnalysis.FilteredShifts);
                         PopulateAveragesDataGridView(areaManager.DiningAreas);
-                       
-                        
+
+
                         loadingForm.Close();
-                       
+
                         UpdateNewChart();
                         this.Enabled = true;
 
@@ -353,7 +353,7 @@ namespace FloorPlanMakerUI
             }
             if (rdoServerShifts.Checked) {
                 Task.Run(() => {
-                    
+
                     List<ServerShiftHistory> serverHistory = GetServerHistory(employeeManager.ActiveServers);
 
                     this.Invoke(new Action(() => {
@@ -372,7 +372,7 @@ namespace FloorPlanMakerUI
         }
         private void UpdateNewChart()
         {
-            var chartManager = new ChartManager(shiftAnalysis.FilteredShifts, cartesianChart1);          
+            var chartManager = new ChartManager(shiftAnalysis.FilteredShifts, cartesianChart1);
             chartManager.SetUpStackedArea(areaManager.DiningAreas);
         }
 
@@ -404,7 +404,7 @@ namespace FloorPlanMakerUI
                     HeaderText = diningArea.Name,
                     Width = 70,
                     DefaultCellStyle = new DataGridViewCellStyle {
-                        Format = "C0" 
+                        Format = "C0"
                     }
                 };
                 dgvDiningAreas.Columns.Add(column);
@@ -414,7 +414,7 @@ namespace FloorPlanMakerUI
                 Name = "Total",
                 HeaderText = "Total",
                 DefaultCellStyle = new DataGridViewCellStyle {
-                    Format = "C0" 
+                    Format = "C0"
                 }
             };
             dgvDiningAreas.Columns.Add(totalColumn);
@@ -424,7 +424,7 @@ namespace FloorPlanMakerUI
                 HeaderText = "Feels Like Hi",
                 Width = 30,
                 DefaultCellStyle = new DataGridViewCellStyle {
-                    Format = "N0" 
+                    Format = "N0"
                 }
             };
             dgvDiningAreas.Columns.Add(tempHiColumn);
@@ -433,7 +433,7 @@ namespace FloorPlanMakerUI
                 HeaderText = "Feels Like Avg",
                 Width = 30,
                 DefaultCellStyle = new DataGridViewCellStyle {
-                    Format = "N0" 
+                    Format = "N0"
                 }
             };
             dgvDiningAreas.Columns.Add(tempAvgColumn);
@@ -443,7 +443,7 @@ namespace FloorPlanMakerUI
                 HeaderText = "Feels Like Low",
                 Width = 50,
                 DefaultCellStyle = new DataGridViewCellStyle {
-                    Format = "N0" 
+                    Format = "N0"
                 }
             };
             dgvDiningAreas.Columns.Add(tempLoColumn);
@@ -461,7 +461,7 @@ namespace FloorPlanMakerUI
                 HeaderText = "Clouds",
                 Width = 50,
                 DefaultCellStyle = new DataGridViewCellStyle {
-                    Format = "N2" 
+                    Format = "N2"
                 }
             };
             dgvDiningAreas.Columns.Add(cloudsColumn);
@@ -470,7 +470,7 @@ namespace FloorPlanMakerUI
                 HeaderText = "Wind Avg",
                 Width = 50,
                 DefaultCellStyle = new DataGridViewCellStyle {
-                    Format = "N0" 
+                    Format = "N0"
                 }
             };
             dgvDiningAreas.Columns.Add(windAvgColumn);
@@ -479,22 +479,22 @@ namespace FloorPlanMakerUI
                 HeaderText = "Wind Max",
                 Width = 50,
                 DefaultCellStyle = new DataGridViewCellStyle {
-                    Format = "N0" 
+                    Format = "N0"
                 }
             };
             dgvDiningAreas.Columns.Add(windMaxColumn);
         }
 
-        
+
         private void AddShiftRows(DataGridView dgvDiningAreas, List<DiningArea> diningAreas, List<ShiftRecord> shiftRecords)
         {
             foreach (var shiftRecord in shiftRecords) {
                 var row = new DataGridViewRow();
-                row.CreateCells(dgvDiningAreas);               
-                row.Cells[0].Value = shiftRecord.Date.ToString("ddd, M/d/yy");               
+                row.CreateCells(dgvDiningAreas);
+                row.Cells[0].Value = shiftRecord.Date.ToString("ddd, M/d/yy");
                 row.Cells[1].Value = shiftRecord.SpecialEventDate?.Name ?? "";
-                int cellIndex = 2; 
-              
+                int cellIndex = 2;
+
                 foreach (var diningArea in diningAreas) {
                     var diningAreaRecord = shiftRecord.DiningAreaRecords
                         .FirstOrDefault(fp => fp.DiningAreaID == diningArea.ID);
@@ -504,13 +504,13 @@ namespace FloorPlanMakerUI
 
                     row.Cells[cellIndex].Value = diningAreaSales;
 
-                    
+
                     row.Cells[cellIndex].ToolTipText = $"{percentageOfSales:F1}% of total sales";
 
                     cellIndex++;
                 }
                 row.Cells[cellIndex].Value = shiftRecord.Sales;
-               
+
                 cellIndex++;
                 if (shiftRecord.ShiftWeather != null) {
                     row.Cells[cellIndex++].Value = shiftRecord.ShiftWeather?.FeelsLikeHi ?? 0;
@@ -521,16 +521,16 @@ namespace FloorPlanMakerUI
                     row.Cells[cellIndex++].Value = shiftRecord.ShiftWeather?.WindAvg ?? 0;
                     row.Cells[cellIndex++].Value = shiftRecord.ShiftWeather?.WindMax ?? 0;
                 }
-              
+
                 dgvDiningAreas.Rows.Add(row);
             }
         }
 
         public void PopulateAveragesDataGridView(List<DiningArea> diningAreas)
-        {            
+        {
             dgvAreaStats.Columns.Clear();
             dgvAreaStats.Rows.Clear();
-            
+
             foreach (var stat in shiftAnalysis.DiningAreaStats) {
                 DiningArea area = diningAreas.FirstOrDefault(d => d.ID == stat.DiningAreaID);
                 string columnHead = $"Area {stat.DiningAreaID}";
@@ -547,7 +547,7 @@ namespace FloorPlanMakerUI
                 AvgSales = shiftAnalysis.FilteredShiftAvgSales,
 
             };
-           
+
             var avgRow = new DataGridViewRow();
             avgRow.CreateCells(dgvAreaStats);
             var minRow = new DataGridViewRow();
@@ -560,7 +560,7 @@ namespace FloorPlanMakerUI
             minPercentRow.CreateCells(dgvAreaStats);
             var maxPercentRow = new DataGridViewRow();
             maxPercentRow.CreateCells(dgvAreaStats);
-          
+
             for (int i = 0; i < shiftAnalysis.DiningAreaStats.Count; i++) {
                 avgRow.Cells[i].Value = $"{shiftAnalysis.DiningAreaStats[i].AvgSales:C0}";
 
@@ -570,7 +570,7 @@ namespace FloorPlanMakerUI
                 minPercentRow.Cells[i].Value = $"{shiftAnalysis.DiningAreaStats[i].MinPercentage:F1}%";
                 maxPercentRow.Cells[i].Value = $"{shiftAnalysis.DiningAreaStats[i].MaxPercentage:F1}%";
             }
-                       
+
             avgRow.Cells[shiftAnalysis.DiningAreaStats.Count].Value = totalStats.AvgSales;
             minRow.Cells[shiftAnalysis.DiningAreaStats.Count].Value = totalStats.MinSales;
             maxRow.Cells[shiftAnalysis.DiningAreaStats.Count].Value = totalStats.MaxSales;
@@ -578,14 +578,14 @@ namespace FloorPlanMakerUI
             minPercentRow.Cells[shiftAnalysis.DiningAreaStats.Count].Value = "";
             maxPercentRow.Cells[shiftAnalysis.DiningAreaStats.Count].Value = "";
 
-           
+
             foreach (DataGridViewRow row in new DataGridViewRow[] { avgRow, minRow, maxRow }) {
                 for (int i = 0; i <= shiftAnalysis.DiningAreaStats.Count; i++) {
-                    row.Cells[i].Style.Format = "C"; 
+                    row.Cells[i].Style.Format = "C";
                 }
             }
 
-           
+
             avgRow.HeaderCell.Value = "Average";
             minRow.HeaderCell.Value = "Min";
             maxRow.HeaderCell.Value = "Max";
@@ -601,7 +601,7 @@ namespace FloorPlanMakerUI
             dgvAreaStats.Rows.Add(minPercentRow);
             dgvAreaStats.Rows.Add(maxPercentRow);
         }
-        
+
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -639,6 +639,15 @@ namespace FloorPlanMakerUI
         {
             var chartManager = new ChartManager(shiftAnalysis.FilteredShifts, cartesianChart1);
             chartManager.SetUpBoxChart(areaManager.DiningAreas);
+        }
+        private void rdoChartDisplayType_CheckChanged(object sender, EventArgs e)
+        {
+            if (rdoCompareDates.Checked) {
+
+            }
+            else if (rdoCompareMonths.Checked) {
+
+            }
         }
     }
 }

@@ -57,25 +57,23 @@ namespace FloorPlanMakerUI
             }
 
             // Initialize X-Axis (assuming dates are involved)
-            _chart.XAxes = new[]
-            {
-            new Axis
-            {
-                Name = "Date",
-                Labels = _shiftRecords.Select(shift => shift.Date.ToString("MM/dd/yy")).ToArray(),
-                LabelsRotation = 15, // Rotate labels for better readability
-            }
-        };
+            _chart.XAxes = new[]{
+                new Axis
+                    {
+                        Name = "Date",
+                        Labels = _shiftRecords.Select(shift => shift.Date.ToString("MM/dd/yy")).ToArray(),
+                        LabelsRotation = 15, 
+                    }
+            };
 
-            // Initialize Y-Axis
-            _chart.YAxes = new[]
-            {
-            new Axis
-            {
-                Name = "Sales",
-                Labeler = value => value.ToString("C"), // Format as currency
-            }
-        };
+           
+            _chart.YAxes = new[] {
+                new Axis
+                {
+                    Name = "Sales",
+                    Labeler = value => value.ToString("C"), // Format as currency
+                }
+            };
 
             // Populate series with data
             foreach (ShiftRecord shiftRecord in _shiftRecords) {
@@ -83,22 +81,11 @@ namespace FloorPlanMakerUI
                     if (seriesMap.TryGetValue(areaRecord.DiningAreaID, out var series)) {
                         (series).Values =
                             (series).Values.Append((float)areaRecord.Sales).ToList();
-                        //series.YToolTipLabelFormatter = point => $"{(float)areaRecord.Sales} {areaRecord.DiningAreaID}";
-                        //series.DataLabelsPaint = new SolidColorPaint(new SKColor(30, 30, 30));
-                        //series.DataLabelsFormatter = point => $"{(float)areaRecord.Sales} {areaRecord.DiningAreaID}";
-                        //series.DataLabelsPosition = DataLabelsPosition.End;
-                        //// use the SalesPerDay property in this in the Y axis 
-                        //// and the index of the fruit in the array in the X axis 
-                        //series.Mapping = (areaRecord, index) => new(index, areaRecord.Sales);
-                        //series.ChartPointPointerHover += OnPointerHover;
-                        //series.Values.Add((float)areaRecord.Sales);
+                       
                     }
                 }
             }
-            //_chart.Series. += OnPointerDown;
-           
-            //salesPerDaysSeries.ChartPointPointerHoverLost += OnPointerHoverLost;
-            // Assign the series collection to the chart
+            
             _chart.Series = seriesMap.Values.ToArray();
 
             // Set legend location
