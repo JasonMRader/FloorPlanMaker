@@ -709,31 +709,69 @@ namespace FloorPlanMaker
             }
             else if (ShiftManager.SelectedShift.UnassignedServers.Count > 0)
             {
+                frmLoading loadingForm = null;
+                Thread loadingThread = new Thread(() => {
+                    loadingForm = new frmLoading(frmLoading.GifType.staffAllocation);
+                    Application.Run(loadingForm);  // Start the loading form on a separate UI thread
+                });
+
+                loadingThread.SetApartmentState(ApartmentState.STA);  // Set thread to STA mode
+                loadingThread.Start();  // Start the new UI thread
+
+                this.Enabled = false;
+                
+                await Task.Delay(100);  
+
+                await Task.Run(() => {
+                    FloorplanGenerator floorplanGenerator = new FloorplanGenerator(ShiftManager.SelectedShift);
+                    floorplanGenerator.GetServerDistribution();
+                    floorplanGenerator.AutoAssignDiningAreas();
+
+                });
+
+                // Close the loading form and re-enable the main form once the work is done
+                this.Invoke(new Action(() => {
+                    PopulateUnassignedServers();
+                    RefreshFloorplanFlowPanel(ShiftManager.SelectedShift.Floorplans);
+                    RefreshFloorplanCountLabels();
+                   
+                    if (loadingForm != null && loadingForm.InvokeRequired) {
+                        loadingForm.Invoke(new Action(() => loadingForm.Close()));  // Close the form on its own thread
+                    }
+                    else {
+                        loadingForm?.Close();
+                    }
+
+
+                    //this.Close();
+                    this.Enabled = true;
+                    this.BringToFront();
+                }));
                 //FloorplanGenerator floorplanGenerator = new FloorplanGenerator(ShiftManager.SelectedShift);
                 //floorplanGenerator.GetServerDistribution();
                 //floorplanGenerator.AutoAssignDiningAreas();
                 //PopulateUnassignedServers();
                 //RefreshFloorplanFlowPanel(ShiftManager.SelectedShift.Floorplans);
                 //RefreshFloorplanCountLabels();
-                frmLoading loadingForm = new frmLoading(frmLoading.GifType.staffAllocation);
-                loadingForm.Show();
-                this.Enabled = false;
-                await Task.Delay(100);
-                await Task.Run(() => {
-                    FloorplanGenerator floorplanGenerator = new FloorplanGenerator(ShiftManager.SelectedShift);
-                    floorplanGenerator.GetServerDistribution();
-                    floorplanGenerator.AutoAssignDiningAreas();
-                    this.Invoke(new Action(() => {
-                        PopulateUnassignedServers();
-                        RefreshFloorplanFlowPanel(ShiftManager.SelectedShift.Floorplans);
-                        RefreshFloorplanCountLabels();
+                //frmLoading loadingForm = new frmLoading(frmLoading.GifType.staffAllocation);
+                //loadingForm.Show();
+                //this.Enabled = false;
+                //await Task.Delay(100);
+                //await Task.Run(() => {
+                //    FloorplanGenerator floorplanGenerator = new FloorplanGenerator(ShiftManager.SelectedShift);
+                //    floorplanGenerator.GetServerDistribution();
+                //    floorplanGenerator.AutoAssignDiningAreas();
+                //    this.Invoke(new Action(() => {
+                //        PopulateUnassignedServers();
+                //        RefreshFloorplanFlowPanel(ShiftManager.SelectedShift.Floorplans);
+                //        RefreshFloorplanCountLabels();
 
-                        loadingForm.Close();
-                        this.Enabled = true;
-                        this.BringToFront();
+                //        loadingForm.Close();
+                //        this.Enabled = true;
+                //        this.BringToFront();
 
-                    }));
-                });
+                //    }));
+                //});
 
 
             }

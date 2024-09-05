@@ -93,7 +93,7 @@ namespace FloorPlanMakerUI
         private void GetDateString()
         {
             string shiftType = "";
-            if (shiftManager.SelectedShift.IsAM) {
+            if (cbIsAm.Checked) {
                 shiftType = "Lunch";
             }
             else {
@@ -571,29 +571,41 @@ namespace FloorPlanMakerUI
             }
             int bartenderCount = Int32.Parse(lblBartenderCount.Text);
 
-            frmLoading loadingForm = new frmLoading(frmLoading.GifType.Process);
-            loadingForm.Show();
-            this.Enabled = false;
-            await Task.Delay(100);
-            await Task.Run(() => {
-
-                shiftManager.SelectedShift.SetBartendersToShift(bartenderCount);
-                shiftManager.SetNewShiftToSelectedShift();
-
-                this.Invoke(new Action(() => {
-
-                    frmEditStaff.UpdateNewShift(shiftManager);
-                    this.Close();
-                    loadingForm.Close();
-                    this.Enabled = true;
-                    this.BringToFront();
-
-                }));
+            // Create a thread for the loading form
+            frmLoading loadingForm = null;
+            Thread loadingThread = new Thread(() => {
+                loadingForm = new frmLoading(frmLoading.GifType.Process);
+                Application.Run(loadingForm);  // Start the loading form on a separate UI thread
             });
 
+            loadingThread.SetApartmentState(ApartmentState.STA);  // Set thread to STA mode
+            loadingThread.Start();  // Start the new UI thread
 
+            this.Enabled = false;
 
+            await Task.Delay(100);  // Small delay to ensure the loading form is fully visible
 
+            await Task.Run(() => {
+                // Perform background work here
+                shiftManager.SelectedShift.SetBartendersToShift(bartenderCount);
+                shiftManager.SetNewShiftToSelectedShift();
+            });
+
+            // Close the loading form and re-enable the main form once the work is done
+            this.Invoke(new Action(() => {
+                frmEditStaff.UpdateNewShift(shiftManager);
+                if (loadingForm != null && loadingForm.InvokeRequired) {
+                    loadingForm.Invoke(new Action(() => loadingForm.Close()));  // Close the form on its own thread
+                }
+                else {
+                    loadingForm?.Close();
+                }
+
+               
+                this.Close();
+                this.Enabled = true;
+                //this.BringToFront();
+            }));
         }
 
         private void cbIsAm_CheckedChanged(object sender, EventArgs e)
@@ -621,41 +633,105 @@ namespace FloorPlanMakerUI
             txtServerSearch.Focus();
             GetDateString();
         }
-        private void ChangeAMwithLoadingScreen()
+        private async void ChangeAMwithLoadingScreen()
         {
             _isClickedByUser = true;
-            frmLoading loadingForm = new frmLoading(frmLoading.GifType.Time);
-            loadingForm.Show();
-            this.Enabled = false;
-            Task.Run(() => {
-                List<AreaHistory> lastWeekAreaHistories = GetAreaHistories(cbIsAm.Checked, -7);
-                List<AreaHistory> last4 = GetHistoryForLastFour();
-                List<AreaHistory> yesterdayAreaHistories = GetAreaHistories(cbIsAm.Checked, -1);
+            if (isAM) {
+                cbIsAm.Image = Resources.smallSunrise;
+                cbIsAm.BackColor = Color.FromArgb(251, 175, 0);
+            }
+            else {
+                cbIsAm.Image = Resources.smallMoon;
+                cbIsAm.BackColor = Color.FromArgb(117, 70, 104);
 
-
-                this.Invoke(new Action(() => {
-                    if (isAM) {
-                        cbIsAm.Image = Resources.smallSunrise;
-                        cbIsAm.BackColor = Color.FromArgb(251, 175, 0);
-                    }
-                    else {
-                        cbIsAm.Image = Resources.smallMoon;
-                        cbIsAm.BackColor = Color.FromArgb(117, 70, 104);
-
-                    }
-                    CreateAreaHistoryLabelsForLast4(flowLast4, last4);
-                    CreateAreaHistoryLabels(flowLastWeekdayCounts, lastWeekAreaHistories, false);
-                    CreateAreaHistoryLabels(flowYesterdayCounts, yesterdayAreaHistories, true);
-                    //RefreshPreviousFloorplanCounts();
-                    RefreshForDateSelected();
-                    txtServerSearch.Focus();
-                    //GetDateString();
-                    loadingForm.Close();
-                    this.Enabled = true;
-                    this.BringToFront();
-
-                }));
+            }
+            //RefreshForDateSelected();
+            frmLoading loadingForm = null;
+            Thread loadingThread = new Thread(() => {
+                loadingForm = new frmLoading(frmLoading.GifType.Time);
+                Application.Run(loadingForm);  // Start the loading form on a separate UI thread
             });
+
+            loadingThread.SetApartmentState(ApartmentState.STA);  // Set thread to STA mode
+            loadingThread.Start();  // Start the new UI thread
+
+            this.Enabled = false;
+            List<AreaHistory> lastWeekAreaHistories = new List<AreaHistory>();
+            List<AreaHistory> last4 = new List<AreaHistory>();
+            List<AreaHistory> yesterdayAreaHistories = new List<AreaHistory>();
+        await Task.Delay(100);  // Small delay to ensure the loading form is fully visible
+
+            await Task.Run(() => {
+                // Perform background work here
+                lastWeekAreaHistories = GetAreaHistories(cbIsAm.Checked, -7);
+                last4 = GetHistoryForLastFour();
+                yesterdayAreaHistories = GetAreaHistories(cbIsAm.Checked, -1);
+                
+            });
+
+            // Close the loading form and re-enable the main form once the work is done
+            this.Invoke(new Action(() => {
+                //if (isAM) {
+                //    cbIsAm.Image = Resources.smallSunrise;
+                //    cbIsAm.BackColor = Color.FromArgb(251, 175, 0);
+                //}
+                //else {
+                //    cbIsAm.Image = Resources.smallMoon;
+                //    cbIsAm.BackColor = Color.FromArgb(117, 70, 104);
+
+                //}
+                CreateAreaHistoryLabelsForLast4(flowLast4, last4);
+                CreateAreaHistoryLabels(flowLastWeekdayCounts, lastWeekAreaHistories, false);
+                CreateAreaHistoryLabels(flowYesterdayCounts, yesterdayAreaHistories, true);
+                RefreshPreviousFloorplanCounts();
+                RefreshForDateSelected();
+                txtServerSearch.Focus();
+                if (loadingForm != null && loadingForm.InvokeRequired) {
+                    loadingForm.Invoke(new Action(() => loadingForm.Close()));  // Close the form on its own thread
+                }
+                else {
+                    loadingForm?.Close();
+                }
+
+
+                //this.Close();
+                this.Enabled = true;
+                this.BringToFront();
+            }));
+          
+            //****************************************************************************
+            //frmLoading loadingForm = new frmLoading(frmLoading.GifType.Time);
+            //loadingForm.Show();
+            //this.Enabled = false;
+            //Task.Run(() => {
+            //    List<AreaHistory> lastWeekAreaHistories = GetAreaHistories(cbIsAm.Checked, -7);
+            //    List<AreaHistory> last4 = GetHistoryForLastFour();
+            //    List<AreaHistory> yesterdayAreaHistories = GetAreaHistories(cbIsAm.Checked, -1);
+
+
+            //    this.Invoke(new Action(() => {
+            //        if (isAM) {
+            //            cbIsAm.Image = Resources.smallSunrise;
+            //            cbIsAm.BackColor = Color.FromArgb(251, 175, 0);
+            //        }
+            //        else {
+            //            cbIsAm.Image = Resources.smallMoon;
+            //            cbIsAm.BackColor = Color.FromArgb(117, 70, 104);
+
+            //        }
+            //        CreateAreaHistoryLabelsForLast4(flowLast4, last4);
+            //        CreateAreaHistoryLabels(flowLastWeekdayCounts, lastWeekAreaHistories, false);
+            //        CreateAreaHistoryLabels(flowYesterdayCounts, yesterdayAreaHistories, true);
+            //        //RefreshPreviousFloorplanCounts();
+            //        RefreshForDateSelected();
+            //        txtServerSearch.Focus();
+            //        //GetDateString();
+            //        loadingForm.Close();
+            //        this.Enabled = true;
+            //        this.BringToFront();
+
+            //    }));
+            //});
         }
         private void cbIsAm_Click(object sender, EventArgs e)
         {
