@@ -465,9 +465,16 @@ namespace FloorPlanMakerUI
         }
         public void SetUpBarChart(int diningAreaID)
         {
+            var filteredRecords = new List<DiningAreaRecord>();
+            if(diningAreaID == 0) {
+                filteredRecords = _shiftRecords.SelectMany(s => s.DiningAreaRecords).ToList();
+            }
+            else {
+                List<DiningAreaRecord> diningAreaRecords = _shiftRecords.SelectMany(s => s.DiningAreaRecords).ToList();
+                filteredRecords = diningAreaRecords.Where(record => record.DiningAreaID == diningAreaID).ToList();
+            }
             // Filter the records by DiningAreaID
-            List<DiningAreaRecord> diningAreaRecords = _shiftRecords.SelectMany(s => s.DiningAreaRecords).ToList();
-            var filteredRecords = diningAreaRecords.Where(record => record.DiningAreaID == diningAreaID).ToList();
+            
 
             if (filteredRecords.Count == 0) {
                 return; // No records to display

@@ -55,6 +55,7 @@ namespace FloorPlanMakerUI
         private EmployeeManager employeeManager = new EmployeeManager();
         private List<WeatherData> allWeatherData = new List<WeatherData>();
         private ShiftAnalysis shiftAnalysis = new ShiftAnalysis();
+        private RadioButton rdoAll = new RadioButton();
         private void frmSalesStats_Load(object sender, EventArgs e)
         {
             allWeatherData = SqliteDataAccess.LoadAllWeatherData();
@@ -67,26 +68,26 @@ namespace FloorPlanMakerUI
         }
         private RadioButton CreateSelectAllAreaRadio()
         {
-            RadioButton btn = new RadioButton() {
+            rdoAll = new RadioButton() {
 
                 Text = "ALL",
                 Size = new Size(flowDiningAreas.Width / (areaManager.DiningAreas.Count + 1), flowDiningAreas.Height),
                 Margin = new System.Windows.Forms.Padding(0, 0, 0, 0),
                 TextAlign = ContentAlignment.MiddleCenter
             };
-            btn.Click += SelectedAllAreasButtonClicked;
-            UITheme.FormatCTAButton(btn);
-            btn.Font = UITheme.CustomFont(14, FontStyle.Bold);
-            btn.BackColor = UITheme.ButtonColor;
-            btn.FlatAppearance.CheckedBackColor = UITheme.DarkenColor(.3f, UITheme.ButtonColor);
-            btn.Checked = true;
+            rdoAll.Click += SelectedAllAreasButtonClicked;
+            UITheme.FormatCTAButton(rdoAll);
+            rdoAll.Font = UITheme.CustomFont(14, FontStyle.Bold);
+            rdoAll.BackColor = UITheme.ButtonColor;
+            rdoAll.FlatAppearance.CheckedBackColor = UITheme.DarkenColor(.3f, UITheme.ButtonColor);
+            rdoAll.Checked = true;
 
-            return btn;
+            return rdoAll;
         }
 
         private void SelectedAllAreasButtonClicked(object? sender, EventArgs e)
         {
-
+            GetChartForFilters();
         }
 
         private RadioButton CreateAreaRadio(DiningArea area)
@@ -641,16 +642,18 @@ namespace FloorPlanMakerUI
         {
             GetChartForFilters();
         }
-        private void UpdateNewChart()
-        {
-            var chartManager = new ChartManager(shiftAnalysis.FilteredShifts, cartesianChart1);
-            chartManager.SetUpStackedArea(areaManager.DiningAreas);
-        }
+       
         private void GetChartForFilters()
         {
+            if(!rdoAll.Checked) {
+                
+                GetChartFiltersForDiningArea();
+                return;
+            }
             var chartManager = new ChartManager(shiftAnalysis.FilteredShifts, cartesianChart1);
-            if (rdoCompareDates.Checked) {
 
+            if (rdoCompareDates.Checked) {
+                
                 chartManager.SetUpStackedArea(areaManager.DiningAreas);
             }
             else if (rdoCompareMonths.Checked) {
@@ -664,6 +667,14 @@ namespace FloorPlanMakerUI
             else if (rdoCompareTemp.Checked) {
                 chartManager.SetUpScatterPlot();
             }
+            else if(rdoDistribution.Checked) {
+                chartManager.SetUpBarChart(0);
+            }
+        }
+
+        private void GetChartFiltersForDiningArea()
+        {
+            //throw new NotImplementedException();
         }
     }
 }
