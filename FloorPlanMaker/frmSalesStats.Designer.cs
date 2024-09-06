@@ -55,6 +55,7 @@
             rdoCompareMonths = new RadioButton();
             label7 = new Label();
             pnlContainer = new Panel();
+            rdoDistribution = new RadioButton();
             panel1.SuspendLayout();
             pnlServerSelect.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
@@ -276,6 +277,7 @@
             // 
             // panel7
             // 
+            panel7.Controls.Add(rdoDistribution);
             panel7.Controls.Add(rdoCompareClouds);
             panel7.Controls.Add(rdoCompareWind);
             panel7.Controls.Add(rdoCompareReservations);
@@ -286,7 +288,7 @@
             panel7.Controls.Add(rdoCompareDates);
             panel7.Location = new Point(1125, 95);
             panel7.Name = "panel7";
-            panel7.Size = new Size(95, 247);
+            panel7.Size = new Size(95, 277);
             panel7.TabIndex = 22;
             // 
             // rdoCompareClouds
@@ -439,6 +441,23 @@
             pnlContainer.Size = new Size(1477, 1018);
             pnlContainer.TabIndex = 23;
             // 
+            // rdoDistribution
+            // 
+            rdoDistribution.Appearance = Appearance.Button;
+            rdoDistribution.BackColor = SystemColors.ButtonShadow;
+            rdoDistribution.FlatAppearance.BorderSize = 0;
+            rdoDistribution.FlatAppearance.CheckedBackColor = Color.FromArgb(100, 130, 180);
+            rdoDistribution.FlatStyle = FlatStyle.Flat;
+            rdoDistribution.ForeColor = Color.White;
+            rdoDistribution.Location = new Point(3, 243);
+            rdoDistribution.Name = "rdoDistribution";
+            rdoDistribution.Size = new Size(87, 24);
+            rdoDistribution.TabIndex = 21;
+            rdoDistribution.Text = "Distribution";
+            rdoDistribution.TextAlign = ContentAlignment.MiddleCenter;
+            rdoDistribution.UseVisualStyleBackColor = false;
+            rdoDistribution.CheckedChanged += rdoChartDisplayType_CheckChanged;
+            // 
             // frmSalesStats
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -495,6 +514,7 @@
         private RadioButton rdoCompareClouds;
         private RadioButton rdoCompareWind;
         private Panel pnlContainer;
+        private RadioButton rdoDistribution;
         //private SplitContainer splitContainer1;
     }
 }

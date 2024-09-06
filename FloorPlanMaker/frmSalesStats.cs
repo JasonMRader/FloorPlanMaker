@@ -342,7 +342,8 @@ namespace FloorPlanMakerUI
 
                         loadingForm.Close();
 
-                        UpdateNewChart();
+                        //UpdateNewChart();
+                        GetChartForFilters();
                         this.Enabled = true;
 
                         this.BringToFront();
@@ -370,11 +371,7 @@ namespace FloorPlanMakerUI
 
             }
         }
-        private void UpdateNewChart()
-        {
-            var chartManager = new ChartManager(shiftAnalysis.FilteredShifts, cartesianChart1);
-            chartManager.SetUpStackedArea(areaManager.DiningAreas);
-        }
+
 
 
 
@@ -642,17 +639,26 @@ namespace FloorPlanMakerUI
         }
         private void rdoChartDisplayType_CheckChanged(object sender, EventArgs e)
         {
+            GetChartForFilters();
+        }
+        private void UpdateNewChart()
+        {
+            var chartManager = new ChartManager(shiftAnalysis.FilteredShifts, cartesianChart1);
+            chartManager.SetUpStackedArea(areaManager.DiningAreas);
+        }
+        private void GetChartForFilters()
+        {
             var chartManager = new ChartManager(shiftAnalysis.FilteredShifts, cartesianChart1);
             if (rdoCompareDates.Checked) {
-                
+
                 chartManager.SetUpStackedArea(areaManager.DiningAreas);
             }
             else if (rdoCompareMonths.Checked) {
-                
+
                 chartManager.SetUpStackedBarChartByMonth(areaManager.DiningAreas);
             }
             else if (rdoCompareWeekDays.Checked) {
-               
+
                 chartManager.SetUpStackedBarChartByDayOfWeek(areaManager.DiningAreas);
             }
             else if (rdoCompareTemp.Checked) {
