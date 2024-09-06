@@ -676,7 +676,7 @@ namespace FloorPlanMakerUI
                 chartManager.SetUpStackedBarChartByDayOfWeek(areaManager.DiningAreas);
             }
             else if (rdoCompareTemp.Checked) {
-                chartManager.SetUpScatterPlot();
+                chartManager.SetUpTemperatureScatterPlot();
             }
             else if (rdoDistribution.Checked) {
                 chartManager.SetUpBarChartForShiftSales();
@@ -695,11 +695,11 @@ namespace FloorPlanMakerUI
                 chartManager.SetUpBarChartByMonthForArea(areaSelected.ID, areaManager.DiningAreas);
             }
             else if (rdoCompareWeekDays.Checked) {
-
+                chartManager.SetUpBarChartByDayOfWeekForArea(areaSelected.ID, areaManager.DiningAreas);
 
             }
             else if (rdoCompareTemp.Checked) {
-
+                chartManager.SetUpTemperatureScatterPlotForArea(areaSelected.ID);
             }
             else if (rdoDistribution.Checked) {
                 chartManager.SetUpBarChart(areaSelected.ID);

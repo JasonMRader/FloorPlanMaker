@@ -105,7 +105,7 @@ namespace FloorPlanMakerUI
             // Set legend location
             _chart.LegendPosition = LiveChartsCore.Measure.LegendPosition.Right;
         }
-        public void SetUpScatterPlot()
+        public void SetUpTemperatureScatterPlot()
         {
             // Clear existing series and axes
             _chart.Series = Array.Empty<ISeries>();
@@ -834,15 +834,15 @@ namespace FloorPlanMakerUI
             // Initialize X-Axis labels with months
             _chart.XAxes = new[]
             {
-        new Axis
-        {
-            Name = "Month",
-            Labels = groupedByMonth
-                .Select(group => new DateTime(group.Key.Year, group.Key.Month, 1).ToString("MMM yyyy"))
-                .ToArray(),
-            LabelsRotation = -15 // Rotate labels for better readability
-        }
-    };
+                new Axis
+                {
+                    Name = "Month",
+                    Labels = groupedByMonth
+                        .Select(group => new DateTime(group.Key.Year, group.Key.Month, 1).ToString("MMM yyyy"))
+                        .ToArray(),
+                    LabelsRotation = -15 // Rotate labels for better readability
+                }
+            };
 
             // Calculate the average sales for the specific dining area per month
             foreach (var monthGroup in groupedByMonth) {
@@ -866,15 +866,138 @@ namespace FloorPlanMakerUI
             // Initialize Y-Axis for sales values
             _chart.YAxes = new[]
             {
-        new Axis
-        {
-            Name = "Average Sales",
-            Labeler = value => value.ToString("C"), // Format as currency
-            MinLimit = 0 // Ensure Y-axis starts at $0
-        }
-    };
+                new Axis
+                {
+                    Name = "Average Sales",
+                    Labeler = value => value.ToString("C"), // Format as currency
+                    MinLimit = 0 // Ensure Y-axis starts at $0
+                }
+            };
 
             // Set legend location (optional)
+            _chart.LegendPosition = LiveChartsCore.Measure.LegendPosition.Right;
+        }
+        public void SetUpBarChartByDayOfWeekForArea(int diningAreaID, List<DiningArea> diningAreas)
+        {
+            // Clear existing series and axes
+            _chart.Series = Array.Empty<ISeries>();
+            _chart.XAxes = Array.Empty<Axis>();
+            _chart.YAxes = Array.Empty<Axis>();
+
+            // Get the dining area by ID
+            var diningArea = diningAreas.FirstOrDefault(area => area.ID == diningAreaID);
+            if (diningArea == null || diningArea.ID == 6) return; // Skip if not found or if DiningAreaID is 6
+
+            // Initialize series for the selected dining area
+            var series = new ColumnSeries<float> {
+                Name = diningArea.Name,
+                Fill = GetAreaColor(diningArea), // Set the fill color
+                Stroke = GetAreaColor(diningArea), // Set the line color
+                Values = new List<float>() // Initialize with a List<float> to allow adding values
+            };
+
+            // Group ShiftRecords by day of the week
+            var groupedByDayOfWeek = _shiftRecords
+                .GroupBy(shift => shift.DayOfWeek)
+                .OrderBy(group => group.Key) // Order by day of the week (Monday-Sunday)
+                .ToList();
+
+            // Initialize X-Axis labels with days of the week
+            _chart.XAxes = new[]
+            {
+                new Axis
+                {
+                    Name = "Day of the Week",
+                    Labels = groupedByDayOfWeek
+                        .Select(group => group.Key.ToString()) // Convert DayOfWeek enum to string (e.g., "Monday")
+                        .ToArray(),
+                    LabelsRotation = -15 // Rotate labels for better readability
+                }
+            };
+
+            // Calculate the average sales for the specific dining area per day of the week
+            foreach (var dayGroup in groupedByDayOfWeek) {
+                // Get all area records for this dining area within the current day
+                var areaSalesForDay = dayGroup
+                    .SelectMany(shift => shift.DiningAreaRecords)
+                    .Where(record => record.DiningAreaID == diningAreaID)
+                    .Select(record => record.Sales)
+                    .ToList();
+
+                // Calculate the average sales for this dining area on this day
+                float averageSales = areaSalesForDay.Any() ? areaSalesForDay.Average() : 0f;
+
+                // Add the average sales to the series
+                (series.Values as List<float>)?.Add(averageSales); // Ensure it's a List<float> and add the value
+            }
+
+            // Assign the series to the chart
+            _chart.Series = new ISeries[] { series };
+
+            // Initialize Y-Axis for sales values
+            _chart.YAxes = new[]
+            {
+                new Axis
+                {
+                    Name = "Average Sales",
+                    Labeler = value => value.ToString("C"), // Format as currency
+                    MinLimit = 0 // Ensure Y-axis starts at $0
+                }
+            };
+
+            // Set legend location (optional)
+            _chart.LegendPosition = LiveChartsCore.Measure.LegendPosition.Right;
+        }
+        public void SetUpTemperatureScatterPlotForArea(int diningAreaID)
+        {
+            // Clear existing series and axes
+            _chart.Series = Array.Empty<ISeries>();
+            _chart.XAxes = Array.Empty<Axis>();
+            _chart.YAxes = Array.Empty<Axis>();
+
+            // Prepare the scatter series for the specific dining area
+            var scatterSeries = new ScatterSeries<ObservablePoint> {
+                Values = _shiftRecords
+                    .Where(sr => sr.ShiftWeather != null) // Ensure ShiftWeather exists
+                    .SelectMany(sr => sr.DiningAreaRecords
+                        .Where(record => record.DiningAreaID == diningAreaID) // Filter by the specific dining area
+                        .Select(record => new ObservablePoint(sr.ShiftWeather.FeelsLikeAvg, record.Sales)) // X = FeelsLikeAvg, Y = Sales
+                    )
+                    .ToList(),
+                Stroke = null,
+                GeometrySize = 5
+            };
+
+            // Assign the series to the chart
+            _chart.Series = new ISeries[] { scatterSeries };
+
+            // Configure the X-Axis for FeelsLikeAvg temperature
+            _chart.XAxes = new[]
+            {
+                new Axis
+                {
+                    Name = "Feels Like Avg Temperature (°F)",
+                    Labeler = value => $"{value:F1}°F", // Format temperature with 1 decimal place
+                    MinLimit = _shiftRecords.Min(sr => sr.ShiftWeather?.FeelsLikeAvg ?? 0) - 5, // Optional: Define a min limit with buffer
+                    MaxLimit = _shiftRecords.Max(sr => sr.ShiftWeather?.FeelsLikeAvg ?? 100) + 5 // Optional: Define a max limit with buffer
+                }
+            };
+
+            // Configure the Y-Axis for sales
+            _chart.YAxes = new[]
+            {
+                new Axis
+                {
+                    Name = "Sales",
+                    Labeler = value => value.ToString("C"), // Format sales as currency
+                    MinLimit = 0, // Sales typically start from 0
+                    MaxLimit = _shiftRecords
+                        .SelectMany(sr => sr.DiningAreaRecords.Where(record => record.DiningAreaID == diningAreaID))
+                        .Max(record => record.Sales) * 1.1 // Add a small buffer above the max sales for this area
+                }
+            };
+
+            // Set legend position (optional for scatter plot)
             _chart.LegendPosition = LiveChartsCore.Measure.LegendPosition.Right;
         }
 
