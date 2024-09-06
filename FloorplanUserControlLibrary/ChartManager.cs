@@ -17,6 +17,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LiveChartsCore.Measure;
+using NetTopologySuite.Algorithm;
 
 
 namespace FloorPlanMakerUI
@@ -659,5 +660,68 @@ namespace FloorPlanMakerUI
                     return new SolidColorPaint(SKColors.Gray); // Default color
             }
         }
+        public void SetupLineChartForArea(DiningArea diningArea)
+        {
+            // Clear existing series and axes
+            _chart.Series = Array.Empty<ISeries>();
+            _chart.XAxes = Array.Empty<Axis>();
+            _chart.YAxes = Array.Empty<Axis>();
+
+            // Skip if the area is DiningAreaID 6 (or any other logic you want to handle)
+            if (diningArea.ID == 6) {
+                return; // Skip if DiningAreaID is 6
+            }
+
+            // Initialize series for the provided dining area
+            var series = new LineSeries<float, SVGPathGeometry> {
+                Name = diningArea.Name,
+                GeometrySvg = GetAreaShape(diningArea), // Use the SVG path string
+                GeometrySize = 10,
+                Stroke = GetAreaColor(diningArea),
+                GeometryStroke = GetAreaColor(diningArea),
+                GeometryFill = GetAreaColor(diningArea),
+                Fill = null, // No fill for the line
+                Values = new List<float>() // Initialize with an empty list
+            };
+
+            // Initialize X-Axis (assuming dates are involved)
+            _chart.XAxes = new[]
+            {
+            new Axis
+                {
+                    Name = "Date",
+                    Labels = _shiftRecords.Select(shift => shift.Date.ToString("MM/dd")).ToArray(),
+                    LabelsRotation = 15, // Rotate labels for better readability
+                }
+            };
+
+            // Initialize Y-Axis
+            _chart.YAxes = new[]
+            {
+            new Axis
+                {
+                    Name = "Sales",
+                    Labeler = value => value.ToString("C"),
+                    MinLimit = 0,
+                    
+                }
+            };
+
+            // Populate the series with data for the provided dining area
+            foreach (ShiftRecord shiftRecord in _shiftRecords) {
+                foreach (DiningAreaRecord areaRecord in shiftRecord.DiningAreaRecords) {
+                    if (areaRecord.DiningAreaID == diningArea.ID) {
+                        series.Values = series.Values.Append((float)areaRecord.Sales).ToList();
+                    }
+                }
+            }
+
+            // Assign the series collection to the chart
+            _chart.Series = new[] { series };
+
+            // Set legend location
+            _chart.LegendPosition = LiveChartsCore.Measure.LegendPosition.Right;
+        }
+
     }
 }

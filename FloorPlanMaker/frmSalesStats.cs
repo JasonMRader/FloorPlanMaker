@@ -49,7 +49,7 @@ namespace FloorPlanMakerUI
             this.shiftFilterControl.UpdateShift += PopulateUI;
 
         }
-
+        private DiningArea areaSelected { get; set; }
         private ShiftFilterControl shiftFilterControl;
         private DiningAreaManager areaManager = new DiningAreaManager();
         private EmployeeManager employeeManager = new EmployeeManager();
@@ -104,6 +104,9 @@ namespace FloorPlanMakerUI
             btn.BackColor = UITheme.ButtonColor;
             btn.FlatAppearance.CheckedBackColor = UITheme.DarkenColor(.3f, UITheme.ButtonColor);
             //toolTip.SetToolTip(btn, area.Name);
+            if(area.ID == 6) {
+                btn.Enabled = false;
+            }
             return btn;
         }
 
@@ -625,12 +628,15 @@ namespace FloorPlanMakerUI
         }
         private void areaButtonClicked(object? sender, EventArgs e)
         {
+           
             RadioButton radioButton = sender as RadioButton;
             DiningArea area = (DiningArea)radioButton.Tag;
             if (radioButton.Checked) {
-                var chartManager = new ChartManager(shiftAnalysis.FilteredShifts, cartesianChart1);
-                chartManager.SetUpBarChart(area.ID);
+                //var chartManager = new ChartManager(shiftAnalysis.FilteredShifts, cartesianChart1);
+                //chartManager.SetUpBarChart(area.ID);
+                areaSelected = area;
             }
+            GetChartForFilters();
 
         }
         private void btnBoxChart_Click(object sender, EventArgs e)
@@ -674,7 +680,25 @@ namespace FloorPlanMakerUI
 
         private void GetChartFiltersForDiningArea()
         {
-            //throw new NotImplementedException();
+            var chartManager = new ChartManager(shiftAnalysis.FilteredShifts, cartesianChart1);
+            if (rdoCompareDates.Checked) {
+
+                chartManager.SetupLineChartForArea(areaSelected);
+            }
+            else if (rdoCompareMonths.Checked) {
+
+                chartManager.SetUpStackedBarChartByMonth(areaManager.DiningAreas);
+            }
+            else if (rdoCompareWeekDays.Checked) {
+
+                chartManager.SetUpStackedBarChartByDayOfWeek(areaManager.DiningAreas);
+            }
+            else if (rdoCompareTemp.Checked) {
+                chartManager.SetUpScatterPlot();
+            }
+            else if (rdoDistribution.Checked) {
+                chartManager.SetUpBarChart(0);
+            }
         }
     }
 }
