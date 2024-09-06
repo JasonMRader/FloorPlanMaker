@@ -464,18 +464,90 @@ namespace FloorPlanMakerUI
             // Set legend location
             _chart.LegendPosition = LiveChartsCore.Measure.LegendPosition.Right;
         }
+        public void SetUpBarChartForShiftSales()
+        {
+            // Get the list of total sales from each shift record
+            List<float> shiftSales = _shiftRecords.Select(shift => shift.Sales).ToList();
+
+            if (shiftSales.Count == 0) {
+                return; // No records to display
+            }
+
+            // Determine the range of sales
+            var minSales = shiftSales.Min();
+            var maxSales = shiftSales.Max();
+
+            // Define the bin size (e.g., 1000)
+            int binSize = 1000;
+
+            // Adjust minSales to the nearest lower bin
+            minSales = (int)(minSales / binSize) * binSize;
+
+            // Create bins starting from the nearest lower bin
+            var bins = new List<int>();
+            for (int i = (int)minSales; i <= (int)maxSales; i += binSize) {
+                bins.Add(i);
+            }
+
+            // Count the number of shift records in each bin
+            var binCounts = new List<int>();
+            foreach (var binStart in bins) {
+                int count = shiftSales.Count(sales => sales >= binStart && sales < binStart + binSize);
+                binCounts.Add(count);
+            }
+
+            // Clear existing series and axes
+            _chart.Series = Array.Empty<ISeries>();
+            _chart.XAxes = Array.Empty<Axis>();
+            _chart.YAxes = Array.Empty<Axis>();
+
+            // Create the bar series with no space between bars
+            var barSeries = new ColumnSeries<int> {
+                Values = binCounts,
+                Name = "Sales Distribution for Shifts",
+                Stroke = new SolidColorPaint(SKColors.Blue),
+                Fill = new SolidColorPaint(SKColors.LightBlue),
+                Padding = 0, // No space between bars
+                MaxBarWidth = double.PositiveInfinity // Ensure bars take up full width
+            };
+
+            // Assign the series to the chart
+            _chart.Series = new ISeries[] { barSeries };
+
+            // Set up the X-Axis with the bin labels
+            _chart.XAxes = new[]
+            {
+                new Axis
+                {
+                    Labels = bins.Select(binStart => $"{binStart / 1000}-{(binStart + binSize) / 1000}k").ToArray(),
+                    LabelsRotation = 0,
+                    SeparatorsPaint = new SolidColorPaint(new SKColor(200, 200, 200)),
+                    ForceStepToMin = true,
+                    MinStep = 1
+                }
+            };
+
+            // Set up the Y-Axis
+            _chart.YAxes = new[]
+            {
+                new Axis
+                {
+                    Name = "Number of Shifts",
+                    Labeler = value => value.ToString("N0"), // Format as integer
+                }
+            };
+
+            // Set legend position (optional)
+            _chart.LegendPosition = LiveChartsCore.Measure.LegendPosition.Right;
+        }
+
         public void SetUpBarChart(int diningAreaID)
         {
             var filteredRecords = new List<DiningAreaRecord>();
-            if(diningAreaID == 0) {
-                filteredRecords = _shiftRecords.SelectMany(s => s.DiningAreaRecords).ToList();
-            }
-            else {
-                List<DiningAreaRecord> diningAreaRecords = _shiftRecords.SelectMany(s => s.DiningAreaRecords).ToList();
-                filteredRecords = diningAreaRecords.Where(record => record.DiningAreaID == diningAreaID).ToList();
-            }
-            // Filter the records by DiningAreaID
             
+           
+            List<DiningAreaRecord> diningAreaRecords = _shiftRecords.SelectMany(s => s.DiningAreaRecords).ToList();
+            filteredRecords = diningAreaRecords.Where(record => record.DiningAreaID == diningAreaID).ToList();
 
             if (filteredRecords.Count == 0) {
                 return; // No records to display

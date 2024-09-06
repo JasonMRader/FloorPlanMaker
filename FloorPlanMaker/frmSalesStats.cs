@@ -674,7 +674,7 @@ namespace FloorPlanMakerUI
                 chartManager.SetUpScatterPlot();
             }
             else if(rdoDistribution.Checked) {
-                chartManager.SetUpBarChart(0);
+                chartManager.SetUpBarChartForShiftSales();
             }
         }
 
@@ -687,17 +687,17 @@ namespace FloorPlanMakerUI
             }
             else if (rdoCompareMonths.Checked) {
 
-                chartManager.SetUpStackedBarChartByMonth(areaManager.DiningAreas);
+                
             }
             else if (rdoCompareWeekDays.Checked) {
 
-                chartManager.SetUpStackedBarChartByDayOfWeek(areaManager.DiningAreas);
+               
             }
             else if (rdoCompareTemp.Checked) {
-                chartManager.SetUpScatterPlot();
+               
             }
             else if (rdoDistribution.Checked) {
-                chartManager.SetUpBarChart(0);
+                chartManager.SetUpBarChart(areaSelected.ID);
             }
         }
     }
