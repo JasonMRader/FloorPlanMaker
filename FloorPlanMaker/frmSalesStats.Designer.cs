@@ -56,6 +56,7 @@
             rdoCompareMonths = new RadioButton();
             label7 = new Label();
             pnlContainer = new Panel();
+            lblAreaDisplay = new Label();
             panel1.SuspendLayout();
             pnlServerSelect.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
@@ -211,7 +212,7 @@
             btnLineGraph.FlatAppearance.BorderSize = 0;
             btnLineGraph.FlatStyle = FlatStyle.Flat;
             btnLineGraph.ForeColor = Color.White;
-            btnLineGraph.Location = new Point(36, 38);
+            btnLineGraph.Location = new Point(36, 8);
             btnLineGraph.Name = "btnLineGraph";
             btnLineGraph.Size = new Size(98, 23);
             btnLineGraph.TabIndex = 19;
@@ -225,7 +226,7 @@
             btnAreaGraph.FlatAppearance.BorderSize = 0;
             btnAreaGraph.FlatStyle = FlatStyle.Flat;
             btnAreaGraph.ForeColor = Color.White;
-            btnAreaGraph.Location = new Point(140, 38);
+            btnAreaGraph.Location = new Point(140, 8);
             btnAreaGraph.Name = "btnAreaGraph";
             btnAreaGraph.Size = new Size(98, 23);
             btnAreaGraph.TabIndex = 19;
@@ -239,7 +240,7 @@
             btnBoxChart.FlatAppearance.BorderSize = 0;
             btnBoxChart.FlatStyle = FlatStyle.Flat;
             btnBoxChart.ForeColor = Color.White;
-            btnBoxChart.Location = new Point(244, 38);
+            btnBoxChart.Location = new Point(244, 8);
             btnBoxChart.Name = "btnBoxChart";
             btnBoxChart.Size = new Size(98, 23);
             btnBoxChart.TabIndex = 19;
@@ -444,6 +445,7 @@
             // pnlContainer
             // 
             pnlContainer.BackColor = Color.FromArgb(225, 225, 225);
+            pnlContainer.Controls.Add(lblAreaDisplay);
             pnlContainer.Controls.Add(panel1);
             pnlContainer.Controls.Add(button1);
             pnlContainer.Controls.Add(cartesianChart1);
@@ -461,6 +463,16 @@
             pnlContainer.Name = "pnlContainer";
             pnlContainer.Size = new Size(1477, 1018);
             pnlContainer.TabIndex = 23;
+            // 
+            // lblAreaDisplay
+            // 
+            lblAreaDisplay.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
+            lblAreaDisplay.Location = new Point(36, 34);
+            lblAreaDisplay.Name = "lblAreaDisplay";
+            lblAreaDisplay.Size = new Size(1074, 30);
+            lblAreaDisplay.TabIndex = 23;
+            lblAreaDisplay.Text = "All Areas";
+            lblAreaDisplay.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // frmSalesStats
             // 
@@ -519,6 +531,7 @@
         private RadioButton rdoCompareWind;
         private Panel pnlContainer;
         private RadioButton rdoDistribution;
+        private Label lblAreaDisplay;
         //private SplitContainer splitContainer1;
     }
 }

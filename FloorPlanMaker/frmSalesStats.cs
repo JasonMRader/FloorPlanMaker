@@ -87,6 +87,10 @@ namespace FloorPlanMakerUI
 
         private void SelectedAllAreasButtonClicked(object? sender, EventArgs e)
         {
+            RadioButton radioButton = (RadioButton)sender;
+            if (radioButton.Checked) {
+                lblAreaDisplay.Text = "All Areas";
+            }
             GetChartForFilters();
         }
 
@@ -635,6 +639,7 @@ namespace FloorPlanMakerUI
                 //var chartManager = new ChartManager(shiftAnalysis.FilteredShifts, cartesianChart1);
                 //chartManager.SetUpBarChart(area.ID);
                 areaSelected = area;
+                lblAreaDisplay.Text = area.Name;
             }
             GetChartForFilters();
 
