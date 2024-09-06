@@ -74,7 +74,8 @@ namespace FloorPlanMakerUI
                 new Axis
                 {
                     Name = "Sales",
-                    Labeler = value => value.ToString("C"), // Format as currency
+                    Labeler = value => value.ToString("C"),
+                    MinLimit = 0,// Format as currency
                 }
             };
 
@@ -227,7 +228,8 @@ namespace FloorPlanMakerUI
                 new Axis
                 {
                     Name = "Average Sales",
-                    Labeler = value => value.ToString("C"), // Format as currency
+                    Labeler = value => value.ToString("C"),
+                     MinLimit = 0,// Format as currency
                 }
             };
 
@@ -310,7 +312,8 @@ namespace FloorPlanMakerUI
                 new Axis
                 {
                     Name = "Average Sales",
-                    Labeler = value => value.ToString("C"), // Format as currency
+                    Labeler = value => value.ToString("C"),
+                     MinLimit = 0,// Format as currency
                 }
             };
 
@@ -367,7 +370,8 @@ namespace FloorPlanMakerUI
                 //Labeler = value => value.ToString("C"), // Format as currency
                  Labeler = value => (value/1000).ToString("C0") + "K",
                  LabelsRotation = 45,
-                TextSize = 8, // Smaller font size for labels
+                 TextSize = 8,
+                 MinLimit = 0,// Smaller font size for labels
                 //Padding = new LiveChartsCore.Drawing.Padding(0),
                 
             }
@@ -445,7 +449,8 @@ namespace FloorPlanMakerUI
                 new Axis
                 {
                     Name = "Sales",
-                    Labeler = value => value.ToString("C"), // Format as currency
+                    Labeler = value => value.ToString("C"),
+                    MinLimit = 0,// Format as currency
                 }
             };
 
@@ -533,7 +538,10 @@ namespace FloorPlanMakerUI
                 new Axis
                 {
                     Name = "Number of Shifts",
-                    Labeler = value => value.ToString("N0"), // Format as integer
+                    Labeler = value => value.ToString("N0"),
+                    MinLimit = 0,// Format as integer
+                    ForceStepToMin = true,
+                    MinStep = 1
                 }
             };
 
@@ -612,7 +620,10 @@ namespace FloorPlanMakerUI
                 new Axis
                 {
                     Name = "Number of Shifts",
-                    Labeler = value => value.ToString("N0"), // Format as integer
+                    Labeler = value => value.ToString("N0"),
+                    MinLimit = 0,// Format as integer
+                    ForceStepToMin = true,
+                    MinStep = 1
                 }
             };
 
@@ -685,7 +696,8 @@ namespace FloorPlanMakerUI
                 new Axis
                 {
                     Name = "Sales",
-                    Labeler = value => value.ToString("C"), // Format as currency
+                    Labeler = value => value.ToString("C"),
+                     MinLimit = 0,// Format as currency
                 }
             };
 
