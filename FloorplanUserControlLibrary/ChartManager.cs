@@ -806,6 +806,77 @@ namespace FloorPlanMakerUI
             // Set legend location
             _chart.LegendPosition = LiveChartsCore.Measure.LegendPosition.Right;
         }
+        public void SetUpBarChartByMonthForArea(int diningAreaID, List<DiningArea> diningAreas)
+        {
+            // Clear existing series and axes
+            _chart.Series = Array.Empty<ISeries>();
+            _chart.XAxes = Array.Empty<Axis>();
+            _chart.YAxes = Array.Empty<Axis>();
+
+            // Get the dining area by ID
+            var diningArea = diningAreas.FirstOrDefault(area => area.ID == diningAreaID);
+            if (diningArea == null || diningArea.ID == 6) return; // Skip if not found or if DiningAreaID is 6
+
+            // Initialize series for the selected dining area
+            var series = new ColumnSeries<float> {
+                Name = diningArea.Name,
+                Fill = GetAreaColor(diningArea), // Set the fill color
+                Stroke = GetAreaColor(diningArea), // Set the line color
+                Values = new List<float>() // Initialize with a List<float> to allow adding values
+            };
+
+            // Group ShiftRecords by month
+            var groupedByMonth = _shiftRecords
+                .GroupBy(shift => new { Year = shift.Date.Year, Month = shift.Date.Month })
+                .OrderBy(group => new DateTime(group.Key.Year, group.Key.Month, 1)) // Order by month
+                .ToList();
+
+            // Initialize X-Axis labels with months
+            _chart.XAxes = new[]
+            {
+        new Axis
+        {
+            Name = "Month",
+            Labels = groupedByMonth
+                .Select(group => new DateTime(group.Key.Year, group.Key.Month, 1).ToString("MMM yyyy"))
+                .ToArray(),
+            LabelsRotation = -15 // Rotate labels for better readability
+        }
+    };
+
+            // Calculate the average sales for the specific dining area per month
+            foreach (var monthGroup in groupedByMonth) {
+                // Get all area records for this dining area within the current month
+                var areaSalesForMonth = monthGroup
+                    .SelectMany(shift => shift.DiningAreaRecords)
+                    .Where(record => record.DiningAreaID == diningAreaID)
+                    .Select(record => record.Sales)
+                    .ToList();
+
+                // Calculate the average sales for this dining area in this month
+                float averageSales = areaSalesForMonth.Any() ? areaSalesForMonth.Average() : 0f;
+
+                // Add the average sales to the series
+                (series.Values as List<float>)?.Add(averageSales); // Ensure it's a List<float> and add the value
+            }
+
+            // Assign the series to the chart
+            _chart.Series = new ISeries[] { series };
+
+            // Initialize Y-Axis for sales values
+            _chart.YAxes = new[]
+            {
+        new Axis
+        {
+            Name = "Average Sales",
+            Labeler = value => value.ToString("C"), // Format as currency
+            MinLimit = 0 // Ensure Y-axis starts at $0
+        }
+    };
+
+            // Set legend location (optional)
+            _chart.LegendPosition = LiveChartsCore.Measure.LegendPosition.Right;
+        }
 
     }
 }

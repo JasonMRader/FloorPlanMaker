@@ -46,6 +46,7 @@
             pnlFilters = new Panel();
             rdoCompareDates = new RadioButton();
             panel7 = new Panel();
+            rdoDistribution = new RadioButton();
             rdoCompareClouds = new RadioButton();
             rdoCompareWind = new RadioButton();
             rdoCompareReservations = new RadioButton();
@@ -55,7 +56,6 @@
             rdoCompareMonths = new RadioButton();
             label7 = new Label();
             pnlContainer = new Panel();
-            rdoDistribution = new RadioButton();
             panel1.SuspendLayout();
             pnlServerSelect.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
@@ -291,10 +291,28 @@
             panel7.Size = new Size(95, 277);
             panel7.TabIndex = 22;
             // 
+            // rdoDistribution
+            // 
+            rdoDistribution.Appearance = Appearance.Button;
+            rdoDistribution.BackColor = SystemColors.ButtonShadow;
+            rdoDistribution.FlatAppearance.BorderSize = 0;
+            rdoDistribution.FlatAppearance.CheckedBackColor = Color.FromArgb(100, 130, 180);
+            rdoDistribution.FlatStyle = FlatStyle.Flat;
+            rdoDistribution.ForeColor = Color.White;
+            rdoDistribution.Location = new Point(3, 243);
+            rdoDistribution.Name = "rdoDistribution";
+            rdoDistribution.Size = new Size(87, 24);
+            rdoDistribution.TabIndex = 21;
+            rdoDistribution.Text = "Distribution";
+            rdoDistribution.TextAlign = ContentAlignment.MiddleCenter;
+            rdoDistribution.UseVisualStyleBackColor = false;
+            rdoDistribution.CheckedChanged += rdoChartDisplayType_CheckChanged;
+            // 
             // rdoCompareClouds
             // 
             rdoCompareClouds.Appearance = Appearance.Button;
             rdoCompareClouds.BackColor = SystemColors.ButtonShadow;
+            rdoCompareClouds.Enabled = false;
             rdoCompareClouds.FlatAppearance.BorderSize = 0;
             rdoCompareClouds.FlatAppearance.CheckedBackColor = Color.FromArgb(100, 130, 180);
             rdoCompareClouds.FlatStyle = FlatStyle.Flat;
@@ -312,6 +330,7 @@
             // 
             rdoCompareWind.Appearance = Appearance.Button;
             rdoCompareWind.BackColor = SystemColors.ButtonShadow;
+            rdoCompareWind.Enabled = false;
             rdoCompareWind.FlatAppearance.BorderSize = 0;
             rdoCompareWind.FlatAppearance.CheckedBackColor = Color.FromArgb(100, 130, 180);
             rdoCompareWind.FlatStyle = FlatStyle.Flat;
@@ -329,6 +348,7 @@
             // 
             rdoCompareReservations.Appearance = Appearance.Button;
             rdoCompareReservations.BackColor = SystemColors.ButtonShadow;
+            rdoCompareReservations.Enabled = false;
             rdoCompareReservations.FlatAppearance.BorderSize = 0;
             rdoCompareReservations.FlatAppearance.CheckedBackColor = Color.FromArgb(100, 130, 180);
             rdoCompareReservations.FlatStyle = FlatStyle.Flat;
@@ -363,6 +383,7 @@
             // 
             rdoCompareRain.Appearance = Appearance.Button;
             rdoCompareRain.BackColor = SystemColors.ButtonShadow;
+            rdoCompareRain.Enabled = false;
             rdoCompareRain.FlatAppearance.BorderSize = 0;
             rdoCompareRain.FlatAppearance.CheckedBackColor = Color.FromArgb(100, 130, 180);
             rdoCompareRain.FlatStyle = FlatStyle.Flat;
@@ -440,23 +461,6 @@
             pnlContainer.Name = "pnlContainer";
             pnlContainer.Size = new Size(1477, 1018);
             pnlContainer.TabIndex = 23;
-            // 
-            // rdoDistribution
-            // 
-            rdoDistribution.Appearance = Appearance.Button;
-            rdoDistribution.BackColor = SystemColors.ButtonShadow;
-            rdoDistribution.FlatAppearance.BorderSize = 0;
-            rdoDistribution.FlatAppearance.CheckedBackColor = Color.FromArgb(100, 130, 180);
-            rdoDistribution.FlatStyle = FlatStyle.Flat;
-            rdoDistribution.ForeColor = Color.White;
-            rdoDistribution.Location = new Point(3, 243);
-            rdoDistribution.Name = "rdoDistribution";
-            rdoDistribution.Size = new Size(87, 24);
-            rdoDistribution.TabIndex = 21;
-            rdoDistribution.Text = "Distribution";
-            rdoDistribution.TextAlign = ContentAlignment.MiddleCenter;
-            rdoDistribution.UseVisualStyleBackColor = false;
-            rdoDistribution.CheckedChanged += rdoChartDisplayType_CheckChanged;
             // 
             // frmSalesStats
             // 

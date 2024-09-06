@@ -104,7 +104,7 @@ namespace FloorPlanMakerUI
             btn.BackColor = UITheme.ButtonColor;
             btn.FlatAppearance.CheckedBackColor = UITheme.DarkenColor(.3f, UITheme.ButtonColor);
             //toolTip.SetToolTip(btn, area.Name);
-            if(area.ID == 6) {
+            if (area.ID == 6) {
                 btn.Enabled = false;
             }
             return btn;
@@ -628,7 +628,7 @@ namespace FloorPlanMakerUI
         }
         private void areaButtonClicked(object? sender, EventArgs e)
         {
-           
+
             RadioButton radioButton = sender as RadioButton;
             DiningArea area = (DiningArea)radioButton.Tag;
             if (radioButton.Checked) {
@@ -648,18 +648,18 @@ namespace FloorPlanMakerUI
         {
             GetChartForFilters();
         }
-       
+
         private void GetChartForFilters()
         {
-            if(!rdoAll.Checked) {
-                
+            if (!rdoAll.Checked) {
+
                 GetChartFiltersForDiningArea();
                 return;
             }
             var chartManager = new ChartManager(shiftAnalysis.FilteredShifts, cartesianChart1);
 
             if (rdoCompareDates.Checked) {
-                
+
                 chartManager.SetUpStackedArea(areaManager.DiningAreas);
             }
             else if (rdoCompareMonths.Checked) {
@@ -673,7 +673,7 @@ namespace FloorPlanMakerUI
             else if (rdoCompareTemp.Checked) {
                 chartManager.SetUpScatterPlot();
             }
-            else if(rdoDistribution.Checked) {
+            else if (rdoDistribution.Checked) {
                 chartManager.SetUpBarChartForShiftSales();
             }
         }
@@ -687,14 +687,14 @@ namespace FloorPlanMakerUI
             }
             else if (rdoCompareMonths.Checked) {
 
-                
+                chartManager.SetUpBarChartByMonthForArea(areaSelected.ID, areaManager.DiningAreas);
             }
             else if (rdoCompareWeekDays.Checked) {
 
-               
+
             }
             else if (rdoCompareTemp.Checked) {
-               
+
             }
             else if (rdoDistribution.Checked) {
                 chartManager.SetUpBarChart(areaSelected.ID);
