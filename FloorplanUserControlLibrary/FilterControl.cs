@@ -87,26 +87,43 @@ namespace FloorplanUserControlLibrary
         private void UpdateControlsForCurrentFilter()
         {
             if (filterType == FilterType.Temperature && shiftAnalysis.IsFilterByTemperature) {
-                numericUpDown1.Value = shiftAnalysis.;
-                this.maxInt = (int)numericUpDown2.Value;
-                button1.Text = $"{minInt}° to {maxInt}°";
-                shiftAnalysis.SetTempRange(minInt, maxInt);
-
+                numericUpDown1.Value = shiftAnalysis.TempMin;
+                numericUpDown2.Value = shiftAnalysis.TempMax;
+                button1.Text = $"{shiftAnalysis.TempMin}° to {shiftAnalysis.TempMax}°";
+                button1.BackColor = UITheme.CTAColor;
+                button1.ForeColor = Color.White;
             }
             if (filterType == FilterType.Rain && shiftAnalysis.IsFilteredByRainAmount) {
-               
+                numericUpDown1.Value = (decimal)shiftAnalysis.RainMin;
+                numericUpDown2.Value = (decimal)shiftAnalysis.RainMax;
+                button1.Text = $"{numericUpDown1.Value:F2}\" to {numericUpDown2.Value:F2}\"";
+                button1.BackColor = UITheme.CTAColor;
+                button1.ForeColor = Color.White;
             }
             if (filterType == FilterType.Reservations && shiftAnalysis.IsFilteredByReservations) {
-                
+               
             }
             if (filterType == FilterType.Clouds && shiftAnalysis.IsFilteredByClouds) {
+                numericUpDown1.Value = (decimal)shiftAnalysis.CloudMin;
+                numericUpDown2.Value = (decimal)shiftAnalysis.CloudMax;
+                button1.Text = $"{numericUpDown1.Value:F0}% to {numericUpDown2.Value:F0}%";
+                button1.BackColor = UITheme.CTAColor;
+                button1.ForeColor = Color.White;
 
             }
             if (filterType == FilterType.WindAvg && shiftAnalysis.IsFilteredByWindAvg) {
-
+                numericUpDown1.Value = shiftAnalysis.WindAvgMin;
+                numericUpDown2.Value = shiftAnalysis.WindAvgMax;
+                button1.Text = $"Avg wind {numericUpDown1.Value:F0} MPH to {numericUpDown2.Value:F0} MPH";
+                button1.BackColor = UITheme.CTAColor;
+                button1.ForeColor = Color.White;
             }
             if (filterType == FilterType.WindMax && shiftAnalysis.IsFilteredByWindMax) {
-
+                numericUpDown1.Value = shiftAnalysis.WindMaxMin;
+                numericUpDown2.Value = shiftAnalysis.WindMaxMax;
+                button1.Text = $"Max wind {numericUpDown1.Value:F0} MPH to {numericUpDown2.Value:F0} MPH";
+                button1.BackColor = UITheme.CTAColor;
+                button1.ForeColor = Color.White;
             }
         }
 
@@ -246,7 +263,7 @@ namespace FloorplanUserControlLibrary
             button1.Text = $"Max wind {numericUpDown1.Value:F0} MPH to {numericUpDown2.Value:F0} MPH";
             shiftAnalysis.SetWindMaxRange((int)numericUpDown1.Value, (int)numericUpDown2.Value);
         }
-
+        
         private void SetCloudFilter()
         {
             button1.Text = $"{numericUpDown1.Value:F0}% to {numericUpDown2.Value:F0}%";
