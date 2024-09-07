@@ -81,18 +81,34 @@ namespace FloorplanClassLibrary
         }
         private DateOnly _startDate = new DateOnly(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).AddDays(-91);
         private DateOnly _endDate = new DateOnly(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).AddDays(-1);
-        private int tempMin { get; set; }
-        private int tempMax { get; set; }
-        private int reservationMin { get; set; }
-        private int reservationMax { get; set; }
-        private float rainMin { get; set; }
-        private float rainMax { get; set; }
-        private float CloudMin { get; set; }
-        private float CloudMax { get; set; }
-        private int WindMaxMin { get; set; }
-        private int WindMaxMax { get; set; }
-        private int WindAvgMin { get; set; }
-        private int WindAvgMax { get; set; }
+        
+        private int _tempMin { get; set; }
+        private int _tempMax { get; set; }
+        private int _reservationMin { get; set; }
+        private int _reservationMax { get; set; }
+        private float _rainMin { get; set; }
+        private float _rainMax { get; set; }
+        private float _cloudMin { get; set; }
+        private float _cloudMax { get; set; }
+        private int _windMaxMin { get; set; }
+        private int _windMaxMax { get; set; }
+        private int _windAvgMin { get; set; }
+        private int _windAvgMax { get; set; }
+
+        
+        public int TempMin => _tempMin;
+        public int TempMax => _tempMax;
+        public int ReservationMin => _reservationMin;
+        public int ReservationMax => _reservationMax;
+        public float RainMin => _rainMin;
+        public float RainMax => _rainMax;
+        public float CloudMin => _cloudMin;
+        public float CloudMax => _cloudMax;
+        public int WindMaxMin => _windMaxMin;
+        public int WindMaxMax => _windMaxMax;
+        public int WindAvgMin => _windAvgMin;
+        public int WindAvgMax => _windAvgMax;
+
         private bool _filterByTemperature { get; set; } = false;
         public bool IsFilterByTemperature { get { return _filterByTemperature; } }
 
@@ -190,28 +206,28 @@ namespace FloorplanClassLibrary
             this._startDate = startDate;
         }
         public void SetTempRange(int tempAnchor, int tempRange) {
-            this.tempMin = tempAnchor;
-            this.tempMax = tempRange;
+            this._tempMin = tempAnchor;
+            this._tempMax = tempRange;
         }
         public void SetReservationsRange(int anchor, int range) {
-            this.reservationMin = anchor;
-            this.reservationMax = range;
+            this._reservationMin = anchor;
+            this._reservationMax = range;
         }
         public void SetRainRange(float anchor, float range) {
-            this.rainMin = anchor;
-            this.rainMax = range;
+            this._rainMin = anchor;
+            this._rainMax = range;
         }
         public void SetCloudRange(float anchor, float range) {
-            this.CloudMin = anchor;
-            this.CloudMax = range;
+            this._cloudMin = anchor;
+            this._cloudMax = range;
         }
         public void SetWindMaxRange(int anchor, int range) {
-            this.WindMaxMin = anchor;
-            this.WindMaxMax = range;
+            this._windMaxMin = anchor;
+            this._windMaxMax = range;
         }
         public void SetWindAvgRange(int anchor, int range) {
-            this.WindAvgMin = anchor;
-            this.WindAvgMax = range;
+            this._windAvgMin = anchor;
+            this._windAvgMax = range;
         }
         public void SetSpecialEvents(bool specialEventsAllowed) {
             this._specialEventsAllowed = specialEventsAllowed;
@@ -312,20 +328,20 @@ namespace FloorplanClassLibrary
         }
 
         private void FilterByRainAmount() {
-            _filteredShifts = _filteredShifts.Where(shift => shift.ShiftWeather.RainAmount >= (rainMin) 
-            && shift.ShiftWeather.RainAmount <= (rainMax)).ToList();
+            _filteredShifts = _filteredShifts.Where(shift => shift.ShiftWeather.RainAmount >= (_rainMin) 
+            && shift.ShiftWeather.RainAmount <= (_rainMax)).ToList();
         }       
        
        
         public void FilterByTempRange() {
-            _filteredShifts = _filteredShifts.Where(shift => shift.ShiftWeather.FeelsLikeAvg >= (tempMin) 
-            && shift.ShiftWeather.FeelsLikeAvg <= (tempMax)).ToList();
+            _filteredShifts = _filteredShifts.Where(shift => shift.ShiftWeather.FeelsLikeAvg >= (_tempMin) 
+            && shift.ShiftWeather.FeelsLikeAvg <= (_tempMax)).ToList();
         }
 
         public void FilterByReservationRange()
         {
-            _filteredShifts = _filteredShifts.Where(shift => shift.Reservations >= (reservationMin)
-            && shift.Reservations <= (reservationMax)).ToList();
+            _filteredShifts = _filteredShifts.Where(shift => shift.Reservations >= (_reservationMin)
+            && shift.Reservations <= (_reservationMax)).ToList();
         }
 
         public void FilterByDaysOfWeek()

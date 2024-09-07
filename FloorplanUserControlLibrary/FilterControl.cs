@@ -63,6 +63,15 @@ namespace FloorplanUserControlLibrary
                 numericUpDown1.Increment = 50;
                 numericUpDown2.Increment = 50;
             }
+            if (filterType == FilterType.Clouds) {
+
+            }
+            if (filterType == FilterType.WindAvg) {
+
+            }
+            if (filterType == FilterType.WindMax) {
+
+            }
             numericUpDown1.Value = defaultMin;
             numericUpDown2.Value = defaultMax;
             numericUpDown1.Visible = false;
@@ -70,11 +79,37 @@ namespace FloorplanUserControlLibrary
             flowModifiers.Visible = false;
             this.filterName = filterName;
             button1.Text = $"Filter by {filterName}";
-           
-           
             button1.BackColor = UITheme.ButtonColor;
             button1.ForeColor = Color.Black;
+            UpdateControlsForCurrentFilter();
         }
+
+        private void UpdateControlsForCurrentFilter()
+        {
+            if (filterType == FilterType.Temperature && shiftAnalysis.IsFilterByTemperature) {
+                numericUpDown1.Value = shiftAnalysis.;
+                this.maxInt = (int)numericUpDown2.Value;
+                button1.Text = $"{minInt}° to {maxInt}°";
+                shiftAnalysis.SetTempRange(minInt, maxInt);
+
+            }
+            if (filterType == FilterType.Rain && shiftAnalysis.IsFilteredByRainAmount) {
+               
+            }
+            if (filterType == FilterType.Reservations && shiftAnalysis.IsFilteredByReservations) {
+                
+            }
+            if (filterType == FilterType.Clouds && shiftAnalysis.IsFilteredByClouds) {
+
+            }
+            if (filterType == FilterType.WindAvg && shiftAnalysis.IsFilteredByWindAvg) {
+
+            }
+            if (filterType == FilterType.WindMax && shiftAnalysis.IsFilteredByWindMax) {
+
+            }
+        }
+
         public void UpdateDefaultsForCurrentWeather(ShiftWeather shiftWeather)
         {
             if (filterType == FilterType.Temperature) {
