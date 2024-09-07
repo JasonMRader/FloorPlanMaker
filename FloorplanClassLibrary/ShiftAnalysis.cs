@@ -134,10 +134,11 @@ namespace FloorplanClassLibrary
             DayOfWeek.Sunday
         };
         public List<DayOfWeek> FilteredDaysOfWeek {  get { return _filteredDaysOfWeek; } }
-        private List<int> FilteredMonths = new List<int>
+        private List<int> _filteredMonths = new List<int>
         {
            1,2,3,4,5,6,7,8,9,10,11,12
         };
+        public List<int> FilteredMonths { get { return _filteredMonths; } }
         private List<DiningArea> FilteredDiningAreas { get; set; } = new List<DiningArea>();
 
         public DateOnly StartDate
@@ -216,13 +217,13 @@ namespace FloorplanClassLibrary
             this._specialEventsAllowed = specialEventsAllowed;
         }
         public void RemoveMonth(int month) {
-            if (this.FilteredMonths.Contains(month)) {
-                this.FilteredMonths.Remove(month);
+            if (this._filteredMonths.Contains(month)) {
+                this._filteredMonths.Remove(month);
             }
         }
         public  void AddMonth(int month) {
-            if(!this.FilteredMonths.Contains(month)) {
-                this.FilteredMonths.Add(month);
+            if(!this._filteredMonths.Contains(month)) {
+                this._filteredMonths.Add(month);
             }
         }
         public void RemoveDayOfWeek(DayOfWeek dayOfWeek) {
@@ -288,7 +289,7 @@ namespace FloorplanClassLibrary
         }
 
         private void FilterByMonth() {
-            _filteredShifts = _filteredShifts.Where(shift => FilteredMonths.Contains(shift.Date.Month)).ToList();
+            _filteredShifts = _filteredShifts.Where(shift => _filteredMonths.Contains(shift.Date.Month)).ToList();
         }
 
         private void FilterByDiningArea() {

@@ -27,20 +27,13 @@ namespace FloorplanUserControlLibrary
             this.shiftAnalysis = shiftAnalysis;
 
             flowRangeSelection.Visible = false;
+            UpdateControlForDateRange();
+            //button1.Text = $"Last 90 Days";
 
-            button1.Text = $"Last 90 Days";
-
-            //if (filterType == FilterType.Temperature) {
-            //    isInt = true;
-            //}
-            //button1.BackColor = UITheme.ButtonColor;
-        }
-
-        private void DateFilterControl_Load(object sender, EventArgs e)
-        {
 
         }
-        private void rdoTimeFrame_Clicked(object sender, EventArgs e)
+
+        private void UpdateControlForDateRange()
         {
             DateOnly endDate = DateOnly.FromDateTime(DateTime.Today).AddDays(-1);
             rdoLast30.BackColor = UITheme.ButtonColor;
@@ -51,42 +44,40 @@ namespace FloorplanUserControlLibrary
             rdoLast365.ForeColor = Color.Black;
             rdoAllRecords.BackColor = UITheme.ButtonColor;
             rdoAllRecords.ForeColor = Color.Black;
-
-            if (rdoLast30.Checked) {
-                shiftAnalysis.SetDateOnly(endDate.AddDays(-30), endDate);
+            if (shiftAnalysis.EndDate == endDate && shiftAnalysis.StartDate == endDate.AddDays(-30)) {
                 button1.Text = $"Last 30 Days";
                 rdoLast30.BackColor = UITheme.CTAColor;
                 rdoLast30.ForeColor = UITheme.CTAFontColor;
-                button1.BackColor = UITheme.CTAColor;
-                button1.ForeColor = Color.White;
+                rdoLast30.Checked = true;
             }
-            else if (rdoLast90.Checked) {
-                shiftAnalysis.SetDateOnly(endDate.AddDays(-90), endDate);
+            else if (shiftAnalysis.EndDate == endDate && shiftAnalysis.StartDate == endDate.AddDays(-90)) {
                 button1.Text = $"Last 90 Days";
                 rdoLast90.BackColor = UITheme.CTAColor;
-                rdoLast90.ForeColor = UITheme.CTAFontColor; 
-                button1.BackColor = UITheme.CTAColor;
-                button1.ForeColor = Color.White;
+                rdoLast90.ForeColor = UITheme.CTAFontColor;
+                rdoLast90.Checked = true;
             }
-            else if (rdoLast365.Checked) {
-                shiftAnalysis.SetDateOnly(endDate.AddDays(-365), endDate);
+            else if (shiftAnalysis.EndDate == endDate && shiftAnalysis.StartDate == endDate.AddDays(-365)) {
                 button1.Text = $"Last 365 Days";
                 rdoLast365.BackColor = UITheme.CTAColor;
                 rdoLast365.ForeColor = UITheme.CTAFontColor;
-                button1.BackColor = UITheme.CTAColor;
-                button1.ForeColor = Color.White;
+                rdoLast365.Checked = true;
             }
-            else if (rdoAllRecords.Checked) {
-                shiftAnalysis.SetDateOnly(new DateOnly(2023, 1, 1), endDate);
+            else if (shiftAnalysis.EndDate == endDate && shiftAnalysis.StartDate == new DateOnly(2023, 1, 1)) {
                 button1.Text = $"All Records";
                 rdoAllRecords.BackColor = UITheme.CTAColor;
                 rdoAllRecords.ForeColor = UITheme.CTAFontColor;
-                button1.BackColor = UITheme.CTAColor;
-                button1.ForeColor = Color.White;
+                rdoAllRecords.Checked = true;
             }
-            flowRangeSelection.Visible = false;
+            else {
+
+            }
         }
-        private void rdoTimeFrame_CheckChanged(object sender, EventArgs e)
+
+        private void DateFilterControl_Load(object sender, EventArgs e)
+        {
+
+        }
+        private void rdoTimeFrame_Clicked(object sender, EventArgs e)
         {
             DateOnly endDate = DateOnly.FromDateTime(DateTime.Today).AddDays(-1);
             rdoLast30.BackColor = UITheme.ButtonColor;
@@ -134,10 +125,11 @@ namespace FloorplanUserControlLibrary
         }
 
 
+
         private void button1_Click(object sender, EventArgs e)
         {
-           
-            if(cbCustom.Checked && flowRangeSelection.Visible) {
+
+            if (cbCustom.Checked && flowRangeSelection.Visible) {
                 DateOnly startDate = DateOnly.FromDateTime(dtpStart.Value);
                 DateOnly endDate = DateOnly.FromDateTime(dtpEnd.Value);
                 shiftAnalysis.SetDateOnly(startDate, endDate);
@@ -145,12 +137,12 @@ namespace FloorplanUserControlLibrary
                 button1.BackColor = UITheme.CTAColor;
                 button1.ForeColor = Color.White;
             }
-            else if(cbCustom.Checked && !flowRangeSelection.Visible) {
+            else if (cbCustom.Checked && !flowRangeSelection.Visible) {
                 button1.Text = $"OK";
                 button1.BackColor = UITheme.YesColor;
                 button1.ForeColor = Color.White;
             }
-            else if(!cbCustom.Checked && !rdoAllRecords.Checked && !rdoLast365.Checked 
+            else if (!cbCustom.Checked && !rdoAllRecords.Checked && !rdoLast365.Checked
                 && !rdoLast90.Checked && !rdoLast30.Checked) {
                 return;
             }
@@ -160,15 +152,15 @@ namespace FloorplanUserControlLibrary
 
         private void cbCustom_CheckedChanged(object sender, EventArgs e)
         {
-            if(cbCustom.Checked) {
-                if(rdoAllRecords.Checked) {
+            if (cbCustom.Checked) {
+                if (rdoAllRecords.Checked) {
                     previouslyClickedRDO = rdoAllRecords;
                 }
-                else if(rdoLast365.Checked) {
+                else if (rdoLast365.Checked) {
                     previouslyClickedRDO = rdoLast365;
                 }
-                else if(rdoLast90.Checked) {
-                    previouslyClickedRDO=rdoLast90;
+                else if (rdoLast90.Checked) {
+                    previouslyClickedRDO = rdoLast90;
                 }
                 else {
                     previouslyClickedRDO = rdoLast30;
@@ -199,13 +191,13 @@ namespace FloorplanUserControlLibrary
 
 
                 };
-                Label lblEnd = new Label() { 
+                Label lblEnd = new Label() {
                     Text = "end",
                     Margin = new Padding(0, 7, 0, 0)
                 };
                 dtpEnd = new DateTimePicker() {
                     Size = new Size(194, 30),
-                    Margin = new Padding(0,0,0,0), 
+                    Margin = new Padding(0, 0, 0, 0),
                 };
                 flowRangeSelection.Controls.Add(lblStart);
                 flowRangeSelection.Controls.Add(dtpStart);
@@ -235,11 +227,11 @@ namespace FloorplanUserControlLibrary
                 rdoAllRecords.Visible = true;
                 button1.BackColor = UITheme.CTAColor;
                 button1.ForeColor = Color.White;
-                if ( previouslyClickedRDO != null){
+                if (previouslyClickedRDO != null) {
                     previouslyClickedRDO.PerformClick();
                 }
             }
-            
+
         }
     }
 }

@@ -34,7 +34,28 @@ namespace FloorplanUserControlLibrary
             allCbs.Add(cbOct);
             allCbs.Add(cbNov);
             allCbs.Add(cbDec);
+            if (shiftAnalysis.IsFilteredByMonth) {
+                UpdateCheckedStatusForCBs();
+            }
         }
+
+        private void UpdateCheckedStatusForCBs()
+        {
+            foreach (CheckBox checkBox in allCbs) {
+                if (shiftAnalysis.FilteredMonths.Contains((int)checkBox.Tag)) {
+                    checkBox.Checked = true;
+                }
+                else {
+                    checkBox.Checked = false;
+                    button1.BackColor = UITheme.CTAColor;
+                    button1.ForeColor = UITheme.CTAFontColor;
+                    button1.Text = GetButtonFilteredString();
+
+                }
+            }
+            UpdateShiftAnalysisFilter();
+        }
+
         private void cbMonth_Clicked(object sender, EventArgs e)
         {
             CheckBox cb = sender as CheckBox;
@@ -116,27 +137,7 @@ namespace FloorplanUserControlLibrary
             }
             foreach (CheckBox checkBox in checkedCbs) {
                 display += checkBox.Text;
-                //if (checkBox == cbMon) {
-                //    display += "Mon";
-                //}
-                //if (checkBox == cbTues) {
-                //    display += "Tue";
-                //}
-                //if (checkBox == cbWed) {
-                //    display += "Wed";
-                //}
-                //if (checkBox == cbThurs) {
-                //    display += "Thu";
-                //}
-                //if (checkBox == cbFri) {
-                //    display += "Fri";
-                //}
-                //if (checkBox == cbSat) {
-                //    display += "Sat";
-                //}
-                //if (checkBox == cbSun) {
-                //    display += "Sun";
-                //}
+
                 if (checkBox != checkedCbs.Last()) {
                     if (checkedCbs.Count >= 6) {
                         display += "|";
@@ -174,6 +175,6 @@ namespace FloorplanUserControlLibrary
             }
         }
 
-       
+
     }
 }

@@ -29,11 +29,11 @@
         {
             button1 = new Button();
             flowRangeSelection = new FlowLayoutPanel();
+            cbCustom = new CheckBox();
             rdoLast30 = new RadioButton();
             rdoLast90 = new RadioButton();
             rdoLast365 = new RadioButton();
             rdoAllRecords = new RadioButton();
-            cbCustom = new CheckBox();
             flowRangeSelection.SuspendLayout();
             SuspendLayout();
             // 
@@ -66,6 +66,24 @@
             flowRangeSelection.Name = "flowRangeSelection";
             flowRangeSelection.Size = new Size(194, 135);
             flowRangeSelection.TabIndex = 1;
+            // 
+            // cbCustom
+            // 
+            cbCustom.Appearance = Appearance.Button;
+            cbCustom.BackColor = SystemColors.ButtonShadow;
+            cbCustom.FlatAppearance.BorderSize = 0;
+            cbCustom.FlatAppearance.CheckedBackColor = Color.FromArgb(100, 130, 180);
+            cbCustom.FlatStyle = FlatStyle.Flat;
+            cbCustom.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            cbCustom.Location = new Point(0, 0);
+            cbCustom.Margin = new Padding(0);
+            cbCustom.Name = "cbCustom";
+            cbCustom.Size = new Size(194, 27);
+            cbCustom.TabIndex = 2;
+            cbCustom.Text = "Custom";
+            cbCustom.TextAlign = ContentAlignment.MiddleCenter;
+            cbCustom.UseVisualStyleBackColor = false;
+            cbCustom.Click += cbCustom_CheckedChanged;
             // 
             // rdoLast30
             // 
@@ -136,24 +154,6 @@
             rdoAllRecords.TextAlign = ContentAlignment.MiddleCenter;
             rdoAllRecords.UseVisualStyleBackColor = false;
             rdoAllRecords.Click += rdoTimeFrame_Clicked;
-            // 
-            // cbCustom
-            // 
-            cbCustom.Appearance = Appearance.Button;
-            cbCustom.BackColor = SystemColors.ButtonShadow;
-            cbCustom.FlatAppearance.BorderSize = 0;
-            cbCustom.FlatAppearance.CheckedBackColor = Color.FromArgb(100, 130, 180);
-            cbCustom.FlatStyle = FlatStyle.Flat;
-            cbCustom.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            cbCustom.Location = new Point(0, 0);
-            cbCustom.Margin = new Padding(0);
-            cbCustom.Name = "cbCustom";
-            cbCustom.Size = new Size(194, 27);
-            cbCustom.TabIndex = 2;
-            cbCustom.Text = "Custom";
-            cbCustom.TextAlign = ContentAlignment.MiddleCenter;
-            cbCustom.UseVisualStyleBackColor = false;
-            cbCustom.CheckedChanged += cbCustom_CheckedChanged;
             // 
             // DateFilterControl
             // 

@@ -76,6 +76,7 @@
             cbDec.Name = "cbDec";
             cbDec.Size = new Size(49, 30);
             cbDec.TabIndex = 2;
+            cbDec.Tag = 12;
             cbDec.Text = "Dec";
             cbDec.TextAlign = ContentAlignment.MiddleCenter;
             cbDec.UseVisualStyleBackColor = false;
@@ -97,6 +98,7 @@
             cbNov.Name = "cbNov";
             cbNov.Size = new Size(48, 30);
             cbNov.TabIndex = 3;
+            cbNov.Tag = 11;
             cbNov.Text = "Nov";
             cbNov.TextAlign = ContentAlignment.MiddleCenter;
             cbNov.UseVisualStyleBackColor = false;
@@ -118,6 +120,7 @@
             cbOct.Name = "cbOct";
             cbOct.Size = new Size(47, 30);
             cbOct.TabIndex = 4;
+            cbOct.Tag = 10;
             cbOct.Text = "Oct";
             cbOct.TextAlign = ContentAlignment.MiddleCenter;
             cbOct.UseVisualStyleBackColor = false;
@@ -139,6 +142,7 @@
             cbSep.Name = "cbSep";
             cbSep.Size = new Size(47, 30);
             cbSep.TabIndex = 5;
+            cbSep.Tag = 9;
             cbSep.Text = "Sep";
             cbSep.TextAlign = ContentAlignment.MiddleCenter;
             cbSep.UseVisualStyleBackColor = false;
@@ -180,6 +184,7 @@
             cbAug.Name = "cbAug";
             cbAug.Size = new Size(48, 30);
             cbAug.TabIndex = 0;
+            cbAug.Tag = 8;
             cbAug.Text = "Aug";
             cbAug.TextAlign = ContentAlignment.MiddleCenter;
             cbAug.UseVisualStyleBackColor = false;
@@ -201,6 +206,7 @@
             cbApr.Name = "cbApr";
             cbApr.Size = new Size(48, 30);
             cbApr.TabIndex = 0;
+            cbApr.Tag = 4;
             cbApr.Text = "Apr";
             cbApr.TextAlign = ContentAlignment.MiddleCenter;
             cbApr.UseVisualStyleBackColor = false;
@@ -222,6 +228,7 @@
             cbJul.Name = "cbJul";
             cbJul.Size = new Size(48, 30);
             cbJul.TabIndex = 0;
+            cbJul.Tag = 7;
             cbJul.Text = "Jul";
             cbJul.TextAlign = ContentAlignment.MiddleCenter;
             cbJul.UseVisualStyleBackColor = false;
@@ -243,6 +250,7 @@
             cbMar.Name = "cbMar";
             cbMar.Size = new Size(48, 30);
             cbMar.TabIndex = 0;
+            cbMar.Tag = 3;
             cbMar.Text = "Mar";
             cbMar.TextAlign = ContentAlignment.MiddleCenter;
             cbMar.UseVisualStyleBackColor = false;
@@ -264,6 +272,7 @@
             cbJun.Name = "cbJun";
             cbJun.Size = new Size(47, 30);
             cbJun.TabIndex = 0;
+            cbJun.Tag = 6;
             cbJun.Text = "Jun";
             cbJun.TextAlign = ContentAlignment.MiddleCenter;
             cbJun.UseVisualStyleBackColor = false;
@@ -285,6 +294,7 @@
             cbMay.Name = "cbMay";
             cbMay.Size = new Size(47, 30);
             cbMay.TabIndex = 0;
+            cbMay.Tag = 5;
             cbMay.Text = "May";
             cbMay.TextAlign = ContentAlignment.MiddleCenter;
             cbMay.UseVisualStyleBackColor = false;
@@ -306,6 +316,7 @@
             cbFeb.Name = "cbFeb";
             cbFeb.Size = new Size(47, 30);
             cbFeb.TabIndex = 0;
+            cbFeb.Tag = 2;
             cbFeb.Text = "Feb";
             cbFeb.TextAlign = ContentAlignment.MiddleCenter;
             cbFeb.UseVisualStyleBackColor = false;
@@ -327,6 +338,7 @@
             cbJan.Name = "cbJan";
             cbJan.Size = new Size(47, 30);
             cbJan.TabIndex = 0;
+            cbJan.Tag = 1;
             cbJan.Text = "Jan";
             cbJan.TextAlign = ContentAlignment.MiddleCenter;
             cbJan.UseVisualStyleBackColor = false;
