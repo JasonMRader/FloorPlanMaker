@@ -18,10 +18,14 @@ namespace FloorplanUserControlLibrary
         public ShiftAnalysis ShiftAnalysis { get { return _shiftAnalysis; } }
         public event Action UpdateShift;
         public event Action OpenSalesForm;
-        private DiningAreaManager _areaManager { get; set; }
+        private DiningAreaManager _areaManager { get; set; } = new DiningAreaManager();
         public ShiftFilterControl()
         {
             InitializeComponent();
+            foreach (DiningArea area in _areaManager.DiningAreas) {
+                if (area.ID == 6) { continue; }
+                flowDiningAreas.Controls.Add(CreateAreaRadio(area));
+            }
 
         }
         public void ChangeShiftAnalysisDateIsAM(DateOnly dateOnly, bool isAM)
@@ -115,9 +119,9 @@ namespace FloorplanUserControlLibrary
 
         private void UpdateChart()
         {
-            _areaManager = new DiningAreaManager();
-            ChartManager chartManager = new ChartManager(ShiftAnalysis.FilteredShifts, cartesianChart1);
-            chartManager.SetUpMiniStackedArea(_areaManager.DiningAreas);
+            //_areaManager = new DiningAreaManager();
+            // ChartManager chartManager = new ChartManager(ShiftAnalysis.FilteredShifts, cartesianChart1);
+            // chartManager.SetUpMiniStackedArea(_areaManager.DiningAreas);
         }
 
         public void UpdateCountLabel()
@@ -135,13 +139,50 @@ namespace FloorplanUserControlLibrary
                 lblMin.Visible = true;
                 lblMax.Visible = true;
                 lblAvg.Visible = true;
-                UpdateChart();
+                // UpdateChart();
             }
         }
 
         private void btnViewStatsForm_Click(object sender, EventArgs e)
         {
             OpenSalesForm?.Invoke();
+        }
+
+        private RadioButton CreateAreaRadio(DiningArea area)
+        {
+            RadioButton btn = new RadioButton() {
+
+                Image = UITheme.GetDiningAreaImage(area),
+                Size = new Size(flowDiningAreas.Width / (_areaManager.DiningAreas.Count - 1), flowDiningAreas.Height),
+                Margin = new System.Windows.Forms.Padding(0, 0, 0, 0),
+                Tag = area
+            };
+            btn.Click += areaButtonClicked;
+            UITheme.FormatCTAButton(btn);
+            btn.BackColor = UITheme.ButtonColor;
+            btn.FlatAppearance.CheckedBackColor = UITheme.DarkenColor(.3f, UITheme.ButtonColor);
+            //toolTip.SetToolTip(btn, area.Name);
+            if (area.ID == 6) {
+                btn.Enabled = false;
+            }
+            return btn;
+        }
+        private void areaButtonClicked(object? sender, EventArgs e)
+        {
+            RadioButton radioButton = sender as RadioButton;
+            DiningArea area = (DiningArea)radioButton.Tag;
+            if (radioButton.Checked) {
+                DiningAreaStats areaStats = _shiftAnalysis.DiningAreaStats.FirstOrDefault(s => s.DiningAreaID == area.ID);
+                if (areaStats != null) {
+                    lblAreaAvg.Text = $"Avg: {areaStats.AvgSales:C0}";
+                    lblAreaMax.Text = $"Max: {areaStats.MaxSales:C0}";
+                    lblAreaMin.Text = $"Min: {areaStats.MinSales:C0}";
+                    lblAreaAvg.Visible = true;
+                    lblAreaMax.Visible = true;
+                    lblAreaMin.Visible = true;
+                }
+
+            }
         }
     }
 }

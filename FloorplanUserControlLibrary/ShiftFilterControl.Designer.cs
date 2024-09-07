@@ -36,26 +36,29 @@
             btnUpdate = new Button();
             btnSaveFilter = new Button();
             btnViewStatsForm = new Button();
-            cartesianChart1 = new LiveChartsCore.SkiaSharpView.WinForms.CartesianChart();
             lblAvg = new Label();
             lblMin = new Label();
             lblMax = new Label();
+            flowDiningAreas = new FlowLayoutPanel();
+            lblAreaAvg = new Label();
+            lblAreaMin = new Label();
+            lblAreaMax = new Label();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
             // flowFilters
             // 
             flowFilters.FlowDirection = FlowDirection.TopDown;
-            flowFilters.Location = new Point(3, 342);
+            flowFilters.Location = new Point(3, 370);
             flowFilters.Name = "flowFilters";
-            flowFilters.Size = new Size(194, 349);
+            flowFilters.Size = new Size(194, 321);
             flowFilters.TabIndex = 2;
             // 
             // panel1
             // 
             panel1.Controls.Add(rdoPM);
             panel1.Controls.Add(rdoAM);
-            panel1.Location = new Point(3, 282);
+            panel1.Location = new Point(3, 309);
             panel1.Name = "panel1";
             panel1.Size = new Size(194, 28);
             panel1.TabIndex = 4;
@@ -68,7 +71,7 @@
             rdoPM.FlatAppearance.CheckedBackColor = Color.FromArgb(100, 130, 180);
             rdoPM.FlatStyle = FlatStyle.Flat;
             rdoPM.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            rdoPM.Location = new Point(97, 0);
+            rdoPM.Location = new Point(97, 1);
             rdoPM.Margin = new Padding(0);
             rdoPM.Name = "rdoPM";
             rdoPM.Size = new Size(97, 27);
@@ -104,7 +107,7 @@
             cbHolidaysExcluded.FlatAppearance.BorderSize = 0;
             cbHolidaysExcluded.FlatStyle = FlatStyle.Flat;
             cbHolidaysExcluded.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            cbHolidaysExcluded.Location = new Point(3, 313);
+            cbHolidaysExcluded.Location = new Point(3, 340);
             cbHolidaysExcluded.Margin = new Padding(0);
             cbHolidaysExcluded.Name = "cbHolidaysExcluded";
             cbHolidaysExcluded.Size = new Size(194, 27);
@@ -117,9 +120,9 @@
             // lblFilteredShiftCount
             // 
             lblFilteredShiftCount.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            lblFilteredShiftCount.Location = new Point(3, 9);
+            lblFilteredShiftCount.Location = new Point(3, 45);
             lblFilteredShiftCount.Name = "lblFilteredShiftCount";
-            lblFilteredShiftCount.Size = new Size(114, 23);
+            lblFilteredShiftCount.Size = new Size(194, 23);
             lblFilteredShiftCount.TabIndex = 5;
             lblFilteredShiftCount.Text = "100 Shifts:";
             lblFilteredShiftCount.TextAlign = ContentAlignment.MiddleCenter;
@@ -170,18 +173,10 @@
             btnViewStatsForm.UseVisualStyleBackColor = false;
             btnViewStatsForm.Click += btnViewStatsForm_Click;
             // 
-            // cartesianChart1
-            // 
-            cartesianChart1.BackColor = Color.LightGray;
-            cartesianChart1.Location = new Point(3, 115);
-            cartesianChart1.Name = "cartesianChart1";
-            cartesianChart1.Size = new Size(194, 161);
-            cartesianChart1.TabIndex = 7;
-            // 
             // lblAvg
             // 
-            lblAvg.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            lblAvg.Location = new Point(3, 41);
+            lblAvg.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lblAvg.Location = new Point(3, 74);
             lblAvg.Name = "lblAvg";
             lblAvg.Size = new Size(194, 23);
             lblAvg.TabIndex = 5;
@@ -191,8 +186,8 @@
             // 
             // lblMin
             // 
-            lblMin.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            lblMin.Location = new Point(3, 64);
+            lblMin.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lblMin.Location = new Point(3, 101);
             lblMin.Name = "lblMin";
             lblMin.Size = new Size(194, 23);
             lblMin.TabIndex = 5;
@@ -202,8 +197,8 @@
             // 
             // lblMax
             // 
-            lblMax.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            lblMax.Location = new Point(3, 87);
+            lblMax.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lblMax.Location = new Point(3, 128);
             lblMax.Name = "lblMax";
             lblMax.Size = new Size(194, 23);
             lblMax.TabIndex = 5;
@@ -211,17 +206,60 @@
             lblMax.TextAlign = ContentAlignment.MiddleLeft;
             lblMax.Visible = false;
             // 
+            // flowDiningAreas
+            // 
+            flowDiningAreas.Location = new Point(3, 174);
+            flowDiningAreas.Name = "flowDiningAreas";
+            flowDiningAreas.Size = new Size(194, 38);
+            flowDiningAreas.TabIndex = 7;
+            // 
+            // lblAreaAvg
+            // 
+            lblAreaAvg.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lblAreaAvg.Location = new Point(3, 215);
+            lblAreaAvg.Name = "lblAreaAvg";
+            lblAreaAvg.Size = new Size(194, 23);
+            lblAreaAvg.TabIndex = 5;
+            lblAreaAvg.Text = "Avg";
+            lblAreaAvg.TextAlign = ContentAlignment.MiddleLeft;
+            lblAreaAvg.Visible = false;
+            // 
+            // lblAreaMin
+            // 
+            lblAreaMin.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lblAreaMin.Location = new Point(3, 242);
+            lblAreaMin.Name = "lblAreaMin";
+            lblAreaMin.Size = new Size(194, 23);
+            lblAreaMin.TabIndex = 5;
+            lblAreaMin.Text = "Min";
+            lblAreaMin.TextAlign = ContentAlignment.MiddleLeft;
+            lblAreaMin.Visible = false;
+            // 
+            // lblAreaMax
+            // 
+            lblAreaMax.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lblAreaMax.Location = new Point(3, 269);
+            lblAreaMax.Name = "lblAreaMax";
+            lblAreaMax.Size = new Size(194, 23);
+            lblAreaMax.TabIndex = 5;
+            lblAreaMax.Text = "Max";
+            lblAreaMax.TextAlign = ContentAlignment.MiddleLeft;
+            lblAreaMax.Visible = false;
+            // 
             // ShiftFilterControl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.WhiteSmoke;
-            Controls.Add(cartesianChart1);
+            Controls.Add(flowDiningAreas);
             Controls.Add(cbHolidaysExcluded);
             Controls.Add(btnViewStatsForm);
             Controls.Add(btnSaveFilter);
             Controls.Add(btnUpdate);
+            Controls.Add(lblAreaMax);
             Controls.Add(lblMax);
+            Controls.Add(lblAreaMin);
+            Controls.Add(lblAreaAvg);
             Controls.Add(lblMin);
             Controls.Add(lblAvg);
             Controls.Add(lblFilteredShiftCount);
@@ -247,9 +285,12 @@
         private Button btnUpdate;
         private Button btnSaveFilter;
         private Button btnViewStatsForm;
-        private LiveChartsCore.SkiaSharpView.WinForms.CartesianChart cartesianChart1;
         private Label lblAvg;
         private Label lblMin;
         private Label lblMax;
+        private FlowLayoutPanel flowDiningAreas;
+        private Label lblAreaAvg;
+        private Label lblAreaMin;
+        private Label lblAreaMax;
     }
 }
