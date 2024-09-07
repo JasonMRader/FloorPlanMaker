@@ -83,7 +83,7 @@
             cbCustom.Text = "Custom";
             cbCustom.TextAlign = ContentAlignment.MiddleCenter;
             cbCustom.UseVisualStyleBackColor = false;
-            cbCustom.Click += cbCustom_CheckedChanged;
+            cbCustom.Click += cbCustom_Clicked;
             // 
             // rdoLast30
             // 

@@ -1,15 +1,5 @@
 ﻿using FloorplanClassLibrary;
 using FloorPlanMakerUI;
-using PdfSharp.Pdf.Filters;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace FloorplanUserControlLibrary
 {
@@ -69,8 +59,13 @@ namespace FloorplanUserControlLibrary
                 rdoAllRecords.Checked = true;
             }
             else {
-
+                cbCustom.Checked = true;
+                SetControlsForCustomSetting();
+                button1.Text = $"{shiftAnalysis.StartDate} - {shiftAnalysis.EndDate}";
+               
             }
+            button1.BackColor = UITheme.CTAColor;
+            button1.ForeColor = Color.White;
         }
 
         private void DateFilterControl_Load(object sender, EventArgs e)
@@ -149,8 +144,50 @@ namespace FloorplanUserControlLibrary
             flowRangeSelection.Visible = !flowRangeSelection.Visible;
 
         }
+        private void SetControlsForCustomSetting()
+        {
+            rdoLast30.BackColor = UITheme.ButtonColor;
+            rdoLast30.ForeColor = Color.Black;
+            rdoLast30.Checked = false;
+            rdoLast30.Visible = false;
+            rdoLast90.BackColor = UITheme.ButtonColor;
+            rdoLast90.ForeColor = Color.Black;
+            rdoLast90.Checked = false;
+            rdoLast90.Visible = false;
+            rdoLast365.BackColor = UITheme.ButtonColor;
+            rdoLast365.ForeColor = Color.Black;
+            rdoLast365.Checked = false;
+            rdoLast365.Visible = false;
+            rdoAllRecords.BackColor = UITheme.ButtonColor;
+            rdoAllRecords.ForeColor = Color.Black;
+            rdoAllRecords.Checked = false;
+            rdoAllRecords.Visible = false;
+            Label lblStart = new Label() {
+                Text = "Start",
+                Margin = new Padding(0, 7, 0, 0)
+            };
+            dtpStart = new DateTimePicker() {
+                Size = new Size(194, 30),
+                Margin = new Padding(0)
 
-        private void cbCustom_CheckedChanged(object sender, EventArgs e)
+
+            };
+            Label lblEnd = new Label() {
+                Text = "end",
+                Margin = new Padding(0, 7, 0, 0)
+            };
+            dtpEnd = new DateTimePicker() {
+                Size = new Size(194, 30),
+                Margin = new Padding(0, 0, 0, 0),
+            };
+            dtpStart.Value = shiftAnalysis.StartDate.ToDateTime(TimeOnly.MinValue);
+            dtpEnd.Value = shiftAnalysis.EndDate.ToDateTime(TimeOnly.MinValue);
+            flowRangeSelection.Controls.Add(lblStart);
+            flowRangeSelection.Controls.Add(dtpStart);
+            flowRangeSelection.Controls.Add(lblEnd);
+            flowRangeSelection.Controls.Add(dtpEnd);
+        }
+        private void cbCustom_Clicked(object sender, EventArgs e)
         {
             if (cbCustom.Checked) {
                 if (rdoAllRecords.Checked) {
@@ -165,44 +202,7 @@ namespace FloorplanUserControlLibrary
                 else {
                     previouslyClickedRDO = rdoLast30;
                 }
-                rdoLast30.BackColor = UITheme.ButtonColor;
-                rdoLast30.ForeColor = Color.Black;
-                rdoLast30.Checked = false;
-                rdoLast30.Visible = false;
-                rdoLast90.BackColor = UITheme.ButtonColor;
-                rdoLast90.ForeColor = Color.Black;
-                rdoLast90.Checked = false;
-                rdoLast90.Visible = false;
-                rdoLast365.BackColor = UITheme.ButtonColor;
-                rdoLast365.ForeColor = Color.Black;
-                rdoLast365.Checked = false;
-                rdoLast365.Visible = false;
-                rdoAllRecords.BackColor = UITheme.ButtonColor;
-                rdoAllRecords.ForeColor = Color.Black;
-                rdoAllRecords.Checked = false;
-                rdoAllRecords.Visible = false;
-                Label lblStart = new Label() {
-                    Text = "Start",
-                    Margin = new Padding(0, 7, 0, 0)
-                };
-                dtpStart = new DateTimePicker() {
-                    Size = new Size(194, 30),
-                    Margin = new Padding(0)
-
-
-                };
-                Label lblEnd = new Label() {
-                    Text = "end",
-                    Margin = new Padding(0, 7, 0, 0)
-                };
-                dtpEnd = new DateTimePicker() {
-                    Size = new Size(194, 30),
-                    Margin = new Padding(0, 0, 0, 0),
-                };
-                flowRangeSelection.Controls.Add(lblStart);
-                flowRangeSelection.Controls.Add(dtpStart);
-                flowRangeSelection.Controls.Add(lblEnd);
-                flowRangeSelection.Controls.Add(dtpEnd);
+                SetControlsForCustomSetting();
                 button1.Text = $"OK";
                 button1.BackColor = UITheme.YesColor;
                 button1.ForeColor = Color.White;
