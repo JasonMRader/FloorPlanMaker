@@ -37,6 +37,9 @@ namespace FloorPlanMakerUI
         }
         private void SetIncludedListBindings()
         {
+            tablesCountedNotInCurrent = tablesCounted
+               .Where(tc => !tablesInArea.Any(tia => tia.TableNumber == tc.TableNumber))
+               .ToList();
             BindListBox(lbTablesCountedInStats, tablesCounted);
             BindListBox(lbCountedNotInCurrent, tablesCountedNotInCurrent);
             BindListBox(lbTablesExcludedFromStats, tablesExcluded);
@@ -61,21 +64,7 @@ namespace FloorPlanMakerUI
 
         }
 
-        private void btnAddSelected_Click(object sender, EventArgs e)
-        {
-            if (lbTablesInArea.SelectedItems.Count > 0) {
-                foreach (var table in lbTablesInArea.SelectedItems) {
-                    if (table is Table tableInArea) {
-                        if (!tablesCounted.Contains(tableInArea)) {
-                            tablesCounted.Add(tableInArea);
-                        }
-
-
-                    }
-                }
-                SetIncludedListBindings();
-            }
-        }
+        
 
         private void btnAddAllToCounted_Click(object sender, EventArgs e)
         {
@@ -91,54 +80,96 @@ namespace FloorPlanMakerUI
         {
             SqliteDataAccess.SaveTablesCounted(tablesCounted);
         }
-
-        private void cbRangeOrSingle_CheckedChanged(object sender, EventArgs e)
-        {
-            if (cbRangeOrSingle.Checked) {
-                nudLastTable.Visible = false;
-                cbRangeOrSingle.Text = "Enter Single";
-            }
-            else {
-                nudLastTable.Visible = true;
-                cbRangeOrSingle.Text = "Set Range";
-            }
-        }
-
-        private void btnAddTablesToCountedManual_Click(object sender, EventArgs e)
-        {
-            if (cbRangeOrSingle.Checked) {
-                string tableName = nudFirstTable.Text;
-                Table table = new Table() {
-                    TableNumber = nudLastTable.Text,
-                    DiningAreaId = diningArea.ID,
-                    IsIncluded = true
-                };
-                tablesCounted.Add(table);
-
-
-            }
-            else {
-
-            }
-            SetIncludedListBindings();
-        }
-
         private void lbTablesInArea_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (lbTablesInArea.SelectedIndex != -1) {
-                txtTableToAdd.Text = lbTablesInArea.SelectedItem.ToString();
+                Table table = lbTablesInArea.SelectedItem as Table;
+                if (table != null) {
+                    txtTableToAdd.Text = table.TableNumber;
+                    txtExcludedTable.Text = table.TableNumber;
+                }
+               
             }
 
         }
-
-        private void btnAddRange_Click(object sender, EventArgs e)
+        private void btnAddSelected_Click(object sender, EventArgs e)
         {
+            if (lbTablesInArea.SelectedItems.Count > 0) {
+                foreach (var table in lbTablesInArea.SelectedItems) {
+                    if (table is Table tableInArea) {
+                        if (!tablesCounted.Contains(tableInArea)) {
+                            tablesCounted.Add(tableInArea);
+                        }
+
+
+                    }
+                }
+                SetIncludedListBindings();
+            }
+        }
+        private void btnAddTablesToCountedManual_Click(object sender, EventArgs e)
+        {
+            Table table = new Table() {
+                TableNumber = txtTableToAdd.Text,
+                DiningAreaId = diningArea.ID,
+                IsIncluded = true
+            };
+            AddToTablesCounted(table);
+            
 
         }
+        private void AddToTablesCounted(Table table)
+        {
+            if (!tablesCounted.Any(t => t.TableNumber == table.TableNumber)) {
+                tablesCounted.Add(table);
+            }
+            if (tablesExcluded.Any(t => t.TableNumber == table.TableNumber)) {
+                var tableToRemove = tablesExcluded.FirstOrDefault(t => t.TableNumber == table.TableNumber);
+                tablesExcluded.Remove(tableToRemove);
+            }
+            SetIncludedListBindings();
+        }
+        private void AddToTablesExcluded(Table table)
+        {
+            if (tablesCounted.Any(t => t.TableNumber == table.TableNumber)) {
+                var tableToRemove = tablesCounted.FirstOrDefault(t => t.TableNumber == table.TableNumber);
+                tablesCounted.Remove(tableToRemove);
+            }
+            if (!tablesExcluded.Any(t => t.TableNumber == table.TableNumber)) {
+                tablesExcluded.Add(table);
+            }
+            SetIncludedListBindings();
+        }
+        private void btnAddRange_Click(object sender, EventArgs e)
+        {
+            int tableStart = (int)nudFirstTable.Value;
+            int tableEnd = (int)nudLastTable.Value;
+            for(int i = tableStart; i <= tableEnd; i++) {
+                string tableNumber = i.ToString();
+                bool isNotExcluded = !tablesExcluded.Any(t => t.TableNumber == tableNumber);
+                bool isNotIncluded = !tablesCounted.Any(t => t.TableNumber == tableNumber);
+                if(isNotExcluded && isNotIncluded) {
+                    Table table = new Table() {
+                        TableNumber = tableNumber,
+                        DiningAreaId = diningArea.ID,
+                        IsIncluded = true
+                    };
+                    tablesCounted.Add(table);
+                }
+            }
+            SetIncludedListBindings();
 
+        }
+       
         private void btnAddExcluded_Click(object sender, EventArgs e)
         {
-
+            Table table = new Table() {
+                TableNumber = txtExcludedTable.Text,
+                DiningAreaId = diningArea.ID,
+                IsIncluded = false
+            };
+            AddToTablesExcluded(table);
+            SetIncludedListBindings();
         }
     }
 }
