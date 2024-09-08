@@ -39,11 +39,13 @@
             label1 = new Label();
             btnAddSelected = new Button();
             btnSaveChanges = new Button();
+            txtExcludedTable = new TextBox();
             btnAddTablesToCountedManual = new Button();
             nudLastTable = new NumericUpDown();
             nudFirstTable = new NumericUpDown();
-            cbRangeOrSingle = new CheckBox();
-            txtExcludedTable = new TextBox();
+            txtTableToAdd = new TextBox();
+            btnAddExcluded = new Button();
+            btnAddRange = new Button();
             ((System.ComponentModel.ISupportInitialize)nudLastTable).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudFirstTable).BeginInit();
             SuspendLayout();
@@ -54,7 +56,7 @@
             lblDiningAreaName.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             lblDiningAreaName.Location = new Point(0, 0);
             lblDiningAreaName.Name = "lblDiningAreaName";
-            lblDiningAreaName.Size = new Size(905, 33);
+            lblDiningAreaName.Size = new Size(785, 33);
             lblDiningAreaName.TabIndex = 0;
             lblDiningAreaName.Text = "DiningAreaNameLabel";
             lblDiningAreaName.TextAlign = ContentAlignment.MiddleCenter;
@@ -69,6 +71,7 @@
             lbTablesInArea.Name = "lbTablesInArea";
             lbTablesInArea.Size = new Size(138, 559);
             lbTablesInArea.TabIndex = 1;
+            lbTablesInArea.SelectedIndexChanged += lbTablesInArea_SelectedIndexChanged;
             // 
             // lbTablesCountedInStats
             // 
@@ -155,7 +158,7 @@
             // 
             // btnSaveChanges
             // 
-            btnSaveChanges.Location = new Point(796, 100);
+            btnSaveChanges.Location = new Point(679, 0);
             btnSaveChanges.Name = "btnSaveChanges";
             btnSaveChanges.Size = new Size(75, 23);
             btnSaveChanges.TabIndex = 4;
@@ -163,23 +166,30 @@
             btnSaveChanges.UseVisualStyleBackColor = true;
             btnSaveChanges.Click += btnSaveChanges_Click;
             // 
+            // txtExcludedTable
+            // 
+            txtExcludedTable.Location = new Point(602, 85);
+            txtExcludedTable.Name = "txtExcludedTable";
+            txtExcludedTable.Size = new Size(152, 23);
+            txtExcludedTable.TabIndex = 8;
+            // 
             // btnAddTablesToCountedManual
             // 
-            btnAddTablesToCountedManual.Location = new Point(401, 114);
+            btnAddTablesToCountedManual.Location = new Point(219, 114);
             btnAddTablesToCountedManual.Name = "btnAddTablesToCountedManual";
             btnAddTablesToCountedManual.Size = new Size(152, 23);
             btnAddTablesToCountedManual.TabIndex = 5;
-            btnAddTablesToCountedManual.Text = "Add";
+            btnAddTablesToCountedManual.Text = "Add to Included";
             btnAddTablesToCountedManual.UseVisualStyleBackColor = true;
             btnAddTablesToCountedManual.Click += btnAddTablesToCountedManual_Click;
             // 
             // nudLastTable
             // 
             nudLastTable.Location = new Point(481, 85);
+            nudLastTable.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
             nudLastTable.Name = "nudLastTable";
             nudLastTable.Size = new Size(72, 23);
             nudLastTable.TabIndex = 6;
-            nudLastTable.Visible = false;
             // 
             // nudFirstTable
             // 
@@ -188,34 +198,44 @@
             nudFirstTable.Size = new Size(75, 23);
             nudFirstTable.TabIndex = 6;
             // 
-            // cbRangeOrSingle
+            // txtTableToAdd
             // 
-            cbRangeOrSingle.Appearance = Appearance.Button;
-            cbRangeOrSingle.Location = new Point(401, 54);
-            cbRangeOrSingle.Name = "cbRangeOrSingle";
-            cbRangeOrSingle.Size = new Size(152, 25);
-            cbRangeOrSingle.TabIndex = 7;
-            cbRangeOrSingle.Text = "Set Range";
-            cbRangeOrSingle.TextAlign = ContentAlignment.MiddleCenter;
-            cbRangeOrSingle.UseVisualStyleBackColor = true;
-            cbRangeOrSingle.CheckedChanged += cbRangeOrSingle_CheckedChanged;
+            txtTableToAdd.Location = new Point(219, 85);
+            txtTableToAdd.Name = "txtTableToAdd";
+            txtTableToAdd.Size = new Size(152, 23);
+            txtTableToAdd.TabIndex = 8;
             // 
-            // txtExcludedTable
+            // btnAddExcluded
             // 
-            txtExcludedTable.Location = new Point(602, 108);
-            txtExcludedTable.Name = "txtExcludedTable";
-            txtExcludedTable.Size = new Size(152, 23);
-            txtExcludedTable.TabIndex = 8;
+            btnAddExcluded.Location = new Point(602, 113);
+            btnAddExcluded.Name = "btnAddExcluded";
+            btnAddExcluded.Size = new Size(152, 23);
+            btnAddExcluded.TabIndex = 5;
+            btnAddExcluded.Text = "Add to Excluded";
+            btnAddExcluded.UseVisualStyleBackColor = true;
+            btnAddExcluded.Click += btnAddExcluded_Click;
+            // 
+            // btnAddRange
+            // 
+            btnAddRange.Location = new Point(401, 114);
+            btnAddRange.Name = "btnAddRange";
+            btnAddRange.Size = new Size(152, 23);
+            btnAddRange.TabIndex = 5;
+            btnAddRange.Text = "Add Range";
+            btnAddRange.UseVisualStyleBackColor = true;
+            btnAddRange.Click += btnAddRange_Click;
             // 
             // frmManageDiningAreaTables
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(905, 720);
+            ClientSize = new Size(785, 720);
+            Controls.Add(txtTableToAdd);
             Controls.Add(txtExcludedTable);
-            Controls.Add(cbRangeOrSingle);
             Controls.Add(nudFirstTable);
             Controls.Add(nudLastTable);
+            Controls.Add(btnAddExcluded);
+            Controls.Add(btnAddRange);
             Controls.Add(btnAddTablesToCountedManual);
             Controls.Add(btnSaveChanges);
             Controls.Add(btnAddSelected);
@@ -253,10 +273,12 @@
         private Label label1;
         private Button btnAddSelected;
         private Button btnSaveChanges;
+        private TextBox txtExcludedTable;
         private Button btnAddTablesToCountedManual;
         private NumericUpDown nudLastTable;
         private NumericUpDown nudFirstTable;
-        private CheckBox cbRangeOrSingle;
-        private TextBox txtExcludedTable;
+        private TextBox txtTableToAdd;
+        private Button btnAddExcluded;
+        private Button btnAddRange;
     }
 }

@@ -122,5 +122,23 @@ namespace FloorPlanMakerUI
             }
             SetIncludedListBindings();
         }
+
+        private void lbTablesInArea_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lbTablesInArea.SelectedIndex != -1) {
+                txtTableToAdd.Text = lbTablesInArea.SelectedItem.ToString();
+            }
+
+        }
+
+        private void btnAddRange_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnAddExcluded_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
