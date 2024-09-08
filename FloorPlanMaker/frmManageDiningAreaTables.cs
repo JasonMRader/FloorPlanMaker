@@ -78,6 +78,7 @@ namespace FloorPlanMakerUI
 
         private void btnSaveChanges_Click(object sender, EventArgs e)
         {
+            tablesCounted.AddRange(tablesExcluded.ToList());
             SqliteDataAccess.SaveTablesCounted(tablesCounted);
         }
         private void lbTablesInArea_SelectedIndexChanged(object sender, EventArgs e)
