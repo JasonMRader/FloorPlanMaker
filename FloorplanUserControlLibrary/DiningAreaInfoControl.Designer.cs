@@ -13,8 +13,7 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
-            {
+            if (disposing && (components != null)) {
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -190,6 +189,7 @@
             Controls.Add(lblDiningAreaName);
             Name = "DiningAreaInfoControl";
             Size = new Size(208, 950);
+            Load += DiningAreaInfoControl_Load;
             ResumeLayout(false);
             PerformLayout();
         }

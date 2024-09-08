@@ -15,10 +15,11 @@ namespace FloorplanUserControlLibrary
     {
         private DiningArea diningArea { get; set; }
         public event EventHandler OpenTableManagerClicked;
+        public Table tableSelected { get; set; }
         public DiningAreaInfoControl()
         {
             InitializeComponent();
-           
+
         }
         public void SetDiningArea(DiningArea diningArea)
         {
@@ -31,11 +32,16 @@ namespace FloorplanUserControlLibrary
             lblDiningAreaName.Text = diningArea.Name;
         }
 
-        
+
 
         private void btnOpenManageTablesForm_Click(object sender, EventArgs e)
         {
             OpenTableManagerClicked?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void DiningAreaInfoControl_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
