@@ -13,8 +13,7 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
-            {
+            if (disposing && (components != null)) {
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -44,6 +43,7 @@
             nudLastTable = new NumericUpDown();
             nudFirstTable = new NumericUpDown();
             cbRangeOrSingle = new CheckBox();
+            txtExcludedTable = new TextBox();
             ((System.ComponentModel.ISupportInitialize)nudLastTable).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudFirstTable).BeginInit();
             SuspendLayout();
@@ -83,15 +83,15 @@
             // 
             lbTablesExcludedFromStats.FormattingEnabled = true;
             lbTablesExcludedFromStats.ItemHeight = 15;
-            lbTablesExcludedFromStats.Location = new Point(602, 113);
+            lbTablesExcludedFromStats.Location = new Point(602, 143);
             lbTablesExcludedFromStats.Name = "lbTablesExcludedFromStats";
-            lbTablesExcludedFromStats.Size = new Size(152, 589);
+            lbTablesExcludedFromStats.Size = new Size(152, 559);
             lbTablesExcludedFromStats.TabIndex = 1;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(29, 104);
+            label2.Location = new Point(29, 33);
             label2.Name = "label2";
             label2.Size = new Size(131, 15);
             label2.TabIndex = 2;
@@ -100,7 +100,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(219, 50);
+            label3.Location = new Point(219, 33);
             label3.Name = "label3";
             label3.Size = new Size(129, 15);
             label3.TabIndex = 2;
@@ -109,7 +109,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(602, 79);
+            label4.Location = new Point(605, 33);
             label4.Name = "label4";
             label4.Size = new Size(149, 15);
             label4.TabIndex = 2;
@@ -117,7 +117,7 @@
             // 
             // btnAddAllToCounted
             // 
-            btnAddAllToCounted.Location = new Point(29, 36);
+            btnAddAllToCounted.Location = new Point(29, 73);
             btnAddAllToCounted.Name = "btnAddAllToCounted";
             btnAddAllToCounted.Size = new Size(138, 29);
             btnAddAllToCounted.TabIndex = 3;
@@ -137,7 +137,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(401, 36);
+            label1.Location = new Point(401, 33);
             label1.Name = "label1";
             label1.Size = new Size(167, 15);
             label1.TabIndex = 2;
@@ -145,7 +145,7 @@
             // 
             // btnAddSelected
             // 
-            btnAddSelected.Location = new Point(29, 71);
+            btnAddSelected.Location = new Point(29, 108);
             btnAddSelected.Name = "btnAddSelected";
             btnAddSelected.Size = new Size(138, 29);
             btnAddSelected.TabIndex = 3;
@@ -175,36 +175,44 @@
             // 
             // nudLastTable
             // 
-            nudLastTable.Location = new Point(401, 85);
+            nudLastTable.Location = new Point(481, 85);
             nudLastTable.Name = "nudLastTable";
-            nudLastTable.Size = new Size(120, 23);
+            nudLastTable.Size = new Size(72, 23);
             nudLastTable.TabIndex = 6;
             nudLastTable.Visible = false;
             // 
             // nudFirstTable
             // 
-            nudFirstTable.Location = new Point(401, 56);
+            nudFirstTable.Location = new Point(401, 85);
             nudFirstTable.Name = "nudFirstTable";
-            nudFirstTable.Size = new Size(120, 23);
+            nudFirstTable.Size = new Size(75, 23);
             nudFirstTable.TabIndex = 6;
             // 
             // cbRangeOrSingle
             // 
             cbRangeOrSingle.Appearance = Appearance.Button;
-            cbRangeOrSingle.AutoSize = true;
-            cbRangeOrSingle.Location = new Point(527, 56);
+            cbRangeOrSingle.Location = new Point(401, 54);
             cbRangeOrSingle.Name = "cbRangeOrSingle";
-            cbRangeOrSingle.Size = new Size(69, 25);
+            cbRangeOrSingle.Size = new Size(152, 25);
             cbRangeOrSingle.TabIndex = 7;
             cbRangeOrSingle.Text = "Set Range";
+            cbRangeOrSingle.TextAlign = ContentAlignment.MiddleCenter;
             cbRangeOrSingle.UseVisualStyleBackColor = true;
             cbRangeOrSingle.CheckedChanged += cbRangeOrSingle_CheckedChanged;
+            // 
+            // txtExcludedTable
+            // 
+            txtExcludedTable.Location = new Point(602, 108);
+            txtExcludedTable.Name = "txtExcludedTable";
+            txtExcludedTable.Size = new Size(152, 23);
+            txtExcludedTable.TabIndex = 8;
             // 
             // frmManageDiningAreaTables
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(905, 720);
+            Controls.Add(txtExcludedTable);
             Controls.Add(cbRangeOrSingle);
             Controls.Add(nudFirstTable);
             Controls.Add(nudLastTable);
@@ -249,5 +257,6 @@
         private NumericUpDown nudLastTable;
         private NumericUpDown nudFirstTable;
         private CheckBox cbRangeOrSingle;
+        private TextBox txtExcludedTable;
     }
 }

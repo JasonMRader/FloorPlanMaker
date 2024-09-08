@@ -63,14 +63,10 @@ namespace FloorPlanMakerUI
 
         private void btnAddSelected_Click(object sender, EventArgs e)
         {
-            if (lbTablesInArea.SelectedItems.Count > 0)
-            {
-                foreach (var table in lbTablesInArea.SelectedItems)
-                {
-                    if (table is Table tableInArea)
-                    {
-                        if (!tablesCounted.Contains(tableInArea))
-                        {
+            if (lbTablesInArea.SelectedItems.Count > 0) {
+                foreach (var table in lbTablesInArea.SelectedItems) {
+                    if (table is Table tableInArea) {
+                        if (!tablesCounted.Contains(tableInArea)) {
                             tablesCounted.Add(tableInArea);
                         }
 
@@ -85,8 +81,7 @@ namespace FloorPlanMakerUI
         {
             var newTablesToAdd = tablesInArea.Where(t => !tablesCounted.Any(tc => tc.TableNumber == t.TableNumber)).ToList();
             tablesCounted.AddRange(newTablesToAdd);
-            foreach (var table in tablesCounted)
-            {
+            foreach (var table in tablesCounted) {
                 table.IsIncluded = true;
             }
             SetIncludedListBindings();
@@ -99,13 +94,11 @@ namespace FloorPlanMakerUI
 
         private void cbRangeOrSingle_CheckedChanged(object sender, EventArgs e)
         {
-            if (cbRangeOrSingle.Checked)
-            {
+            if (cbRangeOrSingle.Checked) {
                 nudLastTable.Visible = false;
                 cbRangeOrSingle.Text = "Enter Single";
             }
-            else
-            {
+            else {
                 nudLastTable.Visible = true;
                 cbRangeOrSingle.Text = "Set Range";
             }
@@ -113,21 +106,18 @@ namespace FloorPlanMakerUI
 
         private void btnAddTablesToCountedManual_Click(object sender, EventArgs e)
         {
-            if (cbRangeOrSingle.Checked)
-            {
+            if (cbRangeOrSingle.Checked) {
                 string tableName = nudFirstTable.Text;
-                Table table = new Table()
-                {
+                Table table = new Table() {
                     TableNumber = nudLastTable.Text,
                     DiningAreaId = diningArea.ID,
                     IsIncluded = true
                 };
                 tablesCounted.Add(table);
 
-                
+
             }
-            else
-            {
+            else {
 
             }
             SetIncludedListBindings();
