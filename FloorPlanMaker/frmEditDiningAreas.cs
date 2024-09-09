@@ -36,7 +36,7 @@ namespace FloorPlanMakerUI
             InitializeComponent();
             diningAreaInfoControl.OpenTableManagerClicked += OpenTableManager;
             diningAreaInfoControl.TableStatusUpdated += UpdateTableStatus;
-            
+
         }
 
         private void UpdateTableStatus(Table table)
@@ -66,8 +66,7 @@ namespace FloorPlanMakerUI
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             // Check if the Tab key is pressed
-            if (keyData == Keys.Tab)
-            {
+            if (keyData == Keys.Tab) {
                 MoveToNextControl();
                 return true; // Indicate that you've handled this key press
             }
@@ -77,29 +76,23 @@ namespace FloorPlanMakerUI
         }
         public void ChangeDiningArea(Keys keyData)
         {
-            if (keyData == Keys.Up)
-            {
+            if (keyData == Keys.Up) {
                 // Ensure the index stays within bounds
-                if (cboDiningAreas.SelectedIndex > 0)
-                {
+                if (cboDiningAreas.SelectedIndex > 0) {
                     cboDiningAreas.SelectedIndex--;
                 }
-                else
-                {
+                else {
                     cboDiningAreas.SelectedIndex = cboDiningAreas.Items.Count - 1;
                 }
 
             }
 
-            if (keyData == Keys.Down)
-            {
+            if (keyData == Keys.Down) {
                 // Ensure the index stays within bounds
-                if (cboDiningAreas.SelectedIndex < cboDiningAreas.Items.Count - 1)
-                {
+                if (cboDiningAreas.SelectedIndex < cboDiningAreas.Items.Count - 1) {
                     cboDiningAreas.SelectedIndex++;
                 }
-                else
-                {
+                else {
                     cboDiningAreas.SelectedIndex = 0;
                 }
 
@@ -107,13 +100,11 @@ namespace FloorPlanMakerUI
         }
         private void MoveToNextControl()
         {
-            if (rdoCoverView.Checked || rdoSalesView.Checked)
-            {
+            if (rdoCoverView.Checked || rdoSalesView.Checked) {
                 TableDataEditorControl focusedControl = GetFocusedTableDataEditorControl();
 
                 var currentControlIndex = tableDataEditors.FindIndex(control => control == focusedControl);
-                if (currentControlIndex >= 0 && currentControlIndex < tableDataEditors.Count - 1)
-                {
+                if (currentControlIndex >= 0 && currentControlIndex < tableDataEditors.Count - 1) {
                     var nextControl = tableDataEditors[currentControlIndex + 1];
                     nextControl.Focus();
                 }
@@ -125,10 +116,8 @@ namespace FloorPlanMakerUI
         private TableDataEditorControl GetFocusedTableDataEditorControl()
         {
             Control focused = this.ActiveControl;
-            while (focused != null)
-            {
-                if (focused is TableDataEditorControl)
-                {
+            while (focused != null) {
+                if (focused is TableDataEditorControl) {
                     return (TableDataEditorControl)focused;
                 }
                 focused = focused.Parent;
@@ -183,30 +172,25 @@ namespace FloorPlanMakerUI
             diningAreaInfoControl.SetDiningArea(areaCreationManager.DiningAreaSelected);
             txtDiningAreaName.Text = areaCreationManager.DiningAreaSelected.Name;
             pnlFloorPlan.Controls.Clear();
-            foreach (Table table in areaCreationManager.DiningAreaSelected.Tables)
-            {
+            foreach (Table table in areaCreationManager.DiningAreaSelected.Tables) {
                 table.DiningArea = areaCreationManager.DiningAreaSelected;
                 TableControl tableControl = TableControlFactory.CreateConfigurableTable(table);
                 //tableControl.TableClicked += Table_TableClicked;  // Uncomment if you want to attach event handler
                 tableControl.TableClicked += ExistingTable_TableClicked;
-                
+
                 pnlFloorPlan.Controls.Add(tableControl);
                 allTableControls.Add(tableControl);
             }
-            if (rdoCoverView.Checked)
-            {
+            if (rdoCoverView.Checked) {
                 SetTableControlsToCoverData();
             }
-            if (rdoEditPositions.Checked)
-            {
+            if (rdoEditPositions.Checked) {
                 SetTableControlsToReposition();
             }
-            if (rdoSalesView.Checked)
-            {
+            if (rdoSalesView.Checked) {
                 SetTableControlsToSalesData();
             }
-            if (checkBox1.Checked)
-            {
+            if (checkBox1.Checked) {
 
                 grid = new TableGrid(areaCreationManager.DiningAreaSelected.Tables);
                 grid.FindTableTopBottomNeighbors();
@@ -226,13 +210,10 @@ namespace FloorPlanMakerUI
             TableControl clickedTableControl = sender as TableControl;
             Table clickedTable = clickedTableControl.Table;
 
-            if ((Control.ModifierKeys & Keys.Control) != Keys.Control)
-            {
+            if ((Control.ModifierKeys & Keys.Control) != Keys.Control) {
 
-                foreach (var emphasizedTable in emphasizedTablesList)
-                {
-                    if (emphasizedTable != clickedTableControl)
-                    {
+                foreach (var emphasizedTable in emphasizedTablesList) {
+                    if (emphasizedTable != clickedTableControl) {
                         emphasizedTable.Controls.Remove(emphasizedTable.txtTableNumber);
                         emphasizedTable.BorderThickness = 1;
                         emphasizedTable.Invalidate();
@@ -244,8 +225,7 @@ namespace FloorPlanMakerUI
 
                 txtTableNumber.Enabled = true;
             }
-            else
-            {
+            else {
                 txtTableNumber.Enabled = false;
             }
 
@@ -265,17 +245,14 @@ namespace FloorPlanMakerUI
             txtXco.Text = clickedTable.XCoordinate.ToString();
             txtYco.Text = clickedTable.YCoordinate.ToString();
             string tableNum = "";
-            if (areaCreationManager.SelectedTables.Count > 1)
-            {
-                foreach (var table in areaCreationManager.SelectedTables)
-                {
+            if (areaCreationManager.SelectedTables.Count > 1) {
+                foreach (var table in areaCreationManager.SelectedTables) {
                     tableNum += table.TableNumber + " ";
                 }
                 txtTableNumber.Text = tableNum;
             }
             pnlFloorPlan.Controls.Remove(positionEditor);
-            if (clickedTableControl.Moveable)
-            {
+            if (clickedTableControl.Moveable) {
                 //positionEditor = TableEditorFactory.CreateEditor(clickedTableControl, pnlFloorPlan);
                 positionEditor = new TableEditorControl(clickedTableControl, pnlFloorPlan, ExistingTable_TableClicked);
                 clickedTableControl.AddTxtTableNumber();
@@ -319,10 +296,8 @@ namespace FloorPlanMakerUI
 
             SqliteDataAccess.DeleteTable(areaCreationManager.SelectedTable);
 
-            foreach (Control control in pnlFloorPlan.Controls)
-            {
-                if (control is TableControl && control.Tag == areaCreationManager.SelectedTable)
-                {
+            foreach (Control control in pnlFloorPlan.Controls) {
+                if (control is TableControl && control.Tag == areaCreationManager.SelectedTable) {
                     pnlFloorPlan.Controls.Remove(control);
                     break;
                 }
@@ -342,8 +317,7 @@ namespace FloorPlanMakerUI
             int currentTableNumber = int.Parse(areaCreationManager.SelectedTable.TableNumber);
             int newTableNumber = currentTableNumber + 1;
             //TableControl clickedTable = (TableControl)sender;
-            Table table = new Table()
-            {
+            Table table = new Table() {
                 Width = areaCreationManager.SelectedTable.Width,
                 Height = areaCreationManager.SelectedTable.Height,
                 //Left = new Random().Next(100, 300), // These are example values, replace with what you need
@@ -352,7 +326,7 @@ namespace FloorPlanMakerUI
                 Shape = areaCreationManager.SelectedTable.Shape,
                 TableNumber = newTableNumber.ToString(),
                 MaxCovers = areaCreationManager.SelectedTable.MaxCovers,
-                 
+
                 YCoordinate = areaCreationManager.SelectedTable.YCoordinate,
                 XCoordinate = areaCreationManager.SelectedTable.XCoordinate + areaCreationManager.SelectedTable.Width,
                 DiningAreaId = areaCreationManager.SelectedTable.DiningAreaId,
@@ -374,17 +348,14 @@ namespace FloorPlanMakerUI
 
         private void btnSaveTable_Click(object sender, EventArgs e)
         {
-            if (areaCreationManager.SelectedTables.Count > 1)
-            {
-                foreach (TableControl tableControl in emphasizedTablesList)
-                {
+            if (areaCreationManager.SelectedTables.Count > 1) {
+                foreach (TableControl tableControl in emphasizedTablesList) {
                     SqliteDataAccess.UpdateTable(tableControl.Table);
                 }
 
 
             }
-            if (areaCreationManager.SelectedTables.Count == 1)
-            {
+            if (areaCreationManager.SelectedTables.Count == 1) {
                 SqliteDataAccess.UpdateTable(areaCreationManager.SelectedTable);
             }
         }
@@ -392,16 +363,13 @@ namespace FloorPlanMakerUI
 
         private void RefreshTableControl(object sender, EventArgs e)
         {
-            if (areaCreationManager.SelectedTables.Count > 1)
-            {
-                foreach (TableControl tableControl in emphasizedTablesList)
-                {
+            if (areaCreationManager.SelectedTables.Count > 1) {
+                foreach (TableControl tableControl in emphasizedTablesList) {
                     SetTablePropertiesFromTxtBx(tableControl.Table, tableControl);
                 }
 
             }
-            if (areaCreationManager.SelectedTables.Count == 1)
-            {
+            if (areaCreationManager.SelectedTables.Count == 1) {
                 SetTablePropertiesFromTxtBx(areaCreationManager.SelectedTable, currentEmphasizedTableControl);
                 //SqliteDataAccess.UpdateTable(areaManager.SelectedTable);
             }
@@ -411,16 +379,13 @@ namespace FloorPlanMakerUI
         }
         private void RefreshTableControl()
         {
-            if (areaCreationManager.SelectedTables.Count > 1)
-            {
-                foreach (TableControl tableControl in emphasizedTablesList)
-                {
+            if (areaCreationManager.SelectedTables.Count > 1) {
+                foreach (TableControl tableControl in emphasizedTablesList) {
                     SetTablePropertiesFromTxtBx(tableControl.Table, tableControl);
                 }
 
             }
-            if (areaCreationManager.SelectedTables.Count == 1)
-            {
+            if (areaCreationManager.SelectedTables.Count == 1) {
                 SetTablePropertiesFromTxtBx(areaCreationManager.SelectedTable, currentEmphasizedTableControl);
                 //SqliteDataAccess.UpdateTable(areaManager.SelectedTable);
             }
@@ -430,32 +395,26 @@ namespace FloorPlanMakerUI
         }
         private void SetTablePropertiesFromTxtBx(Table table, TableControl tableControl)
         {
-            if (!string.IsNullOrWhiteSpace(txtTableNumber.Text))
-            {
-                if (emphasizedTablesList.Count == 1)
-                {
+            if (!string.IsNullOrWhiteSpace(txtTableNumber.Text)) {
+                if (emphasizedTablesList.Count == 1) {
                     table.TableNumber = txtTableNumber.Text;
                 }
 
             }
 
-            if (int.TryParse(txtMaxCovers.Text, out int maxCovers))
-            {
+            if (int.TryParse(txtMaxCovers.Text, out int maxCovers)) {
                 table.MaxCovers = maxCovers;
             }
 
-            if (float.TryParse(txtAverageCovers.Text, out float averageCovers))
-            {
+            if (float.TryParse(txtAverageCovers.Text, out float averageCovers)) {
                 table.SetTableSales(averageCovers);
             }
 
 
-            if (int.TryParse(txtXco.Text, out int xCo))
-            {
+            if (int.TryParse(txtXco.Text, out int xCo)) {
                 table.XCoordinate = xCo;
             }
-            if (int.TryParse(txtYco.Text, out int yCo))
-            {
+            if (int.TryParse(txtYco.Text, out int yCo)) {
                 table.YCoordinate = yCo;
             }
 
@@ -470,32 +429,26 @@ namespace FloorPlanMakerUI
         }
         private void SetTableProperties(Table table, TableControl tableControl)
         {
-            if (!string.IsNullOrWhiteSpace(txtTableNumber.Text))
-            {
-                if (emphasizedTablesList.Count == 1)
-                {
+            if (!string.IsNullOrWhiteSpace(txtTableNumber.Text)) {
+                if (emphasizedTablesList.Count == 1) {
                     table.TableNumber = txtTableNumber.Text;
                 }
 
             }
 
-            if (int.TryParse(txtMaxCovers.Text, out int maxCovers))
-            {
+            if (int.TryParse(txtMaxCovers.Text, out int maxCovers)) {
                 table.MaxCovers = maxCovers;
             }
 
-            if (float.TryParse(txtAverageCovers.Text, out float averageCovers))
-            {
+            if (float.TryParse(txtAverageCovers.Text, out float averageCovers)) {
                 table.SetTableSales(averageCovers);
             }
 
 
-            if (int.TryParse(txtXco.Text, out int xCo))
-            {
+            if (int.TryParse(txtXco.Text, out int xCo)) {
                 table.XCoordinate = xCo;
             }
-            if (int.TryParse(txtYco.Text, out int yCo))
-            {
+            if (int.TryParse(txtYco.Text, out int yCo)) {
                 table.YCoordinate = yCo;
             }
 
@@ -511,10 +464,8 @@ namespace FloorPlanMakerUI
         private int UpdateYCoordinateForTableControl(Table table)
         {
             int yCoordinate = table.YCoordinate;
-            foreach (Control control in pnlFloorPlan.Controls)
-            {
-                if (control is TableControl && control.Tag == areaCreationManager.SelectedTable)
-                {
+            foreach (Control control in pnlFloorPlan.Controls) {
+                if (control is TableControl && control.Tag == areaCreationManager.SelectedTable) {
                     yCoordinate = control.Top;
 
                 }
@@ -524,10 +475,8 @@ namespace FloorPlanMakerUI
         private int UpdateXCoordinateForTableControl(Table table)
         {
             int xCoordinate = table.XCoordinate;
-            foreach (Control control in pnlFloorPlan.Controls)
-            {
-                if (control is TableControl && control.Tag == areaCreationManager.SelectedTable)
-                {
+            foreach (Control control in pnlFloorPlan.Controls) {
+                if (control is TableControl && control.Tag == areaCreationManager.SelectedTable) {
                     xCoordinate = control.Left;
 
                 }
@@ -559,24 +508,18 @@ namespace FloorPlanMakerUI
 
         private void cbLockTables_CheckedChanged(object sender, EventArgs e)
         {
-            if (!cbLockTables.Checked)
-            {
+            if (!cbLockTables.Checked) {
                 cbLockTables.Text = "Lock Tables";
-                foreach (Control control in pnlFloorPlan.Controls)
-                {
-                    if (control is TableControl tableControl)
-                    {
+                foreach (Control control in pnlFloorPlan.Controls) {
+                    if (control is TableControl tableControl) {
                         tableControl.Moveable = true;
                     }
                 }
             }
-            else
-            {
+            else {
                 cbLockTables.Text = "Unlock Tables";
-                foreach (Control control in pnlFloorPlan.Controls)
-                {
-                    if (control is TableControl tableControl)
-                    {
+                foreach (Control control in pnlFloorPlan.Controls) {
+                    if (control is TableControl tableControl) {
                         tableControl.Moveable = false;
                     }
                 }
@@ -588,8 +531,7 @@ namespace FloorPlanMakerUI
             //allTableControls.Clear();
 
             // pnlFloorPlan.Controls.Clear();
-            foreach (TableControl tableControl in allTableControls)
-            {
+            foreach (TableControl tableControl in allTableControls) {
                 TableDataEditorControl dataEditor = new TableDataEditorControl(tableControl);
                 pnlFloorPlan.Controls.Add(dataEditor);
                 dataEditor.BringToFront();
@@ -599,23 +541,17 @@ namespace FloorPlanMakerUI
 
         private void cbViewMode_CheckedChanged(object sender, EventArgs e)
         {
-            if (cbViewMode.Checked)
-            {
-                foreach (Control c in pnlFloorPlan.Controls)
-                {
-                    if (c is TableControl tableControl)
-                    {
+            if (cbViewMode.Checked) {
+                foreach (Control c in pnlFloorPlan.Controls) {
+                    if (c is TableControl tableControl) {
                         tableControl.CurrentDisplayMode = DisplayMode.AverageCovers;
                         tableControl.Invalidate();
                     }
                 }
             }
-            else
-            {
-                foreach (Control c in pnlFloorPlan.Controls)
-                {
-                    if (c is TableControl tableControl)
-                    {
+            else {
+                foreach (Control c in pnlFloorPlan.Controls) {
+                    if (c is TableControl tableControl) {
                         tableControl.CurrentDisplayMode = DisplayMode.TableNumber;
                         tableControl.Invalidate();
                     }
@@ -630,16 +566,13 @@ namespace FloorPlanMakerUI
         }
         private void SetTableControlsToCoverData()
         {
-            foreach (TableDataEditorControl editor in tableDataEditors)
-            {
+            foreach (TableDataEditorControl editor in tableDataEditors) {
                 pnlFloorPlan.Controls.Remove(editor);
             }
             tableDataEditors.Clear();
-            if (rdoCoverView.Checked)
-            {
+            if (rdoCoverView.Checked) {
                 pnlFloorPlan.Controls.Remove(positionEditor);
-                foreach (TableControl tableControl in allTableControls)
-                {
+                foreach (TableControl tableControl in allTableControls) {
                     TableDataEditorControl dataEditor = new TableDataEditorControl(tableControl);
                     tableControl.Controls.Remove(txtTableNumber);
 
@@ -666,16 +599,13 @@ namespace FloorPlanMakerUI
         }
         private void SetTableControlsToSalesData()
         {
-            foreach (TableDataEditorControl editor in tableDataEditors)
-            {
+            foreach (TableDataEditorControl editor in tableDataEditors) {
                 pnlFloorPlan.Controls.Remove(editor);
             }
             tableDataEditors.Clear();
-            if (rdoSalesView.Checked)
-            {
+            if (rdoSalesView.Checked) {
                 pnlFloorPlan.Controls.Remove(positionEditor);
-                foreach (TableControl tableControl in allTableControls)
-                {
+                foreach (TableControl tableControl in allTableControls) {
                     TableDataEditorControl dataEditor = new TableDataEditorControl(tableControl);
                     tableControl.Controls.Remove(txtTableNumber);
 
@@ -695,22 +625,16 @@ namespace FloorPlanMakerUI
         }
         private void SetTableControlsToReposition()
         {
-            if (rdoEditPositions.Checked)
-            {
-                foreach (Control control in pnlFloorPlan.Controls)
-                {
-                    if (control is TableControl tableControl)
-                    {
+            if (rdoEditPositions.Checked) {
+                foreach (Control control in pnlFloorPlan.Controls) {
+                    if (control is TableControl tableControl) {
                         tableControl.Moveable = true;
                     }
                 }
             }
-            else
-            {
-                foreach (Control control in pnlFloorPlan.Controls)
-                {
-                    if (control is TableControl tableControl)
-                    {
+            else {
+                foreach (Control control in pnlFloorPlan.Controls) {
+                    if (control is TableControl tableControl) {
                         tableControl.Moveable = false;
                     }
                 }
@@ -718,16 +642,14 @@ namespace FloorPlanMakerUI
         }
         private void rdoDefaultView_CheckedChanged(object sender, EventArgs e)
         {
-            if (rdoDefaultView.Checked)
-            {
+            if (rdoDefaultView.Checked) {
 
             }
         }
 
         private void picAddSquare_Click(object sender, EventArgs e)
         {
-            TableControl table = new TableControl()
-            {
+            TableControl table = new TableControl() {
                 Width = 100,
                 Height = 100,
                 Left = new Random().Next(100, 300),
@@ -746,8 +668,7 @@ namespace FloorPlanMakerUI
 
         private void picAddDiamond_Click(object sender, EventArgs e)
         {
-            TableControl table = new TableControl()
-            {
+            TableControl table = new TableControl() {
                 Width = 100,
                 Height = 100,
                 Left = new Random().Next(100, 300),
@@ -765,8 +686,7 @@ namespace FloorPlanMakerUI
 
         private void picAddCircle_Click(object sender, EventArgs e)
         {
-            TableControl table = new TableControl()
-            {
+            TableControl table = new TableControl() {
                 Width = 100,
                 Height = 100,
                 Left = new Random().Next(100, 300),
@@ -784,8 +704,7 @@ namespace FloorPlanMakerUI
 
         private void pnlFloorPlan_Click(object sender, EventArgs e)
         {
-            foreach (var emphasizedTable in emphasizedTablesList)
-            {
+            foreach (var emphasizedTable in emphasizedTablesList) {
 
                 emphasizedTable.Controls.Remove(emphasizedTable.txtTableNumber);
                 emphasizedTable.BorderThickness = 1;
@@ -795,6 +714,7 @@ namespace FloorPlanMakerUI
             emphasizedTablesList.Clear();
             areaCreationManager.SelectedTables.Clear();
             areaCreationManager.SelectedTable = null;
+            diningAreaInfoControl.SetTableSelectedToNone();
             currentEmphasizedTableControl = null;
             pnlFloorPlan.Controls.Remove(positionEditor);
         }
@@ -803,8 +723,7 @@ namespace FloorPlanMakerUI
         TableGrid grid = new TableGrid();
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox1.Checked)
-            {
+            if (checkBox1.Checked) {
                 MakeNeighborControlsVisible();
                 grid = new TableGrid(areaCreationManager.DiningAreaSelected.Tables);
                 grid.FindTableTopBottomNeighbors();
@@ -815,16 +734,14 @@ namespace FloorPlanMakerUI
                 // List<string> testing = grid.GetTestData();
 
             }
-            else
-            {
+            else {
                 MakeNeighborControlsInvisible();
                 pnlFloorPlan.BackgroundImage = null;
             }
         }
         private void refreshSelectedTableNeighbors()
         {
-            if (checkBox1.Checked)
-            {
+            if (checkBox1.Checked) {
                 NeighborsChanged();
                 ToggleViewAllBorders();
             }
@@ -834,18 +751,14 @@ namespace FloorPlanMakerUI
         {
             lblSelectedTableNumber.Text = areaCreationManager.SelectedTable.TableNumber;
             List<string> tableNumbers = grid.GetNeighborNames(areaCreationManager.SelectedTable.TableNumber);
-            foreach (TableControl tableControl in pnlFloorPlan.Controls)
-            {
-                if (tableNumbers.Contains(tableControl.Table.TableNumber))
-                {
+            foreach (TableControl tableControl in pnlFloorPlan.Controls) {
+                if (tableNumbers.Contains(tableControl.Table.TableNumber)) {
                     tableControl.BackColor = UITheme.CautionColor;
                 }
-                else if (tableControl.Table.TableNumber == areaCreationManager.SelectedTable.TableNumber)
-                {
+                else if (tableControl.Table.TableNumber == areaCreationManager.SelectedTable.TableNumber) {
                     tableControl.BackColor = UITheme.YesColor;
                 }
-                else
-                {
+                else {
                     tableControl.BackColor = Color.LightGray;
                 }
             }
@@ -855,8 +768,7 @@ namespace FloorPlanMakerUI
             lbTableNeighbors.Items.Clear();
 
             List<string> displayableNeighbors = grid.GetDisplayableNeighbors(neighbors, areaCreationManager.SelectedTable);
-            foreach (var neighborString in displayableNeighbors)
-            {
+            foreach (var neighborString in displayableNeighbors) {
                 lbTableNeighbors.Items.Add(neighborString);
             }
             txtMidPoint.Text = "";
@@ -906,19 +818,16 @@ namespace FloorPlanMakerUI
 
         private void lbTableNeighbors_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (lbTableNeighbors.SelectedIndex != -1)
-            {
+            if (lbTableNeighbors.SelectedIndex != -1) {
                 string selectedString = lbTableNeighbors.SelectedItem.ToString();
-                if (grid.NeighborMapping.TryGetValue(selectedString, out Neighbor selectedNeighbor))
-                {
+                if (grid.NeighborMapping.TryGetValue(selectedString, out Neighbor selectedNeighbor)) {
                     txtMidPoint.Text = selectedNeighbor.MidPoint.ToString();
                     txtStart.Text = selectedNeighbor.Start.ToString();
                     txtEnd.Text = selectedNeighbor.End.ToString();
                     ToggleViewAllBorders(selectedNeighbor.Edge);
                 }
             }
-            else
-            {
+            else {
                 txtMidPoint.Text = "";
                 txtStart.Text = "";
                 txtEnd.Text = "";
@@ -932,10 +841,8 @@ namespace FloorPlanMakerUI
         }
         private void ToggleViewAllBorders()
         {
-            if (cbOnlyShowThisTableLines.Checked)
-            {
-                if (areaCreationManager.SelectedTable == null)
-                {
+            if (cbOnlyShowThisTableLines.Checked) {
+                if (areaCreationManager.SelectedTable == null) {
                     return;
                 }
 
@@ -943,8 +850,7 @@ namespace FloorPlanMakerUI
                 Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, edges);
                 pnlFloorPlan.BackgroundImage = edgesBitmap;
             }
-            else
-            {
+            else {
 
                 //Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, grid.GetAllTableBoarders());
                 List<Edge> edges = grid.GetNeighborEdges();
@@ -954,10 +860,8 @@ namespace FloorPlanMakerUI
         }
         private void ToggleViewAllBorders(Edge edge)
         {
-            if (cbOnlyShowThisTableLines.Checked)
-            {
-                if (areaCreationManager.SelectedTable == null)
-                {
+            if (cbOnlyShowThisTableLines.Checked) {
+                if (areaCreationManager.SelectedTable == null) {
                     return;
                 }
 
@@ -965,8 +869,7 @@ namespace FloorPlanMakerUI
                 Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, edges, edge);
                 pnlFloorPlan.BackgroundImage = edgesBitmap;
             }
-            else
-            {
+            else {
 
                 //Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, grid.GetAllTableBoarders());
                 List<Edge> edges = grid.GetNeighborEdges();
@@ -978,8 +881,7 @@ namespace FloorPlanMakerUI
         private void btnRemoveNeighbor_Click(object sender, EventArgs e)
         {
             string selectedString = lbTableNeighbors.SelectedItem.ToString();
-            if (grid.NeighborMapping.TryGetValue(selectedString, out Neighbor selectedNeighbor))
-            {
+            if (grid.NeighborMapping.TryGetValue(selectedString, out Neighbor selectedNeighbor)) {
                 string pairKey = grid.overriddenPairs.GetPairKey(selectedNeighbor.table1, selectedNeighbor.table2);
                 SqliteDataAccess.SaveIgnoredPair(pairKey);
                 grid.overriddenPairs.ignorePairs.Add(pairKey);
@@ -1004,18 +906,15 @@ namespace FloorPlanMakerUI
         private void btnChangeNeighborEdge_Click(object sender, EventArgs e)
         {
             string selectedString = lbTableNeighbors.SelectedItem.ToString();
-            if (grid.NeighborMapping.TryGetValue(selectedString, out Neighbor selectedNeighbor))
-            {
+            if (grid.NeighborMapping.TryGetValue(selectedString, out Neighbor selectedNeighbor)) {
                 int newMidPoint = int.Parse(txtMidPoint.Text);
                 int newStart = int.Parse(txtStart.Text);
                 int newEnd = int.Parse(txtEnd.Text);
                 selectedNeighbor.SetNewNodes(newMidPoint, newStart, newEnd);
-                if (selectedNeighbor is RightLeftNeighbor selectedRLneighbor)
-                {
+                if (selectedNeighbor is RightLeftNeighbor selectedRLneighbor) {
                     SqliteDataAccess.SaveRightLeftNeighbor(selectedRLneighbor);
                 }
-                else if (selectedNeighbor is TopBottomNeighbor selectedTBNeighbor)
-                {
+                else if (selectedNeighbor is TopBottomNeighbor selectedTBNeighbor) {
                     SqliteDataAccess.SaveTopBottomNeighbor(selectedTBNeighbor);
                 }
 
@@ -1028,6 +927,9 @@ namespace FloorPlanMakerUI
             }
         }
 
+        private void pnlFloorPlan_Paint(object sender, PaintEventArgs e)
+        {
 
+        }
     }
 }

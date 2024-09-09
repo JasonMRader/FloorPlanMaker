@@ -64,12 +64,14 @@ namespace FloorplanUserControlLibrary
         {
             lbLegacyTables.Items.Clear();
             //List<int> tableInts = new List<int>();
+            tableSelected.InheritedTables = tableSelected.InheritedTables.OrderBy(s => s).ToList();
             foreach (string tableNumber in tableSelected.InheritedTables) {
                 //if(int.TryParse(tableNumber, out var table)) {
                 //    tableInts.Add(table);
                 //}
                 lbLegacyTables.Items.Add(tableNumber);
             }
+            
         }
 
         private void setControlsForDiningArea()
@@ -108,8 +110,9 @@ namespace FloorplanUserControlLibrary
             if (lbLegacyTables.SelectedIndex != -1) {
                 string tablePair = lbLegacyTables.SelectedItem.ToString();
                 tableSelected.InheritedTables.Remove(tablePair);
-                lbLegacyTables.Items.Remove(lbLegacyTables.SelectedIndex);
+                //lbLegacyTables.Items.Remove(lbLegacyTables.SelectedIndex);
                 SqliteDataAccess.SaveInheritedTablePairs(tableSelected);
+                PopulateInheritedTablesListBox();
             }
             if (tableSelected.InheritedTables.Count == 0) {
                 TableStatusUpdated?.Invoke(tableSelected);

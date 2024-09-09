@@ -283,6 +283,12 @@
   <data name="Inside" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Inside.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="InsideBar_counter" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\InsideBar_counter.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="InsideBar_counter_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\InsideBar_counter_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="InsideDining" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\InsideDining.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -384,6 +390,12 @@
   </data>
   <data name="OutSideSolid" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\OutSideSolid.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Outside_forest" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Outside_forest.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Outside_forest_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Outside_forest_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="people" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\people.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

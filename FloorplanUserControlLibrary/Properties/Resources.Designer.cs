@@ -653,6 +653,26 @@ namespace FloorplanUserControlLibrary.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap InsideBar_counter {
+            get {
+                object obj = ResourceManager.GetObject("InsideBar_counter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap InsideBar_counter_32px {
+            get {
+                object obj = ResourceManager.GetObject("InsideBar_counter_32px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap InsideDining {
             get {
                 object obj = ResourceManager.GetObject("InsideDining", resourceCulture);
@@ -936,6 +956,26 @@ namespace FloorplanUserControlLibrary.Properties {
         internal static System.Drawing.Bitmap NumRepossmallest {
             get {
                 object obj = ResourceManager.GetObject("NumRepossmallest", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Outside_forest {
+            get {
+                object obj = ResourceManager.GetObject("Outside_forest", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Outside_forest_32 {
+            get {
+                object obj = ResourceManager.GetObject("Outside_forest_32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

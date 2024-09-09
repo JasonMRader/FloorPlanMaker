@@ -13,8 +13,7 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
-            {
+            if (disposing && (components != null)) {
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -102,6 +101,7 @@
             pnlFloorPlan.Size = new Size(672, 877);
             pnlFloorPlan.TabIndex = 0;
             pnlFloorPlan.Click += pnlFloorPlan_Click;
+            pnlFloorPlan.Paint += pnlFloorPlan_Paint;
             // 
             // btnCreateNewDiningArea
             // 

@@ -40,7 +40,7 @@ namespace FloorPlanMakerUI
         public static Color AccentColor = Color.FromArgb(225, 225, 225);
         public static Color AccentFontColor = Color.White;
 
-        public static Color ButtonColor = Color.FromArgb(190, 80, 70);
+        public static Color ButtonColor = Color.FromArgb(160, 160, 160);
         public static Color ButtonFontColor = Color.White;
 
         public static Color CTAColor = Color.FromArgb(100,130,180);
@@ -353,7 +353,8 @@ namespace FloorPlanMakerUI
             }
             if (area.ID == 2)
             {
-                return Resources.OutsideDining;
+                return Resources.Outside_forest_32;
+                //return Resources.OutsideDining;
             }
             if (area.ID == 3)
             {
@@ -361,7 +362,8 @@ namespace FloorPlanMakerUI
             }
             if (area.ID == 4)
             {
-                return Resources.Inside_Bar;
+                return Resources.InsideBar_counter_32px;
+                //return Resources.Inside_Bar;
             }
             if (area.ID == 5)
             {
