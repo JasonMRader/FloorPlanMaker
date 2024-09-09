@@ -35,25 +35,39 @@ namespace FloorplanUserControlLibrary
         public void SetTableSelectedToNone()
         {
             lblTableSelected.Visible = false;
+            lbLegacyTables.Items.Clear();
+            rdoIncludeTable.Visible = false;
+            rdoExcludeTable.Visible = false;
         }
 
         private void SetControlForTableSelected()
         {
+            rdoIncludeTable.Visible = true;
+            rdoExcludeTable.Visible = true;
             lblTableSelected.Visible = true;
             lblTableSelected.Text = tableSelected.TableNumber;
-            lbLegacyTables.Items.Clear();
-            foreach (string tableNumber in tableSelected.InheritedTables) {
-                lbLegacyTables.Items.Add(tableNumber);
-            }
+           
+            PopulateInheritedTablesListBox();
             if (tableSelected.IsIncluded) {
                 rdoIncludeTable.Checked = true;
                 rdoIncludeTable.Text = "Table Included In Stats";
                 rdoExcludeTable.Text = "Exclude Table";
             }
             else {
-                rdoExcludeTable.Checked = true;                
+                rdoExcludeTable.Checked = true;
                 rdoIncludeTable.Text = "Included Table";
                 rdoExcludeTable.Text = "Table Excluded From Stats";
+            }
+        }
+        private void PopulateInheritedTablesListBox()
+        {
+            lbLegacyTables.Items.Clear();
+            //List<int> tableInts = new List<int>();
+            foreach (string tableNumber in tableSelected.InheritedTables) {
+                //if(int.TryParse(tableNumber, out var table)) {
+                //    tableInts.Add(table);
+                //}
+                lbLegacyTables.Items.Add(tableNumber);
             }
         }
 
@@ -81,6 +95,7 @@ namespace FloorplanUserControlLibrary
                 tableSelected.InheritedTables.Add(txtLegacyTable.Text);
                 lbLegacyTables.Items.Add(txtLegacyTable.Text);
                 SqliteDataAccess.SaveInheritedTablePairs(tableSelected);
+                txtLegacyTable.Clear();
             }
         }
 
@@ -122,5 +137,20 @@ namespace FloorplanUserControlLibrary
             }
         }
 
+        private void btnAddRange_Click(object sender, EventArgs e)
+        {
+            int tableStart = (int)nudStartTable.Value;
+            int tableEnd = (int)nudEndTable.Value;
+            for (int i = tableStart; i <= tableEnd; i++) {
+                string tableNumber = i.ToString();
+                if (!tableSelected.InheritedTables.Contains(tableNumber)) {
+                    tableSelected.InheritedTables.Add(tableNumber); 
+                }
+
+            }
+            txtLegacyTable.Clear();
+            SqliteDataAccess.SaveInheritedTablePairs(tableSelected);
+            PopulateInheritedTablesListBox();
+        }
     }
 }

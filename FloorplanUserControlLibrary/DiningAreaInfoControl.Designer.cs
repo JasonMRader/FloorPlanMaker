@@ -44,7 +44,12 @@
             panel1 = new Panel();
             rdoExcludeTable = new RadioButton();
             rdoIncludeTable = new RadioButton();
+            btnAddRange = new Button();
+            nudStartTable = new NumericUpDown();
+            nudEndTable = new NumericUpDown();
             panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)nudStartTable).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudEndTable).BeginInit();
             SuspendLayout();
             // 
             // lblDiningAreaName
@@ -222,15 +227,46 @@
             rdoIncludeTable.UseVisualStyleBackColor = false;
             rdoIncludeTable.Click += rdoIncludeTable_Clicked;
             // 
+            // btnAddRange
+            // 
+            btnAddRange.Location = new Point(26, 632);
+            btnAddRange.Name = "btnAddRange";
+            btnAddRange.Size = new Size(150, 23);
+            btnAddRange.TabIndex = 4;
+            btnAddRange.Text = "Add Range";
+            btnAddRange.UseVisualStyleBackColor = true;
+            btnAddRange.Click += btnAddRange_Click;
+            // 
+            // nudStartTable
+            // 
+            nudStartTable.Location = new Point(26, 595);
+            nudStartTable.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
+            nudStartTable.Name = "nudStartTable";
+            nudStartTable.Size = new Size(69, 23);
+            nudStartTable.TabIndex = 8;
+            nudStartTable.TextAlign = HorizontalAlignment.Center;
+            // 
+            // nudEndTable
+            // 
+            nudEndTable.Location = new Point(107, 595);
+            nudEndTable.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
+            nudEndTable.Name = "nudEndTable";
+            nudEndTable.Size = new Size(69, 23);
+            nudEndTable.TabIndex = 8;
+            nudEndTable.TextAlign = HorizontalAlignment.Center;
+            // 
             // DiningAreaInfoControl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(nudEndTable);
+            Controls.Add(nudStartTable);
             Controls.Add(panel1);
             Controls.Add(label7);
             Controls.Add(lblTableSelected);
             Controls.Add(btnOpenManageTablesForm);
             Controls.Add(btnRemoveSelected);
+            Controls.Add(btnAddRange);
             Controls.Add(btnAddNew);
             Controls.Add(txtLegacyTable);
             Controls.Add(lbLegacyTables);
@@ -245,6 +281,8 @@
             Size = new Size(208, 950);
             Load += DiningAreaInfoControl_Load;
             panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)nudStartTable).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudEndTable).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -268,5 +306,8 @@
         private Panel panel1;
         private RadioButton rdoIncludeTable;
         private RadioButton rdoExcludeTable;
+        private Button btnAddRange;
+        private NumericUpDown nudStartTable;
+        private NumericUpDown nudEndTable;
     }
 }

@@ -660,7 +660,8 @@ namespace FloorplanClassLibrary
                     YCoordinate = table.YCoordinate,
                     Shape = (int)table.Shape,
                     Width = table.Width,
-                    Height = table.Height
+                    Height = table.Height,
+                    IsIncluded = table.IsIncluded
                    
                 };
 
@@ -674,7 +675,8 @@ namespace FloorplanClassLibrary
                 YCoordinate = @YCoordinate,
                 Shape = @Shape,
                 Width = @Width,
-                Height = @Height
+                Height = @Height,
+                IsIncluded = @IsIncluded
             WHERE ID = @ID";
 
                 cnn.Execute(sql, parameters);
