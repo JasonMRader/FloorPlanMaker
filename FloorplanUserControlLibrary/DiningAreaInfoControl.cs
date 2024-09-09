@@ -25,6 +25,22 @@ namespace FloorplanUserControlLibrary
         {
             this.diningArea = diningArea;
             setControlsForDiningArea();
+            SetTableSelectedToNone();
+        }
+        public void SetTableSelected(Table tableSelected)
+        {
+            this.tableSelected = tableSelected;
+            SetControlForTableSelected();
+        }
+        public void SetTableSelectedToNone()
+        {
+            lblTableSelected.Visible = false;
+        }
+
+        private void SetControlForTableSelected()
+        {
+            lblTableSelected.Visible = true;
+            lblTableSelected.Text = tableSelected.TableNumber;
         }
 
         private void setControlsForDiningArea()

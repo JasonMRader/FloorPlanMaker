@@ -34,13 +34,13 @@
             label4 = new Label();
             label5 = new Label();
             label6 = new Label();
-            listBox1 = new ListBox();
-            textBox1 = new TextBox();
+            lbLegacyTables = new ListBox();
+            txtLegacyTable = new TextBox();
             btnAddNew = new Button();
             btnRemoveSelected = new Button();
-            label7 = new Label();
-            listBox2 = new ListBox();
             btnOpenManageTablesForm = new Button();
+            lblTableSelected = new Label();
+            label7 = new Label();
             SuspendLayout();
             // 
             // lblDiningAreaName
@@ -101,31 +101,31 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(13, 191);
+            label6.Location = new Point(29, 332);
             label6.Name = "label6";
-            label6.Size = new Size(150, 15);
+            label6.Size = new Size(137, 15);
             label6.TabIndex = 1;
-            label6.Text = "Excluded Tables From Sales";
+            label6.Text = "Inherited / Legacy Tables";
             // 
-            // listBox1
+            // lbLegacyTables
             // 
-            listBox1.FormattingEnabled = true;
-            listBox1.ItemHeight = 15;
-            listBox1.Location = new Point(13, 219);
-            listBox1.Name = "listBox1";
-            listBox1.Size = new Size(150, 94);
-            listBox1.TabIndex = 2;
+            lbLegacyTables.FormattingEnabled = true;
+            lbLegacyTables.ItemHeight = 15;
+            lbLegacyTables.Location = new Point(29, 350);
+            lbLegacyTables.Name = "lbLegacyTables";
+            lbLegacyTables.Size = new Size(150, 94);
+            lbLegacyTables.TabIndex = 2;
             // 
-            // textBox1
+            // txtLegacyTable
             // 
-            textBox1.Location = new Point(13, 319);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(150, 23);
-            textBox1.TabIndex = 3;
+            txtLegacyTable.Location = new Point(29, 450);
+            txtLegacyTable.Name = "txtLegacyTable";
+            txtLegacyTable.Size = new Size(150, 23);
+            txtLegacyTable.TabIndex = 3;
             // 
             // btnAddNew
             // 
-            btnAddNew.Location = new Point(13, 348);
+            btnAddNew.Location = new Point(29, 479);
             btnAddNew.Name = "btnAddNew";
             btnAddNew.Size = new Size(150, 23);
             btnAddNew.TabIndex = 4;
@@ -134,30 +134,12 @@
             // 
             // btnRemoveSelected
             // 
-            btnRemoveSelected.Location = new Point(13, 377);
+            btnRemoveSelected.Location = new Point(29, 508);
             btnRemoveSelected.Name = "btnRemoveSelected";
             btnRemoveSelected.Size = new Size(150, 23);
             btnRemoveSelected.TabIndex = 4;
             btnRemoveSelected.Text = "Remove Selected";
             btnRemoveSelected.UseVisualStyleBackColor = true;
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Location = new Point(13, 449);
-            label7.Name = "label7";
-            label7.Size = new Size(183, 15);
-            label7.TabIndex = 1;
-            label7.Text = "Included Tables No Longer Active";
-            // 
-            // listBox2
-            // 
-            listBox2.FormattingEnabled = true;
-            listBox2.ItemHeight = 15;
-            listBox2.Location = new Point(13, 480);
-            listBox2.Name = "listBox2";
-            listBox2.Size = new Size(150, 94);
-            listBox2.TabIndex = 2;
             // 
             // btnOpenManageTablesForm
             // 
@@ -169,17 +151,36 @@
             btnOpenManageTablesForm.UseVisualStyleBackColor = true;
             btnOpenManageTablesForm.Click += btnOpenManageTablesForm_Click;
             // 
+            // lblTableSelected
+            // 
+            lblTableSelected.AutoSize = true;
+            lblTableSelected.Font = new Font("Segoe UI", 36F, FontStyle.Bold, GraphicsUnit.Point);
+            lblTableSelected.Location = new Point(56, 247);
+            lblTableSelected.Name = "lblTableSelected";
+            lblTableSelected.Size = new Size(84, 65);
+            lblTableSelected.TabIndex = 6;
+            lblTableSelected.Text = "36";
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(13, 261);
+            label7.Name = "label7";
+            label7.Size = new Size(37, 15);
+            label7.TabIndex = 6;
+            label7.Text = "Table:";
+            // 
             // DiningAreaInfoControl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(label7);
+            Controls.Add(lblTableSelected);
             Controls.Add(btnOpenManageTablesForm);
             Controls.Add(btnRemoveSelected);
             Controls.Add(btnAddNew);
-            Controls.Add(textBox1);
-            Controls.Add(listBox2);
-            Controls.Add(listBox1);
-            Controls.Add(label7);
+            Controls.Add(txtLegacyTable);
+            Controls.Add(lbLegacyTables);
             Controls.Add(label6);
             Controls.Add(label3);
             Controls.Add(label2);
@@ -203,12 +204,12 @@
         private Label label4;
         private Label label5;
         private Label label6;
-        private ListBox listBox1;
-        private TextBox textBox1;
+        private ListBox lbLegacyTables;
+        private TextBox txtLegacyTable;
         private Button btnAddNew;
         private Button btnRemoveSelected;
-        private Label label7;
-        private ListBox listBox2;
         private Button btnOpenManageTablesForm;
+        private Label lblTableSelected;
+        private Label label7;
     }
 }

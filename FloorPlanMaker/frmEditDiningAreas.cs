@@ -268,7 +268,7 @@ namespace FloorPlanMakerUI
             }
 
 
-
+            diningAreaInfoControl.SetTableSelected(clickedTable);
             refreshSelectedTableNeighbors();
 
 

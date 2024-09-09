@@ -28,6 +28,8 @@
         public TableShape Shape { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
+        public bool HasLegacyTables { get; set; }
+
         public void SetTableSales(float sales)
         {
             _averageSales = sales;

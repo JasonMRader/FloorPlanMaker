@@ -1,5 +1,5 @@
 ﻿using FloorplanClassLibrary;
-
+using FloorPlanMakerUI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +24,27 @@ namespace FloorPlanMaker
                 Location = new Point(table.XCoordinate, table.YCoordinate),
                 Tag = table
             };
+        }
+        public static TableControl CreateConfigurableTable(Table table)
+        {
+            TableControl newTable = new TableControl {
+                Table = table,
+                Width = table.Width,
+                Height = table.Height,
+                Left = table.XCoordinate,
+                Top = table.YCoordinate,
+                Moveable = false,
+                Shape = table.Shape,
+                Location = new Point(table.XCoordinate, table.YCoordinate),
+                Tag = table
+            };
+            if (table.HasLegacyTables) {
+                newTable.BackColor = UITheme.WarningColor;
+            }
+            else if (!table.IsIncluded) {
+                newTable.BackColor = UITheme.NoColor;
+            }
+            return newTable;
         }
         public static TableControl CreateMiniTableControl(Table table, float factor, int yAdjustment)
         {
