@@ -170,7 +170,7 @@ namespace FloorPlanMakerUI
                 TableControl tableControl = TableControlFactory.CreateConfigurableTable(table);
                 //tableControl.TableClicked += Table_TableClicked;  // Uncomment if you want to attach event handler
                 tableControl.TableClicked += ExistingTable_TableClicked;
-                tableControl.BackColor = Color.LightGray;
+                
                 pnlFloorPlan.Controls.Add(tableControl);
                 allTableControls.Add(tableControl);
             }

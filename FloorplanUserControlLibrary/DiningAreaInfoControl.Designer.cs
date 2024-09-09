@@ -41,6 +41,10 @@
             btnOpenManageTablesForm = new Button();
             lblTableSelected = new Label();
             label7 = new Label();
+            panel1 = new Panel();
+            rdoExcludeTable = new RadioButton();
+            rdoIncludeTable = new RadioButton();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // lblDiningAreaName
@@ -101,7 +105,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(29, 332);
+            label6.Location = new Point(26, 390);
             label6.Name = "label6";
             label6.Size = new Size(137, 15);
             label6.TabIndex = 1;
@@ -111,35 +115,38 @@
             // 
             lbLegacyTables.FormattingEnabled = true;
             lbLegacyTables.ItemHeight = 15;
-            lbLegacyTables.Location = new Point(29, 350);
+            lbLegacyTables.Location = new Point(26, 408);
             lbLegacyTables.Name = "lbLegacyTables";
             lbLegacyTables.Size = new Size(150, 94);
             lbLegacyTables.TabIndex = 2;
+            lbLegacyTables.SelectedIndexChanged += lbLegacyTables_SelectedIndexChanged;
             // 
             // txtLegacyTable
             // 
-            txtLegacyTable.Location = new Point(29, 450);
+            txtLegacyTable.Location = new Point(26, 508);
             txtLegacyTable.Name = "txtLegacyTable";
             txtLegacyTable.Size = new Size(150, 23);
             txtLegacyTable.TabIndex = 3;
             // 
             // btnAddNew
             // 
-            btnAddNew.Location = new Point(29, 479);
+            btnAddNew.Location = new Point(26, 537);
             btnAddNew.Name = "btnAddNew";
             btnAddNew.Size = new Size(150, 23);
             btnAddNew.TabIndex = 4;
             btnAddNew.Text = "Add New";
             btnAddNew.UseVisualStyleBackColor = true;
+            btnAddNew.Click += btnAddNew_Click;
             // 
             // btnRemoveSelected
             // 
-            btnRemoveSelected.Location = new Point(29, 508);
+            btnRemoveSelected.Location = new Point(26, 566);
             btnRemoveSelected.Name = "btnRemoveSelected";
             btnRemoveSelected.Size = new Size(150, 23);
             btnRemoveSelected.TabIndex = 4;
             btnRemoveSelected.Text = "Remove Selected";
             btnRemoveSelected.UseVisualStyleBackColor = true;
+            btnRemoveSelected.Click += btnRemoveSelected_Click;
             // 
             // btnOpenManageTablesForm
             // 
@@ -170,10 +177,56 @@
             label7.TabIndex = 6;
             label7.Text = "Table:";
             // 
+            // panel1
+            // 
+            panel1.Controls.Add(rdoExcludeTable);
+            panel1.Controls.Add(rdoIncludeTable);
+            panel1.Location = new Point(13, 315);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(179, 65);
+            panel1.TabIndex = 7;
+            // 
+            // rdoExcludeTable
+            // 
+            rdoExcludeTable.Appearance = Appearance.Button;
+            rdoExcludeTable.BackColor = SystemColors.ButtonShadow;
+            rdoExcludeTable.FlatAppearance.BorderSize = 0;
+            rdoExcludeTable.FlatAppearance.CheckedBackColor = Color.FromArgb(190, 80, 70);
+            rdoExcludeTable.FlatStyle = FlatStyle.Flat;
+            rdoExcludeTable.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            rdoExcludeTable.Location = new Point(3, 33);
+            rdoExcludeTable.Name = "rdoExcludeTable";
+            rdoExcludeTable.Size = new Size(173, 24);
+            rdoExcludeTable.TabIndex = 0;
+            rdoExcludeTable.Text = "Exclude Table";
+            rdoExcludeTable.TextAlign = ContentAlignment.MiddleCenter;
+            rdoExcludeTable.UseVisualStyleBackColor = false;
+            rdoExcludeTable.Click += rdoIncludeTable_Clicked;
+            // 
+            // rdoIncludeTable
+            // 
+            rdoIncludeTable.Appearance = Appearance.Button;
+            rdoIncludeTable.BackColor = SystemColors.ButtonShadow;
+            rdoIncludeTable.Checked = true;
+            rdoIncludeTable.FlatAppearance.BorderSize = 0;
+            rdoIncludeTable.FlatAppearance.CheckedBackColor = Color.FromArgb(120, 180, 120);
+            rdoIncludeTable.FlatStyle = FlatStyle.Flat;
+            rdoIncludeTable.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            rdoIncludeTable.Location = new Point(3, 3);
+            rdoIncludeTable.Name = "rdoIncludeTable";
+            rdoIncludeTable.Size = new Size(173, 24);
+            rdoIncludeTable.TabIndex = 0;
+            rdoIncludeTable.TabStop = true;
+            rdoIncludeTable.Text = "Included In Stats";
+            rdoIncludeTable.TextAlign = ContentAlignment.MiddleCenter;
+            rdoIncludeTable.UseVisualStyleBackColor = false;
+            rdoIncludeTable.Click += rdoIncludeTable_Clicked;
+            // 
             // DiningAreaInfoControl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(panel1);
             Controls.Add(label7);
             Controls.Add(lblTableSelected);
             Controls.Add(btnOpenManageTablesForm);
@@ -191,6 +244,7 @@
             Name = "DiningAreaInfoControl";
             Size = new Size(208, 950);
             Load += DiningAreaInfoControl_Load;
+            panel1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -211,5 +265,8 @@
         private Button btnOpenManageTablesForm;
         private Label lblTableSelected;
         private Label label7;
+        private Panel panel1;
+        private RadioButton rdoIncludeTable;
+        private RadioButton rdoExcludeTable;
     }
 }

@@ -28,7 +28,8 @@
         public TableShape Shape { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
-        public bool HasLegacyTables { get; set; }
+        public bool HasInheritedTables { get { return InheritedTables.Count > 0; } }
+        public List<string> InheritedTables { get; set; } = new List<string>();
 
         public void SetTableSales(float sales)
         {

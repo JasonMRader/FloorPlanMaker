@@ -533,6 +533,10 @@ namespace FloorplanClassLibrary
                     {
                         table.DiningArea = diningArea;
                     }
+                    var pairedTables = cnn.Query<string>(
+                        "SELECT TableNumber FROM InheritedTablePairs WHERE MainTableNumber = @MainTableNumber",
+                new { MainTableNumber = table.TableNumber }).ToList();                    
+                    table.InheritedTables.AddRange(pairedTables);
                 }
 
                 return tables;
@@ -577,6 +581,7 @@ namespace FloorplanClassLibrary
                     {
                         // User wants to replace the existing table, update it
                         UpdateTable(table);
+                        SaveInheritedTablePairs(table);
                         return table.ID;
                     }
                     else
@@ -615,6 +620,7 @@ namespace FloorplanClassLibrary
                         int insertedId = cnn.Query<int>("select last_insert_rowid()", new DynamicParameters()).Single();
 
                         table.ID = insertedId;
+                        SaveInheritedTablePairs(table);
 
                         transaction.Commit();
 
@@ -623,7 +629,21 @@ namespace FloorplanClassLibrary
                 }
             }
         }
+        public static void SaveInheritedTablePairs(Table table)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString())) {
+                // First, remove existing pairs for the table
+                cnn.Execute("DELETE FROM InheritedTablePairs WHERE MainTableNumber = @MainTableNumber",
+                            new { MainTableNumber = table.TableNumber });
 
+                // Now, insert the new pairs
+                foreach (var inheritedTable in table.InheritedTables) {
+                    string sql = @"INSERT INTO InheritedTablePairs (TableNumber, MainTableNumber)
+                           VALUES (@TableNumber, @MainTableNumber)";
+                    cnn.Execute(sql, new { TableNumber = inheritedTable, MainTableNumber = table.TableNumber });
+                }
+            }
+        }
 
         public static void UpdateTable(Table table)
         {

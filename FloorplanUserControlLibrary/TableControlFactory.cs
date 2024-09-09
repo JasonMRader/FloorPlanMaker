@@ -38,11 +38,15 @@ namespace FloorPlanMaker
                 Location = new Point(table.XCoordinate, table.YCoordinate),
                 Tag = table
             };
-            if (table.HasLegacyTables) {
+            if (table.HasInheritedTables) {
                 newTable.BackColor = UITheme.WarningColor;
             }
+
             else if (!table.IsIncluded) {
                 newTable.BackColor = UITheme.NoColor;
+            }
+            else {
+                newTable.BackColor = Color.LightGray;
             }
             return newTable;
         }
