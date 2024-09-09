@@ -371,7 +371,7 @@ namespace FloorPlanMaker {
             btnDayBefore.FlatAppearance.BorderSize = 0;
             btnDayBefore.FlatStyle = FlatStyle.Flat;
             btnDayBefore.Image = FloorPlanMakerUI.Properties.Resources.smallBackArrow;
-            btnDayBefore.Location = new Point(8, 5);
+            btnDayBefore.Location = new Point(358, 5);
             btnDayBefore.Name = "btnDayBefore";
             btnDayBefore.Size = new Size(21, 30);
             btnDayBefore.TabIndex = 16;
@@ -425,15 +425,15 @@ namespace FloorPlanMaker {
             // 
             pnlNotifications.BackColor = Color.WhiteSmoke;
             pnlNotifications.Controls.Add(sectionHeaderDisplay);
-            pnlNotifications.Location = new Point(0, 40);
+            pnlNotifications.Location = new Point(0, 45);
             pnlNotifications.Name = "pnlNotifications";
-            pnlNotifications.Size = new Size(684, 78);
+            pnlNotifications.Size = new Size(684, 73);
             pnlNotifications.TabIndex = 23;
             // 
             // sectionHeaderDisplay
             // 
             sectionHeaderDisplay.BorderStyle = BorderStyle.FixedSingle;
-            sectionHeaderDisplay.Location = new Point(8, 5);
+            sectionHeaderDisplay.Location = new Point(8, 0);
             sectionHeaderDisplay.Name = "sectionHeaderDisplay";
             sectionHeaderDisplay.Size = new Size(666, 68);
             sectionHeaderDisplay.TabIndex = 0;
@@ -444,9 +444,9 @@ namespace FloorPlanMaker {
             lblDateSelected.BackColor = Color.FromArgb(100, 130, 180);
             lblDateSelected.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             lblDateSelected.ForeColor = Color.White;
-            lblDateSelected.Location = new Point(35, 5);
+            lblDateSelected.Location = new Point(385, 5);
             lblDateSelected.Name = "lblDateSelected";
-            lblDateSelected.Size = new Size(550, 30);
+            lblDateSelected.Size = new Size(200, 30);
             lblDateSelected.TabIndex = 22;
             lblDateSelected.Text = "Fri, 11/11";
             lblDateSelected.TextAlign = ContentAlignment.MiddleCenter;
