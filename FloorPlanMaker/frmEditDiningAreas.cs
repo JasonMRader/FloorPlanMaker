@@ -167,7 +167,7 @@ namespace FloorPlanMakerUI
             foreach (Table table in areaCreationManager.DiningAreaSelected.Tables)
             {
                 table.DiningArea = areaCreationManager.DiningAreaSelected;
-                TableControl tableControl = TableControlFactory.CreateTableControl(table);
+                TableControl tableControl = TableControlFactory.CreateConfigurableTable(table);
                 //tableControl.TableClicked += Table_TableClicked;  // Uncomment if you want to attach event handler
                 tableControl.TableClicked += ExistingTable_TableClicked;
                 tableControl.BackColor = Color.LightGray;
@@ -342,7 +342,7 @@ namespace FloorPlanMakerUI
             };
             table.SetTableSales(areaCreationManager.SelectedTable.AverageSales);
             table.ID = SqliteDataAccess.SaveTable(table);
-            TableControl tableControl = TableControlFactory.CreateTableControl(table);
+            TableControl tableControl = TableControlFactory.CreateConfigurableTable(table);
             tableControl.Moveable = true;
             tableControl.Tag = table;
             areaCreationManager.DiningAreaSelected.Tables.Add(table);
