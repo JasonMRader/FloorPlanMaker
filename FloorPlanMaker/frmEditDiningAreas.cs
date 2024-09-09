@@ -35,7 +35,26 @@ namespace FloorPlanMakerUI
         {
             InitializeComponent();
             diningAreaInfoControl.OpenTableManagerClicked += OpenTableManager;
+            diningAreaInfoControl.TableStatusUpdated += UpdateTableStatus;
             
+        }
+
+        private void UpdateTableStatus(Table table)
+        {
+            TableControl tableControl = allTableControls.Where(
+                t => t.Table.TableNumber == table.TableNumber).FirstOrDefault();
+            if (tableControl != null) {
+                if (table.HasInheritedTables) {
+                    tableControl.BackColor = UITheme.WarningColor;
+                }
+
+                else if (!table.IsIncluded) {
+                    tableControl.BackColor = UITheme.NoColor;
+                }
+                else {
+                    tableControl.BackColor = Color.LightGray;
+                }
+            }
         }
 
         private void OpenTableManager(object? sender, EventArgs e)

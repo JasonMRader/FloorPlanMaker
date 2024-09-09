@@ -15,6 +15,7 @@ namespace FloorplanUserControlLibrary
     {
         private DiningArea diningArea { get; set; }
         public event EventHandler OpenTableManagerClicked;
+        public event Action<Table> TableStatusUpdated;
         public Table tableSelected { get; set; }
         public DiningAreaInfoControl()
         {
@@ -97,6 +98,9 @@ namespace FloorplanUserControlLibrary
                 SqliteDataAccess.SaveInheritedTablePairs(tableSelected);
                 txtLegacyTable.Clear();
             }
+            if(tableSelected.InheritedTables.Count == 1) {
+                TableStatusUpdated?.Invoke(tableSelected);
+            }
         }
 
         private void btnRemoveSelected_Click(object sender, EventArgs e)
@@ -106,6 +110,9 @@ namespace FloorplanUserControlLibrary
                 tableSelected.InheritedTables.Remove(tablePair);
                 lbLegacyTables.Items.Remove(lbLegacyTables.SelectedIndex);
                 SqliteDataAccess.SaveInheritedTablePairs(tableSelected);
+            }
+            if (tableSelected.InheritedTables.Count == 0) {
+                TableStatusUpdated?.Invoke(tableSelected);
             }
         }
 
@@ -123,7 +130,7 @@ namespace FloorplanUserControlLibrary
 
         private void rdoIncludeTable_Clicked(object sender, EventArgs e)
         {
-            if (rdoExcludeTable.Checked) {
+            if (rdoIncludeTable.Checked) {
                 tableSelected.IsIncluded = true;
                 SqliteDataAccess.UpdateTable(tableSelected);
                 rdoIncludeTable.Text = "Table Included In Stats";
@@ -135,22 +142,30 @@ namespace FloorplanUserControlLibrary
                 rdoIncludeTable.Text = "Included Table";
                 rdoExcludeTable.Text = "Table Excluded From Stats";
             }
+            
+            TableStatusUpdated?.Invoke(tableSelected);
+            
         }
 
         private void btnAddRange_Click(object sender, EventArgs e)
         {
+            bool startsWithNone = tableSelected.InheritedTables.Count == 0;
             int tableStart = (int)nudStartTable.Value;
             int tableEnd = (int)nudEndTable.Value;
             for (int i = tableStart; i <= tableEnd; i++) {
                 string tableNumber = i.ToString();
                 if (!tableSelected.InheritedTables.Contains(tableNumber)) {
                     tableSelected.InheritedTables.Add(tableNumber); 
+                    
                 }
-
             }
+            
             txtLegacyTable.Clear();
             SqliteDataAccess.SaveInheritedTablePairs(tableSelected);
             PopulateInheritedTablesListBox();
+            if (startsWithNone && tableSelected.HasInheritedTables) {
+                TableStatusUpdated?.Invoke(tableSelected);
+            }
         }
     }
 }
