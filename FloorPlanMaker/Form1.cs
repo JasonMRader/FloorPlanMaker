@@ -91,7 +91,7 @@ namespace FloorPlanMaker {
 
             floorplanManager = new FloorplanFormManager(this, pnlFloorPlan, flowServersInFloorplan, flowSectionSelect,
                 pnlMainContainer, pnlSideContainer, sectionHeaderDisplay, diningAreaButtonHandeler,
-                shiftFilterControl);
+                shiftFilterControl, sectionTabs);
 
             // Subscribe to the event
             //floorplanManager.SectionLabelRemoved += FloorplanManager_SectionLabelRemoved;

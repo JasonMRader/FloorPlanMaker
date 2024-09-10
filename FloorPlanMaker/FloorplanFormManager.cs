@@ -53,6 +53,7 @@ namespace FloorPlanMakerUI
         private ServerControlManager serverControlManager { get; set; }
         private ShiftFilterControl shiftFilterControl { get; set; }
         private ShiftAnalysis shiftAnalysis { get; set; } = new ShiftAnalysis();
+        private SectionTabs sectionTabs { get; set; }
         private Form mainForm { get; set; }
         public FloorplanFormManager() 
         {
@@ -61,7 +62,7 @@ namespace FloorPlanMakerUI
         public FloorplanFormManager(Form mainForm, Panel pnlFloorPlan, FlowLayoutPanel flowServersInFloorplan, 
             FlowLayoutPanel flowSectionSelect, Panel pnlContainer, Panel pnlSideContainer,
             SectionHeaderDisplay headerDisplay, DiningAreaButtonHandeler diningAreaButtonHandeler,
-            ShiftFilterControl shiftFilterControl)
+            ShiftFilterControl shiftFilterControl, SectionTabs sectionTabs)
         {
             this.mainForm = mainForm;
             this.Shift = new Shift();           
@@ -70,6 +71,7 @@ namespace FloorPlanMakerUI
             this.diningAreaButtonHandeler = diningAreaButtonHandeler;
             this.sectionHeader = headerDisplay;
             this.sectionHeader.btnTeamWaitClicked += HeaderTeamWaitClicked;
+            this.sectionTabs = sectionTabs;
 
             tableControlManager = new TableControlManager(pnlFloorPlan);
             tableControlManager.UpdateAveragesPerServer += newUpdateAveragesPerServer;
@@ -532,6 +534,7 @@ namespace FloorPlanMakerUI
                 
                 AddSectionLines();
                 SetSelectedSectionToDefault();
+                sectionTabs.SetFloorplan(Floorplan);
                
                 
             }
@@ -548,6 +551,7 @@ namespace FloorPlanMakerUI
                 sectionHeader.SetSectionToNull();
                 pnlMainContainer.BackColor = UITheme.SecondColor; 
                 pnlSideContainer.BackColor = UITheme.SecondColor;
+                sectionTabs.SetFloorplanToNone();
                 
 
             }
