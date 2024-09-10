@@ -194,6 +194,7 @@
             // nudFirstTable
             // 
             nudFirstTable.Location = new Point(401, 85);
+            nudFirstTable.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
             nudFirstTable.Name = "nudFirstTable";
             nudFirstTable.Size = new Size(75, 23);
             nudFirstTable.TabIndex = 6;

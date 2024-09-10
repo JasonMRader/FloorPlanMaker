@@ -64,7 +64,7 @@ namespace FloorPlanMakerUI
 
         }
 
-        
+
 
         private void btnAddAllToCounted_Click(object sender, EventArgs e)
         {
@@ -89,7 +89,7 @@ namespace FloorPlanMakerUI
                     txtTableToAdd.Text = table.TableNumber;
                     txtExcludedTable.Text = table.TableNumber;
                 }
-               
+
             }
 
         }
@@ -116,7 +116,7 @@ namespace FloorPlanMakerUI
                 IsIncluded = true
             };
             AddToTablesCounted(table);
-            
+
 
         }
         private void AddToTablesCounted(Table table)
@@ -145,11 +145,11 @@ namespace FloorPlanMakerUI
         {
             int tableStart = (int)nudFirstTable.Value;
             int tableEnd = (int)nudLastTable.Value;
-            for(int i = tableStart; i <= tableEnd; i++) {
+            for (int i = tableStart; i <= tableEnd; i++) {
                 string tableNumber = i.ToString();
                 bool isNotExcluded = !tablesExcluded.Any(t => t.TableNumber == tableNumber);
                 bool isNotIncluded = !tablesCounted.Any(t => t.TableNumber == tableNumber);
-                if(isNotExcluded && isNotIncluded) {
+                if (isNotExcluded && isNotIncluded) {
                     Table table = new Table() {
                         TableNumber = tableNumber,
                         DiningAreaId = diningArea.ID,
@@ -161,7 +161,7 @@ namespace FloorPlanMakerUI
             SetIncludedListBindings();
 
         }
-       
+
         private void btnAddExcluded_Click(object sender, EventArgs e)
         {
             Table table = new Table() {

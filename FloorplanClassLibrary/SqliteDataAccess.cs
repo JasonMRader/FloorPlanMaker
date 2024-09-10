@@ -107,40 +107,56 @@ namespace FloorplanClassLibrary
         }
         public static void SaveTablesCounted(List<Table> tableRecords)
         {
-            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
-            {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString())) {
                 cnn.Open();
-                foreach (var table in tableRecords)
-                {
-                    // Check if a record with the same TableNumber already exists
+                foreach (var table in tableRecords) {
+                    // Log the table information for debugging
+                    Console.WriteLine($"Processing Table: {table.TableNumber} with IsIncluded: {table.IsIncluded}");
+
+                    // Check if a record with the same TableNumber already exists in DiningTableRecord
                     string checkSql = @"SELECT COUNT(*) FROM DiningTableRecord WHERE TableNumber = @TableNumber";
                     int count = cnn.Query<int>(checkSql, new { TableNumber = table.TableNumber }).Single();
 
-                    if (count == 0)
-                    {
-                        // Insert a new record if no existing record is found
+                    if (count == 0) {
+                        // Insert a new record into DiningTableRecord if no existing record is found
                         string insertSql = @"INSERT INTO DiningTableRecord (TableNumber, DiningAreaID, IsIncluded) 
                                      VALUES (@TableNumber, @DiningAreaID, @IsIncluded)";
-                        cnn.Execute(insertSql, new
-                        {
+                        cnn.Execute(insertSql, new {
                             TableNumber = table.TableNumber,
                             DiningAreaID = table.DiningAreaId,
                             IsIncluded = table.IsIncluded
                         });
                     }
-                    else
-                    {
-                        // Update the IsIncluded field if the record already exists
+                    else {
+                        // Update the IsIncluded field in DiningTableRecord if the record already exists
                         string updateSql = @"UPDATE DiningTableRecord SET IsIncluded = @IsIncluded WHERE TableNumber = @TableNumber";
-                        cnn.Execute(updateSql, new
-                        {
+                        cnn.Execute(updateSql, new {
                             TableNumber = table.TableNumber,
                             IsIncluded = table.IsIncluded
                         });
                     }
+
+                    // Now update the IsIncluded field in DiningTable for the same TableNumber
+                    string updateDiningTableSql = @"UPDATE DiningTable 
+                                            SET IsIncluded = @IsIncluded 
+                                            WHERE TRIM(TableNumber) = TRIM(@TableNumber)";
+                    int rowsAffected = cnn.Execute(updateDiningTableSql, new {
+                        TableNumber = table.TableNumber.Trim(), // Ensure TableNumber has no extra spaces
+                        IsIncluded = table.IsIncluded
+                    });
+
+                    // Log if the DiningTable update was successful
+                    if (rowsAffected > 0) {
+                        Console.WriteLine($"Updated DiningTable for {table.TableNumber} successfully.");
+                    }
+                    else {
+                        Console.WriteLine($"Failed to update DiningTable for {table.TableNumber}. Check if the TableNumber exists.");
+                    }
                 }
             }
         }
+
+
 
         public static List<Table> GetExcludedTablesForDiningArea(DiningArea diningArea)
         {
