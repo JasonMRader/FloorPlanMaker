@@ -72,6 +72,7 @@ namespace FloorPlanMakerUI
             this.sectionHeader = headerDisplay;
             this.sectionHeader.btnTeamWaitClicked += HeaderTeamWaitClicked;
             this.sectionTabs = sectionTabs;
+            //this.sectionTabs.SectionSelected += SectionTabSelectSection;
 
             tableControlManager = new TableControlManager(pnlFloorPlan);
             tableControlManager.UpdateAveragesPerServer += newUpdateAveragesPerServer;
@@ -91,7 +92,10 @@ namespace FloorPlanMakerUI
 
         }
 
-        
+        private void SectionTabSelectSection(Section obj)
+        {
+            throw new NotImplementedException();
+        }
 
         private void notAllTablesAssigned()
         {
