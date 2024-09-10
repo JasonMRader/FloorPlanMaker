@@ -90,6 +90,7 @@ namespace FloorPlanMaker {
             pnlSideDetails = new Panel();
             flowResoDisplay = new FlowLayoutPanel();
             pnlShiftDetails = new Panel();
+            pnlTestSections = new Panel();
             flowWeatherDisplay = new FlowLayoutPanel();
             pnlSalesDataUpdated = new Panel();
             lblMissingSalesData = new Label();
@@ -405,6 +406,12 @@ namespace FloorPlanMaker {
             btnCloseApp.Text = "X";
             btnCloseApp.UseVisualStyleBackColor = true;
             btnCloseApp.Click += btnCloseApp_Click;
+            //
+            // pnlTestSections
+            //
+            pnlTestSections.BackColor = Color.Blue;
+            pnlTestSections.Location = new Point(0, 0);
+            pnlTestSections.Size = new Size(352, 45);
             // 
             // pnlFloorplanContainer
             // 
@@ -416,11 +423,12 @@ namespace FloorPlanMaker {
             pnlFloorplanContainer.Controls.Add(cbIsAM);
             pnlFloorplanContainer.Controls.Add(btnDayBefore);
             pnlFloorplanContainer.Controls.Add(btnNextDay);
+            pnlFloorplanContainer.Controls.Add(pnlTestSections);
             pnlFloorplanContainer.Location = new Point(80, 10);
             pnlFloorplanContainer.Name = "pnlFloorplanContainer";
             pnlFloorplanContainer.Size = new Size(684, 944);
-            pnlFloorplanContainer.TabIndex = 19;
-            // 
+            pnlFloorplanContainer.TabIndex = 19;            
+            //
             // pnlNotifications
             // 
             pnlNotifications.BackColor = Color.WhiteSmoke;
@@ -1061,6 +1069,7 @@ namespace FloorPlanMaker {
         private Panel pnlIndicator2;
         private Label label4;
         private Button btnTest;
+        private Panel pnlTestSections;
         private FloorplanUserControlLibrary.ShiftFilterControl shiftFilterControl;
     }
 }
