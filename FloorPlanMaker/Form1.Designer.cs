@@ -410,8 +410,8 @@ namespace FloorPlanMaker {
             // pnlTestSections
             //
             pnlTestSections.BackColor = Color.Blue;
-            pnlTestSections.Location = new Point(0, 0);
-            pnlTestSections.Size = new Size(352, 45);
+            pnlTestSections.Location = new Point(8, 0);
+            pnlTestSections.Size = new Size(344, 45);
             // 
             // pnlFloorplanContainer
             // 

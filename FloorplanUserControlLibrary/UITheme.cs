@@ -288,6 +288,7 @@ namespace FloorPlanMakerUI
                
             }
         }
+       
         public static void FormatMain(Control c)
         {
             c.BackColor = MainColor;
