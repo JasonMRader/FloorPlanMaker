@@ -442,7 +442,7 @@ namespace FloorPlanMaker {
             // 
             // sectionHeaderDisplay
             // 
-            sectionHeaderDisplay.BorderStyle = BorderStyle.FixedSingle;
+            sectionHeaderDisplay.BorderStyle = BorderStyle.None;
             sectionHeaderDisplay.Location = new Point(8, 0);
             sectionHeaderDisplay.Name = "sectionHeaderDisplay";
             sectionHeaderDisplay.Size = new Size(666, 68);

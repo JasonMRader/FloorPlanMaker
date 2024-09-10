@@ -14,8 +14,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 //using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
-namespace FloorplanUserControlLibrary {
-    public partial class SectionHeaderDisplay : UserControl, ISectionObserver, IFloorplanObserver {
+namespace FloorplanUserControlLibrary
+{
+    public partial class SectionHeaderDisplay : UserControl, ISectionObserver, IFloorplanObserver
+    {
         private Section section { get; set; }
         public Section Section { get { return section; } }
         Panel pnlNoSection { get; set; } = new Panel();
@@ -25,11 +27,13 @@ namespace FloorplanUserControlLibrary {
         public event EventHandler btnTeamWaitClicked;
         public event EventHandler btnClearSectionClicked;
 
-        public SectionHeaderDisplay() {
+        public SectionHeaderDisplay()
+        {
             InitializeComponent();
 
         }
-        public void SetSection(Section section, Floorplan floorplan) {
+        public void SetSection(Section section, Floorplan floorplan)
+        {
             if (this.section != section && this.section != null) {
                 this.section.RemoveObserver(this);
             }
@@ -46,13 +50,15 @@ namespace FloorplanUserControlLibrary {
 
         }
 
-        private void CheckToRemoveSection(Section section, Floorplan floorplan) {
+        private void CheckToRemoveSection(Section section, Floorplan floorplan)
+        {
             if (this.section == section) {
                 SetSectionToNull();
             }
         }
 
-        public void SetSectionToNull() {
+        public void SetSectionToNull()
+        {
             if (this.section != null) {
                 this.section.RemoveObserver(this);
                 this.section = null;
@@ -65,7 +71,8 @@ namespace FloorplanUserControlLibrary {
             pnlNoSection.BackColor = UITheme.SecondColor;
             pnlNoSection.BringToFront();
         }
-        public void SetStaticImages() {
+        public void SetStaticImages()
+        {
             if (this.section.FontColor == Color.White) {
                 pbAverageSales.Image = Resources.SalesPerPersonWhite;
                 pbTotalCovers.Image = Resources.CoversWhite;
@@ -75,7 +82,8 @@ namespace FloorplanUserControlLibrary {
                 pbTotalCovers.Image = Resources.covers;
             }
         }
-        public void SetTeamWaitImages() {
+        public void SetTeamWaitImages()
+        {
             if (section.IsPickUp || section.IsBarSection) {
                 btnTeamWaitToggle.Visible = false;
                 return;
@@ -93,7 +101,8 @@ namespace FloorplanUserControlLibrary {
                 btnTeamWaitToggle.BackColor = UITheme.CTAColor;
             }
         }
-        private void SetSalesDifferenceControls() {
+        private void SetSalesDifferenceControls()
+        {
 
 
             lblSalesDifference.Text = Section.FormatAsCurrencyWithoutParentheses(floorplan.GetSalesDifferenceForSection(section));
@@ -118,7 +127,8 @@ namespace FloorplanUserControlLibrary {
                 }
             }
         }
-        private void SetCoverDifferenceProperties() {
+        private void SetCoverDifferenceProperties()
+        {
 
             this.lblCoverDifference.Text = ($"{floorplan.GetCoverDifferenceForSection(section).ToString("F0")}");
             if (floorplan.GetCoverDifferenceForSection(section) >= 0) {
@@ -144,7 +154,8 @@ namespace FloorplanUserControlLibrary {
             }
 
         }
-        private void SetSectionTotalControls() {
+        private void SetSectionTotalControls()
+        {
             lblTotalCovers.Text = section.MaxCovers.ToString("F0");
             lblAverageSales.Text = section.AverageSalesDisplay();
             lblTotalCovers.BackColor = section.Color;
@@ -152,7 +163,8 @@ namespace FloorplanUserControlLibrary {
             lblAverageSales.BackColor = section.Color;
             lblAverageSales.ForeColor = section.FontColor;
         }
-        private void SetServerButtonProperties() {
+        private void SetServerButtonProperties()
+        {
             btnAssignedServer.Text = section.GetDisplayString();
             if (section.IsBarSection) {
                 //btnAssignedServer.Text = "Bar Section";
@@ -222,7 +234,8 @@ namespace FloorplanUserControlLibrary {
 
 
         }
-        private void SetControlsForSection() {
+        private void SetControlsForSection()
+        {
             this.BackColor = section.Color;
             this.lblSectionNumber.Text = $"#{section.Number}";
             SetStaticImages();
@@ -233,11 +246,13 @@ namespace FloorplanUserControlLibrary {
             SetSectionTotalControls();
         }
 
-        private void SectionHeaderDisplay_Load(object sender, EventArgs e) {
+        private void SectionHeaderDisplay_Load(object sender, EventArgs e)
+        {
 
         }
 
-        public void UpdateSection(Section section) {
+        public void UpdateSection(Section section)
+        {
             if (this.InvokeRequired) {
                 this.Invoke(new Action(() => UpdateSection(section)));
             }
@@ -249,27 +264,32 @@ namespace FloorplanUserControlLibrary {
                     SetControlsForSection();
                 }
             }
-            
+
 
         }
 
-        private void btnAssignedServer_Click(object sender, EventArgs e) {
+        private void btnAssignedServer_Click(object sender, EventArgs e)
+        {
             AssignServerClicked?.Invoke(this, EventArgs.Empty);
         }
 
-        private void btnTeamWaitToggle_Click(object sender, EventArgs e) {
+        private void btnTeamWaitToggle_Click(object sender, EventArgs e)
+        {
             btnTeamWaitClicked?.Invoke(this, EventArgs.Empty);
         }
 
-        public void SetTeamWaitPictureBoxes() {
+        public void SetTeamWaitPictureBoxes()
+        {
 
         }
 
-        private void btnClearSection_Click(object sender, EventArgs e) {
+        private void btnClearSection_Click(object sender, EventArgs e)
+        {
             btnClearSectionClicked?.Invoke(this, EventArgs.Empty);
         }
 
-        public void UpdateFloorplan(Floorplan floorplan) {
+        public void UpdateFloorplan(Floorplan floorplan)
+        {
             throw new NotImplementedException();
         }
     }

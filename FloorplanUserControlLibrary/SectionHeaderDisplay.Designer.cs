@@ -1,5 +1,7 @@
-﻿namespace FloorplanUserControlLibrary {
-    partial class SectionHeaderDisplay {
+﻿namespace FloorplanUserControlLibrary
+{
+    partial class SectionHeaderDisplay
+    {
         /// <summary> 
         /// Required designer variable.
         /// </summary>
@@ -9,7 +11,8 @@
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing) {
+        protected override void Dispose(bool disposing)
+        {
             if (disposing && (components != null)) {
                 components.Dispose();
             }
@@ -22,7 +25,8 @@
         /// Required method for Designer support - do not modify 
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent() {
+        private void InitializeComponent()
+        {
             components = new System.ComponentModel.Container();
             lblSectionNumber = new Label();
             btnAssignedServer = new Button();
@@ -211,7 +215,6 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BorderStyle = BorderStyle.FixedSingle;
             Controls.Add(flowServerButtons);
             Controls.Add(lblSalesDifference);
             Controls.Add(pbSalesDifference);
@@ -225,7 +228,7 @@
             Controls.Add(btnClearSection);
             Controls.Add(lblSectionNumber);
             Name = "SectionHeaderDisplay";
-            Size = new Size(666, 68);
+            Size = new Size(668, 70);
             Load += SectionHeaderDisplay_Load;
             ((System.ComponentModel.ISupportInitialize)pbTotalCovers).EndInit();
             ((System.ComponentModel.ISupportInitialize)pbAverageSales).EndInit();
