@@ -172,5 +172,38 @@ namespace FloorPlanMakerUI
             AddToTablesExcluded(table);
             SetIncludedListBindings();
         }
+
+        private void lbTablesExcludedFromStats_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(lbTablesExcludedFromStats.SelectedIndex != -1) {
+                Table table = lbTablesExcludedFromStats.SelectedItem as Table;
+                if (table != null) {
+                    txtTableToAdd.Text = table.TableNumber;
+                    txtExcludedTable.Text = table.TableNumber;
+                }
+            }
+        }
+
+        private void lbCountedNotInCurrent_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lbCountedNotInCurrent.SelectedIndex != -1) {
+                Table table = lbCountedNotInCurrent.SelectedItem as Table;
+                if (table != null) {
+                    txtTableToAdd.Text = table.TableNumber;
+                    txtExcludedTable.Text = table.TableNumber;
+                }
+            }
+        }
+
+        private void lbTablesCountedInStats_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lbTablesCountedInStats.SelectedIndex != -1) {
+                Table table = lbTablesCountedInStats.SelectedItem as Table;
+                if (table != null) {
+                    txtTableToAdd.Text = table.TableNumber;
+                    txtExcludedTable.Text = table.TableNumber;
+                }
+            }
+        }
     }
 }

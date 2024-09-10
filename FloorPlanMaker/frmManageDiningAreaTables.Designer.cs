@@ -81,6 +81,7 @@
             lbTablesCountedInStats.Name = "lbTablesCountedInStats";
             lbTablesCountedInStats.Size = new Size(152, 559);
             lbTablesCountedInStats.TabIndex = 1;
+            lbTablesCountedInStats.SelectedIndexChanged += lbTablesCountedInStats_SelectedIndexChanged;
             // 
             // lbTablesExcludedFromStats
             // 
@@ -90,6 +91,7 @@
             lbTablesExcludedFromStats.Name = "lbTablesExcludedFromStats";
             lbTablesExcludedFromStats.Size = new Size(152, 559);
             lbTablesExcludedFromStats.TabIndex = 1;
+            lbTablesExcludedFromStats.SelectedIndexChanged += lbTablesExcludedFromStats_SelectedIndexChanged;
             // 
             // label2
             // 
@@ -136,6 +138,7 @@
             lbCountedNotInCurrent.Name = "lbCountedNotInCurrent";
             lbCountedNotInCurrent.Size = new Size(152, 559);
             lbCountedNotInCurrent.TabIndex = 1;
+            lbCountedNotInCurrent.SelectedIndexChanged += lbCountedNotInCurrent_SelectedIndexChanged;
             // 
             // label1
             // 
