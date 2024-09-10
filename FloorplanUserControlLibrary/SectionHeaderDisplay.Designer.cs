@@ -52,7 +52,7 @@
             // lblSectionNumber
             // 
             lblSectionNumber.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            lblSectionNumber.Location = new Point(0, 0);
+            lblSectionNumber.Location = new Point(0, 3);
             lblSectionNumber.Name = "lblSectionNumber";
             lblSectionNumber.Size = new Size(33, 30);
             lblSectionNumber.TabIndex = 0;
@@ -106,7 +106,7 @@
             // pbTotalCovers
             // 
             pbTotalCovers.Image = Properties.Resources.covers;
-            pbTotalCovers.Location = new Point(33, 32);
+            pbTotalCovers.Location = new Point(33, 35);
             pbTotalCovers.Margin = new Padding(3, 3, 0, 3);
             pbTotalCovers.Name = "pbTotalCovers";
             pbTotalCovers.Size = new Size(35, 31);
@@ -119,7 +119,7 @@
             // 
             lblTotalCovers.BackColor = Color.FromArgb(224, 224, 224);
             lblTotalCovers.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
-            lblTotalCovers.Location = new Point(68, 32);
+            lblTotalCovers.Location = new Point(68, 35);
             lblTotalCovers.Margin = new Padding(0, 0, 3, 0);
             lblTotalCovers.Name = "lblTotalCovers";
             lblTotalCovers.Size = new Size(53, 31);
@@ -131,7 +131,7 @@
             // pbAverageSales
             // 
             pbAverageSales.Image = Properties.Resources.SalesPerPerson_28px;
-            pbAverageSales.Location = new Point(276, 33);
+            pbAverageSales.Location = new Point(276, 36);
             pbAverageSales.Margin = new Padding(3, 3, 0, 3);
             pbAverageSales.Name = "pbAverageSales";
             pbAverageSales.Size = new Size(35, 30);
@@ -144,7 +144,7 @@
             // 
             lblAverageSales.BackColor = Color.FromArgb(224, 224, 224);
             lblAverageSales.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
-            lblAverageSales.Location = new Point(311, 32);
+            lblAverageSales.Location = new Point(311, 35);
             lblAverageSales.Margin = new Padding(0, 0, 3, 0);
             lblAverageSales.Name = "lblAverageSales";
             lblAverageSales.Size = new Size(88, 31);
@@ -156,7 +156,7 @@
             // pbSalesDifference
             // 
             pbSalesDifference.Image = Properties.Resources.equality;
-            pbSalesDifference.Location = new Point(434, 32);
+            pbSalesDifference.Location = new Point(434, 35);
             pbSalesDifference.Margin = new Padding(3, 3, 0, 3);
             pbSalesDifference.Name = "pbSalesDifference";
             pbSalesDifference.Size = new Size(35, 31);
@@ -169,7 +169,7 @@
             // 
             lblSalesDifference.BackColor = Color.FromArgb(224, 224, 224);
             lblSalesDifference.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
-            lblSalesDifference.Location = new Point(474, 32);
+            lblSalesDifference.Location = new Point(474, 35);
             lblSalesDifference.Margin = new Padding(0, 0, 3, 0);
             lblSalesDifference.Name = "lblSalesDifference";
             lblSalesDifference.Size = new Size(88, 31);
@@ -181,7 +181,7 @@
             // pbCoversDifference
             // 
             pbCoversDifference.Image = Properties.Resources.CoversUpBlack;
-            pbCoversDifference.Location = new Point(142, 32);
+            pbCoversDifference.Location = new Point(142, 35);
             pbCoversDifference.Margin = new Padding(3, 3, 0, 3);
             pbCoversDifference.Name = "pbCoversDifference";
             pbCoversDifference.Size = new Size(35, 31);
@@ -194,7 +194,7 @@
             // 
             lblCoverDifference.BackColor = Color.FromArgb(224, 224, 224);
             lblCoverDifference.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
-            lblCoverDifference.Location = new Point(182, 32);
+            lblCoverDifference.Location = new Point(182, 35);
             lblCoverDifference.Margin = new Padding(0, 0, 3, 0);
             lblCoverDifference.Name = "lblCoverDifference";
             lblCoverDifference.Size = new Size(53, 31);
@@ -206,7 +206,7 @@
             // flowServerButtons
             // 
             flowServerButtons.Controls.Add(btnAssignedServer);
-            flowServerButtons.Location = new Point(33, 0);
+            flowServerButtons.Location = new Point(33, 3);
             flowServerButtons.Name = "flowServerButtons";
             flowServerButtons.Size = new Size(529, 29);
             flowServerButtons.TabIndex = 8;

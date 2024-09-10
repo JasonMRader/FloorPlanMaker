@@ -412,8 +412,8 @@ namespace FloorPlanMaker {
             // pnlTestSections
             //
             
-            sectionTabs.Location = new Point(8, 0);
-            sectionTabs.Size = new Size(344, 45);
+            sectionTabs.Location = new Point(18, 0);
+            sectionTabs.Size = new Size(334, 45);
             // 
             // pnlFloorplanContainer
             // 
