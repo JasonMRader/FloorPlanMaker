@@ -75,7 +75,45 @@ namespace FloorplanClassLibrary
                             DiningAreaID = tableStat.DiningAreaID
                         });
                     }
+                    var totalSales = cnn.Query<float>(@"SELECT SUM(Sales) FROM TableStats 
+                        WHERE DiningAreaID = @DiningAreaID AND IsLunch = @IsLunch AND Date = @Date",
+                       new { DiningAreaID = tableStat.DiningAreaID, IsLunch = tableStat.IsLunch, Date = tableStat.Date.ToString("yyyy-MM-dd") }).Single();
+
+                    // 2.2: Get the ServerCount from Floorplan, or set it to 0 if no matching floorplan exists
+                    var serverCount = cnn.Query<int?>(@"SELECT ServerCount FROM Floorplan 
+                        WHERE DiningAreaID = @DiningAreaID AND IsLunch = @IsLunch AND Date = @Date",
+                                new { DiningAreaID = tableStat.DiningAreaID, IsLunch = tableStat.IsLunch, Date = tableStat.Date.ToString("yyyy-MM-dd") }).FirstOrDefault() ?? 0;
+
+                    // 2.3: Check if DiningAreaRecord exists for the Date, IsLunch, and DiningAreaID
+                    var diningAreaRecordID = cnn.Query<int?>(@"SELECT ID FROM DiningAreaRecord 
+                        WHERE DiningAreaID = @DiningAreaID AND IsAm = @IsLunch AND Date = @Date",
+                                new { DiningAreaID = tableStat.DiningAreaID, IsLunch = tableStat.IsLunch, Date = tableStat.Date.ToString("yyyy-MM-dd") }).FirstOrDefault();
+
+                    if (diningAreaRecordID == null) {
+                        // 2.4: Insert new DiningAreaRecord if it doesn't exist
+                        var insertSql = @"INSERT INTO DiningAreaRecord (DiningAreaID, Date, IsAm, Sales, ServerCount, PercentageOfSales) 
+                                  VALUES (@DiningAreaID, @Date, @IsLunch, @Sales, @ServerCount, 0.0)";
+                        cnn.Execute(insertSql, new {
+                            DiningAreaID = tableStat.DiningAreaID,
+                            Date = tableStat.Date.ToString("yyyy-MM-dd"),
+                            IsLunch = tableStat.IsLunch,
+                            Sales = totalSales,
+                            ServerCount = serverCount
+                        });
+                    }
+                    else {
+                        // 2.5: Update the existing DiningAreaRecord
+                        var updateSql = @"UPDATE DiningAreaRecord 
+                                  SET Sales = @Sales, ServerCount = @ServerCount 
+                                  WHERE ID = @DiningAreaRecordID";
+                        cnn.Execute(updateSql, new {
+                            Sales = totalSales,
+                            ServerCount = serverCount,
+                            DiningAreaRecordID = diningAreaRecordID
+                        });
+                    }
                 }
+            
                
             }
         }
