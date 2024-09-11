@@ -1893,12 +1893,13 @@ namespace FloorplanClassLibrary
                     cnn.Execute("DELETE FROM Floorplan WHERE ID = @ID", new { ID = existingFloorplan.ID });
                 }
                 
-                cnn.Execute("INSERT INTO Floorplan (Date, IsLunch, DiningAreaID) VALUES (date(@Date), @IsLunch, @DiningAreaID)",
+                cnn.Execute("INSERT INTO Floorplan (Date, IsLunch, DiningAreaID, ServerCount) VALUES (date(@Date), @IsLunch, @DiningAreaID, @ServerCount)",
                 new
                 {
                     Date = floorplan.Date,
                     IsLunch = floorplan.IsLunch,
-                    DiningAreaID = floorplan.DiningArea.ID
+                    DiningAreaID = floorplan.DiningArea.ID,
+                    ServerCount = floorplan.Servers.Count,
                 });
 
                 floorplan.ID = cnn.Query<int>("select last_insert_rowid()", new DynamicParameters()).Single();
