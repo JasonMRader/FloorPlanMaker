@@ -59,6 +59,9 @@ namespace FloorplanClassLibrary
             {
                 var diningAreaID = SqliteDataAccess.GetDiningAreaIDByTableNumber(stat.TableStatNumber);
                 stat.DiningAreaID = diningAreaID ?? 0;
+                if (stat.Sales.HasValue) {
+                    stat.Sales = (float)Math.Round((decimal)stat.Sales.Value, 2); 
+                }
             }
            
 

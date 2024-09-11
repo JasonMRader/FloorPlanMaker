@@ -2869,6 +2869,28 @@ namespace FloorplanClassLibrary
             }
         }
 
+        public static List<DiningAreaRecord> LoadDiningAreaRecords()
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString())) {
+                // First, load all the DiningAreaRecords
+                string diningAreaSql = @"SELECT * FROM DiningAreaRecord";
+                var diningAreaRecords = cnn.Query<DiningAreaRecord>(diningAreaSql).ToList();
+
+                // Then, load all the corresponding TableStats for each DiningAreaRecord
+                string tableStatsSql = @"SELECT * FROM TableStats WHERE DiningAreaID = @DiningAreaID AND Date = @Date AND IsLunch = @IsLunch";
+
+                foreach (var record in diningAreaRecords) {
+                    // Populate the TableStats for each DiningAreaRecord
+                    record.TableStats = cnn.Query<TableStat>(tableStatsSql, new {
+                        DiningAreaID = record.DiningAreaID,
+                        Date = record.DateOnly,
+                        IsLunch = !record.IsAm // Assuming IsAm refers to IsLunch being false
+                    }).ToList();
+                }
+
+                return diningAreaRecords;
+            }
+        }
 
 
         //public static void SaveTopBottomNeighbor(string key, string value)

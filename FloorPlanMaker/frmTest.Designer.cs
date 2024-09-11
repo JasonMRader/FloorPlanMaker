@@ -13,8 +13,7 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
-            {
+            if (disposing && (components != null)) {
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -72,6 +71,7 @@
             panel2 = new Panel();
             panel3 = new Panel();
             flowNumber = new FlowLayoutPanel();
+            btnLoadDiningRecords = new Button();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
             SuspendLayout();
             // 
@@ -453,11 +453,23 @@
             flowNumber.Size = new Size(41, 650);
             flowNumber.TabIndex = 10;
             // 
+            // btnLoadDiningRecords
+            // 
+            btnLoadDiningRecords.Location = new Point(32, 566);
+            btnLoadDiningRecords.Name = "btnLoadDiningRecords";
+            btnLoadDiningRecords.Size = new Size(169, 23);
+            btnLoadDiningRecords.TabIndex = 12;
+            btnLoadDiningRecords.Text = "Load DiningArea Records";
+            btnLoadDiningRecords.TextImageRelation = TextImageRelation.ImageAboveText;
+            btnLoadDiningRecords.UseVisualStyleBackColor = true;
+            btnLoadDiningRecords.Click += btnLoadDiningRecords_Click;
+            // 
             // frmTest
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1394, 674);
+            Controls.Add(btnLoadDiningRecords);
             Controls.Add(panel3);
             Controls.Add(panel2);
             Controls.Add(panel1);
@@ -556,5 +568,6 @@
         private Panel panel2;
         private Panel panel3;
         private FlowLayoutPanel flowNumber;
+        private Button btnLoadDiningRecords;
     }
 }

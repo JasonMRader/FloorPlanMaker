@@ -38,19 +38,14 @@ namespace FloorPlanMakerUI
 
         private void SetServerCountLabels(FloorplanGenerator floorplanGenerator)
         {
-            foreach (DiningArea diningArea in floorplanGenerator.shift.DiningAreasUsed)
-            {
-                foreach (Label label in serverCountLabels)
-                {
-                    if (label.Tag == (DiningArea)diningArea)
-                    {
+            foreach (DiningArea diningArea in floorplanGenerator.shift.DiningAreasUsed) {
+                foreach (Label label in serverCountLabels) {
+                    if (label.Tag == (DiningArea)diningArea) {
                         label.Text = floorplanGenerator.ServerDistribution[diningArea].ToString();
                     }
                 }
-                foreach (Label label in salesPerServerLabels)
-                {
-                    if (label.Tag == (DiningArea)diningArea)
-                    {
+                foreach (Label label in salesPerServerLabels) {
+                    if (label.Tag == (DiningArea)diningArea) {
                         label.Text = floorplanGenerator.AreaPerServerSales[diningArea].ToString("C0");
                     }
                 }
@@ -59,8 +54,7 @@ namespace FloorPlanMakerUI
 
         private void GetAreas()
         {
-            if (txtInsideSales.Text != "")
-            {
+            if (txtInsideSales.Text != "") {
                 float sales = float.Parse(txtInsideSales.Text);
                 DiningArea insideDining = new DiningArea("insideDining", true, false, 1, sales);
 
@@ -71,8 +65,7 @@ namespace FloorPlanMakerUI
                 salesPerServerLabels.Add(lblSalesPerServer1);
 
             }
-            if (txtOutsideSales.Text != "")
-            {
+            if (txtOutsideSales.Text != "") {
                 float sales = float.Parse(txtOutsideSales.Text);
                 DiningArea OutsideDining = new DiningArea("outsideDining", false, false, 2, sales);
 
@@ -82,8 +75,7 @@ namespace FloorPlanMakerUI
                 lblSalesPerServer2.Tag = OutsideDining;
                 salesPerServerLabels.Add(lblSalesPerServer2);
             }
-            if (txtOutsideCocktailSales.Text != "")
-            {
+            if (txtOutsideCocktailSales.Text != "") {
                 float sales = float.Parse(txtOutsideCocktailSales.Text);
                 DiningArea outCocktail = new DiningArea("outCocktail", false, true, 3, sales);
 
@@ -93,8 +85,7 @@ namespace FloorPlanMakerUI
                 lblSalesPerServer3.Tag = outCocktail;
                 salesPerServerLabels.Add(lblSalesPerServer3);
             }
-            if (txtInsideCocktailSales.Text != "")
-            {
+            if (txtInsideCocktailSales.Text != "") {
                 float sales = float.Parse(txtInsideCocktailSales.Text);
                 DiningArea inCocktail = new DiningArea("inCocktail", true, true, 4, sales);
 
@@ -104,8 +95,7 @@ namespace FloorPlanMakerUI
                 lblSalesPerServer4.Tag = inCocktail;
                 salesPerServerLabels.Add(lblSalesPerServer4);
             }
-            if (txtUpperSales.Text != "")
-            {
+            if (txtUpperSales.Text != "") {
                 float sales = float.Parse(txtUpperSales.Text);
                 DiningArea upper = new DiningArea("upper", true, false, 5, sales);
 
@@ -175,8 +165,7 @@ namespace FloorPlanMakerUI
             DateOnly startDateOnly = DateOnly.FromDateTime(start);
             DateOnly endDateOnly = DateOnly.FromDateTime(end);
             List<ShiftRecord> shiftRecords = new List<ShiftRecord>();
-            for (DateOnly iDay = startDateOnly; iDay <= endDateOnly; iDay = iDay.AddDays(1))
-            {
+            for (DateOnly iDay = startDateOnly; iDay <= endDateOnly; iDay = iDay.AddDays(1)) {
                 shiftRecords.Add(SqliteDataAccess.LoadShiftRecord(iDay, false));
             }
             //ShiftAnalysis shiftAnalysis = new ShiftAnalysis(shiftRecords);
@@ -187,22 +176,18 @@ namespace FloorPlanMakerUI
         //Main Container 140, 27 | 2,2
         private void btnSelect_Click(object sender, EventArgs e)
         {
-            for (int i = 1; i <= Colors.Count; i++)
-            {
+            for (int i = 1; i <= Colors.Count; i++) {
                 int spots = 2;
                 int previous = i - spots;
                 int next = i + spots;
-                if (previous < 1)
-                {
+                if (previous < 1) {
                     previous = Colors.Count - spots + i;
                 }
-                if (next > Colors.Count)
-                {
+                if (next > Colors.Count) {
                     next = i - Colors.Count + spots;
                 }
 
-                Label lbl = new Label()
-                {
+                Label lbl = new Label() {
                     Text = i.ToString(),
                     Margin = new Padding(0),
                     Size = new Size(flowLayoutPanel1.Width, (flowLayoutPanel1.Height / 20)),
@@ -212,8 +197,7 @@ namespace FloorPlanMakerUI
                     ForeColor = FontColor(i),
                     AllowDrop = true
                 };
-                Label num = new Label()
-                {
+                Label num = new Label() {
                     Text = i.ToString(),
                     Margin = new Padding(0),
                     Size = new Size(flowNumber.Width, (flowNumber.Height / 20)),
@@ -223,8 +207,7 @@ namespace FloorPlanMakerUI
                     //ForeColor = FontColor(i),
                     AllowDrop = true
                 };
-                Label lblPrevious = new Label()
-                {
+                Label lblPrevious = new Label() {
                     Text = previous.ToString(),
                     Margin = new Padding(0),
                     Size = new Size((flowLayoutPanel1.Width / 5), (flowLayoutPanel1.Height / 20)),
@@ -235,8 +218,7 @@ namespace FloorPlanMakerUI
                     Dock = DockStyle.Left,
                     AllowDrop = true
                 };
-                Label lblNext = new Label()
-                {
+                Label lblNext = new Label() {
                     Text = next.ToString(),
                     Margin = new Padding(0),
                     Size = new Size((flowLayoutPanel1.Width / 5), (flowLayoutPanel1.Height / 20)),
@@ -261,20 +243,17 @@ namespace FloorPlanMakerUI
         private void Label_MouseDown(object sender, MouseEventArgs e)
         {
             Label lbl = sender as Label;
-            if (lbl != null)
-            {
+            if (lbl != null) {
                 lbl.DoDragDrop(lbl, DragDropEffects.Move);
             }
         }
 
         private void Label_DragEnter(object sender, DragEventArgs e)
         {
-            if (e.Data.GetDataPresent(typeof(Label)))
-            {
+            if (e.Data.GetDataPresent(typeof(Label))) {
                 e.Effect = DragDropEffects.Move;
             }
-            else
-            {
+            else {
                 e.Effect = DragDropEffects.None;
             }
         }
@@ -284,8 +263,7 @@ namespace FloorPlanMakerUI
             Label sourceLabel = (Label)e.Data.GetData(typeof(Label));
             Label targetLabel = (Label)sender;
 
-            if (sourceLabel != null && targetLabel != null && sourceLabel != targetLabel)
-            {
+            if (sourceLabel != null && targetLabel != null && sourceLabel != targetLabel) {
                 int sourceIndex = flowLayoutPanel1.Controls.IndexOf(sourceLabel);
                 int targetIndex = flowLayoutPanel1.Controls.IndexOf(targetLabel);
 
@@ -299,8 +277,7 @@ namespace FloorPlanMakerUI
         {
 
 
-            if (Colors.ContainsKey(i))
-            {
+            if (Colors.ContainsKey(i)) {
                 return Colors[i].BackgroundColor;
             }
 
@@ -310,22 +287,109 @@ namespace FloorPlanMakerUI
         }
         private Color FontColor(int i)
         {
-            if (Colors.ContainsKey(i))
-            {
+            if (Colors.ContainsKey(i)) {
                 return Colors[i].FontColor;
             }
 
             return Color.White;
         }
-        public Dictionary<int, ColorPair> Colors { get; } = new Dictionary<int, ColorPair>
+        List<DiningAreaRecord> DiningAreaRecords = new List<DiningAreaRecord>();
+        private void btnLoadDiningRecords_Click(object sender, EventArgs e)
         {
+            DiningAreaRecords = SqliteDataAccess.LoadDiningAreaRecords();
+            CalculateTableStatsAverages();
+        }
+        private void CalculateTableStatsAverages()
+        {
+            // Dictionary to store results for each sales category
+            Dictionary<string, List<float>> tableStatPercentagesByCategory = new Dictionary<string, List<float>>{
+                { "LessThan1k", new List<float>() },
+                { "1kTo2k", new List<float>() },
+                { "2kTo3k", new List<float>() },
+                { "3kTo4k", new List<float>() },
+                { "4kTo5k", new List<float>() },
+                { "5kTo6k", new List<float>() },
+                { "6kTo7k", new List<float>() },
+                { "7kTo8k", new List<float>() },
+                { "8kTo9k", new List<float>() },
+                { "9kTo10k", new List<float>() },
+                { "10kTo11k", new List<float>() },
+                { "11kTo12k", new List<float>() },
+                { "12kTo13k", new List<float>() },
+                { "13kTo14k", new List<float>() },
+                { "14kTo15k", new List<float>() },
+                { "15kTo16k", new List<float>() },
+                { "16kTo17k", new List<float>() },
+                { "17kTo18k", new List<float>() },
+                { "18kTo19k", new List<float>() },
+                { "19kTo20k", new List<float>() },
+                { "20kTo21k", new List<float>() },
+                { "21kTo22k", new List<float>() },
+                { "22kTo23k", new List<float>() },
+                { "23kTo24k", new List<float>() },
+                { "24kTo25k", new List<float>() },
+                { "25kTo26k", new List<float>() },
+                { "26kTo27k", new List<float>() },
+                { "27kTo28k", new List<float>() },
+                { "28kTo29k", new List<float>() },
+                { "29kTo30k", new List<float>() },
+                { "GreaterThan30k", new List<float>() }
+            };
+
+
+            // Iterate through each DiningAreaRecord
+            foreach (var record in DiningAreaRecords) {
+                // Determine the sales category for the current DiningAreaRecord
+                string salesCategory = GetSalesCategory(record.Sales);
+
+                // Calculate the total sales for this DiningAreaRecord
+                float totalSales = record.Sales;
+
+                // If totalSales is 0, skip to avoid division by zero
+                if (totalSales == 0) continue;
+
+                // Calculate the percentage each TableStat represents of the total sales
+                foreach (var tableStat in record.TableStats) {
+                    if (tableStat.Sales.HasValue) {
+                        float tableSalesPercentage = (tableStat.Sales.Value / totalSales) * 100;
+                        tableStatPercentagesByCategory[salesCategory].Add(tableSalesPercentage);
+                    }
+                }
+            }
+
+            // Now calculate the average percentage for each sales category
+            foreach (var category in tableStatPercentagesByCategory) {
+                if (category.Value.Count > 0) {
+                    float averagePercentage = category.Value.Average();
+                    Console.WriteLine($"Average percentage for {category.Key}: {averagePercentage}%");
+                }
+                else {
+                    Console.WriteLine($"No data for {category.Key}");
+                }
+            }
+        }
+
+        // Method to return the sales category for a given sales value
+        private string GetSalesCategory(float sales)
+        {
+            if (sales < 1000) return "0-1k";
+            if (sales >= 1000 && sales < 2000) return "1k-2k";
+            if (sales >= 2000 && sales < 3000) return "2k-3k";
+            if (sales >= 3000 && sales < 4000) return "3k-4k";
+            // Continue for other ranges...
+            if (sales >= 29000 && sales < 30000) return "29k-30k";
+            return ">30k";
+        }
+
+        public Dictionary<int, ColorPair> Colors { get; } = new Dictionary<int, ColorPair>
+                {
             { 1, new ColorPair(Color.FromArgb(17,100,184), Color.White) },
             { 2, new ColorPair(Color.FromArgb(105,209,0), Color.Black) },
             { 3, new ColorPair(Color.FromArgb(176,46,12), Color.White) },
             { 4, new ColorPair(Color.FromArgb(103,178,216), Color.Black) },
             { 5, new ColorPair(Color.ForestGreen, Color.White) },
             { 6, new ColorPair(Color.FromArgb(240,246,0), Color.Black) },
-            
+
 
             { 7, new ColorPair(Color.FromArgb(70,17,122), Color.White) },
             { 8, new ColorPair(Color.FromArgb(65, 234, 212), Color.Black) },
