@@ -27,8 +27,7 @@ namespace FloorPlanMakerUI
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "SQLite Database Files (*.db)|*.db";
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
+            if (openFileDialog.ShowDialog() == DialogResult.OK) {
                 string filePath = openFileDialog.FileName;
                 SqliteDataAccess.LoadDatabaseTables(filePath);
             }
@@ -36,10 +35,8 @@ namespace FloorPlanMakerUI
 
         private void btnChooseDataBase_Click(object sender, EventArgs e)
         {
-            using (var folderBrowserDialog = new FolderBrowserDialog())
-            {
-                if (folderBrowserDialog.ShowDialog() == DialogResult.OK && !string.IsNullOrWhiteSpace(folderBrowserDialog.SelectedPath))
-                {
+            using (var folderBrowserDialog = new FolderBrowserDialog()) {
+                if (folderBrowserDialog.ShowDialog() == DialogResult.OK && !string.IsNullOrWhiteSpace(folderBrowserDialog.SelectedPath)) {
                     string newDbLocation = folderBrowserDialog.SelectedPath;
                     SqliteDataAccess.SelectNewDatabaseLocation(newDbLocation);
                 }
@@ -54,40 +51,34 @@ namespace FloorPlanMakerUI
 
         private void btnImportSalesData_Click(object sender, EventArgs e)
         {
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
-            {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog()) {
                 string defaultDirectory = @"C:\Users\Jason\OneDrive\Source\Databases\LiveDB\Order History";
                 string fallbackDirectory = @"C:\";
 
                 // Check if the default directory exists
-                if (Directory.Exists(defaultDirectory))
-                {
+                if (Directory.Exists(defaultDirectory)) {
                     openFileDialog.InitialDirectory = defaultDirectory;
                 }
-                else
-                {
+                else {
                     openFileDialog.InitialDirectory = fallbackDirectory;
                 }
                 openFileDialog.Filter = "CSV files (*.csv)|*.csv|All files (*.*)|*.*";
                 openFileDialog.FilterIndex = 1;
                 openFileDialog.RestoreDirectory = true;
 
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
-                {
+                if (openFileDialog.ShowDialog() == DialogResult.OK) {
 
                     string filePath = openFileDialog.FileName;
                     frmLoading loadingForm = new frmLoading("Parsing");
                     loadingForm.Show();
                     this.Enabled = false;
 
-                    Task.Run(() =>
-                    {
+                    Task.Run(() => {
                         TableSalesManager tableSalesManager = new TableSalesManager();
                         var allTableStats = tableSalesManager.ProcessCsvFile(filePath);
                         SqliteDataAccess.SaveTableStat(allTableStats);
 
-                        this.Invoke(new Action(() =>
-                        {
+                        this.Invoke(new Action(() => {
                             // Close the loading form and re-enable the main form
                             loadingForm.Close();
                             this.Enabled = true;
@@ -109,27 +100,21 @@ namespace FloorPlanMakerUI
             List<string> missingDateRanges = new List<string>();
 
             DateOnly? rangeStart = null;
-            for (DateOnly date = startDate; date <= endDate; date = date.AddDays(1))
-            {
-                if (missingDates.Contains(date))
-                {
+            for (DateOnly date = startDate; date <= endDate; date = date.AddDays(1)) {
+                if (missingDates.Contains(date)) {
                     // Start of a new range
-                    if (rangeStart == null)
-                    {
+                    if (rangeStart == null) {
                         rangeStart = date;
                     }
                 }
-                else if (rangeStart != null)
-                {
-                    if (date.AddDays(-1) != rangeStart)
-                    {
+                else if (rangeStart != null) {
+                    if (date.AddDays(-1) != rangeStart) {
                         // End of a current range
                         string dateRange = $"{rangeStart.Value.ToString("MMM dd")} - {date.AddDays(-1).ToString("MMM dd")}";
                         missingDateRanges.Add(dateRange);
                         rangeStart = null; // Reset for the next range
                     }
-                    else
-                    {
+                    else {
                         string dateRange = $"{rangeStart.Value.ToString("MMM dd")}";
                         missingDateRanges.Add(dateRange);
                         rangeStart = null; // Reset for the next range
@@ -139,16 +124,13 @@ namespace FloorPlanMakerUI
             }
 
             // Handle case where the last date is part of a missing range
-            if (rangeStart != null)
-            {
+            if (rangeStart != null) {
 
-                if (rangeStart == endDate)
-                {
+                if (rangeStart == endDate) {
                     string dateRange = $"{rangeStart.Value.ToString("MMM dd")}";
                     missingDateRanges.Add(dateRange);
                 }
-                else
-                {
+                else {
                     string dateRange = $"{rangeStart.Value.ToString("MMM dd")} - {endDate.ToString("MMM dd")}";
                     missingDateRanges.Add(dateRange);
                 }
@@ -156,8 +138,7 @@ namespace FloorPlanMakerUI
 
             }
 
-            foreach (string dateRange in missingDateRanges)
-            {
+            foreach (string dateRange in missingDateRanges) {
                 lbMissingData.Items.Add(dateRange);
             }
         }
@@ -186,8 +167,7 @@ namespace FloorPlanMakerUI
         {
             frmConfirmation confirmationForm = new frmConfirmation();
             DialogResult result = confirmationForm.ShowDialog();
-            if (result == DialogResult.OK)
-            {
+            if (result == DialogResult.OK) {
                 SqliteDataAccess.DeleteAllFloorplans();
             }
         }
@@ -212,8 +192,7 @@ namespace FloorPlanMakerUI
             DateOnly dateOnly = new DateOnly(dateSelected.Year, dateSelected.Month, dateSelected.Day);
             bool isLunch = rdoAM.Checked;
             float sales = float.Parse(txtSales.Text);
-            foreach (Table table in area.Tables)
-            {
+            foreach (Table table in area.Tables) {
                 TableStat stat = new TableStat(table.TableNumber, dateSelected.DayOfWeek, dateOnly, isLunch, sales);
                 newStats.Add(stat);
             }
@@ -255,8 +234,7 @@ namespace FloorPlanMakerUI
             DateOnly today = new DateOnly(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
             List<SpecialEventDate> allEvents = SqliteDataAccess.LoadSpecialEvents();
             List<SpecialEventDate> futureEvents = allEvents.Where(e => e.DateOnly >= today).OrderBy(e => e.DateOnly).ToList();
-            foreach (SpecialEventDate specialEventDate in futureEvents)
-            {
+            foreach (SpecialEventDate specialEventDate in futureEvents) {
                 lbUpcomingEvents.Items.Add(specialEventDate.GetUpcomingEventString());
             }
         }
@@ -277,6 +255,12 @@ namespace FloorPlanMakerUI
         {
             frmTutorialVideos tutorialForm = new frmTutorialVideos(TutorialImages.TutorialType.UpdatingOrderHistory);
             tutorialForm.Show();
+        }
+
+        private void btnEditColors_Click(object sender, EventArgs e)
+        {
+            frmCustomColors frmCustomColors = new frmCustomColors();
+            frmCustomColors.ShowDialog();
         }
         //using (OpenFileDialog openFileDialog = new OpenFileDialog())
         //{

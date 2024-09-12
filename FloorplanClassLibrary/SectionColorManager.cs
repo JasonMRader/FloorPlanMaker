@@ -39,11 +39,12 @@ namespace FloorplanClassLibrary
                 var colors = connection.Query(query);
 
                 foreach (var color in colors) {
-                    var backgroundColor = Color.FromArgb(color.R, color.G, color.B);
-                    var fontColor = Color.FromArgb(color.ForeR, color.ForeG, color.ForeB);
+                    // Explicitly cast the values to int before using them in Color.FromArgb
+                    var backgroundColor = Color.FromArgb((int)color.R, (int)color.G, (int)color.B);
+                    var fontColor = Color.FromArgb((int)color.ForeR, (int)color.ForeG, (int)color.ForeB);
 
                     var colorPair = new ColorPair(backgroundColor, fontColor);
-                    SectionColors[color.Number] = colorPair;
+                    SectionColors[(int)color.Number] = colorPair;
                 }
             }
 
@@ -170,6 +171,50 @@ namespace FloorplanClassLibrary
                 connection.Close();
             }
         }
+        public static void SaveSectionColor(int sectionNumber, Color backColor, Color foreColor, bool isDefault)
+        {
+            using (var connection = new SQLiteConnection(LoadConnectionString())) {
+                connection.Open();
 
+                // First, check if a record already exists
+                string checkQuery = "SELECT COUNT(*) FROM SectionColors WHERE Number = @Number AND IsDefault = @IsDefault";
+                var recordCount = connection.ExecuteScalar<int>(checkQuery, new { Number = sectionNumber, IsDefault = isDefault ? 1 : 0 });
+
+                if (recordCount > 0) {
+                    // If record exists, update it
+                    string updateQuery = @"UPDATE SectionColors 
+                                   SET R = @R, G = @G, B = @B, 
+                                       ForeR = @ForeR, ForeG = @ForeG, ForeB = @ForeB 
+                                   WHERE Number = @Number AND IsDefault = @IsDefault";
+                    connection.Execute(updateQuery, new {
+                        R = backColor.R,
+                        G = backColor.G,
+                        B = backColor.B,
+                        ForeR = foreColor.R,
+                        ForeG = foreColor.G,
+                        ForeB = foreColor.B,
+                        Number = sectionNumber,
+                        IsDefault = isDefault ? 1 : 0
+                    });
+                }
+                else {
+                    // If no record exists, insert a new one
+                    string insertQuery = @"INSERT INTO SectionColors (Number, R, G, B, ForeR, ForeG, ForeB, IsDefault) 
+                                   VALUES (@Number, @R, @G, @B, @ForeR, @ForeG, @ForeB, @IsDefault)";
+                    connection.Execute(insertQuery, new {
+                        Number = sectionNumber,
+                        R = backColor.R,
+                        G = backColor.G,
+                        B = backColor.B,
+                        ForeR = foreColor.R,
+                        ForeG = foreColor.G,
+                        ForeB = foreColor.B,
+                        IsDefault = isDefault ? 1 : 0
+                    });
+                }
+
+                connection.Close();
+            }
+        }
     }
 }

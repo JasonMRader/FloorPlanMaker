@@ -13,8 +13,7 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
-            {
+            if (disposing && (components != null)) {
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -48,10 +47,10 @@
             btnEventDates = new Button();
             panel2 = new Panel();
             btnSaleStats = new Button();
+            btnUpdateNotes = new Button();
             label5 = new Label();
             btnDeleteTemplate = new Button();
             nudTemplateID = new NumericUpDown();
-            btnUpdateNotes = new Button();
             panel3 = new Panel();
             label7 = new Label();
             panel5 = new Panel();
@@ -66,6 +65,7 @@
             btnTest = new Button();
             btnDeleteFloorplans = new Button();
             btnPastSection = new Button();
+            btnEditColors = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudTemplateID).BeginInit();
@@ -288,6 +288,7 @@
             panel2.BackColor = Color.FromArgb(180, 190, 200);
             panel2.Controls.Add(btnEditServers);
             panel2.Controls.Add(btnSaleStats);
+            panel2.Controls.Add(btnEditColors);
             panel2.Controls.Add(btnUpdateNotes);
             panel2.Location = new Point(459, 92);
             panel2.Name = "panel2";
@@ -307,6 +308,20 @@
             btnSaleStats.Text = "Sales Stats";
             btnSaleStats.UseVisualStyleBackColor = false;
             btnSaleStats.Click += btnSaleStats_Click;
+            // 
+            // btnUpdateNotes
+            // 
+            btnUpdateNotes.BackColor = Color.FromArgb(100, 130, 180);
+            btnUpdateNotes.FlatAppearance.BorderSize = 0;
+            btnUpdateNotes.FlatStyle = FlatStyle.Flat;
+            btnUpdateNotes.ForeColor = Color.White;
+            btnUpdateNotes.Location = new Point(14, 239);
+            btnUpdateNotes.Name = "btnUpdateNotes";
+            btnUpdateNotes.Size = new Size(322, 43);
+            btnUpdateNotes.TabIndex = 0;
+            btnUpdateNotes.Text = "Version History";
+            btnUpdateNotes.UseVisualStyleBackColor = false;
+            btnUpdateNotes.Click += btnUpdateNotes_Click;
             // 
             // label5
             // 
@@ -334,20 +349,6 @@
             nudTemplateID.Name = "nudTemplateID";
             nudTemplateID.Size = new Size(48, 23);
             nudTemplateID.TabIndex = 1;
-            // 
-            // btnUpdateNotes
-            // 
-            btnUpdateNotes.BackColor = Color.FromArgb(100, 130, 180);
-            btnUpdateNotes.FlatAppearance.BorderSize = 0;
-            btnUpdateNotes.FlatStyle = FlatStyle.Flat;
-            btnUpdateNotes.ForeColor = Color.White;
-            btnUpdateNotes.Location = new Point(14, 180);
-            btnUpdateNotes.Name = "btnUpdateNotes";
-            btnUpdateNotes.Size = new Size(322, 43);
-            btnUpdateNotes.TabIndex = 0;
-            btnUpdateNotes.Text = "Version History";
-            btnUpdateNotes.UseVisualStyleBackColor = false;
-            btnUpdateNotes.Click += btnUpdateNotes_Click;
             // 
             // panel3
             // 
@@ -508,6 +509,20 @@
             btnPastSection.UseVisualStyleBackColor = false;
             btnPastSection.Click += btnPastSection_Click;
             // 
+            // btnEditColors
+            // 
+            btnEditColors.BackColor = Color.FromArgb(100, 130, 180);
+            btnEditColors.FlatAppearance.BorderSize = 0;
+            btnEditColors.FlatStyle = FlatStyle.Flat;
+            btnEditColors.ForeColor = Color.White;
+            btnEditColors.Location = new Point(14, 180);
+            btnEditColors.Name = "btnEditColors";
+            btnEditColors.Size = new Size(322, 43);
+            btnEditColors.TabIndex = 0;
+            btnEditColors.Text = "Edit Section Colors";
+            btnEditColors.UseVisualStyleBackColor = false;
+            btnEditColors.Click += btnEditColors_Click;
+            // 
             // frmSettings
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -578,5 +593,6 @@
         private Panel panel4;
         private Button btnTest;
         private Button btnHelpImportSales;
+        private Button btnEditColors;
     }
 }
