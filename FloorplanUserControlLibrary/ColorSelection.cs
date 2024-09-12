@@ -61,7 +61,7 @@ namespace FloorplanUserControlLibrary
 
         private void Label_Click(object? sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            
         }
 
         public void SetSectionColorPair(int sectionNumber)
