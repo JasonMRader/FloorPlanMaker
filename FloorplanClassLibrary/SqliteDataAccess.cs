@@ -2873,24 +2873,123 @@ namespace FloorplanClassLibrary
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString())) {
                 // First, load all the DiningAreaRecords
+                // Define the SQL query to get the dining area records
                 string diningAreaSql = @"SELECT * FROM DiningAreaRecord";
-                var diningAreaRecords = cnn.Query<DiningAreaRecord>(diningAreaSql).ToList();
 
-                // Then, load all the corresponding TableStats for each DiningAreaRecord
-                string tableStatsSql = @"SELECT * FROM TableStats WHERE DiningAreaID = @DiningAreaID AND Date = @Date AND IsLunch = @IsLunch";
+                // Get the raw query result
+                var queryResult = cnn.Query(diningAreaSql);
+
+                // Manually convert each row into a DiningAreaRecord object and map the properties
+                var diningAreaRecords = queryResult.Select(row => new DiningAreaRecord {
+                    ID = Convert.ToInt32(row.ID), // Assuming the ID is never null
+                    DiningAreaID = Convert.ToInt32(row.DiningAreaID), // Convert to int
+                    DateOnly = DateOnly.Parse(row.Date), // Convert the Date string to DateOnly
+                    IsAm = Convert.ToBoolean(row.IsAm), // Convert long/int to bool
+                    Sales = Convert.ToSingle(row.Sales), // Convert Sales from double to float
+                    ServerCount = Convert.ToInt32(row.ServerCount), // Convert long/int to int
+                    PercentageOfSales = Convert.ToSingle(row.PercentageOfSales), // Convert from double to float
+                    TableStats = new List<TableStat>() // Initialize an empty list for TableStats, to be populated later
+                }).ToList();
+
+
+                // Query to load the TableStats using the DiningAreaRecordID
+                string tableStatsSql = @"SELECT * FROM TableStats WHERE DiningAreaRecordID = @DiningAreaRecordID";
 
                 foreach (var record in diningAreaRecords) {
-                    // Populate the TableStats for each DiningAreaRecord
-                    record.TableStats = cnn.Query<TableStat>(tableStatsSql, new {
-                        DiningAreaID = record.DiningAreaID,
-                        Date = record.DateOnly,
-                        IsLunch = !record.IsAm // Assuming IsAm refers to IsLunch being false
+                    // Execute the query and get the results as raw rows for TableStats
+                    var queryTableResult = cnn.Query(tableStatsSql, new { DiningAreaRecordID = record.ID });
+
+                    // Convert the raw result into a list of TableStat objects with explicit type conversions
+                    var tableStatsList = queryTableResult.Select(row => new TableStat {
+                        TableStatNumber = row.TableStatNumber,
+                        DayOfWeek = (DayOfWeek)Enum.Parse(typeof(DayOfWeek), row.DayOfWeek), // Convert string to DayOfWeek enum
+                        Date = DateOnly.Parse(row.Date), // Convert string to DateOnly
+                        IsLunch = Convert.ToBoolean(row.IsLunch), // Convert long/int to bool
+                        Sales = row.Sales != null ? (float?)Convert.ToDouble(row.Sales) : null, // Convert nullable double to nullable float
+                        Orders = Convert.ToInt32(row.Orders), // Convert long/int to int
+                        DiningAreaID = row.DiningAreaID != null ? (int?)Convert.ToInt32(row.DiningAreaID) : null, // Convert to nullable int
+                        DiningAreaRecordID = row.DiningAreaRecordID != null ? (int?)Convert.ToInt32(row.DiningAreaRecordID) : null // Convert to nullable int
                     }).ToList();
+                    record.TableStats = tableStatsList;
                 }
 
                 return diningAreaRecords;
             }
         }
+
+        public void SaveSectionColor(int sectionNumber, Color backColor, Color foreColor, bool isDefault)
+        {
+            using (var connection = new SQLiteConnection(LoadConnectionString())) {
+                connection.Open();
+
+                // First, check if a record already exists
+                string checkQuery = "SELECT COUNT(*) FROM SectionColors WHERE Number = @Number AND IsDefault = @IsDefault";
+                var recordCount = connection.ExecuteScalar<int>(checkQuery, new { Number = sectionNumber, IsDefault = isDefault ? 1 : 0 });
+
+                if (recordCount > 0) {
+                    // If record exists, update it
+                    string updateQuery = @"UPDATE SectionColors 
+                                   SET R = @R, G = @G, B = @B, 
+                                       ForeR = @ForeR, ForeG = @ForeG, ForeB = @ForeB 
+                                   WHERE Number = @Number AND IsDefault = @IsDefault";
+                    connection.Execute(updateQuery, new {
+                        R = backColor.R,
+                        G = backColor.G,
+                        B = backColor.B,
+                        ForeR = foreColor.R,
+                        ForeG = foreColor.G,
+                        ForeB = foreColor.B,
+                        Number = sectionNumber,
+                        IsDefault = isDefault ? 1 : 0
+                    });
+                }
+                else {
+                    // If no record exists, insert a new one
+                    string insertQuery = @"INSERT INTO SectionColors (Number, R, G, B, ForeR, ForeG, ForeB, IsDefault) 
+                                   VALUES (@Number, @R, @G, @B, @ForeR, @ForeG, @ForeB, @IsDefault)";
+                    connection.Execute(insertQuery, new {
+                        Number = sectionNumber,
+                        R = backColor.R,
+                        G = backColor.G,
+                        B = backColor.B,
+                        ForeR = foreColor.R,
+                        ForeG = foreColor.G,
+                        ForeB = foreColor.B,
+                        IsDefault = isDefault ? 1 : 0
+                    });
+                }
+
+                connection.Close();
+            }
+        }
+
+        public ColorPair GetSectionColor(int sectionNumber, bool isDefault)
+        {
+            using (var connection = new SQLiteConnection("YourConnectionString")) {
+                connection.Open();
+
+                string query = @"SELECT R, G, B, ForeR, ForeG, ForeB
+                         FROM SectionColors 
+                         WHERE Number = @Number AND IsDefault = @IsDefault";
+
+                var result = connection.QueryFirstOrDefault(query, new { Number = sectionNumber, IsDefault = isDefault ? 1 : 0 });
+
+                if (result != null) {
+                    // Construct background and font colors from the retrieved RGB values
+                    Color backgroundColor = Color.FromArgb(result.R, result.G, result.B);
+                    Color fontColor = Color.FromArgb(result.ForeR, result.ForeG, result.ForeB);
+
+                    // Return the ColorPair
+                    return new ColorPair(backgroundColor, fontColor);
+                }
+
+                // Return default color pair if no record is found
+                return new ColorPair(Color.White, Color.Black); // Or any other default color values
+            }
+        }
+
+
+
 
 
         //public static void SaveTopBottomNeighbor(string key, string value)

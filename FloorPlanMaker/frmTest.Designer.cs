@@ -72,6 +72,8 @@
             panel3 = new Panel();
             flowNumber = new FlowLayoutPanel();
             btnLoadDiningRecords = new Button();
+            colorDialog1 = new ColorDialog();
+            button3 = new Button();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
             SuspendLayout();
             // 
@@ -464,11 +466,22 @@
             btnLoadDiningRecords.UseVisualStyleBackColor = true;
             btnLoadDiningRecords.Click += btnLoadDiningRecords_Click;
             // 
+            // button3
+            // 
+            button3.Location = new Point(354, 564);
+            button3.Name = "button3";
+            button3.Size = new Size(75, 23);
+            button3.TabIndex = 13;
+            button3.Text = "color";
+            button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
+            // 
             // frmTest
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1394, 674);
+            Controls.Add(button3);
             Controls.Add(btnLoadDiningRecords);
             Controls.Add(panel3);
             Controls.Add(panel2);
@@ -569,5 +582,7 @@
         private Panel panel3;
         private FlowLayoutPanel flowNumber;
         private Button btnLoadDiningRecords;
+        private ColorDialog colorDialog1;
+        private Button button3;
     }
 }

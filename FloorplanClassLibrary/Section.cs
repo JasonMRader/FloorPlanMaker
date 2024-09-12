@@ -791,24 +791,7 @@ namespace FloorplanClassLibrary
         {
             this._number = number;
         }
-        public Color Color
-        {
-            get
-            {
-                if (this.IsBarSection)
-                {                   
-                    return Color.FromArgb(23, 26, 33);
-                }
-                if (Colors.ContainsKey(Number))
-                {
-                    return Colors[Number].BackgroundColor;
-                }
-
-                return Color.White;
-               
-            }
-           
-        }
+       
         public Color MuteColor(float amount)
         {
             // 'amount' is a value between 0 and 1, where 0 is completely grey and 1 is the original color
@@ -828,7 +811,21 @@ namespace FloorplanClassLibrary
 
             return Color.FromArgb(this.Color.A, muteR, muteG, muteB);
         }
+        public Color Color {
+            get {
+                if (this.IsBarSection) {
+                    return Color.FromArgb(23, 26, 33);
+                }
+                //if (Colors.ContainsKey(Number)) {
+                //    return Colors[Number].BackgroundColor;
+                //}
+                return SectionColorManager.GetColorPair(Number).BackgroundColor;
 
+                //return Color.White;
+
+            }
+
+        }
         public Color FontColor
         {
             get
@@ -837,16 +834,14 @@ namespace FloorplanClassLibrary
                 {
                     return Color.White;
                 }
-                if (this.IsBarSection)
-                {
-                    return Color.FromArgb(23, 26, 33);
-                }
-                if (Colors.ContainsKey(Number))
-                {
-                    return Colors[Number].FontColor;
-                }
 
-                return Color.White;
+                //if (Colors.ContainsKey(Number))
+                //{
+                //    return Colors[Number].FontColor;
+                //}
+
+                //return Color.White;
+                return SectionColorManager.GetColorPair(Number).FontColor;
             }
         }        
         public Dictionary<int, ColorPair> Colors { get; } = new Dictionary<int, ColorPair>
@@ -871,25 +866,7 @@ namespace FloorplanClassLibrary
             { 100, new ColorPair(Color.LightGray, Color.Black) },
             { 101, new ColorPair(Color.Gray, Color.White) },
             { 102, new ColorPair(Color.DarkGray, Color.White) }
-            //{ 1, Color.FromArgb(240,246,0) },    // Bright Yellow
-            //{ 2, Color.FromArgb(180,134,159) },  // Soft Purple
-            //{ 3, Color.FromArgb(242,124,5) },    // Orange
-            //{ 4, Color.FromArgb(194,178,180) },  // Light Gray
-            //{ 5, Color.FromArgb(176,46,12) },    // Red-Orange
-            //{ 6, Color.FromArgb(65, 234, 212) }, // Aqua
-            //{ 7, Color.FromArgb(70,17,122) },    // Dark Purple
-            //{ 8, Color.FromArgb(243,227,124) },  // Pale Yellow
-            //{ 9, Color.FromArgb(7,79,87) },      // Dark Teal
-            //{ 10, Color.FromArgb(244,192,149) }, // Light Peach
-            //{ 11, Color.FromArgb(17,100,184) },  // Blue
-            //{ 12, Color.FromArgb(250,127,127) }, // Light Red
-            //{ 13, Color.FromArgb(26,83,92) },    // Teal
-            //{ 14, Color.FromArgb(103,178,216) }, // Light Blue
-            //{ 15, Color.FromArgb(88,44,77) },    // Burgundy
-            //{ 16, Color.FromArgb(105,209,0) },   // Green
-            //{ 17, Color.FromArgb(84,92,82) },    // Olive Green
-            //{ 18, Color.FromArgb(87,61,28) },    // Brown
-            //{ 19, Color.FromArgb(130,9,29) },    // Dark Red
+           
 
 
         };
