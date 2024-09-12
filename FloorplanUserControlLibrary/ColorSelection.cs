@@ -1,4 +1,5 @@
 ﻿using FloorplanClassLibrary;
+using FloorPlanMakerUI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,7 +21,49 @@ namespace FloorplanUserControlLibrary
         public ColorSelection()
         {
             InitializeComponent();
+            PopulateDefaults();
         }
+        private void PopulateDefaults()
+        {
+            
+            for (int i = 1; i <= 15; i++) {
+                int spots = 2;
+                int previous = i - spots;
+                int next = i + spots;
+                if (previous < 1) {
+                    previous = SectionColorManager.SectionColors.Count - spots + i;
+                }
+                if (next > SectionColorManager.SectionColors.Count) {
+                    next = i - SectionColorManager.SectionColors.Count + spots;
+                }
+
+                Button lbl = new Button() {
+                    Text = i.ToString(),
+                    Margin = new Padding(0),
+                    Size = new Size(flowDefaults.Width / 15, flowDefaults.Height),
+                    TextAlign = ContentAlignment.MiddleCenter,
+                    Font = UITheme.LargeFont,
+                    Tag = i,
+                    BackColor = SectionColorManager.GetColorPair(i).BackgroundColor,
+                    ForeColor = SectionColorManager.GetColorPair(i).FontColor,
+                    AllowDrop = true
+                };
+                   
+                lbl.Click += Label_Click;
+                    
+                flowDefaults.Controls.Add(lbl);
+                    
+            }
+
+
+            
+        }
+
+        private void Label_Click(object? sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
         public void SetSectionColorPair(int sectionNumber)
         {
             this.colorPair = SectionColorManager.GetColorPair(sectionNumber);
@@ -83,6 +126,11 @@ namespace FloorplanUserControlLibrary
             lblSectionNumber.ForeColor = Color.Black;
             cbForeColor.BackColor = Color.Black;
             cbForeColor.ForeColor = Color.White;
+        }
+
+        private void ColorSelection_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
