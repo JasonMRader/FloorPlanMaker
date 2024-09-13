@@ -12,6 +12,7 @@ namespace FloorplanClassLibrary
     public static class SectionColorManager
     {
         public static Dictionary<int, ColorPair> SectionColors { get; private set; } = new Dictionary<int, ColorPair>();
+        public static Dictionary<int, ColorPair> DefaultSectionColors { get; private set; } = new Dictionary<int, ColorPair>();
         private static string LoadConnectionString(string id = "Default")
         {
             var connectionString = ConfigurationManager.ConnectionStrings[id].ConnectionString;
@@ -35,16 +36,27 @@ namespace FloorplanClassLibrary
             using (var connection = new SQLiteConnection(LoadConnectionString())) {
                 connection.Open();
 
-                string query = "SELECT Number, R, G, B, ForeR, ForeG, ForeB, IsDefault FROM SectionColors";
-                var colors = connection.Query(query);
+                string customQuery = "SELECT Number, R, G, B, ForeR, ForeG, ForeB FROM SectionColors WHERE IsDefault = 0";
+                var customColors = connection.Query(customQuery);
 
-                foreach (var color in colors) {
+                foreach (var color in customColors) {
                     // Explicitly cast the values to int before using them in Color.FromArgb
                     var backgroundColor = Color.FromArgb((int)color.R, (int)color.G, (int)color.B);
                     var fontColor = Color.FromArgb((int)color.ForeR, (int)color.ForeG, (int)color.ForeB);
 
                     var colorPair = new ColorPair(backgroundColor, fontColor);
                     SectionColors[(int)color.Number] = colorPair;
+                }
+                string defaultQuery = "SELECT Number, R, G, B, ForeR, ForeG, ForeB FROM SectionColors WHERE IsDefault = 1";
+                var defaultColors = connection.Query(defaultQuery);
+
+                foreach (var color in defaultColors) {
+                    // Explicitly cast the values to int before using them in Color.FromArgb
+                    var backgroundColor = Color.FromArgb((int)color.R, (int)color.G, (int)color.B);
+                    var fontColor = Color.FromArgb((int)color.ForeR, (int)color.ForeG, (int)color.ForeB);
+
+                    var colorPair = new ColorPair(backgroundColor, fontColor);
+                    DefaultSectionColors[(int)color.Number] = colorPair;
                 }
             }
 
@@ -120,12 +132,21 @@ namespace FloorplanClassLibrary
             // Return default color pair if not found
             return new ColorPair(Color.White, Color.Black);
         }
+        public static ColorPair GetDefaultColorPair(int sectionNumber)
+        {
+            if (DefaultSectionColors.ContainsKey(sectionNumber)) {
+                return DefaultSectionColors[sectionNumber];
+            }
+
+            // Return default color pair if not found
+            return new ColorPair(Color.White, Color.Black);
+        }
         public static void SaveDefaultColorsToDatabase()
         {
             using (var connection = new SQLiteConnection(LoadConnectionString())) {
                 connection.Open();
 
-                foreach (var sectionColor in SectionColors) {
+                foreach (var sectionColor in DefaultSectionColors) {
                     int sectionNumber = sectionColor.Key;
                     ColorPair colorPair = sectionColor.Value;
 
@@ -170,6 +191,59 @@ namespace FloorplanClassLibrary
 
                 connection.Close();
             }
+        }
+        public static void SaveCustomColorsToDatabase(Dictionary<int, ColorPair> customColors)
+        {
+            using (var connection = new SQLiteConnection(LoadConnectionString())) {
+                connection.Open();
+
+                foreach (var sectionColor in customColors) {
+                    int sectionNumber = sectionColor.Key;
+                    ColorPair colorPair = sectionColor.Value;
+
+                    string queryCheck = @"SELECT COUNT(*) FROM SectionColors 
+                                  WHERE Number = @Number AND IsDefault = 0";
+
+                    // Check if a record already exists
+                    int recordCount = connection.ExecuteScalar<int>(queryCheck, new { Number = sectionNumber });
+
+                    if (recordCount > 0) {
+                        // If record exists, update it
+                        string updateQuery = @"UPDATE SectionColors 
+                                       SET R = @R, G = @G, B = @B, ForeR = @ForeR, ForeG = @ForeG, ForeB = @ForeB
+                                       WHERE Number = @Number AND IsDefault = 0";
+
+                        connection.Execute(updateQuery, new {
+                            R = colorPair.BackgroundColor.R,
+                            G = colorPair.BackgroundColor.G,
+                            B = colorPair.BackgroundColor.B,
+                            ForeR = colorPair.FontColor.R,
+                            ForeG = colorPair.FontColor.G,
+                            ForeB = colorPair.FontColor.B,
+                            Number = sectionNumber
+                        });
+                    }
+                    else {
+                        // If no record exists, insert a new one
+                        string insertQuery = @"INSERT INTO SectionColors (Number, R, G, B, ForeR, ForeG, ForeB, IsDefault)
+                                       VALUES (@Number, @R, @G, @B, @ForeR, @ForeG, @ForeB, 0)";
+
+                        connection.Execute(insertQuery, new {
+                            Number = sectionNumber,
+                            R = colorPair.BackgroundColor.R,
+                            G = colorPair.BackgroundColor.G,
+                            B = colorPair.BackgroundColor.B,
+                            ForeR = colorPair.FontColor.R,
+                            ForeG = colorPair.FontColor.G,
+                            ForeB = colorPair.FontColor.B
+                        });
+                    }
+                }
+
+                connection.Close();
+            }
+            SectionColors.Clear();
+            SectionColors = customColors;
         }
         public static void SaveSectionColor(int sectionNumber, Color backColor, Color foreColor, bool isDefault)
         {

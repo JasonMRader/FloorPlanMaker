@@ -99,13 +99,17 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1188, 711);
+            ControlBox = false;
             Controls.Add(panel1);
             Controls.Add(btnCancel);
             Controls.Add(btnSave);
             Controls.Add(btnDefault);
             Controls.Add(flowLayoutPanel1);
             FormBorderStyle = FormBorderStyle.None;
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "frmCustomColors";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "frmCustomColors";
             Load += frmCustomColors_Load;
             ResumeLayout(false);

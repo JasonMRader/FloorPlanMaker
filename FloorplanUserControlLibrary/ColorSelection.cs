@@ -39,8 +39,8 @@ namespace FloorplanUserControlLibrary
                     Font = UITheme.LargeFont,
                     Tag = i,
                     FlatStyle = FlatStyle.Flat,
-                    BackColor = SectionColorManager.GetColorPair(i).BackgroundColor,
-                    ForeColor = SectionColorManager.GetColorPair(i).FontColor,
+                    BackColor = SectionColorManager.GetDefaultColorPair(i).BackgroundColor,
+                    ForeColor = SectionColorManager.GetDefaultColorPair(i).FontColor,
                     AllowDrop = true
                 };
 
@@ -131,7 +131,7 @@ namespace FloorplanUserControlLibrary
         {
             Button button = sender as Button;
             int i = (int)button.Tag;
-            SetColorsToSectionManagerColorPair(i);
+            SetColorsToSectionManagerColorPair(i, true);
             
             
         }
@@ -139,14 +139,20 @@ namespace FloorplanUserControlLibrary
         public void SetSectionColorPair(int sectionNumber)
         {
             num = sectionNumber;
-            SetColorsToSectionManagerColorPair(sectionNumber);
+            SetColorsToSectionManagerColorPair(sectionNumber, false);
             lblSectionNumber.Text = $"Section #{sectionNumber}";
             GetNeighboringSections();
 
         }
-        private void SetColorsToSectionManagerColorPair(int sectionNumber)
+        private void SetColorsToSectionManagerColorPair(int sectionNumber, bool isDefault)
         {
-            this.colorPair = SectionColorManager.GetColorPair(sectionNumber);
+            if(!isDefault) {
+                this.colorPair = SectionColorManager.GetColorPair(sectionNumber);
+            }
+            else {
+                this.colorPair = SectionColorManager.GetDefaultColorPair(sectionNumber);
+            }
+            
             pnlMain.BackColor = colorPair.BackgroundColor;
             cbForeColor.BackColor = colorPair.BackgroundColor;
             tbR.Value = colorPair.BackgroundColor.R;

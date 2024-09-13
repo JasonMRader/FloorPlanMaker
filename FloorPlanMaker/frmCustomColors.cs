@@ -15,7 +15,7 @@ namespace FloorPlanMakerUI
 {
     public partial class frmCustomColors : Form
     {
-        private Dictionary<int, ColorPair> Colors = new Dictionary<int, ColorPair>();
+        private Dictionary<int, ColorPair> CustomColors = new Dictionary<int, ColorPair>();
         private ColorSelection colorSelection = new ColorSelection();
         private Dictionary<int, Label> labelDictionary = new Dictionary<int, Label>();
         public frmCustomColors()
@@ -28,7 +28,7 @@ namespace FloorPlanMakerUI
         private void frmCustomColors_Load(object sender, EventArgs e)
         {
             SectionColorManager.LoadColors();
-            Colors = SectionColorManager.SectionColors;
+            //customColors = SectionColorManager.SectionColors;
             colorDialog.CustomColors = customColors;
             PopulateMainColorControls();
             btnSave.BackColor = UITheme.YesColor;
@@ -42,11 +42,12 @@ namespace FloorPlanMakerUI
             Label label = labelDictionary[sectionNum];
             label.BackColor = colorPair.BackgroundColor;
             label.ForeColor = colorPair.FontColor;
+            CustomColors[sectionNum] = colorPair;
         }
 
         private void PopulateMainColorControls()
         {
-            for (int i = 1; i <= 15; i++) {                
+            for (int i = 1; i <= 15; i++) {
 
                 Label lbl = new Label() {
                     Text = i.ToString(),
@@ -59,11 +60,11 @@ namespace FloorPlanMakerUI
                     ForeColor = SectionColorManager.GetColorPair(i).FontColor,
                     AllowDrop = true
                 };
-               
-                lbl.Click += Label_Click;               
+                CustomColors[i] = SectionColorManager.GetColorPair(i);
+                lbl.Click += Label_Click;
                 flowLayoutPanel1.Controls.Add(lbl);
                 labelDictionary[i] = lbl;
-                
+
             }
 
 
@@ -161,7 +162,7 @@ namespace FloorPlanMakerUI
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-
+            SectionColorManager.SaveCustomColorsToDatabase(CustomColors);
         }
 
         private void btnDefault_Click(object sender, EventArgs e)
