@@ -8,8 +8,8 @@ namespace FloorplanClassLibrary
 {
     public struct ColorPair
     {
-        public Color BackgroundColor { get; }
-        public Color FontColor { get; }
+        public Color BackgroundColor { get; set; }
+        public Color FontColor { get; set; }
 
         public ColorPair(Color backgroundColor, Color fontColor)
         {

@@ -19,6 +19,7 @@ namespace FloorplanUserControlLibrary
         private int B = 0;
         private int num = 0;
         private ColorPair colorPair = new ColorPair();
+        public event Action<int, ColorPair> ColorChanged;
         public ColorSelection()
         {
             InitializeComponent();
@@ -37,6 +38,7 @@ namespace FloorplanUserControlLibrary
                     TextAlign = ContentAlignment.MiddleCenter,
                     Font = UITheme.LargeFont,
                     Tag = i,
+                    FlatStyle = FlatStyle.Flat,
                     BackColor = SectionColorManager.GetColorPair(i).BackgroundColor,
                     ForeColor = SectionColorManager.GetColorPair(i).FontColor,
                     AllowDrop = true
@@ -59,32 +61,71 @@ namespace FloorplanUserControlLibrary
             int spots = 1;
             int previous = num - spots;
             int next = num + spots;
+            int previous2 = num - 2;
+            int next2 = num + 2;
+            int previous3 = num - 3;
+            int next3 = num + 3;
             if (previous < 1) {
                 previous = 15 - spots + num;
             }
             if (next > 15) {
                 next = num - 15 + spots;
             }
+            if (previous2 < 1) {
+                previous2 = 15 - 2 + num;
+            }
+            if (next2 > 15) {
+                next2 = num - 15 + spots;
+            }
+            if (previous3 < 1) {
+                previous3 = 15 - 3 + num;
+            }
+            if (next3 > 15) {
+                next3 = num - 15 + 3;
+            }
+
             lbl1Before.Text = previous.ToString();
             lbl1Before.Margin = new Padding(0);
-            //Size = new Size((flowLayoutPanel1.Width / 5), (flowLayoutPanel1.Height / 20)),
             lbl1Before.TextAlign = ContentAlignment.MiddleCenter;
             lbl1Before.Font = UITheme.LargeFont;
             lbl1Before.BackColor = SectionColorManager.GetColorPair(previous).BackgroundColor;
             lbl1Before.ForeColor = SectionColorManager.GetColorPair(previous).FontColor;
-            //lbl1Before.Dock = DockStyle.Left;
-            // lbl1Before.AllowDrop = true;
-
 
             lbl1After.Text = next.ToString();
             lbl1After.Margin = new Padding(0);
-            //Size = new Size((flowLayoutPanel1.Width / 5), (flowLayoutPanel1.Height / 20)),
             lbl1After.TextAlign = ContentAlignment.MiddleCenter;
             lbl1After.Font = UITheme.LargeFont;
             lbl1After.BackColor = SectionColorManager.GetColorPair(next).BackgroundColor;
             lbl1After.ForeColor = SectionColorManager.GetColorPair(next).FontColor;
-            //lbl1After.Dock = DockStyle.Right;
-            // lbl1After.AllowDrop = true;
+
+            lbl2Before.Text = previous2.ToString();
+            lbl2Before.Margin = new Padding(0);
+            lbl2Before.TextAlign = ContentAlignment.MiddleCenter;
+            lbl2Before.Font = UITheme.LargeFont;
+            lbl2Before.BackColor = SectionColorManager.GetColorPair(previous2).BackgroundColor;
+            lbl2Before.ForeColor = SectionColorManager.GetColorPair(previous2).FontColor;
+
+            lbl2After.Text = next2.ToString();
+            lbl2After.Margin = new Padding(0);
+            lbl2After.TextAlign = ContentAlignment.MiddleCenter;
+            lbl2After.Font = UITheme.LargeFont;
+            lbl2After.BackColor = SectionColorManager.GetColorPair(next2).BackgroundColor;
+            lbl2After.ForeColor = SectionColorManager.GetColorPair(next2).FontColor;
+
+            lbl3Before.Text = previous3.ToString();
+            lbl3Before.Margin = new Padding(0);
+            lbl3Before.TextAlign = ContentAlignment.MiddleCenter;
+            lbl3Before.Font = UITheme.LargeFont;
+            lbl3Before.BackColor = SectionColorManager.GetColorPair(previous3).BackgroundColor;
+            lbl3Before.ForeColor = SectionColorManager.GetColorPair(previous3).FontColor;
+
+            lbl3After.Text = next3.ToString();
+            lbl3After.Margin = new Padding(0);
+            lbl3After.TextAlign = ContentAlignment.MiddleCenter;
+            lbl3After.Font = UITheme.LargeFont;
+            lbl3After.BackColor = SectionColorManager.GetColorPair(next3).BackgroundColor;
+            lbl3After.ForeColor = SectionColorManager.GetColorPair(next3).FontColor;
+
         }
         private void Label_Click(object? sender, EventArgs e)
         {
@@ -96,16 +137,22 @@ namespace FloorplanUserControlLibrary
             num = sectionNumber;
             this.colorPair = SectionColorManager.GetColorPair(sectionNumber);
             pnlMain.BackColor = colorPair.BackgroundColor;
+            cbForeColor.BackColor = colorPair.BackgroundColor;
             tbR.Value = colorPair.BackgroundColor.R;
             R = colorPair.BackgroundColor.R;
+            txtR.Text = colorPair.BackgroundColor.R.ToString();
             tbG.Value = colorPair.BackgroundColor.G;
             G = colorPair.BackgroundColor.G;
+            txtG.Text = colorPair.BackgroundColor.G.ToString();
             tbB.Value = colorPair.BackgroundColor.B;
-            B = colorPair.BackgroundColor.G;
+            B = colorPair.BackgroundColor.B;
+            txtB.Text = colorPair.BackgroundColor.B.ToString();
             if (colorPair.FontColor.R == 0) {
+                SetForeColorToBlack();
                 cbForeColor.Checked = true;
             }
             else {
+                SetForeColorToWhite();
                 cbForeColor.Checked = false;
             }
             lblSectionNumber.Text = $"Section #{sectionNumber}";
@@ -116,21 +163,21 @@ namespace FloorplanUserControlLibrary
         private void tbR_Scroll(object sender, EventArgs e)
         {
             R = tbR.Value;
-            pnlMain.BackColor = Color.FromArgb(R, G, B);
+            SetBackColor();
             txtR.Text = R.ToString();
         }
 
         private void tbB_Scroll(object sender, EventArgs e)
         {
             B = tbB.Value;
-            pnlMain.BackColor = Color.FromArgb(R, G, B);
+            SetBackColor();
             txtB.Text = B.ToString();
         }
 
         private void tbG_Scroll(object sender, EventArgs e)
         {
             G = tbG.Value;
-            pnlMain.BackColor = Color.FromArgb(R, G, B);
+            SetBackColor();
             txtG.Text = G.ToString();
         }
 
@@ -149,15 +196,19 @@ namespace FloorplanUserControlLibrary
 
             lblDefaults.ForeColor = Color.White;
             lblSectionNumber.ForeColor = Color.White;
-            cbForeColor.BackColor = Color.White;
-            cbForeColor.ForeColor = Color.Black;
+            //cbForeColor.BackColor = Color.White;
+            cbForeColor.ForeColor = Color.White;
+            cbForeColor.Text = "Change Section Text Color To Black";
+            colorPair.FontColor = Color.White;
         }
         private void SetForeColorToBlack()
         {
             lblDefaults.ForeColor = Color.Black;
             lblSectionNumber.ForeColor = Color.Black;
-            cbForeColor.BackColor = Color.Black;
-            cbForeColor.ForeColor = Color.White;
+            //cbForeColor.BackColor = Color.Black;
+            cbForeColor.ForeColor = Color.Black;
+            cbForeColor.Text = "Change Section Text Color To White";
+            colorPair.FontColor = Color.Black;
         }
 
         private void ColorSelection_Load(object sender, EventArgs e)
@@ -185,7 +236,9 @@ namespace FloorplanUserControlLibrary
         }
         private void SetBackColor()
         {
+            colorPair.BackgroundColor = Color.FromArgb(R, G, B);
             pnlMain.BackColor = Color.FromArgb(R, G, B);
+            cbForeColor.BackColor = Color.FromArgb(R, G, B);
         }
         private void txtG_TextChanged(object sender, EventArgs e)
         {
@@ -211,6 +264,11 @@ namespace FloorplanUserControlLibrary
                     }
                 }
             }
+        }
+
+        private void btnApply_Click(object sender, EventArgs e)
+        {
+            ColorChanged?.Invoke(num, colorPair);
         }
     }
 }

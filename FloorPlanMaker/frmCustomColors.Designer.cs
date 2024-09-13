@@ -89,9 +89,9 @@
             // 
             // panel1
             // 
-            panel1.Location = new Point(107, 150);
+            panel1.Location = new Point(91, 145);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1000, 475);
+            panel1.Size = new Size(1020, 495);
             panel1.TabIndex = 2;
             // 
             // frmCustomColors

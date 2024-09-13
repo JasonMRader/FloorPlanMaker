@@ -17,6 +17,7 @@ namespace FloorPlanMakerUI
     {
         private Dictionary<int, ColorPair> Colors = new Dictionary<int, ColorPair>();
         private ColorSelection colorSelection = new ColorSelection();
+        private Dictionary<int, Label> labelDictionary = new Dictionary<int, Label>();
         public frmCustomColors()
         {
             InitializeComponent();
@@ -32,21 +33,20 @@ namespace FloorPlanMakerUI
             PopulateMainColorControls();
             btnSave.BackColor = UITheme.YesColor;
             btnCancel.BackColor = UITheme.NoColor;
+            colorSelection.ColorChanged += UpdateSectionColor;
 
+        }
+
+        private void UpdateSectionColor(int sectionNum, ColorPair colorPair)
+        {
+            Label label = labelDictionary[sectionNum];
+            label.BackColor = colorPair.BackgroundColor;
+            label.ForeColor = colorPair.FontColor;
         }
 
         private void PopulateMainColorControls()
         {
-            for (int i = 1; i <= 15; i++) {
-                int spots = 2;
-                int previous = i - spots;
-                int next = i + spots;
-                if (previous < 1) {
-                    previous = Colors.Count - spots + i;
-                }
-                if (next > Colors.Count) {
-                    next = i - Colors.Count + spots;
-                }
+            for (int i = 1; i <= 15; i++) {                
 
                 Label lbl = new Label() {
                     Text = i.ToString(),
@@ -59,47 +59,11 @@ namespace FloorPlanMakerUI
                     ForeColor = SectionColorManager.GetColorPair(i).FontColor,
                     AllowDrop = true
                 };
-                //Label num = new Label() {
-                //    Text = i.ToString(),
-                //    Margin = new Padding(0),
-                //    Size = new Size(flowNumber.Width, (flowNumber.Height / 20)),
-                //    TextAlign = ContentAlignment.MiddleCenter,
-                //    Font = UITheme.MainFont,
-                //    //BackColor = BackColor(i),
-                //    //ForeColor = FontColor(i),
-                //    AllowDrop = true
-                //};
-                //Label lblPrevious = new Label() {
-                //    Text = previous.ToString(),
-                //    Margin = new Padding(0),
-                //    Size = new Size((flowLayoutPanel1.Width / 5), (flowLayoutPanel1.Height / 20)),
-                //    TextAlign = ContentAlignment.MiddleCenter,
-                //    Font = UITheme.LargeFont,
-                //    BackColor = BackColor(previous),
-                //    ForeColor = FontColor(previous),
-                //    Dock = DockStyle.Left,
-                //    AllowDrop = true
-                //};
-                //Label lblNext = new Label() {
-                //    Text = next.ToString(),
-                //    Margin = new Padding(0),
-                //    Size = new Size((flowLayoutPanel1.Width / 5), (flowLayoutPanel1.Height / 20)),
-                //    TextAlign = ContentAlignment.MiddleCenter,
-                //    Font = UITheme.LargeFont,
-                //    BackColor = BackColor(next),
-                //    ForeColor = FontColor(next),
-                //    Dock = DockStyle.Right,
-                //    AllowDrop = true
-                //};
-
-                //lbl.MouseDown += Label_MouseDown;
-                //lbl.DragEnter += Label_DragEnter;
-                //lbl.DragDrop += Label_DragDrop;
-                lbl.Click += Label_Click;
-                //lbl.Controls.Add(lblPrevious);
-                //lbl.Controls.Add(lblNext);
+               
+                lbl.Click += Label_Click;               
                 flowLayoutPanel1.Controls.Add(lbl);
-                //flowNumber.Controls.Add(num);
+                labelDictionary[i] = lbl;
+                
             }
 
 
@@ -110,7 +74,7 @@ namespace FloorPlanMakerUI
             Label label = (Label)sender;
             int colorPair = (int)label.Tag;
             colorSelection.SetSectionColorPair(colorPair);
-            
+
 
             //// Show a prompt to indicate selecting BackColor
             //MessageBox.Show("Please select BackColor", "Color Selection", MessageBoxButtons.OK, MessageBoxIcon.Information);
