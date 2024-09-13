@@ -30,7 +30,7 @@ namespace FloorPlanMakerUI
             SectionColorManager.LoadColors();
             //customColors = SectionColorManager.SectionColors;
             colorDialog.CustomColors = customColors;
-            PopulateMainColorControls();
+            PopulateMainColorControls(SectionColorManager.SectionColors);
             btnSave.BackColor = UITheme.YesColor;
             btnCancel.BackColor = UITheme.NoColor;
             colorSelection.ColorChanged += UpdateSectionColor;
@@ -45,8 +45,9 @@ namespace FloorPlanMakerUI
             CustomColors[sectionNum] = colorPair;
         }
 
-        private void PopulateMainColorControls()
+        private void PopulateMainColorControls(Dictionary<int, ColorPair> colorsToUse)
         {
+            flowLayoutPanel1.Controls.Clear();
             for (int i = 1; i <= 15; i++) {
 
                 Label lbl = new Label() {
@@ -56,11 +57,11 @@ namespace FloorPlanMakerUI
                     TextAlign = ContentAlignment.MiddleCenter,
                     Font = UITheme.LargeFont,
                     Tag = i,
-                    BackColor = SectionColorManager.GetColorPair(i).BackgroundColor,
-                    ForeColor = SectionColorManager.GetColorPair(i).FontColor,
+                    BackColor = colorsToUse[i].BackgroundColor,
+                    ForeColor = colorsToUse[i].FontColor,
                     AllowDrop = true
                 };
-                CustomColors[i] = SectionColorManager.GetColorPair(i);
+                CustomColors[i] = colorsToUse[i];
                 lbl.Click += Label_Click;
                 flowLayoutPanel1.Controls.Add(lbl);
                 labelDictionary[i] = lbl;
@@ -74,29 +75,10 @@ namespace FloorPlanMakerUI
         {
             Label label = (Label)sender;
             int colorPair = (int)label.Tag;
-            colorSelection.SetSectionColorPair(colorPair);
+            colorSelection.SetSectionColorPair(colorPair, CustomColors);
 
 
-            //// Show a prompt to indicate selecting BackColor
-            //MessageBox.Show("Please select BackColor", "Color Selection", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            //colorDialog.FullOpen = true; // Shows the custom colors area
-            //colorDialog.Color = label.BackColor; // Set the initial color to the label's current BackColor
-
-            //if (colorDialog.ShowDialog() == DialogResult.OK) {
-            //    // Set the selected BackColor
-            //    label.BackColor = colorDialog.Color;
-            //}
-
-            //// Show a prompt to indicate selecting ForeColor
-            //MessageBox.Show("Please select ForeColor", "Color Selection", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            //colorDialog.Color = label.ForeColor; // Set the initial color to the label's current ForeColor
-
-            //if (colorDialog.ShowDialog() == DialogResult.OK) {
-            //    // Set the selected ForeColor
-            //    label.ForeColor = colorDialog.Color;
-            //}
+            
         }
 
         private void Label_MouseDown(object sender, MouseEventArgs e)
@@ -167,7 +149,7 @@ namespace FloorPlanMakerUI
 
         private void btnDefault_Click(object sender, EventArgs e)
         {
-
+            PopulateMainColorControls(SectionColorManager.DefaultSectionColors);
         }
     }
 }

@@ -56,7 +56,7 @@ namespace FloorplanUserControlLibrary
 
 
         }
-        private void GetNeighboringSections()
+        private void GetNeighboringSections(Dictionary<int, ColorPair> colorPairs)
         {
             int spots = 1;
             int previous = num - spots;
@@ -88,43 +88,43 @@ namespace FloorplanUserControlLibrary
             lbl1Before.Margin = new Padding(0);
             lbl1Before.TextAlign = ContentAlignment.MiddleCenter;
             lbl1Before.Font = UITheme.LargeFont;
-            lbl1Before.BackColor = SectionColorManager.GetColorPair(previous).BackgroundColor;
-            lbl1Before.ForeColor = SectionColorManager.GetColorPair(previous).FontColor;
+            lbl1Before.BackColor = colorPairs[previous].BackgroundColor;
+            lbl1Before.ForeColor = colorPairs[previous].FontColor;
 
             lbl1After.Text = next.ToString();
             lbl1After.Margin = new Padding(0);
             lbl1After.TextAlign = ContentAlignment.MiddleCenter;
             lbl1After.Font = UITheme.LargeFont;
-            lbl1After.BackColor = SectionColorManager.GetColorPair(next).BackgroundColor;
-            lbl1After.ForeColor = SectionColorManager.GetColorPair(next).FontColor;
+            lbl1After.BackColor = colorPairs[next].BackgroundColor;
+            lbl1After.ForeColor = colorPairs[next].FontColor;
 
             lbl2Before.Text = previous2.ToString();
             lbl2Before.Margin = new Padding(0);
             lbl2Before.TextAlign = ContentAlignment.MiddleCenter;
             lbl2Before.Font = UITheme.LargeFont;
-            lbl2Before.BackColor = SectionColorManager.GetColorPair(previous2).BackgroundColor;
-            lbl2Before.ForeColor = SectionColorManager.GetColorPair(previous2).FontColor;
+            lbl2Before.BackColor = colorPairs[previous2].BackgroundColor;
+            lbl2Before.ForeColor = colorPairs[previous2].FontColor;
 
             lbl2After.Text = next2.ToString();
             lbl2After.Margin = new Padding(0);
             lbl2After.TextAlign = ContentAlignment.MiddleCenter;
             lbl2After.Font = UITheme.LargeFont;
-            lbl2After.BackColor = SectionColorManager.GetColorPair(next2).BackgroundColor;
-            lbl2After.ForeColor = SectionColorManager.GetColorPair(next2).FontColor;
+            lbl2After.BackColor = colorPairs[next2].BackgroundColor;
+            lbl2After.ForeColor = colorPairs[next2].FontColor;
 
             lbl3Before.Text = previous3.ToString();
             lbl3Before.Margin = new Padding(0);
             lbl3Before.TextAlign = ContentAlignment.MiddleCenter;
             lbl3Before.Font = UITheme.LargeFont;
-            lbl3Before.BackColor = SectionColorManager.GetColorPair(previous3).BackgroundColor;
-            lbl3Before.ForeColor = SectionColorManager.GetColorPair(previous3).FontColor;
+            lbl3Before.BackColor = colorPairs[previous3].BackgroundColor;
+            lbl3Before.ForeColor = colorPairs[previous3].FontColor;
 
             lbl3After.Text = next3.ToString();
             lbl3After.Margin = new Padding(0);
             lbl3After.TextAlign = ContentAlignment.MiddleCenter;
             lbl3After.Font = UITheme.LargeFont;
-            lbl3After.BackColor = SectionColorManager.GetColorPair(next3).BackgroundColor;
-            lbl3After.ForeColor = SectionColorManager.GetColorPair(next3).FontColor;
+            lbl3After.BackColor = colorPairs[next3].BackgroundColor;
+            lbl3After.ForeColor = colorPairs[next3].FontColor;
 
         }
         private void defaultColor_Click(object? sender, EventArgs e)
@@ -136,12 +136,12 @@ namespace FloorplanUserControlLibrary
             
         }
         
-        public void SetSectionColorPair(int sectionNumber)
+        public void SetSectionColorPair(int sectionNumber, Dictionary<int, ColorPair> colorPairs)
         {
             num = sectionNumber;
             SetColorsToSectionManagerColorPair(sectionNumber, false);
             lblSectionNumber.Text = $"Section #{sectionNumber}";
-            GetNeighboringSections();
+            GetNeighboringSections(colorPairs);
 
         }
         private void SetColorsToSectionManagerColorPair(int sectionNumber, bool isDefault)
