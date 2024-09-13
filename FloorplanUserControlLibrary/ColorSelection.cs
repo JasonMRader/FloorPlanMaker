@@ -259,6 +259,12 @@ namespace FloorplanUserControlLibrary
             R = color.R;
             G = color.G;
             B = color.B;
+            tbR.Value = R; 
+            tbG.Value = G; 
+            tbB.Value = B;
+            txtR.Text = R.ToString();
+            txtG.Text = G.ToString();
+            txtB.Text = B.ToString();
             colorPair.BackgroundColor = Color.FromArgb(R, G, B);
             pnlMain.BackColor = Color.FromArgb(R, G, B);
             cbForeColor.BackColor = Color.FromArgb(R, G, B);
