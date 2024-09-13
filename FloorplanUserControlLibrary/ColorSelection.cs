@@ -132,10 +132,10 @@ namespace FloorplanUserControlLibrary
             Button button = sender as Button;
             int i = (int)button.Tag;
             SetColorsToSectionManagerColorPair(i, true);
-            
-            
+
+
         }
-        
+
         public void SetSectionColorPair(int sectionNumber, Dictionary<int, ColorPair> colorPairs)
         {
             num = sectionNumber;
@@ -146,13 +146,13 @@ namespace FloorplanUserControlLibrary
         }
         private void SetColorsToSectionManagerColorPair(int sectionNumber, bool isDefault)
         {
-            if(!isDefault) {
+            if (!isDefault) {
                 this.colorPair = SectionColorManager.GetColorPair(sectionNumber);
             }
             else {
                 this.colorPair = SectionColorManager.GetDefaultColorPair(sectionNumber);
             }
-            
+
             pnlMain.BackColor = colorPair.BackgroundColor;
             cbForeColor.BackColor = colorPair.BackgroundColor;
             tbR.Value = colorPair.BackgroundColor.R;
@@ -254,6 +254,15 @@ namespace FloorplanUserControlLibrary
             pnlMain.BackColor = Color.FromArgb(R, G, B);
             cbForeColor.BackColor = Color.FromArgb(R, G, B);
         }
+        private void SetBackColor(Color color)
+        {
+            R = color.R;
+            G = color.G;
+            B = color.B;
+            colorPair.BackgroundColor = Color.FromArgb(R, G, B);
+            pnlMain.BackColor = Color.FromArgb(R, G, B);
+            cbForeColor.BackColor = Color.FromArgb(R, G, B);
+        }
         private void txtG_TextChanged(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(txtG.Text)) {
@@ -283,6 +292,30 @@ namespace FloorplanUserControlLibrary
         private void btnApply_Click(object sender, EventArgs e)
         {
             ColorChanged?.Invoke(num, colorPair);
+        }
+
+        private void btnChooseFromPallet_Click(object sender, EventArgs e)
+        {
+            int[] customColors = new int[16];
+            int oleColor = ColorTranslator.ToOle(Color.FromArgb(R, G, B));
+
+            for (int i = 0; i < customColors.Length; i++) {
+                customColors[i] = oleColor; 
+            }
+
+            using (ColorDialog colorDialog = new ColorDialog()) {
+               
+                colorDialog.Color = colorPair.BackgroundColor;
+                colorDialog.AllowFullOpen = true;
+                colorDialog.CustomColors = customColors;
+                colorDialog.FullOpen = true;
+               
+                if (colorDialog.ShowDialog() == DialogResult.OK) {
+                    
+                    SetBackColor(colorDialog.Color);                    
+                    
+                }
+            }
         }
     }
 }

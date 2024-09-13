@@ -34,6 +34,8 @@ namespace FloorPlanMakerUI
             btnSave.BackColor = UITheme.YesColor;
             btnCancel.BackColor = UITheme.NoColor;
             colorSelection.ColorChanged += UpdateSectionColor;
+            colorSelection.SetSectionColorPair(1, CustomColors);
+
 
         }
 

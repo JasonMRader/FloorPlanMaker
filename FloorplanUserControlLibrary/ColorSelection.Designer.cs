@@ -50,6 +50,7 @@
             panel2 = new Panel();
             panel1 = new Panel();
             btnApply = new Button();
+            btnChooseFromPallet = new Button();
             ((System.ComponentModel.ISupportInitialize)tbB).BeginInit();
             ((System.ComponentModel.ISupportInitialize)tbG).BeginInit();
             ((System.ComponentModel.ISupportInitialize)tbR).BeginInit();
@@ -101,9 +102,9 @@
             cbForeColor.FlatAppearance.BorderSize = 0;
             cbForeColor.FlatStyle = FlatStyle.Flat;
             cbForeColor.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            cbForeColor.Location = new Point(11, 97);
+            cbForeColor.Location = new Point(64, 97);
             cbForeColor.Name = "cbForeColor";
-            cbForeColor.Size = new Size(980, 36);
+            cbForeColor.Size = new Size(869, 36);
             cbForeColor.TabIndex = 2;
             cbForeColor.Text = "Text Color White";
             cbForeColor.TextAlign = ContentAlignment.MiddleCenter;
@@ -264,6 +265,7 @@
             // pnlMain
             // 
             pnlMain.BackColor = Color.WhiteSmoke;
+            pnlMain.Controls.Add(btnChooseFromPallet);
             pnlMain.Controls.Add(panel2);
             pnlMain.Controls.Add(lbl1After);
             pnlMain.Controls.Add(flowDefaults);
@@ -314,6 +316,21 @@
             btnApply.Text = "Apply";
             btnApply.UseVisualStyleBackColor = false;
             btnApply.Click += btnApply_Click;
+            // 
+            // btnChooseFromPallet
+            // 
+            btnChooseFromPallet.BackColor = Color.White;
+            btnChooseFromPallet.FlatAppearance.BorderSize = 0;
+            btnChooseFromPallet.FlatStyle = FlatStyle.Flat;
+            btnChooseFromPallet.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            btnChooseFromPallet.ForeColor = Color.White;
+            btnChooseFromPallet.Image = Properties.Resources.color_palette__1_;
+            btnChooseFromPallet.Location = new Point(939, 96);
+            btnChooseFromPallet.Name = "btnChooseFromPallet";
+            btnChooseFromPallet.Size = new Size(51, 37);
+            btnChooseFromPallet.TabIndex = 0;
+            btnChooseFromPallet.UseVisualStyleBackColor = false;
+            btnChooseFromPallet.Click += btnChooseFromPallet_Click;
             // 
             // ColorSelection
             // 
@@ -366,5 +383,6 @@
         private TextBox txtR;
         private Panel panel1;
         private Button btnApply;
+        private Button btnChooseFromPallet;
     }
 }
