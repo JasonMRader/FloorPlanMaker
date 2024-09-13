@@ -31,7 +31,7 @@ namespace FloorplanUserControlLibrary
             for (int i = 1; i <= 15; i++) {
 
 
-                Button lbl = new Button() {
+                Button btn = new Button() {
                     Text = i.ToString(),
                     Margin = new Padding(0),
                     Size = new Size(flowDefaults.Width / 15, flowDefaults.Height),
@@ -46,10 +46,10 @@ namespace FloorplanUserControlLibrary
 
 
 
-                lbl.Click += Label_Click;
+                btn.Click += defaultColor_Click;
                 //this.Controls.Add(lbl1Before);
                 //this.Controls.Add(lbl1After);
-                flowDefaults.Controls.Add(lbl);
+                flowDefaults.Controls.Add(btn);
 
             }
 
@@ -127,14 +127,25 @@ namespace FloorplanUserControlLibrary
             lbl3After.ForeColor = SectionColorManager.GetColorPair(next3).FontColor;
 
         }
-        private void Label_Click(object? sender, EventArgs e)
+        private void defaultColor_Click(object? sender, EventArgs e)
         {
-
+            Button button = sender as Button;
+            int i = (int)button.Tag;
+            SetColorsToSectionManagerColorPair(i);
+            
+            
         }
-
+        
         public void SetSectionColorPair(int sectionNumber)
         {
             num = sectionNumber;
+            SetColorsToSectionManagerColorPair(sectionNumber);
+            lblSectionNumber.Text = $"Section #{sectionNumber}";
+            GetNeighboringSections();
+
+        }
+        private void SetColorsToSectionManagerColorPair(int sectionNumber)
+        {
             this.colorPair = SectionColorManager.GetColorPair(sectionNumber);
             pnlMain.BackColor = colorPair.BackgroundColor;
             cbForeColor.BackColor = colorPair.BackgroundColor;
@@ -155,9 +166,6 @@ namespace FloorplanUserControlLibrary
                 SetForeColorToWhite();
                 cbForeColor.Checked = false;
             }
-            lblSectionNumber.Text = $"Section #{sectionNumber}";
-            GetNeighboringSections();
-
         }
 
         private void tbR_Scroll(object sender, EventArgs e)
