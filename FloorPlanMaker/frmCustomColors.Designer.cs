@@ -49,7 +49,7 @@
             btnDefault.FlatStyle = FlatStyle.Flat;
             btnDefault.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             btnDefault.ForeColor = Color.White;
-            btnDefault.Location = new Point(12, 708);
+            btnDefault.Location = new Point(12, 656);
             btnDefault.Name = "btnDefault";
             btnDefault.Size = new Size(372, 34);
             btnDefault.TabIndex = 1;
@@ -64,7 +64,7 @@
             btnSave.FlatStyle = FlatStyle.Flat;
             btnSave.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             btnSave.ForeColor = Color.White;
-            btnSave.Location = new Point(410, 708);
+            btnSave.Location = new Point(410, 656);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(372, 34);
             btnSave.TabIndex = 1;
@@ -79,7 +79,7 @@
             btnCancel.FlatStyle = FlatStyle.Flat;
             btnCancel.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             btnCancel.ForeColor = Color.White;
-            btnCancel.Location = new Point(804, 708);
+            btnCancel.Location = new Point(804, 656);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(372, 34);
             btnCancel.TabIndex = 1;
@@ -91,14 +91,14 @@
             // 
             panel1.Location = new Point(107, 150);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1000, 515);
+            panel1.Size = new Size(1000, 475);
             panel1.TabIndex = 2;
             // 
             // frmCustomColors
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1188, 775);
+            ClientSize = new Size(1188, 711);
             Controls.Add(panel1);
             Controls.Add(btnCancel);
             Controls.Add(btnSave);

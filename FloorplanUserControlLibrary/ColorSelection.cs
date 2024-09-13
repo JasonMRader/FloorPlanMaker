@@ -25,7 +25,7 @@ namespace FloorplanUserControlLibrary
         }
         private void PopulateDefaults()
         {
-            
+
             for (int i = 1; i <= 15; i++) {
                 int spots = 2;
                 int previous = i - spots;
@@ -48,20 +48,20 @@ namespace FloorplanUserControlLibrary
                     ForeColor = SectionColorManager.GetColorPair(i).FontColor,
                     AllowDrop = true
                 };
-                   
+
                 lbl.Click += Label_Click;
-                    
+
                 flowDefaults.Controls.Add(lbl);
-                    
+
             }
 
 
-            
+
         }
 
         private void Label_Click(object? sender, EventArgs e)
         {
-            
+
         }
 
         public void SetSectionColorPair(int sectionNumber)
@@ -129,6 +129,11 @@ namespace FloorplanUserControlLibrary
         }
 
         private void ColorSelection_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel6_Paint(object sender, PaintEventArgs e)
         {
 
         }

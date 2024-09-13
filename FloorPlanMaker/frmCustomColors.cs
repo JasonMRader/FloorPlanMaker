@@ -30,6 +30,8 @@ namespace FloorPlanMakerUI
             Colors = SectionColorManager.SectionColors;
             colorDialog.CustomColors = customColors;
             PopulateMainColorControls();
+            btnSave.BackColor = UITheme.YesColor;
+            btnCancel.BackColor = UITheme.NoColor;
 
         }
 
@@ -49,7 +51,7 @@ namespace FloorPlanMakerUI
                 Label lbl = new Label() {
                     Text = i.ToString(),
                     Margin = new Padding(0),
-                    Size = new Size(flowLayoutPanel1.Width / 18, flowLayoutPanel1.Height),
+                    Size = new Size(flowLayoutPanel1.Width / 15, flowLayoutPanel1.Height),
                     TextAlign = ContentAlignment.MiddleCenter,
                     Font = UITheme.LargeFont,
                     Tag = i,
