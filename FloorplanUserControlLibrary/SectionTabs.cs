@@ -28,12 +28,12 @@ namespace FloorplanUserControlLibrary
                     return (int)((this.Width * .55) / (floorplan.Sections.Count - 1));
                 }
                 else if (floorplan != null && floorplan.Sections.Count > 3) {
-                    return (int)((this.Width * .4)/(floorplan.Sections.Count - 1));
+                    return (int)((this.Width * .4) / (floorplan.Sections.Count - 1));
                 }
                 else if (floorplan != null && floorplan.Sections.Count > 0) {
                     return (int)((this.Width * .2) / (floorplan.Sections.Count - 1));
                 }
-                
+
                 return 0;
             }
         }
@@ -46,9 +46,9 @@ namespace FloorplanUserControlLibrary
                     return (int)(this.Width * .25);
                 }
                 else if (floorplan != null && floorplan.Sections.Count > 3) {
-                    return (int)(this.Width  * .3);
+                    return (int)(this.Width * .3);
                 }
-                else if(floorplan != null && floorplan.Sections.Count > 0) {
+                else if (floorplan != null && floorplan.Sections.Count > 0) {
                     return (int)(this.Width * .4);
                 }
                 return 0;
@@ -58,7 +58,7 @@ namespace FloorplanUserControlLibrary
         public event Action<Section> SectionSelected;
         public void SetFloorplanToNone()
         {
-            if(floorplan != null) {
+            if (floorplan != null) {
                 foreach (var section in floorplan.Sections) {
                     section.RemoveObserver(this);
                     this.floorplan.SectionRemoved -= RemoveSection;
@@ -72,15 +72,15 @@ namespace FloorplanUserControlLibrary
         public void SetFloorplan(Floorplan floorplan)
         {
             SetFloorplanToNone();
-           
+
             this.floorplan = floorplan;
             floorplan.SectionRemoved += RemoveSection;
-            floorplan.SectionAdded += AddSection;           
-           
-            foreach(Section section in floorplan.Sections) {
-               CreateButtonForSection(section);
+            floorplan.SectionAdded += AddSection;
+
+            foreach (Section section in floorplan.Sections) {
+                CreateButtonForSection(section);
             }
-            
+
         }
         private void CreateButtonForSection(Section section)
         {
@@ -107,7 +107,7 @@ namespace FloorplanUserControlLibrary
         }
         private void AddSection(Section section, Floorplan arg2)
         {
-            
+
             CreateButtonForSection(section);
         }
 
@@ -125,7 +125,7 @@ namespace FloorplanUserControlLibrary
         {
             Button button = (Button)sender;
             Section section = button.Tag as Section;
-            if(section != null) {
+            if (section != null) {
                 floorplan.SetSelectedSection(section);
                 //SectionSelected?.Invoke(section);
             }
@@ -133,14 +133,14 @@ namespace FloorplanUserControlLibrary
 
         public static void FormatSectionButton(Button c, Section section)
         {
-            
-            
-            
+
+
+
         }
 
         public void UpdateSection(Section section)
         {
-            foreach(Button button in flowLayoutPanel.Controls) {
+            foreach (Button button in flowLayoutPanel.Controls) {
                 Section sectionTag = button.Tag as Section;
                 if (sectionTag.IsSelected) {
                     button.Width = selectedWidth;
@@ -150,10 +150,10 @@ namespace FloorplanUserControlLibrary
                 else {
                     button.Width = defaultWidth;
                     button.Height = this.Height - 15;
-                    button.Margin = new Padding(0,15,0,0);
+                    button.Margin = new Padding(0, 15, 0, 0);
                 }
             }
-            
+
         }
     }
 }

@@ -35,7 +35,7 @@
             flowLayoutPanel.Dock = DockStyle.Fill;
             flowLayoutPanel.Location = new Point(0, 0);
             flowLayoutPanel.Name = "flowLayoutPanel";
-            flowLayoutPanel.Size = new Size(344, 45);
+            flowLayoutPanel.Size = new Size(330, 45);
             flowLayoutPanel.TabIndex = 0;
             // 
             // SectionTabs
@@ -44,7 +44,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(flowLayoutPanel);
             Name = "SectionTabs";
-            Size = new Size(344, 45);
+            Size = new Size(330, 45);
             ResumeLayout(false);
         }
 

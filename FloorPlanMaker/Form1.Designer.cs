@@ -55,10 +55,11 @@ namespace FloorPlanMaker
             pnlFloorplanContainer = new Panel();
             pnlNotifications = new Panel();
             sectionHeaderDisplay = new SectionHeaderDisplay();
-            lblDateSelected = new Label();
             sectionTabs = new SectionTabs();
+            lblDateSelected = new Label();
             pnlNavigationWindow = new Panel();
             pnlMainContainer = new Panel();
+            pnlDateSelection = new Panel();
             label4 = new Label();
             pnlLocationIndicator2 = new Panel();
             pnlIndicator2 = new Panel();
@@ -81,7 +82,6 @@ namespace FloorPlanMaker
             rdoViewSectionFlow = new RadioButton();
             pnlStatMode = new Panel();
             rdoSales = new RadioButton();
-            
             btnDeleteSelectedFloorplan = new Button();
             btnHelp = new Button();
             toolTip1 = new ToolTip(components);
@@ -104,6 +104,7 @@ namespace FloorPlanMaker
             pnlNotifications.SuspendLayout();
             pnlNavigationWindow.SuspendLayout();
             pnlMainContainer.SuspendLayout();
+            pnlDateSelection.SuspendLayout();
             pnlLocationIndicator2.SuspendLayout();
             pnlAreaIndicatorContainer.SuspendLayout();
             flowLayoutPanel3.SuspendLayout();
@@ -360,7 +361,7 @@ namespace FloorPlanMaker
             cbIsAM.FlatStyle = FlatStyle.Flat;
             cbIsAM.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point);
             cbIsAM.Image = FloorPlanMakerUI.Properties.Resources.smallSunrise;
-            cbIsAM.Location = new Point(618, 5);
+            cbIsAM.Location = new Point(272, 4);
             cbIsAM.Name = "cbIsAM";
             cbIsAM.Size = new Size(56, 30);
             cbIsAM.TabIndex = 15;
@@ -375,7 +376,7 @@ namespace FloorPlanMaker
             btnDayBefore.FlatAppearance.BorderSize = 0;
             btnDayBefore.FlatStyle = FlatStyle.Flat;
             btnDayBefore.Image = FloorPlanMakerUI.Properties.Resources.smallBackArrow;
-            btnDayBefore.Location = new Point(358, 5);
+            btnDayBefore.Location = new Point(13, 4);
             btnDayBefore.Name = "btnDayBefore";
             btnDayBefore.Size = new Size(21, 30);
             btnDayBefore.TabIndex = 16;
@@ -389,7 +390,7 @@ namespace FloorPlanMaker
             btnNextDay.FlatAppearance.BorderSize = 0;
             btnNextDay.FlatStyle = FlatStyle.Flat;
             btnNextDay.Image = FloorPlanMakerUI.Properties.Resources.smallForwardArrow;
-            btnNextDay.Location = new Point(591, 5);
+            btnNextDay.Location = new Point(246, 4);
             btnNextDay.Name = "btnNextDay";
             btnNextDay.Size = new Size(21, 30);
             btnNextDay.TabIndex = 17;
@@ -423,32 +424,35 @@ namespace FloorPlanMaker
             // 
             // pnlNotifications
             // 
-            pnlNotifications.BackColor = Color.WhiteSmoke;
+            pnlNotifications.BackColor = Color.FromArgb(140, 150, 160);
             pnlNotifications.Controls.Add(sectionHeaderDisplay);
-            pnlNotifications.Controls.Add(lblDateSelected);
-            pnlNotifications.Controls.Add(cbIsAM);
-            pnlNotifications.Controls.Add(btnDayBefore);
-            pnlNotifications.Controls.Add(btnNextDay);
             pnlNotifications.Controls.Add(sectionTabs);
             pnlNotifications.Location = new Point(0, 0);
             pnlNotifications.Name = "pnlNotifications";
-            pnlNotifications.Size = new Size(684, 118);
+            pnlNotifications.Size = new Size(684, 120);
             pnlNotifications.TabIndex = 23;
             // 
             // sectionHeaderDisplay
             // 
-            sectionHeaderDisplay.Location = new Point(8, 45);
+            sectionHeaderDisplay.Location = new Point(8, 41);
             sectionHeaderDisplay.Name = "sectionHeaderDisplay";
             sectionHeaderDisplay.Size = new Size(666, 68);
             sectionHeaderDisplay.TabIndex = 0;
             sectionHeaderDisplay.Load += sectionHeaderDisplay_Load;
+            // 
+            // sectionTabs
+            // 
+            sectionTabs.Location = new Point(15, 0);
+            sectionTabs.Name = "sectionTabs";
+            sectionTabs.Size = new Size(319, 41);
+            sectionTabs.TabIndex = 23;
             // 
             // lblDateSelected
             // 
             lblDateSelected.BackColor = Color.FromArgb(100, 130, 180);
             lblDateSelected.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             lblDateSelected.ForeColor = Color.White;
-            lblDateSelected.Location = new Point(385, 5);
+            lblDateSelected.Location = new Point(40, 4);
             lblDateSelected.Name = "lblDateSelected";
             lblDateSelected.Size = new Size(200, 30);
             lblDateSelected.TabIndex = 22;
@@ -456,13 +460,6 @@ namespace FloorPlanMaker
             lblDateSelected.TextAlign = ContentAlignment.MiddleCenter;
             toolTip1.SetToolTip(lblDateSelected, "Left / Right Arrow Keys to Cycle");
             lblDateSelected.Click += lblDateSelected_Click;
-            // 
-            // sectionTabs
-            // 
-            sectionTabs.Location = new Point(18, 0);
-            sectionTabs.Name = "sectionTabs";
-            sectionTabs.Size = new Size(334, 45);
-            sectionTabs.TabIndex = 23;
             // 
             // pnlNavigationWindow
             // 
@@ -478,6 +475,7 @@ namespace FloorPlanMaker
             // 
             pnlMainContainer.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             pnlMainContainer.BackColor = Color.FromArgb(180, 190, 200);
+            pnlMainContainer.Controls.Add(pnlDateSelection);
             pnlMainContainer.Controls.Add(label4);
             pnlMainContainer.Controls.Add(pnlLocationIndicator2);
             pnlMainContainer.Controls.Add(pnlAreaIndicatorContainer);
@@ -492,6 +490,19 @@ namespace FloorPlanMaker
             pnlMainContainer.Name = "pnlMainContainer";
             pnlMainContainer.Size = new Size(837, 977);
             pnlMainContainer.TabIndex = 20;
+            // 
+            // pnlDateSelection
+            // 
+            pnlDateSelection.BackColor = Color.FromArgb(180, 190, 200);
+            pnlDateSelection.Controls.Add(lblDateSelected);
+            pnlDateSelection.Controls.Add(btnNextDay);
+            pnlDateSelection.Controls.Add(cbIsAM);
+            pnlDateSelection.Controls.Add(btnDayBefore);
+            pnlDateSelection.Location = new Point(417, 10);
+            pnlDateSelection.Margin = new Padding(0);
+            pnlDateSelection.Name = "pnlDateSelection";
+            pnlDateSelection.Size = new Size(347, 36);
+            pnlDateSelection.TabIndex = 0;
             // 
             // label4
             // 
@@ -684,9 +695,9 @@ namespace FloorPlanMaker
             // 
             pnlSideContainer.BackColor = Color.FromArgb(180, 190, 200);
             pnlSideContainer.Controls.Add(pnlSectionsAndServers);
-            pnlSideContainer.Location = new Point(57, 10);
+            pnlSideContainer.Location = new Point(70, 10);
             pnlSideContainer.Name = "pnlSideContainer";
-            pnlSideContainer.Size = new Size(322, 977);
+            pnlSideContainer.Size = new Size(313, 977);
             pnlSideContainer.TabIndex = 21;
             // 
             // pnlSectionsAndServers
@@ -983,6 +994,7 @@ namespace FloorPlanMaker
             pnlNotifications.ResumeLayout(false);
             pnlNavigationWindow.ResumeLayout(false);
             pnlMainContainer.ResumeLayout(false);
+            pnlDateSelection.ResumeLayout(false);
             pnlLocationIndicator2.ResumeLayout(false);
             pnlAreaIndicatorContainer.ResumeLayout(false);
             flowLayoutPanel3.ResumeLayout(false);
@@ -1065,5 +1077,6 @@ namespace FloorPlanMaker
 
         private SectionTabs sectionTabs;
         private FloorplanUserControlLibrary.ShiftFilterControl shiftFilterControl;
+        private Panel pnlDateSelection;
     }
 }

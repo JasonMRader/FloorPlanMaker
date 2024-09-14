@@ -569,7 +569,7 @@ namespace FloorPlanMakerUI
 
 
                 this.pnlMainContainer.BackColor = section.Color;
-                this.pnlSideContainer.BackColor = section.Color;
+                //this.pnlSideContainer.BackColor = section.Color;
 
                
                 this.sectionHeader.SetSection(section, Floorplan);
@@ -636,7 +636,7 @@ namespace FloorPlanMakerUI
                 Floorplan.SetSelectedSection(Floorplan.Sections[0]);
                
                 this.pnlMainContainer.BackColor = Floorplan.SectionSelected.Color;
-                this.pnlSideContainer.BackColor = Floorplan.SectionSelected.Color;
+                //this.pnlSideContainer.BackColor = Floorplan.SectionSelected.Color;
 
                 if (Floorplan != null)
                 {
