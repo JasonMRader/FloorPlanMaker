@@ -17,8 +17,10 @@ using System.Xml.Linq;
 //using static System.Collections.Specialized.BitVector32;
 //using static System.Collections.Specialized.BitVector32;
 
-namespace FloorPlanMaker {
-    public partial class Form1 : Form {
+namespace FloorPlanMaker
+{
+    public partial class Form1 : Form
+    {
         // TODO: keep data Updated when making changes (ie UPdate dining rooms when adding tables, update floorplan Lists
         // when saving a floorplan
         private DiningAreaManager areaCreationManager = new DiningAreaManager();
@@ -70,9 +72,11 @@ namespace FloorPlanMaker {
 
         //private CustomTooltip customTooltip;
         //private PreviewTooltip previewTooltip;
-        public Form1() {
+        public Form1()
+        {
+            shiftFilterControl = new ShiftFilterControl();
             InitializeComponent();
-           
+
             this.shiftDetailManager = new ShiftDetailOverviewManager(this.flowWeatherDisplay, this.flowResoDisplay, pnlShiftDetails,
                 rdoWeather, rdoReservations, rdoSales, pnlStatMode, shiftFilterControl);
             drawingHandler = new DrawingHandler(pnlFloorPlan);
@@ -95,7 +99,7 @@ namespace FloorPlanMaker {
 
             // Subscribe to the event
             //floorplanManager.SectionLabelRemoved += FloorplanManager_SectionLabelRemoved;
-           
+
             shift.SetSelectedDiningArea(areaCreationManager.DiningAreas[0]);
             //previewTooltip = new PreviewTooltip(this.components);
 
@@ -105,7 +109,8 @@ namespace FloorPlanMaker {
             //    "Move Servers To / From This Floorplan", "");
             //this.KeyPreview = true;
         }
-        private void Form1_Load(object sender, EventArgs e) {
+        private void Form1_Load(object sender, EventArgs e)
+        {
             SplashScreen splashScreen = new SplashScreen(this);
             splashScreen.Show();
             Application.DoEvents();
@@ -154,7 +159,8 @@ namespace FloorPlanMaker {
 
         }
 
-        private void DiningAreaSelectedChanged(object? sender, EventArgs e) {
+        private void DiningAreaSelectedChanged(object? sender, EventArgs e)
+        {
             RadioButton radioButton = (RadioButton)sender;
             DiningArea diningArea = (DiningArea)radioButton.Tag;
             shift.SetSelectedDiningArea(diningArea);
@@ -179,7 +185,8 @@ namespace FloorPlanMaker {
             updateSalesForTables();
         }
 
-        public void UpdateMissingSalesData() {
+        public void UpdateMissingSalesData()
+        {
 
             salesDataUpdater.SetNewDate(dateOnlySelected);
             if (this.salesDataUpdater.DatesMissingBeforeLastWeek.Count > 0) {
@@ -202,7 +209,8 @@ namespace FloorPlanMaker {
                 lblMissingSalesData.Text = $"Up To Date";
             }
         }
-        private void SetColors() {
+        private void SetColors()
+        {
             btnCloseApp.BackColor = Color.Red;
 
             UITheme.FormatCTAButton(btnPrint);
@@ -242,7 +250,8 @@ namespace FloorPlanMaker {
             UITheme.FormatCanvasColor(flowServersInFloorplan);
 
         }
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData) {
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
 
             if (_frmEditStaff != null && _frmEditStaff.Visible) {
                 if (keyData == Keys.Left) {
@@ -341,7 +350,8 @@ namespace FloorPlanMaker {
 
             return base.ProcessCmdKey(ref msg, keyData);
         }
-        protected override void OnMouseWheel(MouseEventArgs e) {
+        protected override void OnMouseWheel(MouseEventArgs e)
+        {
             base.OnMouseWheel(e);
 
             bool isShiftPressed = (Control.ModifierKeys & Keys.Shift) == Keys.Shift;
@@ -392,15 +402,18 @@ namespace FloorPlanMaker {
             }
         }
 
-        private void HandleScrollUp() {
+        private void HandleScrollUp()
+        {
             floorplanManager.DecrementSelectedSection();
         }
 
-        private void HandleScrollDown() {
+        private void HandleScrollDown()
+        {
             floorplanManager.IncrementSelectedSection();
         }
 
-        private void ChangeDiningAreaUp() {
+        private void ChangeDiningAreaUp()
+        {
             if (cboDiningAreas.SelectedIndex > 0) {
                 cboDiningAreas.SelectedIndex--;
             }
@@ -409,7 +422,8 @@ namespace FloorPlanMaker {
             }
         }
 
-        private void ChangeDiningAreaDown() {
+        private void ChangeDiningAreaDown()
+        {
             if (cboDiningAreas.SelectedIndex < cboDiningAreas.Items.Count - 1) {
                 cboDiningAreas.SelectedIndex++;
             }
@@ -418,7 +432,8 @@ namespace FloorPlanMaker {
             }
         }
 
-        public void UpdateForm1ShiftManager(Shift shiftManagerToAdd) {
+        public void UpdateForm1ShiftManager(Shift shiftManagerToAdd)
+        {
             dateTimeSelected = new DateTime(shiftManagerToAdd.DateOnly.Year, shiftManagerToAdd.DateOnly.Month, shiftManagerToAdd.DateOnly.Day);
             UpdateDateSelected(0);
             cbIsAM.Checked = shiftManagerToAdd.IsAM;
@@ -437,9 +452,10 @@ namespace FloorPlanMaker {
         }
 
 
-       
 
-        private void PnlFloorplan_Paint(object sender, PaintEventArgs e) {
+
+        private void PnlFloorplan_Paint(object sender, PaintEventArgs e)
+        {
             if (isDragging) {
                 using (Pen dragPen = new Pen(Color.Black) { DashStyle = DashStyle.Dash }) // example styling
                 {
@@ -472,7 +488,8 @@ namespace FloorPlanMaker {
                 }
             }
         }
-        private void pnlFloorPlan_MouseClick(object sender, MouseEventArgs e) {
+        private void pnlFloorPlan_MouseClick(object sender, MouseEventArgs e)
+        {
             if (e is MouseEventArgs mouseEventArgs) {
                 bool isShiftPressed = (Control.ModifierKeys & Keys.Shift) == Keys.Shift;
                 if (mouseEventArgs.Button == MouseButtons.Right) {
@@ -496,7 +513,8 @@ namespace FloorPlanMaker {
                 }
             }
         }
-        private void ToggleAutoDrawMode() {
+        private void ToggleAutoDrawMode()
+        {
             Point cursorPosition = pnlFloorPlan.PointToClient(Cursor.Position);
 
             if (pnlFloorPlan.ClientRectangle.Contains(cursorPosition)) {
@@ -513,7 +531,8 @@ namespace FloorPlanMaker {
             }
 
         }
-        private void pnlFloorplan_MouseDown(object sender, MouseEventArgs e) {
+        private void pnlFloorplan_MouseDown(object sender, MouseEventArgs e)
+        {
             if (!rdoDiningAreas.Checked) {
                 if (rdoSections.Checked && !_isDrawingModeEnabled) {
                     isDragging = true;
@@ -526,7 +545,8 @@ namespace FloorPlanMaker {
 
         }
 
-        private void pnlFloorplan_MouseUp(object sender, MouseEventArgs e) {
+        private void pnlFloorplan_MouseUp(object sender, MouseEventArgs e)
+        {
             if (isDragging && !_isDrawingModeEnabled) {
                 isDragging = false;
                 dragRectangle = new Rectangle(
@@ -552,7 +572,8 @@ namespace FloorPlanMaker {
             }
         }
 
-        private void pnlFloorplan_MouseMove(object sender, MouseEventArgs e) {
+        private void pnlFloorplan_MouseMove(object sender, MouseEventArgs e)
+        {
             if (!rdoDiningAreas.Checked) {
                 if (isDragging && !_isDrawingModeEnabled) {
                     dragRectangle = new Rectangle(
@@ -575,17 +596,20 @@ namespace FloorPlanMaker {
         }
 
 
-        private void pnlFloorPlan_KeyDown(object? sender, KeyEventArgs e) {
+        private void pnlFloorPlan_KeyDown(object? sender, KeyEventArgs e)
+        {
             if (e.Control && e.KeyCode == Keys.Z) {
                 drawingHandler.UndoLastPoint();
             }
         }
 
-        public void SetDateSelected(DateTime date) {
+        public void SetDateSelected(DateTime date)
+        {
             this.dateTimeSelected = date;
             UpdateDateSelected(0);
         }
-        private void UpdateDateSelected(int days) {
+        private void UpdateDateSelected(int days)
+        {
             _lines.Clear();
             pnlFloorPlan.Invalidate();
             dateTimeSelected = dateTimeSelected.AddDays(days);
@@ -616,11 +640,12 @@ namespace FloorPlanMaker {
         }
         public void UpdateWeatherDataLoaded()
         {
-            
-           
+
+
             this.shiftDetailManager.ForceUpdateForDate(dateOnlySelected, IsLunch);
         }
-        public void UpdateSidePanelDisplay() {
+        public void UpdateSidePanelDisplay()
+        {
             if (floorplanManager.Shift == null) {
                 this.shiftDetailManager.UpdateForNewDate(dateOnlySelected, IsLunch);
             }
@@ -629,7 +654,8 @@ namespace FloorPlanMaker {
             }
 
         }
-        public void UpdateWithTemplate() {
+        public void UpdateWithTemplate()
+        {
             btnAutomatic.Enabled = true;
             floorplanManager.SetViewedFloorplan(dateOnlySelected, cbIsAM.Checked);
             _lines.Clear();
@@ -637,12 +663,14 @@ namespace FloorPlanMaker {
                 _lines = floorplanManager.Floorplan.floorplanLines;
             }
         }
-        private void Form1_MouseDown(object sender, MouseEventArgs e) {
+        private void Form1_MouseDown(object sender, MouseEventArgs e)
+        {
             isDraggingForm = true;
             lastLocation = e.Location;
         }
 
-        private void Form1_MouseMove(object sender, MouseEventArgs e) {
+        private void Form1_MouseMove(object sender, MouseEventArgs e)
+        {
             if (isDraggingForm) {
                 this.Location = new System.Drawing.Point(
                     (this.Location.X - lastLocation.X) + e.X,
@@ -651,7 +679,8 @@ namespace FloorPlanMaker {
                 this.Update();
             }
         }
-        private void Form1_MouseUp(object sender, MouseEventArgs e) {
+        private void Form1_MouseUp(object sender, MouseEventArgs e)
+        {
             isDraggingForm = false;
         }
         //private void cboDiningAreas_SelectedIndexChanged(object sender, EventArgs e)
@@ -684,7 +713,8 @@ namespace FloorPlanMaker {
 
         //}
 
-        private void rdoSections_CheckedChanged(object sender, EventArgs e) {
+        private void rdoSections_CheckedChanged(object sender, EventArgs e)
+        {
             if (rdoSections.Checked) {
                 this.tutorialType = TutorialImages.TutorialType.Form1;
                 pnlNavigationWindow.SendToBack();
@@ -711,7 +741,8 @@ namespace FloorPlanMaker {
                 pnlSideContainer.Visible = false;
             }
         }
-        private void rdoShifts_CheckedChanged(object sender, EventArgs e) {
+        private void rdoShifts_CheckedChanged(object sender, EventArgs e)
+        {
             if (rdoShifts.Checked) {
                 this.tutorialType = TutorialImages.TutorialType.EditDistribution;
                 pnlNavHighlight.Location = new Point(rdoShifts.Left, 0);
@@ -728,7 +759,8 @@ namespace FloorPlanMaker {
                 }
             }
         }
-        private void rdoDiningAreas_CheckedChanged(object sender, EventArgs e) {
+        private void rdoDiningAreas_CheckedChanged(object sender, EventArgs e)
+        {
             if (rdoDiningAreas.Checked) {
                 pnlNavHighlight.Location = new Point(rdoDiningAreas.Left, 0);
                 if (_frmEditDiningAreas == null) {
@@ -749,7 +781,8 @@ namespace FloorPlanMaker {
                 }
             }
         }
-        private void rdoSettings_CheckedChanged(object sender, EventArgs e) {
+        private void rdoSettings_CheckedChanged(object sender, EventArgs e)
+        {
             if (rdoSettings.Checked) {
                 this.tutorialType = TutorialImages.TutorialType.Settings;
                 pnlNavHighlight.Location = new Point(rdoSettings.Left, 0);
@@ -771,14 +804,16 @@ namespace FloorPlanMaker {
             }
         }
 
-        private void btnAddSectionLabels_Click(object sender, EventArgs e) {
+        private void btnAddSectionLabels_Click(object sender, EventArgs e)
+        {
             //floorplanManager.SetSectionLabels();
             //floorplanManager.AddSectionLabels(pnlFloorPlan);
             //CreateSectionBorders();
 
         }
 
-        private void btnSaveFloorplanTemplate_Click(object sender, EventArgs e) {
+        private void btnSaveFloorplanTemplate_Click(object sender, EventArgs e)
+        {
             if (shift.SelectedFloorplan == null) {
                 MessageBox.Show("There Must Be A Floorplan To Save A Template");
                 return;
@@ -815,7 +850,8 @@ namespace FloorPlanMaker {
             this.pnlFloorPlan.Invalidate();
 
         }
-        private void btnChooseTemplate_Click(object sender, EventArgs e) {
+        private void btnChooseTemplate_Click(object sender, EventArgs e)
+        {
             btnAutomatic.Enabled = false;
             floorplanManager.TemplateManager = new TemplateManager(floorplanManager.Shift.SelectedDiningArea);
 
@@ -830,12 +866,14 @@ namespace FloorPlanMaker {
         }
 
 
-        private void dtpFloorplan_ValueChanged(object sender, EventArgs e) {
+        private void dtpFloorplan_ValueChanged(object sender, EventArgs e)
+        {
             floorplanManager.SetViewedFloorplan(dateOnlySelected, cbIsAM.Checked);
             this.sectionLineManager = new SectionLineManager(allTableControls);
         }
 
-        private void NoServersToDisplay() {
+        private void NoServersToDisplay()
+        {
             flowServersInFloorplan.Controls.Clear();
             flowSectionSelect.Controls.Clear();
             coversImageLabel = new ImageLabelControl(UITheme.covers, "0", (flowSectionSelect.Width / 2) - 7, 30);
@@ -877,24 +915,29 @@ namespace FloorPlanMaker {
             flowServersInFloorplan.Controls.Add(noServers);
         }
 
-        private void btnCreateTemplate_Click(object? sender, EventArgs e) {
+        private void btnCreateTemplate_Click(object? sender, EventArgs e)
+        {
             floorplanManager.Shift.SelectedFloorplan = floorplanManager.Shift.CreateFloorplanForDiningArea(floorplanManager.Shift.SelectedDiningArea, 0, 0);
 
             floorplanManager.ChangeDiningAreaSelected();
 
         }
 
-        private void btnDayBefore_Click(object sender, EventArgs e) {
+        private void btnDayBefore_Click(object sender, EventArgs e)
+        {
             UpdateDateSelected(-1);
         }
-        private void btnNextDay_Click(object sender, EventArgs e) {
+        private void btnNextDay_Click(object sender, EventArgs e)
+        {
             UpdateDateSelected(1);
         }
-        private void btnCloseApp_Click(object sender, EventArgs e) {
+        private void btnCloseApp_Click(object sender, EventArgs e)
+        {
             SqliteDataAccess.BackupDatabase();
             this.Close();
         }
-        private void cbTableDisplayMode_CheckedChanged(object sender, EventArgs e) {
+        private void cbTableDisplayMode_CheckedChanged(object sender, EventArgs e)
+        {
             if (cbTableDisplayMode.Checked) {
                 // floorplanManager.TableControlDisplayModeToSales();
                 foreach (Control c in pnlFloorPlan.Controls) {
@@ -914,7 +957,8 @@ namespace FloorPlanMaker {
             }
         }
 
-        private void rdoViewSectionFlow_CheckedChanged(object sender, EventArgs e) {
+        private void rdoViewSectionFlow_CheckedChanged(object sender, EventArgs e)
+        {
 
             if (rdoViewSectionFlow.Checked) {
                 flowSectionSelect.Visible = true;
@@ -930,7 +974,8 @@ namespace FloorPlanMaker {
             }
         }
 
-        private void rdoViewServerFlow_CheckedChanged(object sender, EventArgs e) {
+        private void rdoViewServerFlow_CheckedChanged(object sender, EventArgs e)
+        {
             if (rdoViewServerFlow.Checked) {
                 flowSectionSelect.Visible = false;
                 flowServersInFloorplan.Visible = true;
@@ -943,11 +988,13 @@ namespace FloorPlanMaker {
                 rdoViewSectionFlow.Image = Resources.lilCanvasBook;
             }
         }
-        private void rdoSales_CheckedChanged(object sender, EventArgs e) {
+        private void rdoSales_CheckedChanged(object sender, EventArgs e)
+        {
             //pnlStatMode.Visible = true;
         }
 
-        private void cbIsAM_CheckedChanged(object sender, EventArgs e) {
+        private void cbIsAM_CheckedChanged(object sender, EventArgs e)
+        {
             if (cbIsAM.Checked) {
                 cbIsAM.Image = Resources.smallSunrise;
                 cbIsAM.BackColor = Color.FromArgb(251, 175, 0);
@@ -961,7 +1008,8 @@ namespace FloorPlanMaker {
             UpdateDateSelected(0);
         }
 
-        private void lblDateSelected_Click(object sender, EventArgs e) {
+        private void lblDateSelected_Click(object sender, EventArgs e)
+        {
             using (frmDateSelect selectDateForm = new frmDateSelect(dateTimeSelected)) {
                 selectDateForm.StartPosition = FormStartPosition.Manual;
                 Point startLocation = new Point(Cursor.Position.X - 50, Cursor.Position.Y);
@@ -973,7 +1021,8 @@ namespace FloorPlanMaker {
                 }
             }
         }
-        private void SubscribeToChildrenClick(Control parent) {
+        private void SubscribeToChildrenClick(Control parent)
+        {
             foreach (Control child in parent.Controls) {
                 // Subscribe the child control's MouseDown event
                 child.MouseDown += flowServersInFloorplan_MouseClick;
@@ -984,7 +1033,8 @@ namespace FloorPlanMaker {
                 }
             }
         }
-        private void flowServersInFloorplan_MouseClick(object sender, MouseEventArgs e) {
+        private void flowServersInFloorplan_MouseClick(object sender, MouseEventArgs e)
+        {
             if (sender == flowServersInFloorplan) {
                 if (quicklyChoosingAServer) {
                     rdoViewSectionFlow.Checked = true;
@@ -994,7 +1044,8 @@ namespace FloorPlanMaker {
         }
 
 
-        private void CreateSectionBorders() {
+        private void CreateSectionBorders()
+        {
             TableGrid grid = new TableGrid(shift.SelectedDiningArea.Tables);
             grid.FindTableTopBottomNeighbors();
             grid.FindTableNeighbors();
@@ -1009,7 +1060,8 @@ namespace FloorPlanMaker {
             //Bitmap edgesBitmap = edgeDrawer.CreateEdgeBitmap(pnlFloorPlan.Size, edges);
             pnlFloorPlan.BackgroundImage = edgesBitmap;
         }
-        private bool AllTablesAreAssigned() {
+        private bool AllTablesAreAssigned()
+        {
             foreach (TableControl tableControl in floorplanManager.TableControls) {
                 if (tableControl.Section == null) {
                     return false;
@@ -1018,15 +1070,18 @@ namespace FloorPlanMaker {
             return true;
         }
 
-        private void toolTip1_Popup(object sender, PopupEventArgs e) {
+        private void toolTip1_Popup(object sender, PopupEventArgs e)
+        {
 
         }
 
-        private void btnReportBug_Click(object sender, EventArgs e) {
+        private void btnReportBug_Click(object sender, EventArgs e)
+        {
             frmReporting frmReport = new frmReporting();
             frmReport.ShowDialog();
         }
-        private void SetTableSalesView() {
+        private void SetTableSalesView()
+        {
             if (cbTableDisplayMode.Checked) {
                 foreach (Control c in pnlFloorPlan.Controls) {
                     if (c is TableControl tableControl) {
@@ -1039,7 +1094,8 @@ namespace FloorPlanMaker {
             //lblTotalSales.Text = floorplanManager.Shift.SelectedDiningArea.ExpectedSales.ToString("C0");
 
         }
-        private void rdoYesterdayStats_CheckedChanged(object sender, EventArgs e) {
+        private void rdoYesterdayStats_CheckedChanged(object sender, EventArgs e)
+        {
             //***************************************************************************************************
             //if (rdoYesterdayStats.Checked) {
             //    updateSalesForTables();
@@ -1049,7 +1105,8 @@ namespace FloorPlanMaker {
             //tableSalesManager.SetTableStats(floorplanManager.Floorplan.DiningArea.Tables, floorplanManager.Floorplan.IsLunch, dateOnlySelected);
 
         }
-        private void updateSalesForTables() {
+        private void updateSalesForTables()
+        {
             //***************************************************************************************************
             //if (rdoYesterdayStats.Checked) {
 
@@ -1097,45 +1154,53 @@ namespace FloorPlanMaker {
 
 
         }
-        private void rdoLastWeekdayStats_CheckedChanged(object sender, EventArgs e) {
+        private void rdoLastWeekdayStats_CheckedChanged(object sender, EventArgs e)
+        {
             //***************************************************************************************************
             //if (rdoLastWeekdayStats.Checked) {
             //    updateSalesForTables();
             //}
         }
-        private void rdoDayOfStats_CheckedChanged(object sender, EventArgs e) {
+        private void rdoDayOfStats_CheckedChanged(object sender, EventArgs e)
+        {
             //***************************************************************************************************
             //if (rdoDayOfStats.Checked) {
             //    updateSalesForTables();
             //}
         }
-        private void rdoYearlyAverageStats_CheckedChanged(object sender, EventArgs e) {
+        private void rdoYearlyAverageStats_CheckedChanged(object sender, EventArgs e)
+        {
 
         }
 
-        private void rdoLastFourWeekdayStats_CheckedChanged(object sender, EventArgs e) {
+        private void rdoLastFourWeekdayStats_CheckedChanged(object sender, EventArgs e)
+        {
             //***************************************************************************************************
             //if (rdoLastFourWeekdayStats.Checked) {
             //    updateSalesForTables();
             //}
         }
 
-        private void rdoRangeStats_CheckedChanged(object sender, EventArgs e) {
+        private void rdoRangeStats_CheckedChanged(object sender, EventArgs e)
+        {
 
         }
 
-        private void rdoSelectedDatesStats_CheckedChanged(object sender, EventArgs e) {
+        private void rdoSelectedDatesStats_CheckedChanged(object sender, EventArgs e)
+        {
 
         }
 
-        private void btnAddCustomDate_Click(object sender, EventArgs e) {
+        private void btnAddCustomDate_Click(object sender, EventArgs e)
+        {
             //***************************************************************************************************
             //DateOnly dateOnly = DateOnly.FromDateTime(dtpCustomStatDateSelect.Value);
             //ListBoxDateItem item = new ListBoxDateItem(dateOnly);
             //lbFilteredStatDates.Items.Add(item);
         }
 
-        private void btnApplyDates_Click(object sender, EventArgs e) {
+        private void btnApplyDates_Click(object sender, EventArgs e)
+        {
             //***************************************************************************************************
             //List<DateOnly> dates = new List<DateOnly>();
             //foreach (ListBoxDateItem item in lbFilteredStatDates.Items) {
@@ -1147,12 +1212,14 @@ namespace FloorPlanMaker {
 
         }
 
-        private void btnClearDates_Click(object sender, EventArgs e) {
+        private void btnClearDates_Click(object sender, EventArgs e)
+        {
             //***************************************************************************************************
             //lbFilteredStatDates.Items.Clear();
         }
 
-        private void btnDeleteSelectedFloorplan_Click(object sender, EventArgs e) {
+        private void btnDeleteSelectedFloorplan_Click(object sender, EventArgs e)
+        {
             DialogResult result = MessageBox.Show("Do You Want To Complete Delete This Floorplan?",
                                                 "Delete Floorplan?",
                                                 MessageBoxButtons.YesNo,
@@ -1165,7 +1232,8 @@ namespace FloorPlanMaker {
 
         }
 
-        private void cbDrawToggle_CheckedChanged(object sender, EventArgs e) {
+        private void cbDrawToggle_CheckedChanged(object sender, EventArgs e)
+        {
             if (cbDrawToggle.Checked == true) {
                 _isDrawingModeEnabled = true;
                 _lines.Clear();
@@ -1174,7 +1242,8 @@ namespace FloorPlanMaker {
             else { _isDrawingModeEnabled = false; }
         }
 
-        private void btnTemplateCreator_Click(object sender, EventArgs e) {
+        private void btnTemplateCreator_Click(object sender, EventArgs e)
+        {
             frmTemplateCreator frm = new frmTemplateCreator(shift.SelectedDiningArea, this) { TopLevel = false, AutoScroll = true };
 
             pnlNavigationWindow.Controls.Add(frm);
@@ -1184,7 +1253,8 @@ namespace FloorPlanMaker {
             pnlSideContainer.Visible = false;
             pnlNavigationWindow.BringToFront();
         }
-        public void CloseTemplateCreator() {
+        public void CloseTemplateCreator()
+        {
             rdoSections.Checked = true;
             rdoViewSectionFlow.Checked = true;
             flowSectionSelect.Visible = true;
@@ -1194,12 +1264,14 @@ namespace FloorPlanMaker {
             rdoViewSectionFlow.Image = Resources.lilCanvasBook;
         }
 
-        private void btnHelp_Click(object sender, EventArgs e) {
+        private void btnHelp_Click(object sender, EventArgs e)
+        {
             frmTutorialVideos tutorialForm = new frmTutorialVideos(this.tutorialType);
             tutorialForm.Show();
         }
 
-        private void btnAutomatic_Click(object sender, EventArgs e) {
+        private void btnAutomatic_Click(object sender, EventArgs e)
+        {
             int unassignedTables = floorplanManager.NumberOfUnassignedTables();
             if (floorplanManager.Floorplan == null) {
                 rdoShifts.PerformClick();
@@ -1238,7 +1310,8 @@ namespace FloorPlanMaker {
             }
         }
 
-        private void btnEraseAllSections_Click(object sender, EventArgs e) {
+        private void btnEraseAllSections_Click(object sender, EventArgs e)
+        {
             if (floorplanManager.Floorplan == null) { return; }
             DialogResult result = MessageBox.Show("Do you want to unassign all tables and sections?",
                                                 "Clear Sections?",
@@ -1253,7 +1326,8 @@ namespace FloorPlanMaker {
             }
         }
 
-        internal void SelectDiningAreaWithFirstFloorplan(Floorplan? floorplan) {
+        internal void SelectDiningAreaWithFirstFloorplan(Floorplan? floorplan)
+        {
             DiningArea selectedDiningArea = floorplan.DiningArea;
             if (selectedDiningArea == null) {
                 selectedDiningArea = shift.DiningAreasUsed[0];
@@ -1267,12 +1341,14 @@ namespace FloorPlanMaker {
 
         }
 
-        private void btnEditRoster_Click(object sender, EventArgs e) {
+        private void btnEditRoster_Click(object sender, EventArgs e)
+        {
             if (floorplanManager.Floorplan == null) { return; }
             floorplanManager.EditRosterClicked();
         }
 
-        private void btnUploadSalesData_Click(object sender, EventArgs e) {
+        private void btnUploadSalesData_Click(object sender, EventArgs e)
+        {
             using (OpenFileDialog openFileDialog = new OpenFileDialog()) {
                 string defaultDirectory = @"C:\Users\Jason\OneDrive\Source\Databases\LiveDB\Order History";
                 string fallbackDirectory = @"C:\";
@@ -1314,7 +1390,8 @@ namespace FloorPlanMaker {
             }
         }
 
-        private void MakeUnassignedTablesPickup() {
+        private void MakeUnassignedTablesPickup()
+        {
             bool pickUpAdded = false;
             Section pickUpSection = new Section(floorplanManager.Floorplan);
             pickUpSection.IsPickUp = true;
@@ -1351,7 +1428,8 @@ namespace FloorPlanMaker {
                 sectionControl.BringToFront();
             }
         }
-        private bool CheckForCloserAssigned() {
+        private bool CheckForCloserAssigned()
+        {
             List<Section> nonPickupSections = shift.SelectedFloorplan.Sections.Where(s => !s.IsPickUp
                && !s.IsBarSection).ToList();
             bool hasCloserAssigned = shift.SelectedFloorplan.CheckIfCloserIsAssigned();
@@ -1364,10 +1442,12 @@ namespace FloorPlanMaker {
             }
             return true;
         }
-        private bool CheckIfAllSectionsAssigned() {
+        private bool CheckIfAllSectionsAssigned()
+        {
             return shift.SelectedFloorplan.CheckIfAllSectionsAssigned();
         }
-        private void SaveAndPrintNEW() {
+        private void SaveAndPrintNEW()
+        {
             if (shift.SelectedFloorplan == null) {
                 //NotificationHandler.ShowNotificationLabel(pnlFloorPlan, "No Floorplan to Print!!", UITheme.NoColor, UITheme.NoFontColor,
                 //      new Point(0, 0), pnlFloorPlan.Width, 30, TimeSpan.FromSeconds(2));
@@ -1402,7 +1482,8 @@ namespace FloorPlanMaker {
 
             PrintFloorplan();
         }
-        private void SaveAndPDFNEW() {
+        private void SaveAndPDFNEW()
+        {
             if (shift.SelectedFloorplan == null) {
                 NotificationHandler.ShowNotificationLabel(pnlFloorPlan, "No Floorplan to Print!!", UITheme.NoColor, UITheme.NoFontColor,
                       new Point(0, 0), pnlFloorPlan.Width, 30, TimeSpan.FromSeconds(2));
@@ -1434,7 +1515,8 @@ namespace FloorPlanMaker {
             SavePDF();
 
         }
-        private void PrintFloorplan() {
+        private void PrintFloorplan()
+        {
 
             SaveTheFloorplan();
             try {
@@ -1447,7 +1529,8 @@ namespace FloorPlanMaker {
                 MessageBox.Show("Floorplan saved, but An error occurred while trying to print: " + ex.Message, "Print Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private void btnPrint_Click(object sender, EventArgs e) {
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
             //SaveFloorplanAndPrint();
             SaveAndPrintNEW();
 
@@ -1533,12 +1616,14 @@ namespace FloorPlanMaker {
 
         }
 
-        private void btnSaveColorPDF_Click(object sender, EventArgs e) {
+        private void btnSaveColorPDF_Click(object sender, EventArgs e)
+        {
             //SavePDF();
             //SaveFloorplanAndPrint();
             SaveAndPDFNEW();
         }
-        private void SaveTheFloorplan() {
+        private void SaveTheFloorplan()
+        {
             if (shift.SelectedFloorplan != null) {
                 bool wasSaved = SqliteDataAccess.SaveFloorplanAndSections(shift.SelectedFloorplan);
                 if (wasSaved) {
@@ -1554,7 +1639,8 @@ namespace FloorPlanMaker {
 
 
         }
-        private void SavePDF() {
+        private void SavePDF()
+        {
             //List<FloorplanLine> lines = new List<FloorplanLine>(); // Initialize with actual lines if needed
             FloorplanPrinter printerNoLines = new FloorplanPrinter(pnlFloorPlan, _lines);
 
@@ -1579,21 +1665,25 @@ namespace FloorPlanMaker {
 
         }
 
-        private void sectionHeaderDisplay_Load(object sender, EventArgs e) {
+        private void sectionHeaderDisplay_Load(object sender, EventArgs e)
+        {
 
         }
 
-        private void btnTest_Click(object sender, EventArgs e) {
+        private void btnTest_Click(object sender, EventArgs e)
+        {
             frmCalendar frmCalendar = new frmCalendar();
             frmCalendar.ShowDialog();
         }
 
-        private void btnTestLabels_Click(object sender, EventArgs e) {
+        private void btnTestLabels_Click(object sender, EventArgs e)
+        {
             //floorplanManager.RemoveLabels();
             SectionLabelManager sectionLabelManager = new SectionLabelManager(floorplanManager.Floorplan, floorplanManager.Shift, pnlFloorPlan);
         }
 
-        private void rdoReservations_CheckedChanged(object sender, EventArgs e) {
+        private void rdoReservations_CheckedChanged(object sender, EventArgs e)
+        {
 
         }
 

@@ -1,8 +1,10 @@
 ﻿using FloorPlanMakerUI;
 using FloorplanUserControlLibrary;
 
-namespace FloorPlanMaker {
-    partial class Form1 {
+namespace FloorPlanMaker
+{
+    partial class Form1
+    {
         /// <summary>
         ///  Required designer variable.
         /// </summary>
@@ -12,7 +14,8 @@ namespace FloorPlanMaker {
         ///  Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing) {
+        protected override void Dispose(bool disposing)
+        {
             if (disposing && (components != null)) {
                 components.Dispose();
             }
@@ -51,8 +54,9 @@ namespace FloorPlanMaker {
             btnCloseApp = new Button();
             pnlFloorplanContainer = new Panel();
             pnlNotifications = new Panel();
-            sectionHeaderDisplay = new FloorplanUserControlLibrary.SectionHeaderDisplay();
+            sectionHeaderDisplay = new SectionHeaderDisplay();
             lblDateSelected = new Label();
+            sectionTabs = new SectionTabs();
             pnlNavigationWindow = new Panel();
             pnlMainContainer = new Panel();
             label4 = new Label();
@@ -76,8 +80,8 @@ namespace FloorPlanMaker {
             rdoViewServerFlow = new RadioButton();
             rdoViewSectionFlow = new RadioButton();
             pnlStatMode = new Panel();
-            shiftFilterControl = new FloorplanUserControlLibrary.ShiftFilterControl();
             rdoSales = new RadioButton();
+            
             btnDeleteSelectedFloorplan = new Button();
             btnHelp = new Button();
             toolTip1 = new ToolTip(components);
@@ -91,8 +95,6 @@ namespace FloorPlanMaker {
             pnlSideDetails = new Panel();
             flowResoDisplay = new FlowLayoutPanel();
             pnlShiftDetails = new Panel();
-            
-            sectionTabs = new SectionTabs();
             flowWeatherDisplay = new FlowLayoutPanel();
             pnlSalesDataUpdated = new Panel();
             lblMissingSalesData = new Label();
@@ -110,7 +112,6 @@ namespace FloorPlanMaker {
             flowLayoutPanel2.SuspendLayout();
             pnlSideContainer.SuspendLayout();
             pnlSectionsAndServers.SuspendLayout();
-            pnlStatMode.SuspendLayout();
             panel2.SuspendLayout();
             pnlSideDetails.SuspendLayout();
             pnlSalesDataUpdated.SuspendLayout();
@@ -408,12 +409,6 @@ namespace FloorPlanMaker {
             btnCloseApp.Text = "X";
             btnCloseApp.UseVisualStyleBackColor = true;
             btnCloseApp.Click += btnCloseApp_Click;
-            //
-            // pnlTestSections
-            //
-            
-            sectionTabs.Location = new Point(18, 0);
-            sectionTabs.Size = new Size(334, 45);
             // 
             // pnlFloorplanContainer
             // 
@@ -421,29 +416,28 @@ namespace FloorPlanMaker {
             pnlFloorplanContainer.BackColor = Color.WhiteSmoke;
             pnlFloorplanContainer.Controls.Add(pnlNotifications);
             pnlFloorplanContainer.Controls.Add(pnlFloorPlan);
-            pnlFloorplanContainer.Controls.Add(lblDateSelected);
-            pnlFloorplanContainer.Controls.Add(cbIsAM);
-            pnlFloorplanContainer.Controls.Add(btnDayBefore);
-            pnlFloorplanContainer.Controls.Add(btnNextDay);
-            pnlFloorplanContainer.Controls.Add(sectionTabs);
             pnlFloorplanContainer.Location = new Point(80, 10);
             pnlFloorplanContainer.Name = "pnlFloorplanContainer";
             pnlFloorplanContainer.Size = new Size(684, 944);
-            pnlFloorplanContainer.TabIndex = 19;            
-            //
+            pnlFloorplanContainer.TabIndex = 19;
+            // 
             // pnlNotifications
             // 
             pnlNotifications.BackColor = Color.WhiteSmoke;
             pnlNotifications.Controls.Add(sectionHeaderDisplay);
-            pnlNotifications.Location = new Point(0, 45);
+            pnlNotifications.Controls.Add(lblDateSelected);
+            pnlNotifications.Controls.Add(cbIsAM);
+            pnlNotifications.Controls.Add(btnDayBefore);
+            pnlNotifications.Controls.Add(btnNextDay);
+            pnlNotifications.Controls.Add(sectionTabs);
+            pnlNotifications.Location = new Point(0, 0);
             pnlNotifications.Name = "pnlNotifications";
-            pnlNotifications.Size = new Size(684, 73);
+            pnlNotifications.Size = new Size(684, 118);
             pnlNotifications.TabIndex = 23;
             // 
             // sectionHeaderDisplay
             // 
-            sectionHeaderDisplay.BorderStyle = BorderStyle.None;
-            sectionHeaderDisplay.Location = new Point(8, 0);
+            sectionHeaderDisplay.Location = new Point(8, 45);
             sectionHeaderDisplay.Name = "sectionHeaderDisplay";
             sectionHeaderDisplay.Size = new Size(666, 68);
             sectionHeaderDisplay.TabIndex = 0;
@@ -462,6 +456,13 @@ namespace FloorPlanMaker {
             lblDateSelected.TextAlign = ContentAlignment.MiddleCenter;
             toolTip1.SetToolTip(lblDateSelected, "Left / Right Arrow Keys to Cycle");
             lblDateSelected.Click += lblDateSelected_Click;
+            // 
+            // sectionTabs
+            // 
+            sectionTabs.Location = new Point(18, 0);
+            sectionTabs.Name = "sectionTabs";
+            sectionTabs.Size = new Size(334, 45);
+            sectionTabs.TabIndex = 23;
             // 
             // pnlNavigationWindow
             // 
@@ -741,19 +742,10 @@ namespace FloorPlanMaker {
             // pnlStatMode
             // 
             pnlStatMode.BackColor = Color.WhiteSmoke;
-            pnlStatMode.Controls.Add(shiftFilterControl);
             pnlStatMode.Location = new Point(5, 201);
             pnlStatMode.Name = "pnlStatMode";
             pnlStatMode.Size = new Size(200, 737);
             pnlStatMode.TabIndex = 13;
-            // 
-            // shiftFilterControl
-            // 
-            shiftFilterControl.BackColor = Color.WhiteSmoke;
-            shiftFilterControl.Location = new Point(0, 0);
-            shiftFilterControl.Name = "shiftFilterControl";
-            shiftFilterControl.Size = new Size(200, 737);
-            shiftFilterControl.TabIndex = 0;
             // 
             // rdoSales
             // 
@@ -999,7 +991,6 @@ namespace FloorPlanMaker {
             flowLayoutPanel2.ResumeLayout(false);
             pnlSideContainer.ResumeLayout(false);
             pnlSectionsAndServers.ResumeLayout(false);
-            pnlStatMode.ResumeLayout(false);
             panel2.ResumeLayout(false);
             pnlSideDetails.ResumeLayout(false);
             pnlSalesDataUpdated.ResumeLayout(false);
@@ -1071,7 +1062,7 @@ namespace FloorPlanMaker {
         private Panel pnlIndicator2;
         private Label label4;
         private Button btnTest;
-       
+
         private SectionTabs sectionTabs;
         private FloorplanUserControlLibrary.ShiftFilterControl shiftFilterControl;
     }
