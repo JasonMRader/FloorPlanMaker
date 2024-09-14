@@ -259,8 +259,8 @@ namespace FloorplanUserControlLibrary
             R = color.R;
             G = color.G;
             B = color.B;
-            tbR.Value = R; 
-            tbG.Value = G; 
+            tbR.Value = R;
+            tbG.Value = G;
             tbB.Value = B;
             txtR.Text = R.ToString();
             txtG.Text = G.ToString();
@@ -306,20 +306,20 @@ namespace FloorplanUserControlLibrary
             int oleColor = ColorTranslator.ToOle(Color.FromArgb(R, G, B));
 
             for (int i = 0; i < customColors.Length; i++) {
-                customColors[i] = oleColor; 
+                customColors[i] = oleColor;
             }
 
             using (ColorDialog colorDialog = new ColorDialog()) {
-               
+
                 colorDialog.Color = colorPair.BackgroundColor;
                 colorDialog.AllowFullOpen = true;
                 colorDialog.CustomColors = customColors;
                 colorDialog.FullOpen = true;
-               
+
                 if (colorDialog.ShowDialog() == DialogResult.OK) {
-                    
-                    SetBackColor(colorDialog.Color);                    
-                    
+
+                    SetBackColor(colorDialog.Color);
+
                 }
             }
         }

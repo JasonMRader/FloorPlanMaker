@@ -47,10 +47,10 @@
             lbl3After = new Label();
             lbl1After = new Label();
             pnlMain = new Panel();
+            btnChooseFromPallet = new Button();
             panel2 = new Panel();
             panel1 = new Panel();
             btnApply = new Button();
-            btnChooseFromPallet = new Button();
             ((System.ComponentModel.ISupportInitialize)tbB).BeginInit();
             ((System.ComponentModel.ISupportInitialize)tbG).BeginInit();
             ((System.ComponentModel.ISupportInitialize)tbR).BeginInit();
@@ -155,6 +155,7 @@
             txtB.Name = "txtB";
             txtB.Size = new Size(64, 46);
             txtB.TabIndex = 1;
+            txtB.TextAlign = HorizontalAlignment.Center;
             txtB.TextChanged += txtB_TextChanged;
             txtB.Leave += txtG_TextChanged;
             // 
@@ -175,6 +176,7 @@
             txtG.Name = "txtG";
             txtG.Size = new Size(64, 46);
             txtG.TabIndex = 1;
+            txtG.TextAlign = HorizontalAlignment.Center;
             txtG.Leave += txtG_TextChanged;
             // 
             // panel9
@@ -194,6 +196,7 @@
             txtR.Name = "txtR";
             txtR.Size = new Size(64, 46);
             txtR.TabIndex = 1;
+            txtR.TextAlign = HorizontalAlignment.Center;
             txtR.Leave += txtR_TextChanged;
             // 
             // lbl2Before
@@ -282,6 +285,21 @@
             pnlMain.Size = new Size(1000, 425);
             pnlMain.TabIndex = 8;
             // 
+            // btnChooseFromPallet
+            // 
+            btnChooseFromPallet.BackColor = Color.White;
+            btnChooseFromPallet.FlatAppearance.BorderSize = 0;
+            btnChooseFromPallet.FlatStyle = FlatStyle.Flat;
+            btnChooseFromPallet.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            btnChooseFromPallet.ForeColor = Color.White;
+            btnChooseFromPallet.Image = Properties.Resources.color_palette__1_;
+            btnChooseFromPallet.Location = new Point(939, 96);
+            btnChooseFromPallet.Name = "btnChooseFromPallet";
+            btnChooseFromPallet.Size = new Size(51, 37);
+            btnChooseFromPallet.TabIndex = 0;
+            btnChooseFromPallet.UseVisualStyleBackColor = false;
+            btnChooseFromPallet.Click += btnChooseFromPallet_Click;
+            // 
             // panel2
             // 
             panel2.BackColor = Color.White;
@@ -316,21 +334,6 @@
             btnApply.Text = "Apply";
             btnApply.UseVisualStyleBackColor = false;
             btnApply.Click += btnApply_Click;
-            // 
-            // btnChooseFromPallet
-            // 
-            btnChooseFromPallet.BackColor = Color.White;
-            btnChooseFromPallet.FlatAppearance.BorderSize = 0;
-            btnChooseFromPallet.FlatStyle = FlatStyle.Flat;
-            btnChooseFromPallet.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            btnChooseFromPallet.ForeColor = Color.White;
-            btnChooseFromPallet.Image = Properties.Resources.color_palette__1_;
-            btnChooseFromPallet.Location = new Point(939, 96);
-            btnChooseFromPallet.Name = "btnChooseFromPallet";
-            btnChooseFromPallet.Size = new Size(51, 37);
-            btnChooseFromPallet.TabIndex = 0;
-            btnChooseFromPallet.UseVisualStyleBackColor = false;
-            btnChooseFromPallet.Click += btnChooseFromPallet_Click;
             // 
             // ColorSelection
             // 
