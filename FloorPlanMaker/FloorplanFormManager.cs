@@ -62,7 +62,7 @@ namespace FloorPlanMakerUI
         public FloorplanFormManager(Form mainForm, Panel pnlFloorPlan, FlowLayoutPanel flowServersInFloorplan, 
             FlowLayoutPanel flowSectionSelect, Panel pnlContainer, Panel pnlSideContainer,
             SectionHeaderDisplay headerDisplay, DiningAreaButtonHandeler diningAreaButtonHandeler,
-            ShiftFilterControl shiftFilterControl, SectionTabs sectionTabs)
+            ShiftFilterControl shiftFilterControl, SectionTabs sectionTabs, Panel pnlIndicatorChild)
         {
             this.mainForm = mainForm;
             this.Shift = new Shift();           
@@ -84,7 +84,7 @@ namespace FloorPlanMakerUI
             frmSectionServerAssign.StartPosition = FormStartPosition.Manual;
             frmSectionServerAssign.SignalForInvisible += SectionAssignFormInvisible;
             this.sectionLabelManager = new SectionLabelManager(Floorplan, Shift, pnlFloorPlan);
-            this.sectionPanelManager = new SectionPanelManager(Floorplan, flowSectionSelect);
+            this.sectionPanelManager = new SectionPanelManager(Floorplan, flowSectionSelect, pnlIndicatorChild);
             this.serverControlManager = new ServerControlManager(Floorplan, flowServersInFloorplan);
             sectionLabelManager.AssignPickup += OpenPickUpForm;
             this.shiftFilterControl = shiftFilterControl;

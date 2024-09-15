@@ -22,12 +22,15 @@ namespace FloorPlanMakerUI
         private ImageLabelControl serverCountImageLabel = new ImageLabelControl();
         private ImageLabelControl coversImageLabel = new ImageLabelControl();
         private ImageLabelControl salesImageLabel = new ImageLabelControl();
-        public SectionPanelManager(Floorplan floorplan, FlowLayoutPanel flowLayoutPanel)
+        private Panel pnlSectionIndicator {get;set;}
+        private Panel pnlIndicatorChild { get;set;}
+        public SectionPanelManager(Floorplan floorplan, FlowLayoutPanel flowLayoutPanel, Panel pnlIndicatorChild)
         {
             _floorplan = floorplan;
           
             _flowLayoutPanel = flowLayoutPanel;
             _flowLayoutPanel.Controls.Clear();
+            this.pnlIndicatorChild = pnlIndicatorChild; 
             if(floorplan != null)
             {
                 floorplan.SubscribeObserver(this);
@@ -35,6 +38,7 @@ namespace FloorPlanMakerUI
                 floorplan.SectionAdded += AddSection;
                 AddSectionPanels();
             }
+            pnlSectionIndicator = pnlIndicatorChild.Parent as Panel;
         }
         public SectionPanelManager(DiningArea area, FlowLayoutPanel flowLayoutPanel)
         {
@@ -49,13 +53,19 @@ namespace FloorPlanMakerUI
         {
             _floorplan = null;            
             _flowLayoutPanel.Controls.Clear();
+            pnlSectionIndicator.BackColor = UITheme.SecondColor;
+            if(pnlIndicatorChild != null) {
+                pnlIndicatorChild.BackColor = UITheme.SecondColor;
+            }
+           
             UpdateImageLabels();
         }
         public void SetNewFloorplan(Floorplan floorplan)
         {
             if(_floorplan != floorplan)
             {
-                if(_floorplan != null)
+               
+                if (_floorplan != null)
                 {
                     _floorplan.RemoveObserver(this);
                     _floorplan.SectionRemoved -= RemoveSection;
@@ -116,8 +126,8 @@ namespace FloorPlanMakerUI
         }
         private void AddSection(Section sectionAdded, Floorplan floorplan)
         {
-            SectionInfoPanel infoPanel = new SectionInfoPanel(sectionAdded, _floorplan, _flowLayoutPanel.Width);
-            infoPanel.SectionSelected += SelectSection;
+            SectionInfoPanel infoPanel = new SectionInfoPanel(sectionAdded, _floorplan, _flowLayoutPanel.Width, pnlSectionIndicator, pnlIndicatorChild);
+            infoPanel.SectionControlClicked += SelectSection;
             _flowLayoutPanel.Controls.Add(infoPanel);
         }
 
@@ -182,9 +192,10 @@ namespace FloorPlanMakerUI
             foreach (Section section in _floorplan.Sections)
             {
                 //TODO error divid by zero
-                SectionInfoPanel infoPanel = new SectionInfoPanel(section, _floorplan, _flowLayoutPanel.Width);
+                SectionInfoPanel infoPanel = new SectionInfoPanel(section, _floorplan, _flowLayoutPanel.Width, pnlSectionIndicator, pnlIndicatorChild);
 
-                infoPanel.SectionSelected += SelectSection;
+                infoPanel.SectionControlClicked += SelectSection;
+                infoPanel.SectionSelected += MovedIndicator;
                 _flowLayoutPanel.Controls.Add(infoPanel);
             }
             toolTip.SetToolTip(btnAddPickup, "Add a Pickup Section [P]");
@@ -193,6 +204,16 @@ namespace FloorPlanMakerUI
             btnAddPickup.Click += btnAddPickupSection_Click;
            
 
+        }
+
+        private void MovedIndicator(SectionInfoPanel infoPanel)
+        {
+            pnlSectionIndicator.Location = new Point(0, infoPanel.Location.Y);
+
+            pnlSectionIndicator.BackColor = Color.FromArgb(255, 103, 0);
+            pnlIndicatorChild.BackColor = infoPanel.Section.Color;
+            pnlSectionIndicator.Location = new Point(0, infoPanel.Location.Y);
+            pnlSectionIndicator.Height = infoPanel.Height;
         }
 
         private void btnAddPickupSection_Click(object? sender, EventArgs e)
@@ -218,6 +239,10 @@ namespace FloorPlanMakerUI
         private void SelectSection(Section section)
         {
             _floorplan.SetSelectedSection(section);
+        }
+        private void SetSelectedSectionIndicator()
+        {
+
         }
     }
 }

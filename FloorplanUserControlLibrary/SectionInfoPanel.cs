@@ -20,12 +20,15 @@ namespace FloorplanUserControlLibrary
         private ToolTip toolTip = new ToolTip();
         private Section _section { get; set; }
         public Section Section { get { return _section; } }
-        public event Action<Section> SectionSelected;
+        public event Action<Section> SectionControlClicked;
+        public event Action<SectionInfoPanel> SectionSelected;
         public event EventHandler ServerRemoved;
         public event EventHandler ServerAdded;
+        public Panel pnlIndicator { get; set; }
+        private Panel pnlIndicatorChild { get; set; }
         private Floorplan floorplan { get; set; }
         private int parentWidth = 0;
-        public SectionInfoPanel(Section section, Floorplan floorplan, int containerWidth)
+        public SectionInfoPanel(Section section, Floorplan floorplan, int containerWidth, Panel pnlSectionIndicator, Panel pnlIndicatorChild)
         {
             InitializeComponent();
             this._section = section;
@@ -35,6 +38,10 @@ namespace FloorplanUserControlLibrary
             this.ForeColor = Section.FontColor;
             pnlMainContainer.BackColor = this.BackColor;
             parentWidth = containerWidth;
+            pnlIndicator = pnlSectionIndicator;
+            
+            this.pnlIndicatorChild = pnlIndicatorChild;
+            
 
             UpdateSection(section);
             AttachClickEventToControls(this);
@@ -62,7 +69,7 @@ namespace FloorplanUserControlLibrary
 
         private void Control_Click(object? sender, EventArgs e)
         {
-            SectionSelected?.Invoke(_section);
+            SectionControlClicked?.Invoke(_section);
         }
 
         public void UpdateSection(Section section)
@@ -86,6 +93,11 @@ namespace FloorplanUserControlLibrary
             this.Size = new System.Drawing.Size(thisWidth, 65);
             pnlHighlightBuffer.Width = thisWidth - pnlHighlightBuffer.Location.X;
             pnlMainContainer.Width = thisWidth - pnlMainContainer.Location.Y;
+            //pnlIndicator.BackColor = Color.FromArgb(255, 103, 0);
+            //pnlIndicatorChild.BackColor = Section.Color;
+            //pnlIndicator.Location = new Point(0,this.Location.Y);
+            //pnlIndicator.Height = this.Height;
+            SectionSelected?.Invoke(this);
             //this.pnlHighlightBuffer.Location = new System.Drawing.Point(10,10);
         }
         public void SetToNotSelected()

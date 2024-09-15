@@ -95,7 +95,7 @@ namespace FloorPlanMaker
 
             floorplanManager = new FloorplanFormManager(this, pnlFloorPlan, flowServersInFloorplan, flowSectionSelect,
                 pnlMainContainer, pnlSideContainer, sectionHeaderDisplay, diningAreaButtonHandeler,
-                shiftFilterControl, sectionTabs);
+                shiftFilterControl, sectionTabs, pnlIndicatorChild);
 
             // Subscribe to the event
             //floorplanManager.SectionLabelRemoved += FloorplanManager_SectionLabelRemoved;
@@ -153,6 +153,7 @@ namespace FloorPlanMaker
             _frmEditStaff.Show();
             pnlNavigationWindow.BringToFront();
             pnlMainContainer.Visible = false;
+            pnlSuperFPContainer.Visible = false;
             //pnlSideBar.Visible = false;
             pnlSideContainer.Visible = false;
             UpdateMissingSalesData();
@@ -719,6 +720,7 @@ namespace FloorPlanMaker
                 this.tutorialType = TutorialImages.TutorialType.Form1;
                 pnlNavigationWindow.SendToBack();
                 pnlNavHighlight.Location = new Point(rdoSections.Left, 0);
+                pnlSuperFPContainer.Visible = true;
                 pnlMainContainer.Visible = true;
                 pnlSideContainer.Visible = true;
                 flowServersInFloorplan.Visible = true;
@@ -737,6 +739,7 @@ namespace FloorPlanMaker
             }
             else {
                 pnlMainContainer.Visible = false;
+                pnlSuperFPContainer.Visible = false;
                 //pnlSideBar.Visible = false;
                 pnlSideContainer.Visible = false;
             }
