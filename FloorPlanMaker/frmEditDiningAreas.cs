@@ -24,6 +24,7 @@ namespace FloorPlanMakerUI
         private System.Drawing.Point dragStartPoint;
         private Rectangle dragRectangle;
         private List<TableControl> allTableControls = new List<TableControl>();
+        private List<TablePercentageRecord> tablePercentageRecords = new List<TablePercentageRecord>();
         List<TableDataEditorControl> tableDataEditors = new List<TableDataEditorControl>();
         private TableEditorControl positionEditor;
         public DiningAreaInfoControl diningAreaInfoControl { get; set; } = new DiningAreaInfoControl();
@@ -36,6 +37,7 @@ namespace FloorPlanMakerUI
             InitializeComponent();
             diningAreaInfoControl.OpenTableManagerClicked += OpenTableManager;
             diningAreaInfoControl.TableStatusUpdated += UpdateTableStatus;
+            tablePercentageRecords = SqliteDataAccess.LoadTablePercentageRecords();
 
         }
 
@@ -599,22 +601,28 @@ namespace FloorPlanMakerUI
         }
         private void SetTableControlsToSalesData()
         {
-            foreach (TableDataEditorControl editor in tableDataEditors) {
-                pnlFloorPlan.Controls.Remove(editor);
-            }
-            tableDataEditors.Clear();
-            if (rdoSalesView.Checked) {
-                pnlFloorPlan.Controls.Remove(positionEditor);
-                foreach (TableControl tableControl in allTableControls) {
-                    TableDataEditorControl dataEditor = new TableDataEditorControl(tableControl);
-                    tableControl.Controls.Remove(txtTableNumber);
+            //foreach (TableDataEditorControl editor in tableDataEditors) {
+            //    pnlFloorPlan.Controls.Remove(editor);
+            //}
+            //tableDataEditors.Clear();
+            //if (rdoSalesView.Checked) {
+            //    pnlFloorPlan.Controls.Remove(positionEditor);
+            //    foreach (TableControl tableControl in allTableControls) {
+            //        TableDataEditorControl dataEditor = new TableDataEditorControl(tableControl);
+            //        tableControl.Controls.Remove(txtTableNumber);
 
-                    dataEditor.SetToSalesOnly();
-                    tableDataEditors.Add(dataEditor);
-                    pnlFloorPlan.Controls.Add(dataEditor);
-                    dataEditor.BringToFront();
+            //        dataEditor.SetToSalesOnly();
+            //        tableDataEditors.Add(dataEditor);
+            //        pnlFloorPlan.Controls.Add(dataEditor);
+            //        dataEditor.BringToFront();
+            //        tableControl.Invalidate();
+
+            //    }
+            //}
+            foreach (Control c in pnlFloorPlan.Controls) {
+                if (c is TableControl tableControl) {
+                    tableControl.CurrentDisplayMode = DisplayMode.AverageCovers;
                     tableControl.Invalidate();
-
                 }
             }
         }
@@ -946,7 +954,45 @@ namespace FloorPlanMakerUI
 
         private void btnGetTableSales_Click(object sender, EventArgs e)
         {
+            List<TablePercentageRecord> percentageRecords = tablePercentageRecords.FindAll(
+                p => p.DiningAreaID == areaCreationManager.DiningAreaSelected.ID).ToList();
+            lbTableSales.Items.Clear();
+            float allTableSales = 0f;
+            if(float.TryParse(txtTotalSales.Text, out var totalSales)) {
+                foreach(var percentageRecord in percentageRecords) {
+                    double percentage = percentageRecord.PercentageForSpecificEstimate(totalSales);
+                    string percentageFormated = percentage.ToString("F2");
+                    float estimatedSales = (float)((totalSales * (float)percentage)*.01f);
+                    string salesFormated = estimatedSales.ToString("C0");
+                    string tableRecord = 
+                        $"{percentageRecord.TableNumber}: {percentageFormated}%, {salesFormated}";
+                    lbTableSales.Items.Add(tableRecord);
+                    allTableSales += estimatedSales;
+                   // UpdateTableControlSales(percentageRecord);
+                }
+                string allSales = allTableSales.ToString();
+                lbTableSales.Items.Add(allSales);
+            }
 
+            areaCreationManager.DiningAreaSelected.SetTableSalesByPercentage(percentageRecords, allTableSales);
+        }
+
+        private void UpdateTableControlSales(TablePercentageRecord tableRecord)
+        {
+            TableControl table = allTableControls.FirstOrDefault(t => t.Table.TableNumber == tableRecord.TableNumber);
+            if(table != null) {
+                table.Table.SetTableSales((float)tableRecord.EstimatedSales);
+            }
+           
+            //foreach (Table table in areaCreationManager.DiningAreaSelected.Tables) {
+            //    table.DiningArea = areaCreationManager.DiningAreaSelected;
+            //    TableControl tableControl = TableControlFactory.CreateConfigurableTable(table);
+            //    //tableControl.TableClicked += Table_TableClicked;  // Uncomment if you want to attach event handler
+            //    tableControl.TableClicked += ExistingTable_TableClicked;
+
+            //    pnlFloorPlan.Controls.Add(tableControl);
+            //    allTableControls.Add(tableControl);
+            //}
         }
     }
 }

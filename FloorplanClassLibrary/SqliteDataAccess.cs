@@ -3120,8 +3120,60 @@ namespace FloorplanClassLibrary
                 return tableRecords;
             }
         }
-
         public static List<TablePercentageRecord> LoadTablePercentageRecords()
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString())) {
+                // Load all DiningTableRecords
+                string diningTableSql = @"SELECT * FROM DiningTableRecord";
+                var diningTableQueryResult = cnn.Query(diningTableSql);
+
+                var tablePercentageRecords = diningTableQueryResult.Select(row => {
+                    var rowDict = (IDictionary<string, object>)row;
+
+                    return new TablePercentageRecord {
+                        ID = Convert.ToInt32(rowDict["ID"]),
+                        TableNumber = Convert.ToString(rowDict["TableNumber"]),
+                        DiningAreaID = Convert.ToInt32(rowDict["DiningAreaID"]),
+                        IsIncluded = Convert.ToBoolean(rowDict["IsIncluded"]),
+                        LessThan1k = Convert.ToDouble(rowDict["LessThan1k"]),
+                        _1kTo2k = Convert.ToDouble(rowDict["1kTo2k"]),
+                        _2kTo3k = Convert.ToDouble(rowDict["2kTo3k"]),
+                        _3kTo4k = Convert.ToDouble(rowDict["3kTo4k"]),
+                        _4kTo5k = Convert.ToDouble(rowDict["4kTo5k"]),
+                        _5kTo6k = Convert.ToDouble(rowDict["5kTo6k"]),
+                        _6kTo7k = Convert.ToDouble(rowDict["6kTo7k"]),
+                        _7kTo8k = Convert.ToDouble(rowDict["7kTo8k"]),
+                        _8kTo9k = Convert.ToDouble(rowDict["8kTo9k"]),
+                        _9kTo10k = Convert.ToDouble(rowDict["9kTo10k"]),
+                        _10kTo11k = Convert.ToDouble(rowDict["10kTo11k"]),
+                        _11kTo12k = Convert.ToDouble(rowDict["11kTo12k"]),
+                        _12kTo13k = Convert.ToDouble(rowDict["12kTo13k"]),
+                        _13kTo14k = Convert.ToDouble(rowDict["13kTo14k"]),
+                        _14kTo15k = Convert.ToDouble(rowDict["14kTo15k"]),
+                        _15kTo16k = Convert.ToDouble(rowDict["15kTo16k"]),
+                        _16kTo17k = Convert.ToDouble(rowDict["16kTo17k"]),
+                        _17kTo18k = Convert.ToDouble(rowDict["17kTo18k"]),
+                        _18kTo19k = Convert.ToDouble(rowDict["18kTo19k"]),
+                        _19kTo20k = Convert.ToDouble(rowDict["19kTo20k"]),
+                        _20kTo21k = Convert.ToDouble(rowDict["20kTo21k"]),
+                        _21kTo22k = Convert.ToDouble(rowDict["21kTo22k"]),
+                        _22kTo23k = Convert.ToDouble(rowDict["22kTo23k"]),
+                        _23kTo24k = Convert.ToDouble(rowDict["23kTo24k"]),
+                        _24kTo25k = Convert.ToDouble(rowDict["24kTo25k"]),
+                        _25kTo26k = Convert.ToDouble(rowDict["25kTo26k"]),
+                        _26kTo27k = Convert.ToDouble(rowDict["26kTo27k"]),
+                        _27kTo28k = Convert.ToDouble(rowDict["27kTo28k"]),
+                        _28kTo29k = Convert.ToDouble(rowDict["28kTo29k"]),
+                        _29kTo30k = Convert.ToDouble(rowDict["29kTo30k"]),
+                        GreaterThan30k = Convert.ToDouble(rowDict["GreaterThan30k"]),
+
+
+                    };
+                }).ToList();
+                return tablePercentageRecords;
+            }
+        }
+        public static List<TablePercentageRecord> LoadTablePercentageRecordsWithTableStats()
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString())) {
                 // Load all DiningTableRecords

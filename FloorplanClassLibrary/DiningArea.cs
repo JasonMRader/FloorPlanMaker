@@ -140,6 +140,85 @@ namespace FloorplanClassLibrary
             }
             ExpectedSales = totalSales;
         }
+        public void SetTableSalesByPercentage(List<TablePercentageRecord> pmStats, float estimatedSales)
+        {
+            float totalSales = 0f;
+
+            // Separate AM and PM sales
+            //var amStats = tableStats.Where(t => t.IsLunch).ToList();
+            //var pmStats = tableStats.Where(t => !t.IsLunch).ToList();
+
+            // Convert TableStatNumber to int for accurate filtering
+            int minInsideTable = 120;
+            int maxInsideTable = 154;
+            int minOutsideTable = 1300;
+            int maxOutsideTable = 1699;
+
+            // Filter and calculate inside bar sales for AM
+           
+
+            // Filter and calculate inside bar sales for PM
+            //var insideBarSalesPM = pmStats
+            //    .Where(t => int.TryParse(t.TableNumber, out int num) && num >= minInsideTable && num <= maxInsideTable)
+            //    .Sum(t => t.EstimatedSales ?? 0);
+
+            //// Filter and calculate outside bar sales for PM
+            //var outsideBarSalesPM = pmStats
+            //    .Where(t => int.TryParse(t.TableNumber, out int num) && num >= minOutsideTable && num <= maxOutsideTable)
+            //    .Sum(t => t.Sales ?? 0);
+
+
+            foreach (Table table in this.Tables) {
+                var matchedStatPM = pmStats.FirstOrDefault(t => t.TableNumber == table.TableNumber);
+                matchedStatPM.PercentageForSpecificEstimate(estimatedSales);
+               
+                double matchedSalesPM = matchedStatPM?.EstimatedSales ?? 0;
+
+                table.SetTableSales((float)matchedSalesPM);
+                totalSales +=  (float)matchedSalesPM;
+                //if (table.TableNumber == "INSIDE BAR") {
+                //    float insideBarSales = insideBarSalesAM + insideBarSalesPM;
+                //    table.SetTableSales(insideBarSales);
+                //    totalSales += insideBarSales;
+                //}
+                //else if (table.TableNumber == "OUTSIDE BAR") {
+                //    float outsideBarSales = outsideBarSalesAM + outsideBarSalesPM;
+                //    table.SetTableSales(outsideBarSales);
+                //    totalSales += outsideBarSales;
+                //}
+                //if (table.TableNumber == "308" || table.TableNumber == "418") {
+
+                //    var matchedStatPM = pmStats.FirstOrDefault(t => t.TableNumber == "308" || t.TableNumber == "418");
+
+
+                //    float matchedSalesPM = matchedStatPM?.EstimatedSales ?? 0;
+
+                //    table.SetTableSales(matchedSalesAM + matchedSalesPM);
+                //    totalSales += matchedSalesAM + matchedSalesPM;
+                //}
+                //else if (table.TableNumber == "309" || table.TableNumber == "419") {
+
+                //    var matchedStatPM = pmStats.FirstOrDefault(t => t.TableNumber == "309" || t.TableNumber == "419");
+
+
+                //    float matchedSalesPM = matchedStatPM?.Sales ?? 0;
+
+                //    table.SetTableSales(matchedSalesAM + matchedSalesPM);
+                //    totalSales += matchedSalesAM + matchedSalesPM;
+                //}
+                //else {
+
+                //    var matchedStatPM = pmStats.FirstOrDefault(t => t.TableNumber == table.TableNumber);
+
+                //    float matchedSalesAM = matchedStatAM?.Sales ?? 0;
+                //    float matchedSalesPM = matchedStatPM?.Sales ?? 0;
+
+                //    table.SetTableSales(matchedSalesAM + matchedSalesPM);
+                //    totalSales += matchedSalesAM + matchedSalesPM;
+                //}
+            }
+            ExpectedSales = totalSales;
+        }
         public float GetTotalSalesForDateAndIsAm(bool isLunch, DateOnly dateOnly)
         {
             List<TableStat> stats = SqliteDataAccess.LoadTableStatsByDateAndLunch(isLunch, dateOnly);

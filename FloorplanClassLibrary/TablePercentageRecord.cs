@@ -76,6 +76,24 @@ namespace FloorplanClassLibrary
                 { "29kTo30k", new List<TableStat>() },
                 { "GreaterThan30k", new List<TableStat>() }
             };
+        public double EstimatedSales { get; private set; }
+        public double PercentageForSpecificEstimate(float salesEstimate)
+        {
+            string range = SalesRange.GetSalesCategory(salesEstimate);
+            string propertyName = range;
+            if (char.IsDigit(propertyName[0])) {
+                propertyName = "_" + propertyName;
+            }
+
+            // Use reflection to get the property value
+            var propertyInfo = this.GetType().GetProperty(propertyName);
+            if (propertyInfo != null && propertyInfo.CanRead) {
+                EstimatedSales = ((double)propertyInfo.GetValue(this) * salesEstimate)*.01;
+                return (double)propertyInfo.GetValue(this);
+            }
+            EstimatedSales = 0;
+            return 0;
+        }
         public void ComputeAverageSalesPercentages()
         {
             foreach (var kvp in tableStatPercentagesByCategory) {
