@@ -530,6 +530,7 @@
             Name = "frmTest";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "frmTest";
+            Load += frmTest_Load;
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
             ResumeLayout(false);
             PerformLayout();

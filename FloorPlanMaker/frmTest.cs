@@ -296,44 +296,45 @@ namespace FloorPlanMakerUI
         List<DiningAreaRecord> DiningAreaRecords = new List<DiningAreaRecord>();
         private void btnLoadDiningRecords_Click(object sender, EventArgs e)
         {
-            DiningAreaRecords = SqliteDataAccess.LoadDiningAreaRecords();
-            CalculateTableStatsAverages();
+            //DiningAreaRecords = SqliteDataAccess.LoadDiningAreaRecords();
+            //CalculateTableStatsAverages();
+            List<TablePercentageRecord> tableRecords = SqliteDataAccess.LoadTablePercentageRecords();
         }
         private void CalculateTableStatsAverages()
         {
             // Dictionary to store results for each sales category
-            Dictionary<string, List<float>> tableStatPercentagesByCategory = new Dictionary<string, List<float>>{
-                { "LessThan1k", new List<float>() },
-                { "1kTo2k", new List<float>() },
-                { "2kTo3k", new List<float>() },
-                { "3kTo4k", new List<float>() },
-                { "4kTo5k", new List<float>() },
-                { "5kTo6k", new List<float>() },
-                { "6kTo7k", new List<float>() },
-                { "7kTo8k", new List<float>() },
-                { "8kTo9k", new List<float>() },
-                { "9kTo10k", new List<float>() },
-                { "10kTo11k", new List<float>() },
-                { "11kTo12k", new List<float>() },
-                { "12kTo13k", new List<float>() },
-                { "13kTo14k", new List<float>() },
-                { "14kTo15k", new List<float>() },
-                { "15kTo16k", new List<float>() },
-                { "16kTo17k", new List<float>() },
-                { "17kTo18k", new List<float>() },
-                { "18kTo19k", new List<float>() },
-                { "19kTo20k", new List<float>() },
-                { "20kTo21k", new List<float>() },
-                { "21kTo22k", new List<float>() },
-                { "22kTo23k", new List<float>() },
-                { "23kTo24k", new List<float>() },
-                { "24kTo25k", new List<float>() },
-                { "25kTo26k", new List<float>() },
-                { "26kTo27k", new List<float>() },
-                { "27kTo28k", new List<float>() },
-                { "28kTo29k", new List<float>() },
-                { "29kTo30k", new List<float>() },
-                { "GreaterThan30k", new List<float>() }
+            Dictionary<string, List<TableStat>> tableStatPercentagesByCategory = new Dictionary<string, List<TableStat>>{
+                { "LessThan1k", new List<TableStat>() },
+                { "1kTo2k", new List<TableStat>() },
+                { "2kTo3k", new List<TableStat>() },
+                { "3kTo4k", new List<TableStat>() },
+                { "4kTo5k", new List<TableStat>() },
+                { "5kTo6k", new List<TableStat>() },
+                { "6kTo7k", new List<TableStat>() },
+                { "7kTo8k", new List<TableStat>() },
+                { "8kTo9k", new List<TableStat>() },
+                { "9kTo10k", new List<TableStat>() },
+                { "10kTo11k", new List<TableStat>() },
+                { "11kTo12k", new List<TableStat>() },
+                { "12kTo13k", new List<TableStat>() },
+                { "13kTo14k", new List<TableStat>() },
+                { "14kTo15k", new List<TableStat>() },
+                { "15kTo16k", new List<TableStat>() },
+                { "16kTo17k", new List<TableStat>() },
+                { "17kTo18k", new List<TableStat>() },
+                { "18kTo19k", new List<TableStat>() },
+                { "19kTo20k", new List<TableStat>() },
+                { "20kTo21k", new List<TableStat>() },
+                { "21kTo22k", new List<TableStat>() },
+                { "22kTo23k", new List<TableStat>() },
+                { "23kTo24k", new List<TableStat>() },
+                { "24kTo25k", new List<TableStat>() },
+                { "25kTo26k", new List<TableStat>() },
+                { "26kTo27k", new List<TableStat>() },
+                { "27kTo28k", new List<TableStat>() },
+                { "28kTo29k", new List<TableStat>() },
+                { "29kTo30k", new List<TableStat>() },
+                { "GreaterThan30k", new List<TableStat>() }
             };
 
 
@@ -352,7 +353,9 @@ namespace FloorPlanMakerUI
                 foreach (var tableStat in record.TableStats) {
                     if (tableStat.Sales.HasValue) {
                         float tableSalesPercentage = (tableStat.Sales.Value / totalSales) * 100;
-                        tableStatPercentagesByCategory[salesCategory].Add(tableSalesPercentage);
+                        tableStat.SalesPercentage = tableSalesPercentage;
+                        tableStatPercentagesByCategory[salesCategory].Add(tableStat);
+                       
                     }
                 }
             }
@@ -360,8 +363,8 @@ namespace FloorPlanMakerUI
             // Now calculate the average percentage for each sales category
             foreach (var category in tableStatPercentagesByCategory) {
                 if (category.Value.Count > 0) {
-                    float averagePercentage = category.Value.Average();
-                    Console.WriteLine($"Average percentage for {category.Key}: {averagePercentage}%");
+                    //float averagePercentage = category.Value.Average();
+                    //Console.WriteLine($"Average percentage for {category.Key}: {averagePercentage}%");
                 }
                 else {
                     Console.WriteLine($"No data for {category.Key}");
@@ -409,7 +412,7 @@ namespace FloorPlanMakerUI
         {
             if (colorDialog1.ShowDialog() == DialogResult.OK) {
                 // Get the selected color
-               
+
                 Color selectedColor = colorDialog1.Color;
 
                 // Apply the selected color to a control (for example, changing the form's background)
@@ -419,6 +422,11 @@ namespace FloorPlanMakerUI
                 // label1.ForeColor = selectedColor;
             }
             SectionColorManager.SaveDefaultColorsToDatabase();
+        }
+
+        private void frmTest_Load(object sender, EventArgs e)
+        {
+
         }
 
         public Dictionary<int, ColorPair> Colors { get; } = new Dictionary<int, ColorPair>

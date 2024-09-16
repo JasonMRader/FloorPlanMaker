@@ -21,6 +21,7 @@ namespace FloorplanClassLibrary
         public bool IsLunch { get; set; }
         public float? Sales { get; set; }
         public int Orders { get; set; } = 0;
+        public float SalesPercentage { get; set; }
 
         public TableStat(string table, DayOfWeek dayOfWeek, DateOnly date, bool isLunch, float sales)
         {

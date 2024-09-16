@@ -2872,50 +2872,77 @@ namespace FloorplanClassLibrary
         public static List<DiningAreaRecord> LoadDiningAreaRecords()
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString())) {
-                // First, load all the DiningAreaRecords
-                // Define the SQL query to get the dining area records
+                // Load all DiningAreaRecords
                 string diningAreaSql = @"SELECT * FROM DiningAreaRecord";
-
-                // Get the raw query result
                 var queryResult = cnn.Query(diningAreaSql);
 
-                // Manually convert each row into a DiningAreaRecord object and map the properties
                 var diningAreaRecords = queryResult.Select(row => new DiningAreaRecord {
-                    ID = Convert.ToInt32(row.ID), // Assuming the ID is never null
-                    DiningAreaID = Convert.ToInt32(row.DiningAreaID), // Convert to int
-                    DateOnly = DateOnly.Parse(row.Date), // Convert the Date string to DateOnly
-                    IsAm = Convert.ToBoolean(row.IsAm), // Convert long/int to bool
-                    Sales = Convert.ToSingle(row.Sales), // Convert Sales from double to float
-                    ServerCount = Convert.ToInt32(row.ServerCount), // Convert long/int to int
-                    PercentageOfSales = Convert.ToSingle(row.PercentageOfSales), // Convert from double to float
-                    TableStats = new List<TableStat>() // Initialize an empty list for TableStats, to be populated later
+                    ID = Convert.ToInt32(row.ID),
+                    DiningAreaID = Convert.ToInt32(row.DiningAreaID),
+                    DateOnly = DateOnly.Parse(row.Date),
+                    IsAm = Convert.ToBoolean(row.IsAm),
+                    Sales = Convert.ToSingle(row.Sales),
+                    ServerCount = Convert.ToInt32(row.ServerCount),
+                    PercentageOfSales = Convert.ToSingle(row.PercentageOfSales),
+                    TableStats = new List<TableStat>()
                 }).ToList();
 
+                // Load all DiningTableRecords and organize them by DiningAreaID
+                string diningTableSql = @"SELECT * FROM DiningTableRecord";
+                var allDiningTableRecords = cnn.Query(diningTableSql);
 
-                // Query to load the TableStats using the DiningAreaRecordID
-                string tableStatsSql = @"SELECT * FROM TableStats WHERE DiningAreaRecordID = @DiningAreaRecordID";
+                var diningTableRecordsByArea = allDiningTableRecords.GroupBy(t => t.DiningAreaID)
+                                                                    .ToDictionary(g => (int)g.Key, g => g.ToList());
 
                 foreach (var record in diningAreaRecords) {
-                    // Execute the query and get the results as raw rows for TableStats
+                    // Load existing TableStats for the DiningAreaRecord
+                    string tableStatsSql = @"SELECT * FROM TableStats WHERE DiningAreaRecordID = @DiningAreaRecordID";
                     var queryTableResult = cnn.Query(tableStatsSql, new { DiningAreaRecordID = record.ID });
 
-                    // Convert the raw result into a list of TableStat objects with explicit type conversions
                     var tableStatsList = queryTableResult.Select(row => new TableStat {
                         TableStatNumber = row.TableStatNumber,
-                        DayOfWeek = (DayOfWeek)Enum.Parse(typeof(DayOfWeek), row.DayOfWeek), // Convert string to DayOfWeek enum
-                        Date = DateOnly.Parse(row.Date), // Convert string to DateOnly
-                        IsLunch = Convert.ToBoolean(row.IsLunch), // Convert long/int to bool
-                        Sales = row.Sales != null ? (float?)Convert.ToDouble(row.Sales) : null, // Convert nullable double to nullable float
-                        Orders = Convert.ToInt32(row.Orders), // Convert long/int to int
-                        DiningAreaID = row.DiningAreaID != null ? (int?)Convert.ToInt32(row.DiningAreaID) : null, // Convert to nullable int
-                        DiningAreaRecordID = row.DiningAreaRecordID != null ? (int?)Convert.ToInt32(row.DiningAreaRecordID) : null // Convert to nullable int
+                        DayOfWeek = (DayOfWeek)Enum.Parse(typeof(DayOfWeek), row.DayOfWeek),
+                        Date = DateOnly.Parse(row.Date),
+                        IsLunch = Convert.ToBoolean(row.IsLunch),
+                        Sales = row.Sales != null ? (float?)Convert.ToDouble(row.Sales) : null,
+                        Orders = Convert.ToInt32(row.Orders),
+                        DiningAreaID = row.DiningAreaID != null ? (int?)Convert.ToInt32(row.DiningAreaID) : null,
+                        DiningAreaRecordID = row.DiningAreaRecordID != null ? (int?)Convert.ToInt32(row.DiningAreaRecordID) : null
                     }).ToList();
+
+                    // Ensure a TableStat exists for every table in the dining area
+                    if (diningTableRecordsByArea.TryGetValue(record.DiningAreaID, out var diningTableRecords)) {
+                        foreach (var tableRecord in diningTableRecords) {
+                            string tableNumber = tableRecord.TableNumber;
+
+                            // Check if a TableStat already exists for this table
+                            bool exists = tableStatsList.Any(ts => ts.TableStatNumber == tableNumber);
+                            if (!exists) {
+                                // Create a new TableStat with $0 sales
+                                var newTableStat = new TableStat {
+                                    TableStatNumber = tableNumber,
+                                    DayOfWeek = record.DateOnly.DayOfWeek,
+                                    Date = record.DateOnly,
+                                    IsLunch = record.IsAm,
+                                    Sales = 0.0f,
+                                    Orders = 0,
+                                    DiningAreaID = record.DiningAreaID,
+                                    DiningAreaRecordID = record.ID
+                                };
+                                tableStatsList.Add(newTableStat);
+                            }
+                        }
+                    }
+                    
+
+                    // Assign the updated TableStats list to the record
                     record.TableStats = tableStatsList;
                 }
 
                 return diningAreaRecords;
             }
         }
+
 
         public void SaveSectionColor(int sectionNumber, Color backColor, Color foreColor, bool isDefault)
         {
@@ -2987,7 +3014,223 @@ namespace FloorplanClassLibrary
                 return new ColorPair(Color.White, Color.Black); // Or any other default color values
             }
         }
+        public static List<TablePercentageRecord> LoadEmptyTableRecords()
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString())) {
+                // Define the SQL query to select only the required columns
+                string sql = @"
+            SELECT
+                ID,
+                TableNumber,
+                DiningAreaID,
+                IsIncluded
+            FROM
+                DiningTableRecord";
 
+                // Execute the query and map the results to the TableRecord class
+                var tableRecords = cnn.Query<TablePercentageRecord>(sql).ToList();
+
+                return tableRecords;
+            }
+        }
+
+        public static List<TablePercentageRecord> LoadTablePercentageRecords()
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString())) {
+                // Load all DiningTableRecords
+                string diningTableSql = @"SELECT * FROM DiningTableRecord";
+                var diningTableQueryResult = cnn.Query(diningTableSql);
+
+                var tablePercentageRecords = diningTableQueryResult.Select(row =>
+                {
+                    var rowDict = (IDictionary<string, object>)row;
+
+                    return new TablePercentageRecord {
+                        ID = Convert.ToInt32(rowDict["ID"]),
+                        TableNumber = Convert.ToString(rowDict["TableNumber"]),
+                        DiningAreaID = Convert.ToInt32(rowDict["DiningAreaID"]),
+                        IsIncluded = Convert.ToBoolean(rowDict["IsIncluded"]),
+                        LessThan1k = Convert.ToDouble(rowDict["LessThan1k"]),
+                        _1kTo2k = Convert.ToDouble(rowDict["1kTo2k"]),
+                        _2kTo3k = Convert.ToDouble(rowDict["2kTo3k"]),
+                        _3kTo4k = Convert.ToDouble(rowDict["3kTo4k"]),
+                        _4kTo5k = Convert.ToDouble(rowDict["4kTo5k"]),
+                        _5kTo6k = Convert.ToDouble(rowDict["5kTo6k"]),
+                        _6kTo7k = Convert.ToDouble(rowDict["6kTo7k"]),
+                        _7kTo8k = Convert.ToDouble(rowDict["7kTo8k"]),
+                        _8kTo9k = Convert.ToDouble(rowDict["8kTo9k"]),
+                        _9kTo10k = Convert.ToDouble(rowDict["9kTo10k"]),
+                        _10kTo11k = Convert.ToDouble(rowDict["10kTo11k"]),
+                        _11kTo12k = Convert.ToDouble(rowDict["11kTo12k"]),
+                        _12kTo13k = Convert.ToDouble(rowDict["12kTo13k"]),
+                        _13kTo14k = Convert.ToDouble(rowDict["13kTo14k"]),
+                        _14kTo15k = Convert.ToDouble(rowDict["14kTo15k"]),
+                        _15kTo16k = Convert.ToDouble(rowDict["15kTo16k"]),
+                        _16kTo17k = Convert.ToDouble(rowDict["16kTo17k"]),
+                        _17kTo18k = Convert.ToDouble(rowDict["17kTo18k"]),
+                        _18kTo19k = Convert.ToDouble(rowDict["18kTo19k"]),
+                        _19kTo20k = Convert.ToDouble(rowDict["19kTo20k"]),
+                        _20kTo21k = Convert.ToDouble(rowDict["20kTo21k"]),
+                        _21kTo22k = Convert.ToDouble(rowDict["21kTo22k"]),
+                        _22kTo23k = Convert.ToDouble(rowDict["22kTo23k"]),
+                        _23kTo24k = Convert.ToDouble(rowDict["23kTo24k"]),
+                        _24kTo25k = Convert.ToDouble(rowDict["24kTo25k"]),
+                        _25kTo26k = Convert.ToDouble(rowDict["25kTo26k"]),
+                        _26kTo27k = Convert.ToDouble(rowDict["26kTo27k"]),
+                        _27kTo28k = Convert.ToDouble(rowDict["27kTo28k"]),
+                        _28kTo29k = Convert.ToDouble(rowDict["28kTo29k"]),
+                        _29kTo30k = Convert.ToDouble(rowDict["29kTo30k"]),
+                        GreaterThan30k = Convert.ToDouble(rowDict["GreaterThan30k"]),
+                        // Initialize the dictionary
+                        tableStatPercentagesByCategory = new Dictionary<string, List<TableStat>>()
+                        {
+                            { "LessThan1k", new List<TableStat>() },
+                            { "1kTo2k", new List<TableStat>() },
+                            { "2kTo3k", new List<TableStat>() },
+                            { "3kTo4k", new List<TableStat>() },
+                            { "4kTo5k", new List<TableStat>() },
+                            { "5kTo6k", new List<TableStat>() },
+                            { "6kTo7k", new List<TableStat>() },
+                            { "7kTo8k", new List<TableStat>() },
+                            { "8kTo9k", new List<TableStat>() },
+                            { "9kTo10k", new List<TableStat>() },
+                            { "10kTo11k", new List<TableStat>() },
+                            { "11kTo12k", new List<TableStat>() },
+                            { "12kTo13k", new List<TableStat>() },
+                            { "13kTo14k", new List<TableStat>() },
+                            { "14kTo15k", new List<TableStat>() },
+                            { "15kTo16k", new List<TableStat>() },
+                            { "16kTo17k", new List<TableStat>() },
+                            { "17kTo18k", new List<TableStat>() },
+                            { "18kTo19k", new List<TableStat>() },
+                            { "19kTo20k", new List<TableStat>() },
+                            { "20kTo21k", new List<TableStat>() },
+                            { "21kTo22k", new List<TableStat>() },
+                            { "22kTo23k", new List<TableStat>() },
+                            { "23kTo24k", new List<TableStat>() },
+                            { "24kTo25k", new List<TableStat>() },
+                            { "25kTo26k", new List<TableStat>() },
+                            { "26kTo27k", new List<TableStat>() },
+                            { "27kTo28k", new List<TableStat>() },
+                            { "28kTo29k", new List<TableStat>() },
+                            { "29kTo30k", new List<TableStat>() },
+                            { "GreaterThan30k", new List<TableStat>() }
+                        }
+                    };
+                }).ToList();
+
+                // Load all TableStat records
+                string tableStatSql = @"SELECT * FROM TableStats";
+                var tableStatQueryResult = cnn.Query(tableStatSql);
+
+                // Organize TableStat records by TableNumber
+                var tableStatsByTableNumber = tableStatQueryResult.GroupBy(ts => ts.TableStatNumber)
+                                                                  .ToDictionary(g => g.Key, g => g.ToList());
+
+                // Now, for each TablePercentageRecord, associate the relevant TableStat entries
+                foreach (var tpr in tablePercentageRecords) {
+                    if (tableStatsByTableNumber.TryGetValue(tpr.TableNumber, out var tableStats)) {
+                        // For each TableStat, determine the sales category and add it to the appropriate list
+                        foreach (var tsRow in tableStats) {
+                            var tableStat = new TableStat {
+                                TableStatNumber = tsRow.TableStatNumber,
+                                DayOfWeek = (DayOfWeek)Enum.Parse(typeof(DayOfWeek), tsRow.DayOfWeek),
+                                Date = DateOnly.Parse(tsRow.Date),
+                                IsLunch = Convert.ToBoolean(tsRow.IsLunch),
+                                Sales = tsRow.Sales != null ? (float?)Convert.ToDouble(tsRow.Sales) : null,
+                                Orders = Convert.ToInt32(tsRow.Orders),
+                                DiningAreaID = tsRow.DiningAreaID != null ? (int?)Convert.ToInt32(tsRow.DiningAreaID) : null,
+                                DiningAreaRecordID = tsRow.DiningAreaRecordID != null ? (int?)Convert.ToInt32(tsRow.DiningAreaRecordID) : null
+                            };
+
+                            // Determine the sales category
+                            string category = GetSalesCategory(tableStat.Sales ?? 0);
+
+                            // Add the TableStat to the appropriate category list
+                            if (tpr.tableStatPercentagesByCategory.ContainsKey(category)) {
+                                tpr.tableStatPercentagesByCategory[category].Add(tableStat);
+                            }
+                            else {
+                                // Handle unexpected categories if necessary
+                            }
+                        }
+                    }
+                    else {
+                        // No TableStat records found for this table number
+                        // Optionally, you might want to handle this case
+                    }
+                }
+
+                return tablePercentageRecords;
+            }
+        }
+
+        // Helper method to determine the sales category based on sales amount
+        private static string GetSalesCategory(double sales)
+        {
+            if (sales < 1000)
+                return "LessThan1k";
+            else if (sales >= 1000 && sales < 2000)
+                return "1kTo2k";
+            else if (sales >= 2000 && sales < 3000)
+                return "2kTo3k";
+            else if (sales >= 3000 && sales < 4000)
+                return "3kTo4k";
+            else if (sales >= 4000 && sales < 5000)
+                return "4kTo5k";
+            else if (sales >= 5000 && sales < 6000)
+                return "5kTo6k";
+            else if (sales >= 6000 && sales < 7000)
+                return "6kTo7k";
+            else if (sales >= 7000 && sales < 8000)
+                return "7kTo8k";
+            else if (sales >= 8000 && sales < 9000)
+                return "8kTo9k";
+            else if (sales >= 9000 && sales < 10000)
+                return "9kTo10k";
+            else if (sales >= 10000 && sales < 11000)
+                return "10kTo11k";
+            else if (sales >= 11000 && sales < 12000)
+                return "11kTo12k";
+            else if (sales >= 12000 && sales < 13000)
+                return "12kTo13k";
+            else if (sales >= 13000 && sales < 14000)
+                return "13kTo14k";
+            else if (sales >= 14000 && sales < 15000)
+                return "14kTo15k";
+            else if (sales >= 15000 && sales < 16000)
+                return "15kTo16k";
+            else if (sales >= 16000 && sales < 17000)
+                return "16kTo17k";
+            else if (sales >= 17000 && sales < 18000)
+                return "17kTo18k";
+            else if (sales >= 18000 && sales < 19000)
+                return "18kTo19k";
+            else if (sales >= 19000 && sales < 20000)
+                return "19kTo20k";
+            else if (sales >= 20000 && sales < 21000)
+                return "20kTo21k";
+            else if (sales >= 21000 && sales < 22000)
+                return "21kTo22k";
+            else if (sales >= 22000 && sales < 23000)
+                return "22kTo23k";
+            else if (sales >= 23000 && sales < 24000)
+                return "23kTo24k";
+            else if (sales >= 24000 && sales < 25000)
+                return "24kTo25k";
+            else if (sales >= 25000 && sales < 26000)
+                return "25kTo26k";
+            else if (sales >= 26000 && sales < 27000)
+                return "26kTo27k";
+            else if (sales >= 27000 && sales < 28000)
+                return "27kTo28k";
+            else if (sales >= 28000 && sales < 29000)
+                return "28kTo29k";
+            else if (sales >= 29000 && sales < 30000)
+                return "29kTo30k";
+            else
+                return "GreaterThan30k";
+        }
 
 
 
