@@ -463,6 +463,7 @@
             pnlContainer.Name = "pnlContainer";
             pnlContainer.Size = new Size(1477, 1018);
             pnlContainer.TabIndex = 23;
+            pnlContainer.Paint += pnlContainer_Paint;
             // 
             // lblAreaDisplay
             // 

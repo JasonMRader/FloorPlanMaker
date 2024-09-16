@@ -202,6 +202,9 @@ namespace FloorPlanMakerUI
 
             // Add rows for each date's sales data
             foreach (var history in serverHistory) {
+                if(history.filteredShifts.Count == 0) {
+                    continue;
+                }
                 var row = new List<object> { history.Server.ToString() };
                 row.Add(history.filteredShifts.Count);
                 row.Add(history.OutsideShiftCount);
@@ -704,6 +707,11 @@ namespace FloorPlanMakerUI
             else if (rdoDistribution.Checked) {
                 chartManager.SetUpBarChart(areaSelected.ID);
             }
+        }
+
+        private void pnlContainer_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

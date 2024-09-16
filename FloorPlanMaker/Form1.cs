@@ -75,7 +75,9 @@ namespace FloorPlanMaker
         public Form1()
         {
             shiftFilterControl = new ShiftFilterControl();
+            
             InitializeComponent();
+            pnlStatMode.Controls.Add(shiftFilterControl);
 
             this.shiftDetailManager = new ShiftDetailOverviewManager(this.flowWeatherDisplay, this.flowResoDisplay, pnlShiftDetails,
                 rdoWeather, rdoReservations, rdoSales, pnlStatMode, shiftFilterControl);
