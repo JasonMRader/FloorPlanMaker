@@ -296,10 +296,44 @@ namespace FloorPlanMakerUI
         List<DiningAreaRecord> DiningAreaRecords = new List<DiningAreaRecord>();
         private void btnLoadDiningRecords_Click(object sender, EventArgs e)
         {
-            //DiningAreaRecords = SqliteDataAccess.LoadDiningAreaRecords();
+            DiningAreaRecords = SqliteDataAccess.LoadDiningAreaRecords(false);
             //CalculateTableStatsAverages();
-            List<TablePercentageRecord> tableRecords = SqliteDataAccess.LoadTablePercentageRecords();
+
+            List<TablePercentageRecord> tableRecords = ProcessTableRecords();
+            SqliteDataAccess.UpdateDiningTableRecords(tableRecords);
+
         }
+
+        private List<TablePercentageRecord> ProcessTableRecords()
+        {
+            List<TablePercentageRecord> tableRecords = SqliteDataAccess.LoadEmptyTableRecords();
+            foreach (var record in DiningAreaRecords) {
+                // Determine the sales category for the current DiningAreaRecord
+                string salesCategory = GetSalesCategory(record.Sales);
+
+                // Calculate the total sales for this DiningAreaRecord
+                float totalSales = record.Sales;
+
+                // If totalSales is 0, skip to avoid division by zero
+                if (totalSales == 0) continue;
+
+                // Calculate the percentage each TableStat represents of the total sales
+                foreach (var tableStat in record.TableStats) {
+                    TablePercentageRecord tablePercentageRecord = tableRecords.FirstOrDefault(t => t.TableNumber == tableStat.TableStatNumber);
+                    if (tablePercentageRecord != null) {
+                        float tableSalesPercentage = (tableStat.Sales.Value / totalSales) * 100;
+                        tableStat.SalesPercentage = tableSalesPercentage;
+                        tablePercentageRecord.tableStatPercentagesByCategory[salesCategory].Add(tableStat);
+                    }
+
+                }
+            }
+            foreach (var record in tableRecords) {
+                record.ComputeAverageSalesPercentages();
+            }
+            return tableRecords;
+        }
+
         private void CalculateTableStatsAverages()
         {
             // Dictionary to store results for each sales category
@@ -355,7 +389,7 @@ namespace FloorPlanMakerUI
                         float tableSalesPercentage = (tableStat.Sales.Value / totalSales) * 100;
                         tableStat.SalesPercentage = tableSalesPercentage;
                         tableStatPercentagesByCategory[salesCategory].Add(tableStat);
-                       
+
                     }
                 }
             }
@@ -427,6 +461,16 @@ namespace FloorPlanMakerUI
         private void frmTest_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void cbAMSales_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbAMSales.Checked) {
+                cbAMSales.Text = "AM sales";
+            }
+            else {
+                cbAMSales.Text = "PM Sales";
+            }
         }
 
         public Dictionary<int, ColorPair> Colors { get; } = new Dictionary<int, ColorPair>

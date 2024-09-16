@@ -74,6 +74,7 @@
             btnLoadDiningRecords = new Button();
             colorDialog1 = new ColorDialog();
             button3 = new Button();
+            cbAMSales = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
             SuspendLayout();
             // 
@@ -461,7 +462,7 @@
             btnLoadDiningRecords.Name = "btnLoadDiningRecords";
             btnLoadDiningRecords.Size = new Size(169, 23);
             btnLoadDiningRecords.TabIndex = 12;
-            btnLoadDiningRecords.Text = "Load DiningArea Records";
+            btnLoadDiningRecords.Text = "Update Table Sale %";
             btnLoadDiningRecords.TextImageRelation = TextImageRelation.ImageAboveText;
             btnLoadDiningRecords.UseVisualStyleBackColor = true;
             btnLoadDiningRecords.Click += btnLoadDiningRecords_Click;
@@ -476,11 +477,25 @@
             button3.UseVisualStyleBackColor = true;
             button3.Click += button3_Click;
             // 
+            // cbAMSales
+            // 
+            cbAMSales.AutoSize = true;
+            cbAMSales.Checked = true;
+            cbAMSales.CheckState = CheckState.Checked;
+            cbAMSales.Location = new Point(35, 541);
+            cbAMSales.Name = "cbAMSales";
+            cbAMSales.Size = new Size(73, 19);
+            cbAMSales.TabIndex = 14;
+            cbAMSales.Text = "AM sales";
+            cbAMSales.UseVisualStyleBackColor = true;
+            cbAMSales.CheckedChanged += cbAMSales_CheckedChanged;
+            // 
             // frmTest
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1394, 674);
+            Controls.Add(cbAMSales);
             Controls.Add(button3);
             Controls.Add(btnLoadDiningRecords);
             Controls.Add(panel3);
@@ -585,5 +600,6 @@
         private Button btnLoadDiningRecords;
         private ColorDialog colorDialog1;
         private Button button3;
+        private CheckBox cbAMSales;
     }
 }

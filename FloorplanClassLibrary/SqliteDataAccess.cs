@@ -2869,12 +2869,12 @@ namespace FloorplanClassLibrary
             }
         }
 
-        public static List<DiningAreaRecord> LoadDiningAreaRecords()
+        public static List<DiningAreaRecord> LoadDiningAreaRecords(bool isLunch)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString())) {
                 // Load all DiningAreaRecords
-                string diningAreaSql = @"SELECT * FROM DiningAreaRecord";
-                var queryResult = cnn.Query(diningAreaSql);
+                string diningAreaSql = @"SELECT * FROM DiningAreaRecord WHERE IsAm = @IsAm";
+                var queryResult = cnn.Query(diningAreaSql, new {IsAm = isLunch});
 
                 var diningAreaRecords = queryResult.Select(row => new DiningAreaRecord {
                     ID = Convert.ToInt32(row.ID),
@@ -2943,6 +2943,93 @@ namespace FloorplanClassLibrary
             }
         }
 
+        public static void UpdateDiningTableRecords(List<TablePercentageRecord> tableRecords)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString())) {
+                // Begin a transaction for batch update
+                cnn.Open();
+                using (var transaction = cnn.BeginTransaction()) {
+                    // Prepare the SQL update statement with parameters
+                    string updateSql = @"
+                UPDATE DiningTableRecord SET
+                    LessThan1k = @LessThan1k,
+                    [1kTo2k] = @1kTo2k,
+                    [2kTo3k] = @2kTo3k,
+                    [3kTo4k] = @3kTo4k,
+                    [4kTo5k] = @4kTo5k,
+                    [5kTo6k] = @5kTo6k,
+                    [6kTo7k] = @6kTo7k,
+                    [7kTo8k] = @7kTo8k,
+                    [8kTo9k] = @8kTo9k,
+                    [9kTo10k] = @9kTo10k,
+                    [10kTo11k] = @10kTo11k,
+                    [11kTo12k] = @11kTo12k,
+                    [12kTo13k] = @12kTo13k,
+                    [13kTo14k] = @13kTo14k,
+                    [14kTo15k] = @14kTo15k,
+                    [15kTo16k] = @15kTo16k,
+                    [16kTo17k] = @16kTo17k,
+                    [17kTo18k] = @17kTo18k,
+                    [18kTo19k] = @18kTo19k,
+                    [19kTo20k] = @19kTo20k,
+                    [20kTo21k] = @20kTo21k,
+                    [21kTo22k] = @21kTo22k,
+                    [22kTo23k] = @22kTo23k,
+                    [23kTo24k] = @23kTo24k,
+                    [24kTo25k] = @24kTo25k,
+                    [25kTo26k] = @25kTo26k,
+                    [26kTo27k] = @26kTo27k,
+                    [27kTo28k] = @27kTo28k,
+                    [28kTo29k] = @28kTo29k,
+                    [29kTo30k] = @29kTo30k,
+                    GreaterThan30k = @GreaterThan30k
+                WHERE ID = @ID";
+
+                    foreach (var record in tableRecords) {
+                        // Prepare parameters for the update
+                        var parameters = new DynamicParameters();
+                        parameters.Add("@ID", record.ID);
+                        parameters.Add("@LessThan1k", record.LessThan1k);
+                        parameters.Add("@1kTo2k", record._1kTo2k);
+                        parameters.Add("@2kTo3k", record._2kTo3k);
+                        parameters.Add("@3kTo4k", record._3kTo4k);
+                        parameters.Add("@4kTo5k", record._4kTo5k);
+                        parameters.Add("@5kTo6k", record._5kTo6k);
+                        parameters.Add("@6kTo7k", record._6kTo7k);
+                        parameters.Add("@7kTo8k", record._7kTo8k);
+                        parameters.Add("@8kTo9k", record._8kTo9k);
+                        parameters.Add("@9kTo10k", record._9kTo10k);
+                        parameters.Add("@10kTo11k", record._10kTo11k);
+                        parameters.Add("@11kTo12k", record._11kTo12k);
+                        parameters.Add("@12kTo13k", record._12kTo13k);
+                        parameters.Add("@13kTo14k", record._13kTo14k);
+                        parameters.Add("@14kTo15k", record._14kTo15k);
+                        parameters.Add("@15kTo16k", record._15kTo16k);
+                        parameters.Add("@16kTo17k", record._16kTo17k);
+                        parameters.Add("@17kTo18k", record._17kTo18k);
+                        parameters.Add("@18kTo19k", record._18kTo19k);
+                        parameters.Add("@19kTo20k", record._19kTo20k);
+                        parameters.Add("@20kTo21k", record._20kTo21k);
+                        parameters.Add("@21kTo22k", record._21kTo22k);
+                        parameters.Add("@22kTo23k", record._22kTo23k);
+                        parameters.Add("@23kTo24k", record._23kTo24k);
+                        parameters.Add("@24kTo25k", record._24kTo25k);
+                        parameters.Add("@25kTo26k", record._25kTo26k);
+                        parameters.Add("@26kTo27k", record._26kTo27k);
+                        parameters.Add("@27kTo28k", record._27kTo28k);
+                        parameters.Add("@28kTo29k", record._28kTo29k);
+                        parameters.Add("@29kTo30k", record._29kTo30k);
+                        parameters.Add("@GreaterThan30k", record.GreaterThan30k);
+
+                        // Execute the update command
+                        cnn.Execute(updateSql, parameters, transaction: transaction);
+                    }
+
+                    // Commit the transaction
+                    transaction.Commit();
+                }
+            }
+        }
 
         public void SaveSectionColor(int sectionNumber, Color backColor, Color foreColor, bool isDefault)
         {
