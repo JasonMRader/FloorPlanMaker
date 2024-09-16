@@ -30,9 +30,6 @@
             components = new System.ComponentModel.Container();
             pnlFloorPlan = new Panel();
             btnCreateNewDiningArea = new Button();
-            btnSaveDiningArea = new Button();
-            rbInside = new RadioButton();
-            rbOutside = new RadioButton();
             btnSaveTable = new Button();
             panel2 = new Panel();
             label6 = new Label();
@@ -49,16 +46,13 @@
             txtMaxCovers = new TextBox();
             txtAverageCovers = new TextBox();
             panel3 = new Panel();
-            panel6 = new Panel();
-            cbTemporaryFloorplan = new CheckBox();
-            txtDiningAreaName = new TextBox();
             panel4 = new Panel();
             rdoDefaultView = new RadioButton();
             rdoEditPositions = new RadioButton();
             rdoSalesView = new RadioButton();
             rdoCoverView = new RadioButton();
             cboDiningAreas = new ComboBox();
-            panel5 = new Panel();
+            pnlAddTables = new Panel();
             txtAddNewNeighbor = new TextBox();
             btnChangeNeighborEdge = new Button();
             lblEndPoint = new Label();
@@ -81,16 +75,22 @@
             picAddSquare = new PictureBox();
             label7 = new Label();
             panel1 = new Panel();
+            pnlTableStats = new Panel();
+            rdoTableStats = new RadioButton();
+            rdoAddTables = new RadioButton();
             toolTip1 = new ToolTip(components);
+            txtTotalSales = new TextBox();
+            lbTableSales = new ListBox();
+            btnGetTableSales = new Button();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
-            panel6.SuspendLayout();
             panel4.SuspendLayout();
-            panel5.SuspendLayout();
+            pnlAddTables.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picAddCircle).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picAddDiamond).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picAddSquare).BeginInit();
             panel1.SuspendLayout();
+            pnlTableStats.SuspendLayout();
             SuspendLayout();
             // 
             // pnlFloorPlan
@@ -116,46 +116,6 @@
             toolTip1.SetToolTip(btnCreateNewDiningArea, "Create New Dining Area");
             btnCreateNewDiningArea.UseVisualStyleBackColor = false;
             btnCreateNewDiningArea.Click += btnCreateNewDiningArea_Click;
-            // 
-            // btnSaveDiningArea
-            // 
-            btnSaveDiningArea.BackColor = Color.FromArgb(158, 171, 222);
-            btnSaveDiningArea.Enabled = false;
-            btnSaveDiningArea.FlatAppearance.BorderSize = 0;
-            btnSaveDiningArea.FlatStyle = FlatStyle.Flat;
-            btnSaveDiningArea.Location = new Point(7, 278);
-            btnSaveDiningArea.Name = "btnSaveDiningArea";
-            btnSaveDiningArea.Size = new Size(152, 33);
-            btnSaveDiningArea.TabIndex = 1;
-            btnSaveDiningArea.Text = "Save";
-            btnSaveDiningArea.UseVisualStyleBackColor = false;
-            btnSaveDiningArea.Click += btnSaveDiningArea_Click;
-            // 
-            // rbInside
-            // 
-            rbInside.AutoSize = true;
-            rbInside.Checked = true;
-            rbInside.Enabled = false;
-            rbInside.ForeColor = Color.White;
-            rbInside.Location = new Point(12, 159);
-            rbInside.Name = "rbInside";
-            rbInside.Size = new Size(56, 19);
-            rbInside.TabIndex = 2;
-            rbInside.TabStop = true;
-            rbInside.Text = "Inside";
-            rbInside.UseVisualStyleBackColor = true;
-            // 
-            // rbOutside
-            // 
-            rbOutside.AutoSize = true;
-            rbOutside.Enabled = false;
-            rbOutside.ForeColor = Color.White;
-            rbOutside.Location = new Point(88, 159);
-            rbOutside.Name = "rbOutside";
-            rbOutside.Size = new Size(66, 19);
-            rbOutside.TabIndex = 2;
-            rbOutside.Text = "Outside";
-            rbOutside.UseVisualStyleBackColor = true;
             // 
             // btnSaveTable
             // 
@@ -343,39 +303,6 @@
             panel3.TabIndex = 4;
             panel3.Visible = false;
             // 
-            // panel6
-            // 
-            panel6.BackColor = Color.WhiteSmoke;
-            panel6.Controls.Add(cbTemporaryFloorplan);
-            panel6.Controls.Add(txtDiningAreaName);
-            panel6.Controls.Add(rbInside);
-            panel6.Controls.Add(rbOutside);
-            panel6.Controls.Add(btnSaveDiningArea);
-            panel6.Location = new Point(15, 512);
-            panel6.Name = "panel6";
-            panel6.Size = new Size(168, 408);
-            panel6.TabIndex = 4;
-            panel6.Visible = false;
-            // 
-            // cbTemporaryFloorplan
-            // 
-            cbTemporaryFloorplan.AutoSize = true;
-            cbTemporaryFloorplan.Enabled = false;
-            cbTemporaryFloorplan.Location = new Point(14, 196);
-            cbTemporaryFloorplan.Name = "cbTemporaryFloorplan";
-            cbTemporaryFloorplan.Size = new Size(140, 19);
-            cbTemporaryFloorplan.TabIndex = 4;
-            cbTemporaryFloorplan.Text = "Temporary Floorplan?";
-            cbTemporaryFloorplan.UseVisualStyleBackColor = true;
-            // 
-            // txtDiningAreaName
-            // 
-            txtDiningAreaName.Enabled = false;
-            txtDiningAreaName.Location = new Point(10, 114);
-            txtDiningAreaName.Name = "txtDiningAreaName";
-            txtDiningAreaName.Size = new Size(146, 23);
-            txtDiningAreaName.TabIndex = 3;
-            // 
             // panel4
             // 
             panel4.BackColor = Color.FromArgb(180, 190, 200);
@@ -466,38 +393,38 @@
             cboDiningAreas.TabIndex = 1;
             cboDiningAreas.SelectedIndexChanged += cboDiningAreas_SelectedIndexChanged;
             // 
-            // panel5
+            // pnlAddTables
             // 
-            panel5.BackColor = Color.WhiteSmoke;
-            panel5.Controls.Add(txtAddNewNeighbor);
-            panel5.Controls.Add(btnChangeNeighborEdge);
-            panel5.Controls.Add(lblEndPoint);
-            panel5.Controls.Add(txtEnd);
-            panel5.Controls.Add(lblStartPoint);
-            panel5.Controls.Add(txtStart);
-            panel5.Controls.Add(lblMidPoint);
-            panel5.Controls.Add(txtMidPoint);
-            panel5.Controls.Add(cbOnlyShowThisTableLines);
-            panel5.Controls.Add(btnAddTopBottomNeighbor);
-            panel5.Controls.Add(btnAddRightLeftNeighbor);
-            panel5.Controls.Add(btnRemoveNeighbor);
-            panel5.Controls.Add(lblPairData);
-            panel5.Controls.Add(checkBox1);
-            panel5.Controls.Add(lblSelectedTableNumber);
-            panel5.Controls.Add(lblSelectTable);
-            panel5.Controls.Add(lbTableNeighbors);
-            panel5.Controls.Add(picAddCircle);
-            panel5.Controls.Add(picAddDiamond);
-            panel5.Controls.Add(picAddSquare);
-            panel5.Controls.Add(label7);
-            panel5.Location = new Point(17, 17);
-            panel5.Name = "panel5";
-            panel5.Size = new Size(335, 921);
-            panel5.TabIndex = 4;
+            pnlAddTables.BackColor = Color.WhiteSmoke;
+            pnlAddTables.Controls.Add(txtAddNewNeighbor);
+            pnlAddTables.Controls.Add(btnChangeNeighborEdge);
+            pnlAddTables.Controls.Add(lblEndPoint);
+            pnlAddTables.Controls.Add(txtEnd);
+            pnlAddTables.Controls.Add(lblStartPoint);
+            pnlAddTables.Controls.Add(txtStart);
+            pnlAddTables.Controls.Add(lblMidPoint);
+            pnlAddTables.Controls.Add(txtMidPoint);
+            pnlAddTables.Controls.Add(cbOnlyShowThisTableLines);
+            pnlAddTables.Controls.Add(btnAddTopBottomNeighbor);
+            pnlAddTables.Controls.Add(btnAddRightLeftNeighbor);
+            pnlAddTables.Controls.Add(btnRemoveNeighbor);
+            pnlAddTables.Controls.Add(lblPairData);
+            pnlAddTables.Controls.Add(checkBox1);
+            pnlAddTables.Controls.Add(lblSelectedTableNumber);
+            pnlAddTables.Controls.Add(lblSelectTable);
+            pnlAddTables.Controls.Add(lbTableNeighbors);
+            pnlAddTables.Controls.Add(picAddCircle);
+            pnlAddTables.Controls.Add(picAddDiamond);
+            pnlAddTables.Controls.Add(picAddSquare);
+            pnlAddTables.Controls.Add(label7);
+            pnlAddTables.Location = new Point(17, 56);
+            pnlAddTables.Name = "pnlAddTables";
+            pnlAddTables.Size = new Size(335, 874);
+            pnlAddTables.TabIndex = 4;
             // 
             // txtAddNewNeighbor
             // 
-            txtAddNewNeighbor.Location = new Point(56, 851);
+            txtAddNewNeighbor.Location = new Point(56, 757);
             txtAddNewNeighbor.Name = "txtAddNewNeighbor";
             txtAddNewNeighbor.Size = new Size(35, 23);
             txtAddNewNeighbor.TabIndex = 15;
@@ -505,7 +432,7 @@
             // 
             // btnChangeNeighborEdge
             // 
-            btnChangeNeighborEdge.Location = new Point(121, 812);
+            btnChangeNeighborEdge.Location = new Point(121, 718);
             btnChangeNeighborEdge.Name = "btnChangeNeighborEdge";
             btnChangeNeighborEdge.Size = new Size(166, 23);
             btnChangeNeighborEdge.TabIndex = 14;
@@ -517,7 +444,7 @@
             // lblEndPoint
             // 
             lblEndPoint.AutoSize = true;
-            lblEndPoint.Location = new Point(235, 765);
+            lblEndPoint.Location = new Point(235, 671);
             lblEndPoint.Name = "lblEndPoint";
             lblEndPoint.Size = new Size(27, 15);
             lblEndPoint.TabIndex = 13;
@@ -526,7 +453,7 @@
             // 
             // txtEnd
             // 
-            txtEnd.Location = new Point(235, 783);
+            txtEnd.Location = new Point(235, 689);
             txtEnd.Name = "txtEnd";
             txtEnd.Size = new Size(52, 23);
             txtEnd.TabIndex = 12;
@@ -535,7 +462,7 @@
             // lblStartPoint
             // 
             lblStartPoint.AutoSize = true;
-            lblStartPoint.Location = new Point(179, 765);
+            lblStartPoint.Location = new Point(179, 671);
             lblStartPoint.Name = "lblStartPoint";
             lblStartPoint.Size = new Size(31, 15);
             lblStartPoint.TabIndex = 13;
@@ -544,7 +471,7 @@
             // 
             // txtStart
             // 
-            txtStart.Location = new Point(177, 783);
+            txtStart.Location = new Point(177, 689);
             txtStart.Name = "txtStart";
             txtStart.Size = new Size(52, 23);
             txtStart.TabIndex = 12;
@@ -553,7 +480,7 @@
             // lblMidPoint
             // 
             lblMidPoint.AutoSize = true;
-            lblMidPoint.Location = new Point(123, 765);
+            lblMidPoint.Location = new Point(123, 671);
             lblMidPoint.Name = "lblMidPoint";
             lblMidPoint.Size = new Size(56, 15);
             lblMidPoint.TabIndex = 13;
@@ -562,7 +489,7 @@
             // 
             // txtMidPoint
             // 
-            txtMidPoint.Location = new Point(121, 783);
+            txtMidPoint.Location = new Point(121, 689);
             txtMidPoint.Name = "txtMidPoint";
             txtMidPoint.Size = new Size(52, 23);
             txtMidPoint.TabIndex = 12;
@@ -571,7 +498,7 @@
             // cbOnlyShowThisTableLines
             // 
             cbOnlyShowThisTableLines.AutoSize = true;
-            cbOnlyShowThisTableLines.Location = new Point(56, 682);
+            cbOnlyShowThisTableLines.Location = new Point(56, 588);
             cbOnlyShowThisTableLines.Name = "cbOnlyShowThisTableLines";
             cbOnlyShowThisTableLines.Size = new Size(198, 19);
             cbOnlyShowThisTableLines.TabIndex = 11;
@@ -582,7 +509,7 @@
             // 
             // btnAddTopBottomNeighbor
             // 
-            btnAddTopBottomNeighbor.Location = new Point(97, 877);
+            btnAddTopBottomNeighbor.Location = new Point(97, 783);
             btnAddTopBottomNeighbor.Name = "btnAddTopBottomNeighbor";
             btnAddTopBottomNeighbor.Size = new Size(150, 23);
             btnAddTopBottomNeighbor.TabIndex = 10;
@@ -593,7 +520,7 @@
             // 
             // btnAddRightLeftNeighbor
             // 
-            btnAddRightLeftNeighbor.Location = new Point(97, 851);
+            btnAddRightLeftNeighbor.Location = new Point(97, 757);
             btnAddRightLeftNeighbor.Name = "btnAddRightLeftNeighbor";
             btnAddRightLeftNeighbor.Size = new Size(150, 23);
             btnAddRightLeftNeighbor.TabIndex = 10;
@@ -604,7 +531,7 @@
             // 
             // btnRemoveNeighbor
             // 
-            btnRemoveNeighbor.Location = new Point(121, 707);
+            btnRemoveNeighbor.Location = new Point(121, 613);
             btnRemoveNeighbor.Name = "btnRemoveNeighbor";
             btnRemoveNeighbor.Size = new Size(150, 23);
             btnRemoveNeighbor.TabIndex = 9;
@@ -616,7 +543,7 @@
             // lblPairData
             // 
             lblPairData.AutoSize = true;
-            lblPairData.Location = new Point(123, 743);
+            lblPairData.Location = new Point(123, 649);
             lblPairData.Name = "lblPairData";
             lblPairData.Size = new Size(91, 15);
             lblPairData.TabIndex = 8;
@@ -630,7 +557,7 @@
             checkBox1.FlatAppearance.BorderSize = 0;
             checkBox1.FlatStyle = FlatStyle.Flat;
             checkBox1.ForeColor = Color.White;
-            checkBox1.Location = new Point(55, 619);
+            checkBox1.Location = new Point(55, 525);
             checkBox1.Name = "checkBox1";
             checkBox1.Size = new Size(215, 29);
             checkBox1.TabIndex = 7;
@@ -643,7 +570,7 @@
             // 
             lblSelectedTableNumber.AutoSize = true;
             lblSelectedTableNumber.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            lblSelectedTableNumber.Location = new Point(172, 658);
+            lblSelectedTableNumber.Location = new Point(172, 564);
             lblSelectedTableNumber.Name = "lblSelectedTableNumber";
             lblSelectedTableNumber.Size = new Size(28, 21);
             lblSelectedTableNumber.TabIndex = 6;
@@ -654,7 +581,7 @@
             // 
             lblSelectTable.AutoSize = true;
             lblSelectTable.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            lblSelectTable.Location = new Point(55, 658);
+            lblSelectTable.Location = new Point(55, 564);
             lblSelectTable.Name = "lblSelectTable";
             lblSelectTable.Size = new Size(110, 21);
             lblSelectTable.TabIndex = 5;
@@ -665,7 +592,7 @@
             // 
             lbTableNeighbors.FormattingEnabled = true;
             lbTableNeighbors.ItemHeight = 15;
-            lbTableNeighbors.Location = new Point(55, 706);
+            lbTableNeighbors.Location = new Point(55, 612);
             lbTableNeighbors.Name = "lbTableNeighbors";
             lbTableNeighbors.Size = new Size(60, 139);
             lbTableNeighbors.TabIndex = 4;
@@ -675,7 +602,7 @@
             // picAddCircle
             // 
             picAddCircle.Image = Properties.Resources.SmallFilledCircle;
-            picAddCircle.Location = new Point(55, 451);
+            picAddCircle.Location = new Point(55, 347);
             picAddCircle.Name = "picAddCircle";
             picAddCircle.Size = new Size(215, 142);
             picAddCircle.SizeMode = PictureBoxSizeMode.Zoom;
@@ -686,7 +613,7 @@
             // picAddDiamond
             // 
             picAddDiamond.Image = Properties.Resources.DiamondFilled;
-            picAddDiamond.Location = new Point(56, 244);
+            picAddDiamond.Location = new Point(55, 176);
             picAddDiamond.Name = "picAddDiamond";
             picAddDiamond.Size = new Size(215, 160);
             picAddDiamond.SizeMode = PictureBoxSizeMode.Zoom;
@@ -697,7 +624,7 @@
             // picAddSquare
             // 
             picAddSquare.Image = Properties.Resources.SquareTableFilled;
-            picAddSquare.Location = new Point(55, 79);
+            picAddSquare.Location = new Point(55, 33);
             picAddSquare.Name = "picAddSquare";
             picAddSquare.Size = new Size(215, 126);
             picAddSquare.SizeMode = PictureBoxSizeMode.Zoom;
@@ -709,7 +636,7 @@
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label7.Location = new Point(117, 39);
+            label7.Location = new Point(117, 9);
             label7.Name = "label7";
             label7.Size = new Size(93, 21);
             label7.TabIndex = 1;
@@ -718,12 +645,84 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(180, 190, 200);
-            panel1.Controls.Add(panel5);
-            panel1.Controls.Add(panel6);
+            panel1.Controls.Add(pnlTableStats);
+            panel1.Controls.Add(pnlAddTables);
+            panel1.Controls.Add(rdoTableStats);
+            panel1.Controls.Add(rdoAddTables);
             panel1.Location = new Point(55, 29);
             panel1.Name = "panel1";
             panel1.Size = new Size(364, 950);
             panel1.TabIndex = 6;
+            // 
+            // pnlTableStats
+            // 
+            pnlTableStats.BackColor = Color.WhiteSmoke;
+            pnlTableStats.Controls.Add(btnGetTableSales);
+            pnlTableStats.Controls.Add(lbTableSales);
+            pnlTableStats.Controls.Add(txtTotalSales);
+            pnlTableStats.Location = new Point(17, 56);
+            pnlTableStats.Name = "pnlTableStats";
+            pnlTableStats.Size = new Size(335, 874);
+            pnlTableStats.TabIndex = 0;
+            pnlTableStats.Visible = false;
+            // 
+            // rdoTableStats
+            // 
+            rdoTableStats.Appearance = Appearance.Button;
+            rdoTableStats.BackColor = Color.FromArgb(130, 180, 130);
+            rdoTableStats.FlatAppearance.BorderSize = 0;
+            rdoTableStats.FlatStyle = FlatStyle.Flat;
+            rdoTableStats.Location = new Point(114, 21);
+            rdoTableStats.Name = "rdoTableStats";
+            rdoTableStats.Size = new Size(91, 33);
+            rdoTableStats.TabIndex = 6;
+            rdoTableStats.Text = "Table Stats";
+            rdoTableStats.TextAlign = ContentAlignment.MiddleCenter;
+            rdoTableStats.UseVisualStyleBackColor = false;
+            // 
+            // rdoAddTables
+            // 
+            rdoAddTables.Appearance = Appearance.Button;
+            rdoAddTables.BackColor = Color.FromArgb(130, 180, 130);
+            rdoAddTables.Checked = true;
+            rdoAddTables.FlatAppearance.BorderSize = 0;
+            rdoAddTables.FlatStyle = FlatStyle.Flat;
+            rdoAddTables.Location = new Point(17, 21);
+            rdoAddTables.Name = "rdoAddTables";
+            rdoAddTables.Size = new Size(91, 33);
+            rdoAddTables.TabIndex = 6;
+            rdoAddTables.TabStop = true;
+            rdoAddTables.Text = "Add Tables";
+            rdoAddTables.TextAlign = ContentAlignment.MiddleCenter;
+            rdoAddTables.UseVisualStyleBackColor = false;
+            rdoAddTables.CheckedChanged += rdoAddTables_CheckChanged;
+            // 
+            // txtTotalSales
+            // 
+            txtTotalSales.Location = new Point(15, 60);
+            txtTotalSales.Name = "txtTotalSales";
+            txtTotalSales.Size = new Size(158, 23);
+            txtTotalSales.TabIndex = 0;
+            // 
+            // lbTableSales
+            // 
+            lbTableSales.FormattingEnabled = true;
+            lbTableSales.ItemHeight = 15;
+            lbTableSales.Location = new Point(15, 146);
+            lbTableSales.MultiColumn = true;
+            lbTableSales.Name = "lbTableSales";
+            lbTableSales.Size = new Size(153, 709);
+            lbTableSales.TabIndex = 1;
+            // 
+            // btnGetTableSales
+            // 
+            btnGetTableSales.Location = new Point(16, 99);
+            btnGetTableSales.Name = "btnGetTableSales";
+            btnGetTableSales.Size = new Size(157, 23);
+            btnGetTableSales.TabIndex = 2;
+            btnGetTableSales.Text = "button1";
+            btnGetTableSales.UseVisualStyleBackColor = true;
+            btnGetTableSales.Click += btnGetTableSales_Click;
             // 
             // frmEditDiningAreas
             // 
@@ -741,15 +740,15 @@
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             panel3.ResumeLayout(false);
-            panel6.ResumeLayout(false);
-            panel6.PerformLayout();
             panel4.ResumeLayout(false);
-            panel5.ResumeLayout(false);
-            panel5.PerformLayout();
+            pnlAddTables.ResumeLayout(false);
+            pnlAddTables.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)picAddCircle).EndInit();
             ((System.ComponentModel.ISupportInitialize)picAddDiamond).EndInit();
             ((System.ComponentModel.ISupportInitialize)picAddSquare).EndInit();
             panel1.ResumeLayout(false);
+            pnlTableStats.ResumeLayout(false);
+            pnlTableStats.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -757,24 +756,18 @@
 
         private Panel pnlFloorPlan;
         private Button btnCreateNewDiningArea;
-        private Button btnSaveDiningArea;
-        private RadioButton rbInside;
-        private RadioButton rbOutside;
         private Button btnSaveTable;
         private Panel panel2;
         private Panel panel3;
         private Panel panel4;
         private ComboBox cboDiningAreas;
-        private TextBox txtDiningAreaName;
         private TextBox txtTableNumber;
         private TextBox txtMaxCovers;
         private TextBox txtAverageCovers;
         private Label label3;
         private Label label2;
         private Label label1;
-        private Panel panel5;
-        private Panel panel6;
-        private CheckBox cbTemporaryFloorplan;
+        private Panel pnlAddTables;
         private Label label7;
         private CheckBox cbLockTables;
         private TextBox txtXco;
@@ -809,5 +802,11 @@
         private TextBox txtAddNewNeighbor;
         private Button btnAddTopBottomNeighbor;
         private ToolTip toolTip1;
+        private Panel pnlTableStats;
+        private RadioButton rdoTableStats;
+        private RadioButton rdoAddTables;
+        private Button btnGetTableSales;
+        private ListBox lbTableSales;
+        private TextBox txtTotalSales;
     }
 }

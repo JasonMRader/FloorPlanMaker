@@ -135,8 +135,8 @@ namespace FloorPlanMakerUI
             UITheme.FormatMainButton(cbLockTables);
 
             UITheme.FormatMainButton(btnCreateNewDiningArea);
-            UITheme.FormatMainButton(btnSaveDiningArea);
-            UITheme.FormatMainButton(btnSaveDiningArea);
+           // UITheme.FormatMainButton(btnSaveDiningArea);
+            //UITheme.FormatMainButton(btnSaveDiningArea);
 
             // AppColors.FormatSecondColor(this);
             UITheme.FormatSecondColor(panel4);
@@ -148,10 +148,10 @@ namespace FloorPlanMakerUI
 
             UITheme.FormatCanvasColor(pnlFloorPlan);
 
-            UITheme.FormatCanvasColor(panel5);
+            UITheme.FormatCanvasColor(pnlAddTables);
             UITheme.FormatSecondColor(panel2);
 
-            UITheme.FormatSecondColor(panel6);
+            //UITheme.FormatSecondColor(panel6);
 
 
         }
@@ -170,7 +170,7 @@ namespace FloorPlanMakerUI
             areaCreationManager.SelectedTables.Clear();
             areaCreationManager.DiningAreaSelected = (DiningArea?)cboDiningAreas.SelectedItem;
             diningAreaInfoControl.SetDiningArea(areaCreationManager.DiningAreaSelected);
-            txtDiningAreaName.Text = areaCreationManager.DiningAreaSelected.Name;
+            //txtDiningAreaName.Text = areaCreationManager.DiningAreaSelected.Name;
             pnlFloorPlan.Controls.Clear();
             foreach (Table table in areaCreationManager.DiningAreaSelected.Tables) {
                 table.DiningArea = areaCreationManager.DiningAreaSelected;
@@ -485,25 +485,25 @@ namespace FloorPlanMakerUI
         }
         private void btnCreateNewDiningArea_Click(object sender, EventArgs e)
         {
-            txtDiningAreaName.Enabled = true;
-            rbInside.Enabled = true;
-            rbOutside.Enabled = true;
-            cbTemporaryFloorplan.Enabled = true;
-            btnSaveDiningArea.Enabled = true;
-            txtDiningAreaName.Clear();
+            //txtDiningAreaName.Enabled = true;
+            //rbInside.Enabled = true;
+            //rbOutside.Enabled = true;
+            //cbTemporaryFloorplan.Enabled = true;
+            //btnSaveDiningArea.Enabled = true;
+            //txtDiningAreaName.Clear();
         }
 
         private void btnSaveDiningArea_Click(object sender, EventArgs e)
         {
-            DiningArea area = new DiningArea(txtDiningAreaName.Text, rbInside.Checked);
+            //DiningArea area = new DiningArea(txtDiningAreaName.Text, rbInside.Checked);
 
-            SqliteDataAccess.SaveDiningArea(area);
+            //SqliteDataAccess.SaveDiningArea(area);
 
-            txtDiningAreaName.Enabled = false;
-            rbInside.Enabled = false;
-            rbOutside.Enabled = false;
-            cbTemporaryFloorplan.Enabled = false;
-            btnSaveDiningArea.Enabled = false;
+            //txtDiningAreaName.Enabled = false;
+            //rbInside.Enabled = false;
+            //rbOutside.Enabled = false;
+            //cbTemporaryFloorplan.Enabled = false;
+            //btnSaveDiningArea.Enabled = false;
         }
 
         private void cbLockTables_CheckedChanged(object sender, EventArgs e)
@@ -928,6 +928,23 @@ namespace FloorPlanMakerUI
         }
 
         private void pnlFloorPlan_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void rdoAddTables_CheckChanged(object sender, EventArgs e)
+        {
+            if (rdoAddTables.Checked) {
+                pnlAddTables.Visible = true;
+                pnlTableStats.Visible = false;
+            }
+            else {
+                pnlAddTables.Visible = false;
+                pnlTableStats.Visible = true;
+            }
+        }
+
+        private void btnGetTableSales_Click(object sender, EventArgs e)
         {
 
         }
