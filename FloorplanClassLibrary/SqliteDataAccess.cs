@@ -40,83 +40,142 @@ namespace FloorplanClassLibrary
         }
         public static void SaveTableStat(List<TableStat> tableStats)
         {
-            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
-            {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString())) {
                 cnn.Open();
-                foreach(TableStat tableStat in  tableStats)
-                {
-                    // Check for existing record
-                    string checkSql = @"SELECT COUNT(*) FROM TableStats 
-                            WHERE TableStatNumber = @TableStatNumber 
-                            AND IsLunch = @IsLunch 
-                            AND Date = @Date";
-                    int count = cnn.Query<int>(checkSql, new
-                    {
-                        TableStatNumber = tableStat.TableStatNumber,
-                        IsLunch = tableStat.IsLunch,
-                        Date = tableStat.Date.ToString("yyyy-MM-dd")
-                    }).Single();
 
-                    if (count == 0)
-                    {
-                        var sql = @"INSERT INTO TableStats 
-                             (TableStatNumber, DayOfWeek, Date, IsLunch, Sales, Orders, DiningAreaID) 
-                             VALUES 
-                             (@TableStatNumber, @DayOfWeek, @Date, @IsLunch, @Sales, @Orders, @DiningAreaID)";
-
-                        cnn.Execute(sql, new
-                        {
+                using (var transaction = cnn.BeginTransaction()) {
+                    foreach (TableStat tableStat in tableStats) {
+                        // 1. Check for existing TableStat record
+                        string checkSql = @"SELECT COUNT(*) FROM TableStats 
+                                    WHERE TableStatNumber = @TableStatNumber 
+                                    AND IsLunch = @IsLunch 
+                                    AND Date = @Date";
+                        int count = cnn.Query<int>(checkSql, new {
                             TableStatNumber = tableStat.TableStatNumber,
-                            DayOfWeek = tableStat.DayOfWeek.ToString(),
-                            Date = tableStat.Date.ToString("yyyy-MM-dd"),
                             IsLunch = tableStat.IsLunch,
-                            Sales = tableStat.Sales,
-                            Orders = tableStat.Orders,
-                            DiningAreaID = tableStat.DiningAreaID
-                        });
-                    }
-                    var totalSales = cnn.Query<float>(@"SELECT SUM(Sales) FROM TableStats 
-                        WHERE DiningAreaID = @DiningAreaID AND IsLunch = @IsLunch AND Date = @Date",
-                       new { DiningAreaID = tableStat.DiningAreaID, IsLunch = tableStat.IsLunch, Date = tableStat.Date.ToString("yyyy-MM-dd") }).Single();
+                            Date = tableStat.Date.ToString("yyyy-MM-dd")
+                        }, transaction: transaction).Single();
 
-                    // 2.2: Get the ServerCount from Floorplan, or set it to 0 if no matching floorplan exists
-                    var serverCount = cnn.Query<int?>(@"SELECT ServerCount FROM Floorplan 
-                        WHERE DiningAreaID = @DiningAreaID AND IsLunch = @IsLunch AND Date = @Date",
-                                new { DiningAreaID = tableStat.DiningAreaID, IsLunch = tableStat.IsLunch, Date = tableStat.Date.ToString("yyyy-MM-dd") }).FirstOrDefault() ?? 0;
+                        if (count == 0) {
+                            // 1.1 Insert new TableStat record
+                            var insertTableStatSql = @"INSERT INTO TableStats 
+                                               (TableStatNumber, DayOfWeek, Date, IsLunch, Sales, Orders, DiningAreaID) 
+                                               VALUES 
+                                               (@TableStatNumber, @DayOfWeek, @Date, @IsLunch, @Sales, @Orders, @DiningAreaID)";
+                            cnn.Execute(insertTableStatSql, new {
+                                TableStatNumber = tableStat.TableStatNumber,
+                                DayOfWeek = tableStat.DayOfWeek.ToString(),
+                                Date = tableStat.Date.ToString("yyyy-MM-dd"),
+                                IsLunch = tableStat.IsLunch,
+                                Sales = tableStat.Sales,
+                                Orders = tableStat.Orders,
+                                DiningAreaID = tableStat.DiningAreaID
+                            }, transaction: transaction);
+                        }
 
-                    // 2.3: Check if DiningAreaRecord exists for the Date, IsLunch, and DiningAreaID
-                    var diningAreaRecordID = cnn.Query<int?>(@"SELECT ID FROM DiningAreaRecord 
-                        WHERE DiningAreaID = @DiningAreaID AND IsAm = @IsLunch AND Date = @Date",
-                                new { DiningAreaID = tableStat.DiningAreaID, IsLunch = tableStat.IsLunch, Date = tableStat.Date.ToString("yyyy-MM-dd") }).FirstOrDefault();
+                        // 2. Calculate total sales for the DiningAreaID, IsLunch, and Date
+                        var totalSales = cnn.Query<float>(@"SELECT SUM(Sales) FROM TableStats 
+                                                    WHERE DiningAreaID = @DiningAreaID 
+                                                    AND IsLunch = @IsLunch 
+                                                    AND Date = @Date",
+                           new {
+                               DiningAreaID = tableStat.DiningAreaID,
+                               IsLunch = tableStat.IsLunch,
+                               Date = tableStat.Date.ToString("yyyy-MM-dd")
+                           }, transaction: transaction).Single();
 
-                    if (diningAreaRecordID == null) {
-                        // 2.4: Insert new DiningAreaRecord if it doesn't exist
-                        var insertSql = @"INSERT INTO DiningAreaRecord (DiningAreaID, Date, IsAm, Sales, ServerCount, PercentageOfSales) 
-                                  VALUES (@DiningAreaID, @Date, @IsLunch, @Sales, @ServerCount, 0.0)";
-                        cnn.Execute(insertSql, new {
-                            DiningAreaID = tableStat.DiningAreaID,
-                            Date = tableStat.Date.ToString("yyyy-MM-dd"),
+                        // 3. Get the ServerCount from Floorplan, or set it to 0 if no matching floorplan exists
+                        var serverCount = cnn.Query<int?>(@"SELECT ServerCount FROM Floorplan 
+                                                    WHERE DiningAreaID = @DiningAreaID 
+                                                    AND IsLunch = @IsLunch 
+                                                    AND Date = @Date",
+                           new {
+                               DiningAreaID = tableStat.DiningAreaID,
+                               IsLunch = tableStat.IsLunch,
+                               Date = tableStat.Date.ToString("yyyy-MM-dd")
+                           }, transaction: transaction).FirstOrDefault() ?? 0;
+
+                        // 4. Check if DiningAreaRecord exists for the Date, IsLunch, and DiningAreaID
+                        var diningAreaRecordID = cnn.Query<int?>(@"SELECT ID FROM DiningAreaRecord 
+                                                           WHERE DiningAreaID = @DiningAreaID 
+                                                           AND IsAm = @IsLunch 
+                                                           AND Date = @Date",
+                           new {
+                               DiningAreaID = tableStat.DiningAreaID,
+                               IsLunch = tableStat.IsLunch,
+                               Date = tableStat.Date.ToString("yyyy-MM-dd")
+                           }, transaction: transaction).FirstOrDefault();
+
+                        if (diningAreaRecordID == null) {
+                            try {
+                                // 4.1 Insert new DiningAreaRecord
+                                var insertDiningAreaSql = @"INSERT INTO DiningAreaRecord 
+                                                    (DiningAreaID, Date, IsAm, Sales, ServerCount, PercentageOfSales) 
+                                                    VALUES 
+                                                    (@DiningAreaID, @Date, @IsLunch, @Sales, @ServerCount, 0.0)";
+                                cnn.Execute(insertDiningAreaSql, new {
+                                    DiningAreaID = tableStat.DiningAreaID,
+                                    Date = tableStat.Date.ToString("yyyy-MM-dd"),
+                                    IsLunch = tableStat.IsLunch,
+                                    Sales = totalSales,
+                                    ServerCount = serverCount
+                                }, transaction: transaction);
+
+                                // 4.2 Retrieve the new DiningAreaRecordID
+                                diningAreaRecordID = cnn.Query<int>("SELECT last_insert_rowid()", transaction: transaction).Single();
+                            }
+                            catch (SQLiteException ex) when (ex.ResultCode == SQLiteErrorCode.Constraint) {
+                                // Handle uniqueness constraint violation
+                                // Another process might have inserted the record after the initial check
+                                // Retrieve the existing DiningAreaRecordID
+                                diningAreaRecordID = cnn.Query<int?>(@"SELECT ID FROM DiningAreaRecord 
+                                                               WHERE DiningAreaID = @DiningAreaID 
+                                                               AND IsAm = @IsLunch 
+                                                               AND Date = @Date",
+                                   new {
+                                       DiningAreaID = tableStat.DiningAreaID,
+                                       IsLunch = tableStat.IsLunch,
+                                       Date = tableStat.Date.ToString("yyyy-MM-dd")
+                                   }, transaction: transaction).FirstOrDefault();
+
+                                if (diningAreaRecordID == null) {
+                                    // If still null, rethrow the exception
+                                    throw;
+                                }
+                            }
+                        }
+                        else {
+                            // 4.3 Update the existing DiningAreaRecord
+                            var updateDiningAreaSql = @"UPDATE DiningAreaRecord 
+                                                SET Sales = @Sales, ServerCount = @ServerCount 
+                                                WHERE ID = @DiningAreaRecordID";
+                            cnn.Execute(updateDiningAreaSql, new {
+                                Sales = totalSales,
+                                ServerCount = serverCount,
+                                DiningAreaRecordID = diningAreaRecordID
+                            }, transaction: transaction);
+                        }
+
+                        // 5. Update the TableStat record with the DiningAreaRecordID
+                        var updateTableStatSql = @"UPDATE TableStats 
+                                           SET DiningAreaRecordID = @DiningAreaRecordID 
+                                           WHERE TableStatNumber = @TableStatNumber 
+                                           AND IsLunch = @IsLunch 
+                                           AND Date = @Date";
+                        cnn.Execute(updateTableStatSql, new {
+                            DiningAreaRecordID = diningAreaRecordID,
+                            TableStatNumber = tableStat.TableStatNumber,
                             IsLunch = tableStat.IsLunch,
-                            Sales = totalSales,
-                            ServerCount = serverCount
-                        });
+                            Date = tableStat.Date.ToString("yyyy-MM-dd")
+                        }, transaction: transaction);
                     }
-                    else {
-                        // 2.5: Update the existing DiningAreaRecord
-                        var updateSql = @"UPDATE DiningAreaRecord 
-                                  SET Sales = @Sales, ServerCount = @ServerCount 
-                                  WHERE ID = @DiningAreaRecordID";
-                        cnn.Execute(updateSql, new {
-                            Sales = totalSales,
-                            ServerCount = serverCount,
-                            DiningAreaRecordID = diningAreaRecordID
-                        });
-                    }
+
+                    transaction.Commit();
                 }
-            
-               
             }
         }
+
+
         public static int? GetDiningAreaIDByTableNumber(string tableNumber)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -2896,8 +2955,8 @@ namespace FloorplanClassLibrary
 
                 foreach (var record in diningAreaRecords) {
                     // Load existing TableStats for the DiningAreaRecord
-                    string tableStatsSql = @"SELECT * FROM TableStats WHERE DiningAreaRecordID = @DiningAreaRecordID";
-                    var queryTableResult = cnn.Query(tableStatsSql, new { DiningAreaRecordID = record.ID });
+                    string tableStatsSql = @"SELECT * FROM TableStats WHERE DiningAreaRecordID = @DiningAreaRecordID AND IsLunch = @IsLunch";
+                    var queryTableResult = cnn.Query(tableStatsSql, new { DiningAreaRecordID = record.ID, IsLunch = isLunch });
 
                     var tableStatsList = queryTableResult.Select(row => new TableStat {
                         TableStatNumber = row.TableStatNumber,

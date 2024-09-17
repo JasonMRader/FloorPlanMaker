@@ -96,11 +96,39 @@ namespace FloorplanClassLibrary
         }
         public void ComputeAverageSalesPercentages()
         {
+            //foreach (var kvp in tableStatPercentagesByCategory) {
+            //    string category = kvp.Key;
+            //    List<TableStat> tableStats = kvp.Value;
+
+            //    // Calculate the average SalesPercentage for the category
+            //    double averageSalesPercentage = 0.0;
+            //    if (tableStats.Count > 0) {
+            //        averageSalesPercentage = tableStats.Average(ts => ts.SalesPercentage);
+            //    }
+
+            //    // Map category to property name (add underscore if the category starts with a digit)
+            //    string propertyName = category;
+            //    if (char.IsDigit(propertyName[0])) {
+            //        propertyName = "_" + propertyName;
+            //    }
+
+            //    // Use reflection to set the property value
+            //    var propertyInfo = this.GetType().GetProperty(propertyName);
+            //    if (propertyInfo != null && propertyInfo.CanWrite) {
+            //        propertyInfo.SetValue(this, averageSalesPercentage);
+            //    }
+            //    else {
+            //        // Handle cases where the property is not found or not writable
+            //        // Optionally log a warning or throw an exception
+            //        Console.WriteLine($"Property '{propertyName}' not found or not writable.");
+            //    }
+            //}
             foreach (var kvp in tableStatPercentagesByCategory) {
                 string category = kvp.Key;
                 List<TableStat> tableStats = kvp.Value;
 
                 // Calculate the average SalesPercentage for the category
+                //float totalSales = tableStats.Sum
                 double averageSalesPercentage = 0.0;
                 if (tableStats.Count > 0) {
                     averageSalesPercentage = tableStats.Average(ts => ts.SalesPercentage);

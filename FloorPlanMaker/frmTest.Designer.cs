@@ -75,7 +75,11 @@
             colorDialog1 = new ColorDialog();
             button3 = new Button();
             cbAMSales = new CheckBox();
+            btnGetDiningAreaSales = new Button();
+            nudDiningAreaID = new NumericUpDown();
+            lblAreaID = new Label();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudDiningAreaID).BeginInit();
             SuspendLayout();
             // 
             // button1
@@ -364,6 +368,7 @@
             dtpWeatherDay.Name = "dtpWeatherDay";
             dtpWeatherDay.Size = new Size(200, 23);
             dtpWeatherDay.TabIndex = 5;
+            dtpWeatherDay.ValueChanged += dtpWeatherDay_ValueChanged;
             // 
             // btnWeather
             // 
@@ -428,7 +433,7 @@
             // 
             // panel1
             // 
-            panel1.Location = new Point(661, 407);
+            panel1.Location = new Point(877, 249);
             panel1.Name = "panel1";
             panel1.Size = new Size(78, 100);
             panel1.TabIndex = 11;
@@ -436,14 +441,14 @@
             // panel2
             // 
             panel2.BackColor = Color.ForestGreen;
-            panel2.Location = new Point(771, 407);
+            panel2.Location = new Point(978, 249);
             panel2.Name = "panel2";
             panel2.Size = new Size(78, 100);
             panel2.TabIndex = 11;
             // 
             // panel3
             // 
-            panel3.Location = new Point(893, 407);
+            panel3.Location = new Point(1062, 249);
             panel3.Name = "panel3";
             panel3.Size = new Size(78, 100);
             panel3.TabIndex = 11;
@@ -490,11 +495,40 @@
             cbAMSales.UseVisualStyleBackColor = true;
             cbAMSales.CheckedChanged += cbAMSales_CheckedChanged;
             // 
+            // btnGetDiningAreaSales
+            // 
+            btnGetDiningAreaSales.Location = new Point(517, 551);
+            btnGetDiningAreaSales.Name = "btnGetDiningAreaSales";
+            btnGetDiningAreaSales.Size = new Size(162, 38);
+            btnGetDiningAreaSales.TabIndex = 15;
+            btnGetDiningAreaSales.Text = "Get table sales for date";
+            btnGetDiningAreaSales.UseVisualStyleBackColor = true;
+            btnGetDiningAreaSales.Click += btnGetDiningAreaSales_Click;
+            // 
+            // nudDiningAreaID
+            // 
+            nudDiningAreaID.Location = new Point(526, 470);
+            nudDiningAreaID.Name = "nudDiningAreaID";
+            nudDiningAreaID.Size = new Size(120, 23);
+            nudDiningAreaID.TabIndex = 16;
+            // 
+            // lblAreaID
+            // 
+            lblAreaID.AutoSize = true;
+            lblAreaID.Location = new Point(531, 450);
+            lblAreaID.Name = "lblAreaID";
+            lblAreaID.Size = new Size(45, 15);
+            lblAreaID.TabIndex = 17;
+            lblAreaID.Text = "Area ID";
+            // 
             // frmTest
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1394, 674);
+            Controls.Add(lblAreaID);
+            Controls.Add(nudDiningAreaID);
+            Controls.Add(btnGetDiningAreaSales);
             Controls.Add(cbAMSales);
             Controls.Add(button3);
             Controls.Add(btnLoadDiningRecords);
@@ -547,6 +581,7 @@
             Text = "frmTest";
             Load += frmTest_Load;
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudDiningAreaID).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -601,5 +636,8 @@
         private ColorDialog colorDialog1;
         private Button button3;
         private CheckBox cbAMSales;
+        private Button btnGetDiningAreaSales;
+        private NumericUpDown nudDiningAreaID;
+        private Label lblAreaID;
     }
 }

@@ -301,7 +301,7 @@ namespace FloorPlanMakerUI
 
             List<TablePercentageRecord> tableRecords = ProcessTableRecords();
             SqliteDataAccess.UpdateDiningTableRecords(tableRecords);
-
+            MessageBox.Show("Data saved");
         }
 
         private List<TablePercentageRecord> ProcessTableRecords()
@@ -471,6 +471,16 @@ namespace FloorPlanMakerUI
             else {
                 cbAMSales.Text = "PM Sales";
             }
+        }
+
+        private void dtpWeatherDay_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnGetDiningAreaSales_Click(object sender, EventArgs e)
+        {
+
         }
 
         public Dictionary<int, ColorPair> Colors { get; } = new Dictionary<int, ColorPair>
