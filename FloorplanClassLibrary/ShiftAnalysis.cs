@@ -81,6 +81,7 @@ namespace FloorplanClassLibrary
         }
         private DateOnly _startDate = new DateOnly(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).AddDays(-91);
         private DateOnly _endDate = new DateOnly(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).AddDays(-1);
+        public bool isDayOf =false;
         
         private int _tempMin { get; set; }
         private int _tempMax { get; set; }

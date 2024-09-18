@@ -184,5 +184,15 @@ namespace FloorplanUserControlLibrary
 
             }
         }
+
+        private void cbDayOfStats_CheckedChanged(object sender, EventArgs e)
+        {
+            if(cbDayOfStats.Checked) {
+                cbDayOfStats.BackColor = UITheme.NoColor;
+            }
+            else {
+                cbDayOfStats.BackColor = Color.LightGray;
+            }
+        }
     }
 }

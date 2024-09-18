@@ -43,6 +43,7 @@
             lblAreaAvg = new Label();
             lblAreaMin = new Label();
             lblAreaMax = new Label();
+            cbDayOfStats = new CheckBox();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -246,12 +247,30 @@
             lblAreaMax.TextAlign = ContentAlignment.MiddleLeft;
             lblAreaMax.Visible = false;
             // 
+            // cbDayOfStats
+            // 
+            cbDayOfStats.Appearance = Appearance.Button;
+            cbDayOfStats.BackColor = SystemColors.ControlLight;
+            cbDayOfStats.FlatAppearance.BorderSize = 0;
+            cbDayOfStats.FlatStyle = FlatStyle.Flat;
+            cbDayOfStats.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            cbDayOfStats.Location = new Point(3, 7);
+            cbDayOfStats.Margin = new Padding(0);
+            cbDayOfStats.Name = "cbDayOfStats";
+            cbDayOfStats.Size = new Size(81, 27);
+            cbDayOfStats.TabIndex = 0;
+            cbDayOfStats.Text = "Day Of";
+            cbDayOfStats.TextAlign = ContentAlignment.MiddleCenter;
+            cbDayOfStats.UseVisualStyleBackColor = false;
+            cbDayOfStats.CheckedChanged += cbDayOfStats_CheckedChanged;
+            // 
             // ShiftFilterControl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.WhiteSmoke;
             Controls.Add(flowDiningAreas);
+            Controls.Add(cbDayOfStats);
             Controls.Add(cbHolidaysExcluded);
             Controls.Add(btnViewStatsForm);
             Controls.Add(btnSaveFilter);
@@ -292,5 +311,6 @@
         private Label lblAreaAvg;
         private Label lblAreaMin;
         private Label lblAreaMax;
+        private CheckBox cbDayOfStats;
     }
 }
