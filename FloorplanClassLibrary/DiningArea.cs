@@ -170,6 +170,7 @@ namespace FloorplanClassLibrary
 
             foreach (Table table in this.Tables) {
                 var matchedStatPM = pmStats.FirstOrDefault(t => t.TableNumber == table.TableNumber);
+                if (matchedStatPM == null) { continue; }
                 matchedStatPM.PercentageForSpecificEstimate(estimatedSales);
                
                 double matchedSalesPM = matchedStatPM?.EstimatedSales ?? 0;

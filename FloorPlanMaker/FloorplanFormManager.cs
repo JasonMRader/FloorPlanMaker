@@ -54,6 +54,7 @@ namespace FloorPlanMakerUI
         private ShiftFilterControl shiftFilterControl { get; set; }
         private ShiftAnalysis shiftAnalysis { get; set; } = new ShiftAnalysis();
         private SectionTabs sectionTabs { get; set; }
+        private List<TablePercentageRecord> tablePercentageRecords = new List<TablePercentageRecord>();
         private Form mainForm { get; set; }
         public FloorplanFormManager() 
         {
@@ -490,6 +491,40 @@ namespace FloorPlanMakerUI
 
             }
             sectionPanelManager.UpdateImageLabels();
+            if(Shift.SelectedDiningArea != null) {
+                UpdateTableStatsForPercentage();
+            }
+           
+        }
+        private void UpdateTableStatsForPercentage()
+        {
+            List<TablePercentageRecord> percentageRecords = tablePercentageRecords.FindAll(
+               p => p.DiningAreaID == Shift.SelectedDiningArea.ID).ToList();
+            
+            float allTableSales = 0f;
+            float totalSales = Shift.SelectedDiningArea.ExpectedSales;
+            foreach (var percentageRecord in percentageRecords) {
+                double percentage = percentageRecord.PercentageForSpecificEstimate(totalSales);
+                string percentageFormated = percentage.ToString("F2");
+                float estimatedSales = (float)((totalSales * (float)percentage) * .01f);
+                string salesFormated = estimatedSales.ToString("C0");
+                string tableRecord =
+                    $"{percentageRecord.TableNumber}: {percentageFormated}%, {salesFormated}";
+                
+                allTableSales += estimatedSales;
+                // UpdateTableControlSales(percentageRecord);
+            }
+            string allSales = allTableSales.ToString();
+            
+
+
+           Shift.SelectedDiningArea.SetTableSalesByPercentage(percentageRecords, totalSales);
+            //foreach (Control c in pnlFloorPlan.Controls) {
+            //    if (c is TableControl tableControl) {
+            //        tableControl.CurrentDisplayMode = DisplayMode.AverageCovers;
+            //        tableControl.Invalidate();
+            //    }
+            //}
         }
         
         
