@@ -1017,7 +1017,7 @@ namespace FloorPlanMakerUI
             lbTableSales.Items.Add(allSales);
 
 
-            areaCreationManager.DiningAreaSelected.SetTableSalesByPercentage(percentageRecords, allTableSales);
+            areaCreationManager.DiningAreaSelected.SetTableSalesByPercentage(percentageRecords, totalSales);
             foreach (Control c in pnlFloorPlan.Controls) {
                 if (c is TableControl tableControl) {
                     tableControl.CurrentDisplayMode = DisplayMode.AverageCovers;

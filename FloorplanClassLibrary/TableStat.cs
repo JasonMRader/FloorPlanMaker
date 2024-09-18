@@ -17,6 +17,7 @@ namespace FloorplanClassLibrary
         public int? DiningAreaRecordID { get; set; }
         public string TableStatNumber { get; set; }
         public DayOfWeek DayOfWeek { get; set; }
+        public string ServerName { get; set; } = "";
         public DateOnly Date { get; set; }
         public bool IsLunch { get; set; }
         public float? Sales { get; set; }
