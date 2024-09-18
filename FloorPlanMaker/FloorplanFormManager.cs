@@ -75,7 +75,7 @@ namespace FloorPlanMakerUI
             this.sectionHeader.btnTeamWaitClicked += HeaderTeamWaitClicked;
             this.sectionTabs = sectionTabs;
             //this.sectionTabs.SectionSelected += SectionTabSelectSection;
-
+            tablePercentageRecords = SqliteDataAccess.LoadTablePercentageRecords();
             tableControlManager = new TableControlManager(pnlFloorPlan);
             tableControlManager.UpdateAveragesPerServer += newUpdateAveragesPerServer;
             tableControlManager.AllTablesAssigned += newAllTablesAssigned;
@@ -505,6 +505,7 @@ namespace FloorPlanMakerUI
                         
                     }
                     floorplan.DiningArea.SetTableSalesByPercentage(percentageRecords, fpTotalSales);
+                    floorplan.RefreshSectionSales();
 
                 }
                 foreach (TableControl tableControl in this.tableControlManager.TableControls) {

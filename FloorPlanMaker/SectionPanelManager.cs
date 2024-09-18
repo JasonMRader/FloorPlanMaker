@@ -54,6 +54,7 @@ namespace FloorPlanMakerUI
             _floorplan = null;            
             _flowLayoutPanel.Controls.Clear();
             pnlSectionIndicator.BackColor = UITheme.SecondColor;
+            _diningArea = area;
             if(pnlIndicatorChild != null) {
                 pnlIndicatorChild.BackColor = UITheme.SecondColor;
             }
@@ -75,6 +76,7 @@ namespace FloorPlanMakerUI
                 if (floorplan != null)
                 {
                     _floorplan = floorplan;
+                    _diningArea = floorplan.DiningArea;
                     floorplan.SubscribeObserver(this);
                     floorplan.SectionRemoved += RemoveSection;
                     floorplan.SectionAdded += AddSection;
