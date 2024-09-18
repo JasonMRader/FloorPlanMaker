@@ -859,6 +859,7 @@ namespace FloorPlanMakerUI
             foreach (HotSchedulesSchedule schedule in currentSchedule) {
                 if (schedule.JobPosId == 9) {
                     Server server = shiftManager.SelectedShift.AllServers.FirstOrDefault(s => s.HSID == schedule.EmpHSId);
+                    
                     if (server != null) {
                         shiftManager.SelectedShift.AddNewUnassignedServer(server);
                     }

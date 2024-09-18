@@ -357,6 +357,9 @@ namespace FloorplanClassLibrary
         }
         public void AddNewUnassignedServer(Server server)
         {
+            if (this.ServersOnShift.Contains(server)) {
+                return;
+            }
             if (!UnassignedServers.Contains(server))
             {
                 this._unassignedServers.Add(server);
@@ -365,6 +368,7 @@ namespace FloorplanClassLibrary
             this._serversNotOnShift.Remove(server);
             if (!ServersOnShift.Contains(server))
             {
+                this._unassignedServers.Remove(server);
                 this._serversOnShift.Add(server);
             }
             NotifyObservers();
@@ -514,6 +518,10 @@ namespace FloorplanClassLibrary
                 if (!this._serversOnShift.Any(s => s.ID == server.ID))
                 {
                     this._serversOnShift.Add(server);
+                    if(server.CurrentSection != null) {
+                        this._unassignedServers.Remove(server);
+                    }
+
                 }
             }
             foreach (var section in floorplan.Sections)
