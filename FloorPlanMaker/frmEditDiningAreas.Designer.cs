@@ -76,13 +76,13 @@
             label7 = new Label();
             panel1 = new Panel();
             pnlTableStats = new Panel();
+            nudSalesThousands = new NumericUpDown();
             btnGetTableSales = new Button();
             lbTableSales = new ListBox();
             txtTotalSales = new TextBox();
             rdoTableStats = new RadioButton();
             rdoAddTables = new RadioButton();
             toolTip1 = new ToolTip(components);
-            nudSalesThousands = new NumericUpDown();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
             panel4.SuspendLayout();
@@ -655,6 +655,7 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(364, 950);
             panel1.TabIndex = 6;
+            panel1.Paint += panel1_Paint;
             // 
             // pnlTableStats
             // 
@@ -668,6 +669,16 @@
             pnlTableStats.Size = new Size(335, 874);
             pnlTableStats.TabIndex = 0;
             pnlTableStats.Visible = false;
+            // 
+            // nudSalesThousands
+            // 
+            nudSalesThousands.Increment = new decimal(new int[] { 500, 0, 0, 0 });
+            nudSalesThousands.Location = new Point(196, 66);
+            nudSalesThousands.Maximum = new decimal(new int[] { 30000, 0, 0, 0 });
+            nudSalesThousands.Name = "nudSalesThousands";
+            nudSalesThousands.Size = new Size(120, 23);
+            nudSalesThousands.TabIndex = 3;
+            nudSalesThousands.ValueChanged += nudSalesThousands_ValueChanged;
             // 
             // btnGetTableSales
             // 
@@ -728,16 +739,6 @@
             rdoAddTables.TextAlign = ContentAlignment.MiddleCenter;
             rdoAddTables.UseVisualStyleBackColor = false;
             rdoAddTables.CheckedChanged += rdoAddTables_CheckChanged;
-            // 
-            // nudSalesThousands
-            // 
-            nudSalesThousands.Increment = new decimal(new int[] { 500, 0, 0, 0 });
-            nudSalesThousands.Location = new Point(196, 66);
-            nudSalesThousands.Maximum = new decimal(new int[] { 30000, 0, 0, 0 });
-            nudSalesThousands.Name = "nudSalesThousands";
-            nudSalesThousands.Size = new Size(120, 23);
-            nudSalesThousands.TabIndex = 3;
-            nudSalesThousands.ValueChanged += nudSalesThousands_ValueChanged;
             // 
             // frmEditDiningAreas
             // 

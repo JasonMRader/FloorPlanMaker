@@ -1015,7 +1015,7 @@ namespace FloorPlanMakerUI
             }
             string allSales = allTableSales.ToString();
             lbTableSales.Items.Add(allSales);
-            
+
 
             areaCreationManager.DiningAreaSelected.SetTableSalesByPercentage(percentageRecords, allTableSales);
             foreach (Control c in pnlFloorPlan.Controls) {
@@ -1024,6 +1024,11 @@ namespace FloorPlanMakerUI
                     tableControl.Invalidate();
                 }
             }
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
