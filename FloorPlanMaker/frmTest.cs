@@ -296,7 +296,7 @@ namespace FloorPlanMakerUI
         List<DiningAreaRecord> DiningAreaRecords = new List<DiningAreaRecord>();
         private void btnLoadDiningRecords_Click(object sender, EventArgs e)
         {
-            DiningAreaRecords = SqliteDataAccess.LoadDiningAreaRecords(false);
+            DiningAreaRecords = SqliteDataAccess.LoadDiningAreaRecords();
             //CalculateTableStatsAverages();
 
             List<TablePercentageRecord> tableRecords = ProcessTableRecords();

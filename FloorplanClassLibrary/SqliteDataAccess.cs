@@ -2928,12 +2928,14 @@ namespace FloorplanClassLibrary
             }
         }
 
-        public static List<DiningAreaRecord> LoadDiningAreaRecords(bool isLunch)
+        public static List<DiningAreaRecord> LoadDiningAreaRecords()
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString())) {
                 // Load all DiningAreaRecords
-                string diningAreaSql = @"SELECT * FROM DiningAreaRecord WHERE IsAm = @IsAm";
-                var queryResult = cnn.Query(diningAreaSql, new {IsAm = isLunch});
+                //string diningAreaSql = @"SELECT * FROM DiningAreaRecord WHERE IsAm = @IsAm";
+                //var queryResult = cnn.Query(diningAreaSql, new {IsAm = isLunch});
+                string diningAreaSql = @"SELECT * FROM DiningAreaRecord";
+                var queryResult = cnn.Query(diningAreaSql);
 
                 var diningAreaRecords = queryResult.Select(row => new DiningAreaRecord {
                     ID = Convert.ToInt32(row.ID),
@@ -2955,8 +2957,10 @@ namespace FloorplanClassLibrary
 
                 foreach (var record in diningAreaRecords) {
                     // Load existing TableStats for the DiningAreaRecord
-                    string tableStatsSql = @"SELECT * FROM TableStats WHERE DiningAreaRecordID = @DiningAreaRecordID AND IsLunch = @IsLunch";
-                    var queryTableResult = cnn.Query(tableStatsSql, new { DiningAreaRecordID = record.ID, IsLunch = isLunch });
+                    //string tableStatsSql = @"SELECT * FROM TableStats WHERE DiningAreaRecordID = @DiningAreaRecordID AND IsLunch = @IsLunch";
+                    //var queryTableResult = cnn.Query(tableStatsSql, new { DiningAreaRecordID = record.ID, IsLunch = isLunch });
+                    string tableStatsSql = @"SELECT * FROM TableStats WHERE DiningAreaRecordID = @DiningAreaRecordID";
+                    var queryTableResult = cnn.Query(tableStatsSql, new { DiningAreaRecordID = record.ID });
 
                     var tableStatsList = queryTableResult.Select(row => new TableStat {
                         TableStatNumber = row.TableStatNumber,

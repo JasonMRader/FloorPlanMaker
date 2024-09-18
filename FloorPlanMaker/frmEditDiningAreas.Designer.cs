@@ -672,7 +672,7 @@
             // 
             // nudSalesThousands
             // 
-            nudSalesThousands.Increment = new decimal(new int[] { 500, 0, 0, 0 });
+            nudSalesThousands.Increment = new decimal(new int[] { 250, 0, 0, 0 });
             nudSalesThousands.Location = new Point(196, 66);
             nudSalesThousands.Maximum = new decimal(new int[] { 30000, 0, 0, 0 });
             nudSalesThousands.Name = "nudSalesThousands";
