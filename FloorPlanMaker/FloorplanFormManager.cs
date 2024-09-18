@@ -2,6 +2,7 @@
 using FloorPlanMaker;
 using FloorPlanMakerUI.Properties;
 using FloorplanUserControlLibrary;
+using NetTopologySuite.Algorithm;
 using NetTopologySuite.Triangulate;
 using System;
 using System.Collections.Generic;
@@ -399,44 +400,35 @@ namespace FloorPlanMakerUI
             frmLoading loadingForm = null;
             Thread loadingThread = new Thread(() => {
                 loadingForm = new frmLoading(frmLoading.GifType.strategy);
-                Application.Run(loadingForm);  // Start the loading form on a separate UI thread
+                Application.Run(loadingForm);  
             });
 
-            loadingThread.SetApartmentState(ApartmentState.STA);  // Set thread to STA mode
-            loadingThread.Start();  // Start the new UI thread
-
-           
+            loadingThread.SetApartmentState(ApartmentState.STA);  
+            loadingThread.Start();     
 
             await Task.Delay(100);
 
             await Task.Run(() => {
                 shiftAnalysis.InitializetShiftsForDateRange();
                 Shift.SelectedDiningArea.SetTableSales(shiftAnalysis.FilteredTableStats);
-                if (Shift.Floorplans != null) {
-                    foreach (Floorplan floorplan in Shift.Floorplans) {
-                        floorplan.DiningArea.SetTableSales(shiftAnalysis.FilteredTableStats);
-                        floorplan.RefreshSectionSales();
-                    }
-                }
+                //if (Shift.Floorplans != null) {
+                //    foreach (Floorplan floorplan in Shift.Floorplans) {
+                //        floorplan.DiningArea.SetTableSales(shiftAnalysis.FilteredTableStats);
+                //        floorplan.RefreshSectionSales();
+                //    }
+                //}
 
             });
-
-            // Close the loading form and re-enable the main form once the work is done
             mainForm.Invoke(new Action(() => {
-                
-               
-
+                UpdateTableStatsForPercentage();
+                sectionPanelManager.UpdateImageLabels();
                 if (loadingForm != null && loadingForm.InvokeRequired) {
-                    loadingForm.Invoke(new Action(() => loadingForm.Close()));  // Close the form on its own thread
+                    loadingForm.Invoke(new Action(() => loadingForm.Close()));  
                 }
                 else {
                     loadingForm?.Close();
                 }
-
-
-                //this.Close();
-                //this.Enabled = true;
-                //this.BringToFront();
+                
             }));
             if (Shift.Floorplans != null) {
                 foreach (TableControl tableControl in this.tableControlManager.TableControls) {
@@ -445,32 +437,7 @@ namespace FloorPlanMakerUI
                 }
             }
             sectionPanelManager.UpdateImageLabels();
-            //frmLoading loadingForm = new frmLoading(frmLoading.GifType.Analytics);
-            //loadingForm.Show();
-
-            //Task.Run(() => {
-
-            //    shiftAnalysis.InitializetShiftsForDateRange();
-            //    Shift.SelectedDiningArea.SetTableSales(shiftAnalysis.FilteredTableStats);
-            //    if (Shift.Floorplans != null) {
-            //        foreach (Floorplan floorplan in Shift.Floorplans) {
-            //            floorplan.DiningArea.SetTableSales(shiftAnalysis.FilteredTableStats);
-            //            floorplan.RefreshSectionSales();
-            //        }
-            //    }
-            //    mainForm.Invoke(new Action(() => {
-            //        if (Shift.Floorplans != null) {                        
-            //            foreach (TableControl tableControl in this.tableControlManager.TableControls) {
-            //                this.toolTip.SetToolTip(tableControl, tableControl.Table.AverageSales.ToString("C0"));
-            //                tableControl.Invalidate();
-            //            }
-            //        }
-            //        sectionPanelManager.UpdateImageLabels();
-            //        loadingForm.Close();
-
-
-            //    }));
-            //});
+            
         }
         private void UpdateTableStats()
         {
@@ -498,10 +465,26 @@ namespace FloorPlanMakerUI
         }
         private void UpdateTableStatsForPercentage()
         {
+            DiningAreaStats areaStats = shiftAnalysis.DiningAreaStats.FirstOrDefault(s => s.DiningAreaID == Shift.SelectedDiningArea.ID);
             List<TablePercentageRecord> percentageRecords = tablePercentageRecords.FindAll(
                p => p.DiningAreaID == Shift.SelectedDiningArea.ID).ToList();
+            if(areaStats == null) { return; }
+            Shift.SelectedDiningArea.SetExpectedSales(areaStats.AvgSales);
+            if (Shift.Floorplans != null) {
+                foreach (Floorplan floorplan in Shift.Floorplans) {
+                    DiningAreaStats floorplanAreaStats = shiftAnalysis.DiningAreaStats.FirstOrDefault(s => s.DiningAreaID == floorplan.DiningArea.ID);
+                    floorplan.DiningArea.SetExpectedSales(floorplanAreaStats.AvgSales);
+                    //floorplan.DiningArea.SetTableSales(shiftAnalysis.FilteredTableStats);
+                    floorplan.RefreshSectionSales();
+                }
+                foreach (TableControl tableControl in this.tableControlManager.TableControls) {
+                    this.toolTip.SetToolTip(tableControl, tableControl.Table.AverageSales.ToString("C0"));
+                    tableControl.Invalidate();
+                }
+
+            }
             
-            float allTableSales = 0f;
+            
             float totalSales = Shift.SelectedDiningArea.ExpectedSales;
             foreach (var percentageRecord in percentageRecords) {
                 double percentage = percentageRecord.PercentageForSpecificEstimate(totalSales);
@@ -511,14 +494,28 @@ namespace FloorPlanMakerUI
                 string tableRecord =
                     $"{percentageRecord.TableNumber}: {percentageFormated}%, {salesFormated}";
                 
-                allTableSales += estimatedSales;
-                // UpdateTableControlSales(percentageRecord);
+               
             }
-            string allSales = allTableSales.ToString();
-            
+            if (Shift.Floorplans != null) {
+                foreach (Floorplan floorplan in Shift.Floorplans) {
+                    float fpTotalSales = floorplan.DiningArea.ExpectedSales;
+                    foreach (var percentageRecord in percentageRecords) {
+                        double percentage = percentageRecord.PercentageForSpecificEstimate(fpTotalSales);                        
+                        float estimatedSales = (float)((fpTotalSales * (float)percentage) * .01f);
+                        
+                    }
+                    floorplan.DiningArea.SetTableSalesByPercentage(percentageRecords, fpTotalSales);
+
+                }
+                foreach (TableControl tableControl in this.tableControlManager.TableControls) {
+                    this.toolTip.SetToolTip(tableControl, tableControl.Table.AverageSales.ToString("C0"));
+                    tableControl.Invalidate();
+                }
+
+            }
 
 
-           Shift.SelectedDiningArea.SetTableSalesByPercentage(percentageRecords, totalSales);
+            Shift.SelectedDiningArea.SetTableSalesByPercentage(percentageRecords, totalSales);
             //foreach (Control c in pnlFloorPlan.Controls) {
             //    if (c is TableControl tableControl) {
             //        tableControl.CurrentDisplayMode = DisplayMode.AverageCovers;

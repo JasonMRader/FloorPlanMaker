@@ -138,12 +138,12 @@ namespace FloorplanClassLibrary
                     totalSales += matchedSalesAM + matchedSalesPM;
                 }
             }
-            ExpectedSales = totalSales;
+            //ExpectedSales = totalSales;
         }
         public void SetTableSalesByPercentage(List<TablePercentageRecord> pmStats, float estimatedSales)
         {
-            float totalSales = 0f;
-
+            
+            this.ExpectedSales = estimatedSales;
             // Separate AM and PM sales
             //var amStats = tableStats.Where(t => t.IsLunch).ToList();
             //var pmStats = tableStats.Where(t => !t.IsLunch).ToList();
@@ -176,7 +176,7 @@ namespace FloorplanClassLibrary
                 double matchedSalesPM = matchedStatPM?.EstimatedSales ?? 0;
 
                 table.SetTableSales((float)matchedSalesPM);
-                totalSales +=  (float)matchedSalesPM;
+               
                 //if (table.TableNumber == "INSIDE BAR") {
                 //    float insideBarSales = insideBarSalesAM + insideBarSalesPM;
                 //    table.SetTableSales(insideBarSales);
@@ -218,7 +218,11 @@ namespace FloorplanClassLibrary
                 //    totalSales += matchedSalesAM + matchedSalesPM;
                 //}
             }
-            ExpectedSales = totalSales;
+            //ExpectedSales = totalSales;
+        }
+        public void SetExpectedSales(float expectedSales)
+        {
+            this.ExpectedSales = expectedSales;
         }
         public float GetTotalSalesForDateAndIsAm(bool isLunch, DateOnly dateOnly)
         {

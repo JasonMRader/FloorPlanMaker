@@ -208,12 +208,18 @@ namespace FloorPlanMakerUI
 
         private void MovedIndicator(SectionInfoPanel infoPanel)
         {
-            pnlSectionIndicator.Location = new Point(0, infoPanel.Location.Y);
+            if (infoPanel.InvokeRequired) {
+                infoPanel.Invoke(new Action(() => MovedIndicator(infoPanel)));
+            }
+            else {
+                pnlSectionIndicator.Location = new Point(0, infoPanel.Location.Y);
 
-            pnlSectionIndicator.BackColor = Color.FromArgb(255, 103, 0);
-            pnlIndicatorChild.BackColor = infoPanel.Section.Color;
-            pnlSectionIndicator.Location = new Point(0, infoPanel.Location.Y);
-            pnlSectionIndicator.Height = infoPanel.Height;
+                pnlSectionIndicator.BackColor = Color.FromArgb(255, 103, 0);
+                pnlIndicatorChild.BackColor = infoPanel.Section.Color;
+                pnlSectionIndicator.Location = new Point(0, infoPanel.Location.Y);
+                pnlSectionIndicator.Height = infoPanel.Height;
+            }
+           
         }
 
         private void btnAddPickupSection_Click(object? sender, EventArgs e)

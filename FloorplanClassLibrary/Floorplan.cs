@@ -269,7 +269,7 @@ namespace FloorplanClassLibrary
             get
             {
                 if (DiningArea != null && Servers.Count > 0)
-                    return (DiningArea.GetAverageSales()  / this.Servers.Count) - (TotalPickUpSectionSales() / this.Servers.Count);
+                    return (DiningArea.ExpectedSales  / this.Servers.Count) - (TotalPickUpSectionSales() / this.Servers.Count);
                 return 0;
             }
         }
