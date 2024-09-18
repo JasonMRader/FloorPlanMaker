@@ -6,8 +6,12 @@
         public int ID {  get; set; }
         public string? TableNumber { get; set; } = "000";
         public int MaxCovers { get; set; } = 2;
-        private float _averageSales { get; set; } = 1;
-        public float AverageSales { get { return _averageSales; } } 
+        //private float _averageSales;
+
+        public float AverageSales {
+            get => SalesRegistry.GetTableAverageSales(this.ID);
+            set => SalesRegistry.SetTableAverageSales(this.ID, value);
+        }
         public DiningArea DiningArea { get; set; }
         public int DiningAreaId { get; set; }
         public bool IsIncluded { get; set; }
@@ -33,7 +37,7 @@
 
         public void SetTableSales(float sales)
         {
-            _averageSales = sales;
+            AverageSales = sales;
             SalesChanged?.Invoke();
         }
         public List<Point> GetCornerPoints()

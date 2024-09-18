@@ -410,7 +410,7 @@ namespace FloorPlanMakerUI
 
             await Task.Run(() => {
                 shiftAnalysis.InitializetShiftsForDateRange();
-                Shift.SelectedDiningArea.SetTableSales(shiftAnalysis.FilteredTableStats);
+                //Shift.SelectedDiningArea.SetTableSales(shiftAnalysis.FilteredTableStats);
                 //if (Shift.Floorplans != null) {
                 //    foreach (Floorplan floorplan in Shift.Floorplans) {
                 //        floorplan.DiningArea.SetTableSales(shiftAnalysis.FilteredTableStats);

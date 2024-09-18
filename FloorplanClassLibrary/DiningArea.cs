@@ -27,7 +27,11 @@ namespace FloorplanClassLibrary
         }
         public DiningArea() { }
         public TableSalesManager TableSalesManager = new TableSalesManager();
-        public float ExpectedSales { get; private set; }
+        public float ExpectedSales {
+            get => SalesRegistry.GetDiningAreaExpectedSales(this.ID);
+            set => SalesRegistry.SetDiningAreaExpectedSales(this.ID, value);
+        }
+
         public float TestSales { get; set; }
        
         public int ID { get; set; }
