@@ -137,7 +137,7 @@ namespace FloorPlanMakerUI
             UITheme.FormatMainButton(cbLockTables);
 
             UITheme.FormatMainButton(btnCreateNewDiningArea);
-           // UITheme.FormatMainButton(btnSaveDiningArea);
+            // UITheme.FormatMainButton(btnSaveDiningArea);
             //UITheme.FormatMainButton(btnSaveDiningArea);
 
             // AppColors.FormatSecondColor(this);
@@ -958,17 +958,17 @@ namespace FloorPlanMakerUI
                 p => p.DiningAreaID == areaCreationManager.DiningAreaSelected.ID).ToList();
             lbTableSales.Items.Clear();
             float allTableSales = 0f;
-            if(float.TryParse(txtTotalSales.Text, out var totalSales)) {
-                foreach(var percentageRecord in percentageRecords) {
+            if (float.TryParse(txtTotalSales.Text, out var totalSales)) {
+                foreach (var percentageRecord in percentageRecords) {
                     double percentage = percentageRecord.PercentageForSpecificEstimate(totalSales);
                     string percentageFormated = percentage.ToString("F2");
-                    float estimatedSales = (float)((totalSales * (float)percentage)*.01f);
+                    float estimatedSales = (float)((totalSales * (float)percentage) * .01f);
                     string salesFormated = estimatedSales.ToString("C0");
-                    string tableRecord = 
+                    string tableRecord =
                         $"{percentageRecord.TableNumber}: {percentageFormated}%, {salesFormated}";
                     lbTableSales.Items.Add(tableRecord);
                     allTableSales += estimatedSales;
-                   // UpdateTableControlSales(percentageRecord);
+                    // UpdateTableControlSales(percentageRecord);
                 }
                 string allSales = allTableSales.ToString();
                 lbTableSales.Items.Add(allSales);
@@ -980,10 +980,10 @@ namespace FloorPlanMakerUI
         private void UpdateTableControlSales(TablePercentageRecord tableRecord)
         {
             TableControl table = allTableControls.FirstOrDefault(t => t.Table.TableNumber == tableRecord.TableNumber);
-            if(table != null) {
+            if (table != null) {
                 table.Table.SetTableSales((float)tableRecord.EstimatedSales);
             }
-           
+
             //foreach (Table table in areaCreationManager.DiningAreaSelected.Tables) {
             //    table.DiningArea = areaCreationManager.DiningAreaSelected;
             //    TableControl tableControl = TableControlFactory.CreateConfigurableTable(table);
@@ -993,6 +993,37 @@ namespace FloorPlanMakerUI
             //    pnlFloorPlan.Controls.Add(tableControl);
             //    allTableControls.Add(tableControl);
             //}
+        }
+
+        private void nudSalesThousands_ValueChanged(object sender, EventArgs e)
+        {
+            List<TablePercentageRecord> percentageRecords = tablePercentageRecords.FindAll(
+               p => p.DiningAreaID == areaCreationManager.DiningAreaSelected.ID).ToList();
+            lbTableSales.Items.Clear();
+            float allTableSales = 0f;
+            float totalSales = (float)nudSalesThousands.Value;
+            foreach (var percentageRecord in percentageRecords) {
+                double percentage = percentageRecord.PercentageForSpecificEstimate(totalSales);
+                string percentageFormated = percentage.ToString("F2");
+                float estimatedSales = (float)((totalSales * (float)percentage) * .01f);
+                string salesFormated = estimatedSales.ToString("C0");
+                string tableRecord =
+                    $"{percentageRecord.TableNumber}: {percentageFormated}%, {salesFormated}";
+                lbTableSales.Items.Add(tableRecord);
+                allTableSales += estimatedSales;
+                // UpdateTableControlSales(percentageRecord);
+            }
+            string allSales = allTableSales.ToString();
+            lbTableSales.Items.Add(allSales);
+            
+
+            areaCreationManager.DiningAreaSelected.SetTableSalesByPercentage(percentageRecords, allTableSales);
+            foreach (Control c in pnlFloorPlan.Controls) {
+                if (c is TableControl tableControl) {
+                    tableControl.CurrentDisplayMode = DisplayMode.AverageCovers;
+                    tableControl.Invalidate();
+                }
+            }
         }
     }
 }

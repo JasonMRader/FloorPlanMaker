@@ -76,12 +76,13 @@
             label7 = new Label();
             panel1 = new Panel();
             pnlTableStats = new Panel();
+            btnGetTableSales = new Button();
+            lbTableSales = new ListBox();
+            txtTotalSales = new TextBox();
             rdoTableStats = new RadioButton();
             rdoAddTables = new RadioButton();
             toolTip1 = new ToolTip(components);
-            txtTotalSales = new TextBox();
-            lbTableSales = new ListBox();
-            btnGetTableSales = new Button();
+            nudSalesThousands = new NumericUpDown();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
             panel4.SuspendLayout();
@@ -91,6 +92,7 @@
             ((System.ComponentModel.ISupportInitialize)picAddSquare).BeginInit();
             panel1.SuspendLayout();
             pnlTableStats.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)nudSalesThousands).BeginInit();
             SuspendLayout();
             // 
             // pnlFloorPlan
@@ -657,6 +659,7 @@
             // pnlTableStats
             // 
             pnlTableStats.BackColor = Color.WhiteSmoke;
+            pnlTableStats.Controls.Add(nudSalesThousands);
             pnlTableStats.Controls.Add(btnGetTableSales);
             pnlTableStats.Controls.Add(lbTableSales);
             pnlTableStats.Controls.Add(txtTotalSales);
@@ -665,6 +668,35 @@
             pnlTableStats.Size = new Size(335, 874);
             pnlTableStats.TabIndex = 0;
             pnlTableStats.Visible = false;
+            // 
+            // btnGetTableSales
+            // 
+            btnGetTableSales.BackColor = Color.FromArgb(100, 130, 180);
+            btnGetTableSales.ForeColor = Color.White;
+            btnGetTableSales.Location = new Point(16, 99);
+            btnGetTableSales.Name = "btnGetTableSales";
+            btnGetTableSales.Size = new Size(300, 41);
+            btnGetTableSales.TabIndex = 2;
+            btnGetTableSales.Text = "button1";
+            btnGetTableSales.UseVisualStyleBackColor = false;
+            btnGetTableSales.Click += btnGetTableSales_Click;
+            // 
+            // lbTableSales
+            // 
+            lbTableSales.FormattingEnabled = true;
+            lbTableSales.ItemHeight = 15;
+            lbTableSales.Location = new Point(15, 146);
+            lbTableSales.MultiColumn = true;
+            lbTableSales.Name = "lbTableSales";
+            lbTableSales.Size = new Size(153, 709);
+            lbTableSales.TabIndex = 1;
+            // 
+            // txtTotalSales
+            // 
+            txtTotalSales.Location = new Point(15, 60);
+            txtTotalSales.Name = "txtTotalSales";
+            txtTotalSales.Size = new Size(158, 23);
+            txtTotalSales.TabIndex = 0;
             // 
             // rdoTableStats
             // 
@@ -697,32 +729,15 @@
             rdoAddTables.UseVisualStyleBackColor = false;
             rdoAddTables.CheckedChanged += rdoAddTables_CheckChanged;
             // 
-            // txtTotalSales
+            // nudSalesThousands
             // 
-            txtTotalSales.Location = new Point(15, 60);
-            txtTotalSales.Name = "txtTotalSales";
-            txtTotalSales.Size = new Size(158, 23);
-            txtTotalSales.TabIndex = 0;
-            // 
-            // lbTableSales
-            // 
-            lbTableSales.FormattingEnabled = true;
-            lbTableSales.ItemHeight = 15;
-            lbTableSales.Location = new Point(15, 146);
-            lbTableSales.MultiColumn = true;
-            lbTableSales.Name = "lbTableSales";
-            lbTableSales.Size = new Size(153, 709);
-            lbTableSales.TabIndex = 1;
-            // 
-            // btnGetTableSales
-            // 
-            btnGetTableSales.Location = new Point(16, 99);
-            btnGetTableSales.Name = "btnGetTableSales";
-            btnGetTableSales.Size = new Size(157, 23);
-            btnGetTableSales.TabIndex = 2;
-            btnGetTableSales.Text = "button1";
-            btnGetTableSales.UseVisualStyleBackColor = true;
-            btnGetTableSales.Click += btnGetTableSales_Click;
+            nudSalesThousands.Increment = new decimal(new int[] { 500, 0, 0, 0 });
+            nudSalesThousands.Location = new Point(196, 66);
+            nudSalesThousands.Maximum = new decimal(new int[] { 30000, 0, 0, 0 });
+            nudSalesThousands.Name = "nudSalesThousands";
+            nudSalesThousands.Size = new Size(120, 23);
+            nudSalesThousands.TabIndex = 3;
+            nudSalesThousands.ValueChanged += nudSalesThousands_ValueChanged;
             // 
             // frmEditDiningAreas
             // 
@@ -749,6 +764,7 @@
             panel1.ResumeLayout(false);
             pnlTableStats.ResumeLayout(false);
             pnlTableStats.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)nudSalesThousands).EndInit();
             ResumeLayout(false);
         }
 
@@ -808,5 +824,6 @@
         private Button btnGetTableSales;
         private ListBox lbTableSales;
         private TextBox txtTotalSales;
+        private NumericUpDown nudSalesThousands;
     }
 }
