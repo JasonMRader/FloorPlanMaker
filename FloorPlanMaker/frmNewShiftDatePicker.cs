@@ -659,15 +659,15 @@ namespace FloorPlanMakerUI
             List<AreaHistory> lastWeekAreaHistories = new List<AreaHistory>();
             List<AreaHistory> last4 = new List<AreaHistory>();
             List<AreaHistory> yesterdayAreaHistories = new List<AreaHistory>();
-        await Task.Delay(100);  // Small delay to ensure the loading form is fully visible
+            await Task.Delay(100);  // Small delay to ensure the loading form is fully visible
 
-            await Task.Run(() => {
-                // Perform background work here
-                lastWeekAreaHistories = GetAreaHistories(cbIsAm.Checked, -7);
-                last4 = GetHistoryForLastFour();
-                yesterdayAreaHistories = GetAreaHistories(cbIsAm.Checked, -1);
+                await Task.Run(() => {
+                    // Perform background work here
+                    lastWeekAreaHistories = GetAreaHistories(cbIsAm.Checked, -7);
+                    last4 = GetHistoryForLastFour();
+                    yesterdayAreaHistories = GetAreaHistories(cbIsAm.Checked, -1);
                 
-            });
+                });
 
            
             this.Invoke(new Action(() => {
@@ -848,7 +848,42 @@ namespace FloorPlanMakerUI
                 SelectedDaysSchedule = HotSchedulesDataAccess.TommorrowSchedule;
             }
             else {
+                frmLoading loadingForm = null;
+                Thread loadingThread = new Thread(() => {
+                    loadingForm = new frmLoading(frmLoading.GifType.staffAllocation);
+                    Application.Run(loadingForm);  // Start the loading form on a separate UI thread
+                });
+
+                loadingThread.SetApartmentState(ApartmentState.STA);  
+                loadingThread.Start();  
+
+                this.Enabled = false;
+                
+                await Task.Delay(100);  // Small delay to ensure the loading form is fully visible
                 SelectedDaysSchedule = await HotSchedulesApiAccess.GetSchedule(dateOnlySelected);
+                //await Task.Run(() => {
+                //    // Perform background work here
+                    
+
+                //});
+
+
+                this.Invoke(new Action(() => {
+
+                   
+                    if (loadingForm != null && loadingForm.InvokeRequired) {
+                        loadingForm.Invoke(new Action(() => loadingForm.Close()));  // Close the form on its own thread
+                    }
+                    else {
+                        loadingForm?.Close();
+                    }
+
+
+                    //this.Close();
+                    this.Enabled = true;
+                    this.BringToFront();
+                }));
+               
             }
 
             List<HotSchedulesSchedule> currentSchedule = SelectedDaysSchedule.Where(s => s.IsAM == shiftManager.IsAM).ToList();
