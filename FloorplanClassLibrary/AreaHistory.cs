@@ -82,8 +82,8 @@ namespace FloorplanClassLibrary
             ServerCount = (int)Math.Round((double)serversUsed / 4);
             List<TableStat> stats = SqliteDataAccess.LoadTableStatsByDateListAndLunch(IsAm, previousWeekdays);
             IsAverage = true;
-            DiningArea.SetTableSales(stats);
-            this.Sales = DiningArea.ExpectedSales;
+            
+            this.Sales = DiningArea.SetTableSales(stats);
         }
     }
 }

@@ -59,7 +59,7 @@ namespace FloorplanClassLibrary
             }
         }
 
-        public void SetTableSales(List<TableStat> tableStats)
+        public float SetTableSales(List<TableStat> tableStats)
         {
             float totalSales = 0f;
 
@@ -142,7 +142,7 @@ namespace FloorplanClassLibrary
                     totalSales += matchedSalesAM + matchedSalesPM;
                 }
             }
-            //ExpectedSales = totalSales;
+            return totalSales;
         }
         public void SetTableSalesByPercentage(List<TablePercentageRecord> pmStats, float estimatedSales)
         {
