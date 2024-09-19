@@ -32,6 +32,7 @@
             pictureBox1 = new PictureBox();
             timer1 = new System.Windows.Forms.Timer(components);
             panel1 = new Panel();
+            lblMessage = new Label();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel1.SuspendLayout();
@@ -41,6 +42,7 @@
             // 
             panel2.BackColor = Color.WhiteSmoke;
             panel2.Controls.Add(pictureBox1);
+            panel2.Controls.Add(lblMessage);
             panel2.Dock = DockStyle.Fill;
             panel2.Location = new Point(8, 8);
             panel2.Name = "panel2";
@@ -76,6 +78,17 @@
             panel1.Size = new Size(344, 344);
             panel1.TabIndex = 2;
             // 
+            // lblMessage
+            // 
+            lblMessage.Dock = DockStyle.Bottom;
+            lblMessage.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
+            lblMessage.Location = new Point(3, 282);
+            lblMessage.Name = "lblMessage";
+            lblMessage.Size = new Size(322, 43);
+            lblMessage.TabIndex = 2;
+            lblMessage.Text = "This Could Take Several Minutes";
+            lblMessage.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // frmLoading
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -102,5 +115,6 @@
         private System.Windows.Forms.Timer timer1;
         private Panel panel1;
         private PictureBox pictureBox1;
+        private Label lblMessage;
     }
 }

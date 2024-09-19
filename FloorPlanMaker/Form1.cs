@@ -1372,7 +1372,7 @@ namespace FloorPlanMaker
                 if (openFileDialog.ShowDialog() == DialogResult.OK) {
 
                     string filePath = openFileDialog.FileName;
-                    frmLoading loadingForm = new frmLoading("Parsing");
+                    frmLoading loadingForm = new frmLoading(frmLoading.GifType.DataDownload, "This Could Take Several Minutes");
                     loadingForm.Show();
                     this.Enabled = false;
 

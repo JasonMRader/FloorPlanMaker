@@ -854,6 +854,15 @@ namespace FloorplanClassLibrary
                 return diningAreas;
             }
         }
+        public static DiningArea LoadDiningAreaByID(int Id)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString())) {
+                var diningArea = cnn.QuerySingle<DiningArea>("SELECT * FROM DiningArea WHERE ID = @ID", new { ID = Id });
+
+
+                return diningArea;
+            }
+        }
         public static void SaveDiningArea(DiningArea diningArea)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -2837,12 +2846,12 @@ namespace FloorplanClassLibrary
 
             return shiftRecord;
         }
-        public static List<DiningAreaRecord> LoadDiningAreaRecordsByDateAndLunch(DateOnly date, bool isLunch)
+        public static List<DiningAreaRecord> LoadDiningAreaRecordsByDateAndLunch(DateOnly date, bool isAm)
         {
-            var tableStats = LoadTableStatsByDateAndLunch(isLunch, date);
+            var tableStats = LoadTableStatsByDateAndLunch(isAm, date);
 
             // Dictionary to store ServerCount for each DiningAreaID
-            var serverCounts = LoadServerCountsByDateAndLunch(date, isLunch);
+            var serverCounts = LoadServerCountsByDateAndLunch(date, isAm);
 
             // Calculate the total sales excluding Banquet (DiningAreaID = 6)
             float totalSales = tableStats
@@ -2856,7 +2865,7 @@ namespace FloorplanClassLibrary
                 .Select(g => new DiningAreaRecord {
                     DiningAreaID = g.Key,
                     DateOnly = date,
-                    IsAm = isLunch,
+                    IsAm = isAm,
                     Sales = g.Sum(ts => ts.Sales ?? 0), // Sum of sales for this dining area
                     TableStats = g.ToList(),
                     ServerCount = serverCounts.ContainsKey(g.Key) ? serverCounts[g.Key] : 0,
@@ -2901,6 +2910,27 @@ namespace FloorplanClassLibrary
                 }
 
                 return floorplanRecords;
+            }
+        }
+        public static List<DiningAreaRecord> LoadDiningAreaRecords(DateOnly date, bool isAm)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString())) {
+                string dateString = date.ToString("yyyy-MM-dd");
+                string query = @"SELECT * FROM DiningAreaRecord WHERE Date = @Date AND IsAm = @IsAm";
+                var queryResult = cnn.Query(query, new { Date = dateString, IsAm = isAm});
+                var diningAreaRecords = queryResult.Select(row => new DiningAreaRecord {
+                    ID = Convert.ToInt32(row.ID),
+                    DiningAreaID = Convert.ToInt32(row.DiningAreaID),
+                    DateOnly = DateOnly.Parse(row.Date),
+                    IsAm = Convert.ToBoolean(row.IsAm),
+                    Sales = Convert.ToSingle(row.Sales),
+                    ServerCount = Convert.ToInt32(row.ServerCount),
+                    PercentageOfSales = Convert.ToSingle(row.PercentageOfSales),
+                    TableStats = new List<TableStat>()
+                }).ToList();
+
+
+                return diningAreaRecords;
             }
         }
         public static List<TableStat> LoadTableStatsByDiningAreaAndDate(int DiningAreaID, DateOnly date, bool isLunch)

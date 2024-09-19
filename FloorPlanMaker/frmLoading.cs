@@ -23,7 +23,8 @@ namespace FloorPlanMakerUI
             Analytics,
             Process,
             staffAllocation,
-            strategy
+            strategy,
+            DataDownload
 
         }
         public frmLoading(string display)
@@ -35,6 +36,13 @@ namespace FloorPlanMakerUI
         {
             InitializeComponent();
             SetGif(gifType);
+        }
+        public frmLoading(GifType gifType, string message)
+        {
+            InitializeComponent();
+            SetGif(gifType);
+            lblMessage.Text = message;
+            this.Height = 390;
         }
 
         private void SetGif(GifType gifType)
@@ -68,6 +76,9 @@ namespace FloorPlanMakerUI
             }
             else if (gifType == GifType.strategy) {
                 pictureBox1.Image = Properties.Resources.strategic_planning;
+            }
+            else if (gifType == GifType.DataDownload) {
+                pictureBox1.Image = Properties.Resources.dataDownload;
             }
         }
 

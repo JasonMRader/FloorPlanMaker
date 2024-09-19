@@ -60,6 +60,7 @@
             lblServersOnShift = new Label();
             lblMissingServers = new Label();
             toolTip1 = new ToolTip(components);
+            btnSwitch = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
@@ -212,6 +213,7 @@
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(180, 190, 200);
+            panel2.Controls.Add(btnSwitch);
             panel2.Controls.Add(flowLast4);
             panel2.Controls.Add(flowLastWeekdayCounts);
             panel2.Controls.Add(lblLast4);
@@ -444,6 +446,16 @@
             toolTip1.InitialDelay = 200;
             toolTip1.ReshowDelay = 40;
             // 
+            // btnSwitch
+            // 
+            btnSwitch.Location = new Point(28, 34);
+            btnSwitch.Name = "btnSwitch";
+            btnSwitch.Size = new Size(75, 23);
+            btnSwitch.TabIndex = 7;
+            btnSwitch.Text = "switch";
+            btnSwitch.UseVisualStyleBackColor = true;
+            btnSwitch.Click += btnSwitch_Click;
+            // 
             // frmNewShiftDatePicker
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -508,5 +520,6 @@
         private FlowLayoutPanel flowLast4;
         private Label lblLast4;
         private Label lblLastWeek;
+        private Button btnSwitch;
     }
 }

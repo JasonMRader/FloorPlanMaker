@@ -16,6 +16,56 @@ namespace FloorplanClassLibrary
             IsAm = isAm;
             ServerCount = GetServerCount();
         }
+        public AreaHistory(AreaHistory areaHistory)
+        {
+            DiningArea = areaHistory.DiningArea;
+            DateOnly = areaHistory.DateOnly;
+            IsAm = areaHistory.IsAm;
+        }
+
+        public AreaHistory(DiningAreaRecord areaRecord)
+        {
+            DiningArea = SqliteDataAccess.LoadDiningAreaByID(areaRecord.DiningAreaID);
+            DateOnly = areaRecord.DateOnly;
+            Sales = areaRecord.Sales;
+            IsAm = areaRecord.IsAm;
+            ServerCount = areaRecord.ServerCount;
+        }
+        public static List<AreaHistory> GetAreaHistoriesFromAreaRecords(List<DiningAreaRecord> records)
+        {
+            List<AreaHistory> areaHistories = new List<AreaHistory>();
+            foreach(DiningAreaRecord record in records) {
+                AreaHistory history = new AreaHistory(record);
+                areaHistories.Add(history);
+            }
+            return areaHistories;
+        }
+        public static List<AreaHistory> GetAverageHistoriesFromRecords(List<DiningAreaRecord> records, List<DiningArea> areas)
+        {
+            List<AreaHistory> areaHistories = new List<AreaHistory>();
+            foreach (DiningAreaRecord record in records) {
+                AreaHistory history = new AreaHistory(record);
+                areaHistories.Add(history);
+            }
+            List<AreaHistory> groupedHistories = new List<AreaHistory>();
+            foreach(DiningArea area in  areas) {
+                var singleAreaHistory = areaHistories.Where(h => h.DiningArea.ID == area.ID).ToList();
+                groupedHistories.Add(GetAverageHistory(singleAreaHistory));
+            }
+
+            return groupedHistories;
+        }
+        public static AreaHistory GetAverageHistory(List<AreaHistory> histories)
+        {
+            if(histories == null) { return null; }
+            AreaHistory first = histories.First();
+            AreaHistory history = new AreaHistory(first);
+           
+            history.Sales = histories.Sum(s => s.Sales) / histories.Count();
+            history.ServerCount = (int)Math.Round((double)(histories.Sum(h => h.ServerCount) / histories.Count()));
+            history.IsAverage = true;
+            return history;
+        }
         public DiningArea DiningArea { get; set; }
         public DateOnly DateOnly { get; set; }
         public List<WeatherData> WeatherData { get; set; } = new List<WeatherData>();

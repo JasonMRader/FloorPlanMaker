@@ -301,114 +301,7 @@ namespace FloorPlanMakerUI
                 CreateCountLabel(flowLast4, area);
             }
         }
-        private void RefreshPreviousFloorplanCounts()
-        {
-            List<AreaHistory> lastWeekAreaHistories = GetAreaHistories(cbIsAm.Checked, -7);
-            List<AreaHistory> last4 = GetHistoryForLastFour();
-            List<AreaHistory> yesterdayAreaHistories = GetAreaHistories(cbIsAm.Checked, -1);
-            CreateAreaHistoryLabelsForLast4(flowLast4, last4);
-            CreateAreaHistoryLabels(flowLastWeekdayCounts, lastWeekAreaHistories, false);
-            CreateAreaHistoryLabels(flowYesterdayCounts, yesterdayAreaHistories, true);
-        }
-
-        private List<AreaHistory> GetHistoryForLastFour()
-        {
-            List<AreaHistory> areaHistories = new List<AreaHistory>();
-            foreach (DiningArea area in this.DiningAreaManager.DiningAreas) {
-                AreaHistory history = new AreaHistory(area, dateOnlySelected, cbIsAm.Checked);
-                history.SetDatesToLastFourWeekdays();
-                areaHistories.Add(history);
-            }
-            return areaHistories;
-        }
-        private List<AreaHistory> GetAreaHistories(bool isAm, int v)
-        {
-            List<AreaHistory> areaHistories = new List<AreaHistory>();
-            foreach (DiningArea area in this.DiningAreaManager.DiningAreas) {
-                areaHistories.Add(new AreaHistory(area, dateOnlySelected.AddDays(v), isAm));
-            }
-            return areaHistories;
-        }
-        private void CreateAreaHistoryLabelsForLast4(FlowLayoutPanel panel, List<AreaHistory> areaHistories)
-        {
-            foreach (AreaHistory areaHistory in areaHistories) {
-                areaHistory.SetDatesToLastFourWeekdays();
-            }
-            foreach (Label lbl in panel.Controls.OfType<Label>()) {
-                if (lbl.Tag is DiningArea area) {
-                    AreaHistory history = areaHistories.FirstOrDefault(x => x.DiningArea == area);
-                    CreateAreaLabel(history, lbl);
-
-                    toolTip1.SetToolTip(lbl, history.GetAreaHistoryLabelToolTip(false));
-
-                }
-            }
-        }
-        private void CreateAreaHistoryLabels(FlowLayoutPanel panel, List<AreaHistory> areaHistories, bool isYesterday)
-        {
-
-
-            foreach (Label lbl in panel.Controls.OfType<Label>()) {
-                if (lbl.Tag is DiningArea area) {
-                    AreaHistory history = areaHistories.FirstOrDefault(x => x.DiningArea == area);
-                    CreateAreaLabel(history, lbl);
-
-                    toolTip1.SetToolTip(lbl, history.GetAreaHistoryLabelToolTip(isYesterday));
-
-                }
-            }
-        }
-        private void CreateAreaHistoryLabelsFORFLOORPLANRECORD(FlowLayoutPanel panel, List<DiningAreaRecord> floorplanRecord, bool isYesterday)
-        {
-
-            //if (cbStatsType.Checked)
-            //{
-            //    foreach (FloorplanRecord areaHistory in floorplanRecord)
-            //    {
-            //        areaHistory.SetDatesToLastFourWeekdays();
-            //    }
-            //}
-            //foreach (Label lbl in panel.Controls.OfType<Label>())
-            //{
-            //    if (lbl.Tag is DiningArea area)
-            //    {
-            //        AreaHistory history = floorplanRecord.FirstOrDefault(x => x.DiningArea == area);
-            //        CreateAreaLabel(history, lbl);
-
-            //        toolTip1.SetToolTip(lbl, history.GetAreaHistoryLabelToolTip(isYesterday));
-
-            //    }
-            //}
-        }
-        private void CreateAreaLabel(AreaHistory history, Label lbl)
-        {
-            if (history == null) {
-                lbl.BackColor = Color.Gray;
-                lbl.ForeColor = Color.LightGray;
-                lbl.Text = "";
-            }
-            else if (history.Sales == 0f) {
-                lbl.BackColor = Color.Gray;
-                lbl.ForeColor = Color.LightGray;
-                if (history.ServerCount > 0) {
-                    lbl.Text = "|" + history.ServerCount.ToString() + "| " + "  ?";
-                }
-                else {
-                    lbl.Text = "";
-                }
-
-            }
-            else if (history.Sales > 0f && history.Sales < 1000f) {
-                lbl.BackColor = Color.Gray;
-                lbl.ForeColor = Color.LightGray;
-                lbl.Text = "|" + history.ServerCount.ToString() + "| " + history.Sales.ToString("C0");
-            }
-            else {
-                lbl.BackColor = UITheme.YesColor;
-                lbl.ForeColor = Color.Black;
-                lbl.Text = "|" + history.ServerCount.ToString() + "| " + history.Sales.ToString("C0");
-            }
-        }
+        
         private void CreateCountLabel(FlowLayoutPanel panel, DiningArea diningArea)
         {
             int width = (flowDiningAreas.Width / (DiningAreaManager.DiningAreas.Count)) - 20;
@@ -601,7 +494,7 @@ namespace FloorPlanMakerUI
                     loadingForm?.Close();
                 }
 
-               
+
                 this.Close();
                 this.Enabled = true;
                 //this.BringToFront();
@@ -661,17 +554,17 @@ namespace FloorPlanMakerUI
             List<AreaHistory> yesterdayAreaHistories = new List<AreaHistory>();
             await Task.Delay(100);  // Small delay to ensure the loading form is fully visible
 
-                await Task.Run(() => {
-                    // Perform background work here
-                    lastWeekAreaHistories = GetAreaHistories(cbIsAm.Checked, -7);
-                    last4 = GetHistoryForLastFour();
-                    yesterdayAreaHistories = GetAreaHistories(cbIsAm.Checked, -1);
-                
-                });
+            await Task.Run(() => {
+                // Perform background work here
+                lastWeekAreaHistories = GetAreaHistories(cbIsAm.Checked, -7);
+                last4 = GetHistoryForLastFour();
+                yesterdayAreaHistories = GetAreaHistories(cbIsAm.Checked, -1);
 
-           
+            });
+
+
             this.Invoke(new Action(() => {
-               
+
                 CreateAreaHistoryLabelsForLast4(flowLast4, last4);
                 CreateAreaHistoryLabels(flowLastWeekdayCounts, lastWeekAreaHistories, false);
                 CreateAreaHistoryLabels(flowYesterdayCounts, yesterdayAreaHistories, true);
@@ -690,40 +583,8 @@ namespace FloorPlanMakerUI
                 this.Enabled = true;
                 this.BringToFront();
             }));
-          
-            //****************************************************************************
-            //frmLoading loadingForm = new frmLoading(frmLoading.GifType.Time);
-            //loadingForm.Show();
-            //this.Enabled = false;
-            //Task.Run(() => {
-            //    List<AreaHistory> lastWeekAreaHistories = GetAreaHistories(cbIsAm.Checked, -7);
-            //    List<AreaHistory> last4 = GetHistoryForLastFour();
-            //    List<AreaHistory> yesterdayAreaHistories = GetAreaHistories(cbIsAm.Checked, -1);
 
-
-            //    this.Invoke(new Action(() => {
-            //        if (isAM) {
-            //            cbIsAm.Image = Resources.smallSunrise;
-            //            cbIsAm.BackColor = Color.FromArgb(251, 175, 0);
-            //        }
-            //        else {
-            //            cbIsAm.Image = Resources.smallMoon;
-            //            cbIsAm.BackColor = Color.FromArgb(117, 70, 104);
-
-            //        }
-            //        CreateAreaHistoryLabelsForLast4(flowLast4, last4);
-            //        CreateAreaHistoryLabels(flowLastWeekdayCounts, lastWeekAreaHistories, false);
-            //        CreateAreaHistoryLabels(flowYesterdayCounts, yesterdayAreaHistories, true);
-            //        //RefreshPreviousFloorplanCounts();
-            //        RefreshForDateSelected();
-            //        txtServerSearch.Focus();
-            //        //GetDateString();
-            //        loadingForm.Close();
-            //        this.Enabled = true;
-            //        this.BringToFront();
-
-            //    }));
-            //});
+           
         }
         private void cbIsAm_Click(object sender, EventArgs e)
         {
@@ -854,23 +715,23 @@ namespace FloorPlanMakerUI
                     Application.Run(loadingForm);  // Start the loading form on a separate UI thread
                 });
 
-                loadingThread.SetApartmentState(ApartmentState.STA);  
-                loadingThread.Start();  
+                loadingThread.SetApartmentState(ApartmentState.STA);
+                loadingThread.Start();
 
                 this.Enabled = false;
-                
+
                 await Task.Delay(100);  // Small delay to ensure the loading form is fully visible
                 SelectedDaysSchedule = await HotSchedulesApiAccess.GetSchedule(dateOnlySelected);
                 //await Task.Run(() => {
                 //    // Perform background work here
-                    
+
 
                 //});
 
 
                 this.Invoke(new Action(() => {
 
-                   
+
                     if (loadingForm != null && loadingForm.InvokeRequired) {
                         loadingForm.Invoke(new Action(() => loadingForm.Close()));  // Close the form on its own thread
                     }
@@ -883,7 +744,7 @@ namespace FloorPlanMakerUI
                     this.Enabled = true;
                     this.BringToFront();
                 }));
-               
+
             }
 
             List<HotSchedulesSchedule> currentSchedule = SelectedDaysSchedule.Where(s => s.IsAM == shiftManager.IsAM).ToList();
@@ -894,7 +755,7 @@ namespace FloorPlanMakerUI
             foreach (HotSchedulesSchedule schedule in currentSchedule) {
                 if (schedule.JobPosId == 9) {
                     Server server = shiftManager.SelectedShift.AllServers.FirstOrDefault(s => s.HSID == schedule.EmpHSId);
-                    
+
                     if (server != null) {
                         shiftManager.SelectedShift.AddNewUnassignedServer(server);
                     }
@@ -978,7 +839,201 @@ namespace FloorPlanMakerUI
                 }
             }
         }
+        private void RefreshPreviousFloorplanCounts()
+        {
+            List<AreaHistory> lastWeekAreaHistories = GetAreaHistories(cbIsAm.Checked, -7);
+            List<AreaHistory> last4 = GetHistoryForLastFour();
+            List<AreaHistory> yesterdayAreaHistories = GetAreaHistories(cbIsAm.Checked, -1);
+            CreateAreaHistoryLabelsForLast4(flowLast4, last4);
+            CreateAreaHistoryLabels(flowLastWeekdayCounts, lastWeekAreaHistories, false);
+            CreateAreaHistoryLabels(flowYesterdayCounts, yesterdayAreaHistories, true);
+        }
 
-       
+        private List<AreaHistory> GetHistoryForLastFour()
+        {
+            List<AreaHistory> areaHistories = new List<AreaHistory>();
+            foreach (DiningArea area in this.DiningAreaManager.DiningAreas) {
+                AreaHistory history = new AreaHistory(area, dateOnlySelected, cbIsAm.Checked);
+                history.SetDatesToLastFourWeekdays();
+                areaHistories.Add(history);
+            }
+            return areaHistories;
+        }
+        private List<AreaHistory> GetAreaHistories(bool isAm, int v)
+        {
+            List<AreaHistory> areaHistories = new List<AreaHistory>();
+            foreach (DiningArea area in this.DiningAreaManager.DiningAreas) {
+                areaHistories.Add(new AreaHistory(area, dateOnlySelected.AddDays(v), isAm));
+            }
+            return areaHistories;
+        }
+        private void CreateAreaHistoryLabelsForLast4(FlowLayoutPanel panel, List<AreaHistory> areaHistories)
+        {
+            foreach (AreaHistory areaHistory in areaHistories) {
+                areaHistory.SetDatesToLastFourWeekdays();
+            }
+            foreach (Label lbl in panel.Controls.OfType<Label>()) {
+                if (lbl.Tag is DiningArea area) {
+                    AreaHistory history = areaHistories.FirstOrDefault(x => x.DiningArea == area);
+                    CreateAreaLabel(history, lbl);
+
+                    toolTip1.SetToolTip(lbl, history.GetAreaHistoryLabelToolTip(false));
+
+                }
+            }
+        }
+        private void CreateAreaHistoryLabels(FlowLayoutPanel panel, List<AreaHistory> areaHistories, bool isYesterday)
+        {
+
+
+            foreach (Label lbl in panel.Controls.OfType<Label>()) {
+                if (lbl.Tag is DiningArea area) {
+                    AreaHistory history = areaHistories.FirstOrDefault(x => x.DiningArea.ID == area.ID);
+                    CreateAreaLabel(history, lbl);
+
+                    //toolTip1.SetToolTip(lbl, history.GetAreaHistoryLabelToolTip(isYesterday));
+
+                }
+            }
+        }
+
+        private void CreateAreaLabel(AreaHistory history, Label lbl)
+        {
+            if (history == null) {
+                lbl.BackColor = Color.Gray;
+                lbl.ForeColor = Color.LightGray;
+                lbl.Text = "";
+            }
+            else if (history.Sales == 0f) {
+                lbl.BackColor = Color.Gray;
+                lbl.ForeColor = Color.LightGray;
+                if (history.ServerCount > 0) {
+                    lbl.Text = "|" + history.ServerCount.ToString() + "| " + "  ?";
+                }
+                else {
+                    lbl.Text = "";
+                }
+
+            }
+            else if (history.Sales > 0f && history.Sales < 1000f) {
+                lbl.BackColor = Color.Gray;
+                lbl.ForeColor = Color.LightGray;
+                lbl.Text = "|" + history.ServerCount.ToString() + "| " + history.Sales.ToString("C0");
+            }
+            else {
+                lbl.BackColor = UITheme.YesColor;
+                lbl.ForeColor = Color.Black;
+                lbl.Text = "|" + history.ServerCount.ToString() + "| " + history.Sales.ToString("C0");
+            }
+        }
+        private void btnSwitch_Click(object sender, EventArgs e)
+        {
+           
+            List<DiningAreaRecord> last4 = GetAreaRecordForLastFour();          
+            List<DiningAreaRecord> yesterdayRecords = SqliteDataAccess.LoadDiningAreaRecords(dateOnlySelected.AddDays(-1), cbIsAm.Checked);
+            List<DiningAreaRecord> lastWeekRecords = SqliteDataAccess.LoadDiningAreaRecords(dateOnlySelected.AddDays(-7), cbIsAm.Checked);
+
+            List<AreaHistory> yesterdayHistory = AreaHistory.GetAreaHistoriesFromAreaRecords(yesterdayRecords);
+            List<AreaHistory> lastWeekHistory = AreaHistory.GetAreaHistoriesFromAreaRecords(lastWeekRecords);
+            List<AreaHistory> last4History = AreaHistory.GetAverageHistoriesFromRecords(last4, DiningAreaManager.DiningAreas);
+
+            CreateAreaHistoryLabelsForLast4COPY(flowLast4, last4History);
+            CreateAreaHistoryLabels(flowLastWeekdayCounts, lastWeekHistory, false);
+            CreateAreaHistoryLabels(flowYesterdayCounts, yesterdayHistory, true);
+
+
+        }
+        private void CreateAreaHistoryLabelsForLast4COPY(FlowLayoutPanel panel, List<AreaHistory> areaHistories)
+        {
+            
+            foreach (Label lbl in panel.Controls.OfType<Label>()) {
+                if (lbl.Tag is DiningArea area) {
+                    AreaHistory history = areaHistories.FirstOrDefault(x => x.DiningArea.ID == area.ID);
+                    CreateAreaLabel(history, lbl);
+
+                    //toolTip1.SetToolTip(lbl, history.GetAreaHistoryLabelToolTip(false));
+
+                }
+            }
+        }
+        private List<DiningAreaRecord> GetAreaRecordForLastFour()
+        {
+            List<DiningAreaRecord> areaHistories = new List<DiningAreaRecord>();
+            var previousWeekdays = new List<DateOnly>();
+            for (int i = 1; i <= 4; i++) {
+                previousWeekdays.Add(dateOnlySelected.AddDays(-7 * i));
+            }
+            int serversUsed = 0;
+            foreach (DateOnly day in previousWeekdays) {
+                List<DiningAreaRecord> matchedRecords = SqliteDataAccess.LoadDiningAreaRecords(day, cbIsAm.Checked);
+                
+                if (matchedRecords != null) {
+                    areaHistories.AddRange(matchedRecords);
+                    serversUsed += matchedRecords.Sum(r => r.ServerCount);
+                }
+            }
+            
+            
+            return areaHistories;
+        }
+        
+        //private void CreateAreaRecordLabelsForLast4(FlowLayoutPanel panel, List<DiningAreaRecord> areaHistories)
+        //{
+        //    foreach (AreaHistory areaHistory in areaHistories) {
+        //        areaHistory.SetDatesToLastFourWeekdays();
+        //    }
+        //    foreach (Label lbl in panel.Controls.OfType<Label>()) {
+        //        if (lbl.Tag is DiningArea area) {
+        //            AreaHistory history = areaHistories.FirstOrDefault(x => x.DiningArea == area);
+        //            CreateAreaLabel(history, lbl);
+
+        //            toolTip1.SetToolTip(lbl, history.GetAreaHistoryLabelToolTip(false));
+
+        //        }
+        //    }
+        //}
+        //private void CreateAreaRecordLabels(FlowLayoutPanel panel, List<DiningAreaRecord> areaHistories, bool isYesterday)
+        //{
+
+
+        //    foreach (Label lbl in panel.Controls.OfType<Label>()) {
+        //        if (lbl.Tag is DiningArea area) {
+        //            AreaHistory history = areaHistories.FirstOrDefault(x => x.DiningArea == area);
+        //            CreateAreaLabel(history, lbl);
+
+        //            toolTip1.SetToolTip(lbl, history.GetAreaHistoryLabelToolTip(isYesterday));
+
+        //        }
+        //    }
+        //}
+        //private void CreateRecordLabel(DiningAreaRecord history, Label lbl)
+        //{
+        //    if (history == null) {
+        //        lbl.BackColor = Color.Gray;
+        //        lbl.ForeColor = Color.LightGray;
+        //        lbl.Text = "";
+        //    }
+        //    else if (history.Sales == 0f) {
+        //        lbl.BackColor = Color.Gray;
+        //        lbl.ForeColor = Color.LightGray;
+        //        if (history.ServerCount > 0) {
+        //            lbl.Text = "|" + history.ServerCount.ToString() + "| " + "  ?";
+        //        }
+        //        else {
+        //            lbl.Text = "";
+        //        }
+
+        //    }
+        //    else if (history.Sales > 0f && history.Sales < 1000f) {
+        //        lbl.BackColor = Color.Gray;
+        //        lbl.ForeColor = Color.LightGray;
+        //        lbl.Text = "|" + history.ServerCount.ToString() + "| " + history.Sales.ToString("C0");
+        //    }
+        //    else {
+        //        lbl.BackColor = UITheme.YesColor;
+        //        lbl.ForeColor = Color.Black;
+        //        lbl.Text = "|" + history.ServerCount.ToString() + "| " + history.Sales.ToString("C0");
+        //    }
+        //}
     }
 }
