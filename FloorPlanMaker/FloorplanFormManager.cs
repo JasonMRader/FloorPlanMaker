@@ -91,8 +91,11 @@ namespace FloorPlanMakerUI
             sectionLabelManager.AssignPickup += OpenPickUpForm;
             this.shiftFilterControl = shiftFilterControl;
             this.shiftFilterControl.UpdateShift += UpdateShiftAnalysis;
+            this.shiftFilterControl.ToggleDayOf += ToggleDayOf;
 
         }
+
+        
 
         private void SectionTabSelectSection(Section obj)
         {
@@ -394,6 +397,15 @@ namespace FloorPlanMakerUI
             sectionPanelManager.UpdateImageLabels();
            
         }
+        private void ToggleDayOf(bool isDayOf)
+        {
+            if(!isDayOf) {
+                UpdateShiftAnalysis();
+            }
+            else {
+                UpdateStatsForDayOf();
+            }
+        }
         private async void UpdateShiftAnalysis()
         {
             //shiftAnalysis.SetStandardFiltersForShift(Shift);
@@ -439,9 +451,16 @@ namespace FloorPlanMakerUI
             sectionPanelManager.UpdateImageLabels();
             
         }
+        private void UpdateStatsForDayOf()
+        {
+            this.tableSalesManager.CurrentStatsPeriod = TableSalesManager.StatsPeriod.Today;
+           
+            this.tableSalesManager.SetStatsList(this.isAm, this.dateOnly);
+            Shift.SelectedDiningArea.SetTableSales(tableSalesManager.Stats);
+        }
         private void UpdateTableStats()
         {
-            //this.tableSalesManager.SetStatsList(this.isAm, this.dateOnly);
+            
 
            
             Shift.SelectedDiningArea.SetTableSales(shiftAnalysis.FilteredTableStats);

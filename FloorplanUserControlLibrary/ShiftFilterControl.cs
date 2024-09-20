@@ -18,6 +18,7 @@ namespace FloorplanUserControlLibrary
         public ShiftAnalysis ShiftAnalysis { get { return _shiftAnalysis; } }
         public event Action UpdateShift;
         public event Action OpenSalesForm;
+        public event Action<bool> ToggleDayOf;
         private DiningAreaManager _areaManager { get; set; } = new DiningAreaManager();
         public ShiftFilterControl()
         {
@@ -189,9 +190,11 @@ namespace FloorplanUserControlLibrary
         {
             if(cbDayOfStats.Checked) {
                 cbDayOfStats.BackColor = UITheme.NoColor;
+                ToggleDayOf?.Invoke(true);
             }
             else {
                 cbDayOfStats.BackColor = Color.LightGray;
+                ToggleDayOf?.Invoke(false);
             }
         }
     }
