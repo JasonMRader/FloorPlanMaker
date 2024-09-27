@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+//using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace FloorplanUserControlLibrary
 {
@@ -140,7 +141,28 @@ namespace FloorplanUserControlLibrary
                 lblMin.Visible = true;
                 lblMax.Visible = true;
                 lblAvg.Visible = true;
+                UpdateAreaLabels();
                 // UpdateChart();
+            }
+        }
+
+        private void UpdateAreaLabels()
+        {
+           foreach(Control c in flowDiningAreas.Controls) {
+                if(c is RadioButton rdo) {
+                    if(rdo.Checked) {
+                        DiningArea area = (DiningArea)rdo.Tag;
+                        DiningAreaStats areaStats = _shiftAnalysis.DiningAreaStats.FirstOrDefault(s => s.DiningAreaID == area.ID);
+                        if (areaStats != null) {
+                            lblAreaAvg.Text = $"Avg: {areaStats.AvgSales:C0}";
+                            lblAreaMax.Text = $"Max: {areaStats.MaxSales:C0}";
+                            lblAreaMin.Text = $"Min: {areaStats.MinSales:C0}";
+                            lblAreaAvg.Visible = true;
+                            lblAreaMax.Visible = true;
+                            lblAreaMin.Visible = true;
+                        }
+                    }
+                }
             }
         }
 
