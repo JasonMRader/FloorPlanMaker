@@ -581,6 +581,7 @@ namespace FloorPlanMakerUI
             {
                 Shift.SelectedFloorplan.SectionIsSelected += UpdateForSelectedSection;
                 Shift.SetDoubles();
+                shiftFilterControl.DiningAreaSelectedChanged(Floorplan.DiningArea);
                 UpdateTableStats();
                 tableControlManager.SetNewFloorplan(Floorplan);
                
@@ -599,7 +600,7 @@ namespace FloorPlanMakerUI
                 
                 sectionLabelManager.ClearAllLabels();
                 tableControlManager.SetDiningArea(Shift.SelectedDiningArea);
-               
+                
                 UpdateTableStats();
                
                 serverControlManager.SetToNoFloorplan();
@@ -608,8 +609,8 @@ namespace FloorPlanMakerUI
                 pnlMainContainer.BackColor = UITheme.SecondColor; 
                 pnlSideContainer.BackColor = UITheme.SecondColor;
                 sectionTabs.SetFloorplanToNone();
-                
 
+                shiftFilterControl.DiningAreaSelectedChanged(Shift.SelectedDiningArea);
             }
         }
 

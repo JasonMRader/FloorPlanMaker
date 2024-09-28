@@ -89,6 +89,18 @@ namespace FloorplanUserControlLibrary
         {
 
         }
+        public void DiningAreaSelectedChanged(DiningArea diningArea)
+        {
+            foreach (Control c in flowDiningAreas.Controls) {
+                if (c is RadioButton rdo) {
+                   DiningArea area = rdo.Tag as DiningArea;
+                    if(diningArea.ID == area.ID) {
+                        rdo.Checked = true;
+                        UpdateAreaLabels();
+                    }
+                }
+            }
+        }
 
         private void cbHolidaysExcluded_CheckedChanged(object sender, EventArgs e)
         {
