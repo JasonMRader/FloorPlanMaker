@@ -152,7 +152,9 @@ namespace FloorplanUserControlLibrary
                 if(c is RadioButton rdo) {
                     if(rdo.Checked) {
                         DiningArea area = (DiningArea)rdo.Tag;
+                        _shiftAnalysis.CalculateDiningAreaStats();
                         DiningAreaStats areaStats = _shiftAnalysis.DiningAreaStats.FirstOrDefault(s => s.DiningAreaID == area.ID);
+                       
                         if (areaStats != null) {
                             lblAreaAvg.Text = $"Avg: {areaStats.AvgSales:C0}";
                             lblAreaMax.Text = $"Max: {areaStats.MaxSales:C0}";
