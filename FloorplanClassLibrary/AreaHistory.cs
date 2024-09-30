@@ -34,9 +34,12 @@ namespace FloorplanClassLibrary
         public static List<AreaHistory> GetAreaHistoriesFromAreaRecords(List<DiningAreaRecord> records)
         {
             List<AreaHistory> areaHistories = new List<AreaHistory>();
-            foreach(DiningAreaRecord record in records) {
-                AreaHistory history = new AreaHistory(record);
-                areaHistories.Add(history);
+            foreach (DiningAreaRecord record in records) {
+                if (record.DiningAreaID != 0) {
+                    AreaHistory history = new AreaHistory(record);
+                    areaHistories.Add(history);
+                }
+
             }
             return areaHistories;
         }
@@ -44,13 +47,19 @@ namespace FloorplanClassLibrary
         {
             List<AreaHistory> areaHistories = new List<AreaHistory>();
             foreach (DiningAreaRecord record in records) {
-                AreaHistory history = new AreaHistory(record);
-                areaHistories.Add(history);
+                if (record.DiningAreaID != 0) {
+                    AreaHistory history = new AreaHistory(record);
+                    areaHistories.Add(history);
+                }
+
             }
             List<AreaHistory> groupedHistories = new List<AreaHistory>();
             foreach(DiningArea area in  areas) {
                 var singleAreaHistory = areaHistories.Where(h => h.DiningArea.ID == area.ID).ToList();
-                groupedHistories.Add(GetAverageHistory(singleAreaHistory));
+                if(singleAreaHistory.Count > 0) {
+                    groupedHistories.Add(GetAverageHistory(singleAreaHistory));
+                }
+                
             }
 
             return groupedHistories;
