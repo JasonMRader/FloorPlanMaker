@@ -9,6 +9,15 @@ using System.Threading.Tasks;
 
 namespace FloorplanClassLibrary
 {
+    public class ReservationResponse
+    {
+        [JsonProperty("hasNextPage")]
+        public bool HasNextPage { get; set; }
+
+        [JsonProperty("data")]
+        public List<Reservation> Data { get; set; }
+    }
+
     public static class ReservationDataAccess
     {
         private static string _accessToken;
@@ -43,6 +52,15 @@ namespace FloorplanClassLibrary
                 throw new InvalidOperationException("API key is missing.");
             }
             return id;
+        }
+        private static string GetOpenTableRID()
+        {
+            string rid = ConfigurationManager.AppSettings["OpenTableRID"];
+            if (string.IsNullOrEmpty(rid)) {
+                throw new InvalidOperationException("API key is missing.");
+            }
+            return rid;
+
         }
         public static async Task<string> GetAccessTokenAsync()
         {
@@ -92,9 +110,10 @@ namespace FloorplanClassLibrary
             [JsonProperty("scope")]
             public string Scope { get; set; }
         }
-        public static async Task<List<Reservation>> GetReservationsAsync(string rid, DateTime scheduledTimeFrom, DateTime scheduledTimeTo)
+        public static async Task<List<Reservation>> GetReservationsAsync(DateTime scheduledTimeFrom, DateTime scheduledTimeTo)
         {
             string accessToken = await GetAccessTokenAsync();
+            string rid = GetOpenTableRID();
 
             string url = "https://platform.opentable.com/sync/v2/reservations";
 

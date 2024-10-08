@@ -483,6 +483,23 @@ namespace FloorPlanMakerUI
 
         }
 
+        private async void btnGetReservations_Click(object sender, EventArgs e)
+        {
+            try {
+                string rid = "12345678"; // Replace with your restaurant ID
+                DateTime scheduledTimeFrom = DateTime.Today;
+                DateTime scheduledTimeTo = DateTime.Today.AddDays(1).AddSeconds(-1);
+
+                var reservations = await ReservationDataAccess.GetReservationsAsync(scheduledTimeFrom, scheduledTimeTo);
+
+                // Bind reservations to a data grid or process as needed
+                MessageBox.Show($"{reservations.Count}");
+            }
+            catch (Exception ex) {
+                MessageBox.Show($"Error: {ex.Message}");
+            }
+        }
+
         public Dictionary<int, ColorPair> Colors { get; } = new Dictionary<int, ColorPair>
                 {
             { 1, new ColorPair(Color.FromArgb(17,100,184), Color.White) },

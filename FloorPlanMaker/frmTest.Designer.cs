@@ -78,6 +78,7 @@
             btnGetDiningAreaSales = new Button();
             nudDiningAreaID = new NumericUpDown();
             lblAreaID = new Label();
+            btnGetReservations = new Button();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudDiningAreaID).BeginInit();
             SuspendLayout();
@@ -521,11 +522,22 @@
             lblAreaID.TabIndex = 17;
             lblAreaID.Text = "Area ID";
             // 
+            // btnGetReservations
+            // 
+            btnGetReservations.Location = new Point(775, 527);
+            btnGetReservations.Name = "btnGetReservations";
+            btnGetReservations.Size = new Size(126, 23);
+            btnGetReservations.TabIndex = 18;
+            btnGetReservations.Text = "Get Reservations";
+            btnGetReservations.UseVisualStyleBackColor = true;
+            btnGetReservations.Click += btnGetReservations_Click;
+            // 
             // frmTest
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1394, 674);
+            Controls.Add(btnGetReservations);
             Controls.Add(lblAreaID);
             Controls.Add(nudDiningAreaID);
             Controls.Add(btnGetDiningAreaSales);
@@ -639,5 +651,6 @@
         private Button btnGetDiningAreaSales;
         private NumericUpDown nudDiningAreaID;
         private Label lblAreaID;
+        private Button btnGetReservations;
     }
 }
