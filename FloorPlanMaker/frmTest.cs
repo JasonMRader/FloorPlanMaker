@@ -486,7 +486,7 @@ namespace FloorPlanMakerUI
         private async void btnGetReservations_Click(object sender, EventArgs e)
         {
             try {
-                string rid = "12345678"; // Replace with your restaurant ID
+                
                 DateTime scheduledTimeFrom = DateTime.Today;
                 DateTime scheduledTimeTo = DateTime.Today.AddDays(1).AddSeconds(-1);
 

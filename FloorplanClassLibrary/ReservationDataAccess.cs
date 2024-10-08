@@ -14,8 +14,17 @@ namespace FloorplanClassLibrary
         [JsonProperty("hasNextPage")]
         public bool HasNextPage { get; set; }
 
-        [JsonProperty("data")]
-        public List<Reservation> Data { get; set; }
+        [JsonProperty("nextPageUrl")]
+        public string NextPageUrl { get; set; }
+
+        [JsonProperty("offset")]
+        public int Offset { get; set; }
+
+        [JsonProperty("limit")]
+        public int Limit { get; set; }
+
+        [JsonProperty("items")]
+        public List<Reservation> Items { get; set; }
     }
 
     public static class ReservationDataAccess
@@ -110,19 +119,20 @@ namespace FloorplanClassLibrary
             [JsonProperty("scope")]
             public string Scope { get; set; }
         }
+
         public static async Task<List<Reservation>> GetReservationsAsync(DateTime scheduledTimeFrom, DateTime scheduledTimeTo)
         {
             string accessToken = await GetAccessTokenAsync();
-            string rid = GetOpenTableRID();
 
             string url = "https://platform.opentable.com/sync/v2/reservations";
+            string rid = GetOpenTableRID();
 
             var queryParams = new Dictionary<string, string>
             {
-                { "rid", rid },
-                { "scheduled_time_from", scheduledTimeFrom.ToString("yyyy-MM-ddTHH:mm:ss") },
-                { "scheduled_time_to", scheduledTimeTo.ToString("yyyy-MM-ddTHH:mm:ss") }
-            };
+        { "rid", rid },
+        { "scheduled_time_from", scheduledTimeFrom.ToString("yyyy-MM-ddTHH:mm:ss") },
+        { "scheduled_time_to", scheduledTimeTo.ToString("yyyy-MM-ddTHH:mm:ss") }
+    };
 
             var queryString = string.Join("&", queryParams.Select(p => $"{p.Key}={Uri.EscapeDataString(p.Value)}"));
             string requestUrl = $"{url}?{queryString}";
@@ -135,8 +145,9 @@ namespace FloorplanClassLibrary
                 if (response.IsSuccessStatusCode) {
                     string content = await response.Content.ReadAsStringAsync();
 
-                    // Assuming the response is a JSON array of reservations
-                    var reservations = JsonConvert.DeserializeObject<List<Reservation>>(content);
+                    // Deserialize into the updated wrapper class
+                    var reservationResponse = JsonConvert.DeserializeObject<ReservationResponse>(content);
+                    var reservations = reservationResponse.Items;
                     return reservations;
                 }
                 else {
@@ -145,6 +156,8 @@ namespace FloorplanClassLibrary
                 }
             }
         }
+
+
 
 
     }
