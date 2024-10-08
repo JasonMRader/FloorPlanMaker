@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace FloorplanClassLibrary
 {
-    internal class Reservation
+    public class Reservation
     {
+        public DateTime DateTime { get; set; }
+        public int Covers { get; set; } 
     }
 }
