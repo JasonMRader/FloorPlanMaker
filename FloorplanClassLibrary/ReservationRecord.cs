@@ -16,6 +16,9 @@ namespace FloorplanClassLibrary
             Covers = reservation.PartySize;
             DateTime = reservation.ScheduledTime;
         }
-        
+        public override string ToString()
+        {
+            return this.DateTime.ToString("h:mm") + ":  " + this.Covers.ToString();
+        }
     }
 }

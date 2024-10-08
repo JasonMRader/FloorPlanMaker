@@ -49,6 +49,7 @@
             lblReservationCount = new Label();
             lblCoverCount = new Label();
             btnGetReservations = new Button();
+            listBox1 = new ListBox();
             SuspendLayout();
             // 
             // dateTimePicker1
@@ -252,11 +253,21 @@
             btnGetReservations.UseVisualStyleBackColor = true;
             btnGetReservations.Click += btnGetReservations_Click;
             // 
+            // listBox1
+            // 
+            listBox1.FormattingEnabled = true;
+            listBox1.ItemHeight = 15;
+            listBox1.Location = new Point(388, 103);
+            listBox1.Name = "listBox1";
+            listBox1.Size = new Size(248, 349);
+            listBox1.TabIndex = 4;
+            // 
             // frmReservationView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(724, 531);
+            Controls.Add(listBox1);
             Controls.Add(btnGetReservations);
             Controls.Add(lblCoverCount);
             Controls.Add(label2);
@@ -309,5 +320,6 @@
         private Label lblReservationCount;
         private Label lblCoverCount;
         private Button btnGetReservations;
+        private ListBox listBox1;
     }
 }
