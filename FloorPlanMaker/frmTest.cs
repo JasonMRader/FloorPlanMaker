@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using Newtonsoft.Json;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Security.Cryptography.X509Certificates;
 //using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace FloorPlanMakerUI
@@ -487,17 +488,28 @@ namespace FloorPlanMakerUI
         {
             try {
                 
-                DateTime scheduledTimeFrom = DateTime.Today;
+                DateTime scheduledTimeFrom = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 16,0,0);
+                
+                
                 DateTime scheduledTimeTo = DateTime.Today.AddDays(1).AddSeconds(-1);
 
                 var reservations = await ReservationDataAccess.GetReservationsAsync(scheduledTimeFrom, scheduledTimeTo);
-
-                // Bind reservations to a data grid or process as needed
-                MessageBox.Show($"{reservations.Count}");
+                List<ReservationRecord> reservationsRecords = GetReservationRecords(reservations);
+                int Covers = reservationsRecords.Sum(r => r.Covers);
+                    // Bind reservations to a data grid or process as needed
+                MessageBox.Show($"{reservationsRecords.Count} resos, {Covers} Covers");
             }
             catch (Exception ex) {
                 MessageBox.Show($"Error: {ex.Message}");
             }
+        }
+        private List<ReservationRecord> GetReservationRecords(List<Reservation> reservations)
+        {
+            List<ReservationRecord> reservationRecords = new List<ReservationRecord>();
+            foreach(Reservation reservation in reservations) {
+                reservationRecords.Add(new ReservationRecord(reservation));
+            }
+            return reservationRecords;
         }
 
         public Dictionary<int, ColorPair> Colors { get; } = new Dictionary<int, ColorPair>
