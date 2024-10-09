@@ -24,29 +24,30 @@ namespace FloorPlanMakerUI
         private async void btnGetReservations_Click(object sender, EventArgs e)
         {
             try {
-                if (rdoPM.Checked) {
-                    startHour = 16;
-                    endHour = 23;
-                }
-                else {
-                    startHour = 9;
-                    endHour = 15;
-                }
-                DateTime dtpDay = dateTimePicker1.Value;
-                DateTime scheduledTimeFrom = new DateTime(dtpDay.Year, dtpDay.Month, dtpDay.Day, startHour, 0, 0);
+                //if (rdoPM.Checked) {
+                //    startHour = 16;
+                //    endHour = 23;
+                //}
+                //else {
+                //    startHour = 9;
+                //    endHour = 15;
+                //}
+                //DateTime dtpDay = dateTimePicker1.Value;
+                //DateTime scheduledTimeFrom = new DateTime(dtpDay.Year, dtpDay.Month, dtpDay.Day, startHour, 0, 0);
 
 
-                DateTime scheduledTimeTo = new DateTime(dtpDay.Year, dtpDay.Month, dtpDay.Day, endHour, 59, 59);
+                //DateTime scheduledTimeTo = new DateTime(dtpDay.Year, dtpDay.Month, dtpDay.Day, endHour, 59, 59);
 
-                var reservations = await ReservationDataAccess.GetReservationsAsync(scheduledTimeFrom, scheduledTimeTo);
-                List<ReservationRecord> reservationsRecords = GetReservationRecords(reservations);
-                reservationsRecords = reservationsRecords.OrderBy(r => r.DateTime).ToList();
-                int Covers = reservationsRecords.Sum(r => r.Covers);
-                // Bind reservations to a data grid or process as needed
-                lblCoverCount.Text = Covers.ToString();
-                lblReservationCount.Text = reservationsRecords.Count.ToString();
-                populateLB(reservationsRecords);
-                SetTimeLabels(reservationsRecords);
+                //var reservations = await ReservationDataAccess.GetReservationsAsync(scheduledTimeFrom, scheduledTimeTo);
+                //List<ReservationRecord> reservationsRecords = GetReservationRecords(reservations);
+                //reservationsRecords = reservationsRecords.OrderBy(r => r.DateTime).ToList();
+                //int Covers = reservationsRecords.Sum(r => r.Covers);
+                DateOnly dtpDay = DateOnly.FromDateTime(dateTimePicker1.Value);
+                ShiftReservations shiftReservations = await ShiftReservations.CreateAsync(dtpDay, rdoAM.Checked);
+                lblCoverCount.Text = shiftReservations.TotalCovers.ToString();
+                lblReservationCount.Text = shiftReservations.TotalResoCount.ToString();
+                populateLB(shiftReservations.ReservationRecords);
+                SetTimeLabels(shiftReservations.ReservationRecords);
                 //MessageBox.Show($"{reservationsRecords.Count} resos, {Covers} Covers");
             }
             catch (Exception ex) {
