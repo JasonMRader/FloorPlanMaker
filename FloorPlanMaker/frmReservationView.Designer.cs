@@ -52,6 +52,22 @@
             listBox1 = new ListBox();
             label10 = new Label();
             lblResoCovers = new Label();
+            label11 = new Label();
+            lbl1to2 = new Label();
+            label13 = new Label();
+            lbl3to4 = new Label();
+            label15 = new Label();
+            lbl5to6 = new Label();
+            label17 = new Label();
+            lbl7to8 = new Label();
+            label19 = new Label();
+            lbl9to12 = new Label();
+            label21 = new Label();
+            lbl13to16 = new Label();
+            label23 = new Label();
+            lbl17to20 = new Label();
+            label25 = new Label();
+            lbl20Plus = new Label();
             SuspendLayout();
             // 
             // dateTimePicker1
@@ -104,7 +120,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(55, 157);
+            label3.Location = new Point(328, 146);
             label3.Name = "label3";
             label3.Size = new Size(31, 15);
             label3.TabIndex = 2;
@@ -113,7 +129,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(55, 204);
+            label4.Location = new Point(328, 193);
             label4.Name = "label4";
             label4.Size = new Size(31, 15);
             label4.TabIndex = 2;
@@ -122,7 +138,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(55, 246);
+            label5.Location = new Point(328, 235);
             label5.Name = "label5";
             label5.Size = new Size(31, 15);
             label5.TabIndex = 2;
@@ -131,7 +147,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(55, 286);
+            label6.Location = new Point(328, 275);
             label6.Name = "label6";
             label6.Size = new Size(31, 15);
             label6.TabIndex = 2;
@@ -140,7 +156,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(55, 328);
+            label7.Location = new Point(328, 317);
             label7.Name = "label7";
             label7.Size = new Size(31, 15);
             label7.TabIndex = 2;
@@ -149,7 +165,7 @@
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(55, 366);
+            label8.Location = new Point(328, 355);
             label8.Name = "label8";
             label8.Size = new Size(31, 15);
             label8.TabIndex = 2;
@@ -158,7 +174,7 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(55, 412);
+            label9.Location = new Point(328, 401);
             label9.Name = "label9";
             label9.Size = new Size(37, 15);
             label9.TabIndex = 2;
@@ -167,7 +183,7 @@
             // lbl4pm
             // 
             lbl4pm.AutoSize = true;
-            lbl4pm.Location = new Point(131, 157);
+            lbl4pm.Location = new Point(404, 146);
             lbl4pm.Name = "lbl4pm";
             lbl4pm.Size = new Size(13, 15);
             lbl4pm.TabIndex = 2;
@@ -176,7 +192,7 @@
             // lbl5pm
             // 
             lbl5pm.AutoSize = true;
-            lbl5pm.Location = new Point(131, 204);
+            lbl5pm.Location = new Point(404, 193);
             lbl5pm.Name = "lbl5pm";
             lbl5pm.Size = new Size(13, 15);
             lbl5pm.TabIndex = 2;
@@ -185,7 +201,7 @@
             // lbl6pm
             // 
             lbl6pm.AutoSize = true;
-            lbl6pm.Location = new Point(131, 246);
+            lbl6pm.Location = new Point(404, 235);
             lbl6pm.Name = "lbl6pm";
             lbl6pm.Size = new Size(13, 15);
             lbl6pm.TabIndex = 2;
@@ -194,7 +210,7 @@
             // lbl7pm
             // 
             lbl7pm.AutoSize = true;
-            lbl7pm.Location = new Point(131, 286);
+            lbl7pm.Location = new Point(404, 275);
             lbl7pm.Name = "lbl7pm";
             lbl7pm.Size = new Size(13, 15);
             lbl7pm.TabIndex = 2;
@@ -203,7 +219,7 @@
             // lbl8pm
             // 
             lbl8pm.AutoSize = true;
-            lbl8pm.Location = new Point(131, 328);
+            lbl8pm.Location = new Point(404, 317);
             lbl8pm.Name = "lbl8pm";
             lbl8pm.Size = new Size(13, 15);
             lbl8pm.TabIndex = 2;
@@ -212,7 +228,7 @@
             // lbl9pm
             // 
             lbl9pm.AutoSize = true;
-            lbl9pm.Location = new Point(131, 366);
+            lbl9pm.Location = new Point(404, 355);
             lbl9pm.Name = "lbl9pm";
             lbl9pm.Size = new Size(13, 15);
             lbl9pm.TabIndex = 2;
@@ -221,7 +237,7 @@
             // lbl10pm
             // 
             lbl10pm.AutoSize = true;
-            lbl10pm.Location = new Point(131, 412);
+            lbl10pm.Location = new Point(404, 401);
             lbl10pm.Name = "lbl10pm";
             lbl10pm.Size = new Size(13, 15);
             lbl10pm.TabIndex = 2;
@@ -259,7 +275,7 @@
             // 
             listBox1.FormattingEnabled = true;
             listBox1.ItemHeight = 15;
-            listBox1.Location = new Point(388, 103);
+            listBox1.Location = new Point(46, 146);
             listBox1.Name = "listBox1";
             listBox1.Size = new Size(248, 349);
             listBox1.TabIndex = 4;
@@ -282,6 +298,150 @@
             lblResoCovers.TabIndex = 2;
             lblResoCovers.Text = "0";
             // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Location = new Point(514, 146);
+            label11.Name = "label11";
+            label11.Size = new Size(24, 15);
+            label11.TabIndex = 2;
+            label11.Text = "1-2";
+            // 
+            // lbl1to2
+            // 
+            lbl1to2.AutoSize = true;
+            lbl1to2.Location = new Point(590, 146);
+            lbl1to2.Name = "lbl1to2";
+            lbl1to2.Size = new Size(13, 15);
+            lbl1to2.TabIndex = 2;
+            lbl1to2.Text = "0";
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Location = new Point(514, 193);
+            label13.Name = "label13";
+            label13.Size = new Size(24, 15);
+            label13.TabIndex = 2;
+            label13.Text = "3-4";
+            // 
+            // lbl3to4
+            // 
+            lbl3to4.AutoSize = true;
+            lbl3to4.Location = new Point(590, 193);
+            lbl3to4.Name = "lbl3to4";
+            lbl3to4.Size = new Size(13, 15);
+            lbl3to4.TabIndex = 2;
+            lbl3to4.Text = "0";
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Location = new Point(514, 235);
+            label15.Name = "label15";
+            label15.Size = new Size(24, 15);
+            label15.TabIndex = 2;
+            label15.Text = "5-6";
+            // 
+            // lbl5to6
+            // 
+            lbl5to6.AutoSize = true;
+            lbl5to6.Location = new Point(590, 235);
+            lbl5to6.Name = "lbl5to6";
+            lbl5to6.Size = new Size(13, 15);
+            lbl5to6.TabIndex = 2;
+            lbl5to6.Text = "0";
+            // 
+            // label17
+            // 
+            label17.AutoSize = true;
+            label17.Location = new Point(514, 275);
+            label17.Name = "label17";
+            label17.Size = new Size(24, 15);
+            label17.TabIndex = 2;
+            label17.Text = "7-8";
+            // 
+            // lbl7to8
+            // 
+            lbl7to8.AutoSize = true;
+            lbl7to8.Location = new Point(590, 275);
+            lbl7to8.Name = "lbl7to8";
+            lbl7to8.Size = new Size(13, 15);
+            lbl7to8.TabIndex = 2;
+            lbl7to8.Text = "0";
+            // 
+            // label19
+            // 
+            label19.AutoSize = true;
+            label19.Location = new Point(514, 317);
+            label19.Name = "label19";
+            label19.Size = new Size(30, 15);
+            label19.TabIndex = 2;
+            label19.Text = "9-12";
+            // 
+            // lbl9to12
+            // 
+            lbl9to12.AutoSize = true;
+            lbl9to12.Location = new Point(590, 317);
+            lbl9to12.Name = "lbl9to12";
+            lbl9to12.Size = new Size(13, 15);
+            lbl9to12.TabIndex = 2;
+            lbl9to12.Text = "0";
+            // 
+            // label21
+            // 
+            label21.AutoSize = true;
+            label21.Location = new Point(514, 355);
+            label21.Name = "label21";
+            label21.Size = new Size(36, 15);
+            label21.TabIndex = 2;
+            label21.Text = "13-16";
+            // 
+            // lbl13to16
+            // 
+            lbl13to16.AutoSize = true;
+            lbl13to16.Location = new Point(590, 355);
+            lbl13to16.Name = "lbl13to16";
+            lbl13to16.Size = new Size(13, 15);
+            lbl13to16.TabIndex = 2;
+            lbl13to16.Text = "0";
+            // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.Location = new Point(514, 401);
+            label23.Name = "label23";
+            label23.Size = new Size(36, 15);
+            label23.TabIndex = 2;
+            label23.Text = "17-20";
+            // 
+            // lbl17to20
+            // 
+            lbl17to20.AutoSize = true;
+            lbl17to20.Location = new Point(590, 401);
+            lbl17to20.Name = "lbl17to20";
+            lbl17to20.Size = new Size(13, 15);
+            lbl17to20.TabIndex = 2;
+            lbl17to20.Text = "0";
+            // 
+            // label25
+            // 
+            label25.AutoSize = true;
+            label25.Location = new Point(514, 440);
+            label25.Name = "label25";
+            label25.Size = new Size(27, 15);
+            label25.TabIndex = 2;
+            label25.Text = "20+";
+            // 
+            // lbl20Plus
+            // 
+            lbl20Plus.AutoSize = true;
+            lbl20Plus.Location = new Point(590, 440);
+            lbl20Plus.Name = "lbl20Plus";
+            lbl20Plus.Size = new Size(13, 15);
+            lbl20Plus.TabIndex = 2;
+            lbl20Plus.Text = "0";
+            // 
             // frmReservationView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -293,20 +453,36 @@
             Controls.Add(lblCoverCount);
             Controls.Add(label10);
             Controls.Add(label2);
+            Controls.Add(lbl20Plus);
+            Controls.Add(lbl17to20);
             Controls.Add(lbl10pm);
+            Controls.Add(label25);
+            Controls.Add(label23);
             Controls.Add(label9);
+            Controls.Add(lbl13to16);
             Controls.Add(lbl9pm);
+            Controls.Add(label21);
             Controls.Add(label8);
+            Controls.Add(lbl9to12);
             Controls.Add(lbl8pm);
+            Controls.Add(label19);
             Controls.Add(label7);
+            Controls.Add(lbl7to8);
             Controls.Add(lbl7pm);
+            Controls.Add(label17);
             Controls.Add(label6);
+            Controls.Add(lbl5to6);
             Controls.Add(lbl6pm);
+            Controls.Add(label15);
             Controls.Add(label5);
+            Controls.Add(lbl3to4);
             Controls.Add(lbl5pm);
+            Controls.Add(label13);
             Controls.Add(label4);
+            Controls.Add(lbl1to2);
             Controls.Add(lbl4pm);
             Controls.Add(lblReservationCount);
+            Controls.Add(label11);
             Controls.Add(label3);
             Controls.Add(label1);
             Controls.Add(rdoPM);
@@ -345,5 +521,21 @@
         private ListBox listBox1;
         private Label label10;
         private Label lblResoCovers;
+        private Label label11;
+        private Label lbl1to2;
+        private Label label13;
+        private Label lbl3to4;
+        private Label label15;
+        private Label lbl5to6;
+        private Label label17;
+        private Label lbl7to8;
+        private Label label19;
+        private Label lbl9to12;
+        private Label label21;
+        private Label lbl13to16;
+        private Label label23;
+        private Label lbl17to20;
+        private Label label25;
+        private Label lbl20Plus;
     }
 }

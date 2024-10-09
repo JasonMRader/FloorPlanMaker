@@ -32,12 +32,26 @@ namespace FloorPlanMakerUI
                 lblReservationCount.Text = shiftReservations.TotalResoCount.ToString();
                 populateLB(shiftReservations.ReservationRecords);
                 SetTimeLabels(shiftReservations.ReservationRecords);
+                SetPartySizeLabels(shiftReservations);
 
             }
             catch (Exception ex) {
                 MessageBox.Show($"Error: {ex.Message}");
             }
         }
+
+        private void SetPartySizeLabels(ShiftReservations shiftReservations)
+        {
+            lbl1to2.Text = shiftReservations.ResosOfPartSize(1,2).Count.ToString();
+            lbl3to4.Text = shiftReservations.ResosOfPartSize(3, 4).Count.ToString();
+            lbl5to6.Text = shiftReservations.ResosOfPartSize(5, 6).Count.ToString();
+            lbl7to8.Text = shiftReservations.ResosOfPartSize(7, 8).Count.ToString();
+            lbl9to12.Text = shiftReservations.ResosOfPartSize(9, 12).Count.ToString();
+            lbl13to16.Text = shiftReservations.ResosOfPartSize(13, 16).Count.ToString();
+            lbl17to20.Text = shiftReservations.ResosOfPartSize(17, 20).Count.ToString();
+            lbl20Plus.Text = shiftReservations.ResosOfPartSize(20, 200000).Count.ToString();
+        }
+
         private void populateLB(List<ReservationRecord> reservations)
         {
             listBox1.Items.Clear();

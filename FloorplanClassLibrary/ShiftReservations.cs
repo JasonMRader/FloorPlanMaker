@@ -29,7 +29,7 @@ namespace FloorplanClassLibrary
         public DateOnly DateOnly { get; set; }
         public bool IsAm { get; set; }
         public int StartHour {
-            get { 
+            get {
                 if (IsAm) {
                     return 9;
                 }
@@ -50,6 +50,7 @@ namespace FloorplanClassLibrary
         }
 
         public List<ReservationRecord> ReservationRecords { get; set; } = new List<ReservationRecord>();
+        public List<ReservationRecord> PreBookedRecords { get; set; } = new List<ReservationRecord> ();
         public int TotalCovers {
             get {
                 return ReservationRecords.Sum(r => r.Covers);
@@ -74,23 +75,29 @@ namespace FloorplanClassLibrary
             }
         }
         private async Task InitializeReservationRecordsAsync()
-    {
-        DateTime scheduledTimeFrom = new DateTime(DateOnly.Year, DateOnly.Month, DateOnly.Day, StartHour, 0, 0);
-        DateTime scheduledTimeTo = new DateTime(DateOnly.Year, DateOnly.Month, DateOnly.Day, EndHour, 59, 59);
+        {
+            DateTime scheduledTimeFrom = new DateTime(DateOnly.Year, DateOnly.Month, DateOnly.Day, StartHour, 0, 0);
+            DateTime scheduledTimeTo = new DateTime(DateOnly.Year, DateOnly.Month, DateOnly.Day, EndHour, 59, 59);
 
-        var reservations = await ReservationDataAccess.GetReservationsAsync(scheduledTimeFrom, scheduledTimeTo);
-        SetReservationRecords(reservations);
-    }
+            var reservations = await ReservationDataAccess.GetReservationsAsync(scheduledTimeFrom, scheduledTimeTo);
+            SetReservationRecords(reservations);
+        }
 
-    private void SetReservationRecords(List<Reservation> reservations)
-    {
+        private void SetReservationRecords(List<Reservation> reservations)
+        {
             reservations.RemoveAll(r => r.State == "Cancelled");
-        List<ReservationRecord> reservationRecords = reservations
-            .Select(reservation => new ReservationRecord(reservation))
-            .OrderBy(r => r.DateTime)
-            .ToList();
+            List<ReservationRecord> reservationRecords = reservations
+                .Select(reservation => new ReservationRecord(reservation))
+                .OrderBy(r => r.DateTime)
+                .ToList();
 
-        this.ReservationRecords = reservationRecords;
+            this.ReservationRecords = reservationRecords;
+            this.PreBookedRecords = reservationRecords.Where(r => r.Origin != ReservationRecord.ResoOrigin.WalkIn).ToList();
+        }
+        public List<ReservationRecord> ResosOfPartSize(int min, int max)
+        {
+            return PreBookedRecords.Where(r => r.Covers >= min && r.Covers <= max).ToList();
+        }
     }
-    }
+    
 }
