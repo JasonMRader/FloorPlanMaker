@@ -42,11 +42,13 @@ namespace FloorPlanMakerUI
             rdoWeather.CheckedChanged += rdoViewType_CheckChanged;
             rdoReservations.CheckedChanged += rdoViewType_CheckChanged;
             rdoSalesStats.CheckedChanged += rdoViewType_CheckChanged;
+            shiftReservationControl = new ShiftReservationControl();
+            flowResoPanel.Controls.Add(shiftReservationControl);
             PopulateFlowPanelForShiftData();
 
 
         }
-
+        public ShiftReservationControl ShiftReservationControl { get {  return shiftReservationControl; } }
         private void OpenSalesForm()
         {
             frmSalesStats frmSalesStats = new frmSalesStats(shiftFilterControl);
@@ -78,7 +80,7 @@ namespace FloorPlanMakerUI
         private void PopulateFlowPanelForShiftData()
         {
             PopulateWeatherControlsForDateAndShift();
-            PopulateReservationControlsForDateAndShift();
+            //PopulateReservationControlsForDateAndShift();
             PopulateSaleStatsFilter();
             //if (rdoWeather.Checked)
             //{
@@ -110,6 +112,7 @@ namespace FloorPlanMakerUI
         private DateOnly dateOnly { get; set; }
         private Shift shift { get; set; }
         private ShiftFilterControl shiftFilterControl { get; set; }
+        private ShiftReservationControl shiftReservationControl { get; set; }
         private async void PopulateWeatherControlsForDateAndShift()
         {
             // Clear any previous data and fetch new weather data
@@ -150,15 +153,15 @@ namespace FloorPlanMakerUI
         {          
            
             flowResos.Controls.Clear();
-            Label label = new Label
-            {
-                AutoSize = false,
-                Size = new Size(flowHourlyWeather.Width, flowHourlyWeather.Height),
-                TextAlign = ContentAlignment.MiddleCenter,
-                Text = "Reservation Data Integration Coming Soon!",
-                Font = UITheme.LargeFont,
-            };
-            flowResos.Controls.Add(label);
+            //Label label = new Label
+            //{
+            //    AutoSize = false,
+            //    Size = new Size(flowHourlyWeather.Width, flowHourlyWeather.Height),
+            //    TextAlign = ContentAlignment.MiddleCenter,
+            //    Text = "Reservation Data Integration Coming Soon!",
+            //    Font = UITheme.LargeFont,
+            //};
+            //flowResos.Controls.Add(label);
         }
         public void SetNewShift(Shift shift)
         {

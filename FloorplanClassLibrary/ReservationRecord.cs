@@ -10,6 +10,11 @@ namespace FloorplanClassLibrary
     {
         public int Covers { get; set; } 
         public DateTime DateTime { get; set; }
+        public TimeOnly timeOnly {
+            get {
+                return new TimeOnly(DateTime.Hour, DateTime.Minute, DateTime.Second);
+            }
+        }
         public string Name { get; set; }
         public ResoOrigin Origin { get; set; }
         public enum ResoOrigin {

@@ -76,6 +76,7 @@ namespace FloorPlanMaker
         {
             shiftFilterControl = new ShiftFilterControl();
             
+            
             InitializeComponent();
             pnlStatMode.Controls.Add(shiftFilterControl);
 
@@ -97,7 +98,7 @@ namespace FloorPlanMaker
 
             floorplanManager = new FloorplanFormManager(this, pnlFloorPlan, flowServersInFloorplan, flowSectionSelect,
                 pnlMainContainer, pnlSideContainer, sectionHeaderDisplay, diningAreaButtonHandeler,
-                shiftFilterControl, sectionTabs, pnlIndicatorChild);
+                shiftFilterControl, sectionTabs, pnlIndicatorChild, shiftDetailManager.ShiftReservationControl);
 
             // Subscribe to the event
             //floorplanManager.SectionLabelRemoved += FloorplanManager_SectionLabelRemoved;

@@ -31,7 +31,7 @@ namespace FloorplanClassLibrary
         public int StartHour {
             get {
                 if (IsAm) {
-                    return 9;
+                    return 10;
                 }
                 else {
                     return 16;
@@ -44,7 +44,7 @@ namespace FloorplanClassLibrary
                     return 15;
                 }
                 else {
-                    return 22;
+                    return 23;
                 }
             }
         }
@@ -58,7 +58,9 @@ namespace FloorplanClassLibrary
         }
         public int TotalResoCount {
             get {
-                return ReservationRecords.Count();
+                return ReservationRecords.Where(
+                    r => r.Origin == ReservationRecord.ResoOrigin.Web
+                    || r.Origin == ReservationRecord.ResoOrigin.Phone).ToList().Count();
             }
         }
         public int TotalResoCovers {
@@ -97,6 +99,20 @@ namespace FloorplanClassLibrary
         public List<ReservationRecord> ResosOfPartSize(int min, int max)
         {
             return PreBookedRecords.Where(r => r.Covers >= min && r.Covers <= max).ToList();
+        }
+        public Dictionary<TimeOnly, List<ReservationRecord>> GetTimeDistribution()
+        {
+            Dictionary<TimeOnly, List<ReservationRecord>> timeDistribution = new Dictionary<TimeOnly, List<ReservationRecord>>();
+            TimeOnly endTime = new TimeOnly(EndHour, 0,0);
+            TimeOnly startTime = PreBookedRecords.Min(r => r.timeOnly);
+            
+            for(startTime = new TimeOnly(startTime.Hour, 0, 0); startTime <= endTime; startTime = startTime.AddMinutes(15)) {
+                List<ReservationRecord> groupedRecords = PreBookedRecords.Where(
+                    r => r.timeOnly >= startTime && r.timeOnly < startTime.AddMinutes(15)).ToList();
+                timeDistribution.TryAdd(startTime, groupedRecords);
+
+            }
+            return timeDistribution;
         }
     }
     

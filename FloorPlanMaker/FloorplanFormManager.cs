@@ -53,6 +53,7 @@ namespace FloorPlanMakerUI
         private SectionPanelManager sectionPanelManager { get; set; }
         private ServerControlManager serverControlManager { get; set; }
         private ShiftFilterControl shiftFilterControl { get; set; }
+        private ShiftReservationControl shiftReservationControl { get; set; }   
         private ShiftAnalysis shiftAnalysis { get; set; } = new ShiftAnalysis();
         private SectionTabs sectionTabs { get; set; }
         private List<TablePercentageRecord> tablePercentageRecords = new List<TablePercentageRecord>();
@@ -64,7 +65,8 @@ namespace FloorPlanMakerUI
         public FloorplanFormManager(Form mainForm, Panel pnlFloorPlan, FlowLayoutPanel flowServersInFloorplan, 
             FlowLayoutPanel flowSectionSelect, Panel pnlContainer, Panel pnlSideContainer,
             SectionHeaderDisplay headerDisplay, DiningAreaButtonHandeler diningAreaButtonHandeler,
-            ShiftFilterControl shiftFilterControl, SectionTabs sectionTabs, Panel pnlIndicatorChild)
+            ShiftFilterControl shiftFilterControl, SectionTabs sectionTabs, Panel pnlIndicatorChild,
+            ShiftReservationControl shiftReservationControl)
         {
             this.mainForm = mainForm;
             this.Shift = new Shift();           
@@ -92,6 +94,7 @@ namespace FloorPlanMakerUI
             this.shiftFilterControl = shiftFilterControl;
             this.shiftFilterControl.UpdateShift += UpdateShiftAnalysis;
             this.shiftFilterControl.ToggleDayOf += ToggleDayOf;
+            this.shiftReservationControl = shiftReservationControl;
 
         }
 
@@ -548,6 +551,9 @@ namespace FloorPlanMakerUI
         public async void SetViewedFloorplan(DateOnly dateOnlySelected, bool isAM)
         {
            
+            if(this.Shift.DateOnly != dateOnlySelected || this.Shift.IsAM != isAM) {
+                shiftReservationControl.SetForNewShift(dateOnlySelected, isAM);
+            }
             if (this.Shift.DateOnly != dateOnlySelected)
             {
                 this.Shift.DateOnly = dateOnlySelected;               
