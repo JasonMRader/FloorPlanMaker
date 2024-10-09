@@ -11,10 +11,25 @@ namespace FloorplanClassLibrary
         public int Covers { get; set; } 
         public DateTime DateTime { get; set; }
         public string Name { get; set; }
+        public ResoOrigin Origin { get; set; }
+        public enum ResoOrigin {
+            Web, 
+            Phone,
+            WalkIn
+        }
         public ReservationRecord(Reservation reservation)
         {
             Covers = reservation.PartySize;
             DateTime = reservation.ScheduledTime;
+            if(reservation.Origin == "Web") {
+                this.Origin = ResoOrigin.Web;
+            }
+            else if(reservation.Origin == "Phone") {
+                this.Origin = ResoOrigin.Phone;
+            }
+            else {
+                this.Origin = ResoOrigin.WalkIn;
+            }
         }
         public override string ToString()
         {
