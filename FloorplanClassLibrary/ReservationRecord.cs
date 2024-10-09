@@ -15,6 +15,7 @@ namespace FloorplanClassLibrary
                 return new TimeOnly(DateTime.Hour, DateTime.Minute, DateTime.Second);
             }
         }
+        public string request { get; set; } = string.Empty;
         public string Name { get; set; }
         public ResoOrigin Origin { get; set; }
         public enum ResoOrigin {
@@ -34,6 +35,18 @@ namespace FloorplanClassLibrary
             }
             else {
                 this.Origin = ResoOrigin.WalkIn;
+            }
+            string venue_notes = "";
+            string table_category = "";
+            string guest_request = "";
+            if(reservation.VenueNotes != null) {
+                request += "\n" + reservation.VenueNotes;
+            }
+            if(reservation.GuestRequest != null) {
+                request += "\n" + reservation.GuestRequest;
+            }
+            if(reservation.TableCategory  != null) {
+                request += "\n" + reservation.TableCategory;
             }
         }
         public override string ToString()
