@@ -34,14 +34,14 @@ namespace FloorplanClassLibrary
                     return 9;
                 }
                 else {
-                    return 15;
+                    return 16;
                 }
             }
         }
         public int EndHour {
             get {
                 if (IsAm) {
-                    return 16;
+                    return 15;
                 }
                 else {
                     return 22;
@@ -84,6 +84,7 @@ namespace FloorplanClassLibrary
 
     private void SetReservationRecords(List<Reservation> reservations)
     {
+            reservations.RemoveAll(r => r.State == "Cancelled");
         List<ReservationRecord> reservationRecords = reservations
             .Select(reservation => new ReservationRecord(reservation))
             .OrderBy(r => r.DateTime)

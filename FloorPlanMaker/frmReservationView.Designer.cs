@@ -50,6 +50,8 @@
             lblCoverCount = new Label();
             btnGetReservations = new Button();
             listBox1 = new ListBox();
+            label10 = new Label();
+            lblResoCovers = new Label();
             SuspendLayout();
             // 
             // dateTimePicker1
@@ -93,11 +95,11 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(285, 67);
+            label2.Location = new Point(272, 67);
             label2.Name = "label2";
-            label2.Size = new Size(43, 15);
+            label2.Size = new Size(71, 15);
             label2.TabIndex = 2;
-            label2.Text = "Covers";
+            label2.Text = "Total Covers";
             // 
             // label3
             // 
@@ -237,7 +239,7 @@
             // lblCoverCount
             // 
             lblCoverCount.AutoSize = true;
-            lblCoverCount.Location = new Point(285, 94);
+            lblCoverCount.Location = new Point(272, 94);
             lblCoverCount.Name = "lblCoverCount";
             lblCoverCount.Size = new Size(13, 15);
             lblCoverCount.TabIndex = 2;
@@ -262,6 +264,24 @@
             listBox1.Size = new Size(248, 349);
             listBox1.TabIndex = 4;
             // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Location = new Point(165, 67);
+            label10.Name = "label10";
+            label10.Size = new Size(71, 15);
+            label10.TabIndex = 2;
+            label10.Text = "Reso Covers";
+            // 
+            // lblResoCovers
+            // 
+            lblResoCovers.AutoSize = true;
+            lblResoCovers.Location = new Point(165, 94);
+            lblResoCovers.Name = "lblResoCovers";
+            lblResoCovers.Size = new Size(13, 15);
+            lblResoCovers.TabIndex = 2;
+            lblResoCovers.Text = "0";
+            // 
             // frmReservationView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -269,7 +289,9 @@
             ClientSize = new Size(724, 531);
             Controls.Add(listBox1);
             Controls.Add(btnGetReservations);
+            Controls.Add(lblResoCovers);
             Controls.Add(lblCoverCount);
+            Controls.Add(label10);
             Controls.Add(label2);
             Controls.Add(lbl10pm);
             Controls.Add(label9);
@@ -321,5 +343,7 @@
         private Label lblCoverCount;
         private Button btnGetReservations;
         private ListBox listBox1;
+        private Label label10;
+        private Label lblResoCovers;
     }
 }

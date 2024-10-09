@@ -24,31 +24,15 @@ namespace FloorPlanMakerUI
         private async void btnGetReservations_Click(object sender, EventArgs e)
         {
             try {
-                //if (rdoPM.Checked) {
-                //    startHour = 16;
-                //    endHour = 23;
-                //}
-                //else {
-                //    startHour = 9;
-                //    endHour = 15;
-                //}
-                //DateTime dtpDay = dateTimePicker1.Value;
-                //DateTime scheduledTimeFrom = new DateTime(dtpDay.Year, dtpDay.Month, dtpDay.Day, startHour, 0, 0);
 
-
-                //DateTime scheduledTimeTo = new DateTime(dtpDay.Year, dtpDay.Month, dtpDay.Day, endHour, 59, 59);
-
-                //var reservations = await ReservationDataAccess.GetReservationsAsync(scheduledTimeFrom, scheduledTimeTo);
-                //List<ReservationRecord> reservationsRecords = GetReservationRecords(reservations);
-                //reservationsRecords = reservationsRecords.OrderBy(r => r.DateTime).ToList();
-                //int Covers = reservationsRecords.Sum(r => r.Covers);
                 DateOnly dtpDay = DateOnly.FromDateTime(dateTimePicker1.Value);
                 ShiftReservations shiftReservations = await ShiftReservations.CreateAsync(dtpDay, rdoAM.Checked);
                 lblCoverCount.Text = shiftReservations.TotalCovers.ToString();
+                lblResoCovers.Text = shiftReservations.TotalResoCovers.ToString();
                 lblReservationCount.Text = shiftReservations.TotalResoCount.ToString();
                 populateLB(shiftReservations.ReservationRecords);
                 SetTimeLabels(shiftReservations.ReservationRecords);
-                //MessageBox.Show($"{reservationsRecords.Count} resos, {Covers} Covers");
+
             }
             catch (Exception ex) {
                 MessageBox.Show($"Error: {ex.Message}");
@@ -72,10 +56,10 @@ namespace FloorPlanMakerUI
                 endHour = 15;
             }
             List<int> covers = new List<int>();
-            for(int i = startHour; i <= endHour; i++) {
+            for (int i = startHour; i <= endHour; i++) {
                 List<ReservationRecord> groupedResos = reservationRecords.Where(r => r.DateTime.Hour == i).ToList();
                 int coversThisHour = groupedResos.Sum(r => r.Covers);
-                if(i == 16) {
+                if (i == 16) {
                     lbl4pm.Text = coversThisHour.ToString();
                 }
                 if (i == 17) {
