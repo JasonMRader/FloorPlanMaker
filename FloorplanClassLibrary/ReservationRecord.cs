@@ -11,6 +11,7 @@ namespace FloorplanClassLibrary
         public int Covers { get; set; } 
         public DateTime DateTime { get; set; }
         public DateTime TimeCreated { get; set; }
+        public DateTime TimeUpdated { get; set; }
         public List<string> TableNumbers { get; set; } = new List<string>();
         public List<string> VisitTags { get; set; } = new List<string>();
         public float? CheckTotal { get; set; } = 0;
@@ -30,6 +31,7 @@ namespace FloorplanClassLibrary
             Covers = reservation.PartySize;
             DateTime = reservation.ScheduledTime;
             TimeCreated = reservation.CreatedDate;
+            TimeUpdated = reservation.UpdatedAt;
             if(reservation.State != null) {
                 State = reservation.State;
             }
