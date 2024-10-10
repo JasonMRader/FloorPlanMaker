@@ -103,9 +103,9 @@ namespace FloorplanClassLibrary
         public Dictionary<TimeOnly, List<ReservationRecord>> GetTimeDistribution()
         {
             Dictionary<TimeOnly, List<ReservationRecord>> timeDistribution = new Dictionary<TimeOnly, List<ReservationRecord>>();
-            TimeOnly endTime = new TimeOnly(EndHour, 0,0);
+            //TimeOnly endTime = new TimeOnly(EndHour, 0,0);
             TimeOnly startTime = PreBookedRecords.Min(r => r.timeOnly);
-            
+            TimeOnly endTime = PreBookedRecords.Max(r => r.timeOnly);
             for(startTime = new TimeOnly(startTime.Hour, 0, 0); startTime <= endTime; startTime = startTime.AddMinutes(15)) {
                 List<ReservationRecord> groupedRecords = PreBookedRecords.Where(
                     r => r.timeOnly >= startTime && r.timeOnly < startTime.AddMinutes(15)).ToList();

@@ -15,6 +15,11 @@ namespace FloorplanClassLibrary
                 return new TimeOnly(DateTime.Hour, DateTime.Minute, DateTime.Second);
             }
         }
+        public string TimeDisplay {
+            get {
+                return timeOnly.ToString("h:mm");
+            }
+        }
         public string request { get; set; } = string.Empty;
         public string Name { get; set; }
         public ResoOrigin Origin { get; set; }
