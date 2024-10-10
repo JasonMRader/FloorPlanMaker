@@ -42,17 +42,17 @@
             lbl5Largest = new Label();
             panel3 = new Panel();
             panel4 = new Panel();
-            label2 = new Label();
-            label3 = new Label();
-            label4 = new Label();
-            label5 = new Label();
-            label6 = new Label();
-            label7 = new Label();
-            lbl1to4Count = new Label();
-            lbl5to8Count = new Label();
-            lbl9to14Count = new Label();
-            lbl15to19Count = new Label();
             lbl20PlusCount = new Label();
+            label7 = new Label();
+            lbl15to19Count = new Label();
+            label6 = new Label();
+            lbl9to14Count = new Label();
+            label5 = new Label();
+            lbl5to8Count = new Label();
+            lbl1to4Count = new Label();
+            label4 = new Label();
+            label3 = new Label();
+            label2 = new Label();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel2.SuspendLayout();
@@ -66,7 +66,7 @@
             panel1.BackColor = Color.FromArgb(180, 190, 200);
             panel1.Controls.Add(lblParties);
             panel1.Controls.Add(pictureBox1);
-            panel1.Location = new Point(7, 10);
+            panel1.Location = new Point(7, 15);
             panel1.Name = "panel1";
             panel1.Size = new Size(90, 37);
             panel1.TabIndex = 0;
@@ -97,7 +97,7 @@
             panel2.BackColor = Color.FromArgb(180, 190, 200);
             panel2.Controls.Add(lblCovers);
             panel2.Controls.Add(pictureBox2);
-            panel2.Location = new Point(105, 10);
+            panel2.Location = new Point(105, 15);
             panel2.Name = "panel2";
             panel2.Size = new Size(90, 37);
             panel2.TabIndex = 0;
@@ -128,11 +128,11 @@
             flowLayoutPanel1.AutoScroll = true;
             flowLayoutPanel1.Dock = DockStyle.Bottom;
             flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
-            flowLayoutPanel1.Location = new Point(0, 197);
+            flowLayoutPanel1.Location = new Point(0, 217);
             flowLayoutPanel1.MaximumSize = new Size(200, 1000);
             flowLayoutPanel1.MinimumSize = new Size(200, 500);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(200, 540);
+            flowLayoutPanel1.Size = new Size(200, 520);
             flowLayoutPanel1.TabIndex = 1;
             flowLayoutPanel1.WrapContents = false;
             // 
@@ -202,7 +202,7 @@
             panel3.Controls.Add(lbl4Largest);
             panel3.Controls.Add(lbl2Largest);
             panel3.Controls.Add(lbl3Largest);
-            panel3.Location = new Point(7, 55);
+            panel3.Location = new Point(7, 65);
             panel3.Name = "panel3";
             panel3.Size = new Size(90, 140);
             panel3.TabIndex = 3;
@@ -221,66 +221,21 @@
             panel4.Controls.Add(label4);
             panel4.Controls.Add(label3);
             panel4.Controls.Add(label2);
-            panel4.Location = new Point(105, 55);
+            panel4.Location = new Point(105, 65);
             panel4.Name = "panel4";
             panel4.Size = new Size(90, 140);
             panel4.TabIndex = 4;
             // 
-            // label2
+            // lbl20PlusCount
             // 
-            label2.BackColor = Color.FromArgb(175, 185, 195);
-            label2.Dock = DockStyle.Top;
-            label2.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label2.Location = new Point(0, 0);
-            label2.Name = "label2";
-            label2.Size = new Size(90, 23);
-            label2.TabIndex = 3;
-            label2.Text = "By Size";
-            label2.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // label3
-            // 
-            label3.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            label3.Location = new Point(0, 23);
-            label3.Margin = new Padding(0);
-            label3.Name = "label3";
-            label3.Size = new Size(45, 23);
-            label3.TabIndex = 4;
-            label3.Text = "1-4";
-            label3.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // label4
-            // 
-            label4.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            label4.Location = new Point(0, 46);
-            label4.Margin = new Padding(0);
-            label4.Name = "label4";
-            label4.Size = new Size(45, 23);
-            label4.TabIndex = 4;
-            label4.Text = "5-8";
-            label4.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // label5
-            // 
-            label5.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            label5.Location = new Point(0, 69);
-            label5.Margin = new Padding(0);
-            label5.Name = "label5";
-            label5.Size = new Size(45, 23);
-            label5.TabIndex = 4;
-            label5.Text = "9-14";
-            label5.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // label6
-            // 
-            label6.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            label6.Location = new Point(0, 92);
-            label6.Margin = new Padding(0);
-            label6.Name = "label6";
-            label6.Size = new Size(45, 23);
-            label6.TabIndex = 4;
-            label6.Text = "15-19";
-            label6.TextAlign = ContentAlignment.MiddleRight;
+            lbl20PlusCount.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lbl20PlusCount.Location = new Point(45, 115);
+            lbl20PlusCount.Margin = new Padding(0);
+            lbl20PlusCount.Name = "lbl20PlusCount";
+            lbl20PlusCount.Size = new Size(45, 23);
+            lbl20PlusCount.TabIndex = 4;
+            lbl20PlusCount.Text = "10";
+            lbl20PlusCount.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label7
             // 
@@ -293,27 +248,27 @@
             label7.Text = "20+";
             label7.TextAlign = ContentAlignment.MiddleRight;
             // 
-            // lbl1to4Count
+            // lbl15to19Count
             // 
-            lbl1to4Count.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            lbl1to4Count.Location = new Point(45, 23);
-            lbl1to4Count.Margin = new Padding(0);
-            lbl1to4Count.Name = "lbl1to4Count";
-            lbl1to4Count.Size = new Size(45, 23);
-            lbl1to4Count.TabIndex = 4;
-            lbl1to4Count.Text = "10";
-            lbl1to4Count.TextAlign = ContentAlignment.MiddleCenter;
+            lbl15to19Count.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lbl15to19Count.Location = new Point(45, 92);
+            lbl15to19Count.Margin = new Padding(0);
+            lbl15to19Count.Name = "lbl15to19Count";
+            lbl15to19Count.Size = new Size(45, 23);
+            lbl15to19Count.TabIndex = 4;
+            lbl15to19Count.Text = "10";
+            lbl15to19Count.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // lbl5to8Count
+            // label6
             // 
-            lbl5to8Count.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            lbl5to8Count.Location = new Point(45, 46);
-            lbl5to8Count.Margin = new Padding(0);
-            lbl5to8Count.Name = "lbl5to8Count";
-            lbl5to8Count.Size = new Size(45, 23);
-            lbl5to8Count.TabIndex = 4;
-            lbl5to8Count.Text = "10";
-            lbl5to8Count.TextAlign = ContentAlignment.MiddleCenter;
+            label6.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            label6.Location = new Point(0, 92);
+            label6.Margin = new Padding(0);
+            label6.Name = "label6";
+            label6.Size = new Size(45, 23);
+            label6.TabIndex = 4;
+            label6.Text = "15-19";
+            label6.TextAlign = ContentAlignment.MiddleRight;
             // 
             // lbl9to14Count
             // 
@@ -326,27 +281,72 @@
             lbl9to14Count.Text = "10";
             lbl9to14Count.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // lbl15to19Count
+            // label5
             // 
-            lbl15to19Count.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            lbl15to19Count.Location = new Point(45, 92);
-            lbl15to19Count.Margin = new Padding(0);
-            lbl15to19Count.Name = "lbl15to19Count";
-            lbl15to19Count.Size = new Size(45, 23);
-            lbl15to19Count.TabIndex = 4;
-            lbl15to19Count.Text = "10";
-            lbl15to19Count.TextAlign = ContentAlignment.MiddleCenter;
+            label5.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            label5.Location = new Point(0, 69);
+            label5.Margin = new Padding(0);
+            label5.Name = "label5";
+            label5.Size = new Size(45, 23);
+            label5.TabIndex = 4;
+            label5.Text = "9-14";
+            label5.TextAlign = ContentAlignment.MiddleRight;
             // 
-            // lbl20PlusCount
+            // lbl5to8Count
             // 
-            lbl20PlusCount.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            lbl20PlusCount.Location = new Point(45, 115);
-            lbl20PlusCount.Margin = new Padding(0);
-            lbl20PlusCount.Name = "lbl20PlusCount";
-            lbl20PlusCount.Size = new Size(45, 23);
-            lbl20PlusCount.TabIndex = 4;
-            lbl20PlusCount.Text = "10";
-            lbl20PlusCount.TextAlign = ContentAlignment.MiddleCenter;
+            lbl5to8Count.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lbl5to8Count.Location = new Point(45, 46);
+            lbl5to8Count.Margin = new Padding(0);
+            lbl5to8Count.Name = "lbl5to8Count";
+            lbl5to8Count.Size = new Size(45, 23);
+            lbl5to8Count.TabIndex = 4;
+            lbl5to8Count.Text = "10";
+            lbl5to8Count.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // lbl1to4Count
+            // 
+            lbl1to4Count.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lbl1to4Count.Location = new Point(45, 23);
+            lbl1to4Count.Margin = new Padding(0);
+            lbl1to4Count.Name = "lbl1to4Count";
+            lbl1to4Count.Size = new Size(45, 23);
+            lbl1to4Count.TabIndex = 4;
+            lbl1to4Count.Text = "10";
+            lbl1to4Count.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label4
+            // 
+            label4.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            label4.Location = new Point(0, 46);
+            label4.Margin = new Padding(0);
+            label4.Name = "label4";
+            label4.Size = new Size(45, 23);
+            label4.TabIndex = 4;
+            label4.Text = "5-8";
+            label4.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // label3
+            // 
+            label3.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            label3.Location = new Point(0, 23);
+            label3.Margin = new Padding(0);
+            label3.Name = "label3";
+            label3.Size = new Size(45, 23);
+            label3.TabIndex = 4;
+            label3.Text = "1-4";
+            label3.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // label2
+            // 
+            label2.BackColor = Color.FromArgb(175, 185, 195);
+            label2.Dock = DockStyle.Top;
+            label2.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label2.Location = new Point(0, 0);
+            label2.Name = "label2";
+            label2.Size = new Size(90, 23);
+            label2.TabIndex = 3;
+            label2.Text = "By Size";
+            label2.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // ShiftReservationControl
             // 

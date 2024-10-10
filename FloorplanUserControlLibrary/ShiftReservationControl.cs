@@ -34,7 +34,7 @@ namespace FloorplanUserControlLibrary
             lbl3Largest.Text = $"{reservationsBySize[2].TimeDisplay} | {reservationsBySize[2].Covers}";
             lbl4Largest.Text = $"{reservationsBySize[3].TimeDisplay} | {reservationsBySize[3].Covers}";
             lbl5Largest.Text = $"{reservationsBySize[4].TimeDisplay} | {reservationsBySize[4].Covers}";
-            lbl1to4Count.Text = _shiftReservations.PreBookedRecords.Where(r=> r.Covers <= 4).ToList().Count().ToString();
+            lbl1to4Count.Text = _shiftReservations.PreBookedRecords.Where(r => r.Covers <= 4).ToList().Count().ToString();
             lbl5to8Count.Text = _shiftReservations.PreBookedRecords.Where(
                 r => r.Covers <= 8 && r.Covers >= 5).ToList().Count().ToString();
             lbl9to14Count.Text = _shiftReservations.PreBookedRecords.Where(
@@ -42,7 +42,7 @@ namespace FloorplanUserControlLibrary
             lbl15to19Count.Text = _shiftReservations.PreBookedRecords.Where(
                r => r.Covers <= 19 && r.Covers >= 15).ToList().Count().ToString();
             lbl20PlusCount.Text = _shiftReservations.PreBookedRecords.Where(
-               r => r.Covers  >= 20).ToList().Count().ToString();
+               r => r.Covers >= 20).ToList().Count().ToString();
         }
 
         public async void SetForNewShift(DateOnly dateOnlySelected, bool isAM)

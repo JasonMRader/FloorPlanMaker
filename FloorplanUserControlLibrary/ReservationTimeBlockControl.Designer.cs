@@ -48,9 +48,9 @@
             // flowPanel
             // 
             flowPanel.Dock = DockStyle.Right;
-            flowPanel.Location = new Point(73, 0);
+            flowPanel.Location = new Point(74, 0);
             flowPanel.Name = "flowPanel";
-            flowPanel.Size = new Size(127, 20);
+            flowPanel.Size = new Size(120, 20);
             flowPanel.TabIndex = 1;
             // 
             // lblCoverCount
@@ -72,9 +72,9 @@
             Controls.Add(lblCoverCount);
             Controls.Add(flowPanel);
             Controls.Add(lblTime);
-            Margin = new Padding(0, 3, 3, 3);
+            Margin = new Padding(3, 1, 0, 0);
             Name = "ReservationTimeBlockControl";
-            Size = new Size(200, 20);
+            Size = new Size(194, 20);
             Load += ReservationTimeBlockControl_Load;
             ResumeLayout(false);
         }
