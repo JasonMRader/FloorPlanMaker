@@ -46,7 +46,7 @@ namespace FloorplanClassLibrary
         public int PartySize { get; set; }
 
         [JsonProperty("visit_tags")]
-        public object VisitTags { get; set; } // Adjust type as needed
+        public List<string> VisitTags { get; set; } // Adjust type as needed
 
         [JsonProperty("origin")]
         public string Origin { get; set; }

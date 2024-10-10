@@ -100,6 +100,9 @@ namespace FloorPlanMakerUI
         {
             List<ReservationRecord> reservationRecords = new List<ReservationRecord>();
             foreach (Reservation reservation in reservations) {
+                if(reservation.State == "Cancelled") {
+                    continue;
+                }
                 reservationRecords.Add(new ReservationRecord(reservation));
             }
             return reservationRecords;

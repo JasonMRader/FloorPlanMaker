@@ -10,6 +10,11 @@ namespace FloorplanClassLibrary
     {
         public int Covers { get; set; } 
         public DateTime DateTime { get; set; }
+        public DateTime TimeCreated { get; set; }
+        public List<string> TableNumbers { get; set; } = new List<string>();
+        public List<string> VisitTags { get; set; } = new List<string>();
+        public float? CheckTotal { get; set; } = 0;
+        public string Server { get; set; } = "";
         public TimeOnly timeOnly {
             get {
                 return new TimeOnly(DateTime.Hour, DateTime.Minute, DateTime.Second);
@@ -32,6 +37,22 @@ namespace FloorplanClassLibrary
         {
             Covers = reservation.PartySize;
             DateTime = reservation.ScheduledTime;
+            TimeCreated = reservation.CreatedDate;
+            if(reservation.TableNumber != null) {
+                TableNumbers.AddRange(reservation.TableNumber);
+            }
+            if(reservation.VisitTags != null) {
+                VisitTags.AddRange(reservation.VisitTags);
+            }
+            if(reservation.PosData != null) {
+                if(reservation.PosData.PosSubTotal != null) {
+                    CheckTotal = (float)(reservation.PosData.PosSubTotal * .1);
+                }
+            }
+            if(reservation.Server != null) {
+                Server = reservation.Server;
+            }
+            
             if(reservation.Origin == "Web") {
                 this.Origin = ResoOrigin.Web;
             }
@@ -41,9 +62,7 @@ namespace FloorplanClassLibrary
             else {
                 this.Origin = ResoOrigin.WalkIn;
             }
-            string venue_notes = "";
-            string table_category = "";
-            string guest_request = "";
+            
             if(reservation.VenueNotes != null) {
                 request += "\n" + reservation.VenueNotes;
             }

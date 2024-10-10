@@ -16,7 +16,7 @@ namespace FloorplanClassLibrary
             this.IsAm = isAM;
         }
 
-        // Static asynchronous factory method
+        
         public static async Task<ShiftReservations> CreateAsync(DateOnly dateOnly, bool isAM)
         {
             var shiftReservations = new ShiftReservations(dateOnly, isAM);
