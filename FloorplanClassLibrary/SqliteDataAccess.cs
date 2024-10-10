@@ -3472,9 +3472,9 @@ namespace FloorplanClassLibrary
                     try {
                         string insertReservationQuery = @"
                     INSERT INTO ReservationRecords (
-                        Covers, DateTime, TimeCreated, CheckTotal, Server, Request, Name, Origin
+                        Covers, DateTime, TimeCreated, CheckTotal, Server, Request, Name, Origin, State
                     ) VALUES (
-                        @Covers, @DateTime, @TimeCreated, @CheckTotal, @Server, @Request, @Name, @Origin
+                        @Covers, @DateTime, @TimeCreated, @CheckTotal, @Server, @Request, @Name, @Origin, @State
                     );
                     SELECT last_insert_rowid();";
 
@@ -3496,7 +3496,8 @@ namespace FloorplanClassLibrary
                                 Server = reservation.Server,
                                 Request = reservation.Request,
                                 Name = reservation.Name,
-                                Origin = reservation.Origin.ToString()
+                                Origin = reservation.Origin.ToString(),
+                                State = reservation.State
                             }, transaction);
 
                             // Insert TableNumbers

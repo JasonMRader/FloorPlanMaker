@@ -15,6 +15,7 @@ namespace FloorplanClassLibrary
         public List<string> VisitTags { get; set; } = new List<string>();
         public float? CheckTotal { get; set; } = 0;
         public string Server { get; set; } = "";
+        public string State { get; set; } = "";
         
         public string Request { get; set; } = string.Empty;
         public string Name { get; set; }
@@ -29,6 +30,9 @@ namespace FloorplanClassLibrary
             Covers = reservation.PartySize;
             DateTime = reservation.ScheduledTime;
             TimeCreated = reservation.CreatedDate;
+            if(reservation.State != null) {
+                State = reservation.State;
+            }
             if(reservation.TableNumber != null) {
                 TableNumbers.AddRange(reservation.TableNumber);
             }
