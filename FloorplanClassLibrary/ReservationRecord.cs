@@ -15,17 +15,8 @@ namespace FloorplanClassLibrary
         public List<string> VisitTags { get; set; } = new List<string>();
         public float? CheckTotal { get; set; } = 0;
         public string Server { get; set; } = "";
-        public TimeOnly timeOnly {
-            get {
-                return new TimeOnly(DateTime.Hour, DateTime.Minute, DateTime.Second);
-            }
-        }
-        public string TimeDisplay {
-            get {
-                return timeOnly.ToString("h:mm");
-            }
-        }
-        public string request { get; set; } = string.Empty;
+        
+        public string Request { get; set; } = string.Empty;
         public string Name { get; set; }
         public ResoOrigin Origin { get; set; }
         public enum ResoOrigin {
@@ -64,13 +55,23 @@ namespace FloorplanClassLibrary
             }
             
             if(reservation.VenueNotes != null) {
-                request += "\n" + reservation.VenueNotes;
+                Request += "\n" + reservation.VenueNotes;
             }
             if(reservation.GuestRequest != null) {
-                request += "\n" + reservation.GuestRequest;
+                Request += "\n" + reservation.GuestRequest;
             }
             if(reservation.TableCategory  != null) {
-                request += "\n" + reservation.TableCategory;
+                Request += "\n" + reservation.TableCategory;
+            }
+        }
+        public TimeOnly timeOnly {
+            get {
+                return new TimeOnly(DateTime.Hour, DateTime.Minute, DateTime.Second);
+            }
+        }
+        public string TimeDisplay {
+            get {
+                return timeOnly.ToString("h:mm");
             }
         }
         public override string ToString()

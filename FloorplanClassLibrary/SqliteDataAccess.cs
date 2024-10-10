@@ -3464,6 +3464,67 @@ namespace FloorplanClassLibrary
                 return "GreaterThan30k";
         }
 
+        public static void SaveReservations(List<ReservationRecord> reservations)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString())) {
+                cnn.Open();
+                using (var transaction = cnn.BeginTransaction()) {
+                    try {
+                        string insertReservationQuery = @"
+                    INSERT INTO ReservationRecords (
+                        Covers, DateTime, TimeCreated, CheckTotal, Server, Request, Name, Origin
+                    ) VALUES (
+                        @Covers, @DateTime, @TimeCreated, @CheckTotal, @Server, @Request, @Name, @Origin
+                    );
+                    SELECT last_insert_rowid();";
+
+                        string insertTableNumberQuery = @"
+                    INSERT INTO ReservationTableNumbers (ReservationId, TableNumber)
+                    VALUES (@ReservationId, @TableNumber);";
+
+                        string insertVisitTagQuery = @"
+                    INSERT INTO ReservationVisitTags (ReservationId, Tag)
+                    VALUES (@ReservationId, @Tag);";
+
+                        foreach (var reservation in reservations) {
+                            // Insert into ReservationRecords and get the generated Id
+                            var reservationId = cnn.ExecuteScalar<long>(insertReservationQuery, new {
+                                Covers = reservation.Covers,
+                                DateTime = reservation.DateTime.ToString("o"),
+                                TimeCreated = reservation.TimeCreated.ToString("o"),
+                                CheckTotal = reservation.CheckTotal,
+                                Server = reservation.Server,
+                                Request = reservation.Request,
+                                Name = reservation.Name,
+                                Origin = reservation.Origin.ToString()
+                            }, transaction);
+
+                            // Insert TableNumbers
+                            foreach (var tableNumber in reservation.TableNumbers) {
+                                cnn.Execute(insertTableNumberQuery, new {
+                                    ReservationId = reservationId,
+                                    TableNumber = tableNumber
+                                }, transaction);
+                            }
+
+                            // Insert VisitTags
+                            foreach (var tag in reservation.VisitTags) {
+                                cnn.Execute(insertVisitTagQuery, new {
+                                    ReservationId = reservationId,
+                                    Tag = tag
+                                }, transaction);
+                            }
+                        }
+
+                        transaction.Commit();
+                    }
+                    catch {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
+            }
+        }
 
 
 

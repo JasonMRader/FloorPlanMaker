@@ -68,6 +68,11 @@
             lbl17to20 = new Label();
             label25 = new Label();
             lbl20Plus = new Label();
+            dtpStart = new DateTimePicker();
+            dtpEnd = new DateTimePicker();
+            btnGetTimeSpanResos = new Button();
+            lblTimeSpanResosCount = new Label();
+            btnSaveResos = new Button();
             SuspendLayout();
             // 
             // dateTimePicker1
@@ -442,11 +447,58 @@
             lbl20Plus.TabIndex = 2;
             lbl20Plus.Text = "0";
             // 
+            // dtpStart
+            // 
+            dtpStart.Location = new Point(728, 12);
+            dtpStart.Name = "dtpStart";
+            dtpStart.Size = new Size(200, 23);
+            dtpStart.TabIndex = 5;
+            // 
+            // dtpEnd
+            // 
+            dtpEnd.Location = new Point(947, 12);
+            dtpEnd.Name = "dtpEnd";
+            dtpEnd.Size = new Size(200, 23);
+            dtpEnd.TabIndex = 5;
+            // 
+            // btnGetTimeSpanResos
+            // 
+            btnGetTimeSpanResos.Location = new Point(728, 41);
+            btnGetTimeSpanResos.Name = "btnGetTimeSpanResos";
+            btnGetTimeSpanResos.Size = new Size(419, 23);
+            btnGetTimeSpanResos.TabIndex = 6;
+            btnGetTimeSpanResos.Text = "Get TimeSpan Resos";
+            btnGetTimeSpanResos.UseVisualStyleBackColor = true;
+            btnGetTimeSpanResos.Click += btnGetTimeSpanResos_Click;
+            // 
+            // lblTimeSpanResosCount
+            // 
+            lblTimeSpanResosCount.AutoSize = true;
+            lblTimeSpanResosCount.Location = new Point(728, 94);
+            lblTimeSpanResosCount.Name = "lblTimeSpanResosCount";
+            lblTimeSpanResosCount.Size = new Size(13, 15);
+            lblTimeSpanResosCount.TabIndex = 7;
+            lblTimeSpanResosCount.Text = "0";
+            // 
+            // btnSaveResos
+            // 
+            btnSaveResos.Location = new Point(728, 138);
+            btnSaveResos.Name = "btnSaveResos";
+            btnSaveResos.Size = new Size(419, 23);
+            btnSaveResos.TabIndex = 6;
+            btnSaveResos.Text = "SaveResos";
+            btnSaveResos.UseVisualStyleBackColor = true;
+            // 
             // frmReservationView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(724, 531);
+            ClientSize = new Size(1228, 531);
+            Controls.Add(lblTimeSpanResosCount);
+            Controls.Add(btnSaveResos);
+            Controls.Add(btnGetTimeSpanResos);
+            Controls.Add(dtpEnd);
+            Controls.Add(dtpStart);
             Controls.Add(listBox1);
             Controls.Add(btnGetReservations);
             Controls.Add(lblResoCovers);
@@ -537,5 +589,10 @@
         private Label lbl17to20;
         private Label label25;
         private Label lbl20Plus;
+        private DateTimePicker dtpStart;
+        private DateTimePicker dtpEnd;
+        private Button btnGetTimeSpanResos;
+        private Label lblTimeSpanResosCount;
+        private Button btnSaveResos;
     }
 }

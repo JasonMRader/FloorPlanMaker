@@ -31,7 +31,7 @@ namespace FloorplanUserControlLibrary
                     Margin = new Padding(1, 0, 0, 0),
 
                 };
-                toolTip.SetToolTip(panel, "Covers: " + rec.Covers.ToString() + rec.request);
+                toolTip.SetToolTip(panel, "Covers: " + rec.Covers.ToString() + rec.Request);
                 flowPanel.Controls.Add(panel);
             }
 

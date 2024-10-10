@@ -42,7 +42,7 @@ namespace FloorPlanMakerUI
 
         private void SetPartySizeLabels(ShiftReservations shiftReservations)
         {
-            lbl1to2.Text = shiftReservations.ResosOfPartSize(1,2).Count.ToString();
+            lbl1to2.Text = shiftReservations.ResosOfPartSize(1, 2).Count.ToString();
             lbl3to4.Text = shiftReservations.ResosOfPartSize(3, 4).Count.ToString();
             lbl5to6.Text = shiftReservations.ResosOfPartSize(5, 6).Count.ToString();
             lbl7to8.Text = shiftReservations.ResosOfPartSize(7, 8).Count.ToString();
@@ -96,16 +96,79 @@ namespace FloorPlanMakerUI
                 }
             }
         }
-        private List<ReservationRecord> GetReservationRecords(List<Reservation> reservations)
+
+        private async void btnGetTimeSpanResos_Click(object sender, EventArgs e)
         {
-            List<ReservationRecord> reservationRecords = new List<ReservationRecord>();
-            foreach (Reservation reservation in reservations) {
-                if(reservation.State == "Cancelled") {
-                    continue;
+            DateTime start = dtpStart.Value;
+            DateTime end = dtpEnd.Value;
+            DateTime scheduledTimeFrom = new DateTime(start.Year, start.Month, start.Day, 1, 0, 0);
+            DateTime scheduledTimeTo = new DateTime(end.Year, end.Month, end.Day, 23, 59, 59);
+            
+            var reservations = await LoadReservationsAsync(scheduledTimeFrom, scheduledTimeTo);
+            lblTimeSpanResosCount.Text = reservations.Count.ToString();
+        }
+        public async Task<List<Reservation>> LoadReservationsAsync(DateTime startDateTime, DateTime endDateTime)
+        {
+            var allReservations = new List<Reservation>();
+
+            // Ensure the start time is at the beginning of the day and end time is at the end of the day
+            DateTime currentStart = new DateTime(startDateTime.Year, startDateTime.Month, startDateTime.Day, 0, 0, 0);
+            DateTime endOfPeriod = new DateTime(endDateTime.Year, endDateTime.Month, endDateTime.Day, 23, 59, 59);
+
+            while (currentStart <= endOfPeriod) {
+                DateTime currentEnd = currentStart.AddDays(1).AddSeconds(-1); // End of the current day
+                if (currentEnd > endOfPeriod) {
+                    currentEnd = endOfPeriod;
                 }
-                reservationRecords.Add(new ReservationRecord(reservation));
+
+                // Load reservations for the current day (or interval)
+                var dailyReservations = await LoadReservationsForIntervalAsync(currentStart, currentEnd);
+                allReservations.AddRange(dailyReservations);
+
+                // Move to the next day
+                currentStart = currentStart.AddDays(1);
             }
-            return reservationRecords;
+
+            return allReservations;
+        }
+
+        private async Task<List<Reservation>> LoadReservationsForIntervalAsync(DateTime intervalStart, DateTime intervalEnd)
+        {
+            var reservations = new List<Reservation>();
+            bool needsSplitting = true;
+            var intervalsToProcess = new Queue<Tuple<DateTime, DateTime>>();
+            intervalsToProcess.Enqueue(Tuple.Create(intervalStart, intervalEnd));
+
+            while (intervalsToProcess.Count > 0) {
+                var currentInterval = intervalsToProcess.Dequeue();
+                DateTime start = currentInterval.Item1;
+                DateTime end = currentInterval.Item2;
+
+                // Load reservations for the current interval
+                var intervalReservations = await ReservationDataAccess.GetReservationsAsync(start, end);
+
+                if (intervalReservations.Count >= 1000) {
+                    // Split the interval further
+                    TimeSpan intervalDuration = end - start;
+                    if (intervalDuration.TotalMinutes <= 1) {
+                        // Cannot split further; add what we have
+                        reservations.AddRange(intervalReservations);
+                    }
+                    else {
+                        // Split the interval into two halves
+                        DateTime midPoint = start.AddSeconds(intervalDuration.TotalSeconds / 2);
+
+                        intervalsToProcess.Enqueue(Tuple.Create(start, midPoint));
+                        intervalsToProcess.Enqueue(Tuple.Create(midPoint.AddSeconds(1), end));
+                    }
+                }
+                else {
+                    // Add the loaded reservations to the list
+                    reservations.AddRange(intervalReservations);
+                }
+            }
+
+            return reservations;
         }
     }
 }

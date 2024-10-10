@@ -116,5 +116,9 @@ namespace FloorplanClassLibrary
 
         [JsonProperty("currency_denominator")]
         public int? CurrencyDenominator { get; set; } // Nullable if it can be null
+        public override string ToString()
+        {
+            return ScheduledTime.ToString("g") + " | " + PartySize + " | " + State;
+        }
     }
 }
