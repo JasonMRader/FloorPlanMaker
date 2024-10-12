@@ -50,6 +50,7 @@ namespace FloorPlanMakerUI
                     SectionColorManager.LoadColors();
                     
                     await HourlyWeatherForecast.InitializeAsync();
+                    await ShiftReservationDataControler.InitializeAsync();
                     form1.Invoke(new Action(() => {
                         form1.UpdateWeatherDataLoaded();
                     }));
