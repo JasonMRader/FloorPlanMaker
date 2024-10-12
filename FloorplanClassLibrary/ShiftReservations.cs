@@ -15,8 +15,19 @@ namespace FloorplanClassLibrary
             this.DateOnly = dateOnly;
             this.IsAm = isAM;
         }
+        public static ShiftReservations CreateShiftResosFromDB(DateOnly dateOnly, bool isAM)
+        {
+            var shiftReservations = new ShiftReservations(dateOnly, isAM);
+            shiftReservations.LoadResoRecordsForShift();
+            return shiftReservations;
+        }
 
-        
+        private void LoadResoRecordsForShift()
+        {             
+            ReservationRecords = SqliteDataAccess.LoadReservations(ScheduledTimeStart, ScheduledTimeEnd);
+            this.PreBookedRecords = ReservationRecords.Where(r => r.Origin != ReservationRecord.ResoOrigin.WalkIn).ToList();
+        }
+
         public static async Task<ShiftReservations> CreateAsync(DateOnly dateOnly, bool isAM)
         {
             var shiftReservations = new ShiftReservations(dateOnly, isAM);
@@ -46,6 +57,16 @@ namespace FloorplanClassLibrary
                 else {
                     return 23;
                 }
+            }
+        }
+        public DateTime ScheduledTimeStart {
+            get {
+                return new DateTime(DateOnly.Year, DateOnly.Month, DateOnly.Day, StartHour, 0, 0);
+            }
+        }
+        public DateTime ScheduledTimeEnd {
+            get {
+                return new DateTime(DateOnly.Year, DateOnly.Month, DateOnly.Day, EndHour, 59, 59);
             }
         }
 
@@ -81,7 +102,7 @@ namespace FloorplanClassLibrary
             DateTime scheduledTimeFrom = new DateTime(DateOnly.Year, DateOnly.Month, DateOnly.Day, StartHour, 0, 0);
             DateTime scheduledTimeTo = new DateTime(DateOnly.Year, DateOnly.Month, DateOnly.Day, EndHour, 59, 59);
 
-            var reservations = await ReservationDataAccess.GetReservationsAsync(scheduledTimeFrom, scheduledTimeTo);
+            var reservations = await ReservationAPIDataAccess.GetReservationsAsync(scheduledTimeFrom, scheduledTimeTo);
             SetReservationRecords(reservations);
         }
 

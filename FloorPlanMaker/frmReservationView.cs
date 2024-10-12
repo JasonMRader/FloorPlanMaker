@@ -151,7 +151,7 @@ namespace FloorPlanMakerUI
                 DateTime end = currentInterval.Item2;
 
                 // Load reservations for the current interval
-                var intervalReservations = await ReservationDataAccess.GetReservationsAsync(start, end);
+                var intervalReservations = await ReservationAPIDataAccess.GetReservationsAsync(start, end);
 
                 if (intervalReservations.Count >= 1000) {
                     // Split the interval further

@@ -27,7 +27,7 @@ namespace FloorplanClassLibrary
         public List<Reservation> Items { get; set; }
     }
 
-    public static class ReservationDataAccess
+    public static class ReservationAPIDataAccess
     {
         private static string _accessToken;
         private static DateTime _tokenExpiry;
