@@ -73,6 +73,8 @@
             btnGetTimeSpanResos = new Button();
             lblTimeSpanResosCount = new Label();
             btnSaveResos = new Button();
+            btnLoadRange = new Button();
+            btnLoadFirstDatePM = new Button();
             SuspendLayout();
             // 
             // dateTimePicker1
@@ -488,12 +490,35 @@
             btnSaveResos.TabIndex = 6;
             btnSaveResos.Text = "SaveResos";
             btnSaveResos.UseVisualStyleBackColor = true;
+            btnSaveResos.Click += btnSaveResos_Click;
+            // 
+            // btnLoadRange
+            // 
+            btnLoadRange.Location = new Point(728, 204);
+            btnLoadRange.Name = "btnLoadRange";
+            btnLoadRange.Size = new Size(419, 30);
+            btnLoadRange.TabIndex = 8;
+            btnLoadRange.Text = "Load Range";
+            btnLoadRange.UseVisualStyleBackColor = true;
+            btnLoadRange.Click += btnLoadRange_Click;
+            // 
+            // btnLoadFirstDatePM
+            // 
+            btnLoadFirstDatePM.Location = new Point(728, 260);
+            btnLoadFirstDatePM.Name = "btnLoadFirstDatePM";
+            btnLoadFirstDatePM.Size = new Size(419, 30);
+            btnLoadFirstDatePM.TabIndex = 8;
+            btnLoadFirstDatePM.Text = "Load First Date PM";
+            btnLoadFirstDatePM.UseVisualStyleBackColor = true;
+            btnLoadFirstDatePM.Click += btnLoadFirstDatePM_Click;
             // 
             // frmReservationView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1228, 531);
+            Controls.Add(btnLoadFirstDatePM);
+            Controls.Add(btnLoadRange);
             Controls.Add(lblTimeSpanResosCount);
             Controls.Add(btnSaveResos);
             Controls.Add(btnGetTimeSpanResos);
@@ -594,5 +619,7 @@
         private Button btnGetTimeSpanResos;
         private Label lblTimeSpanResosCount;
         private Button btnSaveResos;
+        private Button btnLoadRange;
+        private Button btnLoadFirstDatePM;
     }
 }

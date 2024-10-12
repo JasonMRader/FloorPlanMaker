@@ -8,6 +8,7 @@ namespace FloorplanClassLibrary
 {
     public record ReservationRecord
     {
+        public int Id { get; set; } 
         public int Covers { get; set; } 
         public DateTime DateTime { get; set; }
         public DateTime TimeCreated { get; set; }
@@ -26,6 +27,7 @@ namespace FloorplanClassLibrary
             Phone,
             WalkIn
         }
+        public ReservationRecord() { }
         public ReservationRecord(Reservation reservation)
         {
             Covers = reservation.PartySize;

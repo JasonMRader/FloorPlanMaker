@@ -3472,20 +3472,20 @@ namespace FloorplanClassLibrary
                 using (var transaction = cnn.BeginTransaction()) {
                     try {
                         string insertReservationQuery = @"
-                    INSERT INTO ReservationRecords (
-                        Covers, DateTime, TimeCreated, CheckTotal, Server, Request, Name, Origin, State
-                    ) VALUES (
-                        @Covers, @DateTime, @TimeCreated, @CheckTotal, @Server, @Request, @Name, @Origin, @State
-                    );
-                    SELECT last_insert_rowid();";
+                            INSERT INTO ReservationRecords (
+                                Covers, DateTime, TimeCreated, CheckTotal, Server, Request, Name, Origin, State, TimeUpdated
+                            ) VALUES (
+                                @Covers, @DateTime, @TimeCreated, @CheckTotal, @Server, @Request, @Name, @Origin, @State, @TimeUpdated
+                            );
+                            SELECT last_insert_rowid();";
 
                         string insertTableNumberQuery = @"
-                    INSERT INTO ReservationTableNumbers (ReservationId, TableNumber)
-                    VALUES (@ReservationId, @TableNumber);";
+                            INSERT INTO ReservationTableNumbers (ReservationId, TableNumber)
+                            VALUES (@ReservationId, @TableNumber);";
 
                         string insertVisitTagQuery = @"
-                    INSERT INTO ReservationVisitTags (ReservationId, Tag)
-                    VALUES (@ReservationId, @Tag);";
+                            INSERT INTO ReservationVisitTags (ReservationId, Tag)
+                            VALUES (@ReservationId, @Tag);";
 
                         foreach (var reservation in reservations) {
                             // Insert into ReservationRecords and get the generated Id
@@ -3498,7 +3498,8 @@ namespace FloorplanClassLibrary
                                 Request = reservation.Request,
                                 Name = reservation.Name,
                                 Origin = reservation.Origin.ToString(),
-                                State = reservation.State
+                                State = reservation.State,
+                                TimeUpdated = reservation.TimeUpdated.ToString("o"),
                             }, transaction);
 
                             // Insert TableNumbers
@@ -3525,6 +3526,72 @@ namespace FloorplanClassLibrary
                         throw;
                     }
                 }
+            }
+        }
+        public static List<ReservationRecord> LoadReservations(DateTime startDateTime, DateTime endDateTime)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString())) {
+                // First, retrieve the reservations within the date range
+                string selectReservationsQuery = @"
+            SELECT * FROM ReservationRecords
+            WHERE DateTime BETWEEN @StartDateTime AND @EndDateTime;";
+
+                var reservations = cnn.Query<ReservationRecordDTO>(selectReservationsQuery, new {
+                    StartDateTime = startDateTime.ToString("o"),
+                    EndDateTime = endDateTime.ToString("o")
+                }).ToList();
+
+                if (!reservations.Any())
+                    return new List<ReservationRecord>();
+
+                // Get all ReservationIds
+                var reservationIds = reservations.Select(r => r.Id).ToList();
+
+                // Retrieve TableNumbers
+                string selectTableNumbersQuery = @"
+                    SELECT ReservationId, TableNumber FROM ReservationTableNumbers
+                    WHERE ReservationId IN @ReservationIds;";
+
+                var tableNumbers = cnn.Query<TableNumberDTO>(selectTableNumbersQuery, new {
+                    ReservationIds = reservationIds
+                }).ToList();
+
+                // Retrieve VisitTags
+                string selectVisitTagsQuery = @"
+                    SELECT ReservationId, Tag FROM ReservationVisitTags
+                    WHERE ReservationId IN @ReservationIds;";
+
+                var visitTags = cnn.Query<VisitTagDTO>(selectVisitTagsQuery, new {
+                    ReservationIds = reservationIds
+                }).ToList();
+
+                // Map data back to ReservationRecord
+                var reservationRecords = reservations.Select(r =>
+                {
+                    var record = new ReservationRecord {
+                        Covers = r.Covers,
+                        DateTime = DateTime.Parse(r.DateTime),
+                        TimeCreated = DateTime.Parse(r.TimeCreated),
+                        TimeUpdated = DateTime.Parse(r.TimeUpdated),
+                        CheckTotal = r.CheckTotal,
+                        Server = r.Server,
+                        Request = r.Request,
+                        Name = r.Name,
+                        Origin = Enum.Parse<ReservationRecord.ResoOrigin>(r.Origin),
+                        State = r.State,
+                        TableNumbers = tableNumbers
+                            .Where(t => t.ReservationId == r.Id)
+                            .Select(t => t.TableNumber)
+                            .ToList(),
+                        VisitTags = visitTags
+                            .Where(v => v.ReservationId == r.Id)
+                            .Select(v => v.Tag)
+                            .ToList()
+                    };
+                    return record;
+                }).ToList();
+
+                return reservationRecords;
             }
         }
 

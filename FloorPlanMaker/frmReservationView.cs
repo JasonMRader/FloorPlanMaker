@@ -96,16 +96,22 @@ namespace FloorPlanMakerUI
                 }
             }
         }
-
+        private List<ReservationRecord> recordsToSave = new List<ReservationRecord>();
         private async void btnGetTimeSpanResos_Click(object sender, EventArgs e)
         {
             DateTime start = dtpStart.Value;
             DateTime end = dtpEnd.Value;
             DateTime scheduledTimeFrom = new DateTime(start.Year, start.Month, start.Day, 1, 0, 0);
             DateTime scheduledTimeTo = new DateTime(end.Year, end.Month, end.Day, 23, 59, 59);
-            
+
             var reservations = await LoadReservationsAsync(scheduledTimeFrom, scheduledTimeTo);
-            lblTimeSpanResosCount.Text = reservations.Count.ToString();
+
+            recordsToSave.Clear();
+            recordsToSave = reservations
+               .Select(reservation => new ReservationRecord(reservation))
+               .OrderBy(r => r.DateTime)
+               .ToList();
+            lblTimeSpanResosCount.Text = recordsToSave.Count.ToString();
         }
         public async Task<List<Reservation>> LoadReservationsAsync(DateTime startDateTime, DateTime endDateTime)
         {
@@ -169,6 +175,31 @@ namespace FloorPlanMakerUI
             }
 
             return reservations;
+        }
+
+        private void btnSaveResos_Click(object sender, EventArgs e)
+        {
+            SqliteDataAccess.SaveReservations(recordsToSave);
+            MessageBox.Show("Records Saved!");
+        }
+
+        private void btnLoadRange_Click(object sender, EventArgs e)
+        {
+            DateTime start = dtpStart.Value;
+            DateTime end = dtpEnd.Value;
+            DateTime scheduledTimeFrom = new DateTime(start.Year, start.Month, start.Day, 1, 0, 0);
+            DateTime scheduledTimeTo = new DateTime(end.Year, end.Month, end.Day, 23, 59, 59);
+           
+            List<ReservationRecord> records = SqliteDataAccess.LoadReservations(scheduledTimeFrom, scheduledTimeTo);
+        }
+
+        private void btnLoadFirstDatePM_Click(object sender, EventArgs e)
+        {
+            DateTime start = dtpStart.Value;
+            DateTime end = dtpEnd.Value;
+            DateTime firstDatePMStart = new DateTime(start.Year, start.Month, start.Day, 16, 0, 0);
+            DateTime firstDatePMEnd = new DateTime(start.Year, start.Month, start.Day, 23, 0, 0);
+            List<ReservationRecord> records = SqliteDataAccess.LoadReservations(firstDatePMStart, firstDatePMEnd);
         }
     }
 }
