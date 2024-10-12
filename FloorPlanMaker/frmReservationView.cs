@@ -181,6 +181,7 @@ namespace FloorPlanMakerUI
         {
             SqliteDataAccess.SaveReservations(recordsToSave);
             MessageBox.Show("Records Saved!");
+            lblTimeSpanResosCount.Text = "0";
         }
 
         private void btnLoadRange_Click(object sender, EventArgs e)
