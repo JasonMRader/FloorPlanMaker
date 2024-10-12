@@ -2840,10 +2840,11 @@ namespace FloorplanClassLibrary
             };
 
             shiftRecord.ShiftWeather = LoadHourlyWeatherData(date, isLunch);
-            shiftRecord.DiningAreaRecords = LoadDiningAreaRecordsByDateAndLunch(date, isLunch);
-            shiftRecord.tableStats = LoadTableStatsByDateAndLunch(isLunch, date);
-            shiftRecord.Sales = (float)shiftRecord.tableStats.Where(ts => (ts.DiningAreaID != 6 && ts.DiningAreaID != 0)).ToList().Sum(ts => ts.Sales);
-
+            //shiftRecord.DiningAreaRecords = LoadDiningAreaRecordsByDateAndLunch(date, isLunch);
+            shiftRecord.DiningAreaRecords = LoadDiningAreaRecords(date, isLunch);
+            //shiftRecord.tableStats = LoadTableStatsByDateAndLunch(isLunch, date);
+            //shiftRecord.Sales = (float)shiftRecord.tableStats.Where(ts => (ts.DiningAreaID != 6 && ts.DiningAreaID != 0)).ToList().Sum(ts => ts.Sales);
+            shiftRecord.Sales = shiftRecord.DiningAreaRecords.Sum(r => r.Sales);
             return shiftRecord;
         }
         public static List<DiningAreaRecord> LoadDiningAreaRecordsByDateAndLunch(DateOnly date, bool isAm)
