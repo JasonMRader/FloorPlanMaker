@@ -363,7 +363,7 @@ namespace FloorPlanMakerUI
             }
             if (area.ID == 4)
             {
-                return Resources.InsideBar_counter_32px;
+                return Resources.Inside_Bar;
                 //return Resources.Inside_Bar;
             }
             if (area.ID == 5)
@@ -376,6 +376,32 @@ namespace FloorPlanMakerUI
             }
             else
             {
+                return Resources.Temporary;
+            }
+        }
+        public static Image GetSmallDiningAreaImage(DiningArea area)
+        {
+            if (area.ID == 1) {
+                return Resources.InsideDining24;
+            }
+            if (area.ID == 2) {
+                return Resources.OutsideDining24;
+                //return Resources.OutsideDining;
+            }
+            if (area.ID == 3) {
+                return Resources.OutsideCocktail24;
+            }
+            if (area.ID == 4) {
+                return Resources.Inside_Bar24;
+                //return Resources.Inside_Bar;
+            }
+            if (area.ID == 5) {
+                return Resources.UpperLevel24;
+            }
+            if (area.ID == 6) {
+                return Resources.Banquet24;
+            }
+            else {
                 return Resources.Temporary;
             }
         }

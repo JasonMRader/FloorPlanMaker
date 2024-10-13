@@ -13,8 +13,7 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
-            {
+            if (disposing && (components != null)) {
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -152,6 +151,7 @@
             btnAutomatic.Name = "btnAutomatic";
             btnAutomatic.Size = new Size(313, 38);
             btnAutomatic.TabIndex = 18;
+            btnAutomatic.TextImageRelation = TextImageRelation.ImageBeforeText;
             toolTip1.SetToolTip(btnAutomatic, "Automate The Next Step [ENTER]");
             btnAutomatic.UseVisualStyleBackColor = false;
             btnAutomatic.Click += btnAutomatic_Click;

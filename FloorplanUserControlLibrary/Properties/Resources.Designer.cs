@@ -233,6 +233,16 @@ namespace FloorplanUserControlLibrary.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Banquet24 {
+            get {
+                object obj = ResourceManager.GetObject("Banquet24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Bigger {
             get {
                 object obj = ResourceManager.GetObject("Bigger", resourceCulture);
@@ -663,6 +673,16 @@ namespace FloorplanUserControlLibrary.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Inside_Bar24 {
+            get {
+                object obj = ResourceManager.GetObject("Inside_Bar24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap InsideBar_counter {
             get {
                 object obj = ResourceManager.GetObject("InsideBar_counter", resourceCulture);
@@ -686,6 +706,16 @@ namespace FloorplanUserControlLibrary.Properties {
         internal static System.Drawing.Bitmap InsideDining {
             get {
                 object obj = ResourceManager.GetObject("InsideDining", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap InsideDining24 {
+            get {
+                object obj = ResourceManager.GetObject("InsideDining24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1003,9 +1033,29 @@ namespace FloorplanUserControlLibrary.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap OutsideCocktail24 {
+            get {
+                object obj = ResourceManager.GetObject("OutsideCocktail24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap OutsideDining {
             get {
                 object obj = ResourceManager.GetObject("OutsideDining", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap OutsideDining24 {
+            get {
+                object obj = ResourceManager.GetObject("OutsideDining24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1726,6 +1776,16 @@ namespace FloorplanUserControlLibrary.Properties {
         internal static System.Drawing.Bitmap UpperLevel {
             get {
                 object obj = ResourceManager.GetObject("UpperLevel", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap UpperLevel24 {
+            get {
+                object obj = ResourceManager.GetObject("UpperLevel24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
