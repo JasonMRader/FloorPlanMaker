@@ -394,6 +394,32 @@ namespace FloorplanClassLibrary
             return averageStats;
         }
 
+        public static List<DateOnly> GetMissingReservationDates(DateOnly startDate, DateOnly endDate)
+        {
+            List<DateOnly> missingDates = new List<DateOnly>();
+
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString())) {
+                // Generate a list of all dates in the range
+                for (DateOnly date = startDate; date <= endDate; date = date.AddDays(1)) {
+                    missingDates.Add(date);
+                }
+
+                // Query the database for dates in the range that have records
+                string sql = @"SELECT DISTINCT Date(DateTime) as Date FROM ReservationRecords WHERE Date(DateTime) BETWEEN @StartDate AND @EndDate";
+                var existingDateStrings = cnn.Query<string>(sql, new {
+                    StartDate = startDate.ToString("yyyy-MM-dd"),
+                    EndDate = endDate.ToString("yyyy-MM-dd")
+                }).ToList();
+
+                // Convert the existing dates from strings to DateOnly objects
+                var existingDates = existingDateStrings.Select(dateStr => DateOnly.Parse(dateStr)).ToList();
+
+                // Remove the dates found in the database from the missingDates list
+                missingDates = missingDates.Except(existingDates).ToList();
+            }
+
+            return missingDates;
+        }
 
 
         public static List<DateOnly> GetMissingSalesDates(DateOnly startDate, DateOnly endDate)
