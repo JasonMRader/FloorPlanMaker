@@ -124,6 +124,9 @@ namespace FloorplanClassLibrary
         public Dictionary<TimeOnly, List<ReservationRecord>> GetTimeDistribution()
         {
             Dictionary<TimeOnly, List<ReservationRecord>> timeDistribution = new Dictionary<TimeOnly, List<ReservationRecord>>();
+            if(PreBookedRecords.Count == 0) {
+                return timeDistribution;
+            }
             //TimeOnly endTime = new TimeOnly(EndHour, 0,0);
             TimeOnly startTime = PreBookedRecords.Min(r => r.timeOnly);
             TimeOnly endTime = PreBookedRecords.Max(r => r.timeOnly);
