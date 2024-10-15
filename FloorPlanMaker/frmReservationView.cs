@@ -190,7 +190,7 @@ namespace FloorPlanMakerUI
             DateTime end = dtpEnd.Value;
             DateTime scheduledTimeFrom = new DateTime(start.Year, start.Month, start.Day, 1, 0, 0);
             DateTime scheduledTimeTo = new DateTime(end.Year, end.Month, end.Day, 23, 59, 59);
-           
+
             List<ReservationRecord> records = SqliteDataAccess.LoadReservations(scheduledTimeFrom, scheduledTimeTo);
         }
 
@@ -201,6 +201,19 @@ namespace FloorPlanMakerUI
             DateTime firstDatePMStart = new DateTime(start.Year, start.Month, start.Day, 16, 0, 0);
             DateTime firstDatePMEnd = new DateTime(start.Year, start.Month, start.Day, 23, 0, 0);
             List<ReservationRecord> records = SqliteDataAccess.LoadReservations(firstDatePMStart, firstDatePMEnd);
+        }
+
+        private void btnGetMissingDates_Click(object sender, EventArgs e)
+        {
+            DateTime start = dtpStart.Value;
+            DateTime end = dtpEnd.Value;
+            DateOnly scheduledTimeFrom = new DateOnly(start.Year, start.Month, start.Day);
+            DateOnly scheduledTimeTo = new DateOnly(end.Year, end.Month, end.Day);
+            List<DateOnly> dateOnlies = SqliteDataAccess.GetMissingReservationDates(scheduledTimeFrom, scheduledTimeTo);
+            listBox1.Items.Clear();
+            foreach(DateOnly dateOnly in dateOnlies) {
+                listBox1.Items.Add(dateOnly);
+            }
         }
     }
 }
