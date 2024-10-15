@@ -929,7 +929,7 @@ namespace FloorPlanMaker
             btnTest.FlatAppearance.BorderSize = 0;
             btnTest.FlatStyle = FlatStyle.Flat;
             btnTest.Image = FloorPlanMakerUI.Properties.Resources.calendar;
-            btnTest.Location = new Point(670, 6);
+            btnTest.Location = new Point(663, 6);
             btnTest.Name = "btnTest";
             btnTest.Size = new Size(47, 37);
             btnTest.TabIndex = 25;

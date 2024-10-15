@@ -75,8 +75,8 @@ namespace FloorPlanMaker
         public Form1()
         {
             shiftFilterControl = new ShiftFilterControl();
-            
-            
+
+
             InitializeComponent();
             pnlStatMode.Controls.Add(shiftFilterControl);
 
