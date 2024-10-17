@@ -137,7 +137,21 @@ namespace FloorPlanMakerUI
 
             return allReservations;
         }
+        private async Task<List<Reservation>> LoadResosFromMissingDateList(List<DateOnly> missingDates)
+        {
+            var reservations = new List<Reservation>();
+           
 
+           
+            foreach(var dateOnly in missingDates) {
+                DateTime start = new DateTime(dateOnly.Year, dateOnly.Month, dateOnly.Day, 0, 0, 0);
+                DateTime end = new DateTime(dateOnly.Year, dateOnly.Month, dateOnly.Day, 23, 59, 59);
+                var intervalReservations = await ReservationAPIDataAccess.GetReservationsAsync(start, end);
+                reservations.AddRange(intervalReservations);
+            }
+            
+            return reservations;
+        }
         private async Task<List<Reservation>> LoadReservationsForIntervalAsync(DateTime intervalStart, DateTime intervalEnd)
         {
             var reservations = new List<Reservation>();
