@@ -18,6 +18,7 @@ namespace FloorplanClassLibrary
         public List<DiningAreaStats> DiningAreaStats { get { return _diningAreaStats; } }
         public List<TableStat> FilteredTableStats {
             get {
+                
                 return _filteredShifts.SelectMany(fs => fs.tableStats).ToList().OrderBy(ts => ts.TableStatNumber).ToList();
             }
         }
