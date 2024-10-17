@@ -97,6 +97,7 @@ namespace FloorPlanMakerUI
             }
         }
         private List<ReservationRecord> recordsToSave = new List<ReservationRecord>();
+        private List<DateOnly> missingDates = new List<DateOnly>();
         private async void btnGetTimeSpanResos_Click(object sender, EventArgs e)
         {
             DateTime start = dtpStart.Value;
@@ -140,16 +141,16 @@ namespace FloorPlanMakerUI
         private async Task<List<Reservation>> LoadResosFromMissingDateList(List<DateOnly> missingDates)
         {
             var reservations = new List<Reservation>();
-           
 
-           
-            foreach(var dateOnly in missingDates) {
+
+
+            foreach (var dateOnly in missingDates) {
                 DateTime start = new DateTime(dateOnly.Year, dateOnly.Month, dateOnly.Day, 0, 0, 0);
                 DateTime end = new DateTime(dateOnly.Year, dateOnly.Month, dateOnly.Day, 23, 59, 59);
                 var intervalReservations = await ReservationAPIDataAccess.GetReservationsAsync(start, end);
                 reservations.AddRange(intervalReservations);
             }
-            
+
             return reservations;
         }
         private async Task<List<Reservation>> LoadReservationsForIntervalAsync(DateTime intervalStart, DateTime intervalEnd)
@@ -223,11 +224,18 @@ namespace FloorPlanMakerUI
             DateTime end = dtpEnd.Value;
             DateOnly scheduledTimeFrom = new DateOnly(start.Year, start.Month, start.Day);
             DateOnly scheduledTimeTo = new DateOnly(end.Year, end.Month, end.Day);
-            List<DateOnly> dateOnlies = SqliteDataAccess.GetMissingReservationDates(scheduledTimeFrom, scheduledTimeTo);
+            missingDates.Clear();
+            missingDates = SqliteDataAccess.GetMissingReservationDates(scheduledTimeFrom, scheduledTimeTo);
             listBox1.Items.Clear();
-            foreach(DateOnly dateOnly in dateOnlies) {
+            foreach (DateOnly dateOnly in missingDates) {
                 listBox1.Items.Add(dateOnly);
             }
+        }
+
+        private async void btnGetMissingDateResos_Click(object sender, EventArgs e)
+        {
+            List<Reservation> missingResos = await LoadResosFromMissingDateList(missingDates);
+            lblReservationCount.Text = missingResos.Count.ToString();
         }
     }
 }

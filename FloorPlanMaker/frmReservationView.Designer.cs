@@ -76,6 +76,7 @@
             btnLoadRange = new Button();
             btnLoadFirstDatePM = new Button();
             btnGetMissingDates = new Button();
+            btnGetMissingDateResos = new Button();
             SuspendLayout();
             // 
             // dateTimePicker1
@@ -523,11 +524,22 @@
             btnGetMissingDates.UseVisualStyleBackColor = true;
             btnGetMissingDates.Click += btnGetMissingDates_Click;
             // 
+            // btnGetMissingDateResos
+            // 
+            btnGetMissingDateResos.Location = new Point(728, 393);
+            btnGetMissingDateResos.Name = "btnGetMissingDateResos";
+            btnGetMissingDateResos.Size = new Size(419, 40);
+            btnGetMissingDateResos.TabIndex = 10;
+            btnGetMissingDateResos.Text = "Get Resos for missing dates";
+            btnGetMissingDateResos.UseVisualStyleBackColor = true;
+            btnGetMissingDateResos.Click += btnGetMissingDateResos_Click;
+            // 
             // frmReservationView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1228, 531);
+            Controls.Add(btnGetMissingDateResos);
             Controls.Add(btnGetMissingDates);
             Controls.Add(btnLoadFirstDatePM);
             Controls.Add(btnLoadRange);
@@ -634,5 +646,6 @@
         private Button btnLoadRange;
         private Button btnLoadFirstDatePM;
         private Button btnGetMissingDates;
+        private Button btnGetMissingDateResos;
     }
 }
