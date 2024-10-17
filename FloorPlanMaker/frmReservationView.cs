@@ -235,7 +235,14 @@ namespace FloorPlanMakerUI
         private async void btnGetMissingDateResos_Click(object sender, EventArgs e)
         {
             List<Reservation> missingResos = await LoadResosFromMissingDateList(missingDates);
-            lblReservationCount.Text = missingResos.Count.ToString();
+            recordsToSave.Clear();
+            recordsToSave = missingResos
+               .Select(reservation => new ReservationRecord(reservation))
+               .OrderBy(r => r.DateTime)
+               .ToList();
+            SqliteDataAccess.SaveReservations(recordsToSave);
+            MessageBox.Show("Records Saved!");
+            lblTimeSpanResosCount.Text = "0";
         }
     }
 }
