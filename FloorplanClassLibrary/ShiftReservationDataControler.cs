@@ -23,7 +23,7 @@ namespace FloorplanClassLibrary
 
         }
 
-        private static void UpdateMissingResos()
+        private static async void UpdateMissingResos()
         {
             DateTime start = DateTime.Now.AddDays(-180);
             DateTime end = DateTime.Now.AddDays(-1);
@@ -31,7 +31,14 @@ namespace FloorplanClassLibrary
             DateOnly scheduledTimeTo = new DateOnly(end.Year, end.Month, end.Day);
            
             var missingDates = SqliteDataAccess.GetMissingReservationDates(scheduledTimeFrom, scheduledTimeTo);
-            
+            List<Reservation> missingResos = await LoadResosFromMissingDateList(missingDates);
+           
+            var recordsToSave = missingResos
+               .Select(reservation => new ReservationRecord(reservation))
+               .OrderBy(r => r.DateTime)
+               .ToList();
+            SqliteDataAccess.SaveReservations(recordsToSave);
+
         }
 
         public static ShiftReservations GetReservations(DateOnly dateOnly, bool isAM)
@@ -49,7 +56,21 @@ namespace FloorplanClassLibrary
             }
 
         }
-        
+        private static async Task<List<Reservation>> LoadResosFromMissingDateList(List<DateOnly> missingDates)
+        {
+            var reservations = new List<Reservation>();
+
+
+
+            foreach (var dateOnly in missingDates) {
+                DateTime start = new DateTime(dateOnly.Year, dateOnly.Month, dateOnly.Day, 0, 0, 0);
+                DateTime end = new DateTime(dateOnly.Year, dateOnly.Month, dateOnly.Day, 23, 59, 59);
+                var intervalReservations = await ReservationAPIDataAccess.GetReservationsAsync(start, end);
+                reservations.AddRange(intervalReservations);
+            }
+
+            return reservations;
+        }
         //private static async Task InitializeReservationRecordsTodayAM()
         //{
         //    DateTime today = DateTime.Now;
