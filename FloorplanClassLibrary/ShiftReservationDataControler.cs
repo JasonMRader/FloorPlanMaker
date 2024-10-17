@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.Intrinsics.Arm;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace FloorplanClassLibrary
 {
@@ -18,8 +19,21 @@ namespace FloorplanClassLibrary
             DateOnly today = new DateOnly(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day);
             TodayAMResos = await ShiftReservations.CreateAsync(today, true);
             TodayPMResos = await ShiftReservations.CreateAsync(today, false);
+            UpdateMissingResos();
 
         }
+
+        private static void UpdateMissingResos()
+        {
+            DateTime start = DateTime.Now.AddDays(-180);
+            DateTime end = DateTime.Now.AddDays(-1);
+            DateOnly scheduledTimeFrom = new DateOnly(start.Year, start.Month, start.Day);
+            DateOnly scheduledTimeTo = new DateOnly(end.Year, end.Month, end.Day);
+           
+            var missingDates = SqliteDataAccess.GetMissingReservationDates(scheduledTimeFrom, scheduledTimeTo);
+            
+        }
+
         public static ShiftReservations GetReservations(DateOnly dateOnly, bool isAM)
         {
             DateOnly today = new DateOnly(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day);
