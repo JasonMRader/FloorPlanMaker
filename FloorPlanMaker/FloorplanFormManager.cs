@@ -466,11 +466,11 @@ namespace FloorPlanMakerUI
             
 
            
-            Shift.SelectedDiningArea.SetTableSales(shiftAnalysis.FilteredTableStats);
+            //Shift.SelectedDiningArea.SetTableSales(shiftAnalysis.FilteredTableStats);
             //TODO: reformate ineffecient, setting tables twice
             if (Shift.Floorplans != null) {
                 foreach (Floorplan floorplan in Shift.Floorplans) {
-                    floorplan.DiningArea.SetTableSales(shiftAnalysis.FilteredTableStats);
+                    //floorplan.DiningArea.SetTableSales(shiftAnalysis.FilteredTableStats);
                     floorplan.RefreshSectionSales();
                 }
                 foreach (TableControl tableControl in this.tableControlManager.TableControls) {
