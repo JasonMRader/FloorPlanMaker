@@ -361,6 +361,7 @@
             Margin = new Padding(0);
             Name = "ShiftReservationControl";
             Size = new Size(200, 737);
+            Load += ShiftReservationControl_Load;
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel2.ResumeLayout(false);

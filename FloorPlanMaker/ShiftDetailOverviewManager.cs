@@ -80,7 +80,7 @@ namespace FloorPlanMakerUI
         private void PopulateFlowPanelForShiftData()
         {
             PopulateWeatherControlsForDateAndShift();
-            //PopulateReservationControlsForDateAndShift();
+            PopulateReservationControlsForDateAndShift();
             PopulateSaleStatsFilter();
             //if (rdoWeather.Checked)
             //{
@@ -150,9 +150,9 @@ namespace FloorPlanMakerUI
 
         
         private async void PopulateReservationControlsForDateAndShift()
-        {          
-           
-            flowResos.Controls.Clear();
+        {
+            ShiftReservationControl.SetForNewShift(dateOnly, isLunch);
+            //flowResos.Controls.Clear();
             //Label label = new Label
             //{
             //    AutoSize = false,

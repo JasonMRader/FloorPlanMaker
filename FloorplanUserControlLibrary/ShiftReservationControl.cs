@@ -29,10 +29,10 @@ namespace FloorplanUserControlLibrary
 
             }
             else {
-                if(_shiftReservations == null) {
+                if (_shiftReservations == null) {
                     return;
                 }
-                if(_shiftReservations.ReservationRecords.Count > 0) {
+                if (_shiftReservations.ReservationRecords.Count > 0) {
                     lblParties.Text = _shiftReservations.TotalResoCount.ToString();
                     lblCovers.Text = _shiftReservations.TotalResoCovers.ToString();
                     List<ReservationRecord> reservationsBySize =
@@ -59,7 +59,7 @@ namespace FloorplanUserControlLibrary
 
 
             }
-           
+
         }
 
         public async void SetForNewShift(DateOnly dateOnlySelected, bool isAM)
@@ -76,6 +76,11 @@ namespace FloorplanUserControlLibrary
                     new ReservationTimeBlockControl(time, reservationDistribution[time]);
                 flowLayoutPanel1.Controls.Add(reservationTimeBlockControl);
             }
+        }
+
+        private void ShiftReservationControl_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
