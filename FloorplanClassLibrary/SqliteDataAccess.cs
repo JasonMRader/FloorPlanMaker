@@ -2871,8 +2871,12 @@ namespace FloorplanClassLibrary
             //shiftRecord.tableStats = LoadTableStatsByDateAndLunch(isLunch, date);
             //shiftRecord.Sales = (float)shiftRecord.tableStats.Where(ts => (ts.DiningAreaID != 6 && ts.DiningAreaID != 0)).ToList().Sum(ts => ts.Sales);
             shiftRecord.Sales = shiftRecord.DiningAreaRecords.Sum(r => r.Sales);
+            shiftRecord.ShiftReservations = ShiftReservations.CreateShiftResosFromDB(date, isLunch);
             return shiftRecord;
         }
+
+        
+
         public static List<DiningAreaRecord> LoadDiningAreaRecordsByDateAndLunch(DateOnly date, bool isAm)
         {
             var tableStats = LoadTableStatsByDateAndLunch(isAm, date);
@@ -3554,6 +3558,18 @@ namespace FloorplanClassLibrary
                 }
             }
         }
+        //private static ShiftReservations GetShiftReservationsForShift(DateOnly date, bool isLunch)
+        //{
+        //    int startHour = 16;
+        //    int endHour = 23;
+        //    if (isLunch) {
+        //        startHour = 10;
+        //        endHour = 15;
+        //    }
+        //    DateTime startTime = new DateTime(date.Year, date.Month, date.Day, startHour, 0, 0);
+        //    DateTime endTime = new DateTime(date.Year, date.Month, date.Day, endHour, 59, 59);
+        //    return LoadReservations(startTime, endTime);
+        //}
         public static List<ReservationRecord> LoadReservations(DateTime startDateTime, DateTime endDateTime)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString())) {
