@@ -115,7 +115,7 @@ namespace FloorPlanMakerUI
         private ShiftReservationControl shiftReservationControl { get; set; }
         private async void PopulateWeatherControlsForDateAndShift()
         {
-            // Clear any previous data and fetch new weather data
+          
             hourlyWeatherDataList = await HourlyWeatherDataHandler.GetWeatherForShift(dateOnly, isLunch);
             CreateHourlyWeatherControls();
             UpdateWeatherControls();
@@ -123,7 +123,7 @@ namespace FloorPlanMakerUI
 
         private void CreateHourlyWeatherControls()
         {
-            // Ensure there are enough controls for the hourly weather data
+            
             while (this.hourlyWeatherDisplays.Count < hourlyWeatherDataList.Count)
             {
                 HourlyWeatherDisplay weatherDisplay = new HourlyWeatherDisplay();
@@ -152,16 +152,7 @@ namespace FloorPlanMakerUI
         private async void PopulateReservationControlsForDateAndShift()
         {
             ShiftReservationControl.SetForNewShift(dateOnly, isLunch);
-            //flowResos.Controls.Clear();
-            //Label label = new Label
-            //{
-            //    AutoSize = false,
-            //    Size = new Size(flowHourlyWeather.Width, flowHourlyWeather.Height),
-            //    TextAlign = ContentAlignment.MiddleCenter,
-            //    Text = "Reservation Data Integration Coming Soon!",
-            //    Font = UITheme.LargeFont,
-            //};
-            //flowResos.Controls.Add(label);
+           
         }
         public void SetNewShift(Shift shift)
         {
