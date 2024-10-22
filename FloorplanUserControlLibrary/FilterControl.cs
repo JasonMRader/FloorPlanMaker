@@ -55,7 +55,7 @@ namespace FloorplanUserControlLibrary
                 numericUpDown2.DecimalPlaces = 2;
             }
             if (filterType == FilterType.Reservations) {
-                this.Enabled = false;
+                //this.Enabled = false;
                 numericUpDown1.Minimum = 0;
                 numericUpDown2.Minimum = 0;
                 numericUpDown1.Maximum = 2000;
@@ -83,7 +83,13 @@ namespace FloorplanUserControlLibrary
             button1.ForeColor = Color.Black;
             UpdateControlsForCurrentFilter();
         }
-
+        public void SetForResos(int min,  int max)
+        {
+            if (filterType == FilterType.Reservations) {
+                numericUpDown1.Value = (decimal)min;
+                numericUpDown2.Value = (decimal)max;
+            }
+        }
         private void UpdateControlsForCurrentFilter()
         {
             if (filterType == FilterType.Temperature && shiftAnalysis.IsFilterByTemperature) {
@@ -100,7 +106,7 @@ namespace FloorplanUserControlLibrary
                 button1.BackColor = UITheme.CTAColor;
                 button1.ForeColor = Color.White;
             }
-            if (filterType == FilterType.Reservations && shiftAnalysis.IsFilteredByReservations) {
+            if (filterType == FilterType.Reservations) {
                
             }
             if (filterType == FilterType.Clouds && shiftAnalysis.IsFilteredByClouds) {
