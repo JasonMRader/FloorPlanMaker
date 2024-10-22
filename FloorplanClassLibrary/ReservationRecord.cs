@@ -21,6 +21,15 @@ namespace FloorplanClassLibrary
         
         public string Request { get; set; } = string.Empty;
         public string Name { get; set; }
+        public bool isCanceled {
+            get {
+                if(State == "Cancelled") {
+                    return true;
+                }
+                return false;
+            }
+        }
+       
         public ResoOrigin Origin { get; set; }
         public enum ResoOrigin {
             Web, 

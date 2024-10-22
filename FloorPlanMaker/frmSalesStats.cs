@@ -426,6 +426,14 @@ namespace FloorPlanMakerUI
                 }
             };
             dgvDiningAreas.Columns.Add(totalColumn);
+            var resoColumn = new DataGridViewTextBoxColumn {
+                Name = "Resos",
+                HeaderText = "Resos",
+                DefaultCellStyle = new DataGridViewCellStyle {
+                    Format = "N0"
+                }
+            };
+            dgvDiningAreas.Columns.Add(resoColumn);
 
             var tempHiColumn = new DataGridViewTextBoxColumn {
                 Name = "TempHi",
@@ -518,6 +526,8 @@ namespace FloorPlanMakerUI
                     cellIndex++;
                 }
                 row.Cells[cellIndex].Value = shiftRecord.Sales;
+                cellIndex++;
+                row.Cells[cellIndex].Value = shiftRecord.ShiftReservations.TotalResoCovers.ToString();
 
                 cellIndex++;
                 if (shiftRecord.ShiftWeather != null) {
