@@ -16,6 +16,7 @@ namespace FloorplanClassLibrary
         public List<ShiftRecord> FilteredShifts { get { return _filteredShifts; } }
         private List<DiningAreaStats> _diningAreaStats { get; set; } = new List<DiningAreaStats>();
         public List<DiningAreaStats> DiningAreaStats { get { return _diningAreaStats; } }
+        public ShiftRecord currentShiftRecord { get; private set; }
         public List<TableStat> FilteredTableStats {
             get {
                 

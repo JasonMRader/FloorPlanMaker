@@ -20,6 +20,7 @@ namespace FloorplanUserControlLibrary
         public event Action UpdateShift;
         public event Action OpenSalesForm;
         public event Action<bool> ToggleDayOf;
+        private ShiftReservations _shiftReservations { get; set; }
         private DiningAreaManager _areaManager { get; set; } = new DiningAreaManager();
         public ShiftFilterControl()
         {
@@ -34,7 +35,9 @@ namespace FloorplanUserControlLibrary
         {
             if (_shiftAnalysis != null) {
                 _shiftAnalysis.SetStandardFiltersForDateAndShiftType(isAM, dateOnly);
+                this._shiftReservations = ShiftReservationDataControler.GetReservations(dateOnly, isAM);
                 RefreshForNewShiftAnalysis();
+                
             }
 
         }
@@ -67,6 +70,10 @@ namespace FloorplanUserControlLibrary
             DateFilterControl dateFilterControl = new DateFilterControl(_shiftAnalysis);
             DayOfWeekFilterControl dayOfWeekFilterControl = new DayOfWeekFilterControl(_shiftAnalysis);
             MonthFilterControl monthFilterControl = new MonthFilterControl(_shiftAnalysis);
+            if(_shiftReservations != null) {
+                resoControl.SetForResos(_shiftReservations.TotalResoCovers - 50, _shiftReservations.TotalResoCovers + 50);
+            }
+          
             rdoAM.Checked = _shiftAnalysis.IsAM;
             rdoPM.Checked = !_shiftAnalysis.IsAM;
             flowFilters.Controls.Add(dateFilterControl);

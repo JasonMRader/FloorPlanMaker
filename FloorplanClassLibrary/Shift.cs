@@ -193,6 +193,11 @@ namespace FloorplanClassLibrary
        
         public List<DiningArea> DiningAreasUsed => Floorplans.Select(fp => fp.DiningArea).Distinct().ToList();
         public WeatherData? WeatherData { get; private set; }
+        public ShiftReservations? ShiftReservations { get; private set; }
+        public void SetShiftReservations(ShiftReservations? shiftReservations)
+        {
+            this.ShiftReservations = shiftReservations;
+        }
         public List<HourlyWeatherData> HourlyWeatherData { get; private set; }
         public void SetSelectedDiningArea(DiningArea? selectedDiningArea)
         {
