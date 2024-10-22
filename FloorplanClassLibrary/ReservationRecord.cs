@@ -93,7 +93,8 @@ namespace FloorplanClassLibrary
         }
         public override string ToString()
         {
-            return this.DateTime.ToString("h:mm") + ":  " + this.Covers.ToString();
+            return this.DateTime.ToString("h:mm") + ":  " + this.Covers.ToString()
+                + " State: " + this.State + " Source: " + this.Origin;
         }
     }
 }

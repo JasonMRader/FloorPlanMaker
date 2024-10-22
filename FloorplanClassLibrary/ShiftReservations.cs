@@ -86,9 +86,11 @@ namespace FloorplanClassLibrary
         }
         public int TotalResoCovers {
             get {
-                return ReservationRecords.Where(
-                    r => r.Origin == ReservationRecord.ResoOrigin.Web
-                    || r.Origin == ReservationRecord.ResoOrigin.Phone).ToList().Sum(r => r.Covers);
+                var uncancelledResos = ReservationRecords.Where(
+                    r => (r.Origin == ReservationRecord.ResoOrigin.Web && !r.isCanceled)
+                    || (r.Origin == ReservationRecord.ResoOrigin.Phone && !r.isCanceled)
+                    ).ToList();
+                return uncancelledResos.Sum(r => r.Covers);
             }
         }
         public int TotalWalkInCovers {
