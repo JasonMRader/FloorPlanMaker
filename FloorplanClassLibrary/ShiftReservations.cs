@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.Intrinsics.Arm;
 using System.Text;
@@ -107,7 +108,15 @@ namespace FloorplanClassLibrary
             var reservations = await ReservationAPIDataAccess.GetReservationsAsync(scheduledTimeFrom, scheduledTimeTo);
             SetReservationRecords(reservations);
         }
-
+        public int MinRange {
+            get {
+                int floor = TotalResoCovers - 50;
+                if (floor < 0) {
+                    floor = 0;
+                }
+                return floor;
+            }
+        }
         private void SetReservationRecords(List<Reservation> reservations)
         {
             reservations.RemoveAll(r => r.State == "Cancelled");

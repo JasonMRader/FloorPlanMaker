@@ -71,7 +71,7 @@ namespace FloorplanUserControlLibrary
             DayOfWeekFilterControl dayOfWeekFilterControl = new DayOfWeekFilterControl(_shiftAnalysis);
             MonthFilterControl monthFilterControl = new MonthFilterControl(_shiftAnalysis);
             if(_shiftReservations != null) {
-                resoControl.SetForResos(_shiftReservations.TotalResoCovers - 50, _shiftReservations.TotalResoCovers + 50);
+                resoControl.SetForResos(_shiftReservations.MinRange, _shiftReservations.TotalResoCovers + 50);
             }
           
             rdoAM.Checked = _shiftAnalysis.IsAM;

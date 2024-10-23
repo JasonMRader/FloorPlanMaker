@@ -85,6 +85,9 @@ namespace FloorplanUserControlLibrary
         }
         public void SetForResos(int min,  int max)
         {
+            if(min < 0) {
+                min = 0;
+            }
             if (filterType == FilterType.Reservations) {
                 numericUpDown1.Value = (decimal)min;
                 numericUpDown2.Value = (decimal)max;
