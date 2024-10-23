@@ -239,6 +239,10 @@ namespace FloorplanUserControlLibrary
                     shiftAnalysis.SetIsFilteredByWindAvg(isFiltered);
                     SetWindAvgFilter();
                 }
+                else if(filterType == FilterType.Reservations) {
+                    shiftAnalysis.SetIsFilteredByReservations(isFiltered);
+                    SetResoRangeFilter();
+                }
             }
             else {
                 if (filterType == FilterType.Temperature) {
@@ -259,6 +263,12 @@ namespace FloorplanUserControlLibrary
                 }
             }
 
+        }
+
+        private void SetResoRangeFilter()
+        {
+            button1.Text = $"{numericUpDown1.Value:F0} Resos to {numericUpDown2.Value:F0} Resos";
+            shiftAnalysis.SetReservationsRange((int)numericUpDown1.Value, (int)numericUpDown2.Value);
         }
 
         private void SetWindAvgFilter()
