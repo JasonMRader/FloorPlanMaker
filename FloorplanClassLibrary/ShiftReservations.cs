@@ -110,11 +110,16 @@ namespace FloorplanClassLibrary
         }
         public int MinRange {
             get {
-                int floor = TotalResoCovers - 50;
+                int floor = TotalResoCovers - 35;
                 if (floor < 0) {
                     floor = 0;
                 }
                 return floor;
+            }
+        }
+        public int MaxRange {
+            get {
+                return TotalResoCovers + 35;
             }
         }
         private void SetReservationRecords(List<Reservation> reservations)

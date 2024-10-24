@@ -76,6 +76,10 @@ namespace FloorplanClassLibrary
             _filterByDayOfWeek = true;
             _filteredDaysOfWeek.Clear();
             _filteredDaysOfWeek.Add(shift.DateOnly.DayOfWeek);
+            if(shift.ShiftReservations != null) {
+                SetReservationsRange(shift.ShiftReservations.MinRange, shift.ShiftReservations.MaxRange);
+                _filterByReservations = true;
+            }
         }
         public void SetDefaultWeatherFilters(ShiftWeather shiftWeather)
         {
