@@ -109,8 +109,12 @@ namespace FloorplanUserControlLibrary
                 button1.BackColor = UITheme.CTAColor;
                 button1.ForeColor = Color.White;
             }
-            if (filterType == FilterType.Reservations) {
-               
+            if (filterType == FilterType.Reservations && shiftAnalysis.IsFilteredByReservations) {
+                numericUpDown1.Value = (decimal)shiftAnalysis.ReservationMin;
+                numericUpDown2.Value = (decimal)shiftAnalysis.ReservationMax;
+                button1.Text = $"Reso Covers: {numericUpDown1.Value:F0} - {numericUpDown2.Value:F0}";
+                button1.BackColor = UITheme.CTAColor;
+                button1.ForeColor = Color.White;
             }
             if (filterType == FilterType.Clouds && shiftAnalysis.IsFilteredByClouds) {
                 numericUpDown1.Value = (decimal)shiftAnalysis.CloudMin;
@@ -267,7 +271,7 @@ namespace FloorplanUserControlLibrary
 
         private void SetResoRangeFilter()
         {
-            button1.Text = $"{numericUpDown1.Value:F0} Resos to {numericUpDown2.Value:F0} Resos";
+            button1.Text = $"Reso Covers: {numericUpDown1.Value:F0} - {numericUpDown2.Value:F0}";
             shiftAnalysis.SetReservationsRange((int)numericUpDown1.Value, (int)numericUpDown2.Value);
         }
 
