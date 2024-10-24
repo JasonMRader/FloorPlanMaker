@@ -75,7 +75,19 @@ namespace FloorplanClassLibrary
             this._filterBySpecialEvent = true;
             _filterByDayOfWeek = true;
             _filteredDaysOfWeek.Clear();
-            _filteredDaysOfWeek.Add(shift.DateOnly.DayOfWeek);
+            if(shift.DateOnly.DayOfWeek == DayOfWeek.Monday || shift.DateOnly.DayOfWeek == DayOfWeek.Tuesday
+                || shift.DateOnly.DayOfWeek == DayOfWeek.Wednesday || shift.DateOnly.DayOfWeek == DayOfWeek.Thursday) {
+                _filteredDaysOfWeek.Add(DayOfWeek.Monday);
+                _filteredDaysOfWeek.Add(DayOfWeek.Tuesday);
+                _filteredDaysOfWeek.Add(DayOfWeek.Wednesday);
+                _filteredDaysOfWeek.Add(DayOfWeek.Thursday);
+            }
+            else {
+                _filteredDaysOfWeek.Add(DayOfWeek.Friday);
+                _filteredDaysOfWeek.Add(DayOfWeek.Saturday);
+                _filteredDaysOfWeek.Add(DayOfWeek.Sunday);
+            }
+            
             if(shift.ShiftReservations != null) {
                 SetReservationsRange(shift.ShiftReservations.MinRange, shift.ShiftReservations.MaxRange);
                 _filterByReservations = true;
