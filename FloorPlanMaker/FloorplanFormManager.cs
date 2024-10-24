@@ -454,6 +454,28 @@ namespace FloorPlanMakerUI
             sectionPanelManager.UpdateImageLabels();
             
         }
+        public async void UpdateStats()
+        {
+           
+            await Task.Run(() => {
+                shiftAnalysis.InitializetShiftsForDateRange();
+               
+
+            });
+            mainForm.Invoke(new Action(() => {
+                UpdateTableStatsForPercentage();
+                sectionPanelManager.UpdateImageLabels();
+               
+
+            }));
+            if (Shift.Floorplans != null) {
+                foreach (TableControl tableControl in this.tableControlManager.TableControls) {
+                    this.toolTip.SetToolTip(tableControl, tableControl.Table.AverageSales.ToString("C0"));
+                    tableControl.Invalidate();
+                }
+            }
+            sectionPanelManager.UpdateImageLabels();
+        }
         private void UpdateStatsForDayOf()
         {
             this.tableSalesManager.CurrentStatsPeriod = TableSalesManager.StatsPeriod.Today;

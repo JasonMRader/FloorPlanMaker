@@ -644,9 +644,9 @@ namespace FloorPlanMaker
         }
         public void UpdateWeatherDataLoaded()
         {
-
-
             this.shiftDetailManager.ForceUpdateForDate(dateOnlySelected, IsLunch);
+            floorplanManager.SetViewedFloorplan(dateOnlySelected, IsLunch);
+            floorplanManager.UpdateStats();
         }
         public void UpdateSidePanelDisplay()
         {
