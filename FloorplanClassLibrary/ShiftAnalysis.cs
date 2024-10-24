@@ -92,6 +92,9 @@ namespace FloorplanClassLibrary
                 SetReservationsRange(shift.ShiftReservations.MinRange, shift.ShiftReservations.MaxRange);
                 _filterByReservations = true;
             }
+            if(shift.WeatherData != null) {
+
+            }
         }
         public void SetDefaultWeatherFilters(ShiftWeather shiftWeather)
         {
