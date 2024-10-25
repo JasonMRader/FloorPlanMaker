@@ -40,6 +40,7 @@
             flowYesterdayCounts = new FlowLayoutPanel();
             flowLastWeekdayCounts = new FlowLayoutPanel();
             panel2 = new Panel();
+            btnSwitch = new Button();
             flowLast4 = new FlowLayoutPanel();
             lblLast4 = new Label();
             lblLastWeek = new Label();
@@ -60,7 +61,6 @@
             lblServersOnShift = new Label();
             lblMissingServers = new Label();
             toolTip1 = new ToolTip(components);
-            btnSwitch = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
@@ -227,6 +227,16 @@
             panel2.Size = new Size(1231, 231);
             panel2.TabIndex = 4;
             // 
+            // btnSwitch
+            // 
+            btnSwitch.Location = new Point(28, 34);
+            btnSwitch.Name = "btnSwitch";
+            btnSwitch.Size = new Size(75, 23);
+            btnSwitch.TabIndex = 7;
+            btnSwitch.Text = "switch";
+            btnSwitch.UseVisualStyleBackColor = true;
+            btnSwitch.Click += btnSwitch_Click;
+            // 
             // flowLast4
             // 
             flowLast4.BackColor = Color.WhiteSmoke;
@@ -262,7 +272,7 @@
             lblDayBefore.Name = "lblDayBefore";
             lblDayBefore.Size = new Size(135, 21);
             lblDayBefore.TabIndex = 4;
-            lblDayBefore.Text = "Yesterday PM";
+            lblDayBefore.Text = "Filtered Average";
             lblDayBefore.TextAlign = ContentAlignment.MiddleRight;
             // 
             // label1
@@ -445,16 +455,6 @@
             toolTip1.AutoPopDelay = 20000;
             toolTip1.InitialDelay = 200;
             toolTip1.ReshowDelay = 40;
-            // 
-            // btnSwitch
-            // 
-            btnSwitch.Location = new Point(28, 34);
-            btnSwitch.Name = "btnSwitch";
-            btnSwitch.Size = new Size(75, 23);
-            btnSwitch.TabIndex = 7;
-            btnSwitch.Text = "switch";
-            btnSwitch.UseVisualStyleBackColor = true;
-            btnSwitch.Click += btnSwitch_Click;
             // 
             // frmNewShiftDatePicker
             // 

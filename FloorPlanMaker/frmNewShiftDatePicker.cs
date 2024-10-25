@@ -301,7 +301,7 @@ namespace FloorPlanMakerUI
                 CreateCountLabel(flowLast4, area);
             }
         }
-        
+
         private void CreateCountLabel(FlowLayoutPanel panel, DiningArea diningArea)
         {
             int width = (flowDiningAreas.Width / (DiningAreaManager.DiningAreas.Count)) - 20;
@@ -343,12 +343,12 @@ namespace FloorPlanMakerUI
                 shiftType = "PM";
             }
             if (dateSelected.Date == DateTime.Today.Date) {
-                lblDayBefore.Text = $"Yesterday {shiftType}";
+                //lblDayBefore.Text = $"Yesterday {shiftType}";
                 lblLastWeek.Text = "Last " + dateSelected.ToString("ddd") + " " + shiftType;
                 lblLast4.Text = "Last 4 " + dateSelected.ToString("ddd") + " " + shiftType + "s";
             }
             else {
-                lblDayBefore.Text = $"Day Before {shiftType}";
+                //lblDayBefore.Text = $"Day Before {shiftType}";
                 lblLastWeek.Text = "Previous " + dateSelected.ToString("ddd") + " " + shiftType;
                 lblLast4.Text = "Previous 4 " + dateSelected.ToString("ddd") + " " + shiftType + "s";
             }
@@ -584,7 +584,7 @@ namespace FloorPlanMakerUI
                 this.BringToFront();
             }));
 
-           
+
         }
         private void cbIsAm_Click(object sender, EventArgs e)
         {
@@ -928,8 +928,8 @@ namespace FloorPlanMakerUI
         }
         private void btnSwitch_Click(object sender, EventArgs e)
         {
-           
-            List<DiningAreaRecord> last4 = GetAreaRecordForLastFour();          
+
+            List<DiningAreaRecord> last4 = GetAreaRecordForLastFour();
             List<DiningAreaRecord> yesterdayRecords = SqliteDataAccess.LoadDiningAreaRecords(dateOnlySelected.AddDays(-1), cbIsAm.Checked);
             List<DiningAreaRecord> lastWeekRecords = SqliteDataAccess.LoadDiningAreaRecords(dateOnlySelected.AddDays(-7), cbIsAm.Checked);
 
@@ -945,7 +945,7 @@ namespace FloorPlanMakerUI
         }
         private void CreateAreaHistoryLabelsForLast4COPY(FlowLayoutPanel panel, List<AreaHistory> areaHistories)
         {
-            
+
             foreach (Label lbl in panel.Controls.OfType<Label>()) {
                 if (lbl.Tag is DiningArea area) {
                     AreaHistory history = areaHistories.FirstOrDefault(x => x.DiningArea.ID == area.ID);
@@ -966,17 +966,17 @@ namespace FloorPlanMakerUI
             int serversUsed = 0;
             foreach (DateOnly day in previousWeekdays) {
                 List<DiningAreaRecord> matchedRecords = SqliteDataAccess.LoadDiningAreaRecords(day, cbIsAm.Checked);
-                
+
                 if (matchedRecords != null) {
                     areaHistories.AddRange(matchedRecords);
                     serversUsed += matchedRecords.Sum(r => r.ServerCount);
                 }
             }
-            
-            
+
+
             return areaHistories;
         }
-        
+
         //private void CreateAreaRecordLabelsForLast4(FlowLayoutPanel panel, List<DiningAreaRecord> areaHistories)
         //{
         //    foreach (AreaHistory areaHistory in areaHistories) {
