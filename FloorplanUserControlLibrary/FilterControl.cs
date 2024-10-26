@@ -60,8 +60,8 @@ namespace FloorplanUserControlLibrary
                 numericUpDown2.Minimum = 0;
                 numericUpDown1.Maximum = 2000;
                 numericUpDown2.Maximum = 2000;
-                numericUpDown1.Increment = 50;
-                numericUpDown2.Increment = 50;
+                numericUpDown1.Increment = 10;
+                numericUpDown2.Increment = 10;
             }
             if (filterType == FilterType.Clouds) {
 

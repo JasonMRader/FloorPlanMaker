@@ -202,7 +202,7 @@ namespace FloorPlanMakerUI
 
             // Add rows for each date's sales data
             foreach (var history in serverHistory) {
-                if(history.filteredShifts.Count == 0) {
+                if (history.filteredShifts.Count == 0) {
                     continue;
                 }
                 var row = new List<object> { history.Server.ToString() };

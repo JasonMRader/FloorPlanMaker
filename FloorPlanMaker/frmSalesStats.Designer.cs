@@ -166,7 +166,7 @@
             dataGridView1.Location = new Point(36, 716);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowTemplate.Height = 25;
-            dataGridView1.Size = new Size(890, 249);
+            dataGridView1.Size = new Size(1074, 249);
             dataGridView1.TabIndex = 12;
             // 
             // flowDiningAreas
@@ -182,7 +182,7 @@
             dgvAreaStats.Location = new Point(36, 503);
             dgvAreaStats.Name = "dgvAreaStats";
             dgvAreaStats.RowTemplate.Height = 25;
-            dgvAreaStats.Size = new Size(890, 201);
+            dgvAreaStats.Size = new Size(1074, 201);
             dgvAreaStats.TabIndex = 14;
             // 
             // button1
