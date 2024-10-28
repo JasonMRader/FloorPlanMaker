@@ -841,12 +841,24 @@ namespace FloorPlanMakerUI
         }
         private void RefreshPreviousFloorplanCounts()
         {
-            List<AreaHistory> lastWeekAreaHistories = GetAreaHistories(cbIsAm.Checked, -7);
-            List<AreaHistory> last4 = GetHistoryForLastFour();
-            List<AreaHistory> yesterdayAreaHistories = GetAreaHistories(cbIsAm.Checked, -1);
-            CreateAreaHistoryLabelsForLast4(flowLast4, last4);
-            CreateAreaHistoryLabels(flowLastWeekdayCounts, lastWeekAreaHistories, false);
-            CreateAreaHistoryLabels(flowYesterdayCounts, yesterdayAreaHistories, true);
+            List<DiningAreaRecord> last4 = GetAreaRecordForLastFour();
+            List<DiningAreaRecord> yesterdayRecords = SqliteDataAccess.LoadDiningAreaRecords(dateOnlySelected.AddDays(-1), cbIsAm.Checked);
+            List<DiningAreaRecord> lastWeekRecords = SqliteDataAccess.LoadDiningAreaRecords(dateOnlySelected.AddDays(-7), cbIsAm.Checked);
+
+            List<AreaHistory> yesterdayHistory = AreaHistory.GetAreaHistoriesFromAreaRecords(yesterdayRecords);
+            List<AreaHistory> lastWeekHistory = AreaHistory.GetAreaHistoriesFromAreaRecords(lastWeekRecords);
+            List<AreaHistory> last4History = AreaHistory.GetAverageHistoriesFromRecords(last4, DiningAreaManager.DiningAreas);
+
+            CreateAreaHistoryLabelsForLast4COPY(flowLast4, last4History);
+            CreateAreaHistoryLabels(flowLastWeekdayCounts, lastWeekHistory, false);
+            CreateAreaHistoryLabels(flowYesterdayCounts, yesterdayHistory, true);
+
+            //List<AreaHistory> lastWeekAreaHistories = GetAreaHistories(cbIsAm.Checked, -7);
+            //List<AreaHistory> last4 = GetHistoryForLastFour();
+            //List<AreaHistory> yesterdayAreaHistories = GetAreaHistories(cbIsAm.Checked, -1);
+            //CreateAreaHistoryLabelsForLast4(flowLast4, last4);
+            //CreateAreaHistoryLabels(flowLastWeekdayCounts, lastWeekAreaHistories, false);
+            //CreateAreaHistoryLabels(flowYesterdayCounts, yesterdayAreaHistories, true);
         }
 
         private List<AreaHistory> GetHistoryForLastFour()
