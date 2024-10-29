@@ -1001,5 +1001,9 @@ namespace FloorPlanMakerUI
             _chart.LegendPosition = LiveChartsCore.Measure.LegendPosition.Right;
         }
 
+        public void SetUpChartForReservations()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -349,7 +349,6 @@
             // 
             rdoCompareReservations.Appearance = Appearance.Button;
             rdoCompareReservations.BackColor = SystemColors.ButtonShadow;
-            rdoCompareReservations.Enabled = false;
             rdoCompareReservations.FlatAppearance.BorderSize = 0;
             rdoCompareReservations.FlatAppearance.CheckedBackColor = Color.FromArgb(100, 130, 180);
             rdoCompareReservations.FlatStyle = FlatStyle.Flat;

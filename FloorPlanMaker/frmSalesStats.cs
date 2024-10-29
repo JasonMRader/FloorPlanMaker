@@ -694,6 +694,9 @@ namespace FloorPlanMakerUI
             else if (rdoDistribution.Checked) {
                 chartManager.SetUpBarChartForShiftSales();
             }
+            else if (rdoCompareReservations.Checked) {
+
+            }
         }
 
         private void GetChartFiltersForDiningArea()
