@@ -695,7 +695,7 @@ namespace FloorPlanMakerUI
                 chartManager.SetUpBarChartForShiftSales();
             }
             else if (rdoCompareReservations.Checked) {
-
+                chartManager.SetUpChartForReservations();
             }
         }
 
