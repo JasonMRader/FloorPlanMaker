@@ -38,11 +38,16 @@ namespace FloorplanUserControlLibrary
                     List<ReservationRecord> reservationsBySize =
                         _shiftReservations.PreBookedRecords.OrderByDescending(r => r.Covers).ToList();
                     reservationsBySize = reservationsBySize.Take(5).ToList();
-                    lbl1Largest.Text = $"{reservationsBySize[0].TimeDisplay} | {reservationsBySize[0].Covers}";
-                    lbl2Largest.Text = $"{reservationsBySize[1].TimeDisplay} | {reservationsBySize[1].Covers}";
-                    lbl3Largest.Text = $"{reservationsBySize[2].TimeDisplay} | {reservationsBySize[2].Covers}";
-                    lbl4Largest.Text = $"{reservationsBySize[3].TimeDisplay} | {reservationsBySize[3].Covers}";
-                    lbl5Largest.Text = $"{reservationsBySize[4].TimeDisplay} | {reservationsBySize[4].Covers}";
+                    if(reservationsBySize.Count > 0) {
+                        for(int i = 0; i < reservationsBySize.Count; i++) {
+                            lbl1Largest.Text = $"{reservationsBySize[i].TimeDisplay} | {reservationsBySize[i].Covers}";
+                            lbl2Largest.Text = $"{reservationsBySize[i].TimeDisplay} | {reservationsBySize[i].Covers}";
+                            lbl3Largest.Text = $"{reservationsBySize[i].TimeDisplay} | {reservationsBySize[i].Covers}";
+                            lbl4Largest.Text = $"{reservationsBySize[i].TimeDisplay} | {reservationsBySize[i].Covers}";
+                            lbl5Largest.Text = $"{reservationsBySize[i].TimeDisplay} | {reservationsBySize[i].Covers}";
+                        }
+                    }
+                   
                     lbl1to4Count.Text = _shiftReservations.PreBookedRecords.Where(r => r.Covers <= 4).ToList().Count().ToString();
                     lbl5to8Count.Text = _shiftReservations.PreBookedRecords.Where(
                         r => r.Covers <= 8 && r.Covers >= 5).ToList().Count().ToString();
