@@ -76,7 +76,7 @@ namespace FloorPlanMakerUI
             this.sectionHeader = headerDisplay;
             this.sectionHeader.btnTeamWaitClicked += HeaderTeamWaitClicked;
             this.sectionTabs = sectionTabs;
-            //this.sectionTabs.SectionSelected += SectionTabSelectSection;
+            
             tablePercentageRecords = SqliteDataAccess.LoadTablePercentageRecords();
             tableControlManager = new TableControlManager(pnlFloorPlan);
             tableControlManager.UpdateAveragesPerServer += newUpdateAveragesPerServer;
@@ -96,13 +96,6 @@ namespace FloorPlanMakerUI
             this.shiftFilterControl.ToggleDayOf += ToggleDayOf;
             this.shiftReservationControl = shiftReservationControl;
 
-        }
-
-        
-
-        private void SectionTabSelectSection(Section obj)
-        {
-            throw new NotImplementedException();
         }
 
         private void notAllTablesAssigned()
@@ -143,8 +136,7 @@ namespace FloorPlanMakerUI
         {
             get { return tableControlManager.TableControls; }
             
-        }
-       
+        }      
         
         public void ResetSections()
         {
@@ -153,8 +145,7 @@ namespace FloorPlanMakerUI
             Floorplan.floorplanLines.Clear();            
             tableControlManager.ResetSections();
             
-            sectionLabelManager.ClearAllLabels();
-           
+            sectionLabelManager.ClearAllLabels();          
 
         }
         
@@ -484,8 +475,7 @@ namespace FloorPlanMakerUI
             Shift.SelectedDiningArea.SetTableSales(tableSalesManager.Stats);
         }
         private void UpdateTableStats()
-        {
-            
+        {           
 
            
             //Shift.SelectedDiningArea.SetTableSales(shiftAnalysis.FilteredTableStats);
