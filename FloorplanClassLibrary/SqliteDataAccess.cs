@@ -17,21 +17,18 @@ namespace FloorplanClassLibrary
     public class SqliteDataAccess
     {
 
-        //private static string LoadConnectionString(string id = "Default")
-        //{
-        //    return ConfigurationManager.ConnectionStrings[id].ConnectionString;
-        //}
+        
         private static string LoadConnectionString(string id = "Default")
         {
             var connectionString = ConfigurationManager.ConnectionStrings[id].ConnectionString;
             var dbPath = ConfigurationManager.AppSettings["DatabasePath"];
 
-            // Assuming your database file has a fixed name, e.g., "FloorplanMakerDB.db"
+           
             string dbFileName = "FloorplanMakerDB.db";
 
-            // Construct the full path to the database file
+           
             string fullPath = string.IsNullOrEmpty(dbPath)
-                ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, dbFileName) // Default location
+                ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, dbFileName) 
                 : Path.Combine(dbPath, dbFileName);
 
             connectionString = connectionString.Replace(".\\FloorplanMakerDB.DB", fullPath);
@@ -44,8 +41,7 @@ namespace FloorplanClassLibrary
                 cnn.Open();
 
                 using (var transaction = cnn.BeginTransaction()) {
-                    foreach (TableStat tableStat in tableStats) {
-                        // 1. Check for existing TableStat record
+                    foreach (TableStat tableStat in tableStats) {                       
                         string checkSql = @"SELECT COUNT(*) FROM TableStats 
                                     WHERE TableStatNumber = @TableStatNumber 
                                     AND IsLunch = @IsLunch 
@@ -56,8 +52,7 @@ namespace FloorplanClassLibrary
                             Date = tableStat.Date.ToString("yyyy-MM-dd")
                         }, transaction: transaction).Single();
 
-                        if (count == 0) {
-                            // 1.1 Insert new TableStat record
+                        if (count == 0) {                            
                             var insertTableStatSql = @"INSERT INTO TableStats 
                                                (TableStatNumber, DayOfWeek, Date, IsLunch, Sales, Orders, DiningAreaID) 
                                                VALUES 
@@ -72,8 +67,6 @@ namespace FloorplanClassLibrary
                                 DiningAreaID = tableStat.DiningAreaID
                             }, transaction: transaction);
                         }
-
-                        // 2. Calculate total sales for the DiningAreaID, IsLunch, and Date
                         var totalSales = cnn.Query<float>(@"SELECT SUM(Sales) FROM TableStats 
                                                     WHERE DiningAreaID = @DiningAreaID 
                                                     AND IsLunch = @IsLunch 
@@ -82,9 +75,7 @@ namespace FloorplanClassLibrary
                                DiningAreaID = tableStat.DiningAreaID,
                                IsLunch = tableStat.IsLunch,
                                Date = tableStat.Date.ToString("yyyy-MM-dd")
-                           }, transaction: transaction).Single();
-
-                        // 3. Get the ServerCount from Floorplan, or set it to 0 if no matching floorplan exists
+                           }, transaction: transaction).Single();                        
                         var serverCount = cnn.Query<int?>(@"SELECT ServerCount FROM Floorplan 
                                                     WHERE DiningAreaID = @DiningAreaID 
                                                     AND IsLunch = @IsLunch 
@@ -95,7 +86,7 @@ namespace FloorplanClassLibrary
                                Date = tableStat.Date.ToString("yyyy-MM-dd")
                            }, transaction: transaction).FirstOrDefault() ?? 0;
 
-                        // 4. Check if DiningAreaRecord exists for the Date, IsLunch, and DiningAreaID
+                       
                         var diningAreaRecordID = cnn.Query<int?>(@"SELECT ID FROM DiningAreaRecord 
                                                            WHERE DiningAreaID = @DiningAreaID 
                                                            AND IsAm = @IsLunch 
@@ -108,7 +99,7 @@ namespace FloorplanClassLibrary
 
                         if (diningAreaRecordID == null) {
                             try {
-                                // 4.1 Insert new DiningAreaRecord
+                                
                                 var insertDiningAreaSql = @"INSERT INTO DiningAreaRecord 
                                                     (DiningAreaID, Date, IsAm, Sales, ServerCount, PercentageOfSales) 
                                                     VALUES 
@@ -121,13 +112,11 @@ namespace FloorplanClassLibrary
                                     ServerCount = serverCount
                                 }, transaction: transaction);
 
-                                // 4.2 Retrieve the new DiningAreaRecordID
+                                
                                 diningAreaRecordID = cnn.Query<int>("SELECT last_insert_rowid()", transaction: transaction).Single();
                             }
                             catch (SQLiteException ex) when (ex.ResultCode == SQLiteErrorCode.Constraint) {
-                                // Handle uniqueness constraint violation
-                                // Another process might have inserted the record after the initial check
-                                // Retrieve the existing DiningAreaRecordID
+                               
                                 diningAreaRecordID = cnn.Query<int?>(@"SELECT ID FROM DiningAreaRecord 
                                                                WHERE DiningAreaID = @DiningAreaID 
                                                                AND IsAm = @IsLunch 
@@ -139,13 +128,13 @@ namespace FloorplanClassLibrary
                                    }, transaction: transaction).FirstOrDefault();
 
                                 if (diningAreaRecordID == null) {
-                                    // If still null, rethrow the exception
+                                   
                                     throw;
                                 }
                             }
                         }
                         else {
-                            // 4.3 Update the existing DiningAreaRecord
+                            
                             var updateDiningAreaSql = @"UPDATE DiningAreaRecord 
                                                 SET Sales = @Sales, ServerCount = @ServerCount 
                                                 WHERE ID = @DiningAreaRecordID";
@@ -156,7 +145,7 @@ namespace FloorplanClassLibrary
                             }, transaction: transaction);
                         }
 
-                        // 5. Update the TableStat record with the DiningAreaRecordID
+                       
                         var updateTableStatSql = @"UPDATE TableStats 
                                            SET DiningAreaRecordID = @DiningAreaRecordID 
                                            WHERE TableStatNumber = @TableStatNumber 
@@ -2248,7 +2237,7 @@ namespace FloorplanClassLibrary
 
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                // Load CustomRightLeftNeighbors
+               
                 string sqlRightLeft = "SELECT RightBorder, LeftBorder FROM CustomRightLeftNeighbors;";
                 var rightLeftPairs = cnn.Query<(string RightBorder, string LeftBorder)>(sqlRightLeft);
                 foreach (var pair in rightLeftPairs)
@@ -2257,7 +2246,7 @@ namespace FloorplanClassLibrary
                     customPairs.Add(pairKey);
                 }
 
-                // Load CustomTopBottomNeighbors
+                
                 string sqlTopBottom = "SELECT TopBorder, BottomBorder FROM CustomTopBottomNeighbors;";
                 var topBottomPairs = cnn.Query<(string TopBorder, string BottomBorder)>(sqlTopBottom);
                 foreach (var pair in topBottomPairs)
@@ -2327,7 +2316,7 @@ namespace FloorplanClassLibrary
                     return new TopBottomNeighbor(record.MidLocation, record.StartPoint, record.EndPoint, topBorder, bottomBorder);
                 }
 
-                return null; // Or handle the case where no record is found
+                return null;
             }
         }
         public static RightLeftNeighbor LoadCustomRightLeftNeighbor(TableEdgeBorders rightBorder, TableEdgeBorders leftBorder)
