@@ -235,6 +235,7 @@
             btnSwitch.TabIndex = 7;
             btnSwitch.Text = "switch";
             btnSwitch.UseVisualStyleBackColor = true;
+            btnSwitch.Visible = false;
             btnSwitch.Click += btnSwitch_Click;
             // 
             // flowLast4
