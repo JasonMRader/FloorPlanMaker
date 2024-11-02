@@ -1006,6 +1006,7 @@ namespace FloorPlanMaker
             lblMissingSalesData.TabIndex = 6;
             lblMissingSalesData.Text = " Please Update!";
             lblMissingSalesData.TextAlign = ContentAlignment.MiddleCenter;
+            lblMissingSalesData.Click += lblMissingSalesData_Click;
             // 
             // Form1
             // 

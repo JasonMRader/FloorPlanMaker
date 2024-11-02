@@ -35,10 +35,8 @@ namespace FloorplanUserControlLibrary
             if (_shiftAnalysis != null) {
                 _shiftAnalysis.SetStandardFiltersForDateAndShiftType(isAM, dateOnly);
                 this._shiftReservations = ShiftReservationDataControler.GetReservations(dateOnly, isAM);
-                RefreshForNewShiftAnalysis();
-                
+                RefreshForNewShiftAnalysis();                
             }
-
         }
         public void SetShiftAnalysis(ShiftAnalysis shiftAnalysis)
         {

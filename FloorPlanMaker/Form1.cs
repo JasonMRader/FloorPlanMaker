@@ -1693,6 +1693,22 @@ namespace FloorPlanMaker
 
         }
 
+        private void lblMissingSalesData_Click(object sender, EventArgs e)
+        {        
+            string url = "https://www.toasttab.com/restaurants/admin/reports/home#sales-orders";
+            try {
+                // Open the URL in the default web browser
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo {
+                    FileName = url,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex) {
+                MessageBox.Show($"An error occurred: {ex.Message}");
+            }
+
+        }
+
         //private void Form1_KeyDown(object sender, KeyEventArgs e) {
         //    if (e.KeyCode == Keys.I) {
         //        // Show all tooltips when the "I" key is pressed
