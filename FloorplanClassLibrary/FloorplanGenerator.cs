@@ -238,6 +238,15 @@ namespace FloorplanClassLibrary
                 else
                 {
                     i--;
+                    if(floorplans.Count == 1) {
+                        break;
+                    }
+                    if(floorplans.Count == 2) {
+                        if (((ServerDistribution[floorplans[0].DiningArea] - floorplans[0].Servers.Count) > 0)
+                            && ((ServerDistribution[floorplans[1].DiningArea] - floorplans[1].Servers.Count) > 0)) {
+                            break;
+                        }
+                    }
                 }
                 j++;
                 if (j >= floorplans.Count)
