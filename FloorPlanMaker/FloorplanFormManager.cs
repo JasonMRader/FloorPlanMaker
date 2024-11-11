@@ -54,7 +54,7 @@ namespace FloorPlanMakerUI
         private ServerControlManager serverControlManager { get; set; }
         private ShiftFilterControl shiftFilterControl { get; set; }
         private ShiftReservationControl shiftReservationControl { get; set; }   
-        private ShiftAnalysis shiftAnalysis { get; set; } = new ShiftAnalysis();
+        private ShiftAnalysis shiftAnalysis { get; set; } = ShiftAnalysis.Instance;
         private SectionTabs sectionTabs { get; set; }
         private List<TablePercentageRecord> tablePercentageRecords = new List<TablePercentageRecord>();
         private Form mainForm { get; set; }

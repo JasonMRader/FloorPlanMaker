@@ -8,6 +8,28 @@ namespace FloorplanClassLibrary
 {
     public class ShiftAnalysis
     {
+        private static ShiftAnalysis _instance;
+
+        
+        private static readonly object _lock = new object();
+
+       
+        public static ShiftAnalysis Instance {
+            get {
+                lock (_lock) {
+                    if (_instance == null) {
+                        _instance = new ShiftAnalysis();
+                    }
+                    return _instance;
+                }
+            }
+        }
+
+        
+        private ShiftAnalysis()
+        {
+            
+        }
         public event Action FilterUpdated;
         
         private List<ShiftRecord> _shifts = new List<ShiftRecord>();
@@ -50,10 +72,7 @@ namespace FloorplanClassLibrary
         private bool _isAM { get; set; }
         public bool IsAM { get { return _isAM; } }
         private bool _isAllDay { get; set; }
-        public ShiftAnalysis() 
-        { 
-
-        }
+       
         public void SetStandardFiltersForDateAndShiftType(bool isLunch, DateOnly dateOnly)
         {
             this._isAM = isLunch;

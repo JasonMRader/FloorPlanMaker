@@ -54,7 +54,7 @@ namespace FloorPlanMakerUI
         private DiningAreaManager areaManager = new DiningAreaManager();
         private EmployeeManager employeeManager = new EmployeeManager();
         private List<WeatherData> allWeatherData = new List<WeatherData>();
-        private ShiftAnalysis shiftAnalysis = new ShiftAnalysis();
+        private ShiftAnalysis shiftAnalysis = ShiftAnalysis.Instance;
         private RadioButton rdoAll = new RadioButton();
         private void frmSalesStats_Load(object sender, EventArgs e)
         {
