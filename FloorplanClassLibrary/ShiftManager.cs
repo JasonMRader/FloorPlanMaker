@@ -46,5 +46,6 @@ namespace FloorplanClassLibrary
                 _selectedShift.PickupSectionUpdate();
             }
         }
+       
     }
 }
