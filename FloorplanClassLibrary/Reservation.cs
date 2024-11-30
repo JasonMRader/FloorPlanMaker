@@ -22,10 +22,10 @@ namespace FloorplanClassLibrary
         public int SequenceId { get; set; }
 
         [JsonProperty("guest_id")]
-        public string GuestId { get; set; } // Nullable if it can be null
+        public string GuestId { get; set; } 
 
         [JsonProperty("guest")]
-        public string Guest { get; set; } // Nullable if it can be null
+        public string Guest { get; set; } 
 
         [JsonProperty("confirmation_id")]
         public long? ConfirmationId { get; set; }
@@ -46,7 +46,7 @@ namespace FloorplanClassLibrary
         public int PartySize { get; set; }
 
         [JsonProperty("visit_tags")]
-        public List<string> VisitTags { get; set; } // Adjust type as needed
+        public List<string> VisitTags { get; set; } 
 
         [JsonProperty("origin")]
         public string Origin { get; set; }
@@ -55,10 +55,10 @@ namespace FloorplanClassLibrary
         public DateTime UpdatedAt { get; set; }
 
         [JsonProperty("seated_time")]
-        public DateTime? SeatedTime { get; set; } // Nullable DateTime
+        public DateTime? SeatedTime { get; set; } 
 
         [JsonProperty("done_time")]
-        public DateTime? DoneTime { get; set; } // Nullable DateTime
+        public DateTime? DoneTime { get; set; } 
 
         [JsonProperty("pos_data")]
         public PosData PosData { get; set; }
@@ -73,19 +73,19 @@ namespace FloorplanClassLibrary
         public string GuestRequest { get; set; }
 
         [JsonProperty("venue_notes")]
-        public object VenueNotes { get; set; } // Adjust type as needed
+        public object VenueNotes { get; set; } 
 
         [JsonProperty("opentable_notes")]
         public string OpentableNotes { get; set; }
 
         [JsonProperty("table_category")]
-        public object TableCategory { get; set; } // Adjust type as needed
+        public object TableCategory { get; set; } 
 
         [JsonProperty("seated_time_utc")]
-        public DateTime? SeatedTimeUtc { get; set; } // Nullable DateTime
+        public DateTime? SeatedTimeUtc { get; set; } 
 
         [JsonProperty("done_time_utc")]
-        public DateTime? DoneTimeUtc { get; set; } // Nullable DateTime
+        public DateTime? DoneTimeUtc { get; set; } 
 
         [JsonProperty("created_date_utc")]
         public DateTime CreatedDateUtc { get; set; }
@@ -97,25 +97,25 @@ namespace FloorplanClassLibrary
         public string Server { get; set; }
 
         [JsonProperty("referrer")]
-        public object Referrer { get; set; } // Adjust type as needed
+        public object Referrer { get; set; } 
 
         [JsonProperty("added_to_waitlist")]
-        public object AddedToWaitlist { get; set; } // Adjust type as needed
+        public object AddedToWaitlist { get; set; } 
 
         [JsonProperty("added_to_waitlist_utc")]
-        public object AddedToWaitlistUtc { get; set; } // Adjust type as needed
+        public object AddedToWaitlistUtc { get; set; } 
 
         [JsonProperty("arrived_time")]
-        public DateTime? ArrivedTime { get; set; } // Nullable DateTime
+        public DateTime? ArrivedTime { get; set; } 
 
         [JsonProperty("arrived_time_utc")]
-        public DateTime? ArrivedTimeUtc { get; set; } // Nullable DateTime
+        public DateTime? ArrivedTimeUtc { get; set; } 
 
         [JsonProperty("currency_code")]
         public string CurrencyCode { get; set; }
 
         [JsonProperty("currency_denominator")]
-        public int? CurrencyDenominator { get; set; } // Nullable if it can be null
+        public int? CurrencyDenominator { get; set; } 
         public override string ToString()
         {
             return ScheduledTime.ToString("g") + " | " + PartySize + " | " + State;
