@@ -445,6 +445,9 @@ namespace FloorplanClassLibrary
             }
             
             _diningAreaStats = results.OrderBy(r => r.DiningAreaID).ToList();
+            foreach(var areaStat in _diningAreaStats) {
+                SalesRegistry.SetDiningAreaExpectedSales(areaStat.DiningAreaID, areaStat.AvgSales);
+            }
         }
 
         
